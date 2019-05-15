@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    
+    "ingredients": [
+        {
+            "item": "minecraft:feather"
+        },
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        }
+    ],
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:golden_feather"
+    }
+}

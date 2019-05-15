@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " C ",
+        "CEC",
+        " C "
+    
+    ],
+    
+    "key":
+    {
+        "E":
+        {
+            "item": "minecraft:ender_pearl"
+        },
+        
+        "C":
+        {
+            "item": "minecraft:chorus_fruit"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:chorus_pearl"
+    }
+}

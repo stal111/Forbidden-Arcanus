@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "S",
+        "S"
+    
+    ],
+    
+    "key":
+    {
+        "S":
+        {
+            "item": "forbidden_arcanus:arcane_base_block_slab",
+            "data": 0
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:chiseled_arcane_base_block"
+    }
+}

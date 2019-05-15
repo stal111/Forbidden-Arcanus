@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "forbidden_arcanus:block/mysterywood_sapling"
+    }
+}

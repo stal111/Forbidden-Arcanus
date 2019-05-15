@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "A A",
+        "G G"
+    
+    ],
+    
+    "key":
+    { 
+        "A":
+        {
+            "item": "forbidden_arcanus:aquatic_dragon_scale"
+        },
+        "G":
+        {
+            "item": "forbidden_arcanus:golden_dragon_scale"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:tyr_boots"
+    }
+}

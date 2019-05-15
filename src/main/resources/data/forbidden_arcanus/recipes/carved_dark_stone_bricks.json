@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "DD",
+        "DD"
+    
+    ],
+    
+    "key":
+    {
+        "D":
+        {
+            "item": "forbidden_arcanus:dark_stone_bricks"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:carved_dark_stone_bricks",
+        "count": 4
+    }
+}

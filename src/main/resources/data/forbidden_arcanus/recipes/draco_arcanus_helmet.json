@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "ODO",
+        "OHO"
+    
+    ],
+    
+    "key":
+    {
+        "D":
+        {
+            "item": "forbidden_arcanus:dragon_scale"
+        },  
+        "H":
+        {
+            "item": "forbidden_arcanus:obsidian_helmet"
+        },
+        "O":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:draco_arcanus_helmet"
+    }
+}

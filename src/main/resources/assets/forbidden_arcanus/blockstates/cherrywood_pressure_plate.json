@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "powered=false": { "model": "forbidden_arcanus:block/cherrywood_pressure_plate" },
+        "powered=true": { "model": "forbidden_arcanus:block/cherrywood_pressure_plate_down" }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "block/template_glass_pane_side",
+    "textures": {
+        "edge": "forbidden_arcanus:block/runic_glass_pane_top",
+        "pane": "forbidden_arcanus:block/runic_glass"
+    }
+}

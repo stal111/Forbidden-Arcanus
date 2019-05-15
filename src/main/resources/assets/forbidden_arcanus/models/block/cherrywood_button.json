@@ -1,0 +1,6 @@
+{
+    "parent": "block/button",
+    "textures": {
+        "texture": "forbidden_arcanus:block/cherrywood_planks"
+    }
+}

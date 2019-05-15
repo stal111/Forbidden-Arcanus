@@ -1,0 +1,9 @@
+{
+  "type": "smelting",
+  "ingredient": {
+    "item": "forbidden_arcanus:rotten_leather"
+  },
+  "result": "minecraft:leather",
+  "experience": 0,
+  "cookingtime": 250
+}

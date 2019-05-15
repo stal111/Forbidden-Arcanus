@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    
+    "ingredients": [
+        {
+            "item": "minecraft:feather"
+        },
+        {
+            "item": "minecraft:dye",
+            "data": 4
+        }
+    ],
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:blue_feather"
+    }
+}

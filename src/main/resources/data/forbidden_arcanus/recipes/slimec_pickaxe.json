@@ -1,0 +1,37 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "SAA",
+        " EA",
+        "E F"
+    
+    ],
+    
+    "key":
+    {
+        "S":
+        {
+            "item": "minecraft:slime_ball"
+        },
+        "A":
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        },
+        "F":
+        {
+            "item": "forbidden_arcanus:golden_feather"
+        },
+        "E":
+        {
+            "item": "forbidden_arcanus:edelwood_stick"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:slimec_pickaxe"
+    }
+}

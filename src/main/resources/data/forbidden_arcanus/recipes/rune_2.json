@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:rune_bag"
+        }
+    ],
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:rune",
+        "count": 4
+    }
+}

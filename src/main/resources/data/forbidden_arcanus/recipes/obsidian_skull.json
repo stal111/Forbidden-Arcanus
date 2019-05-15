@@ -1,0 +1,34 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "O#O",
+        "#S#",
+        "O#O"
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "minecraft:obsidian"
+        },
+         "S":
+        {
+            "item": "forbidden_arcanus:skull"
+        },
+         "O":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        }
+        
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:obsidian_skull"
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " #D",
+        " O#",
+        "S  "
+    
+    ],
+    
+    "key":
+    {
+        "D":
+        {
+            "item": "forbidden_arcanus:dark_nether_star"
+        },  
+        "#":
+        {
+            "item": "minecraft:diamond"
+        },
+        "S":
+        {
+            "item": "forbidden_arcanus:draco_arcanus_staff"
+        },
+        "O":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:draco_arcanus_scepter"
+    }
+}

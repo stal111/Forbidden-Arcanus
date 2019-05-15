@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "###",
+        "###",
+        "###"
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:dark_nether_star"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:dark_nether_star_block"
+    }
+}

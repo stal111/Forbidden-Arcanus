@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "arcane_base_block_stairs",
+    
+    "pattern":
+    [
+        "S  ",
+        "SS ",
+        "SSS"
+    
+    ],
+    
+    "key":
+    {
+        "S":
+        {
+            "item": "forbidden_arcanus:arcane_base_block"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:arcane_base_block_stairs",
+        "count": 4
+    }
+}

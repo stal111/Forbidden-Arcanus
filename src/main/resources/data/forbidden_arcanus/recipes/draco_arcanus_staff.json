@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " OE",
+        "OOO",
+        "FO "
+    
+    ],
+    
+    "key":
+    {
+        "O":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        },
+        
+        "E":
+        {
+            "item": "minecraft:ender_pearl"
+        },
+        
+        "F":
+        {
+            "item": "forbidden_arcanus:ender_pearl_fragment"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:draco_arcanus_staff"
+    }
+}

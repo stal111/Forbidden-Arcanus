@@ -1,0 +1,6 @@
+{
+    "parent": "block/pressure_plate_down",
+    "textures": {
+        "texture": "forbidden_arcanus:block/cherrywood_planks"
+    }
+}

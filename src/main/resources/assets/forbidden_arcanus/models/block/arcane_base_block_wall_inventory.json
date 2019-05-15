@@ -1,0 +1,6 @@
+{
+    "parent": "forbidden_arcanus:block/wall_inventory",
+    "textures": {
+        "wall": "forbidden_arcanus:block/arcane_base"
+    }
+}

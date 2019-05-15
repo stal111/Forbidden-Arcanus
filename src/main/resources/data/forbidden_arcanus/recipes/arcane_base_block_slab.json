@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "SSS"
+    
+    ],
+    
+    "key":
+    {
+        "S":
+        {
+            "item": "forbidden_arcanus:arcane_base_block"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:arcane_base_block_slab",
+        "count": 6
+    }
+}

@@ -1,0 +1,30 @@
+modLoader="javafml" #mandatory
+loaderVersion="[25,)" #mandatory (25 is current forge version)
+[[mods]] #mandatory
+modId="forbidden_arcanus" #mandatory
+version="1.13.2-1.0-Beta-5" #mandatory
+ # A display name for the mod
+displayName="Forbidden & Arcanus" #mandatory
+credits="stal111, Xesar_Zk" #optional
+authors="stal111, Xesar_Zk" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description=''' '''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.forbidden_arcanus]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[25,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.forbidden_arcanus]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.13.2]"
+    ordering="NONE"
+    side="BOTH"

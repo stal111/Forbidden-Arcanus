@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " G ",
+        "GDG",
+        "GGG"
+    
+    ],
+    
+    "key":
+    {
+        "G":
+        {
+            "item": "forbidden_arcanus:golden_dragon_scale"
+        },
+        
+        "D":
+        {
+            "item": "minecraft:dragon_egg"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:arcane_dragon_egg"
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+     "pattern":
+    [
+        " # ",
+        "# #",
+        " # "
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:cherrywood_planks"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:carved_cherrywood_planks",
+        "count": 4
+    }
+}
