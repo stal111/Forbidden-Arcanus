@@ -16,7 +16,7 @@ public class ModEntities {
 
 	public static void register(RegistryEvent.Register<EntityType<?>> registry) {
 		
-		TYPE_CHORUS_PEARL = EntityType.Builder.create(ChorusPearlEntity.class, ChorusPearlEntity::new)
+		TYPE_CHORUS_PEARL = EntityType.Builder.create(ChorusPearlEntity.class, ChorusPearlEntity::new).tracker(256, 10, false)
 				.build(Main.MODID + ":chorus_pearl");
 		TYPE_CHORUS_PEARL.setRegistryName(Main.MODID, "chorus_pearl");
 		registry.getRegistry().register(TYPE_CHORUS_PEARL);
