@@ -187,6 +187,7 @@ public class ModItems {
 				new ToolPickaxe("bone_pickaxe", ModItemTier.BONE, 1, -2.8F),
 				new ToolAxe("bone_axe", ModItemTier.BONE, 5, -3.0F),
 				new ToolHoe("bone_hoe", ModItemTier.BONE, 0.0F),
+				new BasicItem("mystical_dagger"),
 				new BasicArmor("draco_arcanus_helmet", ModArmorMaterial.DRACO_ARCANUS, EntityEquipmentSlot.HEAD),
 				new BasicArmor("draco_arcanus_chestplate", ModArmorMaterial.DRACO_ARCANUS, EntityEquipmentSlot.CHEST),
 				new BasicArmor("draco_arcanus_leggings", ModArmorMaterial.DRACO_ARCANUS, EntityEquipmentSlot.LEGS),

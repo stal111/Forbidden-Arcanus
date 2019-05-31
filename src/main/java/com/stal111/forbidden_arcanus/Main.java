@@ -8,16 +8,20 @@ import com.stal111.forbidden_arcanus.block.gui.GuiHandler;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.item.ModItems;
+import com.stal111.forbidden_arcanus.potion.ModPotions;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
+import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -79,6 +83,16 @@ public class Main {
 	@SubscribeEvent
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
 		ModEntities.register(event);
+	}
+	
+	@SubscribeEvent
+	public static void registerPotions(RegistryEvent.Register<Potion> event) {
+		ModPotions.register(event);
+	}
+	
+	@SubscribeEvent
+	public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
+		ModSounds.register(event);
 	}
 
 }

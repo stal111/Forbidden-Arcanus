@@ -1,5 +1,8 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.sound.ModSounds;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -13,17 +16,27 @@ public class PixiItem extends BasicItem {
 
 	public PixiItem(String name, int maxDamage) {
 		super(name);
-		// TODO
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		if (!worldIn.isRemote) {
-			playerIn.addPotionEffect(new PotionEffect(Potion.getPotionById(14)));
-			playerIn.fallDistance = 0;
-			playerIn.getActiveItemStack().damageItem(1, playerIn);
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		if (!world.isRemote) {
+			player.addPotionEffect(new PotionEffect(Potion.getPotionById(14)));
+			player.getActiveItemStack().damageItem(1, player);
 		}
-		return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+		player.playSound(ModSounds.pixi_activated, 1.0F, 1.0F);
+		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (entityIn instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entityIn;
+			if (player.getHeldItem(EnumHand.MAIN_HAND).getItem() == this || player.getHeldItem(EnumHand.OFF_HAND).getItem() == this) {
+				entityIn.fallDistance = 0;
+			}
+		}
+		super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
 
 }

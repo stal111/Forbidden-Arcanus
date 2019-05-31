@@ -51,6 +51,12 @@ public class RunicTenebrisFrameBlock extends WaterloggedBlock {
 					}
 					player.inventory.addItemStackToInventory(new ItemStack(ModItems.dark_rune_bag));
 					return true;
+				}  else if (stack.getItem() == ModBlocks.runestone.asItem() && !worldIn.isRemote) {
+					if (!player.abilities.isCreativeMode) {
+						stack.shrink(1);
+					}
+					player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.dark_runestone));
+					return true;
 				} else {
 					return false;
 				}

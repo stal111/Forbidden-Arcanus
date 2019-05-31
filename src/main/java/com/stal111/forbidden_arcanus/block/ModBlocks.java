@@ -6,6 +6,7 @@ import java.util.List;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.tile.DarkBeaconTileEntity;
 import com.stal111.forbidden_arcanus.block.tree.CherrywoodTree;
+import com.stal111.forbidden_arcanus.block.tree.MysterywoodTree;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
@@ -172,7 +173,7 @@ public class ModBlocks {
 				new ModLogBlock("mysterywood_log", MaterialColor.ADOBE, Block.Properties.from(Blocks.OAK_LOG)),
 				new ModLogBlock("mysterywood", MaterialColor.ADOBE, Block.Properties.from(Blocks.OAK_LOG)),
 				new ModLeavesBlock("mysterywood_leaves", Block.Properties.from(Blocks.OAK_LEAVES)),
-				new ModSaplingBlock("mysterywood_sapling", new CherrywoodTree(), Block.Properties.from(Blocks.OAK_SAPLING)),
+				new ModSaplingBlock("mysterywood_sapling", new MysterywoodTree(), Block.Properties.from(Blocks.OAK_SAPLING)),
 				new BasicBlock("mysterywood_planks", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModStairsBlock("mysterywood_stairs", Block.Properties.from(Blocks.OAK_PLANKS), ARCANE_BASE_BLOCK_STAIRS.getDefaultState()),
 				new ModSlabBlock("mysterywood_slab", Block.Properties.from(Blocks.OAK_PLANKS)),

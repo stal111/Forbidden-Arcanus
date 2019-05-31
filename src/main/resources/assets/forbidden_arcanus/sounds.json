@@ -1,0 +1,42 @@
+{
+    "dark_bolt_launch":
+    {
+        "category": "weather",
+		"sounds":
+        [
+            "forbidden_arcanus:dark_bolt_launch"
+        ]
+    },
+    "dark_bolt_hit":
+    {
+        "category": "weather",
+		"sounds":
+        [
+            "forbidden_arcanus:dark_bolt_hit"
+        ]
+    },
+    "pixi_activated":
+    {
+        "category": "weather",
+		"sounds":
+        [
+            "forbidden_arcanus:pixi_activated"
+        ]
+    },
+    "runic_tenebris_core_activated":
+    {
+        "category": "weather",
+		"sounds":
+        [
+            "forbidden_arcanus:runic_tenebris_core_activated"
+        ]
+    },
+    "runic_tenebris_core_ambient":
+    {
+        "category": "weather",
+		"sounds":
+        [
+            "forbidden_arcanus:runic_tenebris_core_ambient"
+        ]
+    }
+}
