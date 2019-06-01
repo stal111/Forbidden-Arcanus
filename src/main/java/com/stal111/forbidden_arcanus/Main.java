@@ -28,7 +28,6 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -47,7 +46,6 @@ public class Main {
 	public Main() {
 		instance = this;
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY,
 				() -> GuiHandler::getClientGuiElement);
 	}
@@ -60,10 +58,6 @@ public class Main {
 		
 		OreGenerator.setupOregen();
 	}
-	
-	private void doClientStuff(final FMLClientSetupEvent event) {
-        ModEntities.initModels();
-    }
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {

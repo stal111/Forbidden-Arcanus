@@ -119,7 +119,7 @@ public class ModBlocks {
 				new ModGlassBlock("arcane_glass", addProperties(Material.GLASS, 1.0F, 1.5F)),
 				new ModGlassPaneBlock("arcane_glass_pane", addProperties(Material.GLASS, 1.0F, 15.0F)),
 				new RunicTenebrisFrameBlock("runic_tenebris_frame", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new RunicTenebrisFrameBlock("runic_tenebris_core", addProperties(Material.ROCK, 2.0F, 15.0F)),
+				new RunicTenebrisCoreBlock("runic_tenebris_core", addProperties(Material.ROCK, 2.0F, 15.0F)),
 				new BasicBlock("dark_stone", addProperties(Material.ROCK, 1.0F, 10.0F)),
 				new ModOreBlock("dark_runestone", addProperties(Material.ROCK, 1.0F, 10.0F)),
 				new BasicBlock("arcane_dark_stone", addProperties(Material.ROCK, 1.0F, 10.0F)),

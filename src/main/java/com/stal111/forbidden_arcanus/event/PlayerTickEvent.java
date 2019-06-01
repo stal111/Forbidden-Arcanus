@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.events;
+package com.stal111.forbidden_arcanus.event;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,20 +1,22 @@
 package com.stal111.forbidden_arcanus.block;
 
-import java.util.Random;
-
+import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.item.ModItems;
 
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class ModOreBlock extends BasicBlock {
+public class ModOreBlock extends BlockOre {
 
 	public ModOreBlock(String name, Properties properties) {
-		super(name, properties);
+		super(properties);
+		this.setRegistryName(new ResourceLocation(Main.MODID, name));
 	}
 
 	@Override
@@ -26,21 +28,7 @@ public class ModOreBlock extends BasicBlock {
 		} else if (this == ModBlocks.dark_runestone) {
 			return ModItems.dark_rune;
 		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public int getItemsToDropCount(IBlockState state, int fortune, World worldIn, BlockPos pos, Random random) {
-		if (fortune > 0 && this != this.getItemDropped(this.getStateContainer().getValidStates().iterator().next(),
-				worldIn, pos, fortune)) {
-			int i = random.nextInt(fortune + 2) - 1;
-			if (i < 0) {
-				i = 0;
-			}
-			return 1 * (i + 1);
-		} else {
-			return 1;
+			return this;
 		}
 	}
 

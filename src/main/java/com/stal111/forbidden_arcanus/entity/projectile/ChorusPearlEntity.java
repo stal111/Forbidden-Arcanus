@@ -18,15 +18,15 @@ import net.minecraft.world.World;
 public class ChorusPearlEntity extends EntityThrowable {
 
 	public ChorusPearlEntity(World world) {
-		super(ModEntities.TYPE_CHORUS_PEARL, world);
+		super(ModEntities.chorus_pearl, world);
 	}
 
 	public ChorusPearlEntity(World world, double x, double y, double z) {
-		super(ModEntities.TYPE_CHORUS_PEARL, x, y, z, world);
+		super(ModEntities.chorus_pearl, x, y, z, world);
 	}
 
 	public ChorusPearlEntity(World world, EntityLivingBase thrower) {
-		super(ModEntities.TYPE_CHORUS_PEARL, thrower, world);
+		super(ModEntities.chorus_pearl, thrower, world);
 	}
 
 	@Override
