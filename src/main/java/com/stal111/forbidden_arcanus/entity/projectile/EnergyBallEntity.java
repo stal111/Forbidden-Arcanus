@@ -4,12 +4,10 @@ import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.init.Particles;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +18,7 @@ import net.minecraft.world.World;
 
 public class EnergyBallEntity extends Entity {
 
-	private EntityLivingBase shootingEntity;
+	private LivingEntity shootingEntity;
 	private int ticksAlive;
 	private int ticksInAir;
 	private double accelerationX;
@@ -32,7 +30,7 @@ public class EnergyBallEntity extends Entity {
 		this.setSize(1.0F, 1.0F);
 	}
 
-	public EnergyBallEntity(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
+	public EnergyBallEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(ModEntities.energy_ball, worldIn);
 		this.shootingEntity = shooter;
 		this.setSize(1.0F, 1.0F);
@@ -76,7 +74,7 @@ public class EnergyBallEntity extends Entity {
 
 			if (this.isInWater()) {
 				for (int i = 0; i < 4; ++i) {
-					this.world.spawnParticle(Particles.BUBBLE, this.posX - this.motionX * 0.25D,
+					this.world.spawnParticle(ParticleTypes.BUBBLE, this.posX - this.motionX * 0.25D,
 							this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX,
 							this.motionY, this.motionZ);
 				}
@@ -101,10 +99,10 @@ public class EnergyBallEntity extends Entity {
 	protected void onImpact(RayTraceResult result) {
 		if (!this.world.isRemote) {
 			if (result.entity != null) {
-				if (result.entity instanceof EntityLivingBase) {
-					EntityLivingBase entity = (EntityLivingBase) result.entity;
+				if (result.entity instanceof LivingEntity) {
+					LivingEntity entity = (LivingEntity) result.entity;
 					entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.shootingEntity), 10.0F);
-					entity.world.addWeatherEffect(new EntityLightningBolt(entity.world, entity.posX, entity.posY, entity.posZ, false));
+					entity.world.addWeatherEffect(new LightningBoltEntity(entity.world, entity.posX, entity.posY, entity.posZ, false));
 				}
 			} else {
 				world.playSound(null, result.getBlockPos(), ModSounds.dark_bolt_hit, SoundCategory.NEUTRAL, 1.0F, 1.0F);

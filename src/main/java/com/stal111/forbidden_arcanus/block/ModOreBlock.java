@@ -1,52 +1,36 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.item.ModItems;
+import java.util.Random;
 
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.IItemProvider;
+import com.stal111.forbidden_arcanus.Main;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.OreBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
 
-public class ModOreBlock extends BlockOre {
+public class ModOreBlock extends OreBlock {
 
 	public ModOreBlock(String name, Properties properties) {
 		super(properties);
 		this.setRegistryName(new ResourceLocation(Main.MODID, name));
 	}
-
+	
+	protected int func_220281_a(Random p_220281_1_) {
+	      if (this == ModBlocks.arcane_crystal_ore) {
+	         return MathHelper.nextInt(p_220281_1_, 2, 5);
+	      } else if (this == ModBlocks.runestone) {
+	         return MathHelper.nextInt(p_220281_1_, 4, 8);
+	      } else if (this == ModBlocks.dark_runestone) {
+	         return MathHelper.nextInt(p_220281_1_, 5, 9);
+	      } else {
+	         return 0;
+	      }
+	   }
+	
 	@Override
-	public IItemProvider getItemDropped(IBlockState state, World worldIn, BlockPos pos, int fortune) {
-		if (this == ModBlocks.arcane_crystal_ore) {
-			return ModItems.arcane_crystal;
-		} else if (this == ModBlocks.runestone) {
-			return ModItems.rune;
-		} else if (this == ModBlocks.dark_runestone) {
-			return ModItems.dark_rune;
-		} else {
-			return this;
-		}
+	public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
+		  return silktouch == 0 ? this.func_220281_a(RANDOM) : 0;
 	}
-
-	@Override
-	public int getExpDrop(IBlockState state, IWorldReader reader, BlockPos pos, int fortune) {
-		World world = reader instanceof World ? (World) reader : null;
-		if (world == null || this.getItemDropped(state, world, pos, fortune) != this) {
-			int i = 0;
-			if (this == ModBlocks.arcane_crystal_ore) {
-				i = MathHelper.nextInt(RANDOM, 3, 5);
-			} else if (this == ModBlocks.runestone) {
-				i = MathHelper.nextInt(RANDOM, 5, 8);
-			} else if (this == ModBlocks.dark_runestone) {
-				i = MathHelper.nextInt(RANDOM, 5, 8);
-			}
-			return i;
-		}
-		return 0;
-	}
-
 }

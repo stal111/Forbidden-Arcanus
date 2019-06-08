@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.world.gen;
 
-import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TreeGenerator {

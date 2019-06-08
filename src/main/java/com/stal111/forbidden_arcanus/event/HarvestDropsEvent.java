@@ -3,11 +3,11 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.item.ModItems;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockOre;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.OreBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,7 +19,7 @@ public class HarvestDropsEvent {
 	public static void onBlockDestroyed(BlockEvent.HarvestDropsEvent event) {
 		Block block = event.getState().getBlock();
 		Item item = ModItems.infernum_pickaxe;
-		if (event.getHarvester() != null && event.getHarvester().getHeldItemMainhand().getItem() == item && block instanceof BlockOre && item.canHarvestBlock(block.getDefaultState())) {
+		if (event.getHarvester() != null && event.getHarvester().getHeldItemMainhand().getItem() == item && block instanceof OreBlock && item.canHarvestBlock(block.getDefaultState())) {
 			if (block == Blocks.IRON_ORE) {
 				event.getDrops().clear();
 				event.getDrops().add(new ItemStack(Items.IRON_INGOT));

@@ -1,10 +1,9 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public interface IGuiTile {
 	
-	GuiContainer createGui(EntityPlayer player);
+//	Gui createGui(PlayerEntity player);
 
 }

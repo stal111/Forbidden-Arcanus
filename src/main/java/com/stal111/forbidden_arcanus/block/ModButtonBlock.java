@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.Main;
 
-import net.minecraft.block.BlockButtonWood;
+import net.minecraft.block.WoodButtonBlock;
 import net.minecraft.util.ResourceLocation;
 
-public class ModButtonBlock extends BlockButtonWood {
+public class ModButtonBlock extends WoodButtonBlock {
 
 	public ModButtonBlock(String name, Properties properties) {
 		super(properties);

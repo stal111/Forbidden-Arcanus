@@ -5,12 +5,12 @@ import java.util.function.Supplier;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.item.ModItems;
 
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -53,12 +53,12 @@ public enum ModArmorMaterial implements IArmorMaterial {
 	}
 
 	@Override
-	public int getDamageReductionAmount(EntityEquipmentSlot slot) {
+	public int getDamageReductionAmount(EquipmentSlotType slot) {
 		return this.damageReductionAmountArray[slot.getIndex()];
 	}
 
 	@Override
-	public int getDurability(EntityEquipmentSlot slot) {
+	public int getDurability(EquipmentSlotType slot) {
 		return MAX_DAMAGE_ARRAY[slot.getIndex()] * this.maxDamageFactor;
 	}
 
@@ -77,15 +77,14 @@ public enum ModArmorMaterial implements IArmorMaterial {
 	public Ingredient getRepairMaterial() {
 		return this.repairMaterial.getValue();
 	}
-
+	
 	@Override
 	public SoundEvent getSoundEvent() {
-		 return this.soundEvent;
+		return soundEvent;
 	}
 
 	@Override
 	public float getToughness() {
 		 return this.toughness;
 	}
-
 }

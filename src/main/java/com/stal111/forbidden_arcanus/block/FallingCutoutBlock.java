@@ -2,26 +2,17 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.Main;
 
-import net.minecraft.block.BlockFalling;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 
-public class FallingCutoutBlock extends BlockFalling {
+public class FallingCutoutBlock extends FallingBlock {
 
 	public FallingCutoutBlock(String name, Properties properties) {
 		super(properties);
 		this.setRegistryName(new ResourceLocation(Main.MODID, name));
-	}
-	
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
 	}
 	
 	@Override
@@ -30,13 +21,7 @@ public class FallingCutoutBlock extends BlockFalling {
 	}
 	
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.MODEL;
 	}
-	
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-		return BlockFaceShape.UNDEFINED;
-	}
-
 }

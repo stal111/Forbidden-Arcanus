@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -16,7 +16,7 @@ public class WorldHelper {
 
 	public static void updateClient(World world, BlockPos pos) {
 		if (world != null) {
-			IBlockState iBlockState = world.getBlockState(pos);
+			BlockState iBlockState = world.getBlockState(pos);
 			world.notifyBlockUpdate(pos, iBlockState, iBlockState, 4);
 		}
 	}

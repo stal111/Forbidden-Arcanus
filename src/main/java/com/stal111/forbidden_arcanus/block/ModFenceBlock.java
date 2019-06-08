@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.Main;
 
-import net.minecraft.block.BlockFence;
+import net.minecraft.block.FenceBlock;
 import net.minecraft.util.ResourceLocation;
 
-public class ModFenceBlock extends BlockFence {
+public class ModFenceBlock extends FenceBlock {
 
 	public ModFenceBlock(String name, Properties properties) {
 		super(properties);

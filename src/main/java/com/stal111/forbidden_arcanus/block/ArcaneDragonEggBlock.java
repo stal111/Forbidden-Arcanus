@@ -3,8 +3,9 @@ package com.stal111.forbidden_arcanus.block;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
@@ -26,17 +27,19 @@ public class ArcaneDragonEggBlock extends FallingWaterloggedBlock {
 	}
 	
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
-		return this.generateShape();
-	}
-
-	@Override
-	public VoxelShape getCollisionShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos,
+			ISelectionContext context) {
 		return this.generateShape();
 	}
 	
 	@Override
-	public int getLightValue(IBlockState state) {
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos,
+			ISelectionContext context) {
+		return this.generateShape();
+	}
+	
+	@Override
+	public int getLightValue(BlockState state) {
 		return 9;
 	}
 

@@ -4,22 +4,19 @@ import javax.annotation.Nullable;
 
 import com.stal111.forbidden_arcanus.block.tile.DarkBeaconTileEntity;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 public class DarkBeaconBlock extends BasicBlock {
 
@@ -33,18 +30,13 @@ public class DarkBeaconBlock extends BasicBlock {
 	}
 
 	@Override
-	public TileEntity createTileEntity(IBlockState state, IBlockReader world) {
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 		return new DarkBeaconTileEntity();
 	}
 	
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean hasTileEntity(BlockState state) {
 		return true;
-	}
-
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
 	}
 
 	@Override
@@ -53,12 +45,12 @@ public class DarkBeaconBlock extends BasicBlock {
 	}
 
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.MODEL;
 	}
 
 	@Override
-	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player,
+	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player,
 			boolean willHarvest, IFluidState fluid) {
 		if (willHarvest)
 			return true;
@@ -67,24 +59,17 @@ public class DarkBeaconBlock extends BasicBlock {
 	}
 
 	@Override
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state,
+	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
 			@Nullable TileEntity te, ItemStack stack) {
 		super.harvestBlock(worldIn, player, pos, state, te, stack);
 		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 	}
-
+	
+	@SuppressWarnings("deprecation")
 	@Override
-    public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-        	return true;
-        }
-
-        TileEntity te = worldIn.getTileEntity(pos);
-
-        NetworkHooks.openGui((EntityPlayerMP) player, (IInteractionObject)te, buf -> 
-            buf.writeBlockPos(te.getPos()));
-
-        return true;
-    }
-
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos,
+			PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+		
+		return super.onBlockActivated(state, world, pos, player, hand, result);
+	}
 }

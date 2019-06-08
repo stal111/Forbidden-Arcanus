@@ -4,26 +4,21 @@ import com.stal111.forbidden_arcanus.item.ModItems;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 
 import net.minecraft.block.Block;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 public class BottleBlock extends FallingWaterloggedBlock {
 
-	private static final VoxelShape[] SHAPE = { 
-			Block.makeCuboidShape(2, 0, 2, 14, 14, 14),
-			Block.makeCuboidShape(5, 14, 5, 11, 15, 11), 
-			Block.makeCuboidShape(6, 15, 6, 10, 16, 10)};
+	private static final VoxelShape[] SHAPE = { Block.makeCuboidShape(2, 0, 2, 14, 14, 14),
+			Block.makeCuboidShape(5, 14, 5, 11, 15, 11), Block.makeCuboidShape(6, 15, 6, 10, 16, 10) };
 
 	public BottleBlock(String name, Properties properties) {
 		super(name, properties.hardnessAndResistance(0.5F, 0.5F));
@@ -34,23 +29,18 @@ public class BottleBlock extends FallingWaterloggedBlock {
 	}
 
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 		return this.generateShape();
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 		return this.generateShape();
-	}
-	
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player, EnumHand hand,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
+			BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if (stack.isEmpty()) {
 			return true;
@@ -59,19 +49,19 @@ public class BottleBlock extends FallingWaterloggedBlock {
 				return true;
 			} else {
 				boolean flag = state.get(WATERLOGGED);
-				if (stack.getItem() == ModItems.pixi && !worldIn.isRemote) {
-					if (!player.abilities.isCreativeMode) {
+				if (stack.getItem() == ModItems.pixi && !world.isRemote) {
+					if (!player.playerAbilities.isCreativeMode) {
 						stack.shrink(1);
 					}
-					worldIn.setBlockState(pos, ModBlocks.pixi_in_a_bottle_block.getStateContainer().getBaseState()
+					world.setBlockState(pos, ModBlocks.pixi_in_a_bottle_block.getStateContainer().getBaseState()
 							.with(WATERLOGGED, Boolean.valueOf(flag)));
 					return true;
-				} else if (stack.getItem() == ModItems.corrupt_pixi && !worldIn.isRemote) {
-					if (!player.abilities.isCreativeMode) {
+				} else if (stack.getItem() == ModItems.corrupt_pixi && !world.isRemote) {
+					if (!player.playerAbilities.isCreativeMode) {
 						stack.shrink(1);
 					}
-					worldIn.setBlockState(pos, ModBlocks.corrupt_pixi_in_a_bottle_block.getStateContainer()
-							.getBaseState().with(WATERLOGGED, Boolean.valueOf(flag)));
+					world.setBlockState(pos, ModBlocks.corrupt_pixi_in_a_bottle_block.getStateContainer().getBaseState()
+							.with(WATERLOGGED, Boolean.valueOf(flag)));
 					return true;
 				} else {
 					return false;
@@ -81,7 +71,7 @@ public class BottleBlock extends FallingWaterloggedBlock {
 	}
 
 	@Override
-	public int getLightValue(IBlockState state) {
+	public int getLightValue(BlockState state) {
 		if (this == ModBlocks.pixi_in_a_bottle_block) {
 			return 15;
 		} else if (this == ModBlocks.corrupt_pixi_in_a_bottle_block) {
@@ -90,21 +80,4 @@ public class BottleBlock extends FallingWaterloggedBlock {
 			return 0;
 		}
 	}
-
-	@Override
-	public IItemProvider getItemDropped(IBlockState state, World worldIn, BlockPos pos, int fortune) {
-		if (state.getBlock() == ModBlocks.pixi_in_a_bottle_block) {
-			return ModItems.pixi;
-		} else if (state.getBlock() == ModBlocks.corrupt_pixi_in_a_bottle_block) {
-			return ModItems.corrupt_pixi;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public boolean canSilkHarvest(IBlockState state, IWorldReader world, BlockPos pos, EntityPlayer player) {
-		return true;
-	}
-
 }

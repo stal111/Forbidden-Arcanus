@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.proxy;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -20,7 +20,7 @@ public class ClientProxy implements IProxy {
 	}
 	
 	@Override
-    public EntityPlayer getClientPlayer() {
+    public PlayerEntity getClientPlayer() {
         return Minecraft.getInstance().player;
     }
 
@@ -31,6 +31,6 @@ public class ClientProxy implements IProxy {
     
     @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
-        ModEntities.initModels();
+//        ModEntities.initModels();
     }
 }

@@ -5,15 +5,15 @@ import com.stal111.forbidden_arcanus.block.ModBlocks;
 import com.stal111.forbidden_arcanus.item.armor.BasicArmor;
 import com.stal111.forbidden_arcanus.item.armor.ModArmorMaterial;
 import com.stal111.forbidden_arcanus.item.tool.InfernumPickaxeItem;
-import com.stal111.forbidden_arcanus.item.tool.ToolAxe;
-import com.stal111.forbidden_arcanus.item.tool.ToolDracoArcanusScepter;
-import com.stal111.forbidden_arcanus.item.tool.ToolHoe;
-import com.stal111.forbidden_arcanus.item.tool.ToolMulti;
-import com.stal111.forbidden_arcanus.item.tool.ToolPickaxe;
-import com.stal111.forbidden_arcanus.item.tool.ToolShovel;
-import com.stal111.forbidden_arcanus.item.tool.ToolSword;
+import com.stal111.forbidden_arcanus.item.tool.ModAxeItem;
+import com.stal111.forbidden_arcanus.item.tool.DracoArcanusScepterItem;
+import com.stal111.forbidden_arcanus.item.tool.ModHoeItem;
+import com.stal111.forbidden_arcanus.item.tool.MultiToolItem;
+import com.stal111.forbidden_arcanus.item.tool.ModPickaxeItem;
+import com.stal111.forbidden_arcanus.item.tool.ModShovelItem;
+import com.stal111.forbidden_arcanus.item.tool.ModSwordItem;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
 import net.minecraftforge.event.RegistryEvent;
@@ -148,7 +148,7 @@ public class ModItems {
 				new BasicItem("aquatic_dragon_scale"),
 				new BasicItem("rotten_leather"),
 				new BasicItem("leather_of_the_sea"),
-				new ModFoodItem("cherry_peach", 4, 0.3F, false),
+				new BasicItem("cherry_peach"),
 				new BasicItem("cloth"),
 				new BasicItem("golden_feather"),
 				new BasicItem("golden_orchid_seeds"),
@@ -157,58 +157,58 @@ public class ModItems {
 				new BasicItem("golden_aku_aku"),
 				new BasicItem("edelwood_stick"),
 				new InfernumPickaxeItem("infernum_pickaxe", ItemTier.DIAMOND, 1, -2.8F),
-				new ToolPickaxe("slimec_pickaxe", ItemTier.DIAMOND, 1, -2.5F),
-				new ToolAxe("runic_battleaxe", ItemTier.DIAMOND, 1, -2.8F),
+				new ModPickaxeItem("slimec_pickaxe", ItemTier.DIAMOND, 1, -2.5F),
+				new ModAxeItem("runic_battleaxe", ItemTier.DIAMOND, 1, -2.8F),
 				new BasicItem("sacred_scepter"),
 				new BasicItem("draco_arcanus_staff"),
-				new ToolSword("draco_arcanus_sword", ModItemTier.DRACO_ARCANUS, 4, -2.2F),
-				new ToolShovel("draco_arcanus_shovel", ModItemTier.DRACO_ARCANUS, 2.5F, -2.8F),
-				new ToolPickaxe("draco_arcanus_pickaxe", ModItemTier.DRACO_ARCANUS, 2, -2.6F),
-				new ToolAxe("draco_arcanus_axe", ModItemTier.DRACO_ARCANUS, 6.0F, -2.8F),
-				new ToolHoe("draco_arcanus_hoe", ModItemTier.DRACO_ARCANUS, 0.0F),
-				new ToolDracoArcanusScepter("draco_arcanus_scepter"),
-				new ToolSword("arcane_golden_sword", ModItemTier.ARCANE_GOLDEN, 3, -2.4F),
-				new ToolShovel("arcane_golden_shovel", ModItemTier.ARCANE_GOLDEN, 1.5F, -3.0F),
-				new ToolPickaxe("arcane_golden_pickaxe", ModItemTier.ARCANE_GOLDEN, 1, -2.8F),
-				new ToolAxe("arcane_golden_axe", ModItemTier.ARCANE_GOLDEN, 5, -3.0F),
-				new ToolHoe("arcane_golden_hoe", ModItemTier.ARCANE_GOLDEN, 0.0F),
-				new ToolSword("reinforced_arcane_golden_sword", ModItemTier.REINFORCED_ARCANE_GOLDEN, 3, -2.4F),
-				new ToolShovel("reinforced_arcane_golden_shovel", ModItemTier.REINFORCED_ARCANE_GOLDEN, 1.5F, -3.0F),
-				new ToolPickaxe("reinforced_arcane_golden_pickaxe", ModItemTier.REINFORCED_ARCANE_GOLDEN, 1, -2.8F),
-				new ToolAxe("reinforced_arcane_golden_axe", ModItemTier.REINFORCED_ARCANE_GOLDEN, 5, -3.0F),
-				new ToolHoe("reinforced_arcane_golden_hoe", ModItemTier.REINFORCED_ARCANE_GOLDEN, 0.0F),
-				new ToolSword("obsidian_sword", ModItemTier.OBSIDIAN, 3, -2.4F),
-				new ToolShovel("obsidian_shovel", ModItemTier.OBSIDIAN, 1.5F, -3.0F),
-				new ToolPickaxe("obsidian_pickaxe", ModItemTier.OBSIDIAN, 1, -2.8F),
-				new ToolAxe("obsidian_axe", ModItemTier.OBSIDIAN, 5, -3.0F),
-				new ToolHoe("obsidian_hoe", ModItemTier.OBSIDIAN, 0.0F),
-				new ToolMulti("battle_skull", 3, -2.4F, ModItemTier.BONE),
-				new ToolSword("bone_sword", ModItemTier.BONE, 3, -2.4F),
-				new ToolShovel("bone_shovel", ModItemTier.BONE, 1.5F, -3.0F),
-				new ToolPickaxe("bone_pickaxe", ModItemTier.BONE, 1, -2.8F),
-				new ToolAxe("bone_axe", ModItemTier.BONE, 5, -3.0F),
-				new ToolHoe("bone_hoe", ModItemTier.BONE, 0.0F),
+				new ModSwordItem("draco_arcanus_sword", ModItemTier.DRACO_ARCANUS, 4, -2.2F),
+				new ModShovelItem("draco_arcanus_shovel", ModItemTier.DRACO_ARCANUS, 2.5F, -2.8F),
+				new ModPickaxeItem("draco_arcanus_pickaxe", ModItemTier.DRACO_ARCANUS, 2, -2.6F),
+				new ModAxeItem("draco_arcanus_axe", ModItemTier.DRACO_ARCANUS, 6.0F, -2.8F),
+				new ModHoeItem("draco_arcanus_hoe", ModItemTier.DRACO_ARCANUS, 0.0F),
+				new DracoArcanusScepterItem("draco_arcanus_scepter"),
+				new ModSwordItem("arcane_golden_sword", ModItemTier.ARCANE_GOLDEN, 3, -2.4F),
+				new ModShovelItem("arcane_golden_shovel", ModItemTier.ARCANE_GOLDEN, 1.5F, -3.0F),
+				new ModPickaxeItem("arcane_golden_pickaxe", ModItemTier.ARCANE_GOLDEN, 1, -2.8F),
+				new ModAxeItem("arcane_golden_axe", ModItemTier.ARCANE_GOLDEN, 5, -3.0F),
+				new ModHoeItem("arcane_golden_hoe", ModItemTier.ARCANE_GOLDEN, 0.0F),
+				new ModSwordItem("reinforced_arcane_golden_sword", ModItemTier.REINFORCED_ARCANE_GOLDEN, 3, -2.4F),
+				new ModShovelItem("reinforced_arcane_golden_shovel", ModItemTier.REINFORCED_ARCANE_GOLDEN, 1.5F, -3.0F),
+				new ModPickaxeItem("reinforced_arcane_golden_pickaxe", ModItemTier.REINFORCED_ARCANE_GOLDEN, 1, -2.8F),
+				new ModAxeItem("reinforced_arcane_golden_axe", ModItemTier.REINFORCED_ARCANE_GOLDEN, 5, -3.0F),
+				new ModHoeItem("reinforced_arcane_golden_hoe", ModItemTier.REINFORCED_ARCANE_GOLDEN, 0.0F),
+				new ModSwordItem("obsidian_sword", ModItemTier.OBSIDIAN, 3, -2.4F),
+				new ModShovelItem("obsidian_shovel", ModItemTier.OBSIDIAN, 1.5F, -3.0F),
+				new ModPickaxeItem("obsidian_pickaxe", ModItemTier.OBSIDIAN, 1, -2.8F),
+				new ModAxeItem("obsidian_axe", ModItemTier.OBSIDIAN, 5, -3.0F),
+				new ModHoeItem("obsidian_hoe", ModItemTier.OBSIDIAN, 0.0F),
+				new MultiToolItem("battle_skull", 3, -2.4F, ModItemTier.BONE),
+				new ModSwordItem("bone_sword", ModItemTier.BONE, 3, -2.4F),
+				new ModShovelItem("bone_shovel", ModItemTier.BONE, 1.5F, -3.0F),
+				new ModPickaxeItem("bone_pickaxe", ModItemTier.BONE, 1, -2.8F),
+				new ModAxeItem("bone_axe", ModItemTier.BONE, 5, -3.0F),
+				new ModHoeItem("bone_hoe", ModItemTier.BONE, 0.0F),
 				new BasicItem("mystical_dagger"),
-				new BasicArmor("draco_arcanus_helmet", ModArmorMaterial.DRACO_ARCANUS, EntityEquipmentSlot.HEAD),
-				new BasicArmor("draco_arcanus_chestplate", ModArmorMaterial.DRACO_ARCANUS, EntityEquipmentSlot.CHEST),
-				new BasicArmor("draco_arcanus_leggings", ModArmorMaterial.DRACO_ARCANUS, EntityEquipmentSlot.LEGS),
-				new BasicArmor("draco_arcanus_boots", ModArmorMaterial.DRACO_ARCANUS, EntityEquipmentSlot.FEET),
-				new BasicArmor("tyr_helmet", ModArmorMaterial.TYR, EntityEquipmentSlot.HEAD),
-				new BasicArmor("tyr_chestplate", ModArmorMaterial.TYR, EntityEquipmentSlot.CHEST),
-				new BasicArmor("tyr_leggings", ModArmorMaterial.TYR, EntityEquipmentSlot.LEGS),
-				new BasicArmor("tyr_boots", ModArmorMaterial.TYR, EntityEquipmentSlot.FEET),
-				new BasicArmor("mortem_helmet", ModArmorMaterial.MORTEM, EntityEquipmentSlot.HEAD),
-				new BasicArmor("mortem_chestplate", ModArmorMaterial.MORTEM, EntityEquipmentSlot.CHEST),
-				new BasicArmor("mortem_leggings", ModArmorMaterial.MORTEM, EntityEquipmentSlot.LEGS),
-				new BasicArmor("mortem_boots", ModArmorMaterial.MORTEM, EntityEquipmentSlot.FEET),
-				new BasicArmor("arcane_gold_helmet", ModArmorMaterial.ARCANE_GOLD, EntityEquipmentSlot.HEAD),
-				new BasicArmor("arcane_gold_chestplate", ModArmorMaterial.ARCANE_GOLD, EntityEquipmentSlot.CHEST),
-				new BasicArmor("arcane_gold_leggings", ModArmorMaterial.ARCANE_GOLD, EntityEquipmentSlot.LEGS),
-				new BasicArmor("arcane_gold_boots", ModArmorMaterial.ARCANE_GOLD, EntityEquipmentSlot.FEET),
-				new BasicArmor("obsidian_helmet", ModArmorMaterial.OBSIDIAN, EntityEquipmentSlot.HEAD),
-				new BasicArmor("obsidian_shoulder_pads", ModArmorMaterial.OBSIDIAN, EntityEquipmentSlot.CHEST),
-				new BasicArmor("obsidian_knee_pads", ModArmorMaterial.OBSIDIAN, EntityEquipmentSlot.LEGS),
-				new BasicArmor("obsidian_boots", ModArmorMaterial.OBSIDIAN, EntityEquipmentSlot.FEET));
+				new BasicArmor("draco_arcanus_helmet", ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.HEAD),
+				new BasicArmor("draco_arcanus_chestplate", ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.CHEST),
+				new BasicArmor("draco_arcanus_leggings", ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.LEGS),
+				new BasicArmor("draco_arcanus_boots", ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.FEET),
+				new BasicArmor("tyr_helmet", ModArmorMaterial.TYR, EquipmentSlotType.HEAD),
+				new BasicArmor("tyr_chestplate", ModArmorMaterial.TYR, EquipmentSlotType.CHEST),
+				new BasicArmor("tyr_leggings", ModArmorMaterial.TYR, EquipmentSlotType.LEGS),
+				new BasicArmor("tyr_boots", ModArmorMaterial.TYR, EquipmentSlotType.FEET),
+				new BasicArmor("mortem_helmet", ModArmorMaterial.MORTEM, EquipmentSlotType.HEAD),
+				new BasicArmor("mortem_chestplate", ModArmorMaterial.MORTEM, EquipmentSlotType.CHEST),
+				new BasicArmor("mortem_leggings", ModArmorMaterial.MORTEM, EquipmentSlotType.LEGS),
+				new BasicArmor("mortem_boots", ModArmorMaterial.MORTEM, EquipmentSlotType.FEET),
+				new BasicArmor("arcane_gold_helmet", ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.HEAD),
+				new BasicArmor("arcane_gold_chestplate", ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.CHEST),
+				new BasicArmor("arcane_gold_leggings", ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.LEGS),
+				new BasicArmor("arcane_gold_boots", ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.FEET),
+				new BasicArmor("obsidian_helmet", ModArmorMaterial.OBSIDIAN, EquipmentSlotType.HEAD),
+				new BasicArmor("obsidian_shoulder_pads", ModArmorMaterial.OBSIDIAN, EquipmentSlotType.CHEST),
+				new BasicArmor("obsidian_knee_pads", ModArmorMaterial.OBSIDIAN, EquipmentSlotType.LEGS),
+				new BasicArmor("obsidian_boots", ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET));
 
 		ModBlocks.registerItemBlocks(registry);
 	}

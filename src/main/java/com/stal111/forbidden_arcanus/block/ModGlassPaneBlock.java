@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.Main;
 
-import net.minecraft.block.BlockGlassPane;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.util.ResourceLocation;
 
-public class ModGlassPaneBlock extends BlockGlassPane {
+public class ModGlassPaneBlock extends PaneBlock {
 
 	public ModGlassPaneBlock(String name, Properties properties) {
 		super(properties);

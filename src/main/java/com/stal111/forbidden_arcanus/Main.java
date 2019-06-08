@@ -4,11 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.stal111.forbidden_arcanus.block.ModBlocks;
-import com.stal111.forbidden_arcanus.block.gui.GuiHandler;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.item.ModItems;
-import com.stal111.forbidden_arcanus.potion.ModPotions;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
@@ -19,14 +17,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ExtensionPoint;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -46,8 +41,8 @@ public class Main {
 	public Main() {
 		instance = this;
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY,
-				() -> GuiHandler::getClientGuiElement);
+//		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY,
+//				() -> GuiHandler::getClientGuiElement);
 	}
 	
 	public static final Logger LOGGER = LogManager.getLogger(Main.MODID);
@@ -74,15 +69,15 @@ public class Main {
 		ModBlocks.registerTileEntities(event);
 	}
 	
-	@SubscribeEvent
-	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
-		ModEntities.register(event);
-	}
-	
-	@SubscribeEvent
-	public static void registerPotions(RegistryEvent.Register<Potion> event) {
-		ModPotions.register(event);
-	}
+//	@SubscribeEvent
+//	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
+//		ModEntities.register(event);
+//	}
+//	
+//	@SubscribeEvent
+//	public static void registerPotions(RegistryEvent.Register<Potion> event) {
+//		ModPotions.register(event);
+//	}
 	
 	@SubscribeEvent
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {

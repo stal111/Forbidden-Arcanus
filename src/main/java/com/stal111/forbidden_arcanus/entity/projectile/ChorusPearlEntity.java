@@ -3,76 +3,84 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.item.ModItems;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class ChorusPearlEntity extends EntityThrowable {
+public class ChorusPearlEntity extends ProjectileItemEntity {
 
+	@SuppressWarnings("unchecked")
 	public ChorusPearlEntity(World world) {
-		super(ModEntities.chorus_pearl, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, world);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ChorusPearlEntity(World world, double x, double y, double z) {
-		super(ModEntities.chorus_pearl, x, y, z, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, x, y, z, world);
 	}
 
-	public ChorusPearlEntity(World world, EntityLivingBase thrower) {
-		super(ModEntities.chorus_pearl, thrower, world);
+	@SuppressWarnings("unchecked")
+	public ChorusPearlEntity(World world, LivingEntity thrower) {
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, thrower, world);
 	}
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		EntityLivingBase entity = (EntityLivingBase) result.entity;
-		if (entity != null) {
-			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 0.0F);
-		}
+		LivingEntity livingEntity = (LivingEntity) this.getThrower();
+		if (result.getType() == RayTraceResult.Type.ENTITY) {
+			LivingEntity entity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
+			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, livingEntity), 0.0F);
 
-		if (result.type == RayTraceResult.Type.ENTITY) {
-			if (!this.world.isRemote) {
+			if (!world.isRemote) {
 				for (int i = 0; i < 16; i++) {
 					if (entity.isPassenger()) {
 						entity.stopRiding();
 					}
-					double d1 = entity.posX + ((entity).getRNG().nextDouble() - 0.5D) * 30.0D;
-					double d2 = MathHelper.clamp(result.entity.posY + (double) ((entity).getRNG().nextInt(16) - 8),
-							0.0D, (double) (entity.world.getActualHeight() - 1));
+					double d1 = entity.posX + (entity.getRNG().nextDouble() - 0.5D) * 30.0D;
+					double d2 = MathHelper.clamp(entity.posY + (double) ((entity).getRNG().nextInt(16) - 8), 0.0D,
+							(double) (entity.world.getActualHeight() - 1));
 					double d3 = entity.posZ + ((entity).getRNG().nextDouble() - 0.5D) * 30.0D;
 
-					if (entity.attemptTeleport(d1, d2, d3)) {
-						entity.fallDistance = 0;
-						entity.world.playSound((EntityPlayer) null, result.entity.posX, result.entity.posY,
-								result.entity.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F,
-								1.0F);
-						entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
-						break;
-					}
+					entity.setPositionAndUpdate(d1, d2, d3);
+					entity.fallDistance = 0;
+					entity.world.playSound((PlayerEntity) null, entity.posX, entity.posY, entity.posZ,
+							SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
 				}
 			}
-		} else if (!world.isRemote) {
-			this.world.spawnEntity(
-					new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.chorus_pearl)));
+		} else {
+			this.world.func_217376_c(
+					new ItemEntity(this.world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.chorus_pearl)));
 		}
+
 		this.remove();
 	}
 
 	@Override
 	public void tick() {
-		EntityLivingBase entitylivingbase = this.getThrower();
-		if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isAlive()) {
+		LivingEntity entitylivingbase = this.getThrower();
+		if (entitylivingbase != null && entitylivingbase instanceof PlayerEntity && !entitylivingbase.isAlive()) {
 			this.remove();
 		} else {
 			super.tick();
 		}
 
+	}
+
+	@Override
+	protected Item func_213885_i() {
+		return ModItems.chorus_pearl;
 	}
 
 }

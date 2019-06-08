@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.proxy;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -12,7 +12,7 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public EntityPlayer getClientPlayer() {
+	public PlayerEntity getClientPlayer() {
 		throw new IllegalStateException("Can't call this server-side!");
 	}
 

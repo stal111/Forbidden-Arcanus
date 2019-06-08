@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.potion.ModPotions;
-
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
