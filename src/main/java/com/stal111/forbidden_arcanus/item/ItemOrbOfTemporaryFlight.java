@@ -2,13 +2,12 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.potion.ModPotions;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class ItemOrbOfTemporaryFlight extends BasicItem {
@@ -18,16 +17,16 @@ public class ItemOrbOfTemporaryFlight extends BasicItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (!player.abilities.isCreativeMode) {
+		if (!player.playerAbilities.isCreativeMode) {
 			stack.shrink(1);
 		}
 		player.getCooldownTracker().setCooldown(this, 150);
 		if (!world.isRemote) {
-			player.addPotionEffect(new PotionEffect(ModPotions.fly, 6000, 0, true, true));
+//			player.addPotionEffect(new PotionEffect(ModPotions.fly, 6000, 0, true, true));
 		}
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
 	}
 
 }
