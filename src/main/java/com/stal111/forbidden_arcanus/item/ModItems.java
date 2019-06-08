@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.ModBlocks;
 import com.stal111.forbidden_arcanus.item.armor.BasicArmor;
 import com.stal111.forbidden_arcanus.item.armor.ModArmorMaterial;
+import com.stal111.forbidden_arcanus.item.tool.InfernumPickaxeItem;
 import com.stal111.forbidden_arcanus.item.tool.ToolAxe;
 import com.stal111.forbidden_arcanus.item.tool.ToolDracoArcanusScepter;
 import com.stal111.forbidden_arcanus.item.tool.ToolHoe;
@@ -155,7 +156,7 @@ public class ModItems {
 				new BasicItem("aku_aku"),
 				new BasicItem("golden_aku_aku"),
 				new BasicItem("edelwood_stick"),
-				new ToolPickaxe("infernum_pickaxe", ItemTier.DIAMOND, 1, -2.8F),
+				new InfernumPickaxeItem("infernum_pickaxe", ItemTier.DIAMOND, 1, -2.8F),
 				new ToolPickaxe("slimec_pickaxe", ItemTier.DIAMOND, 1, -2.5F),
 				new ToolAxe("runic_battleaxe", ItemTier.DIAMOND, 1, -2.8F),
 				new BasicItem("sacred_scepter"),

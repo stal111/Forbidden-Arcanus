@@ -32,6 +32,8 @@
     "block.forbidden_arcanus.arcane_carved_dark_stone_bricks": "Arcane Carved Dark Stone Bricks",
     "block.forbidden_arcanus.runic_glass": "Runic Glass",
     "block.forbidden_arcanus.runic_glass_pane": "Runic Glass Pane",
+    "block.forbidden_arcanus.dark_runic_glass": "Dark Runic Glass",
+    "block.forbidden_arcanus.dark_runic_glass_pane": "Dark Runic Glass Pane",
     "block.forbidden_arcanus.dark_nether_star_block": "Dark Nether Star Block",
     "block.forbidden_arcanus.runestone": "Runestone",
     "block.forbidden_arcanus.arcane_crystal_ore": "Arcane Crystal Ore",
@@ -54,6 +56,7 @@
     "block.forbidden_arcanus.edelwood_button": "Edelwood Button",
     "block.forbidden_arcanus.edelwood_door": "Edelwood Door",
     "block.forbidden_arcanus.edelwood_trapdoor": "Edelwood Trapdoor",
+    "block.forbidden_arcanus.edelwood_ladder": "Edelwood Ladder",
     "block.forbidden_arcanus.arcane_edelwood_planks": "Arcane Edelwood Planks",
     "block.forbidden_arcanus.cherrywood_log": "Cherrywood Log",
     "block.forbidden_arcanus.cherrywood": "Cherrywood",
@@ -162,6 +165,7 @@
     "item.forbidden_arcanus.bone_pickaxe": "Bone Pickaxe",
     "item.forbidden_arcanus.bone_axe": "Bone Axe",
     "item.forbidden_arcanus.bone_hoe": "Bone Hoe",
+    "item.forbidden_arcanus.mystical_dagger": "Mystical Dagger",
     "item.forbidden_arcanus.draco_arcanus_helmet": "Draco Arcanus Helmet",
     "item.forbidden_arcanus.draco_arcanus_chestplate": "Draco Arcanus Chestplate",
     "item.forbidden_arcanus.draco_arcanus_leggings": "Draco Arcanus Leggings",
@@ -185,5 +189,6 @@
 
     "_____comment": "Tooltips",
     "tooltip.forbidden_arcanus.obsidian_skull": "Gives you Fire Resistance I",
-    "tooltip.forbidden_arcanus.obsidian_skull_shield": "Gives you Fire Resistance II and Resistance I"
+    "tooltip.forbidden_arcanus.obsidian_skull_shield": "Gives you Fire Resistance II and Resistance I",
+    "tooltip.forbidden_arcanus.infernum_pickaxe": "So hot that it can even smelt ores!"
 }

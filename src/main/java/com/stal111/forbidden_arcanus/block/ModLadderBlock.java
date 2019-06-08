@@ -2,13 +2,13 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.Main;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockLadder;
 import net.minecraft.util.ResourceLocation;
 
-public class BasicBlock extends Block {
+public class ModLadderBlock extends BlockLadder {
 
-	public BasicBlock(String name, Properties properties) {
-		super(properties);
+	public ModLadderBlock(String name, Properties builder) {
+		super(builder);
 		this.setRegistryName(new ResourceLocation(Main.MODID, name));
 	}
 }
