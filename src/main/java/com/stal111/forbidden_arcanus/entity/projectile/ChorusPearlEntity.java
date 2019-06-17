@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -17,6 +18,8 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class ChorusPearlEntity extends ProjectileItemEntity {
 
@@ -33,6 +36,11 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 	@SuppressWarnings("unchecked")
 	public ChorusPearlEntity(World world, LivingEntity thrower) {
 		super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, thrower, world);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ChorusPearlEntity(SpawnEntity packet, World world) {
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, world);
 	}
 
 	@Override
@@ -60,8 +68,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 				}
 			}
 		} else {
-			this.world.func_217376_c(
-					new ItemEntity(this.world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.chorus_pearl)));
+			this.world.addEntity(new ItemEntity(this.world, this.posX, this.posY, this.posZ, new ItemStack(ModItems.chorus_pearl)));
 		}
 
 		this.remove();
@@ -82,5 +89,9 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 	protected Item func_213885_i() {
 		return ModItems.chorus_pearl;
 	}
-
+	
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
+	}
 }

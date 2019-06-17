@@ -34,7 +34,7 @@ public class ObsidianSkullItem extends BasicItem {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add((new TranslationTextComponent("tooltip." + Main.MODID + ".obsidian_skull")).applyTextStyle(TextFormatting.GRAY));
+		tooltip.add((new TranslationTextComponent("tooltip." + Main.MOD_ID + ".obsidian_skull")).applyTextStyle(TextFormatting.GRAY));
 	}
 
 }

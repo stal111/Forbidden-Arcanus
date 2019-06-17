@@ -1,8 +1,6 @@
 package com.stal111.forbidden_arcanus.item.tool;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
-import com.stal111.forbidden_arcanus.sound.ModSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -12,15 +10,13 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class DracoArcanusScepterItem extends Item {
 
 	public DracoArcanusScepterItem(String name) {
 		super(new Item.Properties().group(Main.FORBIDDEN_ARCANUS).maxStackSize(1).setNoRepair());
-		this.setRegistryName(new ResourceLocation(Main.MODID, name));
+		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 	}
 	
 	@Override

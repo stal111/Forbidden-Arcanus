@@ -6,7 +6,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder(Main.MODID)
+@ObjectHolder(Main.MOD_ID)
 public class ModSounds {
 	
 	public static final SoundEvent

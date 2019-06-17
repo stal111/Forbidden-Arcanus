@@ -7,12 +7,8 @@ import com.stal111.forbidden_arcanus.block.ModBlocks;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.item.ModItems;
-import com.stal111.forbidden_arcanus.proxy.ClientProxy;
-import com.stal111.forbidden_arcanus.proxy.IProxy;
-import com.stal111.forbidden_arcanus.proxy.ServerProxy;
+import com.stal111.forbidden_arcanus.proxy.SideProxy;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
-import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -23,62 +19,52 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(Main.MODID)
+@Mod(Main.MOD_ID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Main {
 
-	public static final String MODID = "forbidden_arcanus";
-	
-	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
-	
-	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(Main.MODID);
-	
+	public static final String MOD_ID = "forbidden_arcanus";
+
+	public static final Logger LOGGER = LogManager.getLogger(Main.MOD_ID);
+
+	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(Main.MOD_ID);
+
 	public static Main instance;
 
 	public Main() {
+		DistExecutor.runForDist(() -> () -> new SideProxy.Client(), () -> () -> new SideProxy.Server());
 		instance = this;
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 //		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY,
 //				() -> GuiHandler::getClientGuiElement);
-	}
-	
-	public static final Logger LOGGER = LogManager.getLogger(Main.MODID);
-
-
-	private void setup(final FMLCommonSetupEvent event) {
-		proxy.setup(event);
-		
-		OreGenerator.setupOregen();
 	}
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		ModBlocks.register(event);
+
 	}
-	
+
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		ModItems.register(event);
 	}
-	
+
 	@SubscribeEvent
 	public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> event) {
 		ModBlocks.registerTileEntities(event);
 	}
-	
-//	@SubscribeEvent
-//	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
-//		ModEntities.register(event);
-//	}
+
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
+		ModEntities.register(event);
+	}
 //	
 //	@SubscribeEvent
 //	public static void registerPotions(RegistryEvent.Register<Potion> event) {
 //		ModPotions.register(event);
 //	}
-	
+
 	@SubscribeEvent
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 		ModSounds.register(event);

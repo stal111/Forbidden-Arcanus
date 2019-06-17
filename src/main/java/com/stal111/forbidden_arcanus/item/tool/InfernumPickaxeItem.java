@@ -24,7 +24,7 @@ public class InfernumPickaxeItem extends ModPickaxeItem {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add((new TranslationTextComponent("tooltip." + Main.MODID + ".infernum_pickaxe")).applyTextStyle(TextFormatting.GRAY));
+		tooltip.add((new TranslationTextComponent("tooltip." + Main.MOD_ID + ".infernum_pickaxe")).applyTextStyle(TextFormatting.GRAY));
 	}
 
 

@@ -47,7 +47,7 @@ public class MultiToolItem extends ToolItem {
 
 	public MultiToolItem(String name, float attackDamageIn, float attackSpeedIn, IItemTier tier) {
 		super(attackDamageIn, attackSpeedIn, tier, EFFECTIVE_ON, new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
-		this.setRegistryName(new ResourceLocation(Main.MODID, name));
+		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 	}
 
 	public boolean canHarvestBlock(BlockState blockIn) {

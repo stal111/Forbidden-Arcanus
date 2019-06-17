@@ -27,12 +27,12 @@ public class ModItemGroup extends ItemGroup {
 	
 	@Override
 	public int getSearchbarWidth() {
-		return 65;
+		return 88;
 	}
 	
 	@Override
 	public ResourceLocation getTabsImage() {
-		return new ResourceLocation(Main.MODID, "textures/gui/forbidden_arcanus_tabs.png");
+		return new ResourceLocation(Main.MOD_ID, "textures/gui/forbidden_arcanus_tabs.png");
 	}
 
 }

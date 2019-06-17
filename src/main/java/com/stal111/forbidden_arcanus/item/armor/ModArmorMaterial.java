@@ -15,19 +15,19 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum ModArmorMaterial implements IArmorMaterial {
-	DRACO_ARCANUS(Main.MODID + ":draco_arcanus", 40, new int[]{6, 9, 11, 6}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F, () -> {
+	DRACO_ARCANUS(Main.MOD_ID + ":draco_arcanus", 40, new int[]{6, 9, 11, 6}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F, () -> {
 	      return Ingredient.fromItems(ModItems.dragon_scale);
 	}),
-	TYR(Main.MODID + ":tyr", 50, new int[]{8, 11, 13, 7}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.0F, () -> {
+	TYR(Main.MOD_ID + ":tyr", 50, new int[]{8, 11, 13, 7}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.0F, () -> {
 		return Ingredient.fromItems(ModItems.golden_dragon_scale, ModItems.aquatic_dragon_scale);
 	}),
-	MORTEM(Main.MODID + ":mortem", 40, new int[]{3, 6, 8, 3}, 8, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
+	MORTEM(Main.MOD_ID + ":mortem", 40, new int[]{3, 6, 8, 3}, 8, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
 		return Ingredient.fromItems(ModItems.skull);
 	}),
-	ARCANE_GOLD(Main.MODID + ":arcane_gold", 38, new int[]{4, 7, 9, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0F, () -> {
+	ARCANE_GOLD(Main.MOD_ID + ":arcane_gold", 38, new int[]{4, 7, 9, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0F, () -> {
 		return Ingredient.fromItems(ModItems.arcane_gold_ingot);
 	}),
-	OBSIDIAN(Main.MODID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
+	OBSIDIAN(Main.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
 		return Ingredient.fromItems(ModItems.obsidian_ingot);
 	});
 	

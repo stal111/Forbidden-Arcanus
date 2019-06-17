@@ -26,7 +26,7 @@ public class RunicTenebrisFrameBlock extends WaterloggedBlock {
 		} else {
 			boolean flag = state.get(WATERLOGGED);
 			if (stack.getItem() == ModItems.dark_nether_star && !world.isRemote) {
-				if (!player.playerAbilities.isCreativeMode) {
+				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
 				world.setBlockState(pos, ModBlocks.runic_tenebris_core.getStateContainer().getBaseState()

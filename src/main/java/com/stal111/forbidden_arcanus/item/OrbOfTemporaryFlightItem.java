@@ -19,7 +19,7 @@ public class OrbOfTemporaryFlightItem extends BasicItem {
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 
-		if (!player.playerAbilities.isCreativeMode) {
+		if (!player.abilities.isCreativeMode) {
 			stack.shrink(1);
 		}
 		if (!world.isRemote) {

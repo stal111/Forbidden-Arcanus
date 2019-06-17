@@ -17,8 +17,10 @@ import net.minecraft.world.World;
 
 public class BottleBlock extends FallingWaterloggedBlock {
 
-	private static final VoxelShape[] SHAPE = { Block.makeCuboidShape(2, 0, 2, 14, 14, 14),
-			Block.makeCuboidShape(5, 14, 5, 11, 15, 11), Block.makeCuboidShape(6, 15, 6, 10, 16, 10) };
+	private static final VoxelShape[] SHAPE = { 
+			Block.makeCuboidShape(2, 0, 2, 14, 14, 14),
+			Block.makeCuboidShape(5, 14, 5, 11, 15, 11),
+			Block.makeCuboidShape(6, 15, 6, 10, 16, 10)};
 
 	public BottleBlock(String name, Properties properties) {
 		super(name, properties.hardnessAndResistance(0.5F, 0.5F));
@@ -50,14 +52,14 @@ public class BottleBlock extends FallingWaterloggedBlock {
 			} else {
 				boolean flag = state.get(WATERLOGGED);
 				if (stack.getItem() == ModItems.pixi && !world.isRemote) {
-					if (!player.playerAbilities.isCreativeMode) {
+					if (!player.abilities.isCreativeMode) {
 						stack.shrink(1);
 					}
 					world.setBlockState(pos, ModBlocks.pixi_in_a_bottle_block.getStateContainer().getBaseState()
 							.with(WATERLOGGED, Boolean.valueOf(flag)));
 					return true;
 				} else if (stack.getItem() == ModItems.corrupt_pixi && !world.isRemote) {
-					if (!player.playerAbilities.isCreativeMode) {
+					if (!player.abilities.isCreativeMode) {
 						stack.shrink(1);
 					}
 					world.setBlockState(pos, ModBlocks.corrupt_pixi_in_a_bottle_block.getStateContainer().getBaseState()
@@ -73,7 +75,7 @@ public class BottleBlock extends FallingWaterloggedBlock {
 	@Override
 	public int getLightValue(BlockState state) {
 		if (this == ModBlocks.pixi_in_a_bottle_block) {
-			return 15;
+			return 14;
 		} else if (this == ModBlocks.corrupt_pixi_in_a_bottle_block) {
 			return 7;
 		} else {

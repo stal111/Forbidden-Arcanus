@@ -11,7 +11,7 @@ public class ModPickaxeItem extends PickaxeItem {
 
 	public ModPickaxeItem(String name, IItemTier tier, int attackDamageIn, float attackSpeedIn) {
 		super(tier, attackDamageIn, attackSpeedIn,  new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
-		this.setRegistryName(new ResourceLocation(Main.MODID, name));
+		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 	}
 
 }

@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.block;
 
 import javax.annotation.Nullable;
 
-import com.stal111.forbidden_arcanus.block.tile.DarkBeaconTileEntity;
+//import com.stal111.forbidden_arcanus.block.tile.DarkBeaconTileEntity;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -29,10 +29,10 @@ public class DarkBeaconBlock extends BasicBlock {
 		return true;
 	}
 
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new DarkBeaconTileEntity();
-	}
+//	@Override
+//	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+////		return new DarkBeaconTileEntity();
+//	}
 	
 	@Override
 	public boolean hasTileEntity(BlockState state) {

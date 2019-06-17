@@ -12,7 +12,7 @@ public class BasicArmor extends ArmorItem {
 
 	public BasicArmor(String name, IArmorMaterial materialIn, EquipmentSlotType slots) {
 		super(materialIn, slots, new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
-		this.setRegistryName(new ResourceLocation(Main.MODID, name));
+		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 	}
 	
 	

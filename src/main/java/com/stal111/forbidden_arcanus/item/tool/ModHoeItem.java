@@ -11,7 +11,7 @@ public class ModHoeItem extends HoeItem {
 
 	public ModHoeItem(String name, IItemTier tier, float attackSpeedIn) {
 		super(tier, attackSpeedIn,  new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
-		this.setRegistryName(new ResourceLocation(Main.MODID, name));
+		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 	}
 
 }

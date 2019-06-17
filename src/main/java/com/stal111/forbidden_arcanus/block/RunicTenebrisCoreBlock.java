@@ -30,19 +30,19 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 			return true;
 		} else {
 			if (stack.getItem() == ModItems.rune && !world.isRemote) {
-				if (!player.playerAbilities.isCreativeMode) {
+				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.dark_rune));
 				return true;
 			} else if (stack.getItem() == ModItems.rune_bag && !world.isRemote) {
-				if (!player.playerAbilities.isCreativeMode) {
+				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.dark_rune_bag));
 				return true;
 			} else if (stack.getItem() == ModBlocks.runestone.asItem() && !world.isRemote) {
-				if (!player.playerAbilities.isCreativeMode) {
+				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
 				player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.dark_runestone));

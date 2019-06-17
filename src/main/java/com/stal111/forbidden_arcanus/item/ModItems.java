@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.item.tool.ModAxeItem;
 import com.stal111.forbidden_arcanus.item.tool.DracoArcanusScepterItem;
 import com.stal111.forbidden_arcanus.item.tool.ModHoeItem;
 import com.stal111.forbidden_arcanus.item.tool.MultiToolItem;
+import com.stal111.forbidden_arcanus.item.tool.SlimecPickaxeItem;
 import com.stal111.forbidden_arcanus.item.tool.ModPickaxeItem;
 import com.stal111.forbidden_arcanus.item.tool.ModShovelItem;
 import com.stal111.forbidden_arcanus.item.tool.ModSwordItem;
@@ -19,7 +20,7 @@ import net.minecraft.item.ItemTier;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder(Main.MODID)
+@ObjectHolder(Main.MOD_ID)
 public class ModItems {
 
 	public static final Item
@@ -58,7 +59,7 @@ public class ModItems {
 			cloth = null,
 			golden_feather = null,
 			golden_orchid_seeds = null,
-			seed_bulet = null,
+			seed_bullet = null,
 			aku_aku = null,
 			golden_aku_aku = null,
 			edelwood_stick = null,
@@ -119,7 +120,7 @@ public class ModItems {
 		registerAll(registry,
 				new BasicItem("arcane_gold_ingot"),
 				new BasicItem("arcane_gold_nugget"),
-				new ItemOrbOfTemporaryFlight("orb_of_temporary_flight"),
+				new OrbOfTemporaryFlightItem("orb_of_temporary_flight"),
 				new ChorusPearlItem("chorus_pearl"),
 				new SpectralEyeAmuletItem("spectral_eye_amulet"),
 				new BasicItem("soul"),
@@ -152,12 +153,12 @@ public class ModItems {
 				new BasicItem("cloth"),
 				new BasicItem("golden_feather"),
 				new BasicItem("golden_orchid_seeds"),
-				new BasicItem("seed_bulet"),
+				new SeedBulletItem("seed_bullet"),
 				new BasicItem("aku_aku"),
 				new BasicItem("golden_aku_aku"),
 				new BasicItem("edelwood_stick"),
 				new InfernumPickaxeItem("infernum_pickaxe", ItemTier.DIAMOND, 1, -2.8F),
-				new ModPickaxeItem("slimec_pickaxe", ItemTier.DIAMOND, 1, -2.5F),
+				new SlimecPickaxeItem("slimec_pickaxe", ItemTier.DIAMOND, 1, -2.5F),
 				new ModAxeItem("runic_battleaxe", ItemTier.DIAMOND, 1, -2.8F),
 				new BasicItem("sacred_scepter"),
 				new BasicItem("draco_arcanus_staff"),

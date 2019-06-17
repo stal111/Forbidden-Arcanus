@@ -22,15 +22,15 @@ public class ChorusPearlItem extends BasicItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (!player.playerAbilities.isCreativeMode) {
+		if (!player.abilities.isCreativeMode) {
 			stack.shrink(1);
 		}
 		world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		player.getCooldownTracker().setCooldown(this, 15);
 		if (!world.isRemote) {
-//			ChorusPearlEntity chorus_pearl = new ChorusPearlEntity(world, player);
-//			chorus_pearl.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-//			world.spawnEntity(chorus_pearl);
+			ChorusPearlEntity entity = new ChorusPearlEntity(world, player);
+			entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+			world.addEntity(entity);
 		}
 		player.addStat(Stats.ITEM_USED.get(this));
 		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);

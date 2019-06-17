@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.util.ModUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -13,9 +13,9 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
@@ -25,7 +25,7 @@ public class FallingWaterloggedBlock extends FallingBlock implements IWaterLogga
 	
 	public FallingWaterloggedBlock(String name, Properties properties) {
 		super(properties);
-		this.setRegistryName(new ResourceLocation(Main.MODID, name));
+		this.setRegistryName(ModUtils.location(name));
 		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
 	}
 
@@ -47,7 +47,7 @@ public class FallingWaterloggedBlock extends FallingBlock implements IWaterLogga
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		return super.getStateForPlacement(context).with(WATERLOGGED, Boolean.valueOf(ifluidstate == Fluids.WATER));
+		return super.getStateForPlacement(context).with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8));
 
 	}
 

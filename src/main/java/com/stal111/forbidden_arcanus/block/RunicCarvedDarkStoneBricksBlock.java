@@ -24,7 +24,7 @@ public class RunicCarvedDarkStoneBricksBlock extends BasicBlock {
 			return true;
 		} else {
 			if (stack.getItem() == ModItems.arcane_crystal && !world.isRemote) {
-				if (!player.playerAbilities.isCreativeMode) {
+				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
 				world.setBlockState(pos, ModBlocks.white_runic_carved_dark_stone_bricks.getDefaultState());

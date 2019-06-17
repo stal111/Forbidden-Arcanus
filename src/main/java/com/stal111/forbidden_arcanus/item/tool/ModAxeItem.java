@@ -11,7 +11,7 @@ public class ModAxeItem extends AxeItem {
 
 	public ModAxeItem(String name, IItemTier tier, float attackDamageIn, float attackSpeedIn) {
 		super(tier, attackDamageIn, attackSpeedIn, new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
-		this.setRegistryName(new ResourceLocation(Main.MODID, name));
+		this.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
 	}
 
 }
