@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "forbidden_arcanus:mysterywood_log",
+	"forbidden_arcanus:mysterywood",
+	"forbidden_arcanus:stripped_mysterywood_log",
+	"forbidden_arcanus:stripped_mysterywood"
+  ]
+}

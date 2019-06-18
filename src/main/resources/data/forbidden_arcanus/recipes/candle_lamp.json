@@ -1,0 +1,37 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "NDN",
+        "GAG",
+        "NDN"
+    
+    ],
+    
+    "key":
+    {
+        "N":
+        {
+            "item": "forbidden_arcanus:arcane_gold_nugget"
+        },  
+        "A":
+        {
+            "item": "minecraft:torch"
+        },
+        "D":
+        {
+            "item": "forbidden_arcanus:dark_stone"
+        },
+        "G":
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:candle_lamp"
+    }
+}
