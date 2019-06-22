@@ -1,0 +1,8 @@
+{
+	"replace": false,
+	"values": [
+		"forbidden_arcanus:edelwood_door",
+		"forbidden_arcanus:cherrywood_door",
+		"forbidden_arcanus:mysterywood_door"
+	]
+}

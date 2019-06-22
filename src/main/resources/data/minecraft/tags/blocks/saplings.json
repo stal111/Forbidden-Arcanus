@@ -1,7 +1,7 @@
 {
-  "replace": false,
-  "values": [
-    "forbidden_arcanus:cherrywood_sapling",
-    "forbidden_arcanus:mysterywood_sapling"
-  ]
+	"replace": false,
+	"values": [
+		"forbidden_arcanus:cherrywood_sapling",
+		"forbidden_arcanus:mysterywood_sapling"
+	]
 }

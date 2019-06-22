@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.block.tileentity.ModSignTileEntity;
 import com.stal111.forbidden_arcanus.block.tileentity.ModSignTileEntityRenderer;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
+import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -27,6 +28,7 @@ public class SideProxy {
 
 	private static void commonSetup(FMLCommonSetupEvent event) {
 		OreGenerator.setupOregen();
+		WorldGenerator.setupWorldGen();
 	}
 
 	private static void enqueueIMC(final InterModEnqueueEvent event) {

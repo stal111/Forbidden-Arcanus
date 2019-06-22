@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.item.tool.DracoArcanusScepterItem;
 import com.stal111.forbidden_arcanus.item.tool.ModHoeItem;
 import com.stal111.forbidden_arcanus.item.tool.MultiToolItem;
 import com.stal111.forbidden_arcanus.item.tool.SlimecPickaxeItem;
+import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.item.tool.ModPickaxeItem;
 import com.stal111.forbidden_arcanus.item.tool.ModShovelItem;
 import com.stal111.forbidden_arcanus.item.tool.ModSwordItem;
@@ -128,6 +129,7 @@ public class ModItems {
 				new PixiItem("pixi", 265),
 				new PixiItem("corrupt_pixi", 0),
 				new BasicItem("arcane_crystal"),
+//				register("arcane_crystal_dust", new BlockNamedItem(ModBlocks.arcane_crystal_dust_wire, new Item.Properties().group(Main.FORBIDDEN_ARCANUS))),
 				new BasicItem("arcane_crystal_dust"),
 				new BasicItem("mundabitur_dust"),
 				new BasicItem("corrupti_dust"),
@@ -212,6 +214,10 @@ public class ModItems {
 				new BasicArmor("obsidian_boots", ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET));
 
 		ModBlocks.registerItemBlocks(registry);
+	}
+	
+	public static Item register(String name, Item item) {
+		return item.setRegistryName(ModUtils.location(name));
 	}
 
 	public static void registerAll(RegistryEvent.Register<Item> registry, Item... items) {

@@ -13,6 +13,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -79,8 +80,8 @@ public class EdelwoodLogBlock extends ModLogBlock implements IWaterLoggable {
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		return super.getStateForPlacement(context).with(AXIS, context.getNearestLookingDirection().getAxis())
-				.with(WATERLOGGED, Boolean.valueOf(ifluidstate == Fluids.WATER));
+		return super.getStateForPlacement(context).with(AXIS, context.getFace().getAxis())
+				.with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8));
 
 	}
 

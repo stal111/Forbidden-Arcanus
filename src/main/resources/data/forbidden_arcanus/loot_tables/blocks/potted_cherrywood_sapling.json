@@ -1,0 +1,35 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"name": "forbidden_arcanus:potted_cherrywood_sapling",
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "minecraft:flower_pot"
+				}
+			],
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			]
+		},
+		{
+			"name": "forbidden_arcanus:potted_cherrywood_sapling",
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "forbidden_arcanus:cherrywood_sapling"
+				}
+			],
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			]
+		}
+	]
+}
