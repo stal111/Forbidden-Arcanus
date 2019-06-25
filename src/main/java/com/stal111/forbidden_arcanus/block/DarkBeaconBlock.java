@@ -1,14 +1,19 @@
 package com.stal111.forbidden_arcanus.block;
 
-import javax.annotation.Nullable;
-
-//import com.stal111.forbidden_arcanus.block.tile.DarkBeaconTileEntity;
+import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
+import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
+import com.stal111.forbidden_arcanus.util.ModUtils;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.ContainerBlock;
+import net.minecraft.block.IBeaconBeamColorProvider;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -17,31 +22,48 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
-public class DarkBeaconBlock extends BasicBlock {
+@SuppressWarnings("deprecation")
+public class DarkBeaconBlock extends BasicBlock implements IBeaconBeamColorProvider, ITileEntityProvider {
 
 	public DarkBeaconBlock(String name, Properties properties) {
 		super(name, properties);
 	}
 
 	@Override
-	public boolean hasTileEntity() {
-		return true;
+	public DyeColor getColor() {
+		return DyeColor.WHITE;
 	}
 
-//	@Override
-//	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-////		return new DarkBeaconTileEntity();
-//	}
+	@Override
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+		return new DarkBeaconTileEntity();
+	}
 	
 	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
+	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
+		return (INamedContainerProvider) worldIn.getTileEntity(pos);
 	}
 
 	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
+			BlockRayTraceResult result) {
+		if (world.isRemote) {
+			return true;
+		} else {
+			TileEntity tileentity = world.getTileEntity(pos);
+			if (tileentity instanceof DarkBeaconTileEntity) {
+				player.openContainer((DarkBeaconTileEntity)tileentity);
+			}
+
+			return true;
+		}
+	}
+
+	@Override
+	public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		return false;
 	}
 
 	@Override
@@ -50,26 +72,17 @@ public class DarkBeaconBlock extends BasicBlock {
 	}
 
 	@Override
-	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player,
-			boolean willHarvest, IFluidState fluid) {
-		if (willHarvest)
-			return true;
-
-		return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		if (stack.hasDisplayName()) {
+			TileEntity tileentity = worldIn.getTileEntity(pos);
+			if (tileentity instanceof DarkBeaconTileEntity) {
+				((DarkBeaconTileEntity) tileentity).setCustomName(stack.getDisplayName());
+			}
+		}
 	}
 
 	@Override
-	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state,
-			@Nullable TileEntity te, ItemStack stack) {
-		super.harvestBlock(worldIn, player, pos, state, te, stack);
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-	}
-	
-	@SuppressWarnings("deprecation")
-	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos,
-			PlayerEntity player, Hand hand, BlockRayTraceResult result) {
-		
-		return super.onBlockActivated(state, world, pos, player, hand, result);
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.CUTOUT;
 	}
 }

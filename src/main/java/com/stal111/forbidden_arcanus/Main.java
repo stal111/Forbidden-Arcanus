@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.stal111.forbidden_arcanus.block.ModBlocks;
+import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
+import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
@@ -13,6 +15,7 @@ import com.stal111.forbidden_arcanus.sound.ModSounds;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntityType;
@@ -61,7 +64,12 @@ public class Main {
 
 	@SubscribeEvent
 	public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> event) {
-		ModBlocks.registerTileEntities(event);
+		ModTileEntities.registerTileEntities(event);
+	}
+	
+	@SubscribeEvent
+	public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
+		ModContainers.register(event);
 	}
 
 	@SubscribeEvent

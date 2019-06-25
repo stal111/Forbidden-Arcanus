@@ -1,9 +1,10 @@
-package com.stal111.forbidden_arcanus.block.tileentity;
+package com.stal111.forbidden_arcanus.block.tileentity.render;
 
 import java.util.List;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.stal111.forbidden_arcanus.block.ModBlocks;
+import com.stal111.forbidden_arcanus.block.tileentity.ModSignTileEntity;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 
 import net.minecraft.block.Block;

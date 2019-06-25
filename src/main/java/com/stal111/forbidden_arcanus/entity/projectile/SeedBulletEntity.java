@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.item.ModItems;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,8 +15,11 @@ import net.minecraft.network.IPacket;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class SeedBulletEntity extends ProjectileItemEntity {
 
 	@SuppressWarnings("unchecked")
@@ -41,7 +45,8 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 	@Override
 	protected void onImpact(RayTraceResult result) {
 
-		this.world.addEntity(new ItemEntity(this.world, this.posX, this.posY, this.posZ, new ItemStack(this.getRandomSeed())));
+		this.world.addEntity(
+				new ItemEntity(this.world, this.posX, this.posY, this.posZ, new ItemStack(this.getRandomSeed())));
 
 		this.remove();
 	}

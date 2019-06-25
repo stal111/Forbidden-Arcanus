@@ -1,0 +1,55 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/candle",
+        "candle": "forbidden_arcanus:block/candle"
+    },
+    "elements": [
+        {
+            "name": "Candle Base",
+            "from": [ 6, 0, 6 ], 
+            "to": [ 10, 1, 10 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 10, 0, 14, 1 ] },
+                "east": { "texture": "#candle", "uv": [ 10, 0, 14, 1 ] },
+                "south": { "texture": "#candle", "uv": [ 10, 0, 14, 1 ] },
+                "west": { "texture": "#candle", "uv": [ 10, 0, 14, 1 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 1, 14, 5 ] },
+                "down": { "texture": "#candle", "uv": [ 10, 1, 14, 5 ] }
+            }
+        },
+        {
+            "name": "Candle",
+            "from": [ 7, 1, 7 ], 
+            "to": [ 9, 5, 9 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 0, 16, 4 ] },
+                "east": { "texture": "#candle", "uv": [ 16, 0, 14, 4 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 0, 16, 4 ] },
+                "west": { "texture": "#candle", "uv": [ 16, 0, 14, 4 ] },
+                "up": { "texture": "#candle", "uv": [ 14, 0, 16, 2 ] },
+                "down": { "texture": "#candle", "uv": [ 14, 2, 16, 4 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 8, 5, 6.5 ], 
+            "to": [ 8, 9, 9.5 ], 
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 1, 0, 7, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 7, 0, 1, 8 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 8, 5, 6.5 ], 
+            "to": [ 8, 9, 9.5 ], 
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": -45.0 },
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 1, 0, 7, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 7, 0, 1, 8 ] }
+            }
+        }
+    ]
+}

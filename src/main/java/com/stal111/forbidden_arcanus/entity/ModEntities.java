@@ -10,6 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -29,6 +31,7 @@ public class ModEntities {
 //				EntityType.Builder.create(EnergyBallEntity.class, EnergyBallEntity::new).tracker(256, 1, false).build(Main.MODID + ":energy_ball").setRegistryName(Main.MODID, "energy_ball"));
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	public static void initModels() {
 		RenderingRegistry.registerEntityRenderingHandler(ChorusPearlEntity.class, manager -> new SpriteRenderer<ChorusPearlEntity>(manager, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(SeedBulletEntity.class, manager -> new SpriteRenderer<SeedBulletEntity>(manager, Minecraft.getInstance().getItemRenderer()));
