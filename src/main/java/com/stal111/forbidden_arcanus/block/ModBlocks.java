@@ -163,7 +163,7 @@ public class ModBlocks {
 				new ModPressurePlateBlock("arcane_gold_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.GOLD_BLOCK)),
 				new ModDoorBlock("arcane_gold_door", Block.Properties.from(Blocks.GOLD_BLOCK)),
 				new ArcaneDragonEggBlock("arcane_dragon_egg", Block.Properties.from(Blocks.DRAGON_EGG)),
-				new CandleLampBlock("candle", addProperties(Material.ROCK)),
+				new CandleBlock("candle", addProperties(Material.MISCELLANEOUS)),
 				new CandleLampBlock("candle_lamp", addProperties(Material.ROCK)),
 				new EdelwoodLogBlock("edelwood_log", MaterialColor.BROWN, Block.Properties.from(Blocks.OAK_LOG)),
 				new BasicBlock("edelwood_planks", Block.Properties.from(Blocks.OAK_PLANKS)),
