@@ -50,7 +50,7 @@ public class DarkBeaconContainer extends Container {
 		this.field_216971_e = p_i50100_4_;
 		this.beaconSlot = new DarkBeaconContainer.BeaconSlot(this.tileBeacon, 0, 136, 110);
 		this.addSlot(this.beaconSlot);
-		this.func_216961_a(p_i50100_3_);
+		this.trackIntArray(p_i50100_3_);
 		
 		for (int k = 0; k < 3; ++k) {
 			for (int l = 0; l < 9; ++l) {

@@ -60,7 +60,7 @@ public class OreGenConfig {
 		
 		RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER
 				.comment("Maximum size of Runestone vein")
-				.defineInRange("oregen.maxRunestoneVeinSize", 2, 0, 500);
+				.defineInRange("oregen.maxRunestoneVeinSize", 3, 0, 500);
 		RUNESTONE_COUNT = SERVER_BUILDER
 				.comment("Maximum Runestone veins per chunk")
 				.defineInRange("oregen.RunestoneCount", 3, 1, 10000000);
@@ -73,7 +73,7 @@ public class OreGenConfig {
 		
 		DARK_RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER
 				.comment("Maximum size of Dark Runestone vein")
-				.defineInRange("oregen.maxDarkRunestoneVeinSize", 2, 0, 500);
+				.defineInRange("oregen.maxDarkRunestoneVeinSize", 3, 0, 500);
 		DARK_RUNESTONE_COUNT = SERVER_BUILDER
 				.comment("Maximum Dark Runestone veins per chunk")
 				.defineInRange("oregen.DarkRunestoneCount", 3, 1, 10000000);

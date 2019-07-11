@@ -12,7 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class OreGenerator {
 
-	public static void setupOregen() {
+	public static void setupOreGen() {
 		for (Biome biome : ForgeRegistries.BIOMES) {
 
 			if(OreGenConfig.GENERATE_ARCANE_CRYSTAL_ORE.get())  {
@@ -38,24 +38,6 @@ public class OreGenerator {
 						Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.dark_stone.getDefaultState(), OreGenConfig.DARK_STONE_MAX_VEIN_SIZE.get()),
 						Placement.COUNT_RANGE, new CountRangeConfig(OreGenConfig.DARK_STONE_COUNT.get(), 0, OreGenConfig.DARK_STONE_MIN_HEIGHT.get(), OreGenConfig.DARK_STONE_MAX_HEIGHT.get())));
 			}
-			
-
-//			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-//					new DimensionCompositeFeature<>(Feature.MINABLE,
-//							new MinableConfig(MinableConfig.IS_ROCK, ModBlocks.runestone.getDefaultState(), 4),
-//							new CountRange(), new CountRangeConfig(3, 10, 10, 25), DimensionType.OVERWORLD));
-//
-//			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-//					new DimensionCompositeFeature<>(Feature.MINABLE,
-//							new MinableConfig(MinableConfig.IS_ROCK, ModBlocks.dark_stone.getDefaultState(), 20),
-//							new CountRange(), new CountRangeConfig(70, 1, 1, 7), DimensionType.OVERWORLD));
-//
-//			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-//					new DimensionCompositeFeature<>(Feature.MINABLE,
-//							new MinableConfig(MinableConfig.IS_ROCK, ModBlocks.dark_runestone.getDefaultState(), 3),
-//							new CountRange(), new CountRangeConfig(15, 3, 3, 6), DimensionType.OVERWORLD));
-
 		}
 	}
-
 }

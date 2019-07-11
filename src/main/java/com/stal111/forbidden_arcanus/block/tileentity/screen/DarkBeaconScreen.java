@@ -270,7 +270,7 @@ public class DarkBeaconScreen extends ContainerScreen<DarkBeaconContainer> {
 		public PowerButton(int p_i50827_2_, int p_i50827_3_, Effect p_i50827_4_, boolean p_i50827_5_) {
 			super(p_i50827_2_, p_i50827_3_);
 			this.effect = p_i50827_4_;
-			this.field_212946_c = Minecraft.getInstance().getPotionSpriteUploader().func_215288_a(p_i50827_4_);
+			this.field_212946_c = Minecraft.getInstance().getPotionSpriteUploader().getSprite(p_i50827_4_);
 			this.field_212947_d = p_i50827_5_;
 		}
 

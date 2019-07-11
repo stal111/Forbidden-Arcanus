@@ -8,6 +8,8 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -23,12 +25,15 @@ public class ObsidianSkullShieldItem extends BasicItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (!worldIn.isRemote) {
-//			((LivingEntity) entityIn).addPotionEffect(new PotionEffect(Potion.getPotionById(12), 180, 1, false, false, true));
-//			((LivingEntity) entityIn).addPotionEffect(new PotionEffect(Potion.getPotionById(11), 180, 0, false, false, true));
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entity, int itemSlot, boolean isSelected) {
+		if (entity instanceof  LivingEntity) {
+			LivingEntity livingEntity = (LivingEntity) entity;
+			if (!worldIn.isRemote) {
+				livingEntity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 180, 0, false, false, true));
+				livingEntity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 180, 0, false, false, true));
+			}
 		}
-		super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+		super.inventoryTick(stack, worldIn, entity, itemSlot, isSelected);
 	}
 	
 	@OnlyIn(Dist.CLIENT)

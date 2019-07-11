@@ -34,7 +34,7 @@ public class SideProxy {
 	}
 
 	private static void commonSetup(FMLCommonSetupEvent event) {
-		OreGenerator.setupOregen();
+		OreGenerator.setupOreGen();
 		WorldGenerator.setupWorldGen();
 	}
 

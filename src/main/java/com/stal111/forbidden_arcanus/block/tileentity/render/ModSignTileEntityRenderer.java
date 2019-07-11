@@ -21,7 +21,10 @@ import net.minecraft.client.renderer.tileentity.model.SignModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class ModSignTileEntityRenderer extends TileEntityRenderer<ModSignTileEntity> {
 
 	private static final ResourceLocation edelwoodSignTexture = ModUtils.location("textures/entity/signs/edelwood.png");
@@ -66,7 +69,7 @@ public class ModSignTileEntityRenderer extends TileEntityRenderer<ModSignTileEnt
 		GlStateManager.scalef(0.010416667F, -0.010416667F, 0.010416667F);
 		GlStateManager.normal3f(0.0F, 0.0F, -0.010416667F);
 		GlStateManager.depthMask(false);
-		int i = tileEntityIn.func_214066_f().func_218388_g();
+		int i = tileEntityIn.getTextColor().func_218388_g();
 		if (destroyStage < 0) {
 			for (int j = 0; j < 4; ++j) {
 				String s = tileEntityIn.getRenderText(j, (p_212491_1_) -> {
@@ -77,7 +80,7 @@ public class ModSignTileEntityRenderer extends TileEntityRenderer<ModSignTileEnt
 				if (s != null) {
 					fontrenderer.drawString(s, (float) (-fontrenderer.getStringWidth(s) / 2),
 							(float) (j * 10 - tileEntityIn.signText.length * 5), i);
-					if (j == tileEntityIn.func_214064_s() && tileEntityIn.func_214065_t() >= 0) {
+					if (j == tileEntityIn.getLineBeingEdited() && tileEntityIn.func_214065_t() >= 0) {
 						int k = fontrenderer.getStringWidth(
 								s.substring(0, Math.max(Math.min(tileEntityIn.func_214065_t(), s.length()), 0)));
 						int l = fontrenderer.getBidiFlag() ? -1 : 1;
