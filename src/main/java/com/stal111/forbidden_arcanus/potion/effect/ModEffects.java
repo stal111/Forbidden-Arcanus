@@ -15,13 +15,15 @@ public class ModEffects {
 
     public static final Effect
             fly = null,
-            spectral_vision = null;
+            spectral_vision = null,
+            darkened = null;
 
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Effect> registry) {
         registerAll(registry,
-                 register("fly", new BasicEffect(EffectType.BENEFICIAL, 745784)),
-                 register("spectral_vision", new SpectralEyeEffect(EffectType.BENEFICIAL, 745784)));
+                register("fly", new BasicEffect(EffectType.BENEFICIAL, 745784)),
+                register("spectral_vision", new SpectralEyeEffect(EffectType.BENEFICIAL, 745784)),
+                register("darkened", new DarkenedEffect(EffectType.BENEFICIAL, 745784)));
     }
 
     public static Effect register(String name, Effect effect) {

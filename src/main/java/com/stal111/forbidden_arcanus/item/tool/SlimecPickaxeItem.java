@@ -18,7 +18,7 @@ public class SlimecPickaxeItem extends ModPickaxeItem {
 	
 	@Override
 	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		if (group == Main.FORBIDDEN_ARCANUS) {
+		if (group == Main.FORBIDDEN_ARCANUS || group == ItemGroup.SEARCH) {
 			ItemStack stack = new ItemStack(this);
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 			items.add(stack);

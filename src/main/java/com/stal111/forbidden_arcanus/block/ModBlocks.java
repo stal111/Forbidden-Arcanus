@@ -17,9 +17,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.SignItem;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
+
+import javax.annotation.Nullable;
 
 @ObjectHolder(Main.MOD_ID)
 public class ModBlocks {
@@ -213,20 +218,40 @@ public class ModBlocks {
 				new ModTrapdoorBlock("mysterywood_trapdoor", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModDoorBlock("mysterywood_door", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModStandingSignBlock("mysterywood_sign", Block.Properties.from(Blocks.OAK_SIGN)),
-				new ModWallSignBlock("mysterywood_wall_sign", Block.Properties.from(Blocks.OAK_WALL_SIGN)),
-				register("potted_cherrywood_sapling", new FlowerPotBlock(cherrywood_sapling, Block.Properties.create(Material.MISCELLANEOUS))),
-				register("potted_mysterywood_sapling", new FlowerPotBlock(mysterywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)))
-				);	
+				new ModWallSignBlock("mysterywood_wall_sign", Block.Properties.from(Blocks.OAK_WALL_SIGN)));
+		register("potted_cherrywood_sapling", new FlowerPotBlock(cherrywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), null);
+		register("potted_mysterywood_sapling", new FlowerPotBlock(mysterywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), null);
 	}
 	
-	public static Block register(String name, Block block) {
-		return block.setRegistryName(ModUtils.location(name));
+	private static <T extends Block> T register(String name, T block) {
+		BlockItem item = new BlockItem(block, new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
+		return register(name, block, item);
+	}
+
+	private static <T extends Block> T register(String name, T block, @Nullable BlockItem item) {
+		if (item != null) {
+			return register(name, block, item, Rarity.COMMON);
+		}
+		block.setRegistryName(ModUtils.location(name));
+		ForgeRegistries.BLOCKS.register(block);
+		return block;
+	}
+
+	private static <T extends Block> T register(String name, T block, BlockItem item, Rarity rarity) {
+		block.setRegistryName(ModUtils.location(name));
+		ForgeRegistries.BLOCKS.register(block);
+		if (item != null) {
+			item = new BlockItem(block, new Item.Properties().group(Main.FORBIDDEN_ARCANUS).rarity(rarity));
+			item.setRegistryName(ModUtils.location(name));
+			ForgeRegistries.ITEMS.register(item);
+		}
+		return block;
 	}
 	
 	public static void registerAll(RegistryEvent.Register<Block> registry, Block... blocks) {
 		for (Block block : blocks) {
+			ForgeRegistries.BLOCKS.register(block);
 			blockList.add(block);
-			registry.getRegistry().register(block);
 		}
 	}
 	
@@ -234,7 +259,7 @@ public class ModBlocks {
 		Item.Properties properties = new Item.Properties().group(Main.FORBIDDEN_ARCANUS);
 		for (Block block : blockList) {
 			Item item;
-			if (!(block instanceof FlowerPotBlock) && !(block instanceof ModWallSignBlock)) {
+			if (!(block instanceof ModWallSignBlock)) {
 				if (block == ModBlocks.edelwood_sign) {
 					item = new SignItem(properties, block, ModBlocks.edelwood_wall_sign);
 					item.setRegistryName(block.getRegistryName());

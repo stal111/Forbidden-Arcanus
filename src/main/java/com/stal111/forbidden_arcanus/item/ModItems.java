@@ -17,8 +17,11 @@ import com.stal111.forbidden_arcanus.item.tool.ModSwordItem;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTier;
+import net.minecraft.item.Rarity;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
 @ObjectHolder(Main.MOD_ID)
@@ -126,8 +129,8 @@ public class ModItems {
 				new SpectralEyeAmuletItem("spectral_eye_amulet"),
 				new BasicItem("soul"),
 				new BasicItem("dark_soul"),
-				new PixiItem("pixi", 265),
-				new PixiItem("corrupt_pixi", 0),
+				new PixiItem("pixi"),
+				new PixiItem("corrupt_pixi"),
 				new BasicItem("arcane_crystal"),
 //				register("arcane_crystal_dust", new BlockNamedItem(ModBlocks.arcane_crystal_dust_wire, new Item.Properties().group(Main.FORBIDDEN_ARCANUS))),
 				new BasicItem("arcane_crystal_dust"),
@@ -191,7 +194,7 @@ public class ModItems {
 				new ModPickaxeItem("bone_pickaxe", ModItemTier.BONE, 1, -2.8F),
 				new ModAxeItem("bone_axe", ModItemTier.BONE, 5, -3.0F),
 				new ModHoeItem("bone_hoe", ModItemTier.BONE, 0.0F),
-				new MysticalDaggerItem("mystical_dagger"),
+				new MysticalDaggerItem("mystical_dagger", ModItemTier.MYSTICAL_DAGGER, 2.5F, -0.8F),
 				new BasicArmor("draco_arcanus_helmet", ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.HEAD),
 				new BasicArmor("draco_arcanus_chestplate", ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.CHEST),
 				new BasicArmor("draco_arcanus_leggings", ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.LEGS),
@@ -215,9 +218,11 @@ public class ModItems {
 
 		ModBlocks.registerItemBlocks(registry);
 	}
-	
-	public static Item register(String name, Item item) {
-		return item.setRegistryName(ModUtils.location(name));
+
+	private static <T extends Item> T register(String name, T item) {
+		item.setRegistryName(ModUtils.location(name));
+		ForgeRegistries.ITEMS.register(item);
+		return item;
 	}
 
 	public static void registerAll(RegistryEvent.Register<Item> registry, Item... items) {

@@ -21,6 +21,9 @@ public enum ModItemTier implements IItemTier {
 	}),
 	BONE(1, 131, 4.0F, 1.0F, 5, () -> {
 		return Ingredient.fromItems(ModItems.dragon_scale);
+	}),
+	MYSTICAL_DAGGER(1, 561, 4.0F, 1.0F, 5, () -> {
+		return Ingredient.fromItems(ModItems.dragon_scale);
 	});
 
 	private int harvestLevel;

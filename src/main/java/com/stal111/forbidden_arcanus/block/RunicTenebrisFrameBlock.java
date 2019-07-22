@@ -18,8 +18,7 @@ public class RunicTenebrisFrameBlock extends WaterloggedBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-			BlockRayTraceResult result) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if (stack.isEmpty()) {
 			return true;
