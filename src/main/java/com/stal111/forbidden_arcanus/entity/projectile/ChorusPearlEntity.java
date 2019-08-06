@@ -49,26 +49,29 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		LivingEntity livingEntity = (LivingEntity) this.getThrower();
+		LivingEntity livingEntity = this.getThrower();
 		if (result.getType() == RayTraceResult.Type.ENTITY) {
 			LivingEntity entity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
 			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, livingEntity), 0.0F);
 
 			if (!world.isRemote) {
-				for (int i = 0; i < 16; i++) {
+				double d0 = entity.posX;
+				double d1 = entity.posY;
+				double d2 = entity.posZ;
+
+				for(int i = 0; i < 16; ++i) {
+					double d3 = entity.posX + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
+					double d4 = MathHelper.clamp(entity.posY + (double)(entity.getRNG().nextInt(16) - 8), 0.0D, (double)(world.getActualHeight() - 1));
+					double d5 = entity.posZ + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
 					if (entity.isPassenger()) {
 						entity.stopRiding();
 					}
-					double d1 = entity.posX + (entity.getRNG().nextDouble() - 0.5D) * 30.0D;
-					double d2 = MathHelper.clamp(entity.posY + (double) ((entity).getRNG().nextInt(16) - 8), 0.0D,
-							(double) (entity.world.getActualHeight() - 1));
-					double d3 = entity.posZ + ((entity).getRNG().nextDouble() - 0.5D) * 30.0D;
 
-					entity.setPositionAndUpdate(d1, d2, d3);
-					entity.fallDistance = 0;
-					entity.world.playSound((PlayerEntity) null, entity.posX, entity.posY, entity.posZ,
-							SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-					entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+					if (entity.attemptTeleport(d3, d4, d5, true)) {
+						world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+						entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+						break;
+					}
 				}
 			}
 		} else {

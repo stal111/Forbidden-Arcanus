@@ -1,17 +1,10 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
-import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ContainerBlock;
-import net.minecraft.block.IBeaconBeamColorProvider;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
@@ -22,13 +15,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
-@SuppressWarnings("deprecation")
-public class DarkBeaconBlock extends BasicBlock implements IBeaconBeamColorProvider, ITileEntityProvider {
+public class DarkBeaconBlock extends Block implements IBeaconBeamColorProvider, ITileEntityProvider {
 
-	public DarkBeaconBlock(String name, Properties properties) {
-		super(name, properties);
+	public DarkBeaconBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override

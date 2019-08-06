@@ -15,14 +15,14 @@ import com.stal111.forbidden_arcanus.item.tool.ModPickaxeItem;
 import com.stal111.forbidden_arcanus.item.tool.ModShovelItem;
 import com.stal111.forbidden_arcanus.item.tool.ModSwordItem;
 
+import net.minecraft.block.Block;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
+
+import java.util.Properties;
 
 @ObjectHolder(Main.MOD_ID)
 public class ModItems {
@@ -121,21 +121,21 @@ public class ModItems {
 			obsidian_boots = null;
 
 	public static void register(RegistryEvent.Register<Item> registry) {
+		register("arcane_gold_ingot", new Item(properties()));
+		register("arcane_gold_nugget", new Item(properties()));
+		register("orb_of_temporary_flight", new Item(properties()));
+		register("chorus_pearl", new Item(properties()));
+		register("spectral_eye_amulet", new Item(properties()));
+		register("soul", new Item(properties()));
+		register("dark_soul", new Item(properties()));
+		register("pixi", new Item(properties()));
+		register("corrupt_pixi", new Item(properties()));
+		register("arcane_crystal", new Item(properties()));
+		register("arcane_crystal_dust", new Item(properties()));
+		register("mundabitur_dust", new Item(properties()));
+		register("corrupti_dust", new Item(properties()));
 		registerAll(registry,
-				new BasicItem("arcane_gold_ingot"),
-				new BasicItem("arcane_gold_nugget"),
-				new OrbOfTemporaryFlightItem("orb_of_temporary_flight"),
-				new ChorusPearlItem("chorus_pearl"),
-				new SpectralEyeAmuletItem("spectral_eye_amulet"),
-				new BasicItem("soul"),
-				new BasicItem("dark_soul"),
-				new PixiItem("pixi"),
-				new PixiItem("corrupt_pixi"),
-				new BasicItem("arcane_crystal"),
 //				register("arcane_crystal_dust", new BlockNamedItem(ModBlocks.arcane_crystal_dust_wire, new Item.Properties().group(Main.FORBIDDEN_ARCANUS))),
-				new BasicItem("arcane_crystal_dust"),
-				new BasicItem("mundabitur_dust"),
-				new BasicItem("corrupti_dust"),
 				new BasicItem("dark_matter"),
 				new BasicItem("ender_pearl_fragment"),
 				new BasicItem("rune"),
@@ -156,8 +156,9 @@ public class ModItems {
 				new BasicItem("leather_of_the_sea"),
 				new BasicItem("cherry_peach"),
 				new BasicItem("cloth"),
-				new BasicItem("golden_feather"),
-				new BasicItem("golden_orchid_seeds"),
+				new BasicItem("golden_feather"));
+		register("golden_orchid_seeds", new GoldenOrchidItem(ModBlocks.golden_orchid, properties()));
+		registerAll(registry,
 				new SeedBulletItem("seed_bullet"),
 				new BasicItem("aku_aku"),
 				new BasicItem("golden_aku_aku"),
@@ -223,6 +224,10 @@ public class ModItems {
 		item.setRegistryName(ModUtils.location(name));
 		ForgeRegistries.ITEMS.register(item);
 		return item;
+	}
+
+	private static Item.Properties properties() {
+		return new Item.Properties().group(Main.FORBIDDEN_ARCANUS);
 	}
 
 	public static void registerAll(RegistryEvent.Register<Item> registry, Item... items) {

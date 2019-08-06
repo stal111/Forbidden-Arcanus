@@ -23,7 +23,6 @@ public class BlockBreakListener {
 		if (block == ModBlocks.potted_cherrywood_sapling) {
 			world.addEntity(new ItemEntity(world.getWorld(), pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.cherrywood_sapling)));
 		} else if (block == ModBlocks.potted_mysterywood_sapling) {
-			world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState(), 3);
 			world.addEntity(new ItemEntity(world.getWorld(), pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModBlocks.mysterywood_sapling)));
 		}
 

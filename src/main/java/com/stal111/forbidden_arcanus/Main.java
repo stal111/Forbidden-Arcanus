@@ -72,10 +72,10 @@ public class Main {
 		ModContainers.register(event);
 	}
 
-//	@SubscribeEvent
-//	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
-//		ModEntities.register(event);
-//	}
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
+		ModEntities.register(event);
+	}
 //	
 //	@SubscribeEvent
 //	public static void registerPotions(RegistryEvent.Register<Potion> event) {

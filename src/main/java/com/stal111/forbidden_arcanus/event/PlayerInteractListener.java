@@ -10,6 +10,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -24,17 +25,19 @@ public class PlayerInteractListener {
 		ItemStack stack = event.getItemStack();
 		PlayerEntity player = event.getEntityPlayer();
 		if (block == Blocks.FLOWER_POT) {
-			if (stack.getItem() == ModBlocks.cherrywood_sapling.asItem()) {
-				world.setBlockState(pos, ModBlocks.potted_cherrywood_sapling.getDefaultState(), 3);
-				player.addStat(Stats.POT_FLOWER);
-				if (!player.abilities.isCreativeMode) {
-					stack.shrink(1);
-				}
-			} else if (stack.getItem() == ModBlocks.mysterywood_sapling.asItem()) {
-				world.setBlockState(pos, ModBlocks.potted_mysterywood_sapling.getDefaultState(), 3);
-				player.addStat(Stats.POT_FLOWER);
-				if (!player.abilities.isCreativeMode) {
-					stack.shrink(1);
+			if (!world.isRemote) {
+				if (stack.getItem() == ModBlocks.cherrywood_sapling.asItem()) {
+					world.setBlockState(pos, ModBlocks.potted_cherrywood_sapling.getDefaultState(), 3);
+					player.addStat(Stats.POT_FLOWER);
+					if (!player.abilities.isCreativeMode) {
+						stack.shrink(1);
+					}
+				} else if (stack.getItem() == ModBlocks.mysterywood_sapling.asItem()) {
+					world.setBlockState(pos, ModBlocks.potted_mysterywood_sapling.getDefaultState(), 3);
+					player.addStat(Stats.POT_FLOWER);
+					if (!player.abilities.isCreativeMode) {
+						stack.shrink(1);
+					}
 				}
 			}
 		} else if (block == ModBlocks.potted_cherrywood_sapling) {

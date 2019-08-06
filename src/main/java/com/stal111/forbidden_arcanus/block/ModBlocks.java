@@ -6,21 +6,18 @@ import java.util.List;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
 import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
+import com.stal111.forbidden_arcanus.item.ModItems;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.SignItem;
+import net.minecraft.potion.Effects;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -123,12 +120,15 @@ public class ModBlocks {
 			mysterywood_door = null,
 			mysterywood_sign = null,
 			mysterywood_wall_sign = null,
+			yellow_orchid = null,
+			golden_orchid = null,
 			potted_cherrywood_sapling = null,
-			potted_mysterywood_sapling = null;
+			potted_mysterywood_sapling = null,
+			potted_yellow_orchid = null;
 	
 	public static void register(RegistryEvent.Register<Block> registry) {
+		register("dark_beacon", new DarkBeaconBlock(from(Blocks.BEACON)), Rarity.EPIC);
 		registerAll(registry,
-				new DarkBeaconBlock("dark_beacon", Block.Properties.from(Blocks.BEACON)),
 				new BasicBlock("arcane_base_block", addProperties(Material.ROCK, 2.0F, 15.0F)),
 				new BasicBlock("chiseled_arcane_base_block", addProperties(Material.ROCK, 2.0F, 15.0F)),
 				new ModStairsBlock("arcane_base_block_stairs", addProperties(Material.ROCK, 2.0F, 15.0F), Blocks.STONE.getDefaultState()),
@@ -141,6 +141,8 @@ public class ModBlocks {
 				new RunicTenebrisFrameBlock("runic_tenebris_frame", addProperties(Material.ROCK, 2.0F, 15.0F)),
 				new RunicTenebrisCoreBlock("runic_tenebris_core", addProperties(Material.ROCK, 2.0F, 15.0F)),
 				new BasicBlock("dark_stone", addProperties(Material.ROCK, 1.5F, 6.0F)),
+				new ModStoneButtonBlock("dark_stone_button", Block.Properties.from(Blocks.STONE_BUTTON)),
+				new ModPressurePlateBlock("dark_stone_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.STONE_PRESSURE_PLATE)),
 				new ModOreBlock("dark_runestone", addProperties(Material.ROCK, 3.0F, 3.0F)),
 				new BasicBlock("arcane_dark_stone", addProperties(Material.ROCK, 1.5F, 6.0F)),
 				new BasicBlock("dark_stone_bricks", addProperties(Material.ROCK, 1.5F, 6.0F)),
@@ -177,7 +179,7 @@ public class ModBlocks {
 				new ModFenceBlock("edelwood_fence", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModFenceGateBlock("edelwood_fence_gate", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModPressurePlateBlock("edelwood_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)),
-				new ModButtonBlock("edelwood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
+				new ModWoodButtonBlock("edelwood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
 				new ModTrapdoorBlock("edelwood_trapdoor", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModDoorBlock("edelwood_door", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModStandingSignBlock("edelwood_sign", Block.Properties.from(Blocks.OAK_SIGN)),
@@ -196,7 +198,7 @@ public class ModBlocks {
 				new ModFenceBlock("cherrywood_fence", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModFenceGateBlock("cherrywood_fence_gate", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModPressurePlateBlock("cherrywood_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)),
-				new ModButtonBlock("cherrywood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
+				new ModWoodButtonBlock("cherrywood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
 				new ModTrapdoorBlock("cherrywood_trapdoor", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModDoorBlock("cherrywood_door", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModStandingSignBlock("cherrywood_sign", Block.Properties.from(Blocks.OAK_SIGN)),
@@ -214,27 +216,36 @@ public class ModBlocks {
 				new ModFenceBlock("mysterywood_fence", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModFenceGateBlock("mysterywood_fence_gate", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModPressurePlateBlock("mysterywood_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)),
-				new ModButtonBlock("mysterywood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
+				new ModWoodButtonBlock("mysterywood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
 				new ModTrapdoorBlock("mysterywood_trapdoor", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModDoorBlock("mysterywood_door", Block.Properties.from(Blocks.OAK_PLANKS)),
 				new ModStandingSignBlock("mysterywood_sign", Block.Properties.from(Blocks.OAK_SIGN)),
 				new ModWallSignBlock("mysterywood_wall_sign", Block.Properties.from(Blocks.OAK_WALL_SIGN)));
-		register("potted_cherrywood_sapling", new FlowerPotBlock(cherrywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), null);
-		register("potted_mysterywood_sapling", new FlowerPotBlock(mysterywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), null);
+		register("yellow_orchid", new FlowerBlock(Effects.GLOWING, 20, Block.Properties.from(Blocks.BLUE_ORCHID)));
+		register("golden_orchid", new GoldenOrchidBlock(Block.Properties.from(Blocks.BLUE_ORCHID).tickRandomly()), false);
+		register("potted_cherrywood_sapling", new FlowerPotBlock(cherrywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), false);
+		register("potted_mysterywood_sapling", new FlowerPotBlock(mysterywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), false);
+		register("potted_yellow_orchid", new FlowerPotBlock(yellow_orchid, Block.Properties.create(Material.MISCELLANEOUS)), false	);
 	}
 	
 	private static <T extends Block> T register(String name, T block) {
 		BlockItem item = new BlockItem(block, new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
-		return register(name, block, item);
+		return register(name, block, true);
 	}
 
-	private static <T extends Block> T register(String name, T block, @Nullable BlockItem item) {
-		if (item != null) {
+	private static <T extends Block> T register(String name, T block, boolean hasItem) {
+		if (hasItem) {
+			BlockItem item = new BlockItem(block, new Item.Properties());
 			return register(name, block, item, Rarity.COMMON);
 		}
 		block.setRegistryName(ModUtils.location(name));
 		ForgeRegistries.BLOCKS.register(block);
 		return block;
+	}
+
+	private static <T extends Block> T register(String name, T block, Rarity rarity) {
+		BlockItem item = new BlockItem(block, new Item.Properties());
+		return register(name, block, item, rarity);
 	}
 
 	private static <T extends Block> T register(String name, T block, BlockItem item, Rarity rarity) {
@@ -302,6 +313,10 @@ public class ModBlocks {
 		Block.Properties properties = Block.Properties.create(material).hardnessAndResistance(hardness, resistance).sound(soundType);
 		return properties;
 		
+	}
+
+	private static Block.Properties from(Block block) {
+		return Block.Properties.from(block);
 	}
 
 }

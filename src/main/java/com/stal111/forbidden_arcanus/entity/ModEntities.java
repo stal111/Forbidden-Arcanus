@@ -6,13 +6,18 @@ import com.stal111.forbidden_arcanus.entity.projectile.SeedBulletEntity;
 
 //import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
 //import com.stal111.forbidden_arcanus.entity.render.EnergyBallRender;
+import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
