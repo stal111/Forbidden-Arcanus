@@ -25,5 +25,4 @@ public class ModTileEntities {
 			registry.getRegistry().register(tile);
 		}
 	}
-
 }

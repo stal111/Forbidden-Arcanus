@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
+import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,7 +26,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class ArcaneCrystalDustWireBlock extends BasicBlock {
+public class ArcaneCrystalDustWireBlock extends Block {
 
 	public static final EnumProperty<RedstoneSide> NORTH = BlockStateProperties.REDSTONE_NORTH;
 	public static final EnumProperty<RedstoneSide> EAST = BlockStateProperties.REDSTONE_EAST;
@@ -36,9 +37,9 @@ public class ArcaneCrystalDustWireBlock extends BasicBlock {
 			.of(Direction.NORTH, NORTH, Direction.EAST, EAST, Direction.SOUTH, SOUTH, Direction.WEST, WEST));
 
 	public ArcaneCrystalDustWireBlock(String name, Properties properties) {
-		super(name, properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, RedstoneSide.NONE)
-				.with(EAST, RedstoneSide.NONE).with(SOUTH, RedstoneSide.NONE).with(WEST, RedstoneSide.NONE));
+		super(properties);
+		this.setRegistryName(ModUtils.location(name));
+		this.setDefaultState(this.stateContainer.getBaseState().with(NORTH, RedstoneSide.NONE).with(EAST, RedstoneSide.NONE).with(SOUTH, RedstoneSide.NONE).with(WEST, RedstoneSide.NONE));
 	}
 
 	@Override

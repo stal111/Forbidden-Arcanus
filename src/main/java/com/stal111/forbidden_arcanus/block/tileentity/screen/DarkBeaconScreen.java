@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
 import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
 
+import com.stal111.forbidden_arcanus.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -33,8 +34,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class DarkBeaconScreen extends ContainerScreen<DarkBeaconContainer> {
 
-	private static final ResourceLocation BEACON_GUI_TEXTURES = new ResourceLocation(Main.MOD_ID,
-			"textures/gui/container/dark_beacon.png");
+	private static final ResourceLocation BEACON_GUI_TEXTURES = new ResourceLocation(Main.MOD_ID, "textures/gui/container/dark_beacon.png");
 	private DarkBeaconScreen.ConfirmButton beaconConfirmButton;
 	private boolean buttonsNotDrawn;
 	private Effect field_214105_n;
@@ -77,8 +77,7 @@ public class DarkBeaconScreen extends ContainerScreen<DarkBeaconContainer> {
 	@Override
 	protected void init() {
 		super.init();
-		this.beaconConfirmButton = this
-				.addButton(new DarkBeaconScreen.ConfirmButton(this.guiLeft + 164, this.guiTop + 107));
+		this.beaconConfirmButton = this.addButton(new DarkBeaconScreen.ConfirmButton(this.guiLeft + 164, this.guiTop + 107));
 		this.addButton(new DarkBeaconScreen.CancelButton(this.guiLeft + 190, this.guiTop + 107));
 		this.buttonsNotDrawn = true;
 		this.beaconConfirmButton.active = false;
@@ -113,8 +112,7 @@ public class DarkBeaconScreen extends ContainerScreen<DarkBeaconContainer> {
 
 			for (int i2 = 0; i2 < k1 - 1; ++i2) {
 				Effect effect1 = DarkBeaconTileEntity.EFFECTS_LIST[2][i2];
-				DarkBeaconScreen.PowerButton beaconscreen$powerbutton2 = new DarkBeaconScreen.PowerButton(
-						this.guiLeft + 167 + i2 * 24 - l1 / 2, this.guiTop + 47, effect1, false);
+				DarkBeaconScreen.PowerButton beaconscreen$powerbutton2 = new DarkBeaconScreen.PowerButton(this.guiLeft + 167 + i2 * 24 - l1 / 2, this.guiTop + 47, effect1, false);
 				this.addButton(beaconscreen$powerbutton2);
 				if (3 >= i) {
 					beaconscreen$powerbutton2.active = false;
@@ -124,8 +122,7 @@ public class DarkBeaconScreen extends ContainerScreen<DarkBeaconContainer> {
 			}
 
 			if (this.field_214105_n != null) {
-				DarkBeaconScreen.PowerButton beaconscreen$powerbutton1 = new DarkBeaconScreen.PowerButton(
-						this.guiLeft + 167 + (k1 - 1) * 24 - l1 / 2, this.guiTop + 47, this.field_214105_n, false);
+				DarkBeaconScreen.PowerButton beaconscreen$powerbutton1 = new DarkBeaconScreen.PowerButton(this.guiLeft + 167 + (k1 - 1) * 24 - l1 / 2, this.guiTop + 47, this.field_214105_n, false);
 				this.addButton(beaconscreen$powerbutton1);
 				if (3 >= i) {
 					beaconscreen$powerbutton1.active = false;
@@ -160,10 +157,7 @@ public class DarkBeaconScreen extends ContainerScreen<DarkBeaconContainer> {
 		int j = (this.height - this.ySize) / 2;
 		this.blit(i, j, 0, 0, this.xSize, this.ySize);
 		this.itemRenderer.zLevel = 100.0F;
-//		this.itemRenderer.renderItemAndEffectIntoGUI(new ItemStack(Items.EMERALD), i + 42, j + 109);
-//		this.itemRenderer.renderItemAndEffectIntoGUI(new ItemStack(Items.DIAMOND), i + 42 + 22, j + 109);
-//		this.itemRenderer.renderItemAndEffectIntoGUI(new ItemStack(Items.GOLD_INGOT), i + 42 + 44, j + 109);
-//		this.itemRenderer.renderItemAndEffectIntoGUI(new ItemStack(Items.IRON_INGOT), i + 42 + 66, j + 109);
+		this.itemRenderer.renderItemAndEffectIntoGUI(new ItemStack(ModItems.arcane_crystal), i + 38 + 44, j + 110);
 		this.itemRenderer.zLevel = 0.0F;
 	}
 

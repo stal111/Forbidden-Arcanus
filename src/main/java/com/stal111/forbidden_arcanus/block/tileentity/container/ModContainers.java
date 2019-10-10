@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.block.tileentity.container;
 
 import com.stal111.forbidden_arcanus.Main;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
@@ -10,18 +12,17 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(Main.MOD_ID)
 public class ModContainers {
 
-	public static final ContainerType<DarkBeaconContainer> dark_beacon = null;
+	public static ContainerType<DarkBeaconContainer> dark_beacon;
 
 	public static void register(RegistryEvent.Register<ContainerType<?>> registry) {
-		registerAll(registry, IForgeContainerType.create((windowId, inv, data) -> {
-			return new DarkBeaconContainer(windowId, inv);
-		}).setRegistryName(Main.MOD_ID, "dark_beacon"));
+		dark_beacon = IForgeContainerType.create((windowID, inv, data) ->
+				new DarkBeaconContainer(windowID, Main.proxy.getClientWorld(), data.readBlockPos(), inv, Main.proxy.getClientPlayer()));
+		registerContainer(dark_beacon, "dark_beacon");
+		registry.getRegistry().register(dark_beacon);
 	}
 
-	public static void registerAll(RegistryEvent.Register<ContainerType<?>> registry, ContainerType<?>... containers) {
-		for (ContainerType<?> container : containers) {
-			registry.getRegistry().register(container);
-		}
+	public static <T extends Container> ContainerType<T> registerContainer(ContainerType<T> type, String id) {
+		type.setRegistryName(Main.MOD_ID, id);
+		return type;
 	}
-
 }

@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.BlockRenderLayer;
 
-public class CutoutBlock extends BasicBlock {
+public class CutoutBlock extends Block {
 
-	public CutoutBlock(String name, Properties properties) {
-		super(name, properties);
+	public CutoutBlock(Properties properties) {
+		super(properties);
 	}
 	
 	@Override

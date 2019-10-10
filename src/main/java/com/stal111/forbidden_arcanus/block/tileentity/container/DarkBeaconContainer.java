@@ -3,8 +3,12 @@ package com.stal111.forbidden_arcanus.block.tileentity.container;
 import javax.annotation.Nullable;
 
 import com.stal111.forbidden_arcanus.block.ModBlocks;
+import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
+import com.stal111.forbidden_arcanus.item.ModItems;
+import com.stal111.forbidden_arcanus.util.GuiTile;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
@@ -17,10 +21,12 @@ import net.minecraft.potion.Effect;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntArray;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DarkBeaconContainer extends Container {
+public class DarkBeaconContainer extends ModContainer {
 
 	private final IInventory tileBeacon = new Inventory(1) {
 		/**
@@ -39,34 +45,25 @@ public class DarkBeaconContainer extends Container {
 		}
 	};
 	private final DarkBeaconContainer.BeaconSlot beaconSlot;
-	private final IWorldPosCallable field_216971_e;
 	private final IIntArray field_216972_f;
 
-	public DarkBeaconContainer(int p_i50099_1_, IInventory p_i50099_2_) {
-		this(p_i50099_1_, p_i50099_2_, new IntArray(3), IWorldPosCallable.DUMMY);
-	}
-
-	public DarkBeaconContainer(int p_i50100_1_, IInventory p_i50100_2_, IIntArray p_i50100_3_, IWorldPosCallable p_i50100_4_) {
-		super(ContainerType.BEACON, p_i50100_1_);
-		assertIntArraySize(p_i50100_3_, 3);
-		this.field_216972_f = p_i50100_3_;
-		this.field_216971_e = p_i50100_4_;
+	public DarkBeaconContainer(int id, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity playerEntity) {
+		super(ModContainers.dark_beacon, id, world, pos, inventory, playerEntity, 1);
+		assertIntArraySize(new IntArray(3), 3);
+		this.field_216972_f = new IntArray(3);
 		this.beaconSlot = new DarkBeaconContainer.BeaconSlot(this.tileBeacon, 0, 136, 110);
 		this.addSlot(this.beaconSlot);
-		this.trackIntArray(p_i50100_3_);
-		int i = 36;
-		int j = 137;
+		this.trackIntArray(new IntArray(3));
 
 		for(int k = 0; k < 3; ++k) {
 			for(int l = 0; l < 9; ++l) {
-				this.addSlot(new Slot(p_i50100_2_, l + k * 9 + 9, 36 + l * 18, 137 + k * 18));
+				this.addSlot(new Slot(inventory, l + k * 9 + 9, 36 + l * 18, 137 + k * 18));
 			}
 		}
 
 		for(int i1 = 0; i1 < 9; ++i1) {
-			this.addSlot(new Slot(p_i50100_2_, i1, 36 + i1 * 18, 195));
+			this.addSlot(new Slot(inventory, i1, 36 + i1 * 18, 195));
 		}
-
 	}
 
 	/**
@@ -83,22 +80,12 @@ public class DarkBeaconContainer extends Container {
 		}
 	}
 
-	/**
-	 * Determines whether supplied player can use this container
-	 */
-	public boolean canInteractWith(PlayerEntity playerIn) {
-		return isWithinUsableDistance(this.field_216971_e, playerIn, ModBlocks.dark_beacon);
-	}
-
 	public void updateProgressBar(int id, int data) {
 		super.updateProgressBar(id, data);
 		this.detectAndSendChanges();
 	}
 
-	/**
-	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-	 * inventory and the other inventory(s).
-	 */
+	@Override
 	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.inventorySlots.get(index);
@@ -164,7 +151,6 @@ public class DarkBeaconContainer extends Container {
 			this.field_216972_f.set(2, p_216966_2_);
 			this.beaconSlot.decrStackSize(1);
 		}
-
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -181,7 +167,7 @@ public class DarkBeaconContainer extends Container {
 		 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 		 */
 		public boolean isItemValid(ItemStack stack) {
-			return stack.isBeaconPayment();
+			return stack.getItem() == ModItems.arcane_crystal;
 		}
 
 		/**

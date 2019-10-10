@@ -24,6 +24,7 @@ public class PlayerInteractListener {
 		Block block = world.getBlockState(pos).getBlock();
 		ItemStack stack = event.getItemStack();
 		PlayerEntity player = event.getEntityPlayer();
+
 		if (block == Blocks.FLOWER_POT) {
 			if (!world.isRemote) {
 				if (stack.getItem() == ModBlocks.cherrywood_sapling.asItem()) {
@@ -34,6 +35,12 @@ public class PlayerInteractListener {
 					}
 				} else if (stack.getItem() == ModBlocks.mysterywood_sapling.asItem()) {
 					world.setBlockState(pos, ModBlocks.potted_mysterywood_sapling.getDefaultState(), 3);
+					player.addStat(Stats.POT_FLOWER);
+					if (!player.abilities.isCreativeMode) {
+						stack.shrink(1);
+					}
+				} else if (stack.getItem() == ModBlocks.yellow_orchid.asItem()) {
+					world.setBlockState(pos, ModBlocks.potted_yellow_orchid.getDefaultState(), 3);
 					player.addStat(Stats.POT_FLOWER);
 					if (!player.abilities.isCreativeMode) {
 						stack.shrink(1);
@@ -49,6 +56,11 @@ public class PlayerInteractListener {
 			world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState(), 3);
 			if (!player.addItemStackToInventory(new ItemStack(ModBlocks.mysterywood_sapling))) {
 				player.dropItem(new ItemStack(ModBlocks.mysterywood_sapling), false);
+			}
+		} else if (block == ModBlocks.potted_yellow_orchid) {
+			world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState(), 3);
+			if (!player.addItemStackToInventory(new ItemStack(ModBlocks.yellow_orchid))) {
+				player.dropItem(new ItemStack(ModBlocks.yellow_orchid), false);
 			}
 		}
 	}

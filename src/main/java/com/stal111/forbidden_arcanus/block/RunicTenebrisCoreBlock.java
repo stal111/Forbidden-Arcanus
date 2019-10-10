@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 
 public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 
-	public RunicTenebrisCoreBlock(String name, Properties properties) {
-		super(name, properties);
+	public RunicTenebrisCoreBlock(Properties properties) {
+		super(properties);
 	}
 	
 	@Override

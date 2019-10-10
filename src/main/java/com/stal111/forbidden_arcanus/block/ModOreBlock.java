@@ -12,9 +12,8 @@ import net.minecraft.world.IWorldReader;
 
 public class ModOreBlock extends OreBlock {
 
-	public ModOreBlock(String name, Properties properties) {
+	public ModOreBlock(Properties properties) {
 		super(properties);
-		this.setRegistryName(ModUtils.location(name));
 	}
 	
 	protected int func_220281_a(Random p_220281_1_) {

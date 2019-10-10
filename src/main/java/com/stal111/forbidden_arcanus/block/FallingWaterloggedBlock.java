@@ -23,9 +23,8 @@ public class FallingWaterloggedBlock extends FallingBlock implements IWaterLogga
 	
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	
-	public FallingWaterloggedBlock(String name, Properties properties) {
+	public FallingWaterloggedBlock(Properties properties) {
 		super(properties);
-		this.setRegistryName(ModUtils.location(name));
 		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
 	}
 

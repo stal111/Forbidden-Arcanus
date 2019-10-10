@@ -2,21 +2,29 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.entity.projectile.ChorusPearlEntity;
 
+import com.stal111.forbidden_arcanus.entity.projectile.SeedBulletEntity;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.dispenser.IPosition;
+import net.minecraft.dispenser.ProjectileDispenseBehavior;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-public class ChorusPearlItem extends BasicItem {
+public class ChorusPearlItem extends Item {
 
-	public ChorusPearlItem(String name) {
-		super(name, new Item.Properties().maxStackSize(16));
+	public ChorusPearlItem(Item.Properties properties) {
+		super(properties);
+		DispenserBlock.registerDispenseBehavior(this, new ProjectileDispenseBehavior() {
+			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
+				return Util.make(new ChorusPearlEntity(worldIn, position.getX(), position.getY(), position.getZ()), (entity) -> {
+					entity.func_213884_b(stackIn);
+				});
+			}
+		});
 	}
 
 	@Override

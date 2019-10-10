@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-  	"forbidden_arcanus:edelwood_log",
     "#forbidden_arcanus:cherrywood_logs",
 	"#forbidden_arcanus:mysterywood_logs"
   ]

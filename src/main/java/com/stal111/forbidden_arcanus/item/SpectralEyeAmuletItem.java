@@ -8,10 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.world.World;
 
-public class SpectralEyeAmuletItem extends BasicItem {
+public class SpectralEyeAmuletItem extends Item {
 
-	public SpectralEyeAmuletItem(String name) {
-		super(name, new Item.Properties().maxStackSize(1));
+	public SpectralEyeAmuletItem(Item.Properties properties) {
+		super(properties);
 	}
 	
 	@Override

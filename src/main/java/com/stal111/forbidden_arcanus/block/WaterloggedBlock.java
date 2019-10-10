@@ -18,8 +18,8 @@ public class WaterloggedBlock extends CutoutBlock implements IWaterLoggable {
 
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public WaterloggedBlock(String name, Properties properties) {
-		super(name, properties);
+	public WaterloggedBlock(Properties properties) {
+		super(properties);
 		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
 	}
 

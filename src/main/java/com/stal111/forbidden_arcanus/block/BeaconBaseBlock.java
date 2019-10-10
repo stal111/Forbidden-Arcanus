@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 
-public class BeaconBaseBlock extends BasicBlock {
+public class BeaconBaseBlock extends Block {
 
-	public BeaconBaseBlock(String name, Properties properties) {
-		super(name, properties);
+	public BeaconBaseBlock(Properties properties) {
+		super(properties);
 	}
 	
 	@Override

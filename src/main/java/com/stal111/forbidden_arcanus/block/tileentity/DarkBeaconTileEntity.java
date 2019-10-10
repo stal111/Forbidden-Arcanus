@@ -9,15 +9,13 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
-import net.minecraft.advancements.CriteriaTriggers;
+import com.stal111.forbidden_arcanus.util.GuiTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.IBeaconBeamColorProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.BeaconContainer;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
@@ -28,7 +26,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.SoundCategory;
@@ -43,7 +40,7 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DarkBeaconTileEntity extends TileEntity implements INamedContainerProvider, ITickableTileEntity {
+public class DarkBeaconTileEntity extends TileEntity implements INamedContainerProvider, ITickableTileEntity, GuiTile {
 	/** List of effects that Beacons can apply */
 	public static final Effect[][] EFFECTS_LIST = new Effect[][]{{Effects.SPEED, Effects.HASTE}, {Effects.RESISTANCE, Effects.JUMP_BOOST}, {Effects.STRENGTH}, {Effects.REGENERATION}};
 	private static final Set<Effect> VALID_EFFECTS = Arrays.stream(EFFECTS_LIST).<Effect>flatMap(Arrays::stream).collect(Collectors.toSet());
@@ -312,8 +309,9 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 	}
 
 	@Nullable
-	public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-		return LockableTileEntity.canUnlock(p_createMenu_3_, this.field_213936_m, this.getDisplayName()) ? new DarkBeaconContainer(p_createMenu_1_, p_createMenu_2_, this.field_213937_n, IWorldPosCallable.of(this.world, this.getPos())) : null;
+	@Override
+	public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
+		return new DarkBeaconContainer(i, world, pos, inventory, player);
 	}
 
 	public ITextComponent getDisplayName() {

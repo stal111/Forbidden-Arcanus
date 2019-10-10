@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -14,6 +15,10 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Random;
 
 public class BottleBlock extends FallingWaterloggedBlock {
 
@@ -22,8 +27,8 @@ public class BottleBlock extends FallingWaterloggedBlock {
 			Block.makeCuboidShape(5, 14, 5, 11, 15, 11),
 			Block.makeCuboidShape(6, 15, 6, 10, 16, 10)};
 
-	public BottleBlock(String name, Properties properties) {
-		super(name, properties.hardnessAndResistance(0.5F, 0.5F));
+	public BottleBlock(Properties properties) {
+		super(properties.hardnessAndResistance(0.5F, 0.5F));
 	}
 
 	private VoxelShape generateShape() {
@@ -72,14 +77,17 @@ public class BottleBlock extends FallingWaterloggedBlock {
 		}
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	@Override
-	public int getLightValue(BlockState state) {
-		if (this == ModBlocks.pixi_in_a_bottle_block) {
-			return 14;
-		} else if (this == ModBlocks.corrupt_pixi_in_a_bottle_block) {
-			return 7;
-		} else {
-			return 0;
+	public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
+		if (state.getBlock() == ModBlocks.pixi_in_a_bottle_block) {
+			final double d0 = pos.getX() + random.nextFloat();
+			final double d2 = pos.getY() + random.nextFloat();
+			final double d3 = pos.getZ() + random.nextFloat();
+			final double d4 = (random.nextFloat() - 0.5) * 0.0999999985098839;
+			final double d5 = (random.nextFloat() - 0.5) * 0.0999999985098839;
+			final double d6 = (random.nextFloat() - 0.5) * 0.0999999985098839;
+			world.addParticle(ParticleTypes.END_ROD, d0, d2, d3, d4, d5, d6);
 		}
 	}
 }

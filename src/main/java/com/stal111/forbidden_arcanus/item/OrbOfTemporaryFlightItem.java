@@ -11,10 +11,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class OrbOfTemporaryFlightItem extends BasicItem {
+public class OrbOfTemporaryFlightItem extends Item {
 
-	public OrbOfTemporaryFlightItem(String name) {
-		super(name, new Item.Properties().maxStackSize(1));
+	public OrbOfTemporaryFlightItem(Item.Properties properties) {
+		super(properties);
 	}
 
 	@Override

@@ -5,6 +5,7 @@
     "__comment": "Effects",
     "effect.forbidden_arcanus.fly": "Fly",
     "effect.forbidden_arcanus.spectral_vision": "Spectral Vision",
+    "effect.forbidden_arcanus.darkened": "Darkened",
 
     "___comment": "Blocks",
     "block.forbidden_arcanus.dark_beacon": "Dark Beacon",
@@ -45,7 +46,7 @@
     "block.forbidden_arcanus.pixi_in_a_bottle_block": "Pixi in a Bottle Block",
     "block.forbidden_arcanus.corrupt_pixi_in_a_bottle_block": "Corrupt Pixi in a Bottle Block",
     "block.forbidden_arcanus.arcane_gold_block": "Arcane Gold Block",
-     "block.forbidden_arcanus.arcane_gold_pressure_plate": "Arcane Gold Pressure Plate",
+    "block.forbidden_arcanus.arcane_gold_pressure_plate": "Arcane Gold Pressure Plate",
     "block.forbidden_arcanus.arcane_gold_door": "Arcane Gold Door",
     "block.forbidden_arcanus.arcane_dragon_egg": "Arcane Dragon Egg",
     "block.forbidden_arcanus.candle": "Candle",
@@ -98,6 +99,15 @@
     "block.forbidden_arcanus.mysterywood_trapdoor": "Mysterywood Trapdoor",
     "block.forbidden_arcanus.yellow_orchid": "Yellow Orchid",
     "block.forbidden_arcanus.golden_orchid": "Golden Orchid",
+    "block.forbidden_arcanus.magical_farmland": "Magical Farmland",
+    "block.forbidden_arcanus.soulless_sand": "Soulless Sand",
+    "block.forbidden_arcanus.soulless_sandstone": "Soulless Sandstone",
+    "block.forbidden_arcanus.smooth_soulless_sandstone": "Smooth Soulless Sandstone",
+    "block.forbidden_arcanus.cut_soulless_sandstone": "Cut Soulless Sandstone",
+    "block.forbidden_arcanus.soulless_sandstone_slab": "Soulless Sandstone Slab",
+    "block.forbidden_arcanus.cut_soulless_sandstone_slab": "Cut Soulless Sandstone Slab",
+    "block.forbidden_arcanus.soulless_sandstone_stairs": "Soulless Sandstone Stairs",
+    "block.forbidden_arcanus.soulless_sandstone_wall": "Soulless Sandstone Wall",
 
     "____comment": "Items",
     "item.forbidden_arcanus.arcane_gold_ingot": "Arcane Gold Ingot",
@@ -144,6 +154,7 @@
     "item.forbidden_arcanus.aku_aku": "Aku Aku",
     "item.forbidden_arcanus.golden_aku_aku": "Golden Aku Aku",
     "item.forbidden_arcanus.edelwood_stick": "Edelwood Stick",
+    "item.forbidden_arcanus.soul_extractor": "Soul Extractor",
     "item.forbidden_arcanus.infernum_pickaxe": "Infernum Pickaxe",
     "item.forbidden_arcanus.slimec_pickaxe": "Slimec Pickaxe",
     "item.forbidden_arcanus.runic_battleaxe": "Runic Battleaxe",
@@ -199,7 +210,12 @@
     "item.forbidden_arcanus.obsidian_boots": "Obsidian Boots",
 
     "_____comment": "Tooltips",
-    "tooltip.forbidden_arcanus.obsidian_skull": "Gives you Fire Resistance I",
-    "tooltip.forbidden_arcanus.obsidian_skull_shield": "Gives you Fire Resistance I and Resistance I",
-    "tooltip.forbidden_arcanus.infernum_pickaxe": "So hot that it can even smelt ores!"
+    "tooltip.forbidden_arcanus.obsidian_skull": "Grants you Fire Resistance I",
+    "tooltip.forbidden_arcanus.obsidian_skull_shield": "Grants you Fire Resistance I and Resistance I",
+    "tooltip.forbidden_arcanus.infernum_pickaxe": "So hot that it can even smelt ores!",
+    "tooltip.forbidden_arcanus.mystical_dagger": "Contains some dark magic...",
+    "tooltip.forbidden_arcanus.soul_extractor": "Used to extract Souls from Soul Sand",
+
+    "______comment": "Containers",
+    "container.dark_beacon": "Dark Beacon"
 }

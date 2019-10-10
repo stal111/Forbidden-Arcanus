@@ -1,0 +1,279 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "soul_extractor": "forbidden_arcanus:item/soul_extractor"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 10, 120, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.9, 0.9, 0.9 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 270, 0 ],
+            "translation": [ -1, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 360, 0 ],
+            "translation": [ 0, 1.2, 0 ],
+            "scale": [ 0.9, 0.9, 0.9 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "handle",
+            "from": [ 7.5, 4, 8.5 ],
+            "to": [ 8.5, 8, 10.5 ],
+            "rotation": { "origin": [ 8.0, 8.0, 10.0 ], "axis": "x", "angle": -22.5 },
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 1, 12, 1, 16 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 0, 12, 2, 16 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 0, 12, 1, 16 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 12, 2, 16 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 0, 12, 2, 13 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 0, 16, 2, 15 ], "rotation": 90 }
+            }
+        },
+        {
+            "name": "base_arm",
+            "from": [ 6, 7, 2 ],
+            "to": [ 10, 9, 11 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 3, 14, 7, 16 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 16, 14, 7, 16 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 3, 14, 7, 16 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 7, 14, 16, 16 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 7, 10, 16, 14 ], "rotation": 90 },
+                "down": { "texture": "#soul_extractor", "uv": [ 7, 10, 16, 14 ], "rotation": 270 }
+            }
+        },
+        {
+            "name": "canon",
+            "from": [ 6.5, 8, 1 ],
+            "to": [ 9.5, 11, 10 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 13, 6, 16, 9 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 16, 3, 7, 6 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 4, 3, 7, 6 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 7, 3, 16, 6 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 7, 0, 16, 3 ], "rotation": 90 },
+                "down": { "texture": "#soul_extractor", "uv": [ 7, 0, 16, 3 ], "rotation": 270 }
+            }
+        },
+        {
+            "name": "canon_hole",
+            "from": [ 7, 8.5, 0 ],
+            "to": [ 9, 10.5, 1 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 3, 2, 5 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 2, 3, 3, 5 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 2, 3, 3, 5 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 2, 3, 3, 5 ], "rotation": 90 },
+                "down": { "texture": "#soul_extractor", "uv": [ 2, 3, 3, 5 ], "rotation": 90 }
+            }
+        },
+        {
+            "name": "left_claw",
+            "from": [ 5, 8, 0 ],
+            "to": [ 6, 9, 4 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 0, 1, 1 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 4, 1, 0, 2 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 5, 1, 6, 2 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 1, 4, 2 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 0, 0, 4, 1 ], "rotation": 90 },
+                "down": { "texture": "#soul_extractor", "uv": [ 0, 1, 4, 2 ], "rotation": 270 }
+            }
+        },
+        {
+            "name": "up_claw",
+            "from": [ 7.5, 11, -1 ],
+            "to": [ 8.5, 12, 5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 0, 1, 1 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 6, 1, 0, 2 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 5, 1, 6, 2 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 1, 6, 2 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 0, 0, 6, 1 ], "rotation": 90 },
+                "down": { "texture": "#soul_extractor", "uv": [ 0, 1, 6, 2 ], "rotation": 270 }
+            }
+        },
+        {
+            "name": "right_claw",
+            "from": [ 10, 8, 0 ],
+            "to": [ 11, 9, 4 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 0, 1, 1 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 4, 1, 0, 2 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 5, 1, 6, 2 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 1, 4, 2 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 0, 0, 4, 1 ], "rotation": 90 },
+                "down": { "texture": "#soul_extractor", "uv": [ 0, 1, 4, 2 ], "rotation": 270 }
+            }
+        },
+        {
+            "name": "core",
+            "from": [ 6.5, 8.5, 11.5 ],
+            "to": [ 9.5, 11.5, 14.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 5, 6, 8, 9 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 5, 6, 8, 9 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 5, 6, 8, 9 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 5, 6, 8, 9 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 5, 6, 8, 9 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 5, 6, 8, 9 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 5.5, 7.5, 10.5 ],
+            "to": [ 6.5, 8.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 10, 1, 11 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 0, 6, 5, 7 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 0, 10, 1, 11 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 10, 5, 11 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 0, 6, 1, 11 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 0, 6, 1, 11 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 9.5, 7.5, 10.5 ],
+            "to": [ 10.5, 8.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 10, 1, 11 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 0, 10, 5, 11 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 4, 10, 5, 11 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 10, 5, 11 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 4, 6, 5, 11 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 4, 6, 5, 11 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 9.5, 11.5, 10.5 ],
+            "to": [ 10.5, 12.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 4, 10, 5, 11 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 0, 6, 5, 7 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 4, 6, 5, 7 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 6, 5, 7 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 4, 6, 5, 11 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 0, 6, 1, 11 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 5.5, 11.5, 10.5 ],
+            "to": [ 6.5, 12.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 4, 10, 5, 11 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 0, 6, 5, 7 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 0, 6, 1, 7 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 6, 5, 7 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 0, 6, 1, 11 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 4, 6, 5, 11 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 5.5, 8.5, 10.5 ],
+            "to": [ 6.5, 11.5, 11.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 7, 1, 10 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 7, 1, 10 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 9.5, 8.5, 10.5 ],
+            "to": [ 10.5, 11.5, 11.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 0, 7, 1, 10 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 0, 7, 1, 10 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 0, 7, 1, 10 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 9.5, 8.5, 14.5 ],
+            "to": [ 10.5, 11.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 0, 7, 1, 10 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 5.5, 8.5, 14.5 ],
+            "to": [ 6.5, 11.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 1, 7, 0, 10 ] },
+                "east": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 0, 7, 1, 10 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 4, 7, 5, 10 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 6.5, 7.5, 10.5 ],
+            "to": [ 9.5, 8.5, 11.5 ],
+            "faces": {
+                "south": { "texture": "#soul_extractor", "uv": [ 1, 10, 4, 11 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 1, 10, 4, 11 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 6.5, 11.5, 10.5 ],
+            "to": [ 9.5, 12.5, 11.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 6.5, 11.5, 14.5 ],
+            "to": [ 9.5, 12.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 1, 10, 4, 11 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 1, 10, 4, 11 ] }
+            }
+        },
+        {
+            "name": "bottle",
+            "from": [ 6.5, 7.5, 14.5 ],
+            "to": [ 9.5, 8.5, 15.5 ],
+            "faces": {
+                "north": { "texture": "#soul_extractor", "uv": [ 1, 10, 4, 11 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 1, 10, 4, 11 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] },
+                "down": { "texture": "#soul_extractor", "uv": [ 1, 6, 4, 7 ] }
+            }
+        },
+        {
+            "name": "absorber",
+            "from": [ 7, 8.5, 10 ],
+            "to": [ 9, 10.5, 11 ],
+            "faces": {
+                "east": { "texture": "#soul_extractor", "uv": [ 2, 3, 3, 5 ] },
+                "south": { "texture": "#soul_extractor", "uv": [ 0, 3, 2, 5 ] },
+                "west": { "texture": "#soul_extractor", "uv": [ 2, 3, 3, 5 ] },
+                "up": { "texture": "#soul_extractor", "uv": [ 2, 3, 3, 5 ], "rotation": 90 }
+            }
+        }
+    ]
+}

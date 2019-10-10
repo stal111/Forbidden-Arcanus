@@ -13,12 +13,7 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(Main.MOD_ID)
 public class ModPotions {
 
-    public static final Potion
-            spectral_vision = null;
-
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Potion> registry) {
-       // registerAll(registry,
-      //          register("weapon_upgrade_table", new BasicBlock(Block.Properties.from(Blocks.CRAFTING_TABLE))));
     }
 }

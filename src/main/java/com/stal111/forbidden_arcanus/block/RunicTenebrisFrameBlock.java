@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 
 public class RunicTenebrisFrameBlock extends WaterloggedBlock {
 
-	public RunicTenebrisFrameBlock(String name, Properties properties) {
-		super(name, properties);
+	public RunicTenebrisFrameBlock(Properties properties) {
+		super(properties);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.Main;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -18,10 +19,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ObsidianSkullShieldItem extends BasicItem {
+public class ObsidianSkullShieldItem extends Item {
 
-	public ObsidianSkullShieldItem(String registryName) {
-		super(registryName);
+	public ObsidianSkullShieldItem(Item.Properties properties) {
+		super(properties);
 	}
 
 	@Override
@@ -29,8 +30,8 @@ public class ObsidianSkullShieldItem extends BasicItem {
 		if (entity instanceof  LivingEntity) {
 			LivingEntity livingEntity = (LivingEntity) entity;
 			if (!worldIn.isRemote) {
-				livingEntity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 180, 0, false, false, true));
-				livingEntity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 180, 0, false, false, true));
+				livingEntity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 200, 0, false, false, true));
+				livingEntity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 200, 0, false, false, true));
 			}
 		}
 		super.inventoryTick(stack, worldIn, entity, itemSlot, isSelected);

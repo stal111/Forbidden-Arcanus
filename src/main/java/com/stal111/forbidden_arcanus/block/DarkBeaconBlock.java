@@ -2,9 +2,11 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
 
+import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
@@ -15,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class DarkBeaconBlock extends Block implements IBeaconBeamColorProvider, ITileEntityProvider {
 
@@ -38,16 +41,14 @@ public class DarkBeaconBlock extends Block implements IBeaconBeamColorProvider, 
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-			BlockRayTraceResult result) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		if (world.isRemote) {
 			return true;
 		} else {
-			TileEntity tileentity = world.getTileEntity(pos);
-			if (tileentity instanceof DarkBeaconTileEntity) {
-				player.openContainer((DarkBeaconTileEntity)tileentity);
+			TileEntity tile = world.getTileEntity(pos);
+			if (tile instanceof DarkBeaconTileEntity) {
+				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tile, tile.getPos());
 			}
-
 			return true;
 		}
 	}

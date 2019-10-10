@@ -73,10 +73,9 @@ public class PillarBlock extends WaterloggedBlock {
 		return VoxelShapes.fullCube();
 	}
 
-	public PillarBlock(String name, Properties properties) {
-		super(name, properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP)
-				.with(TYPE, PillarType.SINGLE).with(WATERLOGGED, Boolean.valueOf(false)));
+	public PillarBlock(Properties properties) {
+		super(properties);
+		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(TYPE, PillarType.SINGLE).with(WATERLOGGED, Boolean.valueOf(false)));
 	}
 
 	@Override

@@ -18,10 +18,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class PixiItem extends BasicItem {
+public class PixiItem extends Item {
 
-	public PixiItem(String name) {
-		super(name, new Item.Properties().maxDamage(256).group(Main.FORBIDDEN_ARCANUS));
+	public PixiItem(Item.Properties properties) {
+		super(properties);
 	}
 
 	@Override

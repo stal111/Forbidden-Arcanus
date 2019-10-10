@@ -1,12 +1,8 @@
 package com.stal111.forbidden_arcanus.block;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
 import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
-import com.stal111.forbidden_arcanus.item.ModItems;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 
 import net.minecraft.block.*;
@@ -15,19 +11,16 @@ import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
-import net.minecraft.item.SignItem;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
-import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 @ObjectHolder(Main.MOD_ID)
 public class ModBlocks {
-	
-	public static List<Block> blockList = new ArrayList<Block>();
-	
+
 	public static final Block
 			dark_beacon = null,
 			arcane_base_block = null,
@@ -124,112 +117,126 @@ public class ModBlocks {
 			golden_orchid = null,
 			potted_cherrywood_sapling = null,
 			potted_mysterywood_sapling = null,
-			potted_yellow_orchid = null;
+			potted_yellow_orchid = null,
+			magical_farmland = null,
+			soulless_sand = null,
+			soulless_sandstone = null,
+			cut_soulless_sandstone = null,
+			smooth_soulless_sandstone = null,
+			soulless_sandstone_slab = null,
+			cut_soulless_sandstone_slab = null,
+			soulless_sandstone_stairs = null,
+			soulless_sandstone_wall = null;
 	
 	public static void register(RegistryEvent.Register<Block> registry) {
 		register("dark_beacon", new DarkBeaconBlock(from(Blocks.BEACON)), Rarity.EPIC);
-		registerAll(registry,
-				new BasicBlock("arcane_base_block", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new BasicBlock("chiseled_arcane_base_block", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new ModStairsBlock("arcane_base_block_stairs", addProperties(Material.ROCK, 2.0F, 15.0F), Blocks.STONE.getDefaultState()),
-				new ModSlabBlock("arcane_base_block_slab", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new ModWallBlock("arcane_base_block_wall", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new PillarBlock("arcane_base_block_pillar", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new ArcaneBaseBlockRodBlock("arcane_base_block_rod", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new ModGlassBlock("arcane_glass"),
-				new ModGlassPaneBlock("arcane_glass_pane"),
-				new RunicTenebrisFrameBlock("runic_tenebris_frame", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new RunicTenebrisCoreBlock("runic_tenebris_core", addProperties(Material.ROCK, 2.0F, 15.0F)),
-				new BasicBlock("dark_stone", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new ModStoneButtonBlock("dark_stone_button", Block.Properties.from(Blocks.STONE_BUTTON)),
-				new ModPressurePlateBlock("dark_stone_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.STONE_PRESSURE_PLATE)),
-				new ModOreBlock("dark_runestone", addProperties(Material.ROCK, 3.0F, 3.0F)),
-				new BasicBlock("arcane_dark_stone", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new BasicBlock("dark_stone_bricks", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new ModStairsBlock("dark_stone_brick_stairs", addProperties(Material.ROCK, 1.5F, 6.0F), Blocks.STONE.getDefaultState()),
-				new ModSlabBlock("dark_stone_brick_slab", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new ModWallBlock("dark_stone_brick_wall", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new BasicBlock("carved_dark_stone_bricks", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new RunicCarvedDarkStoneBricksBlock("runic_carved_dark_stone_bricks", addProperties(Material.ROCK,1.5F, 6.0F)),
-				new BasicBlock("white_runic_carved_dark_stone_bricks", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new BasicBlock("arcane_carved_dark_stone_bricks", addProperties(Material.ROCK, 1.5F, 6.0F)),
-				new ModGlassBlock("runic_glass"),
-				new ModGlassPaneBlock("runic_glass_pane"),
-				new ModGlassBlock("dark_runic_glass"),
-				new ModGlassPaneBlock("dark_runic_glass_pane"),
-				new BasicBlock("dark_nether_star_block", Block.Properties.from(Blocks.DIAMOND_BLOCK)),
-				new ModOreBlock("runestone", addProperties(Material.ROCK, 3.0F, 3.0F)),
-				new ModOreBlock("arcane_crystal_ore", addProperties(Material.ROCK, 3.0F, 3.0F)),
-				new BasicBlock("arcane_crystal_block", addProperties(Material.ROCK, 1.0F, 10.0F)),
-//				new ArcaneCrystalDustWireBlock("arcane_crystal_dust_wire", Block.Properties.from(Blocks.REDSTONE_WIRE)),
-				new CutoutBlock("end_crystal_gem", addProperties(Material.GLASS, 1.0F, 5.0F).lightValue(15)),
-				new BottleBlock("bottle_block", addProperties(Material.GLASS, 1.0F, 1.5F)),
-				new BottleBlock("pixi_in_a_bottle_block", addProperties(Material.GLASS, 1.0F, 1.5F)),
-				new BottleBlock("corrupt_pixi_in_a_bottle_block", addProperties(Material.GLASS, 1.0F, 1.5F)),
-				new BeaconBaseBlock("arcane_gold_block", Block.Properties.from(Blocks.GOLD_BLOCK)),
-				new ModPressurePlateBlock("arcane_gold_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.GOLD_BLOCK)),
-				new ModDoorBlock("arcane_gold_door", Block.Properties.from(Blocks.GOLD_BLOCK)),
-				new ArcaneDragonEggBlock("arcane_dragon_egg", Block.Properties.from(Blocks.DRAGON_EGG)),
-				new CandleBlock("candle", addProperties(Material.MISCELLANEOUS)),
-				new CandleLampBlock("candle_lamp", addProperties(Material.ROCK)),
-				new EdelwoodLogBlock("edelwood_log", MaterialColor.BROWN, Block.Properties.from(Blocks.OAK_LOG)),
-				new BasicBlock("edelwood_planks", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModStairsBlock("edelwood_stairs", Block.Properties.from(Blocks.OAK_PLANKS), Blocks.STONE.getDefaultState()),
-				new ModSlabBlock("edelwood_slab", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModFenceBlock("edelwood_fence", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModFenceGateBlock("edelwood_fence_gate", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModPressurePlateBlock("edelwood_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)),
-				new ModWoodButtonBlock("edelwood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
-				new ModTrapdoorBlock("edelwood_trapdoor", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModDoorBlock("edelwood_door", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModStandingSignBlock("edelwood_sign", Block.Properties.from(Blocks.OAK_SIGN)),
-				new ModWallSignBlock("edelwood_wall_sign", Block.Properties.from(Blocks.OAK_WALL_SIGN)),
-				new ModLadderBlock("edelwood_ladder", Block.Properties.from(Blocks.LADDER)),
-				new BasicBlock("arcane_edelwood_planks", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModLogBlock("cherrywood_log", MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModLogBlock("cherrywood", MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModLogBlock("stripped_cherrywood_log", MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModLogBlock("stripped_cherrywood", MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModSaplingBlock("cherrywood_sapling", new CherrywoodTree(), Block.Properties.from(Blocks.OAK_SAPLING)),
-				new ModLeavesBlock("cherrywood_leaves", Block.Properties.from(Blocks.OAK_LEAVES)),
-				new BasicBlock("cherrywood_planks", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModStairsBlock("cherrywood_stairs", Block.Properties.from(Blocks.OAK_PLANKS), Blocks.STONE.getDefaultState()),
-				new ModSlabBlock("cherrywood_slab", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModFenceBlock("cherrywood_fence", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModFenceGateBlock("cherrywood_fence_gate", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModPressurePlateBlock("cherrywood_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)),
-				new ModWoodButtonBlock("cherrywood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
-				new ModTrapdoorBlock("cherrywood_trapdoor", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModDoorBlock("cherrywood_door", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModStandingSignBlock("cherrywood_sign", Block.Properties.from(Blocks.OAK_SIGN)),
-				new ModWallSignBlock("cherrywood_wall_sign", Block.Properties.from(Blocks.OAK_WALL_SIGN)),
-				new BasicBlock("carved_cherrywood_planks", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModLogBlock("mysterywood_log", MaterialColor.ADOBE, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModLogBlock("mysterywood", MaterialColor.ADOBE, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModLogBlock("stripped_mysterywood_log", MaterialColor.ADOBE, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModLogBlock("stripped_mysterywood", MaterialColor.ADOBE, Block.Properties.from(Blocks.OAK_LOG)),
-				new ModLeavesBlock("mysterywood_leaves", Block.Properties.from(Blocks.OAK_LEAVES)),
-				new ModSaplingBlock("mysterywood_sapling", new MysterywoodTree(), Block.Properties.from(Blocks.OAK_SAPLING)),
-				new BasicBlock("mysterywood_planks", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModStairsBlock("mysterywood_stairs", Block.Properties.from(Blocks.OAK_PLANKS), Blocks.STONE.getDefaultState()),
-				new ModSlabBlock("mysterywood_slab", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModFenceBlock("mysterywood_fence", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModFenceGateBlock("mysterywood_fence_gate", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModPressurePlateBlock("mysterywood_pressure_plate", PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)),
-				new ModWoodButtonBlock("mysterywood_button", Block.Properties.from(Blocks.OAK_BUTTON)),
-				new ModTrapdoorBlock("mysterywood_trapdoor", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModDoorBlock("mysterywood_door", Block.Properties.from(Blocks.OAK_PLANKS)),
-				new ModStandingSignBlock("mysterywood_sign", Block.Properties.from(Blocks.OAK_SIGN)),
-				new ModWallSignBlock("mysterywood_wall_sign", Block.Properties.from(Blocks.OAK_WALL_SIGN)));
+		register("arcane_base_block", new Block(addProperties(Material.ROCK, 2F, 15F)));
+		register("chiseled_arcane_base_block", new Block(addProperties(Material.ROCK, 2F, 15F)));
+		register("arcane_base_block_stairs", new ModStairsBlock(addProperties(Material.ROCK, 2.0F, 15.0F), Blocks.STONE.getDefaultState()));
+		register("arcane_base_block_slab", new SlabBlock(addProperties(Material.ROCK, 2.0F, 15.0F)));
+		register("arcane_base_block_wall", new WallBlock(addProperties(Material.ROCK, 2.0F, 15.0F)));
+		register("arcane_base_block_pillar", new PillarBlock(addProperties(Material.ROCK, 2.0F, 15.0F)));
+		register("arcane_base_block_rod", new ArcaneBaseBlockRodBlock(addProperties(Material.ROCK, 2.0F, 15.0F)));
+		register("arcane_glass", new GlassBlock(addProperties(Material.GLASS, 0.3F, 0.3F, SoundType.GLASS)));
+		register("arcane_glass_pane", new ModGlassPaneBlock());
+		register("runic_tenebris_frame", new RunicTenebrisFrameBlock(addProperties(Material.ROCK, 2.0F, 15.0F)));
+		register("runic_tenebris_core", new RunicTenebrisCoreBlock(addProperties(Material.ROCK, 2.0F, 15.0F)));
+		register("dark_stone", new Block(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("dark_stone_button", new ModStoneButtonBlock(Block.Properties.from(Blocks.STONE_BUTTON)));
+		register("dark_stone_pressure_plate", new ModPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.STONE_PRESSURE_PLATE)));
+		register("dark_runestone", new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)));
+		register("arcane_dark_stone", new Block(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("dark_stone_bricks", new Block(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("dark_stone_brick_stairs", new ModStairsBlock(addProperties(Material.ROCK, 1.5F, 6.0F), Blocks.STONE.getDefaultState()));
+		register("dark_stone_brick_slab", new SlabBlock(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("dark_stone_brick_wall", new WallBlock(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("carved_dark_stone_bricks", new Block(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("runic_carved_dark_stone_bricks", new Block(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("arcane_carved_dark_stone_bricks", new Block(addProperties(Material.ROCK, 1.5F, 6.0F)));
+		register("runic_glass", new GlassBlock(addProperties(Material.GLASS, 0.3F, 0.3F, SoundType.GLASS)));
+		register("runic_glass_pane", new ModGlassPaneBlock());
+		register("dark_runic_glass", new GlassBlock(addProperties(Material.GLASS, 0.3F, 0.3F, SoundType.GLASS)));
+		register("dark_runic_glass_pane", new ModGlassPaneBlock());
+		register("dark_nether_star_block", new Block(Block.Properties.from(Blocks.DIAMOND_BLOCK)));
+		register("runestone", new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)));
+		register("arcane_crystal_ore", new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)));
+		register("arcane_crystal_block", new Block(addProperties(Material.ROCK, 1.0F, 10.0F)));
+		register("end_crystal_gem", new CutoutBlock(addProperties(Material.GLASS, 1.0F, 5.0F).lightValue(15)));
+		register("bottle_block", new BottleBlock(from(Blocks.GLASS)));
+		register("pixi_in_a_bottle_block", new BottleBlock(from(Blocks.GLASS).lightValue(14)));
+		register("corrupt_pixi_in_a_bottle_block", new BottleBlock(from(Blocks.GLASS).lightValue(9)));
+		register("arcane_gold_block", new BeaconBaseBlock(Block.Properties.from(Blocks.GOLD_BLOCK)));
+		register("arcane_gold_pressure_plate", new ModPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.GOLD_BLOCK)));
+		register("arcane_gold_door", new ModDoorBlock(Block.Properties.from(Blocks.GOLD_BLOCK)));
+		register("arcane_dragon_egg", new ArcaneDragonEggBlock(Block.Properties.from(Blocks.DRAGON_EGG)));
+		register("candle", new CandleBlock(addProperties(Material.MISCELLANEOUS)));
+		register("candle_lamp", new CandleLampBlock(addProperties(Material.ROCK)));
+		register("edelwood_log", new EdelwoodLogBlock(MaterialColor.BROWN, Block.Properties.from(Blocks.OAK_LOG)));
+		register("edelwood_planks", new Block(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("edelwood_stairs", new ModStairsBlock(Block.Properties.from(Blocks.OAK_PLANKS), Blocks.STONE.getDefaultState()));
+		register("edelwood_slab", new SlabBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("edelwood_fence", new FenceBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("edelwood_fence_gate", new FenceGateBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("edelwood_pressure_plate", new ModPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)));
+		register("edelwood_button", new ModWoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON)));
+		register("edelwood_trapdoor", new ModTrapDoorBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("edelwood_door", new ModDoorBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("edelwood_sign", new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN)));
+		register("edelwood_wall_sign", new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN)), false);
+		register("edelwood_ladder", new ModLadderBlock(Block.Properties.from(Blocks.LADDER)));
+		register("arcane_edelwood_planks", new Block(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("cherrywood_log", new LogBlock(MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)));
+		register("cherrywood", new LogBlock(MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)));
+		register("stripped_cherrywood_log", new LogBlock(MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)));
+		register("stripped_cherrywood", new LogBlock(MaterialColor.PINK, Block.Properties.from(Blocks.OAK_LOG)));
+		register("cherrywood_sapling", new ModSaplingBlock(new CherrywoodTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
+		register("cherrywood_leaves", new LeavesBlock(Block.Properties.from(Blocks.OAK_LEAVES)));
+		register("cherrywood_planks", new Block(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("cherrywood_stairs", new ModStairsBlock(Block.Properties.from(Blocks.OAK_PLANKS), Blocks.STONE.getDefaultState()));
+		register("cherrywood_slab", new SlabBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("cherrywood_fence", new FenceBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("cherrywood_fence_gate", new FenceGateBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("cherrywood_pressure_plate", new ModPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)));
+		register("cherrywood_button", new ModWoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON)));
+		register("cherrywood_trapdoor", new ModTrapDoorBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("cherrywood_door", new ModDoorBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("cherrywood_sign", new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN)));
+		register("cherrywood_wall_sign", new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN)), false);
+		register("carved_cherrywood_planks", new Block(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("mysterywood_log", new MysterywoodLogBlock(from(Blocks.OAK_LOG).lightValue(11)));
+		register("mysterywood", new MysterywoodLogBlock(from(Blocks.OAK_LOG).lightValue(11)));
+		register("stripped_mysterywood_log", new LogBlock(MaterialColor.ADOBE, from(Blocks.OAK_LOG).lightValue(11)));
+		register("stripped_mysterywood", new LogBlock(MaterialColor.ADOBE, from(Blocks.OAK_LOG).lightValue(11)));
+		register("mysterywood_leaves", new LeavesBlock(Block.Properties.from(Blocks.OAK_LEAVES)));
+		register("mysterywood_sapling", new ModSaplingBlock(new MysterywoodTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
+		register("mysterywood_planks", new Block(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("mysterywood_stairs", new ModStairsBlock(Block.Properties.from(Blocks.OAK_PLANKS), Blocks.STONE.getDefaultState()));
+		register("mysterywood_slab", new SlabBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("mysterywood_fence", new FenceBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("mysterywood_fence_gate", new FenceGateBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("mysterywood_pressure_plate", new ModPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.from(Blocks.OAK_PRESSURE_PLATE)));
+		register("mysterywood_button", new ModWoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON)));
+		register("mysterywood_trapdoor", new ModTrapDoorBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("mysterywood_door", new ModDoorBlock(Block.Properties.from(Blocks.OAK_PLANKS)));
+		register("mysterywood_sign", new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN)));
+		register("mysterywood_wall_sign", new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN)), false);
 		register("yellow_orchid", new FlowerBlock(Effects.GLOWING, 20, Block.Properties.from(Blocks.BLUE_ORCHID)));
 		register("golden_orchid", new GoldenOrchidBlock(Block.Properties.from(Blocks.BLUE_ORCHID).tickRandomly()), false);
-		register("potted_cherrywood_sapling", new FlowerPotBlock(cherrywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), false);
-		register("potted_mysterywood_sapling", new FlowerPotBlock(mysterywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), false);
-		register("potted_yellow_orchid", new FlowerPotBlock(yellow_orchid, Block.Properties.create(Material.MISCELLANEOUS)), false	);
+		register("magical_farmland", new ModFarmlandBlock(Block.Properties.from(Blocks.FARMLAND)));
+		register("soulless_sand", new SoullessSandBlock(Block.Properties.from(Blocks.SOUL_SAND)));
+		register("soulless_sandstone", new Block(from(Blocks.SANDSTONE)));
+		register("cut_soulless_sandstone", new Block(from(Blocks.SANDSTONE)));
+		register("smooth_soulless_sandstone", new Block(from(Blocks.SANDSTONE)));
+		register("soulless_sandstone_slab", new SlabBlock(from(Blocks.SANDSTONE)));
+		register("cut_soulless_sandstone_slab", new SlabBlock(from(Blocks.SANDSTONE)));
+		register("soulless_sandstone_stairs", new StairsBlock(Blocks.SANDSTONE::getDefaultState, from(Blocks.SANDSTONE)));
+		register("soulless_sandstone_wall", new WallBlock(from(Blocks.SANDSTONE_WALL)));
+		register("potted_cherrywood_sapling", new FlowerPotBlock(null,(Supplier<? extends Block>) ModBlocks.cherrywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), false);
+		register("potted_mysterywood_sapling", new FlowerPotBlock(null, (Supplier<? extends Block>) ModBlocks.mysterywood_sapling, Block.Properties.create(Material.MISCELLANEOUS)), false);
+		register("potted_yellow_orchid", new FlowerPotBlock(null, (Supplier<? extends Block>) ModBlocks.yellow_orchid, addProperties(Material.MISCELLANEOUS)), false);
 	}
 	
 	private static <T extends Block> T register(String name, T block) {
-		BlockItem item = new BlockItem(block, new Item.Properties().group(Main.FORBIDDEN_ARCANUS));
 		return register(name, block, true);
 	}
 
@@ -257,38 +264,6 @@ public class ModBlocks {
 			ForgeRegistries.ITEMS.register(item);
 		}
 		return block;
-	}
-	
-	public static void registerAll(RegistryEvent.Register<Block> registry, Block... blocks) {
-		for (Block block : blocks) {
-			ForgeRegistries.BLOCKS.register(block);
-			blockList.add(block);
-		}
-	}
-	
-	public static void registerItemBlocks(RegistryEvent.Register<Item> registry) {
-		Item.Properties properties = new Item.Properties().group(Main.FORBIDDEN_ARCANUS);
-		for (Block block : blockList) {
-			Item item;
-			if (!(block instanceof ModWallSignBlock)) {
-				if (block == ModBlocks.edelwood_sign) {
-					item = new SignItem(properties, block, ModBlocks.edelwood_wall_sign);
-					item.setRegistryName(block.getRegistryName());
-				} else if (block == ModBlocks.cherrywood_sign) {
-					item = new SignItem(properties, block, ModBlocks.cherrywood_wall_sign);
-					item.setRegistryName(block.getRegistryName());
-				} else if (block == ModBlocks.mysterywood_sign) {
-					item = new SignItem(properties, block, ModBlocks.mysterywood_wall_sign);
-					item.setRegistryName(block.getRegistryName());
-				} else {
-					item = new BlockItem(block, properties);
-					item.setRegistryName(block.getRegistryName());
-				}
-				if (item != null) {
-					registry.getRegistry().register(item);
-				}
-			}
-		}
 	}
 	
 	public static Block.Properties addProperties(Material material) {

@@ -42,9 +42,8 @@ public class ArcaneBaseBlockRodBlock extends RotatedPillarBlock implements IWate
 					Block.makeCuboidShape(6.5, 6.5, 0, 9.5, 9.5, 16),
 					Block.makeCuboidShape(6, 6, 14, 10, 10, 16) };
 
-	public ArcaneBaseBlockRodBlock(String name, Properties properties) {
+	public ArcaneBaseBlockRodBlock(Properties properties) {
 		super(properties);
-		this.setRegistryName(ModUtils.location(name));
 		this.setDefaultState(this.stateContainer.getBaseState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED,
 				Boolean.valueOf(false)));
 
