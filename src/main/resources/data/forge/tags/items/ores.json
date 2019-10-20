@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores/arcane_crystal",
+    "#forge:ores/dark_runestone",
+    "#forge:ores/runestone"
+  ]
+}
