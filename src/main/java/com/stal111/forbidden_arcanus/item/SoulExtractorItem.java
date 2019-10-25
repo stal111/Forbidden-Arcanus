@@ -14,6 +14,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -71,9 +72,10 @@ public class SoulExtractorItem extends Item {
                             stack.damageItem(1, player, (playerEntity) -> {
                                 playerEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
                             });
-                            for (int i = 0; i < 9; i++) {
+                            for (int i = 0; i < 4; i++) {
                                 world.addParticle(ModParticles.soul, pos.getX() + random.nextFloat(), pos.getY() + 1, pos.getZ() + random.nextFloat(), 1, 1, 1);
                             }
+                            player.addStat(Stats.ITEM_USED.get(this));
                             if (!world.isRemote) {
                                 world.setBlockState(pos, ModBlocks.soulless_sand.getDefaultState());
                                 world.addEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1F, pos.getZ(), new ItemStack(ModItems.soul)));

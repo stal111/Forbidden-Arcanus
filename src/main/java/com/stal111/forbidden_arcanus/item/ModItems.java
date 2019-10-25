@@ -12,6 +12,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
+import java.util.Map;
+
 @ObjectHolder(Main.MOD_ID)
 public class ModItems {
 
@@ -205,7 +207,7 @@ public class ModItems {
 		register("obsidian_boots", new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET, properties()));
 	}
 
-	private static <T extends Item> T register(String name, T item) {
+	public static <T extends Item> T register(String name, T item) {
 		item.setRegistryName(ModUtils.location(name));
 		ForgeRegistries.ITEMS.register(item);
 		return item;

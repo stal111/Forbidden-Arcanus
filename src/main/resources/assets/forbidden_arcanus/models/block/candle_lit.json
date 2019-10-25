@@ -53,6 +53,30 @@
                 "west": { "texture": "#candle", "uv": [ 14, 1, 14, 2 ] },
                 "up": { "texture": "#candle", "uv": [ 0, 0, 1, 0 ] }
             }
+        },
+        {
+            "name": "Fire",
+            "from": [ 8, 5, 6.5 ],
+            "to": [ 8, 9, 9.5 ],
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": -45.0 },
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 1, 0, 7, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 7, 0, 1, 8 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 8, 5, 6.5 ],
+            "to": [ 8, 9, 9.5 ],
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 0, 0, 0, 4 ] },
+                "east": { "texture": "#candle", "uv": [ 1, 0, 7, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 0, 0, 0, 4 ] },
+                "west": { "texture": "#candle", "uv": [ 7, 0, 1, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
+                "down": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] }
+            }
         }
     ]
 }

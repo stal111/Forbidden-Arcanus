@@ -28,7 +28,7 @@ public class OrbOfTemporaryFlightItem extends Item {
 			player.addPotionEffect(new EffectInstance(ModEffects.fly, 6000, 0, true, false, true));
 		}
 		player.addStat(Stats.ITEM_USED.get(this));
-		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
+		return new ActionResult<>(ActionResultType.SUCCESS, stack);
 	}
 
 }

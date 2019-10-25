@@ -34,6 +34,7 @@ public class PixiItem extends Item {
 				player.getHeldItem(hand).damageItem(1, player, p_220038_0_ -> p_220038_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND));
 			}
 			player.playSound(ModSounds.pixi_activated, 1.0F, 1.0F);
+			return new ActionResult<>(ActionResultType.SUCCESS, stack);
 		}
 		return super.onItemRightClick(world, player, hand);
 	}

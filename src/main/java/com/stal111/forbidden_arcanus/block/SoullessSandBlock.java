@@ -1,10 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.item.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoulSandBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -15,10 +12,17 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class SoullessSandBlock extends SoulSandBlock {
 
     public SoullessSandBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public void tick(BlockState p_196267_1_, World p_196267_2_, BlockPos p_196267_3_, Random p_196267_4_) {
+        BubbleColumnBlock.placeBubbleColumn(p_196267_2_, p_196267_3_.up(), false);
     }
 
     @Override
