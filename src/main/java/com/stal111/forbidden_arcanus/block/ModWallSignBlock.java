@@ -38,6 +38,11 @@ public class ModWallSignBlock extends AbstractSignBlock {
     }
 
     @Override
+    public String getTranslationKey() {
+        return this.asItem().getTranslationKey();
+    }
+
+    @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
         return new ModSignTileEntity();
     }

@@ -7,12 +7,38 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "forbidden_arcanus:candle",
+									"properties": {
+										"candles": "2"
+									}
+								}
+							],
+							"count": 2
+						},
+						{
+							"function": "minecraft:set_count",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "forbidden_arcanus:candle",
+									"properties": {
+										"candles": "3"
+									}
+								}
+							],
+							"count": 3
+						},
+						{
+							"function": "minecraft:explosion_decay"
+						}
+					],
 					"name": "forbidden_arcanus:candle"
-				}
-			],
-			"conditions": [
-				{
-					"condition": "minecraft:survives_explosion"
 				}
 			]
 		}

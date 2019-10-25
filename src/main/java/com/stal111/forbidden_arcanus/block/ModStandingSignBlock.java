@@ -14,6 +14,11 @@ public class ModStandingSignBlock extends StandingSignBlock {
 	}
 
 	@Override
+	public String getTranslationKey() {
+		return super.getTranslationKey();
+	}
+
+	@Override
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new ModSignTileEntity();
 	}

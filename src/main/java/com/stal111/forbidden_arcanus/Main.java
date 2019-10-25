@@ -2,9 +2,12 @@ package com.stal111.forbidden_arcanus;
 
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.particle.ModBreakingParticle;
+import com.stal111.forbidden_arcanus.particle.SoulParticle;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
+import com.stal111.forbidden_arcanus.util.BakedModelOverrideRegistry;
+import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
 import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
@@ -13,8 +16,10 @@ import net.minecraft.client.particle.BreakingParticle;
 import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -125,7 +130,7 @@ public class Main {
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public static void registerFactories(ParticleFactoryRegisterEvent event) {
-		Minecraft.getInstance().particles.registerFactory(ModParticles.soul, SpellParticle.Factory::new);
+		Minecraft.getInstance().particles.registerFactory(ModParticles.soul, SoulParticle.Factory::new);
 		Minecraft.getInstance().particles.registerFactory(ModParticles.item_seed_bullet, new ModBreakingParticle.Factory());
 	}
 }

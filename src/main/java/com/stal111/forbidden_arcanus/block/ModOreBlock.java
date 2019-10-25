@@ -2,10 +2,9 @@ package com.stal111.forbidden_arcanus.block;
 
 import java.util.Random;
 
-import com.stal111.forbidden_arcanus.util.ModUtils;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.OreBlock;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorldReader;
