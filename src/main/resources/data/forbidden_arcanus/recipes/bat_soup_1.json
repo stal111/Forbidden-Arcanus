@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bat_soup",
+
+    "ingredients": [
+        {
+            "item": "minecraft:brown_mushroom"
+        },
+        {
+            "item": "minecraft:nether_wart"
+        },
+        {
+            "item": "minecraft:bowl"
+        },
+        {
+            "item": "forbidden_arcanus:bat_wing"
+        }
+    ],
+    "result": {
+        "item": "forbidden_arcanus:bat_soup"
+    }
+}

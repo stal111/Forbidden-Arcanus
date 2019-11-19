@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.util;
+package com.stal111.forbidden_arcanus.block.dispenser;
 
 import com.stal111.forbidden_arcanus.block.ModBlocks;
 import net.minecraft.block.Block;

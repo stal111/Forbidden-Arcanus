@@ -5,8 +5,10 @@ import com.stal111.forbidden_arcanus.Main;
 
 import net.minecraft.block.*;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +19,8 @@ import net.minecraft.world.biome.Biomes;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ModUtils {
@@ -99,5 +103,23 @@ public class ModUtils {
 	public static void addStrippable(Block block, Block strippedBlock) {
 		AxeItem.BLOCK_STRIPPING_MAP = Maps.newHashMap(AxeItem.BLOCK_STRIPPING_MAP);
 		AxeItem.BLOCK_STRIPPING_MAP.put(block, strippedBlock);
+	}
+
+	public static List<?> removeLastFromList(List<?> list) {
+		ArrayList list1 = new ArrayList();
+		for (int i = 0; i < list.size() -1; i++) {
+			list1.add(list.get(i));
+		}
+		return list1;
+	}
+
+	public static void shrinkStack(PlayerEntity player, ItemStack stack) {
+		shrinkStack(player, stack, 1);
+	}
+
+	public static void shrinkStack(PlayerEntity player, ItemStack stack, int count) {
+		if (!player.abilities.isCreativeMode) {
+			stack.shrink(count);
+		}
 	}
 }

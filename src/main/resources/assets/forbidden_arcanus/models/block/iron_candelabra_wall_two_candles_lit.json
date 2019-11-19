@@ -1,0 +1,6 @@
+{
+    "parent": "forbidden_arcanus:block/candelabra_wall_two_candles_lit",
+    "textures": {
+        "candelabra": "forbidden_arcanus:block/iron_candelabra"
+    }
+}

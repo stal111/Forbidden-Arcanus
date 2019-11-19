@@ -24,12 +24,12 @@ public class FlyEffect extends Effect {
     public void performEffect(LivingEntity livingEntity, int amplifier) {
         int i = livingEntity.getActivePotionEffect(ModEffects.fly).getDuration();
         if (livingEntity instanceof PlayerEntity) {
-            PlayerEntity playerEntity = (PlayerEntity) livingEntity;
-            if (i >= 20) {
-                playerEntity.abilities.allowFlying = true;
+            PlayerEntity player = (PlayerEntity) livingEntity;
+            if (i >= 20 || player.abilities.isCreativeMode) {
+                player.abilities.allowFlying = true;
             } else {
-                playerEntity.abilities.allowFlying = false;
-                playerEntity.abilities.isFlying = false;
+                player.abilities.allowFlying = false;
+                player.abilities.isFlying = false;
             }
         }
     }

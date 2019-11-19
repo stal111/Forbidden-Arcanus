@@ -43,13 +43,13 @@ public class WorldGenConfig {
 		ARCANE_CRYSTAL_ORE_MAX_HEIGHT = SERVER_BUILDER.comment("Maximum height for the Arcane Crystal Ore").defineInRange("oregen.ArcaneCrystalOreMaxHeight", 20, 1, 256);
 
 		GENERATE_RUNESTONE = SERVER_BUILDER.comment("Generate Runestone").define("oregen.generateRunestone", true);
-		RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER.comment("Maximum size of Runestone vein").defineInRange("oregen.maxRunestoneVeinSize", 3, 0, 500);
+		RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER.comment("Maximum size of Runestone vein").defineInRange("oregen.maxRunestoneVeinSize", 4, 0, 500);
 		RUNESTONE_COUNT = SERVER_BUILDER.comment("Maximum Runestone veins per chunk").defineInRange("oregen.RunestoneCount", 3, 1, 10000000);
 		RUNESTONE_MIN_HEIGHT = SERVER_BUILDER.comment("Minimum height for the Runestone").defineInRange("oregen.RunestoneMinHeight", 0, 1, 256);
 		RUNESTONE_MAX_HEIGHT = SERVER_BUILDER.comment("Maximum height for the Runestone").defineInRange("oregen.RunestoneMaxHeight", 25, 1, 256);
 
 		GENERATE_DARK_RUNESTONE = SERVER_BUILDER.comment("Generate Dark Runestone").define("oregen.generateDarkRunestone", true);
-		DARK_RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER.comment("Maximum size of Dark Runestone vein").defineInRange("oregen.maxDarkRunestoneVeinSize", 3, 0, 500);
+		DARK_RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER.comment("Maximum size of Dark Runestone vein").defineInRange("oregen.maxDarkRunestoneVeinSize", 5, 0, 500);
 		DARK_RUNESTONE_COUNT = SERVER_BUILDER.comment("Maximum Dark Runestone veins per chunk").defineInRange("oregen.DarkRunestoneCount", 3, 1, 10000000);
 		DARK_RUNESTONE_MIN_HEIGHT = SERVER_BUILDER.comment("Minimum height for the Dark Runestone").defineInRange("oregen.DarkRunestoneMinHeight", 0, 1, 256);
 		DARK_RUNESTONE_MAX_HEIGHT = SERVER_BUILDER.comment("Maximum height for the Dark Runestone").defineInRange("oregen.DarkRunestoneMaxHeight", 9, 1, 256);

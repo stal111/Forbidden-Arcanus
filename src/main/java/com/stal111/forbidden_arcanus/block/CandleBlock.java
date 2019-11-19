@@ -1,9 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
@@ -101,7 +98,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		return func_220055_a(world, pos.down(), Direction.UP);
+		return (func_220055_a(world, pos.down(), Direction.UP)) && !CandelabraBlock.getCandelabraBlocks().contains(world.getBlockState(pos.down()).getBlock());
 	}
 
 	@Override
@@ -122,7 +119,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 
 	@Override
 	public int getLightValue(BlockState state, IEnviromentBlockReader world, BlockPos pos) {
-		return state.get(LIT) ? super.getLightValue(state, world, pos) : 0;
+		return state.get(LIT) && !state.get(WATERLOGGED) ? super.getLightValue(state, world, pos) : 0;
 	}
 
 	@Override

@@ -1,22 +1,22 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "particle": "forbidden_arcanus:block/candelabra",
-        "chandelier": "forbidden_arcanus:block/candelabra",
+        "particle": "#candelabra",
+        "chandelier": "#candelabra",
         "candle": "forbidden_arcanus:block/candle"
     },
     "elements": [
         {
             "name": "Base",
-            "from": [ 5, 0, 5 ], 
-            "to": [ 11, 1, 11 ], 
+            "from": [ 6, 0, 6 ],
+            "to": [ 10, 1, 10 ],
             "faces": {
-                "north": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "east": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "south": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "west": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "up": { "texture": "#chandelier", "uv": [ 6, 1, 12, 7 ] },
-                "down": { "texture": "#chandelier", "uv": [ 6, 1, 12, 7 ] }
+                "north": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "east": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "south": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "west": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "up": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] },
+                "down": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] }
             }
         },
         {
@@ -129,8 +129,8 @@
         },
         {
             "name": "Candle Wick 0",
-            "from": [ 11, 16, 7.5 ], 
-            "to": [ 11, 17, 8.5 ], 
+            "from": [ 11, 16, 7.75 ],
+            "to": [ 11, 16.5, 8.25 ],
             "faces": {
                 "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
                 "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
@@ -138,39 +138,11 @@
         },
         {
             "name": "Candle Wick 0",
-            "from": [ 10.5, 16, 8 ], 
-            "to": [ 11.5, 17, 8 ], 
+            "from": [ 10.75, 16, 8 ],
+            "to": [ 11.25, 16.5, 8 ],
             "faces": {
                 "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
                 "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
-            }
-        },
-        {
-            "name": "Fire 0",
-            "from": [ 10, 16, 8 ], 
-            "to": [ 12, 19, 8 ], 
-            "rotation": { "origin": [ 11.0, 16.0, 8.0 ], "axis": "y", "angle": -45.0 },
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "east": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "south": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "west": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "up": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] },
-                "down": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] }
-            }
-        },
-        {
-            "name": "Fire 0",
-            "from": [ 10, 16, 8 ], 
-            "to": [ 12, 19, 8 ], 
-            "rotation": { "origin": [ 11.0, 16.0, 8.0 ], "axis": "y", "angle": 45.0 },
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "east": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "south": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "west": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "up": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] },
-                "down": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] }
             }
         },
         {
@@ -187,8 +159,8 @@
         },
         {
             "name": "Candle Wick 1",
-            "from": [ 5, 16, 7.5 ], 
-            "to": [ 5, 17, 8.5 ], 
+            "from": [ 5, 16, 7.75 ],
+            "to": [ 5, 16.5, 8.25 ],
             "faces": {
                 "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
                 "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
@@ -196,39 +168,11 @@
         },
         {
             "name": "Candle Wick 1",
-            "from": [ 4.5, 16, 8 ], 
-            "to": [ 5.5, 17, 8 ], 
+            "from": [ 4.75, 16, 8 ],
+            "to": [ 5.25, 16.5, 8 ],
             "faces": {
                 "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
                 "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
-            }
-        },
-        {
-            "name": "Fire 1",
-            "from": [ 4, 16, 8 ], 
-            "to": [ 6, 19, 8 ], 
-            "rotation": { "origin": [ 5.0, 16.0, 8.0 ], "axis": "y", "angle": -45.0 },
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "east": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "south": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "west": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "up": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] },
-                "down": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] }
-            }
-        },
-        {
-            "name": "Fire 1",
-            "from": [ 4, 16, 8 ], 
-            "to": [ 6, 19, 8 ], 
-            "rotation": { "origin": [ 5.0, 16.0, 8.0 ], "axis": "y", "angle": 45.0 },
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "east": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "south": { "texture": "#candle", "uv": [ 1, 0, 7, 8.5 ] },
-                "west": { "texture": "#candle", "uv": [ 0, 0, 0, 3 ] },
-                "up": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] },
-                "down": { "texture": "#candle", "uv": [ 0, 0, 2, 0 ] }
             }
         }
     ]

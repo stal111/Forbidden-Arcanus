@@ -1,27 +1,27 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "particle": "forbidden_arcanus:block/candelabra",
-        "chandelier": "forbidden_arcanus:block/candelabra"
+        "particle": "#candelabra",
+        "chandelier": "#candelabra"
     },
     "elements": [
         {
             "name": "Base",
-            "from": [ 5, 0, 5 ], 
-            "to": [ 11, 1, 11 ], 
+            "from": [ 6, 0, 6 ],
+            "to": [ 10, 1, 10 ],
             "faces": {
-                "north": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "east": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "south": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "west": { "texture": "#chandelier", "uv": [ 6, 0, 12, 1 ] },
-                "up": { "texture": "#chandelier", "uv": [ 6, 1, 12, 7 ] },
-                "down": { "texture": "#chandelier", "uv": [ 6, 1, 12, 7 ] }
+                "north": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "east": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "south": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "west": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "up": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] },
+                "down": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] }
             }
         },
         {
             "name": "Chandelier",
-            "from": [ 6.5, 1, 6.5 ], 
-            "to": [ 9.5, 4, 9.5 ], 
+            "from": [ 6.5, 1, 6.5 ],
+            "to": [ 9.5, 4, 9.5 ],
             "faces": {
                 "north": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
                 "east": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
@@ -32,25 +32,26 @@
         },
         {
             "name": "Chandelier",
-            "from": [ 7, 4, 7 ], 
-            "to": [ 9, 11, 9 ], 
+            "from": [ 7, 4, 7 ],
+            "to": [ 9, 10, 9 ],
             "faces": {
-                "north": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] },
-                "east": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] },
-                "south": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] },
-                "west": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] }
+                "north": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] },
+                "up": { "texture": "#chandelier", "uv": [ 0, 3, 2, 5 ] }
             }
         },
         {
             "name": "Chandelier",
-            "from": [ 6.5, 11, 6.5 ], 
-            "to": [ 9.5, 13, 9.5 ], 
+            "from": [ 6.5, 10, 6.5 ],
+            "to": [ 9.5, 12, 9.5 ],
             "faces": {
                 "north": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
                 "east": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
                 "south": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
                 "west": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
-                "up": { "texture": "#chandelier", "uv": [ 0, 0, 3, 3 ] },
+                "up": { "texture": "#chandelier", "uv": [ 3, 5, 6, 8 ] },
                 "down": { "texture": "#chandelier", "uv": [ 3, 13, 6, 16 ] }
             }
         }
