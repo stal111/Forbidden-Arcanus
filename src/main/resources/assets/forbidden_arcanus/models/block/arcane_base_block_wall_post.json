@@ -1,6 +1,6 @@
 {
     "parent": "block/template_wall_post",
     "textures": {
-        "wall": "forbidden_arcanus:block/arcane_base"
+        "wall": "forbidden_arcanus:block/arcane_base_block"
     }
 }

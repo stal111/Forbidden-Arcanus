@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.block.tileentity.render;
 import java.util.List;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.stal111.forbidden_arcanus.block.ModBlocks;
 import com.stal111.forbidden_arcanus.block.tileentity.ModSignTileEntity;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 
 import net.minecraft.block.Block;
@@ -120,11 +120,11 @@ public class ModSignTileEntityRenderer extends TileEntityRenderer<ModSignTileEnt
 	}
 
 	private ResourceLocation func_217658_a(Block block) {
-		if (block == ModBlocks.edelwood_sign || block == ModBlocks.edelwood_wall_sign) {
+		if (block == ModBlocks.EDELWOOD_SIGN.getBlock() || block == ModBlocks.EDELWOOD_WALL_SIGN.getBlock()) {
 			return edelwoodSignTexture;
-		} else if (block == ModBlocks.cherrywood_sign || block == ModBlocks.cherrywood_wall_sign) {
+		} else if (block == ModBlocks.CHERRYWOOD_SIGN.getBlock() || block == ModBlocks.CHERRYWOOD_WALL_SIGN.getBlock()) {
 			return cherrywoodSignTexture;
-		} else if (block == ModBlocks.mysterywood_sign || block == ModBlocks.mysterywood_wall_sign) {
+		} else if (block == ModBlocks.MYSTERYWOOD_SIGN.getBlock() || block == ModBlocks.MYSTERYWOOD_WALL_SIGN.getBlock()) {
 			return mysterywoodSignTexture;
 		}
 		return null;

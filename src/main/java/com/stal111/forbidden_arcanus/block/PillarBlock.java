@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
+import com.stal111.forbidden_arcanus.block.properties.ConnectedBlockType;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 
 import net.minecraft.block.Block;
@@ -24,7 +25,7 @@ import net.minecraft.world.IWorld;
 
 public class PillarBlock extends WaterloggedBlock {
 
-	public static final EnumProperty<PillarType> TYPE = EnumProperty.create("type", PillarType.class);
+	public static final EnumProperty<ConnectedBlockType> TYPE = EnumProperty.create("type", ConnectedBlockType.class);
 	public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
 	private static final VoxelShape[]
@@ -53,7 +54,7 @@ public class PillarBlock extends WaterloggedBlock {
 			case SOUTH: return VoxelShapeHelper.combineAll(SHAPE_Z[0], SHAPE_Z[1], SHAPE_Z[2]);
 			default: return VoxelShapeHelper.combineAll(SHAPE_Y[2], SHAPE_Y[3], SHAPE_Y[4]);
 			}
-		case MIDDLE:
+			case CENTER:
 			switch (state.get(FACING)) {
 			case EAST: return VoxelShapeHelper.combineAll(SHAPE_X[2]);
 			case WEST: return VoxelShapeHelper.combineAll(SHAPE_X[2]);
@@ -75,7 +76,7 @@ public class PillarBlock extends WaterloggedBlock {
 
 	public PillarBlock(Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(TYPE, PillarType.SINGLE).with(WATERLOGGED, Boolean.valueOf(false)));
+		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(TYPE, ConnectedBlockType.SINGLE).with(WATERLOGGED, Boolean.valueOf(false)));
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class PillarBlock extends WaterloggedBlock {
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
 		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
-		return super.getStateForPlacement(context).with(TYPE, PillarType.SINGLE)
+		return super.getStateForPlacement(context).with(TYPE, ConnectedBlockType.SINGLE)
 				.with(FACING, context.getFace())
 				.with(WATERLOGGED, Boolean.valueOf(flag));
 	}
@@ -115,37 +116,37 @@ public class PillarBlock extends WaterloggedBlock {
 		
 	}
 	
-	public PillarType tryConnect(BlockState state, IWorld world, BlockPos currentPos) {
-		BlockState stateDown = world.getBlockState(currentPos.offset((Direction) state.get(FACING)));
-		BlockState stateUp = world.getBlockState(currentPos.offset((Direction) state.get(FACING), -1));
+	public ConnectedBlockType tryConnect(BlockState state, IWorld world, BlockPos currentPos) {
+		BlockState stateDown = world.getBlockState(currentPos.offset(state.get(FACING)));
+		BlockState stateUp = world.getBlockState(currentPos.offset(state.get(FACING), -1));
 		if (stateUp.getBlock() == this && stateDown.getBlock() == this) {
 			boolean blockUp = stateUp.get(FACING).getAxis() == state.get(FACING).getAxis();
 			boolean blockDown = stateDown.get(FACING).getAxis() == state.get(FACING).getAxis();
 			if (blockUp && blockDown) {
-				return PillarType.MIDDLE;
-			} else if (blockUp && !blockDown) {
-				return PillarType.BOTTOM;
-			} else if (!blockUp && blockDown) {
-				return PillarType.TOP;
+				return ConnectedBlockType.CENTER;
+			} else if (blockUp) {
+				return ConnectedBlockType.BOTTOM;
+			} else if (blockDown) {
+				return ConnectedBlockType.TOP;
 			} else {
-				return PillarType.SINGLE;
+				return ConnectedBlockType.SINGLE;
 			}
 		} else if (stateUp.getBlock() == this && stateDown.getBlock() != this) {
 			boolean blockUp = stateUp.get(FACING).getAxis() == state.get(FACING).getAxis();
 			if (blockUp) {
-				return PillarType.BOTTOM;
+				return ConnectedBlockType.BOTTOM;
 			} else {
-				return PillarType.SINGLE;
+				return ConnectedBlockType.SINGLE;
 			}
 		} else if (stateUp.getBlock() != this && stateDown.getBlock() == this) {
 			boolean blockDown = stateDown.get(FACING).getAxis() == state.get(FACING).getAxis();
 			if (blockDown) {
-				return PillarType.TOP;
+				return ConnectedBlockType.TOP;
 			} else {
-				return PillarType.SINGLE;
+				return ConnectedBlockType.SINGLE;
 			}
 		} else {
-			return PillarType.SINGLE;
+			return ConnectedBlockType.SINGLE;
 		}
 	}
 
@@ -174,24 +175,4 @@ public class PillarBlock extends WaterloggedBlock {
 			return state;
 		}
 	}
-	
-	public enum PillarType implements IStringSerializable {
-		SINGLE("single"),
-		TOP("top"),
-		MIDDLE("middle"),
-		BOTTOM("bottom");
-		
-		public final String type;
-		
-		private PillarType(String name) {
-			this.type = name;
-		}
-
-		@Override
-		public String getName() {
-			return type;
-		}
-		
-	}
-
 }

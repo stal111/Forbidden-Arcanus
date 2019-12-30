@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.item.armor;
 import java.util.function.Supplier;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.item.ModItems;
 
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
@@ -16,19 +16,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum ModArmorMaterial implements IArmorMaterial {
 	DRACO_ARCANUS(Main.MOD_ID + ":draco_arcanus", 40, new int[]{6, 8, 10, 6}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F, () -> {
-	      return Ingredient.fromItems(ModItems.dragon_scale);
+	      return Ingredient.fromItems(ModItems.DRAGON_SCALE.getItem());
 	}),
 	TYR(Main.MOD_ID + ":tyr", 50, new int[]{8, 10, 12, 7}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.0F, () -> {
-		return Ingredient.fromItems(ModItems.golden_dragon_scale, ModItems.aquatic_dragon_scale);
+		return Ingredient.fromItems(ModItems.GOLDEN_DRAGON_SCALE.getItem(), ModItems.AQUATIC_DRAGON_SCALE.getItem());
 	}),
 	MORTEM(Main.MOD_ID + ":mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
-		return Ingredient.fromItems(ModItems.skull);
+		return Ingredient.fromItems(ModItems.CLOTH.getItem());
 	}),
 	ARCANE_GOLD(Main.MOD_ID + ":arcane_gold", 38, new int[]{3, 6, 7, 3}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0F, () -> {
-		return Ingredient.fromItems(ModItems.arcane_gold_ingot);
+		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.getItem());
 	}),
 	OBSIDIAN(Main.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
-		return Ingredient.fromItems(ModItems.obsidian_ingot);
+		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.getItem());
 	});
 	
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};

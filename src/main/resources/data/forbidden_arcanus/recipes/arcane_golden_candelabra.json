@@ -20,6 +20,7 @@
     
     "result":
     {
-        "item": "forbidden_arcanus:arcane_golden_candelabra"
+        "item": "forbidden_arcanus:arcane_golden_candelabra",
+        "count": 3
     }
 }

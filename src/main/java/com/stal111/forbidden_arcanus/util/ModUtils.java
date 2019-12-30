@@ -9,10 +9,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -120,6 +124,23 @@ public class ModUtils {
 	public static void shrinkStack(PlayerEntity player, ItemStack stack, int count) {
 		if (!player.abilities.isCreativeMode) {
 			stack.shrink(count);
+		}
+	}
+
+	public static ScorePlayerTeam createTeam(Scoreboard scoreboard, String name, TextFormatting color) {
+		if (scoreboard.getTeamNames().contains(name)) {
+			return scoreboard.getTeam(name);
+		} else {
+			ScorePlayerTeam team = scoreboard.createTeam(name);
+			team.setDisplayName(new StringTextComponent(name));
+			team.setColor(color);
+			return team;
+		}
+	}
+
+	public static void removeTeam(Scoreboard scoreboard, ScorePlayerTeam team) {
+		if (scoreboard.getTeamNames().contains(team.getName())) {
+			scoreboard.removeTeam(team);
 		}
 	}
 }

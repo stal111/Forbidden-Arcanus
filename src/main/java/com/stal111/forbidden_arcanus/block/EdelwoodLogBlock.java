@@ -1,59 +1,86 @@
 package com.stal111.forbidden_arcanus.block;
 
+import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ShearsItem;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	
-	private static final VoxelShape[]
-			SHAPE_X = {
-					Block.makeCuboidShape(0, 0, 3, 16, 2, 13),  Block.makeCuboidShape(0, 14, 3, 16, 16, 13), Block.makeCuboidShape(0, 3, 0, 16, 13, 2), Block.makeCuboidShape(0, 3, 14, 16, 13, 16),
-					Block.makeCuboidShape(0, 1, 1, 16, 4, 4), Block.makeCuboidShape(0, 1, 12, 16, 4, 15), Block.makeCuboidShape(0, 12, 1, 16, 15, 4), Block.makeCuboidShape(0, 12, 12, 16, 15, 15)},
-			SHAPE_Y = {
-					Block.makeCuboidShape(3, 0, 0, 13, 16, 2), Block.makeCuboidShape(3, 0, 14, 13, 16, 16), Block.makeCuboidShape(0, 0, 3, 2, 16, 13), Block.makeCuboidShape(14, 0, 3, 16, 16, 13),
-					Block.makeCuboidShape(1, 0, 1, 4, 16, 4), Block.makeCuboidShape(12, 0, 1, 15, 16, 4), Block.makeCuboidShape(1, 0, 12, 4, 16, 15), Block.makeCuboidShape(12, 0, 12, 15, 16, 15)},
-			SHAPE_Z = {
-					Block.makeCuboidShape(3, 0, 0, 13, 2, 16), Block.makeCuboidShape(3, 14, 0, 13, 16, 16), Block.makeCuboidShape(0, 3, 0, 2, 13, 16), Block.makeCuboidShape(14, 3, 0, 16, 13, 16),
-					Block.makeCuboidShape(1, 1, 0, 4, 4, 16), Block.makeCuboidShape(12, 1, 0, 15, 4, 16), Block.makeCuboidShape(1, 12, 0, 4, 15, 16), Block.makeCuboidShape(12, 12, 0, 15, 15, 16)};
+	public static final BooleanProperty LEAVES = BooleanProperty.create("leaves");
+	public static final BooleanProperty OIL = BooleanProperty.create("oil");
+
+	private static final VoxelShape INSIDE = makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
+	private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), INSIDE, IBooleanFunction.ONLY_FIRST);
 
 	public EdelwoodLogBlock(MaterialColor color, Properties properties) {
 		super(color, properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(AXIS, Direction.Axis.Y).with(WATERLOGGED,false));
-	}
-
-	private VoxelShape generateShape(BlockState state) {
-		switch (state.get(AXIS)) {
-		case X:
-			return VoxelShapeHelper.combineAll(SHAPE_X);
-		case Y:
-			return VoxelShapeHelper.combineAll(SHAPE_Y);
-		case Z:
-			return VoxelShapeHelper.combineAll(SHAPE_Z);
-		}
-		return VoxelShapes.fullCube();
+		this.setDefaultState(this.stateContainer.getBaseState().with(AXIS, Direction.Axis.Y).with(LEAVES, false).with(OIL, false).with(WATERLOGGED,false));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(AXIS, WATERLOGGED);
+	public void tick(BlockState state, World world, BlockPos pos, Random random) {
+		if (!world.isRemote()) {
+			if (random.nextDouble() < 0.06 && world.isAreaLoaded(pos, 4)) {
+				if (!state.get(OIL)) {
+					world.setBlockState(pos, state.with(OIL, true), 2);
+				}
+			}
+		}
+		super.tick(state, world, pos, random);
+	}
+
+	@Override
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+		ItemStack stack = player.getHeldItem(hand);
+		if (stack.getItem() == Items.GLASS_BOTTLE && state.get(OIL)) {
+			ModUtils.shrinkStack(player, stack);
+				if (!player.addItemStackToInventory(new ItemStack(ModItems.EDELWOOD_OIL.getItem()))) {
+					player.dropItem(new ItemStack(ModItems.EDELWOOD_OIL.getItem()), false);
+				}
+			world.setBlockState(pos, state.with(OIL, false), 2);
+			return true;
+		} else if (stack.getItem() instanceof ShearsItem && state.get(LEAVES)) {
+			if (player instanceof ServerPlayerEntity) {
+				stack.damageItem(1, player, (player1) -> player1.sendBreakAnimation(hand));
+			}
+			world.setBlockState(pos, state.with(LEAVES, false), 2);
+			world.playSound(player, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			return true;
+		}
+		return super.onBlockActivated(state, world, pos, player, hand, result);
+	}
+
+	@Override
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.CUTOUT;
 	}
 
 	@Override
@@ -62,22 +89,36 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	}
 	
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos,
-			ISelectionContext context) {
-		return this.generateShape(state);
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+		return VoxelShapeHelper.roteteShapeAxis(SHAPE, state.get(AXIS));
 	}
-	
+
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos,
-			ISelectionContext context) {
-		return this.generateShape(state);
+	public VoxelShape getRaytraceShape(BlockState state, IBlockReader world, BlockPos pos) {
+		return VoxelShapeHelper.roteteShapeAxis(INSIDE, state.get(AXIS));
+	}
+
+	@Override
+	public void fillWithRain(World world, BlockPos pos) {
+		if (world.rand.nextDouble() < 0.35) {
+			float temperature = world.getBiome(pos).func_225486_c(pos);
+			if (temperature >= 0.15F) {
+				BlockState state = world.getBlockState(pos);
+				BlockState stateDown = world.getBlockState(pos.down());
+				if (stateDown.isSolid() && state.get(AXIS) == Direction.Axis.Y) {
+					if (!state.get(WATERLOGGED)) {
+						world.setBlockState(pos, state.with(WATERLOGGED, true), 2);
+					}
+				}
+			}
+		}
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		return super.getStateForPlacement(context).with(AXIS, context.getFace().getAxis()).with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8));
-
+		Direction.Axis axis = context.getFace().getAxis();
+		return super.getStateForPlacement(context).with(AXIS, axis).with(WATERLOGGED, ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8);
 	}
 
 	@Override
@@ -89,7 +130,13 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	}
 
 	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		builder.add(AXIS, LEAVES, OIL, WATERLOGGED);
+	}
+
+	@Override
 	public IFluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
+
 }

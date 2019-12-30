@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.block.ModBlocks;
 
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +17,7 @@ public class ModItemGroup extends ItemGroup {
 
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(ModBlocks.runic_tenebris_core);
+		return new ItemStack(ModBlocks.RUNIC_TENEBRIS_CORE.getBlock());
 	}
 	
 	@Override

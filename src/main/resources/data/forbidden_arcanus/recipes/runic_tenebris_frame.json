@@ -3,22 +3,22 @@
     
     "pattern":
     [
-        "ARA",
-        "RDR",
-        "ARA"
+        "#X#",
+        "XDX",
+        "#X#"
     
     ],
     
     "key":
     {
-        "A":
+        "#":
         {
             "item": "forbidden_arcanus:arcane_gold_ingot"
         },
         
-        "R":
+        "X":
         {
-            "item": "forbidden_arcanus:runic_carved_dark_stone_bricks"
+            "item": "forbidden_arcanus:runic_chiseled_dark_stone_bricks"
         },
         
         "D":

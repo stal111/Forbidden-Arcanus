@@ -1,9 +1,9 @@
 {
     "parent": "block/slab_top",
     "textures": {
-        "bottom": "forbidden_arcanus:block/arcane_base",
-        "top": "forbidden_arcanus:block/arcane_base",
-        "side": "forbidden_arcanus:block/arcane_base"
+        "bottom": "forbidden_arcanus:block/arcane_base_block",
+        "top": "forbidden_arcanus:block/arcane_base_block",
+        "side": "forbidden_arcanus:block/arcane_base_block"
     }
 }
 

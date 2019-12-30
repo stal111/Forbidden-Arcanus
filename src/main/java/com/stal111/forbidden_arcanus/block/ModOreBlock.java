@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.block;
 
 import java.util.Random;
 
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.OreBlock;
 import net.minecraft.util.BlockRenderLayer;
@@ -16,11 +17,11 @@ public class ModOreBlock extends OreBlock {
 	}
 	
 	protected int func_220281_a(Random p_220281_1_) {
-	      if (this == ModBlocks.arcane_crystal_ore) {
+	      if (this == ModBlocks.ARCANE_CRYSTAL_ORE.getBlock()) {
 	         return MathHelper.nextInt(p_220281_1_, 2, 5);
-	      } else if (this == ModBlocks.runestone) {
+	      } else if (this == ModBlocks.RUNESTONE.getBlock()) {
 	         return MathHelper.nextInt(p_220281_1_, 4, 8);
-	      } else if (this == ModBlocks.dark_runestone) {
+	      } else if (this == ModBlocks.DARK_RUNESTONE.getBlock()) {
 	         return MathHelper.nextInt(p_220281_1_, 5, 9);
 	      } else {
 	         return 0;
@@ -30,5 +31,10 @@ public class ModOreBlock extends OreBlock {
 	@Override
 	public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
 		  return silktouch == 0 ? this.func_220281_a(RANDOM) : 0;
+	}
+
+	@Override
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.CUTOUT;
 	}
 }

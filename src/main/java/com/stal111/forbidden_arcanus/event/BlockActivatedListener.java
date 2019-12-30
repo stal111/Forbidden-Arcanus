@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.block.ModBlocks;
-import com.stal111.forbidden_arcanus.item.ModItems;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -18,15 +18,15 @@ public class BlockActivatedListener {
         World world = event.getWorld();
         ItemStack stack = event.getItemStack();
         BlockState state = world.getBlockState(event.getPos());
-        if (state.getBlock() == Blocks.FARMLAND) {
-            if (stack.getItem() == ModItems.arcane_crystal_dust) {
+        if (stack.getItem() == ModItems.ARCANE_CRYSTAL_DUST.getItem()) {
+            if (state.getBlock() == Blocks.FARMLAND) {
                 if (!event.getPlayer().abilities.isCreativeMode) {
                     stack.shrink(1);
                 }
                 if (state.get(BlockStateProperties.MOISTURE_0_7) >= 1) {
-                    world.setBlockState(event.getPos(), ModBlocks.magical_farmland.getDefaultState().with(BlockStateProperties.MOISTURE_0_7, Integer.valueOf(7)), 2);
+                    world.setBlockState(event.getPos(), ModBlocks.MAGICAL_FARMLAND.getState().with(BlockStateProperties.MOISTURE_0_7, 7), 2);
                 } else {
-                    world.setBlockState(event.getPos(), ModBlocks.magical_farmland.getDefaultState(), 2);
+                    world.setBlockState(event.getPos(), ModBlocks.MAGICAL_FARMLAND.getState(), 2);
                 }
             }
         }

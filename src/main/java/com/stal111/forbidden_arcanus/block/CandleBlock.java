@@ -82,7 +82,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 
 	@Override
 	public boolean isReplaceable(BlockState state, BlockItemUseContext context) {
-		return context.getItem().getItem() == this.asItem() && state.get(CANDLES) < 4 ? true : super.isReplaceable(state, context);
+		return context.getItem().getItem() == this.asItem() && state.get(CANDLES) < 4 || super.isReplaceable(state, context);
 	}
 	
 	@Override

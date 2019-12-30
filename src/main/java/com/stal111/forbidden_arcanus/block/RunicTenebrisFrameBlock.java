@@ -1,8 +1,8 @@
 
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
-
+import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -24,12 +24,11 @@ public class RunicTenebrisFrameBlock extends WaterloggedBlock {
 			return true;
 		} else {
 			boolean flag = state.get(WATERLOGGED);
-			if (stack.getItem() == ModItems.dark_nether_star && !world.isRemote) {
+			if (stack.getItem() == ModItems.DARK_NETHER_STAR.getItem() && !world.isRemote) {
 				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
-				world.setBlockState(pos, ModBlocks.runic_tenebris_core.getStateContainer().getBaseState()
-						.with(WATERLOGGED, Boolean.valueOf(flag)));
+				world.setBlockState(pos, ModBlocks.RUNIC_TENEBRIS_CORE.getBlock().getDefaultState().with(WATERLOGGED, flag));
 				return true;
 			} else {
 				return false;

@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "#X#",
+        " S "
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "minecraft:feather"
+        },
+         "X":
+        {
+            "item": "forbidden_arcanus:arcane_crystal_dust"
+        },
+         "S":
+        {
+            "item": "forbidden_arcanus:soul"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:pixie"
+    }
+}

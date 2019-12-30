@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
-
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
@@ -17,7 +16,7 @@ public class HarvestDropsEvent {
 	@SubscribeEvent
 	public static void onBlockDestroyed(BlockEvent.HarvestDropsEvent event) {
 		Block block = event.getState().getBlock();
-		Item item = ModItems.infernum_pickaxe;
+		Item item = ModItems.INFERNUM_PICKAXE.getItem();
 		if (event.getHarvester() != null && event.getHarvester().getHeldItemMainhand().getItem() == item) {
 			if (block == Blocks.IRON_ORE) {
 				event.getDrops().clear();

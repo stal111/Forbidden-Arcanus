@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.util.SoulDispenseBehavior;
+import com.stal111.forbidden_arcanus.block.dispenser.SoulDispenseBehavior;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.Item;
 

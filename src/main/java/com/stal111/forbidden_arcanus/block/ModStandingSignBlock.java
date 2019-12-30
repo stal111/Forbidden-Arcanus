@@ -22,5 +22,4 @@ public class ModStandingSignBlock extends StandingSignBlock {
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new ModSignTileEntity();
 	}
-
 }

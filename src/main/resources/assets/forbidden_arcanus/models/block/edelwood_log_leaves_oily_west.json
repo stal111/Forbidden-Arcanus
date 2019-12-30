@@ -1,0 +1,122 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/edelwood_log",
+        "edelwood_leaves": "forbidden_arcanus:block/edelwood_leaves",
+        "edelwood_log_top": "forbidden_arcanus:block/edelwood_log_top",
+        "edelwood_log": "forbidden_arcanus:block/edelwood_log",
+        "edelwood_log_face": "forbidden_arcanus:block/edelwood_log_face",
+        "edelwood_log_oily": "forbidden_arcanus:block/edelwood_log_oily"
+    },
+    "parent": "block/cube_all",
+    "elements": [
+        {
+            "name": "Log",
+            "from": [ 0, 0, 0 ], 
+            "to": [ 16, 16, 2 ], 
+            "faces": {
+                "north": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#edelwood_log_oily", "uv": [ 14, 0, 16, 16 ] },
+                "south": { "texture": "#edelwood_log", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 2, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 0, 0, 16, 2 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 0, 14, 16, 16 ] }
+            }
+        },
+        {
+            "name": "Log",
+            "from": [ 0, 0, 2 ], 
+            "to": [ 2, 16, 14 ], 
+            "faces": {
+                "east": { "texture": "#edelwood_log", "uv": [ 2, 0, 14, 16 ] },
+                "west": { "texture": "#edelwood_log_face", "uv": [ 2, 0, 14, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 0, 2, 2, 14 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 14, 2, 16, 14 ] }
+            }
+        },
+        {
+            "name": "Log",
+            "from": [ 0, 0, 14 ], 
+            "to": [ 16, 16, 16 ], 
+            "faces": {
+                "north": { "texture": "#edelwood_log", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 2, 16 ] },
+                "south": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#edelwood_log_oily", "uv": [ 14, 0, 16, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 0, 14, 16, 16 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 0, 0, 16, 2 ] }
+            }
+        },
+        {
+            "name": "Log",
+            "from": [ 14, 0, 2 ], 
+            "to": [ 16, 16, 14 ], 
+            "faces": {
+                "east": { "texture": "#edelwood_log_oily", "uv": [ 2, 0, 14, 16 ] },
+                "west": { "texture": "#edelwood_log", "uv": [ 2, 0, 14, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 14, 2, 16, 14 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 0, 2, 2, 14 ] }
+            }
+        },
+        {
+            "name": "Leaves",
+            "from": [ -8, 5, 6 ], 
+            "to": [ 0, 13, 6 ], 
+            "rotation": { "origin": [ -1.0, 9.0, 6.0 ], "axis": "y", "angle": -22.5 },
+            "faces": {
+                "north": { "texture": "#edelwood_leaves", "uv": [ 8, 0, 16, 8 ] },
+                "south": { "texture": "#edelwood_leaves", "uv": [ 16, 0, 8, 8 ] }
+            }
+        },
+        {
+            "name": "Leaves",
+            "from": [ -9, 3, 7 ], 
+            "to": [ -1, 11, 7 ], 
+            "rotation": { "origin": [ -1.0, 9.0, 6.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#edelwood_leaves", "uv": [ 8, 8, 16, 16 ] },
+                "south": { "texture": "#edelwood_leaves", "uv": [ 16, 8, 8, 16 ] }
+            }
+        },
+        {
+            "name": "Leaves",
+            "from": [ 12, 1, 16 ], 
+            "to": [ 12, 9, 24 ], 
+            "rotation": { "origin": [ 12.0, 5.0, 16.0 ], "axis": "y", "angle": -22.5 },
+            "faces": {
+                "east": { "texture": "#edelwood_leaves", "uv": [ 0, 0, 8, 8 ] },
+                "west": { "texture": "#edelwood_leaves", "uv": [ 8, 0, 0, 8 ] }
+            }
+        },
+        {
+            "name": "Leaves",
+            "from": [ 13, 2, 17 ], 
+            "to": [ 13, 10, 25 ], 
+            "rotation": { "origin": [ 12.0, 5.0, 16.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "east": { "texture": "#edelwood_leaves", "uv": [ 0, 8, 8, 16 ] },
+                "west": { "texture": "#edelwood_leaves", "uv": [ 8, 8, 0, 16 ] }
+            }
+        },
+        {
+            "name": "Leaves",
+            "from": [ 14, 0, -8 ], 
+            "to": [ 14, 8, 0 ], 
+            "rotation": { "origin": [ 14.0, 4.0, 0.0 ], "axis": "y", "angle": 22.5 },
+            "faces": {
+                "east": { "texture": "#edelwood_leaves", "uv": [ 8, 8, 16, 16 ] },
+                "west": { "texture": "#edelwood_leaves", "uv": [ 16, 8, 8, 16 ] }
+            }
+        },
+        {
+            "name": "Leaves",
+            "from": [ 16, 4, 1 ], 
+            "to": [ 24, 12, 1 ], 
+            "rotation": { "origin": [ 16.0, 7.0, 1.0 ], "axis": "y", "angle": 22.5 },
+            "faces": {
+                "north": { "texture": "#edelwood_leaves", "uv": [ 16, 0, 8, 8 ] },
+                "south": { "texture": "#edelwood_leaves", "uv": [ 8, 0, 16, 8 ] }
+            }
+        }
+    ]
+}

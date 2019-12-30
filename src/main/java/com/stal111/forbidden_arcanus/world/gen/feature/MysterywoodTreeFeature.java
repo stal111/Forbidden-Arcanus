@@ -2,13 +2,14 @@ package com.stal111.forbidden_arcanus.world.gen.feature;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.Dynamic;
-import com.stal111.forbidden_arcanus.block.ModBlocks;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
+
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LogBlock;
 import net.minecraft.util.Direction;
@@ -21,8 +22,8 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 public class MysterywoodTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
-	private static final BlockState LOG = ModBlocks.mysterywood_log.getDefaultState();
-	private static final BlockState LEAVES = ModBlocks.mysterywood_leaves.getDefaultState();
+	private static final BlockState LOG = ModBlocks.MYSTERYWOOD_LOG.getState();
+	private static final BlockState LEAVES = ModBlocks.MYSTERYWOOD_LEAVES.getState();
 
 	public MysterywoodTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i49918_1_, boolean p_i49918_2_) {
 		super(p_i49918_1_, p_i49918_2_);

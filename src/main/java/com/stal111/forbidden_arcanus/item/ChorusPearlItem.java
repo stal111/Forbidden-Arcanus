@@ -41,7 +41,7 @@ public class ChorusPearlItem extends Item {
 			world.addEntity(entity);
 		}
 		player.addStat(Stats.ITEM_USED.get(this));
-		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
+		return new ActionResult<>(ActionResultType.SUCCESS, stack);
 
 	}
 

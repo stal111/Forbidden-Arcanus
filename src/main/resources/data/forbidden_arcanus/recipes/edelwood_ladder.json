@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "# #",
+        "#X#",
+        "# #"
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:edelwood_stick"
+        },
+        "X":
+        {
+            "item": "forbidden_arcanus:edelwood_planks"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:edelwood_ladder",
+        "count": 3
+    }
+}

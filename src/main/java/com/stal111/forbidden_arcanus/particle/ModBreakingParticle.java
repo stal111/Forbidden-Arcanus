@@ -1,12 +1,11 @@
 package com.stal111.forbidden_arcanus.particle;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ItemParticleData;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -65,7 +64,7 @@ public class ModBreakingParticle extends SpriteTexturedParticle {
         @Nullable
         @Override
         public Particle makeParticle(BasicParticleType typeIn, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new ModBreakingParticle(world, x, y, z, new ItemStack(ModItems.seed_bullet));
+            return new ModBreakingParticle(world, x, y, z, new ItemStack(ModItems.SEED_BULLET.getItem()));
         }
     }
 }

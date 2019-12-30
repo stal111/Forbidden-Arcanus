@@ -46,6 +46,20 @@ public class VoxelShapeHelper {
         return rotatedShapes.stream().reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
     }
 
+    public static VoxelShape roteteShapeAxis(VoxelShape shape, Direction.Axis axis) {
+        Set<VoxelShape> rotatedShapes = new HashSet<>();
+        shape.forEachBox((x1, y1, z1, x2, y2, z2) -> {
+            if (axis == Direction.Axis.X) {
+                rotatedShapes.add(Block.makeCuboidShape(y1 * 16, x1 * 16, z1 * 16, y2 * 16, x2 * 16, z2 * 16));
+            } else if (axis == Direction.Axis.Z) {
+                rotatedShapes.add(Block.makeCuboidShape(x1 * 16, z1 * 16, y1 * 16, x2 * 16, z2 * 16, y2 * 16));
+            } else {
+                rotatedShapes.add(Block.makeCuboidShape(x1 * 16, y1 * 16, z1 * 16, x2 * 16, y2 * 16, z2 * 16));
+            }
+        });
+        return rotatedShapes.stream().reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
+    }
+
     public static VoxelShape add(double x1, double y1, double z1, double x2, double y2, double z2, VoxelShape... shapes) {
         Set<VoxelShape> result = new HashSet<>();
         for (VoxelShape shape : shapes) {

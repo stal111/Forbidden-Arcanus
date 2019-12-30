@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "X",
+        "#",
+        "X"
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        },
+        "X":
+        {
+            "item": "forbidden_arcanus:arcane_gold_nugget"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:arcane_golden_chain",
+        "count": 3
+    }
+}

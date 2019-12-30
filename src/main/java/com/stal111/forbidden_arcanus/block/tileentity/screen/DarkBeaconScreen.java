@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
 import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -19,7 +19,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.play.client.CCloseWindowPacket;
 import net.minecraft.network.play.client.CUpdateBeaconPacket;
 import net.minecraft.potion.Effect;
@@ -157,7 +156,7 @@ public class DarkBeaconScreen extends ContainerScreen<DarkBeaconContainer> {
 		int j = (this.height - this.ySize) / 2;
 		this.blit(i, j, 0, 0, this.xSize, this.ySize);
 		this.itemRenderer.zLevel = 100.0F;
-		this.itemRenderer.renderItemAndEffectIntoGUI(new ItemStack(ModItems.arcane_crystal), i + 38 + 44, j + 110);
+		this.itemRenderer.renderItemAndEffectIntoGUI(new ItemStack(ModItems.ARCANE_CRYSTAL.getItem()), i + 38 + 44, j + 110);
 		this.itemRenderer.zLevel = 0.0F;
 	}
 

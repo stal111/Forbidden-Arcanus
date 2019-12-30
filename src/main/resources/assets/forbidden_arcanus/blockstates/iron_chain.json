@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "type=single":  { "model": "forbidden_arcanus:block/iron_chain_single"},
+    "type=center":  { "model": "forbidden_arcanus:block/iron_chain_center"},
+    "type=top":  { "model": "forbidden_arcanus:block/iron_chain_top"},
+    "type=bottom":  { "model": "forbidden_arcanus:block/iron_chain_bottom"}
+  }
+}

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 
 import net.minecraft.block.Block;
@@ -46,29 +47,26 @@ public class BottleBlock extends FallingWaterloggedBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-			BlockRayTraceResult result) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if (stack.isEmpty()) {
 			return true;
 		} else {
-			if (this != ModBlocks.bottle_block) {
+			if (this != ModBlocks.BOTTLE_BLOCK.getBlock()) {
 				return true;
 			} else {
 				boolean flag = state.get(WATERLOGGED);
-				if (stack.getItem() == ModItems.pixi && !world.isRemote) {
+				if (stack.getItem() == ModItems.PIXIE.getItem() && !world.isRemote) {
 					if (!player.abilities.isCreativeMode) {
 						stack.shrink(1);
 					}
-					world.setBlockState(pos, ModBlocks.pixi_in_a_bottle_block.getStateContainer().getBaseState()
-							.with(WATERLOGGED, Boolean.valueOf(flag)));
+					world.setBlockState(pos, ModBlocks.PIXIE_IN_A_BOTTLE_BLOCK.getState().with(WATERLOGGED, flag));
 					return true;
-				} else if (stack.getItem() == ModItems.corrupt_pixi && !world.isRemote) {
+				} else if (stack.getItem() == ModItems.CORRUPTED_PIXIE.getItem() && !world.isRemote) {
 					if (!player.abilities.isCreativeMode) {
 						stack.shrink(1);
 					}
-					world.setBlockState(pos, ModBlocks.corrupt_pixi_in_a_bottle_block.getStateContainer().getBaseState()
-							.with(WATERLOGGED, Boolean.valueOf(flag)));
+					world.setBlockState(pos, ModBlocks.CORRUPTED_PIXIE_IN_A_BOTTLE_BLOCK.getState().with(WATERLOGGED, flag));
 					return true;
 				} else {
 					return false;
@@ -80,7 +78,7 @@ public class BottleBlock extends FallingWaterloggedBlock {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
-		if (state.getBlock() == ModBlocks.pixi_in_a_bottle_block) {
+		if (state.getBlock() == ModBlocks.PIXIE_IN_A_BOTTLE_BLOCK.getBlock()) {
 			final double d0 = pos.getX() + random.nextFloat();
 			final double d2 = pos.getY() + random.nextFloat();
 			final double d3 = pos.getZ() + random.nextFloat();

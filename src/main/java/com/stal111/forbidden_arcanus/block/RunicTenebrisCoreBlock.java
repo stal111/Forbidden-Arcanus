@@ -1,13 +1,18 @@
 package com.stal111.forbidden_arcanus.block;
 
+import java.util.Map;
 import java.util.Random;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
+import com.google.common.collect.ImmutableMap;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 
+import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Hand;
@@ -16,53 +21,40 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 
 	public RunicTenebrisCoreBlock(Properties properties) {
 		super(properties);
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItemMainhand();
-		if (stack.isEmpty()) {
-			return true;
-		} else {
-			if (stack.getItem() == ModItems.rune && !world.isRemote) {
-				if (!player.abilities.isCreativeMode) {
-					stack.shrink(1);
+		if (!stack.isEmpty()) {
+			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.getItem(), ModItems.DARK_RUNE.getItem()).put(ModItems.RUNE_BAG.getItem(), ModItems.DARK_RUNE_BAG.getItem()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
+			Item transformedItem = ITEM_TRANSFORM_MAP.get(stack.getItem());
+			if (transformedItem != null) {
+				ModUtils.shrinkStack(player, stack);
+					if (!player.addItemStackToInventory(new ItemStack(transformedItem))) {
+						player.dropItem(new ItemStack(transformedItem), false);
 				}
-				player.inventory.addItemStackToInventory(new ItemStack(ModItems.dark_rune));
 				return true;
-			} else if (stack.getItem() == ModItems.rune_bag && !world.isRemote) {
-				if (!player.abilities.isCreativeMode) {
-					stack.shrink(1);
-				}
-				player.inventory.addItemStackToInventory(new ItemStack(ModItems.dark_rune_bag));
-				return true;
-			} else if (stack.getItem() == ModBlocks.runestone.asItem() && !world.isRemote) {
-				if (!player.abilities.isCreativeMode) {
-					stack.shrink(1);
-				}
-				player.inventory.addItemStackToInventory(new ItemStack(ModBlocks.dark_runestone));
-				return true;
-			} else {
-				return false;
 			}
-
 		}
-	}
-	
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer,
-			ItemStack stack) {
-		world.playSound(pos.getX(), pos.getY() + 0.5D, pos.getZ(), ModSounds.runic_tenebris_core_activated,
-				SoundCategory.BLOCKS, 1.0F, 1.0F, true);
+		return super.onBlockActivated(state, world, pos, player, hand, result);
 	}
 
 	@Override
 	public int getLightValue(BlockState state) {
 		return 14;
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState p_180633_3_, @Nullable LivingEntity entity, ItemStack stack) {
+		world.playSound(pos.getX(), pos.getY() + 0.5D, pos.getZ(), ModSounds.runic_tenebris_core_activated, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
+		super.onBlockPlacedBy(world, pos, p_180633_3_, entity, stack);
 	}
 
 	@Override
@@ -76,8 +68,6 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 			double d5 = (random.nextFloat() - 0.5D) * 0.5000000014901161D;
 			world.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, d3, d4, d5);
 		}
-		world.playSound(pos.getX(), pos.getY() + 0.5D, pos.getZ(), ModSounds.runic_tenebris_core_ambient,
-				SoundCategory.BLOCKS, 1.0F, 1.0F, true);
-
+		world.playSound(pos.getX(), pos.getY() + 0.5D, pos.getZ(), ModSounds.runic_tenebris_core_ambient, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
 	}
 }

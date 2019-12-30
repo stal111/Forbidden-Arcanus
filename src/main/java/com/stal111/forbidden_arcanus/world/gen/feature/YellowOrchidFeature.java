@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.world.gen.feature;
 
 import com.mojang.datafixers.Dynamic;
-import com.stal111.forbidden_arcanus.block.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.FlowersFeature;
@@ -18,6 +18,6 @@ public class YellowOrchidFeature extends FlowersFeature {
 
     @Override
     public BlockState getRandomFlower(Random random, BlockPos pos) {
-        return ModBlocks.yellow_orchid.getDefaultState();
+        return ModBlocks.YELLOW_ORCHID.getState();
     }
 }

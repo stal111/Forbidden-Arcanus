@@ -1,0 +1,30 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/arcane_crystal_obelisk_upper",
+        "arcane_crystal_obelisk_top": "forbidden_arcanus:block/arcane_crystal_obelisk_top",
+        "arcane_crystal_obelisk_2": "forbidden_arcanus:block/arcane_crystal_obelisk_upper"
+    },
+    "display": {
+        "head": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Arcane Crystal",
+            "from": [ 3, 0, 3 ], 
+            "to": [ 13, 14, 13 ], 
+            "faces": {
+                "north": { "texture": "#arcane_crystal_obelisk_2", "uv": [ 3, 2, 13, 16 ] },
+                "east": { "texture": "#arcane_crystal_obelisk_2", "uv": [ 3, 2, 13, 16 ] },
+                "south": { "texture": "#arcane_crystal_obelisk_2", "uv": [ 3, 2, 13, 16 ] },
+                "west": { "texture": "#arcane_crystal_obelisk_2", "uv": [ 3, 2, 13, 16 ] },
+                "up": { "texture": "#arcane_crystal_obelisk_top", "uv": [ 3, 3, 13, 13 ] },
+                "down": { "texture": "#arcane_crystal_obelisk_top", "uv": [ 3, 3, 13, 13 ] }
+            }
+        }
+    ]
+}

@@ -1,40 +1,35 @@
 package com.stal111.forbidden_arcanus;
 
+import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
+import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModParticles;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.particle.ModBreakingParticle;
 import com.stal111.forbidden_arcanus.particle.SoulParticle;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
-import com.stal111.forbidden_arcanus.util.BakedModelOverrideRegistry;
-import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
 import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.BreakingParticle;
-import net.minecraft.client.particle.SpellParticle;
-import net.minecraft.particles.ItemParticleData;
+import net.minecraft.item.BlockItem;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.stal111.forbidden_arcanus.block.ModBlocks;
 import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
-import com.stal111.forbidden_arcanus.item.ModItems;
-import com.stal111.forbidden_arcanus.proxy.SideProxy;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 
 import net.minecraft.block.Block;
@@ -60,7 +55,14 @@ public class Main {
 	public static final Logger LOGGER = LogManager.getLogger(Main.MOD_ID);
 	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(Main.MOD_ID);
 
-	public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+	public static final Block EDELWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN)).setRegistryName(ModUtils.location("edelwood_sign"));
+	public static final Block EDELWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(EDELWOOD_SIGN)).setRegistryName(ModUtils.location("edelwood_wall_sign"));
+	public static final Block CHERRYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN)).setRegistryName(ModUtils.location("cherrywood_sign"));
+	public static final Block CHERRYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(CHERRYWOOD_SIGN)).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
+	public static final Block MYSTERYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN)).setRegistryName(ModUtils.location("mysterywood_sign"));
+	public static final Block MYSTERYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(MYSTERYWOOD_SIGN)).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
+
+	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
 	public static Main instance;
 
@@ -68,7 +70,7 @@ public class Main {
 		instance = this;
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-		
+
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
         
@@ -80,21 +82,35 @@ public class Main {
 		proxy.init();
 		OreGenerator.setupOreGen();
 		WorldGenerator.setupWorldGen();
-		ModUtils.addStrippable(ModBlocks.cherrywood_log, ModBlocks.stripped_cherrywood_log);
-		ModUtils.addStrippable(ModBlocks.cherrywood, ModBlocks.stripped_cherrywood);
-		ModUtils.addStrippable(ModBlocks.mysterywood_log, ModBlocks.stripped_mysterywood_log);
-		ModUtils.addStrippable(ModBlocks.mysterywood, ModBlocks.stripped_mysterywood);
+		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
+		ModUtils.addStrippable(ModBlocks.CHERRYWOOD.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD.getBlock());
+		ModUtils.addStrippable(ModBlocks.MYSTERYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.getBlock());
+		ModUtils.addStrippable(ModBlocks.MYSTERYWOOD.getBlock(), ModBlocks.STRIPPED_MYSTERYWOOD.getBlock());
 	}
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		ModBlocks.register(event);
-
+		for (ModBlocks block : ModBlocks.values()) {
+			event.getRegistry().register(block.getBlock());
+		}
 	}
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		ModItems.register(event);
+		for (ModBlocks block : ModBlocks.values()) {
+			if (block.hasItem()) {
+				if (block.hasSpecialItem()) {
+					event.getRegistry().register(block.getItem());
+				} else {
+					BlockItem item = new BlockItem(block.getBlock(), ModItems.properties());
+					item.setRegistryName(Main.MOD_ID, block.getName());
+					event.getRegistry().register(item);
+				}
+			}
+		}
+		for (ModItems item : ModItems.values()) {
+			event.getRegistry().register(item.getItem());
+		}
 	}
 
 	@SubscribeEvent

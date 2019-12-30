@@ -131,8 +131,6 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
         VertexFormat newFormat = RenderUtils.getFormatWithLightMap(quad.getFormat());
 
-
-
         UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(newFormat);
 
 

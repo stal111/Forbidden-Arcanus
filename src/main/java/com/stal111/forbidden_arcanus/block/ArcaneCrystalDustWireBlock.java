@@ -206,11 +206,11 @@ public class ArcaneCrystalDustWireBlock extends Block {
 	protected static boolean canConnectTo(BlockState blockState, IBlockReader world, BlockPos pos,
 			@Nullable Direction side) {
 		Block block = blockState.getBlock();
-		if (block == ModBlocks.arcane_crystal_dust_wire) {
-			return true;
-		} else {
+		//if (block == ModBlocks.arcane_crystal_dust_wire) {
+		//	return true;
+		//} else {
 			return blockState.canConnectRedstone(world, pos, side) && side != null;
-		}
+		//}
 	}
 
 	@Override

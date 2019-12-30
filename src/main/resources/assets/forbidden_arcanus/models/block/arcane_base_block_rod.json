@@ -4,7 +4,7 @@
     "textures": {
         "particle": "forbidden_arcanus:block/arcane_base_block_rod",
         "0": "forbidden_arcanus:block/arcane_base_block_rod",
-        "1": "forbidden_arcanus:block/arcane_base"
+        "1": "forbidden_arcanus:block/arcane_base_block"
     },
     "parent": "block/cube_all",
     "elements": [

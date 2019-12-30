@@ -1,33 +1,22 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
-import net.minecraft.dispenser.IPosition;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameter;
-import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
 
-import java.util.List;
 import java.util.Random;
 
 public class GoldenOrchidBlock extends CropsBlock {
@@ -35,7 +24,7 @@ public class GoldenOrchidBlock extends CropsBlock {
     public static final IntegerProperty GOLDEN_ORCHID_AGE = BlockStateProperties.AGE_0_2;
     private static final VoxelShape[] SHAPE = new VoxelShape[]{Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 3.0D, 11.0D), Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D), Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D)};
 
-    protected GoldenOrchidBlock(Properties properties) {
+    public GoldenOrchidBlock(Properties properties) {
         super(properties);
     }
 
@@ -47,7 +36,7 @@ public class GoldenOrchidBlock extends CropsBlock {
     @OnlyIn(Dist.CLIENT)
     @Override
     protected IItemProvider getSeedsItem() {
-        return ModItems.golden_orchid_seeds;
+        return ModItems.GOLDEN_ORCHID_SEEDS.getItem();
     }
 
     @Override

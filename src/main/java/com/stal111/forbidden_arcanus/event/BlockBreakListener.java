@@ -1,10 +1,8 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.block.ModBlocks;
 
-import net.minecraft.block.Block;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -28,7 +26,7 @@ public class BlockBreakListener {
 			World world = (World) event.getWorld();
 			BlockPos pos = event.getPos();
 			if (state.getBlock() instanceof CropsBlock) {
-				if (world.getBlockState(pos.down()).getBlock() == ModBlocks.magical_farmland) {
+				if (world.getBlockState(pos.down()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock()) {
 					if (!event.getPlayer().abilities.isCreativeMode) {
 						for (ItemStack itemStack : state.getBlock().getDrops(state, new LootContext.Builder((ServerWorld) world).withParameter(LootParameters.TOOL, stack).withParameter(LootParameters.POSITION, pos))) {
 							world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack));

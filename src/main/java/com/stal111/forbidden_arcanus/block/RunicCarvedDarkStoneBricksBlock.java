@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.item.ModItems;
-
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,11 +24,11 @@ public class RunicCarvedDarkStoneBricksBlock extends Block {
 		if (stack.isEmpty()) {
 			return true;
 		} else {
-			if (stack.getItem() == ModItems.arcane_crystal && !world.isRemote) {
+			if (stack.getItem() == ModItems.ARCANE_CRYSTAL.getItem() && !world.isRemote) {
 				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
-				world.setBlockState(pos, ModBlocks.white_runic_carved_dark_stone_bricks.getDefaultState());
+				//world.setBlockState(pos, ModBlocks.white_runic_carved_dark_stone_bricks.getDefaultState());
 				return true;
 			} else {
 				return false;

@@ -2,24 +2,15 @@ package com.stal111.forbidden_arcanus.block.tileentity.container;
 
 import javax.annotation.Nullable;
 
-import com.stal111.forbidden_arcanus.block.ModBlocks;
-import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
-import com.stal111.forbidden_arcanus.item.ModItems;
-import com.stal111.forbidden_arcanus.util.GuiTile;
-import net.minecraft.block.Blocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.potion.Effect;
 import net.minecraft.util.IIntArray;
-import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -167,7 +158,7 @@ public class DarkBeaconContainer extends ModContainer {
 		 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 		 */
 		public boolean isItemValid(ItemStack stack) {
-			return stack.getItem() == ModItems.arcane_crystal;
+			return stack.getItem() == ModItems.ARCANE_CRYSTAL.getItem();
 		}
 
 		/**
