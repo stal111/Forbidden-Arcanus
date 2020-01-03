@@ -1,0 +1,31 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " # ",
+        "#X#",
+        " # "
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "minecraft:string"
+        },
+        
+        "X":
+        {
+            "item": "minecraft:white_wool"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:cloth",
+        "count": 2
+    }
+}

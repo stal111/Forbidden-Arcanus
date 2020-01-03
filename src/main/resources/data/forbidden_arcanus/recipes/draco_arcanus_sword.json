@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " DD",
+        "D#D",
+        "SD "
+    
+    ],
+    
+    "key":
+    {
+        "D":
+        {
+            "item": "forbidden_arcanus:dragon_scale"
+        },
+        
+        "#":
+        {
+            "item": "minecraft:diamond"
+        },
+        
+        "S":
+        {
+            "item": "forbidden_arcanus:draco_arcanus_staff"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:draco_arcanus_sword"
+    }
+}

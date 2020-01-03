@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:edelwood_planks"
+        }
+    ],
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:edelwood_button"
+    }
+}

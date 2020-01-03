@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " A ",
+        "ADA",
+        " A "
+    
+    ],
+    
+    "key":
+    {
+        "A":
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        },
+        
+        "D":
+        {
+            "item": "forbidden_arcanus:dragon_scale"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:golden_dragon_scale"
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "  #",
+        "XD ",
+        "EX "
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:dark_rune"
+        },  
+        "D":
+        {
+            "item": "forbidden_arcanus:dark_matter"
+        },
+        "X":
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        },
+        "E":
+        {
+            "item": "forbidden_arcanus:edelwood_stick"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:mystical_dagger"
+    }
+}

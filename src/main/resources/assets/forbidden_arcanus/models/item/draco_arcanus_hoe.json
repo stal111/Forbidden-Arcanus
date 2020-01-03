@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "forbidden_arcanus:item/tool/draco_arcanus_hoe"
+  }
+}

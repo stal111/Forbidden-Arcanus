@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "# #",
+        "###",
+        " # "
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "minecraft:iron_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:iron_candelabra",
+        "count": 3
+    }
+}

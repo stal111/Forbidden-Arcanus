@@ -1,0 +1,8 @@
+{
+    "parent": "block/stairs",
+    "textures": {
+        "bottom": "forbidden_arcanus:block/cherrywood_planks",
+        "top": "forbidden_arcanus:block/cherrywood_planks",
+        "side": "forbidden_arcanus:block/cherrywood_planks"
+    }
+}

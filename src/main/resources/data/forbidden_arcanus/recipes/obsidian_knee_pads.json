@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "O O"
+    
+    ],
+    
+    "key":
+    { 
+        "O":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:obsidian_knee_pads"
+    }
+}

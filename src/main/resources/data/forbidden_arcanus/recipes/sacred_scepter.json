@@ -1,0 +1,33 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " SS",
+        "SBS",
+        "ES "
+    
+    ],
+    
+    "key":
+    {
+        "S":
+        {
+            "item": "forbidden_arcanus:silver_dragon_scale"
+        },
+        "B":
+        {
+            "item": "forbidden_arcanus:pixie_in_a_bottle_block"
+        },
+        "E":
+        {
+            "item": "forbidden_arcanus:edelwood_stick"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:sacred_scepter"
+    }
+}

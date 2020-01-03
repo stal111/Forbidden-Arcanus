@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_bottom",
+    "textures": {
+        "bottom": "forbidden_arcanus:block/mysterywood_door_bottom",
+        "top": "forbidden_arcanus:block/mysterywood_door_top"
+    }
+}

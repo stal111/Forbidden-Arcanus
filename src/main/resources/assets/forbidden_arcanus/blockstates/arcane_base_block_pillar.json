@@ -1,0 +1,29 @@
+
+{
+    "variants": {
+        "facing=down,type=single":  { "model": "forbidden_arcanus:block/arcane_base_block_pillar"},
+		"facing=down,type=top":  { "model": "forbidden_arcanus:block/arcane_base_block_pillar_top"},
+		"facing=down,type=center":  { "model": "forbidden_arcanus:block/arcane_base_block_pillar_middle"},
+		"facing=down,type=bottom":  { "model": "forbidden_arcanus:block/arcane_base_block_pillar_bottom"},
+        "facing=up,type=single":    { "model": "forbidden_arcanus:block/arcane_base_block_pillar" },
+        "facing=up,type=top":    { "model": "forbidden_arcanus:block/arcane_base_block_pillar_bottom" },
+        "facing=up,type=center":    { "model": "forbidden_arcanus:block/arcane_base_block_pillar_middle" },
+        "facing=up,type=bottom":    { "model": "forbidden_arcanus:block/arcane_base_block_pillar_top" },
+        "facing=north,type=single": { "model": "forbidden_arcanus:block/arcane_base_block_pillar", "x": 90 },
+        "facing=north,type=top": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_bottom", "x": 90 },
+        "facing=north,type=center": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_middle", "x": 90 },
+        "facing=north,type=bottom": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_top", "x": 90 },
+        "facing=south,type=single": { "model": "forbidden_arcanus:block/arcane_base_block_pillar", "x": 90 },
+        "facing=south,type=top": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_top", "x": 90 },
+        "facing=south,type=center": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_middle", "x": 90 },
+        "facing=south,type=bottom": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_bottom", "x": 90 },
+        "facing=west,type=single": { "model": "forbidden_arcanus:block/arcane_base_block_pillar", "x": 90, "y": 90 },
+        "facing=west,type=top": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_top", "x": 90, "y": 90 },
+        "facing=west,type=center": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_middle", "x": 90, "y": 90 },
+        "facing=west,type=bottom": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_bottom", "x": 90, "y": 90 },
+        "facing=east,type=single": { "model": "forbidden_arcanus:block/arcane_base_block_pillar", "x": 90, "y": 90 },
+        "facing=east,type=top": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_bottom", "x": 90, "y": 90 },
+        "facing=east,type=center": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_middle", "x": 90, "y": 90 },
+        "facing=east,type=bottom": { "model": "forbidden_arcanus:block/arcane_base_block_pillar_top", "x": 90, "y": 90 }
+    }
+}

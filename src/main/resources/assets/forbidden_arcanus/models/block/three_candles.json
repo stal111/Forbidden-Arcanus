@@ -1,0 +1,156 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/candle",
+        "candle": "forbidden_arcanus:block/candle"
+    },
+    "elements": [
+        {
+            "name": "Candle Base 0",
+            "from": [ 10, 0, 9 ], 
+            "to": [ 14, 1, 13 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "east": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "south": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "west": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "up": { "texture": "#candle", "uv": [ 5, 12, 9, 16 ] },
+                "down": { "texture": "#candle", "uv": [ 5, 12, 9, 16 ] }
+            }
+        },
+        {
+            "name": "Candle 0",
+            "from": [ 11, 1, 10 ], 
+            "to": [ 13, 5, 12 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 13, 4, 11, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 13, 4, 11, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 8, 12, 10 ] }
+            }
+        },
+        {
+            "name": "Wick 0",
+            "from": [ 12, 5, 10.75 ],
+            "to": [ 12, 5.5, 11.25 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] }
+            }
+        },
+        {
+            "name": "Wick 0",
+            "from": [ 11.75, 5, 11 ],
+            "to": [ 12.25, 5.5, 11 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "east": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 14, 2 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 0, 1, 0 ] }
+            }
+        },
+        {
+            "name": "Candle Base 1",
+            "from": [ 3, 0, 5 ], 
+            "to": [ 8, 1, 10 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 0, 10, 5, 11 ] },
+                "east": { "texture": "#candle", "uv": [ 0, 10, 5, 11 ] },
+                "south": { "texture": "#candle", "uv": [ 0, 10, 5, 11 ] },
+                "west": { "texture": "#candle", "uv": [ 0, 10, 5, 11 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 11, 5, 16 ] },
+                "down": { "texture": "#candle", "uv": [ 0, 11, 5, 16 ] }
+            }
+        },
+        {
+            "name": "Candle 1",
+            "from": [ 4, 1, 6 ], 
+            "to": [ 7, 7, 9 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 13, 2, 16, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 16, 2, 13, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 13, 2, 16, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 16, 2, 13, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 8, 13, 11 ] }
+            }
+        },
+        {
+            "name": "Wick 1",
+            "from": [ 5.5, 7, 7.25 ],
+            "to": [ 5.5, 7.5, 7.75 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] }
+            }
+        },
+        {
+            "name": "Wick 1",
+            "from": [ 5.25, 7, 7.5 ],
+            "to": [ 5.75, 7.5, 7.5 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "east": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 0, 1, 0 ] }
+            }
+        },
+        {
+            "name": "Candle Base 2",
+            "from": [ 9, 0, 2 ], 
+            "to": [ 13, 1, 6 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "east": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "south": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "west": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "up": { "texture": "#candle", "uv": [ 5, 12, 9, 16 ] },
+                "down": { "texture": "#candle", "uv": [ 5, 12, 9, 16 ] }
+            }
+        },
+        {
+            "name": "Candle 2",
+            "from": [ 10, 1, 3 ], 
+            "to": [ 12, 4, 5 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 11, 5, 9, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 11, 5, 9, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 11, 9, 13, 11 ] }
+            }
+        },
+        {
+            "name": "Wick 2",
+            "from": [ 11, 4, 3.75 ],
+            "to": [ 11, 4.5, 4.25 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] }
+            }
+        },
+        {
+            "name": "Wick 2",
+            "from": [ 10.75, 4, 4 ],
+            "to": [ 11.25, 4.5, 4 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "east": { "texture": "#candle", "uv": [ 0, 0, 0, 1 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 14, 2 ] },
+                "up": { "texture": "#candle", "uv": [ 0, 0, 1, 0 ] }
+            }
+        }
+    ]
+}

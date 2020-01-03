@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "BBB",
+        " S ",
+        " S "
+    
+    ],
+    
+    "key":
+    { 
+        "B":
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        },
+        "S":
+        {
+            "item": "forbidden_arcanus:edelwood_stick"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:reinforced_arcane_golden_pickaxe"
+    }
+}

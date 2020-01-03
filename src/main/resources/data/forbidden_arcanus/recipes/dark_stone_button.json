@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:dark_stone"
+        }
+    ],
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:dark_stone_button"
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "BB",
+        " S",
+        " S"
+    
+    ],
+    
+    "key":
+    { 
+        "B":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        },
+        "S":
+        {
+            "item": "minecraft:stick"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:obsidian_hoe"
+    }
+}

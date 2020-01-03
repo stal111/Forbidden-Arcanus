@@ -1,0 +1,200 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/candle_lamp",
+        "candle_lamp": "forbidden_arcanus:block/candle_lamp",
+        "candle_lamp_inner": "forbidden_arcanus:block/candle_lamp_inner",
+        "candle": "forbidden_arcanus:block/candle"
+    },
+    "elements": [
+        {
+            "name": "Lamp",
+            "from": [ 4, 4, 4 ], 
+            "to": [ 12, 12, 12 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp", "uv": [ 1, 1, 9, 9 ] },
+                "east": { "texture": "#candle_lamp", "uv": [ 1, 1, 9, 9 ] },
+                "south": { "texture": "#candle_lamp", "uv": [ 1, 1, 9, 9 ] },
+                "west": { "texture": "#candle_lamp", "uv": [ 1, 1, 9, 9 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 9 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 9 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 3, 3, 3 ], 
+            "to": [ 13, 4, 13 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 10 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 10 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 3, 12, 3 ], 
+            "to": [ 13, 13, 13 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 1 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 10 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 0, 0, 10, 10 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 3, 4, 3 ], 
+            "to": [ 4, 12, 4 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 12, 4, 3 ], 
+            "to": [ 13, 12, 4 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 12, 4, 12 ], 
+            "to": [ 13, 12, 13 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 3, 4, 12 ], 
+            "to": [ 4, 12, 13 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 9 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 0, 1, 1, 2 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 4, 2, 4 ], 
+            "to": [ 12, 3, 12 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 1, 2, 9, 1 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 1, 2, 9, 1 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 2 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 2 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 9 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 9 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 4, 13, 4 ], 
+            "to": [ 12, 14, 12 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp_inner", "uv": [ 1, 8, 9, 9 ] },
+                "east": { "texture": "#candle_lamp_inner", "uv": [ 1, 8, 9, 9 ] },
+                "south": { "texture": "#candle_lamp_inner", "uv": [ 1, 8, 9, 9 ] },
+                "west": { "texture": "#candle_lamp_inner", "uv": [ 1, 8, 9, 9 ] },
+                "up": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 9 ] },
+                "down": { "texture": "#candle_lamp_inner", "uv": [ 1, 1, 9, 9 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 5, 0, 5 ], 
+            "to": [ 11, 2, 11 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 0 ] },
+                "east": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 0 ] },
+                "south": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 0 ] },
+                "west": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 0 ] },
+                "up": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 8 ] },
+                "down": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 8 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 5, 14, 5 ], 
+            "to": [ 11, 16, 11 ], 
+            "faces": {
+                "north": { "texture": "#candle_lamp", "uv": [ 10, 0, 16, 2 ] },
+                "east": { "texture": "#candle_lamp", "uv": [ 10, 0, 16, 2 ] },
+                "south": { "texture": "#candle_lamp", "uv": [ 10, 0, 16, 2 ] },
+                "west": { "texture": "#candle_lamp", "uv": [ 10, 0, 16, 2 ] },
+                "up": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 8 ] },
+                "down": { "texture": "#candle_lamp", "uv": [ 10, 2, 16, 8 ] }
+            }
+        },
+        {
+            "name": "Candel",
+            "from": [ 7, 4.5, 7 ], 
+            "to": [ 9, 8.5, 9 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 8, 12, 10 ] },
+                "down": { "texture": "#candle", "uv": [ 13, 8, 15, 10 ] }
+            }
+        },
+        {
+            "name": "CandelBase",
+            "from": [ 6, 3.5, 6 ], 
+            "to": [ 10, 4.5, 10 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "east": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "south": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "west": { "texture": "#candle", "uv": [ 5, 11, 9, 12 ] },
+                "up": { "texture": "#candle", "uv": [ 5, 12, 9, 16 ] },
+                "down": { "texture": "#candle", "uv": [ 5, 12, 9, 16 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 7, 8.5, 8 ], 
+            "to": [ 9, 11.5, 8 ], 
+            "rotation": { "origin": [ 8.0, 9.0, 8.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 1, 0, 7, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 7, 0, 1, 8 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 7, 8.5, 8 ], 
+            "to": [ 9, 11.5, 8 ], 
+            "rotation": { "origin": [ 8.0, 9.0, 8.0 ], "axis": "y", "angle": -45.0 },
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 1, 0, 7, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 7, 0, 1, 8 ] }
+            }
+        }
+    ]
+}

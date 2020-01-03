@@ -1,0 +1,228 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "#candelabra",
+        "chandelier": "#candelabra",
+        "candle": "forbidden_arcanus:block/candle"
+    },
+    "display": {
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 7, 0 ],
+            "scale": [ 0.8, 0.8, 0.8 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Base",
+            "from": [ 6, 0, 6 ],
+            "to": [ 10, 1, 10 ],
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "east": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "south": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "west": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "up": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] },
+                "down": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 6.5, 1, 6.5 ], 
+            "to": [ 9.5, 4, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "up": { "texture": "#chandelier", "uv": [ 3, 5, 6, 8 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 7, 4, 7 ], 
+            "to": [ 9, 11, 9 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] },
+                "east": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] },
+                "south": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] },
+                "west": { "texture": "#chandelier", "uv": [ 0, 6, 2, 13 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 6.5, 11, 6.5 ], 
+            "to": [ 9.5, 13, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "up": { "texture": "#chandelier", "uv": [ 3, 5, 6, 8 ] },
+                "down": { "texture": "#chandelier", "uv": [ 3, 13, 6, 16 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 9, 5, 7 ], 
+            "to": [ 14, 7, 9 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 12, 11, 7, 13 ] },
+                "east": { "texture": "#chandelier", "uv": [ 4, 10, 6, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 7, 11, 12, 13 ] },
+                "up": { "texture": "#chandelier", "uv": [ 7, 8, 12, 10 ] },
+                "down": { "texture": "#chandelier", "uv": [ 7, 14, 12, 16 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 2, 5, 7 ], 
+            "to": [ 7, 7, 9 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 7, 11, 12, 13 ] },
+                "south": { "texture": "#chandelier", "uv": [ 12, 11, 7, 13 ] },
+                "west": { "texture": "#chandelier", "uv": [ 4, 6, 6, 8 ] },
+                "up": { "texture": "#chandelier", "uv": [ 12, 8, 7, 10 ] },
+                "down": { "texture": "#chandelier", "uv": [ 12, 14, 7, 16 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 2, 7, 7 ], 
+            "to": [ 4, 9, 9 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 2, 6, 0, 8 ] },
+                "east": { "texture": "#chandelier", "uv": [ 0, 6, 2, 8 ] },
+                "south": { "texture": "#chandelier", "uv": [ 0, 6, 2, 8 ] },
+                "west": { "texture": "#chandelier", "uv": [ 0, 6, 2, 8 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 12, 7, 7 ], 
+            "to": [ 14, 9, 9 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 0, 6, 2, 8 ] },
+                "east": { "texture": "#chandelier", "uv": [ 0, 6, 2, 8 ] },
+                "south": { "texture": "#chandelier", "uv": [ 2, 6, 0, 8 ] },
+                "west": { "texture": "#chandelier", "uv": [ 0, 6, 2, 8 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 1.5, 9, 6.5 ], 
+            "to": [ 4.5, 11, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "up": { "texture": "#chandelier", "uv": [ 3, 5, 6, 8 ] },
+                "down": { "texture": "#chandelier", "uv": [ 3, 13, 6, 16 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 11.5, 9, 6.5 ], 
+            "to": [ 14.5, 11, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "up": { "texture": "#chandelier", "uv": [ 3, 5, 6, 8 ] },
+                "down": { "texture": "#chandelier", "uv": [ 3, 13, 6, 16 ] }
+            }
+        },
+        {
+            "name": "Candle 0",
+            "from": [ 7, 13, 7 ], 
+            "to": [ 9, 16, 9 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 8, 12, 10 ] }
+            }
+        },
+        {
+            "name": "Candle Wick 0",
+            "from": [ 8, 16, 7.75 ],
+            "to": [ 8, 16.5, 8.25 ],
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle Wick 0",
+            "from": [ 7.75, 16, 8 ],
+            "to": [ 8.25, 16.5, 8 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle 1",
+            "from": [ 12, 11, 7 ], 
+            "to": [ 14, 14, 9 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 8, 12, 10 ] }
+            }
+        },
+        {
+            "name": "Candle Wick 1",
+            "from": [ 13, 14, 7.75 ],
+            "to": [ 13, 14.5, 8.25 ],
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle Wick 1",
+            "from": [ 12.75, 14, 8 ],
+            "to": [ 13.25, 14.5, 8 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle 2",
+            "from": [ 2, 11, 7 ], 
+            "to": [ 4, 14, 9 ], 
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 9, 5, 11, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 8, 12, 10 ] }
+            }
+        },
+        {
+            "name": "Candle Wick 2",
+            "from": [ 3, 14, 7.75 ],
+            "to": [ 3, 14.5, 8.25 ],
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle Wick 2",
+            "from": [ 2.75, 14, 8 ],
+            "to": [ 3.25, 14.5, 8 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        }
+    ]
+}

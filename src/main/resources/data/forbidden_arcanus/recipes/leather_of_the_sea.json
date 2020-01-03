@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " S ",
+        "CLC",
+        " S "
+    
+    ],
+    
+    "key":
+    {
+        "S":
+        {
+            "item": "minecraft:prismarine_shard"
+        },
+        
+        "C":
+        {
+            "item": "minecraft:prismarine_crystals"
+        },
+        
+        "L":
+        {
+            "item": "minecraft:leather"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:leather_of_the_sea"
+    }
+}

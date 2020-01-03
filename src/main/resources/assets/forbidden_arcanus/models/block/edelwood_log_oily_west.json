@@ -1,0 +1,62 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/edelwood_log",
+        "edelwood_leaves": "forbidden_arcanus:block/edelwood_leaves",
+        "edelwood_log_top": "forbidden_arcanus:block/edelwood_log_top",
+        "edelwood_log": "forbidden_arcanus:block/edelwood_log",
+        "edelwood_log_face": "forbidden_arcanus:block/edelwood_log_face",
+        "edelwood_log_oily": "forbidden_arcanus:block/edelwood_log_oily"
+    },
+    "parent": "block/cube_all",
+    "elements": [
+        {
+            "name": "Log",
+            "from": [ 0, 0, 0 ], 
+            "to": [ 16, 16, 2 ], 
+            "faces": {
+                "north": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#edelwood_log_oily", "uv": [ 14, 0, 16, 16 ] },
+                "south": { "texture": "#edelwood_log", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 2, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 0, 0, 16, 2 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 0, 14, 16, 16 ] }
+            }
+        },
+        {
+            "name": "Log",
+            "from": [ 0, 0, 2 ], 
+            "to": [ 2, 16, 14 ], 
+            "faces": {
+                "east": { "texture": "#edelwood_log", "uv": [ 2, 0, 14, 16 ] },
+                "west": { "texture": "#edelwood_log_face", "uv": [ 2, 0, 14, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 0, 2, 2, 14 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 14, 2, 16, 14 ] }
+            }
+        },
+        {
+            "name": "Log",
+            "from": [ 0, 0, 14 ], 
+            "to": [ 16, 16, 16 ], 
+            "faces": {
+                "north": { "texture": "#edelwood_log", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 2, 16 ] },
+                "south": { "texture": "#edelwood_log_oily", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#edelwood_log_oily", "uv": [ 14, 0, 16, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 0, 14, 16, 16 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 0, 0, 16, 2 ] }
+            }
+        },
+        {
+            "name": "Log",
+            "from": [ 14, 0, 2 ], 
+            "to": [ 16, 16, 14 ], 
+            "faces": {
+                "east": { "texture": "#edelwood_log_oily", "uv": [ 2, 0, 14, 16 ] },
+                "west": { "texture": "#edelwood_log", "uv": [ 2, 0, 14, 16 ] },
+                "up": { "texture": "#edelwood_log_top", "uv": [ 14, 2, 16, 14 ] },
+                "down": { "texture": "#edelwood_log_top", "uv": [ 0, 2, 2, 14 ] }
+            }
+        }
+    ]
+}

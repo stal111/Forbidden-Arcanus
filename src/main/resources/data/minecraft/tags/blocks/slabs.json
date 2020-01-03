@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"forbidden_arcanus:arcane_base_block_slab",
+		"forbidden_arcanus:dark_stone_brick_slab",
+		"forbidden_arcanus:soulless_sandstone_slab",
+		"forbidden_arcanus:cut_soulless_sandstone_slab",
+		"forbidden_arcanus:edelwood_slab",
+		"forbidden_arcanus:cherrywood_slab",
+		"forbidden_arcanus:mysterywood_slab"
+	]
+}

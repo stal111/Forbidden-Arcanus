@@ -1,0 +1,6 @@
+{
+    "parent": "block/template_glass_pane_noside_alt",
+    "textures": {
+        "pane": "forbidden_arcanus:block/dark_runic_glass"
+    }
+}

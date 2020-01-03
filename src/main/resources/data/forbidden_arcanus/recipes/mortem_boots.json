@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "X X",
+        "# #"
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:cloth"
+        },
+        
+        "X":
+        {
+            "item": "minecraft:bone"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:mortem_boots"
+    }
+}

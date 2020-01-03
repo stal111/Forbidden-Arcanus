@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "forbidden_arcanus:edelwood_fence_gate",
+    "forbidden_arcanus:cherrywood_fence_gate",
+    "forbidden_arcanus:mysterywood_fence_gate"
+  ]
+}

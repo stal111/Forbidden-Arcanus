@@ -1,0 +1,33 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "DHD",
+        "ODO",
+        "OOO"
+    
+    ],
+    
+    "key":
+    {
+        "D":
+        {
+            "item": "forbidden_arcanus:dragon_scale"
+        },  
+        "H":
+        {
+            "item": "forbidden_arcanus:obsidian_shoulder_pads"
+        },
+        "O":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:draco_arcanus_chestplate"
+    }
+}

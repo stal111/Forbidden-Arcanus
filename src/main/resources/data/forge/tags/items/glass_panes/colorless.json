@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:glass_panes/arcane",
+    "#forge:glass_panes/dark_runic",
+    "#forge:glass_panes/runic"
+  ]
+}

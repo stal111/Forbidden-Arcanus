@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " # ",
+        "#X#",
+        " # "
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:silver_dragon_scale"
+        },
+         "X":
+        {
+            "item": "forbidden_arcanus:obsidian_skull"
+        }
+        
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:obsidian_skull_shield"
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " S#",
+        " BS",
+        "S  "
+    
+    ],
+    
+    "key":
+    {
+        "#":
+        {
+            "item": "forbidden_arcanus:skull"
+        },  
+        "B":
+        {
+            "item": "minecraft:bone_block"
+        },
+        "S":
+        {
+            "item": "minecraft:bone"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:battle_skull"
+    }
+}

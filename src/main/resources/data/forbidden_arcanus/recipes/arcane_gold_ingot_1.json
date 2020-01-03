@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "arcane_gold_ingot",
+    
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:arcane_gold_block"
+        }
+    ],
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:arcane_gold_ingot",
+        "count": 9
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " O ",
+        "ONO",
+        " O "
+    
+    ],
+    
+    "key":
+    {
+        "O":
+        {
+            "item": "minecraft:iron_nugget"
+        },
+        
+        "N":
+        {
+            "item": "minecraft:obsidian"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:obsidian_with_iron"
+    }
+}

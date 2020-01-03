@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "candles=1,lit=true":
+      { "model": "forbidden_arcanus:block/candle_lit" },
+    "candles=2,lit=true":
+      { "model": "forbidden_arcanus:block/two_candles_lit" },
+    "candles=3,lit=true":
+      { "model": "forbidden_arcanus:block/three_candles_lit" },
+    "candles=1,lit=false":
+    { "model": "forbidden_arcanus:block/candle" },
+    "candles=2,lit=false":
+    { "model": "forbidden_arcanus:block/two_candles" },
+    "candles=3,lit=false":
+    { "model": "forbidden_arcanus:block/three_candles" }
+  }
+}
+
+

@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":  { "model": "forbidden_arcanus:block/mysterywood_log" },
+        "axis=z":   { "model": "forbidden_arcanus:block/mysterywood_log", "x": 90 },
+        "axis=x":   { "model": "forbidden_arcanus:block/mysterywood_log", "x": 90, "y": 90 }
+    }
+}

@@ -1,0 +1,107 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "#candelabra",
+        "chandelier": "#candelabra",
+        "candle": "forbidden_arcanus:block/candle"
+    },
+    "elements": [
+        {
+            "name": "Base",
+            "from": [ 6, 0, 6 ],
+            "to": [ 10, 1, 10 ],
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "east": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "south": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "west": { "texture": "#chandelier", "uv": [ 7, 0, 11, 1 ] },
+                "up": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] },
+                "down": { "texture": "#chandelier", "uv": [ 7, 2, 11, 6 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 6.5, 1, 6.5 ],
+            "to": [ 9.5, 4, 9.5 ],
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 3, 9, 6, 12 ] },
+                "up": { "texture": "#chandelier", "uv": [ 3, 5, 6, 8 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 7, 4, 7 ],
+            "to": [ 9, 10, 9 ],
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 0, 6, 2, 12 ] }
+            }
+        },
+        {
+            "name": "Chandelier",
+            "from": [ 6.5, 10, 6.5 ],
+            "to": [ 9.5, 12, 9.5 ],
+            "faces": {
+                "north": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "east": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "south": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "west": { "texture": "#chandelier", "uv": [ 3, 10, 6, 12 ] },
+                "up": { "texture": "#chandelier", "uv": [ 3, 5, 6, 8 ] },
+                "down": { "texture": "#chandelier", "uv": [ 3, 13, 6, 16 ] }
+            }
+        },
+        {
+            "name": "Candle",
+            "from": [ 7, 12, 7 ],
+            "to": [ 9, 16, 9 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "east": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "south": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "west": { "texture": "#candle", "uv": [ 11, 4, 13, 8 ] },
+                "up": { "texture": "#candle", "uv": [ 10, 8, 12, 10 ] }
+            }
+        },
+        {
+            "name": "Candle Wick",
+            "from": [ 8, 16, 7.75 ],
+            "to": [ 8, 16.5, 8.25 ],
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle Wick",
+            "from": [ 7.75, 16, 8 ],
+            "to": [ 8.25, 16.5, 8 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle Wick",
+            "from": [ 8, 16, 7.75 ],
+            "to": [ 8, 16.5, 8.25 ],
+            "faces": {
+                "east": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "west": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        },
+        {
+            "name": "Candle Wick",
+            "from": [ 7.75, 16, 8 ],
+            "to": [ 8.25, 16.5, 8 ],
+            "faces": {
+                "north": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] },
+                "south": { "texture": "#candle", "uv": [ 14, 1, 15, 2 ] }
+            }
+        }
+    ]
+}

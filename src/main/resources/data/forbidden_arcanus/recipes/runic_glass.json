@@ -1,0 +1,31 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "GGG",
+        "GAG",
+        "GGG"
+    
+    ],
+    
+    "key":
+    {
+        "A":
+        {
+            "item": "forbidden_arcanus:rune"
+        },
+        
+        "G":
+        {
+            "item": "minecraft:glass"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:runic_glass",
+        "count": 8
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "OD ",
+        "D#D",
+        "SDO"
+    
+    ],
+    
+    "key":
+    {
+        "D":
+        {
+            "item": "forbidden_arcanus:dragon_scale"
+        },  
+        "#":
+        {
+            "item": "minecraft:diamond"
+        },
+        "S":
+        {
+            "item": "forbidden_arcanus:draco_arcanus_staff"
+        },
+        "O":
+        {
+            "item": "forbidden_arcanus:obsidian_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:draco_arcanus_axe"
+    }
+}

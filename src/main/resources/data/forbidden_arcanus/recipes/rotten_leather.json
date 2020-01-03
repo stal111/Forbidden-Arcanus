@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " R ",
+        "RRR",
+        " R "
+    
+    ],
+    
+    "key":
+    {
+        "R":
+        {
+            "item": "minecraft:rotten_flesh"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:rotten_leather"
+    }
+}

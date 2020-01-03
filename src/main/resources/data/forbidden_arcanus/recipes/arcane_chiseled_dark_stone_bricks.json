@@ -1,0 +1,31 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        " C ",
+        "CAC",
+        " C "
+    
+    ],
+    
+    "key":
+    {
+        "C":
+        {
+            "item": "forbidden_arcanus:chiseled_dark_stone_bricks"
+        },
+        
+        "A":
+        {
+            "item": "forbidden_arcanus:arcane_gold_ingot"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:arcane_chiseled_dark_stone_bricks",
+        "count": 4
+    }
+}

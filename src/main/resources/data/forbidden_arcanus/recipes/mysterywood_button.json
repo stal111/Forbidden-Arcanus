@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:mysterywood_planks"
+        }
+    ],
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:mysterywood_button"
+    }
+}

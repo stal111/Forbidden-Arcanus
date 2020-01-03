@@ -1,0 +1,7 @@
+{
+    "parent": "block/flower_pot_cross",
+    "textures": {
+        "plant": "forbidden_arcanus:block/cherrywood_sapling"
+    }
+}
+

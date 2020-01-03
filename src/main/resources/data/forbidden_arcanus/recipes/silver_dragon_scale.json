@@ -1,0 +1,35 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "AIA",
+        "IDI",
+        "AIA"
+    
+    ],
+    
+    "key":
+    {
+        "A":
+        {
+            "item": "forbidden_arcanus:arcane_crystal_dust"
+        },
+        
+        "I":
+        {
+            "item": "minecraft:iron_ingot"
+        },
+        
+        "D":
+        {
+            "item": "forbidden_arcanus:dragon_scale"
+        }
+        
+    },
+    
+    "result":
+    {
+        "item": "forbidden_arcanus:silver_dragon_scale"
+    }
+}
