@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -47,9 +48,9 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
         if (!player.abilities.isCreativeMode) {
             int fullness = ICapacityBucket.getFullness(stack);
             if ((fullness - 1) > 0) {
-                return ICapacityBucket.setFullness(ModItems.EDELWOOD_WATER_BUCKET.getStack(), fullness - 1);
+                return ICapacityBucket.setFullness(ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_WATER_BUCKET.getStack()), fullness - 1);
             }
-            return ModItems.EDELWOOD_BUCKET.getStack();
+            return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
         }
         return stack;
     }

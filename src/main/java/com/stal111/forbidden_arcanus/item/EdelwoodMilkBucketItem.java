@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -57,7 +58,7 @@ public class EdelwoodMilkBucketItem extends Item implements ICapacityBucket {
             if ((fullness - 1) > 0) {
                 return ICapacityBucket.setFullness(stack, fullness - 1);
             }
-            return ModItems.EDELWOOD_BUCKET.getItem().getDefaultInstance();
+            return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
         }
         return stack;
     }

@@ -119,16 +119,6 @@ public class ModUtils {
 		return list1;
 	}
 
-	public static void shrinkStack(PlayerEntity player, ItemStack stack) {
-		shrinkStack(player, stack, 1);
-	}
-
-	public static void shrinkStack(PlayerEntity player, ItemStack stack, int count) {
-		if (!player.abilities.isCreativeMode) {
-			stack.shrink(count);
-		}
-	}
-
 	public static void shrinkAndAddStack(PlayerEntity player, Hand hand, ItemStack stack, ItemStack newStack) {
 		stack.shrink(1);
 		if (stack.isEmpty()) {

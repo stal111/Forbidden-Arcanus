@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.item.*;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
@@ -96,7 +97,7 @@ public class PlayerInteractListener {
 				if (entity instanceof CreeperEntity) {
 					CreeperEntity creeperEntity = (CreeperEntity) entity;
 					if (!creeperEntity.getDataManager().get(CreeperEntity.POWERED)) {
-						ModUtils.shrinkStack(player, stack);
+						ItemStackUtils.shrinkStack(player, stack);
 						creeperEntity.getDataManager().set(CreeperEntity.POWERED, true);
 						player.swingArm(event.getHand());
 					}
@@ -106,19 +107,19 @@ public class PlayerInteractListener {
 				if (!player.abilities.isCreativeMode && !((MooshroomEntity) entity).isChild()) {
 					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
 						stack.shrink(1);
-						ItemStack stack1 = ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getStack();
+						boolean flag = ((MooshroomEntity) entity).hasStewEffect != null;
+						ItemStack stew_bucket = ItemStackUtils.transferEnchantments(stack, flag ? ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.getStack() : ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getStack());
 						SoundEvent soundevent = SoundEvents.ENTITY_MOOSHROOM_MILK;
-						if (((MooshroomEntity) entity).hasStewEffect != null) {
-							stack1 = ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.getStack();
+						if (flag) {
 							soundevent = SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK;
-							EdelwoodSuspiciousStewBucketItem.addEffect(stack1, ((MooshroomEntity) entity).hasStewEffect, ((MooshroomEntity) entity).effectDuration);
+							EdelwoodSuspiciousStewBucketItem.addEffect(stew_bucket, ((MooshroomEntity) entity).hasStewEffect, ((MooshroomEntity) entity).effectDuration);
 							((MooshroomEntity) entity).hasStewEffect = null;
 							((MooshroomEntity) entity).effectDuration = 0;
 						}
 						if (stack.isEmpty()) {
-							player.setHeldItem(event.getHand(), stack1);
-						} else if (!player.inventory.addItemStackToInventory(stack1)) {
-							player.dropItem(stack1, false);
+							player.setHeldItem(event.getHand(), stew_bucket);
+						} else if (!player.inventory.addItemStackToInventory(stew_bucket)) {
+							player.dropItem(stew_bucket, false);
 						}
 						entity.playSound(soundevent, 1.0F, 1.0F);
 						player.swingArm(event.getHand());
@@ -134,10 +135,11 @@ public class PlayerInteractListener {
 				if (!player.abilities.isCreativeMode && !((CowEntity) entity).isChild()) {
 					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
 						stack.shrink(1);
+						ItemStack milk_bucket = ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_MILK_BUCKET.getStack());
 						if (stack.isEmpty()) {
-							player.setHeldItem(event.getHand(), ModItems.EDELWOOD_MILK_BUCKET.getStack());
-						} else if (!player.inventory.addItemStackToInventory(ModItems.EDELWOOD_MILK_BUCKET.getStack())) {
-							player.dropItem(ModItems.EDELWOOD_MILK_BUCKET.getStack(), false);
+							player.setHeldItem(event.getHand(), milk_bucket);
+						} else if (!player.inventory.addItemStackToInventory(milk_bucket)) {
+							player.dropItem(milk_bucket, false);
 						}
 						player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 						player.swingArm(event.getHand());
@@ -153,7 +155,7 @@ public class PlayerInteractListener {
 					if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.getItem()) {
 						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
 							stack.shrink(1);
-							ItemStack fishBucket = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket")).getDefaultInstance();
+							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket")).getDefaultInstance());
 							CompoundNBT compoundNBT = fishBucket.getOrCreateChildTag("EdelwoodBucket");
 							compoundNBT.putInt("Fullness", stack.getOrCreateChildTag("EdelwoodBucket").getInt("Fullness"));
 							if (fishEntity.hasCustomName()) {

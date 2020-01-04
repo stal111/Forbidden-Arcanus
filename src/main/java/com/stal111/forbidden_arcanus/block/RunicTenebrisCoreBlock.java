@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -37,7 +38,7 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.getItem(), ModItems.DARK_RUNE.getItem()).put(ModItems.RUNE_BAG.getItem(), ModItems.DARK_RUNE_BAG.getItem()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
 			Item transformedItem = ITEM_TRANSFORM_MAP.get(stack.getItem());
 			if (transformedItem != null) {
-				ModUtils.shrinkStack(player, stack);
+				ItemStackUtils.shrinkStack(player, stack);
 					if (!player.addItemStackToInventory(new ItemStack(transformedItem))) {
 						player.dropItem(new ItemStack(transformedItem), false);
 				}

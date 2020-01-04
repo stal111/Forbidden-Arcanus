@@ -241,5 +241,8 @@
     "tooltip.forbidden_arcanus.edelwood_ladder": "Twice as fast as a normal Ladder",
 
     "______comment": "Containers",
-    "container.dark_beacon": "Dark Beacon"
+    "container.dark_beacon": "Dark Beacon",
+
+    "enchantments": "Enchantments",
+    "enchantment.forbidden_arcanus.permafrost": "Permafrost"
 }

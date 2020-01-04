@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ConnectedBlockType;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
@@ -58,7 +59,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
         if (hand == Hand.MAIN_HAND) {
             if (getChainBlocks().contains(Block.getBlockFromItem(stack.getItem()))) {
                 if (pullDown(stack.getItem(), world, pos)) {
-                    ModUtils.shrinkStack(player, stack);
+                    ItemStackUtils.shrinkStack(player, stack);
                     return ActionResultType.SUCCESS;
                 }
             }

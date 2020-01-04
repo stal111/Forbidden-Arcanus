@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -42,7 +43,9 @@ import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 
@@ -150,7 +153,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
             if ((fullness - 1) > 0) {
                 return ICapacityBucket.setFullness(stack, fullness - 1);
             }
-            return ModItems.EDELWOOD_BUCKET.getStack();
+            return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
         }
         return stack;
     }
@@ -165,12 +168,13 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
             if (emptyBucket.getItem() == fullBucket) {
                 return ICapacityBucket.setFullness(emptyBucket, ICapacityBucket.getFullness(emptyBucket) + 1);
             } else {
+                ItemStack stack = ItemStackUtils.transferEnchantments(emptyBucket, fullBucket.getDefaultInstance());
                 emptyBucket.shrink(1);
                 if (emptyBucket.isEmpty()) {
-                    return new ItemStack(fullBucket);
+                    return stack;
                 } else {
-                    if (!player.inventory.addItemStackToInventory(new ItemStack(fullBucket))) {
-                        player.dropItem(new ItemStack(fullBucket), false);
+                    if (!player.inventory.addItemStackToInventory(stack)) {
+                        player.dropItem(stack, false);
                     }
                     return emptyBucket;
                 }
@@ -237,16 +241,6 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
             return new net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper(stack);
         else
             return super.initCapabilities(stack, nbt);
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public int getItemEnchantability() {
-        return 10;
     }
 
     private final java.util.function.Supplier<? extends Fluid> fluidSupplier;

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 
@@ -62,7 +63,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack.getItem() == Items.GLASS_BOTTLE && state.get(OIL)) {
-			ModUtils.shrinkStack(player, stack);
+			ItemStackUtils.shrinkStack(player, stack);
 			if (!player.addItemStackToInventory(new ItemStack(ModItems.EDELWOOD_OIL.getItem()))) {
 				player.dropItem(new ItemStack(ModItems.EDELWOOD_OIL.getItem()), false);
 			}

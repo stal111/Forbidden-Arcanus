@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,9 +33,9 @@ public class EdelwoodSoupBucketItem extends Item implements ICapacityBucket {
             ItemStack stack1 = super.onItemUseFinish(stack, world, entity);
             if (!player.abilities.isCreativeMode) {
                 if ((fullness - 1) > 0) {
-                    return ICapacityBucket.setFullness(ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getStack(), fullness - 1);
+                    return ICapacityBucket.setFullness(ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getStack()), fullness - 1);
                 }
-                return ModItems.EDELWOOD_BUCKET.getItem().getDefaultInstance();
+                return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
             }
             return stack1;
         }
