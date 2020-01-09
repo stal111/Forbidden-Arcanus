@@ -12,8 +12,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
 import net.minecraftforge.client.model.pipeline.LightUtil;
-import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexLighterFlat;
 
 import javax.annotation.Nullable;
@@ -74,9 +74,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
             return quad;
         }
 
-        VertexFormat newFormat = RenderUtils.getFormatWithLightMap(quad.getFormat());
-
-        UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(newFormat);
+        BakedQuadBuilder builder = new BakedQuadBuilder();
 
         VertexLighterFlat trans = new VertexLighterFlat(Minecraft.getInstance().getBlockColors()) {
 
@@ -94,8 +92,8 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
         trans.setParent(builder);
 
-        if (quad instanceof UnpackedBakedQuad) {
-            ((UnpackedBakedQuad)quad).pipe(trans);
+        if (quad != null) {
+            quad.pipe(trans);
         } else {
             LightUtil.putBakedQuad(trans, quad);
         }

@@ -3,16 +3,16 @@
 
     "ingredients": [
         {
-            "item": "minecraft:dragon_head"
+            "item": "forbidden_arcanus:edelwood_squid_bucket"
         },
         {
-            "item": "forbidden_arcanus:mystical_dagger"
+            "tag": "minecraft:swords"
         }
     ],
 
     "result":
     {
-        "item": "forbidden_arcanus:dragon_scale",
+        "item": "forbidden_arcanus:tentacle",
         "count": 3
     }
 }

@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:edelwood_bat_bucket"
+        },
+        {
+            "tag": "minecraft:swords"
+        }
+    ],
+
+    "result":
+    {
+        "item": "forbidden_arcanus:bat_wing",
+        "count": 2
+    }
+}

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.potion.effect.ModEffects;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.util.ITooltipFlag;
@@ -23,7 +24,7 @@ import java.util.Random;
 public class MysticalDaggerItem extends SwordItem {
 
     public MysticalDaggerItem(IItemTier tier, float attackDamage, float attackSpeed, Item.Properties properties) {
-        super(tier, (int) attackDamage, attackSpeed, new Item.Properties().group(Main.FORBIDDEN_ARCANUS).maxStackSize(1));
+        super(tier, (int) attackDamage, attackSpeed, properties);
     }
 
     @Override
@@ -33,8 +34,9 @@ public class MysticalDaggerItem extends SwordItem {
 
     @Override
     public ItemStack getContainerItem(ItemStack stack) {
-        stack.setDamage(stack.getDamage() + 1);
-        return stack;
+        ItemStack stack1 = ModItems.MYSTICAL_DAGGER.getItem().getDefaultInstance();
+        stack1.setDamage(stack.getDamage() + 10);
+        return stack1;
     }
 
     @Override

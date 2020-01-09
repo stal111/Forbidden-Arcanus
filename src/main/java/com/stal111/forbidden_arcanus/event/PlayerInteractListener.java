@@ -13,6 +13,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.MagmaCubeEntity;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.MooshroomEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
@@ -29,6 +31,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -176,6 +179,38 @@ public class PlayerInteractListener {
 							player.swingArm(event.getHand());
 						}
 					}
+				}
+			} else if (entity instanceof BatEntity) {
+				if (entity.isAlive()) {
+					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
+						stack.shrink(1);
+
+						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BAT_BUCKET.getStack());
+
+						if (stack.isEmpty()) {
+							player.setHeldItem(event.getHand(), bucket);
+						} else if (!player.inventory.addItemStackToInventory(bucket)) {
+							player.dropItem(bucket, false);
+						}
+						entity.remove();
+						player.swingArm(event.getHand());
+					}
+				}
+			} else if (entity instanceof MagmaCubeEntity) {
+				if (entity.isAlive()) {
+					//		if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
+						//stack.shrink(1);
+
+					//	ItemStack bucket = ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.getStack());
+
+					//	if (stack.isEmpty()) {
+						//			player.setHeldItem(event.getHand(), bucket);
+						//		} else if (!player.inventory.addItemStackToInventory(bucket)) {
+						//			player.dropItem(bucket, false);
+						//		}
+						//		entity.remove();
+						//		player.swingArm(event.getHand());
+					//		}
 				}
 			}
 		}

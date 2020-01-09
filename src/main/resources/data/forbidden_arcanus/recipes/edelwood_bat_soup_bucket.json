@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:edelwood_bucket"
+        },
+        {
+            "item": "forbidden_arcanus:bat_soup"
+        }
+    ],
+    "result": {
+        "item": "forbidden_arcanus:edelwood_bat_soup_bucket"
+    }
+}

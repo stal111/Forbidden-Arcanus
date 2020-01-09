@@ -12,8 +12,6 @@ public class PermafrostEnchantment extends Enchantment {
         super(rarity, enchantmentType, equipmentSlot);
     }
 
-
-
     @Override
     public int getMinEnchantability(int p_77321_1_) {
         return 0;
@@ -27,5 +25,10 @@ public class PermafrostEnchantment extends Enchantment {
     @Override
     public int getMaxLevel() {
         return 1;
+    }
+
+    @Override
+    public boolean isTreasureEnchantment() {
+        return true;
     }
 }

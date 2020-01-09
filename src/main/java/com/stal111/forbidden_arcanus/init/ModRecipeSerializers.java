@@ -1,14 +1,13 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.recipe.EdelwoodWaterBucketIncreaseFullnessRecipe;
-import net.minecraft.item.Item;
+import com.stal111.forbidden_arcanus.recipe.EdelwoodBucketIncreaseFullnessRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 
 public enum ModRecipeSerializers {
-    EDELWOOD_WATER_BUCKET_INCREASE_FULLNESS(new SpecialRecipeSerializer<>(EdelwoodWaterBucketIncreaseFullnessRecipe::new));
+    EDELWOOD_BUCKET_INCREASE_FULLNESS(new SpecialRecipeSerializer<>(EdelwoodBucketIncreaseFullnessRecipe::new));
 
     private final IRecipeSerializer<?> recipe;
 

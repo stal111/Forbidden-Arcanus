@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:edelwood_bucket"
+        },
+        {
+            "item": "minecraft:mushroom_stew"
+        }
+    ],
+    "result": {
+        "item": "forbidden_arcanus:edelwood_mushroom_stew_bucket"
+    }
+}
