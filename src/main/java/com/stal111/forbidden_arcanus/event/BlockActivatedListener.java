@@ -28,6 +28,8 @@ public class BlockActivatedListener {
                 } else {
                     world.setBlockState(event.getPos(), ModBlocks.MAGICAL_FARMLAND.getState(), 2);
                 }
+                world.playEvent(event.getPlayer(), 2001, event.getPos(), Block.getStateId(world.getBlockState(event.getPos())));
+                event.getPlayer().swingArm(event.getHand());
             }
         }
     }
