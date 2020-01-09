@@ -1,0 +1,113 @@
+{
+	"pools": [
+		{
+			"name": "main_loot",
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"weight": 20,
+					"name": "forbidden_arcanus:edelwood_bucket"
+				},
+				{
+					"type": "minecraft:item",
+					"weight": 15,
+					"functions": [
+						{
+							"function": "minecraft:enchant_randomly",
+							"enchantments": ["forbidden_arcanus:permafrost"]
+						}
+					],
+					"name": "forbidden_arcanus:edelwood_lava_bucket"
+				},
+				{
+					"type": "minecraft:item",
+					"weight": 20,
+					"name": "forbidden_arcanus:edelwood_suspicious_stew_bucket"
+				},
+				{
+					"type": "minecraft:item",
+					"weight": 8,
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"min": 1.0,
+								"max": 2.0,
+								"type": "minecraft:uniform"
+							}
+						}
+					],
+					"name": "forbidden_arcanus:obsidian_ingot"
+				},
+				{
+					"type": "minecraft:empty",
+					"weight": 15
+				}
+			]
+		},
+		{
+			"name": "other_loot",
+			"rolls": {
+				"min": 1.0,
+				"max": 2.0,
+				"type": "minecraft:uniform"
+			},
+			"entries": [
+				{
+				"type": "item",
+				"name": "forbidden_arcanus:cloth",
+				"weight": 15,
+				"functions": [
+					{
+						"function": "minecraft:set_count",
+						"count": {
+							"min": 1.0,
+							"max": 3.0,
+							"type": "minecraft:uniform"
+						}
+					}
+				]
+			},
+			{
+				"type": "item",
+				"name": "forbidden_arcanus:bone_pickaxe",
+				"weight": 10
+			},
+			{
+				"type": "item",
+				"name": "forbidden_arcanus:obsidian_with_iron",
+				"weight": 5,
+				"functions": [
+					{
+						"function": "minecraft:set_count",
+						"count": {
+							"min": 1.0,
+							"max": 2.0,
+							"type": "minecraft:uniform"
+						}
+					}
+				]
+			},
+			{
+				"type": "item",
+				"name": "forbidden_arcanus:bat_wing",
+				"weight": 20,
+				"functions": [
+					{
+						"function": "minecraft:set_count",
+						"count": {
+							"min": 1.0,
+							"max": 2.0,
+							"type": "minecraft:uniform"
+						}
+					}
+				]
+			},
+			{
+				"type": "minecraft:empty",
+				"weight": 10
+			}
+		]
+	}]
+}

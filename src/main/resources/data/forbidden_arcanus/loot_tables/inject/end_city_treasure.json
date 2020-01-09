@@ -1,0 +1,54 @@
+{
+	"pools": [
+		{
+			"name": "main_loot",
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"weight": 20,
+					"name": "forbidden_arcanus:orb_of_temporary_flight"
+				},
+				{
+					"type": "minecraft:item",
+					"weight": 10,
+					"name": "forbidden_arcanus:dragon_scale"
+				},
+				{
+					"type": "minecraft:item",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"min": 1.0,
+								"max": 2.0,
+								"type": "minecraft:uniform"
+							}
+						}
+					],
+					"name": "forbidden_arcanus:mundabitur_dust"
+				},
+				{
+					"type": "minecraft:item",
+					"weight": 15,
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"min": 1.0,
+								"max": 2.0,
+								"type": "minecraft:uniform"
+							}
+						}
+					],
+					"name": "forbidden_arcanus:chorus_pearl"
+				},
+				{
+					"type": "minecraft:empty",
+					"weight": 10
+				}
+			]
+		}
+	]
+}
