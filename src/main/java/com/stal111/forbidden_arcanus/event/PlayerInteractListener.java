@@ -17,6 +17,7 @@ import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.MooshroomEntity;
+import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -94,7 +95,6 @@ public class PlayerInteractListener {
 		PlayerEntity player = event.getPlayer();
 		Entity entity = event.getTarget();
 		ItemStack stack = event.getItemStack();
-		Hand hand = event.getHand();
 		if (!stack.isEmpty()) {
 			if (stack.getItem() == ModItems.MUNDABITUR_DUST.getItem()) {
 				if (entity instanceof CreeperEntity) {
@@ -152,17 +152,16 @@ public class PlayerInteractListener {
 						player.swingArm(event.getHand());
 					}
 				}
-			} else if (entity instanceof AbstractFishEntity) {
-				AbstractFishEntity fishEntity = (AbstractFishEntity) entity;
-				if (fishEntity.isAlive()) {
+			} else if (entity instanceof AbstractFishEntity || entity instanceof SquidEntity) {
+				if (entity.isAlive()) {
 					if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.getItem()) {
 						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
 							stack.shrink(1);
 							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket")).getDefaultInstance());
 							CompoundNBT compoundNBT = fishBucket.getOrCreateChildTag("EdelwoodBucket");
 							compoundNBT.putInt("Fullness", stack.getOrCreateChildTag("EdelwoodBucket").getInt("Fullness"));
-							if (fishEntity.hasCustomName()) {
-								fishBucket.setDisplayName(fishEntity.getCustomName());
+							if (entity.hasCustomName()) {
+								fishBucket.setDisplayName(entity.getCustomName());
 							}
 							if (!world.isRemote()) {
 								CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)player, fishBucket);
@@ -174,18 +173,19 @@ public class PlayerInteractListener {
 								player.dropItem(fishBucket, false);
 							}
 
-							fishEntity.remove();
-							fishEntity.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+							entity.remove();
+							entity.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
 							player.swingArm(event.getHand());
 						}
 					}
 				}
-			} else if (entity instanceof BatEntity) {
+			}
+			else if (ItemStackUtils.registryContainsItem("edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket")) {
 				if (entity.isAlive()) {
 					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
 						stack.shrink(1);
 
-						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BAT_BUCKET.getStack());
+						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket")).getDefaultInstance());
 
 						if (stack.isEmpty()) {
 							player.setHeldItem(event.getHand(), bucket);
@@ -195,22 +195,6 @@ public class PlayerInteractListener {
 						entity.remove();
 						player.swingArm(event.getHand());
 					}
-				}
-			} else if (entity instanceof MagmaCubeEntity) {
-				if (entity.isAlive()) {
-					//		if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
-						//stack.shrink(1);
-
-					//	ItemStack bucket = ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.getStack());
-
-					//	if (stack.isEmpty()) {
-						//			player.setHeldItem(event.getHand(), bucket);
-						//		} else if (!player.inventory.addItemStackToInventory(bucket)) {
-						//			player.dropItem(bucket, false);
-						//		}
-						//		entity.remove();
-						//		player.swingArm(event.getHand());
-					//		}
 				}
 			}
 		}

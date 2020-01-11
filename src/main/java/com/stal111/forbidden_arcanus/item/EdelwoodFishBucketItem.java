@@ -61,7 +61,7 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
 
     private void placeFish(World world, ItemStack stack, BlockPos pos) {
         Entity entity = this.fishType.spawn(world, stack, null, pos, SpawnReason.BUCKET, true, false);
-        if (entity != null) {
+        if (entity instanceof AbstractFishEntity) {
             ((AbstractFishEntity)entity).setFromBucket(true);
         }
     }

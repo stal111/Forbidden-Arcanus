@@ -8,6 +8,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.passive.fish.TropicalFishEntity;
@@ -56,7 +57,7 @@ public class EdelwoodEntityBucketItem extends Item {
                             this.placeEntity(world, stack, pos);
                             if (!world.isRemote()) {
                                 player.inventory.removeStackFromSlot(slot);
-                                player.inventory.add(slot, ModItems.EDELWOOD_BUCKET.getStack());
+                                player.inventory.add(slot, Items.CHARCOAL.getDefaultInstance());
                                 player.setFire(3);
                             }
                         }

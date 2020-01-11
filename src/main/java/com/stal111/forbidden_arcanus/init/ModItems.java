@@ -66,8 +66,10 @@ public enum ModItems {
     EDELWOOD_BEETROOT_SOUP_BUCKET(new EdelwoodSoupBucketItem(8, properties(1).containerItem(EDELWOOD_BUCKET.getItem()).food(Foods.BEETROOT_SOUP))),
     EDELWOOD_BAT_SOUP_BUCKET(new EdelwoodSoupBucketItem(8, properties(1).containerItem(EDELWOOD_BUCKET.getItem()).food(build(7, 0.7F, new EffectInstance(Effects.NIGHT_VISION, 240, 0), 1.0F)))),
     EDELWOOD_BAT_BUCKET(new EdelwoodEntityBucketItem(EntityType.BAT, properties(1).containerItem(EDELWOOD_BUCKET.getItem()))),
-    //EDELWOOD_SQUID_BUCKET(new EdelwoodEntityBucketItem(EntityType.SQUID, properties(1).containerItem(EDELWOOD_BUCKET.getItem()))),
-    //EDELWOOD_MAGMA_CUBE_BUCKET(new EdelwoodEntityBucketItem(EntityType.MAGMA_CUBE, properties(1))),
+    EDELWOOD_SQUID_BUCKET(new EdelwoodFishBucketItem(EntityType.SQUID, Fluids.WATER, 4, properties(1).containerItem(EDELWOOD_BUCKET.getItem()))),
+    EDELWOOD_MAGMA_CUBE_BUCKET(new EdelwoodEntityBucketItem(EntityType.MAGMA_CUBE, properties(1))),
+    EDELWOOD_SLIME_BUCKET(new EdelwoodEntityBucketItem(EntityType.SLIME, properties(1))),
+    EDELWOOD_CHICKEN_BUCKET(new EdelwoodEntityBucketItem(EntityType.CHICKEN, properties(1))),
     AKU_AKU(new Item(properties(1))),
     GOLDEN_AKU_AKU(new Item(properties(1))),
     SOUL_EXTRACTOR(new SoulExtractorItem()),
@@ -123,7 +125,9 @@ public enum ModItems {
     OBSIDIAN_HELMET(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.HEAD, properties())),
     OBSIDIAN_SHOULDER_PADS(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.CHEST, properties())),
     OBSIDIAN_KNEE_PADS(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.LEGS, properties())),
-    OBSIDIAN_BOOTS(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET, properties()));
+    OBSIDIAN_BOOTS(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET, properties())),
+    BOOM_ARROW(new ArrowItem(properties())),
+    DRACO_ARCANUS_ARROW(new ArrowItem(properties()));
 
     private final Item item;
 

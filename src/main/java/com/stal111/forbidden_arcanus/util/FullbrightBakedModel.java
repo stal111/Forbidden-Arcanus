@@ -73,8 +73,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         if (RenderUtils.isLightMapDisabled()) {
             return quad;
         }
-
-        BakedQuadBuilder builder = new BakedQuadBuilder();
+        BakedQuadBuilder builder = new BakedQuadBuilder(quad.getSprite());
 
         VertexLighterFlat trans = new VertexLighterFlat(Minecraft.getInstance().getBlockColors()) {
 
@@ -92,15 +91,11 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
         trans.setParent(builder);
 
-        if (quad != null) {
-            quad.pipe(trans);
-        } else {
-            LightUtil.putBakedQuad(trans, quad);
-        }
-        builder.setQuadTint(quad.getTintIndex());
         builder.setQuadOrientation(quad.getFace());
         builder.setTexture(quad.getSprite());
         builder.setApplyDiffuseLighting(false);
+
+        quad.pipe(trans);
 
         return builder.build();
     }
