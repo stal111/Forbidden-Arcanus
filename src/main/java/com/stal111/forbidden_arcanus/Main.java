@@ -1,51 +1,46 @@
 package com.stal111.forbidden_arcanus;
 
-import com.stal111.forbidden_arcanus.block.ModWoodType;
-import com.stal111.forbidden_arcanus.entity.ModEntities;
+import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
+import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
+import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.init.*;
+import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.particle.ModBreakingParticle;
 import com.stal111.forbidden_arcanus.particle.SoulParticle;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
+import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
 import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.world.gen.blockstateprovider.ForestFlowerBlockStateProvider;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
-import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
-import com.stal111.forbidden_arcanus.config.Config;
-import com.stal111.forbidden_arcanus.item.ModItemGroup;
-import com.stal111.forbidden_arcanus.sound.ModSounds;
-
-import net.minecraft.entity.EntityType;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(Main.MOD_ID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -125,7 +120,9 @@ public class Main {
 
 	@SubscribeEvent
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
-		ModEntities.register(event);
+		for (ModEntities entity : ModEntities.values()) {
+			event.getRegistry().register(entity.getEntityType());
+		}
 	}
 //	
 //	@SubscribeEvent

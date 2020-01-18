@@ -26,16 +26,19 @@ public class VoxelShapeHelper {
         return result.simplify();
     }
 
-    public static Map<VoxelShape, Direction> getRotatedShapes(VoxelShape shape) {
-        Map<VoxelShape, Direction> map = new HashMap<>();
-        map.put(shape, Direction.NORTH);
-        map.put(rotateShape(shape, RotationAmount.NINETY), Direction.EAST);
-        map.put(rotateShape(shape, RotationAmount.HUNDRED_EIGHTY), Direction.SOUTH);
-        map.put(rotateShape(shape, RotationAmount.TWO_HUNDRED_SEVENTY), Direction.WEST);
+    public static Map<Direction, VoxelShape> getRotatedShapes(VoxelShape shape) {
+        Map<Direction, VoxelShape> map = new HashMap<>();
+        map.put(Direction.NORTH, shape);
+        map.put(Direction.EAST, rotateShape(shape, RotationAmount.NINETY));
+        map.put(Direction.SOUTH, rotateShape(shape, RotationAmount.HUNDRED_EIGHTY));
+        map.put(Direction.WEST, rotateShape(shape, RotationAmount.TWO_HUNDRED_SEVENTY));
         return map;
     }
 
     public static VoxelShape rotateShape(VoxelShape shape, RotationAmount rotationAmount) {
+        if (shape.isEmpty()) {
+            return shape;
+        }
         Set<VoxelShape> rotatedShapes = new HashSet<>();
 
         shape.forEachBox((x1, y1, z1, x2, y2, z2) -> {

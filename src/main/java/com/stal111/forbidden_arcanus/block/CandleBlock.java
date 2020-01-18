@@ -37,7 +37,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public CandleBlock(Properties properties) {
-		super(properties.doesNotBlockMovement().lightValue(15));
+		super(properties.doesNotBlockMovement());
 		this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 1).with(LIT, true).with(WATERLOGGED, false));
 	}
 
@@ -88,14 +88,13 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	}
 	
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos,
-			ISelectionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
 		return VoxelShapes.empty();
 	}
 
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		return (func_220055_a(world, pos.down(), Direction.UP)) && !CandelabraBlock.getCandelabraBlocks().contains(world.getBlockState(pos.down()).getBlock());
+		return (func_220055_a(world, pos.down(), Direction.UP)) && !CandelabraBlock.isCandelabraBlock(world.getBlockState(pos.down()));
 	}
 
 	@Override
@@ -116,23 +115,12 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 
 	@Override
 	public int getLightValue(BlockState state) {
-		return state.get(LIT) && !state.get(WATERLOGGED) ? super.getLightValue(state) : 0;
+		return state.get(LIT) && !state.get(WATERLOGGED) ? super.getLightValue(state) + 12 + state.get(CANDLES) : 0;
 	}
 
 	@Override
 	public void fillStateContainer(StateContainer.Builder<Block, BlockState> p_206840_1_) {
 		p_206840_1_.add(CANDLES, LIT, WATERLOGGED);
-	}
-
-	@Override
-	public boolean receiveFluid(IWorld p_204509_1_, BlockPos p_204509_2_, BlockState p_204509_3_, IFluidState p_204509_4_) {
-		if (!p_204509_3_.get(BlockStateProperties.WATERLOGGED) && p_204509_4_.getFluid() == Fluids.WATER) {
-			p_204509_1_.setBlockState(p_204509_2_, (p_204509_3_.with(WATERLOGGED, true)).with(LIT, false), 3);
-			p_204509_1_.getPendingFluidTicks().scheduleTick(p_204509_2_, p_204509_4_.getFluid(), p_204509_4_.getFluid().getTickRate(p_204509_1_));
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override

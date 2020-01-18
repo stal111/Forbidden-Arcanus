@@ -8,8 +8,10 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.WaterFluid;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.ItemStack;
@@ -17,8 +19,10 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -34,80 +38,117 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<CandelabraAttachment> ATTACHMENT = EnumProperty.create("attachment", CandelabraAttachment.class);
 
-    private static final VoxelShape SHAPE_FLOOR_BASE = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 1.0D, 10.0D),
-            Block.makeCuboidShape(6.5D, 1.0D, 6.5D, 9.5D, 4.0D, 9.5D));
+    private static final VoxelShape[] BASE_SHAPES = {
+            VoxelShapeHelper.combineAll(
+                    Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 1.0D, 10.0D),
+                    Block.makeCuboidShape(6.5D, 1.0D, 6.5D, 9.5D, 4.0D, 9.5D)),
+            VoxelShapeHelper.combineAll(
+                    Block.makeCuboidShape(6.0D, 1.5D, 0.0D, 10.0D, 5.5D, 1.0D),
+                    Block.makeCuboidShape(7.0D, 2.5D, 1.0D, 9.0D, 4.5D, 5.5D),
+                    Block.makeCuboidShape(6.5D, 2.0D, 5.5D, 9.5D, 5.0D, 8.5D))
+    };
 
-    private static final List<VoxelShape> SHAPE_FLOOR_ONE_CANDLE = Arrays.asList(
-            Block.makeCuboidShape(7.0D, 4.0D, 7.0D, 9.0D, 10.0D, 9.0D),
-            Block.makeCuboidShape(6.5D, 10.0D, 6.5D, 9.5D, 12.0D, 9.5D),
+    private static final VoxelShape[] FLOOR_SHAPES = {
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[0],
+                    Block.makeCuboidShape(7.0D, 4.0D, 7.0D, 9.0D, 10.0D, 9.0D),
+                    Block.makeCuboidShape(6.5D, 10.0D, 6.5D, 9.5D, 12.0D, 9.5D)),
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[0],
+                    Block.makeCuboidShape(7.0D, 4.0D, 7.0D, 9.0D, 10.0D, 9.0D),
+                    Block.makeCuboidShape(6.5D, 10.0D, 6.5D, 9.5D, 12.0D, 9.5D),
 
-            Block.makeCuboidShape(7.0D, 12.0D, 7.0D, 9.0D, 16.0D, 9.0D));
+                    Block.makeCuboidShape(7.0D, 12.0D, 7.0D, 9.0D, 16.0D, 9.0D)),
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[0],
+                    Block.makeCuboidShape(7.0D, 4.0D, 7.0D, 9.0D, 7.0D, 9.0D),
+                    Block.makeCuboidShape(4.0D, 5.0D, 7.0D, 12.0D, 7.0D, 9.0D),
+                    Block.makeCuboidShape(4.0D, 7.0D, 7.0D, 6.0D, 10.0D, 9.0D),
+                    Block.makeCuboidShape(10.0D, 7.0D, 7.0D, 12.0D, 10.0D, 9.0D),
+                    Block.makeCuboidShape(3.5D, 10.0D, 6.5D, 6.5D, 12.0D, 9.5D),
+                    Block.makeCuboidShape(9.5D, 10.0D, 6.5D, 12.5D, 12.0D, 9.5D),
 
-    private static final VoxelShape SHAPE_FLOOR_TWO_CANDLES = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(7.0D, 4.0D, 7.0D, 9.0D, 7.0D, 9.0D),
-            Block.makeCuboidShape(4.0D, 5.0D, 7.0D, 12.0D, 7.0D, 9.0D),
-            Block.makeCuboidShape(4.0D, 7.0D, 7.0D, 6.0D, 10.0D, 9.0D),
-            Block.makeCuboidShape(10.0D, 7.0D, 7.0D, 12.0D, 10.0D, 9.0D),
-            Block.makeCuboidShape(3.5D, 10.0D, 6.5D, 6.5D, 12.0D, 9.5D),
-            Block.makeCuboidShape(9.5D, 10.0D, 6.5D, 12.5D, 12.0D, 9.5D),
+                    Block.makeCuboidShape(4.0D, 12.0D, 7.0D, 6.0D, 16.0D, 9.0D),
+                    Block.makeCuboidShape(10.0D, 12.0D, 7.0D, 12.0D, 16.0D, 9.0D)),
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[0],
+                    Block.makeCuboidShape(7.0D, 4.0D, 7.0D, 9.0D, 11.0D, 9.0D),
+                    Block.makeCuboidShape(6.5D, 11.0D, 6.5D, 9.5D, 13.0D, 9.5D),
+                    Block.makeCuboidShape(2.0D, 5.0D, 7.0D, 14.0D, 7.0D, 9.0D),
+                    Block.makeCuboidShape(2.0D, 7.0D, 7.0D, 4.0D, 9.0D, 9.0D),
+                    Block.makeCuboidShape(12.0D, 7.0D, 7.0D, 14.0D, 9.0D, 9.0D),
+                    Block.makeCuboidShape(1.5D, 9.0D, 6.5D, 4.5D, 11.0D, 9.5D),
+                    Block.makeCuboidShape(11.5D, 9.0D, 6.5D, 14.5D, 11.0D, 9.5D),
 
-            Block.makeCuboidShape(4.0D, 12.0D, 7.0D, 6.0D, 16.0D, 9.0D),
-            Block.makeCuboidShape(10.0D, 12.0D, 7.0D, 12.0D, 16.0D, 9.0D));
+                    Block.makeCuboidShape(2.0D, 11.0D, 7.0D, 4.0D, 14.0D, 9.0D),
+                    Block.makeCuboidShape(12.0D, 11.0D, 7.0D, 14.0D, 14.0D, 9.0D),
+                    Block.makeCuboidShape(7.0D, 13.0D, 7.0D, 9.0D, 16.0D, 9.0D)
+            )
+    };
 
-    private static final VoxelShape SHAPE_FLOOR_THREE_CANDLES = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(7.0D, 4.0D, 7.0D, 9.0D, 11.0D, 9.0D),
-            Block.makeCuboidShape(6.5D, 11.0D, 6.5D, 9.5D, 13.0D, 9.5D),
-            Block.makeCuboidShape(2.0D, 5.0D, 7.0D, 14.0D, 7.0D, 9.0D),
-            Block.makeCuboidShape(2.0D, 7.0D, 7.0D, 4.0D, 9.0D, 9.0D),
-            Block.makeCuboidShape(12.0D, 7.0D, 7.0D, 14.0D, 9.0D, 9.0D),
-            Block.makeCuboidShape(1.5D, 9.0D, 6.5D, 4.5D, 11.0D, 9.5D),
-            Block.makeCuboidShape(11.5D, 9.0D, 6.5D, 14.5D, 11.0D, 9.5D),
+    private static final VoxelShape[] WALL_SHAPES = {
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[1],
+                    Block.makeCuboidShape(7.0D, 4.0D, 6.0D, 9.0D, 10.0D, 8.0D),
+                    Block.makeCuboidShape(6.5D, 10.0D, 5.5D, 9.5D, 12.0D, 8.5D)),
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[1],
+                    Block.makeCuboidShape(7.0D, 4.0D, 6.0D, 9.0D, 10.0D, 8.0D),
+                    Block.makeCuboidShape(6.5D, 10.0D, 5.5D, 9.5D, 12.0D, 8.5D),
 
-            Block.makeCuboidShape(2.0D, 11.0D, 7.0D, 4.0D, 14.0D, 9.0D),
-            Block.makeCuboidShape(12.0D, 11.0D, 7.0D, 14.0D, 14.0D, 9.0D),
-            Block.makeCuboidShape(7.0D, 13.0D, 7.0D, 9.0D, 16.0D, 9.0D));
+                    Block.makeCuboidShape(7.0D, 12.0D, 6.0D, 9.0D, 16.0D, 8.0D)),
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[1],
+                    Block.makeCuboidShape(7.0D, 5.0D, 6.0D, 9.0D, 6.0D, 8.0D),
+                    Block.makeCuboidShape(4.0D, 6.0D, 6.0D, 12.0D, 8.0D, 8.0D),
+                    Block.makeCuboidShape(4.0D, 8.0D, 6.0D, 6.0D, 10.0D, 8.0D),
+                    Block.makeCuboidShape(10.0D, 7.0D, 6.0D, 12.0D, 10.0D, 8.0D),
 
-    private static final VoxelShape SHAPE_WALL_BASE = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(6.0D, 1.5D, 0.0D, 10.0D, 5.5D, 1.0D),
-            Block.makeCuboidShape(7.0D, 2.5D, 1.0D, 9.0D, 4.5D, 5.5D),
-            Block.makeCuboidShape(6.5D, 2.0D, 5.5D, 9.5D, 5.0D, 8.5D));
+                    Block.makeCuboidShape(3.5D, 10.0D, 5.5D, 6.5D, 12.0D, 8.5D),
+                    Block.makeCuboidShape(9.5D, 10.0D, 5.5D, 12.5D, 12.0D, 8.5D),
 
-    private static final List<VoxelShape> SHAPE_WALL_ONE_CANDLE = Arrays.asList(
-            Block.makeCuboidShape(7.0D, 4.0D, 6.0D, 9.0D, 10.0D, 8.0D),
-            Block.makeCuboidShape(6.5D, 10.0D, 5.5D, 9.5D, 12.0D, 8.5D),
+                    Block.makeCuboidShape(4.0D, 12.0D, 6.0D, 6.0D, 16.0D, 8.0D),
+                    Block.makeCuboidShape(10.0D, 12.0D, 6.0D, 12.0D, 16.0D, 8.0D)),
+            VoxelShapeHelper.combineAll(
+                    BASE_SHAPES[1],
+                    Block.makeCuboidShape(7.0D, 5.0D, 6.0D, 9.0D, 11.0D, 8.0D),
+                    Block.makeCuboidShape(2.0D, 6.0D, 6.0D, 14.0D, 8.0D, 8.0D),
 
-            Block.makeCuboidShape(7.0D, 12.0D, 6.0D, 9.0D, 16.0D, 8.0D));
+                    Block.makeCuboidShape(2.0D, 8.0D, 6.0D, 4.0D, 9.0D, 8.0D),
+                    Block.makeCuboidShape(12.0D, 7.0D, 6.0D, 14.0D, 9.0D, 8.0D),
 
-    private static final VoxelShape SHAPE_WALL_TWO_CANDLES = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(7.0D, 5.0D, 6.0D, 9.0D, 6.0D, 8.0D),
-            Block.makeCuboidShape(4.0D, 6.0D, 6.0D, 12.0D, 8.0D, 8.0D),
-            Block.makeCuboidShape(4.0D, 8.0D, 6.0D, 6.0D, 10.0D, 8.0D),
-            Block.makeCuboidShape(10.0D, 7.0D, 6.0D, 12.0D, 10.0D, 8.0D),
+                    Block.makeCuboidShape(1.5D, 9.0D, 5.5D, 4.5D, 11.0D, 8.5D),
+                    Block.makeCuboidShape(6.5D, 11.0D, 5.5D, 9.5D, 13.0D, 8.5D),
+                    Block.makeCuboidShape(11.5D, 9.0D, 5.5D, 14.5D, 11.0D, 8.5D),
 
-            Block.makeCuboidShape(3.5D, 10.0D, 5.5D, 6.5D, 12.0D, 8.5D),
-            Block.makeCuboidShape(9.5D, 10.0D, 5.5D, 12.5D, 12.0D, 8.5D),
-
-            Block.makeCuboidShape(4.0D, 12.0D, 6.0D, 6.0D, 16.0D, 8.0D),
-            Block.makeCuboidShape(10.0D, 12.0D, 6.0D, 12.0D, 16.0D, 8.0D));
-
-    private static final VoxelShape SHAPE_WALL_THREE_CANDLES = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(7.0D, 5.0D, 6.0D, 9.0D, 11.0D, 8.0D),
-
-            Block.makeCuboidShape(2.0D, 6.0D, 6.0D, 14.0D, 8.0D, 8.0D),
-
-            Block.makeCuboidShape(2.0D, 8.0D, 6.0D, 4.0D, 9.0D, 8.0D),
-            Block.makeCuboidShape(12.0D, 7.0D, 6.0D, 14.0D, 9.0D, 8.0D),
-
-            Block.makeCuboidShape(1.5D, 9.0D, 5.5D, 4.5D, 11.0D, 8.5D),
-            Block.makeCuboidShape(11.5D, 9.0D, 5.5D, 14.5D, 11.0D, 8.5D),
-
-            Block.makeCuboidShape(2.0D, 11.0D, 6.0D, 4.0D, 14.0D, 8.0D),
-            Block.makeCuboidShape(12.0D, 11.0D, 6.0D, 14.0D, 14.0D, 8.0D));
+                    Block.makeCuboidShape(2.0D, 11.0D, 6.0D, 4.0D, 14.0D, 8.0D),
+                    Block.makeCuboidShape(7.0D, 13.0D, 6.0D, 9.0D, 16.0D, 8.0D),
+                    Block.makeCuboidShape(12.0D, 11.0D, 6.0D, 14.0D, 14.0D, 8.0D)
+            )
+    };
 
     public CandelabraBlock(Properties properties) {
-        super(properties.lightValue(15));
+        super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 0).with(LIT, true).with(DIRECTION, Direction.NORTH).with(ATTACHMENT, CandelabraAttachment.FLOOR).with(WATERLOGGED, false));
+    }
+
+    private VoxelShape generateShape(BlockState state) {
+        if (state.get(CANDLES) > 0) {
+            if (state.get(ATTACHMENT) == CandelabraAttachment.FLOOR) {
+                if (state.get(DIRECTION) == Direction.EAST || state.get(DIRECTION) == Direction.WEST) {
+                    return VoxelShapeHelper.rotateShape(FLOOR_SHAPES[state.get(CANDLES)], VoxelShapeHelper.RotationAmount.NINETY);
+                }
+                return FLOOR_SHAPES[state.get(CANDLES)];
+            } else {
+                if (state.get(DIRECTION) == Direction.NORTH) {
+                    return WALL_SHAPES[state.get(CANDLES)];
+                } else {
+                    return VoxelShapeHelper.getRotatedShapes(state.get(ATTACHMENT) == CandelabraAttachment.FLOOR ? FLOOR_SHAPES[state.get(CANDLES)] : WALL_SHAPES[state.get(CANDLES)]).get(state.get(DIRECTION));
+                }
+            }
+        } else {
+            return state.get(ATTACHMENT) == CandelabraAttachment.FLOOR ? FLOOR_SHAPES[0] : WALL_SHAPES[0];
+        }
     }
 
     @Override
@@ -125,50 +166,16 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        return (HorizontalFaceBlock.func_220185_b(world, pos, func_220131_q(state).getOpposite()) && (world.getBlockState(pos.up()).getBlock() instanceof AirBlock)) && !getCandelabraBlocks().contains(world.getBlockState(pos.down()).getBlock());
+        return (HorizontalFaceBlock.func_220185_b(world, pos, func_220131_q(state).getOpposite()) && (world.getBlockState(pos.up()).getBlock() instanceof AirBlock || world.getFluidState(pos.up()).getFluid() instanceof WaterFluid) && !isCandelabraBlock(world.getBlockState(pos.down())));
     }
 
-    public static List<Block> getCandelabraBlocks() {
-        return new ArrayList<>(Arrays.asList(ModBlocks.STONE_CANDELABRA.getBlock(), ModBlocks.IRON_CANDELABRA.getBlock(), ModBlocks.ARCANE_GOLDEN_CANDELABRA.getBlock()));
+    public static boolean isCandelabraBlock(BlockState state) {
+        return state.getBlock() instanceof CandelabraBlock;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext context) {
-        VoxelShape shape = VoxelShapes.empty();
-        if (state.get(ATTACHMENT) == CandelabraAttachment.FLOOR) {
-            if (state.get(CANDLES) == 1) {
-                shape = VoxelShapeHelper.combineAll(SHAPE_FLOOR_BASE, VoxelShapeHelper.combineAll(SHAPE_FLOOR_ONE_CANDLE));
-            } else if (state.get(CANDLES) == 2) {
-                shape = VoxelShapeHelper.combineAll(SHAPE_FLOOR_BASE, SHAPE_FLOOR_TWO_CANDLES);
-            } else if (state.get(CANDLES) == 3) {
-                shape = VoxelShapeHelper.combineAll(SHAPE_FLOOR_BASE, SHAPE_FLOOR_THREE_CANDLES);
-            } else {
-                shape = VoxelShapeHelper.combineAll(SHAPE_FLOOR_BASE, VoxelShapeHelper.combineAll((List<VoxelShape>) ModUtils.removeLastFromList(SHAPE_FLOOR_ONE_CANDLE)));
-            }
-
-            if (state.get(DIRECTION) == Direction.EAST || state.get(DIRECTION) == Direction.WEST) {
-                shape = VoxelShapeHelper.rotateShape(shape, VoxelShapeHelper.RotationAmount.NINETY);
-            }
-        } else if (state.get(ATTACHMENT) == CandelabraAttachment.SINGLE_WALL) {
-            if (state.get(CANDLES) == 1) {
-                shape = VoxelShapeHelper.combineAll(SHAPE_WALL_BASE, VoxelShapeHelper.combineAll(SHAPE_WALL_ONE_CANDLE));
-            } else if (state.get(CANDLES) == 2) {
-                shape = VoxelShapeHelper.combineAll(SHAPE_WALL_BASE, SHAPE_WALL_TWO_CANDLES);
-            } else if (state.get(CANDLES) == 3) {
-                shape = VoxelShapeHelper.combineAll(SHAPE_WALL_BASE, SHAPE_WALL_THREE_CANDLES);
-            } else {
-                shape = VoxelShapeHelper.combineAll(SHAPE_WALL_BASE, VoxelShapeHelper.combineAll((List<VoxelShape>) ModUtils.removeLastFromList(SHAPE_WALL_ONE_CANDLE)));
-            }
-
-            if (state.get(DIRECTION) == Direction.EAST) {
-                shape = VoxelShapeHelper.rotateShape(shape, VoxelShapeHelper.RotationAmount.NINETY);
-            } else if (state.get(DIRECTION) == Direction.SOUTH) {
-                shape = VoxelShapeHelper.rotateShape(shape, VoxelShapeHelper.RotationAmount.HUNDRED_EIGHTY);
-            } else if (state.get(DIRECTION) == Direction.WEST) {
-                shape = VoxelShapeHelper.rotateShape(shape, VoxelShapeHelper.RotationAmount.TWO_HUNDRED_SEVENTY);
-            }
-        }
-         return shape;
+        return generateShape(state);
     }
 
     @Override
@@ -197,11 +204,6 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
             }
         }
         return null;
-    }
-
-    @Override
-    public boolean func_229869_c_(BlockState p_229869_1_, IBlockReader p_229869_2_, BlockPos p_229869_3_) {
-        return super.func_229869_c_(p_229869_1_, p_229869_2_, p_229869_3_);
     }
 
     @Override
@@ -263,7 +265,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
 
     @Override
     public int getLightValue(BlockState state) {
-        return state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? super.getLightValue(state) : 0;
+        return state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? super.getLightValue(state) + 12 + state.get(CANDLES) : 0;
     }
 
     @Override
@@ -277,18 +279,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
     }
 
     @Override
-    public boolean receiveFluid(IWorld p_204509_1_, BlockPos p_204509_2_, BlockState p_204509_3_, IFluidState p_204509_4_) {
-        if (!p_204509_3_.get(BlockStateProperties.WATERLOGGED) && p_204509_4_.getFluid() == Fluids.WATER) {
-            p_204509_1_.setBlockState(p_204509_2_, (p_204509_3_.with(WATERLOGGED, true)).with(LIT, false), 3);
-            p_204509_1_.getPendingFluidTicks().scheduleTick(p_204509_2_, p_204509_4_.getFluid(), p_204509_4_.getFluid().getTickRate(p_204509_1_));
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public IFluidState getFluidState(BlockState p_204507_1_) {
-        return p_204507_1_.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(p_204507_1_);
+    public IFluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 }
