@@ -19,13 +19,15 @@ public class ModEffects {
     public static final Effect
             fly = null,
             spectral_vision = null,
-            darkened = null;
+            darkened = null,
+            frozen = null;
 
     @SubscribeEvent
     public static void register(RegistryEvent.Register<Effect> registry) {
         register("fly", new FlyEffect(EffectType.BENEFICIAL, 745784));
         register("spectral_vision", new SpectralEyeEffect(EffectType.BENEFICIAL, 745784));
         register("darkened", new DarkenedEffect(EffectType.BENEFICIAL, 745784)).addAttributesModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", (double)-0.15F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        //register("frozen", (new FrozenEffect(EffectType.HARMFUL, 5926017)));
     }
 
     private static <T extends Effect> T register(String name, T effect) {

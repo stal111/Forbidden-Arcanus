@@ -1,10 +1,8 @@
 package com.stal111.forbidden_arcanus.entity.projectile;
 
-import com.stal111.forbidden_arcanus.entity.ModEntities;
+import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
@@ -32,11 +30,11 @@ public class EnergyBallEntity extends Entity {
     private double accelerationZ;
 
     public EnergyBallEntity(World worldIn) {
-        super(ModEntities.energy_ball, worldIn);
+        super(ModEntities.ENERGY_BALL.getEntityType(), worldIn);
     }
 
     public EnergyBallEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(ModEntities.energy_ball, worldIn);
+        super(ModEntities.ENERGY_BALL.getEntityType(), worldIn);
         this.shootingEntity = shooter;
         this.setLocationAndAngles(shooter.func_226277_ct_(), shooter.func_226278_cu_(), shooter.func_226281_cx_(), shooter.rotationYaw, shooter.rotationPitch);
         this.setPosition(this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_());
@@ -50,7 +48,7 @@ public class EnergyBallEntity extends Entity {
     }
 
     public EnergyBallEntity(FMLPlayMessages.SpawnEntity packet, World world) {
-        super(ModEntities.chorus_pearl, world);
+        super(ModEntities.ENERGY_BALL.getEntityType(), world);
     }
 
     @Override
@@ -124,7 +122,7 @@ public class EnergyBallEntity extends Entity {
     protected void writeAdditional(CompoundNBT compound) {
         Vec3d vec3d = this.getMotion();
         compound.put("direction", this.newDoubleNBTList(new double[]{vec3d.x, vec3d.y, vec3d.z}));
-        compound.put("power", this.newDoubleNBTList(new double[]{this.accelerationX, this.accelerationY, this.accelerationZ}));
+        compound.put("power", this.newDoubleNBTList(this.accelerationX, this.accelerationY, this.accelerationZ));
         compound.putInt("life", this.ticksAlive);
     }
 

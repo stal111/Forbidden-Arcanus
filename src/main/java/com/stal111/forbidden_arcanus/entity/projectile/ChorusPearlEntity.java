@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.entity.projectile;
 
-import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.ModEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
@@ -28,22 +28,26 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 
     @SuppressWarnings("unchecked")
     public ChorusPearlEntity(World world) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, world);
+        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.getEntityType(), world);
     }
 
     @SuppressWarnings("unchecked")
     public ChorusPearlEntity(World world, double x, double y, double z) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, x, y, z, world);
+        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.getEntityType(), x, y, z, world);
     }
 
     @SuppressWarnings("unchecked")
     public ChorusPearlEntity(World world, LivingEntity thrower) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, thrower, world);
+        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.getEntityType(), thrower, world);
     }
 
     @SuppressWarnings("unchecked")
     public ChorusPearlEntity(SpawnEntity packet, World world) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.chorus_pearl, world);
+        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.getEntityType(), world);
+    }
+
+    public ChorusPearlEntity(EntityType<? extends ProjectileItemEntity> entityEntityType, World world) {
+        super(entityEntityType, world);
     }
 
     @Override

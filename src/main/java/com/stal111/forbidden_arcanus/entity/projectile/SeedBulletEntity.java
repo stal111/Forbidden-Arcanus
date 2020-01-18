@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.entity.projectile;
 
-import com.stal111.forbidden_arcanus.entity.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -34,22 +34,26 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.seed_bullet, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), world);
 	}
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world, double x, double y, double z) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.seed_bullet, x, y, z, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), x, y, z, world);
 	}
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world, LivingEntity thrower) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.seed_bullet, thrower, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), thrower, world);
 	}
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(SpawnEntity packet, World world) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.seed_bullet, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), world);
+	}
+
+	public SeedBulletEntity(EntityType<? extends ProjectileItemEntity> entityEntityType, World world) {
+		super(entityEntityType, world);
 	}
 
 	@Override
