@@ -61,7 +61,7 @@ public class VoxelShapeHelper {
             if (axis == Direction.Axis.X) {
                 rotatedShapes.add(Block.makeCuboidShape(y1 * 16, x1 * 16, z1 * 16, y2 * 16, x2 * 16, z2 * 16));
             } else if (axis == Direction.Axis.Z) {
-                rotatedShapes.add(Block.makeCuboidShape(x1 * 16, z1 * 16, y1 * 16, x2 * 16, z2 * 16, y2 * 16));
+                rotatedShapes.add(rotateShape(Block.makeCuboidShape(x1 * 16, z1 * 16, y1 * 16, x2 * 16, z2 * 16, y2 * 16), RotationAmount.HUNDRED_EIGHTY));
             } else {
                 rotatedShapes.add(Block.makeCuboidShape(x1 * 16, y1 * 16, z1 * 16, x2 * 16, y2 * 16, z2 * 16));
             }
