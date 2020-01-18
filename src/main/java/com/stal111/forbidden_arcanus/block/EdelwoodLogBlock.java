@@ -50,7 +50,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	@Override
 	public void func_225534_a_(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (!world.isRemote()) {
-			if (random.nextDouble() < 0.06 && world.isAreaLoaded(pos, 4)) {
+			if (random.nextDouble() < 0.04 && world.isAreaLoaded(pos, 4)) {
 				if (!state.get(OIL)) {
 					world.setBlockState(pos, state.with(OIL, true), 2);
 				}
@@ -87,12 +87,12 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-		return VoxelShapeHelper.roteteShapeAxis(SHAPE, state.get(AXIS));
+		return VoxelShapeHelper.rotateShapeAxis(SHAPE, state.get(AXIS));
 	}
 
 	@Override
 	public VoxelShape getRaytraceShape(BlockState state, IBlockReader world, BlockPos pos) {
-		return VoxelShapeHelper.roteteShapeAxis(INSIDE, state.get(AXIS));
+		return VoxelShapeHelper.rotateShapeAxis(INSIDE, state.get(AXIS));
 	}
 
 	@Override

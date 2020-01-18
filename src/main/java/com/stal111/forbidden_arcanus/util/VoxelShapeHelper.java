@@ -28,25 +28,34 @@ public class VoxelShapeHelper {
         return result.simplify();
     }
 
-    public static VoxelShape rotateShape(VoxelShape shape, RotationAmount amount) {
+    public static VoxelShape[] getRotatedShapes(VoxelShape shape) {
+        VoxelShape[] shapes = new VoxelShape[4];
+        shapes[0] = shape;
+        shapes[1] = rotateShape(shape, RotationAmount.NINETY);
+        shapes[2] = rotateShape(shape, RotationAmount.HUNDRED_EIGHTY);
+        shapes[3] = rotateShape(shape, RotationAmount.TWO_HUNDRED_SEVENTY);
+        return shapes;
+    }
+
+    public static VoxelShape rotateShape(VoxelShape shape, RotationAmount rotationAmount) {
         Set<VoxelShape> rotatedShapes = new HashSet<>();
 
         shape.forEachBox((x1, y1, z1, x2, y2, z2) -> {
             x1 = (x1 * 16) - 8; x2 = (x2 * 16) - 8;
             z1 = (z1 * 16) - 8; z2 = (z2 * 16) - 8;
 
-            if (amount == RotationAmount.NINETY) {
+            if (rotationAmount == RotationAmount.NINETY) {
                 rotatedShapes.add(Block.makeCuboidShape(8 - z1, y1 * 16, 8 + x1, 8 - z2, y2 * 16, 8 + x2));
-            } else if (amount == RotationAmount.HUNDRED_EIGHTY) {
+            } else if (rotationAmount == RotationAmount.HUNDRED_EIGHTY) {
                 rotatedShapes.add(Block.makeCuboidShape(8 - x1, y1 * 16, 8 - z1, 8 - x2, y2 * 16, 8 - z2));
-            } else if (amount == RotationAmount.TWO_HUNDRED_SEVENTY) {
+            } else if (rotationAmount == RotationAmount.TWO_HUNDRED_SEVENTY) {
                 rotatedShapes.add(Block.makeCuboidShape(8 + z1, y1 * 16, 8 - x1, 8 + z2, y2 * 16, 8 - x2));
             }
         });
         return rotatedShapes.stream().reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
     }
 
-    public static VoxelShape roteteShapeAxis(VoxelShape shape, Direction.Axis axis) {
+    public static VoxelShape rotateShapeAxis(VoxelShape shape, Direction.Axis axis) {
         Set<VoxelShape> rotatedShapes = new HashSet<>();
         shape.forEachBox((x1, y1, z1, x2, y2, z2) -> {
             if (axis == Direction.Axis.X) {
