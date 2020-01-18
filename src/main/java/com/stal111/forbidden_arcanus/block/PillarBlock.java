@@ -2,97 +2,61 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ConnectedBlockType;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.DirectionalBlock;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 
 public class PillarBlock extends WaterloggedBlock {
 
 	public static final EnumProperty<ConnectedBlockType> TYPE = EnumProperty.create("type", ConnectedBlockType.class);
-	public static final DirectionProperty FACING = DirectionalBlock.FACING;
+	public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
 	private static final VoxelShape[]
-			SHAPE_X = { 
-				Block.makeCuboidShape(0, 0, 0, 2, 16, 16), Block.makeCuboidShape(2, 1, 1, 3, 15, 15), Block.makeCuboidShape(0, 2, 2, 16, 14, 14), Block.makeCuboidShape(13, 1, 1, 14, 15, 15), Block.makeCuboidShape(14, 0, 0, 16, 16, 16) },
-			SHAPE_Y = { 
-				Block.makeCuboidShape(0, 14, 0, 16, 16, 16), Block.makeCuboidShape(1, 13, 1, 15, 14, 15), Block.makeCuboidShape(2, 0, 2, 14, 16, 14), Block.makeCuboidShape(0, 0, 0, 16, 2, 16), Block.makeCuboidShape(1, 2, 1, 15, 3, 15) },
-			SHAPE_Z = {
-				Block.makeCuboidShape(0, 0, 0, 16, 16, 2), Block.makeCuboidShape(1, 1, 2, 15, 15, 3), Block.makeCuboidShape(2, 2, 0, 14, 14, 16), Block.makeCuboidShape(1, 1, 13, 15, 15, 14), Block.makeCuboidShape(0, 0, 14, 16, 16, 16) };
-	
+			SHAPE = {
+			Block.makeCuboidShape(0, 14, 0, 16, 16, 16),
+			Block.makeCuboidShape(1, 13, 1, 15, 14, 15),
+			Block.makeCuboidShape(2, 0, 2, 14, 16, 14),
+			Block.makeCuboidShape(0, 0, 0, 16, 2, 16),
+			Block.makeCuboidShape(1, 2, 1, 15, 3, 15) };
+
 	private VoxelShape generateShape(BlockState state) {
-		switch (state.get(TYPE)) {
-		case SINGLE:
-			switch (state.get(FACING)) {
-			case EAST: return VoxelShapeHelper.combineAll(SHAPE_X);
-			case WEST: return VoxelShapeHelper.combineAll(SHAPE_X);
-			case NORTH: return VoxelShapeHelper.combineAll(SHAPE_Z);
-			case SOUTH: return VoxelShapeHelper.combineAll(SHAPE_Z);
-			default: return VoxelShapeHelper.combineAll(SHAPE_Y);
-			}
-		case TOP:
-			switch (state.get(FACING)) {
-			case EAST: return VoxelShapeHelper.combineAll(SHAPE_X[0], SHAPE_X[1], SHAPE_X[2]);
-			case WEST: return VoxelShapeHelper.combineAll(SHAPE_X[2], SHAPE_X[3], SHAPE_X[4]);
-			case NORTH: return VoxelShapeHelper.combineAll(SHAPE_Z[2], SHAPE_Z[3], SHAPE_Z[4]);
-			case SOUTH: return VoxelShapeHelper.combineAll(SHAPE_Z[0], SHAPE_Z[1], SHAPE_Z[2]);
-			default: return VoxelShapeHelper.combineAll(SHAPE_Y[2], SHAPE_Y[3], SHAPE_Y[4]);
-			}
-			case CENTER:
-			switch (state.get(FACING)) {
-			case EAST: return VoxelShapeHelper.combineAll(SHAPE_X[2]);
-			case WEST: return VoxelShapeHelper.combineAll(SHAPE_X[2]);
-			case NORTH: return VoxelShapeHelper.combineAll(SHAPE_Z[2]);
-			case SOUTH: return VoxelShapeHelper.combineAll(SHAPE_Z[2]);
-			default: return VoxelShapeHelper.combineAll(SHAPE_Y[2]);
-			}
-		case BOTTOM :
-			switch (state.get(FACING)) {
-			case EAST: return VoxelShapeHelper.combineAll(SHAPE_X[2], SHAPE_X[3], SHAPE_X[4]);
-			case WEST: return VoxelShapeHelper.combineAll(SHAPE_X[0], SHAPE_X[1], SHAPE_X[2]);
-			case NORTH: return VoxelShapeHelper.combineAll(SHAPE_Z[0], SHAPE_Z[1], SHAPE_Z[2]);
-			case SOUTH: return VoxelShapeHelper.combineAll(SHAPE_Z[2], SHAPE_Z[3], SHAPE_Z[4]);
-			default: return VoxelShapeHelper.combineAll(SHAPE_Y[0], SHAPE_Y[1], SHAPE_Y[2]);
-			}
+		if (state.get(TYPE) == ConnectedBlockType.SINGLE) {
+			return VoxelShapeHelper.rotateShapeAxis(VoxelShapeHelper.combineAll(SHAPE), state.get(AXIS));
+		} else if (state.get(TYPE) == ConnectedBlockType.TOP) {
+			return VoxelShapeHelper.rotateShapeAxis(VoxelShapeHelper.combineAll(SHAPE[0], SHAPE[1], SHAPE[2]), state.get(AXIS));
+		} else if (state.get(TYPE) == ConnectedBlockType.CENTER) {
+			return VoxelShapeHelper.rotateShapeAxis(SHAPE[2], state.get(AXIS));
+		} else {
+			return VoxelShapeHelper.rotateShapeAxis(VoxelShapeHelper.combineAll(SHAPE[2], SHAPE[3], SHAPE[4]), state.get(AXIS));
 		}
-		return VoxelShapes.fullCube();
 	}
 
 	public PillarBlock(Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(TYPE, ConnectedBlockType.SINGLE).with(WATERLOGGED, Boolean.valueOf(false)));
+		this.setDefaultState(this.stateContainer.getBaseState().with(AXIS, Direction.Axis.Y).with(TYPE, ConnectedBlockType.SINGLE).with(WATERLOGGED, false));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(TYPE, FACING, WATERLOGGED);
+		builder.add(TYPE, AXIS, WATERLOGGED);
 	}
 	
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos,
-			ISelectionContext context) {
-		return this.generateShape(state);
-	}
-	
-	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos,
-			ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 		return this.generateShape(state);
 	}
 
@@ -100,79 +64,69 @@ public class PillarBlock extends WaterloggedBlock {
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
 		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
-		return super.getStateForPlacement(context).with(TYPE, ConnectedBlockType.SINGLE)
-				.with(FACING, context.getFace())
-				.with(WATERLOGGED, Boolean.valueOf(flag));
+		return super.getStateForPlacement(context).with(TYPE, ConnectedBlockType.SINGLE).with(AXIS, context.getFace().getAxis()).with(WATERLOGGED, flag);
 	}
 
 	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world,
-			BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
 		if (state.get(WATERLOGGED)) {
 			world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
-		
 		return state.with(TYPE, this.tryConnect(state, world, currentPos));
-		
 	}
-	
-	public ConnectedBlockType tryConnect(BlockState state, IWorld world, BlockPos currentPos) {
-		BlockState stateDown = world.getBlockState(currentPos.offset(state.get(FACING)));
-		BlockState stateUp = world.getBlockState(currentPos.offset(state.get(FACING), -1));
-		if (stateUp.getBlock() == this && stateDown.getBlock() == this) {
-			boolean blockUp = stateUp.get(FACING).getAxis() == state.get(FACING).getAxis();
-			boolean blockDown = stateDown.get(FACING).getAxis() == state.get(FACING).getAxis();
-			if (blockUp && blockDown) {
-				return ConnectedBlockType.CENTER;
-			} else if (blockUp) {
-				return ConnectedBlockType.BOTTOM;
-			} else if (blockDown) {
-				return ConnectedBlockType.TOP;
-			} else {
-				return ConnectedBlockType.SINGLE;
-			}
-		} else if (stateUp.getBlock() == this && stateDown.getBlock() != this) {
-			boolean blockUp = stateUp.get(FACING).getAxis() == state.get(FACING).getAxis();
-			if (blockUp) {
-				return ConnectedBlockType.BOTTOM;
-			} else {
-				return ConnectedBlockType.SINGLE;
-			}
-		} else if (stateUp.getBlock() != this && stateDown.getBlock() == this) {
-			boolean blockDown = stateDown.get(FACING).getAxis() == state.get(FACING).getAxis();
-			if (blockDown) {
-				return ConnectedBlockType.TOP;
-			} else {
-				return ConnectedBlockType.SINGLE;
-			}
+
+	public ConnectedBlockType tryConnect(BlockState state, IWorld world, BlockPos pos) {
+		Direction.Axis axis = state.get(AXIS);
+		BlockState stateDown;
+		BlockState stateUp;
+
+		if (axis == Direction.Axis.X) {
+			stateDown = world.getBlockState(pos.west());
+			stateUp = world.getBlockState(pos.east());
+		} else if (axis == Direction.Axis.Z) {
+			stateDown = world.getBlockState(pos.south());
+			stateUp = world.getBlockState(pos.north());
+		} else {
+			stateDown = world.getBlockState(pos.down());
+			stateUp = world.getBlockState(pos.up());
+		}
+
+		boolean axisUpEqual = false;
+		boolean axisDownEqual = false;
+
+		if (stateUp.getBlock() instanceof PillarBlock) {
+			axisUpEqual = stateUp.get(AXIS) == axis;
+		}
+		if (stateDown.getBlock() instanceof PillarBlock) {
+			axisDownEqual = stateDown.get(AXIS) == axis;
+		}
+
+		if (axisUpEqual && axisDownEqual) {
+			return ConnectedBlockType.CENTER;
+		} else if (axisUpEqual) {
+			return ConnectedBlockType.BOTTOM;
+		} else if (axisDownEqual) {
+			return ConnectedBlockType.TOP;
 		} else {
 			return ConnectedBlockType.SINGLE;
 		}
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) {
-		switch (rot) {
-		case COUNTERCLOCKWISE_90:
-		case CLOCKWISE_90:
-			switch ((Direction) state.get(FACING)) {
-			case NORTH:
-				return state.with(FACING, Direction.WEST);
-			case EAST:
-				return state.with(FACING, Direction.SOUTH);
-			case SOUTH:
-				return state.with(FACING, Direction.EAST);
-			case WEST:
-				return state.with(FACING, Direction.NORTH);
-			case UP:
-				return state.with(FACING, Direction.UP);
-			case DOWN:
-				return state.with(FACING, Direction.DOWN);
+	public BlockState rotate(BlockState state, Rotation rotation) {
+		switch(rotation) {
+			case COUNTERCLOCKWISE_90:
+			case CLOCKWISE_90:
+				switch(state.get(AXIS)) {
+					case X:
+						return state.with(AXIS, Direction.Axis.Z);
+					case Z:
+						return state.with(AXIS, Direction.Axis.X);
+					default:
+						return state;
+				}
 			default:
 				return state;
-			}
-		default:
-			return state;
 		}
 	}
 }
