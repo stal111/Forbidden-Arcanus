@@ -6,9 +6,7 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class VoxelShapeHelper {
 
@@ -28,13 +26,13 @@ public class VoxelShapeHelper {
         return result.simplify();
     }
 
-    public static VoxelShape[] getRotatedShapes(VoxelShape shape) {
-        VoxelShape[] shapes = new VoxelShape[4];
-        shapes[0] = shape;
-        shapes[1] = rotateShape(shape, RotationAmount.NINETY);
-        shapes[2] = rotateShape(shape, RotationAmount.HUNDRED_EIGHTY);
-        shapes[3] = rotateShape(shape, RotationAmount.TWO_HUNDRED_SEVENTY);
-        return shapes;
+    public static Map<VoxelShape, Direction> getRotatedShapes(VoxelShape shape) {
+        Map<VoxelShape, Direction> map = new HashMap<>();
+        map.put(shape, Direction.NORTH);
+        map.put(rotateShape(shape, RotationAmount.NINETY), Direction.EAST);
+        map.put(rotateShape(shape, RotationAmount.HUNDRED_EIGHTY), Direction.SOUTH);
+        map.put(rotateShape(shape, RotationAmount.TWO_HUNDRED_SEVENTY), Direction.WEST);
+        return map;
     }
 
     public static VoxelShape rotateShape(VoxelShape shape, RotationAmount rotationAmount) {
