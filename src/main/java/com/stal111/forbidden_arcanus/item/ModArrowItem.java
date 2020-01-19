@@ -13,9 +13,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class BoomArrowItem extends ArrowItem {
+public class ModArrowItem extends ArrowItem {
 
-    public BoomArrowItem(Properties properties) {
+    public ModArrowItem(Properties properties) {
         super(properties);
     }
 
@@ -28,15 +28,5 @@ public class BoomArrowItem extends ArrowItem {
         } else {
             return new FrozenArrowEntity(entity, world);
         }
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        if (!world.isRemote) {
-            BoomArrowEntity entity = new BoomArrowEntity(player, world);
-            entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-            world.addEntity(entity);
-        }
-        return super.onItemRightClick(world, player, hand);
     }
 }
