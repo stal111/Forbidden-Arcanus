@@ -21,9 +21,7 @@ import java.util.*;
 
 public class FullbrightBakedModel extends DelegateBakedModel {
 
-
     private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
-
         @Override
         public List<BakedQuad> load(CacheKey key) {
             return transformQuads(key.base.getQuads(key.state, key.side, key.random, EmptyModelData.INSTANCE), key.textures);
@@ -31,18 +29,13 @@ public class FullbrightBakedModel extends DelegateBakedModel {
     });
 
     private Set<ResourceLocation> textures;
-    private boolean cacheDisabled = false;
+    private final boolean doCaching;
 
-    public FullbrightBakedModel(IBakedModel base, ResourceLocation... textures) {
+    public FullbrightBakedModel(IBakedModel base, boolean doCaching, ResourceLocation... textures) {
         super(base);
 
         this.textures = new HashSet<>(Arrays.asList(textures));
-    }
-
-    public FullbrightBakedModel disableCache() {
-        this.cacheDisabled = true;
-
-        return this;
+        this.doCaching = doCaching;
     }
 
     @Override
@@ -51,9 +44,11 @@ public class FullbrightBakedModel extends DelegateBakedModel {
             return base.getQuads(null, side, rand, data);
         }
 
-
+        if (!doCaching) {
             return transformQuads(base.getQuads(state, side, rand, data), textures);
+        }
 
+        return CACHE.getUnchecked(new CacheKey(base, textures, rand, state, side));
     }
 
     private static List<BakedQuad> transformQuads(List<BakedQuad> oldQuads, Set<ResourceLocation> textures) {
@@ -63,41 +58,28 @@ public class FullbrightBakedModel extends DelegateBakedModel {
             BakedQuad quad = quads.get(i);
 
             if (textures.contains(quad.getSprite().getName())) {
-                quads.set(i, transformQuad(quad, 0.007F));
+                quads.set(i, transformQuad(quad));
             }
         }
         return quads;
     }
 
-    private static BakedQuad transformQuad(BakedQuad quad, float light) {
-        if (RenderUtils.isLightMapDisabled()) {
-            return quad;
-        }
-        BakedQuadBuilder builder = new BakedQuadBuilder(quad.getSprite());
+    private static BakedQuad transformQuad(BakedQuad quad) {
+        int[] vertexData = quad.getVertexData().clone();
 
-        VertexLighterFlat trans = new VertexLighterFlat(Minecraft.getInstance().getBlockColors()) {
+        // Set lighting to fullbright on all vertices
+        vertexData[6] = 0x00F000F0;
+        vertexData[6 + 8] = 0x00F000F0;
+        vertexData[6 + 8 + 8] = 0x00F000F0;
+        vertexData[6 + 8 + 8 + 8] = 0x00F000F0;
 
-            @Override
-            protected void updateLightmap(float[] normal, float[] lightmap, float x, float y, float z) {
-                lightmap[0] = light;
-                lightmap[1] = light;
-            }
-
-            @Override
-            public void setQuadTint(int tint) {
-                // NO OP
-            }
-        };
-
-        trans.setParent(builder);
-
-        builder.setQuadOrientation(quad.getFace());
-        builder.setTexture(quad.getSprite());
-        builder.setApplyDiffuseLighting(false);
-
-        quad.pipe(trans);
-
-        return builder.build();
+        return new BakedQuad(
+                vertexData,
+                quad.getTintIndex(),
+                quad.getFace(),
+                quad.getSprite(),
+                quad.shouldApplyDiffuseLighting()
+        );
     }
 
     private class CacheKey {
