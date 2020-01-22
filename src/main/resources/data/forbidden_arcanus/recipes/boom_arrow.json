@@ -7,13 +7,14 @@
     ],
     "key": {
         "#": {
-            "tag": "minecraft:seeds"
+            "item": "minecraft:arrow"
         },
         "X": {
-            "item": "forbidden_arcanus:arcane_crystal_dust"
+            "item": "minecraft:tnt"
         }
     },
     "result": {
-        "item": "forbidden_arcanus:seed_bullet"
+        "item": "forbidden_arcanus:boom_arrow",
+        "count": 4
     }
 }

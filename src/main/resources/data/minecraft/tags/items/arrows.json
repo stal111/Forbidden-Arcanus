@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "forbidden_arcanus:boom_arrow",
-    "forbidden_arcanus:draco_arcanus_arrow",
-    "forbidden_arcanus:frozen_arrow"
+    "forbidden_arcanus:draco_arcanus_arrow"
   ]
 }

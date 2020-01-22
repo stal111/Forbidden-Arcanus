@@ -126,8 +126,8 @@ public enum ModItems {
     OBSIDIAN_SHOULDER_PADS(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.CHEST, properties())),
     OBSIDIAN_KNEE_PADS(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.LEGS, properties())),
     OBSIDIAN_BOOTS(new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET, properties())),
-    BOOM_ARROW(new BoomArrowItem(properties())),
-    DRACO_ARCANUS_ARROW(new BoomArrowItem(properties()));
+    BOOM_ARROW(new ModArrowItem(properties())),
+    DRACO_ARCANUS_ARROW(new ModArrowItem(properties()));
     //FROZEN_ARROW(new BoomArrowItem(properties()));
 
     private final Item item;
