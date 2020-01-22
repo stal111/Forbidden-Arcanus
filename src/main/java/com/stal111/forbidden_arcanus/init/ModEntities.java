@@ -6,6 +6,8 @@ import com.stal111.forbidden_arcanus.entity.render.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public enum ModEntities {
@@ -33,6 +35,7 @@ public enum ModEntities {
         return entityType;
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void initModels() {
         RenderingRegistry.registerEntityRenderingHandler(CHORUS_PEARL.getEntityType(), ModSpriteRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(SEED_BULLET.getEntityType(), ModSpriteRenderer::new);
