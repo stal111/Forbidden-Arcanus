@@ -20,7 +20,7 @@ public class WaterloggedBlock extends CutoutBlock implements IWaterLoggable {
 
 	public WaterloggedBlock(Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
+		this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, false));
 	}
 
 	@Override
@@ -31,10 +31,9 @@ public class WaterloggedBlock extends CutoutBlock implements IWaterLoggable {
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		return super.getStateForPlacement(context).with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8));
+		return super.getStateForPlacement(context).with(WATERLOGGED, ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world,
 			BlockPos currentPos, BlockPos facingPos) {
@@ -45,7 +44,6 @@ public class WaterloggedBlock extends CutoutBlock implements IWaterLoggable {
 		return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public IFluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);

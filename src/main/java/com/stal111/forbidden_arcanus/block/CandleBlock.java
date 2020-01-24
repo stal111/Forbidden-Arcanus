@@ -64,7 +64,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	}
 
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack.getItem() instanceof FlintAndSteelItem && !state.get(LIT) && !state.get(WATERLOGGED)) {
 			world.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, new Random().nextFloat() * 0.4F + 0.8F);
@@ -74,7 +74,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 			});
 			return ActionResultType.SUCCESS;
 		}
-		return super.func_225533_a_(state, world, pos, player, hand, result);
+		return super.onBlockActivated(state, world, pos, player, hand, result);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		return (func_220055_a(world, pos.down(), Direction.UP)) && !CandelabraBlock.isCandelabraBlock(world.getBlockState(pos.down()));
+		return (hasEnoughSolidSide(world, pos.down(), Direction.UP)) && !CandelabraBlock.isCandelabraBlock(world.getBlockState(pos.down()));
 	}
 
 	@Override

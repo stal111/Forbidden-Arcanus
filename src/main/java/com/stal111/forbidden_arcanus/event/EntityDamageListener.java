@@ -43,13 +43,13 @@ public class EntityDamageListener {
                     if (!list.isEmpty()) {
                         player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), ModItems.EDELWOOD_BUCKET.getStack()));
 
-                        world.addEntity(new ItemEntity(world, player.func_226277_ct_(), player.func_226278_cu_(), player.func_226281_cx_(), Items.SLIME_BALL.getDefaultInstance()));
+                        world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), Items.SLIME_BALL.getDefaultInstance()));
                         for(int j = 0; j < 4 * 8; ++j) {
                             float f = random.nextFloat() * ((float) Math.PI * 2F);
                             float f1 = random.nextFloat() * 0.5F + 0.5F;
                             float f2 = MathHelper.sin(f) * (float) 4 * 0.5F * f1;
                             float f3 = MathHelper.cos(f) * (float) 4 * 0.5F * f1;
-                            world.addParticle(ParticleTypes.ITEM_SLIME, player.func_226277_ct_() + (double)f2, player.func_226278_cu_(), player.func_226281_cx_() + (double)f3, 0.0D, 0.0D, 0.0D);
+                            world.addParticle(ParticleTypes.ITEM_SLIME, player.getPosX() + (double)f2, player.getPosY(), player.getPosZ() + (double)f3, 0.0D, 0.0D, 0.0D);
                         }
                         event.setAmount(0);
                     }
@@ -64,14 +64,14 @@ public class EntityDamageListener {
                 if (!list.isEmpty()) {
                     player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), ModItems.EDELWOOD_BUCKET.getStack()));
 
-                    world.addEntity(new ItemEntity(world, player.func_226277_ct_(), player.func_226278_cu_(), player.func_226281_cx_(), Items.MAGMA_CREAM.getDefaultInstance()));
+                    world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), Items.MAGMA_CREAM.getDefaultInstance()));
 
                     for(int j = 0; j < 4 * 8; ++j) {
                         float f = random.nextFloat() * ((float) Math.PI * 2F);
                         float f1 = random.nextFloat() * 0.5F + 0.5F;
                         float f2 = MathHelper.sin(f) * (float) 4 * 0.5F * f1;
                         float f3 = MathHelper.cos(f) * (float) 4 * 0.5F * f1;
-                        world.addParticle(ParticleTypes.FLAME, player.func_226277_ct_() + (double)f2, player.func_226278_cu_(), player.func_226281_cx_() + (double)f3, 0.0D, 0.0D, 0.0D);
+                        world.addParticle(ParticleTypes.FLAME, player.getPosX() + (double)f2, player.getPosY(), player.getPosZ() + (double)f3, 0.0D, 0.0D, 0.0D);
                     }
                     event.setAmount(0);
                     player.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600));

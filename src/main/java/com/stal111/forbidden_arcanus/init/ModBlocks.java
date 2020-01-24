@@ -63,6 +63,7 @@ public enum ModBlocks {
     STONE_CANDELABRA(new CandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), ModRenderType.CUTOUT),
     IRON_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), ModRenderType.CUTOUT),
     ARCANE_GOLDEN_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), ModRenderType.CUTOUT),
+    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
     IRON_CHAIN(new ChainBlock(addProperties(Material.IRON, 5.0F, 6.0F)), ModRenderType.CUTOUT),
     ARCANE_GOLDEN_CHAIN(new ChainBlock(addProperties(Material.IRON, 3.0F, 6.0F)), ModRenderType.CUTOUT),
     CANDLE_LAMP(new CandleLampBlock(addProperties(Material.ROCK)), ModRenderType.CUTOUT),
@@ -208,7 +209,7 @@ public enum ModBlocks {
     }
 
     public boolean needsSpecialRender() {
-        return renderType.getRenderType() != RenderType.func_228639_c_();
+        return renderType.getRenderType() != RenderType.solid();
     }
 
     public RenderType getRenderType() {

@@ -54,7 +54,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
     }
 
     @Override
-    public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
         ItemStack stack = player.getHeldItem(hand);
         if (hand == Hand.MAIN_HAND) {
             if (getChainBlocks().contains(Block.getBlockFromItem(stack.getItem()))) {
@@ -64,7 +64,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
                 }
             }
         }
-        return super.func_225533_a_(state, world, pos, player, hand, result);
+        return super.onBlockActivated(state, world, pos, player, hand, result);
     }
 
     @Override

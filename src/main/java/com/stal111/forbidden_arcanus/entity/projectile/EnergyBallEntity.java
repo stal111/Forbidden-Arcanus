@@ -36,8 +36,8 @@ public class EnergyBallEntity extends Entity {
     public EnergyBallEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
         super(ModEntities.ENERGY_BALL.getEntityType(), worldIn);
         this.shootingEntity = shooter;
-        this.setLocationAndAngles(shooter.func_226277_ct_(), shooter.func_226278_cu_(), shooter.func_226281_cx_(), shooter.rotationYaw, shooter.rotationPitch);
-        this.setPosition(this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_());
+        this.setLocationAndAngles(shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), shooter.rotationYaw, shooter.rotationPitch);
+        this.setPosition(this.getPosX(), this.getPosY(), this.getPosZ());
         this.setMotion(Vec3d.ZERO);
 
         double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
@@ -73,7 +73,7 @@ public class EnergyBallEntity extends Entity {
             super.tick();
             ++this.ticksInAir;
 
-            RayTraceResult raytraceresult = ProjectileHelper.func_221266_a(this, true, this.ticksInAir >= 25, this.shootingEntity, RayTraceContext.BlockMode.COLLIDER);
+            RayTraceResult raytraceresult = ProjectileHelper.rayTrace(this, true, this.ticksInAir >= 25, this.shootingEntity, RayTraceContext.BlockMode.COLLIDER);
             if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onImpact(raytraceresult);
             }
@@ -85,13 +85,13 @@ public class EnergyBallEntity extends Entity {
             if (this.isInWater()) {
                 for (int i = 0; i < 4; ++i) {
                     float f1 = 0.25F;
-                    this.world.addParticle(ParticleTypes.BUBBLE, this.func_226277_ct_() - vec3d.x * 0.25D, this.func_226278_cu_() - vec3d.y * 0.25D, this.func_226281_cx_() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+                    this.world.addParticle(ParticleTypes.BUBBLE, this.getPosX() - vec3d.x * 0.25D, this.getPosY() - vec3d.y * 0.25D, this.getPosZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
                 }
 
                 f = 0.8F;
             }
             this.setMotion(vec3d.add(this.accelerationX, this.accelerationY, this.accelerationZ).scale(f));
-            this.setPosition(this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_());
+            this.setPosition(this.getPosX(), this.getPosY(), this.getPosZ());
         } else {
             this.remove();
         }
@@ -109,7 +109,7 @@ public class EnergyBallEntity extends Entity {
                 Entity entity = ((EntityRayTraceResult)result).getEntity();
                 ServerWorld world = (ServerWorld) entity.world;
                 entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.shootingEntity), 5.5F);
-                LightningBoltEntity lightningBoltEntity = new LightningBoltEntity(this.world, entity.func_226277_ct_(), entity.func_226278_cu_(), entity.func_226281_cx_(), false);
+                LightningBoltEntity lightningBoltEntity = new LightningBoltEntity(this.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), false);
                 world.addLightningBolt(lightningBoltEntity);
             } else if (result.getType() == RayTraceResult.Type.BLOCK) {
                 world.playSound(null, new BlockPos(result.getHitVec().x, result.getHitVec().y, result.getHitVec().z), ModSounds.dark_bolt_hit, SoundCategory.NEUTRAL, 1.0F, 1.0F);

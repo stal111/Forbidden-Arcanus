@@ -53,7 +53,7 @@ public class FrozenArrowEntity extends AbstractArrowEntity {
     public void tick() {
         Vec3d vec3d1 = this.getMotion();
         if (this.world.isRemote() && this.rand.nextDouble() >= 0.5) {
-            this.world.addParticle(ParticleTypes.SMOKE, this.func_226277_ct_() - vec3d1.x, this.func_226278_cu_() - vec3d1.y + 0.05D, this.func_226281_cx_() - vec3d1.z, 0.0D, 0.0D, 0.0D);
+            this.world.addParticle(ParticleTypes.SMOKE, this.getPosX() - vec3d1.x, this.getPosY() - vec3d1.y + 0.05D, this.getPosZ() - vec3d1.z, 0.0D, 0.0D, 0.0D);
         }
         super.tick();
     }
@@ -65,7 +65,7 @@ public class FrozenArrowEntity extends AbstractArrowEntity {
 
         entity.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0);
 
-        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_());
+        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ());
         areaeffectcloudentity.setParticleData(ParticleTypes.EFFECT);
         areaeffectcloudentity.setRadius(1.0F);
         areaeffectcloudentity.setDuration(80);

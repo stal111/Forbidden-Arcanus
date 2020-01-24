@@ -48,7 +48,7 @@ public class BottleBlock extends FallingWaterloggedBlock {
 	}
 
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if (stack.isEmpty()) {
 			return ActionResultType.SUCCESS;
@@ -72,7 +72,7 @@ public class BottleBlock extends FallingWaterloggedBlock {
 				}
 			}
 		}
-		return super.func_225533_a_(state, world, pos, player, hand, result);
+		return super.onBlockActivated(state, world, pos, player, hand, result);
 	}
 
 	@OnlyIn(Dist.CLIENT)

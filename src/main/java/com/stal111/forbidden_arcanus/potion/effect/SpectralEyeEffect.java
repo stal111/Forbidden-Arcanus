@@ -40,9 +40,9 @@ public class SpectralEyeEffect extends Effect {
             ScorePlayerTeam teamHostile = ModUtils.createTeam(scoreboard, "Hostile", TextFormatting.RED);
             ScorePlayerTeam teamWater = ModUtils.createTeam(scoreboard, "Water", TextFormatting.BLUE);
 
-            double k = entity.func_226277_ct_();
-            double l = entity.func_226278_cu_();
-            double i1 = entity.func_226281_cx_();
+            double k = entity.getPosX();
+            double l = entity.getPosY();
+            double i1 = entity.getPosZ();
 
             AxisAlignedBB axisalignedbb = (new AxisAlignedBB(k, l, i1, (k + 1), (l + 1), (i1 + 1))).grow(70).expand(0.0D, entity.world.getHeight(), 0.0D);
             List<LivingEntity> list = entity.world.getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);

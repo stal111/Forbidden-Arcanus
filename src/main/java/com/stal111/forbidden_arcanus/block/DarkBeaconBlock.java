@@ -10,6 +10,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -36,18 +37,6 @@ public class DarkBeaconBlock extends Block implements IBeaconBeamColorProvider, 
 	@Override
 	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
 		return (INamedContainerProvider) worldIn.getTileEntity(pos);
-	}
-
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
-		if (world.isRemote) {
-			return true;
-		} else {
-			TileEntity tile = world.getTileEntity(pos);
-			if (tile instanceof DarkBeaconTileEntity) {
-				NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tile, tile.getPos());
-			}
-			return true;
-		}
 	}
 
 	@Override

@@ -25,13 +25,13 @@ public class SoullessSandBlock extends SoulSandBlock {
     }
 
     @Override
-    public void func_225534_a_(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         BubbleColumnBlock.placeBubbleColumn(world, pos.up(), false);
-        super.func_225534_a_(state, world, pos, random);
+        super.tick(state, world, pos, random);
     }
 
     @Override
-    public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
         ItemStack stack = player.getHeldItem(hand);
         if (stack.getItem() == ModItems.SOUL.getItem()) {
             if (world.isBlockModifiable(player, pos)) {
@@ -43,7 +43,7 @@ public class SoullessSandBlock extends SoulSandBlock {
                 return ActionResultType.SUCCESS;
             }
         }
-        return super.func_225533_a_(state, world, pos, player, hand, result);
+        return super.onBlockActivated(state, world, pos, player, hand, result);
     }
 
     @Override

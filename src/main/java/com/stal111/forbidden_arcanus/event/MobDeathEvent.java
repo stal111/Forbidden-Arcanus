@@ -27,15 +27,15 @@ public class MobDeathEvent {
         if (event.getSource().damageType.equals("player")) {
             if (entity instanceof BatEntity) {
                 if (chance < 0.35) {
-                    world.addEntity(new ItemEntity(world, entity.func_226277_ct_(), entity.func_226278_cu_(), entity.func_226281_cx_(), new ItemStack(ModItems.BAT_WING.getItem())));
+                    world.addEntity(new ItemEntity(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), new ItemStack(ModItems.BAT_WING.getItem())));
                 }
             } else if (entity instanceof SquidEntity) {
                 if (chance < 0.5) {
-                    world.addEntity(new ItemEntity(world, entity.func_226277_ct_(), entity.func_226278_cu_(), entity.func_226281_cx_(), new ItemStack(ModItems.TENTACLE.getItem())));
+                    world.addEntity(new ItemEntity(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), new ItemStack(ModItems.TENTACLE.getItem())));
                 }
             } else if (entity instanceof EndermanEntity) {
                 if (chance < 0.6) {
-                    world.addEntity(new ItemEntity(world, entity.func_226277_ct_(), entity.func_226278_cu_(), entity.func_226281_cx_(), new ItemStack(ModItems.ENDER_PEARL_FRAGMENT.getItem())));
+                    world.addEntity(new ItemEntity(world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), new ItemStack(ModItems.ENDER_PEARL_FRAGMENT.getItem())));
                 }
             }
         }

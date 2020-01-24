@@ -50,7 +50,7 @@ public class ModUtils {
 			if (igrowable.canGrow(worldIn, pos, blockstate, worldIn.isRemote)) {
 				if (!worldIn.isRemote) {
 					if (igrowable.canUseBonemeal(worldIn, worldIn.rand, pos, blockstate)) {
-						igrowable.func_225535_a_(worldIn, worldIn.rand, pos, blockstate);
+						igrowable.grow(worldIn, worldIn.rand, pos, blockstate);
 					}
 				}
 				return true;
@@ -65,13 +65,13 @@ public class ModUtils {
 				label79:
 				for(int i = 0; i < 128; ++i) {
 					BlockPos blockpos = pos;
-					Biome biome = worldIn.func_226691_t_(pos);
+					Biome biome = worldIn.getBiome(pos);
 					BlockState blockstate = Blocks.SEAGRASS.getDefaultState();
 
 					for(int j = 0; j < i / 16; ++j) {
 						blockpos = blockpos.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
-						biome = worldIn.func_226691_t_(blockpos);
-						if (worldIn.getBlockState(blockpos).func_224756_o(worldIn, blockpos)) {
+						biome = worldIn.getBiome(blockpos);
+						if (worldIn.getBlockState(blockpos).isCollisionShapeOpaque(worldIn, blockpos)) {
 							continue label79;
 						}
 					}
@@ -95,7 +95,7 @@ public class ModUtils {
 						if (blockstate1.getBlock() == Blocks.WATER && worldIn.getFluidState(blockpos).getLevel() == 8) {
 							worldIn.setBlockState(blockpos, blockstate, 3);
 						} else if (blockstate1.getBlock() == Blocks.SEAGRASS && random.nextInt(10) == 0) {
-							((IGrowable)Blocks.SEAGRASS).func_225535_a_(worldIn, random, blockpos, blockstate1);
+							((IGrowable)Blocks.SEAGRASS).grow(worldIn, random, blockpos, blockstate1);
 						}
 					}
 				}

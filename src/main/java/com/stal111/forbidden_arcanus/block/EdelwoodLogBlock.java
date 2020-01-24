@@ -48,7 +48,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	}
 
 	@Override
-	public void func_225534_a_(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (!world.isRemote()) {
 			if (random.nextDouble() < 0.04 && world.isAreaLoaded(pos, 4)) {
 				if (!state.get(OIL)) {
@@ -56,11 +56,11 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 				}
 			}
 		}
-		super.func_225534_a_(state, world, pos, random);
+		super.tick(state, world, pos, random);
 	}
 
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack.getItem() == Items.GLASS_BOTTLE && state.get(OIL)) {
 			ItemStackUtils.shrinkStack(player, stack);
@@ -77,7 +77,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 			world.playSound(player, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			return ActionResultType.SUCCESS;
 		}
-		return super.func_225533_a_(state, world, pos, player, hand, result);
+		return super.onBlockActivated(state, world, pos, player, hand, result);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	@Override
 	public void fillWithRain(World world, BlockPos pos) {
 		if (world.rand.nextDouble() < 0.35) {
-			float temperature = world.func_226691_t_(pos).func_225486_c(pos);
+			float temperature = world.getBiome(pos).getTemperature(pos);
 			if (temperature >= 0.15F) {
 				BlockState state = world.getBlockState(pos);
 				BlockState stateDown = world.getBlockState(pos.down());

@@ -46,14 +46,14 @@ public class BoomArrowEntity extends AbstractArrowEntity {
     public void tick() {
         Vec3d vec3d1 = this.getMotion();
         if (this.world.isRemote() && this.rand.nextDouble() >= 0.5) {
-            this.world.addParticle(ParticleTypes.SMOKE, this.func_226277_ct_() - vec3d1.x, this.func_226278_cu_() - vec3d1.y + 0.05D, this.func_226281_cx_() - vec3d1.z, 0.0D, 0.0D, 0.0D);
+            this.world.addParticle(ParticleTypes.SMOKE, this.getPosX() - vec3d1.x, this.getPosY() - vec3d1.y + 0.05D, this.getPosZ() - vec3d1.z, 0.0D, 0.0D, 0.0D);
         }
         super.tick();
     }
 
     @Override
     protected void arrowHit(LivingEntity entity) {
-        this.world.createExplosion(this, entity.func_226277_ct_(), entity.func_226278_cu_(), entity.func_226281_cx_(), 3, Explosion.Mode.NONE);
+        this.world.createExplosion(this, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 3, Explosion.Mode.NONE);
         super.arrowHit(entity);
     }
 }

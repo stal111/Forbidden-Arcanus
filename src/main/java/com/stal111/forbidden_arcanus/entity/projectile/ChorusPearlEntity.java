@@ -57,7 +57,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
                 LivingEntity entity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
                 if (entity instanceof PlayerEntity) {
                     if (((PlayerEntity) entity).abilities.isCreativeMode) {
-                        this.world.addEntity(new ItemEntity(this.world, this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_(), new ItemStack(ModItems.CHORUS_PEARL.getItem())));
+                        this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.getItem())));
                         this.world.setEntityState(this, (byte)3);
                         this.remove();
                         return;
@@ -65,14 +65,14 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
                 }
                 entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 0);
 
-                double d0 = entity.func_226277_ct_();
-                double d1 = entity.func_226278_cu_();
-                double d2 = entity.func_226281_cx_();
+                double d0 = entity.getPosX();
+                double d1 = entity.getPosY();
+                double d2 = entity.getPosZ();
 
                 for (int i = 0; i < 16; ++i) {
-                    double d3 = entity.func_226277_ct_() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
-                    double d4 = MathHelper.clamp(entity.func_226278_cu_() + (double) (entity.getRNG().nextInt(16) - 8), 0.0D, world.getActualHeight() - 1);
-                    double d5 = entity.func_226281_cx_() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
+                    double d3 = entity.getPosX() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
+                    double d4 = MathHelper.clamp(entity.getPosY() + (double) (entity.getRNG().nextInt(16) - 8), 0.0D, world.getActualHeight() - 1);
+                    double d5 = entity.getPosZ() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
                     if (entity.isPassenger()) {
                         entity.stopRiding();
                     }
@@ -85,7 +85,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 
                 }
             } else {
-                this.world.addEntity(new ItemEntity(this.world, this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_(), new ItemStack(ModItems.CHORUS_PEARL.getItem())));
+                this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.getItem())));
             }
 			this.world.setEntityState(this, (byte)3);
 			this.remove();
@@ -93,7 +93,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected Item func_213885_i() {
+    protected Item getDefaultItem() {
         return ModItems.CHORUS_PEARL.getItem();
     }
 

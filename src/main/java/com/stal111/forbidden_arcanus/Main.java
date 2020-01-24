@@ -50,12 +50,12 @@ public class Main {
 	public static final Logger LOGGER = LogManager.getLogger(Main.MOD_ID);
 	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(Main.MOD_ID);
 
-	public static final Block EDELWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.field_227038_a_).setRegistryName(ModUtils.location("edelwood_sign"));
-	public static final Block EDELWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(EDELWOOD_SIGN), WoodType.field_227038_a_).setRegistryName(ModUtils.location("edelwood_wall_sign"));
-	public static final Block CHERRYWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.field_227038_a_).setRegistryName(ModUtils.location("cherrywood_sign"));
-	public static final Block CHERRYWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(CHERRYWOOD_SIGN), WoodType.field_227038_a_).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
-	public static final Block MYSTERYWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.field_227038_a_).setRegistryName(ModUtils.location("mysterywood_sign"));
-	public static final Block MYSTERYWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(MYSTERYWOOD_SIGN), WoodType.field_227038_a_).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
+	public static final Block EDELWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("edelwood_sign"));
+	public static final Block EDELWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(EDELWOOD_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("edelwood_wall_sign"));
+	public static final Block CHERRYWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("cherrywood_sign"));
+	public static final Block CHERRYWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(CHERRYWOOD_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
+	public static final Block MYSTERYWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("mysterywood_sign"));
+	public static final Block MYSTERYWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(MYSTERYWOOD_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
 
 	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 

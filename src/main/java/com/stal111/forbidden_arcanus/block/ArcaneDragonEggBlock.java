@@ -34,14 +34,12 @@ public class ArcaneDragonEggBlock extends FallingWaterloggedBlock {
 	}
 	
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos,
-			ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
 		return this.generateShape();
 	}
 	
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos,
-			ISelectionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
 		return this.generateShape();
 	}
 	

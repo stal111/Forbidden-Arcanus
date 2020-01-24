@@ -147,7 +147,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
                 }
             }
         } else {
-            return state.get(ATTACHMENT) == CandelabraAttachment.FLOOR ? FLOOR_SHAPES[0] : WALL_SHAPES[0];
+            return state.get(ATTACHMENT) == CandelabraAttachment.FLOOR ? FLOOR_SHAPES[0] : VoxelShapeHelper.getRotatedShapes(WALL_SHAPES[0]).get(state.get(DIRECTION));
         }
     }
 
@@ -197,7 +197,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
                 return state;
             }
 
-            boolean lvt_8_1_ = context.getWorld().getBlockState(context.getPos().down()).func_224755_d(context.getWorld(), context.getPos().down(), Direction.UP);
+            boolean lvt_8_1_ = context.getWorld().getBlockState(context.getPos().down()).isSolidSide(context.getWorld(), context.getPos().down(), Direction.UP);
             state = state.with(ATTACHMENT, lvt_8_1_ ? CandelabraAttachment.FLOOR : CandelabraAttachment.CEILING);
             if (state.isValidPosition(context.getWorld(), context.getPos())) {
                 return state;
@@ -207,7 +207,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
     }
 
     @Override
-    public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
         ItemStack stack = player.getHeldItem(hand);
         if (stack.getItem() instanceof FlintAndSteelItem && !state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0) {
             world.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, new Random().nextFloat() * 0.4F + 0.8F);
@@ -217,7 +217,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
             }
             return ActionResultType.SUCCESS;
         }
-        return super.func_225533_a_(state, world, pos, player, hand, result);
+        return super.onBlockActivated(state, world, pos, player, hand, result);
     }
 
 

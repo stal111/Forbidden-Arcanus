@@ -22,7 +22,7 @@ public class SeedBulletItem extends Item {
 		DispenserBlock.registerDispenseBehavior(this, new ProjectileDispenseBehavior() {
 			protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
 				return Util.make(new SeedBulletEntity(worldIn, position.getX(), position.getY(), position.getZ()), (entity) -> {
-					entity.func_213884_b(stackIn);
+					entity.setItem(stackIn);
 				});
 			}
 		});

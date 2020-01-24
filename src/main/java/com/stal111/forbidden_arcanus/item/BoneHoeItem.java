@@ -44,7 +44,7 @@ public class BoneHoeItem extends HoeItem {
                 return ActionResultType.SUCCESS;
             } else {
                 BlockState blockstate = world.getBlockState(blockpos);
-                boolean flag1 = blockstate.func_224755_d(world, blockpos, context.getFace());
+                boolean flag1 = blockstate.isSolidSide(world, blockpos, context.getFace());
                 if (flag1 && ModUtils.growSeagrass(context.getItem(), (ServerWorld) world, blockpos1, context.getFace())) {
                     if (!world.isRemote) {
                         world.playEvent(2005, blockpos1, 0);

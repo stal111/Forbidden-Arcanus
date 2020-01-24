@@ -92,7 +92,7 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock {
         BlockPos posDown = pos.down();
         BlockState stateDown = world.getBlockState(posDown);
         if (state.get(PART) == ArcaneCrystalObeliskPart.LOWER) {
-            return stateDown.func_224755_d(world, posDown, Direction.UP);
+            return stateDown.isSolidSide(world, posDown, Direction.UP);
         } else {
             return stateDown.getBlock() == this;
         }

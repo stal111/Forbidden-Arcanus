@@ -64,7 +64,7 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 
 		}
 		if (!this.world.isRemote) {
-			this.world.addEntity(new ItemEntity(this.world, this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_(), new ItemStack(this.getRandomSeed())));
+			this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(this.getRandomSeed())));
 			this.world.setEntityState(this, (byte)3);
 			this.remove();
 		}
@@ -86,7 +86,7 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 			IParticleData lvt_2_1_ = this.func_213887_n();
 
 			for(int lvt_3_1_ = 0; lvt_3_1_ < 8; ++lvt_3_1_) {
-				this.world.addParticle(lvt_2_1_, this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_(), 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(lvt_2_1_, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
@@ -96,12 +96,12 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 		super.tick();
 		Vec3d vec3d = this.getMotion();
 		if (!this.isInWater()) {
-			this.world.addParticle(ParticleTypes.END_ROD, this.func_226277_ct_() - vec3d.x * 0.25D, (this.func_226278_cu_() - vec3d.y * 0.25D) + 0.2D, this.func_226281_cx_() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+			this.world.addParticle(ParticleTypes.END_ROD, this.getPosX() - vec3d.x * 0.25D, (this.getPosY() - vec3d.y * 0.25D) + 0.2D, this.getPosZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
 		}
 	}
 
 	@Override
-	protected Item func_213885_i() {
+	protected Item getDefaultItem() {
 		return ModItems.SEED_BULLET.getItem();
 	}
 

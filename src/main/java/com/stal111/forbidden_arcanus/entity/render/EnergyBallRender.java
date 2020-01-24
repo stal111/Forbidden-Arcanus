@@ -26,7 +26,7 @@ public class EnergyBallRender extends EntityRenderer<EnergyBallEntity> {
     }
 
     @Override
-    public void func_225623_a_(EnergyBallEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
+    public void render(EnergyBallEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
         RenderSystem.depthMask(false);
         RenderSystem.pushMatrix();
         this.renderManager.textureManager.bindTexture(sphere);
@@ -41,17 +41,17 @@ public class EnergyBallRender extends EntityRenderer<EnergyBallEntity> {
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderSystem.depthMask(true);
         RenderSystem.popMatrix();
-        super.func_225623_a_(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
+        super.render(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
     }
 
     private void renderBillboardQuad(double scale, float vAdd1, float vAdd2) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buffer.func_225582_a_(-scale, -scale, 0).func_225583_a_(0, 0 + vAdd1).endVertex();
-        buffer.func_225582_a_(-scale, +scale, 0).func_225583_a_(0, 0 + vAdd1 + vAdd2).endVertex();
-        buffer.func_225582_a_(+scale, +scale, 0).func_225583_a_(1, 0 + vAdd1 + vAdd2).endVertex();
-        buffer.func_225582_a_(+scale, -scale, 0).func_225583_a_(1, 0 + vAdd1).endVertex();
+        buffer.pos(-scale, -scale, 0).tex(0, 0 + vAdd1).endVertex();
+        buffer.pos(-scale, +scale, 0).tex(0, 0 + vAdd1 + vAdd2).endVertex();
+        buffer.pos(+scale, +scale, 0).tex(1, 0 + vAdd1 + vAdd2).endVertex();
+        buffer.pos(+scale, -scale, 0).tex(1, 0 + vAdd1).endVertex();
         tessellator.draw();
     }
 

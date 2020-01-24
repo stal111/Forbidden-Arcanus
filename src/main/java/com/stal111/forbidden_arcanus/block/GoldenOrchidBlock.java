@@ -46,9 +46,9 @@ public class GoldenOrchidBlock extends CropsBlock {
     }
 
     @Override
-    public void func_225534_a_(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (random.nextInt(3) != 0) {
-            super.func_225534_a_(state, world, pos, random);
+            super.tick(state, world, pos, random);
         }
     }
 

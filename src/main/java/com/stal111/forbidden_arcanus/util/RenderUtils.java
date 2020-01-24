@@ -23,14 +23,14 @@ import java.util.List;
 public class RenderUtils {
 
     private static final ClientWorld world = Minecraft.getInstance().world;
-    private static final VertexFormat ITEM_FORMAT_WITH_LIGHTMAP = addTex2sToVertexFormat(DefaultVertexFormats.field_227849_i_);
+    private static final VertexFormat ITEM_FORMAT_WITH_LIGHTMAP = addTex2sToVertexFormat(DefaultVertexFormats.ITEM);
 
     public static void setRenderLayer(ModBlocks block, RenderType renderType) {
         RenderTypeLookup.setRenderLayer(block.getBlock(), renderType);
     }
 
     private static VertexFormat addTex2sToVertexFormat(VertexFormat format) {
-        List<VertexFormatElement> elements = new ArrayList<>(format.func_227894_c_());
+        List<VertexFormatElement> elements = new ArrayList<>(format.getElements());
         elements.add(DefaultVertexFormats.TEX_2S);
         return new VertexFormat(ImmutableList.copyOf(elements));
     }

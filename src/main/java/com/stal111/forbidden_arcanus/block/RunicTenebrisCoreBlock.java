@@ -32,7 +32,7 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 	}
 
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if (!stack.isEmpty()) {
 			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.getItem(), ModItems.DARK_RUNE.getItem()).put(ModItems.RUNE_BAG.getItem(), ModItems.DARK_RUNE_BAG.getItem()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
@@ -45,7 +45,7 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 				return ActionResultType.SUCCESS;
 			}
 		}
-		return super.func_225533_a_(state, world, pos, player, hand, result);
+		return super.onBlockActivated(state, world, pos, player, hand, result);
 	}
 
 	@Override

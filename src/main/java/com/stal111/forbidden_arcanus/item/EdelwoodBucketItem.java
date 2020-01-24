@@ -188,7 +188,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
         } else {
             BlockState blockstate = worldIn.getBlockState(posIn);
             Material material = blockstate.getMaterial();
-            boolean flag = blockstate.func_227032_a_(this.containedBlock);
+            boolean flag = blockstate.isReplaceable(this.containedBlock);
             if (blockstate.isAir() || flag || blockstate.getBlock() instanceof ILiquidContainer && ((ILiquidContainer)blockstate.getBlock()).canContainFluid(worldIn, posIn, blockstate, this.containedBlock)) {
                 if (worldIn.dimension.doesWaterVaporize() && this.containedBlock.isIn(FluidTags.WATER)) {
                     int i = posIn.getX();

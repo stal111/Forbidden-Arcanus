@@ -40,9 +40,9 @@ public enum ModEntities {
         RenderingRegistry.registerEntityRenderingHandler(CHORUS_PEARL.getEntityType(), ModSpriteRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(SEED_BULLET.getEntityType(), ModSpriteRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler((EntityType<EnergyBallEntity>) ENERGY_BALL.getEntityType(), EnergyBallRender::new);
-        Minecraft.getInstance().getRenderManager().func_229087_a_((EntityType<BoomArrowEntity>) BOOM_ARROW.getEntityType(), new BoomArrowRender(Minecraft.getInstance().getRenderManager()));
-        Minecraft.getInstance().getRenderManager().func_229087_a_((EntityType<DracoArcanusArrowEntity>) DRACO_ARCANUS_ARROW.getEntityType(), new DracoArcanusArrowRender(Minecraft.getInstance().getRenderManager()));
-        Minecraft.getInstance().getRenderManager().func_229087_a_((EntityType<FrozenArrowEntity>) FROZEN_ARROW.getEntityType(), new FrozenArrowRender(Minecraft.getInstance().getRenderManager()));
+        Minecraft.getInstance().getRenderManager().register((EntityType<BoomArrowEntity>) BOOM_ARROW.getEntityType(), new BoomArrowRender(Minecraft.getInstance().getRenderManager()));
+        Minecraft.getInstance().getRenderManager().register((EntityType<DracoArcanusArrowEntity>) DRACO_ARCANUS_ARROW.getEntityType(), new DracoArcanusArrowRender(Minecraft.getInstance().getRenderManager()));
+        Minecraft.getInstance().getRenderManager().register((EntityType<FrozenArrowEntity>) FROZEN_ARROW.getEntityType(), new FrozenArrowRender(Minecraft.getInstance().getRenderManager()));
 
     }
 }
