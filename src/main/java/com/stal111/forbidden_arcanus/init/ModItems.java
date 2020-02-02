@@ -11,6 +11,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
 public enum ModItems {
+    FORBIDDENMICON(new ForbiddenmiconItem(properties())),
     ARCANE_GOLD_INGOT(new Item(properties())),
     ARCANE_GOLD_NUGGET(new Item(properties())),
     ORB_OF_TEMPORARY_FLIGHT(new OrbOfTemporaryFlightItem(properties(Rarity.UNCOMMON, 1))),
