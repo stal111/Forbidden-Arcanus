@@ -70,7 +70,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
                         if (new Random().nextDouble() < 0.005) {
                             if (!world.isRemote()) {
                                 player.inventory.removeStackFromSlot(slot);
-                                player.inventory.add(slot, Items.CHARCOAL.getDefaultInstance());
+                                player.inventory.add(slot, new ItemStack(Items.CHARCOAL));
                                 world.setBlockState(pos, containedBlock.getDefaultState().getBlockState());
                             }
                         }
@@ -168,7 +168,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
             if (emptyBucket.getItem() == fullBucket) {
                 return ICapacityBucket.setFullness(emptyBucket, ICapacityBucket.getFullness(emptyBucket) + 1);
             } else {
-                ItemStack stack = ItemStackUtils.transferEnchantments(emptyBucket, fullBucket.getDefaultInstance());
+                ItemStack stack = ItemStackUtils.transferEnchantments(emptyBucket, new ItemStack(fullBucket));
                 emptyBucket.shrink(1);
                 if (emptyBucket.isEmpty()) {
                     return stack;

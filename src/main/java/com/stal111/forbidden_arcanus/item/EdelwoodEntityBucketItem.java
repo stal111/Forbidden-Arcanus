@@ -57,7 +57,7 @@ public class EdelwoodEntityBucketItem extends Item {
                             this.placeEntity(world, stack, pos);
                             if (!world.isRemote()) {
                                 player.inventory.removeStackFromSlot(slot);
-                                player.inventory.add(slot, Items.CHARCOAL.getDefaultInstance());
+                                player.inventory.add(slot, new ItemStack(Items.CHARCOAL));
                                 player.setFire(3);
                             }
                         }
