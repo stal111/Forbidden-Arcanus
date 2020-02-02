@@ -34,9 +34,8 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
 
     public static final IntegerProperty CANDLES = IntegerProperty.create("candles", 0, 3);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    public static final DirectionProperty DIRECTION = HorizontalBlock.HORIZONTAL_FACING;
+    public static final BooleanProperty X = BooleanProperty.create("x");
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final EnumProperty<CandelabraAttachment> ATTACHMENT = EnumProperty.create("attachment", CandelabraAttachment.class);
 
     private static final VoxelShape[] BASE_SHAPES = {
             VoxelShapeHelper.combineAll(
@@ -129,25 +128,17 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
 
     public CandelabraBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 0).with(LIT, true).with(DIRECTION, Direction.NORTH).with(ATTACHMENT, CandelabraAttachment.FLOOR).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 0).with(LIT, true).with(X, true).with(WATERLOGGED, false));
     }
 
     private VoxelShape generateShape(BlockState state) {
         if (state.get(CANDLES) > 0) {
-            if (state.get(ATTACHMENT) == CandelabraAttachment.FLOOR) {
-                if (state.get(DIRECTION) == Direction.EAST || state.get(DIRECTION) == Direction.WEST) {
-                    return VoxelShapeHelper.rotateShape(FLOOR_SHAPES[state.get(CANDLES)], VoxelShapeHelper.RotationAmount.NINETY);
-                }
-                return FLOOR_SHAPES[state.get(CANDLES)];
-            } else {
-                if (state.get(DIRECTION) == Direction.NORTH) {
-                    return WALL_SHAPES[state.get(CANDLES)];
-                } else {
-                    return VoxelShapeHelper.getRotatedShapes(state.get(ATTACHMENT) == CandelabraAttachment.FLOOR ? FLOOR_SHAPES[state.get(CANDLES)] : WALL_SHAPES[state.get(CANDLES)]).get(state.get(DIRECTION));
-                }
+            if (!state.get(X)) {
+                return VoxelShapeHelper.rotateShape(FLOOR_SHAPES[state.get(CANDLES)], VoxelShapeHelper.RotationAmount.NINETY);
             }
+            return FLOOR_SHAPES[state.get(CANDLES)];
         } else {
-            return state.get(ATTACHMENT) == CandelabraAttachment.FLOOR ? FLOOR_SHAPES[0] : VoxelShapeHelper.getRotatedShapes(WALL_SHAPES[0]).get(state.get(DIRECTION));
+            return FLOOR_SHAPES[0];
         }
     }
 
@@ -159,6 +150,9 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
     @Override
     public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
         if (state.get(WATERLOGGED)) {
+            if (state.get(LIT)) {
+                world.setBlockState(currentPos, state.with(LIT, false), 2);
+            }
             world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         return !this.isValidPosition(state, world, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
@@ -166,7 +160,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        return (HorizontalFaceBlock.func_220185_b(world, pos, func_220131_q(state).getOpposite()) && (world.getBlockState(pos.up()).getBlock() instanceof AirBlock || world.getFluidState(pos.up()).getFluid() instanceof WaterFluid) && !isCandelabraBlock(world.getBlockState(pos.down())));
+        return (hasEnoughSolidSide(world, pos.down(), Direction.UP) && (world.getBlockState(pos.up()).getBlock() instanceof AirBlock || world.getFluidState(pos.up()).getFluid() instanceof WaterFluid) && !isCandelabraBlock(world.getBlockState(pos.down())));
     }
 
     public static boolean isCandelabraBlock(BlockState state) {
@@ -180,30 +174,13 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        Direction direction = context.getFace();
-        Direction.Axis axis = direction.getAxis();
-
         boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
 
-        BlockState state;
-        if (axis == Direction.Axis.Y) {
-            state = this.getDefaultState().with(ATTACHMENT, CandelabraAttachment.FLOOR).with(DIRECTION, context.getPlacementHorizontalFacing()).with(WATERLOGGED, flag).with(LIT, !flag);
-            if (state.isValidPosition(context.getWorld(), context.getPos())) {
-                return state;
-            }
-        } else {
-            state = this.getDefaultState().with(DIRECTION, direction.getOpposite()).with(ATTACHMENT,  CandelabraAttachment.SINGLE_WALL);
-            if (state.isValidPosition(context.getWorld(), context.getPos())) {
-                return state;
-            }
-
-            boolean lvt_8_1_ = context.getWorld().getBlockState(context.getPos().down()).isSolidSide(context.getWorld(), context.getPos().down(), Direction.UP);
-            state = state.with(ATTACHMENT, lvt_8_1_ ? CandelabraAttachment.FLOOR : CandelabraAttachment.CEILING);
-            if (state.isValidPosition(context.getWorld(), context.getPos())) {
-                return state;
-            }
+        BlockState state = this.getDefaultState().with(X, context.getPlacementHorizontalFacing() == Direction.NORTH || context.getPlacementHorizontalFacing() == Direction.SOUTH).with(WATERLOGGED, flag).with(LIT, !flag);
+        if (state.isValidPosition(context.getWorld(), context.getPos())) {
+            return state;
         }
-        return null;
+        return super.getStateForPlacement(context);
     }
 
     @Override
@@ -220,44 +197,30 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
         return super.onBlockActivated(state, world, pos, player, hand, result);
     }
 
-
-    private static Direction func_220131_q(BlockState state) {
-        switch(state.get(ATTACHMENT)) {
-            case FLOOR:
-                return Direction.UP;
-            case CEILING:
-                return Direction.DOWN;
-            default:
-                return (state.get(DIRECTION)).getOpposite();
-        }
-    }
-
     @Override
     public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0) {
-            if (state.get(ATTACHMENT) == CandelabraAttachment.FLOOR) {
-                if (state.get(DIRECTION) == Direction.NORTH || state.get(DIRECTION) == Direction.SOUTH) {
-                    if (state.get(CANDLES) == 1) {
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                    } else if (state.get(CANDLES) == 2) {
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.31D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.7D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                    } else {
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.165D, pos.getY() + 1.05D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.85D, pos.getY() + 1.05D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                    }
+            if (state.get(X)) {
+                if (state.get(CANDLES) == 1) {
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+                } else if (state.get(CANDLES) == 2) {
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.31D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.7D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
                 } else {
-                    if (state.get(CANDLES) == 1) {
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                    } else if (state.get(CANDLES) == 2) {
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.31D, 0.0D, 0.0D, 0.0D);
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.7D, 0.0D, 0.0D, 0.0D);
-                    } else {
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.05D, pos.getZ() + 0.165D, 0.0D, 0.0D, 0.0D);
-                        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.05D, pos.getZ() + 0.85D, 0.0D, 0.0D, 0.0D);
-                    }
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.165D, pos.getY() + 1.05D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.85D, pos.getY() + 1.05D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+                }
+            } else {
+                if (state.get(CANDLES) == 1) {
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+                } else if (state.get(CANDLES) == 2) {
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.31D, 0.0D, 0.0D, 0.0D);
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.7D, 0.0D, 0.0D, 0.0D);
+                } else {
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.17D, pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.05D, pos.getZ() + 0.165D, 0.0D, 0.0D, 0.0D);
+                    world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.05D, pos.getZ() + 0.85D, 0.0D, 0.0D, 0.0D);
                 }
             }
         }
@@ -275,7 +238,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
 
     @Override
     public void fillStateContainer(StateContainer.Builder<Block, BlockState> p_206840_1_) {
-        p_206840_1_.add(CANDLES, LIT, DIRECTION, ATTACHMENT, WATERLOGGED);
+        p_206840_1_.add(CANDLES, LIT, X, WATERLOGGED);
     }
 
     @Override

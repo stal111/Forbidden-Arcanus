@@ -118,6 +118,7 @@
     "block.forbidden_arcanus.soulless_sandstone_wall": "Soulless Sandstone Wall",
 
     "____comment": "Items",
+    "item.forbidden_arcanus.forbiddenmicon": "Forbiddenmicon",
     "item.forbidden_arcanus.arcane_gold_ingot": "Arcane Gold Ingot",
     "item.forbidden_arcanus.arcane_gold_nugget": "Arcane Gold Nugget",
     "item.forbidden_arcanus.orb_of_temporary_flight": "Orb Of Temporary Flight",
@@ -242,6 +243,7 @@
     "item.forbidden_arcanus.draco_arcanus_arrow": "Draco Arcanus Arrow",
 
     "_____comment": "Tooltips",
+    "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",
     "tooltip.forbidden_arcanus.obsidian_skull": "Grants you Fire Resistance I",
     "tooltip.forbidden_arcanus.obsidian_skull_shield": "Grants you Fire Resistance I and Resistance I",
     "tooltip.forbidden_arcanus.infernum_pickaxe": "So hot that it can even smelt ores!",

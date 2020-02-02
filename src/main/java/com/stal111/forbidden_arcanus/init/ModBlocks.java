@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
 import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
+import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -60,10 +61,15 @@ public enum ModBlocks {
     ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).func_226896_b_()), ModRenderType.CUTOUT),
     ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG))),
     CANDLE(new CandleBlock(addProperties(Material.MISCELLANEOUS)), ModRenderType.CUTOUT),
-    STONE_CANDELABRA(new CandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), ModRenderType.CUTOUT),
-    IRON_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), ModRenderType.CUTOUT),
-    ARCANE_GOLDEN_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), ModRenderType.CUTOUT),
-    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    STONE_CANDELABRA(new CandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
+    WALL_STONE_CANDELABRA(new WallCandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
+    HANGING_STONE_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F).func_226896_b_()), false, ModRenderType.CUTOUT),
+    IRON_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    WALL_IRON_CANDELABRA(new WallCandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    HANGING_IRON_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F).func_226896_b_()), false, ModRenderType.CUTOUT),
+    ARCANE_GOLDEN_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    WALL_ARCANE_GOLDEN_CANDELABRA(new WallCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F).func_226896_b_()), false, ModRenderType.CUTOUT),
     IRON_CHAIN(new ChainBlock(addProperties(Material.IRON, 5.0F, 6.0F)), ModRenderType.CUTOUT),
     ARCANE_GOLDEN_CHAIN(new ChainBlock(addProperties(Material.IRON, 3.0F, 6.0F)), ModRenderType.CUTOUT),
     CANDLE_LAMP(new CandleLampBlock(addProperties(Material.ROCK)), ModRenderType.CUTOUT),
@@ -162,6 +168,13 @@ public enum ModBlocks {
         this.item = item;
         this.hasItem = true;
         this.renderType = ModRenderType.SOLID;
+    }
+
+    ModBlocks(Block block, BlockItem item, ModRenderType renderType) {
+        this.block = block;
+        this.item = item;
+        this.hasItem = true;
+        this.renderType = renderType;
     }
 
     ModBlocks(Block block, ModRenderType renderType) {

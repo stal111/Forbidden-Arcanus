@@ -1,85 +1,24 @@
 {
   "variants": {
-    "candles=0,facing=north,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra" },
-    "candles=1,facing=north,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle_lit" },
-    "candles=2,facing=north,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles_lit" },
-    "candles=3,facing=north,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles_lit" },
+    "candles=0,x=true,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra" },
+    "candles=1,x=true,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle_lit" },
+    "candles=2,x=true,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles_lit" },
+    "candles=3,x=true,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles_lit" },
 
-    "candles=0,facing=south,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra" },
-    "candles=1,facing=south,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle_lit" },
-    "candles=2,facing=south,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles_lit" },
-    "candles=3,facing=south,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles_lit" },
+    "candles=0,x=false,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra", "y": 90 },
+    "candles=1,x=false,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle_lit", "y": 90 },
+    "candles=2,x=false,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles_lit", "y": 90 },
+    "candles=3,x=false,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles_lit", "y": 90 },
 
-    "candles=0,facing=east,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra", "y": 90 },
-    "candles=1,facing=east,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle_lit", "y": 90 },
-    "candles=2,facing=east,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles_lit", "y": 90 },
-    "candles=3,facing=east,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles_lit", "y": 90 },
+    "candles=0,x=true,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra" },
+    "candles=1,x=true,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle" },
+    "candles=2,x=true,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles" },
+    "candles=3,x=true,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles" },
 
-    "candles=0,facing=west,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra", "y": 90 },
-    "candles=1,facing=west,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle_lit", "y": 90 },
-    "candles=2,facing=west,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles_lit", "y": 90 },
-    "candles=3,facing=west,attachment=floor,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles_lit", "y": 90 },
-
-    "candles=0,facing=north,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra" },
-    "candles=1,facing=north,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle" },
-    "candles=2,facing=north,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles" },
-    "candles=3,facing=north,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles" },
-
-    "candles=0,facing=south,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra" },
-    "candles=1,facing=south,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle" },
-    "candles=2,facing=south,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles" },
-    "candles=3,facing=south,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles" },
-
-    "candles=0,facing=east,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra", "y": 90 },
-    "candles=1,facing=east,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle", "y": 90 },
-    "candles=2,facing=east,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles", "y": 90 },
-    "candles=3,facing=east,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles", "y": 90 },
-
-    "candles=0,facing=west,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra", "y": 90 },
-    "candles=1,facing=west,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle", "y": 90 },
-    "candles=2,facing=west,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles", "y": 90 },
-    "candles=3,facing=west,attachment=floor,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles", "y": 90 },
-
-
-    "candles=0,facing=north,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall" },
-    "candles=1,facing=north,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle_lit" },
-    "candles=2,facing=north,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles_lit" },
-    "candles=3,facing=north,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles_lit" },
-
-    "candles=0,facing=south,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall", "y": 180 },
-    "candles=1,facing=south,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle_lit", "y": 180 },
-    "candles=2,facing=south,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles_lit", "y": 180 },
-    "candles=3,facing=south,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles_lit", "y": 180 },
-
-    "candles=0,facing=east,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall", "y": 90 },
-    "candles=1,facing=east,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle_lit", "y": 90 },
-    "candles=2,facing=east,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles_lit", "y": 90 },
-    "candles=3,facing=east,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles_lit", "y": 90 },
-
-    "candles=0,facing=west,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall", "y": 270 },
-    "candles=1,facing=west,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle_lit", "y": 270 },
-    "candles=2,facing=west,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles_lit", "y": 270 },
-    "candles=3,facing=west,attachment=wall,lit=true": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles_lit", "y": 270 },
-
-    "candles=0,facing=north,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall" },
-    "candles=1,facing=north,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle" },
-    "candles=2,facing=north,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles" },
-    "candles=3,facing=north,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles" },
-
-    "candles=0,facing=south,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall", "y": 180 },
-    "candles=1,facing=south,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle", "y": 180 },
-    "candles=2,facing=south,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles", "y": 180 },
-    "candles=3,facing=south,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles", "y": 180 },
-
-    "candles=0,facing=east,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall", "y": 90 },
-    "candles=1,facing=east,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle", "y": 90 },
-    "candles=2,facing=east,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles", "y": 90 },
-    "candles=3,facing=east,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles", "y": 90 },
-
-    "candles=0,facing=west,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall", "y": 270 },
-    "candles=1,facing=west,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_one_candle", "y": 270 },
-    "candles=2,facing=west,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_two_candles", "y": 270 },
-    "candles=3,facing=west,attachment=wall,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_wall_three_candles", "y": 270 }
+    "candles=0,x=false,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra", "y": 90 },
+    "candles=1,x=false,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_one_candle", "y": 90 },
+    "candles=2,x=false,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_two_candles", "y": 90 },
+    "candles=3,x=false,lit=false": { "model": "forbidden_arcanus:block/stone_candelabra_three_candles", "y": 90 }
   }
 }
 

@@ -1,10 +1,12 @@
 package com.stal111.forbidden_arcanus;
 
+import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
+import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
 import com.stal111.forbidden_arcanus.particle.ModBreakingParticle;
 import com.stal111.forbidden_arcanus.particle.SoulParticle;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
@@ -39,6 +41,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -98,9 +101,13 @@ public class Main {
 					event.getRegistry().register(block.getItem());
 				} else {
 					BlockItem item = new BlockItem(block.getBlock(), ModItems.properties());
-					item.setRegistryName(Main.MOD_ID, block.getName());
+					item.setRegistryName(ModUtils.location(block.getName()));
 					event.getRegistry().register(item);
 				}
+			} else if (block.getBlock() instanceof CandelabraBlock) {
+				BlockItem item = new WallFloorOrCeilingItem(block.getBlock(), ForgeRegistries.BLOCKS.getValue(ModUtils.location("wall_" + block.getBlock().getRegistryName().getPath())), ForgeRegistries.BLOCKS.getValue(ModUtils.location("hanging_" + block.getBlock().getRegistryName().getPath())), ModItems.properties());
+				item.setRegistryName(ModUtils.location(block.getName()));
+				event.getRegistry().register(item);
 			}
 		}
 		for (ModItems item : ModItems.values()) {

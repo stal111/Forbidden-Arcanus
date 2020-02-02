@@ -49,7 +49,11 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 		if (state.getBlock() == this) {
 			return state.with(CANDLES, Math.min(3, state.get(CANDLES) + 1));
 		} else if (state.getBlock() instanceof CandelabraBlock) {
-			return state.with(CandelabraBlock.CANDLES, Math.min(3, state.get(CandelabraBlock.CANDLES) + 1));
+			return state.with(CandelabraBlock.CANDLES, Math.min(3, state.get(CandelabraBlock.CANDLES) + 1)).with(WATERLOGGED, flag).with(LIT, !flag);
+		} else if (state.getBlock() instanceof WallCandelabraBlock) {
+			return state.with(WallCandelabraBlock.CANDLES,  Math.min(3, state.get(WallCandelabraBlock.CANDLES) + 1)).with(WATERLOGGED, flag).with(LIT, !flag);
+		} else if (state.getBlock() instanceof HangingCandelabraBlock) {
+			return state.with(HangingCandelabraBlock.CANDLE, true).with(WATERLOGGED, flag).with(LIT, !flag);
 		} else {
 			return this.getDefaultState().with(WATERLOGGED, flag).with(LIT, !flag).with(CANDLES, 1);
 		}
