@@ -1,0 +1,137 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "forbiddenmicon": "forbidden_arcanus:item/forbiddenmicon"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 325, 0, 340 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "ground": {
+            "rotation": [ 290, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, -3 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, -4 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 17, 350, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 340, 335, 0 ],
+            "translation": [ 0, 2, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Lomo",
+            "from": [ 6, 0, 4 ], 
+            "to": [ 10, 16, 5 ], 
+            "faces": {
+                "north": { "texture": "#forbiddenmicon", "uv": [ 6, 0, 8, 8 ] },
+                "east": { "texture": "#forbiddenmicon", "uv": [ 14, 0, 14.5, 8 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 14, 0, 16, 8 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 14, 0, 14.5, 8 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 6, 0, 8, 0.5 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 6, 8, 8, 7.5 ] }
+            }
+        },
+        {
+            "name": "Portada",
+            "from": [ -4.5, 0, 4 ], 
+            "to": [ 6.5, 16, 5 ], 
+            "rotation": { "origin": [ 6.5, 8.0, 5.0 ], "axis": "y", "angle": 22.5 },
+            "faces": {
+                "north": { "texture": "#forbiddenmicon", "uv": [ 8.5, 0, 14, 8 ] },
+                "east": { "texture": "#forbiddenmicon", "uv": [ 14.5, 0, 15, 8 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 0, 0, 5.5, 8 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 13.5, 0, 14, 8 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 14, 0, 8.5, 0.5 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 14, 7.5, 8.5, 8 ] }
+            }
+        },
+        {
+            "name": "ContraPortada",
+            "from": [ 9.5, 0, 4 ], 
+            "to": [ 20.5, 16, 5 ], 
+            "rotation": { "origin": [ 9.5, 8.0, 5.0 ], "axis": "y", "angle": -22.5 },
+            "faces": {
+                "north": { "texture": "#forbiddenmicon", "uv": [ 0, 0, 5.5, 8 ] },
+                "east": { "texture": "#forbiddenmicon", "uv": [ 0, 0, 0.5, 8 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 5.5, 0, 0, 8 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 15, 0, 15.5, 8 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 5.5, 0, 0, 0.5 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 5.5, 8, 0, 7.5 ] }
+            }
+        },
+        {
+            "name": "HojaBase 1",
+            "from": [ -3, 1, 5 ], 
+            "to": [ 7, 15, 6 ], 
+            "rotation": { "origin": [ 6.0, 8.0, 6.0 ], "axis": "y", "angle": 22.5 },
+            "faces": {
+                "east": { "texture": "#forbiddenmicon", "uv": [ 15, 9, 15.5, 16 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 15, 9, 10, 16 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 10.5, 16 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 15, 9.5 ], "rotation": 180 },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 15, 9.5 ], "rotation": 180 }
+            }
+        },
+        {
+            "name": "HojaBase 2",
+            "from": [ 9, 1, 5 ], 
+            "to": [ 19, 15, 6 ], 
+            "rotation": { "origin": [ 10.0, 8.0, 6.0 ], "axis": "y", "angle": -22.5 },
+            "faces": {
+                "east": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 10.5, 16 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 15, 16 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 15, 9, 15.5, 16 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 15, 9.5 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 15, 9.5 ] }
+            }
+        },
+        {
+            "name": "HojaBase 3",
+            "from": [ 6.5, 1, 5 ], 
+            "to": [ 9.5, 15, 6 ], 
+            "faces": {
+                "east": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 10.5, 16 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 12, 9, 12.5, 16 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 10.5, 16 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 10, 8.5, 11, 9 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 10, 8.5, 11, 9 ] }
+            }
+        },
+        {
+            "name": "Hoja 1",
+            "from": [ 9, 1, 6 ], 
+            "to": [ 19, 15, 6 ], 
+            "rotation": { "origin": [ 9.0, 8.0, 6.0 ], "axis": "y", "angle": -45.0 },
+            "faces": {
+                "south": { "texture": "#forbiddenmicon", "uv": [ 5, 9, 10, 16 ] }
+            }
+        },
+        {
+            "name": "Hoja 2",
+            "from": [ -3, 1, 6 ], 
+            "to": [ 7, 15, 6 ], 
+            "rotation": { "origin": [ 7.0, 8.0, 6.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "south": { "texture": "#forbiddenmicon", "uv": [ 0, 9, 5, 16 ] }
+            }
+        }
+    ]
+}

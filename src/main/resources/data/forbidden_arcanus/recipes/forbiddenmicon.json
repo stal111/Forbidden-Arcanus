@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:book"
+        },
+        {
+            "item": "forbidden_arcanus:arcane_crystal_dust"
+        }
+    ],
+    "result": {
+        "item": "forbidden_arcanus:forbiddenmicon"
+    }
+}

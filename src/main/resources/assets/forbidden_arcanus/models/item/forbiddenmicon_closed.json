@@ -1,0 +1,87 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "forbiddenmicon": "forbidden_arcanus:item/forbiddenmicon"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 325, 0, 340 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.8, 0.8, 0.8 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, -1 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 90, 180, 0 ],
+            "translation": [ 0, 5.3, -1 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 40, 265, 55 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 271, 340 ],
+            "translation": [ 0, 1.5, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Portada",
+            "from": [ 2.5, 0, 9 ], 
+            "to": [ 13.5, 16, 10 ], 
+            "faces": {
+                "north": { "texture": "#forbiddenmicon", "uv": [ 0, 0, 5.5, 8 ] },
+                "east": { "texture": "#forbiddenmicon", "uv": [ 13.5, 0, 14, 8 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 8.5, 0, 14, 8 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 7.5, 0, 8, 8 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 8.5, 0, 14, 0.5 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 8.5, 7.5, 14, 8 ] }
+            }
+        },
+        {
+            "name": "ContraPortada",
+            "from": [ 2.5, 0, 6 ], 
+            "to": [ 13.5, 16, 7 ], 
+            "faces": {
+                "north": { "texture": "#forbiddenmicon", "uv": [ 0, 0, 5.5, 8 ] },
+                "east": { "texture": "#forbiddenmicon", "uv": [ 0.5, 0, 0, 8 ] },
+                "south": { "texture": "#forbiddenmicon", "uv": [ 5.5, 0, 0, 8 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 6, 0, 6.5, 8 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 5.5, 0, 0, 0.5 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 5.5, 7.5, 0, 8 ] }
+            }
+        },
+        {
+            "name": "Lomo",
+            "from": [ 2.5, 0, 7 ], 
+            "to": [ 3.5, 16, 9 ], 
+            "faces": {
+                "east": { "texture": "#forbiddenmicon", "uv": [ 14, 0, 15, 8 ] },
+                "west": { "texture": "#forbiddenmicon", "uv": [ 6.5, 0, 7.5, 8 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 6.5, 0, 7.5, 0.5 ], "rotation": 90 },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 6.5, 7.5, 7.5, 8 ], "rotation": 90 }
+            }
+        },
+        {
+            "name": "Hojas",
+            "from": [ 3.5, 1, 7 ], 
+            "to": [ 12.5, 15, 9 ], 
+            "faces": {
+                "east": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 11, 16 ] },
+                "up": { "texture": "#forbiddenmicon", "uv": [ 10, 9, 15, 10 ] },
+                "down": { "texture": "#forbiddenmicon", "uv": [ 5, 9, 10, 10 ], "rotation": 180 }
+            }
+        }
+    ]
+}
