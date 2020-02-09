@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
+import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.util.GuiTile;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -96,7 +97,7 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 	};
 
 	public DarkBeaconTileEntity() {
-		super(ModTileEntities.dark_beacon);
+		super(ModTileEntities.SIGN);
 	}
 
 	public void tick() {

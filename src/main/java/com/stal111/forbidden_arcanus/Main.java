@@ -1,7 +1,8 @@
 package com.stal111.forbidden_arcanus;
 
 import com.stal111.forbidden_arcanus.block.CandelabraBlock;
-import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
+import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
+import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.init.*;
@@ -14,11 +15,13 @@ import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.ModUtils;
+import com.stal111.forbidden_arcanus.util.ModWoodType;
 import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
 import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
@@ -26,12 +29,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -53,12 +57,12 @@ public class Main {
 	public static final Logger LOGGER = LogManager.getLogger(Main.MOD_ID);
 	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(Main.MOD_ID);
 
-	public static final Block EDELWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("edelwood_sign"));
-	public static final Block EDELWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(EDELWOOD_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("edelwood_wall_sign"));
-	public static final Block CHERRYWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("cherrywood_sign"));
-	public static final Block CHERRYWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(CHERRYWOOD_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
-	public static final Block MYSTERYWOOD_SIGN = new StandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("mysterywood_sign"));
-	public static final Block MYSTERYWOOD_WALL_SIGN = new WallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(MYSTERYWOOD_SIGN), WoodType.OAK).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
+	public static final Block EDELWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_sign"));
+	public static final Block EDELWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(EDELWOOD_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_wall_sign"));
+	public static final Block CHERRYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_sign"));
+	public static final Block CHERRYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(CHERRYWOOD_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
+	public static final Block MYSTERYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_sign"));
+	public static final Block MYSTERYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(MYSTERYWOOD_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
 
 	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
@@ -68,6 +72,7 @@ public class Main {
 		instance = this;
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::stitchTextures);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
@@ -78,6 +83,10 @@ public class Main {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		proxy.init();
+		ModWoodType.register(ModWoodType.EDELWOOD);
+		ModWoodType.register(ModWoodType.CHERRYWOOD);
+		ModWoodType.register(ModWoodType.MYSTERYWOOD);
+
 		OreGenerator.setupOreGen();
 		WorldGenerator.setupWorldGen();
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
@@ -113,11 +122,6 @@ public class Main {
 		for (ModItems item : ModItems.values()) {
 			event.getRegistry().register(item.getItem());
 		}
-	}
-
-	@SubscribeEvent
-	public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> event) {
-		ModTileEntities.registerTileEntities(event);
 	}
 	
 	@SubscribeEvent
@@ -168,10 +172,11 @@ public class Main {
 		}
 	}
 
-	@SubscribeEvent
-	public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) {
-		for (ModEnchantments enchantment : ModEnchantments.values()) {
-			event.getRegistry().register(enchantment.getEnchantment());
+	public void stitchTextures(TextureStitchEvent.Pre event) {
+		if (event.getMap().getBasePath().equals(Atlases.SIGN_ATLAS)) {
+			event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/edelwood"));
+			event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/cherrywood"));
+			event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/mysterywood"));
 		}
 	}
 }

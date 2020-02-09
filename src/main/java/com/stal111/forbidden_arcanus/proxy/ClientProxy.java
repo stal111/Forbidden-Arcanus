@@ -1,14 +1,14 @@
 package com.stal111.forbidden_arcanus.proxy;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.block.tileentity.ModTileEntities;
-import com.stal111.forbidden_arcanus.block.tileentity.render.ModSignTileEntityRenderer;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
+import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.util.BakedModelOverrideRegistry;
 import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void init() {
         ModEntities.initModels();
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.sign, ModSignTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN, SignTileEntityRenderer::new);
       //  ClientRegistry.bindTileEntityRenderer(DarkBeaconTileEntity.class, new DarkBeaconTileEntityRenderer());
       //  ScreenManager.registerFactory(ModContainers.dark_beacon, DarkBeaconScreen::new);
 
@@ -59,7 +59,6 @@ public class ClientProxy implements IProxy {
     public PlayerEntity getClientPlayer() {
         return Minecraft.getInstance().player;
     }
-
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent e) {
