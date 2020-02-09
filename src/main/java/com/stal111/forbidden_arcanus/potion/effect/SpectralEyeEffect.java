@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class SpectralEyeEffect extends Effect {
 
-    protected SpectralEyeEffect(EffectType effectType, int p_i50391_2_) {
+    public SpectralEyeEffect(EffectType effectType, int p_i50391_2_) {
         super(effectType, p_i50391_2_);
     }
 

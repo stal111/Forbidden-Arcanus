@@ -2,8 +2,10 @@ package com.stal111.forbidden_arcanus.event;
 
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -21,12 +23,17 @@ public class BlockBreakListener {
 
 	@SubscribeEvent
 	public static void onBlockBrocken(BlockEvent.BreakEvent event) {
+		ItemStack stack = event.getPlayer().getHeldItemMainhand();
 		if (!event.getWorld().isRemote()) {
-			ItemStack stack = event.getPlayer().getHeldItemMainhand();
 			BlockState state = event.getState();
 			World world = (World) event.getWorld();
 			BlockPos pos = event.getPos();
 			PlayerEntity player = event.getPlayer();
+			if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE)) {
+				if (stack.getMaxDamage() - stack.getDamage() <= 1) {
+					event.setCanceled(true);
+				}
+			}
 			if (state.getBlock() instanceof CropsBlock) {
 				if (world.getBlockState(pos.down()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock()) {
 					if (!event.getPlayer().abilities.isCreativeMode) {

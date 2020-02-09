@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.potion.effect;
 
+import com.stal111.forbidden_arcanus.init.ModEffects;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -22,7 +23,7 @@ public class DarkenedEffect extends Effect {
 
     @Override
     public void performEffect(LivingEntity livingEntity, int amplifier) {
-        int i = livingEntity.getActivePotionEffect(ModEffects.darkened).getDuration();
+        int i = livingEntity.getActivePotionEffect(ModEffects.DARKENED).getDuration();
         if (i >= 20) {
             livingEntity.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 99999, 0, false, false, false));
         } else {

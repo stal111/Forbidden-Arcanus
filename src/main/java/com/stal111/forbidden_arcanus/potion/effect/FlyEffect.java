@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.potion.effect;
 
+import com.stal111.forbidden_arcanus.init.ModEffects;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -22,7 +23,7 @@ public class FlyEffect extends Effect {
 
     @Override
     public void performEffect(LivingEntity livingEntity, int amplifier) {
-        int i = livingEntity.getActivePotionEffect(ModEffects.fly).getDuration();
+        int i = livingEntity.getActivePotionEffect(ModEffects.FLY).getDuration();
         if (livingEntity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) livingEntity;
             if (i >= 20 || player.abilities.isCreativeMode) {
