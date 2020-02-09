@@ -61,7 +61,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean isSelected) {
-        if (!EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.PERMAFROST.getEnchantment())) {
+        if (!EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.PERMAFROST)) {
             if (FluidTags.LAVA.contains(containedBlock)) {
                 if (entity instanceof PlayerEntity) {
                     PlayerEntity player = (PlayerEntity) entity;

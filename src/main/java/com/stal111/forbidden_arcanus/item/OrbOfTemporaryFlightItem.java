@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.potion.effect.ModEffects;
+import com.stal111.forbidden_arcanus.init.ModEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class OrbOfTemporaryFlightItem extends Item {
 			stack.shrink(1);
 		}
 		if (!world.isRemote) {
-			player.addPotionEffect(new EffectInstance(ModEffects.fly, 6000, 0, true, false, true));
+			player.addPotionEffect(new EffectInstance(ModEffects.FLY, 6000, 0, true, false, true));
 		}
 		player.addStat(Stats.ITEM_USED.get(this));
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);
