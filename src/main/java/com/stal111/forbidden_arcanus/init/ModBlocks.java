@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
 import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
-import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -49,7 +48,7 @@ public enum ModBlocks {
     DARK_RUNIC_GLASS_PANE(new PaneBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
     RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     ARCANE_CRYSTAL_ORE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
-    ARCANE_CRYSTAL_BLOCK(new TranslucentBlock(addProperties(Material.ROCK, 1.0F, 10.0F).func_226896_b_()), ModRenderType.CUTOUT),
+    ARCANE_CRYSTAL_BLOCK(new TranslucentBlock(addProperties(Material.ROCK, 1.0F, 10.0F).func_226896_b_()), ModRenderType.TRANSLUCENT),
     ARCANE_CRYSTAL_OBELISK(new ArcaneCrystalObeliskBlock(addProperties(Material.ROCK, 1.0F, 10.0F))),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
     END_CRYSTAL_GEM(new CutoutBlock(addProperties(Material.GLASS, 1.0F, 5.0F).lightValue(15).func_226896_b_()), ModRenderType.TRANSLUCENT),
