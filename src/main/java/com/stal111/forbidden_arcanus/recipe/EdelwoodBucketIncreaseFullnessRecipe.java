@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.recipe;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
-import javafx.util.Pair;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -15,7 +15,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
@@ -129,32 +131,30 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
     public NonNullList<ItemStack> getRemainingItems(CraftingInventory inventory) {
         NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inventory.getSizeInventory(), ItemStack.EMPTY);
 
-        List<Pair<Integer, ItemStack>> slots = new ArrayList<>();
+        Map<Integer, ItemStack> slot = new HashMap<>();
 
         for(int i = 0; i < nonnulllist.size(); i++) {
             ItemStack item = inventory.getStackInSlot(i);
             if (item.hasContainerItem()) {
-                nonnulllist.set(i, item.getContainerItem());
-                slots.add(new Pair<>(i, item.getContainerItem()));
+                slot.put(i, item.getContainerItem());
             }
         }
 
-        slots.forEach(pair -> {
-            if (pair.getValue().getItem() != ModItems.EDELWOOD_BUCKET.getItem()) {
-                slots.set(slots.indexOf(pair), new Pair<>(pair.getKey(), ItemStack.EMPTY));
+        if (!slot.isEmpty()) {
+            for (Map.Entry<Integer,ItemStack> entry : slot.entrySet()) {
+                if (!entry.getValue().isEmpty() && !(entry.getValue().getItem() instanceof BucketItem))  {
+                    slot.put(entry.getKey(), ItemStack.EMPTY);
+                    break;
+                }
+            }
+        }
+
+        slot.forEach((integer, stack) -> {
+            if (!stack.isEmpty()) {
+                slot.forEach(nonnulllist::set);
             }
         });
 
-        List<Pair<Integer, ItemStack>> newList = new ArrayList<>();
-        for (Pair<Integer, ItemStack> slot : slots) {
-            if (!slot.getValue().isEmpty()) {
-                newList.add(slot);
-            }
-        }
-
-        if (slots.size() != 0) {
-            nonnulllist.set(newList.get(newList.size() - 1).getKey(), ItemStack.EMPTY);
-        }
         return nonnulllist;
     }
 

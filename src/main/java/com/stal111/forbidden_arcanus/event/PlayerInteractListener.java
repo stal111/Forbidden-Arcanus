@@ -157,7 +157,7 @@ public class PlayerInteractListener {
 					if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.getItem()) {
 						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
 							stack.shrink(1);
-							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket")).getDefaultInstance());
+							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))));
 							CompoundNBT compoundNBT = fishBucket.getOrCreateChildTag("EdelwoodBucket");
 							compoundNBT.putInt("Fullness", stack.getOrCreateChildTag("EdelwoodBucket").getInt("Fullness"));
 							if (entity.hasCustomName()) {
@@ -179,13 +179,12 @@ public class PlayerInteractListener {
 						}
 					}
 				}
-			}
-			else if (ItemStackUtils.registryContainsItem("edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket")) {
+			} else if (ItemStackUtils.registryContainsItem("edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket")) {
 				if (entity.isAlive()) {
 					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
 						stack.shrink(1);
 
-						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket")).getDefaultInstance());
+						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))));
 
 						if (stack.isEmpty()) {
 							player.setHeldItem(event.getHand(), bucket);
