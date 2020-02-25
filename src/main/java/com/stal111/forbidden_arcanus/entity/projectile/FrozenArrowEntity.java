@@ -60,7 +60,7 @@ public class FrozenArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected void arrowHit(LivingEntity entity) {
-        EffectInstance effectinstance = new EffectInstance(ModEffects.SPECTRAL_VISION, 100, 0);
+        EffectInstance effectinstance = new EffectInstance(ModEffects.SPECTRAL_VISION.get(), 100, 0);
         entity.addPotionEffect(effectinstance);
 
         entity.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0);
@@ -70,7 +70,7 @@ public class FrozenArrowEntity extends AbstractArrowEntity {
         areaeffectcloudentity.setRadius(1.0F);
         areaeffectcloudentity.setDuration(80);
         areaeffectcloudentity.setRadiusPerTick((7.0F - areaeffectcloudentity.getRadius()) / (float)areaeffectcloudentity.getDuration());
-        areaeffectcloudentity.addEffect(new EffectInstance(ModEffects.SPECTRAL_VISION, 1, 1));
+        areaeffectcloudentity.addEffect(new EffectInstance(ModEffects.SPECTRAL_VISION.get(), 1, 1));
 
         this.world.playEvent(2006, this.getPosition(), 0);
         this.world.addEntity(areaeffectcloudentity);

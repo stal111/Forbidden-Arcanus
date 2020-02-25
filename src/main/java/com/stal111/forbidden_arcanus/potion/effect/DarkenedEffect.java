@@ -23,7 +23,7 @@ public class DarkenedEffect extends Effect {
 
     @Override
     public void performEffect(LivingEntity livingEntity, int amplifier) {
-        int i = livingEntity.getActivePotionEffect(ModEffects.DARKENED).getDuration();
+        int i = livingEntity.getActivePotionEffect(ModEffects.DARKENED.get()).getDuration();
         if (i >= 20) {
             livingEntity.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 99999, 0, false, false, false));
         } else {

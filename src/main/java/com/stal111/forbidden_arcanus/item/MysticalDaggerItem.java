@@ -42,7 +42,7 @@ public class MysticalDaggerItem extends SwordItem {
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         int i = new Random().nextInt(5);
         if (i == 1) {
-            target.addPotionEffect(new EffectInstance(ModEffects.DARKENED, 100, 0));
+            target.addPotionEffect(new EffectInstance(ModEffects.DARKENED.get(), 100, 0));
         }
         return super.hitEntity(stack, target, attacker);
     }

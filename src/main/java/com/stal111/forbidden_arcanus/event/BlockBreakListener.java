@@ -22,23 +22,25 @@ import net.minecraftforge.fml.common.Mod;
 public class BlockBreakListener {
 
 	@SubscribeEvent
-	public static void onBlockBrocken(BlockEvent.BreakEvent event) {
+	public static void onBlockBroken(BlockEvent.BreakEvent event) {
 		ItemStack stack = event.getPlayer().getHeldItemMainhand();
 		if (!event.getWorld().isRemote()) {
 			BlockState state = event.getState();
 			World world = (World) event.getWorld();
 			BlockPos pos = event.getPos();
 			PlayerEntity player = event.getPlayer();
-			if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE)) {
-				if (stack.getMaxDamage() - stack.getDamage() <= 1) {
+			if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get())) {
+				if (stack.getMaxDamage() - stack.getDamage() <= 1 && !event.getPlayer().abilities.isCreativeMode) {
 					event.setCanceled(true);
 				}
 			}
 			if (state.getBlock() instanceof CropsBlock) {
-				if (world.getBlockState(pos.down()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock()) {
+				if (world.getBlockState(pos.down()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock() && ((CropsBlock) state.getBlock()).isMaxAge(state)) {
 					if (!event.getPlayer().abilities.isCreativeMode) {
 						for (ItemStack itemStack : state.getBlock().getDrops(state, new LootContext.Builder((ServerWorld) world).withParameter(LootParameters.TOOL, stack).withParameter(LootParameters.POSITION, pos))) {
-							world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack));
+							if (!itemStack.getItem().getRegistryName().getPath().contains("seed")) {
+								world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack));
+							}
 						}
 					}
 				}

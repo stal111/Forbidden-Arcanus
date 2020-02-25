@@ -21,7 +21,7 @@ public class WorldGenerator {
 			if (biome.getTempCategory() == Biome.TempCategory.MEDIUM && biome.getPrecipitation() == Biome.RainType.RAIN) {
 				if(biome.getCategory() == Biome.Category.PLAINS) {
 					if (WorldGenConfig.GENERATE_CHERRYWOOD_TREES.get()) {
-						biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.CHERRYWOOD_TREE.getFeature().func_225566_b_(BiomeFeatures.CHERRYWOOD_TREE).func_227228_a_(Placement.COUNT_EXTRA_HEIGHTMAP.func_227446_a_(new AtSurfaceWithExtraConfig((int) 0.6, 0.1F, 1))));
+						biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.CHERRYWOOD_TREE.getFeature().func_225566_b_(BiomeFeatures.CHERRYWOOD_TREE).func_227228_a_(Placement.COUNT_EXTRA_HEIGHTMAP.func_227446_a_(new AtSurfaceWithExtraConfig((int) 0.4, 0.1F, 1))));
 					}
 				}
 

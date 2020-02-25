@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.util.BakedModelOverrideRegistry;
 import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -15,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -27,7 +29,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void init() {
         ModEntities.initModels();
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN, SignTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN.get(), SignTileEntityRenderer::new);
       //  ClientRegistry.bindTileEntityRenderer(DarkBeaconTileEntity.class, new DarkBeaconTileEntityRenderer());
       //  ScreenManager.registerFactory(ModContainers.dark_beacon, DarkBeaconScreen::new);
 
@@ -42,6 +44,7 @@ public class ClientProxy implements IProxy {
                 new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_top")));
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModelBake);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::stitchTextures);
 
         for (ModBlocks block : ModBlocks.values()) {
             if (block.needsSpecialRender()) {
@@ -68,6 +71,14 @@ public class ClientProxy implements IProxy {
             if (factory != null) {
                 e.getModelRegistry().put(id, factory.create(e.getModelRegistry().get(id), e.getModelRegistry()));
             }
+        }
+    }
+
+    public void stitchTextures(TextureStitchEvent.Pre event) {
+        if (event.getMap().getBasePath().equals(Atlases.SIGN_ATLAS)) {
+            event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/edelwood"));
+            event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/cherrywood"));
+            event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/mysterywood"));
         }
     }
 }

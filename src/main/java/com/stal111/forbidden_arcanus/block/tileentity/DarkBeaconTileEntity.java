@@ -97,7 +97,7 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 	};
 
 	public DarkBeaconTileEntity() {
-		super(ModTileEntities.SIGN);
+		super(ModTileEntities.SIGN.get());
 	}
 
 	public void tick() {

@@ -77,7 +77,7 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 	@OnlyIn(Dist.CLIENT)
 	private IParticleData func_213887_n() {
 		ItemStack lvt_1_1_ = this.func_213882_k();
-		return (lvt_1_1_.isEmpty() ? ModParticles.item_seed_bullet : new ItemParticleData(ParticleTypes.ITEM, lvt_1_1_));
+		return (lvt_1_1_.isEmpty() ? (IParticleData) ModParticles.ITEM_SEED_BULLET.get() : new ItemParticleData(ParticleTypes.ITEM, lvt_1_1_));
 	}
 
 	@Override

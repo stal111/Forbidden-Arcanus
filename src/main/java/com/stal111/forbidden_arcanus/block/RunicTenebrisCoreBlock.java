@@ -39,8 +39,8 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 			Item transformedItem = ITEM_TRANSFORM_MAP.get(stack.getItem());
 			if (transformedItem != null) {
 				ItemStackUtils.shrinkStack(player, stack);
-					if (!player.addItemStackToInventory(new ItemStack(transformedItem))) {
-						player.dropItem(new ItemStack(transformedItem), false);
+				if (!player.addItemStackToInventory(new ItemStack(transformedItem))) {
+					player.dropItem(new ItemStack(transformedItem), false);
 				}
 				return ActionResultType.SUCCESS;
 			}

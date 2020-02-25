@@ -12,10 +12,10 @@ public enum ModItemTier implements IItemTier {
 	DRACO_ARCANUS(4, 2661, 12.0F, 7.0F, 20, () -> {
 		return Ingredient.fromItems(ModItems.DRAGON_SCALE.getItem());
 	}),
-	ARCANE_GOLDEN(3, 1861, 8.0F, 3.0F, 26, () -> {
+	ARCANE_GOLDEN(3, 1861, 9.0F, 3.5F, 26, () -> {
 		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.getItem());
 	}),
-	REINFORCED_ARCANE_GOLDEN(3, 2561, 8.0F, 3.0F, 26, () -> {
+	REINFORCED_ARCANE_GOLDEN(3, 2561, 9.0F, 3.5F, 26, () -> {
 		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.getItem());
 	}),
 	OBSIDIAN(3, 2861, 5.5F, 3.0F, 2, () -> {
@@ -24,7 +24,7 @@ public enum ModItemTier implements IItemTier {
 	BONE(1, 131, 4.0F, 1.0F, 5, () -> {
 		return Ingredient.fromItems(Items.BONE);
 	}),
-	INFERNUM(3, 1261, 7.0F, 3.0F, 5, () -> {
+	INFERNUM(3, 1261, 8.0F, 3.0F, 5, () -> {
 		return Ingredient.fromItems(Items.BONE);
 	}),
 	SLIMEC(3, 2061, 13.0F, 2.5F, 20, () -> {

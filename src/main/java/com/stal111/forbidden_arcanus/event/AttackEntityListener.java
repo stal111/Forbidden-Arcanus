@@ -12,9 +12,9 @@ public class AttackEntityListener {
 
     @SubscribeEvent
     public static void onAttackEntity(AttackEntityEvent event) {
-        ItemStack stack = event.getPlayer().getHeldItem(event.getPlayer().getActiveHand());
-        if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE)) {
-            if (stack.getMaxDamage() - stack.getDamage() <= 1) {
+        ItemStack stack = event.getPlayer().getHeldItemMainhand();
+        if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get())) {
+            if (stack.getMaxDamage() - stack.getDamage() <= 1 && !event.getPlayer().abilities.isCreativeMode) {
                 event.setCanceled(true);
             }
         }

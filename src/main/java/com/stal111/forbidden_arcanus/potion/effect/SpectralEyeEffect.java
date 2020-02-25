@@ -9,6 +9,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.AmbientEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.*;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
@@ -52,7 +53,7 @@ public class SpectralEyeEffect extends Effect {
                     scoreboard.addPlayerToTeam(livingEntity.getScoreboardName(), teamPassiveOrNeutral);
                 } else if (livingEntity instanceof MonsterEntity) {
                     scoreboard.addPlayerToTeam(livingEntity.getScoreboardName(), teamHostile);
-                } else {
+                } else if (!(livingEntity instanceof PlayerEntity)) {
                     scoreboard.addPlayerToTeam(livingEntity.getScoreboardName(), teamWater);
                 }
                 livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 10, 0, true, true, false));

@@ -17,7 +17,7 @@ public class SpectralEyeAmuletItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
 		if (!world.isRemote()) {
-			((LivingEntity) entity).addPotionEffect(new EffectInstance(ModEffects.SPECTRAL_VISION, 40, 0, false, false, true));
+			((LivingEntity) entity).addPotionEffect(new EffectInstance(ModEffects.SPECTRAL_VISION.get(), 40, 0, false, false, true));
 		}
 		super.inventoryTick(stack, world, entity, itemSlot, isSelected);
 	}

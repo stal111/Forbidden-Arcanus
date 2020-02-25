@@ -15,6 +15,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -74,7 +75,7 @@ public class SoulExtractorItem extends Item {
                                 playerEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
                             });
                             for (int i = 0; i < 4; i++) {
-                                world.addParticle(ModParticles.soul, pos.getX() + random.nextFloat(), pos.getY() + 1, pos.getZ() + random.nextFloat(), 1, 1, 1);
+                                world.addParticle((IParticleData) ModParticles.SOUL.get(), pos.getX() + random.nextFloat(), pos.getY() + 1, pos.getZ() + random.nextFloat(), 1, 1, 1);
                             }
                             player.addStat(Stats.ITEM_USED.get(this));
                             if (!world.isRemote) {

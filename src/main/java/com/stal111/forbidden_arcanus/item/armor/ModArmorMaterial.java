@@ -24,7 +24,7 @@ public enum ModArmorMaterial implements IArmorMaterial {
 	MORTEM(Main.MOD_ID + ":mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
 		return Ingredient.fromItems(ModItems.CLOTH.getItem());
 	}),
-	ARCANE_GOLD(Main.MOD_ID + ":arcane_gold", 38, new int[]{3, 6, 7, 3}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0F, () -> {
+	ARCANE_GOLD(Main.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F, () -> {
 		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.getItem());
 	}),
 	OBSIDIAN(Main.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {

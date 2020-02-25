@@ -47,7 +47,7 @@ public class EdelwoodEntityBucketItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean isSelected) {
-        if (!EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.PERMAFROST)) {
+        if (!EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.PERMAFROST.get())) {
             if (entityType == EntityType.MAGMA_CUBE) {
                 if (entity instanceof PlayerEntity) {
                     PlayerEntity player = (PlayerEntity) entity;
