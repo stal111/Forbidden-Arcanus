@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "forbidden_arcanus:block/stella_arcanum"
+    }
+}

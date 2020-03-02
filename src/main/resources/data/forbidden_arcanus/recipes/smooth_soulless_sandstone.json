@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:smelting",
-    "ingredient": {
-        "item": "forbidden_arcanus:soulless_sandstone"
-    },
-    "result": "forbidden_arcanus:smooth_soulless_sandstone",
-    "experience": 0.1,
-    "cookingtime": 200
-}

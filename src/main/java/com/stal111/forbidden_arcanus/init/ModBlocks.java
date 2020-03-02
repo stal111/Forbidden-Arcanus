@@ -15,7 +15,6 @@ import net.minecraft.item.SignItem;
 import net.minecraft.potion.Effects;
 
 public enum ModBlocks {
-
     DARK_BEACON(new DarkBeaconBlock(from(Blocks.BEACON)), ModRenderType.CUTOUT),
     ARCANE_BASE_BLOCK(new Block(addProperties(Material.ROCK, 2F, 15F))),
     CHISELED_ARCANE_BASE_BLOCK(new Block(addProperties(Material.ROCK, 2F, 15F))),
@@ -29,9 +28,12 @@ public enum ModBlocks {
     RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.ROCK, 2.0F, 15.0F).func_226896_b_())),
     RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.ROCK, 2.0F, 15.0F).func_226896_b_()), ModRenderType.CUTOUT),
     DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
+    POLISHED_DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
     DARK_RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     DARK_STONE_SLAB(new SlabBlock(addProperties(Material.ROCK, 1.5F, 6.0F))),
+    POLISHED_DARK_STONE_SLAB(new SlabBlock(addProperties(Material.ROCK, 1.5F, 6.0F))),
     DARK_STONE_STAIRS(new StairsBlock(DARK_STONE.getBlock().getDefaultState(), addProperties(Material.ROCK, 1.5F, 6.0F))),
+    POLISHED_DARK_STONE_STAIRS(new StairsBlock(POLISHED_DARK_STONE.getBlock().getDefaultState(), addProperties(Material.ROCK, 1.5F, 6.0F))),
     DARK_STONE_BUTTON(new StoneButtonBlock((from(Blocks.STONE_BUTTON)))),
     DARK_STONE_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.STONE_PRESSURE_PLATE))),
     ARCANE_DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
@@ -55,6 +57,8 @@ public enum ModBlocks {
     BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(14)), ModRenderType.CUTOUT),
     CORRUPTED_PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(9)), ModRenderType.CUTOUT),
+    STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).hardnessAndResistance(38.0F, 1200.0F))),
+    STELLARITE_BLOCK(new BeaconBaseBlock(from(Blocks.OBSIDIAN))),
     ARCANE_GOLD_BLOCK(new BeaconBaseBlock(from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).func_226896_b_()), ModRenderType.CUTOUT),
@@ -127,10 +131,12 @@ public enum ModBlocks {
     SOULLESS_SAND(new SoullessSandBlock(from(Blocks.SOUL_SAND))),
     SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),
     CUT_SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),
-    SMOOTH_SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),
+    POLISHED_SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),
     SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
     CUT_SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
+    POLISHED_SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
     SOULLESS_SANDSTONE_STAIRS(new StairsBlock(SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
+    POLISHED_SOULLESS_SANDSTONE_STAIRS(new StairsBlock(POLISHED_SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
     SOULLESS_SANDSTONE_WALL(new WallBlock(from(Blocks.SANDSTONE_WALL))),
     POTTED_CHERRYWOOD_SAPLING(new FlowerPotBlock(CHERRYWOOD_SAPLING.getBlock(), from(Blocks.POTTED_OAK_SAPLING)), false, ModRenderType.CUTOUT),
     POTTED_MYSTERYWOOD_SAPLING(new FlowerPotBlock(MYSTERYWOOD_SAPLING.getBlock(), from(Blocks.POTTED_OAK_SAPLING)), false, ModRenderType.CUTOUT),

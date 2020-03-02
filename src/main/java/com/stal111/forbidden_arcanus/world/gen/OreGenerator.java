@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.world.gen;
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
@@ -30,6 +31,8 @@ public class OreGenerator {
 			if(WorldGenConfig.GENERATE_DARK_STONE.get())  {
 				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DARK_STONE.getState(), WorldGenConfig.DARK_STONE_MAX_VEIN_SIZE.get())).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(WorldGenConfig.DARK_STONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_STONE_MAX_HEIGHT.get()))));
 			}
+
+			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.STELLA_ARCANUM.getState(), 3)).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(2, 0, 0, 50))));
 		}
 	}
 }

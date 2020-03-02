@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:stellarite_block"
+        }
+    ],
+    "result": {
+        "item": "forbidden_arcanus:stellarite_piece",
+        "count": 9
+    }
+}

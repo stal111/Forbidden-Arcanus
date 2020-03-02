@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "##",
+        "##"
+    ],
+    "key": {
+        "#": {
+            "item": "forbidden_arcanus:soulless_sandstone"
+        }
+    },
+    "result": {
+        "item": "forbidden_arcanus:polished_soulless_sandstone",
+        "count": 4
+    }
+}
