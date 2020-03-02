@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.proxy;
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
@@ -11,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -61,6 +63,11 @@ public class ClientProxy implements IProxy {
     @Override
     public PlayerEntity getClientPlayer() {
         return Minecraft.getInstance().player;
+    }
+
+    @Override
+    public void displayForbiddenmiconScreen(ItemStack stack) {
+        Minecraft.getInstance().displayGuiScreen(new ForbiddenmiconScreen(stack));
     }
 
     @SubscribeEvent

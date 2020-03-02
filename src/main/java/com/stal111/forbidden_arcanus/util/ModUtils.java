@@ -4,10 +4,13 @@ import com.google.common.collect.Maps;
 import com.stal111.forbidden_arcanus.Main;
 
 import net.minecraft.block.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
@@ -24,10 +27,10 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.server.ServerWorld;
 import org.lwjgl.glfw.GLFW;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ModUtils {
 
@@ -143,5 +146,15 @@ public class ModUtils {
 		if (scoreboard.getTeamNames().contains(team.getName())) {
 			scoreboard.removeTeam(team);
 		}
+	}
+
+	public static Collection<IRecipe<?>> getCraftingRecipesByOutput(@Nonnull ItemStack targetOutput) {
+		return Minecraft.getInstance().player.world.getRecipeManager().getRecipes().stream()
+				.filter(r -> !r.isDynamic() && (r.getSerializer() == IRecipeSerializer.CRAFTING_SHAPED || r.getSerializer() == IRecipeSerializer.CRAFTING_SHAPELESS) && ItemStack.areItemsEqualIgnoreDurability(targetOutput, r.getRecipeOutput())).collect(Collectors.toList());
+	}
+
+	public static Collection<IRecipe<?>> getSmeltingRecipesByOutput(@Nonnull ItemStack targetOutput) {
+		return Minecraft.getInstance().player.world.getRecipeManager().getRecipes().stream()
+				.filter(r -> !r.isDynamic() && r.getSerializer() == IRecipeSerializer.SMELTING && ItemStack.areItemsEqualIgnoreDurability(targetOutput, r.getRecipeOutput())).collect(Collectors.toList());
 	}
 }

@@ -14,7 +14,7 @@ public class ForbiddenmiconChangePageButton extends Button {
     private final boolean field_212941_b;
 
     public ForbiddenmiconChangePageButton(int p_i51079_1_, int p_i51079_2_, boolean p_i51079_3_, Button.IPressable p_i51079_4_, boolean p_i51079_5_) {
-        super((int) (p_i51079_1_ * 0.8), (int) (p_i51079_2_ * 0.8),18,13, "", p_i51079_4_);
+        super(p_i51079_1_, p_i51079_2_,14,10, "", p_i51079_4_);
         this.field_212940_a = p_i51079_3_;
         this.field_212941_b = p_i51079_5_;
     }
@@ -22,17 +22,17 @@ public class ForbiddenmiconChangePageButton extends Button {
     public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getInstance().getTextureManager().bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-        int i = 239;
-        int j = 209;
+        int i = 80;
+        int j = 240;
         if (this.isHovered()) {
-            j += 13;
+            i += 52;
         }
 
         if (!this.field_212940_a) {
-            i -= 18;
+            i -= 21;
         }
 
-        blit(this.x, this.y, this.getBlitOffset(), i, j, 18, 13, 256, 512);
+        blit(this.x, this.y, this.getBlitOffset(), i, j, 14, 10, 256, 512);
     }
 
     public void playDownSound(SoundHandler p_playDownSound_1_) {

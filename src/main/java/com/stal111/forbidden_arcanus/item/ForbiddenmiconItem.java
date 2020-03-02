@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -14,10 +15,10 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -38,12 +39,13 @@ public class ForbiddenmiconItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        if (player instanceof ClientPlayerEntity) {
-            Minecraft.getInstance().displayGuiScreen(new ForbiddenmiconScreen());
+        if (world.isRemote()) {
+            Main.proxy.displayForbiddenmiconScreen(stack);
         }
-        setOpen(stack, !isOpen(stack));
-        return new ActionResult<>(ActionResultType.SUCCESS, stack);
+        setOpen(stack, true);
+        return ActionResult.func_226248_a_(stack);
     }
+
     public static boolean isOpen(ItemStack stack) {
         CompoundNBT compoundnbt = stack.getTag();
         return compoundnbt != null && compoundnbt.getBoolean("Open");
