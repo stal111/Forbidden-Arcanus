@@ -39,6 +39,7 @@ public class ClientProxy implements IProxy {
         bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "arcane_crystal_block"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_block")));
         bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/runestone/cutout")));
         bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "dark_runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/runestone/cutout")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "xpetrified_ore"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/xpetrified_ore_layer")));
         bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "arcane_crystal_obelisk"), (base, registry) -> new FullbrightBakedModel(base, true,
                 new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_lower_layer"),
                 new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_middle"),

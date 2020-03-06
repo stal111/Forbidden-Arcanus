@@ -11,15 +11,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
 public enum ModItems {
-    FORBIDDENMICON(new ForbiddenmiconItem(properties())),
-    STELLARITE_PIECE(new Item(properties())),
-    ARCANE_GOLD_INGOT(new Item(properties())),
-    ARCANE_GOLD_NUGGET(new Item(properties())),
-    ORB_OF_TEMPORARY_FLIGHT(new OrbOfTemporaryFlightItem(properties(Rarity.UNCOMMON, 1))),
-    CHORUS_PEARL(new ChorusPearlItem(properties(16))),
-    SPECTRAL_EYE_AMULET(new SpectralEyeAmuletItem(properties(Rarity.RARE, 1))),
-    SOUL(new Item(properties())),
-    DARK_SOUL(new Item(properties())),
     PIXIE(new PixieItem(properties(1))),
     CORRUPTED_PIXIE(new Item(properties(1))),
     ARCANE_CRYSTAL(new Item(properties())),
@@ -53,6 +44,7 @@ public enum ModItems {
     BAT_SOUP(new SoupItem(properties(1).food(build(7, 0.7F, new EffectInstance(Effects.NIGHT_VISION, 240, 0), 1.0F)))),
     TENTACLE(new Item(properties().food(build(2, 0.1F, true)))),
     COOKED_TENTACLE(new Item(properties().food(build(5, 0.6F, true)))),
+    STRANGE_ROOT(new Item(properties())),
     EDELWOOD_STICK(new Item(properties())),
     EDELWOOD_OIL(new ContainerItem(Items.GLASS_BOTTLE, properties())),
     EDELWOOD_BUCKET(new EdelwoodBucketItem(Fluids.EMPTY, 0, properties(16))),

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.*;
@@ -33,7 +34,7 @@ public class SoullessSandBlock extends SoulSandBlock {
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
         ItemStack stack = player.getHeldItem(hand);
-        if (stack.getItem() == ModItems.SOUL.getItem()) {
+        if (stack.getItem() == NewModItems.SOUL.get()) {
             if (world.isBlockModifiable(player, pos)) {
                 ItemStackUtils.shrinkStack(player, stack);
                 world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));

@@ -59,6 +59,8 @@ public enum ModBlocks {
     CORRUPTED_PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(9)), ModRenderType.CUTOUT),
     STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).hardnessAndResistance(38.0F, 1200.0F))),
     STELLARITE_BLOCK(new BeaconBaseBlock(from(Blocks.OBSIDIAN))),
+    PETRIFIED_ROOT(new Block(from(Blocks.OAK_LOG).func_226896_b_()), ModRenderType.CUTOUT),
+    XPETRIFIED_ORE(new OreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     ARCANE_GOLD_BLOCK(new BeaconBaseBlock(from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).func_226896_b_()), ModRenderType.CUTOUT),

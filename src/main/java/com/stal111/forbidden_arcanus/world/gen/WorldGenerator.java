@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.world.BiomeFeatures;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -39,6 +40,7 @@ public class WorldGenerator {
 						biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.field_227248_z_.func_225566_b_(BiomeFeatures.EDELWOOD).func_227228_a_(Placement.COUNT_HEIGHTMAP_DOUBLE.func_227446_a_(new FrequencyConfig(10))));
 					}
 				}
+				biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, ModFeatures.PETRIFIED_ROOT.getFeature().func_225566_b_(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(Placement.COUNT_HEIGHTMAP_DOUBLE.func_227446_a_(new FrequencyConfig(100))));
 			}
 		}
 	}

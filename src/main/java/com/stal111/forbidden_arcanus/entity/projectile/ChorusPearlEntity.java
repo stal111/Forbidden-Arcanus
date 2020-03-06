@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModEntities;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
@@ -57,7 +58,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
                 LivingEntity entity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
                 if (entity instanceof PlayerEntity) {
                     if (((PlayerEntity) entity).abilities.isCreativeMode) {
-                        this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.getItem())));
+                        this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(NewModItems.CHORUS_PEARL.get())));
                         this.world.setEntityState(this, (byte)3);
                         this.remove();
                         return;
@@ -85,7 +86,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 
                 }
             } else {
-                this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.getItem())));
+                this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(NewModItems.CHORUS_PEARL.get())));
             }
 			this.world.setEntityState(this, (byte)3);
 			this.remove();
@@ -94,7 +95,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return ModItems.CHORUS_PEARL.getItem();
+        return NewModItems.CHORUS_PEARL.get();
     }
 
     @Override

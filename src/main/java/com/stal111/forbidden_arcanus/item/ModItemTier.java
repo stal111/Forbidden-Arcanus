@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.item;
 import java.util.function.Supplier;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -13,10 +14,10 @@ public enum ModItemTier implements IItemTier {
 		return Ingredient.fromItems(ModItems.DRAGON_SCALE.getItem());
 	}),
 	ARCANE_GOLDEN(3, 1861, 9.0F, 3.5F, 26, () -> {
-		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.getItem());
+		return Ingredient.fromItems(NewModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	REINFORCED_ARCANE_GOLDEN(3, 2561, 9.0F, 3.5F, 26, () -> {
-		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.getItem());
+		return Ingredient.fromItems(NewModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	OBSIDIAN(3, 2861, 5.5F, 3.0F, 2, () -> {
 		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.getItem());

@@ -1,0 +1,38 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/petrified_root",
+        "petrified_root": "forbidden_arcanus:block/petrified_root"
+    },
+
+        "parent": "block/cube_all",
+
+        "elements": [
+        {
+            "name": "Root Inner",
+            "from": [ 2, 2, 2 ], 
+            "to": [ 14, 14, 14 ], 
+            "faces": {
+                "north": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "south": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "up": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] }
+            }
+        },
+        {
+            "name": "Root",
+            "from": [ 0, 0, 0 ], 
+            "to": [ 16, 16, 16 ], 
+            "faces": {
+                "north": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "east": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "south": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "west": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "up": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#petrified_root", "uv": [ 0, 0, 16, 16 ] }
+            }
+        }
+    ]
+}

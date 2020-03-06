@@ -76,6 +76,7 @@ public class Main {
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+		NewModItems.ITEMS.register(modEventBus);
 		ModTileEntities.TILE_ENTITIES.register(modEventBus);
 		ModParticles.PARTICLE_TYPES.register(modEventBus);
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);

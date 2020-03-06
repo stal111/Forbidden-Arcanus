@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.stal111.forbidden_arcanus.Main;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
@@ -25,7 +26,7 @@ public enum ModArmorMaterial implements IArmorMaterial {
 		return Ingredient.fromItems(ModItems.CLOTH.getItem());
 	}),
 	ARCANE_GOLD(Main.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F, () -> {
-		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.getItem());
+		return Ingredient.fromItems(NewModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	OBSIDIAN(Main.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
 		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.getItem());

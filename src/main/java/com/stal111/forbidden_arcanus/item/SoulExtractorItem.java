@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModParticles;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -80,7 +81,7 @@ public class SoulExtractorItem extends Item {
                             player.addStat(Stats.ITEM_USED.get(this));
                             if (!world.isRemote) {
                                 world.setBlockState(pos, ModBlocks.SOULLESS_SAND.getState());
-                                world.addEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1F, pos.getZ(), new ItemStack(ModItems.SOUL.getItem())));
+                                world.addEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1F, pos.getZ(), new ItemStack(NewModItems.SOUL.get())));
                             }
                         }
                     }
