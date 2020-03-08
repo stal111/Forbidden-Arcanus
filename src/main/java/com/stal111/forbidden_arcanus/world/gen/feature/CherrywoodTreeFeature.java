@@ -30,9 +30,9 @@ public class CherrywoodTreeFeature extends AbstractSmallTreeFeature<TreeFeatureC
 	}
 
 	public boolean func_225557_a_(IWorldGenerationReader p_225557_1_, Random p_225557_2_, BlockPos p_225557_3_, Set<BlockPos> p_225557_4_, Set<BlockPos> p_225557_5_, MutableBoundingBox p_225557_6_, TreeFeatureConfig p_225557_7_) {
-		int i = p_225557_7_.baseHeight + p_225557_2_.nextInt(p_225557_7_.field_227328_b_ + 1) + p_225557_2_.nextInt(p_225557_7_.field_227329_c_ + 1);
-		int j = p_225557_7_.field_227330_d_ >= 0 ? p_225557_7_.field_227330_d_ + p_225557_2_.nextInt(p_225557_7_.field_227331_f_ + 1) : i - (p_225557_7_.field_227334_i_ + p_225557_2_.nextInt(p_225557_7_.field_227335_j_ + 1));
-		int k = p_225557_7_.field_227327_a_.func_225573_a_(p_225557_2_, j, i, p_225557_7_);
+		int i = p_225557_7_.baseHeight + p_225557_2_.nextInt(p_225557_7_.heightRandA + 1) + p_225557_2_.nextInt(p_225557_7_.heightRandB + 1);
+		int j = p_225557_7_.trunkHeight >= 0 ? p_225557_7_.trunkHeight + p_225557_2_.nextInt(p_225557_7_.trunkHeightRandom + 1) : i - (p_225557_7_.foliageHeight + p_225557_2_.nextInt(p_225557_7_.foliageHeightRandom + 1));
+		int k = p_225557_7_.foliagePlacer.func_225573_a_(p_225557_2_, j, i, p_225557_7_);
 		Optional<BlockPos> optional = this.func_227212_a_(p_225557_1_, i, j, k, p_225557_3_, p_225557_7_);
 		if (!optional.isPresent()) {
 			return false;
@@ -61,7 +61,7 @@ public class CherrywoodTreeFeature extends AbstractSmallTreeFeature<TreeFeatureC
 			}
 
 			BlockPos blockpos1 = new BlockPos(j1, l1, k1);
-			p_225557_7_.field_227327_a_.func_225571_a_(p_225557_1_, p_225557_2_, p_225557_7_, i, j, k + 1, blockpos1, p_225557_5_);
+			p_225557_7_.foliagePlacer.func_225571_a_(p_225557_1_, p_225557_2_, p_225557_7_, i, j, k + 1, blockpos1, p_225557_5_);
 			j1 = blockpos.getX();
 			k1 = blockpos.getZ();
 			Direction direction1 = Direction.Plane.HORIZONTAL.random(p_225557_2_);
@@ -85,7 +85,7 @@ public class CherrywoodTreeFeature extends AbstractSmallTreeFeature<TreeFeatureC
 
 				if (l1 > 0) {
 					BlockPos blockpos2 = new BlockPos(j1, l1, k1);
-					p_225557_7_.field_227327_a_.func_225571_a_(p_225557_1_, p_225557_2_, p_225557_7_, i, j, k, blockpos2, p_225557_5_);
+					p_225557_7_.foliagePlacer.func_225571_a_(p_225557_1_, p_225557_2_, p_225557_7_, i, j, k, blockpos2, p_225557_5_);
 				}
 			}
 

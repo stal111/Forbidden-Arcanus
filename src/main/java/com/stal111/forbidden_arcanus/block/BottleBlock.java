@@ -57,13 +57,13 @@ public class BottleBlock extends FallingWaterloggedBlock {
 				return ActionResultType.SUCCESS;
 			} else {
 				boolean flag = state.get(WATERLOGGED);
-				if (stack.getItem() == ModItems.PIXIE.getItem() && !world.isRemote) {
+				if (stack.getItem() == ModItems.PIXIE.get() && !world.isRemote) {
 					if (!player.abilities.isCreativeMode) {
 						stack.shrink(1);
 					}
 					world.setBlockState(pos, ModBlocks.PIXIE_IN_A_BOTTLE_BLOCK.getState().with(WATERLOGGED, flag));
 					return ActionResultType.SUCCESS;
-				} else if (stack.getItem() == ModItems.CORRUPTED_PIXIE.getItem() && !world.isRemote) {
+				} else if (stack.getItem() == ModItems.CORRUPTED_PIXIE.get() && !world.isRemote) {
 					if (!player.abilities.isCreativeMode) {
 						stack.shrink(1);
 					}

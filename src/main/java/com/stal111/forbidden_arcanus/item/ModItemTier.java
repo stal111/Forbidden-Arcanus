@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.item;
 import java.util.function.Supplier;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -11,16 +10,16 @@ import net.minecraft.util.LazyValue;
 
 public enum ModItemTier implements IItemTier {
 	DRACO_ARCANUS(4, 2661, 12.0F, 7.0F, 20, () -> {
-		return Ingredient.fromItems(ModItems.DRAGON_SCALE.getItem());
+		return Ingredient.fromItems(ModItems.DRAGON_SCALE.get());
 	}),
 	ARCANE_GOLDEN(3, 1861, 9.0F, 3.5F, 26, () -> {
-		return Ingredient.fromItems(NewModItems.ARCANE_GOLD_INGOT.get());
+		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	REINFORCED_ARCANE_GOLDEN(3, 2561, 9.0F, 3.5F, 26, () -> {
-		return Ingredient.fromItems(NewModItems.ARCANE_GOLD_INGOT.get());
+		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	OBSIDIAN(3, 2861, 5.5F, 3.0F, 2, () -> {
-		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.getItem());
+		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.get());
 	}),
 	BONE(1, 131, 4.0F, 1.0F, 5, () -> {
 		return Ingredient.fromItems(Items.BONE);
@@ -32,7 +31,7 @@ public enum ModItemTier implements IItemTier {
 		return Ingredient.fromItems(Items.BONE);
 	}),
 	MYSTICAL_DAGGER(1, 561, 4.0F, 1.0F, 5, () -> {
-		return Ingredient.fromItems(ModItems.DARK_RUNE.getItem());
+		return Ingredient.fromItems(ModItems.DARK_RUNE.get());
 	});
 
 	private int harvestLevel;

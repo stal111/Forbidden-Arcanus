@@ -17,22 +17,22 @@ public class OreGenerator {
 		for (Biome biome : ForgeRegistries.BIOMES) {
 
 			if(WorldGenConfig.GENERATE_ARCANE_CRYSTAL_ORE.get())  {
-				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.ARCANE_CRYSTAL_ORE.getState(), WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(WorldGenConfig.ARCANE_CRYSTAL_ORE_COUNT.get(), 0, 0, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_HEIGHT.get()))));
+				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.ARCANE_CRYSTAL_ORE.getState(), WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.ARCANE_CRYSTAL_ORE_COUNT.get(), 0, 0, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_HEIGHT.get()))));
 			}
 			
 			if(WorldGenConfig.GENERATE_RUNESTONE.get())  {
-				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.RUNESTONE.getState(), WorldGenConfig.RUNESTONE_MAX_VEIN_SIZE.get())).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(WorldGenConfig.RUNESTONE_COUNT.get(), 0, 0, WorldGenConfig.RUNESTONE_MAX_HEIGHT.get()))));
+				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.RUNESTONE.getState(), WorldGenConfig.RUNESTONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.RUNESTONE_COUNT.get(), 0, 0, WorldGenConfig.RUNESTONE_MAX_HEIGHT.get()))));
 			}
 			
 			if(WorldGenConfig.GENERATE_DARK_RUNESTONE.get())  {
-				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DARK_RUNESTONE.getState(), WorldGenConfig.DARK_RUNESTONE_MAX_VEIN_SIZE.get())).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(WorldGenConfig.DARK_RUNESTONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_RUNESTONE_MAX_HEIGHT.get()))));
+				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DARK_RUNESTONE.getState(), WorldGenConfig.DARK_RUNESTONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARK_RUNESTONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_RUNESTONE_MAX_HEIGHT.get()))));
 			}
 			
 			if(WorldGenConfig.GENERATE_DARK_STONE.get())  {
-				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DARK_STONE.getState(), WorldGenConfig.DARK_STONE_MAX_VEIN_SIZE.get())).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(WorldGenConfig.DARK_STONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_STONE_MAX_HEIGHT.get()))));
+				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DARK_STONE.getState(), WorldGenConfig.DARK_STONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARK_STONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_STONE_MAX_HEIGHT.get()))));
 			}
 
-			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.STELLA_ARCANUM.getState(), 3)).func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(2, 0, 0, 50))));
+			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.STELLA_ARCANUM.getState(), 3)).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(2, 0, 0, 50))));
 		}
 	}
 }

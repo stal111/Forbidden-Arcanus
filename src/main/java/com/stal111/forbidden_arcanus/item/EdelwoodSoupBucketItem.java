@@ -33,9 +33,9 @@ public class EdelwoodSoupBucketItem extends Item implements ICapacityBucket {
             ItemStack stack1 = super.onItemUseFinish(stack, world, entity);
             if (!player.abilities.isCreativeMode) {
                 if ((fullness - 1) > 0) {
-                    return ICapacityBucket.setFullness(ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getStack()), fullness - 1);
+                    return ICapacityBucket.setFullness(ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())), fullness - 1);
                 }
-                return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
+                return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
             }
             return stack1;
         }

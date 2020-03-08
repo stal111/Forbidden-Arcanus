@@ -25,7 +25,7 @@ public class RunicCarvedDarkStoneBricksBlock extends Block {
 		if (stack.isEmpty()) {
 			return ActionResultType.SUCCESS;
 		} else {
-			if (stack.getItem() == ModItems.ARCANE_CRYSTAL.getItem() && !world.isRemote) {
+			if (stack.getItem() == ModItems.ARCANE_CRYSTAL.get() && !world.isRemote) {
 				if (!player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}

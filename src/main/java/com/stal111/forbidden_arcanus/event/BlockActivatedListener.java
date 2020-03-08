@@ -18,7 +18,7 @@ public class BlockActivatedListener {
         World world = event.getWorld();
         ItemStack stack = event.getItemStack();
         BlockState state = world.getBlockState(event.getPos());
-        if (stack.getItem() == ModItems.ARCANE_CRYSTAL_DUST.getItem()) {
+        if (stack.getItem() == ModItems.ARCANE_CRYSTAL_DUST.get()) {
             if (state.getBlock() == Blocks.FARMLAND) {
                 if (!event.getPlayer().abilities.isCreativeMode) {
                     stack.shrink(1);

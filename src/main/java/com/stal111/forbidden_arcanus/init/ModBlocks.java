@@ -25,8 +25,8 @@ public enum ModBlocks {
     ARCANE_BASE_BLOCK_ROD(new ArcaneBaseBlockRodBlock(addProperties(Material.ROCK, 2.0F, 15.0F))),
     ARCANE_GLASS(new GlassBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     ARCANE_GLASS_PANE(new PaneBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
-    RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.ROCK, 2.0F, 15.0F).func_226896_b_())),
-    RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.ROCK, 2.0F, 15.0F).func_226896_b_()), ModRenderType.CUTOUT),
+    RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.ROCK, 2.0F, 15.0F).notSolid())),
+    RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.ROCK, 2.0F, 15.0F).notSolid()), ModRenderType.CUTOUT),
     DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
     POLISHED_DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
     DARK_RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
@@ -50,31 +50,31 @@ public enum ModBlocks {
     DARK_RUNIC_GLASS_PANE(new PaneBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
     RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     ARCANE_CRYSTAL_ORE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
-    ARCANE_CRYSTAL_BLOCK(new TranslucentBlock(addProperties(Material.ROCK, 1.0F, 10.0F).func_226896_b_()), ModRenderType.TRANSLUCENT),
+    ARCANE_CRYSTAL_BLOCK(new TranslucentBlock(addProperties(Material.ROCK, 1.0F, 10.0F).notSolid()), ModRenderType.TRANSLUCENT),
     ARCANE_CRYSTAL_OBELISK(new ArcaneCrystalObeliskBlock(addProperties(Material.ROCK, 1.0F, 10.0F))),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
-    END_CRYSTAL_GEM(new CutoutBlock(addProperties(Material.GLASS, 1.0F, 5.0F).lightValue(15).func_226896_b_()), ModRenderType.TRANSLUCENT),
+    END_CRYSTAL_GEM(new CutoutBlock(addProperties(Material.GLASS, 1.0F, 5.0F).lightValue(15).notSolid()), ModRenderType.TRANSLUCENT),
     BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(14)), ModRenderType.CUTOUT),
     CORRUPTED_PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(9)), ModRenderType.CUTOUT),
     STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).hardnessAndResistance(38.0F, 1200.0F))),
     STELLARITE_BLOCK(new BeaconBaseBlock(from(Blocks.OBSIDIAN))),
-    PETRIFIED_ROOT(new Block(from(Blocks.OAK_LOG).func_226896_b_()), ModRenderType.CUTOUT),
+    PETRIFIED_ROOT(new Block(from(Blocks.OAK_LOG).notSolid()), ModRenderType.CUTOUT),
     XPETRIFIED_ORE(new OreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     ARCANE_GOLD_BLOCK(new BeaconBaseBlock(from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
-    ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).func_226896_b_()), ModRenderType.CUTOUT),
+    ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).notSolid()), ModRenderType.CUTOUT),
     ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG))),
     CANDLE(new CandleBlock(addProperties(Material.MISCELLANEOUS)), ModRenderType.CUTOUT),
     STONE_CANDELABRA(new CandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
     WALL_STONE_CANDELABRA(new WallCandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_STONE_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F).func_226896_b_()), false, ModRenderType.CUTOUT),
+    HANGING_STONE_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F).notSolid()), false, ModRenderType.CUTOUT),
     IRON_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
     WALL_IRON_CANDELABRA(new WallCandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_IRON_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F).func_226896_b_()), false, ModRenderType.CUTOUT),
+    HANGING_IRON_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F).notSolid()), false, ModRenderType.CUTOUT),
     ARCANE_GOLDEN_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
     WALL_ARCANE_GOLDEN_CANDELABRA(new WallCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F).func_226896_b_()), false, ModRenderType.CUTOUT),
+    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F).notSolid()), false, ModRenderType.CUTOUT),
     IRON_CHAIN(new ChainBlock(addProperties(Material.IRON, 5.0F, 6.0F)), ModRenderType.CUTOUT),
     ARCANE_GOLDEN_CHAIN(new ChainBlock(addProperties(Material.IRON, 3.0F, 6.0F)), ModRenderType.CUTOUT),
     CANDLE_LAMP(new CandleLampBlock(addProperties(Material.ROCK)), ModRenderType.CUTOUT),
@@ -229,7 +229,7 @@ public enum ModBlocks {
     }
 
     public boolean needsSpecialRender() {
-        return renderType.getRenderType() != RenderType.solid();
+        return renderType.getRenderType() != RenderType.getSolid();
     }
 
     public RenderType getRenderType() {

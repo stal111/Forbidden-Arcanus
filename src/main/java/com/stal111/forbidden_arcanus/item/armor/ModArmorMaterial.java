@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import com.stal111.forbidden_arcanus.Main;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
@@ -17,19 +16,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum ModArmorMaterial implements IArmorMaterial {
 	DRACO_ARCANUS(Main.MOD_ID + ":draco_arcanus", 40, new int[]{6, 8, 10, 6}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F, () -> {
-	      return Ingredient.fromItems(ModItems.DRAGON_SCALE.getItem());
+	      return Ingredient.fromItems(ModItems.DRAGON_SCALE.get());
 	}),
 	TYR(Main.MOD_ID + ":tyr", 50, new int[]{8, 10, 12, 7}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.0F, () -> {
-		return Ingredient.fromItems(ModItems.GOLDEN_DRAGON_SCALE.getItem(), ModItems.AQUATIC_DRAGON_SCALE.getItem());
+		return Ingredient.fromItems(ModItems.GOLDEN_DRAGON_SCALE.get(), ModItems.AQUATIC_DRAGON_SCALE.get());
 	}),
 	MORTEM(Main.MOD_ID + ":mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
-		return Ingredient.fromItems(ModItems.CLOTH.getItem());
+		return Ingredient.fromItems(ModItems.CLOTH.get());
 	}),
 	ARCANE_GOLD(Main.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F, () -> {
-		return Ingredient.fromItems(NewModItems.ARCANE_GOLD_INGOT.get());
+		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	OBSIDIAN(Main.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
-		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.getItem());
+		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.get());
 	});
 	
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
@@ -42,8 +41,8 @@ public enum ModArmorMaterial implements IArmorMaterial {
 	private float toughness;
 	private LazyValue<Ingredient> repairMaterial;
 
-	private ModArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-			SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterial) {
+	ModArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
+					 SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterial) {
 		this.name = name;
 		this.maxDamageFactor = maxDamageFactor;
 		this.damageReductionAmountArray = damageReductionAmountArray;

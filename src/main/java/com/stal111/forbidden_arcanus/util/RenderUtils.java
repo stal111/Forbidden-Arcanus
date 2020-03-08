@@ -23,7 +23,6 @@ import java.util.List;
 public class RenderUtils {
 
     private static final ClientWorld world = Minecraft.getInstance().world;
-    private static final VertexFormat ITEM_FORMAT_WITH_LIGHTMAP = addTex2sToVertexFormat(DefaultVertexFormats.ITEM);
 
     public static void setRenderLayer(ModBlocks block, RenderType renderType) {
         RenderTypeLookup.setRenderLayer(block.getBlock(), renderType);

@@ -33,7 +33,7 @@ public class MysticalDaggerItem extends SwordItem {
 
     @Override
     public ItemStack getContainerItem(ItemStack stack) {
-        ItemStack stack1 = ModItems.MYSTICAL_DAGGER.getStack();
+        ItemStack stack1 = new ItemStack(ModItems.MYSTICAL_DAGGER.get());
         stack1.setDamage(stack.getDamage() + 10);
         return stack1;
     }

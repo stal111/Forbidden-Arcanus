@@ -11,11 +11,11 @@ public enum ModRenderType {
 
     public RenderType getRenderType() {
         switch (this) {
-            case CUTOUT_MIPPED: return RenderType.cutoutMipped();
-            case CUTOUT: return RenderType.cutout();
-            case TRANSLUCENT: return RenderType.translucent();
-            case TRANSLUCENT_NO_CRUMBLING: return RenderType.translucentNoCrumbling();
-            default: return RenderType.solid();
+            case CUTOUT_MIPPED: return RenderType.getCutoutMipped();
+            case CUTOUT: return RenderType.getCutout();
+            case TRANSLUCENT: return RenderType.getTranslucent();
+            case TRANSLUCENT_NO_CRUMBLING: return RenderType.getTranslucentNoCrumbling();
+            default: return RenderType.getSolid();
         }
     }
 }

@@ -10,7 +10,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -58,7 +57,7 @@ public class EdelwoodMilkBucketItem extends Item implements ICapacityBucket {
             if ((fullness - 1) > 0) {
                 return ICapacityBucket.setFullness(stack, fullness - 1);
             }
-            return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
+            return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
         }
         return stack;
     }
@@ -73,7 +72,7 @@ public class EdelwoodMilkBucketItem extends Item implements ICapacityBucket {
 
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         player.setActiveHand(hand);
-        return ActionResult.func_226248_a_(player.getHeldItem(hand));
+        return ActionResult.resultSuccess(player.getHeldItem(hand));
     }
 
     @OnlyIn(Dist.CLIENT)

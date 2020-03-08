@@ -48,9 +48,9 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
         if (!player.abilities.isCreativeMode) {
             int fullness = ICapacityBucket.getFullness(stack);
             if ((fullness - 1) > 0) {
-                return ICapacityBucket.setFullness(ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_WATER_BUCKET.getStack()), fullness - 1);
+                return ICapacityBucket.setFullness(ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_WATER_BUCKET.get())), fullness - 1);
             }
-            return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
+            return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
         }
         return stack;
     }

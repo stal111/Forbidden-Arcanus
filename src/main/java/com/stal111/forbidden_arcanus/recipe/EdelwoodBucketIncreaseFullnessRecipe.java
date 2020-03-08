@@ -113,16 +113,16 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
 
     private List<Item> getValidItems(ItemStack stack) {
         List<Item> list = new ArrayList<>();
-        if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.getItem()) {
+        if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get()) {
             list.add(Items.WATER_BUCKET.getItem());
-        } else if (stack.getItem() == ModItems.EDELWOOD_LAVA_BUCKET.getItem()) {
+        } else if (stack.getItem() == ModItems.EDELWOOD_LAVA_BUCKET.get()) {
             list.add(Items.LAVA_BUCKET.getItem());
-        } else if (stack.getItem() == ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getItem()) {
+        } else if (stack.getItem() == ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get()) {
             list.add(Items.MUSHROOM_STEW.getItem());
-        } else if (stack.getItem() == ModItems.EDELWOOD_BEETROOT_SOUP_BUCKET.getItem()) {
+        } else if (stack.getItem() == ModItems.EDELWOOD_BEETROOT_SOUP_BUCKET.get()) {
             list.add(Items.BEETROOT_SOUP.getItem());
-        } else if (stack.getItem() == ModItems.EDELWOOD_BAT_SOUP_BUCKET.getItem()) {
-            list.add(ModItems.BAT_SOUP.getItem());
+        } else if (stack.getItem() == ModItems.EDELWOOD_BAT_SOUP_BUCKET.get()) {
+            list.add(ModItems.BAT_SOUP.get());
         }
         return list;
     }

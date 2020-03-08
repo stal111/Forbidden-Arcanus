@@ -13,7 +13,7 @@ public class MysterywoodTree extends Tree {
 
 	@Nullable
 	@Override
-	protected ConfiguredFeature<TreeFeatureConfig, ?> func_225546_b_(Random random, boolean b) {
-		return new FancyTreeFeature(TreeFeatureConfig::func_227338_a_).func_225566_b_(BiomeFeatures.MYSTERYWOOD_TREE);
+	protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean b) {
+		return new FancyTreeFeature(TreeFeatureConfig::func_227338_a_).withConfiguration(BiomeFeatures.MYSTERYWOOD_TREE);
 	}
 }

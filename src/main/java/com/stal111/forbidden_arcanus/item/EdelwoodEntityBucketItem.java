@@ -3,37 +3,21 @@ package com.stal111.forbidden_arcanus.item;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.entity.passive.fish.TropicalFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Random;
 
 public class EdelwoodEntityBucketItem extends Item {
@@ -75,9 +59,9 @@ public class EdelwoodEntityBucketItem extends Item {
         ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(player, world, stack, raytraceresult);
         if (ret != null) return ret;
         if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
-            return ActionResult.func_226250_c_(stack);
+            return ActionResult.resultPass(stack);
         } else if (raytraceresult.getType() != RayTraceResult.Type.BLOCK) {
-            return ActionResult.func_226250_c_(stack);
+            return ActionResult.resultPass(stack);
         } else {
             BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult)raytraceresult;
             BlockPos blockpos = blockraytraceresult.getPos();
@@ -86,13 +70,13 @@ public class EdelwoodEntityBucketItem extends Item {
             if (!world.isRemote()) {
                 this.placeEntity(world, stack, pos);
             }
-            return ActionResult.func_226248_a_(emptyBucket(stack, player));
+            return ActionResult.resultSuccess(emptyBucket(stack, player));
         }
     }
 
     protected ItemStack emptyBucket(ItemStack stack, PlayerEntity player) {
         if (!player.abilities.isCreativeMode) {
-            return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
+            return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
         }
         return stack;
     }

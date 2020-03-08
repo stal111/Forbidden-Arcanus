@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 
 import net.minecraft.block.*;
@@ -64,8 +63,8 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack.getItem() == Items.GLASS_BOTTLE && state.get(OIL)) {
 			ItemStackUtils.shrinkStack(player, stack);
-			if (!player.addItemStackToInventory(new ItemStack(ModItems.EDELWOOD_OIL.getItem()))) {
-				player.dropItem(new ItemStack(ModItems.EDELWOOD_OIL.getItem()), false);
+			if (!player.addItemStackToInventory(new ItemStack(ModItems.EDELWOOD_OIL.get()))) {
+				player.dropItem(new ItemStack(ModItems.EDELWOOD_OIL.get()), false);
 			}
 			world.setBlockState(pos, state.with(OIL, false), 2);
 			return ActionResultType.SUCCESS;

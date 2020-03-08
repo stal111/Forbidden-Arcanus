@@ -24,7 +24,7 @@ public class PixieItem extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (stack.getItem() == ModItems.PIXIE.getItem()) {
+		if (stack.getItem() == ModItems.PIXIE.get()) {
 			if (!world.isRemote) {
 				player.addPotionEffect(new EffectInstance(Effects.LEVITATION, 100));
 				player.addPotionEffect(new EffectInstance(Effects.SLOW_FALLING, 160));
@@ -40,7 +40,7 @@ public class PixieItem extends Item {
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entityIn;
-			if (stack.getItem() == ModItems.PIXIE.getItem()) {
+			if (stack.getItem() == ModItems.PIXIE.get()) {
 				player.fallDistance = 0;
 			}
 		}

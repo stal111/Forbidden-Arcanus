@@ -83,7 +83,7 @@ public class ClientProxy implements IProxy {
     }
 
     public void stitchTextures(TextureStitchEvent.Pre event) {
-        if (event.getMap().getBasePath().equals(Atlases.SIGN_ATLAS)) {
+        if (event.getMap().getTextureLocation().equals(Atlases.SIGN_ATLAS)) {
             event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/edelwood"));
             event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/cherrywood"));
             event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/mysterywood"));

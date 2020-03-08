@@ -64,7 +64,7 @@ public class ModBreakingParticle extends SpriteTexturedParticle {
         @Nullable
         @Override
         public Particle makeParticle(BasicParticleType typeIn, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new ModBreakingParticle(world, x, y, z, new ItemStack(ModItems.SEED_BULLET.getItem()));
+            return new ModBreakingParticle(world, x, y, z, new ItemStack(ModItems.SEED_BULLET.get()));
         }
     }
 }

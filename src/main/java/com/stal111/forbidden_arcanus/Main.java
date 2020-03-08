@@ -76,7 +76,7 @@ public class Main {
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		NewModItems.ITEMS.register(modEventBus);
+		ModItems.ITEMS.register(modEventBus);
 		ModTileEntities.TILE_ENTITIES.register(modEventBus);
 		ModParticles.PARTICLE_TYPES.register(modEventBus);
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);
@@ -143,9 +143,6 @@ public class Main {
 					item.setRegistryName(ModUtils.location(block.getName()));
 					event.getRegistry().register(item);
 				}
-			}
-			for (ModItems item : ModItems.values()) {
-				event.getRegistry().register(item.getItem());
 			}
 		}
 

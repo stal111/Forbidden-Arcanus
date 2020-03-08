@@ -9,7 +9,6 @@ import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +34,7 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if (!stack.isEmpty()) {
-			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.getItem(), ModItems.DARK_RUNE.getItem()).put(ModItems.RUNE_BAG.getItem(), ModItems.DARK_RUNE_BAG.getItem()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
+			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.get(), ModItems.DARK_RUNE.get()).put(ModItems.RUNE_BAG.get(), ModItems.DARK_RUNE_BAG.get()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
 			Item transformedItem = ITEM_TRANSFORM_MAP.get(stack.getItem());
 			if (transformedItem != null) {
 				ItemStackUtils.shrinkStack(player, stack);

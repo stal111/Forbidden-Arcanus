@@ -5,15 +5,12 @@ import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.ILiquidContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FlowingFluid;
@@ -21,10 +18,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
@@ -39,13 +33,10 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 
@@ -88,9 +79,9 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
         ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, stack, raytraceresult);
         if (ret != null) return ret;
         if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
-            return ActionResult.func_226250_c_(stack);
+            return ActionResult.resultPass(stack);
         } else if (raytraceresult.getType() != RayTraceResult.Type.BLOCK) {
-            return ActionResult.func_226250_c_(stack);
+            return ActionResult.resultPass(stack);
         } else {
             BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult)raytraceresult;
             BlockPos blockpos = blockraytraceresult.getPos();
@@ -109,9 +100,9 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
                                         CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity)playerIn, blockpos, stack);
                                     }
                                     playerIn.addStat(Stats.ITEM_USED.get(this));
-                                    return ActionResult.func_226248_a_(this.emptyBucket(stack, playerIn));
+                                    return ActionResult.resultSuccess(this.emptyBucket(stack, playerIn));
                                 } else {
-                                    return ActionResult.func_226251_d_(stack);
+                                    return ActionResult.resultFail(stack);
                                 }
                             } else {
                                 playerIn.addStat(Stats.ITEM_USED.get(this));
@@ -119,15 +110,15 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
                                 SoundEvent soundevent = this.containedBlock.getAttributes().getEmptySound();
                                 if(soundevent == null) soundevent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL;
                                 playerIn.playSound(soundevent, 1.0F, 1.0F);
-                                ItemStack itemstack1 = fluid == Fluids.WATER ? this.fillBucket(stack, playerIn, ModItems.EDELWOOD_WATER_BUCKET.getItem()) : this.fillBucket(stack, playerIn, ModItems.EDELWOOD_LAVA_BUCKET.getItem());
+                                ItemStack itemstack1 = fluid == Fluids.WATER ? this.fillBucket(stack, playerIn, ModItems.EDELWOOD_WATER_BUCKET.get()) : this.fillBucket(stack, playerIn, ModItems.EDELWOOD_LAVA_BUCKET.get());
                                 if (!worldIn.isRemote) {
                                     CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)playerIn, new ItemStack(fluid.getFilledBucket()));
                                 }
-                                return ActionResult.func_226248_a_(itemstack1);
+                                return ActionResult.resultSuccess(itemstack1);
                             }
                         }
                     }
-                    return ActionResult.func_226251_d_(stack);
+                    return ActionResult.resultFail(stack);
                 } else {
                     BlockPos blockpos2 = blockstate1.getBlock() instanceof ILiquidContainer && this.containedBlock == Fluids.WATER ? blockpos : blockpos1;
                     if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos2, blockraytraceresult)) {
@@ -136,13 +127,13 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
                             CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity)playerIn, blockpos2, stack);
                         }
                         playerIn.addStat(Stats.ITEM_USED.get(this));
-                        return ActionResult.func_226248_a_(this.emptyBucket(stack, playerIn));
+                        return ActionResult.resultSuccess(this.emptyBucket(stack, playerIn));
                     } else {
-                        return ActionResult.func_226251_d_(stack);
+                        return ActionResult.resultFail(stack);
                     }
                 }
             } else {
-                return ActionResult.func_226251_d_(stack);
+                return ActionResult.resultFail(stack);
             }
         }
     }
@@ -153,7 +144,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
             if ((fullness - 1) > 0) {
                 return ICapacityBucket.setFullness(stack, fullness - 1);
             }
-            return ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_BUCKET.getStack());
+            return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
         }
         return stack;
     }
@@ -228,7 +219,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.getItem() || stack.getItem() == ModItems.EDELWOOD_LAVA_BUCKET.getItem()) {
+        if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get() || stack.getItem() == ModItems.EDELWOOD_LAVA_BUCKET.get()) {
             tooltip.add(new StringTextComponent(" "));
             tooltip.add(new StringTextComponent(" "));
         }

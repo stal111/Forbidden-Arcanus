@@ -21,6 +21,6 @@ public class ModFarmlandBlock extends FarmlandBlock {
 
     @Override
     public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
-        entity.func_225503_b_(fallDistance, 1.0F);
+        entity.onLivingFall(fallDistance, 1.0F);
     }
 }

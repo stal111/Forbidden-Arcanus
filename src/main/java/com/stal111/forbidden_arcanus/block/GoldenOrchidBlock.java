@@ -37,7 +37,7 @@ public class GoldenOrchidBlock extends CropsBlock {
     @OnlyIn(Dist.CLIENT)
     @Override
     protected IItemProvider getSeedsItem() {
-        return ModItems.GOLDEN_ORCHID_SEEDS.getItem();
+        return ModItems.GOLDEN_ORCHID_SEEDS.get();
     }
 
     @Override

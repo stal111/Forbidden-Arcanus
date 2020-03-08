@@ -54,7 +54,7 @@ public class TooltipListener {
                 for (int i = 0; i < (capacity - fullness); i++) {
                     int x = event.getX() + i * 14 + (fullness * 14 - 2);
 
-                    RenderUtils.renderItemTexture(x, y, ModItems.EDELWOOD_BUCKET.getStack());
+                    RenderUtils.renderItemTexture(x, y, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
                 }
                 RenderSystem.popMatrix();
             }

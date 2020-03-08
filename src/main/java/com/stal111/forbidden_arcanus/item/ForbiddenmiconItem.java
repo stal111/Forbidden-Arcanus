@@ -43,7 +43,7 @@ public class ForbiddenmiconItem extends Item {
             Main.proxy.displayForbiddenmiconScreen(stack);
         }
         setOpen(stack, true);
-        return ActionResult.func_226248_a_(stack);
+        return ActionResult.resultSuccess(stack);
     }
 
     public static boolean isOpen(ItemStack stack) {

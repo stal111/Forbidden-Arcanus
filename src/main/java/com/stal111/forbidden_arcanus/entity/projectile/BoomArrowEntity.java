@@ -34,7 +34,7 @@ public class BoomArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected ItemStack getArrowStack() {
-        return ModItems.BOOM_ARROW.getStack();
+        return new ItemStack(ModItems.BOOM_ARROW.get());
     }
 
     @Override

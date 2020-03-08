@@ -2,12 +2,9 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
@@ -36,12 +33,12 @@ public class EntityDamageListener {
                 if (random.nextDouble() <= 0.75) {
                     List<Integer> list = new ArrayList<>();
                     player.inventory.mainInventory.forEach((stack -> {
-                        if (stack.getItem() == ModItems.EDELWOOD_SLIME_BUCKET.getItem()) {
+                        if (stack.getItem() == ModItems.EDELWOOD_SLIME_BUCKET.get()) {
                             list.add(player.inventory.getSlotFor(stack));
                         }
                     }));
                     if (!list.isEmpty()) {
-                        player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), ModItems.EDELWOOD_BUCKET.getStack()));
+                        player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
 
                         world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), Items.SLIME_BALL.getDefaultInstance()));
                         for(int j = 0; j < 4 * 8; ++j) {
@@ -57,12 +54,12 @@ public class EntityDamageListener {
             } else if (event.getSource() == DamageSource.LAVA || event.getSource() == DamageSource.ON_FIRE || event.getSource() == DamageSource.IN_FIRE) {
                 List<Integer> list = new ArrayList<>();
                 player.inventory.mainInventory.forEach((stack -> {
-                    if (stack.getItem() == ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.getItem()) {
+                    if (stack.getItem() == ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.get()) {
                         list.add(player.inventory.getSlotFor(stack));
                     }
                 }));
                 if (!list.isEmpty()) {
-                    player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), ModItems.EDELWOOD_BUCKET.getStack()));
+                    player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
 
                     world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), Items.MAGMA_CREAM.getDefaultInstance()));
 

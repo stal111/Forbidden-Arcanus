@@ -9,7 +9,7 @@ public interface ICapacityBucket {
     int getCapacity();
 
     static int getFullness(ItemStack stack) {
-        if (!(stack.getItem() instanceof ICapacityBucket) || stack.getItem() != ModItems.EDELWOOD_BUCKET.getItem()) {
+        if (!(stack.getItem() instanceof ICapacityBucket) || stack.getItem() != ModItems.EDELWOOD_BUCKET.get()) {
             CompoundNBT compoundNBT = stack.getOrCreateChildTag("EdelwoodBucket");
             if (compoundNBT.getInt("Fullness") == 0) {
                 setFullness(stack, 1);
@@ -20,7 +20,7 @@ public interface ICapacityBucket {
     }
 
     static ItemStack setFullness(ItemStack stack, int fullness) {
-        if (!(stack.getItem() instanceof ICapacityBucket) || stack.getItem() != ModItems.EDELWOOD_BUCKET.getItem()) {
+        if (!(stack.getItem() instanceof ICapacityBucket) || stack.getItem() != ModItems.EDELWOOD_BUCKET.get()) {
             CompoundNBT compoundNBT = stack.getOrCreateChildTag("EdelwoodBucket");
             compoundNBT.putInt("Fullness", fullness);
         }

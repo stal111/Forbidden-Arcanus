@@ -16,7 +16,7 @@ public class HarvestDropsEvent {
 	@SubscribeEvent
 	public static void onBlockDestroyed(BlockEvent.HarvestDropsEvent event) {
 		Block block = event.getState().getBlock();
-		Item item = ModItems.INFERNUM_PICKAXE.getItem();
+		Item item = ModItems.INFERNUM_PICKAXE.get();
 		if (event.getHarvester() != null && event.getHarvester().getHeldItemMainhand().getItem() == item) {
 			if (block == Blocks.IRON_ORE) {
 				event.getDrops().clear();

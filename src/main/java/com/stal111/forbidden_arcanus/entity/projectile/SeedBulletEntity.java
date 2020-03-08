@@ -102,7 +102,7 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 
 	@Override
 	protected Item getDefaultItem() {
-		return ModItems.SEED_BULLET.getItem();
+		return ModItems.SEED_BULLET.get();
 	}
 
 	@Override

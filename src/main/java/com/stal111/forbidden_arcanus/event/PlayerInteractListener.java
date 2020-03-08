@@ -6,33 +6,25 @@ import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.item.*;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.monster.MagmaCubeEntity;
-import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.MooshroomEntity;
 import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -96,7 +88,7 @@ public class PlayerInteractListener {
 		Entity entity = event.getTarget();
 		ItemStack stack = event.getItemStack();
 		if (!stack.isEmpty()) {
-			if (stack.getItem() == ModItems.MUNDABITUR_DUST.getItem()) {
+			if (stack.getItem() == ModItems.MUNDABITUR_DUST.get()) {
 				if (entity instanceof CreeperEntity) {
 					CreeperEntity creeperEntity = (CreeperEntity) entity;
 					if (!creeperEntity.getDataManager().get(CreeperEntity.POWERED)) {
@@ -108,10 +100,10 @@ public class PlayerInteractListener {
 			}
 			if (entity instanceof MooshroomEntity) {
 				if (!player.abilities.isCreativeMode && !((MooshroomEntity) entity).isChild()) {
-					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
+					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);
 						boolean flag = ((MooshroomEntity) entity).hasStewEffect != null;
-						ItemStack stew_bucket = ItemStackUtils.transferEnchantments(stack, flag ? ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.getStack() : ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getStack());
+						ItemStack stew_bucket = ItemStackUtils.transferEnchantments(stack, flag ? new ItemStack(ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.get()) : new ItemStack(ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get()));
 						SoundEvent soundevent = SoundEvents.ENTITY_MOOSHROOM_MILK;
 						if (flag) {
 							soundevent = SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK;
@@ -126,7 +118,7 @@ public class PlayerInteractListener {
 						}
 						entity.playSound(soundevent, 1.0F, 1.0F);
 						player.swingArm(event.getHand());
-					} else if (stack.getItem() == ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.getItem() && ICapacityBucket.getFullness(stack) != ((ICapacityBucket) stack.getItem()).getCapacity()) {
+					} else if (stack.getItem() == ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get() && ICapacityBucket.getFullness(stack) != ((ICapacityBucket) stack.getItem()).getCapacity()) {
 						if (((MooshroomEntity) entity).hasStewEffect == null) {
 							ICapacityBucket.setFullness(stack, ICapacityBucket.getFullness(stack) + 1);
 							entity.playSound(SoundEvents.ENTITY_MOOSHROOM_MILK, 1.0F, 1.0F);
@@ -136,9 +128,9 @@ public class PlayerInteractListener {
 				}
 			} else if (entity instanceof CowEntity) {
 				if (!player.abilities.isCreativeMode && !((CowEntity) entity).isChild()) {
-					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
+					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);
-						ItemStack milk_bucket = ItemStackUtils.transferEnchantments(stack, ModItems.EDELWOOD_MILK_BUCKET.getStack());
+						ItemStack milk_bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_MILK_BUCKET.get()));
 						if (stack.isEmpty()) {
 							player.setHeldItem(event.getHand(), milk_bucket);
 						} else if (!player.inventory.addItemStackToInventory(milk_bucket)) {
@@ -146,7 +138,7 @@ public class PlayerInteractListener {
 						}
 						player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 						player.swingArm(event.getHand());
-					} else if (stack.getItem() == ModItems.EDELWOOD_MILK_BUCKET.getItem() && ICapacityBucket.getFullness(stack) != ((ICapacityBucket) stack.getItem()).getCapacity()) {
+					} else if (stack.getItem() == ModItems.EDELWOOD_MILK_BUCKET.get() && ICapacityBucket.getFullness(stack) != ((ICapacityBucket) stack.getItem()).getCapacity()) {
 						ICapacityBucket.setFullness(stack, ICapacityBucket.getFullness(stack) + 1);
 						player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 						player.swingArm(event.getHand());
@@ -154,7 +146,7 @@ public class PlayerInteractListener {
 				}
 			} else if (entity instanceof AbstractFishEntity || entity instanceof SquidEntity) {
 				if (entity.isAlive()) {
-					if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.getItem()) {
+					if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get()) {
 						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
 							stack.shrink(1);
 							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))));
@@ -181,7 +173,7 @@ public class PlayerInteractListener {
 				}
 			} else if (ItemStackUtils.registryContainsItem("edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket")) {
 				if (entity.isAlive()) {
-					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.getItem()) {
+					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);
 
 						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))));

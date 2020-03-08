@@ -36,7 +36,7 @@ public class DracoArcanusArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected ItemStack getArrowStack() {
-        return ModItems.DRACO_ARCANUS_ARROW.getStack();
+        return new ItemStack(ModItems.DRACO_ARCANUS_ARROW.get());
     }
 
     @Override
