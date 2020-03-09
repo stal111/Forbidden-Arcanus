@@ -1,12 +1,9 @@
-package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
+package com.stal111.forbidden_arcanus.gui;
 
-import com.stal111.forbidden_arcanus.gui.GuiObject;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.ResourceLocation;
 
 public class ButtonObject extends GuiObject {
-
-    private final int sizeX;
-    private final int sizeY;
 
     private final int startX;
     private final int startY;
@@ -20,9 +17,7 @@ public class ButtonObject extends GuiObject {
     private final IPressable onPress;
 
     public ButtonObject(int posX, int posY, int blitOffset, int startX, int startY, int sizeX, int sizeY, ResourceLocation resourceLocation, IPressable onPress) {
-        super(posX, posY);
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+        super(posX, posY, sizeX, sizeY);
         this.startX = startX;
         this.startY = startY;
         this.blitOffset = blitOffset;
@@ -33,17 +28,12 @@ public class ButtonObject extends GuiObject {
     @Override
     public void render(int x, int y) {
         bindTexture(resourceLocation);
-        blit(blitOffset, startX, startY, sizeX, sizeY, 256, 512);
-    }
-
-    @Override
-    public void renderHoverEffect(int x, int y) {
-
+        blit(blitOffset, startX, startY, getSizeX(), getSizeY(), 256, 512);
     }
 
     @Override
     public boolean onClicked(double x, double y) {
-        if (x >= getPosX() && y >= getPosY() && x < getPosX() + sizeX && y < getPosY() + sizeY) {
+        if (x >= getPosX() && y >= getPosY() && x < getPosX() + getSizeX() && y < getPosY() + getSizeY()) {
             onPress.onPress(this);
             return true;
         }

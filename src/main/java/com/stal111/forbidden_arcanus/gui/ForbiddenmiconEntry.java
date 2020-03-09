@@ -3,7 +3,9 @@ package com.stal111.forbidden_arcanus.gui;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 public class ForbiddenmiconEntry {
@@ -34,9 +36,9 @@ public class ForbiddenmiconEntry {
         return this.title;
     }
 
-    public Collection<IRecipe<?>> getRecipes() {
-        if (!ModUtils.getCraftingRecipesByOutput(stack).isEmpty()) {
-            return ModUtils.getCraftingRecipesByOutput(stack);
+    public Collection<IRecipe<?>> getRecipes(Collection<IRecipeSerializer<?>> recipeSerializer) {
+        if (!ModUtils.getRecipesByOutput(stack, recipeSerializer).isEmpty()) {
+            return ModUtils.getRecipesByOutput(stack, recipeSerializer);
         }
         return null;
     }
@@ -48,8 +50,9 @@ public class ForbiddenmiconEntry {
         return null;
     }
 
+
     public boolean hasRecipe() {
-        return getSmeltingRecipes() != null || getRecipes() != null;
+        return getSmeltingRecipes() != null || getRecipes(Arrays.asList(IRecipeSerializer.CRAFTING_SHAPED, IRecipeSerializer.CRAFTING_SHAPELESS)) != null;
     }
 
     public boolean hasDescription() {

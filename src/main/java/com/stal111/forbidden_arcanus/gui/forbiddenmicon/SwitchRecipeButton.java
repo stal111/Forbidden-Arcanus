@@ -1,5 +1,7 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.stal111.forbidden_arcanus.gui.ButtonObject;
 import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
 
 public class SwitchRecipeButton extends ButtonObject {
@@ -13,6 +15,7 @@ public class SwitchRecipeButton extends ButtonObject {
     @Override
     public void render(int x, int y) {
         if (!isPressable()) {
+            bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
             blit(getBlitOffset(), getStartX(), getStartY() + 16, 9, 11, 256, 512);
         } else {
             super.render(x, y);
@@ -23,8 +26,10 @@ public class SwitchRecipeButton extends ButtonObject {
     public void renderHoverEffect(int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + 8 && y < getPosY() + 11) {
             if (isPressable()) {
+                RenderSystem.pushMatrix();
                 bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
                 blit(getBlitOffset(), getStartX(), getStartY() - 16, 9, 11, 256, 512);
+                RenderSystem.popMatrix();
             }
         }
         super.renderHoverEffect(x, y);

@@ -1,159 +1,214 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
 
-import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
-import com.stal111.forbidden_arcanus.gui.GuiObject;
-import com.stal111.forbidden_arcanus.gui.ItemObject;
-import net.minecraft.client.gui.AbstractGui;
+import com.stal111.forbidden_arcanus.gui.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class RecipePreviewObject extends GuiObject {
 
+    private ForbiddenmiconScreen forbiddenmiconScreen;
+    private ForbiddenmiconEntry entry;
+    private GuiManager manager;
+
     private final int blitOffset;
 
-    public int currentRecipe = 0;
+    private int currentRecipe = 0;
 
-    public ButtonObject craftingButton;
-    public ButtonObject smeltingButton;
+    private RecipeCategory activeRecipeCategory;
 
-    public ButtonObject nextRecipeButton;
-    public ButtonObject previousRecipeButton;
+    public List<SwitchRecipeTypeButton> switchRecipeTypeButtons = new ArrayList<>();
 
-    public RecipePreviewObject(int posX, int posY, int blitOffset) {
-        super(posX, posY);
+    private SwitchRecipeButton nextRecipeButton;
+    private SwitchRecipeButton previousRecipeButton;
+
+    public RecipePreviewObject(ForbiddenmiconScreen forbiddenmiconScreen, int posX, int posY, int blitOffset) {
+        super(posX, posY, 111, 75);
+        this.forbiddenmiconScreen = forbiddenmiconScreen;
+        this.manager = forbiddenmiconScreen.manager;
         this.blitOffset = blitOffset;
-    }
 
-    @Override
-    public void init() {
-        getObjects().clear();
-        if (ForbiddenmiconScreen.INSTANCE.entry.hasRecipe()) {
-            if (ForbiddenmiconScreen.INSTANCE.entry.getRecipes() != null) {
-                craftingButton = new SwitchRecipeTypeButton(ForbiddenmiconScreen.INSTANCE.width / 2 - 44, 192, blitOffset, 329, 175, buttonObject -> {
-                    buttonObject.setActivated(true);
-                    getObjects().forEach(guiObject -> {
-                        if (guiObject instanceof ButtonObject && buttonObject != guiObject) {
-                            ((ButtonObject) guiObject).setActivated(false);
-                        }
-                    });
-                    initRecipe();
-                    initChangeRecipeButtons();
-                }, "crafting").setActivated(true);
-                getObjects().add(craftingButton);
-            }
-            if (ForbiddenmiconScreen.INSTANCE.entry.getSmeltingRecipes() != null) {
-                smeltingButton = new SwitchRecipeTypeButton(ForbiddenmiconScreen.INSTANCE.width / 2 - 26, 192, blitOffset, 365, 175, buttonObject -> {
-                    buttonObject.setActivated(true);
-                    getObjects().forEach(guiObject -> {
-                        if (guiObject instanceof ButtonObject && buttonObject != guiObject) {
-                            ((ButtonObject) guiObject).setActivated(false);
-                        }
-                    });
-                    initRecipe();
-                    initChangeRecipeButtons();
-                }, "smelting");
-                getObjects().add(smeltingButton);
-            }
-            initChangeRecipeButtons();
-            initRecipe();
-        }
-    }
-
-    public void initChangeRecipeButtons() {
-        getObjects().removeIf(guiObject -> guiObject instanceof SwitchRecipeButton);
-        if (ForbiddenmiconScreen.INSTANCE.entry.hasRecipe()) {
-            if ((craftingButton != null && craftingButton.isActivated() && ForbiddenmiconScreen.INSTANCE.entry.getRecipes().size() >= 2) || (smeltingButton != null && smeltingButton.isActivated() && ForbiddenmiconScreen.INSTANCE.entry.getSmeltingRecipes().size() >= 2)) {
-                nextRecipeButton = new SwitchRecipeButton(ForbiddenmiconScreen.INSTANCE.width / 2 - 23, 177, blitOffset, 171, 204, buttonObject -> {
-                    if (currentRecipe + 1 < ForbiddenmiconScreen.INSTANCE.entry.getRecipes().size()) {
-                        currentRecipe++;
-                        initRecipe();
-                        if (!(currentRecipe + 1 < ForbiddenmiconScreen.INSTANCE.entry.getRecipes().size())) {
-                            ((SwitchRecipeButton) nextRecipeButton).setPressable(false);
-                        }
-                        ((SwitchRecipeButton) previousRecipeButton).setPressable(true);
+        for (RecipeCategory category : RecipeCategory.values()) {
+            switchRecipeTypeButtons.add(new SwitchRecipeTypeButton(category, blitOffset, category.getStartX(), category.getStartY(), buttonObject -> {
+                buttonObject.setActivated(true);
+                switchRecipeTypeButtons.forEach(button -> {
+                    if (button.getRecipeCategory() != ((SwitchRecipeTypeButton) buttonObject).getRecipeCategory()) {
+                        button.setActivated(false);
                     }
                 });
-                previousRecipeButton = new SwitchRecipeButton(ForbiddenmiconScreen.INSTANCE.width / 2 - 35, 177, blitOffset, 158, 204, buttonObject -> {
-                    if (currentRecipe - 1 >= 0) {
-                        currentRecipe--;
-                        initRecipe();
-                        if (!(currentRecipe - 1 >= 0)) {
-                            ((SwitchRecipeButton) previousRecipeButton).setPressable(false);
-                        }
-                        ((SwitchRecipeButton) nextRecipeButton).setPressable(true);
-                    }
-                });
-
-                ((SwitchRecipeButton) previousRecipeButton).setPressable(false);
-
-                getObjects().add(nextRecipeButton);
-                getObjects().add(previousRecipeButton);
-            }
+                activeRecipeCategory = ((SwitchRecipeTypeButton) buttonObject).getRecipeCategory();
+                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
+                loadRecipe(activeRecipeCategory.getRecipeSerializers());
+            }, category.getHoverText()));
         }
-    }
 
-    public void initRecipe() {
-        getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
-        int i = ForbiddenmiconScreen.INSTANCE.width / 2;
-        if (craftingButton != null && craftingButton.isActivated()) {
-            for (int j = 0; j < getCraftingIngredients().size(); j++) {
-                if (!getCraftingIngredients().get(j).isEmpty()) {
-                    if (j == 0 || j == 3 || j == 6) {
-                        getObjects().add(new ItemObject(getCraftingIngredients().get(j), i - 108, j == 0 ? 132 : j == 3 ? 151 : 170));
-                    } else if (j == 1 || j == 4 || j == 7) {
-                        getObjects().add(new ItemObject(getCraftingIngredients().get(j), i - 89, j == 1 ? 132 : j == 4 ? 151 : 170));
-                    } else {
-                        getObjects().add(new ItemObject(getCraftingIngredients().get(j), i - 70, j == 2 ? 132 : j == 5 ? 151 : 170));
-                    }
+        nextRecipeButton = new SwitchRecipeButton(getPosX() + 93, 177, blitOffset, 171, 204, buttonObject -> {
+            if (currentRecipe + 1 < ForbiddenmiconScreen.INSTANCE.entry.getRecipes(Arrays.asList(IRecipeSerializer.CRAFTING_SHAPED, IRecipeSerializer.CRAFTING_SHAPELESS)).size()) {
+                currentRecipe++;
+                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
+                loadRecipe(activeRecipeCategory.getRecipeSerializers());
+                if (!(currentRecipe + 1 < ForbiddenmiconScreen.INSTANCE.entry.getRecipes(Arrays.asList(IRecipeSerializer.CRAFTING_SHAPED, IRecipeSerializer.CRAFTING_SHAPELESS)).size())) {
+                    nextRecipeButton.setPressable(false);
                 }
-                if (!getCraftingResult().isEmpty()) {
-                    getObjects().add(new ItemObject(getCraftingResult(), i - 33, 151));
-                }
+                previousRecipeButton.setPressable(true);
             }
-        } else if (smeltingButton != null && smeltingButton.isActivated()) {
-            getObjects().add(new ItemObject(getCurrentSmeltingRecipe().getIngredients().get(0).getMatchingStacks()[0], i - 88,  144));
-            getObjects().add(new ItemObject(getCurrentSmeltingRecipe().getRecipeOutput().getStack(), i - 50, 152));
-        }
+        });
+
+        previousRecipeButton = new SwitchRecipeButton(getPosX() + 81, 177, blitOffset, 158, 204, buttonObject -> {
+            if (currentRecipe - 1 >= 0) {
+                currentRecipe--;
+                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
+                loadRecipe(activeRecipeCategory.getRecipeSerializers());
+                if (!(currentRecipe - 1 >= 0)) {
+                    previousRecipeButton.setPressable(false);
+                }
+                nextRecipeButton.setPressable(true);
+            }
+        });
     }
 
     @Override
     public void render(int x, int y) {
-        if (ForbiddenmiconScreen.INSTANCE.entry.hasRecipe()) {
-            getMinecraft().getTextureManager().bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-            AbstractGui.blit(getPosX(), getPosY(), blitOffset, 275, 96, 111, 75, 256, 512);
-            int i = ForbiddenmiconScreen.INSTANCE.width / 2;
-            if (craftingButton != null && craftingButton.isActivated()) {
-                blit(i - 110, 131, blitOffset, 221, 195, 98, 56, 256, 512);
-            } else if (smeltingButton != null && smeltingButton.isActivated()) {
-                blit(i - 90, 143, blitOffset, 330, 206, 60, 34, 256, 512);
+        if (activeRecipeCategory != null) {
+            bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
+            blit(blitOffset, 275, 96, 111, 75, 256, 512);
+            if (activeRecipeCategory == RecipeCategory.CRAFTING) {
+                blit(getPosX() + 6, 131, blitOffset, 221, 195, 98, 56, 256, 512);
+            } else if (activeRecipeCategory == RecipeCategory.SMELTING) {
+                blit(getPosX() + 26, 143, blitOffset, 330, 206, 60, 34, 256, 512);
             }
         }
     }
 
-    private List<ItemStack> getCraftingIngredients() {
-        NonNullList<Ingredient> list = getCurrentCraftingRecipe().getIngredients();
-        List<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            stacks.add(i, list.get(i) == Ingredient.EMPTY ? ItemStack.EMPTY : list.get(i).getMatchingStacks()[0]);
+    public void setEntry(ForbiddenmiconEntry entry) {
+        this.entry = entry;
+        manager.getObjects().removeIf(guiObject -> guiObject instanceof SwitchRecipeTypeButton || guiObject instanceof ItemObject || guiObject instanceof SwitchRecipeButton);
+        this.activeRecipeCategory = null;
+        this.currentRecipe = 0;
+        int i = 90;
+        for (RecipeCategory category : RecipeCategory.values()) {
+            if (entry.getRecipes(category.getRecipeSerializers()) != null) {
+                for (SwitchRecipeTypeButton switchRecipeTypeButton : switchRecipeTypeButtons) {
+                    if (switchRecipeTypeButton.getRecipeCategory() == category) {
+                        switchRecipeTypeButton.setPos(getPosX() + i, 192);
+                        switchRecipeTypeButton.setActivated(false);
+                        manager.addGuiObject(switchRecipeTypeButton);
+                        i -= 18;
+                    }
+                }
+            }
         }
-        return stacks;
+        for (GuiObject object : manager.getObjects()) {
+            if (object instanceof SwitchRecipeTypeButton) {
+                this.activeRecipeCategory = ((SwitchRecipeTypeButton) object).getRecipeCategory();
+                break;
+            }
+        }
+        if (activeRecipeCategory != null) {
+            switchRecipeTypeButtons.forEach(button -> {
+                if (button.getRecipeCategory() == activeRecipeCategory) {
+                    button.setActivated(true);
+                }
+            });
+            loadRecipe(activeRecipeCategory.getRecipeSerializers());
+
+            if (entry.getRecipes(activeRecipeCategory.getRecipeSerializers()).size() >= 2) {
+                previousRecipeButton.setPressable(false);
+                nextRecipeButton.setPressable(true);
+                manager.getObjects().addAll(Arrays.asList(nextRecipeButton, previousRecipeButton));
+            }
+        }
     }
 
-    private ItemStack getCraftingResult() {
-        return getCurrentCraftingRecipe().getRecipeOutput();
+    public boolean entryLoaded() {
+        return entry != null;
     }
 
-    private IRecipe<?> getCurrentCraftingRecipe() {
-        return (IRecipe<?>) ForbiddenmiconScreen.INSTANCE.entry.getRecipes().toArray()[currentRecipe];
+    public void clearEntry() {
+        this.entry = null;
     }
 
-    private AbstractCookingRecipe getCurrentSmeltingRecipe() {
-        return (AbstractCookingRecipe) ForbiddenmiconScreen.INSTANCE.entry.getSmeltingRecipes().toArray()[currentRecipe];
+    public void loadRecipe(Collection<IRecipeSerializer<?>> recipeSerializers) {
+        Collection<IRecipe<?>> recipes = entry.getRecipes(recipeSerializers);
+        if (recipes != null) {
+            for (int j = 0; j < getRecipeIngredients(recipes).size(); j++) {
+                if (activeRecipeCategory == RecipeCategory.CRAFTING) {
+                    if (!getRecipeIngredients(recipes).get(j).isEmpty()) {
+                        if (j == 0 || j == 3 || j == 6) {
+                            manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(j), getPosX() + 8, j == 0 ? 132 : j == 3 ? 151 : 170));
+                        } else if (j == 1 || j == 4 || j == 7) {
+                            manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(j), getPosX() + 27, j == 1 ? 132 : j == 4 ? 151 : 170));
+                        } else {
+                            manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(j), getPosX() + 46, j == 2 ? 132 : j == 5 ? 151 : 170));
+                        }
+                    }
+                    if (!getRecipeOutput(recipes).isEmpty()) {
+                        manager.addGuiObject(new ItemObject(getRecipeOutput(recipes), getPosX() + 83, 151));
+                    }
+                } else if (activeRecipeCategory == RecipeCategory.SMELTING) {
+                    manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(0), getPosX() + 28,  144));
+                    manager.addGuiObject(new ItemObject(getRecipeOutput(recipes), getPosX() + 66, 152));
+                }
+            }
+        }
+    }
+
+    public List<ItemStack> getRecipeIngredients(Collection<IRecipe<?>> recipes) {
+        IRecipe<?> recipe = (IRecipe<?>) recipes.toArray()[currentRecipe];
+        List<ItemStack> list = new ArrayList<>();
+        recipe.getIngredients().forEach(ingredient -> {
+            if (ingredient == Ingredient.EMPTY) {
+                list.add(ItemStack.EMPTY);
+            } else {
+                list.add(ingredient.getMatchingStacks()[0]);
+            }
+        });
+        return list;
+    }
+
+    public ItemStack getRecipeOutput(Collection<IRecipe<?>> recipes) {
+        IRecipe<?> recipe = (IRecipe<?>) recipes.toArray()[currentRecipe];
+        return recipe.getRecipeOutput();
+    }
+
+    public enum RecipeCategory {
+        CRAFTING(329, 175, "crafting", IRecipeSerializer.CRAFTING_SHAPELESS, IRecipeSerializer.CRAFTING_SHAPED),
+        SMELTING(365, 175, "smelting", IRecipeSerializer.SMELTING);
+
+        private final int startX;
+        private final int startY;
+
+        private final String hoverText;
+
+        private final Collection<IRecipeSerializer<?>> recipeSerializers;
+
+        RecipeCategory(int startX, int startY, String hoverText, IRecipeSerializer<?>... recipeSerializer) {
+            this.startX = startX;
+            this.startY = startY;
+            this.hoverText = hoverText;
+            this.recipeSerializers = Arrays.asList(recipeSerializer);
+        }
+
+        public int getStartX() {
+            return startX;
+        }
+
+        public int getStartY() {
+            return startY;
+        }
+
+        public String getHoverText() {
+            return hoverText;
+        }
+
+        public Collection<IRecipeSerializer<?>> getRecipeSerializers() {
+            return recipeSerializers;
+        }
     }
 }

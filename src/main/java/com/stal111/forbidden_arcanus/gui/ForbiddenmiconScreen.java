@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.gui.forbiddenmicon.RecipePreviewObject;
 import com.stal111.forbidden_arcanus.item.ForbiddenmiconItem;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.gui.RenderComponentsUtil;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -15,9 +14,10 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
-public class ForbiddenmiconScreen extends Screen {
+public class ForbiddenmiconScreen extends ModScreen {
 
     public static final ResourceLocation FORBIDDENMICON_GUI_TEXTURES = ModUtils.location("textures/gui/forbiddenmicon.png");
 
@@ -53,16 +53,8 @@ public class ForbiddenmiconScreen extends Screen {
         this.addDoneButton();
         this.addChangePageButtons();
        // this.addCraftingPreviewButtons();
-    }
-
-    @Override
-    public boolean mouseClicked(double x, double y, int p_mouseClicked_5_) {
-        if (entry != null) {
-            for (int i = 0; i < GuiObject.getObjects().size(); i++) {
-                GuiObject.getObjects().get(i).onClicked(x, y);
-            }
-        }
-        return super.mouseClicked(x, y, p_mouseClicked_5_);
+        this.recipePreview = new RecipePreviewObject(this, this.width / 2 - 116, 125, this.getBlitOffset());
+        this.recipePreview.setEntry(entry);
     }
 
     private void initEntry() {
@@ -72,13 +64,16 @@ public class ForbiddenmiconScreen extends Screen {
     }
 
     private void initRecipePreview() {
-        this.recipePreview = new RecipePreviewObject(this.width / 2 - 116, 125, this.getBlitOffset());
-        this.recipePreview.init();
+        //this.recipePreview = new RecipePreviewObject(this.width / 2 - 116, 125, this.getBlitOffset());
+        //this.recipePreview.init();
     }
 
     protected void addDoneButton() {
         this.addButton(new Button(this.width / 2 - 100, 230, 200, 20, new TranslationTextComponent("gui.done").getFormattedText(), (p_214161_1_) -> {
             this.minecraft.displayGuiScreen(null);
+            if (stack.getItem() instanceof ForbiddenmiconItem) {
+                ForbiddenmiconItem.setOpen(stack, false);
+            }
         }));
     }
 
@@ -88,38 +83,21 @@ public class ForbiddenmiconScreen extends Screen {
             if (Main.PAGE_LOADER.getEntries().toArray().length > currentIndex + 1) {
                 this.currentIndex++;
                 this.initEntry();
-                if (entry.hasRecipe()) {
-                    if (entry.getRecipes() != null && entry.getSmeltingRecipes() != null) {
-                        this.recipePreview.craftingButton.setActivated(true);
-                        this.recipePreview.smeltingButton.setActivated(false);
-                    } else if (entry.getRecipes() == null & entry.getSmeltingRecipes() != null) {
-                        this.recipePreview.smeltingButton.setActivated(true);
-                    } else {
-                        this.recipePreview.craftingButton.setActivated(true);
-                    }
-                    recipePreview.initRecipe();
-                    recipePreview.initChangeRecipeButtons();
+                this.recipePreview.setEntry(entry);
+                  //  recipePreview.initRecipe();
+                    //recipePreview.initChangeRecipeButtons();
                 }
-                this.recipePreview.currentRecipe = 0;
-            }
+               // this.recipePreview.currentRecipe = 0;
         }, false));
         this.buttonPreviousPage = this.addButton(new ForbiddenmiconChangePageButton(i - 118, 197, false, (p_214158_1_) -> {
             if (currentIndex - 1 >= 0) {
                 this.currentIndex--;
                 this.initEntry();
-                if (entry.hasRecipe()) {
-                    if (entry.getRecipes() != null && entry.getSmeltingRecipes() != null) {
-                        this.recipePreview.craftingButton.setActivated(true);
-                        this.recipePreview.smeltingButton.setActivated(false);
-                    } else if (entry.getRecipes() == null & entry.getSmeltingRecipes() != null) {
-                        this.recipePreview.smeltingButton.setActivated(true);
-                    } else {
-                        this.recipePreview.craftingButton.setActivated(true);
-                    }
-                    recipePreview.initRecipe();
-                    recipePreview.initChangeRecipeButtons();
-                }
-                this.recipePreview.currentRecipe = 0;
+                this.recipePreview.setEntry(entry);
+
+                   // recipePreview.initRecipe();
+                    //recipePreview.initChangeRecipeButtons();
+                //this.recipePreview.currentRecipe = 0;
             }
         }, false));
     }
@@ -181,9 +159,6 @@ public class ForbiddenmiconScreen extends Screen {
         if (recipePreview != null) {
             recipePreview.render(x, y);
         }
-
-        GuiObject.getObjects().forEach(guiObject -> guiObject.render(x, y));
-        GuiObject.getObjects().forEach(guiObject -> guiObject.renderHoverEffect(x, y));
         super.render(x, y , p_render_3_);
     }
 
