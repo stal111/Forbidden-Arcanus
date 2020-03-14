@@ -13,6 +13,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
 import net.minecraft.potion.Effects;
+import net.minecraftforge.common.ToolType;
 
 public enum ModBlocks {
     DARK_BEACON(new DarkBeaconBlock(from(Blocks.BEACON)), ModRenderType.CUTOUT),
@@ -29,7 +30,7 @@ public enum ModBlocks {
     RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.ROCK, 2.0F, 15.0F).notSolid()), ModRenderType.CUTOUT),
     DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
     POLISHED_DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
-    DARK_RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
+    DARK_RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)), ModRenderType.CUTOUT),
     DARK_STONE_SLAB(new SlabBlock(addProperties(Material.ROCK, 1.5F, 6.0F))),
     POLISHED_DARK_STONE_SLAB(new SlabBlock(addProperties(Material.ROCK, 1.5F, 6.0F))),
     DARK_STONE_STAIRS(new StairsBlock(DARK_STONE.getBlock().getDefaultState(), addProperties(Material.ROCK, 1.5F, 6.0F))),
@@ -48,8 +49,8 @@ public enum ModBlocks {
     RUNIC_GLASS_PANE(new PaneBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
     DARK_RUNIC_GLASS(new GlassBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     DARK_RUNIC_GLASS_PANE(new PaneBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
-    RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
-    ARCANE_CRYSTAL_ORE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
+    RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)), ModRenderType.CUTOUT),
+    ARCANE_CRYSTAL_ORE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)), ModRenderType.CUTOUT),
     ARCANE_CRYSTAL_BLOCK(new TranslucentBlock(addProperties(Material.ROCK, 1.0F, 10.0F).notSolid()), ModRenderType.TRANSLUCENT),
     ARCANE_CRYSTAL_OBELISK(new ArcaneCrystalObeliskBlock(addProperties(Material.ROCK, 1.0F, 10.0F))),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
@@ -57,11 +58,11 @@ public enum ModBlocks {
     BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(14)), ModRenderType.CUTOUT),
     CORRUPTED_PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(9)), ModRenderType.CUTOUT),
-    STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).hardnessAndResistance(38.0F, 1200.0F))),
-    STELLARITE_BLOCK(new BeaconBaseBlock(from(Blocks.OBSIDIAN))),
-    PETRIFIED_ROOT(new Block(from(Blocks.OAK_LOG).notSolid()), ModRenderType.CUTOUT),
-    XPETRIFIED_ORE(new OreBlock(addProperties(Material.ROCK, 3.0F, 3.0F)), ModRenderType.CUTOUT),
-    ARCANE_GOLD_BLOCK(new BeaconBaseBlock(from(Blocks.GOLD_BLOCK))),
+    STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).hardnessAndResistance(38.0F, 1200.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3))),
+    STELLARITE_BLOCK(new BeaconBaseBlock(from(Blocks.OBSIDIAN).harvestTool(ToolType.PICKAXE).harvestLevel(3))),
+    PETRIFIED_ROOT(new Block(from(Blocks.OAK_LOG).harvestTool(ToolType.AXE).harvestLevel(1).notSolid()), ModRenderType.CUTOUT),
+    XPETRIFIED_ORE(new OreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)), ModRenderType.CUTOUT),
+    ARCANE_GOLD_BLOCK(new BeaconBaseBlock(from(Blocks.GOLD_BLOCK).harvestTool(ToolType.PICKAXE).harvestLevel(2))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).notSolid()), ModRenderType.CUTOUT),
     ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG))),
@@ -129,6 +130,7 @@ public enum ModBlocks {
     MYSTERYWOOD_SIGN(Main.MYSTERYWOOD_SIGN, new SignItem(new Item.Properties().group(Main.FORBIDDEN_ARCANUS), Main.MYSTERYWOOD_SIGN, MYSTERYWOOD_WALL_SIGN.getBlock())),
     YELLOW_ORCHID(new FlowerBlock(Effects.GLOWING, 25, from(Blocks.BLUE_ORCHID)), ModRenderType.CUTOUT),
     GOLDEN_ORCHID(new GoldenOrchidBlock(from(Blocks.BLUE_ORCHID).tickRandomly()), false, ModRenderType.CUTOUT),
+    STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT),
     MAGICAL_FARMLAND(new ModFarmlandBlock(from(Blocks.FARMLAND))),
     SOULLESS_SAND(new SoullessSandBlock(from(Blocks.SOUL_SAND))),
     SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),

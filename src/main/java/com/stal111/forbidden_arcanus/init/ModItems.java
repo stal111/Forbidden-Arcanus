@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.init;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.item.*;
 import com.stal111.forbidden_arcanus.item.armor.ModArmorMaterial;
+import com.stal111.forbidden_arcanus.item.block.StrangeRootItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -59,7 +60,7 @@ public class ModItems {
     public static final RegistryObject<Item> BAT_SOUP = register("bat_soup", () -> new SoupItem(properties(1).food(build(7, 0.7F, new EffectInstance(Effects.NIGHT_VISION, 240, 0), 1.0F))));
     public static final RegistryObject<Item> TENTACLE = register("tentacle", () -> new Item(properties().food(build(2, 0.1F, true))));
     public static final RegistryObject<Item> COOKED_TENTACLE = register("cooked_tentacle", () -> new Item(properties().food(build(5, 0.6F, true))));
-    public static final RegistryObject<Item> STRANGE_ROOT = register("strange_root", () -> new Item(properties()));
+    public static final RegistryObject<Item> STRANGE_ROOT = register("strange_root", () -> new StrangeRootItem(ModBlocks.STRANGE_ROOT.getBlock(), properties().food(build(3, 0.6F))));
     public static final RegistryObject<Item> BOOM_ARROW = register("boom_arrow", () -> new ModArrowItem(properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_ARROW = register("draco_arcanus_arrow", () -> new ModArrowItem(properties()));
     public static final RegistryObject<Item> GOLDEN_ORCHID_SEEDS = register("golden_orchid_seeds", () -> new GoldenOrchidItem(ModBlocks.GOLDEN_ORCHID.getBlock(), properties()));

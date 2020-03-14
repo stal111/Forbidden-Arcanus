@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "age=0": { "model": "forbidden_arcanus:block/strange_root_stage0" },
+        "age=1": { "model": "forbidden_arcanus:block/strange_root_stage1" },
+        "age=2": { "model": "forbidden_arcanus:block/strange_root_stage2" },
+        "age=3": { "model": "forbidden_arcanus:block/strange_root_stage3" }
+    }
+}
