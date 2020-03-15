@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.potion.effect;
+package com.stal111.forbidden_arcanus.effect;
 
 import com.stal111.forbidden_arcanus.init.ModEffects;
 import com.stal111.forbidden_arcanus.util.ModUtils;

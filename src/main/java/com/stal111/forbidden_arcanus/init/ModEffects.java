@@ -1,20 +1,14 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.potion.effect.DarkenedEffect;
-import com.stal111.forbidden_arcanus.potion.effect.FlyEffect;
-import com.stal111.forbidden_arcanus.potion.effect.SpectralEyeEffect;
-import com.stal111.forbidden_arcanus.util.Data;
-import com.stal111.forbidden_arcanus.util.ModUtils;
-import net.minecraft.enchantment.Enchantment;
+import com.stal111.forbidden_arcanus.effect.DarkenedEffect;
+import com.stal111.forbidden_arcanus.effect.FlyEffect;
+import com.stal111.forbidden_arcanus.effect.SpectralEyeEffect;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
