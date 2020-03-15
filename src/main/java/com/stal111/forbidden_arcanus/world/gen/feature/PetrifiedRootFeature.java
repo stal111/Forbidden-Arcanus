@@ -31,7 +31,6 @@ public class PetrifiedRootFeature extends Feature<NoFeatureConfig> {
             return false;
         } else {
             world.setBlockState(pos, ModBlocks.PETRIFIED_ROOT.getState(), 2);
-            System.out.println("GENERATED ROOT AT: " + pos.toString());
             Direction direction = null;
             for (int j = 1; j <= 5; j++) {
                 if (rand.nextDouble() >= 0.1D * i) {
