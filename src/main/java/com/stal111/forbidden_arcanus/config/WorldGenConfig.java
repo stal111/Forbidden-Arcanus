@@ -38,8 +38,8 @@ public class WorldGenConfig {
 		ARCANE_CRYSTAL_ORE_MAX_HEIGHT = SERVER_BUILDER.comment("Maximum height for the Arcane Crystal Ore").defineInRange("oregen.ArcaneCrystalOreMaxHeight", 20, 1, 256);
 
 		GENERATE_RUNESTONE = SERVER_BUILDER.comment("Generate Runestone").define("oregen.generateRunestone", true);
-		RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER.comment("Maximum size of Runestone vein").defineInRange("oregen.maxRunestoneVeinSize", 4, 0, 500);
-		RUNESTONE_COUNT = SERVER_BUILDER.comment("Maximum Runestone veins per chunk").defineInRange("oregen.RunestoneCount", 3, 1, 10000000);
+		RUNESTONE_MAX_VEIN_SIZE = SERVER_BUILDER.comment("Maximum size of Runestone vein").defineInRange("oregen.maxRunestoneVeinSize", 3, 0, 500);
+		RUNESTONE_COUNT = SERVER_BUILDER.comment("Maximum Runestone veins per chunk").defineInRange("oregen.RunestoneCount", 2, 1, 10000000);
 		RUNESTONE_MAX_HEIGHT = SERVER_BUILDER.comment("Maximum height for the Runestone").defineInRange("oregen.RunestoneMaxHeight", 25, 1, 256);
 
 		GENERATE_DARK_RUNESTONE = SERVER_BUILDER.comment("Generate Dark Runestone").define("oregen.generateDarkRunestone", true);
@@ -50,7 +50,7 @@ public class WorldGenConfig {
 		GENERATE_DARK_STONE = SERVER_BUILDER.comment("Generate Dark Stone").define("oregen.generateDarkStone", true);
 		DARK_STONE_MAX_VEIN_SIZE = SERVER_BUILDER.comment("Maximum size of Dark Stone vein").defineInRange("oregen.maxDarkStoneVeinSize", 20, 0, 500);
 		DARK_STONE_COUNT = SERVER_BUILDER.comment("Maximum Dark Stone veins per chunk").defineInRange("oregen.DarkStoneCount", 20, 1, 10000000);
-		DARK_STONE_MAX_HEIGHT = SERVER_BUILDER.comment("Maximum height for the Dark Stone").defineInRange("oregen.DarkStoneMaxHeight", 9, 1, 256);
+		DARK_STONE_MAX_HEIGHT = SERVER_BUILDER.comment("Maximum height for the Dark Stone").defineInRange("oregen.DarkStoneMaxHeight", 8, 1, 256);
 
 		GENERATE_CHERRYWOOD_TREES = SERVER_BUILDER.comment("Generate Cherrywood Trees").define("worldgen.generateCherrywood", true);
 		GENERATE_MYSTERYWOOD_TREES = SERVER_BUILDER.comment("Generate Mysterywood Trees").define("worldgen.generateMysterywood", true);
