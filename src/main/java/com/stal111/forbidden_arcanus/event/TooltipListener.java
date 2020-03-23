@@ -27,8 +27,10 @@ public class TooltipListener {
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get())) {
-            if (stack.getMaxDamage() - stack.getDamage() <= 1) {
-                event.getToolTip().add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".broken").applyTextStyle(TextFormatting.RED));
+            if (stack.isDamageable()) {
+                if (stack.getMaxDamage() - stack.getDamage() <= 1) {
+                    event.getToolTip().add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".broken").applyTextStyle(TextFormatting.RED));
+                }
             }
         }
     }
