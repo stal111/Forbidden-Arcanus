@@ -10,57 +10,65 @@ import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.profiler.IProfiler;
+import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
+import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
-public class ForbiddenmiconPageLoadListener extends JsonReloadListener {
+public class ForbiddenmiconPageLoadListener implements IResourceManagerReloadListener {
 
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static final Logger LOGGER = LogManager.getLogger();
-    private Map<ResourceLocation, ForbiddenmiconEntry> entries = new HashMap<>();
-    private boolean someRecipesErrored;
+    public static final int PATH_PREFIX_LENGTH = "forbiddenmicon/".length();
+    public static final int PATH_SUFFIX_LENGTH = ".json".length();
 
-    public ForbiddenmiconPageLoadListener() {
-        super(GSON, "forbiddenmicon");
-    }
+    private Map<ResourceLocation, ForbiddenmiconEntry> entries = new HashMap<>();
 
     public ForbiddenmiconEntry deserializeJson(ResourceLocation recipeId, JsonObject json) {
         ItemStack stack = ShapedRecipe.deserializeItem(json.get("topic").getAsJsonObject());
         String description = json.has("description") ? json.get("description").getAsString() : "";
-        return new ForbiddenmiconEntry(stack, description);
+        return new ForbiddenmiconEntry(stack, description, SwitchCategoryButton.Category.valueOf(json.get("category").getAsString()));
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-        this.someRecipesErrored = false;
+    public void onResourceManagerReload(IResourceManager resourceManager) {
+        Gson gson = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
-        for(Map.Entry<ResourceLocation, JsonObject> entry : splashList.entrySet()) {
-            ResourceLocation resourcelocation = entry.getKey();
-            if (resourcelocation.getPath().startsWith("_")) continue; //Forge: filter anything beginning with "_" as it's used for metadata.
+        for (ResourceLocation resourcelocation : resourceManager.getAllResourceLocations("forbiddenmicon", (p_199516_0_) -> {
+            return p_199516_0_.endsWith(".json") && !p_199516_0_.startsWith("_"); //Forge filter anything beginning with "_" as it's used for metadata.
+        })) {
+            String s = resourcelocation.getPath();
+            ResourceLocation resourcelocation1 = new ResourceLocation(resourcelocation.getNamespace(), s.substring(PATH_PREFIX_LENGTH, s.length() - PATH_SUFFIX_LENGTH));
 
-            try {
-                ForbiddenmiconEntry entry1 = deserializeJson(resourcelocation, entry.getValue());
-                if (entry1 == null) {
-                    LOGGER.info("Skipping loading recipe {} as it's serializer returned null", resourcelocation);
-                    continue;
+            try (IResource iresource = resourceManager.getResource(resourcelocation)) {
+                JsonObject jsonobject = JSONUtils.fromJson(gson, IOUtils.toString(iresource.getInputStream(), StandardCharsets.UTF_8), JsonObject.class);
+                if (jsonobject == null) {
+                    LOGGER.error("Couldn't load entry {} as it's null or empty", (Object) resourcelocation1);
+                } else {
+                    ForbiddenmiconEntry entry1 = deserializeJson(resourcelocation, jsonobject);
+                    entries.put(resourcelocation, entry1);
                 }
-                entries.put(resourcelocation, entry1);
-            } catch (IllegalArgumentException | JsonParseException jsonparseexception) {
-                LOGGER.error("Parsing error loading recipe {}", resourcelocation, jsonparseexception);
+            } catch (IllegalArgumentException | JsonParseException | IOException e) {
+                LOGGER.error("Error loading entry {}", resourcelocation1, e);
             }
         }
-
         LOGGER.info("Loaded {} recipes", entries.size());
     }
 
-    public Collection<ForbiddenmiconEntry> getEntries() {
-        return this.entries.values();
+    public Collection<ForbiddenmiconEntry> getEntries(SwitchCategoryButton.Category category) {
+        List<ForbiddenmiconEntry> list = new ArrayList<>();
+        this.entries.forEach((location, forbiddenmiconEntry) -> {
+            if (forbiddenmiconEntry.getCategory() == category) {
+                list.add(forbiddenmiconEntry);
+            }
+        });
+        return list;
     }
 }

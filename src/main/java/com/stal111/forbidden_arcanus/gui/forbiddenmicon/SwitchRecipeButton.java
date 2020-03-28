@@ -26,10 +26,8 @@ public class SwitchRecipeButton extends ButtonObject {
     public void renderHoverEffect(int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + 8 && y < getPosY() + 11) {
             if (isPressable()) {
-                RenderSystem.pushMatrix();
                 bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
                 blit(getBlitOffset(), getStartX(), getStartY() - 16, 9, 11, 256, 512);
-                RenderSystem.popMatrix();
             }
         }
         super.renderHoverEffect(x, y);

@@ -270,6 +270,14 @@
     "enchantment.forbidden_arcanus.indestructible": "Indestructible",
 
     "forbiddenmicon": "Forbiddenmicon",
+    "forbiddenmicon.category.main": "Main",
+    "forbiddenmicon.category.items": "Items",
+    "forbiddenmicon.category.blocks": "Blocks",
     "forbiddenmicon.recipe.crafting": "Crafting",
-    "forbiddenmicon.recipe.smelting": "Smelting"
+    "forbiddenmicon.recipe.smelting": "Smelting",
+    "forbiddenmicon.recipe.cookingTime": "Cooking Time",
+    "forbiddenmicon.recipe.experience": "Experience",
+    "forbiddenmicon.recipe.smelting.furnace": "Furnace",
+    "forbiddenmicon.recipe.smelting.smoker": "Smoker",
+    "forbiddenmicon.recipe.smelting.blast_furnace": "Blast Furnace"
 }

@@ -1,9 +1,9 @@
 {
-  "type": "minecraft:smelting",
+  "type": "minecraft:blasting",
   "ingredient": {
     "item": "forbidden_arcanus:obsidian_with_iron"
   },
   "result": "forbidden_arcanus:obsidian_ingot",
   "experience": 0.1,
-  "cookingtime": 250
+  "cookingtime": 125
 }

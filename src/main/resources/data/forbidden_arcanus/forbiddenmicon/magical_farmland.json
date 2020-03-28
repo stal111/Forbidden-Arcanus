@@ -1,0 +1,5 @@
+{
+    "topic": { "item": "forbidden_arcanus:magical_farmland" },
+    "category": "BLOCKS",
+    "description": "This special type of farmland can be created by simply right-clicking a normal farmland with an Arcane Crystal Dust. Crops planted on this farmland will drop the doubled amount of drops, however not the doubled amount of seeds"
+}

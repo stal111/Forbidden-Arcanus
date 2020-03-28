@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui;
 
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.SwitchCategoryButton;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -15,17 +16,19 @@ public class ForbiddenmiconEntry {
     private final String title;
     private final boolean hasDescription;
     private final String description;
+    private final SwitchCategoryButton.Category category;
 
-    public ForbiddenmiconEntry(ItemStack stack) {
-        this(stack, "");
+    public ForbiddenmiconEntry(ItemStack stack, SwitchCategoryButton.Category category) {
+        this(stack, "", category);
     }
 
-    public ForbiddenmiconEntry(ItemStack stack, String description) {
+    public ForbiddenmiconEntry(ItemStack stack, String description, SwitchCategoryButton.Category category) {
         this.stack = stack;
         this.hasTitle = true;
         this.title = stack.getDisplayName().getFormattedText();
         this.hasDescription = !description.isEmpty();
         this.description = description;
+        this.category = category;
     }
 
     public boolean hasTitle() {
@@ -43,23 +46,15 @@ public class ForbiddenmiconEntry {
         return null;
     }
 
-    public Collection<IRecipe<?>> getSmeltingRecipes() {
-        if (!ModUtils.getSmeltingRecipesByOutput(stack).isEmpty()) {
-            return ModUtils.getSmeltingRecipesByOutput(stack);
-        }
-        return null;
-    }
-
-
-    public boolean hasRecipe() {
-        return getSmeltingRecipes() != null || getRecipes(Arrays.asList(IRecipeSerializer.CRAFTING_SHAPED, IRecipeSerializer.CRAFTING_SHAPELESS)) != null;
-    }
-
     public boolean hasDescription() {
         return hasDescription;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public SwitchCategoryButton.Category getCategory() {
+        return category;
     }
 }
