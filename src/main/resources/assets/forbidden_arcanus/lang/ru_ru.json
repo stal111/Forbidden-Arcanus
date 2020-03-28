@@ -53,6 +53,8 @@
   "block.forbidden_arcanus.corrupt_pixi_in_a_bottle_block": "Искажённая фея в бутыле",
   "block.forbidden_arcanus.stella_arcanum": "Стелла Арканум",
   "block.forbidden_arcanus.stellarite_block": "Блок стелларита",
+  "block.forbidden_arcanus.petrified_root": "Окаменевший корень",
+  "block.forbidden_arcanus.xpetrified_ore": "Окаменевшая руда",
   "block.forbidden_arcanus.arcane_gold_block": "Блок мистического золота",
   "block.forbidden_arcanus.arcane_gold_pressure_plate": "Нажимная плита из мистического золота",
   "block.forbidden_arcanus.arcane_gold_door": "Дверь из мистического золота",
@@ -129,6 +131,7 @@
   "item.forbidden_arcanus.stellarite_piece": "Кусок стелларита",
   "item.forbidden_arcanus.arcane_gold_ingot": "Слиток мистического золота",
   "item.forbidden_arcanus.arcane_gold_nugget": "Самородок мистического золота",
+  "item.forbidden_arcanus.xpetrified_orb": "Окаменевший шар",
   "item.forbidden_arcanus.orb_of_temporary_flight": "Шар временного полета",
   "item.forbidden_arcanus.chorus_pearl": "Жемчуг хоруса",
   "item.forbidden_arcanus.spectral_eye_amulet": "Амулет призрачного глаза",
@@ -172,8 +175,7 @@
   "item.forbidden_arcanus.bat_soup": "Суп из летучей мыши",
   "item.forbidden_arcanus.tentacle": "Щупальце",
   "item.forbidden_arcanus.cooked_tentacle": "Приготовленное щупальце",
-  "item.forbidden_arcanus.aku_aku": "Аку Аку",
-  "item.forbidden_arcanus.golden_aku_aku": "Золотой Аку Аку",
+  "item.forbidden_arcanus.strange_root": "Странный корень",
   "item.forbidden_arcanus.edelwood_stick": "Палка из эдельвуда",
   "item.forbidden_arcanus.edelwood_oil": "Масло из эдельвуда",
   "item.forbidden_arcanus.edelwood_bucket": "Эдельвудово ведро",
@@ -268,6 +270,14 @@
   "enchantment.forbidden_arcanus.indestructible": "Неразрушимый",
   
   "forbiddenmicon": "Запретномикон",
+  "forbiddenmicon.category.main": "Главная",
+  "forbiddenmicon.category.items": "Предметы",
+  "forbiddenmicon.category.blocks": "Блоки",
   "forbiddenmicon.recipe.crafting": "Крафт",
-  "forbiddenmicon.recipe.smelting": "Выплавка"
+  "forbiddenmicon.recipe.smelting": "Выплавка",
+  "forbiddenmicon.recipe.cookingTime": "Время готовить",
+  "forbiddenmicon.recipe.experience": "Опыт",
+  "forbiddenmicon.recipe.smelting.furnace": "Печь",
+  "forbiddenmicon.recipe.smelting.smoker": "Коптильня",
+  "forbiddenmicon.recipe.smelting.blast_furnace": "Плавильная печь"
 }
