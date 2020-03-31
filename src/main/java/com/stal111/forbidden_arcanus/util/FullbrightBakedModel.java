@@ -4,23 +4,17 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
-import net.minecraftforge.client.model.pipeline.LightUtil;
-import net.minecraftforge.client.model.pipeline.VertexLighterFlat;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
 public class FullbrightBakedModel extends DelegateBakedModel {
-
     private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
         @Override
         public List<BakedQuad> load(CacheKey key) {
@@ -28,7 +22,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         }
     });
 
-    private Set<ResourceLocation> textures;
+    private final Set<ResourceLocation> textures;
     private final boolean doCaching;
 
     public FullbrightBakedModel(IBakedModel base, boolean doCaching, ResourceLocation... textures) {
@@ -41,7 +35,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand, IModelData data) {
         if (state == null) {
-            return base.getQuads(null, side, rand, data);
+            return base.getQuads(state, side, rand, data);
         }
 
         if (!doCaching) {
@@ -61,6 +55,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
                 quads.set(i, transformQuad(quad));
             }
         }
+
         return quads;
     }
 
@@ -82,8 +77,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         );
     }
 
-    private class CacheKey {
-
+    private static class CacheKey {
         private IBakedModel base;
         private Set<ResourceLocation> textures;
         private Random random;
@@ -103,9 +97,11 @@ public class FullbrightBakedModel extends DelegateBakedModel {
             if (this == o) {
                 return true;
             }
+
             if (o == null || getClass() != o.getClass()) {
                 return false;
             }
+
             CacheKey cacheKey = (CacheKey) o;
 
             if (cacheKey.side != side) {
@@ -115,6 +111,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
             if (!state.equals(cacheKey.state)) {
                 return false;
             }
+
             return true;
         }
 

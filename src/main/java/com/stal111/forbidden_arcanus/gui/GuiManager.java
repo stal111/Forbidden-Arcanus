@@ -1,22 +1,24 @@
 package com.stal111.forbidden_arcanus.gui;
 
+import com.stal111.forbidden_arcanus.gui.element.GuiElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuiManager {
 
-    private static List<GuiObject> objects = new ArrayList<>();
+    private static List<GuiElement> objects = new ArrayList<>();
 
-    public List<GuiObject> getObjects() {
+    public List<GuiElement> getObjects() {
         return objects;
     }
 
-    public void addGuiObject(GuiObject guiObject) {
-        objects.add(guiObject);
+    public void addGuiObject(GuiElement guiElement) {
+        objects.add(guiElement);
     }
 
-    public void removeGuiObject(GuiObject guiObject) {
-        objects.remove(guiObject);
+    public void removeGuiObject(GuiElement guiElement) {
+        objects.remove(guiElement);
     }
 
     public void renderAll(int x, int y) {

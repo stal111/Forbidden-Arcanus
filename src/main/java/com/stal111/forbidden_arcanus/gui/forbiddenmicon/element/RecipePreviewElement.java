@@ -1,21 +1,24 @@
-package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.gui.*;
+import com.stal111.forbidden_arcanus.gui.element.GuiElement;
+import com.stal111.forbidden_arcanus.gui.element.ItemElement;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconEntry;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangeFurnaceTypeButton;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangeRecipeButton;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangeRecipeTypeButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
-import net.minecraft.tileentity.FurnaceTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.*;
 
-public class RecipePreviewObject extends GuiObject {
+public class RecipePreviewElement extends GuiElement {
 
     private ForbiddenmiconScreen forbiddenmiconScreen;
     private ForbiddenmiconEntry entry;
@@ -28,14 +31,14 @@ public class RecipePreviewObject extends GuiObject {
     private int currentRecipe = 0;
 
     private RecipeCategory activeRecipeCategory;
-    private SwitchFurnaceTypeButton.FurnaceType activeFurnaceType;
+    private ChangeFurnaceTypeButton.FurnaceType activeFurnaceType;
 
-    public List<SwitchRecipeTypeButton> switchRecipeTypeButtons = new ArrayList<>();
+    public List<ChangeRecipeTypeButton> changeRecipeTypeButtons = new ArrayList<>();
 
-    private SwitchRecipeButton nextRecipeButton;
-    private SwitchRecipeButton previousRecipeButton;
+    private ChangeRecipeButton nextRecipeButton;
+    private ChangeRecipeButton previousRecipeButton;
 
-    public RecipePreviewObject(ForbiddenmiconScreen forbiddenmiconScreen, int posX, int posY, int blitOffset, FontRenderer font) {
+    public RecipePreviewElement(ForbiddenmiconScreen forbiddenmiconScreen, int posX, int posY, int blitOffset, FontRenderer font) {
         super(posX, posY, 111, 68);
         this.forbiddenmiconScreen = forbiddenmiconScreen;
         this.manager = forbiddenmiconScreen.manager;
@@ -43,23 +46,23 @@ public class RecipePreviewObject extends GuiObject {
         this.font = font;
 
         for (RecipeCategory category : RecipeCategory.values()) {
-            switchRecipeTypeButtons.add(new SwitchRecipeTypeButton(category, blitOffset, category.getStartX(), category.getStartY(), buttonObject -> {
+            changeRecipeTypeButtons.add(new ChangeRecipeTypeButton(category, blitOffset, category.getStartX(), category.getStartY(), buttonObject -> {
                 buttonObject.setActivated(true);
-                switchRecipeTypeButtons.forEach(button -> {
-                    if (button.getRecipeCategory() != ((SwitchRecipeTypeButton) buttonObject).getRecipeCategory()) {
+                changeRecipeTypeButtons.forEach(button -> {
+                    if (button.getRecipeCategory() != ((ChangeRecipeTypeButton) buttonObject).getRecipeCategory()) {
                         button.setActivated(false);
                     }
                 });
-                activeRecipeCategory = ((SwitchRecipeTypeButton) buttonObject).getRecipeCategory();
-                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
+                activeRecipeCategory = ((ChangeRecipeTypeButton) buttonObject).getRecipeCategory();
+                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemElement);
                 loadRecipe(activeRecipeCategory.getRecipeSerializers());
             }, category.getHoverText()));
         }
 
-        nextRecipeButton = new SwitchRecipeButton(getPosX() + 93, 177, blitOffset, 171, 204, buttonObject -> {
+        nextRecipeButton = new ChangeRecipeButton(getPosX() + 93, 177, blitOffset, 171, 204, buttonObject -> {
             if (currentRecipe + 1 < entry.getRecipes(Arrays.asList(IRecipeSerializer.CRAFTING_SHAPED, IRecipeSerializer.CRAFTING_SHAPELESS)).size()) {
                 currentRecipe++;
-                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
+                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemElement);
                 loadRecipe(activeRecipeCategory.getRecipeSerializers());
                 if (!(currentRecipe + 1 < entry.getRecipes(Arrays.asList(IRecipeSerializer.CRAFTING_SHAPED, IRecipeSerializer.CRAFTING_SHAPELESS)).size())) {
                     nextRecipeButton.setPressable(false);
@@ -68,10 +71,10 @@ public class RecipePreviewObject extends GuiObject {
             }
         });
 
-        previousRecipeButton = new SwitchRecipeButton(getPosX() + 81, 177, blitOffset, 158, 204, buttonObject -> {
+        previousRecipeButton = new ChangeRecipeButton(getPosX() + 81, 177, blitOffset, 158, 204, buttonObject -> {
             if (currentRecipe - 1 >= 0) {
                 currentRecipe--;
-                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
+                manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemElement);
                 loadRecipe(activeRecipeCategory.getRecipeSerializers());
                 if (!(currentRecipe - 1 >= 0)) {
                     previousRecipeButton.setPressable(false);
@@ -114,31 +117,31 @@ public class RecipePreviewObject extends GuiObject {
 
     public void setEntry(ForbiddenmiconEntry entry) {
         this.entry = entry;
-        manager.getObjects().removeIf(guiObject -> guiObject instanceof SwitchRecipeTypeButton || guiObject instanceof ItemObject || guiObject instanceof SwitchRecipeButton);
+        manager.getObjects().removeIf(guiObject -> guiObject instanceof ChangeRecipeTypeButton || guiObject instanceof ItemElement || guiObject instanceof ChangeRecipeButton);
         this.activeRecipeCategory = null;
         this.activeFurnaceType = null;
         this.currentRecipe = 0;
         int i = 90;
         for (RecipeCategory category : RecipeCategory.values()) {
             if (entry.getRecipes(category.getRecipeSerializers()) != null) {
-                for (SwitchRecipeTypeButton switchRecipeTypeButton : switchRecipeTypeButtons) {
-                    if (switchRecipeTypeButton.getRecipeCategory() == category) {
-                        switchRecipeTypeButton.setPos(getPosX() + i, 192);
-                        switchRecipeTypeButton.setActivated(false);
-                        manager.addGuiObject(switchRecipeTypeButton);
+                for (ChangeRecipeTypeButton changeRecipeTypeButton : changeRecipeTypeButtons) {
+                    if (changeRecipeTypeButton.getRecipeCategory() == category) {
+                        changeRecipeTypeButton.setPos(getPosX() + i, 192);
+                        changeRecipeTypeButton.setActivated(false);
+                        manager.addGuiObject(changeRecipeTypeButton);
                         i -= 18;
                     }
                 }
             }
         }
-        for (GuiObject object : manager.getObjects()) {
-            if (object instanceof SwitchRecipeTypeButton) {
-                this.activeRecipeCategory = ((SwitchRecipeTypeButton) object).getRecipeCategory();
+        for (GuiElement object : manager.getObjects()) {
+            if (object instanceof ChangeRecipeTypeButton) {
+                this.activeRecipeCategory = ((ChangeRecipeTypeButton) object).getRecipeCategory();
                 break;
             }
         }
         if (activeRecipeCategory != null) {
-            switchRecipeTypeButtons.forEach(button -> {
+            changeRecipeTypeButtons.forEach(button -> {
                 if (button.getRecipeCategory() == activeRecipeCategory) {
                     button.setActivated(true);
                 }
@@ -159,11 +162,11 @@ public class RecipePreviewObject extends GuiObject {
 
     public void clearEntry() {
         this.entry = null;
-        this.manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject || guiObject instanceof SwitchRecipeTypeButton);
+        this.manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemElement || guiObject instanceof ChangeRecipeTypeButton);
     }
 
     public void loadRecipe(Collection<IRecipeSerializer<?>> recipeSerializers) {
-        manager.getObjects().removeIf(guiObject -> guiObject instanceof FlameObject || guiObject instanceof SwitchFurnaceTypeButton);
+        manager.getObjects().removeIf(guiObject -> guiObject instanceof FlameElement || guiObject instanceof ChangeFurnaceTypeButton);
         Collection<IRecipe<?>> recipes = entry.getRecipes(recipeSerializers);
         if (recipes != null) {
             IRecipe<?> recipe = (IRecipe<?>) recipes.toArray()[currentRecipe];
@@ -172,35 +175,35 @@ public class RecipePreviewObject extends GuiObject {
             if (activeRecipeCategory == RecipeCategory.SMELTING) {
                 int i = getPosY() + 2;
                 boolean flag = false;
-                for (SwitchFurnaceTypeButton.FurnaceType furnaceType : SwitchFurnaceTypeButton.FurnaceType.values()) {
+                for (ChangeFurnaceTypeButton.FurnaceType furnaceType : ChangeFurnaceTypeButton.FurnaceType.values()) {
                     for (IRecipeSerializer<?> recipeSerializer : recipeSerializers) {
                         if (recipeSerializer == furnaceType.getRecipeSerializer()) {
                             if (entry.getRecipes(Collections.singletonList(recipeSerializer)) != null) {
-                                SwitchFurnaceTypeButton switchFurnaceTypeButton = new SwitchFurnaceTypeButton(getEndX() - 18, i, blitOffset, furnaceType, buttonObject -> {
-                                    for (GuiObject guiObject : manager.getObjects()) {
-                                        if (guiObject instanceof SwitchFurnaceTypeButton) {
-                                            if (((SwitchFurnaceTypeButton) guiObject).getFurnaceType() != furnaceType) {
-                                                ((SwitchFurnaceTypeButton) guiObject).setActivated(false);
+                                ChangeFurnaceTypeButton changeFurnaceTypeButton = new ChangeFurnaceTypeButton(getEndX() - 18, i, blitOffset, furnaceType, buttonObject -> {
+                                    for (GuiElement guiObject : manager.getObjects()) {
+                                        if (guiObject instanceof ChangeFurnaceTypeButton) {
+                                            if (((ChangeFurnaceTypeButton) guiObject).getFurnaceType() != furnaceType) {
+                                                ((ChangeFurnaceTypeButton) guiObject).setActivated(false);
                                             }
                                         }
                                     }
                                     buttonObject.setActivated(true);
                                     this.activeFurnaceType = furnaceType;
-                                    manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemObject);
+                                    manager.getObjects().removeIf(guiObject -> guiObject instanceof ItemElement);
                                     addItems(entry.getRecipes(Collections.singletonList(activeFurnaceType.getRecipeSerializer())));
                                     Optional<AbstractCookingRecipe> optional = Minecraft.getInstance().world.getRecipeManager().getRecipe(activeFurnaceType.getRecipeType(), new Inventory(ingredient.getMatchingStacks()[0]), Minecraft.getInstance().world);
                                     manager.getObjects().forEach(guiObject -> {
-                                        if (guiObject instanceof FlameObject) {
-                                            ((FlameObject) guiObject).setCookingTime(optional.map(AbstractCookingRecipe::getCookTime).orElse(200));
-                                            ((FlameObject) guiObject).setExperience(optional.map(AbstractCookingRecipe::getExperience).orElse(0.0F));
+                                        if (guiObject instanceof FlameElement) {
+                                            ((FlameElement) guiObject).setCookingTime(optional.map(AbstractCookingRecipe::getCookTime).orElse(200));
+                                            ((FlameElement) guiObject).setExperience(optional.map(AbstractCookingRecipe::getExperience).orElse(0.0F));
                                         }
                                     });
                                 });
                                 if (!flag) {
-                                    switchFurnaceTypeButton.setActivated(true);
+                                    changeFurnaceTypeButton.setActivated(true);
                                     this.activeFurnaceType = furnaceType;
                                 }
-                                manager.addGuiObject(switchFurnaceTypeButton);
+                                manager.addGuiObject(changeFurnaceTypeButton);
                                 i += 15;
                                 flag = true;
                             }
@@ -208,7 +211,7 @@ public class RecipePreviewObject extends GuiObject {
                     }
                 }
                 Optional<AbstractCookingRecipe> optional = Minecraft.getInstance().world.getRecipeManager().getRecipe(activeFurnaceType.getRecipeType(), new Inventory(ingredient.getMatchingStacks()[0]), Minecraft.getInstance().world);
-                manager.addGuiObject(new FlameObject(getPosX() + 31, 162, optional.map(AbstractCookingRecipe::getCookTime).orElse(200), optional.map(AbstractCookingRecipe::getExperience).orElse(0.0F), FlameObject.FireType.FIRE));
+                manager.addGuiObject(new FlameElement(getPosX() + 31, 162, optional.map(AbstractCookingRecipe::getCookTime).orElse(200), optional.map(AbstractCookingRecipe::getExperience).orElse(0.0F), FlameElement.FireType.FIRE));
             }
         }
     }
@@ -218,19 +221,19 @@ public class RecipePreviewObject extends GuiObject {
             if (activeRecipeCategory == RecipeCategory.CRAFTING) {
                 if (!getRecipeIngredients(recipes).get(j).isEmpty()) {
                     if (j == 0 || j == 3 || j == 6) {
-                        manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(j), getPosX() + 8, j == 0 ? 132 : j == 3 ? 151 : 170));
+                        manager.addGuiObject(new ItemElement(getRecipeIngredients(recipes).get(j), getPosX() + 8, j == 0 ? 132 : j == 3 ? 151 : 170));
                     } else if (j == 1 || j == 4 || j == 7) {
-                        manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(j), getPosX() + 27, j == 1 ? 132 : j == 4 ? 151 : 170));
+                        manager.addGuiObject(new ItemElement(getRecipeIngredients(recipes).get(j), getPosX() + 27, j == 1 ? 132 : j == 4 ? 151 : 170));
                     } else {
-                        manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(j), getPosX() + 46, j == 2 ? 132 : j == 5 ? 151 : 170));
+                        manager.addGuiObject(new ItemElement(getRecipeIngredients(recipes).get(j), getPosX() + 46, j == 2 ? 132 : j == 5 ? 151 : 170));
                     }
                 }
                 if (!getRecipeOutput(recipes).isEmpty()) {
-                    manager.addGuiObject(new ItemObject(getRecipeOutput(recipes), getPosX() + 83, 151));
+                    manager.addGuiObject(new ItemElement(getRecipeOutput(recipes), getPosX() + 83, 151));
                 }
             } else if (activeRecipeCategory == RecipeCategory.SMELTING) {
-                manager.addGuiObject(new ItemObject(getRecipeIngredients(recipes).get(0), getPosX() + 28,  144));
-                manager.addGuiObject(new ItemObject(getRecipeOutput(recipes), getPosX() + 66, 152));
+                manager.addGuiObject(new ItemElement(getRecipeIngredients(recipes).get(0), getPosX() + 28,  144));
+                manager.addGuiObject(new ItemElement(getRecipeOutput(recipes), getPosX() + 66, 152));
             }
         }
     }

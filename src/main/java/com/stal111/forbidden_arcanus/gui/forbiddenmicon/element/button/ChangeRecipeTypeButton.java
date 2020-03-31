@@ -1,17 +1,18 @@
-package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
-import com.stal111.forbidden_arcanus.gui.ButtonObject;
-import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
+import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.RecipePreviewElement;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
 
-public class SwitchRecipeTypeButton extends ButtonObject {
+public class ChangeRecipeTypeButton extends ButtonElement {
 
     private final String hoverText;
-    private final RecipePreviewObject.RecipeCategory recipeCategory;
+    private final RecipePreviewElement.RecipeCategory recipeCategory;
 
-    public SwitchRecipeTypeButton(RecipePreviewObject.RecipeCategory recipeCategory, int blitOffset, int startX, int startY, IPressable onPress, String hoverText) {
+    public ChangeRecipeTypeButton(RecipePreviewElement.RecipeCategory recipeCategory, int blitOffset, int startX, int startY, IPressable onPress, String hoverText) {
         super(0, 0, blitOffset, startX, startY, 14, 15, ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES, onPress);
         this.recipeCategory = recipeCategory;
         this.hoverText = hoverText;
@@ -35,7 +36,7 @@ public class SwitchRecipeTypeButton extends ButtonObject {
         }
     }
 
-    public RecipePreviewObject.RecipeCategory getRecipeCategory() {
+    public RecipePreviewElement.RecipeCategory getRecipeCategory() {
         return recipeCategory;
     }
 }

@@ -1,20 +1,13 @@
-package com.stal111.forbidden_arcanus.gui;
+package com.stal111.forbidden_arcanus.gui.element;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Tessellator;
+import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
-public class ItemObject extends GuiObject {
+public class ItemElement extends GuiElement {
 
     private final ItemStack stack;
 
-    public ItemObject(ItemStack stack, int posX, int posY) {
+    public ItemElement(ItemStack stack, int posX, int posY) {
         super(posX, posY, 16, 16);
         this.stack = stack;
     }

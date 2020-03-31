@@ -1,7 +1,7 @@
-package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
-import com.stal111.forbidden_arcanus.gui.ButtonObject;
-import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
+import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -9,11 +9,11 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
 
-public class SwitchFurnaceTypeButton extends ButtonObject {
+public class ChangeFurnaceTypeButton extends ButtonElement {
 
     private final FurnaceType furnaceType;
 
-    public SwitchFurnaceTypeButton(int posX, int posY, int blitOffset, FurnaceType furnaceType, IPressable onPress) {
+    public ChangeFurnaceTypeButton(int posX, int posY, int blitOffset, FurnaceType furnaceType, IPressable onPress) {
         super(posX, posY, blitOffset, 417, 161, 14, 15, ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES, onPress);
         this.furnaceType = furnaceType;
     }

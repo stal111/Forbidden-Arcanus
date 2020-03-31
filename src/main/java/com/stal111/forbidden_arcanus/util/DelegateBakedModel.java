@@ -1,9 +1,7 @@
 package com.stal111.forbidden_arcanus.util;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import javafx.util.Pair;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -41,7 +39,7 @@ public class DelegateBakedModel implements IBakedModel {
 
     @Override
     public boolean func_230044_c_() {
-        return false;
+        return base.func_230044_c_();
     }
 
     @Override
@@ -67,7 +65,8 @@ public class DelegateBakedModel implements IBakedModel {
     }
 
     @Override
-    public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack mat) {
-        return base.handlePerspective(cameraTransformType, mat);
+    @SuppressWarnings("deprecation")
+    public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack matrixStack) {
+        return base.handlePerspective(cameraTransformType, matrixStack);
     }
 }

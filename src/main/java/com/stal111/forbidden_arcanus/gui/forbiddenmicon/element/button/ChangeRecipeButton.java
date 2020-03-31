@@ -1,14 +1,13 @@
-package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.stal111.forbidden_arcanus.gui.ButtonObject;
-import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
+import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 
-public class SwitchRecipeButton extends ButtonObject {
+public class ChangeRecipeButton extends ButtonElement {
 
     private boolean pressable = true;
 
-    public SwitchRecipeButton(int posX, int posY, int blitOffset, int startX, int startY, IPressable onPress) {
+    public ChangeRecipeButton(int posX, int posY, int blitOffset, int startX, int startY, IPressable onPress) {
         super(posX, posY, blitOffset, startX, startY, 9, 11, ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES, onPress);
     }
 

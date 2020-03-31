@@ -1,7 +1,8 @@
-package com.stal111.forbidden_arcanus.gui;
+package com.stal111.forbidden_arcanus.gui.element;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.*;
@@ -11,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GuiObject {
+public abstract class GuiElement {
 
     private int posX;
     private int posY;
@@ -20,9 +21,9 @@ public abstract class GuiObject {
 
     private final Minecraft minecraft = Minecraft.getInstance();
 
-    private static List<GuiObject> objects = new ArrayList<>();
+    private static List<GuiElement> objects = new ArrayList<>();
 
-    public GuiObject(int posX, int posY, int sizeX, int sizeY) {
+    public GuiElement(int posX, int posY, int sizeX, int sizeY) {
         this.posX = posX;
         this.posY = posY;
         this.sizeX = sizeX;
@@ -30,7 +31,7 @@ public abstract class GuiObject {
     }
 
     public void init() {
-        objects.forEach(GuiObject::init);
+        objects.forEach(GuiElement::init);
     }
 
     public abstract void render(int x, int y);
@@ -87,7 +88,7 @@ public abstract class GuiObject {
         return minecraft;
     }
 
-    public static List<GuiObject> getObjects() {
+    public static List<GuiElement> getObjects() {
         return objects;
     }
 

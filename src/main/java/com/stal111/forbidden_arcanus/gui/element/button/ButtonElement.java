@@ -1,9 +1,9 @@
-package com.stal111.forbidden_arcanus.gui;
+package com.stal111.forbidden_arcanus.gui.element.button;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.util.ResourceLocation;
 
-public class ButtonObject extends GuiObject {
+public class ButtonElement extends GuiElement {
 
     private final int startX;
     private final int startY;
@@ -16,7 +16,7 @@ public class ButtonObject extends GuiObject {
 
     private final IPressable onPress;
 
-    public ButtonObject(int posX, int posY, int blitOffset, int startX, int startY, int sizeX, int sizeY, ResourceLocation resourceLocation, IPressable onPress) {
+    public ButtonElement(int posX, int posY, int blitOffset, int startX, int startY, int sizeX, int sizeY, ResourceLocation resourceLocation, IPressable onPress) {
         super(posX, posY, sizeX, sizeY);
         this.startX = startX;
         this.startY = startY;
@@ -40,7 +40,7 @@ public class ButtonObject extends GuiObject {
         return false;
     }
 
-    public ButtonObject setActivated(boolean activated) {
+    public ButtonElement setActivated(boolean activated) {
         this.activated = activated;
         return this;
     }
@@ -66,6 +66,6 @@ public class ButtonObject extends GuiObject {
     }
 
     public interface IPressable {
-        void onPress(ButtonObject buttonObject);
+        void onPress(ButtonElement buttonObject);
     }
 }

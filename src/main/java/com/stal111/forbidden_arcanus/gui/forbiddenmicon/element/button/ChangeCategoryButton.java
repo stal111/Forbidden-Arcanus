@@ -1,17 +1,17 @@
-package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
-import com.stal111.forbidden_arcanus.gui.ButtonObject;
-import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
+import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
 
-public class SwitchCategoryButton extends ButtonObject {
+public class ChangeCategoryButton extends ButtonElement {
 
     private final Category category;
     private final boolean leftSide;
 
-    public SwitchCategoryButton(int posX, int posY, int blitOffset, Category category, boolean leftSide, IPressable onPress) {
+    public ChangeCategoryButton(int posX, int posY, int blitOffset, Category category, boolean leftSide, IPressable onPress) {
         super(posX, posY, blitOffset, 130, 220, 18, 14, ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES, onPress);
         this.category = category;
         this.leftSide = leftSide;

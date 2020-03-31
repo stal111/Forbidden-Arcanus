@@ -1,10 +1,9 @@
-package com.stal111.forbidden_arcanus.gui;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.SoundEvents;
 

@@ -136,7 +136,7 @@ public class ModItems {
     public static final RegistryObject<Item> OBSIDIAN_KNEE_PADS = register("obsidian_knee_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.LEGS, properties()));
     public static final RegistryObject<Item> OBSIDIAN_BOOTS = register("obsidian_boots", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET, properties()));
 
-    private static <T extends Item> RegistryObject<Item> register(String name, Supplier<? extends Item> item) {
+    private static RegistryObject<Item> register(String name, Supplier<? extends Item> item) {
         return ITEMS.register(name, item);
     }
 

@@ -1,19 +1,19 @@
-package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element;
 
-import com.stal111.forbidden_arcanus.gui.ForbiddenmiconScreen;
-import com.stal111.forbidden_arcanus.gui.GuiObject;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
+import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlameObject extends GuiObject {
+public class FlameElement extends GuiElement {
 
     private int cookingTime;
     private float experience;
     private final FireType fireType;
 
-    public FlameObject(int posX, int posY, int cookingTime, float experience, FireType fireType) {
+    public FlameElement(int posX, int posY, int cookingTime, float experience, FireType fireType) {
         super(posX, posY, 10, 13);
         this.cookingTime = cookingTime;
         this.experience = experience;

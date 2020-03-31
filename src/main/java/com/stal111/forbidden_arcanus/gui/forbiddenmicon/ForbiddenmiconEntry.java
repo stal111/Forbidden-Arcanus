@@ -1,12 +1,11 @@
-package com.stal111.forbidden_arcanus.gui;
+package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
 
-import com.stal111.forbidden_arcanus.gui.forbiddenmicon.SwitchCategoryButton;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangeCategoryButton;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 public class ForbiddenmiconEntry {
@@ -16,13 +15,13 @@ public class ForbiddenmiconEntry {
     private final String title;
     private final boolean hasDescription;
     private final String description;
-    private final SwitchCategoryButton.Category category;
+    private final ChangeCategoryButton.Category category;
 
-    public ForbiddenmiconEntry(ItemStack stack, SwitchCategoryButton.Category category) {
+    public ForbiddenmiconEntry(ItemStack stack, ChangeCategoryButton.Category category) {
         this(stack, "", category);
     }
 
-    public ForbiddenmiconEntry(ItemStack stack, String description, SwitchCategoryButton.Category category) {
+    public ForbiddenmiconEntry(ItemStack stack, String description, ChangeCategoryButton.Category category) {
         this.stack = stack;
         this.hasTitle = true;
         this.title = stack.getDisplayName().getFormattedText();
@@ -54,7 +53,7 @@ public class ForbiddenmiconEntry {
         return description;
     }
 
-    public SwitchCategoryButton.Category getCategory() {
+    public ChangeCategoryButton.Category getCategory() {
         return category;
     }
 }
