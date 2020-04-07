@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
@@ -86,6 +87,10 @@ public abstract class GuiElement {
 
     public Minecraft getMinecraft() {
         return minecraft;
+    }
+
+    public Screen getCurrentScreen() {
+        return getMinecraft().currentScreen;
     }
 
     public static List<GuiElement> getObjects() {

@@ -35,7 +35,6 @@ public class ButtonElement extends GuiElement {
     public boolean onClicked(double x, double y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + getSizeX() && y < getPosY() + getSizeY()) {
             onPress.onPress(this);
-            return true;
         }
         return false;
     }

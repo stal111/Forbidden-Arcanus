@@ -15,13 +15,13 @@ public class ForbiddenmiconEntry {
     private final String title;
     private final boolean hasDescription;
     private final String description;
-    private final ChangeCategoryButton.Category category;
+    private final ForbiddenmiconCategory category;
 
-    public ForbiddenmiconEntry(ItemStack stack, ChangeCategoryButton.Category category) {
+    public ForbiddenmiconEntry(ItemStack stack, ForbiddenmiconCategory category) {
         this(stack, "", category);
     }
 
-    public ForbiddenmiconEntry(ItemStack stack, String description, ChangeCategoryButton.Category category) {
+    public ForbiddenmiconEntry(ItemStack stack, String description, ForbiddenmiconCategory category) {
         this.stack = stack;
         this.hasTitle = true;
         this.title = stack.getDisplayName().getFormattedText();
@@ -53,7 +53,7 @@ public class ForbiddenmiconEntry {
         return description;
     }
 
-    public ChangeCategoryButton.Category getCategory() {
+    public ForbiddenmiconCategory getCategory() {
         return category;
     }
 }

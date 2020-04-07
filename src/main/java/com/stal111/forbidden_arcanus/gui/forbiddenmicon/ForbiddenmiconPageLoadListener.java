@@ -31,7 +31,7 @@ public class ForbiddenmiconPageLoadListener implements IResourceManagerReloadLis
     public ForbiddenmiconEntry deserializeJson(ResourceLocation recipeId, JsonObject json) {
         ItemStack stack = ShapedRecipe.deserializeItem(json.get("topic").getAsJsonObject());
         String description = json.has("description") ? json.get("description").getAsString() : "";
-        return new ForbiddenmiconEntry(stack, description, ChangeCategoryButton.Category.valueOf(json.get("category").getAsString()));
+        return new ForbiddenmiconEntry(stack, description, ForbiddenmiconCategory.valueOf(json.get("category").getAsString()));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ForbiddenmiconPageLoadListener implements IResourceManagerReloadLis
         LOGGER.info("Loaded {} recipes", entries.size());
     }
 
-    public Collection<ForbiddenmiconEntry> getEntries(ChangeCategoryButton.Category category) {
+    public Collection<ForbiddenmiconEntry> getEntries(ForbiddenmiconCategory category) {
         List<ForbiddenmiconEntry> list = new ArrayList<>();
         this.entries.forEach((location, forbiddenmiconEntry) -> {
             if (forbiddenmiconEntry.getCategory() == category) {

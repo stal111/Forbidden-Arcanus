@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.gui.element;
 
-import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.item.ItemStack;
 
 public class ItemElement extends GuiElement {
@@ -21,7 +20,7 @@ public class ItemElement extends GuiElement {
     @Override
     public void renderHoverEffect(int x, int y) {
         if (isMouseOver(x, y)) {
-            renderFancyTooltip(getMinecraft().currentScreen.getTooltipFromItem(stack), x, y);
+            renderFancyTooltip(getCurrentScreen().getTooltipFromItem(stack), x, y);
         }
     }
 }

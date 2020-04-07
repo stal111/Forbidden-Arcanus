@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.gui.ModScreen;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.RecipePreviewElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangeCategoryButton;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangePageButton;
 import com.stal111.forbidden_arcanus.item.ForbiddenmiconItem;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.gui.RenderComponentsUtil;
@@ -29,16 +30,13 @@ public class ForbiddenmiconScreen extends ModScreen {
 
     private List<ITextComponent> cachedPageLines = Collections.emptyList();
 
-    private ForbiddenmiconChangePageButton buttonNextPage;
-    private ForbiddenmiconChangePageButton buttonPreviousPage;
-
     private RecipePreviewElement recipePreview;
 
     public static ForbiddenmiconScreen INSTANCE;
 
     private final ItemStack stack;
 
-    private ChangeCategoryButton.Category activeCategory;
+    private ForbiddenmiconCategory activeCategory;
 
     public ForbiddenmiconScreen(ItemStack stack) {
         super(new TranslationTextComponent("forbiddenmicon.title"));
@@ -56,7 +54,7 @@ public class ForbiddenmiconScreen extends ModScreen {
         this.initEntry();
         this.addDoneButton();
         this.addChangePageButtons();
-       // this.addCraftingPreviewButtons();
+        // this.addCraftingPreviewButtons();
         this.recipePreview = new RecipePreviewElement(this, this.width / 2 - 116, 126, this.getBlitOffset(), this.font);
         recipePreview.clearEntry();
         if (entry != null) {
@@ -64,10 +62,10 @@ public class ForbiddenmiconScreen extends ModScreen {
         }
         int i = 56;
         int leftSideCount = 0;
-        manager.getObjects().removeIf(guiObject -> guiObject instanceof ChangeCategoryButton);
-        for (ChangeCategoryButton.Category category : ChangeCategoryButton.Category.values()) {
-            manager.addGuiObject(new ChangeCategoryButton(this.width / 2 - 140, i, getBlitOffset(), category, leftSideCount <= 4, buttonObject -> {
-                manager.getObjects().forEach(guiObject -> {
+        manager.getObjects(this.toString()).removeIf(guiObject -> guiObject instanceof ChangeCategoryButton);
+        for (ForbiddenmiconCategory category : ForbiddenmiconCategory.values()) {
+            manager.addGuiObject(this.toString(), new ChangeCategoryButton(this.width / 2 - 140, i, getBlitOffset(), category, leftSideCount <= 4, buttonObject -> {
+                manager.getObjects(this.toString()).forEach(guiObject -> {
                     if (guiObject instanceof ChangeCategoryButton) {
                         if (((ChangeCategoryButton) guiObject).getCategory() != category) {
                             ((ChangeCategoryButton) guiObject).setActivated(false);
@@ -87,9 +85,9 @@ public class ForbiddenmiconScreen extends ModScreen {
             i += 17;
             leftSideCount++;
         }
-        manager.getObjects().forEach(guiObject -> {
+        manager.getObjects(this.toString()).forEach(guiObject -> {
             if (guiObject instanceof ChangeCategoryButton) {
-                if (((ChangeCategoryButton) guiObject).getCategory() == ChangeCategoryButton.Category.MAIN) {
+                if (((ChangeCategoryButton) guiObject).getCategory() == ForbiddenmiconCategory.MAIN) {
                     ((ChangeCategoryButton) guiObject).setActivated(true);
                 }
             }
@@ -97,8 +95,8 @@ public class ForbiddenmiconScreen extends ModScreen {
     }
 
     private void initEntry() {
-        if (Main.PAGE_LOADER.getEntries(activeCategory == null ? ChangeCategoryButton.Category.MAIN : activeCategory).size() != 0) {
-            this.entry = (ForbiddenmiconEntry) Main.PAGE_LOADER.getEntries(activeCategory == null ? ChangeCategoryButton.Category.MAIN : activeCategory).toArray()[currentIndex];
+        if (Main.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).size() != 0) {
+            this.entry = (ForbiddenmiconEntry) Main.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).toArray()[currentIndex];
             this.cachedPageLines = RenderComponentsUtil.splitText(new StringTextComponent(entry.getDescription()), 130, this.font, true, true);
         } else {
             this.entry = null;
@@ -116,27 +114,21 @@ public class ForbiddenmiconScreen extends ModScreen {
 
     private void addChangePageButtons() {
         int i = this.width / 2;
-        this.buttonNextPage = this.addButton(new ForbiddenmiconChangePageButton(i + 105, 197, true, (p_214159_1_) -> {
+        manager.addGuiObject(this.toString(), new ChangePageButton(i + 105, 197, getBlitOffset(), 80, 240, buttonObject -> {
             if (Main.PAGE_LOADER.getEntries(activeCategory).toArray().length > currentIndex + 1) {
                 this.currentIndex++;
                 this.initEntry();
                 this.recipePreview.setEntry(entry);
-                  //  recipePreview.initRecipe();
-                    //recipePreview.initChangeRecipeButtons();
-                }
-               // this.recipePreview.currentRecipe = 0;
-        }, false));
-        this.buttonPreviousPage = this.addButton(new ForbiddenmiconChangePageButton(i - 118, 197, false, (p_214158_1_) -> {
+            }
+        }));
+
+        manager.addGuiObject(this.toString(), new ChangePageButton(i - 117, 197, getBlitOffset(), 59, 240, buttonObject -> {
             if (currentIndex - 1 >= 0) {
                 this.currentIndex--;
                 this.initEntry();
                 this.recipePreview.setEntry(entry);
-
-                   // recipePreview.initRecipe();
-                    //recipePreview.initChangeRecipeButtons();
-                //this.recipePreview.currentRecipe = 0;
             }
-        }, false));
+        }));
     }
 
     public void addTitle() {

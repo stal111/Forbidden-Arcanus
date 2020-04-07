@@ -23,13 +23,20 @@ public class ChangeRecipeButton extends ButtonElement {
 
     @Override
     public void renderHoverEffect(int x, int y) {
-        if (x >= getPosX() && y >= getPosY() && x < getPosX() + 8 && y < getPosY() + 11) {
+        if (isMouseOver(x, y)) {
             if (isPressable()) {
                 bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
                 blit(getBlitOffset(), getStartX(), getStartY() - 16, 9, 11, 256, 512);
             }
         }
-        super.renderHoverEffect(x, y);
+    }
+
+    @Override
+    public boolean onClicked(double x, double y) {
+        if (isPressable()) {
+            super.onClicked(x, y);
+        }
+        return false;
     }
 
     public boolean isPressable() {
