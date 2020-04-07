@@ -142,7 +142,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
         BlockState state = world.getBlockState(srcPos);
         Block block = state.getBlock();
 
-        if((state.getBlockHardness(world, srcPos) == -1 || !state.isValidPosition(world, dstPos) || block.isAir(state, world, srcPos) || state.getPushReaction() != PushReaction.NORMAL || block == Blocks.OBSIDIAN) && !(world.getBlockState(srcPos).getBlock() instanceof LanternBlock)) {
+        if((state.getBlockHardness(world, srcPos) == -1 || !state.isValidPosition(world, dstPos) || block.isAir(state, world, srcPos) || state.getPushReaction() != PushReaction.NORMAL || block == Blocks.OBSIDIAN) && !(world.getBlockState(srcPos).getBlock() instanceof LanternBlock) && !(world.getBlockState(srcPos).getBlock() instanceof HangingCandelabraBlock)) {
             return;
         }
 
