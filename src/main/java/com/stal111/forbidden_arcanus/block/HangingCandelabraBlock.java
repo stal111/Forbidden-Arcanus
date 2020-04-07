@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -27,7 +26,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -64,7 +62,7 @@ public class HangingCandelabraBlock extends Block implements IWaterLoggable {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        return world.getBlockState(pos.up()).isSolidSide(world, pos.up(), Direction.DOWN);
+        return Block.hasEnoughSolidSide(world, pos.up(), Direction.DOWN);
     }
 
     @Nullable

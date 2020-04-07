@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.block;
 import com.stal111.forbidden_arcanus.block.properties.ConnectedBlockType;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
@@ -118,7 +117,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
             if(getChainBlocks().contains(block))
                 continue;
             if(endChain) {
-                can = wasAirAtEnd || world.isAirBlock(pos) || world.getBlockState(pos).getBlock() instanceof LanternBlock || state.getMaterial().isReplaceable();
+                can = wasAirAtEnd || world.isAirBlock(pos) || world.getBlockState(pos).getBlock() instanceof LanternBlock || world.getBlockState(pos).getBlock() instanceof HangingCandelabraBlock || state.getMaterial().isReplaceable();
                 break;
             }
             endChain = true;
@@ -174,11 +173,11 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
         boolean flagUp = stateUp.getBlock() instanceof ChainBlock;
         boolean flagDown = stateDown.getBlock() instanceof ChainBlock;
 
-        if (flagUp && !flagDown && !(stateDown.getBlock() instanceof LanternBlock)) {
+        if (flagUp && !flagDown && !(stateDown.getBlock() instanceof LanternBlock || stateDown.getBlock() instanceof HangingCandelabraBlock)) {
             return state.with(TYPE, ConnectedBlockType.BOTTOM);
-        } else if (!flagUp && (flagDown || stateDown.getBlock() instanceof LanternBlock)) {
+        } else if (!flagUp && (flagDown || stateDown.getBlock() instanceof LanternBlock || stateDown.getBlock() instanceof HangingCandelabraBlock)) {
             return state.with(TYPE, ConnectedBlockType.TOP);
-        } else if (flagUp || stateDown.getBlock() instanceof LanternBlock) {
+        } else if (flagUp || stateDown.getBlock() instanceof LanternBlock || stateDown.getBlock() instanceof HangingCandelabraBlock) {
             return state.with(TYPE, ConnectedBlockType.CENTER);
         }
         return state.with(TYPE, ConnectedBlockType.SINGLE);
