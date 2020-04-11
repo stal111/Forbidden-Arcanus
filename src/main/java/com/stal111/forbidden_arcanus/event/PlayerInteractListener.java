@@ -63,21 +63,6 @@ public class PlayerInteractListener {
 					}
 				}
 			}
-		} else if (block == ModBlocks.POTTED_CHERRYWOOD_SAPLING.getBlock()) {
-			world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState(), 3);
-			if (!player.addItemStackToInventory(new ItemStack(ModBlocks.CHERRYWOOD_SAPLING.getBlock()))) {
-				player.dropItem(new ItemStack(ModBlocks.CHERRYWOOD_SAPLING.getBlock()), false);
-			}
-		} else if (block == ModBlocks.POTTED_MYSTERYWOOD_SAPLING.getBlock()) {
-			world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState(), 3);
-			if (!player.addItemStackToInventory(new ItemStack(ModBlocks.MYSTERYWOOD_SAPLING.getBlock()))) {
-				player.dropItem(new ItemStack(ModBlocks.MYSTERYWOOD_SAPLING.getBlock()), false);
-			}
-		} else if (block == ModBlocks.POTTED_YELLOW_ORCHID.getBlock()) {
-			world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState(), 3);
-			if (!player.addItemStackToInventory(new ItemStack(ModBlocks.YELLOW_ORCHID.getBlock()))) {
-				player.dropItem(new ItemStack(ModBlocks.YELLOW_ORCHID.getBlock()), false);
-			}
 		}
 	}
 
