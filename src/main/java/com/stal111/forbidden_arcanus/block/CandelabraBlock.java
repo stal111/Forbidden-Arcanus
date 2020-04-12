@@ -84,47 +84,6 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
             )
     };
 
-    private static final VoxelShape[] WALL_SHAPES = {
-            VoxelShapeHelper.combineAll(
-                    BASE_SHAPES[1],
-                    Block.makeCuboidShape(7.0D, 4.0D, 6.0D, 9.0D, 10.0D, 8.0D),
-                    Block.makeCuboidShape(6.5D, 10.0D, 5.5D, 9.5D, 12.0D, 8.5D)),
-            VoxelShapeHelper.combineAll(
-                    BASE_SHAPES[1],
-                    Block.makeCuboidShape(7.0D, 4.0D, 6.0D, 9.0D, 10.0D, 8.0D),
-                    Block.makeCuboidShape(6.5D, 10.0D, 5.5D, 9.5D, 12.0D, 8.5D),
-
-                    Block.makeCuboidShape(7.0D, 12.0D, 6.0D, 9.0D, 16.0D, 8.0D)),
-            VoxelShapeHelper.combineAll(
-                    BASE_SHAPES[1],
-                    Block.makeCuboidShape(7.0D, 5.0D, 6.0D, 9.0D, 6.0D, 8.0D),
-                    Block.makeCuboidShape(4.0D, 6.0D, 6.0D, 12.0D, 8.0D, 8.0D),
-                    Block.makeCuboidShape(4.0D, 8.0D, 6.0D, 6.0D, 10.0D, 8.0D),
-                    Block.makeCuboidShape(10.0D, 7.0D, 6.0D, 12.0D, 10.0D, 8.0D),
-
-                    Block.makeCuboidShape(3.5D, 10.0D, 5.5D, 6.5D, 12.0D, 8.5D),
-                    Block.makeCuboidShape(9.5D, 10.0D, 5.5D, 12.5D, 12.0D, 8.5D),
-
-                    Block.makeCuboidShape(4.0D, 12.0D, 6.0D, 6.0D, 16.0D, 8.0D),
-                    Block.makeCuboidShape(10.0D, 12.0D, 6.0D, 12.0D, 16.0D, 8.0D)),
-            VoxelShapeHelper.combineAll(
-                    BASE_SHAPES[1],
-                    Block.makeCuboidShape(7.0D, 5.0D, 6.0D, 9.0D, 11.0D, 8.0D),
-                    Block.makeCuboidShape(2.0D, 6.0D, 6.0D, 14.0D, 8.0D, 8.0D),
-
-                    Block.makeCuboidShape(2.0D, 8.0D, 6.0D, 4.0D, 9.0D, 8.0D),
-                    Block.makeCuboidShape(12.0D, 7.0D, 6.0D, 14.0D, 9.0D, 8.0D),
-
-                    Block.makeCuboidShape(1.5D, 9.0D, 5.5D, 4.5D, 11.0D, 8.5D),
-                    Block.makeCuboidShape(6.5D, 11.0D, 5.5D, 9.5D, 13.0D, 8.5D),
-                    Block.makeCuboidShape(11.5D, 9.0D, 5.5D, 14.5D, 11.0D, 8.5D),
-
-                    Block.makeCuboidShape(2.0D, 11.0D, 6.0D, 4.0D, 14.0D, 8.0D),
-                    Block.makeCuboidShape(7.0D, 13.0D, 6.0D, 9.0D, 16.0D, 8.0D),
-                    Block.makeCuboidShape(12.0D, 11.0D, 6.0D, 14.0D, 14.0D, 8.0D)
-            )
-    };
-
     public CandelabraBlock(Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 0).with(LIT, true).with(X, true).with(WATERLOGGED, false));
