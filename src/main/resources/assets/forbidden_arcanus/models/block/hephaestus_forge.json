@@ -1,0 +1,126 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "parent": "block/cube_all",
+    "textures": {
+        "particle": "forbidden_arcanus:block/hephaestus_forge_side",
+        "hephaestus_forge_side": "forbidden_arcanus:block/hephaestus_forge_side",
+        "hephaestus_forge_bottom": "forbidden_arcanus:block/hephaestus_forge_bottom",
+        "hephaestus_forge_activated_side": "forbidden_arcanus:block/hephaestus_forge_cloth_side",
+        "hephaestus_forge_top": "forbidden_arcanus:block/hephaestus_forge_top",
+        "stellarite_block": "forbidden_arcanus:block/stellarite_block"
+    },
+    "elements": [
+        {
+            "name": "Hephaestus Forge",
+            "from": [ 2, 0, 2 ],
+            "to": [ 14, 2, 14 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 2, 14, 14, 16 ] },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 2, 14, 14, 16 ] },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 2, 14, 14, 16 ] },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 2, 14, 14, 16 ] },
+                "up": { "texture": "#hephaestus_forge_bottom", "uv": [ 2, 2, 14, 14 ] },
+                "down": { "texture": "#stellarite_block", "uv": [ 2, 2, 14, 14 ] }
+            }
+        },
+        {
+            "name": "Hephaestus Forge",
+            "from": [ 3, 2, 3 ],
+            "to": [ 13, 3, 13 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 3, 13, 13, 14 ] },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 3, 13, 13, 14 ] },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 3, 13, 13, 14 ] },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 3, 13, 13, 14 ] },
+                "up": { "texture": "#hephaestus_forge_bottom", "uv": [ 3, 3, 13, 13 ] }
+            }
+        },
+        {
+            "name": "Hephaestus Forge",
+            "from": [ 5, 3, 5 ],
+            "to": [ 11, 7, 11 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 5, 9, 11, 13 ] },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 11, 9, 5, 13 ] },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 5, 9, 11, 13 ] },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 11, 9, 5, 13 ] }
+            }
+        },
+        {
+            "name": "Hephaestus Forge",
+            "from": [ 1, 7, 1 ],
+            "to": [ 15, 13, 15 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 1, 3, 15, 9 ] },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 1, 3, 15, 9 ] },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 1, 3, 15, 9 ] },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 1, 3, 15, 9 ] },
+                "up": { "texture": "#hephaestus_forge_top", "uv": [ 1, 1, 15, 15 ] },
+                "down": { "texture": "#stellarite_block", "uv": [ 1, 1, 15, 15 ] }
+            }
+        },
+        {
+            "name": "Hephaestus Crystal",
+            "from": [ 0, 11, 0 ],
+            "to": [ 3, 14, 3 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ], "rotation": 90 },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 4, 0, 7, 3 ] },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 9, 0, 12, 3 ] },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ] },
+                "up": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 3 ], "rotation": 270 },
+                "down": { "texture": "#hephaestus_forge_side", "uv": [ 4, 0, 7, 3 ], "rotation": 180 }
+            }
+        },
+        {
+            "name": "Hephaestus Crystal",
+            "from": [ 13, 11, 0 ],
+            "to": [ 16, 14, 3 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ] },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ], "rotation": 90 },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 4, 0, 7, 3 ] },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 9, 0, 12, 3 ] },
+                "up": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 3 ] },
+                "down": { "texture": "#hephaestus_forge_side", "uv": [ 9, 0, 12, 3 ], "rotation": 180 }
+            }
+        },
+        {
+            "name": "Hephaestus Crystal",
+            "from": [ 13, 11, 13 ],
+            "to": [ 16, 14, 16 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 9, 0, 12, 3 ] },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ] },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ], "rotation": 90 },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 4, 0, 7, 3 ] },
+                "up": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 3 ], "rotation": 90 },
+                "down": { "texture": "#hephaestus_forge_side", "uv": [ 4, 0, 7, 3 ] }
+            }
+        },
+        {
+            "name": "Hephaestus Crystal",
+            "from": [ 0, 11, 13 ],
+            "to": [ 3, 14, 16 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_side", "uv": [ 4, 0, 7, 3 ] },
+                "east": { "texture": "#hephaestus_forge_side", "uv": [ 9, 0, 12, 3 ] },
+                "south": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ] },
+                "west": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 3 ], "rotation": 90 },
+                "up": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 3 ], "rotation": 180 },
+                "down": { "texture": "#hephaestus_forge_side", "uv": [ 9, 0, 12, 3 ] }
+            }
+        },
+        {
+            "name": "Hephaestus Banner",
+            "from": [ 1, 4, 1 ],
+            "to": [ 15, 7, 15 ],
+            "faces": {
+                "north": { "texture": "#hephaestus_forge_activated_side", "uv": [ 1, 0, 15, 3 ] },
+                "east": { "texture": "#hephaestus_forge_activated_side", "uv": [ 1, 0, 15, 3 ] },
+                "south": { "texture": "#hephaestus_forge_activated_side", "uv": [ 1, 0, 15, 3 ] },
+                "west": { "texture": "#hephaestus_forge_activated_side", "uv": [ 1, 0, 15, 3 ] }
+            }
+        }
+    ]
+}

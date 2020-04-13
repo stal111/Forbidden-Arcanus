@@ -58,6 +58,7 @@ public enum ModBlocks {
     BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(14)), ModRenderType.CUTOUT),
     CORRUPTED_PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).lightValue(9)), ModRenderType.CUTOUT),
+    HEPHAESTUS_FORGE(new HephaestusForgeBlock(from(Blocks.IRON_BLOCK).notSolid()), ModRenderType.CUTOUT),
     STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).hardnessAndResistance(38.0F, 1200.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3))),
     STELLARITE_BLOCK(new BeaconBaseBlock(from(Blocks.OBSIDIAN).harvestTool(ToolType.PICKAXE).harvestLevel(3))),
     PETRIFIED_ROOT(new Block(from(Blocks.OAK_LOG).harvestTool(ToolType.AXE).harvestLevel(1).notSolid()), ModRenderType.CUTOUT),
