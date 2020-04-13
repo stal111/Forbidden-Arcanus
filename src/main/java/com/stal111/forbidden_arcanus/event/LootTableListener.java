@@ -25,6 +25,14 @@ public class LootTableListener {
                 default: break;
             }
         }
+
+        if (name.equals("minecraft:entities/enderman")) {
+            event.getTable().addPool(getInjectPool("enderman"));
+        } else if (name.equals("minecraft:entities/bat")) {
+            event.getTable().addPool(getInjectPool("bat"));
+        } else if (name.equals("minecraft:entities/squid")) {
+            event.getTable().addPool(getInjectPool("squid"));
+        }
     }
 
     private static LootPool getInjectPool(String entryName) {
