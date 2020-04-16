@@ -1,62 +1,61 @@
 package com.stal111.forbidden_arcanus.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+
 import org.lwjgl.opengl.GL11;
+
+import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergyBallRender extends EntityRenderer<EnergyBallEntity> {
 
-    private static ResourceLocation sphere = new ResourceLocation(Main.MOD_ID, "textures/effect/sphere.png");
+    private static final ResourceLocation ENERGY_BALL = new ResourceLocation(Main.MOD_ID, "textures/effect/energy_ball.png");
 
     public EnergyBallRender(EntityRendererManager renderManager) {
         super(renderManager);
     }
 
     @Override
-    public void render(EnergyBallEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
-        RenderSystem.depthMask(false);
-        RenderSystem.pushMatrix();
-        this.renderManager.textureManager.bindTexture(sphere);
-        RenderSystem.enableRescaleNormal();
-        RenderSystem.color3f(1.0f, 1.0f, 1.0f);
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
+    public void render(EnergyBallEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLightIn) {
+        matrixStack.push();
+        matrixStack.scale(1.0F, 1.0F, 1.0F);
+
+        IVertexBuilder ivertexbuilder = buffer.getBuffer(RenderType.getEntityCutout(this.getEntityTexture(entity)));
+        MatrixStack.Entry matrixstack$entry = matrixStack.getLast();
+        Matrix4f matrix4f = matrixstack$entry.getMatrix();
 
         long t = System.currentTimeMillis() % 6;
 
-        renderBillboardQuad(0.3f, t * (1.0f / 4.0f), (1.0f / 4.0f));
-        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderSystem.depthMask(true);
-        RenderSystem.popMatrix();
-        super.render(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
-    }
+        matrixStack.rotate(renderManager.getCameraOrientation());
 
-    private void renderBillboardQuad(double scale, float vAdd1, float vAdd2) {
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buffer.pos(-scale, -scale, 0).tex(0, 0 + vAdd1).endVertex();
-        buffer.pos(-scale, +scale, 0).tex(0, 0 + vAdd1 + vAdd2).endVertex();
-        buffer.pos(+scale, +scale, 0).tex(1, 0 + vAdd1 + vAdd2).endVertex();
-        buffer.pos(+scale, -scale, 0).tex(1, 0 + vAdd1).endVertex();
-        tessellator.draw();
+        ivertexbuilder.pos(matrix4f, -1, -1, 0).color(255, 255, 255, 255).tex(0, 0 +  t * (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
+        ivertexbuilder.pos(matrix4f, -1, 1, 0).color(255, 255, 255, 255).tex(0, 0 +  t * (1.0f / 4.0f) + (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
+        ivertexbuilder.pos(matrix4f, 1, 1, 0).color(255, 255, 255, 255).tex(1, 0 +  t * (1.0f / 4.0f) + (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
+        ivertexbuilder.pos(matrix4f, 1, -1, 0).color(255, 255, 255, 255).tex(1, 0 +  t * (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
+
+        matrixStack.pop();
+        super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLightIn);
     }
 
     @Override
     public ResourceLocation getEntityTexture(EnergyBallEntity entity) {
-        return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+        return ENERGY_BALL;
     }
 }

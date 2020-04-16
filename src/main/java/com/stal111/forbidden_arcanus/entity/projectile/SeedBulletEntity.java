@@ -34,22 +34,22 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), world);
 	}
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world, double x, double y, double z) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), x, y, z, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), x, y, z, world);
 	}
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world, LivingEntity thrower) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), thrower, world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), thrower, world);
 	}
 
 	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(SpawnEntity packet, World world) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.getEntityType(), world);
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), world);
 	}
 
 	public SeedBulletEntity(EntityType<? extends ProjectileItemEntity> entityEntityType, World world) {

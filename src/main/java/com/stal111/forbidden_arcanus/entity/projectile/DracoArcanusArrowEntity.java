@@ -18,20 +18,24 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class DracoArcanusArrowEntity extends AbstractArrowEntity {
 
+    @SuppressWarnings("unchecked")
     public DracoArcanusArrowEntity(World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.getEntityType(), world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), world);
     }
 
+    @SuppressWarnings("unchecked")
     public DracoArcanusArrowEntity(double p_i48547_2_, double p_i48547_4_, double p_i48547_6_, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.getEntityType(), p_i48547_2_, p_i48547_4_, p_i48547_6_, world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), p_i48547_2_, p_i48547_4_, p_i48547_6_, world);
     }
 
+    @SuppressWarnings("unchecked")
     public DracoArcanusArrowEntity(LivingEntity entity, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.getEntityType(), entity, world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), entity, world);
     }
 
+    @SuppressWarnings("unchecked")
     public DracoArcanusArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.getEntityType(), world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), world);
     }
 
     @Override

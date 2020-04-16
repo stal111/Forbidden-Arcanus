@@ -158,9 +158,10 @@ public class Main {
 		@SubscribeEvent
 		public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
 			for (ModEntities entity : ModEntities.values()) {
-				event.getRegistry().register(entity.getEntityType());
+				event.getRegistry().register(entity.get());
 			}
 		}
+
 //
 //	@SubscribeEvent
 //	public static void registerPotions(RegistryEvent.Register<Potion> event) {

@@ -30,11 +30,11 @@ public class EnergyBallEntity extends Entity {
     private double accelerationZ;
 
     public EnergyBallEntity(World worldIn) {
-        super(ModEntities.ENERGY_BALL.getEntityType(), worldIn);
+        super(ModEntities.ENERGY_BALL.get(), worldIn);
     }
 
     public EnergyBallEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(ModEntities.ENERGY_BALL.getEntityType(), worldIn);
+        super(ModEntities.ENERGY_BALL.get(), worldIn);
         this.shootingEntity = shooter;
         this.setLocationAndAngles(shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), shooter.rotationYaw, shooter.rotationPitch);
         this.setPosition(this.getPosX(), this.getPosY(), this.getPosZ());
@@ -48,7 +48,7 @@ public class EnergyBallEntity extends Entity {
     }
 
     public EnergyBallEntity(FMLPlayMessages.SpawnEntity packet, World world) {
-        super(ModEntities.ENERGY_BALL.getEntityType(), world);
+        super(ModEntities.ENERGY_BALL.get(), world);
     }
 
     @Override
@@ -79,15 +79,15 @@ public class EnergyBallEntity extends Entity {
             }
 
             Vec3d vec3d = this.getMotion();
+            this.setPosition(getPosX() + vec3d.x, getPosY() + (vec3d.y - 0.01), getPosZ() + vec3d.z);
             ProjectileHelper.rotateTowardsMovement(this, 0.2F);
 
             float f = this.getMotionFactor();
+
             if (this.isInWater()) {
                 for (int i = 0; i < 4; ++i) {
-                    float f1 = 0.25F;
                     this.world.addParticle(ParticleTypes.BUBBLE, this.getPosX() - vec3d.x * 0.25D, this.getPosY() - vec3d.y * 0.25D, this.getPosZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
                 }
-
                 f = 0.8F;
             }
             this.setMotion(vec3d.add(this.accelerationX, this.accelerationY, this.accelerationZ).scale(f));
@@ -121,7 +121,7 @@ public class EnergyBallEntity extends Entity {
     @Override
     protected void writeAdditional(CompoundNBT compound) {
         Vec3d vec3d = this.getMotion();
-        compound.put("direction", this.newDoubleNBTList(new double[]{vec3d.x, vec3d.y, vec3d.z}));
+        compound.put("direction", this.newDoubleNBTList(vec3d.x, vec3d.y, vec3d.z));
         compound.put("power", this.newDoubleNBTList(this.accelerationX, this.accelerationY, this.accelerationZ));
         compound.putInt("life", this.ticksAlive);
     }

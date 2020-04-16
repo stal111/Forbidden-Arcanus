@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.entity.projectile.BoomArrowEntity;
 import com.stal111.forbidden_arcanus.entity.projectile.DracoArcanusArrowEntity;
-import com.stal111.forbidden_arcanus.entity.projectile.FrozenArrowEntity;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -23,7 +22,7 @@ public class ModArrowItem extends ArrowItem {
         } else if (this == ModItems.DRACO_ARCANUS_ARROW.get()) {
             return new DracoArcanusArrowEntity(entity, world);
         } else {
-            return new FrozenArrowEntity(entity, world);
+            return null;
         }
     }
 }

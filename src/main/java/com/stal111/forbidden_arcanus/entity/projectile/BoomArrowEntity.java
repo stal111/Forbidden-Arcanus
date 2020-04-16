@@ -16,20 +16,24 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BoomArrowEntity extends AbstractArrowEntity {
 
+    @SuppressWarnings("unchecked")
     public BoomArrowEntity(World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.getEntityType(), world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), world);
     }
 
+    @SuppressWarnings("unchecked")
     public BoomArrowEntity(double p_i48547_2_, double p_i48547_4_, double p_i48547_6_, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.getEntityType(), p_i48547_2_, p_i48547_4_, p_i48547_6_, world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), p_i48547_2_, p_i48547_4_, p_i48547_6_, world);
     }
 
+    @SuppressWarnings("unchecked")
     public BoomArrowEntity(LivingEntity entity, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.getEntityType(), entity, world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), entity, world);
     }
 
+    @SuppressWarnings("unchecked")
     public BoomArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.getEntityType(), world);
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), world);
     }
 
     @Override

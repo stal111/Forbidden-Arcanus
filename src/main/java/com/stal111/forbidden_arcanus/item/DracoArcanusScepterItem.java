@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
-import com.stal111.forbidden_arcanus.util.RayTraceTools;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -12,8 +11,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class DracoArcanusScepterItem extends Item {
@@ -57,24 +54,14 @@ public class DracoArcanusScepterItem extends Item {
 
 	private void fireSphere(World world, PlayerEntity player) {
 		world.playSound(null, player.getPosition(), ModSounds.dark_bolt_launch, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-		RayTraceTools.Beam beam = new RayTraceTools.Beam(world, player, 20);
-		spawnSphere(player, beam);
+		spawnSphere(player);
 
 	}
 
-	private void spawnSphere(PlayerEntity player, RayTraceTools.Beam beam) {
+	private void spawnSphere(PlayerEntity player) {
+		EnergyBallEntity energyBall = new EnergyBallEntity(player.getEntityWorld(), player, player.getLookVec().x * 1, player.getLookVec().y * 1, player.getLookVec().z * 1);
+		energyBall.setPosition(energyBall.getPosX(), player.getPosY() + player.getEyeHeight(), energyBall.getPosZ());
 
-		Vec3d start = beam.getStart();
-		Vec3d lookVec = beam.getLookVec();
-		double accelX = lookVec.x * 1.0D;
-		double accelY = lookVec.y * 1.0D;
-		double accelZ = lookVec.z * 1.0D;
-
-		EnergyBallEntity laser = new EnergyBallEntity(player.getEntityWorld(), player, accelX, accelY, accelZ);
-		laser.setPosition(start.x, start.y, start.z);
-
-		player.getEntityWorld().addEntity(laser);
-
+		player.getEntityWorld().addEntity(energyBall);
 	}
-
 }
