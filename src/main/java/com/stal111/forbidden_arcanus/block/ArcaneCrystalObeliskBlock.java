@@ -5,12 +5,17 @@ import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -25,7 +30,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ArcaneCrystalObeliskBlock extends CutoutBlock {
+public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLoggable {
 
     private static final VoxelShape LOWER_SHAPE = VoxelShapeHelper.combineAll(
             Block.makeCuboidShape(0, 0, 0, 16, 8, 16),
@@ -35,10 +40,11 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock {
     private static final VoxelShape UPPER_SHAPE = Block.makeCuboidShape(3, 0, 3, 13, 14, 13);
 
     public static final EnumProperty<ArcaneCrystalObeliskPart> PART = EnumProperty.create("part", ArcaneCrystalObeliskPart.class);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ArcaneCrystalObeliskBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(PART, ArcaneCrystalObeliskPart.LOWER));
+        this.setDefaultState(this.getStateContainer().getBaseState().with(PART, ArcaneCrystalObeliskPart.LOWER).with(WATERLOGGED, false));
     }
 
     @Override
@@ -55,6 +61,9 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock {
 
     @Override
     public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState p_196271_3_, IWorld world, BlockPos pos, BlockPos p_196271_6_) {
+        if (state.get(WATERLOGGED)) {
+            world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        }
         ArcaneCrystalObeliskPart part = state.get(PART);
         BlockState stateUp = world.getBlockState(pos.up());
         BlockState stateDoubleUp = world.getBlockState(pos.up(2));
@@ -74,8 +83,9 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock {
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockPos pos = context.getPos();
         World world = context.getWorld();
-        if (pos.getY() < 254 && world.getBlockState(pos.up()).isReplaceable(context)) {
-            return this.getDefaultState().with(PART, ArcaneCrystalObeliskPart.LOWER);
+        boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
+        if (pos.getY() < 254 && world.getBlockState(pos.up()).isReplaceable(context) && world.getBlockState(pos.up(2)).isReplaceable(context)) {
+            return this.getDefaultState().with(PART, ArcaneCrystalObeliskPart.LOWER).with(WATERLOGGED, flag);
         } else {
             return null;
         }
@@ -83,8 +93,8 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock {
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-        world.setBlockState(pos.up(), state.with(PART, ArcaneCrystalObeliskPart.MIDDLE), 3);
-        world.setBlockState(pos.up(2), state.with(PART, ArcaneCrystalObeliskPart.UPPER), 3);
+        world.setBlockState(pos.up(), state.with(PART, ArcaneCrystalObeliskPart.MIDDLE).with(WATERLOGGED, world.getFluidState(pos.up()).getFluid() == Fluids.WATER), 3);
+        world.setBlockState(pos.up(2), state.with(PART, ArcaneCrystalObeliskPart.UPPER).with(WATERLOGGED, world.getFluidState(pos.up(2)).getFluid() == Fluids.WATER), 3);
     }
 
     @Override
@@ -112,6 +122,11 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(PART);
+        builder.add(PART, WATERLOGGED);
+    }
+
+    @Override
+    public IFluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 }
