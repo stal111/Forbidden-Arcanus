@@ -52,7 +52,7 @@ public enum ModBlocks {
     RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)), ModRenderType.CUTOUT),
     ARCANE_CRYSTAL_ORE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)), ModRenderType.CUTOUT),
     ARCANE_CRYSTAL_BLOCK(new TranslucentBlock(addProperties(Material.ROCK, 1.0F, 10.0F).notSolid()), ModRenderType.TRANSLUCENT),
-    ARCANE_CRYSTAL_OBELISK(new ArcaneCrystalObeliskBlock(addProperties(Material.ROCK, 1.0F, 10.0F))),
+    ARCANE_CRYSTAL_OBELISK(new ArcaneCrystalObeliskBlock(addProperties(Material.ROCK, 1.0F, 10.0F)), ModRenderType.CUTOUT),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
     END_CRYSTAL_GEM(new CutoutBlock(addProperties(Material.GLASS, 1.0F, 5.0F).lightValue(15).notSolid()), ModRenderType.TRANSLUCENT),
     BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
