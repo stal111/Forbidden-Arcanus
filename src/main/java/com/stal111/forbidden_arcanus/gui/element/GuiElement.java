@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.gui.element;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.stal111.forbidden_arcanus.gui.GuiManager;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -20,9 +21,9 @@ public abstract class GuiElement {
     private final int sizeX;
     private final int sizeY;
 
-    private final Minecraft minecraft = Minecraft.getInstance();
+    private GuiManager manager;
 
-    private static List<GuiElement> objects = new ArrayList<>();
+    private final Minecraft minecraft = Minecraft.getInstance();
 
     public GuiElement(int posX, int posY, int sizeX, int sizeY) {
         this.posX = posX;
@@ -32,7 +33,16 @@ public abstract class GuiElement {
     }
 
     public void init() {
-        objects.forEach(GuiElement::init);
+    }
+
+    public abstract String getName();
+
+    public List<GuiElement> getChildElements() {
+        return manager.getElements(getName());
+    }
+
+    public void addChildElement(GuiElement element) {
+        manager.addGuiObject(getName(), element);
     }
 
     public abstract void render(int x, int y);
@@ -46,6 +56,10 @@ public abstract class GuiElement {
 
     public boolean onClicked(double x, double y) {
         return false;
+    }
+
+    public void setGuiManager(GuiManager manager) {
+        this.manager = manager;
     }
 
     public void setPos(int posX, int posY) {
@@ -91,10 +105,6 @@ public abstract class GuiElement {
 
     public Screen getCurrentScreen() {
         return getMinecraft().currentScreen;
-    }
-
-    public static List<GuiElement> getObjects() {
-        return objects;
     }
 
     public void bindTexture(ResourceLocation resourceLocation) {

@@ -19,6 +19,11 @@ public class ChangeFurnaceTypeButton extends ButtonElement {
     }
 
     @Override
+    public String getName() {
+        return "change_furnace_type_button";
+    }
+
+    @Override
     public void render(int x, int y) {
         int i = getStartX() + (furnaceType == FurnaceType.SMOKER ? -16 : furnaceType == FurnaceType.BLAST_FURNACE ? 16 : 0);
 

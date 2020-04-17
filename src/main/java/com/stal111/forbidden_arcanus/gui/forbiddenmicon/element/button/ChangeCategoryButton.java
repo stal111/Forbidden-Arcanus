@@ -19,6 +19,11 @@ public class ChangeCategoryButton extends ButtonElement {
     }
 
     @Override
+    public String getName() {
+        return "change_category_button";
+    }
+
+    @Override
     public void render(int x, int y) {
         int startX = 130;
         int startY = 220;

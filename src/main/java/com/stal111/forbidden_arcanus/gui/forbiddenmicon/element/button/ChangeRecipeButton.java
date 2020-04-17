@@ -12,6 +12,11 @@ public class ChangeRecipeButton extends ButtonElement {
     }
 
     @Override
+    public String getName() {
+        return "change_recipe_button";
+    }
+
+    @Override
     public void render(int x, int y) {
         if (!isPressable()) {
             bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);

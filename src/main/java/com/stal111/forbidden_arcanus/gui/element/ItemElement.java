@@ -12,6 +12,11 @@ public class ItemElement extends GuiElement {
     }
 
     @Override
+    public String getName() {
+        return "item";
+    }
+
+    @Override
     public void render(int x, int y) {
         getMinecraft().getItemRenderer().renderItemAndEffectIntoGUI(stack, getPosX(), getPosY());
         getMinecraft().getItemRenderer().renderItemOverlays(getMinecraft().fontRenderer, stack, getPosX(), getPosY());

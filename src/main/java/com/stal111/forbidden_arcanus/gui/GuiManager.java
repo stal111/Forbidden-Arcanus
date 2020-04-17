@@ -11,7 +11,7 @@ public class GuiManager {
 
     private static Map<String, List<GuiElement>> objects = new HashMap<>();
 
-    public List<GuiElement> getObjects(String identifier) {
+    public List<GuiElement> getElements(String identifier) {
         objects.computeIfAbsent(identifier, k -> new ArrayList<>());
 
         return objects.get(identifier);
@@ -32,6 +32,13 @@ public class GuiManager {
         }
     }
 
+    public void clear() {
+        for (Map.Entry<String, List<GuiElement>> entry : objects.entrySet()) {
+            entry.getValue().clear();
+        }
+        objects.clear();
+    }
+
     public void renderAll(int x, int y) {
         objects.forEach((s, guiElements) -> guiElements.forEach(element -> element.render(x, y)));
     }
@@ -42,10 +49,10 @@ public class GuiManager {
     }
 
     public void onClicked(double x, double y) {
-        objects.forEach((s, guiElements) -> {
-            for (int i = 0; i < getObjects(s).size(); i++) {
-                getObjects(s).get(i).onClicked(x, y);
+        for (Map.Entry<String, List<GuiElement>> entry : objects.entrySet()) {
+            for (int i = 0; i < entry.getValue().size(); i++) {
+                entry.getValue().get(i).onClicked(x, y);
             }
-        });
+        }
     }
 }

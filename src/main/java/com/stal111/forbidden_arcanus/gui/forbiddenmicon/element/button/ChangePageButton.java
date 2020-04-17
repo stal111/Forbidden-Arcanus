@@ -12,6 +12,11 @@ public class ChangePageButton extends ButtonElement {
     }
 
     @Override
+    public String getName() {
+        return "change_page_button";
+    }
+
+    @Override
     public void renderHoverEffect(int x, int y) {
         if (isMouseOver(x, y)) {
             bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);

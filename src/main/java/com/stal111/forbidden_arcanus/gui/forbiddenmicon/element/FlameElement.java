@@ -21,6 +21,11 @@ public class FlameElement extends GuiElement {
     }
 
     @Override
+    public String getName() {
+        return "flame";
+    }
+
+    @Override
     public void render(int x, int y) {
         bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
         int i = fireType == FireType.FIRE ? 328 : 340;

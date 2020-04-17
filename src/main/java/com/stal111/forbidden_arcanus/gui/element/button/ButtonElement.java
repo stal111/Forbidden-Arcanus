@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.gui.element.button;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.util.ResourceLocation;
 
-public class ButtonElement extends GuiElement {
+public abstract class ButtonElement extends GuiElement {
 
     private final int startX;
     private final int startY;

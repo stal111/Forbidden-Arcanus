@@ -54,18 +54,16 @@ public class ForbiddenmiconScreen extends ModScreen {
         this.initEntry();
         this.addDoneButton();
         this.addChangePageButtons();
-        // this.addCraftingPreviewButtons();
-        this.recipePreview = new RecipePreviewElement(this, this.width / 2 - 116, 126, this.getBlitOffset(), this.font);
-        recipePreview.clearEntry();
+        this.recipePreview = new RecipePreviewElement(manager, this.width / 2 - 116, 126, this.getBlitOffset(), this.font);
         if (entry != null) {
             this.recipePreview.setEntry(entry);
         }
         int i = 56;
         int leftSideCount = 0;
-        manager.getObjects(this.toString()).removeIf(guiObject -> guiObject instanceof ChangeCategoryButton);
+        getElements().removeIf(guiObject -> guiObject instanceof ChangeCategoryButton);
         for (ForbiddenmiconCategory category : ForbiddenmiconCategory.values()) {
-            manager.addGuiObject(this.toString(), new ChangeCategoryButton(this.width / 2 - 140, i, getBlitOffset(), category, leftSideCount <= 4, buttonObject -> {
-                manager.getObjects(this.toString()).forEach(guiObject -> {
+            addElement(new ChangeCategoryButton(this.width / 2 - 140, i, getBlitOffset(), category, leftSideCount <= 4, buttonObject -> {
+                getElements().forEach(guiObject -> {
                     if (guiObject instanceof ChangeCategoryButton) {
                         if (((ChangeCategoryButton) guiObject).getCategory() != category) {
                             ((ChangeCategoryButton) guiObject).setActivated(false);
@@ -85,7 +83,7 @@ public class ForbiddenmiconScreen extends ModScreen {
             i += 17;
             leftSideCount++;
         }
-        manager.getObjects(this.toString()).forEach(guiObject -> {
+        getElements().forEach(guiObject -> {
             if (guiObject instanceof ChangeCategoryButton) {
                 if (((ChangeCategoryButton) guiObject).getCategory() == ForbiddenmiconCategory.MAIN) {
                     ((ChangeCategoryButton) guiObject).setActivated(true);
@@ -105,16 +103,13 @@ public class ForbiddenmiconScreen extends ModScreen {
 
     protected void addDoneButton() {
         this.addButton(new Button(this.width / 2 - 100, 230, 200, 20, new TranslationTextComponent("gui.done").getFormattedText(), (p_214161_1_) -> {
-            this.minecraft.displayGuiScreen(null);
-            if (stack.getItem() instanceof ForbiddenmiconItem) {
-                ForbiddenmiconItem.setOpen(stack, false);
-            }
+            this.onClose();
         }));
     }
 
     private void addChangePageButtons() {
         int i = this.width / 2;
-        manager.addGuiObject(this.toString(), new ChangePageButton(i + 105, 197, getBlitOffset(), 80, 240, buttonObject -> {
+        addElement(new ChangePageButton(i + 105, 197, getBlitOffset(), 80, 240, buttonObject -> {
             if (Main.PAGE_LOADER.getEntries(activeCategory).toArray().length > currentIndex + 1) {
                 this.currentIndex++;
                 this.initEntry();
@@ -122,7 +117,7 @@ public class ForbiddenmiconScreen extends ModScreen {
             }
         }));
 
-        manager.addGuiObject(this.toString(), new ChangePageButton(i - 117, 197, getBlitOffset(), 59, 240, buttonObject -> {
+        addElement(new ChangePageButton(i - 117, 197, getBlitOffset(), 59, 240, buttonObject -> {
             if (currentIndex - 1 >= 0) {
                 this.currentIndex--;
                 this.initEntry();
@@ -196,6 +191,11 @@ public class ForbiddenmiconScreen extends ModScreen {
             RenderSystem.popMatrix();
         }
         super.render(x, y , p_render_3_);
+    }
+
+    @Override
+    public String getName() {
+        return "forbiddenmicon";
     }
 
     @Override

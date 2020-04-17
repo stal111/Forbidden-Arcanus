@@ -1,9 +1,12 @@
 package com.stal111.forbidden_arcanus.gui;
 
+import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
-public class ModScreen extends Screen {
+import java.util.List;
+
+public abstract class ModScreen extends Screen {
 
     public final GuiManager manager = new GuiManager();
 
@@ -22,5 +25,21 @@ public class ModScreen extends Screen {
     public boolean mouseClicked(double x, double y, int p_mouseClicked_5_) {
         manager.onClicked(x, y);
         return super.mouseClicked(x, y, p_mouseClicked_5_);
+    }
+
+    public abstract String getName();
+
+    public List<GuiElement> getElements() {
+        return manager.getElements(getName());
+    }
+
+    public void addElement(GuiElement element) {
+        manager.addGuiObject(getName(), element);
+    }
+
+    @Override
+    public void onClose() {
+        manager.clear();
+        super.onClose();
     }
 }
