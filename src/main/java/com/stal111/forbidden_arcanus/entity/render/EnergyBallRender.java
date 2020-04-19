@@ -37,13 +37,14 @@ public class EnergyBallRender extends EntityRenderer<EnergyBallEntity> {
         matrixStack.push();
         matrixStack.scale(1.0F, 1.0F, 1.0F);
 
-        IVertexBuilder ivertexbuilder = buffer.getBuffer(RenderType.getEntityCutout(this.getEntityTexture(entity)));
+        IVertexBuilder ivertexbuilder = buffer.getBuffer(RenderType.getEntityTranslucent(this.getEntityTexture(entity)));
         MatrixStack.Entry matrixstack$entry = matrixStack.getLast();
         Matrix4f matrix4f = matrixstack$entry.getMatrix();
 
         long t = System.currentTimeMillis() % 6;
 
         matrixStack.rotate(renderManager.getCameraOrientation());
+
 
         ivertexbuilder.pos(matrix4f, -1, -1, 0).color(255, 255, 255, 255).tex(0, 0 +  t * (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
         ivertexbuilder.pos(matrix4f, -1, 1, 0).color(255, 255, 255, 255).tex(0, 0 +  t * (1.0f / 4.0f) + (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
