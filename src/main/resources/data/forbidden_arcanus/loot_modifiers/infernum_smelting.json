@@ -1,0 +1,6 @@
+{
+  "type": "forbidden_arcanus:infernum_smelting",
+  "conditions": [
+  ],
+  "function": "forbidden_arcanus:infernum_smelting"
+}

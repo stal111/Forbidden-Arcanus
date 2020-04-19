@@ -1,16 +1,29 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.event.modifier.InfernumPickaxeLootModifier;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.TableLootEntry;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber
 public class LootTableListener {
+
+    public static void registerGlobalModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
+        register("infernum_smelting", new InfernumPickaxeLootModifier.Serializer());
+    }
+
+    private static <T extends GlobalLootModifierSerializer<?>> void register(String name, T serializer) {
+        serializer.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
+        ForgeRegistries.LOOT_MODIFIER_SERIALIZERS.register(serializer);
+    }
 
     @SubscribeEvent
     public static void onLootTableLoad(LootTableLoadEvent event) {
