@@ -1,8 +1,8 @@
 modLoader="javafml" #mandatory
-loaderVersion="[30,)" #mandatory (25 is current forge version)
+loaderVersion="[31,)" #mandatory (25 is current forge version)
 [[mods]] #mandatory
 modId="forbidden_arcanus" #mandatory
-version="1.15.1-1.0-beta-1" #mandatory
+version="${file.jarVersion}" #mandatory
  # A display name for the mod
 displayName="Forbidden & Arcanus" #mandatory
 credits="stal111, Xesar_Zk" #optional
