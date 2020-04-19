@@ -1,9 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
 
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
-import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.RecipePreviewElement;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,9 +30,5 @@ public enum ForbiddenmiconCategory {
 
     public List<GuiElement> getElements() {
         return elements;
-    }
-
-    public static Screen getScreen() {
-        return Minecraft.getInstance().currentScreen;
     }
 }
