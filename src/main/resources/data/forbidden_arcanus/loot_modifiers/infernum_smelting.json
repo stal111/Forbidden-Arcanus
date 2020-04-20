@@ -1,6 +1,12 @@
 {
   "type": "forbidden_arcanus:infernum_smelting",
   "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "item": "forbidden_arcanus:infernum_pickaxe"
+      }
+    }
   ],
   "function": "forbidden_arcanus:infernum_smelting"
 }
