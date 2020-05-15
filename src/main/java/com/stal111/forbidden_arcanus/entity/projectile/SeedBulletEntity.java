@@ -52,11 +52,11 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), world);
 	}
 
-	public SeedBulletEntity(EntityType<? extends ProjectileItemEntity> entityEntityType, World world) {
-		super(entityEntityType, world);
-	}
+    public SeedBulletEntity(EntityType<Entity> entityEntityType, World world) {
+		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), world);
+    }
 
-	@Override
+    @Override
 	protected void onImpact(RayTraceResult result) {
 		if (result.getType() == RayTraceResult.Type.ENTITY) {
 			Entity entity = ((EntityRayTraceResult)result).getEntity();

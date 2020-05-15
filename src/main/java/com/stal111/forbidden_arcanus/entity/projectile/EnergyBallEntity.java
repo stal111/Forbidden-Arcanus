@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
@@ -49,6 +50,10 @@ public class EnergyBallEntity extends Entity {
 
     public EnergyBallEntity(FMLPlayMessages.SpawnEntity packet, World world) {
         super(ModEntities.ENERGY_BALL.get(), world);
+    }
+
+    public EnergyBallEntity(EntityType<Entity> entityEntityType, World world) {
+        super(entityEntityType, world);
     }
 
     @Override

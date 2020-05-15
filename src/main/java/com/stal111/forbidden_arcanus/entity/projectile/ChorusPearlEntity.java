@@ -47,10 +47,8 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
         super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.get(), world);
     }
 
-
-    @SuppressWarnings("unchecked")
-    public ChorusPearlEntity(EntityType<? extends ProjectileItemEntity> entityEntityType, World world) {
-        super((EntityType<? extends ProjectileItemEntity>) entityEntityType, world);
+    public ChorusPearlEntity(EntityType<Entity> entityEntityType, World world) {
+        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.get(), world);
     }
 
     @Override

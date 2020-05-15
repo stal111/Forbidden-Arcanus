@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -35,6 +36,10 @@ public class DracoArcanusArrowEntity extends AbstractArrowEntity {
 
     @SuppressWarnings("unchecked")
     public DracoArcanusArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), world);
+    }
+
+    public DracoArcanusArrowEntity(EntityType<Entity> entityEntityType, World world) {
         super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), world);
     }
 

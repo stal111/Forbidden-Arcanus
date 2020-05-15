@@ -80,6 +80,7 @@ public class Main {
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+		ModEntities.ENTITY_TYPES.register(modEventBus);
 		ModItems.ITEMS.register(modEventBus);
 		ModTileEntities.TILE_ENTITIES.register(modEventBus);
 		ModParticles.PARTICLE_TYPES.register(modEventBus);
@@ -157,13 +158,6 @@ public class Main {
 		@SubscribeEvent
 		public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
 			ModContainers.register(event);
-		}
-
-		@SubscribeEvent
-		public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
-			for (ModEntities entity : ModEntities.values()) {
-				event.getRegistry().register(entity.get());
-			}
 		}
 
 //

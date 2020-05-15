@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModEntities;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -33,6 +34,10 @@ public class BoomArrowEntity extends AbstractArrowEntity {
 
     @SuppressWarnings("unchecked")
     public BoomArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
+        super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), world);
+    }
+
+    public BoomArrowEntity(EntityType<Entity> entityEntityType, World world) {
         super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), world);
     }
 
