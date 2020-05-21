@@ -50,7 +50,17 @@ public class PixieModel extends EntityModel<PixieEntity> {
 	}
 
 	@Override
-	public void setRotationAngles(PixieEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+	public void setRotationAngles(PixieEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.WingUp0.rotateAngleY = MathHelper.cos(ageInTicks * 0.75F) * (float) Math.PI * 0.25F;
+		this.WingUp1.rotateAngleY = -this.WingUp0.rotateAngleY;
+		this.WingBottom0.rotateAngleZ = MathHelper.cos(ageInTicks * 0.75F) * (float) Math.PI * 0.15F;
+		this.WingBottom1.rotateAngleZ = -this.WingBottom0.rotateAngleZ;
+		this.Cuerpo.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
+		this.WingUp0.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
+		this.WingUp1.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
+		this.WingBottom0.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
+		this.WingBottom1.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
+
 	}
 
 	@Override
