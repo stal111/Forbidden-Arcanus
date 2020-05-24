@@ -2,16 +2,16 @@ package com.stal111.forbidden_arcanus.entity.model;// Made with Blockbench 3.5.2
 // Exported for Minecraft version 1.15
 // Paste this class into your mod and generate all required imports
 
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.math.MathHelper;
 
-public class PixieModel extends EntityModel<PixieEntity> {
+public class PixieModel<T extends PixieEntity> extends EntityModel<T> {
 
 	private final ModelRenderer Cuerpo;
 	private final ModelRenderer WingUp0;
@@ -50,7 +50,7 @@ public class PixieModel extends EntityModel<PixieEntity> {
 	}
 
 	@Override
-	public void setRotationAngles(PixieEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.WingUp0.rotateAngleY = MathHelper.cos(ageInTicks * 0.75F) * (float) Math.PI * 0.25F;
 		this.WingUp1.rotateAngleY = -this.WingUp0.rotateAngleY;
 		this.WingBottom0.rotateAngleZ = MathHelper.cos(ageInTicks * 0.75F) * (float) Math.PI * 0.15F;
@@ -60,7 +60,6 @@ public class PixieModel extends EntityModel<PixieEntity> {
 		this.WingUp1.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
 		this.WingBottom0.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
 		this.WingBottom1.rotationPointY = 19.0F - MathHelper.cos(ageInTicks * 0.18F) * 0.9F;
-
 	}
 
 	@Override

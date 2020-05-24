@@ -10,13 +10,14 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel> {
+public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel<PixieEntity>> {
 
     private static final ResourceLocation PIXIE_TEXTURES = new ResourceLocation(Main.MOD_ID, "textures/entity/pixie.png");
     private static final RenderType RENDER_TYPE = RenderType.getEntityTranslucent(PIXIE_TEXTURES);
 
     public PixieRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new PixieModel(), 0.4F);
+        super(renderManagerIn, new PixieModel<>(), 0.4F);
+        this.addLayer(new PixieLayer<>(this));
     }
 
     @Override
