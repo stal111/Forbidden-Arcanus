@@ -5,17 +5,21 @@ import com.stal111.forbidden_arcanus.enchantment.ModEnchantment;
 import com.stal111.forbidden_arcanus.item.EdelwoodBucketItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ModEnchantments {
 
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = new DeferredRegister<>(ForgeRegistries.ENCHANTMENTS, Main.MOD_ID);
 
     public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new EnchantmentBuilder(Enchantment.Rarity.UNCOMMON, ModEnchantmentType.EDELWOOD_BUCKET, EquipmentSlotType.MAINHAND).isTreasure().build());
-    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, EnchantmentType.BREAKABLE, EquipmentSlotType.MAINHAND).minAndMaxEnchantability(20, 60).build());
+    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, EnchantmentType.BREAKABLE, EquipmentSlotType.MAINHAND).minAndMaxEnchantability(20, 60).blacklistedEnchantments(Collections.singletonList(Enchantments.UNBREAKING)).build());
 
     private static <T extends Enchantment> RegistryObject<T> register(String name, T enchantment) {
         return ENCHANTMENTS.register(name, () -> enchantment);
@@ -46,6 +50,11 @@ public class ModEnchantments {
 
         public EnchantmentBuilder isTreasure() {
             enchantment.isTreasure = true;
+            return this;
+        }
+
+        public EnchantmentBuilder blacklistedEnchantments(List<Enchantment> blacklistedEnchantments) {
+            enchantment.blacklistedEnchantments = blacklistedEnchantments;
             return this;
         }
 
