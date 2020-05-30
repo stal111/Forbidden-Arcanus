@@ -29,11 +29,7 @@ public class BlockBreakListener {
 			World world = (World) event.getWorld();
 			BlockPos pos = event.getPos();
 			PlayerEntity player = event.getPlayer();
-			if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get())) {
-				if (stack.getMaxDamage() - stack.getDamage() <= 1 && !event.getPlayer().abilities.isCreativeMode) {
-					event.setCanceled(true);
-				}
-			}
+
 			if (state.getBlock() instanceof CropsBlock) {
 				if (world.getBlockState(pos.down()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock() && ((CropsBlock) state.getBlock()).isMaxAge(state)) {
 					if (!event.getPlayer().abilities.isCreativeMode) {
