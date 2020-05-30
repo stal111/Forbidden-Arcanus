@@ -12,8 +12,10 @@ import javax.annotation.Nullable;
 
 public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel<PixieEntity>> {
 
-    private static final ResourceLocation PIXIE_TEXTURES = new ResourceLocation(Main.MOD_ID, "textures/entity/pixie.png");
-    private static final RenderType RENDER_TYPE = RenderType.getEntityTranslucent(PIXIE_TEXTURES);
+    private static final ResourceLocation[] PIXIE_TEXTURES = new ResourceLocation[]{
+            new ResourceLocation(Main.MOD_ID, "textures/entity/pixie.png"),
+            new ResourceLocation(Main.MOD_ID, "textures/entity/corrupted_pixie.png")
+    };
 
     public PixieRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new PixieModel<>(), 0.4F);
@@ -22,12 +24,12 @@ public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel<PixieEnti
 
     @Override
     public ResourceLocation getEntityTexture(PixieEntity entity) {
-        return PIXIE_TEXTURES;
+        return PIXIE_TEXTURES[entity.getVariant()];
     }
 
     @Nullable
     @Override
-    protected RenderType func_230042_a_(PixieEntity p_230042_1_, boolean p_230042_2_, boolean p_230042_3_) {
-        return RENDER_TYPE;
+    protected RenderType func_230042_a_(PixieEntity entity, boolean p_230042_2_, boolean p_230042_3_) {
+        return RenderType.getEntityTranslucent(PIXIE_TEXTURES[entity.getVariant()]);
     }
 }

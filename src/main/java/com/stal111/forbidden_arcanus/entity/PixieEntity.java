@@ -15,6 +15,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
@@ -22,6 +26,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -34,6 +39,7 @@ import java.util.function.Predicate;
 
 public class PixieEntity extends TameableEntity implements IFlyingAnimal {
 
+    private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(ParrotEntity.class, DataSerializers.VARINT);
     private static final Set<Item> TAME_ITEMS = Sets.newHashSet(ModItems.ARCANE_CRYSTAL_DUST.get(), ModItems.SOUL.get());
 
     private int underWaterTicks;
@@ -157,11 +163,20 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
             }
 
             return true;
-        } else if (this.isTamed() && ModUtils.isShiftDown()) {
+        } else if (getVariant() == 0 && itemstack.getItem() == ModItems.DARK_SOUL.get()) {
+            if (!player.abilities.isCreativeMode) {
+                itemstack.shrink(1);
+            }
+
+            if (rand.nextDouble() <= 0.1D) {
+                setVariant(1);
+            }
+            return true;
+        } else if (this.isTamed() && player.isCrouching() && player.getUniqueID() == getOwnerId()) {
             if (!this.world.isRemote()) {
                 this.remove();
 
-                ItemStack stack = new ItemStack(ModItems.PIXIE.get());
+                ItemStack stack = getVariant() == 0 ? new ItemStack(ModItems.PIXIE.get()) : new ItemStack(ModItems.CORRUPTED_PIXIE.get());
 
                 if (!player.addItemStackToInventory(stack)) {
                     player.dropItem(stack, false);
@@ -183,6 +198,32 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
         flyingpathnavigator.setCanSwim(false);
         flyingpathnavigator.setCanEnterDoors(true);
         return flyingpathnavigator;
+    }
+
+    public int getVariant() {
+        return MathHelper.clamp(this.dataManager.get(VARIANT), 0, 1);
+    }
+
+    public void setVariant(int variant) {
+        this.dataManager.set(VARIANT, variant);
+    }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(VARIANT, 0);
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putInt("Variant", this.getVariant());
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setVariant(compound.getInt("Variant"));
     }
 
     class WanderGoal extends Goal {
