@@ -10,8 +10,6 @@ import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadLi
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
-import com.stal111.forbidden_arcanus.particle.ModBreakingParticle;
-import com.stal111.forbidden_arcanus.particle.SoulParticle;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
@@ -24,8 +22,6 @@ import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
 import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -33,9 +29,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -169,13 +162,6 @@ public class Main {
 		@SubscribeEvent
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 			ModSounds.register(event);
-		}
-
-		@OnlyIn(Dist.CLIENT)
-		@SubscribeEvent
-		public static void registerFactories(ParticleFactoryRegisterEvent event) {
-			Minecraft.getInstance().particles.registerFactory(ModParticles.SOUL.get(), SoulParticle.Factory::new);
-			Minecraft.getInstance().particles.registerFactory(ModParticles.ITEM_SEED_BULLET.get(), new ModBreakingParticle.Factory());
 		}
 
 		@SubscribeEvent
