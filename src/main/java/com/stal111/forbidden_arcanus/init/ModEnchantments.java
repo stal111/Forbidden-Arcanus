@@ -11,7 +11,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class ModEnchantments {
@@ -19,7 +19,7 @@ public class ModEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = new DeferredRegister<>(ForgeRegistries.ENCHANTMENTS, Main.MOD_ID);
 
     public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new EnchantmentBuilder(Enchantment.Rarity.UNCOMMON, ModEnchantmentType.EDELWOOD_BUCKET, EquipmentSlotType.MAINHAND).isTreasure().build());
-    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, EnchantmentType.BREAKABLE, EquipmentSlotType.MAINHAND).minAndMaxEnchantability(20, 60).blacklistedEnchantments(Collections.singletonList(Enchantments.UNBREAKING)).build());
+    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, EnchantmentType.BREAKABLE, EquipmentSlotType.MAINHAND).minAndMaxEnchantability(20, 60).blacklistedEnchantments(Arrays.asList(Enchantments.UNBREAKING, Enchantments.MENDING)).build());
 
     private static <T extends Enchantment> RegistryObject<T> register(String name, T enchantment) {
         return ENCHANTMENTS.register(name, () -> enchantment);
