@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.15.2-1.4-beta-1'
+version = '1.15.2-1.4-beta-2'
 group = 'com.stal111.forbidden_arcanus' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'forbidden_arcanus'
 
