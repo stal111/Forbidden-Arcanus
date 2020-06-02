@@ -6,6 +6,8 @@ import com.stal111.forbidden_arcanus.particle.SoulParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -26,6 +28,7 @@ public class ModParticles {
         return PARTICLE_TYPES.register(name, () -> particleType);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerParticleTypes(ParticleFactoryRegisterEvent event) {
         if (checkForNonNullWithReflection(ModParticles.SOUL)) {
