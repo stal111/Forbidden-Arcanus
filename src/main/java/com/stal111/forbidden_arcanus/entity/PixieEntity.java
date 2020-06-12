@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.entity;
 
 import com.google.common.collect.Sets;
+import com.stal111.forbidden_arcanus.entity.ai.FlyingAvoidEntityGoal;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModUtils;
@@ -9,6 +10,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -46,7 +48,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
 
     public PixieEntity(EntityType<Entity> type, World world) {
         super((EntityType<? extends TameableEntity>) ModEntities.PIXIE.get(), world);
-        this.moveController = new FlyingMovementController(this, 20, true);
+        this.moveController = new FlyingMovementController(this, 15, true);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
         this.setPathPriority(PathNodeType.COCOA, -1.0F);
         this.setPathPriority(PathNodeType.FENCE, -1.0F);
@@ -54,7 +56,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
 
     protected PixieEntity(World world) {
         super((EntityType<? extends TameableEntity>) ModEntities.PIXIE.get(), world);
-        this.moveController = new FlyingMovementController(this, 20, true);
+        this.moveController = new FlyingMovementController(this, 15, true);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
         this.setPathPriority(PathNodeType.COCOA, -1.0F);
         this.setPathPriority(PathNodeType.FENCE, -1.0F);
@@ -62,7 +64,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
 
     public PixieEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
         super((EntityType<? extends TameableEntity>) ModEntities.PIXIE.get(), world);
-        this.moveController = new FlyingMovementController(this, 20, true);
+        this.moveController = new FlyingMovementController(this, 15, true);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
         this.setPathPriority(PathNodeType.COCOA, -1.0F);
         this.setPathPriority(PathNodeType.FENCE, -1.0F);
@@ -74,10 +76,11 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, PlayerEntity.class, 16.0F, 2.0D, 1.5D));
-        this.goalSelector.addGoal(2, new PixieEntity.WanderGoal());
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(2, new FlyingAvoidEntityGoal<>(this, SkeletonEntity.class, 15.0F, 1.3D, 1.7D));
+        this.goalSelector.addGoal(2, new FlyingAvoidEntityGoal<>(this, PlayerEntity.class, 15.0F, 1.3D, 1.7D));
+        this.goalSelector.addGoal(3, new PixieEntity.WanderGoal());
     }
 
     @Override
@@ -128,8 +131,8 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntitySize sizeIn) {
-        return sizeIn.height / 2.0F;
+    protected float getStandingEyeHeight(Pose pose, EntitySize size) {
+        return size.height * 0.6F;
     }
 
     @Nullable
@@ -156,9 +159,9 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
             if (!this.world.isRemote) {
                 if (this.rand.nextInt(10) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
                     this.setTamedBy(player);
-                    this.world.setEntityState(this, (byte)7);
+                    this.world.setEntityState(this, (byte) 7);
                 } else {
-                    this.world.setEntityState(this, (byte)6);
+                    this.world.setEntityState(this, (byte) 6);
                 }
             }
 
