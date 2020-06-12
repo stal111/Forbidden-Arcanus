@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "forbidden_arcanus:dragon_scale",
+    "forbidden_arcanus:silver_dragon_scale",
+    "forbidden_arcanus:golden_dragon_scale",
+    "forbidden_arcanus:aquatic_dragon_scale"
+  ]
+}
