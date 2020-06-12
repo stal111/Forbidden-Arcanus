@@ -7,6 +7,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ElytraItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -19,7 +20,7 @@ public class ModEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = new DeferredRegister<>(ForgeRegistries.ENCHANTMENTS, Main.MOD_ID);
 
     public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new EnchantmentBuilder(Enchantment.Rarity.UNCOMMON, ModEnchantmentType.EDELWOOD_BUCKET, EquipmentSlotType.MAINHAND).isTreasure().build());
-    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, EnchantmentType.BREAKABLE, EquipmentSlotType.MAINHAND).minAndMaxEnchantability(20, 60).blacklistedEnchantments(Arrays.asList(Enchantments.UNBREAKING, Enchantments.MENDING)).build());
+    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, ModEnchantmentType.BREAKABLE_NOT_ELYTRA, EquipmentSlotType.MAINHAND).minAndMaxEnchantability(20, 60).blacklistedEnchantments(Arrays.asList(Enchantments.UNBREAKING, Enchantments.MENDING)).build());
 
     private static <T extends Enchantment> RegistryObject<T> register(String name, T enchantment) {
         return ENCHANTMENTS.register(name, () -> enchantment);
@@ -27,6 +28,8 @@ public class ModEnchantments {
 
     public static class ModEnchantmentType {
         public static final EnchantmentType EDELWOOD_BUCKET = EnchantmentType.create("EDELWOOD_BUCKET", item -> item instanceof EdelwoodBucketItem);
+        public static final EnchantmentType BREAKABLE_NOT_ELYTRA = EnchantmentType.create("BREAKABLE_NOT_ELYTRA", item -> item.isDamageable() && !(item instanceof ElytraItem));
+
     }
 
     public static class EnchantmentBuilder {
