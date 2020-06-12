@@ -24,19 +24,6 @@ public class TooltipListener {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void onItemTooltip(ItemTooltipEvent event) {
-        ItemStack stack = event.getItemStack();
-        if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get())) {
-            if (stack.isDamageable()) {
-                if (stack.getMaxDamage() - stack.getDamage() <= 1) {
-                    event.getToolTip().add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".broken").applyTextStyle(TextFormatting.RED));
-                }
-            }
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
     public static void onRenderTooltipPostText(RenderTooltipEvent.PostText event) {
         ItemStack stack = event.getStack();
         if (stack.getItem() instanceof ICapacityBucket && !(stack.getItem() instanceof EdelwoodFishBucketItem)) {
