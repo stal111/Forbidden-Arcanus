@@ -4,22 +4,20 @@ import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.passive.AmbientEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.*;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectType;
+import net.minecraft.potion.Effects;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 
-import java.awt.*;
 import java.util.List;
-import java.util.Objects;
 
 public class SpectralEyeEffect extends Effect {
 
@@ -56,10 +54,10 @@ public class SpectralEyeEffect extends Effect {
                 } else if (!(livingEntity instanceof PlayerEntity)) {
                     scoreboard.addPlayerToTeam(livingEntity.getScoreboardName(), teamWater);
                 }
-                livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 10, 0, true, true, false));
+                livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 0, true, true, false));
             }
 
-            if (i <= 20) {
+            if (i <= 5) {
                 ModUtils.removeTeam(scoreboard, teamPassiveOrNeutral);
                 ModUtils.removeTeam(scoreboard, teamHostile);
                 ModUtils.removeTeam(scoreboard, teamWater);

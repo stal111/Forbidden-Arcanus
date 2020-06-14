@@ -253,7 +253,7 @@
     "item.forbidden_arcanus.boom_arrow": "Boom Arrow",
     "item.forbidden_arcanus.draco_arcanus_arrow": "Draco Arcanus Arrow",
 
-    "_____comment": "Tooltips",
+    "tooltips": "Tooltips",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",
     "tooltip.forbidden_arcanus.obsidian_skull": "Grants you Fire Resistance I",
     "tooltip.forbidden_arcanus.obsidian_skull_shield": "Grants you Fire Resistance I and Resistance I",
@@ -261,7 +261,9 @@
     "tooltip.forbidden_arcanus.mystical_dagger": "Contains some dark magic...",
     "tooltip.forbidden_arcanus.soul_extractor": "Used to extract Souls from Soul Sand",
     "tooltip.forbidden_arcanus.edelwood_ladder": "Twice as fast as a normal Ladder",
-    "tooltip.forbidden_arcanus.broken": "Broken!",
+    "tooltip.forbidden_arcanus.activated": "Activated",
+    "tooltip.forbidden_arcanus.deactivated": "Deactivated",
+    "tooltip.forbidden_arcanus.toggle": "(Right-Click to toggle)",
 
     "______comment": "Containers",
     "container.dark_beacon": "Dark Beacon",
