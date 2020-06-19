@@ -4,12 +4,14 @@ import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
+import com.stal111.forbidden_arcanus.capability.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.event.LootTableListener;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadListener;
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
+import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
@@ -99,6 +101,9 @@ public class Main {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		proxy.init();
+
+		NetworkHandler.registerMessages();
+
 		ModWoodType.register(ModWoodType.EDELWOOD);
 		ModWoodType.register(ModWoodType.CHERRYWOOD);
 		ModWoodType.register(ModWoodType.MYSTERYWOOD);
@@ -111,11 +116,12 @@ public class Main {
 		ModUtils.addStrippable(ModBlocks.MYSTERYWOOD.getBlock(), ModBlocks.STRIPPED_MYSTERYWOOD.getBlock());
 
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
+
+		FlightTimeLeftCapability.register();
 	}
 
 	@SubscribeEvent
 	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
-		System.out.println("SERVER ABOUT TO START!");
 		event.getServer().resourceManager.addReloadListener(PAGE_LOADER);
 	}
 

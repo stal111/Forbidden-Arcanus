@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.capability.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.init.ModEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,11 +25,12 @@ public class OrbOfTemporaryFlightItem extends Item {
 		if (!player.abilities.isCreativeMode) {
 			stack.shrink(1);
 		}
-		if (!world.isRemote) {
-			player.addPotionEffect(new EffectInstance(ModEffects.FLY.get(), 6000, 0, true, false, true));
-		}
+
+		player.getCapability(FlightTimeLeftCapability.FLIGHT_TIME_LEFT_CAPABILITY).ifPresent(iFlightTimeLeft ->
+				iFlightTimeLeft.setFlightTimeLeft(iFlightTimeLeft.getFlightTimeLeft() + 6000));
+
+
 		player.addStat(Stats.ITEM_USED.get(this));
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);
 	}
-
 }
