@@ -264,6 +264,7 @@
     "tooltip.forbidden_arcanus.activated": "Activated",
     "tooltip.forbidden_arcanus.deactivated": "Deactivated",
     "tooltip.forbidden_arcanus.toggle": "(Right-Click to toggle)",
+    "tooltip.forbidden_arcanus.duration": "Duration",
 
     "______comment": "Containers",
     "container.dark_beacon": "Dark Beacon",
