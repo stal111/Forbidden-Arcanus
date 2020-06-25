@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.event;
 
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.item.*;
@@ -73,7 +74,7 @@ public class PlayerInteractListener {
 		Entity entity = event.getTarget();
 		ItemStack stack = event.getItemStack();
 		if (!stack.isEmpty()) {
-			if (stack.getItem() == ModItems.MUNDABITUR_DUST.get()) {
+			if (stack.getItem() == ModItems.MUNDABITUR_DUST.get() && ItemConfig.MUNDABITUR_DUST_CHARGE_CREEPER.get()) {
 				if (entity instanceof CreeperEntity) {
 					CreeperEntity creeperEntity = (CreeperEntity) entity;
 					if (!creeperEntity.getDataManager().get(CreeperEntity.POWERED)) {

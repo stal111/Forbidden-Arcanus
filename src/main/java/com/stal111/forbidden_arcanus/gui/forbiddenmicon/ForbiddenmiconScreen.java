@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.gui.ModScreen;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.ImageElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.RecipePreviewElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangeCategoryButton;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangePageButton;
@@ -93,9 +94,13 @@ public class ForbiddenmiconScreen extends ModScreen {
     }
 
     private void initEntry() {
+        getElements().removeIf(guiObject -> guiObject instanceof ImageElement);
+
         if (Main.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).size() != 0) {
             this.entry = (ForbiddenmiconEntry) Main.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).toArray()[currentIndex];
             this.cachedPageLines = RenderComponentsUtil.splitText(new StringTextComponent(entry.getDescription()), 130, this.font, true, true);
+
+            addElement(new ImageElement(this.width / 2 - 116, 61));
         } else {
             this.entry = null;
         }
@@ -182,7 +187,6 @@ public class ForbiddenmiconScreen extends ModScreen {
 
             RenderSystem.pushMatrix();
             this.minecraft.getTextureManager().bindTexture(FORBIDDENMICON_GUI_TEXTURES);
-            addImage();
             addText();
 
             if (recipePreview != null) {

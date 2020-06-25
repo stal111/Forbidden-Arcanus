@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.entity.projectile;
 
+import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import net.minecraft.entity.Entity;
@@ -62,7 +63,7 @@ public class BoomArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected void arrowHit(LivingEntity entity) {
-        this.world.createExplosion(this, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 3, Explosion.Mode.NONE);
+        this.world.createExplosion(this, entity.getPosX(), entity.getPosY(), entity.getPosZ(), ItemConfig.BOOM_ARROW_EXPLOSION_RADIUS.get(), ItemConfig.BOOM_ARROW_BLOCK_DAMAGE.get() ? Explosion.Mode.BREAK : Explosion.Mode.NONE);
         super.arrowHit(entity);
     }
 }
