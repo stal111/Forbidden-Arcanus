@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -24,11 +25,8 @@ import java.util.List;
 
 public class EdelwoodMilkBucketItem extends Item implements ICapacityBucket {
 
-    private int capacity;
-
-    public EdelwoodMilkBucketItem(int capacity, Properties properties) {
+    public EdelwoodMilkBucketItem(Properties properties) {
         super(properties);
-        this.capacity = capacity;
     }
 
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
@@ -92,6 +90,6 @@ public class EdelwoodMilkBucketItem extends Item implements ICapacityBucket {
 
     @Override
     public int getCapacity() {
-        return capacity;
+        return ItemConfig.EDELWOOD_MILK_BUCKET_CAPACITY.get();
     }
 }

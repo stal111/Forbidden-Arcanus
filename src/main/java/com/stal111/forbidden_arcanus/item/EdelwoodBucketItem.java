@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
@@ -41,13 +42,11 @@ import java.util.Random;
 public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 
     private final Fluid containedBlock;
-    private int capacity;
 
-    public EdelwoodBucketItem(Fluid containedFluidIn, int capacity, Item.Properties builder) {
-        super(builder);
+    public EdelwoodBucketItem(Fluid containedFluidIn, Item.Properties properties) {
+        super(properties);
         this.containedBlock = containedFluidIn;
         this.fluidSupplier = containedFluidIn.delegate;
-        this.capacity = capacity;
     }
 
     @Override
@@ -240,6 +239,6 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 
     @Override
     public int getCapacity() {
-        return capacity;
+        return this == ModItems.EDELWOOD_BUCKET.get() ? 0 : this == ModItems.EDELWOOD_WATER_BUCKET.get() ? ItemConfig.EDELWOOD_WATER_BUCKET_CAPACITY.get() : ItemConfig.EDELWOOD_LAVA_BUCKET_CAPACITY.get();
     }
 }

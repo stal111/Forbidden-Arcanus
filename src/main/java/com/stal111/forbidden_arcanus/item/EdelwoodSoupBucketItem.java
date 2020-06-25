@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.client.util.ITooltipFlag;
@@ -18,11 +19,8 @@ import java.util.List;
 
 public class EdelwoodSoupBucketItem extends Item implements ICapacityBucket {
 
-    private int capacity;
-
-    public EdelwoodSoupBucketItem(int capacity, Properties properties) {
+    public EdelwoodSoupBucketItem(Properties properties) {
         super(properties);
-        this.capacity = capacity;
     }
 
     @Override
@@ -52,6 +50,6 @@ public class EdelwoodSoupBucketItem extends Item implements ICapacityBucket {
 
     @Override
     public int getCapacity() {
-        return capacity;
+        return ItemConfig.EDELWOOD_SOUP_BUCKET_CAPACITY.get();
     }
 }

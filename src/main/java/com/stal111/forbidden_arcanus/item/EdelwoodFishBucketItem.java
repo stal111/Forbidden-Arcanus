@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.client.util.ITooltipFlag;
@@ -30,8 +31,8 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
 
     private final EntityType<?> fishType;
 
-    public EdelwoodFishBucketItem(EntityType<?> fishType, Fluid containedFluidIn, int capacity, Properties builder) {
-        super(containedFluidIn, capacity, builder);
+    public EdelwoodFishBucketItem(EntityType<?> fishType, Fluid containedFluidIn, Properties builder) {
+        super(containedFluidIn, builder);
         this.fishType = fishType;
     }
 
@@ -95,5 +96,10 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
                 tooltip.add(textComponent);
             }
         }
+    }
+
+    @Override
+    public int getCapacity() {
+        return ItemConfig.EDELWOOD_WATER_BUCKET_CAPACITY.get();
     }
 }
