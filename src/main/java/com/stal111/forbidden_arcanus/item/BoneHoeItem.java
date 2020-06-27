@@ -10,10 +10,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class BoneHoeItem extends HoeItem {
+public class BoneHoeItem extends ModHoeItem {
 
-    public BoneHoeItem(IItemTier tier, float attackSpeedIn, Item.Properties builder) {
-        super(tier, attackSpeedIn, builder);
+    public BoneHoeItem(IItemTier tier, int something, float attackSpeedIn, Item.Properties builder) {
+        super(tier, something, attackSpeedIn, builder);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BoneHoeItem extends HoeItem {
             } else {
                 BlockState blockstate = world.getBlockState(blockpos);
                 boolean flag1 = blockstate.isSolidSide(world, blockpos, context.getFace());
-                if (flag1 && ModUtils.growSeagrass(context.getItem(), (ServerWorld) world, blockpos1, context.getFace())) {
+                if (flag1 && BoneMealItem.growSeagrass(context.getItem(), world, blockpos1, context.getFace())) {
                     if (!world.isRemote) {
                         world.playEvent(2005, blockpos1, 0);
                         if (playerEntity != null) {

@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.item.EdelwoodFishBucketItem;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import com.stal111.forbidden_arcanus.util.TooltipUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -38,12 +39,12 @@ public class TooltipListener {
                 for (int i = 0; i < fullness; i++) {
                     int x = event.getX() + i * 14 - 2;
 
-                    RenderUtils.renderItemTexture(x, y, stack);
+                    Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
                 }
                 for (int i = 0; i < (capacity - fullness); i++) {
                     int x = event.getX() + i * 14 + (fullness * 14 - 2);
 
-                    RenderUtils.renderItemTexture(x, y, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
+                    Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModItems.EDELWOOD_BUCKET.get()), x, y);
                 }
                 RenderSystem.popMatrix();
             }

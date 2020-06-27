@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.gui.GuiManager;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
@@ -90,10 +91,10 @@ public class RecipePreviewElement extends GuiElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         if (activeRecipeCategory != null) {
             bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-            blit(blitOffset, 275, 97, 111, 68, 256, 512);
+            blit(matrixStack, blitOffset, 275, 97, 111, 68, 256, 512);
 
             int i = 0;
             int j = 88;
@@ -105,17 +106,17 @@ public class RecipePreviewElement extends GuiElement {
             }
 
             while (i > 0) {
-                blit(getPosX() + j, 192, blitOffset, 379, 169, 17, 7, 256, 512);
+                blit(matrixStack, getPosX() + j, 192, blitOffset, 379, 169, 17, 7, 256, 512);
                 j -= 18;
                 i--;
             }
 
             if (activeRecipeCategory == RecipeCategory.CRAFTING) {
-                blit(getPosX() + 6, 131, blitOffset, 221, 195, 98, 56, 256, 512);
+                blit(matrixStack, getPosX() + 6, 131, blitOffset, 221, 195, 98, 56, 256, 512);
             } else if (activeRecipeCategory == RecipeCategory.SMELTING) {
-                blit(getPosX() + 26, 143, blitOffset, 330, 206, 61, 35, 256, 512);
+                blit(matrixStack, getPosX() + 26, 143, blitOffset, 330, 206, 61, 35, 256, 512);
                 RenderSystem.scalef(0.77F, 0.77F, 1.0F);
-                font.drawString(new TranslationTextComponent("forbiddenmicon.recipe.smelting." + activeFurnaceType.toString().toLowerCase()).getFormattedText(), (getPosX() +  8) * 1.29F, (getPosY() + 5) * 1.29F, 0xFFFFFF);
+                font.func_238407_a_(matrixStack, new TranslationTextComponent("forbiddenmicon.recipe.smelting." + activeFurnaceType.toString().toLowerCase()), (getPosX() +  8) * 1.29F, (getPosY() + 5) * 1.29F, 0xFFFFFF);
             }
         }
     }

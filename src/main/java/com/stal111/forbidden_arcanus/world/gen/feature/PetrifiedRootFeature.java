@@ -1,30 +1,30 @@
 package com.stal111.forbidden_arcanus.world.gen.feature;
 
-import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.ISeedReader;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraftforge.common.Tags;
+import net.minecraft.world.gen.feature.structure.StructureManager;
 
 import java.util.Random;
-import java.util.function.Function;
 
 public class PetrifiedRootFeature extends Feature<NoFeatureConfig> {
 
-    public PetrifiedRootFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn) {
-        super(configFactoryIn);
+    public PetrifiedRootFeature(Codec<NoFeatureConfig> noFeatureConfigCodec) {
+        super(noFeatureConfigCodec);
     }
 
     @Override
-    public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+    public boolean func_230362_a_(ISeedReader seedReader, StructureManager manager, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig noFeatureConfig) {
+        World world = seedReader.getWorld();
         int i = 0;
+
         if (!world.isAirBlock(pos)) {
             return false;
         } else if (world.getBlockState(pos.up()).getBlock() != Blocks.STONE) {

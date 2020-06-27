@@ -10,7 +10,7 @@ import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages;
@@ -54,7 +54,7 @@ public class BoomArrowEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
-        Vec3d vec3d1 = this.getMotion();
+        Vector3d vec3d1 = this.getMotion();
         if (this.world.isRemote() && this.rand.nextDouble() >= 0.5) {
             this.world.addParticle(ParticleTypes.SMOKE, this.getPosX() - vec3d1.x, this.getPosY() - vec3d1.y + 0.05D, this.getPosZ() - vec3d1.z, 0.0D, 0.0D, 0.0D);
         }

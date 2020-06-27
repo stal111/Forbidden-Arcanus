@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 
@@ -17,21 +18,21 @@ public class ChangeRecipeButton extends ButtonElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         if (!isPressable()) {
             bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-            blit(getBlitOffset(), getStartX(), getStartY() + 16, 9, 11, 256, 512);
+            blit(matrixStack, getBlitOffset(), getStartX(), getStartY() + 16, 9, 11, 256, 512);
         } else {
-            super.render(x, y);
+            super.render(matrixStack, x, y);
         }
     }
 
     @Override
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         if (isMouseOver(x, y)) {
             if (isPressable()) {
                 bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-                blit(getBlitOffset(), getStartX(), getStartY() - 16, 9, 11, 256, 512);
+                blit(matrixStack, getBlitOffset(), getStartX(), getStartY() - 16, 9, 11, 256, 512);
             }
         }
     }

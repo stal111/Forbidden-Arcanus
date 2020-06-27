@@ -21,13 +21,13 @@ public class WorldGenerator {
 			if (biome.getTempCategory() == Biome.TempCategory.MEDIUM && biome.getPrecipitation() == Biome.RainType.RAIN) {
 				if(biome.getCategory() == Biome.Category.PLAINS) {
 					if (WorldGenConfig.CHERRYWOOD_TREE_GENERATE.get()) {
-						biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.CHERRYWOOD_TREE.getFeature().withConfiguration(BiomeFeatures.CHERRYWOOD_TREE).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig((int) 0.4, 0.1F, 1))));
+						//biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModFeatures.CHERRYWOOD_TREE.getFeature().withConfiguration(BiomeFeatures.CHERRYWOOD_TREE).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig((int) 0.4, 0.1F, 1))));
 					}
 				}
 
 				if (biome instanceof FlowerForestBiome) {
 					if(WorldGenConfig.MYSTERYWOOD_TREE_GENERATE.get())  {
-						biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FANCY_TREE.withConfiguration(BiomeFeatures.MYSTERYWOOD_TREE).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig((int) 0.8, 0.1F, 1))));
+						//biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FANCY_TREE.withConfiguration(BiomeFeatures.MYSTERYWOOD_TREE).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig((int) 0.8, 0.1F, 1))));
 					}
 					if(WorldGenConfig.YELLOW_ORCHID_GENERATE.get())  {
 						biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.FLOWER.withConfiguration(BiomeFeatures.YELLOW_ORCHID).withPlacement(Placement.COUNT_HEIGHTMAP_DOUBLE.configure(new FrequencyConfig(17))));

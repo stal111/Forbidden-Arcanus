@@ -40,7 +40,7 @@ public class BoneShovelItem extends ShovelItem {
             } else {
                 BlockState blockstate = world.getBlockState(blockpos);
                 boolean flag = blockstate.isSolidSide(world, blockpos, context.getFace());
-                if (flag && ModUtils.growSeagrass(context.getItem(), (ServerWorld) world, blockpos1, context.getFace())) {
+                if (flag && BoneMealItem.growSeagrass(context.getItem(), world, blockpos1, context.getFace())) {
                     if (!world.isRemote) {
                         world.playEvent(2005, blockpos1, 0);
                         if (playerEntity != null) {

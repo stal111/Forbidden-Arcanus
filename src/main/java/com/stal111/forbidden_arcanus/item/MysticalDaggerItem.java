@@ -51,6 +51,6 @@ public class MysticalDaggerItem extends SwordItem {
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add((new TranslationTextComponent("tooltip." + Main.MOD_ID + ".mystical_dagger")).applyTextStyle(TextFormatting.GRAY));
+        tooltip.add((new TranslationTextComponent("tooltip." + Main.MOD_ID + ".mystical_dagger")).func_240699_a_(TextFormatting.GRAY));
     }
 }

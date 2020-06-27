@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModParticles {
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = new DeferredRegister<>(ForgeRegistries.PARTICLE_TYPES, Main.MOD_ID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Main.MOD_ID);
 
     public static final RegistryObject<BasicParticleType> SOUL = register("soul", new BasicParticleType(false));
     public static final RegistryObject<BasicParticleType> ITEM_SEED_BULLET = register("item_seed_bullet", new BasicParticleType(false));

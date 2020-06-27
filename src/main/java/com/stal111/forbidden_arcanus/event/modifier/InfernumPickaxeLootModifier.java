@@ -6,9 +6,9 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
@@ -31,7 +31,7 @@ public class InfernumPickaxeLootModifier extends LootModifier {
     }
 
     private static ItemStack smelt(ItemStack stack, LootContext context) {
-        if (Tags.Blocks.ORES.contains(Block.getBlockFromItem(stack.getItem()))) {
+        if (Tags.Blocks.ORES.func_230235_a_(Block.getBlockFromItem(stack.getItem()))) {
             return context.getWorld().getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(stack), context.getWorld())
                     .map(FurnaceRecipe::getRecipeOutput)
                     .filter(itemStack -> !itemStack.isEmpty())

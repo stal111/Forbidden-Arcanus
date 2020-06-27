@@ -21,12 +21,13 @@ public class ForbiddenmiconItem extends Item {
 
     public ForbiddenmiconItem(Properties properties) {
         super(properties);
-        this.addPropertyOverride(new ResourceLocation("open"), (stack, world, entity) -> entity != null && isOpen(stack) ? 1.0F : 0.0F);
+        //TODO: new Property Override System?
+        //this.addPropertyOverride(new ResourceLocation("open"), (stack, world, entity) -> entity != null && isOpen(stack) ? 1.0F : 0.0F);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> list, ITooltipFlag flag) {
-        list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".forbiddenmicon").applyTextStyle(TextFormatting.GRAY));
+        list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".forbiddenmicon").func_240699_a_(TextFormatting.GRAY));
         super.addInformation(stack, world, list, flag);
     }
 

@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.item.ItemStack;
 
 public class ItemElement extends GuiElement {
@@ -17,15 +18,15 @@ public class ItemElement extends GuiElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         getMinecraft().getItemRenderer().renderItemAndEffectIntoGUI(stack, getPosX(), getPosY());
         getMinecraft().getItemRenderer().renderItemOverlays(getMinecraft().fontRenderer, stack, getPosX(), getPosY());
     }
 
     @Override
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         if (isMouseOver(x, y)) {
-            renderFancyTooltip(getCurrentScreen().getTooltipFromItem(stack), x, y);
+            renderFancyTooltip(matrixStack, getCurrentScreen().func_231151_a_(stack), x, y);
         }
     }
 }

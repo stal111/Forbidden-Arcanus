@@ -1,8 +1,9 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +27,19 @@ public class FlameElement extends GuiElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
         int i = fireType == FireType.FIRE ? 328 : 340;
-        blit(300, i, 242, getSizeX(), getSizeY(), 256, 512);
+        blit(matrixStack, 300, i, 242, getSizeX(), getSizeY(), 256, 512);
     }
 
     @Override
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + 10 && y < getPosY() + 13) {
-            List<String> list = new ArrayList<>();
-            list.add(new TranslationTextComponent("forbiddenmicon.recipe.cookingTime").getFormattedText() + ": " + cookingTime);
-            list.add(new TranslationTextComponent("forbiddenmicon.recipe.experience").getFormattedText() + ": " + experience);
-            renderFancyTooltip(list, x, y);
+            List<ITextComponent> list = new ArrayList<>();
+            list.add(new TranslationTextComponent("forbiddenmicon.recipe.cookingTime").func_230529_a_(new StringTextComponent(": " + cookingTime)));
+            list.add(new TranslationTextComponent("forbiddenmicon.recipe.experience").func_230529_a_(new StringTextComponent(": " + experience)));
+            renderFancyTooltip(matrixStack, list, x, y);
         }
     }
 

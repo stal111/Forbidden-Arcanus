@@ -20,7 +20,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -60,7 +60,7 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 	protected void onImpact(RayTraceResult result) {
 		if (result.getType() == RayTraceResult.Type.ENTITY) {
 			Entity entity = ((EntityRayTraceResult)result).getEntity();
-			entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 0);
+			entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.func_234616_v_()), 0);
 
 		}
 		if (!this.world.isRemote) {
@@ -94,7 +94,7 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3d vec3d = this.getMotion();
+		Vector3d vec3d = this.getMotion();
 		if (!this.isInWater()) {
 			this.world.addParticle(ParticleTypes.END_ROD, this.getPosX() - vec3d.x * 0.25D, (this.getPosY() - vec3d.y * 0.25D) + 0.2D, this.getPosZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
 		}

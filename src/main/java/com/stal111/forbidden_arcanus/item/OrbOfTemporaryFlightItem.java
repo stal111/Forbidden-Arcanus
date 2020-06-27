@@ -48,6 +48,7 @@ public class OrbOfTemporaryFlightItem extends Item {
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
 
-		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".duration").applyTextStyle(TextFormatting.GRAY).appendText(": " + StringUtils.ticksToElapsedTime(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
+		//TODO
+		//tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".duration").applyTextStyle(TextFormatting.GRAY).appendText(": " + StringUtils.ticksToElapsedTime(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
 	}
 }

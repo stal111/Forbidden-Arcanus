@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 
@@ -15,8 +16,8 @@ public class ImageElement extends GuiElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-        blit(300, 275, 29, getSizeX(), getSizeY(), 256, 512);
+        blit(matrixStack, 300, 275, 29, getSizeX(), getSizeY(), 256, 512);
     }
 }

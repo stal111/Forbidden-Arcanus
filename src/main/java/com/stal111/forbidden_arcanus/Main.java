@@ -108,8 +108,8 @@ public class Main {
 		ModWoodType.register(ModWoodType.CHERRYWOOD);
 		ModWoodType.register(ModWoodType.MYSTERYWOOD);
 
-		OreGenerator.setupOreGen();
-		WorldGenerator.setupWorldGen();
+		//OreGenerator.setupOreGen();
+		//WorldGenerator.setupWorldGen();
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD.getBlock());
 		ModUtils.addStrippable(ModBlocks.MYSTERYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.getBlock());
@@ -122,7 +122,8 @@ public class Main {
 
 	@SubscribeEvent
 	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
-		event.getServer().resourceManager.addReloadListener(PAGE_LOADER);
+		//TODO
+		//event.getServer().resourceManager.field_240952_b_.addReloadListener(PAGE_LOADER);
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

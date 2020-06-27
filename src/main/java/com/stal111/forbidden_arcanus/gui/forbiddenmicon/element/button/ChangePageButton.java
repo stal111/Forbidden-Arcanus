@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 
@@ -17,10 +18,10 @@ public class ChangePageButton extends ButtonElement {
     }
 
     @Override
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         if (isMouseOver(x, y)) {
             bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-            blit(getBlitOffset(), getStartX() + 52, getStartY(), getSizeX(), getSizeY(), 256, 512);
+            blit(matrixStack, getBlitOffset(), getStartX() + 52, getStartY(), getSizeX(), getSizeY(), 256, 512);
         }
     }
 

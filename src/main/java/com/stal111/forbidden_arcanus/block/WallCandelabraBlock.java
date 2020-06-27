@@ -7,8 +7,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.Item;
@@ -182,10 +182,11 @@ public class WallCandelabraBlock extends Block implements IWaterLoggable {
 
     }
 
-    @Override
-    public int getLightValue(BlockState state) {
-        return state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? super.getLightValue(state) + 12 + state.get(CANDLES) : 0;
-    }
+    //TODO
+//    @Override
+//    public int getLightValue(BlockState state) {
+//        return state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? super.getLightValue(state) + 12 + state.get(CANDLES) : 0;
+//    }
 
     @Override
     public PushReaction getPushReaction(BlockState p_149656_1_) {
@@ -208,7 +209,7 @@ public class WallCandelabraBlock extends Block implements IWaterLoggable {
     }
 
     @Override
-    public IFluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 }

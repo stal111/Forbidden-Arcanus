@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.util;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.client.Minecraft;
@@ -26,16 +27,5 @@ public class RenderUtils {
 
     public static void setRenderLayer(ModBlocks block, RenderType renderType) {
         RenderTypeLookup.setRenderLayer(block.getBlock(), renderType);
-    }
-
-    private static VertexFormat addTex2sToVertexFormat(VertexFormat format) {
-        List<VertexFormatElement> elements = new ArrayList<>(format.getElements());
-        elements.add(DefaultVertexFormats.TEX_2S);
-        return new VertexFormat(ImmutableList.copyOf(elements));
-    }
-
-    public static void renderItemTexture(int x, int y, ItemStack stack) {
-        Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(Main.MOD_ID, "textures/item/" + stack.getItem().getRegistryName().getPath() + ".png"));
-        AbstractGui.blit(x, y, 0, 0, 16, 16, 16, 16);
     }
 }

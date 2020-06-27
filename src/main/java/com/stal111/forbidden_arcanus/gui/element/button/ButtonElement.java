@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.element.button;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.util.ResourceLocation;
 
@@ -26,9 +27,9 @@ public abstract class ButtonElement extends GuiElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         bindTexture(resourceLocation);
-        blit(blitOffset, startX, startY, getSizeX(), getSizeY(), 256, 512);
+        blit(matrixStack, blitOffset, startX, startY, getSizeX(), getSizeY(), 256, 512);
     }
 
     @Override

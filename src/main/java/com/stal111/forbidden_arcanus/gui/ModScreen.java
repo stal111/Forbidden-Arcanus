@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
@@ -15,16 +16,16 @@ public abstract class ModScreen extends Screen {
     }
 
     @Override
-    public void render(int x, int y, float p_render_3_) {
-        manager.renderAll(x, y);
-        manager.renderHoverEffectAll(x, y);
-        super.render(x, y, p_render_3_);
+    public void func_230430_a_(MatrixStack matrixStack, int x, int y, float p_render_3_) {
+        manager.renderAll(matrixStack, x, y);
+        manager.renderHoverEffectAll(matrixStack, x, y);
+        super.func_230430_a_(matrixStack, x, y, p_render_3_);
     }
 
     @Override
-    public boolean mouseClicked(double x, double y, int p_mouseClicked_5_) {
+    public boolean func_231044_a_(double x, double y, int p_mouseClicked_5_) {
         manager.onClicked(x, y);
-        return super.mouseClicked(x, y, p_mouseClicked_5_);
+        return super.func_231044_a_(x, y, p_mouseClicked_5_);
     }
 
     public abstract String getName();
@@ -38,8 +39,8 @@ public abstract class ModScreen extends Screen {
     }
 
     @Override
-    public void onClose() {
+    public void func_231175_as__() {
         manager.clear();
-        super.onClose();
+        super.func_231175_as__();
     }
 }

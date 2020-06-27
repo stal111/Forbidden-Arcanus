@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
 
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = new net.minecraftforge.registries.DeferredRegister<>(ForgeRegistries.ENTITIES, Main.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Main.MOD_ID);
 
     public static final RegistryObject<EntityType<?>> CHORUS_PEARL = register("chorus_pearl", ChorusPearlEntity::new, EntityClassification.MISC, 1, 1);
     public static final RegistryObject<EntityType<?>> SEED_BULLET = register("seed_bullet", SeedBulletEntity::new, EntityClassification.MISC, 1, 1);

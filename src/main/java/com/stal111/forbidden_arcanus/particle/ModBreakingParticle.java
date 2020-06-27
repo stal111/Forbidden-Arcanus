@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.particle;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
@@ -18,7 +19,7 @@ public class ModBreakingParticle extends SpriteTexturedParticle {
     private final float field_217571_C;
     private final float field_217572_F;
 
-    private ModBreakingParticle(World p_i47644_1_, double p_i47644_2_, double p_i47644_4_, double p_i47644_6_, double p_i47644_8_, double p_i47644_10_, double p_i47644_12_, ItemStack p_i47644_14_) {
+    private ModBreakingParticle(ClientWorld p_i47644_1_, double p_i47644_2_, double p_i47644_4_, double p_i47644_6_, double p_i47644_8_, double p_i47644_10_, double p_i47644_12_, ItemStack p_i47644_14_) {
         this(p_i47644_1_, p_i47644_2_, p_i47644_4_, p_i47644_6_, p_i47644_14_);
         this.motionX *= (double)0.1F;
         this.motionY *= (double)0.1F;
@@ -28,7 +29,7 @@ public class ModBreakingParticle extends SpriteTexturedParticle {
         this.motionZ += p_i47644_12_;
     }
 
-    public ModBreakingParticle(World p_i47645_1_, double p_i47645_2_, double p_i47645_4_, double p_i47645_6_, ItemStack p_i47645_8_) {
+    public ModBreakingParticle(ClientWorld p_i47645_1_, double p_i47645_2_, double p_i47645_4_, double p_i47645_6_, ItemStack p_i47645_8_) {
         super(p_i47645_1_, p_i47645_2_, p_i47645_4_, p_i47645_6_, 0.0D, 0.0D, 0.0D);
         this.setSprite(Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(p_i47645_8_, p_i47645_1_, (LivingEntity)null).getParticleTexture());
         this.particleGravity = 1.0F;
@@ -63,7 +64,7 @@ public class ModBreakingParticle extends SpriteTexturedParticle {
 
         @Nullable
         @Override
-        public Particle makeParticle(BasicParticleType typeIn, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle makeParticle(BasicParticleType typeIn, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new ModBreakingParticle(world, x, y, z, new ItemStack(ModItems.SEED_BULLET.get()));
         }
     }

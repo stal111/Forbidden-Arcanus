@@ -14,6 +14,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,7 +40,7 @@ public class EnergyBallEntity extends Entity {
         this.shootingEntity = shooter;
         this.setLocationAndAngles(shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), shooter.rotationYaw, shooter.rotationPitch);
         this.setPosition(this.getPosX(), this.getPosY(), this.getPosZ());
-        this.setMotion(Vec3d.ZERO);
+        this.setMotion(Vector3d.ZERO);
 
         double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
 
@@ -74,16 +75,16 @@ public class EnergyBallEntity extends Entity {
 
     @Override
     public void tick() {
-        if (this.world.isRemote || (this.shootingEntity == null || !this.shootingEntity.removed) && this.world.isBlockLoaded(new BlockPos(this))) {
+        if (this.world.isRemote || (this.shootingEntity == null || !this.shootingEntity.removed) && this.world.isBlockLoaded(new BlockPos(this.getPosX(), this.getPosY(), this.getPosZ()))) {
             super.tick();
             ++this.ticksInAir;
 
-            RayTraceResult raytraceresult = ProjectileHelper.rayTrace(this, true, this.ticksInAir >= 25, this.shootingEntity, RayTraceContext.BlockMode.COLLIDER);
+            RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this.shootingEntity, null, RayTraceContext.BlockMode.COLLIDER);
             if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onImpact(raytraceresult);
             }
 
-            Vec3d vec3d = this.getMotion();
+            Vector3d vec3d = this.getMotion();
             this.setPosition(getPosX() + vec3d.x, getPosY() + (vec3d.y - 0.01), getPosZ() + vec3d.z);
             ProjectileHelper.rotateTowardsMovement(this, 0.2F);
 
@@ -114,8 +115,11 @@ public class EnergyBallEntity extends Entity {
                 Entity entity = ((EntityRayTraceResult)result).getEntity();
                 ServerWorld world = (ServerWorld) entity.world;
                 entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.shootingEntity), 5.5F);
-                LightningBoltEntity lightningBoltEntity = new LightningBoltEntity(this.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), false);
-                world.addLightningBolt(lightningBoltEntity);
+
+                LightningBoltEntity lightningBoltEntity = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, world);
+                lightningBoltEntity.setPosition(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+
+                world.addEntity(lightningBoltEntity);
             } else if (result.getType() == RayTraceResult.Type.BLOCK) {
                 world.playSound(null, new BlockPos(result.getHitVec().x, result.getHitVec().y, result.getHitVec().z), ModSounds.dark_bolt_hit, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             }
@@ -125,7 +129,7 @@ public class EnergyBallEntity extends Entity {
 
     @Override
     protected void writeAdditional(CompoundNBT compound) {
-        Vec3d vec3d = this.getMotion();
+        Vector3d vec3d = this.getMotion();
         compound.put("direction", this.newDoubleNBTList(vec3d.x, vec3d.y, vec3d.z));
         compound.put("power", this.newDoubleNBTList(this.accelerationX, this.accelerationY, this.accelerationZ));
         compound.putInt("life", this.ticksAlive);
@@ -168,7 +172,7 @@ public class EnergyBallEntity extends Entity {
         } else {
             this.markVelocityChanged();
             if (source.getTrueSource() != null) {
-                Vec3d vec3d = source.getTrueSource().getLookVec();
+                Vector3d vec3d = source.getTrueSource().getLookVec();
                 this.setMotion(vec3d);
                 this.accelerationX = vec3d.x * 0.1D;
                 this.accelerationY = vec3d.y * 0.1D;

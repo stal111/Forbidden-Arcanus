@@ -35,7 +35,7 @@ public class EdelwoodEntityBucketItem extends Item {
             if (entityType == EntityType.MAGMA_CUBE) {
                 if (entity instanceof PlayerEntity) {
                     PlayerEntity player = (PlayerEntity) entity;
-                    BlockPos pos = player.getPosition();
+                    BlockPos pos = new BlockPos(player.getPosX(), player.getPosY(), player.getPosZ());
                     if (!player.abilities.isCreativeMode) {
                         if (new Random().nextDouble() < 0.008) {
                             this.placeEntity(world, stack, pos);

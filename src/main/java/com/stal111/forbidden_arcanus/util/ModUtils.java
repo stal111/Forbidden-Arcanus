@@ -62,53 +62,6 @@ public class ModUtils {
         return false;
     }
 
-    public static boolean growSeagrass(ItemStack stack, ServerWorld worldIn, BlockPos pos, @Nullable Direction side) {
-        if (worldIn.getBlockState(pos).getBlock() == Blocks.WATER && worldIn.getFluidState(pos).getLevel() == 8) {
-            if (!worldIn.isRemote) {
-                label79:
-                for (int i = 0; i < 128; ++i) {
-                    BlockPos blockpos = pos;
-                    Biome biome = worldIn.getBiome(pos);
-                    BlockState blockstate = Blocks.SEAGRASS.getDefaultState();
-
-                    for (int j = 0; j < i / 16; ++j) {
-                        blockpos = blockpos.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
-                        biome = worldIn.getBiome(blockpos);
-                        if (worldIn.getBlockState(blockpos).isCollisionShapeOpaque(worldIn, blockpos)) {
-                            continue label79;
-                        }
-                    }
-
-                    if (biome == Biomes.WARM_OCEAN || biome == Biomes.DEEP_WARM_OCEAN) {
-                        if (i == 0 && side != null && side.getAxis().isHorizontal()) {
-                            blockstate = BlockTags.WALL_CORALS.getRandomElement(worldIn.rand).getDefaultState().with(DeadCoralWallFanBlock.FACING, side);
-                        } else if (random.nextInt(4) == 0) {
-                            blockstate = BlockTags.UNDERWATER_BONEMEALS.getRandomElement(random).getDefaultState();
-                        }
-                    }
-
-                    if (blockstate.getBlock().isIn(BlockTags.WALL_CORALS)) {
-                        for (int k = 0; !blockstate.isValidPosition(worldIn, blockpos) && k < 4; ++k) {
-                            blockstate = blockstate.with(DeadCoralWallFanBlock.FACING, Direction.Plane.HORIZONTAL.random(random));
-                        }
-                    }
-
-                    if (blockstate.isValidPosition(worldIn, blockpos)) {
-                        BlockState blockstate1 = worldIn.getBlockState(blockpos);
-                        if (blockstate1.getBlock() == Blocks.WATER && worldIn.getFluidState(blockpos).getLevel() == 8) {
-                            worldIn.setBlockState(blockpos, blockstate, 3);
-                        } else if (blockstate1.getBlock() == Blocks.SEAGRASS && random.nextInt(10) == 0) {
-                            ((IGrowable) Blocks.SEAGRASS).grow(worldIn, random, blockpos, blockstate1);
-                        }
-                    }
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public static void addStrippable(Block block, Block strippedBlock) {
         AxeItem.BLOCK_STRIPPING_MAP = Maps.newHashMap(AxeItem.BLOCK_STRIPPING_MAP);
         AxeItem.BLOCK_STRIPPING_MAP.put(block, strippedBlock);

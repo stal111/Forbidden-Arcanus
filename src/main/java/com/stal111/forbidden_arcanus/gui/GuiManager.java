@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
 
 import java.util.ArrayList;
@@ -39,12 +40,12 @@ public class GuiManager {
         objects.clear();
     }
 
-    public void renderAll(int x, int y) {
-        objects.forEach((s, guiElements) -> guiElements.forEach(element -> element.render(x, y)));
+    public void renderAll(MatrixStack matrixStack, int x, int y) {
+        objects.forEach((s, guiElements) -> guiElements.forEach(element -> element.render(matrixStack, x, y)));
     }
 
-    public void renderHoverEffectAll(int x, int y) {
-        objects.forEach((s, guiElements) -> guiElements.forEach(element -> element.renderHoverEffect(x, y)));
+    public void renderHoverEffectAll(MatrixStack matrixStack, int x, int y) {
+        objects.forEach((s, guiElements) -> guiElements.forEach(element -> element.renderHoverEffect(matrixStack, x, y)));
 
     }
 

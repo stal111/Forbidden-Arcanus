@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconCategory;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
@@ -24,7 +25,7 @@ public class ChangeCategoryButton extends ButtonElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         int startX = 130;
         int startY = 220;
         int sizeX = 18;
@@ -39,19 +40,19 @@ public class ChangeCategoryButton extends ButtonElement {
         }
 
         bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-        blit(getBlitOffset(), startX, startY, sizeX, sizeY, 256, 512);
-        blit(getPosX() + 7, getPosY() + 2, getBlitOffset() + 1, getCategory().getStartX(), getCategory().getStartY(), 8, 8, 256, 512);
+        blit(matrixStack, getBlitOffset(), startX, startY, sizeX, sizeY, 256, 512);
+        blit(matrixStack, getPosX() + 7, getPosY() + 2, getBlitOffset() + 1, getCategory().getStartX(), getCategory().getStartY(), 8, 8, 256, 512);
     }
 
     @Override
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + (isActivated() ? 24 : 18) && y < getPosY() + getSizeY()) {
             if (!isActivated()) {
                 bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-                blit(getBlitOffset(), getStartX(), getStartY() - 16, 24, 14, 256, 512);
-                blit(getPosX() + 7, getPosY() + 2, getBlitOffset() + 1, getCategory().getStartX(), getCategory().getStartY(), 8, 8, 256, 512);
+                blit(matrixStack, getBlitOffset(), getStartX(), getStartY() - 16, 24, 14, 256, 512);
+                blit(matrixStack, getPosX() + 7, getPosY() + 2, getBlitOffset() + 1, getCategory().getStartX(), getCategory().getStartY(), 8, 8, 256, 512);
             }
-            renderFancyTooltip(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.category." + getCategory().toString().toLowerCase()).getFormattedText()), x, y);
+            renderFancyTooltip(matrixStack, Collections.singletonList(new TranslationTextComponent("forbiddenmicon.category." + getCategory().toString().toLowerCase())), x, y);
         }
     }
 

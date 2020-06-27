@@ -35,7 +35,7 @@ public class StrangeRootBlock extends Block implements IGrowable {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        return Tags.Blocks.STONE.contains(world.getBlockState(pos.down()).getBlock());
+        return Tags.Blocks.STONE.func_230235_a_(world.getBlockState(pos.down()).getBlock());
     }
 
     @Override

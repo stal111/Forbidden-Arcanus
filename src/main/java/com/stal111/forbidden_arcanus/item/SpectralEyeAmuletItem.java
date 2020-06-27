@@ -25,7 +25,8 @@ public class SpectralEyeAmuletItem extends Item {
 
 	public SpectralEyeAmuletItem(Item.Properties properties) {
 		super(properties);
-		this.addPropertyOverride(new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && isDeactivated(stack) ? 1.0F : 0.0F);
+		//TODO
+		//this.addPropertyOverride(new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && isDeactivated(stack) ? 1.0F : 0.0F);
 	}
 	
 	@Override
@@ -50,13 +51,14 @@ public class SpectralEyeAmuletItem extends Item {
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
 
-		ITextComponent toggle = new TranslationTextComponent("tooltip." + Main.MOD_ID + ".toggle").applyTextStyle(TextFormatting.GRAY);
-
-		if (isDeactivated(stack)) {
-			tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".deactivated").applyTextStyle(TextFormatting.RED).appendText(" ").appendSibling(toggle));
-		} else {
-			tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".activated").applyTextStyle(TextFormatting.GREEN).appendText(" ").appendSibling(toggle));
-		}
+		//TODO
+//		ITextComponent toggle = new TranslationTextComponent("tooltip." + Main.MOD_ID + ".toggle").applyTextStyle(TextFormatting.GRAY);
+//
+//		if (isDeactivated(stack)) {
+//			tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".deactivated").applyTextStyle(TextFormatting.RED).appendText(" ").appendSibling(toggle));
+//		} else {
+//			tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".activated").applyTextStyle(TextFormatting.GREEN).appendText(" ").appendSibling(toggle));
+//		}
 	}
 
 	private boolean isDeactivated(ItemStack stack) {

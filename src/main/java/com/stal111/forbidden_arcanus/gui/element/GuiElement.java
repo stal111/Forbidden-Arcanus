@@ -10,6 +10,10 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.TransformationMatrix;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.ITextProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +49,9 @@ public abstract class GuiElement {
         manager.addGuiObject(getName(), element);
     }
 
-    public abstract void render(int x, int y);
+    public abstract void render(MatrixStack matrixStack, int x, int y);
 
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
     }
 
     public boolean isMouseOver(int x, int y) {
@@ -111,12 +115,12 @@ public abstract class GuiElement {
         getMinecraft().getTextureManager().bindTexture(resourceLocation);
     }
 
-    public void blit(int blitOffset, int startX, int startY, int sizeX, int sizeY, int textureSizeX, int textureSizeY) {
-        blit(getPosX(), getPosY(), blitOffset, startX, startY, sizeX, sizeY, textureSizeX, textureSizeY);
+    public void blit(MatrixStack matrixStack, int blitOffset, int startX, int startY, int sizeX, int sizeY, int textureSizeX, int textureSizeY) {
+        blit(matrixStack, getPosX(), getPosY(), blitOffset, startX, startY, sizeX, sizeY, textureSizeX, textureSizeY);
     }
 
-    public void blit(int posX, int posY, int blitOffset, int startX, int startY, int sizeX, int sizeY, int textureSizeX, int textureSizeY) {
-        AbstractGui.blit(posX, posY, blitOffset, startX, startY, sizeX, sizeY, textureSizeX, textureSizeY);
+    public void blit(MatrixStack matrixStack, int posX, int posY, int blitOffset, int startX, int startY, int sizeX, int sizeY, int textureSizeX, int textureSizeY) {
+        AbstractGui.func_238464_a_(matrixStack, posX, posY, blitOffset, startX, startY, sizeX, sizeY, textureSizeX, textureSizeY);
     }
 
     public void fill(int p_fill_1_, int p_fill_2_, int p_fill_3_, int p_fill_4_, int red, int green, int blue, int alpha) {
@@ -148,11 +152,11 @@ public abstract class GuiElement {
         RenderSystem.disableBlend();
     }
 
-    public void renderFancyTooltip(List<String> tooltip, int x, int y) {
+    public void renderFancyTooltip(MatrixStack matrixStack, List<ITextComponent> tooltip, int x, int y) {
         int i = 0;
 
-        for(String s : tooltip) {
-            int j = getMinecraft().fontRenderer.getStringWidth(s);
+        for(ITextProperties itextproperties : tooltip) {
+            int j = getMinecraft().fontRenderer.func_238414_a_(itextproperties);
             if (j > i) {
                 i = j;
             }
@@ -165,22 +169,22 @@ public abstract class GuiElement {
             k += 2 + (tooltip.size() - 1) * 10;
         }
 
-        if (l1 + i > ForbiddenmiconScreen.INSTANCE.width) {
+        if (l1 + i > ForbiddenmiconScreen.INSTANCE.field_230708_k_) {
             l1 -= 28 + i;
         }
 
-        if (i2 + k + 6 > ForbiddenmiconScreen.INSTANCE.height) {
-            i2 = ForbiddenmiconScreen.INSTANCE.height - k - 6;
+        if (i2 + k + 6 > ForbiddenmiconScreen.INSTANCE.field_230709_l_) {
+            i2 = ForbiddenmiconScreen.INSTANCE.field_230709_l_ - k - 6;
         }
 
         getMinecraft().getItemRenderer().zLevel = 300.0F;
 
         bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-        blit(l1 - 4, i2 - 4, 300, 153, 236, 10, 7, 256, 512);
-        blit(l1 - 4, i2 + k - 2, 300, 153, 243, 10, 8, 256, 512);
+        blit(matrixStack, l1 - 4, i2 - 4, 300, 153, 236, 10, 7, 256, 512);
+        blit(matrixStack, l1 - 4, i2 + k - 2, 300, 153, 243, 10, 8, 256, 512);
 
-        blit(l1 + i - 6, i2 - 4, 300, 207, 236, 10, 7, 256, 512);
-        blit(l1 + i - 6, i2 + k - 2, 300, 207, 243, 10, 8, 256, 512);
+        blit(matrixStack, l1 + i - 6, i2 - 4, 300, 207, 236, 10, 7, 256, 512);
+        blit(matrixStack, l1 + i - 6, i2 + k - 2, 300, 207, 243, 10, 8, 256, 512);
 
         fill(l1 + 6, i2 - 4, l1 + i - 6, i2 - 3, 104, 103, 101, 255);
         fill(l1 + 6, i2 + k + 4, l1 + i - 6, i2 + k + 5, 67, 64, 59, 255);
@@ -202,9 +206,9 @@ public abstract class GuiElement {
         Matrix4f matrix4f = matrixstack.getLast().getMatrix();
 
         for(int k1 = 0; k1 < tooltip.size(); ++k1) {
-            String s1 = tooltip.get(k1);
-            if (s1 != null) {
-                getMinecraft().fontRenderer.renderString(s1, (float) l1, (float) i2, -1, true, matrix4f, irendertypebuffer$impl, false, 0, 15728880);
+            ITextProperties iTextProperties = tooltip.get(k1);
+            if (iTextProperties != null) {
+                getMinecraft().fontRenderer.func_238416_a_(iTextProperties, (float) l1, (float) i2, -1, true, matrix4f, irendertypebuffer$impl, false, 0, 15728880);
             }
 
             if (k1 == 0) {

@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.Collection;
 
@@ -12,7 +13,7 @@ public class ForbiddenmiconEntry {
 
     private final ItemStack stack;
     private final boolean hasTitle;
-    private final String title;
+    private final ITextComponent title;
     private final boolean hasDescription;
     private final String description;
     private final ForbiddenmiconCategory category;
@@ -24,7 +25,7 @@ public class ForbiddenmiconEntry {
     public ForbiddenmiconEntry(ItemStack stack, String description, ForbiddenmiconCategory category) {
         this.stack = stack;
         this.hasTitle = true;
-        this.title = stack.getDisplayName().getFormattedText();
+        this.title = stack.getDisplayName();
         this.hasDescription = !description.isEmpty();
         this.description = description;
         this.category = category;
@@ -34,7 +35,7 @@ public class ForbiddenmiconEntry {
         return this.hasTitle;
     }
 
-    public String getTitle() {
+    public ITextComponent getTitle() {
         return this.title;
     }
 

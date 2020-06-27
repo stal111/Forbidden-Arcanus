@@ -278,17 +278,19 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 		return VALID_EFFECTS.contains(effect) ? effect : null;
 	}
 
-	public void read(CompoundNBT compound) {
-		super.read(compound);
+	@Override
+	public void func_230337_a_(BlockState state, CompoundNBT compound) {
+		super.func_230337_a_(state, compound);
 		this.primaryEffect = isBeaconEffect(compound.getInt("Primary"));
 		this.secondaryEffect = isBeaconEffect(compound.getInt("Secondary"));
-		if (compound.contains("CustomName", 8)) {
-			this.customName = ITextComponent.Serializer.fromJson(compound.getString("CustomName"));
-		}
+//		if (compound.contains("CustomName", 8)) {
+//			this.customName = ITextComponent.Serializer.fromJson(compound.getString("CustomName"));
+//		}
 
 		this.field_213936_m = LockCode.read(compound);
 	}
 
+	@Override
 	public CompoundNBT write(CompoundNBT compound) {
 		super.write(compound);
 		compound.putInt("Primary", Effect.getId(this.primaryEffect));

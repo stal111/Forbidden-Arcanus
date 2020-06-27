@@ -22,10 +22,10 @@ public class Data {
     public static final List<Effect> EFFECTS = new LinkedList<>();
     public static final List<Enchantment> ENCHANTMENTS = new LinkedList<>();
     public static final List<TileEntityType<?>> TILE_ENTITY_TYPES = new LinkedList<>();
-    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = new DeferredRegister<>(ForgeRegistries.PARTICLE_TYPES, Main.MOD_ID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Main.MOD_ID);
 
     private static <T extends IForgeRegistryEntry<T>> DeferredRegister<T> createDeferred(IForgeRegistry<T> registry) {
-        DeferredRegister<T> deferred = new DeferredRegister<>(registry, Main.MOD_ID);
+        DeferredRegister<T> deferred = DeferredRegister.create(registry, Main.MOD_ID);
         registerList.add(deferred);
         return deferred;
     }

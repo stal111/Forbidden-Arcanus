@@ -13,8 +13,8 @@ public class FrozenEffect extends Effect {
         super(effectType, color);
     }
 
-    @Override
-    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z, float alpha) {
-        Minecraft.getInstance().getRenderManager().textureManager.bindTexture(ModUtils.location("textures/mob_effect/frozen.png"));
-    }
+//    @Override
+//    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z, float alpha) {
+//        Minecraft.getInstance().getRenderManager().textureManager.bindTexture(ModUtils.location("textures/mob_effect/frozen.png"));
+//    }
 }

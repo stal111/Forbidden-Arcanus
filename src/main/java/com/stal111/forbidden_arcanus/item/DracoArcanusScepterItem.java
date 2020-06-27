@@ -53,7 +53,7 @@ public class DracoArcanusScepterItem extends Item {
 	}
 
 	private void fireSphere(World world, PlayerEntity player) {
-		world.playSound(null, player.getPosition(), ModSounds.dark_bolt_launch, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+		world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.dark_bolt_launch, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 		spawnSphere(player);
 
 	}

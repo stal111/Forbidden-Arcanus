@@ -27,9 +27,10 @@ public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel<PixieEnti
         return PIXIE_TEXTURES[entity.getVariant()];
     }
 
-    @Nullable
-    @Override
-    protected RenderType func_230042_a_(PixieEntity entity, boolean p_230042_2_, boolean p_230042_3_) {
-        return RenderType.getEntityTranslucent(PIXIE_TEXTURES[entity.getVariant()]);
-    }
+    //TODO
+//    @Nullable
+//    @Override
+//    protected RenderType func_230042_a_(PixieEntity entity, boolean p_230042_2_, boolean p_230042_3_) {
+//        return RenderType.getEntityTranslucent(PIXIE_TEXTURES[entity.getVariant()]);
+//    }
 }

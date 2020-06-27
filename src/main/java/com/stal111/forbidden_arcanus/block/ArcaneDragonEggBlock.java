@@ -42,11 +42,12 @@ public class ArcaneDragonEggBlock extends FallingWaterloggedBlock {
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
 		return this.generateShape();
 	}
-	
-	@Override
-	public int getLightValue(BlockState state) {
-		return 9;
-	}
+
+	//TODO
+//	@Override
+//	public int getLightValue(BlockState state) {
+//		return 9;
+//	}
 
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random random) {

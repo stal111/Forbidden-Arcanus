@@ -81,18 +81,20 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
 
                 for(int lvt_10_1_ = 0; lvt_10_1_ < TropicalFishEntity.SPECIAL_VARIANTS.length; ++lvt_10_1_) {
                     if (variant == TropicalFishEntity.SPECIAL_VARIANTS[lvt_10_1_]) {
-                        tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212324_b(lvt_10_1_))).applyTextStyles(lvt_7_1_));
+                        tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212324_b(lvt_10_1_))).func_240701_a_(lvt_7_1_));
                         return;
                     }
                 }
 
-                tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212327_q(variant))).applyTextStyles(lvt_7_1_));
+                tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212327_q(variant))).func_240701_a_(lvt_7_1_));
                 ITextComponent textComponent = new TranslationTextComponent(lvt_8_1_);
                 if (!lvt_8_1_.equals(lvt_9_1_)) {
-                    textComponent.appendText(", ").appendSibling(new TranslationTextComponent(lvt_9_1_));
+                    //TODO: appendText replacement?
+                    //textComponent.appendText(", ").appendSibling(new TranslationTextComponent(lvt_9_1_));
                 }
 
-                textComponent.applyTextStyles(lvt_7_1_);
+                //TODO
+                //textComponent.applyTextStyles(lvt_7_1_);
                 tooltip.add(textComponent);
             }
         }

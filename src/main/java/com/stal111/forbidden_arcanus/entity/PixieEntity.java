@@ -8,6 +8,8 @@ import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.SkeletonEntity;
@@ -24,12 +26,12 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages;
@@ -37,7 +39,6 @@ import net.minecraftforge.fml.network.FMLPlayMessages;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.function.Predicate;
 
 public class PixieEntity extends TameableEntity implements IFlyingAnimal {
 
@@ -102,14 +103,15 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
         this.setMotion(this.getMotion().mul(1.0D, 0.6D, 1.0D));
     }
 
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
-        this.getAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.6F);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3F);
-    }
+    //TODO: new Attribute System?
+//    @Override
+//    protected void registerAttributes() {
+//        super.registerAttributes();
+//        this.getAttributes().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
+//        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+//        this.getAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.6F);
+//        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3F);
+//    }
 
     @Override
     protected boolean canTriggerWalking() {
@@ -147,10 +149,10 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
     }
 
     @Override
-    public boolean processInteract(PlayerEntity player, Hand hand) {
+    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
         if (itemstack.getItem() instanceof SpawnEggItem) {
-            return super.processInteract(player, hand);
+            return super.func_230254_b_(player, hand);
         } else if (!this.isTamed() && TAME_ITEMS.contains(itemstack.getItem())) {
             if (!player.abilities.isCreativeMode) {
                 itemstack.shrink(1);
@@ -165,7 +167,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
                 }
             }
 
-            return true;
+            return ActionResultType.func_233537_a_(this.world.isRemote);
         } else if (getVariant() == 0 && itemstack.getItem() == ModItems.DARK_SOUL.get()) {
             if (!player.abilities.isCreativeMode) {
                 itemstack.shrink(1);
@@ -174,7 +176,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
             if (rand.nextDouble() <= 0.1D) {
                 setVariant(1);
             }
-            return true;
+            return ActionResultType.func_233537_a_(this.world.isRemote);
         } else if (this.isTamed() && player.isCrouching() && player.getUniqueID() == getOwnerId()) {
             if (!this.world.isRemote()) {
                 this.remove();
@@ -185,9 +187,9 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
                     player.dropItem(stack, false);
                 }
             }
-            return true;
+            return ActionResultType.func_233537_a_(this.world.isRemote);
         } else {
-            return super.processInteract(player, hand);
+            return super.func_230254_b_(player, hand);
         }
     }
 
@@ -253,19 +255,19 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
          * Execute a one shot task or start executing a continuous task
          */
         public void startExecuting() {
-            Vec3d vec3d = this.getRandomLocation();
-            if (vec3d != null) {
-                PixieEntity.this.navigator.setPath(PixieEntity.this.navigator.getPathToPos(new BlockPos(vec3d), 1), 1.0D);
+            Vector3d vector3d = this.getRandomLocation();
+            if (vector3d != null) {
+                PixieEntity.this.navigator.setPath(PixieEntity.this.navigator.getPathToPos(new BlockPos(vector3d), 1), 1.0D);
             }
 
         }
 
         @Nullable
-        private Vec3d getRandomLocation() {
-            Vec3d vec3d = PixieEntity.this.getLook(0.0F);
+        private Vector3d getRandomLocation() {
+            Vector3d vector3d = PixieEntity.this.getLook(0.0F);
 
-            Vec3d vec3d2 = RandomPositionGenerator.findAirTarget(PixieEntity.this, 10, 8, vec3d, ((float) Math.PI / 2F), 2, 1);
-            return vec3d2 != null ? vec3d2 : RandomPositionGenerator.findGroundTarget(PixieEntity.this, 8, 4, -2, vec3d, (float)Math.PI / 2F);
+            Vector3d vector3d2 = RandomPositionGenerator.findAirTarget(PixieEntity.this, 8, 7, vector3d, ((float)Math.PI / 2F), 2, 1);
+            return vector3d2 != null ? vector3d2 : RandomPositionGenerator.findGroundTarget(PixieEntity.this, 8, 4, -2, vector3d, (double)((float)Math.PI / 2F));
         }
     }
 }

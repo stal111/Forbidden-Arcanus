@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.event.modifier.InfernumPickaxeLootModifier;
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.TableLootEntry;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;

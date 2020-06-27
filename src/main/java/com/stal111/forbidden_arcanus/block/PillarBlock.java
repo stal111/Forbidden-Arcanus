@@ -4,8 +4,8 @@ import com.stal111.forbidden_arcanus.block.properties.ConnectedBlockType;
 import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -18,7 +18,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
 
 public class PillarBlock extends WaterloggedBlock {
 
@@ -62,8 +61,8 @@ public class PillarBlock extends WaterloggedBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
+		FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
+		boolean flag = fluidstate.isTagged(FluidTags.WATER) && fluidstate.getLevel() == 8;
 		return super.getStateForPlacement(context).with(TYPE, ConnectedBlockType.SINGLE).with(AXIS, context.getFace().getAxis()).with(WATERLOGGED, flag);
 	}
 

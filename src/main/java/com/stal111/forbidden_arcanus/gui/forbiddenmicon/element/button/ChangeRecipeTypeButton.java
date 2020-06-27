@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.RecipePreviewElement;
@@ -24,20 +25,20 @@ public class ChangeRecipeTypeButton extends ButtonElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         if (isActivated()) {
             bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-            blit(getBlitOffset(), getStartX() - 18, getStartY(), 14, 17, 256, 512);
+            blit(matrixStack, getBlitOffset(), getStartX() - 18, getStartY(), 14, 17, 256, 512);
         } else {
-            super.render(x, y);
+            super.render(matrixStack, x, y);
         }
     }
 
     @Override
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         int i = isActivated() ? 17 : 15;
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + 14 && y < getPosY() + i) {
-            renderFancyTooltip(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe." + hoverText).getFormattedText()), x, y);
+            renderFancyTooltip(matrixStack, Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe." + hoverText)), x, y);
         }
     }
 

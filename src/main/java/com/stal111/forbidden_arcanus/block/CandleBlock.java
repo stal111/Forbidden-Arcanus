@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.block;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.ItemStack;
@@ -117,10 +117,11 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 		}
 	}
 
-	@Override
-	public int getLightValue(BlockState state) {
-		return state.get(LIT) && !state.get(WATERLOGGED) ? super.getLightValue(state) + 12 + state.get(CANDLES) : 0;
-	}
+	//TODO
+//	@Override
+//	public int getLightValue(BlockState state) {
+//		return state.get(LIT) && !state.get(WATERLOGGED) ? super.getLightValue(state) + 12 + state.get(CANDLES) : 0;
+//	}
 
 	@Override
 	public void fillStateContainer(StateContainer.Builder<Block, BlockState> p_206840_1_) {
@@ -128,7 +129,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	}
 
 	@Override
-	public IFluidState getFluidState(BlockState p_204507_1_) {
+	public FluidState getFluidState(BlockState p_204507_1_) {
 		return p_204507_1_.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(p_204507_1_);
 	}
 }

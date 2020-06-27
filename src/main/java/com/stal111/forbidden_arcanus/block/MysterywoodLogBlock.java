@@ -1,8 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -11,10 +10,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-public class MysterywoodLogBlock extends LogBlock {
+public class MysterywoodLogBlock extends RotatedPillarBlock {
 
     public MysterywoodLogBlock(Properties properties) {
-        super(MaterialColor.ADOBE, properties);
+        super(properties);
     }
 
     @OnlyIn(Dist.CLIENT)

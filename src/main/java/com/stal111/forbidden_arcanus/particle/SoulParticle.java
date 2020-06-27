@@ -1,11 +1,15 @@
 package com.stal111.forbidden_arcanus.particle;
 
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
@@ -14,7 +18,7 @@ public class SoulParticle extends SpriteTexturedParticle {
     private static final Random RANDOM = new Random();
     private final IAnimatedSprite field_217586_F;
 
-    private SoulParticle(World world, double p_i51008_2_, double p_i51008_4_, double p_i51008_6_, double p_i51008_8_, double p_i51008_10_, double p_i51008_12_, IAnimatedSprite p_i51008_14_) {
+    private SoulParticle(ClientWorld world, double p_i51008_2_, double p_i51008_4_, double p_i51008_6_, double p_i51008_8_, double p_i51008_10_, double p_i51008_12_, IAnimatedSprite p_i51008_14_) {
         super(world, p_i51008_2_, p_i51008_4_, p_i51008_6_, 0.5D - RANDOM.nextDouble(), p_i51008_10_, 0.5D - RANDOM.nextDouble());
         this.field_217586_F = p_i51008_14_;
         this.motionY *= 0.20000000298023224D;
@@ -67,8 +71,11 @@ public class SoulParticle extends SpriteTexturedParticle {
             this.spriteSet = p_i50843_1_;
         }
 
-        public Particle makeParticle(BasicParticleType p_199234_1_, World p_199234_2_, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
-            return new SoulParticle(p_199234_2_, p_199234_3_, p_199234_5_, p_199234_7_, p_199234_9_, p_199234_11_, p_199234_13_, this.spriteSet);
+
+        @Nullable
+        @Override
+        public Particle makeParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new SoulParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
         }
     }
 }

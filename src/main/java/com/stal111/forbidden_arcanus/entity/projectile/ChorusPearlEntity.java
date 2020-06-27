@@ -64,7 +64,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
                         return;
                     }
                 }
-                entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 0);
+                entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), 0.0F);
 
                 double d0 = entity.getPosX();
                 double d1 = entity.getPosY();
@@ -72,7 +72,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 
                 for (int i = 0; i < 16; ++i) {
                     double d3 = entity.getPosX() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
-                    double d4 = MathHelper.clamp(entity.getPosY() + (double) (entity.getRNG().nextInt(16) - 8), 0.0D, world.getActualHeight() - 1);
+                    double d4 = MathHelper.clamp(entity.getPosY() + (double) (entity.getRNG().nextInt(16) - 8), 0.0D, 256 - 1);
                     double d5 = entity.getPosZ() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
                     if (entity.isPassenger()) {
                         entity.stopRiding();

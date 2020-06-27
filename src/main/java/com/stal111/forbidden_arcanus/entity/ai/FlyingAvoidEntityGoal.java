@@ -10,7 +10,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class FlyingAvoidEntityGoal<T extends LivingEntity> extends Goal {
     protected final CreatureEntity entity;
@@ -56,9 +56,11 @@ public class FlyingAvoidEntityGoal<T extends LivingEntity> extends Goal {
         if (this.avoidTarget == null) {
             return false;
         } else {
-            Vec3d vec = this.entity.getPositionVec().subtract(this.avoidTarget.getPositionVec());
+            Vector3d vec = this.entity.getPositionVec().subtract(this.avoidTarget.getPositionVec());
 
-            Vec3d vec3d = RandomPositionGenerator.func_226339_a_(this.entity, 16, 7, 0, vec, true, (float)Math.PI / 2F, this.entity::getBlockPathWeight, true, 0, 0, true);
+            //TODO
+            Vector3d vec3d = new Vector3d(0, 0, 0);
+            //Vector3d vec3d = RandomPositionGenerator.func_226339_a_(this.entity, 16, 7, 0, vec, true, (float)Math.PI / 2F, this.entity::getBlockPathWeight, true, 0, 0, true);
             if (vec3d == null) {
                 return false;
             } else if (this.avoidTarget.getDistanceSq(vec3d.x, vec3d.y, vec3d.z) < this.avoidTarget.getDistanceSq(this.entity)) {

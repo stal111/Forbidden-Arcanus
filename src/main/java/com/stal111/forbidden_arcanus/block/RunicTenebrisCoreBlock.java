@@ -47,10 +47,11 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 		return super.onBlockActivated(state, world, pos, player, hand, result);
 	}
 
-	@Override
-	public int getLightValue(BlockState state) {
-		return 14;
-	}
+	//TODO
+//	@Override
+//	public int getLightValue(BlockState state) {
+//		return 14;
+//	}
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState p_180633_3_, @Nullable LivingEntity entity, ItemStack stack) {

@@ -8,8 +8,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -32,7 +32,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
+public class EdelwoodLogBlock extends RotatedPillarBlock implements IWaterLoggable {
 
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty LEAVES = BooleanProperty.create("leaves");
@@ -42,7 +42,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), INSIDE, IBooleanFunction.ONLY_FIRST);
 
 	public EdelwoodLogBlock(MaterialColor color, Properties properties) {
-		super(color, properties);
+		super(properties);
 		this.setDefaultState(this.stateContainer.getBaseState().with(AXIS, Direction.Axis.Y).with(LEAVES, false).with(OIL, false).with(WATERLOGGED,false));
 	}
 
@@ -112,7 +112,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
+		FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
 		Direction.Axis axis = context.getFace().getAxis();
 		return super.getStateForPlacement(context).with(AXIS, axis).with(WATERLOGGED, ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8);
 	}
@@ -131,8 +131,7 @@ public class EdelwoodLogBlock extends LogBlock implements IWaterLoggable {
 	}
 
 	@Override
-	public IFluidState getFluidState(BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
-
 }

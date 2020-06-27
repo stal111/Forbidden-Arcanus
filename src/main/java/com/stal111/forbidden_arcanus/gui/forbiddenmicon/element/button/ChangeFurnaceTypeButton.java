@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
@@ -24,17 +25,17 @@ public class ChangeFurnaceTypeButton extends ButtonElement {
     }
 
     @Override
-    public void render(int x, int y) {
+    public void render(MatrixStack matrixStack, int x, int y) {
         int i = getStartX() + (furnaceType == FurnaceType.SMOKER ? -16 : furnaceType == FurnaceType.BLAST_FURNACE ? 16 : 0);
 
         bindTexture(ForbiddenmiconScreen.FORBIDDENMICON_GUI_TEXTURES);
-        blit(getBlitOffset(), i, isActivated() ? getStartY() - 16 : getStartY(), 14, 15, 256, 512);
+        blit(matrixStack, getBlitOffset(), i, isActivated() ? getStartY() - 16 : getStartY(), 14, 15, 256, 512);
     }
 
     @Override
-    public void renderHoverEffect(int x, int y) {
+    public void renderHoverEffect(MatrixStack matrixStack,int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + getSizeX() && y < getPosY() + getSizeY()) {
-            renderFancyTooltip(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe.smelting." + getFurnaceType().toString().toLowerCase()).getFormattedText()), x, y);
+            renderFancyTooltip(matrixStack, Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe.smelting." + getFurnaceType().toString().toLowerCase())), x, y);
         }
     }
 

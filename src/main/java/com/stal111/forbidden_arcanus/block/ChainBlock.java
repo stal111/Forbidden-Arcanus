@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -78,7 +78,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         BlockState stateUp = world.getBlockState(pos.up());
         if (state.get(TYPE) == ConnectedBlockType.TOP || state.get(TYPE) == ConnectedBlockType.SINGLE) {
-            return stateUp.getBlock().isSolid(stateUp);
+            return hasEnoughSolidSide(world, pos.up(), Direction.DOWN);
         } else {
             return stateUp.getBlock() instanceof ChainBlock;
         }
@@ -146,25 +146,26 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
             return;
         }
 
-        TileEntity tileEntity = world.getTileEntity(srcPos);
-        if(tileEntity != null) {
-            tileEntity.remove();
-        }
+        //TODO
+//        TileEntity tileEntity = world.getTileEntity(srcPos);
+//        if(tileEntity != null) {
+//            tileEntity.remove();
+//        }
 
         world.setBlockState(srcPos, Blocks.AIR.getDefaultState());
         world.setBlockState(dstPos, state);
 
-        if(tileEntity != null) {
-            tileEntity.setPos(dstPos);
-            TileEntity target = TileEntity.create(tileEntity.write(new CompoundNBT()));
-            if (target != null) {
-                world.setTileEntity(dstPos, target);
-
-                target.updateContainingBlockInfo();
-            }
-        }
-
-        world.notifyNeighbors(dstPos, state.getBlock());
+//        if(tileEntity != null) {
+//            tileEntity.setPos(dstPos);
+//            TileEntity target = TileEntity.create(tileEntity.write(new CompoundNBT()));
+//            if (target != null) {
+//                world.setTileEntity(dstPos, target);
+//
+//                target.updateContainingBlockInfo();
+//            }
+//        }
+//
+//        world.notifyNeighbors(dstPos, state.getBlock());
     }
 
     private BlockState tryConnect(BlockState state, World world, BlockPos pos) {
@@ -199,18 +200,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
     }
 
     @Override
-    public boolean receiveFluid(IWorld world, BlockPos pos, BlockState state, IFluidState fluidState) {
-        if (!state.get(BlockStateProperties.WATERLOGGED) && fluidState.getFluid() == Fluids.WATER) {
-            world.setBlockState(pos, (state.with(WATERLOGGED, true)), 3);
-            world.getPendingFluidTicks().scheduleTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public IFluidState getFluidState(BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 }

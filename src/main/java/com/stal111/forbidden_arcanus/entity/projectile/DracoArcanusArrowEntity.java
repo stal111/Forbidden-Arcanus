@@ -12,7 +12,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -55,7 +55,7 @@ public class DracoArcanusArrowEntity extends AbstractArrowEntity {
 
     @Override
     public void tick() {
-        Vec3d vec3d1 = this.getMotion();
+        Vector3d vec3d1 = this.getMotion();
         if (this.world.isRemote() && this.rand.nextDouble() >= 0.5) {
             this.world.addParticle(ParticleTypes.DRAGON_BREATH, this.getPosX() - vec3d1.x, this.getPosY() - vec3d1.y + 0.05D, this.getPosZ() - vec3d1.z, 0.0D, 0.0D, 0.0D);
         }
@@ -71,7 +71,8 @@ public class DracoArcanusArrowEntity extends AbstractArrowEntity {
         areaeffectcloudentity.setRadiusPerTick((7.0F - areaeffectcloudentity.getRadius()) / (float)areaeffectcloudentity.getDuration());
         areaeffectcloudentity.addEffect(new EffectInstance(Effects.INSTANT_DAMAGE, 1, 1));
 
-        this.world.playEvent(2006, this.getPosition(), 0);
+        //TODO: this works?
+        this.world.playEvent(2006, this.func_233580_cy_(), 0);
         this.world.addEntity(areaeffectcloudentity);
         super.arrowHit(entity);
     }
