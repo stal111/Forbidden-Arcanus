@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.event;
 
 
+import com.stal111.forbidden_arcanus.block.StellaArcanumBlock;
+import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import net.minecraft.block.BlockState;
@@ -10,10 +12,12 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,6 +42,22 @@ public class BlockBreakListener {
 								world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack));
 							}
 						}
+					}
+				}
+			}
+
+			if (state.getBlock() instanceof StellaArcanumBlock) {
+				if (BlockConfig.STELLA_ARCANUM_EXPLODE.get()) {
+					boolean shouldExplode = true;
+
+					if (BlockConfig.STELLA_ARCANUM_ONLY_EXPLODE_WRONG_TOOL.get()) {
+						if (stack.getToolTypes().contains(ToolType.PICKAXE) && stack.getHarvestLevel(ToolType.PICKAXE, player, state) >= 3) {
+							shouldExplode = false;
+						}
+					}
+
+					if (shouldExplode) {
+						StellaArcanumBlock.explode = true;
 					}
 				}
 			}

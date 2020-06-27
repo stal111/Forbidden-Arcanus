@@ -26,8 +26,8 @@ public class ItemConfig {
         EDELWOOD_MILK_BUCKET_CAPACITY = CLIENT_BUILDER.comment("How much Milk the Edelwood Bucket can store [default: 4]").defineInRange("items.edelwood_bucket.milk_capacity", 4, 1, 10);
         EDELWOOD_SOUP_BUCKET_CAPACITY = CLIENT_BUILDER.comment("How many Soups/Stews the Edelwood Bucket can store [default: 8]").defineInRange("items.edelwood_bucket.soup_capacity", 8, 1, 10);
 
-        BOOM_ARROW_BLOCK_DAMAGE = CLIENT_BUILDER.comment("Should Boom Arrow Explosions deal Block Damage [default: false]").define("items.boom_arrow.block_damage", false);
-        BOOM_ARROW_EXPLOSION_RADIUS = CLIENT_BUILDER.comment("Radius of Boom Arrow Explosions [default: 3]").defineInRange("items.boom_arrow.explosion_radius", 3, 1, 10);
+        BOOM_ARROW_BLOCK_DAMAGE = CLIENT_BUILDER.comment("Should Boom Arrow explosions deal Block Damage [default: false]").define("items.boom_arrow.block_damage", false);
+        BOOM_ARROW_EXPLOSION_RADIUS = CLIENT_BUILDER.comment("Radius of Boom Arrow explosions [default: 3]").defineInRange("items.boom_arrow.explosion_radius", 3, 1, 10);
 
         MUNDABITUR_DUST_CHARGE_CREEPER = CLIENT_BUILDER.comment("Should right-clicking a Creeper with Mundabitur Dust charge the Creeper [default: true]").define("items.mundabitur_dust.charge_creeper", true);
     }
