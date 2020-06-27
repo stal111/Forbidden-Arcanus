@@ -43,22 +43,24 @@ public class TickListener {
             if (!player.world.isRemote()) {
                 player.getCapability(FlightTimeLeftCapability.FLIGHT_TIME_LEFT_CAPABILITY)
                         .ifPresent(iFlightTimeLeft -> {
-                            if (!player.abilities.allowFlying && iFlightTimeLeft.getFlightTimeLeft() > 0) {
-                                player.abilities.allowFlying = true;
-                            }
-
-                            if (iFlightTimeLeft.getFlightTimeLeft() <= 2 && iFlightTimeLeft.getFlightTimeLeft() != 0) {
-                                player.abilities.allowFlying = false;
-                                player.abilities.isFlying = false;
-
-                                iFlightTimeLeft.setFlightTimeLeft(0);
-                            }
-
                             if (iFlightTimeLeft.getFlightTimeLeft() != 0) {
-                                iFlightTimeLeft.setFlightTimeLeft(iFlightTimeLeft.getFlightTimeLeft() - 1);
-                            }
+                                if (!player.abilities.allowFlying && iFlightTimeLeft.getFlightTimeLeft() > 0) {
+                                    player.abilities.allowFlying = true;
+                                }
 
-                            NetworkHandler.INSTANCE.sendTo(new FlightTimeLeftPacket(iFlightTimeLeft.getFlightTimeLeft()), ((ServerPlayerEntity) player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                                if (iFlightTimeLeft.getFlightTimeLeft() <= 2 && iFlightTimeLeft.getFlightTimeLeft() != 0 && !player.abilities.isCreativeMode && !player.isSpectator()) {
+                                    player.abilities.allowFlying = false;
+                                    player.abilities.isFlying = false;
+
+                                    iFlightTimeLeft.setFlightTimeLeft(0);
+                                }
+
+                                if (iFlightTimeLeft.getFlightTimeLeft() != 0) {
+                                    iFlightTimeLeft.setFlightTimeLeft(iFlightTimeLeft.getFlightTimeLeft() - 1);
+                                }
+
+                                NetworkHandler.INSTANCE.sendTo(new FlightTimeLeftPacket(iFlightTimeLeft.getFlightTimeLeft()), ((ServerPlayerEntity) player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                            }
                         });
             }
     }

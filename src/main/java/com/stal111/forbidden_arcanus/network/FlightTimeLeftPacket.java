@@ -36,7 +36,7 @@ public class FlightTimeLeftPacket {
 
                 ClientPlayerEntity player = Minecraft.getInstance().player;
 
-                if (packet.flightTimeLeft == 0 && !player.abilities.isCreativeMode) {
+                if (packet.flightTimeLeft == 0 && !player.abilities.isCreativeMode && !player.isSpectator()) {
                     player.abilities.allowFlying = false;
                     player.abilities.isFlying = false;
                 } else if (!player.abilities.allowFlying) {
