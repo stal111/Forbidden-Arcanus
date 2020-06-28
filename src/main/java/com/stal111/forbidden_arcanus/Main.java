@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.capability.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.config.Config;
+import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.event.LootTableListener;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadListener;
 import com.stal111.forbidden_arcanus.init.*;
@@ -24,11 +25,15 @@ import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
 import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
@@ -108,8 +113,9 @@ public class Main {
 		ModWoodType.register(ModWoodType.CHERRYWOOD);
 		ModWoodType.register(ModWoodType.MYSTERYWOOD);
 
-		//OreGenerator.setupOreGen();
+		OreGenerator.setupOreGen();
 		//WorldGenerator.setupWorldGen();
+
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD.getBlock());
 		ModUtils.addStrippable(ModBlocks.MYSTERYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.getBlock());
@@ -118,12 +124,13 @@ public class Main {
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
 		FlightTimeLeftCapability.register();
+
+		GlobalEntityTypeAttributes.put((EntityType<? extends LivingEntity>) ModEntities.PIXIE.get(), PixieEntity.registerAttributes().func_233813_a_());
 	}
 
 	@SubscribeEvent
 	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
-		//TODO
-		//event.getServer().resourceManager.field_240952_b_.addReloadListener(PAGE_LOADER);
+		((IReloadableResourceManager) event.getServer().resourceManager.func_240970_h_()).addReloadListener(PAGE_LOADER);
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
