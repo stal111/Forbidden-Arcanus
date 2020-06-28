@@ -14,6 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -44,21 +45,16 @@ public class SpectralEyeAmuletItem extends Item {
 		boolean flag = isDeactivated(stack);
 		setDeactivated(stack, !flag);
 
-		return super.onItemRightClick(world, player, hand);
+		return ActionResult.resultSuccess(stack);
 	}
 
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
 
-		//TODO
-//		ITextComponent toggle = new TranslationTextComponent("tooltip." + Main.MOD_ID + ".toggle").applyTextStyle(TextFormatting.GRAY);
-//
-//		if (isDeactivated(stack)) {
-//			tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".deactivated").applyTextStyle(TextFormatting.RED).appendText(" ").appendSibling(toggle));
-//		} else {
-//			tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".activated").applyTextStyle(TextFormatting.GREEN).appendText(" ").appendSibling(toggle));
-//		}
+		ITextComponent toggle = new TranslationTextComponent("tooltip." + Main.MOD_ID + ".toggle").func_240699_a_(TextFormatting.GRAY);
+
+		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + (isDeactivated(stack) ? ".deactivated" : ".activated")).func_240699_a_(isDeactivated(stack) ? TextFormatting.RED : TextFormatting.GREEN).func_240702_b_(" ").func_230529_a_(toggle));
 	}
 
 	private boolean isDeactivated(ItemStack stack) {

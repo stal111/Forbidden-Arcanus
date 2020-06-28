@@ -15,6 +15,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -48,7 +49,6 @@ public class OrbOfTemporaryFlightItem extends Item {
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
 
-		//TODO
-		//tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".duration").applyTextStyle(TextFormatting.GRAY).appendText(": " + StringUtils.ticksToElapsedTime(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
+		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".duration").func_240699_a_(TextFormatting.GRAY).func_240702_b_(": " + StringUtils.ticksToElapsedTime(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
 	}
 }
