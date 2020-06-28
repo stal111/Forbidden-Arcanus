@@ -103,15 +103,9 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
         this.setMotion(this.getMotion().mul(1.0D, 0.6D, 1.0D));
     }
 
-    //TODO: new Attribute System?
-//    @Override
-//    protected void registerAttributes() {
-//        super.registerAttributes();
-//        this.getAttributes().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
-//        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
-//        this.getAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.6F);
-//        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3F);
-//    }
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return MobEntity.func_233666_p_().func_233815_a_(Attributes.field_233818_a_, 4.0D).func_233815_a_(Attributes.field_233822_e_, 0.6F).func_233815_a_(Attributes.field_233821_d_, 0.3F);
+    }
 
     @Override
     protected boolean canTriggerWalking() {

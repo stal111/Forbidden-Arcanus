@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.entity.model.PixieModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
@@ -27,10 +28,9 @@ public class PixieRenderer extends MobRenderer<PixieEntity, PixieModel<PixieEnti
         return PIXIE_TEXTURES[entity.getVariant()];
     }
 
-    //TODO
-//    @Nullable
-//    @Override
-//    protected RenderType func_230042_a_(PixieEntity entity, boolean p_230042_2_, boolean p_230042_3_) {
-//        return RenderType.getEntityTranslucent(PIXIE_TEXTURES[entity.getVariant()]);
-//    }
+    @Nullable
+    @Override
+    protected RenderType func_230496_a_(PixieEntity entity, boolean p_230496_2_, boolean p_230496_3_, boolean p_230496_4_) {
+        return RenderType.getEntityTranslucent(PIXIE_TEXTURES[entity.getVariant()]);
+    }
 }
