@@ -79,7 +79,7 @@ public class EnergyBallEntity extends Entity {
             super.tick();
             ++this.ticksInAir;
 
-            RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this.shootingEntity, null, RayTraceContext.BlockMode.COLLIDER);
+            RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, entity -> entity.isAlive() && entity != this.shootingEntity, RayTraceContext.BlockMode.COLLIDER);
             if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onImpact(raytraceresult);
             }
@@ -102,7 +102,6 @@ public class EnergyBallEntity extends Entity {
             this.remove();
         }
     }
-
 
     protected float getMotionFactor() {
         return 0.95F;
