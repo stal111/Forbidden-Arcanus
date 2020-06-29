@@ -22,33 +22,32 @@ public class PetrifiedRootFeature extends Feature<NoFeatureConfig> {
 
     @Override
     public boolean func_230362_a_(ISeedReader seedReader, StructureManager manager, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig noFeatureConfig) {
-        World world = seedReader.getWorld();
         int i = 0;
 
-        if (!world.isAirBlock(pos)) {
+        if (!seedReader.isAirBlock(pos)) {
             return false;
-        } else if (world.getBlockState(pos.up()).getBlock() != Blocks.STONE) {
+        } else if (seedReader.getBlockState(pos.up()).getBlock() != Blocks.STONE) {
             return false;
         } else {
-            world.setBlockState(pos, ModBlocks.PETRIFIED_ROOT.getState(), 2);
+            seedReader.setBlockState(pos, ModBlocks.PETRIFIED_ROOT.getState(), 2);
             Direction direction = null;
             for (int j = 1; j <= 5; j++) {
                 if (rand.nextDouble() >= 0.1D * i) {
                     if (j == 1 && rand.nextDouble() <= 0.5D) {
                         for (Direction direction1 : Direction.values()) {
-                            if (world.getBlockState(pos.offset(direction1)).isAir(world, pos.offset(direction1))) {
+                            if (seedReader.getBlockState(pos.offset(direction1)).isAir(seedReader, pos.offset(direction1))) {
                                 direction = direction1;
                             }
                         }
                     }
                     if (direction != null) {
-                        if (world.getBlockState(pos.down(j).offset(direction)).isAir(world, pos.down(j).offset(direction))) {
-                            world.setBlockState(pos.down(j).offset(direction), ModBlocks.PETRIFIED_ROOT.getState(), 2);
+                        if (seedReader.getBlockState(pos.down(j).offset(direction)).isAir(seedReader, pos.down(j).offset(direction))) {
+                            seedReader.setBlockState(pos.down(j).offset(direction), ModBlocks.PETRIFIED_ROOT.getState(), 2);
                             i = j;
                         }
                     } else {
-                        if (world.getBlockState(pos.down(j)).isAir(world, pos.down(j))) {
-                            world.setBlockState(pos.down(j), ModBlocks.PETRIFIED_ROOT.getState(), 2);
+                        if (seedReader.getBlockState(pos.down(j)).isAir(seedReader, pos.down(j))) {
+                            seedReader.setBlockState(pos.down(j), ModBlocks.PETRIFIED_ROOT.getState(), 2);
                             i = j;
                         }
                     }

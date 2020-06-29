@@ -86,6 +86,7 @@ public class Main {
 		ModParticles.PARTICLE_TYPES.register(modEventBus);
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);
 		ModEffects.EFFECTS.register(modEventBus);
+		ModFeatures.FEATURES.register(modEventBus);
 
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, LootTableListener::registerGlobalModifiers);
 
@@ -114,7 +115,7 @@ public class Main {
 		ModWoodType.register(ModWoodType.MYSTERYWOOD);
 
 		OreGenerator.setupOreGen();
-		//WorldGenerator.setupWorldGen();
+		WorldGenerator.setupWorldGen();
 
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD.getBlock());
@@ -176,13 +177,6 @@ public class Main {
 		@SubscribeEvent
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 			ModSounds.register(event);
-		}
-
-		@SubscribeEvent
-		public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
-			for (ModFeatures feature : ModFeatures.values()) {
-				event.getRegistry().register(feature.getFeature());
-			}
 		}
 
 		@SubscribeEvent

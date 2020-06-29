@@ -3,26 +3,21 @@ package com.stal111.forbidden_arcanus.init;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.world.gen.feature.PetrifiedRootFeature;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public enum ModFeatures {
-    //CHERRYWOOD_TREE(new CherrywoodTreeFeature(BaseTreeFeatureConfig.field_236676_a_)),
-    PETRIFIED_ROOT(new PetrifiedRootFeature(NoFeatureConfig.field_236558_a_));
+import java.util.function.Supplier;
 
-    private final Feature feature;
+public class ModFeatures {
 
-    ModFeatures(Feature feature) {
-        this.feature = feature;
-    }
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Main.MOD_ID);
 
-    public String getName() {
-        return String.valueOf(this).toLowerCase();
-    }
+    public static final RegistryObject<Feature<NoFeatureConfig>> PETRIFIED_ROOT = register("petrified_root", () -> new PetrifiedRootFeature(NoFeatureConfig.field_236558_a_));
 
-    public Feature getFeature() {
-        if (feature.getRegistryName() == null) {
-            feature.setRegistryName(Main.MOD_ID + getName());
-        }
-        return feature;
+    private static <T extends IFeatureConfig> RegistryObject<Feature<T>> register(String name, Supplier<Feature<T>> feature) {
+        return FEATURES.register(name, feature);
     }
 }
