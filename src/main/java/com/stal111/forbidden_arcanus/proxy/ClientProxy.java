@@ -4,7 +4,10 @@ import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.item.ForbiddenmiconItem;
+import com.stal111.forbidden_arcanus.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.util.BakedModelOverrideRegistry;
 import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
@@ -12,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -47,6 +51,9 @@ public class ClientProxy implements IProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::stitchTextures);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModelBake);
+
+        ItemModelsProperties.func_239418_a_(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.func_239418_a_(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && SpectralEyeAmuletItem.isDeactivated(stack) ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent

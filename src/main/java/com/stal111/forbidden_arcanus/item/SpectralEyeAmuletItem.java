@@ -12,9 +12,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -26,8 +24,6 @@ public class SpectralEyeAmuletItem extends Item {
 
 	public SpectralEyeAmuletItem(Item.Properties properties) {
 		super(properties);
-		//TODO
-		//this.addPropertyOverride(new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && isDeactivated(stack) ? 1.0F : 0.0F);
 	}
 	
 	@Override
@@ -57,13 +53,13 @@ public class SpectralEyeAmuletItem extends Item {
 		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + (isDeactivated(stack) ? ".deactivated" : ".activated")).func_240699_a_(isDeactivated(stack) ? TextFormatting.RED : TextFormatting.GREEN).func_240702_b_(" ").func_230529_a_(toggle));
 	}
 
-	private boolean isDeactivated(ItemStack stack) {
+	public static boolean isDeactivated(ItemStack stack) {
 		CompoundNBT compoundnbt = stack.getOrCreateTag();
 
 		return compoundnbt.getBoolean("Deactivated");
 	}
 
-	private void setDeactivated(ItemStack stack, boolean deactivated) {
+	public static void setDeactivated(ItemStack stack, boolean deactivated) {
 		CompoundNBT compoundnbt = stack.getOrCreateTag();
 		compoundnbt.putBoolean("Deactivated", deactivated);
 	}

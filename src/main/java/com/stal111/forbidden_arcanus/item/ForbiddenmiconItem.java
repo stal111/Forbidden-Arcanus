@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,8 +20,6 @@ public class ForbiddenmiconItem extends Item {
 
     public ForbiddenmiconItem(Properties properties) {
         super(properties);
-        //TODO: new Property Override System?
-        //this.addPropertyOverride(new ResourceLocation("open"), (stack, world, entity) -> entity != null && isOpen(stack) ? 1.0F : 0.0F);
     }
 
     @Override
