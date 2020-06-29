@@ -43,12 +43,6 @@ public class ArcaneDragonEggBlock extends FallingWaterloggedBlock {
 		return this.generateShape();
 	}
 
-	//TODO
-//	@Override
-//	public int getLightValue(BlockState state) {
-//		return 9;
-//	}
-
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
 		double d0 = pos.getX() + random.nextFloat();

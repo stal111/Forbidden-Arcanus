@@ -90,7 +90,7 @@ public class WallCandelabraBlock extends Block implements IWaterLoggable {
     };
 
     public WallCandelabraBlock(Properties properties) {
-        super(properties);
+        super(properties.func_235838_a_(state -> state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? 12 + state.get(CANDLES) : 0));
         this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 0).with(LIT, true).with(DIRECTION, Direction.NORTH).with(WATERLOGGED, false));
     }
 
@@ -182,14 +182,8 @@ public class WallCandelabraBlock extends Block implements IWaterLoggable {
 
     }
 
-    //TODO
-//    @Override
-//    public int getLightValue(BlockState state) {
-//        return state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? super.getLightValue(state) + 12 + state.get(CANDLES) : 0;
-//    }
-
     @Override
-    public PushReaction getPushReaction(BlockState p_149656_1_) {
+    public PushReaction getPushReaction(BlockState state) {
         return PushReaction.DESTROY;
     }
 

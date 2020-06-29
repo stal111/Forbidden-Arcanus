@@ -19,7 +19,7 @@ public class CandleLampBlock extends WaterloggedBlock {
 			Block.makeCuboidShape(5, 14, 5, 11, 16, 11)};
 
 	public CandleLampBlock(Properties properties) {
-		super(properties.hardnessAndResistance(2.0F, 15.0F));//.lightValue(15)); TODO
+		super(properties.hardnessAndResistance(2.0F, 15.0F));
 	}
 	
 	private VoxelShape generateShape() {

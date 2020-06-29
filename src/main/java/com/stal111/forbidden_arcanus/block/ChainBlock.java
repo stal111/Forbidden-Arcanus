@@ -18,9 +18,7 @@ import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -34,13 +32,14 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class ChainBlock extends CutoutBlock implements IWaterLoggable {
 
     public static final EnumProperty<ConnectedBlockType> TYPE = EnumProperty.create("type", ConnectedBlockType.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D);
+    protected static final VoxelShape SHAPE = Block.makeCuboidShape(6.5D, 0.0D, 6.5D, 9.5D, 16.0D, 9.5D);
 
     public ChainBlock(Properties properties) {
         super(properties);
@@ -132,6 +131,9 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
 
             if(world.isAirBlock(chainPos) || chainPosState.getMaterial().isReplaceable()) {
                 world.setBlockState(chainPos, this.tryConnect(Block.getBlockFromItem(item).getDefaultState(), world, chainPos));
+
+                List<SoundEvent> soundEvents = Arrays.asList(SoundEvents.field_232697_bz_, SoundEvents.field_232696_bD_, SoundEvents.field_232695_bC_, SoundEvents.field_232694_bB_, SoundEvents.field_232693_bA_);
+                world.playSound(null, chainPos.getX(), chainPos.getY(), chainPos.getZ(), soundEvents.get(new Random().nextInt(soundEvents.size())), SoundCategory.BLOCKS, 1.0F, 1.0F);
                 return true;
             }
         }
@@ -146,26 +148,25 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
             return;
         }
 
-        //TODO
-//        TileEntity tileEntity = world.getTileEntity(srcPos);
-//        if(tileEntity != null) {
-//            tileEntity.remove();
-//        }
+        TileEntity tileEntity = world.getTileEntity(srcPos);
+        if(tileEntity != null) {
+            tileEntity.remove();
+        }
 
         world.setBlockState(srcPos, Blocks.AIR.getDefaultState());
         world.setBlockState(dstPos, state);
 
-//        if(tileEntity != null) {
-//            tileEntity.setPos(dstPos);
-//            TileEntity target = TileEntity.create(tileEntity.write(new CompoundNBT()));
-//            if (target != null) {
-//                world.setTileEntity(dstPos, target);
-//
-//                target.updateContainingBlockInfo();
-//            }
-//        }
-//
-//        world.notifyNeighbors(dstPos, state.getBlock());
+        if(tileEntity != null) {
+            tileEntity.setPos(dstPos);
+            TileEntity target = TileEntity.func_235657_b_(state, tileEntity.write(new CompoundNBT()));
+            if (target != null) {
+                world.setTileEntity(dstPos, target);
+
+                target.updateContainingBlockInfo();
+            }
+        }
+
+        world.notifyNeighborsOfStateChange(dstPos, state.getBlock());
     }
 
     private BlockState tryConnect(BlockState state, World world, BlockPos pos) {
@@ -185,7 +186,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
     }
 
     @Override
-    public boolean allowsMovement(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
+    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return false;
     }
 

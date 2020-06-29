@@ -41,7 +41,7 @@ public class HangingCandelabraBlock extends Block implements IWaterLoggable {
             Block.makeCuboidShape(5.0D, 3.0D, 5.0D, 11.0D, 12.0D, 11.0D));
 
     public HangingCandelabraBlock(Block.Properties properties) {
-        super(properties);
+        super(properties.func_235838_a_(state -> state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLE) ? 14 : 0));
         this.setDefaultState(this.stateContainer.getBaseState().with(CANDLE, false).with(LIT, true).with(WATERLOGGED, false));
     }
 
@@ -98,12 +98,6 @@ public class HangingCandelabraBlock extends Block implements IWaterLoggable {
         return facing.getOpposite() == Direction.DOWN && !state.isValidPosition(world, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
 
     }
-
-    //TODO
-//    @Override
-//    public int getLightValue(BlockState state) {
-//        return state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLE) ? super.getLightValue(state) + 14 : 0;
-//    }
 
     @Override
     public PushReaction getPushReaction(BlockState p_149656_1_) {

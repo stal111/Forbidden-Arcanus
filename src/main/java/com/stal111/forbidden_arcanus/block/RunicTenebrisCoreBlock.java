@@ -47,12 +47,6 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 		return super.onBlockActivated(state, world, pos, player, hand, result);
 	}
 
-	//TODO
-//	@Override
-//	public int getLightValue(BlockState state) {
-//		return 14;
-//	}
-
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState p_180633_3_, @Nullable LivingEntity entity, ItemStack stack) {
 		world.playSound(pos.getX(), pos.getY() + 0.5D, pos.getZ(), ModSounds.runic_tenebris_core_activated, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
