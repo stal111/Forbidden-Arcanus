@@ -31,7 +31,7 @@ public class InfernumPickaxeLootModifier extends LootModifier {
     }
 
     private static ItemStack smelt(ItemStack stack, LootContext context) {
-        if (Tags.Blocks.ORES.func_230235_a_(Block.getBlockFromItem(stack.getItem()))) {
+        if (Tags.Blocks.ORES.contains(Block.getBlockFromItem(stack.getItem()))) {
             return context.getWorld().getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(stack), context.getWorld())
                     .map(FurnaceRecipe::getRecipeOutput)
                     .filter(itemStack -> !itemStack.isEmpty())

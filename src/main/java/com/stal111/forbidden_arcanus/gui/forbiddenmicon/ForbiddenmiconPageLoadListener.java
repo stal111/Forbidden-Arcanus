@@ -26,7 +26,7 @@ public class ForbiddenmiconPageLoadListener implements IResourceManagerReloadLis
     public static final int PATH_PREFIX_LENGTH = "forbiddenmicon/".length();
     public static final int PATH_SUFFIX_LENGTH = ".json".length();
 
-    private Map<ResourceLocation, ForbiddenmiconEntry> entries = new HashMap<>();
+    public static Map<ResourceLocation, ForbiddenmiconEntry> entries = new HashMap<>();
 
     public ForbiddenmiconEntry deserializeJson(ResourceLocation recipeId, JsonObject json) {
         ItemStack stack = ShapedRecipe.deserializeItem(json.get("topic").getAsJsonObject());
@@ -36,6 +36,7 @@ public class ForbiddenmiconPageLoadListener implements IResourceManagerReloadLis
 
     @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
+        System.out.println("TEST");
         Gson gson = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
         for (ResourceLocation resourcelocation : resourceManager.getAllResourceLocations("forbiddenmicon", (p_199516_0_) -> {
@@ -61,7 +62,7 @@ public class ForbiddenmiconPageLoadListener implements IResourceManagerReloadLis
 
     public Collection<ForbiddenmiconEntry> getEntries(ForbiddenmiconCategory category) {
         List<ForbiddenmiconEntry> list = new ArrayList<>();
-        this.entries.forEach((location, forbiddenmiconEntry) -> {
+        entries.forEach((location, forbiddenmiconEntry) -> {
             if (forbiddenmiconEntry.getCategory() == category) {
                 list.add(forbiddenmiconEntry);
             }

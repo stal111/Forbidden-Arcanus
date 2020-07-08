@@ -16,16 +16,16 @@ public abstract class ModScreen extends Screen {
     }
 
     @Override
-    public void func_230430_a_(MatrixStack matrixStack, int x, int y, float p_render_3_) {
+    public void render(MatrixStack matrixStack, int x, int y, float p_render_3_) {
         manager.renderAll(matrixStack, x, y);
         manager.renderHoverEffectAll(matrixStack, x, y);
-        super.func_230430_a_(matrixStack, x, y, p_render_3_);
+        super.render(matrixStack, x, y, p_render_3_);
     }
 
     @Override
-    public boolean func_231044_a_(double x, double y, int p_mouseClicked_5_) {
+    public boolean mouseClicked(double x, double y, int p_mouseClicked_5_) {
         manager.onClicked(x, y);
-        return super.func_231044_a_(x, y, p_mouseClicked_5_);
+        return super.mouseClicked(x, y, p_mouseClicked_5_);
     }
 
     public abstract String getName();
@@ -39,8 +39,8 @@ public abstract class ModScreen extends Screen {
     }
 
     @Override
-    public void func_231175_as__() {
+    public void onClose() {
         manager.clear();
-        super.func_231175_as__();
+        super.onClose();
     }
 }

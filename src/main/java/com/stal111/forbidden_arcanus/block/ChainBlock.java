@@ -132,8 +132,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
             if(world.isAirBlock(chainPos) || chainPosState.getMaterial().isReplaceable()) {
                 world.setBlockState(chainPos, this.tryConnect(Block.getBlockFromItem(item).getDefaultState(), world, chainPos));
 
-                List<SoundEvent> soundEvents = Arrays.asList(SoundEvents.field_232697_bz_, SoundEvents.field_232696_bD_, SoundEvents.field_232695_bC_, SoundEvents.field_232694_bB_, SoundEvents.field_232693_bA_);
-                world.playSound(null, chainPos.getX(), chainPos.getY(), chainPos.getZ(), soundEvents.get(new Random().nextInt(soundEvents.size())), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.playSound(null, chainPos.getX(), chainPos.getY(), chainPos.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 return true;
             }
         }
@@ -158,7 +157,7 @@ public class ChainBlock extends CutoutBlock implements IWaterLoggable {
 
         if(tileEntity != null) {
             tileEntity.setPos(dstPos);
-            TileEntity target = TileEntity.func_235657_b_(state, tileEntity.write(new CompoundNBT()));
+            TileEntity target = TileEntity.readTileEntity(state, tileEntity.write(new CompoundNBT()));
             if (target != null) {
                 world.setTileEntity(dstPos, target);
 

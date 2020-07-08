@@ -37,7 +37,7 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public CandleBlock(Properties properties) {
-		super(properties.doesNotBlockMovement().func_235838_a_(state -> state.get(LIT) && !state.get(WATERLOGGED) ? 12 + state.get(CANDLES) : 0));
+		super(properties.doesNotBlockMovement().setLightLevel(state -> state.get(LIT) && !state.get(WATERLOGGED) ? 12 + state.get(CANDLES) : 0));
 		this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 1).with(LIT, true).with(WATERLOGGED, false));
 	}
 

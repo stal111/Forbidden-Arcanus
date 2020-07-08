@@ -32,14 +32,14 @@ public class RenderGameOverlayListener {
             FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
 
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(Main.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
-            AbstractGui.func_238464_a_(event.getMatrixStack(), 1, 1, 0, 0, 0, 57, 25, 25, 57);
+            AbstractGui.blit(event.getMatrixStack(), 1, 1, 0, 0, 0, 57, 25, 25, 57);
 
             Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get()), 6, (int) 6.5F);
 
             TextFormatting color = flightTimeLeft / 20 <= 20 ? TextFormatting.RED : TextFormatting.WHITE;
             int i = flightTimeLeft < 12000 ? 28 : (int) 26.5F;
 
-            fontRenderer.func_238421_b_(event.getMatrixStack(), StringUtils.ticksToElapsedTime(flightTimeLeft), i, 10, color.getColor());
+            fontRenderer.drawString(event.getMatrixStack(), StringUtils.ticksToElapsedTime(flightTimeLeft), i, 10, color.getColor());
         }
     }
 }

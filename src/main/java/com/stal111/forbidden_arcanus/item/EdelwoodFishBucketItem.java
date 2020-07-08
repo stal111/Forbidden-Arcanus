@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -70,32 +71,29 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        super.addInformation(stack, world, tooltip, flag);
         if (this.fishType == EntityType.TROPICAL_FISH) {
-            CompoundNBT compoundNBT = stack.getTag();
-            if (compoundNBT != null && compoundNBT.contains("BucketVariantTag", 3)) {
-                int variant = compoundNBT.getInt("BucketVariantTag");
-                TextFormatting[] lvt_7_1_ = new TextFormatting[]{TextFormatting.ITALIC, TextFormatting.GRAY};
-                String lvt_8_1_ = "color.minecraft." + TropicalFishEntity.func_212326_d(variant);
-                String lvt_9_1_ = "color.minecraft." + TropicalFishEntity.func_212323_p(variant);
+            CompoundNBT compoundnbt = stack.getTag();
+            if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
+                int i = compoundnbt.getInt("BucketVariantTag");
+                TextFormatting[] atextformatting = new TextFormatting[]{TextFormatting.ITALIC, TextFormatting.GRAY};
+                String s = "color.minecraft." + TropicalFishEntity.func_212326_d(i);
+                String s1 = "color.minecraft." + TropicalFishEntity.func_212323_p(i);
 
-                for(int lvt_10_1_ = 0; lvt_10_1_ < TropicalFishEntity.SPECIAL_VARIANTS.length; ++lvt_10_1_) {
-                    if (variant == TropicalFishEntity.SPECIAL_VARIANTS[lvt_10_1_]) {
-                        tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212324_b(lvt_10_1_))).func_240701_a_(lvt_7_1_));
+                for(int j = 0; j < TropicalFishEntity.SPECIAL_VARIANTS.length; ++j) {
+                    if (i == TropicalFishEntity.SPECIAL_VARIANTS[j]) {
+                        tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212324_b(j))).func_240701_a_(atextformatting));
                         return;
                     }
                 }
 
-                tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212327_q(variant))).func_240701_a_(lvt_7_1_));
-                ITextComponent textComponent = new TranslationTextComponent(lvt_8_1_);
-                if (!lvt_8_1_.equals(lvt_9_1_)) {
-                    //TODO: appendText replacement?
-                    //textComponent.appendText(", ").appendSibling(new TranslationTextComponent(lvt_9_1_));
+                tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212327_q(i))).func_240701_a_(atextformatting));
+                IFormattableTextComponent iformattabletextcomponent = new TranslationTextComponent(s);
+                if (!s.equals(s1)) {
+                    iformattabletextcomponent.func_240702_b_(", ").func_230529_a_(new TranslationTextComponent(s1));
                 }
 
-                //TODO
-                //textComponent.applyTextStyles(lvt_7_1_);
-                tooltip.add(textComponent);
+                iformattabletextcomponent.func_240701_a_(atextformatting);
+                tooltip.add(iformattabletextcomponent);
             }
         }
     }

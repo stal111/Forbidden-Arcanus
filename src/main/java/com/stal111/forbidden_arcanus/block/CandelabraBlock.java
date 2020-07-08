@@ -85,7 +85,7 @@ public class CandelabraBlock extends CutoutBlock implements IWaterLoggable {
     };
 
     public CandelabraBlock(Properties properties) {
-        super(properties.func_235838_a_(state -> state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? 12 + state.get(CANDLES) : 0));
+        super(properties.setLightLevel(state -> state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLES) != 0 ? 12 + state.get(CANDLES) : 0));
         this.setDefaultState(this.stateContainer.getBaseState().with(CANDLES, 0).with(LIT, true).with(X, true).with(WATERLOGGED, false));
     }
 

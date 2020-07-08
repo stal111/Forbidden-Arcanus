@@ -120,7 +120,7 @@ public abstract class GuiElement {
     }
 
     public void blit(MatrixStack matrixStack, int posX, int posY, int blitOffset, int startX, int startY, int sizeX, int sizeY, int textureSizeX, int textureSizeY) {
-        AbstractGui.func_238464_a_(matrixStack, posX, posY, blitOffset, startX, startY, sizeX, sizeY, textureSizeX, textureSizeY);
+        AbstractGui.blit(matrixStack, posX, posY, blitOffset, startX, startY, sizeX, sizeY, textureSizeX, textureSizeY);
     }
 
     public void fill(int p_fill_1_, int p_fill_2_, int p_fill_3_, int p_fill_4_, int red, int green, int blue, int alpha) {
@@ -169,12 +169,12 @@ public abstract class GuiElement {
             k += 2 + (tooltip.size() - 1) * 10;
         }
 
-        if (l1 + i > ForbiddenmiconScreen.INSTANCE.field_230708_k_) {
+        if (l1 + i > ForbiddenmiconScreen.INSTANCE.width) {
             l1 -= 28 + i;
         }
 
-        if (i2 + k + 6 > ForbiddenmiconScreen.INSTANCE.field_230709_l_) {
-            i2 = ForbiddenmiconScreen.INSTANCE.field_230709_l_ - k - 6;
+        if (i2 + k + 6 > ForbiddenmiconScreen.INSTANCE.height) {
+            i2 = ForbiddenmiconScreen.INSTANCE.height - k - 6;
         }
 
         getMinecraft().getItemRenderer().zLevel = 300.0F;

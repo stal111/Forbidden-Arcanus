@@ -41,7 +41,7 @@ public class HangingCandelabraBlock extends Block implements IWaterLoggable {
             Block.makeCuboidShape(5.0D, 3.0D, 5.0D, 11.0D, 12.0D, 11.0D));
 
     public HangingCandelabraBlock(Block.Properties properties) {
-        super(properties.func_235838_a_(state -> state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLE) ? 14 : 0));
+        super(properties.setLightLevel(state -> state.get(LIT) && !state.get(WATERLOGGED) && state.get(CANDLE) ? 14 : 0));
         this.setDefaultState(this.stateContainer.getBaseState().with(CANDLE, false).with(LIT, true).with(WATERLOGGED, false));
     }
 

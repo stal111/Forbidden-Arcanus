@@ -26,7 +26,7 @@ public class ItemElement extends GuiElement {
     @Override
     public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         if (isMouseOver(x, y)) {
-            renderFancyTooltip(matrixStack, getCurrentScreen().func_231151_a_(stack), x, y);
+            renderFancyTooltip(matrixStack, getCurrentScreen().getTooltipFromItem(stack), x, y);
         }
     }
 }
