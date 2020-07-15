@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#forbidden_arcanus:standing_candelabras",
+	"#forbidden_arcanus:wall_candelabras",
+	"#forbidden_arcanus:hanging_candelabras"
+  ]
+}

@@ -1,24 +1,21 @@
 package com.stal111.forbidden_arcanus.util;
 
-import com.stal111.forbidden_arcanus.Main;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.tags.TagRegistry;
-import net.minecraft.util.ResourceLocation;
 
 public class ModTags {
 
     public static class Items {
+        public static final ITag.INamedTag<Item> SEEDS = ItemTags.makeWrapperTag("seeds");
+    }
 
-        private static final TagRegistry<Item> collection = new TagRegistry<>();
-
-        public static final ITag.INamedTag<Item> SEEDS = tag("seeds");
-
-        private static ITag.INamedTag<Item> tag(String name) {
-            return collection.func_232937_a_(name);
-        }
-
+    public static class Blocks {
+        public static final ITag.INamedTag<Block> CANDELABRAS = BlockTags.makeWrapperTag("candelabras");
+        public static final ITag.INamedTag<Block> STANDING_CANDELABRAS = BlockTags.makeWrapperTag("standing_candelabras");
+        public static final ITag.INamedTag<Block> WALL_CANDELABRAS = BlockTags.makeWrapperTag("wall_candelabras");
+        public static final ITag.INamedTag<Block> HANGING_CANDELABRAS = BlockTags.makeWrapperTag("hanging_candelabras");
     }
 }
