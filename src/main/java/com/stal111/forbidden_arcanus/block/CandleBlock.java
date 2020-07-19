@@ -1,6 +1,12 @@
 package com.stal111.forbidden_arcanus.block;
 
-import net.minecraft.block.*;
+import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.util.ModTags;
+import com.stal111.forbidden_arcanus.util.ModUtils;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -17,24 +23,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.*;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class CandleBlock extends CutoutBlock implements IWaterLoggable {
+public class CandleBlock extends Block implements IWaterLoggable {
+
+	public static final IntegerProperty CANDLES = ModBlockStateProperties.CANDLES_1_3;
+	public static final BooleanProperty LIT = BlockStateProperties.LIT;
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	private static final List<VoxelShape> SHAPES = Arrays.asList(
 			Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 10.0D, 10.0D),
 			Block.makeCuboidShape(4.0D, 0.0D, 3.0D, 12.0D, 10.0D, 12.0D),
 			Block.makeCuboidShape(3.0D, 0.0D, 2.0D, 14.0D, 10.0D, 13.0D));
-
-	public static final IntegerProperty CANDLES = IntegerProperty.create("candles", 1, 3);;
-	public static final BooleanProperty LIT = BlockStateProperties.LIT;
-	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public CandleBlock(Properties properties) {
 		super(properties.doesNotBlockMovement().setLightLevel(state -> state.get(LIT) && !state.get(WATERLOGGED) ? 12 + state.get(CANDLES) : 0));
@@ -45,18 +53,18 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		BlockState state = context.getWorld().getBlockState(context.getPos());
-		boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
-		if (state.getBlock() == this) {
+
+		if (state.isIn(this)) {
 			return state.with(CANDLES, Math.min(3, state.get(CANDLES) + 1));
-		} else if (state.getBlock() instanceof CandelabraBlock) {
-			return state.with(CandelabraBlock.CANDLES, Math.min(3, state.get(CandelabraBlock.CANDLES) + 1)).with(WATERLOGGED, flag).with(LIT, !flag);
-		} else if (state.getBlock() instanceof WallCandelabraBlock) {
-			return state.with(WallCandelabraBlock.CANDLES,  Math.min(3, state.get(WallCandelabraBlock.CANDLES) + 1)).with(WATERLOGGED, flag).with(LIT, !flag);
-		} else if (state.getBlock() instanceof HangingCandelabraBlock) {
-			return state.with(HangingCandelabraBlock.CANDLE, true).with(WATERLOGGED, flag).with(LIT, !flag);
-		} else {
-			return this.getDefaultState().with(WATERLOGGED, flag).with(LIT, !flag).with(CANDLES, 1);
+		} else if (state.isIn(ModTags.Blocks.STANDING_CANDELABRAS) || state.isIn(ModTags.Blocks.WALL_CANDELABRAS)) {
+			return state.with(ModBlockStateProperties.CANDLES_0_3, Math.min(3, state.get(ModBlockStateProperties.CANDLES_0_3) + 1));
+		} else if (state.isIn(ModTags.Blocks.HANGING_CANDELABRAS)) {
+			return state.with(ModBlockStateProperties.CANDLE, true);
 		}
+
+		FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
+		boolean flag = fluidstate.getFluid() == Fluids.WATER;
+		return super.getStateForPlacement(context).with(WATERLOGGED, flag).with(LIT, !flag);
 	}
 
 	@Override
@@ -64,7 +72,12 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 		if (state.get(WATERLOGGED)) {
 			world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
-		return !this.isValidPosition(state, world, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
+		return !state.isValidPosition(world, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
+	}
+
+	@Override
+	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+		return ModUtils.hasBlockEnoughSolidSite(SHAPES.get(state.get(CANDLES) - 1), world, pos.down(), Direction.UP);
 	}
 
 	@Override
@@ -90,16 +103,6 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
 		return SHAPES.get(state.get(CANDLES) - 1);
 	}
-	
-	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		return VoxelShapes.empty();
-	}
-
-	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		return (hasEnoughSolidSide(world, pos.down(), Direction.UP)) && !CandelabraBlock.isCandelabraBlock(world.getBlockState(pos.down()));
-	}
 
 	@Override
 	public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
@@ -118,12 +121,12 @@ public class CandleBlock extends CutoutBlock implements IWaterLoggable {
 	}
 
 	@Override
-	public void fillStateContainer(StateContainer.Builder<Block, BlockState> p_206840_1_) {
-		p_206840_1_.add(CANDLES, LIT, WATERLOGGED);
+	public void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+		builder.add(CANDLES, LIT, WATERLOGGED);
 	}
 
 	@Override
-	public FluidState getFluidState(BlockState p_204507_1_) {
-		return p_204507_1_.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(p_204507_1_);
+	public FluidState getFluidState(BlockState state) {
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
 }
