@@ -96,6 +96,11 @@ public class WallCandelabraBlock extends AbstractCandelabraBlock {
     }
 
     @Override
+    public String getTranslationKey() {
+        return this.asItem().getTranslationKey();
+    }
+
+    @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         Direction direction = state.get(DIRECTION);
         return hasEnoughSolidSide(world, pos.offset(direction.getOpposite()), direction) && world.getBlockState(pos.up()).getBlock() instanceof AirBlock && !ModTags.Blocks.CANDELABRAS.contains(world.getBlockState(pos.down()).getBlock());

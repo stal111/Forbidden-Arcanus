@@ -44,6 +44,11 @@ public class HangingCandelabraBlock extends AbstractCandelabraBlock {
     }
 
     @Override
+    public String getTranslationKey() {
+        return this.asItem().getTranslationKey();
+    }
+
+    @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         return Block.hasEnoughSolidSide(world, pos.up(), Direction.DOWN);
     }

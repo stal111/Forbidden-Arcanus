@@ -47,11 +47,6 @@ public abstract class AbstractCandelabraBlock extends Block implements IWaterLog
     }
 
     @Override
-    public String getTranslationKey() {
-        return this.asItem().getTranslationKey();
-    }
-
-    @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
