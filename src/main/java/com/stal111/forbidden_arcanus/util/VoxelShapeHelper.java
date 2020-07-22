@@ -28,15 +28,20 @@ public class VoxelShapeHelper {
 
     public static Map<Direction, VoxelShape> getRotatedShapes(VoxelShape shape) {
         Map<Direction, VoxelShape> map = new HashMap<>();
-        map.put(Direction.NORTH, shape);
-        map.put(Direction.EAST, rotateShape(shape, RotationAmount.NINETY));
-        map.put(Direction.SOUTH, rotateShape(shape, RotationAmount.HUNDRED_EIGHTY));
-        map.put(Direction.WEST, rotateShape(shape, RotationAmount.TWO_HUNDRED_SEVENTY));
+
+        for (Direction direction : Direction.values()) {
+            RotationAmount rotationAmount = RotationAmount.getRotationAmountFromDirection(direction);
+
+            if (rotationAmount != null) {
+                map.put(direction, rotateShape(shape, rotationAmount));
+            }
+        }
+
         return map;
     }
 
     public static VoxelShape rotateShape(VoxelShape shape, RotationAmount rotationAmount) {
-        if (shape.isEmpty()) {
+        if (shape.isEmpty() || rotationAmount == RotationAmount.ZERO) {
             return shape;
         }
         Set<VoxelShape> rotatedShapes = new HashSet<>();
@@ -85,8 +90,21 @@ public class VoxelShapeHelper {
     }
 
     public enum RotationAmount {
+        ZERO,
         NINETY,
         HUNDRED_EIGHTY,
-        TWO_HUNDRED_SEVENTY
+        TWO_HUNDRED_SEVENTY;
+
+        public static RotationAmount getRotationAmountFromDirection(Direction direction) {
+            switch (direction) {
+                case NORTH: return RotationAmount.ZERO;
+                case EAST: return RotationAmount.NINETY;
+                case SOUTH: return RotationAmount.HUNDRED_EIGHTY;
+                case WEST: return RotationAmount.TWO_HUNDRED_SEVENTY;
+            }
+
+            return null;
+        }
+
     }
 }
