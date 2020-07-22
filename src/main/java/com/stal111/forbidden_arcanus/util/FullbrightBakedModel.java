@@ -13,6 +13,7 @@ import net.minecraftforge.client.model.data.IModelData;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class FullbrightBakedModel extends DelegateBakedModel {
     private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
@@ -24,6 +25,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
     private final Set<ResourceLocation> textures;
     private final boolean doCaching;
+    private Predicate<BlockState> state = null;
 
     public FullbrightBakedModel(IBakedModel base, boolean doCaching, ResourceLocation... textures) {
         super(base);
@@ -32,9 +34,21 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         this.doCaching = doCaching;
     }
 
+    public FullbrightBakedModel(IBakedModel base, boolean doCaching, Predicate<BlockState> state, ResourceLocation... textures) {
+        super(base);
+
+        this.textures = new HashSet<>(Arrays.asList(textures));
+        this.doCaching = doCaching;
+        this.state = state;
+    }
+
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand, IModelData data) {
         if (state == null) {
+            return base.getQuads(null, side, rand, data);
+        }
+
+        if (this.state != null && !this.state.test(state)) {
             return base.getQuads(state, side, rand, data);
         }
 
@@ -78,11 +92,11 @@ public class FullbrightBakedModel extends DelegateBakedModel {
     }
 
     private static class CacheKey {
-        private IBakedModel base;
-        private Set<ResourceLocation> textures;
-        private Random random;
-        private BlockState state;
-        private Direction side;
+        private final IBakedModel base;
+        private final Set<ResourceLocation> textures;
+        private final Random random;
+        private final BlockState state;
+        private final Direction side;
 
         public CacheKey(IBakedModel base, Set<ResourceLocation> textures, Random random, BlockState state, Direction side) {
             this.base = base;
