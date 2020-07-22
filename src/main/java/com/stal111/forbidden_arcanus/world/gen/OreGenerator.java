@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.world.gen;
 
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.world.ModBiomeFeatures;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
@@ -32,7 +34,7 @@ public class OreGenerator {
 			}
 			
 			if (WorldGenConfig.DARK_STONE_GENERATE.get())  {
-				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DARK_STONE.getState(), WorldGenConfig.DARK_STONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARK_STONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_STONE_MAX_HEIGHT.get()))));
+				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, NewModBlocks.DARKSTONE.get().getDefaultState(), WorldGenConfig.DARK_STONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARK_STONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_STONE_MAX_HEIGHT.get()))));
 			}
 
 			if (WorldGenConfig.STELLA_ARCANUM_GENERATE.get()) {
@@ -40,7 +42,7 @@ public class OreGenerator {
 			}
 
 			if (WorldGenConfig.XPETRIFIED_ORE_GENERATE.get()) {
-				biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.EMERALD_ORE.withConfiguration(new ReplaceBlockConfig(Blocks.STONE.getDefaultState(), ModBlocks.XPETRIFIED_ORE.getState())).withPlacement(Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+				biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.EMERALD_ORE.withConfiguration(ModBiomeFeatures.XPETRIFIED_ORE).withPlacement(Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}
 		}
 	}
