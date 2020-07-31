@@ -1,13 +1,11 @@
 package com.stal111.forbidden_arcanus.config;
 
-import java.io.File;
-
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-import com.stal111.forbidden_arcanus.Main;
-
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
+
+import java.io.File;
 
 @Mod.EventBusSubscriber
 public class Config {
@@ -22,6 +20,7 @@ public class Config {
 		WorldGenConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
 		ItemConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
 		BlockConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
+		RenderingConfig.init(CLIENT_BUILDER);
 
 		SERVER_CONFIG = SERVER_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
