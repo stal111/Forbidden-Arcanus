@@ -3,6 +3,6 @@
     "textures": {
         "particle": "forbidden_arcanus:block/runestone/dark_runestone",
         "all": "forbidden_arcanus:block/runestone/dark_runestone",
-        "cutout": "forbidden_arcanus:block/runestone/cutout"
+        "cutout": "forbidden_arcanus:block/runestone/runestone_layer"
     }
 }
