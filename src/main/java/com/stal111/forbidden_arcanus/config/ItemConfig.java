@@ -16,6 +16,8 @@ public class ItemConfig {
 
     public static ForgeConfigSpec.BooleanValue MUNDABITUR_DUST_CHARGE_CREEPER;
 
+    public static ForgeConfigSpec.IntValue XPETRIFIED_ORB_EXPERIENCE_POINTS;
+
     public static void init(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
         CLIENT_BUILDER.comment("Item Config");
 
@@ -30,5 +32,7 @@ public class ItemConfig {
         BOOM_ARROW_EXPLOSION_RADIUS = CLIENT_BUILDER.comment("Radius of Boom Arrow explosions [default: 3]").defineInRange("items.boom_arrow.explosion_radius", 3, 1, 10);
 
         MUNDABITUR_DUST_CHARGE_CREEPER = CLIENT_BUILDER.comment("Should right-clicking a Creeper with Mundabitur Dust charge the Creeper [default: true]").define("items.mundabitur_dust.charge_creeper", true);
+
+        XPETRIFIED_ORB_EXPERIENCE_POINTS = CLIENT_BUILDER.comment("Experience Points the Orb grants on use [default: 72]").defineInRange("items.xpetrified_orb.experience_points", 72, 1, 120000);
     }
 }
