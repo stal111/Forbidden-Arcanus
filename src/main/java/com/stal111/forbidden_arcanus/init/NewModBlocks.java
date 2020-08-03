@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.ArcanePolishedDarkstoneRod;
+import com.stal111.forbidden_arcanus.block.BlackHoleBlock;
 import com.stal111.forbidden_arcanus.block.PillarBlock;
 import com.stal111.forbidden_arcanus.block.RunicChiseledPolishedDarkstone;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
@@ -44,6 +45,8 @@ public class NewModBlocks {
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_ROD = register("arcane_polished_darkstone_rod", new ArcanePolishedDarkstoneRod(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_GLASS = register("arcane_glass", new GlassBlock(Block.Properties.from(Blocks.GLASS)), ModRenderType.CUTOUT);
     public static final RegistryObject<Block> ARCANE_GLASS_PANE = register("arcane_glass_pane", new PaneBlock(Block.Properties.from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT);
+
+    public static final RegistryObject<Block> BLACK_HOLE = register("black_hole", new BlackHoleBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F).notSolid()), ModRenderType.CUTOUT, false);
 
     private static <T extends Block> RegistryObject<T> register(String name, T block) {
         return register(name, block, ModRenderType.SOLID);

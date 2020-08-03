@@ -11,6 +11,7 @@ public class ModTags {
 
     public static class Items {
         public static final ITag.INamedTag<Item> SEEDS = ItemTags.makeWrapperTag("seeds");
+        public static final ITag.INamedTag<Item> BLACK_HOLE_UNAFFECTED = ItemTags.makeWrapperTag(Main.MOD_ID + ":black_hole_unaffected");
     }
 
     public static class Blocks {

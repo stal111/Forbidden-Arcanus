@@ -1,0 +1,83 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/dark_matter",
+        "dark_matter": "forbidden_arcanus:block/dark_matter",
+        "dark_hole": "forbidden_arcanus:block/black_hole"
+    },
+    "elements": [
+        {
+            "name": "dark_matter",
+            "from": [ 5, 5, 5 ], 
+            "to": [ 11, 11, 11 ], 
+            "faces": {
+                "north": { "texture": "#dark_matter", "uv": [ 2, 2, 14, 14 ] },
+                "east": { "texture": "#dark_matter", "uv": [ 2, 2, 14, 14 ] },
+                "south": { "texture": "#dark_matter", "uv": [ 2, 2, 14, 14 ] },
+                "west": { "texture": "#dark_matter", "uv": [ 2, 2, 14, 14 ] },
+                "up": { "texture": "#dark_matter", "uv": [ 14, 2, 2, 14 ] },
+                "down": { "texture": "#dark_matter", "uv": [ 14, 2, 2, 14 ] }
+            }
+        },
+        {
+            "name": "dark_hole",
+            "from": [ 0, 0, 8 ], 
+            "to": [ 16, 16, 8 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#dark_hole", "uv": [ 16, 0, 0, 16 ] },
+                "south": { "texture": "#dark_hole", "uv": [ 0, 0, 16, 16 ] }
+            }
+        },
+        {
+            "name": "dark_hole",
+            "from": [ 8, 0, 0 ], 
+            "to": [ 8, 16, 16 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "east": { "texture": "#dark_hole", "uv": [ 16, 0, 0, 16 ] },
+                "west": { "texture": "#dark_hole", "uv": [ 0, 0, 16, 16 ] }
+            }
+        },
+        {
+            "name": "dark_hole",
+            "from": [ 0, 8, 0 ], 
+            "to": [ 16, 8, 16 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "x", "angle": 45.0 },
+            "faces": {
+                "up": { "texture": "#dark_hole", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#dark_hole", "uv": [ 16, 0, 0, 16 ] }
+            }
+        },
+        {
+            "name": "dark_hole",
+            "from": [ 0, 8, 0 ], 
+            "to": [ 16, 8, 16 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "x", "angle": -45.0 },
+            "faces": {
+                "up": { "texture": "#dark_hole", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#dark_hole", "uv": [ 16, 0, 0, 16 ] }
+            }
+        },
+        {
+            "name": "dark_hole",
+            "from": [ 0, 8, 0 ], 
+            "to": [ 16, 8, 16 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": 45.0 },
+            "faces": {
+                "up": { "texture": "#dark_hole", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#dark_hole", "uv": [ 16, 0, 0, 16 ] }
+            }
+        },
+        {
+            "name": "dark_hole",
+            "from": [ 0, 8, 0 ], 
+            "to": [ 16, 8, 16 ], 
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "z", "angle": -45.0 },
+            "faces": {
+                "up": { "texture": "#dark_hole", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#dark_hole", "uv": [ 16, 0, 0, 16 ] }
+            }
+        }
+    ]
+}
