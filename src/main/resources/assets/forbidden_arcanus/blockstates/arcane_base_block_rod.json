@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "axis=y": { "model": "forbidden_arcanus:block/arcane_base_block_rod" },
-        "axis=z": { "model": "forbidden_arcanus:block/arcane_base_block_rod", "x": 90 },
-        "axis=x": { "model": "forbidden_arcanus:block/arcane_base_block_rod", "x": 90, "y": 90 }
-    }
-}

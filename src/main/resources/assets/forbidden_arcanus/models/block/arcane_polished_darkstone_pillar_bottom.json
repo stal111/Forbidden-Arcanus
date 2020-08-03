@@ -1,0 +1,46 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_side",
+        "0": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_side",
+        "1": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top",
+        "2": "forbidden_arcanus:block/arcane_polished_darkstone_pillar"
+    },
+    "parent": "block/cube_all",
+    "elements": [
+        {
+            "from": [ 0, 0, 0 ],
+            "to": [ 16, 2, 16 ],
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 0, 14, 16, 16 ] },
+                "east": { "texture": "#0", "uv": [ 0, 14, 16, 16 ] },
+                "south": { "texture": "#0", "uv": [ 0, 14, 16, 16 ] },
+                "west": { "texture": "#0", "uv": [ 0, 14, 16, 16 ] },
+                "up": { "texture": "#1", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#1", "uv": [ 0, 0, 16, 16 ] }
+            }
+        },
+        {
+            "from": [ 1, 2, 1 ],
+            "to": [ 15, 3, 15 ],
+            "faces": {
+                "north": { "texture": "#1", "uv": [ 1, 1, 15, 2 ] },
+                "east": { "texture": "#1", "uv": [ 1, 1, 15, 2 ] },
+                "south": { "texture": "#1", "uv": [ 1, 14, 15, 15 ] },
+                "west": { "texture": "#1", "uv": [ 1, 14, 15, 15 ] },
+                "up": { "texture": "#1", "uv": [ 1, 1, 15, 15 ] }
+            }
+        },
+        {
+            "from": [ 2, 3, 2 ],
+            "to": [ 14, 16, 14 ],
+            "faces": {
+                "north": { "texture": "#2", "uv": [ 2, 0, 14, 13 ] },
+                "east": { "texture": "#2", "uv": [ 2, 0, 14, 13 ] },
+                "south": { "texture": "#2", "uv": [ 2, 0, 14, 13 ] },
+                "west": { "texture": "#2", "uv": [ 2, 0, 14, 12 ] },
+                "up": { "texture": "#1", "uv": [ 2, 2, 14, 14 ] }
+            }
+        }
+    ]
+}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "forbidden_arcanus:block/dark_stone",
-        "top": "forbidden_arcanus:block/dark_stone",
-        "side": "forbidden_arcanus:block/dark_stone"
-    }
-}

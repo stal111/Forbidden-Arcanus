@@ -1,0 +1,23 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_side",
+        "0": "forbidden_arcanus:block/arcane_polished_darkstone_pillar",
+        "1": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top"
+    },
+    "parent": "block/cube_all",
+    "elements": [
+        {
+            "from": [ 2, 0, 2 ],
+            "to": [ 14, 16, 14 ],
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 2, 0, 14, 16 ] },
+                "east": { "texture": "#0", "uv": [ 2, 0, 14, 16 ] },
+                "south": { "texture": "#0", "uv": [ 2, 0, 14, 16 ] },
+                "west": { "texture": "#0", "uv": [ 2, 0, 14, 16 ] },
+                "up": { "texture": "#1", "uv": [ 2, 2, 14, 14 ] },
+                "down": { "texture": "#1", "uv": [ 14, 2, 2, 14 ] }
+            }
+        }
+    ]
+}

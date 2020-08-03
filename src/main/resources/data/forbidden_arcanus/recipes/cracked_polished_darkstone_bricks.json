@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "forbidden_arcanus:polished_darkstone_bricks"
+    },
+    "result": "forbidden_arcanus:cracked_polished_darkstone_bricks",
+    "experience": 0.1,
+    "cookingtime": 200
+}

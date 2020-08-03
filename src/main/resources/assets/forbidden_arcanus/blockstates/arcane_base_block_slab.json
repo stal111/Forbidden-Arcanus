@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "forbidden_arcanus:block/arcane_base_block_slab" },
-        "type=top": { "model": "forbidden_arcanus:block/arcane_base_block_slab_top" },
-        "type=double": { "model": "forbidden_arcanus:block/arcane_base_block" }
-    }
-}

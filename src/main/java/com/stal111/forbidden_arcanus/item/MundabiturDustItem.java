@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.item;
 import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +30,7 @@ public class MundabiturDustItem extends Item {
         Block blockDoubleDown = world.getBlockState(pos.down(2)).getBlock();
         PlayerEntity player = context.getPlayer();
         if (state.getBlock() == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock()) {
-            if (blockUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDown == ModBlocks.ARCANE_BASE_BLOCK.getBlock()) {
+            if (blockUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDown == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
                 world.setBlockState(pos.down(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 11);
                 world.setBlockState(pos, ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 11);
                 world.setBlockState(pos.up(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 11);
@@ -37,7 +38,7 @@ public class MundabiturDustItem extends Item {
                 world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
                 world.playEvent(player, 2001, pos.up(), Block.getStateId(world.getBlockState(pos.up())));
                 return ActionResultType.SUCCESS;
-            } else if (blockDown == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDoubleDown == ModBlocks.ARCANE_BASE_BLOCK.getBlock()) {
+            } else if (blockDown == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDoubleDown == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
                 world.setBlockState(pos.down(2), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 11);
                 world.setBlockState(pos.down(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 11);
                 world.setBlockState(pos, ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 11);
@@ -46,7 +47,7 @@ public class MundabiturDustItem extends Item {
                 world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
                 return ActionResultType.SUCCESS;
             }
-        } else if (state.getBlock() == ModBlocks.ARCANE_BASE_BLOCK.getBlock() && blockUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDoubleUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock()) {
+        } else if (state.getBlock() == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get() && blockUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDoubleUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock()) {
             world.setBlockState(pos, ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 11);
             world.setBlockState(pos.up(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 11);
             world.setBlockState(pos.up(2), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 11);

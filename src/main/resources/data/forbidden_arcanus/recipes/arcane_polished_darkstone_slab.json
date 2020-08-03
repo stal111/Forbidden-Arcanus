@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "forbidden_arcanus:arcane_polished_darkstone"
+        }
+    },
+    "result": {
+        "item": "forbidden_arcanus:arcane_polished_darkstone_slab",
+        "count": 6
+    }
+}

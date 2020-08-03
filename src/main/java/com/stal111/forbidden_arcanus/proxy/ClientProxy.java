@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.proxy;
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
@@ -56,6 +57,7 @@ public class ClientProxy implements IProxy {
                 new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_middle"),
                 new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_upper"),
                 new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_top")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "runic_chiseled_polished_darkstone"), (base, registry) -> new FullbrightBakedModel(base, true, state -> state.get(ModBlockStateProperties.ACTIVATED), new ResourceLocation(Main.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::stitchTextures);

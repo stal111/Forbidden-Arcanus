@@ -1,0 +1,14 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "forbidden_arcanus:chiseled_polished_darkstone"
+        },
+        {
+            "item": "forbidden_arcanus:arcane_gold_nugget"
+        }
+    ],
+    "result": {
+        "item": "forbidden_arcanus:arcane_chiseled_polished_darkstone"
+    }
+}
