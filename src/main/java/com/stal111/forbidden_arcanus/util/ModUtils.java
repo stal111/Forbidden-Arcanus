@@ -2,7 +2,9 @@ package com.stal111.forbidden_arcanus.util;
 
 import com.google.common.collect.Maps;
 import com.stal111.forbidden_arcanus.Main;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.IGrowable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,15 +19,17 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -122,5 +126,22 @@ public class ModUtils {
     public static Collection<IRecipe<?>> getSmeltingRecipesByOutput(@Nonnull ItemStack targetOutput) {
         return Minecraft.getInstance().world.getRecipeManager().getRecipes().stream()
                 .filter(r -> !r.isDynamic() && r.getSerializer() == IRecipeSerializer.SMELTING && ItemStack.areItemsEqualIgnoreDurability(targetOutput, r.getRecipeOutput())).collect(Collectors.toList());
+    }
+
+    public static boolean hasBlockEnoughSolidSite(VoxelShape shape, IWorldReader world, BlockPos pos, Direction direction) {
+        BlockState state = world.getBlockState(pos);
+        if (direction == Direction.DOWN && state.isIn(BlockTags.UNSTABLE_BOTTOM_CENTER)) {
+            return false;
+        } else {
+            return !VoxelShapes.compare(state.getRenderShape(world, pos).project(direction), shape, IBooleanFunction.ONLY_SECOND);
+        }
+    }
+
+    public static Vector3d blockPosToVector(BlockPos pos) {
+        return blockPosToVector(pos, 0);
+    }
+
+    public static Vector3d blockPosToVector(BlockPos pos, double offset) {
+        return new Vector3d(pos.getX() + offset, pos.getY() + offset, pos.getZ() + offset);
     }
 }
