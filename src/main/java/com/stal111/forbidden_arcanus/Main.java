@@ -4,7 +4,8 @@ import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
-import com.stal111.forbidden_arcanus.capability.FlightTimeLeftCapability;
+import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
+import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.event.LootTableListener;
@@ -35,7 +36,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -94,7 +94,6 @@ public class Main {
 		DATA.subscribeEvents(FMLJavaModLoadingContext.get().getModEventBus());
 
 		modEventBus.addListener(this::setup);
-		modEventBus.addListener(this::serverAboutToStart);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
@@ -125,13 +124,9 @@ public class Main {
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
 		FlightTimeLeftCapability.register();
+		EntitySpawningBlockingCapability.register();
 
 		GlobalEntityTypeAttributes.put((EntityType<? extends LivingEntity>) ModEntities.PIXIE.get(), PixieEntity.registerAttributes().func_233813_a_());
-	}
-
-	@SubscribeEvent
-	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
-		((IReloadableResourceManager) event.getServer().resourceManager.func_240970_h_()).addReloadListener(PAGE_LOADER);
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

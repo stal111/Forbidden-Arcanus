@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.capability;
+package com.stal111.forbidden_arcanus.capability.flightTimeLeft;
 
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntNBT;

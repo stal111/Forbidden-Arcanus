@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.config.RenderingConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -28,18 +29,21 @@ public class RenderGameOverlayListener {
             return;
         }
 
-        if (flightTimeLeft != 0) {
+        if (flightTimeLeft != 0 && RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_RENDER.get()) {
             FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
 
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(Main.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
-            AbstractGui.blit(event.getMatrixStack(), 1, 1, 0, 0, 0, 57, 25, 25, 57);
+            int posX = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_X_POSITION.get();
+            int posY = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_Y_POSITION.get();
 
-            Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get()), 6, (int) 6.5F);
+            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(Main.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
+            AbstractGui.blit(event.getMatrixStack(), posX, posY, 0, 0, 0, 57, 25, 25, 57);
+
+            Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get()), posX + 5, (int) (posY + 5.5F));
 
             TextFormatting color = flightTimeLeft / 20 <= 20 ? TextFormatting.RED : TextFormatting.WHITE;
-            int i = flightTimeLeft < 12000 ? 28 : (int) 26.5F;
+            int i = flightTimeLeft < 12000 ? 27 : (int) 25.5F;
 
-            fontRenderer.drawString(event.getMatrixStack(), StringUtils.ticksToElapsedTime(flightTimeLeft), i, 10, color.getColor());
+            fontRenderer.drawString(event.getMatrixStack(), StringUtils.ticksToElapsedTime(flightTimeLeft), posX + i, posY + 9, color.getColor());
         }
     }
 }
