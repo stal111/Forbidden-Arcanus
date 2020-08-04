@@ -100,109 +100,109 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 		super(ModTileEntities.SIGN.get());
 	}
 
-	public void tick() {
-		int i = this.pos.getX();
-		int j = this.pos.getY();
-		int k = this.pos.getZ();
-		BlockPos blockpos;
-		if (this.field_213935_i < j) {
-			blockpos = this.pos;
-			this.field_213934_g = Lists.newArrayList();
-			this.field_213935_i = blockpos.getY() - 1;
-		} else {
-			blockpos = new BlockPos(i, this.field_213935_i + 1, k);
-		}
-
-		DarkBeaconTileEntity.BeamSegment beacontileentity$beamsegment = this.field_213934_g.isEmpty() ? null : this.field_213934_g.get(this.field_213934_g.size() - 1);
-		int l = this.world.getHeight(Heightmap.Type.WORLD_SURFACE, i, k);
-
-		for(int i1 = 0; i1 < 10 && blockpos.getY() <= l; ++i1) {
-			BlockState blockstate = this.world.getBlockState(blockpos);
-			Block block = blockstate.getBlock();
-			float[] afloat = blockstate.getBeaconColorMultiplier(this.world, blockpos, getPos());
-			if (afloat != null) {
-				if (this.field_213934_g.size() <= 1) {
-					beacontileentity$beamsegment = new DarkBeaconTileEntity.BeamSegment(afloat);
-					this.field_213934_g.add(beacontileentity$beamsegment);
-				} else if (beacontileentity$beamsegment != null) {
-					if (Arrays.equals(afloat, beacontileentity$beamsegment.colors)) {
-						beacontileentity$beamsegment.incrementHeight();
-					} else {
-						beacontileentity$beamsegment = new DarkBeaconTileEntity.BeamSegment(new float[]{(beacontileentity$beamsegment.colors[0] + afloat[0]) / 2.0F, (beacontileentity$beamsegment.colors[1] + afloat[1]) / 2.0F, (beacontileentity$beamsegment.colors[2] + afloat[2]) / 2.0F});
-						this.field_213934_g.add(beacontileentity$beamsegment);
-					}
-				}
-			} else {
-				if (beacontileentity$beamsegment == null || blockstate.getOpacity(this.world, blockpos) >= 15 && block != Blocks.BEDROCK) {
-					this.field_213934_g.clear();
-					this.field_213935_i = l;
-					break;
-				}
-
-				beacontileentity$beamsegment.incrementHeight();
-			}
-
-			blockpos = blockpos.up();
-			++this.field_213935_i;
-		}
-
-		int j1 = this.levels;
-		if (this.world.getGameTime() % 80L == 0L) {
-			if (!this.beamSegments.isEmpty()) {
-				this.func_213927_a(i, j, k);
-			}
-
-			if (this.levels > 0 && !this.beamSegments.isEmpty()) {
-				this.addEffectsToPlayers();
-				this.playSound(SoundEvents.BLOCK_BEACON_AMBIENT);
-			}
-		}
-
-		if (this.field_213935_i >= l) {
-			this.field_213935_i = -1;
-			boolean flag = j1 > 0;
-			this.beamSegments = this.field_213934_g;
-			if (!this.world.isRemote) {
-				boolean flag1 = this.levels > 0;
-				if (!flag && flag1) {
-					this.playSound(SoundEvents.BLOCK_BEACON_ACTIVATE);
-
-					for(ServerPlayerEntity serverplayerentity : this.world.getEntitiesWithinAABB(ServerPlayerEntity.class, (new AxisAlignedBB((double)i, (double)j, (double)k, (double)i, (double)(j - 4), (double)k)).grow(10.0D, 5.0D, 10.0D))) {
-					}
-				} else if (flag && !flag1) {
-					this.playSound(SoundEvents.BLOCK_BEACON_DEACTIVATE);
-				}
-			}
-		}
-
-	}
-
-	private void func_213927_a(int p_213927_1_, int p_213927_2_, int p_213927_3_) {
-		this.levels = 0;
-
-		for(int i = 1; i <= 4; this.levels = i++) {
-			int j = p_213927_2_ - i;
-			if (j < 0) {
-				break;
-			}
-
-			boolean flag = true;
-
-			for(int k = p_213927_1_ - i; k <= p_213927_1_ + i && flag; ++k) {
-				for(int l = p_213927_3_ - i; l <= p_213927_3_ + i; ++l) {
-					if (!this.world.getBlockState(new BlockPos(k, j, l)).isBeaconBase(this.world, new BlockPos(k, j, l), getPos())) {
-						flag = false;
-						break;
-					}
-				}
-			}
-
-			if (!flag) {
-				break;
-			}
-		}
-
-	}
+//	public void tick() {
+//		int i = this.pos.getX();
+//		int j = this.pos.getY();
+//		int k = this.pos.getZ();
+//		BlockPos blockpos;
+//		if (this.field_213935_i < j) {
+//			blockpos = this.pos;
+//			this.field_213934_g = Lists.newArrayList();
+//			this.field_213935_i = blockpos.getY() - 1;
+//		} else {
+//			blockpos = new BlockPos(i, this.field_213935_i + 1, k);
+//		}
+//
+//		DarkBeaconTileEntity.BeamSegment beacontileentity$beamsegment = this.field_213934_g.isEmpty() ? null : this.field_213934_g.get(this.field_213934_g.size() - 1);
+//		int l = this.world.getHeight(Heightmap.Type.WORLD_SURFACE, i, k);
+//
+//		for(int i1 = 0; i1 < 10 && blockpos.getY() <= l; ++i1) {
+//			BlockState blockstate = this.world.getBlockState(blockpos);
+//			Block block = blockstate.getBlock();
+//			float[] afloat = blockstate.getBeaconColorMultiplier(this.world, blockpos, getPos());
+//			if (afloat != null) {
+//				if (this.field_213934_g.size() <= 1) {
+//					beacontileentity$beamsegment = new DarkBeaconTileEntity.BeamSegment(afloat);
+//					this.field_213934_g.add(beacontileentity$beamsegment);
+//				} else if (beacontileentity$beamsegment != null) {
+//					if (Arrays.equals(afloat, beacontileentity$beamsegment.colors)) {
+//						beacontileentity$beamsegment.incrementHeight();
+//					} else {
+//						beacontileentity$beamsegment = new DarkBeaconTileEntity.BeamSegment(new float[]{(beacontileentity$beamsegment.colors[0] + afloat[0]) / 2.0F, (beacontileentity$beamsegment.colors[1] + afloat[1]) / 2.0F, (beacontileentity$beamsegment.colors[2] + afloat[2]) / 2.0F});
+//						this.field_213934_g.add(beacontileentity$beamsegment);
+//					}
+//				}
+//			} else {
+//				if (beacontileentity$beamsegment == null || blockstate.getOpacity(this.world, blockpos) >= 15 && block != Blocks.BEDROCK) {
+//					this.field_213934_g.clear();
+//					this.field_213935_i = l;
+//					break;
+//				}
+//
+//				beacontileentity$beamsegment.incrementHeight();
+//			}
+//
+//			blockpos = blockpos.up();
+//			++this.field_213935_i;
+//		}
+//
+//		int j1 = this.levels;
+//		if (this.world.getGameTime() % 80L == 0L) {
+//			if (!this.beamSegments.isEmpty()) {
+//				this.func_213927_a(i, j, k);
+//			}
+//
+//			if (this.levels > 0 && !this.beamSegments.isEmpty()) {
+//				this.addEffectsToPlayers();
+//				this.playSound(SoundEvents.BLOCK_BEACON_AMBIENT);
+//			}
+//		}
+//
+//		if (this.field_213935_i >= l) {
+//			this.field_213935_i = -1;
+//			boolean flag = j1 > 0;
+//			this.beamSegments = this.field_213934_g;
+//			if (!this.world.isRemote) {
+//				boolean flag1 = this.levels > 0;
+//				if (!flag && flag1) {
+//					this.playSound(SoundEvents.BLOCK_BEACON_ACTIVATE);
+//
+//					for(ServerPlayerEntity serverplayerentity : this.world.getEntitiesWithinAABB(ServerPlayerEntity.class, (new AxisAlignedBB((double)i, (double)j, (double)k, (double)i, (double)(j - 4), (double)k)).grow(10.0D, 5.0D, 10.0D))) {
+//					}
+//				} else if (flag && !flag1) {
+//					this.playSound(SoundEvents.BLOCK_BEACON_DEACTIVATE);
+//				}
+//			}
+//		}
+//
+//	}
+//
+//	private void func_213927_a(int p_213927_1_, int p_213927_2_, int p_213927_3_) {
+//		this.levels = 0;
+//
+//		for(int i = 1; i <= 4; this.levels = i++) {
+//			int j = p_213927_2_ - i;
+//			if (j < 0) {
+//				break;
+//			}
+//
+//			boolean flag = true;
+//
+//			for(int k = p_213927_1_ - i; k <= p_213927_1_ + i && flag; ++k) {
+//				for(int l = p_213927_3_ - i; l <= p_213927_3_ + i; ++l) {
+//					if (!this.world.getBlockState(new BlockPos(k, j, l)).isBeaconBase(this.world, new BlockPos(k, j, l), getPos())) {
+//						flag = false;
+//						break;
+//					}
+//				}
+//			}
+//
+//			if (!flag) {
+//				break;
+//			}
+//		}
+//
+//	}
 
 	/**
 	 * invalidates a tile entity
@@ -319,6 +319,11 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 
 	public ITextComponent getDisplayName() {
 		return (this.customName != null ? this.customName : new TranslationTextComponent("container.dark_beacon"));
+	}
+
+	@Override
+	public void tick() {
+
 	}
 
 	public static class BeamSegment {

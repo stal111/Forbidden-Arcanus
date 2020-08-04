@@ -25,7 +25,7 @@ public class DarkBeaconContainer extends ModContainer {
 		 * guis use Slot.isItemValid
 		 */
 		public boolean isItemValidForSlot(int index, ItemStack stack) {
-			return stack.isBeaconPayment();
+			return false;
 		}
 
 		/**
