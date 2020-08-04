@@ -44,6 +44,11 @@ public class ForbiddenmiconScreen extends ModScreen {
     }
 
     @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
+    @Override
     protected void init() {
         this.initEntry();
         this.addDoneButton();
