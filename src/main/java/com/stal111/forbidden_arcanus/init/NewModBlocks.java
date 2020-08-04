@@ -8,15 +8,21 @@ import com.stal111.forbidden_arcanus.block.RunicChiseledPolishedDarkstone;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NewModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Main.MOD_ID);
+
+    public static final Map<Block, ModRenderType> BLOCK_RENDER_TYPE_MAP = new HashMap<>();
 
     public static final RegistryObject<Block> DARKSTONE = register("darkstone", new Block(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_SLAB = register("darkstone_slab", new SlabBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
@@ -65,7 +71,9 @@ public class NewModBlocks {
             ModItems.ITEMS.register(name, () -> new BlockItem(block, new Item.Properties().group(Main.FORBIDDEN_ARCANUS)));
         }
 
-        ClientProxy.blockRenderTypeMap.put(block, renderType);
+        if (renderType != ModRenderType.SOLID) {
+            BLOCK_RENDER_TYPE_MAP.put(block, renderType);
+        }
 
         return BLOCKS.register(name, () -> block);
     }

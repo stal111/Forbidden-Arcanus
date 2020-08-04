@@ -3,20 +3,14 @@ package com.stal111.forbidden_arcanus.proxy;
 import com.stal111.forbidden_arcanus.Main;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.init.ModEntities;
-import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.item.ForbiddenmiconItem;
 import com.stal111.forbidden_arcanus.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.util.BakedModelOverrideRegistry;
 import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
-import com.stal111.forbidden_arcanus.util.ModRenderType;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,13 +27,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @OnlyIn(Dist.CLIENT)
 public class ClientProxy implements IProxy {
-
-    public static Map<Block, ModRenderType> blockRenderTypeMap = new HashMap<>();
 
     public static BakedModelOverrideRegistry bakedModelOverrideRegistry = new BakedModelOverrideRegistry();
 
@@ -75,7 +64,7 @@ public class ClientProxy implements IProxy {
             }
         }
 
-        blockRenderTypeMap.forEach((block, renderType) -> RenderTypeLookup.setRenderLayer(block, renderType.getRenderType()));
+        NewModBlocks.BLOCK_RENDER_TYPE_MAP.forEach((block, renderType) -> RenderTypeLookup.setRenderLayer(block, renderType.getRenderType()));
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN.get(), SignTileEntityRenderer::new);
         //  ClientRegistry.bindTileEntityRenderer(DarkBeaconTileEntity.class, new DarkBeaconTileEntityRenderer());
