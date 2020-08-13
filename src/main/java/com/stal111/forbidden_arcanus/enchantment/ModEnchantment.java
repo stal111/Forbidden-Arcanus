@@ -13,6 +13,8 @@ public class ModEnchantment extends Enchantment {
     public int minEnchantability = 0;
     public int maxEnchantability = 0;
     public boolean isTreasure = false;
+    public boolean canBeVillagerTrade = true;
+    public boolean canGenerateInLootChests = true;
     public List<Enchantment> blacklistedEnchantments = new ArrayList<>();
 
     public ModEnchantment(Rarity rarity, EnchantmentType enchantmentType, EquipmentSlotType[] equipmentSlotTypes) {
@@ -40,7 +42,16 @@ public class ModEnchantment extends Enchantment {
     }
 
     @Override
-    protected boolean canApplyTogether(Enchantment ench) {
-        return !blacklistedEnchantments.contains(ench) && super.canApplyTogether(ench);
+    protected boolean canApplyTogether(Enchantment enchantment) {
+        return !blacklistedEnchantments.contains(enchantment) && super.canApplyTogether(enchantment);
+    }
+
+    public boolean func_230309_h_() {
+        return canBeVillagerTrade;
+    }
+
+    @Override
+    public boolean func_230310_i_() {
+        return canGenerateInLootChests;
     }
 }

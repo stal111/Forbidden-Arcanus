@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#X#",
+        " # "
+    ],
+    "key": {
+        "#": {
+            "item": "forbidden_arcanus:xpetrified_orb"
+        },
+        "X": {
+            "item": "forbidden_arcanus:stellarite_piece"
+        }
+    },
+    "result": {
+        "item": "forbidden_arcanus:eternal_stella"
+    }
+}

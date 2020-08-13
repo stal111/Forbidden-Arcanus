@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
+import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.config.Config;
@@ -86,6 +87,7 @@ public class Main {
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);
 		ModEffects.EFFECTS.register(modEventBus);
 		ModFeatures.FEATURES.register(modEventBus);
+		ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
 
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, LootTableListener::registerGlobalModifiers);
 
@@ -123,6 +125,7 @@ public class Main {
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
 		FlightTimeLeftCapability.register();
+		EternalStellaActiveCapability.register();
 		EntitySpawningBlockingCapability.register();
 
 		GlobalEntityTypeAttributes.put((EntityType<? extends LivingEntity>) ModEntities.PIXIE.get(), PixieEntity.registerAttributes().func_233813_a_());
@@ -171,13 +174,6 @@ public class Main {
 		@SubscribeEvent
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 			ModSounds.register(event);
-		}
-
-		@SubscribeEvent
-		public static void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
-			for (ModRecipeSerializers recipe : ModRecipeSerializers.values()) {
-				event.getRegistry().register(recipe.getRecipe());
-			}
 		}
 	}
 }

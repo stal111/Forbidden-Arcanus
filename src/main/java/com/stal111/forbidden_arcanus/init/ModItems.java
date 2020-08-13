@@ -30,6 +30,7 @@ public class ModItems {
     public static final RegistryObject<Item> ARCANE_GOLD_NUGGET = register("arcane_gold_nugget", () -> new Item(properties()));
     public static final RegistryObject<Item> CHORUS_PEARL = register("chorus_pearl", () -> new ChorusPearlItem(properties(16)));
     public static final RegistryObject<Item> XPETRIFIED_ORB = register("xpetrified_orb", () -> new XpetrifiedOrbItem(properties(16)));
+    public static final RegistryObject<Item> ETERNAL_STELLA = register("eternal_stella", () -> new EternalStellaItem(properties(1)));
     public static final RegistryObject<Item> ORB_OF_TEMPORARY_FLIGHT = register("orb_of_temporary_flight", () -> new OrbOfTemporaryFlightItem(properties(Rarity.UNCOMMON, 1)));
     public static final RegistryObject<Item> MUNDABITUR_DUST = register("mundabitur_dust", () -> new MundabiturDustItem(properties()));
     public static final RegistryObject<Item> CORRUPTI_DUST = register("corrupti_dust", () -> new Item(properties()));

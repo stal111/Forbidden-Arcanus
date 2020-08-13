@@ -18,6 +18,8 @@ public class ItemConfig {
 
     public static ForgeConfigSpec.IntValue XPETRIFIED_ORB_EXPERIENCE_POINTS;
 
+    public static ForgeConfigSpec.IntValue ETERNAL_STELLA_USES;
+
     public static void init(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
         CLIENT_BUILDER.comment("Item Config");
 
@@ -34,5 +36,7 @@ public class ItemConfig {
         MUNDABITUR_DUST_CHARGE_CREEPER = CLIENT_BUILDER.comment("Should right-clicking a Creeper with Mundabitur Dust charge the Creeper [default: true]").define("items.mundabitur_dust.charge_creeper", true);
 
         XPETRIFIED_ORB_EXPERIENCE_POINTS = CLIENT_BUILDER.comment("Experience Points the Orb grants on use [default: 72]").defineInRange("items.xpetrified_orb.experience_points", 72, 1, 120000);
+
+        ETERNAL_STELLA_USES = CLIENT_BUILDER.comment("How many times the Eternal Stella can be used before breaking [default: 3]").defineInRange("items.eternal_stella.uses", 3, 1, 100);
     }
 }

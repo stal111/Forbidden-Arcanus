@@ -137,6 +137,7 @@
     "item.forbidden_arcanus.arcane_gold_ingot": "Arcane Gold Ingot",
     "item.forbidden_arcanus.arcane_gold_nugget": "Arcane Gold Nugget",
     "item.forbidden_arcanus.xpetrified_orb": "Xpetrified Orb",
+    "item.forbidden_arcanus.eternal_stella": "Eternal Stella",
     "item.forbidden_arcanus.orb_of_temporary_flight": "Orb Of Temporary Flight",
     "item.forbidden_arcanus.chorus_pearl": "Chorus Pearl",
     "item.forbidden_arcanus.spectral_eye_amulet": "Spectral Eye Amulet",
@@ -269,6 +270,7 @@
     "tooltip.forbidden_arcanus.deactivated": "Deactivated",
     "tooltip.forbidden_arcanus.toggle": "(Right-Click to toggle)",
     "tooltip.forbidden_arcanus.duration": "Duration",
+    "tooltip.forbidden_arcanus.uses_left": "Uses left",
 
     "______comment": "Containers",
     "container.dark_beacon": "Dark Beacon",

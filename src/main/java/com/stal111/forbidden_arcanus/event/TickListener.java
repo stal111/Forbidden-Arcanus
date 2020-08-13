@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.event;
 
+import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
@@ -20,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkDirection;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mod.EventBusSubscriber
 public class TickListener {
@@ -31,16 +33,24 @@ public class TickListener {
         PlayerEntity player = event.player;
         World world = player.getEntityWorld();
 
+        int itemsToRepair = 0;
+
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack stack = player.inventory.getStackInSlot(i);
 
             if (stack != ItemStack.EMPTY && stack.isDamageable()) {
-                if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get())) {
+                if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get()) || isEternalStellaActive(player)) {
                     if (stack.getDamage() > 0) {
+                        itemsToRepair++;
+
                         stack.setDamage(stack.getDamage() - 1);
                     }
                 }
             }
+        }
+
+        if (itemsToRepair == 0 && isEternalStellaActive(player)) {
+            player.getCapability(EternalStellaActiveCapability.ETERNAL_STELLA_ACTIVE_CAPABILITY).ifPresent(iEternalStellaActive -> iEternalStellaActive.setEternalStellaActive(false));
         }
 
         if (tickCounter == 0) {
@@ -91,5 +101,17 @@ public class TickListener {
                 }
             });
         }
+    }
+
+    private static boolean isEternalStellaActive(PlayerEntity player) {
+        AtomicBoolean flag = new AtomicBoolean(false);
+
+        player.getCapability(EternalStellaActiveCapability.ETERNAL_STELLA_ACTIVE_CAPABILITY).ifPresent(iEternalStellaActive -> {
+            if (iEternalStellaActive.getEternalStellaActive()) {
+                flag.set(true);
+            }
+        });
+
+        return flag.get();
     }
 }

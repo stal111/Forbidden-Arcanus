@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import net.minecraft.entity.Entity;
@@ -19,6 +20,10 @@ public class AttachCapabilitiesListener {
         if (event.getObject() instanceof PlayerEntity) {
             if (!event.getCapabilities().containsKey(new ResourceLocation(Main.MOD_ID, "flight_time_left"))) {
                 event.addCapability(new ResourceLocation(Main.MOD_ID, "flight_time_left"), new FlightTimeLeftCapability());
+            }
+
+            if (!event.getCapabilities().containsKey(new ResourceLocation(Main.MOD_ID, "eternal_stella_active"))) {
+                event.addCapability(new ResourceLocation(Main.MOD_ID, "eternal_stella_active"), new EternalStellaActiveCapability());
             }
         }
     }

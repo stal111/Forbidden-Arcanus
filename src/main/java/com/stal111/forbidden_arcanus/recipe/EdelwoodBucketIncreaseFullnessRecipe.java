@@ -165,6 +165,6 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeSerializers.EDELWOOD_BUCKET_INCREASE_FULLNESS.getRecipe();
+        return ModRecipeSerializers.EDELWOOD_BUCKET_INCREASE_FULLNESS.get();
     }
 }
