@@ -29,12 +29,16 @@ public class OreGenerator {
 				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.RUNESTONE.getState(), WorldGenConfig.RUNESTONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.RUNESTONE_COUNT.get(), 0, 0, WorldGenConfig.RUNESTONE_MAX_HEIGHT.get()))));
 			}
 			
-			if (WorldGenConfig.DARK_RUNESTONE_GENERATE.get())  {
-				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.DARK_RUNESTONE.getState(), WorldGenConfig.DARK_RUNESTONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARK_RUNESTONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_RUNESTONE_MAX_HEIGHT.get()))));
-			}
-			
-			if (WorldGenConfig.DARK_STONE_GENERATE.get())  {
-				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, NewModBlocks.DARKSTONE.get().getDefaultState(), WorldGenConfig.DARK_STONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARK_STONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_STONE_MAX_HEIGHT.get()))));
+			if (WorldGenConfig.DARKSTONE_GENERATE.get())  {
+				biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, NewModBlocks.DARKSTONE.get().getDefaultState(), WorldGenConfig.DARKSTONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARKSTONE_COUNT.get(), 0, 0, WorldGenConfig.DARKSTONE_MAX_HEIGHT.get()))));
+
+				if (WorldGenConfig.ARCANE_GILDED_DARKSTONE_GENERATE.get())  {
+					biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(ModFillerBlockType.DARKSTONE, NewModBlocks.ARCANE_GILDED_DARKSTONE.get().getDefaultState(), WorldGenConfig.ARCANE_GILDED_DARKSTONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.ARCANE_GILDED_DARKSTONE_COUNT.get(), 0, 0, WorldGenConfig.ARCANE_GILDED_DARKSTONE_MAX_HEIGHT.get()))));
+				}
+
+				if (WorldGenConfig.DARK_RUNESTONE_GENERATE.get())  {
+					biome.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(ModFillerBlockType.DARKSTONE, ModBlocks.DARK_RUNESTONE.getState(), WorldGenConfig.DARK_RUNESTONE_MAX_VEIN_SIZE.get())).withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(WorldGenConfig.DARK_RUNESTONE_COUNT.get(), 0, 0, WorldGenConfig.DARK_RUNESTONE_MAX_HEIGHT.get()))));
+				}
 			}
 
 			if (WorldGenConfig.STELLA_ARCANUM_GENERATE.get()) {
@@ -45,5 +49,15 @@ public class OreGenerator {
 				biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.EMERALD_ORE.withConfiguration(ModBiomeFeatures.XPETRIFIED_ORE).withPlacement(Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}
 		}
+	}
+
+	public static class ModFillerBlockType {
+		public static final OreFeatureConfig.FillerBlockType DARKSTONE = OreFeatureConfig.FillerBlockType.create("FillerBlockType","darkstone", state -> {
+			if (state == null) {
+				return false;
+			} else {
+				return state.isIn(NewModBlocks.DARKSTONE.get());
+			}
+		});
 	}
 }

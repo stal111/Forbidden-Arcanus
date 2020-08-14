@@ -5,10 +5,8 @@ import com.stal111.forbidden_arcanus.block.ArcanePolishedDarkstoneRod;
 import com.stal111.forbidden_arcanus.block.BlackHoleBlock;
 import com.stal111.forbidden_arcanus.block.PillarBlock;
 import com.stal111.forbidden_arcanus.block.RunicChiseledPolishedDarkstone;
-import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
 import net.minecraft.block.*;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -28,6 +26,7 @@ public class NewModBlocks {
     public static final RegistryObject<Block> DARKSTONE_SLAB = register("darkstone_slab", new SlabBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_STAIRS = register("darkstone_stairs", new StairsBlock(() -> DARKSTONE.get().getDefaultState(), Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_WALL = register("darkstone_wall", new WallBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
+    public static final RegistryObject<Block> ARCANE_GILDED_DARKSTONE = register("arcane_gilded_darkstone", new Block(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F).sound(SoundType.field_235599_U_)));
     public static final RegistryObject<Block> POLISHED_DARKSTONE = register("polished_darkstone", new Block(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> POLISHED_DARKSTONE_SLAB = register("polished_darkstone_slab", new SlabBlock(Block.Properties.from(Blocks.STONE_SLAB).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> POLISHED_DARKSTONE_STAIRS = register("polished_darkstone_stairs", new StairsBlock(() -> POLISHED_DARKSTONE.get().getDefaultState(), Block.Properties.from(Blocks.STONE_STAIRS).hardnessAndResistance(2.0F, 8.0F)));
