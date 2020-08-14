@@ -12,6 +12,7 @@ import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.event.LootTableListener;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadListener;
 import com.stal111.forbidden_arcanus.init.*;
+import com.stal111.forbidden_arcanus.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
@@ -34,7 +35,6 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -42,6 +42,7 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -106,6 +107,10 @@ public class Main {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+		DeferredWorkQueue.runLater(() -> {
+			ModFlammables.registerFlammables();
+		});
+
 		proxy.init();
 
 		NetworkHandler.registerMessages();
