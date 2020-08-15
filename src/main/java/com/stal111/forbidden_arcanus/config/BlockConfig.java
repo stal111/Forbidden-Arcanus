@@ -20,6 +20,6 @@ public class BlockConfig {
         STELLA_ARCANUM_BLOCK_DAMAGE = CLIENT_BUILDER.comment("Should Stella Arcanum explosions deal Block Damage (if explosions enabled) [default: true]").define("block.stella_arcanum.block_damage", true);
         STELLA_ARCANUM_EXPLOSION_RADIUS = CLIENT_BUILDER.comment("Radius of Stella Arcanum explosions (if explosions enabled) [default: 3]").defineInRange("block.stella_arcanum.explosion_radius", 3, 1, 10);
 
-        RUNIC_CHISELED_POLISHED_DARKSTONE_RADIUS = SERVER_BUILDER.comment("Radius the Activated Runic Chiseled Polished Darkstone prevents Entities from spawning in (in Blocks) [default: 16]").defineInRange("block.runic_chiseled_polished_darkstone.entity_spawn_blocking_radius", 16, 1, 100);
+        RUNIC_CHISELED_POLISHED_DARKSTONE_RADIUS = SERVER_BUILDER.comment("Radius the Activated Runic Chiseled Polished Darkstone prevents Entities from spawning in (in Blocks) [default: 25]").defineInRange("block.runic_chiseled_polished_darkstone.entity_spawn_blocking_radius", 25, 1, 100);
     }
 }
