@@ -35,7 +35,7 @@ public class ItemConfig {
 
         MUNDABITUR_DUST_CHARGE_CREEPER = CLIENT_BUILDER.comment("Should right-clicking a Creeper with Mundabitur Dust charge the Creeper [default: true]").define("items.mundabitur_dust.charge_creeper", true);
 
-        XPETRIFIED_ORB_EXPERIENCE_POINTS = CLIENT_BUILDER.comment("Experience Points the Orb grants on use [default: 72]").defineInRange("items.xpetrified_orb.experience_points", 72, 1, 120000);
+        XPETRIFIED_ORB_EXPERIENCE_POINTS = CLIENT_BUILDER.comment("Experience Points the Orb grants on use [default: 91]").defineInRange("items.xpetrified_orb.experience_points", 91, 1, 120000);
 
         ETERNAL_STELLA_USES = CLIENT_BUILDER.comment("How many times the Eternal Stella can be used before breaking [default: 3]").defineInRange("items.eternal_stella.uses", 3, 1, 100);
     }
