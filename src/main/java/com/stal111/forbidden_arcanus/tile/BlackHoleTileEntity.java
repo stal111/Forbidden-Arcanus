@@ -27,13 +27,27 @@ public class BlackHoleTileEntity extends TileEntity implements ITickableTileEnti
     private static final List<ItemEntity> BLACK_HOLE_OUT = new ArrayList<>();
 
     private double stored_xp;
+    public int blackHoleRotation;
+    public int tickCounter;
+    public int auraTexture = 0;
 
     public BlackHoleTileEntity() {
         super(ModTileEntities.BLACK_HOLE.get());
+        this.blackHoleRotation = new Random().nextInt(100000);
     }
 
     @Override
     public void tick() {
+        blackHoleRotation++;
+        tickCounter++;
+
+        if (tickCounter == 5 || tickCounter == 10) {
+            auraTexture++;
+        } else if (tickCounter == 15) {
+            tickCounter = 0;
+            auraTexture = 0;
+        }
+
         List<Entity> entities = Objects.requireNonNull(getWorld()).getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(getPos().getX() + 0.5 - 5, getPos().getY() + 0.5 - 5, getPos().getZ() + 0.5 - 5, getPos().getX() + 0.5 + 5, getPos().getY() + 0.5 + 5, getPos().getZ() + 0.5 + 5));
 
         for (Entity entity : entities) {
@@ -50,18 +64,11 @@ public class BlackHoleTileEntity extends TileEntity implements ITickableTileEnti
                     entity.addVelocity((getPos().getX() + 0.5 - entity.getPosX()) * getMovementFactor(distance), (getPos().getY() + 0.5 - entity.getPosY() + 1.25) * getMovementFactor(distance), (getPos().getZ() + 0.5 - entity.getPosZ()) * getMovementFactor(distance));
                 }
 
-                if (distance <= 0.55 && ((entity instanceof ItemEntity && !BLACK_HOLE_OUT.contains(entity)) || entity instanceof ExperienceOrbEntity)) {
+                if (distance <= 0.5 && ((entity instanceof ItemEntity && !BLACK_HOLE_OUT.contains(entity)) || entity instanceof ExperienceOrbEntity)) {
                     entity.remove();
 
                     if (entity instanceof ExperienceOrbEntity) {
                         this.stored_xp += ((ExperienceOrbEntity) entity).xpValue;
-                    }
-
-                    if (entity instanceof ItemEntity && ((ItemEntity) entity).getItem().getItem() == Items.DIAMOND) {
-                        for (int i = 0; i < ((ItemEntity) entity).getItem().getCount(); i++) {
-                            throwOutItemStack(getWorld(), new ItemStack(ModItems.ARCANE_GOLD_INGOT.get()), getPos());
-
-                        }
                     }
 
                     if (this.stored_xp >= 60) {

@@ -15,8 +15,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class PixieLayer<T extends PixieEntity> extends LayerRenderer<T, PixieModel<T>> {
 
-    private static final RenderType PIXIE_RENDER_TYPE = CustomRenderType.getEyes(new ResourceLocation(Main.MOD_ID, "textures/entity/pixie_eyes.png"));
-    private static final RenderType CORRUPTED_PIXIE_RENDER_TYPE = CustomRenderType.getEyes(new ResourceLocation(Main.MOD_ID, "textures/entity/corrupted_pixie_eyes.png"));
+    private static final RenderType PIXIE_RENDER_TYPE = CustomRenderType.getCutoutFullbright(new ResourceLocation(Main.MOD_ID, "textures/entity/pixie_eyes.png"));
+    private static final RenderType CORRUPTED_PIXIE_RENDER_TYPE = CustomRenderType.getCutoutFullbright(new ResourceLocation(Main.MOD_ID, "textures/entity/corrupted_pixie_eyes.png"));
 
     public PixieLayer(IEntityRenderer<T, PixieModel<T>> p_i226039_1_) {
         super(p_i226039_1_);

@@ -12,8 +12,8 @@ public class CustomRenderType extends RenderType {
         super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
     }
 
-    public static RenderType getEyes(ResourceLocation locationIn) {
+    public static RenderType getCutoutFullbright(ResourceLocation locationIn) {
         RenderState.TextureState renderstate$texturestate = new RenderState.TextureState(locationIn, false, false);
-        return RenderType.makeType("eyes", DefaultVertexFormats.ENTITY, 7, 256, false, true, RenderType.State.getBuilder().texture(renderstate$texturestate).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(COLOR_WRITE).fog(BLACK_FOG).build(false));
+        return RenderType.makeType("cutoutFullbright", DefaultVertexFormats.ENTITY, 7, 256, false, true, RenderType.State.getBuilder().texture(renderstate$texturestate).transparency(TRANSLUCENT_TRANSPARENCY).writeMask(COLOR_WRITE).fog(BLACK_FOG).build(false));
     }
 }
