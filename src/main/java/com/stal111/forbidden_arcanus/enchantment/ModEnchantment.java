@@ -1,11 +1,9 @@
 package com.stal111.forbidden_arcanus.enchantment;
 
+import com.stal111.forbidden_arcanus.util.ToBooleanFunction;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModEnchantment extends Enchantment {
 
@@ -15,7 +13,7 @@ public class ModEnchantment extends Enchantment {
     public boolean isTreasure = false;
     public boolean canBeVillagerTrade = true;
     public boolean canGenerateInLootChests = true;
-    public List<Enchantment> blacklistedEnchantments = new ArrayList<>();
+    public ToBooleanFunction<Enchantment> canApplyTogether = enchantment -> true;
 
     public ModEnchantment(Rarity rarity, EnchantmentType enchantmentType, EquipmentSlotType[] equipmentSlotTypes) {
         super(rarity, enchantmentType, equipmentSlotTypes);
@@ -43,7 +41,7 @@ public class ModEnchantment extends Enchantment {
 
     @Override
     protected boolean canApplyTogether(Enchantment enchantment) {
-        return !blacklistedEnchantments.contains(enchantment) && super.canApplyTogether(enchantment);
+        return canApplyTogether.applyAsBoolean(enchantment) && super.canApplyTogether(enchantment);
     }
 
     public boolean func_230309_h_() {

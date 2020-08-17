@@ -21,6 +21,7 @@ public class Config {
 		ItemConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
 		BlockConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
 		RenderingConfig.init(CLIENT_BUILDER);
+		EnchantmentConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
 
 		SERVER_CONFIG = SERVER_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();

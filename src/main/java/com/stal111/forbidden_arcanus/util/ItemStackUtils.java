@@ -6,9 +6,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ForgeInternalHandler;
-import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
 
 public class ItemStackUtils {
 
@@ -33,7 +33,7 @@ public class ItemStackUtils {
         return ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, name));
     }
 
-    public static boolean hasStackEnchantment(ItemStack stack, Enchantment... enchantments) {
+    public static boolean hasStackEnchantment(ItemStack stack, List<Enchantment> enchantments) {
         for (Enchantment itemEnchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             for (Enchantment enchantment : enchantments) {
                 if (itemEnchantment == enchantment) {

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.integration;
 
 import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.item.Item;
@@ -13,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ApplyIndestructibleEnchantmentMaker {
 
@@ -31,14 +33,16 @@ public class ApplyIndestructibleEnchantmentMaker {
         Ingredient eternalStella = Ingredient.fromItems(ModItems.ETERNAL_STELLA.get());
 
         list.forEach(item -> {
-            ResourceLocation id = new ResourceLocation(Main.MOD_ID, "jei.apply_indestructible_enchantment." + item.getTranslationKey());
+            if (!(EnchantmentConfig.INDESTRUCTIBLE_ITEM_BLACKLIST.get().contains(Objects.requireNonNull(item.getRegistryName()).toString()))) {
+                ResourceLocation id = new ResourceLocation(Main.MOD_ID, "jei.apply_indestructible_enchantment." + item.getTranslationKey());
 
-            ItemStack output = new ItemStack(item);
-            output.addEnchantment(ModEnchantments.INDESTRUCTIBLE.get(), 1);
+                ItemStack output = new ItemStack(item);
+                output.addEnchantment(ModEnchantments.INDESTRUCTIBLE.get(), 1);
 
-            ShapelessRecipe recipe = new ShapelessRecipe(id, group, output, NonNullList.from(Ingredient.EMPTY, Ingredient.fromItems(item), eternalStella));
+                ShapelessRecipe recipe = new ShapelessRecipe(id, group, output, NonNullList.from(Ingredient.EMPTY, Ingredient.fromItems(item), eternalStella));
 
-            recipes.add(recipe);
+                recipes.add(recipe);
+            }
         });
 
         return recipes;
