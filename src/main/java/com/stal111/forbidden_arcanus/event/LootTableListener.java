@@ -45,6 +45,8 @@ public class LootTableListener {
             event.getTable().addPool(getInjectPool("bat"));
         } else if (name.equals("minecraft:entities/squid")) {
             event.getTable().addPool(getInjectPool("squid"));
+        } else if (name.equals("minecraft:entities/ender_dragon")) {
+            event.getTable().addPool(getInjectPool("ender_dragon"));
         }
     }
 
