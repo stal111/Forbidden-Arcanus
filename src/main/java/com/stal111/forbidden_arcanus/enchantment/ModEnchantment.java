@@ -12,7 +12,7 @@ public class ModEnchantment extends Enchantment {
     public int maxEnchantability = 0;
     public boolean isTreasure = false;
     public boolean canBeVillagerTrade = true;
-    public boolean canGenerateInLootChests = true;
+    public boolean canGenerateInLoot = true;
     public ToBooleanFunction<Enchantment> canApplyTogether = enchantment -> true;
 
     public ModEnchantment(Rarity rarity, EnchantmentType enchantmentType, EquipmentSlotType[] equipmentSlotTypes) {
@@ -49,7 +49,7 @@ public class ModEnchantment extends Enchantment {
     }
 
     @Override
-    public boolean func_230310_i_() {
-        return canGenerateInLootChests;
+    public boolean canGenerateInLoot() {
+        return canGenerateInLoot;
     }
 }

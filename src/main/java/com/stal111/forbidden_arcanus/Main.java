@@ -133,7 +133,7 @@ public class Main {
 		EternalStellaActiveCapability.register();
 		EntitySpawningBlockingCapability.register();
 
-		GlobalEntityTypeAttributes.put((EntityType<? extends LivingEntity>) ModEntities.PIXIE.get(), PixieEntity.registerAttributes().func_233813_a_());
+		GlobalEntityTypeAttributes.put((EntityType<? extends LivingEntity>) ModEntities.PIXIE.get(), PixieEntity.registerAttributes().create());
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

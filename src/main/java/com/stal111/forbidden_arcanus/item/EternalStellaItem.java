@@ -47,7 +47,7 @@ public class EternalStellaItem extends Item {
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         super.addInformation(stack, world, tooltip, flag);
 
-        tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".uses_left").func_240702_b_(": " + getUsesLeft(stack)).func_240699_a_(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".uses_left").appendString(": " + getUsesLeft(stack)).mergeStyle(TextFormatting.GRAY));
     }
 
     private int getUsesLeft(ItemStack stack) {

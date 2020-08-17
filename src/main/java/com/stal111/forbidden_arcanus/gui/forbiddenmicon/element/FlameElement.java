@@ -37,8 +37,8 @@ public class FlameElement extends GuiElement {
     public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + 10 && y < getPosY() + 13) {
             List<ITextComponent> list = new ArrayList<>();
-            list.add(new TranslationTextComponent("forbiddenmicon.recipe.cookingTime").func_240702_b_(": " + cookingTime));
-            list.add(new TranslationTextComponent("forbiddenmicon.recipe.experience").func_240702_b_(": " + experience));
+            list.add(new TranslationTextComponent("forbiddenmicon.recipe.cookingTime").appendString(": " + cookingTime));
+            list.add(new TranslationTextComponent("forbiddenmicon.recipe.experience").appendString(": " + experience));
             renderFancyTooltip(matrixStack, list, x, y);
         }
     }

@@ -71,8 +71,7 @@ public class DracoArcanusArrowEntity extends AbstractArrowEntity {
         areaeffectcloudentity.setRadiusPerTick((7.0F - areaeffectcloudentity.getRadius()) / (float)areaeffectcloudentity.getDuration());
         areaeffectcloudentity.addEffect(new EffectInstance(Effects.INSTANT_DAMAGE, 1, 1));
 
-        //TODO: this works?
-        this.world.playEvent(2006, this.func_233580_cy_(), 0);
+        this.world.playEvent(2006, this.getPosition(), 0);
         this.world.addEntity(areaeffectcloudentity);
         super.arrowHit(entity);
     }

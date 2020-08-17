@@ -19,7 +19,7 @@ public class ModEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Main.MOD_ID);
 
     public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new EnchantmentBuilder(Enchantment.Rarity.UNCOMMON, ModEnchantmentType.EDELWOOD_BUCKET, EquipmentSlotType.MAINHAND).isTreasure().build());
-    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, ModEnchantmentType.INDESTRUCTIBLE_CONFIG_BLACKLIST, EquipmentSlotType.MAINHAND).canApplyTogether(enchantment -> !EnchantmentConfig.INDESTRUCTIBLE_ENCHANTMENT_BLACKLIST.get().contains(Objects.requireNonNull(enchantment.getRegistryName()).toString())).isTreasure().canBeVillagerTrade(false).canGenerateInLootChests(false).build());
+    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, ModEnchantmentType.INDESTRUCTIBLE_CONFIG_BLACKLIST, EquipmentSlotType.MAINHAND).canApplyTogether(enchantment -> !EnchantmentConfig.INDESTRUCTIBLE_ENCHANTMENT_BLACKLIST.get().contains(Objects.requireNonNull(enchantment.getRegistryName()).toString())).isTreasure().canBeVillagerTrade(false).canGenerateInLoot(false).build());
 
     private static <T extends Enchantment> RegistryObject<T> register(String name, T enchantment) {
         return ENCHANTMENTS.register(name, () -> enchantment);
@@ -65,8 +65,8 @@ public class ModEnchantments {
             return this;
         }
 
-        public EnchantmentBuilder canGenerateInLootChests(boolean canGenerate) {
-            enchantment.canGenerateInLootChests = canGenerate;
+        public EnchantmentBuilder canGenerateInLoot(boolean canGenerate) {
+            enchantment.canGenerateInLoot = canGenerate;
             return this;
         }
 

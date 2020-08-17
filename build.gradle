@@ -20,7 +20,7 @@ mixin {
     add sourceSets.main, "forbidden_arcanus.refmap.json"
 }
 
-version = '1.16.1-1.0.1'
+version = '1.16.1-1.1.0'
 group = 'com.stal111.forbidden_arcanus' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'forbidden_arcanus'
 
@@ -32,7 +32,7 @@ minecraft {
     // stable_#            Stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20200707-1.16.1'
+    mappings channel: 'snapshot', version: '20200723-1.16.1'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -52,7 +52,7 @@ minecraft {
             arg "-mixin.config=forbidden_arcanus.mixins.json"
 
             mods {
-                examplemod {
+                forbidden_arcanus {
                     source sourceSets.main
                 }
             }
@@ -67,8 +67,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
+            arg "-mixin.config=forbidden_arcanus.mixins.json"
+
             mods {
-                examplemod {
+                forbidden_arcanus {
                     source sourceSets.main
                 }
             }
@@ -83,10 +85,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'forbidden_arcanus', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                examplemod {
+                forbidden_arcanus {
                     source sourceSets.main
                 }
             }
@@ -111,7 +113,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.1-32.0.106'
+    minecraft 'net.minecraftforge:forge:1.16.1-32.0.108'
 
     // compile against the JEI API but do not include it at runtime
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
@@ -142,13 +144,14 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title": "examplemod",
-                "Specification-Vendor": "examplemodsareus",
+                "Specification-Title": "Forbidden & Arcanus",
+                "Specification-Vendor": "forbidden_arcanus",
                 "Specification-Version": "1", // We are version 1 of ourselves
                 "Implementation-Title": project.name,
                 "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"examplemodsareus",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Vendor" :"forbidden_arcanus",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs": "forbidden_arcanus.mixins.json"
         ])
     }
 }

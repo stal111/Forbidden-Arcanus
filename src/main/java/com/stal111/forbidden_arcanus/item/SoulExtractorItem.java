@@ -131,7 +131,7 @@ public class SoulExtractorItem extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> list, ITooltipFlag flag) {
-        list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".soul_extractor").func_240699_a_(TextFormatting.GRAY));
+        list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".soul_extractor").mergeStyle(TextFormatting.GRAY));
         super.addInformation(stack, world, list, flag);
     }
 }

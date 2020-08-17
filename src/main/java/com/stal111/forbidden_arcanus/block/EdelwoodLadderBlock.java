@@ -23,7 +23,7 @@ public class EdelwoodLadderBlock extends LadderBlock {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
-		list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".edelwood_ladder").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".edelwood_ladder").mergeStyle(TextFormatting.GRAY));
 		super.addInformation(stack, world, list, flag);
 	}
 }

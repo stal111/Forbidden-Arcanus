@@ -48,9 +48,9 @@ public class SpectralEyeAmuletItem extends Item {
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
 
-		ITextComponent toggle = new TranslationTextComponent("tooltip." + Main.MOD_ID + ".toggle").func_240699_a_(TextFormatting.GRAY);
+		ITextComponent toggle = new TranslationTextComponent("tooltip." + Main.MOD_ID + ".toggle").mergeStyle(TextFormatting.GRAY);
 
-		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + (isDeactivated(stack) ? ".deactivated" : ".activated")).func_240699_a_(isDeactivated(stack) ? TextFormatting.RED : TextFormatting.GREEN).func_240702_b_(" ").func_230529_a_(toggle));
+		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + (isDeactivated(stack) ? ".deactivated" : ".activated")).mergeStyle(isDeactivated(stack) ? TextFormatting.RED : TextFormatting.GREEN).appendString(" ").append(toggle));
 	}
 
 	public static boolean isDeactivated(ItemStack stack) {

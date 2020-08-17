@@ -81,18 +81,18 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
 
                 for(int j = 0; j < TropicalFishEntity.SPECIAL_VARIANTS.length; ++j) {
                     if (i == TropicalFishEntity.SPECIAL_VARIANTS[j]) {
-                        tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212324_b(j))).func_240701_a_(atextformatting));
+                        tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212324_b(j))).mergeStyle(atextformatting));
                         return;
                     }
                 }
 
-                tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212327_q(i))).func_240701_a_(atextformatting));
+                tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212327_q(i))).mergeStyle(atextformatting));
                 IFormattableTextComponent iformattabletextcomponent = new TranslationTextComponent(s);
                 if (!s.equals(s1)) {
-                    iformattabletextcomponent.func_240702_b_(", ").func_230529_a_(new TranslationTextComponent(s1));
+                    iformattabletextcomponent.appendString(", ").append(new TranslationTextComponent(s1));
                 }
 
-                iformattabletextcomponent.func_240701_a_(atextformatting);
+                iformattabletextcomponent.mergeStyle(atextformatting);
                 tooltip.add(iformattabletextcomponent);
             }
         }
