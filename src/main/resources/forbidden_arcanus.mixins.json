@@ -5,7 +5,8 @@
     "package": "com.stal111.forbidden_arcanus.mixin",
     "refmap": "forbidden_arcanus.refmap.json",
     "mixins": [
-        "AccessorFireBlock"
+        "AccessorFireBlock",
+        "ItemStackMixin"
     ],
     "client": [
     ],

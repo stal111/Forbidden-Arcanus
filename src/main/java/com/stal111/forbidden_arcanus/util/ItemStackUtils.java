@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ItemStackUtils {
@@ -31,6 +32,10 @@ public class ItemStackUtils {
 
     public static boolean registryContainsItem(String name) {
         return ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, name));
+    }
+
+    public static boolean hasStackEnchantment(ItemStack stack, Enchantment enchantment) {
+        return hasStackEnchantment(stack, Collections.singletonList(enchantment));
     }
 
     public static boolean hasStackEnchantment(ItemStack stack, List<Enchantment> enchantments) {

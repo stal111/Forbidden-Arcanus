@@ -2,12 +2,13 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
+import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.network.FlightTimeLeftPacket;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
-import net.minecraft.enchantment.EnchantmentHelper;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -38,9 +39,9 @@ public class TickListener {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack stack = player.inventory.getStackInSlot(i);
 
-            if (stack != ItemStack.EMPTY && stack.isDamageable()) {
-                if (EnchantmentHelper.getEnchantments(stack).containsKey(ModEnchantments.INDESTRUCTIBLE.get()) || isEternalStellaActive(player)) {
-                    if (stack.getDamage() > 0) {
+            if (stack != ItemStack.EMPTY) {
+                if (stack.isDamageable() && stack.getDamage() > 0) {
+                    if (isEternalStellaActive(player) || (ItemStackUtils.hasStackEnchantment(stack, ModEnchantments.INDESTRUCTIBLE.get()) && EnchantmentConfig.INDESTRUCTIBLE_FULLY_REPAIR_ITEM.get())) {
                         itemsToRepair++;
 
                         stack.setDamage(stack.getDamage() - 1);
