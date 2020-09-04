@@ -20,7 +20,7 @@ mixin {
     add sourceSets.main, "forbidden_arcanus.refmap.json"
 }
 
-version = '1.16.1-1.1.1'
+version = '1.16.1-1.1.2'
 group = 'com.stal111.forbidden_arcanus' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'forbidden_arcanus'
 
