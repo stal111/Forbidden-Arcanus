@@ -3,16 +3,15 @@
     
     "pattern":
     [
-        "##",
-        "##"
-    
+        "#",
+        "#"
     ],
     
     "key":
     {
         "#":
         {
-            "item": "forbidden_arcanus:soulless_sandstone"
+            "item": "forbidden_arcanus:polished_soulless_sandstone_slab"
         }
         
     },
