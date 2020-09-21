@@ -1,14 +1,15 @@
 package com.stal111.forbidden_arcanus.proxy;
 
-import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
-import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -23,8 +24,8 @@ public abstract class SideProxy {
 	}
 
 	private static void commonSetup(FMLCommonSetupEvent event) {
-		OreGenerator.setupOreGen();
-		WorldGenerator.setupWorldGen();
+		//OreGenerator.setupOreGen();
+		//WorldGenerator.setupWorldGen();
 	}
 
 	private static void enqueueIMC(final InterModEnqueueEvent event) {

@@ -53,8 +53,8 @@ public class ClientProxy implements IProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::stitchTextures);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModelBake);
 
-        ItemModelsProperties.func_239418_a_(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
-        ItemModelsProperties.func_239418_a_(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && SpectralEyeAmuletItem.isDeactivated(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && SpectralEyeAmuletItem.isDeactivated(stack) ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent

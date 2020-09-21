@@ -13,6 +13,7 @@ import com.stal111.forbidden_arcanus.event.LootTableListener;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadListener;
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.init.other.ModFlammables;
+import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
@@ -24,8 +25,6 @@ import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.Data;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.util.ModWoodType;
-import com.stal111.forbidden_arcanus.world.gen.OreGenerator;
-import com.stal111.forbidden_arcanus.world.gen.WorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -118,9 +117,6 @@ public class Main {
 		ModWoodType.register(ModWoodType.EDELWOOD);
 		ModWoodType.register(ModWoodType.CHERRYWOOD);
 		ModWoodType.register(ModWoodType.MYSTERYWOOD);
-
-		OreGenerator.setupOreGen();
-		WorldGenerator.setupWorldGen();
 
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD.getBlock());

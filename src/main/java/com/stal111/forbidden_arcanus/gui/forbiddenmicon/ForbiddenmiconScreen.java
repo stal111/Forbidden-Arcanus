@@ -10,11 +10,11 @@ import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangeCat
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button.ChangePageButton;
 import com.stal111.forbidden_arcanus.item.ForbiddenmiconItem;
 import com.stal111.forbidden_arcanus.util.ModUtils;
-import net.minecraft.client.gui.RenderComponentsUtil;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +27,7 @@ public class ForbiddenmiconScreen extends ModScreen {
 
     public ForbiddenmiconEntry entry;
 
-    private List<ITextComponent> cachedPageLines = Collections.emptyList();
+    private List<IReorderingProcessor> cachedPageLines = Collections.emptyList();
 
     private RecipePreviewElement recipePreview;
 
@@ -158,7 +158,7 @@ public class ForbiddenmiconScreen extends ModScreen {
             if (entry.hasDescription()) {
                 int k = Math.min(128 / 9, this.cachedPageLines.size());
                 for(int l = 0; l < k; ++l) {
-                    ITextProperties iTextProperties = this.cachedPageLines.get(l);
+                    IReorderingProcessor iTextProperties = this.cachedPageLines.get(l);
                     this.font.func_238422_b_(matrixStack, iTextProperties, (i + 14) * 1.428F, (64 * 1.45F) + l * 9, 0);
                 }
             } else {

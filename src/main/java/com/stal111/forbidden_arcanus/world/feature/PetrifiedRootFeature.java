@@ -1,16 +1,14 @@
-package com.stal111.forbidden_arcanus.world.gen.feature;
+package com.stal111.forbidden_arcanus.world.feature;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.structure.StructureManager;
+import net.minecraftforge.common.Tags;
 
 import java.util.Random;
 
@@ -21,14 +19,10 @@ public class PetrifiedRootFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_230362_a_(ISeedReader seedReader, StructureManager manager, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig noFeatureConfig) {
+    public boolean func_241855_a(ISeedReader seedReader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig noFeatureConfig) {
         int i = 0;
 
-        if (!seedReader.isAirBlock(pos)) {
-            return false;
-        } else if (seedReader.getBlockState(pos.up()).getBlock() != Blocks.STONE) {
-            return false;
-        } else {
+        if (seedReader.isAirBlock(pos) && Tags.Blocks.STONE.contains(seedReader.getBlockState(pos.up()).getBlock())) {
             seedReader.setBlockState(pos, ModBlocks.PETRIFIED_ROOT.getState(), 2);
             Direction direction = null;
             for (int j = 1; j <= 5; j++) {
@@ -55,7 +49,9 @@ public class PetrifiedRootFeature extends Feature<NoFeatureConfig> {
                     break;
                 }
             }
+            return i > 0;
+        } else {
+            return false;
         }
-        return i > 0;
     }
 }

@@ -19,7 +19,7 @@ public class EntitySpawnCheckListener {
     @SubscribeEvent
     public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
         Entity entity = event.getEntity();
-        World world = event.getWorld().getWorld();
+        World world = event.getEntity().getEntityWorld();
 
         world.getCapability(EntitySpawningBlockingCapability.ENTITY_SPAWNING_BLOCKING_BLOCKS_CAPABILITY).ifPresent(iEntitySpawningBlockingBlocks -> {
             iEntitySpawningBlockingBlocks.getSpawningBlockingBlocks().forEach(compoundNBT -> {

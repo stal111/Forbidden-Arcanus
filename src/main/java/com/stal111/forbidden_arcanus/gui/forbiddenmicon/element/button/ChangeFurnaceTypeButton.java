@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
@@ -35,7 +37,7 @@ public class ChangeFurnaceTypeButton extends ButtonElement {
     @Override
     public void renderHoverEffect(MatrixStack matrixStack,int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + getSizeX() && y < getPosY() + getSizeY()) {
-            renderFancyTooltip(matrixStack, Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe.smelting." + getFurnaceType().toString().toLowerCase())), x, y);
+            renderFancyTooltip(matrixStack, Lists.transform(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe.smelting." + getFurnaceType().toString().toLowerCase())), ITextComponent::func_241878_f), x, y);
         }
     }
 

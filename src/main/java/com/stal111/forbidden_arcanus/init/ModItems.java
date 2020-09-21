@@ -1,11 +1,9 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.item.*;
 import com.stal111.forbidden_arcanus.item.armor.ModArmorMaterial;
 import com.stal111.forbidden_arcanus.item.block.StrangeRootItem;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -70,6 +68,9 @@ public class ModItems {
     public static final RegistryObject<Item> GOLDEN_FEATHER = register("golden_feather", () -> new Item(properties()));
     public static final RegistryObject<Item> EDELWOOD_STICK = register("edelwood_stick", () -> new Item(properties()));
     public static final RegistryObject<Item> EDELWOOD_OIL = register("edelwood_oil", () -> new ContainerItem(Items.GLASS_BOTTLE, properties()));
+    public static final RegistryObject<Item> WAX = register("wax", () -> new Item(properties()));
+    public static final RegistryObject<Item> SPAWNER_SCRAP = register("spawner_scrap", () -> new Item(properties()));
+    public static final RegistryObject<Item> QUANTUM_CATCHER = register("quantum_catcher", () -> new QuantumCatcherItem(properties()));
     public static final RegistryObject<Item> EDELWOOD_BUCKET = register("edelwood_bucket", () -> new EdelwoodBucketItem(Fluids.EMPTY, properties(16)));
     public static final RegistryObject<Item> EDELWOOD_WATER_BUCKET = register("edelwood_water_bucket", () -> new EdelwoodBucketItem(Fluids.WATER, properties(1).containerItem(EDELWOOD_BUCKET.get())));
     public static final RegistryObject<Item> EDELWOOD_LAVA_BUCKET = register("edelwood_lava_bucket", () -> new EdelwoodBucketItem(Fluids.LAVA, properties(1).containerItem(EDELWOOD_BUCKET.get())));

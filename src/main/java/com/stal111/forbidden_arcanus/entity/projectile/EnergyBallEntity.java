@@ -13,7 +13,10 @@ import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -79,7 +82,7 @@ public class EnergyBallEntity extends Entity {
             super.tick();
             ++this.ticksInAir;
 
-            RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, entity -> entity.isAlive() && entity != this.shootingEntity, RayTraceContext.BlockMode.COLLIDER);
+            RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, entity -> entity.isAlive() && entity != this.shootingEntity);
             if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onImpact(raytraceresult);
             }

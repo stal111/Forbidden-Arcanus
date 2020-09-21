@@ -4,7 +4,7 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.block.StellaArcanumBlock;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.init.ModEnchantments;
+import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.entity.item.ItemEntity;
@@ -35,7 +35,7 @@ public class BlockBreakListener {
 			if (state.getBlock() instanceof CropsBlock) {
 				if (world.getBlockState(pos.down()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock() && ((CropsBlock) state.getBlock()).isMaxAge(state)) {
 					if (!event.getPlayer().abilities.isCreativeMode) {
-						for (ItemStack itemStack : state.getBlock().getDrops(state, new LootContext.Builder((ServerWorld) world).withParameter(LootParameters.TOOL, stack).withParameter(LootParameters.POSITION, pos))) {
+						for (ItemStack itemStack : state.getBlock().getDrops(state, new LootContext.Builder((ServerWorld) world).withParameter(LootParameters.TOOL, stack).withParameter(LootParameters.field_237457_g_, ModUtils.blockPosToVector(pos)))) {
 							if (!itemStack.getItem().getRegistryName().getPath().contains("seed")) {
 								world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack));
 							}
@@ -57,6 +57,7 @@ public class BlockBreakListener {
 					if (shouldExplode) {
 						StellaArcanumBlock.explode = true;
 					}
+					StellaArcanumBlock.world = world;
 				}
 			}
 		}

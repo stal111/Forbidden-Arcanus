@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconCategory;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
@@ -52,7 +54,7 @@ public class ChangeCategoryButton extends ButtonElement {
                 blit(matrixStack, getBlitOffset(), getStartX(), getStartY() - 16, 24, 14, 256, 512);
                 blit(matrixStack, getPosX() + 7, getPosY() + 2, getBlitOffset() + 1, getCategory().getStartX(), getCategory().getStartY(), 8, 8, 256, 512);
             }
-            renderFancyTooltip(matrixStack, Collections.singletonList(new TranslationTextComponent("forbiddenmicon.category." + getCategory().toString().toLowerCase())), x, y);
+            renderFancyTooltip(matrixStack, Lists.transform(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.category." + getCategory().toString().toLowerCase())), ITextComponent::func_241878_f) , x, y);
         }
     }
 

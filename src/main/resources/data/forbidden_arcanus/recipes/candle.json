@@ -1,15 +1,19 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    
-    "ingredients": [
-        {
-            "item": "minecraft:torch"
-        }
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "X",
+        "#"
     ],
-    
-    "result":
-    {
+    "key": {
+        "X": {
+            "item": "minecraft:string"
+        },
+        "#": {
+            "item": "forbidden_arcanus:wax"
+        }
+    },
+    "result": {
         "item": "forbidden_arcanus:candle",
-        "count": 1
+        "count": 4
     }
 }

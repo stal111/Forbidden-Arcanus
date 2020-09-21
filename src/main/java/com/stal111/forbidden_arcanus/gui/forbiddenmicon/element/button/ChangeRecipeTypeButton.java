@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.button;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.gui.element.button.ButtonElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.RecipePreviewElement;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
@@ -38,7 +40,7 @@ public class ChangeRecipeTypeButton extends ButtonElement {
     public void renderHoverEffect(MatrixStack matrixStack, int x, int y) {
         int i = isActivated() ? 17 : 15;
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + 14 && y < getPosY() + i) {
-            renderFancyTooltip(matrixStack, Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe." + hoverText)), x, y);
+            renderFancyTooltip(matrixStack, Lists.transform(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe." + hoverText)), ITextComponent::func_241878_f), x, y);
         }
     }
 

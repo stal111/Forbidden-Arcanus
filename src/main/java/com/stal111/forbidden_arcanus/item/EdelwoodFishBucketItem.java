@@ -22,6 +22,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -40,7 +41,7 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
     @Override
     public void onLiquidPlaced(World world, ItemStack stack, BlockPos pos) {
         if (!world.isRemote()) {
-            this.placeFish(world, stack, pos);
+            this.placeFish((ServerWorld) world, stack, pos);
         }
         super.onLiquidPlaced(world, stack, pos);
     }
@@ -61,7 +62,7 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
         world.playSound(player, pos, SoundEvents.ITEM_BUCKET_EMPTY_FISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
     }
 
-    private void placeFish(World world, ItemStack stack, BlockPos pos) {
+    private void placeFish(ServerWorld world, ItemStack stack, BlockPos pos) {
         Entity entity = this.fishType.spawn(world, stack, null, pos, SpawnReason.BUCKET, true, false);
         if (entity instanceof AbstractFishEntity) {
             ((AbstractFishEntity)entity).setFromBucket(true);

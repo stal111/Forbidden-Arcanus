@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smithing",
+    "base": {
+        "item": "forbidden_arcanus:spawner_scrap"
+    },
+    "addition": {
+        "item": "forbidden_arcanus:arcane_crystal_block"
+    },
+    "result": {
+        "item": "forbidden_arcanus:quantum_catcher"
+    }
+}

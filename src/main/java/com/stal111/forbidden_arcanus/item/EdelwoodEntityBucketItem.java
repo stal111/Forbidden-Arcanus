@@ -11,12 +11,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
@@ -38,7 +41,7 @@ public class EdelwoodEntityBucketItem extends Item {
                     BlockPos pos = new BlockPos(player.getPosX(), player.getPosY(), player.getPosZ());
                     if (!player.abilities.isCreativeMode) {
                         if (new Random().nextDouble() < 0.008) {
-                            this.placeEntity(world, stack, pos);
+                            this.placeEntity((ServerWorld) world, stack, pos);
                             if (!world.isRemote()) {
                                 player.inventory.removeStackFromSlot(slot);
                                 player.inventory.add(slot, new ItemStack(Items.CHARCOAL));
@@ -68,7 +71,7 @@ public class EdelwoodEntityBucketItem extends Item {
             Direction direction = blockraytraceresult.getFace();
             BlockPos pos = blockpos.offset(direction);
             if (!world.isRemote()) {
-                this.placeEntity(world, stack, pos);
+                this.placeEntity((ServerWorld) world, stack, pos);
             }
             return ActionResult.resultSuccess(emptyBucket(stack, player));
         }
@@ -81,7 +84,7 @@ public class EdelwoodEntityBucketItem extends Item {
         return stack;
     }
 
-    private void placeEntity(World world, ItemStack stack, BlockPos pos) {
+    private void placeEntity(ServerWorld world, ItemStack stack, BlockPos pos) {
         this.entityType.spawn(world, stack, null, pos, SpawnReason.BUCKET, true, false);
     }
 }

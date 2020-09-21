@@ -48,5 +48,10 @@ public class InfernumPickaxeLootModifier extends LootModifier {
         public InfernumPickaxeLootModifier read(ResourceLocation name, JsonObject json, ILootCondition[] conditionsIn) {
             return new InfernumPickaxeLootModifier(conditionsIn);
         }
+
+        @Override
+        public JsonObject write(InfernumPickaxeLootModifier instance) {
+            return null;
+        }
     }
 }

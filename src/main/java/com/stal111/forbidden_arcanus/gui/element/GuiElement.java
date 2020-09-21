@@ -7,15 +7,16 @@ import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldVertexBufferUploader;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.TransformationMatrix;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GuiElement {
@@ -152,11 +153,11 @@ public abstract class GuiElement {
         RenderSystem.disableBlend();
     }
 
-    public void renderFancyTooltip(MatrixStack matrixStack, List<ITextComponent> tooltip, int x, int y) {
+    public void renderFancyTooltip(MatrixStack matrixStack, List<? extends IReorderingProcessor> tooltip, int x, int y) {
         int i = 0;
 
-        for(ITextProperties itextproperties : tooltip) {
-            int j = getMinecraft().fontRenderer.func_238414_a_(itextproperties);
+        for(IReorderingProcessor iReorderingProcessor : tooltip) {
+            int j = getMinecraft().fontRenderer.func_243245_a(iReorderingProcessor);
             if (j > i) {
                 i = j;
             }
@@ -206,9 +207,9 @@ public abstract class GuiElement {
         Matrix4f matrix4f = matrixstack.getLast().getMatrix();
 
         for(int k1 = 0; k1 < tooltip.size(); ++k1) {
-            ITextProperties iTextProperties = tooltip.get(k1);
-            if (iTextProperties != null) {
-                getMinecraft().fontRenderer.func_238416_a_(iTextProperties, (float) l1, (float) i2, -1, true, matrix4f, irendertypebuffer$impl, false, 0, 15728880);
+            IReorderingProcessor iReorderingProcessor = tooltip.get(k1);
+            if (iReorderingProcessor != null) {
+                getMinecraft().fontRenderer.func_238416_a_(iReorderingProcessor, (float) l1, (float) i2, -1, true, matrix4f, irendertypebuffer$impl, false, 0, 15728880);
             }
 
             if (k1 == 0) {

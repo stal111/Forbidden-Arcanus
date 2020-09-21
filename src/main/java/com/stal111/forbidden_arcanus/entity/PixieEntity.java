@@ -4,20 +4,22 @@ import com.google.common.collect.Sets;
 import com.stal111.forbidden_arcanus.entity.ai.FlyingAvoidEntityGoal;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.IFlyingAnimal;
+import net.minecraft.entity.passive.ParrotEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -34,6 +36,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 
 import javax.annotation.Nullable;
@@ -131,12 +134,6 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
         return size.height * 0.6F;
     }
 
-    @Nullable
-    @Override
-    public AgeableEntity createChild(AgeableEntity ageable) {
-        return null;
-    }
-
     @Override
     public boolean canBeLeashedTo(PlayerEntity player) {
         return false;
@@ -208,6 +205,11 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
     }
 
     @Override
+    public PixieEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+        return null;
+    }
+
+    @Override
     protected void registerData() {
         super.registerData();
         this.dataManager.register(VARIANT, 0);
@@ -242,7 +244,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
          * Returns whether an in-progress EntityAIBase should continue executing
          */
         public boolean shouldContinueExecuting() {
-            return PixieEntity.this.navigator.func_226337_n_();
+            return PixieEntity.this.navigator.hasPath();
         }
 
         /**

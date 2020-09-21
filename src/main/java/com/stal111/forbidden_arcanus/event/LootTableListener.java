@@ -47,6 +47,8 @@ public class LootTableListener {
             event.getTable().addPool(getInjectPool("squid"));
         } else if (name.equals("minecraft:entities/ender_dragon")) {
             event.getTable().addPool(getInjectPool("ender_dragon"));
+        } else if (name.equals("minecraft:blocks/spawner")) {
+            event.getTable().addPool(getInjectPool("spawner"));
         }
     }
 

@@ -1,7 +1,7 @@
-package com.stal111.forbidden_arcanus.init;
+package com.stal111.forbidden_arcanus.init.world;
 
 import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.world.gen.feature.PetrifiedRootFeature;
+import com.stal111.forbidden_arcanus.world.feature.PetrifiedRootFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;

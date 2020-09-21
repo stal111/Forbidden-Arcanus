@@ -65,7 +65,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         for (int i = 0; i < quads.size(); ++i) {
             BakedQuad quad = quads.get(i);
 
-            if (textures.contains(quad.func_187508_a().getName())) {
+            if (textures.contains(quad.getSprite().getName())) {
                 quads.set(i, transformQuad(quad));
             }
         }
@@ -86,8 +86,8 @@ public class FullbrightBakedModel extends DelegateBakedModel {
                 vertexData,
                 quad.getTintIndex(),
                 quad.getFace(),
-                quad.func_187508_a(),
-                quad.func_239287_f_()
+                quad.getSprite(),
+                quad.applyDiffuseLighting()
         );
     }
 

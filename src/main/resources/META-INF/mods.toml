@@ -1,5 +1,6 @@
 modLoader="javafml" #mandatory
 loaderVersion="[31,)" #mandatory (25 is current forge version)
+license="All Rights Reserved"
 [[mods]] #mandatory
 modId="forbidden_arcanus" #mandatory
 version="${file.jarVersion}" #mandatory

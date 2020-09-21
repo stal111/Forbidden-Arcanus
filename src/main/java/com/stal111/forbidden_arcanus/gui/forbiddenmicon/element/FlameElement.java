@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.gui.forbiddenmicon.element;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.gui.element.GuiElement;
-import net.minecraft.util.text.*;
+import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class FlameElement extends GuiElement {
             List<ITextComponent> list = new ArrayList<>();
             list.add(new TranslationTextComponent("forbiddenmicon.recipe.cookingTime").appendString(": " + cookingTime));
             list.add(new TranslationTextComponent("forbiddenmicon.recipe.experience").appendString(": " + experience));
-            renderFancyTooltip(matrixStack, list, x, y);
+            renderFancyTooltip(matrixStack, Lists.transform(list, ITextComponent::func_241878_f), x, y);
         }
     }
 

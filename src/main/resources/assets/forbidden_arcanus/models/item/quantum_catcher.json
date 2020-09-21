@@ -1,0 +1,37 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "forbidden_arcanus:block/quantum_catcher",
+        "quantum_catcher": "forbidden_arcanus:item/quantum_catcher",
+        "quantum_catcher_inner": "forbidden_arcanus:item/quantum_catcher_inner"
+    },
+    "parent": "block/cube_all",
+    "elements": [
+        {
+            "name": "QuantumCatcher",
+            "from": [ 4, 0, 4 ], 
+            "to": [ 12, 8, 12 ], 
+            "faces": {
+                "north": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
+                "east": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
+                "south": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
+                "west": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
+                "up": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
+                "down": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] }
+            }
+        },
+        {
+            "name": "QuantumCatcherInner",
+            "from": [ 5, 1, 5 ], 
+            "to": [ 11, 7, 11 ], 
+            "faces": {
+                "north": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
+                "east": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
+                "south": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
+                "west": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
+                "up": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
+                "down": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] }
+            }
+        }
+    ]
+}
