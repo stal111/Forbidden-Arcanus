@@ -13,6 +13,6 @@ public class MysterywoodTree extends Tree {
 	@Nullable
 	@Override
 	protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random random, boolean p_225546_2_) {
-		return (ConfiguredFeature<BaseTreeFeatureConfig, ?>) ModConfiguredFeatures.MYSTERYWOOD;
+		return ModConfiguredFeatures.MYSTERYWOOD;
 	}
 }

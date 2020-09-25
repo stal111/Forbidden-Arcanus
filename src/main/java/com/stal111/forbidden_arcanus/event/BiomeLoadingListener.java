@@ -41,11 +41,11 @@ public class BiomeLoadingListener {
         }
 
         if (category == Biome.Category.PLAINS) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.CHERRYWOOD);
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.CHERRYWOOD_TREES);
         }
 
         if (event.getName().equals(new ResourceLocation("flower_forest"))) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.MYSTERYWOOD);
+            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.MYSTERYWOOD_TREES);
             event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.YELLOW_ORCHID);
         }
 
