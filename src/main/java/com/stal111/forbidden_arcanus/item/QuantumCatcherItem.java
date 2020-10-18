@@ -11,8 +11,12 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -35,7 +39,7 @@ public class QuantumCatcherItem extends Item {
             Entity entity = getEntity(stack, world);
 
             if (!world.isRemote()) {
-                entity.setPosition(context.getPos().getX(), context.getPos().getY() + 1, context.getPos().getZ());
+                entity.setPositionAndRotation(context.getPos().getX(), context.getPos().getY() + 1, context.getPos().getZ(), 0, 0);
 
                 world.addEntity(entity);
             }
@@ -53,11 +57,13 @@ public class QuantumCatcherItem extends Item {
         World world = player.world;
         ItemStack stack1 = player.getHeldItem(hand);
 
+        if (world.isRemote() || target instanceof PlayerEntity) {
+            return ActionResultType.FAIL;
+        }
+
         if (getEntity(stack1, world) == null && target.isAlive()) {
             setEntity(target, stack1);
-            if (!world.isRemote()) {
-                target.remove();
-            }
+            target.remove();
 
             return ActionResultType.func_233537_a_(player.world.isRemote());
         }
@@ -89,6 +95,7 @@ public class QuantumCatcherItem extends Item {
         entity.removePassengers();
 
         CompoundNBT entityNBT = new CompoundNBT();
+        entityNBT.putString("entity", entity.getType().getRegistryName().toString());
         entity.writeUnlessPassenger(entityNBT);
 
         CompoundNBT itemNBT = stack.getOrCreateTag();
@@ -104,8 +111,19 @@ public class QuantumCatcherItem extends Item {
 
         CompoundNBT entityNBT = itemNBT.getCompound("entity");
 
-        Optional<Entity> entity = EntityType.loadEntityUnchecked(entityNBT, world);
-        return entity.orElse(null);
+        EntityType<?> entityType = Registry.ENTITY_TYPE.getOptional(new ResourceLocation(entityNBT.getString("entity"))).orElse(null);
+
+        if (entityType == null) {
+            return null;
+        }
+
+        Entity entity = entityType.create(world);
+
+        if (world instanceof ServerWorld) {
+            entity.read(entityNBT);
+        }
+
+        return entity;
     }
 
     private void clearEntity(ItemStack stack) {
