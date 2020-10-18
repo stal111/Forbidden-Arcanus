@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -57,7 +58,7 @@ public class QuantumCatcherItem extends Item {
         World world = player.world;
         ItemStack stack1 = player.getHeldItem(hand);
 
-        if (world.isRemote() || target instanceof PlayerEntity) {
+        if (world.isRemote() || target instanceof PlayerEntity || ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED.contains(target.getType())) {
             return ActionResultType.FAIL;
         }
 
