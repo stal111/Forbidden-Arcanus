@@ -183,6 +183,9 @@
     "item.forbidden_arcanus.strange_root": "奇怪的根",
     "item.forbidden_arcanus.edelwood_stick": "埃德木棍",
     "item.forbidden_arcanus.edelwood_oil": "埃德木油",
+    "item.forbidden_arcanus.wax": "蜂蜡",
+    "item.forbidden_arcanus.spawner_scrap": "刷怪笼残骸",
+    "item.forbidden_arcanus.quantum_catcher": "量子捕捉器",
     "item.forbidden_arcanus.edelwood_bucket": "埃德木桶",
     "item.forbidden_arcanus.edelwood_water_bucket": "埃德木水桶",
     "item.forbidden_arcanus.edelwood_lava_bucket": "埃德木岩浆桶",
@@ -269,7 +272,9 @@
     "tooltip.forbidden_arcanus.deactivated": "未激活",
     "tooltip.forbidden_arcanus.toggle": "(右击开启或关闭)",
     "tooltip.forbidden_arcanus.duration": "持续时间",
-
+    "tooltip.forbidden_arcanus.uses_left": "右击使用次数",
+    "tooltip.forbidden_arcanus.entity": "实体",
+    
     "______comment": "容器",
     "container.dark_beacon": "暗黑信标",
 
