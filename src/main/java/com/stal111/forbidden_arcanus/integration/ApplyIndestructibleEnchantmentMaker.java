@@ -7,8 +7,7 @@ import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.util.NonNullList;
+import net.minecraft.item.crafting.SmithingRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -18,8 +17,8 @@ import java.util.Objects;
 
 public class ApplyIndestructibleEnchantmentMaker {
 
-    public static List<ShapelessRecipe> getRecipes() {
-        List<ShapelessRecipe> recipes = new ArrayList<>();
+    public static List<SmithingRecipe> getRecipes() {
+        List<SmithingRecipe> recipes = new ArrayList<>();
         List<Item> list = new ArrayList<>();
 
         String group = Main.MOD_ID + ".apply_indestructible_enchantment";
@@ -39,7 +38,7 @@ public class ApplyIndestructibleEnchantmentMaker {
                 ItemStack output = new ItemStack(item);
                 output.addEnchantment(ModEnchantments.INDESTRUCTIBLE.get(), 1);
 
-                ShapelessRecipe recipe = new ShapelessRecipe(id, group, output, NonNullList.from(Ingredient.EMPTY, Ingredient.fromItems(item), eternalStella));
+                SmithingRecipe recipe = new SmithingRecipe(id, Ingredient.fromItems(item), eternalStella, output);
 
                 recipes.add(recipe);
             }

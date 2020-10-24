@@ -6,10 +6,11 @@ import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.item.EternalStellaItem;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.SmithingRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,59 +19,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ApplyIndestructibleEnchantmentRecipe extends SpecialRecipe {
+public class ApplyIndestructibleEnchantmentRecipe extends SmithingRecipe {
 
-    public ApplyIndestructibleEnchantmentRecipe(ResourceLocation resourceLocation) {
-        super(resourceLocation);
+    public ApplyIndestructibleEnchantmentRecipe(ResourceLocation recipeId) {
+        super(recipeId, Ingredient.EMPTY, Ingredient.EMPTY, ItemStack.EMPTY);
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, World world) {
-        boolean foundDamageableItem = false;
-        boolean foundEternalStella = false;
+    public boolean matches(IInventory inv, World world) {
+        ItemStack input = inv.getStackInSlot(0);
+        ItemStack addition = inv.getStackInSlot(1);
 
         List<Enchantment> enchantments = getEnchantmentsFromStringList(EnchantmentConfig.INDESTRUCTIBLE_ENCHANTMENT_BLACKLIST.get());
         enchantments.add(ModEnchantments.INDESTRUCTIBLE.get());
 
-        for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
-            ItemStack stack = inv.getStackInSlot(slot);
-
-            if (stack.isDamageable() && !foundDamageableItem && !ItemStackUtils.hasStackEnchantment(stack, enchantments)) {
-                if (!EnchantmentConfig.INDESTRUCTIBLE_ITEM_BLACKLIST.get().contains(Objects.requireNonNull(stack.getItem().getRegistryName()).toString())) {
-                    foundDamageableItem = true;
-                }
-            } else if (stack.getItem() instanceof EternalStellaItem && !foundEternalStella) {
-                foundEternalStella = true;
-            } else if (!stack.isEmpty()) {
-                return false;
-            }
-
+        if (input.isDamageable() && !ItemStackUtils.hasStackEnchantment(input, enchantments) && !EnchantmentConfig.INDESTRUCTIBLE_ITEM_BLACKLIST.get().contains(Objects.requireNonNull(input.getItem().getRegistryName()).toString())) {
+            return addition.getItem() instanceof EternalStellaItem;
         }
-        return foundDamageableItem && foundEternalStella;
+        return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inv) {
-        ItemStack stack = ItemStack.EMPTY;
-
-        for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
-            ItemStack stackInSlot = inv.getStackInSlot(slot);
-
-            if (stackInSlot.isDamageable()) {
-                stack = stackInSlot.copy();
-                break;
-            }
-
-        }
-
+    public ItemStack getCraftingResult(IInventory inv) {
+        ItemStack stack = inv.getStackInSlot(0).copy();
         stack.addEnchantment(ModEnchantments.INDESTRUCTIBLE.get(), 1);
 
         return stack;
     }
 
     @Override
-    public boolean canFit(int width, int height) {
-        return width * height >= 2;
+    public ItemStack getRecipeOutput() {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean isValidAdditionItem(ItemStack addition) {
+        return addition.getItem() instanceof EternalStellaItem;
     }
 
     @Override
