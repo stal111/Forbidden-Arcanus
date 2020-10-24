@@ -6,7 +6,6 @@
         "#X#",
         "XDX",
         "#X#"
-    
     ],
     
     "key":
@@ -18,7 +17,7 @@
         
         "X":
         {
-            "item": "forbidden_arcanus:runic_chiseled_dark_stone_bricks"
+            "item": "forbidden_arcanus:runic_chiseled_polished_darkstone"
         },
         
         "D":
