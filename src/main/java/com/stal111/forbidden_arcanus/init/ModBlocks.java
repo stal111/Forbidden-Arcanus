@@ -31,7 +31,7 @@ public enum ModBlocks {
     ARCANE_CRYSTAL_BLOCK(new TranslucentBlock(addProperties(Material.ROCK, 1.0F, 10.0F).notSolid()), ModRenderType.TRANSLUCENT),
     ARCANE_CRYSTAL_OBELISK(new ArcaneCrystalObeliskBlock(addProperties(Material.ROCK, 1.0F, 10.0F)), ModRenderType.CUTOUT),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
-    END_CRYSTAL_GEM(new CutoutBlock(addProperties(Material.GLASS, 1.0F, 5.0F).notSolid()), ModRenderType.TRANSLUCENT),
+    END_CRYSTAL_GEM(new EndCrystalGemBlock(addProperties(Material.GLASS, 1.0F, 5.0F).notSolid()), ModRenderType.TRANSLUCENT),
     BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).setLightLevel(state -> 14)), ModRenderType.CUTOUT),
     CORRUPTED_PIXIE_IN_A_BOTTLE_BLOCK(new BottleBlock(from(Blocks.GLASS).setLightLevel(state -> 9)), ModRenderType.CUTOUT),
