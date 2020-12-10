@@ -10,6 +10,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Objects;
+
 @Mod.EventBusSubscriber
 public class BiomeLoadingListener {
 
@@ -40,19 +42,27 @@ public class BiomeLoadingListener {
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.XPETRIFIED_ORE);
         }
 
-        if (category == Biome.Category.PLAINS) {
+        if (category == Biome.Category.PLAINS && WorldGenConfig.CHERRYWOOD_TREE_GENERATE.get()) {
             event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.CHERRYWOOD_TREES);
         }
 
-        if (event.getName().equals(new ResourceLocation("flower_forest"))) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.MYSTERYWOOD_TREES);
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.YELLOW_ORCHID);
+        if (Objects.equals(event.getName(), new ResourceLocation("flower_forest"))) {
+            if (WorldGenConfig.MYSTERYWOOD_TREE_GENERATE.get()) {
+                event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.MYSTERYWOOD_TREES);
+            }
+            if (WorldGenConfig.YELLOW_ORCHID_GENERATE.get()) {
+                event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.YELLOW_ORCHID);
+            }
         }
 
-        if (name.equals(new ResourceLocation("dark_forest")) || name.equals(new ResourceLocation("dark_forest_hills"))) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.EDELWOOD_LOG);
+        if (Objects.equals(name, new ResourceLocation("dark_forest")) || Objects.equals(name, new ResourceLocation("dark_forest_hills"))) {
+            if (WorldGenConfig.EDELWOOD_TREE_GENERATE.get()) {
+                event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.EDELWOOD_LOG);
+            }
         }
 
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, ModConfiguredFeatures.PETRIFIED_ROOT);
+        if (WorldGenConfig.PETRIFIED_ROOT_GENERATE.get()) {
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, ModConfiguredFeatures.PETRIFIED_ROOT);
+        }
     }
 }

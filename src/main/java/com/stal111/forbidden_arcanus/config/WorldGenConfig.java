@@ -40,6 +40,7 @@ public class WorldGenConfig {
 	public static ForgeConfigSpec.BooleanValue MYSTERYWOOD_TREE_GENERATE;
 	public static ForgeConfigSpec.BooleanValue EDELWOOD_TREE_GENERATE;
 	public static ForgeConfigSpec.BooleanValue YELLOW_ORCHID_GENERATE;
+	public static ForgeConfigSpec.BooleanValue PETRIFIED_ROOT_GENERATE;
 
 	public static void init(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 		SERVER_BUILDER.comment("World Gen Config");
@@ -79,6 +80,7 @@ public class WorldGenConfig {
 		CHERRYWOOD_TREE_GENERATE = SERVER_BUILDER.comment("Generate Cherrywood Trees? [default: true]").define("gen.cherrywood_tree.generate", true);
 		MYSTERYWOOD_TREE_GENERATE = SERVER_BUILDER.comment("Generate Mysterywood Trees? [default: true]").define("gen.mysterywood_tree.generate", true);
 		EDELWOOD_TREE_GENERATE = SERVER_BUILDER.comment("Generate Edelwood Trees? [default: true]").define("gen.edelwood_tree.generate", true);
-		YELLOW_ORCHID_GENERATE = SERVER_BUILDER.comment("Generate Yellow Orchid? [default: true]").define("gen.yellow_orchid.generate", true);
+		YELLOW_ORCHID_GENERATE = SERVER_BUILDER.comment("Generate Yellow Orchids? [default: true]").define("gen.yellow_orchid.generate", true);
+		PETRIFIED_ROOT_GENERATE = SERVER_BUILDER.comment("Generate Petrified Roots? [default: true]").define("gen.petrified_root.generate", true);
 	}
 }
