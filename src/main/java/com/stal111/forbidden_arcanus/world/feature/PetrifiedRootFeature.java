@@ -19,7 +19,7 @@ public class PetrifiedRootFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_241855_a(ISeedReader seedReader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig noFeatureConfig) {
+    public boolean generate(ISeedReader seedReader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig noFeatureConfig) {
         int i = 0;
 
         if (seedReader.isAirBlock(pos) && Tags.Blocks.STONE.contains(seedReader.getBlockState(pos.up()).getBlock())) {
