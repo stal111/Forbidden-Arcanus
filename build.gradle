@@ -50,6 +50,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             arg "-mixin.config=forbidden_arcanus.mixins.json"
+            jvmArg "-Dmixin.env.disableRefMap=true"
 
             mods {
                 forbidden_arcanus {
@@ -68,6 +69,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             arg "-mixin.config=forbidden_arcanus.mixins.json"
+            jvmArg "-Dmixin.env.disableRefMap=true"
 
             mods {
                 forbidden_arcanus {
@@ -114,6 +116,8 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.4-35.1.11'
+
+    compile fg.deobf(files("libs/valhelsia_core-16.0.1-dev.jar"))
 
     // compile against the JEI API but do not include it at runtime
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")

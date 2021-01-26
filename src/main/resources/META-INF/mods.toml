@@ -10,3 +10,10 @@ credits="stal111, Xesar_Zk" #optional
 authors="stal111, Xesar_Zk" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description=''' '''
+
+[[dependencies.forbidden_arcanus]]
+modId="valhelsia_core"
+mandatory=true
+versionRange="[16.0.1,)"
+ordering="AFTER"
+side="BOTH"
