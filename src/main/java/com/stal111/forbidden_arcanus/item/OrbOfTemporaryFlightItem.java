@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import net.minecraft.client.util.ITooltipFlag;
@@ -46,6 +46,6 @@ public class OrbOfTemporaryFlightItem extends Item {
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
 
-		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".duration").mergeStyle(TextFormatting.GRAY).appendString(": " + StringUtils.ticksToElapsedTime(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
+		tooltip.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".duration").mergeStyle(TextFormatting.GRAY).appendString(": " + StringUtils.ticksToElapsedTime(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
 	}
 }

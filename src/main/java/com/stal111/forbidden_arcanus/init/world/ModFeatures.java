@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init.world;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.world.feature.PetrifiedRootFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public class ModFeatures {
 
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Main.MOD_ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<Feature<NoFeatureConfig>> PETRIFIED_ROOT = register("petrified_root", () -> new PetrifiedRootFeature(NoFeatureConfig.field_236558_a_));
 

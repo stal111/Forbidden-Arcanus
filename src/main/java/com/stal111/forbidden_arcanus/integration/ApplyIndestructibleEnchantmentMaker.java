@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.integration;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
@@ -21,7 +21,7 @@ public class ApplyIndestructibleEnchantmentMaker {
         List<SmithingRecipe> recipes = new ArrayList<>();
         List<Item> list = new ArrayList<>();
 
-        String group = Main.MOD_ID + ".apply_indestructible_enchantment";
+        String group = ForbiddenArcanus.MOD_ID + ".apply_indestructible_enchantment";
 
         ForgeRegistries.ITEMS.getValues().forEach(item -> {
             if (item.isDamageable()) {
@@ -33,7 +33,7 @@ public class ApplyIndestructibleEnchantmentMaker {
 
         list.forEach(item -> {
             if (!(EnchantmentConfig.INDESTRUCTIBLE_ITEM_BLACKLIST.get().contains(Objects.requireNonNull(item.getRegistryName()).toString()))) {
-                ResourceLocation id = new ResourceLocation(Main.MOD_ID, "jei.apply_indestructible_enchantment." + item.getTranslationKey());
+                ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_indestructible_enchantment." + item.getTranslationKey());
 
                 ItemStack output = new ItemStack(item);
                 output.addEnchantment(ModEnchantments.INDESTRUCTIBLE.get(), 1);

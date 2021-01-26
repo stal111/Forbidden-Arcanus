@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.util;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -16,7 +16,7 @@ public class ModTags {
         public static final ITag.INamedTag<Item> BLACK_HOLE_UNAFFECTED = getTag("black_hole_unaffected");
 
         private static ITag.INamedTag<Item> getTag(String name) {
-            return ItemTags.makeWrapperTag(Main.MOD_ID + ":" + name);
+            return ItemTags.makeWrapperTag(ForbiddenArcanus.MOD_ID + ":" + name);
         }
 
         private static ITag.INamedTag<Item> getVanillaTag(String name) {
@@ -31,7 +31,7 @@ public class ModTags {
         public static final ITag.INamedTag<Block> HANGING_CANDELABRAS = getTag("hanging_candelabras");
 
         private static ITag.INamedTag<Block> getTag(String name) {
-            return BlockTags.makeWrapperTag(Main.MOD_ID + ":" + name);
+            return BlockTags.makeWrapperTag(ForbiddenArcanus.MOD_ID + ":" + name);
         }
     }
 
@@ -39,7 +39,7 @@ public class ModTags {
         public static final ITag.INamedTag<EntityType<?>> QUANTUM_CATCHER_BLACKLISTED = getTag("quantum_catcher_blacklisted");
 
         private static ITag.INamedTag<EntityType<?>> getTag(String name) {
-            return EntityTypeTags.getTagById(Main.MOD_ID + ":" + name);
+            return EntityTypeTags.getTagById(ForbiddenArcanus.MOD_ID + ":" + name);
         }
     }
 }

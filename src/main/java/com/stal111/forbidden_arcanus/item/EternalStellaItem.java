@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -47,7 +46,7 @@ public class EternalStellaItem extends Item {
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         super.addInformation(stack, world, tooltip, flag);
 
-        tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".uses_left").appendString(": " + getUsesLeft(stack)).mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".uses_left").appendString(": " + getUsesLeft(stack)).mergeStyle(TextFormatting.GRAY));
     }
 
     private int getUsesLeft(ItemStack stack) {

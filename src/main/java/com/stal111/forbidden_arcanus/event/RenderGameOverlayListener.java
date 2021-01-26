@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.RenderingConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.Minecraft;
@@ -35,7 +35,7 @@ public class RenderGameOverlayListener {
             int posX = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_X_POSITION.get();
             int posY = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_Y_POSITION.get();
 
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(Main.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
+            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
             AbstractGui.blit(event.getMatrixStack(), posX, posY, 0, 0, 0, 57, 25, 25, 57);
 
             Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get()), posX + 5, (int) (posY + 5.5F));

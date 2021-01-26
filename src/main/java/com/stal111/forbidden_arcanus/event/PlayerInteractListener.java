@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
@@ -133,9 +133,9 @@ public class PlayerInteractListener {
 			} else if (entity instanceof AbstractFishEntity || entity instanceof SquidEntity) {
 				if (entity.isAlive()) {
 					if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get()) {
-						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
+						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
 							stack.shrink(1);
-							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))));
+							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))));
 							CompoundNBT compoundNBT = fishBucket.getOrCreateChildTag("EdelwoodBucket");
 							compoundNBT.putInt("Fullness", stack.getOrCreateChildTag("EdelwoodBucket").getInt("Fullness"));
 							if (entity.hasCustomName()) {
@@ -162,7 +162,7 @@ public class PlayerInteractListener {
 					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);
 
-						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(Main.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))));
+						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))));
 
 						if (stack.isEmpty()) {
 							player.setHeldItem(event.getHand(), bucket);

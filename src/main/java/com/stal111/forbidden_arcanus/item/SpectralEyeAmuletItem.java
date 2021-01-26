@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModEffects;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -48,9 +48,9 @@ public class SpectralEyeAmuletItem extends Item {
 	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
 
-		ITextComponent toggle = new TranslationTextComponent("tooltip." + Main.MOD_ID + ".toggle").mergeStyle(TextFormatting.GRAY);
+		ITextComponent toggle = new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".toggle").mergeStyle(TextFormatting.GRAY);
 
-		tooltip.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + (isDeactivated(stack) ? ".deactivated" : ".activated")).mergeStyle(isDeactivated(stack) ? TextFormatting.RED : TextFormatting.GREEN).appendString(" ").append(toggle));
+		tooltip.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + (isDeactivated(stack) ? ".deactivated" : ".activated")).mergeStyle(isDeactivated(stack) ? TextFormatting.RED : TextFormatting.GREEN).appendString(" ").append(toggle));
 	}
 
 	public static boolean isDeactivated(ItemStack stack) {

@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.network;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -15,7 +15,7 @@ public class NetworkHandler {
     }
 
     public static void registerMessages() {
-        INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(Main.MOD_ID, "channel"), () -> "1.0", s -> true, s -> true);
+        INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(ForbiddenArcanus.MOD_ID, "channel"), () -> "1.0", s -> true, s -> true);
 
         INSTANCE.registerMessage(nextID(), FlightTimeLeftPacket.class, FlightTimeLeftPacket::encode, FlightTimeLeftPacket::decode, FlightTimeLeftPacket.Handler::handle);
     }

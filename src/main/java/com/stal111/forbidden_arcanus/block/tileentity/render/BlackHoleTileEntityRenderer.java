@@ -1,38 +1,27 @@
 package com.stal111.forbidden_arcanus.block.tileentity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.block.tileentity.model.BlackHoleModel;
-import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.tile.BlackHoleTileEntity;
 import com.stal111.forbidden_arcanus.util.CustomRenderType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.entity.item.EnderCrystalEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 
-import java.util.Objects;
-import java.util.Random;
-
 public class BlackHoleTileEntityRenderer extends TileEntityRenderer<BlackHoleTileEntity> {
 
-    private static final ResourceLocation BLACK_HOLE_TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/block/black_hole.png");
+    private static final ResourceLocation BLACK_HOLE_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole.png");
     private static final ResourceLocation[] BLACK_HOLE_AURA = {
-            new ResourceLocation(Main.MOD_ID, "textures/block/black_hole_aura_0.png"),
-            new ResourceLocation(Main.MOD_ID, "textures/block/black_hole_aura_1.png"),
-            new ResourceLocation(Main.MOD_ID, "textures/block/black_hole_aura_2.png")
+            new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole_aura_0.png"),
+            new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole_aura_1.png"),
+            new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole_aura_2.png")
     };
 
     private static final RenderType field_229046_e_ = RenderType.getEntityCutoutNoCull(BLACK_HOLE_TEXTURE);

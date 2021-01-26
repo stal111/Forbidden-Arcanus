@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.item;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
-import com.stal111.forbidden_arcanus.Main;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,7 +12,6 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
-import net.minecraft.util.ResourceLocation;
 
 public class MultiToolItem extends ToolItem {
 

@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.integration;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -12,7 +12,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Main.MOD_ID, "main");
+        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "main");
     }
 
     @Override

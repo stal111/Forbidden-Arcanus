@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.item.armor;
 
 import java.util.function.Supplier;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -15,19 +15,19 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum ModArmorMaterial implements IArmorMaterial {
-	DRACO_ARCANUS(Main.MOD_ID + ":draco_arcanus", 40, new int[]{6, 8, 10, 6}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F, () -> {
+	DRACO_ARCANUS(ForbiddenArcanus.MOD_ID + ":draco_arcanus", 40, new int[]{6, 8, 10, 6}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F, () -> {
 	      return Ingredient.fromItems(ModItems.DRAGON_SCALE.get());
 	}),
-	TYR(Main.MOD_ID + ":tyr", 50, new int[]{8, 10, 12, 7}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.0F, () -> {
+	TYR(ForbiddenArcanus.MOD_ID + ":tyr", 50, new int[]{8, 10, 12, 7}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.0F, () -> {
 		return Ingredient.fromItems(ModItems.GOLDEN_DRAGON_SCALE.get(), ModItems.AQUATIC_DRAGON_SCALE.get());
 	}),
-	MORTEM(Main.MOD_ID + ":mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
+	MORTEM(ForbiddenArcanus.MOD_ID + ":mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
 		return Ingredient.fromItems(ModItems.CLOTH.get());
 	}),
-	ARCANE_GOLD(Main.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F, () -> {
+	ARCANE_GOLD(ForbiddenArcanus.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F, () -> {
 		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
-	OBSIDIAN(Main.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
+	OBSIDIAN(ForbiddenArcanus.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
 		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.get());
 	});
 	

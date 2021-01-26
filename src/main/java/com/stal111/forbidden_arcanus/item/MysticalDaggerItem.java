@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModEffects;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
@@ -51,6 +51,6 @@ public class MysticalDaggerItem extends SwordItem {
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add((new TranslationTextComponent("tooltip." + Main.MOD_ID + ".mystical_dagger")).mergeStyle(TextFormatting.GRAY));
+        tooltip.add((new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".mystical_dagger")).mergeStyle(TextFormatting.GRAY));
     }
 }

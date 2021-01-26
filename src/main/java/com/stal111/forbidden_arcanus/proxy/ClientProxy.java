@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.proxy;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.render.BlackHoleTileEntityRenderer;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
@@ -37,17 +37,17 @@ public class ClientProxy implements IProxy {
     public void init() {
         ModEntities.initModels();
 
-        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "arcane_crystal_ore"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "arcane_crystal_block"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_block")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/runestone/runestone_layer")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "dark_runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/runestone/runestone_layer")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "xpetrified_ore"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(Main.MOD_ID, "block/xpetrified_ore_layer")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "arcane_crystal_obelisk"), (base, registry) -> new FullbrightBakedModel(base, true,
-                new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_lower_layer"),
-                new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_middle"),
-                new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_upper"),
-                new ResourceLocation(Main.MOD_ID, "block/arcane_crystal_obelisk_top")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(Main.MOD_ID, "runic_chiseled_polished_darkstone"), (base, registry) -> new FullbrightBakedModel(base, true, state -> state.get(ModBlockStateProperties.ACTIVATED), new ResourceLocation(Main.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "arcane_crystal_ore"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "arcane_crystal_block"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_block")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runestone/runestone_layer")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "dark_runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runestone/runestone_layer")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "xpetrified_ore"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "arcane_crystal_obelisk"), (base, registry) -> new FullbrightBakedModel(base, true,
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_lower_layer"),
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_middle"),
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_upper"),
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_top")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "runic_chiseled_polished_darkstone"), (base, registry) -> new FullbrightBakedModel(base, true, state -> state.get(ModBlockStateProperties.ACTIVATED), new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onClientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::stitchTextures);
@@ -100,9 +100,9 @@ public class ClientProxy implements IProxy {
 
     public void stitchTextures(TextureStitchEvent.Pre event) {
         if (event.getMap().getTextureLocation().equals(Atlases.SIGN_ATLAS)) {
-            event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/edelwood"));
-            event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/cherrywood"));
-            event.addSprite(new ResourceLocation(Main.MOD_ID, "entity/signs/mysterywood"));
+            event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/edelwood"));
+            event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/cherrywood"));
+            event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/mysterywood"));
         }
     }
 }

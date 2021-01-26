@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.entity.projectile.*;
 import com.stal111.forbidden_arcanus.entity.render.*;
@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
 
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Main.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<EntityType<?>> CHORUS_PEARL = register("chorus_pearl", ChorusPearlEntity::new, EntityClassification.MISC, 1, 1);
     public static final RegistryObject<EntityType<?>> SEED_BULLET = register("seed_bullet", SeedBulletEntity::new, EntityClassification.MISC, 1, 1);
@@ -26,7 +26,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<?>> PIXIE = register("pixie", PixieEntity::new, EntityClassification.AMBIENT, 1, 1);
 
     public static RegistryObject<EntityType<?>> register(String name, EntityType.IFactory<?> factory, EntityClassification entityClassification, float width, float height) {
-        ResourceLocation location = new ResourceLocation(Main.MOD_ID, name);
+        ResourceLocation location = new ResourceLocation(ForbiddenArcanus.MOD_ID, name);
         EntityType<?> entity = EntityType.Builder.create(factory, entityClassification)
                 .size(width, height)
                 .setTrackingRange(64)

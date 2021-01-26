@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.util;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,7 +31,7 @@ public class ItemStackUtils {
     }
 
     public static boolean registryContainsItem(String name) {
-        return ForgeRegistries.ITEMS.containsKey(new ResourceLocation(Main.MOD_ID, name));
+        return ForgeRegistries.ITEMS.containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
     }
 
     public static boolean hasStackEnchantment(ItemStack stack, Enchantment enchantment) {

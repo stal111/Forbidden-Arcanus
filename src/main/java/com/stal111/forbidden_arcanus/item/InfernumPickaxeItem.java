@@ -2,11 +2,8 @@ package com.stal111.forbidden_arcanus.item;
 
 import java.util.List;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.IItemTier;
@@ -39,6 +36,6 @@ public class InfernumPickaxeItem extends PickaxeItem {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add((new TranslationTextComponent("tooltip." + Main.MOD_ID + ".infernum_pickaxe")).mergeStyle(TextFormatting.GRAY));
+		tooltip.add((new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".infernum_pickaxe")).mergeStyle(TextFormatting.GRAY));
 	}
 }

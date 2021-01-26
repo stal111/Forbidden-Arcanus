@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.item.ItemGroup;
@@ -32,7 +32,7 @@ public class ModItemGroup extends ItemGroup {
 	
 	@Override
 	public ResourceLocation getTabsImage() {
-		return new ResourceLocation(Main.MOD_ID, "textures/gui/forbidden_arcanus_tabs.png");
+		return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/forbidden_arcanus_tabs.png");
 	}
 
 }

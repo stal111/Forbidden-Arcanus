@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.enchantment.ModEnchantment;
 import com.stal111.forbidden_arcanus.item.EdelwoodBucketItem;
@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class ModEnchantments {
 
-    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Main.MOD_ID);
+    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new EnchantmentBuilder(Enchantment.Rarity.UNCOMMON, ModEnchantmentType.EDELWOOD_BUCKET, EquipmentSlotType.MAINHAND).isTreasure().build());
     public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, ModEnchantmentType.INDESTRUCTIBLE_CONFIG_BLACKLIST, EquipmentSlotType.MAINHAND).canApplyTogether(enchantment -> !EnchantmentConfig.INDESTRUCTIBLE_ENCHANTMENT_BLACKLIST.get().contains(Objects.requireNonNull(enchantment.getRegistryName()).toString())).isTreasure().canBeVillagerTrade(false).canGenerateInLoot(false).build());

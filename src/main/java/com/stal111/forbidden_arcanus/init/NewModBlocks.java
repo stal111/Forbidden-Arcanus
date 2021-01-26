@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.ArcanePolishedDarkstoneRod;
 import com.stal111.forbidden_arcanus.block.BlackHoleBlock;
 import com.stal111.forbidden_arcanus.block.PillarBlock;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class NewModBlocks {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Main.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ForbiddenArcanus.MOD_ID);
 
     public static final Map<Block, ModRenderType> BLOCK_RENDER_TYPE_MAP = new HashMap<>();
 
@@ -67,7 +67,7 @@ public class NewModBlocks {
 
     private static <T extends Block> RegistryObject<T> register(String name, T block, ModRenderType renderType, boolean hasItem) {
         if (hasItem) {
-            ModItems.ITEMS.register(name, () -> new BlockItem(block, new Item.Properties().group(Main.FORBIDDEN_ARCANUS)));
+            ModItems.ITEMS.register(name, () -> new BlockItem(block, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
         }
 
         if (renderType != ModRenderType.SOLID) {

@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.particle.ModBreakingParticle;
 import com.stal111.forbidden_arcanus.particle.SoulParticle;
 import net.minecraft.client.Minecraft;
@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModParticles {
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Main.MOD_ID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<BasicParticleType> SOUL = register("soul", new BasicParticleType(false));
     public static final RegistryObject<BasicParticleType> ITEM_SEED_BULLET = register("item_seed_bullet", new BasicParticleType(false));

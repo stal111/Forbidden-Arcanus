@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.event.modifier.InfernumPickaxeLootModifier;
 import net.minecraft.loot.LootEntry;
 import net.minecraft.loot.LootPool;
@@ -21,7 +21,7 @@ public class LootTableListener {
     }
 
     private static <T extends GlobalLootModifierSerializer<?>> void register(String name, T serializer) {
-        serializer.setRegistryName(new ResourceLocation(Main.MOD_ID, name));
+        serializer.setRegistryName(new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
         ForgeRegistries.LOOT_MODIFIER_SERIALIZERS.register(serializer);
     }
 
@@ -61,7 +61,7 @@ public class LootTableListener {
     }
 
     private static LootEntry.Builder getInjectEntry(String name, int weight) {
-        ResourceLocation table = new ResourceLocation(Main.MOD_ID, "inject/" + name);
+        ResourceLocation table = new ResourceLocation(ForbiddenArcanus.MOD_ID, "inject/" + name);
         return TableLootEntry.builder(table).weight(weight);
     }
 }

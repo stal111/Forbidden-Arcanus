@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.entity.render;
 
-import com.stal111.forbidden_arcanus.Main;
-import com.stal111.forbidden_arcanus.entity.projectile.BoomArrowEntity;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.entity.projectile.DracoArcanusArrowEntity;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -15,6 +14,6 @@ public class DracoArcanusArrowRender extends ArrowRenderer<DracoArcanusArrowEnti
 
     @Override
     public ResourceLocation getEntityTexture(DracoArcanusArrowEntity boomArrowEntity) {
-        return new ResourceLocation(Main.MOD_ID, "textures/entity/projectiles/draco_arcanus_arrow.png");
+        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/projectiles/draco_arcanus_arrow.png");
     }
 }

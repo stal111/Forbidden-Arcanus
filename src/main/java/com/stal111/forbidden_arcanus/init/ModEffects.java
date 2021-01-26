@@ -1,10 +1,9 @@
 package com.stal111.forbidden_arcanus.init;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.effect.DarkenedEffect;
 import com.stal111.forbidden_arcanus.effect.FlyEffect;
 import com.stal111.forbidden_arcanus.effect.SpectralEyeEffect;
-import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.potion.Effect;
@@ -15,7 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEffects {
 
-    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, Main.MOD_ID);
+    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<Effect> FLY = register("fly", new FlyEffect(EffectType.BENEFICIAL, 745784));
     public static final RegistryObject<Effect> SPECTRAL_VISION = register("spectral_vision", new SpectralEyeEffect(EffectType.BENEFICIAL, 745784));

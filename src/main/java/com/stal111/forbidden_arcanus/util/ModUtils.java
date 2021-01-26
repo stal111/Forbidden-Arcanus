@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.util;
 
 import com.google.common.collect.Maps;
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
@@ -41,7 +41,7 @@ public class ModUtils {
     protected static final Random random = new Random();
 
     public static ResourceLocation location(String path) {
-        return new ResourceLocation(Main.MOD_ID, path);
+        return new ResourceLocation(ForbiddenArcanus.MOD_ID, path);
     }
 
     public static boolean isShiftDown() {

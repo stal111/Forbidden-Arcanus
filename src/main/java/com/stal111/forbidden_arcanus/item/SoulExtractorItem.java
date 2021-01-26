@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModParticles;
@@ -131,7 +131,7 @@ public class SoulExtractorItem extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> list, ITooltipFlag flag) {
-        list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".soul_extractor").mergeStyle(TextFormatting.GRAY));
+        list.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").mergeStyle(TextFormatting.GRAY));
         super.addInformation(stack, world, list, flag);
     }
 }

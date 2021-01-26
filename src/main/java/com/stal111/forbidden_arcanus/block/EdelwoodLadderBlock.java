@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ public class EdelwoodLadderBlock extends LadderBlock {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
-		list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".edelwood_ladder").mergeStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".edelwood_ladder").mergeStyle(TextFormatting.GRAY));
 		super.addInformation(stack, world, list, flag);
 	}
 }

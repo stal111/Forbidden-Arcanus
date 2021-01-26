@@ -1,33 +1,23 @@
 package com.stal111.forbidden_arcanus.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-import org.lwjgl.opengl.GL11;
-
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergyBallRender extends EntityRenderer<EnergyBallEntity> {
 
-    private static final ResourceLocation ENERGY_BALL = new ResourceLocation(Main.MOD_ID, "textures/effect/energy_ball.png");
+    private static final ResourceLocation ENERGY_BALL = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/energy_ball.png");
 
     public EnergyBallRender(EntityRendererManager renderManager) {
         super(renderManager);

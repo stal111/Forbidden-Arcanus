@@ -1,12 +1,12 @@
 package com.stal111.forbidden_arcanus.sound;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder(Main.MOD_ID)
+@ObjectHolder(ForbiddenArcanus.MOD_ID)
 public class ModSounds {
 	
 	public static final SoundEvent

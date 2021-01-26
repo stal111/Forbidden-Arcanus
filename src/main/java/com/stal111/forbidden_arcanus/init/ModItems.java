@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.item.*;
 import com.stal111.forbidden_arcanus.item.armor.ModArmorMaterial;
 import com.stal111.forbidden_arcanus.item.block.StrangeRootItem;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class ModItems {
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Main.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<Item> FORBIDDENMICON = register("forbiddenmicon", () -> new ForbiddenmiconItem(properties(1)));
     public static final RegistryObject<Item> STELLARITE_PIECE = register("stellarite_piece", () -> new Item(properties()));
@@ -158,7 +158,7 @@ public class ModItems {
     }
 
     public static Item.Properties properties(Rarity rarity, int maxStackSize) {
-        return new Item.Properties().group(Main.FORBIDDEN_ARCANUS).rarity(rarity).maxStackSize(maxStackSize);
+        return new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).rarity(rarity).maxStackSize(maxStackSize);
     }
 
     public static Food build(int hunger, float saturation) {

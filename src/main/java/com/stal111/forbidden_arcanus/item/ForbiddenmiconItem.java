@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,7 +24,7 @@ public class ForbiddenmiconItem extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> list, ITooltipFlag flag) {
-        list.add(new TranslationTextComponent("tooltip." + Main.MOD_ID + ".forbiddenmicon").mergeStyle(TextFormatting.GRAY));
+        list.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".forbiddenmicon").mergeStyle(TextFormatting.GRAY));
         super.addInformation(stack, world, list, flag);
     }
 
@@ -32,7 +32,7 @@ public class ForbiddenmiconItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
         if (world.isRemote()) {
-            Main.proxy.displayForbiddenmiconScreen(stack);
+            ForbiddenArcanus.proxy.displayForbiddenmiconScreen(stack);
         }
         setOpen(stack, true);
         return ActionResult.resultSuccess(stack);

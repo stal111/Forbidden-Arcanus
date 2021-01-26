@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.block.ChainBlock;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
@@ -69,8 +69,8 @@ public enum ModBlocks {
     EDELWOOD_TRAPDOOR(new TrapDoorBlock(from(Blocks.OAK_TRAPDOOR)), ModRenderType.CUTOUT),
     EDELWOOD_DOOR(new DoorBlock(from(Blocks.OAK_DOOR))),
     EDELWOOD_LADDER(new EdelwoodLadderBlock(from(Blocks.LADDER)), ModRenderType.CUTOUT),
-    EDELWOOD_WALL_SIGN(Main.EDELWOOD_WALL_SIGN, false),
-    EDELWOOD_SIGN(Main.EDELWOOD_SIGN, new SignItem(new Item.Properties().group(Main.FORBIDDEN_ARCANUS), Main.EDELWOOD_SIGN, EDELWOOD_WALL_SIGN.getBlock())),
+    EDELWOOD_WALL_SIGN(ForbiddenArcanus.EDELWOOD_WALL_SIGN, false),
+    EDELWOOD_SIGN(ForbiddenArcanus.EDELWOOD_SIGN, new SignItem(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.EDELWOOD_SIGN, EDELWOOD_WALL_SIGN.getBlock())),
     CHERRYWOOD_LOG(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
     CHERRYWOOD(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
     STRIPPED_CHERRYWOOD_LOG(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
@@ -87,8 +87,8 @@ public enum ModBlocks {
     CHERRYWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
     CHERRYWOOD_TRAPDOOR(new TrapDoorBlock(from(Blocks.OAK_TRAPDOOR)), ModRenderType.CUTOUT),
     CHERRYWOOD_DOOR(new DoorBlock(from(Blocks.OAK_DOOR)), ModRenderType.CUTOUT),
-    CHERRYWOOD_WALL_SIGN(Main.CHERRYWOOD_WALL_SIGN, false),
-    CHERRYWOOD_SIGN(Main.CHERRYWOOD_SIGN, new SignItem(new Item.Properties().group(Main.FORBIDDEN_ARCANUS), Main.CHERRYWOOD_SIGN, CHERRYWOOD_WALL_SIGN.getBlock())),
+    CHERRYWOOD_WALL_SIGN(ForbiddenArcanus.CHERRYWOOD_WALL_SIGN, false),
+    CHERRYWOOD_SIGN(ForbiddenArcanus.CHERRYWOOD_SIGN, new SignItem(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.CHERRYWOOD_SIGN, CHERRYWOOD_WALL_SIGN.getBlock())),
     MYSTERYWOOD_LOG(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
     MYSTERYWOOD(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
     STRIPPED_MYSTERYWOOD_LOG(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
@@ -104,8 +104,8 @@ public enum ModBlocks {
     MYSTERYWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
     MYSTERYWOOD_TRAPDOOR(new TrapDoorBlock(from(Blocks.OAK_TRAPDOOR)), ModRenderType.CUTOUT),
     MYSTERYWOOD_DOOR(new DoorBlock(from(Blocks.OAK_DOOR)), ModRenderType.CUTOUT),
-    MYSTERYWOOD_WALL_SIGN(Main.MYSTERYWOOD_WALL_SIGN, false),
-    MYSTERYWOOD_SIGN(Main.MYSTERYWOOD_SIGN, new SignItem(new Item.Properties().group(Main.FORBIDDEN_ARCANUS), Main.MYSTERYWOOD_SIGN, MYSTERYWOOD_WALL_SIGN.getBlock())),
+    MYSTERYWOOD_WALL_SIGN(ForbiddenArcanus.MYSTERYWOOD_WALL_SIGN, false),
+    MYSTERYWOOD_SIGN(ForbiddenArcanus.MYSTERYWOOD_SIGN, new SignItem(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.MYSTERYWOOD_SIGN, MYSTERYWOOD_WALL_SIGN.getBlock())),
     YELLOW_ORCHID(new FlowerBlock(Effects.GLOWING, 25, from(Blocks.BLUE_ORCHID)), ModRenderType.CUTOUT),
     GOLDEN_ORCHID(new GoldenOrchidBlock(from(Blocks.BLUE_ORCHID).tickRandomly()), false, ModRenderType.CUTOUT),
     STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT),
@@ -177,7 +177,7 @@ public enum ModBlocks {
 
     public Block getBlock() {
         if (block.getRegistryName() == null) {
-            block.setRegistryName(Main.MOD_ID, getName());
+            block.setRegistryName(ForbiddenArcanus.MOD_ID, getName());
         }
         return block;
     }
@@ -190,7 +190,7 @@ public enum ModBlocks {
         if (hasItem) {
             if (hasSpecialItem()) {
                 if (item.getRegistryName() == null) {
-                    item.setRegistryName(Main.MOD_ID, getName());
+                    item.setRegistryName(ForbiddenArcanus.MOD_ID, getName());
                     return item;
                 }
             } else {

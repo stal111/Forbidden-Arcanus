@@ -50,15 +50,16 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.registry.RegistryManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(Main.MOD_ID)
-public class Main {
+@Mod(ForbiddenArcanus.MOD_ID)
+public class ForbiddenArcanus {
 
 	public static final String MOD_ID = "forbidden_arcanus";
-	public static final Logger LOGGER = LogManager.getLogger(Main.MOD_ID);
-	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(Main.MOD_ID);
+	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
+	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(ForbiddenArcanus.MOD_ID);
 
 	public static final Block EDELWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_sign"));
 	public static final Block EDELWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(EDELWOOD_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_wall_sign"));
@@ -72,9 +73,11 @@ public class Main {
 
 	public static final ForbiddenmiconPageLoadListener PAGE_LOADER = new ForbiddenmiconPageLoadListener();
 
-	public static Main instance;
+	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().build();
 
-	public Main() {
+	public static ForbiddenArcanus instance;
+
+	public ForbiddenArcanus() {
 		instance = this;
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -94,13 +97,17 @@ public class Main {
 		Data.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
 		DATA.subscribeEvents(FMLJavaModLoadingContext.get().getModEventBus());
 
+		REGISTRY_MANAGER.getBlockHelper().setDefaultGroup(FORBIDDEN_ARCANUS);
+
+		REGISTRY_MANAGER.register(modEventBus);
+
 		modEventBus.addListener(this::setup);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
         
-        Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Main.MOD_ID + "-client.toml").toString());
-        Config.loadConfig(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Main.MOD_ID + "-server.toml").toString());
+        Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-client.toml").toString());
+        Config.loadConfig(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-server.toml").toString());
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}

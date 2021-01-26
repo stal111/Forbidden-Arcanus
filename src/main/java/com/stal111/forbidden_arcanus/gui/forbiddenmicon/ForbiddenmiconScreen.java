@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.gui.forbiddenmicon;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.stal111.forbidden_arcanus.Main;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.gui.ModScreen;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.ImageElement;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.element.RecipePreviewElement;
@@ -94,8 +94,8 @@ public class ForbiddenmiconScreen extends ModScreen {
     private void initEntry() {
         getElements().removeIf(guiObject -> guiObject instanceof ImageElement);
 
-        if (Main.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).size() != 0) {
-            this.entry = (ForbiddenmiconEntry) Main.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).toArray()[currentIndex];
+        if (ForbiddenArcanus.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).size() != 0) {
+            this.entry = (ForbiddenmiconEntry) ForbiddenArcanus.PAGE_LOADER.getEntries(activeCategory == null ? ForbiddenmiconCategory.MAIN : activeCategory).toArray()[currentIndex];
            // this.cachedPageLines = RenderComponentsUtil.splitText(new StringTextComponent(entry.getDescription()), 130, this.field_230712_o_, true, true);
 
             addElement(new ImageElement(this.width / 2 - 116, 61));
@@ -113,7 +113,7 @@ public class ForbiddenmiconScreen extends ModScreen {
     private void addChangePageButtons() {
         int i = this.width / 2;
         addElement(new ChangePageButton(i + 105, 197, getBlitOffset(), 80, 240, buttonObject -> {
-            if (Main.PAGE_LOADER.getEntries(activeCategory).toArray().length > currentIndex + 1) {
+            if (ForbiddenArcanus.PAGE_LOADER.getEntries(activeCategory).toArray().length > currentIndex + 1) {
                 this.currentIndex++;
                 this.initEntry();
                 this.recipePreview.setEntry(entry);
