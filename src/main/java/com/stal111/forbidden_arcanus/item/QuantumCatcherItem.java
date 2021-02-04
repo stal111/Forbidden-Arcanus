@@ -1,5 +1,7 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -17,13 +19,18 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
+/**
+ * Quantum Catcher Item
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.QuantumCatcherItem
+ *
+ * @author stal111
+ * @version 16.2.0
+ */
 public class QuantumCatcherItem extends Item {
 
     public QuantumCatcherItem(Properties properties) {
@@ -39,7 +46,7 @@ public class QuantumCatcherItem extends Item {
         if (getEntity(stack, world) != null) {
             Entity entity = getEntity(stack, world);
 
-            if (!world.isRemote()) {
+            if (!world.isRemote() && entity != null) {
                 entity.setPositionAndRotation(context.getPos().getX(), context.getPos().getY() + 1, context.getPos().getZ(), 0, 0);
 
                 world.addEntity(entity);
@@ -53,23 +60,27 @@ public class QuantumCatcherItem extends Item {
         return super.onItemUse(context);
     }
 
-    @Override
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+    public ActionResultType onEntityInteract(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
         World world = player.world;
-        ItemStack stack1 = player.getHeldItem(hand);
 
         if (world.isRemote() || target instanceof PlayerEntity || ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED.contains(target.getType())) {
             return ActionResultType.FAIL;
         }
 
-        if (getEntity(stack1, world) == null && target.isAlive()) {
-            setEntity(target, stack1);
-            target.remove();
+        if (getEntity(stack, world) == null && target.isAlive()) {
+            ItemStackUtils.shrinkStack(player, stack);
 
-            return ActionResultType.func_233537_a_(player.world.isRemote());
+            ItemStack newStack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
+            setEntity(target, newStack);
+            target.remove(true);
+
+            player.addItemStackToInventory(newStack);
+
+
+            return ActionResultType.SUCCESS;
         }
 
-        return super.itemInteractionForEntity(stack1, player, target, hand);
+        return super.itemInteractionForEntity(stack, player, target, hand);
     }
 
     @Override
@@ -80,8 +91,8 @@ public class QuantumCatcherItem extends Item {
             if (entity != null) {
                 IFormattableTextComponent textComponent = new TranslationTextComponent("tooltip.forbidden_arcanus.entity").appendString(": ").append(new StringTextComponent(Objects.requireNonNull(entity.getType().getRegistryName()).toString()));
 
-                if (entity.hasCustomName()) {
-                    textComponent.appendString(" (").append(Objects.requireNonNull(entity.getCustomName())).appendString(")");
+                if (getEntityName(stack) != null)  {
+                    textComponent.appendString(" (").append(Objects.requireNonNull(getEntityName(stack))).appendString(")");
                 }
 
                 textComponent.mergeStyle(TextFormatting.GRAY);
@@ -97,6 +108,9 @@ public class QuantumCatcherItem extends Item {
 
         CompoundNBT entityNBT = new CompoundNBT();
         entityNBT.putString("entity", entity.getType().getRegistryName().toString());
+        if (entity.hasCustomName()) {
+            entityNBT.putString("name", Objects.requireNonNull(entity.getCustomName()).getString());
+        }
         entity.writeUnlessPassenger(entityNBT);
 
         CompoundNBT itemNBT = stack.getOrCreateTag();
@@ -106,17 +120,12 @@ public class QuantumCatcherItem extends Item {
     private Entity getEntity(ItemStack stack, World world) {
         CompoundNBT itemNBT = stack.getTag();
 
-        if (itemNBT == null) {
-            return null;
-        }
+        if (itemNBT == null) return null;
 
         CompoundNBT entityNBT = itemNBT.getCompound("entity");
-
         EntityType<?> entityType = Registry.ENTITY_TYPE.getOptional(new ResourceLocation(entityNBT.getString("entity"))).orElse(null);
 
-        if (entityType == null) {
-            return null;
-        }
+        if (entityType == null) return null;
 
         Entity entity = entityType.create(world);
 
@@ -127,11 +136,22 @@ public class QuantumCatcherItem extends Item {
         return entity;
     }
 
-    private void clearEntity(ItemStack stack) {
-        CompoundNBT compoundNBT = stack.getTag();
+    private ITextComponent getEntityName(ItemStack stack) {
+        CompoundNBT itemNBT = stack.getTag();
 
-        if (compoundNBT != null) {
-            compoundNBT.remove("entity");
+        if (itemNBT == null) return null;
+
+        if (itemNBT.contains("entity")) {
+            CompoundNBT entityNBT = itemNBT.getCompound("entity");
+
+            if (entityNBT.contains("name")) {
+                return new StringTextComponent(entityNBT.getString("name"));
+            }
         }
+        return null;
+    }
+
+    private void clearEntity(ItemStack stack) {
+        stack.setTag(null);
     }
 }
