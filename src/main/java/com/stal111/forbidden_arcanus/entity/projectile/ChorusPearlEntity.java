@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.entity.projectile;
 
-import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModEntities;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -53,44 +53,50 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
 
     @Override
     protected void onImpact(RayTraceResult result) {
-        if (!this.world.isRemote) {
-            if (result.getType() == RayTraceResult.Type.ENTITY) {
-                LivingEntity entity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
-                if (entity instanceof PlayerEntity) {
-                    if (((PlayerEntity) entity).abilities.isCreativeMode) {
-                        this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
-                        this.world.setEntityState(this, (byte)3);
-                        this.remove();
-                        return;
-                    }
-                }
-                entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), 0.0F);
-
-                double d0 = entity.getPosX();
-                double d1 = entity.getPosY();
-                double d2 = entity.getPosZ();
-
-                for (int i = 0; i < 16; ++i) {
-                    double d3 = entity.getPosX() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
-                    double d4 = MathHelper.clamp(entity.getPosY() + (double) (entity.getRNG().nextInt(16) - 8), 0.0D, 256 - 1);
-                    double d5 = entity.getPosZ() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
-                    if (entity.isPassenger()) {
-                        entity.stopRiding();
-                    }
-
-                    if (entity.attemptTeleport(d3, d4, d5, true)) {
-                        world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                        entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
-                        break;
-                    }
-
-                }
-            } else {
-                this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
-            }
-			this.world.setEntityState(this, (byte)3);
-			this.remove();
+        if (this.world.isRemote()) {
+            return;
         }
+
+        if (result.getType() == RayTraceResult.Type.ENTITY) {
+            if (!(((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)) {
+                return;
+            }
+            LivingEntity entity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
+
+            if (entity instanceof PlayerEntity) {
+                if (((PlayerEntity) entity).abilities.isCreativeMode) {
+                    this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
+                    this.world.setEntityState(this, (byte) 3);
+                    this.remove();
+                    return;
+                }
+            }
+            entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), 0.0F);
+
+            double d0 = entity.getPosX();
+            double d1 = entity.getPosY();
+            double d2 = entity.getPosZ();
+
+            for (int i = 0; i < 16; ++i) {
+                double d3 = entity.getPosX() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
+                double d4 = MathHelper.clamp(entity.getPosY() + (double) (entity.getRNG().nextInt(16) - 8), 0.0D, 256 - 1);
+                double d5 = entity.getPosZ() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
+                if (entity.isPassenger()) {
+                    entity.stopRiding();
+                }
+
+                if (entity.attemptTeleport(d3, d4, d5, true)) {
+                    world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+                    break;
+                }
+
+            }
+        } else {
+            this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
+        }
+        this.world.setEntityState(this, (byte) 3);
+        this.remove();
     }
 
     @Override
