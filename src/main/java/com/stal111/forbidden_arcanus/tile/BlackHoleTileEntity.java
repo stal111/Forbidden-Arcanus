@@ -10,7 +10,6 @@ import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -115,7 +114,7 @@ public class BlackHoleTileEntity extends TileEntity implements ITickableTileEnti
         double y = random.nextDouble();
         double z = random.nextDouble();
 
-        itemEntity.setVelocity(random.nextBoolean() ? x : -x, random.nextBoolean() ? y : -y, random.nextBoolean() ? z : -z);
+        itemEntity.setMotion(random.nextBoolean() ? x : -x, random.nextBoolean() ? y : -y, random.nextBoolean() ? z : -z);
     }
 
     @Override
