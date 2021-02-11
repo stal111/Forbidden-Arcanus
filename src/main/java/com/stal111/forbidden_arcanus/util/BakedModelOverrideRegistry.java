@@ -13,7 +13,7 @@ public class BakedModelOverrideRegistry {
         IBakedModel create(IBakedModel base, Map<ResourceLocation, IBakedModel> registry);
     }
 
-    private Map<ResourceLocation, BakedModelOverrideFactory> registry = new HashMap<>();
+    private final Map<ResourceLocation, BakedModelOverrideFactory> registry = new HashMap<>();
 
     public void add(ResourceLocation id, BakedModelOverrideFactory factory) {
         registry.put(id, factory);

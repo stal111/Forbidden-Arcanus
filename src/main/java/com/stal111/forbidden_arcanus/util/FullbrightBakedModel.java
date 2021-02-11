@@ -16,12 +16,17 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class FullbrightBakedModel extends DelegateBakedModel {
+
     private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
         @Override
         public List<BakedQuad> load(CacheKey key) {
             return transformQuads(key.base.getQuads(key.state, key.side, key.random, EmptyModelData.INSTANCE), key.textures);
         }
     });
+
+    public static void invalidateCache() {
+        CACHE.invalidateAll();
+    }
 
     private final Set<ResourceLocation> textures;
     private final boolean doCaching;
@@ -122,11 +127,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
                 return false;
             }
 
-            if (!state.equals(cacheKey.state)) {
-                return false;
-            }
-
-            return true;
+            return state.equals(cacheKey.state);
         }
 
         @Override

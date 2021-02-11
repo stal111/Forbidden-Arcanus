@@ -89,6 +89,8 @@ public class ClientProxy implements IProxy {
     }
 
     public void onModelBake(ModelBakeEvent e) {
+        FullbrightBakedModel.invalidateCache();
+
         for (ResourceLocation id : e.getModelRegistry().keySet()) {
             BakedModelOverrideRegistry.BakedModelOverrideFactory factory = ClientProxy.bakedModelOverrideRegistry.get(new ResourceLocation(id.getNamespace(), id.getPath()));
 
