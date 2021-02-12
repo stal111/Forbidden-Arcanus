@@ -9,6 +9,7 @@
     "ItemStackMixin"
   ],
   "client": [
+    "HeadLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

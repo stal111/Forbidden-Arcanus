@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.proxy;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.render.BlackHoleTileEntityRenderer;
+import com.stal111.forbidden_arcanus.block.tileentity.render.ObsidianSkullTileEntityRenderer;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.item.ForbiddenmiconItem;
@@ -69,6 +70,9 @@ public class ClientProxy implements IProxy {
 
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN.get(), SignTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_HOLE.get(), BlackHoleTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.OBSIDIAN_SKULL.get(), ObsidianSkullTileEntityRenderer::new);
+
+
         //  ClientRegistry.bindTileEntityRenderer(DarkBeaconTileEntity.class, new DarkBeaconTileEntityRenderer());
         //  ScreenManager.registerFactory(ModContainers.dark_beacon, DarkBeaconScreen::new);
     }

@@ -14,6 +14,7 @@ public class ModTags {
     public static class Items {
         public static final ITag.INamedTag<Item> SEEDS = getVanillaTag("seeds");
         public static final ITag.INamedTag<Item> BLACK_HOLE_UNAFFECTED = getTag("black_hole_unaffected");
+        public static final ITag.INamedTag<Item> OBSIDIAN_SKULLS = getTag("obsidian_skulls");
 
         private static ITag.INamedTag<Item> getTag(String name) {
             return ItemTags.makeWrapperTag(ForbiddenArcanus.MOD_ID + ":" + name);
