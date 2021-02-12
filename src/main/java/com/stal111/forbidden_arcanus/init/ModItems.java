@@ -43,7 +43,6 @@ public class ModItems {
     public static final RegistryObject<Item> DARK_RUNE = register("dark_rune", () -> new Item(properties()));
     public static final RegistryObject<Item> RUNE_BAG = register("rune_bag", () -> new Item(properties()));
     public static final RegistryObject<Item> DARK_RUNE_BAG = register("dark_rune_bag", () -> new Item(properties()));
-    public static final RegistryObject<Item> SKULL = register("skull", () -> new Item(properties()));
    // public static final RegistryObject<Item> OBSIDIAN_SKULL = register("obsidian_skull", () -> new ObsidianSkullItem(properties(1)));
     public static final RegistryObject<Item> OBSIDIAN_SKULL_SHIELD = register("obsidian_skull_shield", () -> new ObsidianSkullShieldItem(properties(Rarity.UNCOMMON, 1)));
     public static final RegistryObject<Item> CLOTH = register("cloth", () -> new Item(properties()));
