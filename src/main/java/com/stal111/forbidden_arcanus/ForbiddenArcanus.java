@@ -1,5 +1,9 @@
 package com.stal111.forbidden_arcanus;
 
+import com.stal111.forbidden_arcanus.aureal.capability.AurealImpl;
+import com.stal111.forbidden_arcanus.aureal.capability.AurealStorage;
+import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
+import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
@@ -123,7 +127,7 @@ public class ForbiddenArcanus {
 
 		proxy.init();
 
-		NetworkHandler.registerMessages();
+		NetworkHandler.init();
 
 		ModWoodType.register(ModWoodType.EDELWOOD);
 		ModWoodType.register(ModWoodType.CHERRYWOOD);
@@ -139,6 +143,10 @@ public class ForbiddenArcanus {
 		FlightTimeLeftCapability.register();
 		EternalStellaActiveCapability.register();
 		EntitySpawningBlockingCapability.register();
+
+		CapabilityManager.INSTANCE.register(IAureal.class, new AurealStorage(), AurealImpl::new);
+
+		Consequences.registerConsequences();
 
 		GlobalEntityTypeAttributes.put((EntityType<? extends LivingEntity>) ModEntities.PIXIE.get(), PixieEntity.registerAttributes().create());
 	}
