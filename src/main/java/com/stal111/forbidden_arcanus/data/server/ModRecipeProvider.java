@@ -28,6 +28,16 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shapedRecipe(NewModItems.SANITY_METER.get())
+                .patternLine("AXA")
+                .patternLine("X#X")
+                .patternLine("AXA")
+                .key('X', Tags.Items.INGOTS_GOLD)
+                .key('#', Tags.Items.ENDER_PEARLS)
+                .key('A', ModItems.ARCANE_CRYSTAL_DUST.get())
+                .addCriterion("has_item", hasItem(Tags.Items.INGOTS_GOLD))
+                .build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(NewModItems.LENS_OF_VERITATIS.get())
                 .patternLine(" # ")
                 .patternLine("#X#")
@@ -36,6 +46,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .key('X', ModItems.ARCANE_CRYSTAL.get())
                 .key('S', Tags.Items.RODS_WOODEN)
                 .addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL.get()))
+                .build(consumer);
+
+        ShapelessRecipeBuilder.shapelessRecipe(NewModItems.PURIFYING_SOAP.get())
+                .addIngredient(ModItems.ARCANE_CRYSTAL_DUST.get())
+                .addIngredient(ModItems.WAX.get())
+                .addIngredient(Items.SLIME_BALL)
+                .addIngredient(Items.PRISMARINE_CRYSTALS)
+                .addIngredient(ItemTags.SMALL_FLOWERS)
+                .addCriterion("has_item", hasItem(ModItems.WAX.get()))
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(NewModItems.OBSIDIAN_SKULL.get())

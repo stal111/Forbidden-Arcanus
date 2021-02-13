@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AXA",
+    "X#X",
+    "AXA"
+  ],
+  "key": {
+    "X": {
+      "tag": "forge:ingots/gold"
+    },
+    "#": {
+      "tag": "forge:ender_pearls"
+    },
+    "A": {
+      "item": "forbidden_arcanus:arcane_crystal_dust"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:sanity_meter"
+  }
+}

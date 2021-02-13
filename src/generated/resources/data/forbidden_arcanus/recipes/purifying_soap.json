@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:arcane_crystal_dust"
+    },
+    {
+      "item": "forbidden_arcanus:wax"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:prismarine_crystals"
+    },
+    {
+      "tag": "minecraft:small_flowers"
+    }
+  ],
+  "result": {
+    "item": "forbidden_arcanus:purifying_soap"
+  }
+}

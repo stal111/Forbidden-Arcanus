@@ -1,8 +1,11 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
+import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.config.RenderingConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.AbstractGui;
@@ -25,7 +28,7 @@ public class RenderGameOverlayListener {
     public static void onRenderGameOverlay(RenderGameOverlayEvent event) {
         ClientPlayerEntity player = Minecraft.getInstance().player;
 
-        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE || player == null) {
             return;
         }
 
@@ -44,6 +47,34 @@ public class RenderGameOverlayListener {
             int i = flightTimeLeft < 12000 ? 27 : (int) 25.5F;
 
             fontRenderer.drawString(event.getMatrixStack(), StringUtils.ticksToElapsedTime(flightTimeLeft), posX + i, posY + 9, color.getColor());
+            AbstractGui.blit(event.getMatrixStack(), posX, posY, 0, 0, 0, 57, 25, 25, 57);
+
         }
+
+        player.getCapability(AurealProvider.CAPABILITY, null).ifPresent(aureal -> {
+            if (player.inventory.hasItemStack(new ItemStack(NewModItems.SANITY_METER.get()))) {
+                Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png"));
+                AbstractGui.blit(event.getMatrixStack(), event.getWindow().getScaledWidth() / 2 - 9, event.getWindow().getScaledHeight() - 39 - 13, 0, 24, 18, 18, 19, 256, 256);
+
+                renderAurealOverlay(event, aureal);
+                renderCorruptOverlay(event, aureal);
+            }
+        });
+    }
+
+    private static void renderAurealOverlay(RenderGameOverlayEvent event, IAureal aureal) {
+        int ySize = Math.toIntExact(Math.round(12.0F * aureal.getAureal() / 200));
+        int yOffset = 38 + 12;
+
+        yOffset = yOffset - ySize;
+        AbstractGui.blit(event.getMatrixStack(), event.getWindow().getScaledWidth() / 2 - 6, (event.getWindow().getScaledHeight() - 61 + (yOffset - ySize) / 2), 0, 27, yOffset, 12, ySize, 256, 256);
+    }
+
+    private static void renderCorruptOverlay(RenderGameOverlayEvent event, IAureal aureal) {
+        int ySize = Math.toIntExact(Math.round(12.0F * aureal.getCorruption() / 100));
+        int yOffset = 51 + 12;
+
+        yOffset = yOffset - ySize;
+        AbstractGui.blit(event.getMatrixStack(), event.getWindow().getScaledWidth() / 2 - 6, (event.getWindow().getScaledHeight() - 67 + (yOffset - ySize) / 2), 0, 27, yOffset, 12, ySize, 256, 256);
     }
 }

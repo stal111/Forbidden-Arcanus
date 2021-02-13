@@ -262,6 +262,10 @@
     "item.forbidden_arcanus.boom_arrow": "Boom Arrow",
     "item.forbidden_arcanus.draco_arcanus_arrow": "Draco Arcanus Arrow",
 
+    "item.forbidden_arcanus.sanity_meter": "Sanity Meter",
+    "item.forbidden_arcanus.lens_of_veritatis": "Lens of Veritatis",
+    "item.forbidden_arcanus.purifying_soap": "Purifying Soap",
+    "item.forbidden_arcanus.wet_purifying_soap": "Wet Purifying Soap",
     "item.forbidden_arcanus.obsidian_skull_shield": "Obsidian Skull Shield",
 
     "tooltips": "Tooltips",
@@ -297,5 +301,8 @@
     "forbiddenmicon.recipe.experience": "Experience",
     "forbiddenmicon.recipe.smelting.furnace": "Furnace",
     "forbiddenmicon.recipe.smelting.smoker": "Smoker",
-    "forbiddenmicon.recipe.smelting.blast_furnace": "Blast Furnace"
+    "forbiddenmicon.recipe.smelting.blast_furnace": "Blast Furnace",
+
+    "forbidden_arcanus.aureal": "Aureal",
+    "forbidden_arcanus.aureal.corruption": "Corruption"
 }

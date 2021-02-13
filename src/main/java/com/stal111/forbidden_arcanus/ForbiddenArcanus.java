@@ -10,6 +10,9 @@ import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
+import com.stal111.forbidden_arcanus.capability.item.timer.ITimer;
+import com.stal111.forbidden_arcanus.capability.item.timer.TimerImpl;
+import com.stal111.forbidden_arcanus.capability.item.timer.TimerStorage;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
@@ -43,6 +46,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -145,6 +149,7 @@ public class ForbiddenArcanus {
 		EntitySpawningBlockingCapability.register();
 
 		CapabilityManager.INSTANCE.register(IAureal.class, new AurealStorage(), AurealImpl::new);
+		CapabilityManager.INSTANCE.register(ITimer.class, new TimerStorage(), TimerImpl::new);
 
 		Consequences.registerConsequences();
 
