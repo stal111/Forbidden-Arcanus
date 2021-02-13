@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
@@ -25,6 +26,7 @@ public class AttachCapabilitiesListener {
             if (!event.getCapabilities().containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "eternal_stella_active"))) {
                 event.addCapability(new ResourceLocation(ForbiddenArcanus.MOD_ID, "eternal_stella_active"), new EternalStellaActiveCapability());
             }
+            event.addCapability(new ResourceLocation(ForbiddenArcanus.MOD_ID, "aureal"), new AurealProvider());
         }
     }
 
