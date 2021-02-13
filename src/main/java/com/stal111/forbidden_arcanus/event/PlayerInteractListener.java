@@ -11,6 +11,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.MooshroomEntity;
@@ -73,7 +74,13 @@ public class PlayerInteractListener {
 		PlayerEntity player = event.getPlayer();
 		Entity entity = event.getTarget();
 		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty()) {
+		if (!stack.isEmpty() && entity instanceof LivingEntity) {
+			LivingEntity livingEntity = (LivingEntity) entity;
+
+			if (stack.getItem() == ModItems.QUANTUM_CATCHER.get()) {
+				event.setCancellationResult(((QuantumCatcherItem) stack.getItem()).onEntityInteract(stack, player, livingEntity, event.getHand()));
+			}
+
 			if (stack.getItem() == ModItems.MUNDABITUR_DUST.get() && ItemConfig.MUNDABITUR_DUST_CHARGE_CREEPER.get()) {
 				if (entity instanceof CreeperEntity) {
 					CreeperEntity creeperEntity = (CreeperEntity) entity;

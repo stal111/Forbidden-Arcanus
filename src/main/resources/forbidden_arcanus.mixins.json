@@ -6,7 +6,8 @@
   "refmap": "forbidden_arcanus.refmap.json",
   "mixins": [
     "AccessorFireBlock",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "WorldEntitySpawnerMixin"
   ],
   "client": [
     "HeadLayerMixin"

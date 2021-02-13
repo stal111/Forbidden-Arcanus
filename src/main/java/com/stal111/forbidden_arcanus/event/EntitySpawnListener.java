@@ -5,6 +5,8 @@ import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpa
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.SpawningBlockingMode;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -14,7 +16,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
-public class EntitySpawnCheckListener {
+public class EntitySpawnListener {
 
     @SubscribeEvent
     public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
@@ -31,13 +33,21 @@ public class EntitySpawnCheckListener {
                     IEntitySpawningBlockingBlock iEntitySpawningBlockingBlock = (IEntitySpawningBlockingBlock) state.getBlock();
 
                     if (entity.getPositionVec().distanceTo(new Vector3d(pos.getX(), pos.getY(), pos.getZ())) <= iEntitySpawningBlockingBlock.getBlockRadius()) {
-
-                        System.out.println("BLOCKING SPAWN OF: " + entity.getType().getRegistryName() + " (" + entity.getPositionVec().distanceTo(new Vector3d(pos.getX(), pos.getY(), pos.getZ())) + ")");
-
                         event.setResult(Event.Result.DENY);
                     }
                 }
             });
         });
+    }
+
+    @SubscribeEvent
+    public static void onSpecialSpawn(LivingSpawnEvent.SpecialSpawn event) {
+        LivingEntity entity = event.getEntityLiving();
+
+        if (entity.getType().getClassification() == EntityClassification.AMBIENT || entity.getType().getClassification() == EntityClassification.CREATURE) {
+            if (entity.getEntityWorld().getRandom().nextDouble() <= 0.25) {
+                entity.getPersistentData().putBoolean("aureal", true);
+            }
+        }
     }
 }

@@ -1,0 +1,110 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "lens": "forbidden_arcanus:item/lens_of_veritatis"
+    },
+    "gui_light": "front",
+    "display": {
+        "gui": {
+            "rotation": [ 0, 0, 315 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.9, 0.9, 0.9 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 135 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 2, -3, -5 ],
+            "scale": [ 0.8, 0.8, 0.8 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 305, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.8, 0.8, 0.8 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0.5, 0 ],
+            "scale": [ 0.8, 0.8, 0.8 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Crystal",
+            "from": [ 5, 9, 7 ], 
+            "to": [ 11, 15, 8 ], 
+            "faces": {
+                "north": { "texture": "#lens", "uv": [ 7, 1, 1, 7 ] },
+                "south": { "texture": "#lens", "uv": [ 1, 1, 7, 7 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 4, 15, 6 ], 
+            "to": [ 12, 16, 9 ], 
+            "faces": {
+                "north": { "texture": "#lens", "uv": [ 0, 0, 8, 1 ] },
+                "east": { "texture": "#lens", "uv": [ 0, 8, 3, 9 ] },
+                "south": { "texture": "#lens", "uv": [ 0, 0, 8, 1 ] },
+                "west": { "texture": "#lens", "uv": [ 0, 8, 3, 9 ] },
+                "up": { "texture": "#lens", "uv": [ 8, 0, 16, 3 ] },
+                "down": { "texture": "#lens", "uv": [ 8, 3, 16, 6 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 4, 8, 6 ], 
+            "to": [ 12, 9, 9 ], 
+            "faces": {
+                "north": { "texture": "#lens", "uv": [ 0, 7, 8, 8 ] },
+                "east": { "texture": "#lens", "uv": [ 0, 15, 3, 16 ] },
+                "south": { "texture": "#lens", "uv": [ 0, 7, 8, 8 ] },
+                "west": { "texture": "#lens", "uv": [ 0, 15, 3, 16 ] },
+                "up": { "texture": "#lens", "uv": [ 8, 3, 16, 6 ] },
+                "down": { "texture": "#lens", "uv": [ 8, 0, 16, 3 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 4, 9, 6 ], 
+            "to": [ 5, 15, 9 ], 
+            "faces": {
+                "north": { "texture": "#lens", "uv": [ 0, 1, 1, 7 ] },
+                "east": { "texture": "#lens", "uv": [ 3, 9, 6, 15 ] },
+                "south": { "texture": "#lens", "uv": [ 0, 1, 1, 7 ] },
+                "west": { "texture": "#lens", "uv": [ 0, 9, 3, 15 ] }
+            }
+        },
+        {
+            "name": "Frame",
+            "from": [ 11, 9, 6 ], 
+            "to": [ 12, 15, 9 ], 
+            "faces": {
+                "north": { "texture": "#lens", "uv": [ 7, 1, 8, 7 ] },
+                "east": { "texture": "#lens", "uv": [ 0, 9, 3, 15 ] },
+                "south": { "texture": "#lens", "uv": [ 7, 1, 8, 7 ] },
+                "west": { "texture": "#lens", "uv": [ 3, 9, 6, 15 ] }
+            }
+        },
+        {
+            "name": "Stick",
+            "from": [ 7, 0, 6.5 ], 
+            "to": [ 9, 8, 8.5 ], 
+            "faces": {
+                "north": { "texture": "#lens", "uv": [ 14, 8, 16, 16 ] },
+                "east": { "texture": "#lens", "uv": [ 12, 8, 10, 16 ] },
+                "south": { "texture": "#lens", "uv": [ 12, 8, 14, 16 ] },
+                "west": { "texture": "#lens", "uv": [ 10, 8, 12, 16 ] },
+                "down": { "texture": "#lens", "uv": [ 8, 14, 10, 16 ] }
+            }
+        }
+    ]
+}

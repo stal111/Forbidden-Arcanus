@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.event;
 
+import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.network.FlightTimeLeftPacket;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
@@ -13,6 +15,8 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,12 +26,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkDirection;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mod.EventBusSubscriber
 public class TickListener {
-
-    public static int tickCounter = 0;
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -35,6 +38,21 @@ public class TickListener {
         World world = player.getEntityWorld();
 
         if (event.phase == TickEvent.Phase.START) {
+            player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
+                if (aureal.getCorruption() >= 1) {
+                    aureal.setCorruptionTimer(aureal.getCorruptionTimer() + 1);
+
+                    if (aureal.getCorruptionTimer() == 6000) {
+                        aureal.setCorruption(aureal.getCorruption() - 1);
+                        aureal.setCorruptionTimer(0);
+                    }
+                } else if (aureal.getCorruptionTimer() != 0) {
+                    aureal.setCorruptionTimer(0);
+                }
+
+                aureal.updateActiveConsequences(player);
+            });
+
             if (player.isPotionActive(Effects.FIRE_RESISTANCE)) {
                 EffectInstance instance = player.getActivePotionEffect(Effects.FIRE_RESISTANCE);
                 int duration = Objects.requireNonNull(instance.getDuration());
@@ -63,14 +81,6 @@ public class TickListener {
 
         if (itemsToRepair == 0 && isEternalStellaActive(player)) {
             player.getCapability(EternalStellaActiveCapability.ETERNAL_STELLA_ACTIVE_CAPABILITY).ifPresent(iEternalStellaActive -> iEternalStellaActive.setEternalStellaActive(false));
-        }
-
-        if (tickCounter == 0) {
-            tickCounter++;
-
-            return;
-        } else {
-            tickCounter = 0;
         }
 
         if (!player.world.isRemote()) {

@@ -28,6 +28,16 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shapedRecipe(NewModItems.LENS_OF_VERITATIS.get())
+                .patternLine(" # ")
+                .patternLine("#X#")
+                .patternLine("S# ")
+                .key('#', ModItems.SPAWNER_SCRAP.get())
+                .key('X', ModItems.ARCANE_CRYSTAL.get())
+                .key('S', Tags.Items.RODS_WOODEN)
+                .addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL.get()))
+                .build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(NewModItems.OBSIDIAN_SKULL.get())
                 .patternLine("#O#")
                 .patternLine("OXO")
