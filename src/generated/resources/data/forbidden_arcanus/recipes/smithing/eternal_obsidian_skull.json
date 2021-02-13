@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "forbidden_arcanus:obsidian_skull"
+  },
+  "addition": {
+    "item": "forbidden_arcanus:eternal_stella"
+  },
+  "result": {
+    "item": "forbidden_arcanus:eternal_obsidian_skull"
+  }
+}

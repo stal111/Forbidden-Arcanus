@@ -131,7 +131,9 @@
     "block.forbidden_arcanus.polished_soulless_sandstone_stairs": "Polished Soulless Sandstone Stairs",
     "block.forbidden_arcanus.soulless_sandstone_wall": "Soulless Sandstone Wall",
     "block.forbidden_arcanus.black_hole": "Black Hole",
+
     "block.forbidden_arcanus.obsidian_skull": "Obsidian Skull",
+    "block.forbidden_arcanus.eternal_obsidian_skull": "Eternal Obsidian Skull",
 
     "____comment": "Items",
     "item.forbidden_arcanus.forbiddenmicon": "Forbiddenmicon",
@@ -157,7 +159,6 @@
     "item.forbidden_arcanus.dark_rune": "Dark Rune",
     "item.forbidden_arcanus.rune_bag": "Rune Bag",
     "item.forbidden_arcanus.dark_rune_bag": "Dark Rune Bag",
-    "item.forbidden_arcanus.obsidian_skull_shield": "Obsidian Skull Shield",
     "item.forbidden_arcanus.obsidian_with_iron": "Obsidian With Iron",
     "item.forbidden_arcanus.obsidian_ingot": "Obsidian Ingot",
     "item.forbidden_arcanus.dark_nether_star": "Dark Nether Star",
@@ -261,10 +262,13 @@
     "item.forbidden_arcanus.boom_arrow": "Boom Arrow",
     "item.forbidden_arcanus.draco_arcanus_arrow": "Draco Arcanus Arrow",
 
+    "item.forbidden_arcanus.obsidian_skull_shield": "Obsidian Skull Shield",
+
     "tooltips": "Tooltips",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",
-    "tooltip.forbidden_arcanus.obsidian_skull": "Grants you Fire Resistance I",
-    "tooltip.forbidden_arcanus.obsidian_skull_shield": "Grants you Fire Resistance I and Resistance I",
+    "tooltip.forbidden_arcanus.obsidian_skull": "Can save you from Fire Damage for up to 30 seconds.",
+    "tooltip.forbidden_arcanus.obsidian_skull_shield": "Can save you from Fire Damage for up to 30 seconds.",
+    "tooltip.forbidden_arcanus.eternal_obsidian_skull": "Grants complete immunity against Fire Damage.",
     "tooltip.forbidden_arcanus.infernum_pickaxe": "So hot that it can even smelt ores!",
     "tooltip.forbidden_arcanus.mystical_dagger": "Contains some dark magic...",
     "tooltip.forbidden_arcanus.soul_extractor": "Used to extract Souls from Soul Sand",

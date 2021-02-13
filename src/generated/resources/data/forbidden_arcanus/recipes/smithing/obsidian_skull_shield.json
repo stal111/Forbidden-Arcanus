@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:shield"
+  },
+  "addition": {
+    "item": "forbidden_arcanus:obsidian_skull"
+  },
+  "result": {
+    "item": "forbidden_arcanus:obsidian_skull_shield"
+  }
+}

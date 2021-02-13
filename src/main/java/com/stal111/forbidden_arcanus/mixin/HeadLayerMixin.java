@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.mixin;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.block.tileentity.render.ObsidianSkullTileEntityRenderer;
+import com.stal111.forbidden_arcanus.item.block.EternalObsidianSkullItem;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.layers.HeadLayer;
@@ -40,7 +41,7 @@ public class HeadLayerMixin<T extends LivingEntity, M extends EntityModel<T> & I
             }
 
             matrixStack.translate(-0.5D, 0.0D, -0.5D);
-            ObsidianSkullTileEntityRenderer.render(null, 180.0F, limbSwing, matrixStack, buffer, packedLight);
+            ObsidianSkullTileEntityRenderer.render(null, 180.0F, limbSwing, matrixStack, buffer, packedLight, stack.getItem() instanceof EternalObsidianSkullItem);
 
             matrixStack.pop();
             ci.cancel();

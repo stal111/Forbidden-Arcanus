@@ -34,6 +34,17 @@ public class TickListener {
         PlayerEntity player = event.player;
         World world = player.getEntityWorld();
 
+        if (event.phase == TickEvent.Phase.START) {
+            if (player.isPotionActive(Effects.FIRE_RESISTANCE)) {
+                EffectInstance instance = player.getActivePotionEffect(Effects.FIRE_RESISTANCE);
+                int duration = Objects.requireNonNull(instance.getDuration());
+
+                if (duration == 32767 && !player.inventory.hasItemStack(new ItemStack(NewModItems.ETERNAL_OBSIDIAN_SKULL.get()))) {
+                    player.removeActivePotionEffect(instance.getPotion());
+                }
+            }
+        }
+
         int itemsToRepair = 0;
 
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {

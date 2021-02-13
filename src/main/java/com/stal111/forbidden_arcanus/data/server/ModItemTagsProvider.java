@@ -27,7 +27,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void registerTags() {
-        getOrCreateBuilder(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get());
+        getOrCreateBuilder(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
         getOrCreateBuilder(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
     }
 }

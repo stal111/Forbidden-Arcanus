@@ -21,6 +21,7 @@ import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.recipe.AwkwardPotionBrewingRecipe;
+import com.stal111.forbidden_arcanus.setup.ClientSetup;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.Data;
 import com.stal111.forbidden_arcanus.util.ModUtils;
@@ -35,6 +36,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -81,6 +83,8 @@ public class ForbiddenArcanus {
 		instance = this;
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientSetup::new);
 
 		ModEntities.ENTITY_TYPES.register(modEventBus);
 		NewModBlocks.BLOCKS.register(modEventBus);
