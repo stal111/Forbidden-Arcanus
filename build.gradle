@@ -124,7 +124,7 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.5-36.0.22'
 
-    compile fg.deobf(files("libs/valhelsia_core-16.0.1-dev.jar"))
+    compile fg.deobf(files("libs/valhelsia_core-${valhelsia_core_version}-dev.jar"))
 
     // compile against the JEI API but do not include it at runtime
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
