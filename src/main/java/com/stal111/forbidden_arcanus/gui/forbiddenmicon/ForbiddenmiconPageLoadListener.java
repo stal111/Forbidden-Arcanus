@@ -36,7 +36,6 @@ public class ForbiddenmiconPageLoadListener implements IResourceManagerReloadLis
 
     @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
-        System.out.println("TEST");
         Gson gson = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
         for (ResourceLocation resourcelocation : resourceManager.getAllResourceLocations("forbiddenmicon", (p_199516_0_) -> {
