@@ -6,14 +6,14 @@ modId="forbidden_arcanus" #mandatory
 version="${file.jarVersion}" #mandatory
  # A display name for the mod
 displayName="Forbidden & Arcanus" #mandatory
-credits="stal111, Xesar_Zk" #optional
-authors="stal111, Xesar_Zk" #optional
+credits="stal111, CesarZorak" #optional
+authors="stal111, CesarZorak" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description=''' '''
 
 [[dependencies.forbidden_arcanus]]
 modId="valhelsia_core"
 mandatory=true
-versionRange="[16.0.2,)"
+versionRange="[16.0.4,)"
 ordering="AFTER"
 side="BOTH"
