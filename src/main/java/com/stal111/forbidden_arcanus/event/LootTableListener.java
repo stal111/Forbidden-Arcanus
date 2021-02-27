@@ -39,16 +39,25 @@ public class LootTableListener {
             }
         }
 
-        if (name.equals("minecraft:entities/enderman")) {
-            event.getTable().addPool(getInjectPool("enderman"));
-        } else if (name.equals("minecraft:entities/bat")) {
-            event.getTable().addPool(getInjectPool("bat"));
-        } else if (name.equals("minecraft:entities/squid")) {
-            event.getTable().addPool(getInjectPool("squid"));
-        } else if (name.equals("minecraft:entities/ender_dragon")) {
-            event.getTable().addPool(getInjectPool("ender_dragon"));
-        } else if (name.equals("minecraft:blocks/spawner")) {
-            event.getTable().addPool(getInjectPool("spawner"));
+        switch (name) {
+            case "minecraft:entities/enderman":
+                event.getTable().addPool(getInjectPool("enderman"));
+                break;
+            case "minecraft:entities/bat":
+                event.getTable().addPool(getInjectPool("bat"));
+                break;
+            case "minecraft:entities/squid":
+                event.getTable().addPool(getInjectPool("squid"));
+                break;
+            case "minecraft:entities/ender_dragon":
+                event.getTable().addPool(getInjectPool("ender_dragon"));
+                break;
+            case "minecraft:blocks/spawner":
+                event.getTable().addPool(getInjectPool("spawner"));
+                break;
+            case "minecraft:chests/simple_dungeon":
+                event.getTable().addPool(getInjectPool("simple_dungeon"));
+                break;
         }
     }
 

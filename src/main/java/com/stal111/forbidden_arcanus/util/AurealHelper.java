@@ -15,6 +15,10 @@ import net.minecraft.entity.player.PlayerEntity;
  */
 public class AurealHelper {
 
+    public static int getAureal(PlayerEntity player) {
+        return player.getCapability(AurealProvider.CAPABILITY).resolve().get().getAureal();
+    }
+
     public static void increaseAureal(PlayerEntity player, int amount) {
         player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> aureal.increaseAureal(amount));
     }

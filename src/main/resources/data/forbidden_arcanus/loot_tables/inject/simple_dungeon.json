@@ -1,0 +1,23 @@
+{
+	"pools": [
+		{
+			"name": "aureal_bottle",
+			"rolls": {
+				"min": 1.0,
+				"max": 2.0,
+				"type": "minecraft:uniform"
+			},
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"weight": 40,
+					"name": "forbidden_arcanus:aureal_bottle"
+				},
+				{
+					"type": "minecraft:empty",
+					"weight": 60
+				}
+			]
+		}
+	]
+}

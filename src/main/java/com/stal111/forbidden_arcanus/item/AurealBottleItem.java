@@ -70,6 +70,9 @@ public class AurealBottleItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        return DrinkHelper.startDrinking(world, player, hand);
+        if (AurealHelper.getAureal(player) < 200) {
+            return DrinkHelper.startDrinking(world, player, hand);
+        }
+        return super.onItemRightClick(world, player, hand);
     }
 }
