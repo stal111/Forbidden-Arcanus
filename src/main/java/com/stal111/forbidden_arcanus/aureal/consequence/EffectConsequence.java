@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.aureal.consequence;
 
+import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModEffects;
-import javafx.util.Pair;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
@@ -32,14 +32,14 @@ public class EffectConsequence implements IConsequence {
     @Override
     public void tick(PlayerEntity player) {
         effects.clear();
-        effects.add(new Pair<>(Effects.NAUSEA, 100));
-        effects.add(new Pair<>(Effects.WEAKNESS, 1800));
-        effects.add(new Pair<>(Effects.UNLUCK, 3600));
-        effects.add(new Pair<>(Effects.BAD_OMEN, 3600));
-        effects.add(new Pair<>(ModEffects.DARKENED.get(), 2400));
+        effects.add(Pair.of(Effects.NAUSEA, 100));
+        effects.add(Pair.of(Effects.WEAKNESS, 1800));
+        effects.add(Pair.of(Effects.UNLUCK, 3600));
+        effects.add(Pair.of(Effects.BAD_OMEN, 3600));
+        effects.add(Pair.of(ModEffects.DARKENED.get(), 2400));
 
         Pair<Effect, Integer> pair = effects.get(player.getRNG().nextInt(effects.size()));
-        player.addPotionEffect(new EffectInstance(pair.getKey(), pair.getValue()));
+        player.addPotionEffect(new EffectInstance(pair.getFirst(), pair.getSecond()));
     }
 
     @Override
