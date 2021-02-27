@@ -3,8 +3,9 @@ package com.stal111.forbidden_arcanus.data;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider;
 import com.stal111.forbidden_arcanus.data.client.ModItemModelProvider;
-import com.stal111.forbidden_arcanus.data.server.ModBlockTagsProvider;
-import com.stal111.forbidden_arcanus.data.server.ModItemTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModEnchantmentTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider;
 import com.stal111.forbidden_arcanus.data.server.ModLootTableProvider;
 import com.stal111.forbidden_arcanus.data.server.ModRecipeProvider;
 import net.minecraft.data.DataGenerator;
@@ -32,10 +33,12 @@ public class DataGenerators {
         generator.addProvider(new ModBlockStateProvider(generator, existingFileHelper));
         generator.addProvider(new ModItemModelProvider(generator, existingFileHelper));
 
-        generator.addProvider(new ModLootTableProvider(generator));
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(generator, existingFileHelper);
         generator.addProvider(blockTagsProvider);
         generator.addProvider(new ModItemTagsProvider(generator, blockTagsProvider, existingFileHelper));
+        generator.addProvider(new ModEnchantmentTagsProvider(generator, existingFileHelper));
+
+        generator.addProvider(new ModLootTableProvider(generator));
         generator.addProvider(new ModRecipeProvider(generator));
     }
 }

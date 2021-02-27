@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.data.server;
+package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.data.BlockTagsProvider;
@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 
 /**
  * Mod Block Tags Provider
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.ModBlockTagsProvider
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider
  *
  * @author stal111
  * @version 16.2.0

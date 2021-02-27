@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.data.server;
+package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.NewModItems;
@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 /**
  * Mod Item Tags Provider
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.ModItemTagsProvider
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider
  *
  * @author stal111
  * @version 16.2.0
@@ -29,5 +29,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     protected void registerTags() {
         getOrCreateBuilder(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
         getOrCreateBuilder(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
+        getOrCreateBuilder(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
     }
 }

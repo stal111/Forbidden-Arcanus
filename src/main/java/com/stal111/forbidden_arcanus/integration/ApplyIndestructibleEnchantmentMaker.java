@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.integration;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -13,7 +13,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ApplyIndestructibleEnchantmentMaker {
 
@@ -32,7 +31,7 @@ public class ApplyIndestructibleEnchantmentMaker {
         Ingredient eternalStella = Ingredient.fromItems(ModItems.ETERNAL_STELLA.get());
 
         list.forEach(item -> {
-            if (!(EnchantmentConfig.INDESTRUCTIBLE_ITEM_BLACKLIST.get().contains(Objects.requireNonNull(item.getRegistryName()).toString()))) {
+            if (!ModTags.Items.INDESTRUCTIBLE_BLACKLISTED.contains(item)) {
                 ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_indestructible_enchantment." + item.getTranslationKey());
 
                 ItemStack output = new ItemStack(item);

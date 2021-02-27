@@ -1,10 +1,11 @@
 package com.stal111.forbidden_arcanus.recipe;
 
-import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
+import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.item.EternalStellaItem;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -13,11 +14,9 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SmithingRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ApplyIndestructibleEnchantmentRecipe extends SmithingRecipe {
 
@@ -30,10 +29,10 @@ public class ApplyIndestructibleEnchantmentRecipe extends SmithingRecipe {
         ItemStack input = inv.getStackInSlot(0);
         ItemStack addition = inv.getStackInSlot(1);
 
-        List<Enchantment> enchantments = getEnchantmentsFromStringList(EnchantmentConfig.INDESTRUCTIBLE_ENCHANTMENT_BLACKLIST.get());
+        List<Enchantment> enchantments = new ArrayList<>(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED.getAllElements());
         enchantments.add(ModEnchantments.INDESTRUCTIBLE.get());
 
-        if (input.isDamageable() && !ItemStackUtils.hasStackEnchantment(input, enchantments) && !EnchantmentConfig.INDESTRUCTIBLE_ITEM_BLACKLIST.get().contains(Objects.requireNonNull(input.getItem().getRegistryName()).toString())) {
+        if (input.isDamageable() && !ItemStackUtils.hasStackEnchantment(input, enchantments) && !ModTags.Items.INDESTRUCTIBLE_BLACKLISTED.contains(input.getItem())) {
             return addition.getItem() instanceof EternalStellaItem;
         }
         return false;
@@ -60,13 +59,5 @@ public class ApplyIndestructibleEnchantmentRecipe extends SmithingRecipe {
     @Override
     public IRecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.APPLY_INDESTRUCTIBLE_ENCHANTMENT.get();
-    }
-
-    private List<Enchantment> getEnchantmentsFromStringList(List<? extends String> list) {
-        List<Enchantment> enchantments = new ArrayList<>();
-
-        list.forEach(s -> enchantments.add(ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(s))));
-
-        return enchantments;
     }
 }
