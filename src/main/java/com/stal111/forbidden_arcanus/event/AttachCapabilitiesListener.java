@@ -35,7 +35,7 @@ public class AttachCapabilitiesListener {
 
     @SubscribeEvent
     public static void onWorldCapabilityAttachEvent(AttachCapabilitiesEvent<World> event) {
-        if (!event.getCapabilities().containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "enity_spawning_blocking_blocks"))) {
+        if (!event.getCapabilities().containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity_spawning_blocking_blocks"))) {
             event.addCapability(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity_spawning_blocking_blocks"), new EntitySpawningBlockingCapability());
         }
     }
