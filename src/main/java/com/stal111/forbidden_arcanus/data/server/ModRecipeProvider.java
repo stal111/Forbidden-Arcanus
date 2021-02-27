@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.data.server;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.NewerModBlocks;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -80,5 +82,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 NewModItems.ETERNAL_OBSIDIAN_SKULL.get())
                 .addCriterion("has_item", hasItem(NewModItems.OBSIDIAN_SKULL.get()))
                 .build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
+
+        ShapedRecipeBuilder.shapedRecipe(NewerModBlocks.UTREM_JAR.get()).patternLine("#X#").patternLine("# #").patternLine("###").key('#', Tags.Items.GLASS_COLORLESS).key('X', ModBlocks.EDELWOOD_PLANKS.getBlock()).addCriterion("has_item", hasItem(Tags.Items.GLASS_COLORLESS)).build(consumer);
     }
 }

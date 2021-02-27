@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forbidden_arcanus:item/utrem_jar"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:water": 1.0,
+        "minecraft:lava": 0.0
+      },
+      "model": "forbidden_arcanus:item/utrem_jar_water"
+    },
+    {
+      "predicate": {
+        "minecraft:water": 0.0,
+        "minecraft:lava": 1.0
+      },
+      "model": "forbidden_arcanus:item/utrem_jar_lava"
+    }
+  ]
+}

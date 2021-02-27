@@ -1,0 +1,48 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "#bottle_block_side"
+    },
+    "parent": "block/cube_all",
+    "elements": [
+        {
+            "name": "Jar",
+            "from": [ 3, 0, 3 ], 
+            "to": [ 13, 13, 13 ], 
+            "faces": {
+                "north": { "texture": "#bottle_block_side", "uv": [ 3, 3, 13, 16 ] },
+                "east": { "texture": "#bottle_block_side", "uv": [ 3, 3, 13, 16 ] },
+                "south": { "texture": "#bottle_block_side", "uv": [ 3, 3, 13, 16 ] },
+                "west": { "texture": "#bottle_block_side", "uv": [ 3, 3, 13, 16 ] },
+                "up": { "texture": "#bottle_block_top", "uv": [ 3, 3, 13, 13 ] },
+                "down": { "texture": "#bottle_block_bottom", "uv": [ 3, 3, 13, 13 ] }
+            }
+        },
+        {
+            "name": "Cork",
+            "from": [ 5, 13, 5 ], 
+            "to": [ 11, 15, 11 ], 
+            "faces": {
+                "north": { "texture": "#bottle_block_side", "uv": [ 5, 1, 11, 3 ] },
+                "east": { "texture": "#bottle_block_side", "uv": [ 11, 1, 5, 3 ] },
+                "south": { "texture": "#bottle_block_side", "uv": [ 5, 1, 11, 3 ] },
+                "west": { "texture": "#bottle_block_side", "uv": [ 11, 1, 5, 3 ] },
+                "up": { "texture": "#bottle_block_top", "uv": [ 5, 5, 11, 11 ] },
+                "down": { "texture": "#bottle_block_top", "uv": [ 5, 5, 11, 11 ] }
+            }
+        },
+        {
+            "name": "Pixie",
+            "from": [ 5.5, 4.0, 5.5 ],
+            "to": [ 10.5, 9.0, 10.5 ],
+            "faces": {
+                "north": { "texture": "#pixie", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
+                "east": { "texture": "#pixie", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
+                "south": { "texture": "#pixie", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
+                "west": { "texture": "#pixie", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
+                "up": { "texture": "#pixie", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
+                "down": { "texture": "#pixie", "uv": [ 2.0, 2.0, 14.0, 14.0 ] }
+            }
+        }
+    ]
+}

@@ -1,15 +1,24 @@
 package com.stal111.forbidden_arcanus.setup;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
+import com.stal111.forbidden_arcanus.block.tileentity.render.UtremJarTileEntityRenderer;
+import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.valhelsia.valhelsia_core.helper.ClientHelper;
 
 /**
  * Client Setup
@@ -33,7 +42,12 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onClientSetup(FMLClientSetupEvent event) {
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
 
+        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof UtremJarTileEntity);
+
+        ItemModelsProperties.registerProperty(NewModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(NewModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent

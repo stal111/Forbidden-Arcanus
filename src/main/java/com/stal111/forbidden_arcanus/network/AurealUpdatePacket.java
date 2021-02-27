@@ -22,8 +22,8 @@ import java.util.function.Supplier;
  */
 public class AurealUpdatePacket {
 
-    UUID uuid;
-    CompoundNBT tag;
+    private final UUID uuid;
+    private CompoundNBT tag;
 
     public AurealUpdatePacket(UUID uuid, CompoundNBT tag) {
         this.uuid = uuid;
@@ -37,9 +37,9 @@ public class AurealUpdatePacket {
         });
     }
 
-    public static void encode(AurealUpdatePacket object, PacketBuffer buffer) {
-        buffer.writeUniqueId(object.uuid);
-        buffer.writeCompoundTag(object.tag);
+    public static void encode(AurealUpdatePacket packet, PacketBuffer buffer) {
+        buffer.writeUniqueId(packet.uuid);
+        buffer.writeCompoundTag(packet.tag);
     }
 
     public static AurealUpdatePacket decode(PacketBuffer buffer) {
