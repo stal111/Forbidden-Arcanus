@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
+import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
@@ -39,10 +40,13 @@ public class TickListener {
 
         if (event.phase == TickEvent.Phase.START) {
             player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
+                if (!AurealConfig.NATURAL_CORRUPTION_DECREASEMENT.get()) {
+                    return;
+                }
                 if (aureal.getCorruption() >= 1) {
                     aureal.setCorruptionTimer(aureal.getCorruptionTimer() + 1);
 
-                    if (aureal.getCorruptionTimer() == 6000) {
+                    if (aureal.getCorruptionTimer() >= AurealConfig.NATURAL_CORRUPTION_DECREASEMENT_TIME.get()) {
                         aureal.setCorruption(aureal.getCorruption() - 1);
                         aureal.setCorruptionTimer(0);
                     }

@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.block.IEntitySpawningBlockingBlock;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.SpawningBlockingMode;
+import com.stal111.forbidden_arcanus.config.AurealConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -45,7 +46,7 @@ public class EntitySpawnListener {
         LivingEntity entity = event.getEntityLiving();
 
         if (entity.getType().getClassification() == EntityClassification.AMBIENT || entity.getType().getClassification() == EntityClassification.CREATURE) {
-            if (entity.getEntityWorld().getRandom().nextDouble() <= 0.25) {
+            if (entity.getEntityWorld().getRandom().nextDouble() <= AurealConfig.AUREAL_ENTITY_SPAWN_CHANCE.get()) {
                 entity.getPersistentData().putBoolean("aureal", true);
             }
         }

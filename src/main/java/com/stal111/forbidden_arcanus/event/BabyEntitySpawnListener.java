@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
+import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.network.AurealUpdatePacket;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,7 +29,7 @@ public class BabyEntitySpawnListener {
 
             player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
                 if (aureal.getCorruption() != 0) {
-                    if (new Random().nextDouble() <= 0.45) {
+                    if (new Random().nextDouble() <= AurealConfig.BREEDING_DECREASEMENT_CHANCE.get()) {
                         aureal.setCorruption(aureal.getCorruption() - 1);
                         NetworkHandler.sendTo(player, new AurealUpdatePacket(player));
                     }

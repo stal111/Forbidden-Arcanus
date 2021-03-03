@@ -29,6 +29,7 @@ public class Config {
 		BlockConfig.init(COMMON_BUILDER);
 		RenderingConfig.init(CLIENT_BUILDER);
 		EnchantmentConfig.init(COMMON_BUILDER);
+		AurealConfig.init(COMMON_BUILDER);
 
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();

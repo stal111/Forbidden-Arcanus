@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.event;
 
+import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.network.AurealUpdatePacket;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
@@ -37,8 +38,8 @@ public class LivingDeathListener {
 
                 boolean aurealEntity = entity.getPersistentData().contains("aureal") && entity.getPersistentData().getBoolean("aureal");
 
-                double chance = aurealEntity ? 0.42 : 0.35;
-                int amount = aurealEntity ? 3 : 1;
+                double chance = aurealEntity ? AurealConfig.AUREAL_ENTITY_DEATH_INCREASEMENT_CHANCE.get(): AurealConfig.ENTITY_DEATH_INCREASEMENT_CHANCE.get();
+                int amount = aurealEntity ? AurealConfig.AUREAL_ENTITY_DEATH_INCREASEMENT_AMOUNT.get() : AurealConfig.ENTITY_DEATH_INCREASEMENT_AMOUNT.get();
 
                 if (new Random().nextDouble() <= chance) {
                     AurealHelper.increaseCorruption(player, amount);
