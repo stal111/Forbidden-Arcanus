@@ -6,9 +6,11 @@ public class EnchantmentConfig {
 
     public static ForgeConfigSpec.BooleanValue INDESTRUCTIBLE_FULLY_REPAIR_ITEM;
 
-    public static void init(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-        CLIENT_BUILDER.comment("Enchantment Config");
+    public static void init(ForgeConfigSpec.Builder builder) {
+        builder.push("enchantments");
 
-        INDESTRUCTIBLE_FULLY_REPAIR_ITEM = CLIENT_BUILDER.comment("Should the item be fully repaired after applying the Indestructible enchantment [default: true]").define("enchantments.indestructible.fully_repair_item", true);
+        INDESTRUCTIBLE_FULLY_REPAIR_ITEM = builder.comment("Should the item be fully repaired after applying the Indestructible enchantment [default: true]").define("indestructible.fully_repair_item", true);
+
+        builder.pop();
     }
 }

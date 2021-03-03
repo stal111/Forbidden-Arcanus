@@ -7,23 +7,30 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.io.File;
 
+/**
+ * Config
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.config.Config
+ *
+ * @author Valhelsia Team
+ * @version 16.2.0
+ */
 @Mod.EventBusSubscriber
 public class Config {
 
-	private static final ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
+	private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
 	private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
-	public static final ForgeConfigSpec SERVER_CONFIG;
+	public static final ForgeConfigSpec COMMON_CONFIG;
 	public static final ForgeConfigSpec CLIENT_CONFIG;
 
 	static {
-		WorldGenConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
-		ItemConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
-		BlockConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
+		WorldGenConfig.init(COMMON_BUILDER);
+		ItemConfig.init(COMMON_BUILDER);
+		BlockConfig.init(COMMON_BUILDER);
 		RenderingConfig.init(CLIENT_BUILDER);
-		EnchantmentConfig.init(SERVER_BUILDER, CLIENT_BUILDER);
+		EnchantmentConfig.init(COMMON_BUILDER);
 
-		SERVER_CONFIG = SERVER_BUILDER.build();
+		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
 	}
 
