@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -31,12 +31,16 @@ public class LivingDeathListener {
             if (event.getSource().getDamageType().equals("player")) {
                 PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
 
+                if (player == null || player instanceof FakePlayer) {
+                    return;
+                }
+
                 boolean aurealEntity = entity.getPersistentData().contains("aureal") && entity.getPersistentData().getBoolean("aureal");
 
                 double chance = aurealEntity ? 0.42 : 0.35;
                 int amount = aurealEntity ? 3 : 1;
 
-                if (new Random().nextDouble() <= chance && player != null) {
+                if (new Random().nextDouble() <= chance) {
                     AurealHelper.increaseCorruption(player, amount);
                     NetworkHandler.sendTo(player, new AurealUpdatePacket(player));
                 }
