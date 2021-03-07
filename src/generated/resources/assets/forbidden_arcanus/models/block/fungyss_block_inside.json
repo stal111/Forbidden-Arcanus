@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_single_face",
+  "ambientocclusion": false,
+  "textures": {
+    "texture": "forbidden_arcanus:block/fungyss_block_inside"
+  }
+}

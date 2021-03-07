@@ -20,6 +20,7 @@ public class ModTags {
         public static final ITag.INamedTag<Block> STANDING_CANDELABRAS = modTag("standing_candelabras");
         public static final ITag.INamedTag<Block> WALL_CANDELABRAS = modTag("wall_candelabras");
         public static final ITag.INamedTag<Block> HANGING_CANDELABRAS = modTag("hanging_candelabras");
+        public static final ITag.INamedTag<Block> FUNGYSS_STEMS = modTag("fungyss_stems");
 
         private static ITag.INamedTag<Block> forgeTag(String name) {
             return BlockTags.makeWrapperTag(new ResourceLocation("forge", name).toString());
@@ -39,6 +40,7 @@ public class ModTags {
         public static final ITag.INamedTag<Item> BLACK_HOLE_UNAFFECTED = modTag("black_hole_unaffected");
         public static final ITag.INamedTag<Item> OBSIDIAN_SKULLS = modTag("obsidian_skulls");
         public static final ITag.INamedTag<Item> INDESTRUCTIBLE_BLACKLISTED = modTag("indestructible_blacklisted");
+        public static final ITag.INamedTag<Item> FUNGYSS_STEMS = modTag("fungyss_stems");
 
         private static ITag.INamedTag<Item> forgeTag(String name) {
             return ItemTags.makeWrapperTag(new ResourceLocation("forge", name).toString());

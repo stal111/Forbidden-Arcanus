@@ -40,6 +40,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         forEach(blockItems, item -> ((BlockItem) item).getBlock() instanceof ObsidianSkullBlock, item -> {});
         takeBlockItem(blockItems, this::simpleModel, NewerModBlocks.PIXIE_UTREM_JAR, NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
         takeBlockItem(blockItems, this::utremJarModel, NewerModBlocks.UTREM_JAR);
+        takeBlockItem(blockItems, this::withParentInventory, NewerModBlocks.FUNGYSS_BUTTON, NewerModBlocks.FUNGYSS_FENCE);
 
         forEach(blockItems, this::withParent);
     }
