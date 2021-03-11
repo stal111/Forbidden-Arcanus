@@ -5,16 +5,13 @@ import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.init.NewerModBlocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fml.RegistryObject;
 import net.valhelsia.valhelsia_core.data.ValhelsiaItemModelProvider;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Mod Item Model Provider
@@ -31,18 +28,18 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
     }
 
     @Override
-    protected void register(Set<RegistryObject<Item>> items, Set<RegistryObject<Item>> blockItems) {
+    protected void registerModels() {
         //Items
-        items.removeAll(Arrays.asList(NewModItems.LENS_OF_VERITATIS, NewModItems.OBSIDIAN_SKULL_SHIELD));
-        forEach(items, this::simpleModel);
+        getRemainingItems().removeAll(Arrays.asList(NewModItems.LENS_OF_VERITATIS, NewModItems.OBSIDIAN_SKULL_SHIELD));
+        forEachItem(this::simpleModel);
 
         //Block Items
-        forEach(blockItems, item -> ((BlockItem) item).getBlock() instanceof ObsidianSkullBlock, item -> {});
-        takeBlockItem(blockItems, this::simpleModel, NewerModBlocks.PIXIE_UTREM_JAR, NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
-        takeBlockItem(blockItems, this::utremJarModel, NewerModBlocks.UTREM_JAR);
-        takeBlockItem(blockItems, this::withParentInventory, NewerModBlocks.FUNGYSS_BUTTON, NewerModBlocks.FUNGYSS_FENCE);
+        forEachBlockItem(item -> item.getBlock() instanceof ObsidianSkullBlock, item -> {});
+        takeBlockItem(this::simpleModel, NewerModBlocks.PIXIE_UTREM_JAR, NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
+        takeBlockItem(this::utremJarModel, NewerModBlocks.UTREM_JAR);
+        takeBlockItem(this::withParentInventory, NewerModBlocks.FUNGYSS_BUTTON, NewerModBlocks.FUNGYSS_FENCE);
 
-        forEach(blockItems, this::withParent);
+        forEachBlockItem(this::withParent);
     }
 
     public <T extends Item> void utremJarModel(T item) {
@@ -60,5 +57,4 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 .predicate(new ResourceLocation("lava"), 1.0F)
                 .model(getExistingFile(modLoc("utrem_jar_lava"))).end();
     }
-
 }
