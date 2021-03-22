@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "U  ",
+    "##X",
+    "Q  "
+  ],
+  "key": {
+    "U": {
+      "item": "forbidden_arcanus:utrem_jar"
+    },
+    "#": {
+      "item": "minecraft:nether_bricks"
+    },
+    "X": {
+      "item": "minecraft:quartz_block"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:soul_extractor"
+  }
+}

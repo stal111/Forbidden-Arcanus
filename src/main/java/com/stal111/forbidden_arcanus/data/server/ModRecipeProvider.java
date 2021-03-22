@@ -84,5 +84,6 @@ public class ModRecipeProvider extends RecipeProvider {
                 .build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
 
         ShapedRecipeBuilder.shapedRecipe(NewerModBlocks.UTREM_JAR.get()).patternLine("#X#").patternLine("# #").patternLine("###").key('#', Tags.Items.GLASS_COLORLESS).key('X', ModBlocks.EDELWOOD_PLANKS.getBlock()).addCriterion("has_item", hasItem(Tags.Items.GLASS_COLORLESS)).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SOUL_EXTRACTOR.get()).patternLine("U  ").patternLine("##X").patternLine("Q  ").key('U', NewerModBlocks.UTREM_JAR.get()).key('#', Blocks.NETHER_BRICKS).key('X', Blocks.QUARTZ_BLOCK).key('Q', Items.QUARTZ).addCriterion("has_item", hasItem(NewerModBlocks.UTREM_JAR.get())).build(consumer);
     }
 }
