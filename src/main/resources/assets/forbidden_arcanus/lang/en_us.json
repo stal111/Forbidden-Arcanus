@@ -132,6 +132,7 @@
     "block.forbidden_arcanus.obsidian_skull": "Obsidian Skull",
     "block.forbidden_arcanus.eternal_obsidian_skull": "Eternal Obsidian Skull",
     "block.forbidden_arcanus.utrem_jar": "Utrem Jar",
+    "block.forbidden_arcanus.nipa": "Nipa",
 
     "____comment": "Items",
     "item.forbidden_arcanus.forbiddenmicon": "Forbiddenmicon",
@@ -266,6 +267,7 @@
     "item.forbidden_arcanus.wet_purifying_soap": "Wet Purifying Soap",
     "item.forbidden_arcanus.obsidian_skull_shield": "Obsidian Skull Shield",
     "item.forbidden_arcanus.aureal_bottle": "Aureal Bottle",
+    "item.forbidden_arcanus.arcane_crystal_dust_speck": "Arcane Crystal Dust Speck",
 
     "tooltips": "Tooltips",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",

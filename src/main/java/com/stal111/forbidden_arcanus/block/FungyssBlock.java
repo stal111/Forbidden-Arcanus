@@ -8,6 +8,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import net.minecraftforge.common.Tags;
 
 /**
  * Fungyss Block
@@ -31,7 +32,7 @@ public class FungyssBlock extends BushBlock {
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return true;
+    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+        return world.getBlockState(pos.down()).isIn(Tags.Blocks.STONE);
     }
 }

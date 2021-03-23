@@ -31,7 +31,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     protected void registerStatesAndModels() {
         getRemainingBlocks().removeAll(Arrays.asList(NewerModBlocks.OBSIDIAN_SKULL, NewerModBlocks.OBSIDIAN_WALL_SKULL, NewerModBlocks.ETERNAL_OBSIDIAN_SKULL, NewerModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
 
-        take(this::withExistingModel, NewerModBlocks.UTREM_JAR);
+        take(this::withExistingModel, NewerModBlocks.UTREM_JAR, NewerModBlocks.NIPA);
         take(block -> pixieUtremJarBlock(block, false), NewerModBlocks.PIXIE_UTREM_JAR);
         take(block -> pixieUtremJarBlock(block, true), NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
         take(block -> simpleBlock(block, models().cross(Objects.requireNonNull(block.getRegistryName()).getPath(), modLoc("block/fungyss"))), NewerModBlocks.FUNGYSS);
@@ -81,5 +81,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .part().modelFile(modelInside).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.WEST, false).end()
                 .part().modelFile(modelInside).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.UP, false).end()
                 .part().modelFile(modelInside).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.DOWN, false).end();
+
+        this.models().singleTexture(name + "_inventory", mcLoc("block/cube_all"), "all", modLoc("block/" + name));
     }
 }

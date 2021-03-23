@@ -29,17 +29,28 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
     @Override
     protected void registerModels() {
+        //Block Items
+        forEachBlockItem(item -> item.getBlock() instanceof ObsidianSkullBlock, item -> {});
+        takeBlockItem(this::simpleModel,
+                NewerModBlocks.PIXIE_UTREM_JAR,
+                NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
+                NewerModBlocks.NIPA
+        );
+        takeBlockItem(this::simpleModelBlockTexture,
+                NewerModBlocks.FUNGYSS
+        );
+        takeBlockItem(this::withParentInventory,
+                NewerModBlocks.FUNGYSS_BLOCK,
+                NewerModBlocks.FUNGYSS_BUTTON,
+                NewerModBlocks.FUNGYSS_FENCE
+        );
+        takeBlockItem(this::utremJarModel, NewerModBlocks.UTREM_JAR);
+
+        forEachBlockItem(this::withParent);
+
         //Items
         getRemainingItems().removeAll(Arrays.asList(NewModItems.LENS_OF_VERITATIS, NewModItems.OBSIDIAN_SKULL_SHIELD));
         forEachItem(this::simpleModel);
-
-        //Block Items
-        forEachBlockItem(item -> item.getBlock() instanceof ObsidianSkullBlock, item -> {});
-        takeBlockItem(this::simpleModel, NewerModBlocks.PIXIE_UTREM_JAR, NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
-        takeBlockItem(this::utremJarModel, NewerModBlocks.UTREM_JAR);
-        takeBlockItem(this::withParentInventory, NewerModBlocks.FUNGYSS_BUTTON, NewerModBlocks.FUNGYSS_FENCE);
-
-        forEachBlockItem(this::withParent);
     }
 
     public <T extends Item> void utremJarModel(T item) {

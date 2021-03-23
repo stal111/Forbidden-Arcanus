@@ -1,0 +1,120 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"0": "forbidden_arcanus:block/nipa",
+		"particle": "forbidden_arcanus:block/nipa"
+	},
+	"elements": [
+		{
+			"name": "nipa_base_0",
+			"from": [0, 0, 8],
+			"to": [16, 8, 8],
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, 0, 8]},
+			"shade": false,
+			"faces": {
+				"north": {"uv": [0, 8, 16, 16], "texture": "#0"},
+				"south": {"uv": [16, 8, 0, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_base_1",
+			"from": [0, 0, 8],
+			"to": [16, 8, 8],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8, 0, 8]},
+			"shade": false,
+			"faces": {
+				"north": {"uv": [16, 8, 0, 16], "texture": "#0"},
+				"south": {"uv": [0, 8, 16, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_base_2",
+			"from": [8, 0, 0],
+			"to": [8, 8, 16],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 0, 8]},
+			"shade": false,
+			"faces": {
+				"east": {"uv": [16, 8, 0, 16], "texture": "#0"},
+				"west": {"uv": [0, 8, 16, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_base_3",
+			"from": [8, 0, 0],
+			"to": [8, 8, 16],
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 0, 8]},
+			"shade": false,
+			"faces": {
+				"east": {"uv": [0, 8, 16, 16], "texture": "#0"},
+				"west": {"uv": [16, 8, 0, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_up_0",
+			"from": [0, 5.5, -5.5],
+			"to": [16, 5.5, 2.5],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 5.5, 2.5]},
+			"shade": false,
+			"faces": {
+				"up": {"uv": [16, 0, 0, 8], "texture": "#0"},
+				"down": {"uv": [16, 8, 0, 0], "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_up_1",
+			"from": [0, 5.5, 13.5],
+			"to": [16, 5.5, 21.5],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 5.5, 13.5]},
+			"shade": false,
+			"faces": {
+				"up": {"uv": [0, 8, 16, 0], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_up_2",
+			"from": [-5.5, 5.5, 0],
+			"to": [2.5, 5.5, 16],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [2.5, 5.5, 8]},
+			"shade": false,
+			"faces": {
+				"up": {"uv": [16, 0, 0, 8], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [16, 8, 0, 0], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_up_3",
+			"from": [13.5, 5.5, 0],
+			"to": [21.5, 5.5, 16],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [13.5, 5.5, 8]},
+			"shade": false,
+			"faces": {
+				"up": {"uv": [0, 8, 16, 0], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 8], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_middle_0",
+			"from": [8, 0, 0],
+			"to": [8, 10, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
+			"shade": false,
+			"faces": {
+				"east": {"uv": [16, 0, 0, 10], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 10], "texture": "#0"}
+			}
+		},
+		{
+			"name": "nipa_middle_1",
+			"from": [8, 0, 0],
+			"to": [8, 10, 16],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0, 8]},
+			"shade": false,
+			"faces": {
+				"east": {"uv": [16, 0, 0, 10], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 10], "texture": "#0"}
+			}
+		}
+	]
+}
