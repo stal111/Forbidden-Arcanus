@@ -1,0 +1,14 @@
+{
+  "add_loot": "forbidden_arcanus:entities/additions/drowned_additions",
+  "conditions": [
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.002
+    },
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/drowned"
+    }
+  ],
+  "type": "valhelsia_core:append_loot"
+}

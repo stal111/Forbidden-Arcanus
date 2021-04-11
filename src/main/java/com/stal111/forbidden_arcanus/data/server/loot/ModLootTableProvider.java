@@ -1,7 +1,8 @@
-package com.stal111.forbidden_arcanus.data.server;
+package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.loot.*;
@@ -15,7 +16,7 @@ import java.util.function.Supplier;
 
 /**
  * Mod Loot Table Provider
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.ModLootTableProvider
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.loot.ModLootTableProvider
  *
  * @author stal111
  * @version 16.2.0

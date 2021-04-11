@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.data.server;
+package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.NewerModBlocks;
@@ -7,7 +7,7 @@ import net.valhelsia.valhelsia_core.data.ValhelsiaBlockLootTables;
 
 /**
  * Mod Block Loot Tables
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.ModBlockLootTables
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables
  *
  * @author stal111
  * @version 16.2.0

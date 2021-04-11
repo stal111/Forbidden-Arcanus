@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.init.NewerModBlocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -30,7 +31,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
     @Override
     protected void registerModels() {
         //Block Items
-        forEachBlockItem(item -> item.getBlock() instanceof ObsidianSkullBlock, item -> {});
+        getRemainingBlockItems().removeIf(item -> ((BlockItem) item.get()).getBlock() instanceof ObsidianSkullBlock);
+
         takeBlockItem(this::simpleModel,
                 NewerModBlocks.PIXIE_UTREM_JAR,
                 NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
@@ -49,7 +51,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         forEachBlockItem(this::withParent);
 
         //Items
-        getRemainingItems().removeAll(Arrays.asList(NewModItems.LENS_OF_VERITATIS, NewModItems.OBSIDIAN_SKULL_SHIELD));
+        getRemainingItems().removeAll(Arrays.asList(NewModItems.LENS_OF_VERITATIS, NewModItems.OBSIDIAN_SKULL_SHIELD, NewModItems.ZOMBIE_ARM, NewModItems.SHINY_ZOMBIE_ARM));
         forEachItem(this::simpleModel);
     }
 

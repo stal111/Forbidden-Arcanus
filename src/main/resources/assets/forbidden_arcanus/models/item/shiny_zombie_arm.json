@@ -1,0 +1,71 @@
+{
+	"credit": "Blockbench Model - Do you want a textured model? Contact me on Discord: CesarZorak#0808",
+	"textures": {
+		"0": "forbidden_arcanus:item/shiny_zombie_arm",
+		"particle": "forbidden_arcanus:item/shiny_zombie_arm"
+	},
+	"gui_light": "front",
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 3, 0]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 3, 0]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -90, 15],
+			"translation": [0, 4, 1.5],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -90, 15],
+			"translation": [0, 4, 1.5],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"ground": {
+			"rotation": [45, 0, 0],
+			"translation": [0, 3, 0],
+			"scale": [0.45, 0.45, 0.45]
+		},
+		"gui": {
+			"rotation": [0, -180, 45]
+		},
+		"head": {
+			"rotation": [0, 0, 90],
+			"translation": [3, 10, -0.5],
+			"scale": [1.6, 1.6, 1.6]
+		},
+		"fixed": {
+			"rotation": [0, 180, -45],
+			"translation": [0, 0, -1]
+		}
+	},
+	"elements": [
+		{
+			"name": "Arm",
+			"from": [6, 8, 6],
+			"to": [10, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 16, 7]},
+			"faces": {
+				"north": {"uv": [4, 0, 8, 8], "texture": "#0"},
+				"east": {"uv": [0, 0, 4, 8], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 8], "texture": "#0"},
+				"west": {"uv": [0, 0, 4, 8], "texture": "#0"},
+				"up": {"uv": [12, 4, 16, 8], "texture": "#0"},
+				"down": {"uv": [12, 0, 16, 4], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Bone",
+			"from": [7, 0, 7],
+			"to": [9, 8, 9],
+			"faces": {
+				"north": {"uv": [5, 8, 7, 16], "texture": "#0"},
+				"east": {"uv": [1, 8, 3, 16], "texture": "#0"},
+				"south": {"uv": [5, 8, 7, 16], "texture": "#0"},
+				"west": {"uv": [1, 8, 3, 16], "texture": "#0"},
+				"down": {"uv": [8, 0, 10, 2], "texture": "#0"}
+			}
+		}
+	]
+}
