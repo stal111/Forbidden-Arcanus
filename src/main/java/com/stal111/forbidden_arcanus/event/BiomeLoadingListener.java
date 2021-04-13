@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
+import com.stal111.forbidden_arcanus.init.world.ModStructureFeatures;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
@@ -19,6 +20,7 @@ public class BiomeLoadingListener {
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         ResourceLocation name = event.getName();
         Biome.Category category = event.getCategory();
+        Biome.Climate climate = event.getClimate();
 
         if (WorldGenConfig.ARCANE_CRYSTAL_ORE_GENERATE.get()) {
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.ARCANE_CRYSTAL_ORE);
@@ -63,6 +65,14 @@ public class BiomeLoadingListener {
 
         if (WorldGenConfig.PETRIFIED_ROOT_GENERATE.get()) {
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, ModConfiguredFeatures.PETRIFIED_ROOT);
+        }
+
+        if (WorldGenConfig.NIPA_GENERATE.get()) {
+            if (climate.downfall != 0.0F && climate.temperature < 2.0F && category != Biome.Category.BEACH && category != Biome.Category.OCEAN && category != Biome.Category.MUSHROOM) {
+                event.getGeneration().withStructure(ModStructureFeatures.NIPA);
+            } else if (category != Biome.Category.THEEND) {
+                event.getGeneration().withStructure(ModStructureFeatures.NIPA_ALWAYS_FLOATING);
+            }
         }
     }
 }

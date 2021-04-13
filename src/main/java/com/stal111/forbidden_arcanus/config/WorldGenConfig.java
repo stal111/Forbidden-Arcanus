@@ -42,6 +42,10 @@ public class WorldGenConfig {
 	public static ForgeConfigSpec.BooleanValue YELLOW_ORCHID_GENERATE;
 	public static ForgeConfigSpec.BooleanValue PETRIFIED_ROOT_GENERATE;
 
+	public static ForgeConfigSpec.BooleanValue NIPA_GENERATE;
+	public static ForgeConfigSpec.IntValue NIPA_SPACING;
+	public static ForgeConfigSpec.IntValue NIPA_SEPARATION;
+
 	public static void init(ForgeConfigSpec.Builder builder) {
 		builder.push("world_gen");
 
@@ -82,6 +86,10 @@ public class WorldGenConfig {
 		EDELWOOD_TREE_GENERATE = builder.comment("Generate Edelwood Trees? [default: true]").define("edelwood_tree.generate", true);
 		YELLOW_ORCHID_GENERATE = builder.comment("Generate Yellow Orchids? [default: true]").define("yellow_orchid.generate", true);
 		PETRIFIED_ROOT_GENERATE = builder.comment("Generate Petrified Roots? [default: true]").define("petrified_root.generate", true);
+
+		NIPA_GENERATE = builder.comment("Generate Nipas? [default: true]").define("nipa.generate", true);
+		NIPA_SPACING = builder.comment("Nipa Structure Spacing [default: 35]").defineInRange("nipa.spacing", 35, 0, Integer.MAX_VALUE);
+		NIPA_SEPARATION = builder.comment("Nipa Structure Separation [default: 8]").defineInRange("nipa.separation", 8, 0, Integer.MAX_VALUE);
 
 		builder.pop();
 	}
