@@ -24,6 +24,8 @@ import java.util.Random;
 @Mod.EventBusSubscriber
 public class LivingUpdateListener {
 
+    private static ItemStack lens = null;
+
     @SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
@@ -60,9 +62,13 @@ public class LivingUpdateListener {
     private static <T extends IParticleData> void spawnAurealMoteParticle(T type, ServerWorld world, double posX, double posY, double posZ, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
         SSpawnParticlePacket sspawnparticlepacket = new SSpawnParticlePacket(type, false, posX, posY, posZ, (float)xOffset, (float)yOffset, (float)zOffset, (float)speed, particleCount);
 
+        if (lens == null) {
+            lens = new ItemStack(NewModItems.LENS_OF_VERITATIS.get());
+        }
+
         for(int j = 0; j < world.getPlayers().size(); ++j) {
             ServerPlayerEntity player = world.getPlayers().get(j);
-            if (player.inventory.hasItemStack(new ItemStack(NewModItems.LENS_OF_VERITATIS.get()))) {
+            if (player.inventory.hasItemStack(lens)) {
                 world.sendPacketWithinDistance(player, false, posX, posY, posZ, sspawnparticlepacket);
             }
         }
