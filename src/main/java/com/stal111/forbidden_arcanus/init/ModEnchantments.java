@@ -12,6 +12,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Predicate;
+
 public class ModEnchantments {
 
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ForbiddenArcanus.MOD_ID);
@@ -30,7 +32,7 @@ public class ModEnchantments {
 
     public static class EnchantmentBuilder {
 
-        private ModEnchantment enchantment;
+        private final ModEnchantment enchantment;
 
         public EnchantmentBuilder(Enchantment.Rarity rarity, EnchantmentType enchantmentType, EquipmentSlotType... equipmentSlotTypes) {
             this.enchantment = new ModEnchantment(rarity, enchantmentType, equipmentSlotTypes);
@@ -52,8 +54,8 @@ public class ModEnchantments {
             return this;
         }
 
-        public EnchantmentBuilder canApplyTogether(ToBooleanFunction<Enchantment> toBooleanFunction) {
-            enchantment.canApplyTogether = toBooleanFunction;
+        public EnchantmentBuilder canApplyTogether(Predicate<Enchantment> predicate) {
+            enchantment.canApplyTogether = predicate;
             return this;
         }
 
