@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.enchantment.ModEnchantment;
 import com.stal111.forbidden_arcanus.item.EdelwoodBucketItem;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import com.stal111.forbidden_arcanus.util.ToBooleanFunction;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;

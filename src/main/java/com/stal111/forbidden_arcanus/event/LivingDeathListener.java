@@ -41,7 +41,7 @@ public class LivingDeathListener {
                 double chance = aurealEntity ? AurealConfig.AUREAL_ENTITY_DEATH_INCREASEMENT_CHANCE.get(): AurealConfig.ENTITY_DEATH_INCREASEMENT_CHANCE.get();
                 int amount = aurealEntity ? AurealConfig.AUREAL_ENTITY_DEATH_INCREASEMENT_AMOUNT.get() : AurealConfig.ENTITY_DEATH_INCREASEMENT_AMOUNT.get();
 
-                if (new Random().nextDouble() <= chance) {
+                if (entity.getRNG().nextDouble() <= chance) {
                     AurealHelper.increaseCorruption(player, amount);
                     NetworkHandler.sendTo(player, new AurealUpdatePacket(player));
                 }

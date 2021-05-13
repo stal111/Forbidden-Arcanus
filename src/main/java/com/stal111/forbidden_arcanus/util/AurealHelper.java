@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.util;
 
+import com.stal111.forbidden_arcanus.aureal.capability.AurealImpl;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
+import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
 import com.stal111.forbidden_arcanus.config.AurealConfig;
@@ -16,29 +18,37 @@ import net.minecraft.entity.player.PlayerEntity;
  */
 public class AurealHelper {
 
+    public static IAureal getCapability(PlayerEntity player) {
+        if (player.getCapability(AurealProvider.CAPABILITY).resolve().isPresent()) {
+            return player.getCapability(AurealProvider.CAPABILITY).resolve().get();
+        }
+        return new AurealImpl();
+    }
+
     public static int getAureal(PlayerEntity player) {
-        return player.getCapability(AurealProvider.CAPABILITY).resolve().get().getAureal();
+        return getCapability(player).getAureal();
     }
 
     public static void increaseAureal(PlayerEntity player, int amount) {
-        player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> aureal.increaseAureal(amount));
+        getCapability(player).increaseAureal(amount);
     }
 
     public static void increaseCorruption(PlayerEntity player, int amount) {
-        int finalAmount = amount;
-        player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> aureal.increaseCorruption(finalAmount));
-        int corruption = player.getCapability(AurealProvider.CAPABILITY).resolve().get().getCorruption();
+        for (int i = 0; i < amount; i++) {
+            getCapability(player).increaseCorruption(1);
 
-        if (!AurealConfig.DISABLE_CONSEQUENCES.get()) {
-            while (amount > 0) {
-                amount--;
-                if (player.getRNG().nextInt(100) <= Math.toIntExact(Math.round(1.5 + (corruption / 1.75)))) {
-                    IConsequence consequence = Consequences.getRandomConsequence(player.getRNG()).createConsequence();
-                    consequence.tick(player);
+            int corruption = getCapability(player).getCorruption();
 
-                    if (consequence instanceof ISavedData) {
-                        player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> aureal.addActiveConsequence(consequence));
-                    }
+            if (corruption <= 10 || AurealConfig.DISABLE_CONSEQUENCES.get()) {
+                continue;
+            }
+
+            if (player.getRNG().nextInt(100) <= Math.toIntExact(Math.round(3 + (corruption / 1.85)))) {
+                IConsequence consequence = Consequences.getRandomConsequence(player.getRNG()).createConsequence();
+                consequence.tick(player);
+
+                if (consequence instanceof ISavedData) {
+                    getCapability(player).addActiveConsequence(consequence);
                 }
             }
         }
