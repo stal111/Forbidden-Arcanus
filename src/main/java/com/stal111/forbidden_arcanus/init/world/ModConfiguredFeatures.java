@@ -5,8 +5,11 @@ import com.stal111.forbidden_arcanus.block.EdelwoodLogBlock;
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.NewerModBlocks;
+import com.stal111.forbidden_arcanus.world.feature.config.BigFungyssFeatureConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.HugeMushroomBlock;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.Heightmap;
@@ -43,6 +46,11 @@ public class ModConfiguredFeatures {
 
     public static final ConfiguredFeature<?, ?> CHERRYWOOD_TREES = register("trees_cherrywood", CHERRYWOOD.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig((int) 0.3F, 0.1F, 1))));
     public static final ConfiguredFeature<?, ?> MYSTERYWOOD_TREES = register("trees_mysterywood", MYSTERYWOOD.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig((int) 0.8F, 0.1F, 1))));
+
+    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_0 = register("big_fungyss_0", ModFeatures.BIG_FUNGYSS.get().withConfiguration(new BigFungyssFeatureConfig(new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_BLOCK.get().getDefaultState().with(HugeMushroomBlock.DOWN, false)), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_STEM.get().getDefaultState()), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_HYPHAE.get().getDefaultState()), 0)));
+    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_1 = register("big_fungyss_1", ModFeatures.BIG_FUNGYSS.get().withConfiguration(new BigFungyssFeatureConfig(new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_BLOCK.get().getDefaultState().with(HugeMushroomBlock.DOWN, false)), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_STEM.get().getDefaultState()), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_HYPHAE.get().getDefaultState()), 1)));
+    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_0 = register("mega_fungyss_0", ModFeatures.MEGA_FUNGYSS.get().withConfiguration(new BigFungyssFeatureConfig(new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_BLOCK.get().getDefaultState().with(HugeMushroomBlock.DOWN, false)), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_STEM.get().getDefaultState()), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_HYPHAE.get().getDefaultState()), 0)));
+    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get().withConfiguration(new BigFungyssFeatureConfig(new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_BLOCK.get().getDefaultState().with(HugeMushroomBlock.DOWN, false)), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_STEM.get().getDefaultState()), new SimpleBlockStateProvider(NewerModBlocks.FUNGYSS_HYPHAE.get().getDefaultState()), 1)));
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, configuredFeature);
