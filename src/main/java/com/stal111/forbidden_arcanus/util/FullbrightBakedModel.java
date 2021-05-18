@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
@@ -19,7 +20,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
     private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
         @Override
-        public List<BakedQuad> load(CacheKey key) {
+        public List<BakedQuad> load(@Nonnull CacheKey key) {
             return transformQuads(key.base.getQuads(key.state, key.side, key.random, EmptyModelData.INSTANCE), key.textures);
         }
     });
@@ -47,8 +48,9 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         this.state = state;
     }
 
+    @Nonnull
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand, IModelData data) {
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
         if (state == null) {
             return base.getQuads(null, side, rand, data);
         }
@@ -80,12 +82,13 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
     private static BakedQuad transformQuad(BakedQuad quad) {
         int[] vertexData = quad.getVertexData().clone();
+        int step = vertexData.length / 4;
 
         // Set lighting to fullbright on all vertices
         vertexData[6] = 0x00F000F0;
-        vertexData[6 + 8] = 0x00F000F0;
-        vertexData[6 + 8 + 8] = 0x00F000F0;
-        vertexData[6 + 8 + 8 + 8] = 0x00F000F0;
+        vertexData[6 + step] = 0x00F000F0;
+        vertexData[6 + 2 * step] = 0x00F000F0;
+        vertexData[6 + 3 * step] = 0x00F000F0;
 
         return new BakedQuad(
                 vertexData,
