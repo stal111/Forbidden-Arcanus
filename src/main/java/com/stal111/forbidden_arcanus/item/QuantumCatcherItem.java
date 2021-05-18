@@ -15,11 +15,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
@@ -37,22 +38,21 @@ public class QuantumCatcherItem extends Item {
         super(properties);
     }
 
+    @Nonnull
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        PlayerEntity player = context.getPlayer();
-        ItemStack stack = player.getHeldItem(context.getHand());
+        ItemStack stack = context.getItem();
         World world = context.getWorld();
 
-        if (getEntity(stack, world) != null) {
-            Entity entity = getEntity(stack, world);
+        if (this.getEntity(stack, world) != null) {
+            Entity entity = this.getEntity(stack, world);
 
             if (!world.isRemote() && entity != null) {
-                entity.setPositionAndRotation(context.getPos().getX(), context.getPos().getY() + 1, context.getPos().getZ(), 0, 0);
+                entity.setPositionAndRotation(context.getPos().getX() + 0.5D, context.getPos().getY() + 1, context.getPos().getZ() + 0.5D, 0, 0);
 
                 world.addEntity(entity);
             }
-
-            clearEntity(stack);
+            this.clearEntity(stack);
 
             return ActionResultType.func_233537_a_(world.isRemote());
         }
@@ -61,38 +61,44 @@ public class QuantumCatcherItem extends Item {
     }
 
     public ActionResultType onEntityInteract(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
-        World world = player.world;
+        World world = player.getEntityWorld();
 
-        if (world.isRemote() || target instanceof PlayerEntity || ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED.contains(target.getType())) {
-            return ActionResultType.FAIL;
+        if (target instanceof PlayerEntity || ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED.contains(target.getType())) {
+            return ActionResultType.PASS;
         }
 
-        if (getEntity(stack, world) == null && target.isAlive()) {
-            ItemStackUtils.shrinkStack(player, stack);
+        if (this.getEntity(stack, world) == null && target.isAlive()) {
+            if (stack.getCount() != 1) {
+                ItemStackUtils.shrinkStack(player, stack);
 
-            ItemStack newStack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
-            setEntity(target, newStack);
+                ItemStack newStack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
+                this.setEntity(target, newStack);
+
+                if (!player.addItemStackToInventory(newStack)) {
+                    player.dropItem(newStack, false);
+                }
+            } else {
+                this.setEntity(target, stack);
+            }
+
             target.remove(true);
 
-            player.addItemStackToInventory(newStack);
-
-
-            return ActionResultType.SUCCESS;
+            return ActionResultType.func_233537_a_(world.isRemote());
         }
 
         return super.itemInteractionForEntity(stack, player, target, hand);
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         if (world != null && getEntity(stack, world) != null)  {
-            Entity entity = getEntity(stack, world);
+            Entity entity = this.getEntity(stack, world);
 
             if (entity != null) {
                 IFormattableTextComponent textComponent = new TranslationTextComponent("tooltip.forbidden_arcanus.entity").appendString(": ").append(new StringTextComponent(Objects.requireNonNull(entity.getType().getRegistryName()).toString()));
 
-                if (getEntityName(stack) != null)  {
-                    textComponent.appendString(" (").append(Objects.requireNonNull(getEntityName(stack))).appendString(")");
+                if (this.getEntityName(stack) != null)  {
+                    textComponent.appendString(" (").append(Objects.requireNonNull(this.getEntityName(stack))).appendString(")");
                 }
 
                 textComponent.mergeStyle(TextFormatting.GRAY);
@@ -107,6 +113,9 @@ public class QuantumCatcherItem extends Item {
         entity.removePassengers();
 
         CompoundNBT entityNBT = new CompoundNBT();
+
+        if (entity.getType().getRegistryName() == null) return;
+
         entityNBT.putString("entity", entity.getType().getRegistryName().toString());
         if (entity.hasCustomName()) {
             entityNBT.putString("name", Objects.requireNonNull(entity.getCustomName()).getString());
@@ -123,13 +132,13 @@ public class QuantumCatcherItem extends Item {
         if (itemNBT == null) return null;
 
         CompoundNBT entityNBT = itemNBT.getCompound("entity");
-        EntityType<?> entityType = Registry.ENTITY_TYPE.getOptional(new ResourceLocation(entityNBT.getString("entity"))).orElse(null);
+        EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityNBT.getString("entity")));
 
         if (entityType == null) return null;
 
         Entity entity = entityType.create(world);
 
-        if (world instanceof ServerWorld) {
+        if (world instanceof ServerWorld && entity != null) {
             entity.read(entityNBT);
         }
 
