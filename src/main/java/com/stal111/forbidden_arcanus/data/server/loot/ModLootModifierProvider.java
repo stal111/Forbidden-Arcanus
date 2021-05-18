@@ -1,9 +1,13 @@
 package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.loot.conditions.EntityHasProperty;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.conditions.RandomChance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
@@ -40,6 +44,13 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         RandomChance.builder(0.002F).build(),
                         LootTableIdCondition.builder(new ResourceLocation("entities/drowned")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/drowned_additions"))
+        );
+        add("spawner_additions",
+                ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new ILootCondition[] {
+                        MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.exactly(1)))).build(),
+                        LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"))
         );
     }
 }

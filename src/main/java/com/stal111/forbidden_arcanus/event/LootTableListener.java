@@ -52,9 +52,6 @@ public class LootTableListener {
             case "minecraft:entities/ender_dragon":
                 event.getTable().addPool(getInjectPool("ender_dragon"));
                 break;
-            case "minecraft:blocks/spawner":
-                event.getTable().addPool(getInjectPool("spawner"));
-                break;
             case "minecraft:chests/simple_dungeon":
                 event.getTable().addPool(getInjectPool("simple_dungeon"));
                 break;
