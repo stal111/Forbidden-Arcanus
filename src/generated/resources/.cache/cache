@@ -116,6 +116,7 @@ c417e1ed3cf20664fedfcdf3e938e85ef35cb037 data/forge/loot_modifiers/global_loot_m
 91e55eda760dcd3afa7c81ef3bbe60f138cd52c4 data/forge/tags/items/fence_gates/wooden.json
 04cc753e3c5a9be59164eb8ed6b297374a5c9353 data/forge/tags/items/fences/wooden.json
 e3f3faf824b8a5f26fc233c656ff20c093244952 data/forge/tags/items/heads.json
+d6af0858dbc116bcfcc4a7044bf1b45bea94ea2c data/minecraft/tags/blocks/climbable.json
 91e55eda760dcd3afa7c81ef3bbe60f138cd52c4 data/minecraft/tags/blocks/fence_gates.json
 c22ce4d932f0dc3b5cfb6ba5e305ce1d242753b0 data/minecraft/tags/blocks/logs.json
 53815c9e36deb4722b5a10bc774b52d14878d895 data/minecraft/tags/blocks/planks.json
