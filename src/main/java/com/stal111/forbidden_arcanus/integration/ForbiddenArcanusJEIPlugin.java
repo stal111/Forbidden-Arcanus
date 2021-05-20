@@ -7,6 +7,8 @@ import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.Collections;
+
 @JeiPlugin
 public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
@@ -18,5 +20,6 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(ApplyIndestructibleEnchantmentMaker.getRecipes(), VanillaRecipeCategoryUid.SMITHING);
+        registration.addRecipes(Collections.singletonList(AurealBottleRecipeMaker.createAurealBottleRecipe()), VanillaRecipeCategoryUid.CRAFTING);
     }
 }
