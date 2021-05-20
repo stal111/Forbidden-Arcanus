@@ -4,10 +4,12 @@ import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -15,6 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -30,7 +33,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.QuantumCatcherItem
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  */
 public class QuantumCatcherItem extends Item {
 
@@ -42,16 +45,29 @@ public class QuantumCatcherItem extends Item {
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         ItemStack stack = context.getItem();
+        BlockPos pos = context.getPos();
         World world = context.getWorld();
 
         if (this.getEntity(stack, world) != null) {
             Entity entity = this.getEntity(stack, world);
 
-            if (!world.isRemote() && entity != null) {
-                entity.setPositionAndRotation(context.getPos().getX() + 0.5D, context.getPos().getY() + 1, context.getPos().getZ() + 0.5D, 0, 0);
+            if (!world.getBlockState(pos).isReplaceable(new BlockItemUseContext(context))) {
+                pos = pos.offset(context.getFace());
+            }
 
+            if (entity == null || !world.getBlockState(pos).isReplaceable(new BlockItemUseContext(context))) {
+                return ActionResultType.FAIL;
+            }
+
+            if (!world.isRemote()) {
+                entity.setPosition(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+
+                if (context.getPlayer() != null) {
+                    entity.lookAt(EntityAnchorArgument.Type.EYES, context.getPlayer().getPositionVec());
+                }
                 world.addEntity(entity);
             }
+
             this.clearEntity(stack);
 
             return ActionResultType.func_233537_a_(world.isRemote());
