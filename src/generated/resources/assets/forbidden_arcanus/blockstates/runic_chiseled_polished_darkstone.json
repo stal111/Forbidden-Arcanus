@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "activated=false": {
+      "model": "forbidden_arcanus:block/runic_chiseled_polished_darkstone"
+    },
+    "activated=true": {
+      "model": "forbidden_arcanus:block/runic_chiseled_polished_darkstone_activated"
+    }
+  }
+}

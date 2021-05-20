@@ -58,7 +58,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
         this.setPathPriority(PathNodeType.FENCE, -1.0F);
     }
 
-    protected PixieEntity(World world) {
+    public PixieEntity(World world) {
         super((EntityType<? extends TameableEntity>) ModEntities.PIXIE.get(), world);
         this.moveController = new FlyingMovementController(this, 15, true);
         this.setPathPriority(PathNodeType.WATER, -1.0F);

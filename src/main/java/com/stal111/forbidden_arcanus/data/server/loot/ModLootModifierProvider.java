@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
 import net.valhelsia.valhelsia_core.init.ValhelsiaLootModifiers;
-import net.valhelsia.valhelsia_core.util.AppendLootTableModifier;
+import net.valhelsia.valhelsia_core.loot.modifiers.AppendLootTableModifier;
 
 /**
  * Mod Loot Modifiers

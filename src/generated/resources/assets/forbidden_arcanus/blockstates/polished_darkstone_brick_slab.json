@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "forbidden_arcanus:block/polished_darkstone_brick_slab_top"
+    },
+    "type=bottom": {
+      "model": "forbidden_arcanus:block/polished_darkstone_brick_slab"
+    },
+    "type=double": {
+      "model": "forbidden_arcanus:block/polished_darkstone_bricks"
+    }
+  }
+}

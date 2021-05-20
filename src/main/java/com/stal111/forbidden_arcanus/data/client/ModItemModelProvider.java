@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
-import com.stal111.forbidden_arcanus.init.NewerModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -34,19 +34,26 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         getRemainingBlockItems().removeIf(item -> ((BlockItem) item.get()).getBlock() instanceof ObsidianSkullBlock);
 
         takeBlockItem(this::simpleModel,
-                NewerModBlocks.PIXIE_UTREM_JAR,
-                NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
-                NewerModBlocks.NIPA
+                NewModBlocks.PIXIE_UTREM_JAR,
+                NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
+                NewModBlocks.NIPA
         );
         takeBlockItem(this::simpleModelBlockTexture,
-                NewerModBlocks.FUNGYSS
+                NewModBlocks.FUNGYSS
         );
         takeBlockItem(this::withParentInventory,
-                NewerModBlocks.FUNGYSS_BLOCK,
-                NewerModBlocks.FUNGYSS_BUTTON,
-                NewerModBlocks.FUNGYSS_FENCE
+                NewModBlocks.FUNGYSS_BLOCK,
+                NewModBlocks.FUNGYSS_BUTTON,
+                NewModBlocks.FUNGYSS_FENCE,
+                NewModBlocks.DARKSTONE_WALL,
+                NewModBlocks.POLISHED_DARKSTONE_WALL,
+                NewModBlocks.POLISHED_DARKSTONE_BUTTON,
+                NewModBlocks.POLISHED_DARKSTONE_BRICK_WALL,
+                NewModBlocks.ARCANE_POLISHED_DARKSTONE_WALL
         );
-        takeBlockItem(this::utremJarModel, NewerModBlocks.UTREM_JAR);
+        takeBlockItem(this::utremJarModel, NewModBlocks.UTREM_JAR);
+        takeBlockItem(item -> withParent(item, "arcane_polished_darkstone_pillar_single"), NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
+        takeBlockItem(item -> simpleModelBlockTexture(item, "arcane_glass"), NewModBlocks.ARCANE_GLASS_PANE);
 
         forEachBlockItem(this::withParent);
 

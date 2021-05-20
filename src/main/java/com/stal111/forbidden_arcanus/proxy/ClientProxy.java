@@ -67,8 +67,6 @@ public class ClientProxy implements IProxy {
             }
         }
 
-        NewModBlocks.BLOCK_RENDER_TYPE_MAP.forEach((block, renderType) -> RenderTypeLookup.setRenderLayer(block, renderType.getRenderType()));
-
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN.get(), SignTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_HOLE.get(), BlackHoleTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.OBSIDIAN_SKULL.get(), ObsidianSkullTileEntityRenderer::new);

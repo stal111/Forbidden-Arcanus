@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.NewerModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.item.PixieItem;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.Block;
@@ -96,9 +96,9 @@ public class UtremJarBlock extends Block implements IWaterLoggable {
                 BlockState newState = null;
 
                 if (stack.getItem() instanceof PixieItem) {
-                    newState = NewerModBlocks.PIXIE_UTREM_JAR.get().getDefaultState();
+                    newState = NewModBlocks.PIXIE_UTREM_JAR.get().getDefaultState();
                 } else if (stack.getItem() == ModItems.CORRUPTED_PIXIE.get()) {
-                    newState = NewerModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().getDefaultState();
+                    newState = NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().getDefaultState();
                 }
 
                 if (newState != null) {

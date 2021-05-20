@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "textures": {
+    "pane": "forbidden_arcanus:block/arcane_glass",
+    "edge": "forbidden_arcanus:block/arcane_glass_pane_top"
+  }
+}

@@ -1,8 +1,16 @@
 package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.init.NewerModBlocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.RandomValueRange;
+import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.functions.CopyNbt;
+import net.minecraft.loot.functions.SetCount;
 import net.valhelsia.valhelsia_core.data.ValhelsiaBlockLootTables;
 
 /**
@@ -10,7 +18,7 @@ import net.valhelsia.valhelsia_core.data.ValhelsiaBlockLootTables;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-02-12
  */
 public class ModBlockLootTables extends ValhelsiaBlockLootTables {
@@ -23,7 +31,11 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
     public void addTables() {
         take(block -> registerLootTable(block, block1 -> droppingWithFunction(block1, builder -> builder
                 .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Fluid", "BlockEntityTag.Fluid")))),
-                NewerModBlocks.UTREM_JAR);
+                NewModBlocks.UTREM_JAR);
+        forEach(block -> block instanceof SlabBlock, block -> registerLootTable(block, ValhelsiaBlockLootTables::droppingSlab));
+        take(this::registerSilkTouch, NewModBlocks.ARCANE_GLASS, NewModBlocks.ARCANE_GLASS_PANE);
+        take(block -> registerLootTable(block, droppingWithSilkTouch(block, ItemLootEntry.builder(ModItems.ARCANE_GOLD_NUGGET.get()).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 4.0F))).acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().item(ModItems.ARCANE_GOLDEN_PICKAXE.get()))).alternatively(ItemLootEntry.builder(block)))), NewModBlocks.ARCANE_GILDED_DARKSTONE);
+        take(block -> registerLootTable(block, LootTable.builder()), NewModBlocks.BLACK_HOLE);
 
         forEach(this::registerDropSelfLootTable);
     }
