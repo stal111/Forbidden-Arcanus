@@ -5,7 +5,19 @@
         "quantum_catcher": "forbidden_arcanus:item/quantum_catcher",
         "quantum_catcher_inner": "forbidden_arcanus:item/quantum_catcher_inner"
     },
-    "parent": "block/cube_all",
+    "parent": "block/block",
+    "display": {
+        "firstperson_righthand": {
+            "rotation": [ 0, 45, 0 ],
+            "translation": [ 0, 1.0, 0 ],
+            "scale": [ 0.40, 0.40, 0.40 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 225, 0 ],
+            "translation": [ 0, 1.0, 0 ],
+            "scale": [ 0.40, 0.40, 0.40 ]
+        }
+    },
     "elements": [
         {
             "name": "QuantumCatcher",
@@ -34,4 +46,4 @@
             }
         }
     ]
-}
+},
