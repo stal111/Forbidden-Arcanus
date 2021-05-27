@@ -70,7 +70,7 @@ public class BiomeLoadingListener {
         if (WorldGenConfig.NIPA_GENERATE.get()) {
             if (climate.downfall != 0.0F && climate.temperature < 2.0F && category != Biome.Category.BEACH && category != Biome.Category.OCEAN && category != Biome.Category.MUSHROOM) {
                 event.getGeneration().withStructure(ModStructureFeatures.NIPA);
-            } else if (category != Biome.Category.THEEND) {
+            } else if (category != Biome.Category.THEEND && category != Biome.Category.NETHER) {
                 event.getGeneration().withStructure(ModStructureFeatures.NIPA_ALWAYS_FLOATING);
             }
         }
