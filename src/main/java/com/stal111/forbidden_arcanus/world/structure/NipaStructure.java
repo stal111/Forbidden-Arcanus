@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.world.structure;
 
 import com.mojang.serialization.Codec;
+import com.stal111.forbidden_arcanus.init.world.ModStructures;
 import com.stal111.forbidden_arcanus.world.structure.config.NipaConfig;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +13,10 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
+import net.valhelsia.valhelsia_core.world.SimpleValhelsiaStructure;
+
+import javax.annotation.Nonnull;
 
 /**
  * Nipa Structure
@@ -21,17 +26,24 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
  * @version 1.0
  * @since 2021-04-07
  */
-public class NipaStructure extends Structure<NipaConfig> {
+public class NipaStructure extends SimpleValhelsiaStructure<NipaConfig> {
 
     public NipaStructure(Codec<NipaConfig> codec) {
-        super(codec);
+        super(codec, "nipa");
     }
 
+    @Nonnull
     @Override
     public GenerationStage.Decoration getDecorationStage() {
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 
+    @Override
+    public StructureSeparationSettings getSeparationSettings() {
+        return ModStructures.SeparationSettings.NIPA;
+    }
+
+    @Nonnull
     @Override
     public IStartFactory<NipaConfig> getStartFactory() {
         return NipaStructure.Start::new;
@@ -44,7 +56,7 @@ public class NipaStructure extends Structure<NipaConfig> {
         }
 
         @Override
-        public void func_230364_a_(DynamicRegistries registries, ChunkGenerator generator, TemplateManager manager, int chunkX, int chunkZ, Biome biome, NipaConfig config) {
+        public void func_230364_a_(@Nonnull DynamicRegistries registries, @Nonnull ChunkGenerator generator, @Nonnull TemplateManager manager, int chunkX, int chunkZ, @Nonnull Biome biome, NipaConfig config) {
             int x = (chunkX << 4) + 8;
             int z = (chunkZ << 4) + 8;
             BlockPos pos = new BlockPos(x, 90, z);

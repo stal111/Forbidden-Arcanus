@@ -128,6 +128,7 @@ public class ForbiddenArcanus {
 	private void setup(final FMLCommonSetupEvent event) {
 		DeferredWorkQueue.runLater(() -> {
 			ModFlammables.registerFlammables();
+			ModStructures.setupStructures();
 		});
 
 		proxy.init();
