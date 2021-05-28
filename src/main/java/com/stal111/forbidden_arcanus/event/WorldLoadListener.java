@@ -35,7 +35,7 @@ public class WorldLoadListener {
             }
 
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            ModStructures.MOD_STRUCTURES.forEach(structure -> tempMap.put(structure.getStructure(), DimensionStructuresSettings.field_236191_b_.get(structure)));
+            ModStructures.MOD_STRUCTURES.forEach(structure -> tempMap.putIfAbsent(structure.getStructure(), DimensionStructuresSettings.field_236191_b_.get(structure.getStructure())));
 
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
