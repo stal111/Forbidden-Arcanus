@@ -36,7 +36,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         takeBlockItem(this::simpleModel,
                 NewModBlocks.PIXIE_UTREM_JAR,
                 NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
-                NewModBlocks.NIPA
+                NewModBlocks.NIPA,
+                NewModBlocks.FUNGYSS_DOOR
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 NewModBlocks.FUNGYSS
@@ -53,6 +54,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         );
         takeBlockItem(this::utremJarModel, NewModBlocks.UTREM_JAR);
         takeBlockItem(item -> withParent(item, "arcane_polished_darkstone_pillar_single"), NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
+        takeBlockItem(item -> withParent(item, "fungyss_trapdoor_bottom"), NewModBlocks.FUNGYSS_TRAPDOOR);
         takeBlockItem(item -> simpleModelBlockTexture(item, "arcane_glass"), NewModBlocks.ARCANE_GLASS_PANE);
 
         forEachBlockItem(this::withParent);

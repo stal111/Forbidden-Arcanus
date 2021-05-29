@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootTable;
@@ -33,6 +34,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
                 .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Fluid", "BlockEntityTag.Fluid")))),
                 NewModBlocks.UTREM_JAR);
         forEach(block -> block instanceof SlabBlock, block -> registerLootTable(block, ValhelsiaBlockLootTables::droppingSlab));
+        forEach(block -> block instanceof DoorBlock, ValhelsiaBlockLootTables::registerDoor);
         take(this::registerSilkTouch, NewModBlocks.ARCANE_GLASS, NewModBlocks.ARCANE_GLASS_PANE);
         take(block -> registerLootTable(block, droppingWithSilkTouch(block, ItemLootEntry.builder(ModItems.ARCANE_GOLD_NUGGET.get()).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 4.0F))).acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().item(ModItems.ARCANE_GOLDEN_PICKAXE.get()))).alternatively(ItemLootEntry.builder(block)))), NewModBlocks.ARCANE_GILDED_DARKSTONE);
         take(block -> registerLootTable(block, LootTable.builder()), NewModBlocks.BLACK_HOLE);

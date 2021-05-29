@@ -48,6 +48,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> stairsBlock((StairsBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_STAIRS);
         take(block -> pressurePlateBlock(block, fungyssPlanks), NewModBlocks.FUNGYSS_PRESSURE_PLATE);
         take(block -> buttonBlock((AbstractButtonBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_BUTTON);
+        take(block -> trapdoorBlock((TrapDoorBlock) block, modLoc("block/fungyss_trapdoor"), true), NewModBlocks.FUNGYSS_TRAPDOOR);
+        take(block -> doorBlock((DoorBlock) block, modLoc("block/fungyss_door_bottom"), modLoc("block/fungyss_door_top")), NewModBlocks.FUNGYSS_DOOR);
+
         take(block -> fenceBlock((FenceBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE);
         take(block -> fenceGateBlock((FenceGateBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE_GATE);
 
