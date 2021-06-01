@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.valhelsia.valhelsia_core.network.UpdateCounterPacket;
 
 public class NetworkHandler {
 
@@ -22,18 +23,18 @@ public class NetworkHandler {
 
         INSTANCE.registerMessage(
                 nextID(),
-                FlightTimeLeftPacket.class,
-                FlightTimeLeftPacket::encode,
-                FlightTimeLeftPacket::decode,
-                FlightTimeLeftPacket.Handler::handle
-        );
-
-        INSTANCE.registerMessage(
-                nextID(),
                 AurealUpdatePacket.class,
                 AurealUpdatePacket::encode,
                 AurealUpdatePacket::decode,
                 AurealUpdatePacket::consume
+        );
+
+        INSTANCE.registerMessage(
+                nextID(),
+                UpdateCounterPacket.class,
+                UpdateCounterPacket::encode,
+                UpdateCounterPacket::decode,
+                UpdateCounterPacket::consume
         );
     }
 

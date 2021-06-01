@@ -1,15 +1,18 @@
 package com.stal111.forbidden_arcanus.event;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
-import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
+import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import net.valhelsia.valhelsia_core.capability.counter.CounterProvider;
+import net.valhelsia.valhelsia_core.capability.counter.ICounterCapability;
+import net.valhelsia.valhelsia_core.network.UpdateCounterPacket;
 
 @Mod.EventBusSubscriber
 public class PlayerCloneListener {
@@ -30,13 +33,9 @@ public class PlayerCloneListener {
                 }
             });
 
-            AtomicInteger i = new AtomicInteger();
+            ICounterCapability counterCapability = event.getOriginal().getCapability(CounterProvider.CAPABILITY).resolve().get();
 
-            event.getOriginal().getCapability(FlightTimeLeftCapability.FLIGHT_TIME_LEFT_CAPABILITY).ifPresent(iFlightTimeLeft ->
-                    i.set(iFlightTimeLeft.getFlightTimeLeft()));
-
-            player.getCapability(FlightTimeLeftCapability.FLIGHT_TIME_LEFT_CAPABILITY).ifPresent(iFlightTimeLeft ->
-                    iFlightTimeLeft.setFlightTimeLeft(i.get()));
+            player.getCapability(CounterProvider.CAPABILITY).ifPresent(iCounterCapability -> iCounterCapability.setCounters(counterCapability.getCounters()));
         }
     }
 }

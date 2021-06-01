@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.event;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
@@ -9,22 +10,23 @@ import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
-import com.stal111.forbidden_arcanus.network.FlightTimeLeftPacket;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.valhelsia.valhelsia_core.capability.counter.CounterProvider;
+import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.network.UpdateCounterPacket;
 
 import java.util.List;
 import java.util.Objects;
@@ -39,23 +41,48 @@ public class TickListener {
         World world = player.getEntityWorld();
 
         if (event.phase == TickEvent.Phase.START) {
-            player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
-                if (!AurealConfig.NATURAL_CORRUPTION_DECREASEMENT.get()) {
-                    return;
-                }
-                if (aureal.getCorruption() >= 1) {
-                    aureal.setCorruptionTimer(aureal.getCorruptionTimer() + 1);
+            if (!world.isRemote()) {
+                player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
+                    if (!AurealConfig.NATURAL_CORRUPTION_DECREASEMENT.get()) {
+                        return;
+                    }
+                    if (aureal.getCorruption() >= 1) {
+                        aureal.setCorruptionTimer(aureal.getCorruptionTimer() + 1);
 
-                    if (aureal.getCorruptionTimer() >= AurealConfig.NATURAL_CORRUPTION_DECREASEMENT_TIME.get()) {
-                        aureal.setCorruption(aureal.getCorruption() - 1);
+                        if (aureal.getCorruptionTimer() >= AurealConfig.NATURAL_CORRUPTION_DECREASEMENT_TIME.get()) {
+                            aureal.setCorruption(aureal.getCorruption() - 1);
+                            aureal.setCorruptionTimer(0);
+                        }
+                    } else if (aureal.getCorruptionTimer() != 0) {
                         aureal.setCorruptionTimer(0);
                     }
-                } else if (aureal.getCorruptionTimer() != 0) {
-                    aureal.setCorruptionTimer(0);
-                }
 
-                aureal.updateActiveConsequences(player);
-            });
+                    aureal.updateActiveConsequences(player);
+                });
+
+                player.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
+                    SimpleCounter counter = counterCapability.getCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"));
+
+                    if (counter.isActive()) {
+                        counter.decrease();
+
+                        if (counter.getValue() <= 0 && !player.abilities.isCreativeMode && !player.isSpectator()) {
+                            player.abilities.allowFlying = false;
+                            player.abilities.isFlying = false;
+
+                            player.sendPlayerAbilities();
+
+                            counter.setActive(false);
+                        } else if (!player.abilities.allowFlying) {
+                            player.abilities.allowFlying = true;
+
+                            player.sendPlayerAbilities();
+                        }
+
+                        NetworkHandler.sendTo(player, new UpdateCounterPacket(counter));
+                    }
+                });
+            }
 
             if (player.isPotionActive(Effects.FIRE_RESISTANCE)) {
                 EffectInstance instance = player.getActivePotionEffect(Effects.FIRE_RESISTANCE);
@@ -106,7 +133,7 @@ public class TickListener {
                                 iFlightTimeLeft.setFlightTimeLeft(iFlightTimeLeft.getFlightTimeLeft() - 1);
                             }
 
-                            NetworkHandler.INSTANCE.sendTo(new FlightTimeLeftPacket(iFlightTimeLeft.getFlightTimeLeft()), ((ServerPlayerEntity) player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                            //  NetworkHandler.INSTANCE.sendTo(new UpdateTimerPacket(iFlightTimeLeft.getFlightTimeLeft()), ((ServerPlayerEntity) player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
                         }
                     });
 
@@ -118,8 +145,8 @@ public class TickListener {
 
                     for (ItemEntity itemEntity1 : list) {
                         if (itemEntity1.getItem().getItem() == ModItems.CORRUPTI_DUST.get() && world.getBlockState(new BlockPos(itemEntity.getPosX(), itemEntity.getPosY(), itemEntity.getPosZ())).isAir()) {
-                            itemEntity.getItem().setCount(itemEntity.getItem().getCount() -1);
-                            itemEntity1.getItem().setCount(itemEntity1.getItem().getCount() -1);
+                            itemEntity.getItem().setCount(itemEntity.getItem().getCount() - 1);
+                            itemEntity1.getItem().setCount(itemEntity1.getItem().getCount() - 1);
 
                             world.setBlockState(new BlockPos(itemEntity.getPosX(), itemEntity.getPosY(), itemEntity.getPosZ()), NewModBlocks.BLACK_HOLE.get().getDefaultState());
                         }

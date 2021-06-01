@@ -10,9 +10,6 @@ import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
-import com.stal111.forbidden_arcanus.capability.item.timer.ITimer;
-import com.stal111.forbidden_arcanus.capability.item.timer.TimerImpl;
-import com.stal111.forbidden_arcanus.capability.item.timer.TimerStorage;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
@@ -43,6 +40,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -61,6 +59,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.helper.CounterHelper;
 import net.valhelsia.valhelsia_core.registry.RegistryManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -151,7 +151,8 @@ public class ForbiddenArcanus {
 		EntitySpawningBlockingCapability.register();
 
 		CapabilityManager.INSTANCE.register(IAureal.class, new AurealStorage(), AurealImpl::new);
-		CapabilityManager.INSTANCE.register(ITimer.class, new TimerStorage(), TimerImpl::new);
+
+		CounterHelper.addCounter(new SimpleCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"), 0, false));
 
 		Consequences.registerConsequences();
 
