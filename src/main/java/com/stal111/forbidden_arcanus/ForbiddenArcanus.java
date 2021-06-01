@@ -9,7 +9,6 @@ import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
-import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
@@ -146,7 +145,6 @@ public class ForbiddenArcanus {
 
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
-		FlightTimeLeftCapability.register();
 		EternalStellaActiveCapability.register();
 		EntitySpawningBlockingCapability.register();
 

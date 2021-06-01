@@ -1,18 +1,14 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
-import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.valhelsia.valhelsia_core.capability.counter.CounterProvider;
 import net.valhelsia.valhelsia_core.capability.counter.ICounterCapability;
-import net.valhelsia.valhelsia_core.network.UpdateCounterPacket;
 
 @Mod.EventBusSubscriber
 public class PlayerCloneListener {

@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
-import com.stal111.forbidden_arcanus.capability.flightTimeLeft.FlightTimeLeftCapability;
 import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
@@ -115,28 +114,6 @@ public class TickListener {
         }
 
         if (!player.world.isRemote()) {
-            player.getCapability(FlightTimeLeftCapability.FLIGHT_TIME_LEFT_CAPABILITY)
-                    .ifPresent(iFlightTimeLeft -> {
-                        if (iFlightTimeLeft.getFlightTimeLeft() != 0) {
-                            if (!player.abilities.allowFlying && iFlightTimeLeft.getFlightTimeLeft() > 0) {
-                                player.abilities.allowFlying = true;
-                            }
-
-                            if (iFlightTimeLeft.getFlightTimeLeft() <= 2 && iFlightTimeLeft.getFlightTimeLeft() != 0 && !player.abilities.isCreativeMode && !player.isSpectator()) {
-                                player.abilities.allowFlying = false;
-                                player.abilities.isFlying = false;
-
-                                iFlightTimeLeft.setFlightTimeLeft(0);
-                            }
-
-                            if (iFlightTimeLeft.getFlightTimeLeft() != 0) {
-                                iFlightTimeLeft.setFlightTimeLeft(iFlightTimeLeft.getFlightTimeLeft() - 1);
-                            }
-
-                            //  NetworkHandler.INSTANCE.sendTo(new UpdateTimerPacket(iFlightTimeLeft.getFlightTimeLeft()), ((ServerPlayerEntity) player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
-                        }
-                    });
-
             List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(player.getPosX() - 10.0, player.getPosY() - 10.0, player.getPosZ() - 10.0, player.getPosX() + 10.0, player.getPosY() + 10.0, player.getPosZ() + 10.0));
 
             itemEntities.forEach(itemEntity -> {
