@@ -65,13 +65,16 @@ public class TickListener {
                     if (counter.isActive()) {
                         counter.decrease();
 
-                        if (counter.getValue() <= 0 && !player.abilities.isCreativeMode && !player.isSpectator()) {
-                            player.abilities.allowFlying = false;
-                            player.abilities.isFlying = false;
-
-                            player.sendPlayerAbilities();
-
+                        if (counter.getValue() <= 0) {
                             counter.setActive(false);
+
+                            if (!player.abilities.isCreativeMode && !player.isSpectator()) {
+                                player.abilities.allowFlying = false;
+                                player.abilities.isFlying = false;
+
+                                player.sendPlayerAbilities();
+                            }
+
                         } else if (!player.abilities.allowFlying) {
                             player.abilities.allowFlying = true;
 
