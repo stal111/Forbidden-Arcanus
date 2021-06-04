@@ -116,7 +116,7 @@ public class RecipePreviewElement extends GuiElement {
             } else if (activeRecipeCategory == RecipeCategory.SMELTING) {
                 blit(matrixStack, getPosX() + 26, 143, blitOffset, 330, 206, 61, 35, 256, 512);
                 RenderSystem.scalef(0.77F, 0.77F, 1.0F);
-                font.func_238407_a_(matrixStack, new TranslationTextComponent("forbiddenmicon.recipe.smelting." + activeFurnaceType.toString().toLowerCase()).func_241878_f(), (getPosX() +  8) * 1.29F, (getPosY() + 5) * 1.29F, 0xFFFFFF);
+                font.func_238407_a_(matrixStack, new TranslationTextComponent("forbiddenmicon.recipe.smelting." + activeFurnaceType.toString().toLowerCase(Locale.ROOT)).func_241878_f(), (getPosX() +  8) * 1.29F, (getPosY() + 5) * 1.29F, 0xFFFFFF);
             }
         }
     }

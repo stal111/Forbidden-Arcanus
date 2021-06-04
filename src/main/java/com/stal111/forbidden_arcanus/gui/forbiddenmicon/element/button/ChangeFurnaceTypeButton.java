@@ -11,6 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
+import java.util.Locale;
 
 public class ChangeFurnaceTypeButton extends ButtonElement {
 
@@ -37,7 +38,7 @@ public class ChangeFurnaceTypeButton extends ButtonElement {
     @Override
     public void renderHoverEffect(MatrixStack matrixStack,int x, int y) {
         if (x >= getPosX() && y >= getPosY() && x < getPosX() + getSizeX() && y < getPosY() + getSizeY()) {
-            renderFancyTooltip(matrixStack, Lists.transform(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe.smelting." + getFurnaceType().toString().toLowerCase())), ITextComponent::func_241878_f), x, y);
+            renderFancyTooltip(matrixStack, Lists.transform(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.recipe.smelting." + getFurnaceType().toString().toLowerCase(Locale.ROOT))), ITextComponent::func_241878_f), x, y);
         }
     }
 

@@ -16,6 +16,8 @@ import net.minecraft.item.SignItem;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.common.ToolType;
 
+import java.util.Locale;
+
 public enum ModBlocks {
     DARK_BEACON(new DarkBeaconBlock(from(Blocks.BEACON)), ModRenderType.CUTOUT),
     RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.ROCK, 2.0F, 15.0F).notSolid())),
@@ -169,7 +171,7 @@ public enum ModBlocks {
     }
 
     public String getName() {
-        return String.valueOf(this).toLowerCase();
+        return String.valueOf(this).toLowerCase(Locale.ROOT);
     }
 
     public Block getBlock() {

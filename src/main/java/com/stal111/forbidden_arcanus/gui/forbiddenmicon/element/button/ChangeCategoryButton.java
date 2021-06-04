@@ -9,6 +9,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Collections;
+import java.util.Locale;
 
 public class ChangeCategoryButton extends ButtonElement {
 
@@ -54,7 +55,7 @@ public class ChangeCategoryButton extends ButtonElement {
                 blit(matrixStack, getBlitOffset(), getStartX(), getStartY() - 16, 24, 14, 256, 512);
                 blit(matrixStack, getPosX() + 7, getPosY() + 2, getBlitOffset() + 1, getCategory().getStartX(), getCategory().getStartY(), 8, 8, 256, 512);
             }
-            renderFancyTooltip(matrixStack, Lists.transform(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.category." + getCategory().toString().toLowerCase())), ITextComponent::func_241878_f) , x, y);
+            renderFancyTooltip(matrixStack, Lists.transform(Collections.singletonList(new TranslationTextComponent("forbiddenmicon.category." + getCategory().toString().toLowerCase(Locale.ROOT))), ITextComponent::func_241878_f) , x, y);
         }
     }
 
