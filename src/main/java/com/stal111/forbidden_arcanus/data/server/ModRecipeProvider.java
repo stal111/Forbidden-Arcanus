@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
@@ -87,6 +88,16 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shapedRecipe(NewModBlocks.UTREM_JAR.get()).patternLine("#X#").patternLine("# #").patternLine("###").key('#', Tags.Items.GLASS_COLORLESS).key('X', ModBlocks.EDELWOOD_PLANKS.getBlock()).addCriterion("has_item", hasItem(Tags.Items.GLASS_COLORLESS)).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.ARCANE_CRYSTAL_DUST.get()).patternLine("###").patternLine("###").patternLine("###").key('#', NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get()).addCriterion("has_item", hasItem(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(ModItems.SOUL_EXTRACTOR.get()).patternLine("U  ").patternLine("##X").patternLine("Q  ").key('U', NewModBlocks.UTREM_JAR.get()).key('#', Blocks.NETHER_BRICKS).key('X', Blocks.QUARTZ_BLOCK).key('Q', Items.QUARTZ).addCriterion("has_item", hasItem(NewModBlocks.UTREM_JAR.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_HYPHAE.get(), 3).patternLine("##").patternLine("##").key('#', NewModBlocks.FUNGYSS_STEM.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_STEM.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(NewModBlocks.FUNGYSS_PLANKS.get(), 4).addIngredient(ModTags.Items.FUNGYSS_STEMS).addCriterion("has_item", hasItem(ModTags.Items.FUNGYSS_STEMS)).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_SLAB.get(), 6).patternLine("###").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_STAIRS.get(), 4).patternLine("#  ").patternLine("## ").patternLine("###").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get()).patternLine("##").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapelessRecipeBuilder.shapelessRecipe(NewModBlocks.FUNGYSS_BUTTON.get()).addIngredient(NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_TRAPDOOR.get(), 2).patternLine("###").patternLine("###").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_DOOR.get(), 3).patternLine("##").patternLine("##").patternLine("##").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_FENCE.get(), 3).patternLine("#X#").patternLine("#X#").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).key('X', Tags.Items.RODS_WOODEN).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_FENCE_GATE.get()).patternLine("#X#").patternLine("#X#").key('#', Tags.Items.RODS_WOODEN).key('X', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
 
         //Smelting Recipes
         CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 150).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL.get())).build(consumer, "forbidden_arcanus:smelting/arcane_crystal_dust_from_smelting");
