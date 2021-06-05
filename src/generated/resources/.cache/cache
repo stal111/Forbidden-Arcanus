@@ -275,7 +275,7 @@ c417e1ed3cf20664fedfcdf3e938e85ef35cb037 data/forge/loot_modifiers/global_loot_m
 e3f3faf824b8a5f26fc233c656ff20c093244952 data/forge/tags/items/heads.json
 d6af0858dbc116bcfcc4a7044bf1b45bea94ea2c data/minecraft/tags/blocks/climbable.json
 91e55eda760dcd3afa7c81ef3bbe60f138cd52c4 data/minecraft/tags/blocks/fence_gates.json
-c22ce4d932f0dc3b5cfb6ba5e305ce1d242753b0 data/minecraft/tags/blocks/logs.json
+20f0200f4ade39321df4a486f08b133543fd9a83 data/minecraft/tags/blocks/logs.json
 53815c9e36deb4722b5a10bc774b52d14878d895 data/minecraft/tags/blocks/planks.json
 91e55eda760dcd3afa7c81ef3bbe60f138cd52c4 data/minecraft/tags/blocks/unstable_bottom_center.json
 80ebd937f060e752528902d1769db1c01f8d4378 data/minecraft/tags/blocks/wooden_buttons.json
@@ -283,7 +283,7 @@ c22ce4d932f0dc3b5cfb6ba5e305ce1d242753b0 data/minecraft/tags/blocks/logs.json
 15facc9f29bfd6613db7fc26524082871278325b data/minecraft/tags/blocks/wooden_pressure_plates.json
 f45d1c36410571081edbcbaa7439a5cc550d086d data/minecraft/tags/blocks/wooden_slabs.json
 f8a824f8a3b88880c89e6ba30a45f62cdc05eb5d data/minecraft/tags/blocks/wooden_stairs.json
-c22ce4d932f0dc3b5cfb6ba5e305ce1d242753b0 data/minecraft/tags/items/logs.json
+20f0200f4ade39321df4a486f08b133543fd9a83 data/minecraft/tags/items/logs.json
 53815c9e36deb4722b5a10bc774b52d14878d895 data/minecraft/tags/items/planks.json
 80ebd937f060e752528902d1769db1c01f8d4378 data/minecraft/tags/items/wooden_buttons.json
 04cc753e3c5a9be59164eb8ed6b297374a5c9353 data/minecraft/tags/items/wooden_fences.json

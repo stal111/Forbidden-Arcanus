@@ -21,6 +21,8 @@ public class ModTags {
         public static final ITag.INamedTag<Block> WALL_CANDELABRAS = modTag("wall_candelabras");
         public static final ITag.INamedTag<Block> HANGING_CANDELABRAS = modTag("hanging_candelabras");
         public static final ITag.INamedTag<Block> FUNGYSS_STEMS = modTag("fungyss_stems");
+        public static final ITag.INamedTag<Block> CHERRYWOOD_LOGS = modTag("cherrywood_logs");
+        public static final ITag.INamedTag<Block> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
 
         private static ITag.INamedTag<Block> forgeTag(String name) {
             return BlockTags.makeWrapperTag(new ResourceLocation("forge", name).toString());

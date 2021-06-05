@@ -29,7 +29,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void registerTags() {
         this.getOrCreateBuilder(ModTags.Blocks.FUNGYSS_STEMS).add(NewModBlocks.FUNGYSS_STEM.get(), NewModBlocks.FUNGYSS_HYPHAE.get());
-        this.getOrCreateBuilder(BlockTags.LOGS).addTag(ModTags.Blocks.FUNGYSS_STEMS);
+        this.getOrCreateBuilder(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS).add(ModBlocks.EDELWOOD_LOG.getBlock());
         this.getOrCreateBuilder(BlockTags.PLANKS).add(NewModBlocks.FUNGYSS_PLANKS.get());
         this.getOrCreateBuilder(BlockTags.WOODEN_SLABS).add(NewModBlocks.FUNGYSS_SLAB.get());
         this.getOrCreateBuilder(BlockTags.WOODEN_STAIRS).add(NewModBlocks.FUNGYSS_STAIRS.get());
