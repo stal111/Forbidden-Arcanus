@@ -1,11 +1,16 @@
 package com.stal111.forbidden_arcanus.item;
 
+import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.util.ItemStackUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -33,15 +38,22 @@ public class ArcaneBoneMealItem extends BoneMealItem {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         BlockPos offsetPos = pos.offset(context.getFace());
+        BlockState state = world.getBlockState(pos);
 
-        if (ArcaneBoneMealItem.applyBoneMeal(context.getItem(), world, pos, context.getPlayer())) {
+        if (state.getBlock() == Blocks.FARMLAND) {
+            world.setBlockState(pos, ModBlocks.MAGICAL_FARMLAND.getBlock().getDefaultState().with(BlockStateProperties.MOISTURE_0_7, state.get(BlockStateProperties.MOISTURE_0_7)));
+            world.playEvent(context.getPlayer(), 2001, pos, Block.getStateId(state));
+
+            ItemStackUtils.shrinkStack(context.getPlayer(), context.getItem());
+
+            return ActionResultType.func_233537_a_(world.isRemote);
+        } else if (ArcaneBoneMealItem.applyBoneMeal(context.getItem(), world, pos, context.getPlayer())) {
             if (!world.isRemote) {
                 world.playEvent(2005, pos, 0);
             }
 
             return ActionResultType.func_233537_a_(world.isRemote);
         } else {
-            BlockState state = world.getBlockState(pos);
             boolean flag = state.isSolidSide(world, pos, context.getFace());
 
             if (flag && growSeagrass(context.getItem(), world, offsetPos, context.getFace())) {
