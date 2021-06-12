@@ -98,6 +98,7 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_DOOR.get(), 3).patternLine("##").patternLine("##").patternLine("##").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_FENCE.get(), 3).patternLine("#X#").patternLine("#X#").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).key('X', Tags.Items.RODS_WOODEN).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_FENCE_GATE.get()).patternLine("#X#").patternLine("#X#").key('#', Tags.Items.RODS_WOODEN).key('X', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModItems.ARCANE_BONE_MEAL.get(), 4).patternLine(" # ").patternLine("#X#").patternLine(" # ").key('#', Items.BONE_MEAL).key('X', ModItems.ARCANE_CRYSTAL_DUST.get()).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL_DUST.get())).build(consumer);
 
         //Smelting Recipes
         CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 150).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL.get())).build(consumer, "forbidden_arcanus:smelting/arcane_crystal_dust_from_smelting");
