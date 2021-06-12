@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.CachedBlockInfo;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,6 +39,9 @@ public class MundabiturDustItem extends Item {
     @Nullable
     private BlockPattern hephaestusPattern;
 
+    @Nullable
+    private BlockPattern arcaneCrystalObeliskPattern;
+
     public MundabiturDustItem(Properties properties) {
         super(properties);
     }
@@ -49,10 +53,6 @@ public class MundabiturDustItem extends Item {
         BlockPos pos = context.getPos();
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        Block blockUp = world.getBlockState(pos.up()).getBlock();
-        Block blockDoubleUp = world.getBlockState(pos.up(2)).getBlock();
-        Block blockDown = world.getBlockState(pos.down()).getBlock();
-        Block blockDoubleDown = world.getBlockState(pos.down(2)).getBlock();
         PlayerEntity player = context.getPlayer();
 
         if (this.tryTransformBlock(block, world, pos, player)) {
@@ -61,33 +61,6 @@ public class MundabiturDustItem extends Item {
             return ActionResultType.func_233537_a_(world.isRemote());
         }
 
-        if (block == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock()) {
-            if (blockUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDown == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
-                world.setBlockState(pos.down(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 11);
-                world.setBlockState(pos, ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 11);
-                world.setBlockState(pos.up(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 11);
-                world.playEvent(player, 2001, pos.down(), Block.getStateId(world.getBlockState(pos.down())));
-                world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
-                world.playEvent(player, 2001, pos.up(), Block.getStateId(world.getBlockState(pos.up())));
-                return ActionResultType.SUCCESS;
-            } else if (blockDown == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDoubleDown == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
-                world.setBlockState(pos.down(2), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 11);
-                world.setBlockState(pos.down(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 11);
-                world.setBlockState(pos, ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 11);
-                world.playEvent(player, 2001, pos.down(2), Block.getStateId(world.getBlockState(pos.down(2))));
-                world.playEvent(player, 2001, pos.down(), Block.getStateId(world.getBlockState(pos.down())));
-                world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
-                return ActionResultType.SUCCESS;
-            }
-        } else if (block == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get() && blockUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() && blockDoubleUp == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock()) {
-            world.setBlockState(pos, ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 11);
-            world.setBlockState(pos.up(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 11);
-            world.setBlockState(pos.up(2), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 11);
-            world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
-            world.playEvent(player, 2001, pos.up(), Block.getStateId(world.getBlockState(pos.up())));
-            world.playEvent(player, 2001, pos.up(2), Block.getStateId(world.getBlockState(pos.up(2))));
-            return ActionResultType.SUCCESS;
-        }
         return super.onItemUse(context);
     }
 
@@ -95,7 +68,7 @@ public class MundabiturDustItem extends Item {
         if (block == Blocks.SMITHING_TABLE) {
             BlockPattern.PatternHelper patternHelper = this.getHephaestusPattern().match(world, pos);
 
-            if (patternHelper == null) {
+            if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
             }
 
@@ -107,6 +80,26 @@ public class MundabiturDustItem extends Item {
             entity.setEffectOnly(true);
 
             world.addEntity(entity);
+
+            return true;
+        } else if (block == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() || block == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
+            BlockPattern.PatternHelper patternHelper = this.getArcaneCrystalObeliskPattern().match(world, pos);
+
+            if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
+                return false;
+            }
+
+            for(int i = 0; i < this.getArcaneCrystalObeliskPattern().getPalmLength(); i++) {
+                for(int j = 0; j < this.getArcaneCrystalObeliskPattern().getThumbLength(); j++) {
+                    CachedBlockInfo cachedBlockInfo = patternHelper.translateOffset(i, j, 0);
+                    world.setBlockState(cachedBlockInfo.getPos(), Blocks.AIR.getDefaultState(), 2);
+                    world.playEvent(2001, cachedBlockInfo.getPos(), Block.getStateId(cachedBlockInfo.getBlockState()));
+                }
+            }
+
+            world.setBlockState(patternHelper.getFrontTopLeft().down(2), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 2);
+            world.setBlockState(patternHelper.getFrontTopLeft().down(1), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 2);
+            world.setBlockState(patternHelper.getFrontTopLeft(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 2);
 
             return true;
         }
@@ -135,5 +128,16 @@ public class MundabiturDustItem extends Item {
                     .build();
         }
         return this.hephaestusPattern;
+    }
+
+    private BlockPattern getArcaneCrystalObeliskPattern() {
+        if (this.arcaneCrystalObeliskPattern == null) {
+            this.arcaneCrystalObeliskPattern = BlockPatternBuilder.start()
+                    .aisle("#", "#", "X")
+                    .where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock())))
+                    .where('X', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
+                    .build();
+        }
+        return this.arcaneCrystalObeliskPattern;
     }
 }
