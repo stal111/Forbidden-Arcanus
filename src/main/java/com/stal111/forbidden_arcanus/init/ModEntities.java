@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.renderers.CrimsonLightningBoltRenderer;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.entity.projectile.*;
@@ -48,5 +49,6 @@ public class ModEntities {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BOOM_ARROW.get(), BoomArrowRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.DRACO_ARCANUS_ARROW.get(), DracoArcanusArrowRender::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.PIXIE.get(), PixieRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), CrimsonLightningBoltRenderer::new);
     }
 }
