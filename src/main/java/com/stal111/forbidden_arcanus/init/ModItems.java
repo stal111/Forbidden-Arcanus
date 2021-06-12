@@ -110,11 +110,6 @@ public class ModItems {
     public static final RegistryObject<Item> OBSIDIAN_PICKAXE = register("obsidian_pickaxe", () -> new PickaxeItem(ModItemTier.OBSIDIAN, 1, -2.8F, properties()));
     public static final RegistryObject<Item> OBSIDIAN_AXE = register("obsidian_axe", () -> new AxeItem(ModItemTier.OBSIDIAN, 5, -3.0F, properties()));
     public static final RegistryObject<Item> OBSIDIAN_HOE = register("obsidian_hoe", () -> new ModHoeItem(ModItemTier.OBSIDIAN, -3, 0, properties()));
-    public static final RegistryObject<Item> BONE_SWORD = register("bone_sword", () -> new SwordItem(ModItemTier.BONE, 3, -2.4F, properties()));
-    public static final RegistryObject<Item> BONE_SHOVEL = register("bone_shovel", () -> new ShovelItem(ModItemTier.BONE, 1.5F, -3.0F, properties()));
-    public static final RegistryObject<Item> BONE_PICKAXE = register("bone_pickaxe", () -> new PickaxeItem(ModItemTier.BONE, 1, -2.8F, properties()));
-    public static final RegistryObject<Item> BONE_AXE = register("bone_axe", () -> new AxeItem(ModItemTier.BONE, 5, -3.0F, properties()));
-    public static final RegistryObject<Item> BONE_HOE = register("bone_hoe", () -> new BoneHoeItem(ModItemTier.BONE, -1, -2, properties()));
     public static final RegistryObject<Item> MYSTICAL_DAGGER = register("mystical_dagger", () -> new MysticalDaggerItem(ModItemTier.MYSTICAL_DAGGER, 2.5F, -0.3F, properties(1)));
     public static final RegistryObject<Item> DRACO_ARCANUS_HELMET = register("draco_arcanus_helmet", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.HEAD, properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_CHESTPLATE = register("draco_arcanus_chestplate", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.CHEST, properties()));
