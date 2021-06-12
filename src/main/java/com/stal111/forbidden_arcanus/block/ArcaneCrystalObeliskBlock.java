@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
-import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -26,6 +25,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
 
 import javax.annotation.Nullable;
 import java.util.Random;

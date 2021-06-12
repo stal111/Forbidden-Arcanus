@@ -1,12 +1,14 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
+
+import javax.annotation.Nonnull;
 
 public class HephaestusForgeBlock extends Block {
 
@@ -24,8 +26,9 @@ public class HephaestusForgeBlock extends Block {
         super(properties);
     }
 
+    @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return SHAPE;
     }
 }

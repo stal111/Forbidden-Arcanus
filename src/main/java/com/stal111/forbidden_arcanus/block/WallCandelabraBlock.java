@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import com.stal111.forbidden_arcanus.util.VoxelShapeHelper;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,6 +17,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IWorldReader;
+import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
 
 import java.util.Arrays;
 import java.util.List;
