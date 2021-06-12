@@ -136,7 +136,7 @@ public class ModItems {
     public static final RegistryObject<Item> OBSIDIAN_SHOULDER_PADS = register("obsidian_shoulder_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.CHEST, properties()));
     public static final RegistryObject<Item> OBSIDIAN_KNEE_PADS = register("obsidian_knee_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.LEGS, properties()));
     public static final RegistryObject<Item> OBSIDIAN_BOOTS = register("obsidian_boots", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET, properties()));
-    public static final RegistryObject<Item> PIXIE_SPAWN_EGG = register("pixie_spawn_egg", () -> new ModSpawnEggItem(ModEntities.PIXIE, 894731, 0, properties()));
+    public static final RegistryObject<Item> PIXIE_SPAWN_EGG = register("pixie_spawn_egg", () -> new ModSpawnEggItem<>(ModEntities.PIXIE, 894731, 0, properties()));
 
     private static RegistryObject<Item> register(String name, Supplier<? extends Item> item) {
         return ITEMS.register(name, item);

@@ -22,7 +22,6 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -32,28 +31,16 @@ import java.util.Random;
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class SeedBulletEntity extends ProjectileItemEntity {
 
-	@SuppressWarnings("unchecked")
-	public SeedBulletEntity(World world) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), world);
-	}
-
-	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world, double x, double y, double z) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), x, y, z, world);
+		super(ModEntities.SEED_BULLET.get(), x, y, z, world);
 	}
 
-	@SuppressWarnings("unchecked")
 	public SeedBulletEntity(World world, LivingEntity thrower) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), thrower, world);
+		super(ModEntities.SEED_BULLET.get(), thrower, world);
 	}
 
-	@SuppressWarnings("unchecked")
-	public SeedBulletEntity(SpawnEntity packet, World world) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), world);
-	}
-
-    public SeedBulletEntity(EntityType<Entity> entityEntityType, World world) {
-		super((EntityType<? extends ProjectileItemEntity>) ModEntities.SEED_BULLET.get(), world);
+    public SeedBulletEntity(EntityType<? extends ProjectileItemEntity> entityType, World world) {
+		super(entityType, world);
     }
 
     @Override

@@ -56,8 +56,8 @@ public class EnergyBallEntity extends Entity {
         super(ModEntities.ENERGY_BALL.get(), world);
     }
 
-    public EnergyBallEntity(EntityType<Entity> entityEntityType, World world) {
-        super(entityEntityType, world);
+    public EnergyBallEntity(EntityType<? extends EnergyBallEntity> entityType, World world) {
+        super(entityType, world);
     }
 
     @Override

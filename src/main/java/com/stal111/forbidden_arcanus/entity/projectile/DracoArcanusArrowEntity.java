@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.entity.projectile;
 
-import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModEntities;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -14,33 +13,16 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class DracoArcanusArrowEntity extends AbstractArrowEntity {
 
-    @SuppressWarnings("unchecked")
-    public DracoArcanusArrowEntity(World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), world);
-    }
-
-    @SuppressWarnings("unchecked")
-    public DracoArcanusArrowEntity(double p_i48547_2_, double p_i48547_4_, double p_i48547_6_, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), p_i48547_2_, p_i48547_4_, p_i48547_6_, world);
-    }
-
-    @SuppressWarnings("unchecked")
     public DracoArcanusArrowEntity(LivingEntity entity, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), entity, world);
+        super(ModEntities.DRACO_ARCANUS_ARROW.get(), entity, world);
     }
 
-    @SuppressWarnings("unchecked")
-    public DracoArcanusArrowEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), world);
-    }
-
-    public DracoArcanusArrowEntity(EntityType<Entity> entityEntityType, World world) {
-        super((EntityType<? extends AbstractArrowEntity>) ModEntities.DRACO_ARCANUS_ARROW.get(), world);
+    public DracoArcanusArrowEntity(EntityType<? extends AbstractArrowEntity> entityType, World world) {
+        super(entityType, world);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class BoomArrowEntity extends AbstractArrowEntity {
         super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), world);
     }
 
-    public BoomArrowEntity(EntityType<Entity> entityEntityType, World world) {
+    public BoomArrowEntity(EntityType<? extends BoomArrowEntity> entityEntityType, World world) {
         super((EntityType<? extends AbstractArrowEntity>) ModEntities.BOOM_ARROW.get(), world);
     }
 

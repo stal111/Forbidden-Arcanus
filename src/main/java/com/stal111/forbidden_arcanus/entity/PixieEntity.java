@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.passive.ParrotEntity;
@@ -50,9 +51,8 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
 
     private int underWaterTicks;
 
-    public PixieEntity(EntityType<Entity> type, World world) {
-        super((EntityType<? extends TameableEntity>) ModEntities.PIXIE.get(), world);
-        this.moveController = new FlyingMovementController(this, 15, true);
+    public PixieEntity(EntityType<? extends Entity> entityType, World world) {
+        super((EntityType<? extends TameableEntity>) entityType, world);
         this.setPathPriority(PathNodeType.WATER, -1.0F);
         this.setPathPriority(PathNodeType.COCOA, -1.0F);
         this.setPathPriority(PathNodeType.FENCE, -1.0F);
@@ -73,6 +73,7 @@ public class PixieEntity extends TameableEntity implements IFlyingAnimal {
         this.setPathPriority(PathNodeType.COCOA, -1.0F);
         this.setPathPriority(PathNodeType.FENCE, -1.0F);
     }
+
 
     public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
         return worldIn.getBlockState(pos).isAir() ? 10.0F : 0.0F;

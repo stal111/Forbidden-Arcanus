@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
@@ -21,34 +20,21 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class ChorusPearlEntity extends ProjectileItemEntity {
 
-    @SuppressWarnings("unchecked")
-    public ChorusPearlEntity(World world) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.get(), world);
-    }
-
-    @SuppressWarnings("unchecked")
     public ChorusPearlEntity(World world, double x, double y, double z) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.get(), x, y, z, world);
+        super(ModEntities.CHORUS_PEARL.get(), x, y, z, world);
     }
 
-    @SuppressWarnings("unchecked")
     public ChorusPearlEntity(World world, LivingEntity thrower) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.get(), thrower, world);
+        super(ModEntities.CHORUS_PEARL.get(), thrower, world);
     }
 
-    @SuppressWarnings("unchecked")
-    public ChorusPearlEntity(SpawnEntity packet, World world) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.get(), world);
-    }
-
-    public ChorusPearlEntity(EntityType<Entity> entityEntityType, World world) {
-        super((EntityType<? extends ProjectileItemEntity>) ModEntities.CHORUS_PEARL.get(), world);
+    public ChorusPearlEntity(EntityType<? extends ProjectileItemEntity> entityType, World world) {
+        super(entityType, world);
     }
 
     @Override
