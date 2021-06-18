@@ -2,14 +2,19 @@
   "add_loot": "forbidden_arcanus:blocks/additions/spawner_additions",
   "conditions": [
     {
-      "condition": "minecraft:match_tool",
-      "predicate": {
-        "enchantments": [
-          {
-            "enchantment": "minecraft:silk_touch",
-            "levels": 1
-          }
-        ]
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "enchantments": [
+            {
+              "enchantment": "minecraft:silk_touch",
+              "levels": {
+                "min": 2
+              }
+            }
+          ]
+        }
       }
     },
     {

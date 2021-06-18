@@ -7,6 +7,7 @@ import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.conditions.Inverted;
 import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.conditions.RandomChance;
 import net.minecraft.util.ResourceLocation;
@@ -48,7 +49,7 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
         add("spawner_additions",
                 ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new ILootCondition[] {
-                        MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.exactly(1)))).build(),
+                        Inverted.builder(MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(2))))).build(),
                         LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"))
         );
