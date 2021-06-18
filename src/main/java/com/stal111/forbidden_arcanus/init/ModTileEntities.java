@@ -1,10 +1,7 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.tileentity.ModSignTileEntity;
-import com.stal111.forbidden_arcanus.block.tileentity.NipaTileEntity;
-import com.stal111.forbidden_arcanus.block.tileentity.ObsidianSkullTileEntity;
-import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
+import com.stal111.forbidden_arcanus.block.tileentity.*;
 import com.stal111.forbidden_arcanus.tile.BlackHoleTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -23,6 +20,7 @@ public class ModTileEntities {
     public static final RegistryObject<TileEntityType<ObsidianSkullTileEntity>> OBSIDIAN_SKULL = register("obsidian_skull", () -> TileEntityType.Builder.create(ObsidianSkullTileEntity::new, NewModBlocks.OBSIDIAN_SKULL.get(), NewModBlocks.OBSIDIAN_WALL_SKULL.get(), NewModBlocks.ETERNAL_OBSIDIAN_SKULL.get(), NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get()).build(null));
     public static final RegistryObject<TileEntityType<UtremJarTileEntity>> UTREM_JAR = register("utrem_jar", () -> TileEntityType.Builder.create(UtremJarTileEntity::new, NewModBlocks.UTREM_JAR.get()).build(null));
     public static final RegistryObject<TileEntityType<NipaTileEntity>> NIPA = register("nipa", () -> TileEntityType.Builder.create(NipaTileEntity::new, NewModBlocks.NIPA.get()).build(null));
+    public static final RegistryObject<TileEntityType<HephaestusForgeTileEntity>> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> TileEntityType.Builder.create(HephaestusForgeTileEntity::new, ModBlocks.HEPHAESTUS_FORGE.getBlock()).build(null));
 
     private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<TileEntityType<T>> tileEntityType) {
         return TILE_ENTITIES.register(name, tileEntityType);

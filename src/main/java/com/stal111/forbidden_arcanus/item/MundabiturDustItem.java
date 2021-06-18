@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
+import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
@@ -37,10 +38,13 @@ import javax.annotation.Nullable;
 public class MundabiturDustItem extends Item {
 
     @Nullable
-    private BlockPattern hephaestusPattern;
+    private static BlockPattern hephaestusPattern;
 
     @Nullable
-    private BlockPattern arcaneCrystalObeliskPattern;
+    private static BlockPattern baseHephaestusPattern;
+
+    @Nullable
+    private static BlockPattern arcaneCrystalObeliskPattern;
 
     public MundabiturDustItem(Properties properties) {
         super(properties);
@@ -66,14 +70,14 @@ public class MundabiturDustItem extends Item {
 
     private boolean tryTransformBlock(Block block, World world, BlockPos pos, PlayerEntity player) {
         if (block == Blocks.SMITHING_TABLE) {
-            BlockPattern.PatternHelper patternHelper = this.getHephaestusPattern().match(world, pos);
+            BlockPattern.PatternHelper patternHelper = getHephaestusPattern().match(world, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
             }
 
             world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
-            world.setBlockState(pos, ModBlocks.HEPHAESTUS_FORGE.getState());
+            world.setBlockState(pos, ModBlocks.HEPHAESTUS_FORGE.getState().with(ModBlockStateProperties.ACTIVATED, true));
 
             CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), world);
             entity.setPosition(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
@@ -83,14 +87,14 @@ public class MundabiturDustItem extends Item {
 
             return true;
         } else if (block == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() || block == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
-            BlockPattern.PatternHelper patternHelper = this.getArcaneCrystalObeliskPattern().match(world, pos);
+            BlockPattern.PatternHelper patternHelper = getArcaneCrystalObeliskPattern().match(world, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
             }
 
-            for(int i = 0; i < this.getArcaneCrystalObeliskPattern().getPalmLength(); i++) {
-                for(int j = 0; j < this.getArcaneCrystalObeliskPattern().getThumbLength(); j++) {
+            for(int i = 0; i < getArcaneCrystalObeliskPattern().getPalmLength(); i++) {
+                for(int j = 0; j < getArcaneCrystalObeliskPattern().getThumbLength(); j++) {
                     CachedBlockInfo cachedBlockInfo = patternHelper.translateOffset(i, j, 0);
                     world.setBlockState(cachedBlockInfo.getPos(), Blocks.AIR.getDefaultState(), 2);
                     world.playEvent(2001, cachedBlockInfo.getPos(), Block.getStateId(cachedBlockInfo.getBlockState()));
@@ -107,9 +111,9 @@ public class MundabiturDustItem extends Item {
         return false;
     }
 
-    private BlockPattern getHephaestusPattern() {
-        if (this.hephaestusPattern == null) {
-            this.hephaestusPattern = BlockPatternBuilder.start()
+    public static BlockPattern getHephaestusPattern() {
+        if (hephaestusPattern == null) {
+            hephaestusPattern = BlockPatternBuilder.start()
                     .aisle("~~~~~~~~~", "***PPP***")
                     .aisle("~~~~~~~~~", "*PPPAPPP*")
                     .aisle("~~~~~~~~~", "*PAPPPAP*")
@@ -127,17 +131,39 @@ public class MundabiturDustItem extends Item {
                     .where('*', CachedBlockInfo.hasState(BlockStateMatcher.ANY))
                     .build();
         }
-        return this.hephaestusPattern;
+        return hephaestusPattern;
     }
 
-    private BlockPattern getArcaneCrystalObeliskPattern() {
-        if (this.arcaneCrystalObeliskPattern == null) {
-            this.arcaneCrystalObeliskPattern = BlockPatternBuilder.start()
+    public static BlockPattern getBaseHephaestusPattern() {
+        if (baseHephaestusPattern == null) {
+            baseHephaestusPattern = BlockPatternBuilder.start()
+                    .aisle("***PPP***")
+                    .aisle("*PPPAPPP*")
+                    .aisle("*PAPPPAP*")
+                    .aisle("PPPPCPPPP")
+                    .aisle("PAPCACPAP")
+                    .aisle("PPPPCPPPP")
+                    .aisle("*PAPPPAP*")
+                    .aisle("*PPPAPPP*")
+                    .aisle("***PPP***")
+                    .where('A', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
+                    .where('C', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
+                    .where('P', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.POLISHED_DARKSTONE.get())))
+                    .where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
+                    .where('*', CachedBlockInfo.hasState(BlockStateMatcher.ANY))
+                    .build();
+        }
+        return baseHephaestusPattern;
+    }
+
+    public static BlockPattern getArcaneCrystalObeliskPattern() {
+        if (arcaneCrystalObeliskPattern == null) {
+            arcaneCrystalObeliskPattern = BlockPatternBuilder.start()
                     .aisle("#", "#", "X")
                     .where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock())))
                     .where('X', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
                     .build();
         }
-        return this.arcaneCrystalObeliskPattern;
+        return arcaneCrystalObeliskPattern;
     }
 }
