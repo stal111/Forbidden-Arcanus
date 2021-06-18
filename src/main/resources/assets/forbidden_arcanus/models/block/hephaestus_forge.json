@@ -3,15 +3,17 @@
     "textures": {
         "particle": "forbidden_arcanus:block/hephaestus_forge_side",
         "hephaestus_forge_side": "forbidden_arcanus:block/hephaestus_forge_side",
+        "hephaestus_forge_side_layer": "forbidden_arcanus:block/hephaestus_forge_side_layer",
         "hephaestus_forge_cloth_side": "forbidden_arcanus:block/hephaestus_forge_cloth_side",
         "hephaestus_forge_bottom": "forbidden_arcanus:block/hephaestus_forge_bottom",
         "hephaestus_forge_top": "forbidden_arcanus:block/hephaestus_forge_top",
+        "hephaestus_forge_top_layer": "forbidden_arcanus:block/hephaestus_forge_top_layer",
         "stellarite_block": "forbidden_arcanus:block/stellarite_block"
     },
     "parent": "block/cube_all",
     "elements": [
         {
-            "name": "HephaestusBotton",
+            "name": "HephaestusBottom",
             "from": [ 1, 0, 1 ],
             "to": [ 15, 3, 15 ],
             "faces": {
@@ -24,7 +26,7 @@
             }
         },
         {
-            "name": "HephaestusBotton",
+            "name": "HephaestusBottom",
             "from": [ 2, 3, 2 ],
             "to": [ 14, 4, 14 ],
             "faces": {
@@ -36,7 +38,7 @@
             }
         },
         {
-            "name": "HephaestusBotton",
+            "name": "HephaestusBottom",
             "from": [ 4, 4, 4 ],
             "to": [ 12, 8, 12 ],
             "faces": {
@@ -96,51 +98,51 @@
             }
         },
         {
-            "name": "HephaestusTop",
-            "from": [ 0, 15, 0 ],
+            "name": "HephaestusTopLayer",
+            "from": [ 0, 13, 0 ],
             "to": [ 3, 16, 3 ],
             "faces": {
-                "north": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 1 ], "cullface": "north" },
-                "east": { "texture": "#hephaestus_forge_side", "uv": [ 13, 2, 16, 3 ] },
-                "south": { "texture": "#hephaestus_forge_side", "uv": [ 0, 2, 3, 3 ] },
-                "west": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 1 ], "cullface": "west" },
-                "up": { "texture": "#hephaestus_forge_top", "uv": [ 0, 0, 3, 3 ], "cullface": "up" }
+                "north": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 0, 16, 3 ], "cullface": "north" },
+                "east": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 2, 16, 5 ] },
+                "south": { "texture": "#hephaestus_forge_side_layer", "uv": [ 0, 2, 3, 5 ] },
+                "west": { "texture": "#hephaestus_forge_side_layer", "uv": [ 0, 0, 3, 3 ], "cullface": "west" },
+                "up": { "texture": "#hephaestus_forge_top_layer", "uv": [ 0, 0, 3, 3 ], "cullface": "up" }
             }
         },
         {
-            "name": "HephaestusTop",
-            "from": [ 13, 15, 0 ],
+            "name": "HephaestusTopLayer",
+            "from": [ 13, 13, 0 ],
             "to": [ 16, 16, 3 ],
             "faces": {
-                "north": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 1 ], "cullface": "north" },
-                "east": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 1 ], "cullface": "east" },
-                "south": { "texture": "#hephaestus_forge_side", "uv": [ 13, 2, 16, 3 ] },
-                "west": { "texture": "#hephaestus_forge_side", "uv": [ 0, 2, 3, 3 ] },
-                "up": { "texture": "#hephaestus_forge_top", "uv": [ 13, 0, 16, 3 ], "cullface": "up" }
+                "north": { "texture": "#hephaestus_forge_side_layer", "uv": [ 0, 0, 3, 3 ], "cullface": "north" },
+                "east": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 0, 16, 3 ], "cullface": "east" },
+                "south": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 2, 16, 5 ] },
+                "west": { "texture": "#hephaestus_forge_side_layer", "uv": [ 0, 2, 3, 5 ] },
+                "up": { "texture": "#hephaestus_forge_top_layer", "uv": [ 13, 0, 16, 3 ], "cullface": "up" }
             }
         },
         {
-            "name": "HephaestusTop",
-            "from": [ 13, 15, 13 ],
+            "name": "HephaestusTopLayer",
+            "from": [ 13, 13, 13 ],
             "to": [ 16, 16, 16 ],
             "faces": {
-                "north": { "texture": "#hephaestus_forge_side", "uv": [ 13, 2, 16, 3 ] },
-                "east": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 1 ], "cullface": "east" },
-                "south": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 1 ], "cullface": "south" },
-                "west": { "texture": "#hephaestus_forge_side", "uv": [ 13, 2, 16, 3 ] },
-                "up": { "texture": "#hephaestus_forge_top", "uv": [ 13, 13, 16, 16 ], "cullface": "up" }
+                "north": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 2, 16, 5 ] },
+                "east": { "texture": "#hephaestus_forge_side_layer", "uv": [ 0, 0, 3, 3 ], "cullface": "east" },
+                "south": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 0, 16, 3 ], "cullface": "south" },
+                "west": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 2, 16, 5 ] },
+                "up": { "texture": "#hephaestus_forge_top_layer", "uv": [ 13, 13, 16, 16 ], "cullface": "up" }
             }
         },
         {
-            "name": "HephaestusTop",
-            "from": [ 0, 15, 13 ],
+            "name": "HephaestusTopLayer",
+            "from": [ 0, 13, 13 ],
             "to": [ 3, 16, 16 ],
             "faces": {
-                "north": { "texture": "#hephaestus_forge_side", "uv": [ 13, 2, 16, 3 ] },
-                "east": { "texture": "#hephaestus_forge_side", "uv": [ 0, 2, 3, 3 ] },
-                "south": { "texture": "#hephaestus_forge_side", "uv": [ 0, 0, 3, 1 ], "cullface": "south" },
-                "west": { "texture": "#hephaestus_forge_side", "uv": [ 13, 0, 16, 1 ], "cullface": "west" },
-                "up": { "texture": "#hephaestus_forge_top", "uv": [ 0, 13, 3, 16 ], "cullface": "up" }
+                "north": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 2, 16, 3 ] },
+                "east": { "texture": "#hephaestus_forge_side_layer", "uv": [ 0, 2, 3, 5 ] },
+                "south": { "texture": "#hephaestus_forge_side_layer", "uv": [ 0, 0, 3, 3 ], "cullface": "south" },
+                "west": { "texture": "#hephaestus_forge_side_layer", "uv": [ 13, 0, 16, 3 ], "cullface": "west" },
+                "up": { "texture": "#hephaestus_forge_top_layer", "uv": [ 0, 13, 3, 16 ], "cullface": "up" }
             }
         }
     ]
