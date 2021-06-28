@@ -49,6 +49,8 @@ public class NewModBlocks {
     public static final RegistryObject<Block> CHISELED_ARCANE_POLISHED_DARKSTONE = HELPER.register("chiseled_arcane_polished_darkstone", new Block(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_PILLAR = HELPER.register("arcane_polished_darkstone_pillar", new PillarBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_ROD = HELPER.register("arcane_polished_darkstone_rod", new ArcanePolishedDarkstoneRod(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F)));
+    public static final RegistryObject<Block> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", new PedestalBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F).notSolid()));
+    public static final RegistryObject<Block> ARCANE_DARKSTONE_PEDESTAL = HELPER.register("arcane_darkstone_pedestal", new PedestalBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F).notSolid()));
     public static final RegistryObject<Block> ARCANE_GLASS = HELPER.register("arcane_glass", new GlassBlock(Block.Properties.from(Blocks.GLASS)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> ARCANE_GLASS_PANE = HELPER.register("arcane_glass_pane", new PaneBlock(Block.Properties.from(Blocks.GLASS_PANE)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ObsidianSkullBlock> OBSIDIAN_SKULL = HELPER.registerNoItem("obsidian_skull", new ObsidianSkullBlock(Block.Properties.from(Blocks.SKELETON_SKULL)));

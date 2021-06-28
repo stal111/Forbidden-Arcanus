@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.NipaTileEntity;
 import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
 import com.stal111.forbidden_arcanus.block.tileentity.render.NipaTileEntityRenderer;
+import com.stal111.forbidden_arcanus.block.tileentity.render.PedestalTileEntityRenderer;
 import com.stal111.forbidden_arcanus.block.tileentity.render.UtremJarTileEntityRenderer;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.init.NewModItems;
@@ -46,6 +47,7 @@ public class ClientSetup {
     public void onClientSetup(FMLClientSetupEvent event) {
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL.get(), PedestalTileEntityRenderer::new);
 
         ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof UtremJarTileEntity);
         ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof NipaTileEntity);

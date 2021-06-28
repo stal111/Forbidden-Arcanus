@@ -79,6 +79,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::arcanePolishedDarkstonePillar, NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
 
         take(block -> paneBlock((PaneBlock) block, modLoc("block/arcane_glass"), modLoc("block/arcane_glass_pane_top")), NewModBlocks.ARCANE_GLASS_PANE);
+        take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
 
         forEach(this::simpleBlock);
     }
