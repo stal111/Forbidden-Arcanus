@@ -1,16 +1,24 @@
 package com.stal111.forbidden_arcanus.block;
 
+import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
+import com.stal111.forbidden_arcanus.init.ModParticles;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -23,24 +31,30 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.Random;
 
+/**
+ * Arcane Crystal Obelisk Block
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock
+ *
+ * @author stal111
+ * @version 2.0.0
+ */
 public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLoggable {
-
-    private static final VoxelShape LOWER_SHAPE = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(0, 0, 0, 16, 8, 16),
-            Block.makeCuboidShape(1, 8, 1, 15, 16, 15)
-    );
-    private static final VoxelShape MIDDLE_SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 16, 14);
-    private static final VoxelShape UPPER_SHAPE = Block.makeCuboidShape(3, 0, 3, 13, 14, 13);
 
     public static final EnumProperty<ArcaneCrystalObeliskPart> PART = EnumProperty.create("part", ArcaneCrystalObeliskPart.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+    private static final Map<ArcaneCrystalObeliskPart, VoxelShape> SHAPES = ImmutableMap.<ArcaneCrystalObeliskPart, VoxelShape>builder()
+            .put(ArcaneCrystalObeliskPart.LOWER, VoxelShapeHelper.combineAll(Block.makeCuboidShape(0, 0, 0, 16, 8, 16), Block.makeCuboidShape(1, 8, 1, 15, 16, 15)))
+            .put(ArcaneCrystalObeliskPart.MIDDLE, Block.makeCuboidShape(2, 0, 2, 14, 16, 14))
+            .put(ArcaneCrystalObeliskPart.UPPER, Block.makeCuboidShape(3, 0, 3, 13, 14, 13))
+            .build();
 
     public ArcaneCrystalObeliskBlock(Properties properties) {
         super(properties);
@@ -57,25 +71,31 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLogg
         } else {
             return UPPER_SHAPE;
         }
+
+    @Nonnull
+    @Override
+    public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+        return SHAPES.get(state.get(PART));
     }
 
+    @Nonnull
     @Override
-    public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState p_196271_3_, IWorld world, BlockPos pos, BlockPos p_196271_6_) {
+    public BlockState updatePostPlacement(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld world, @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
         if (state.get(WATERLOGGED)) {
             world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
+
         ArcaneCrystalObeliskPart part = state.get(PART);
-        BlockState stateUp = world.getBlockState(pos.up());
-        BlockState stateDoubleUp = world.getBlockState(pos.up(2));
-        BlockState stateDown = world.getBlockState(pos.down());
-        BlockState stateDoubleDown = world.getBlockState(pos.down(2));
-        if (part == ArcaneCrystalObeliskPart.LOWER) {
-            return stateUp.getBlock() == this && stateDoubleUp.getBlock() == this && stateUp.get(PART) != part && stateDoubleUp.get(PART) != part && state.isValidPosition(world, pos)  ? state : Blocks.AIR.getDefaultState();
-        } else if (part == ArcaneCrystalObeliskPart.MIDDLE) {
-            return stateUp.getBlock() == this && stateDown.getBlock() == this && stateUp.get(PART) != part && stateDown.get(PART) != part ? state : Blocks.AIR.getDefaultState();
-        } else {
-            return stateDown.getBlock() == this && stateDoubleDown.getBlock() == this && stateDown.get(PART) != part && stateDoubleDown.get(PART) != part ? state : Blocks.AIR.getDefaultState();
+
+        if (facing.getAxis() == Direction.Axis.Y && ((part == ArcaneCrystalObeliskPart.LOWER == (facing == Direction.UP)) || part == ArcaneCrystalObeliskPart.MIDDLE)) {
+            return facingState.getBlock() == this && facingState.get(PART) != part ? state : Blocks.AIR.getDefaultState();
         }
+
+        if (part == ArcaneCrystalObeliskPart.LOWER && facing == Direction.DOWN && !state.isValidPosition(world, pos)) {
+            return Blocks.AIR.getDefaultState();
+        }
+
+        return super.updatePostPlacement(state, facing, facingState, world, pos, facingPos);
     }
 
     @Nullable
@@ -84,39 +104,68 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLogg
         BlockPos pos = context.getPos();
         World world = context.getWorld();
         boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
-        if (pos.getY() < 254 && world.getBlockState(pos.up()).isReplaceable(context) && world.getBlockState(pos.up(2)).isReplaceable(context)) {
-            return this.getDefaultState().with(PART, ArcaneCrystalObeliskPart.LOWER).with(WATERLOGGED, flag);
-        } else {
+
+        if (pos.getY() > world.getHeight() - 3 || !world.getBlockState(pos.up()).isReplaceable(context) || !world.getBlockState(pos.up(2)).isReplaceable(context)) {
             return null;
         }
+
+        return this.getDefaultState().with(WATERLOGGED, flag);
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+    public void onBlockHarvested(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull PlayerEntity player) {
+        if (!world.isRemote() && player.abilities.isCreativeMode) {
+            ArcaneCrystalObeliskPart part = state.get(PART);
+
+            if (part != ArcaneCrystalObeliskPart.LOWER) {
+                BlockPos offsetPos = pos.down(part == ArcaneCrystalObeliskPart.MIDDLE ? 1 : 2);
+
+                world.setBlockState(offsetPos, Blocks.AIR.getDefaultState(), 35);
+                world.playEvent(player, 2001, offsetPos, Block.getStateId(world.getBlockState(offsetPos)));
+            }
+        }
+
+        super.onBlockHarvested(world, pos, state, player);
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, @Nonnull ItemStack stack) {
         world.setBlockState(pos.up(), state.with(PART, ArcaneCrystalObeliskPart.MIDDLE).with(WATERLOGGED, world.getFluidState(pos.up()).getFluid() == Fluids.WATER), 3);
         world.setBlockState(pos.up(2), state.with(PART, ArcaneCrystalObeliskPart.UPPER).with(WATERLOGGED, world.getFluidState(pos.up(2)).getFluid() == Fluids.WATER), 3);
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+    public boolean isValidPosition(@Nonnull BlockState state, @Nonnull IWorldReader world, @Nonnull BlockPos pos) {
+        ArcaneCrystalObeliskPart part = state.get(PART);
         BlockPos posDown = pos.down();
-        BlockState stateDown = world.getBlockState(posDown);
-        if (state.get(PART) == ArcaneCrystalObeliskPart.LOWER) {
-            return stateDown.isSolidSide(world, posDown, Direction.UP);
-        } else {
-            return stateDown.getBlock() == this;
+
+        if (part == ArcaneCrystalObeliskPart.LOWER) {
+            return world.getBlockState(posDown).isSolidSide(world, posDown, Direction.UP);
         }
+
+        return true;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Nonnull
     @Override
-    public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
-        double lvt_6_1_ = (double)pos.getX() + 0.7D - (double)(random.nextFloat() * 0.45F);
-        double lvt_8_1_ = (double)pos.getY() + 0.6D - (double)(random.nextFloat() * 0.1F);
-        double lvt_10_1_ = (double)pos.getZ() + 0.7D - (double)(random.nextFloat() * 0.45F);
-        double lvt_12_1_ = (0.4F - (random.nextFloat() + random.nextFloat()) * 0.4F);
-        if (state.get(PART) != ArcaneCrystalObeliskPart.LOWER) {
-            world.addParticle(ParticleTypes.END_ROD, lvt_6_1_ + lvt_12_1_, lvt_8_1_ + lvt_12_1_, lvt_10_1_ + lvt_12_1_, random.nextGaussian() * 0.005D, random.nextGaussian() * 0.005D, random.nextGaussian() * 0.005D);
+    public PushReaction getPushReaction(@Nonnull BlockState state) {
+        return PushReaction.BLOCK;
+    }
+
+    @Override
+    public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
+        if (Minecraft.getInstance().player != null) {
+            if (!Minecraft.getInstance().player.inventory.hasItemStack(NewModItems.Stacks.LENS_OF_VERITATIS) || state.get(PART) == ArcaneCrystalObeliskPart.LOWER) {
+                return;
+            }
+
+            double j = 0.6D * rand.nextFloat();
+            double k = 0.6D * rand.nextFloat();
+            double posX = pos.getX() + 0.5D + (rand.nextBoolean() ? j : -j);
+            double posY = (float) pos.getY() + 0.1D + rand.nextFloat() / 2;
+            double posZ = pos.getZ() + 0.5D + (rand.nextBoolean() ? k : -k);
+            double ySpeed = ((double) rand.nextFloat() - 0.4D) * 0.1D;
+            world.addParticle(ModParticles.AUREAL_MOTE.get(), posX, posY, posZ, 0, ySpeed, 0);
         }
     }
 
@@ -125,6 +174,12 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLogg
         builder.add(PART, WATERLOGGED);
     }
 
+    @Override
+    public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull PathType type) {
+        return false;
+    }
+
+    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
