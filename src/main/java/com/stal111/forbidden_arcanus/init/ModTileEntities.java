@@ -21,6 +21,7 @@ public class ModTileEntities {
     public static final RegistryObject<TileEntityType<UtremJarTileEntity>> UTREM_JAR = register("utrem_jar", () -> TileEntityType.Builder.create(UtremJarTileEntity::new, NewModBlocks.UTREM_JAR.get()).build(null));
     public static final RegistryObject<TileEntityType<NipaTileEntity>> NIPA = register("nipa", () -> TileEntityType.Builder.create(NipaTileEntity::new, NewModBlocks.NIPA.get()).build(null));
     public static final RegistryObject<TileEntityType<HephaestusForgeTileEntity>> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> TileEntityType.Builder.create(HephaestusForgeTileEntity::new, ModBlocks.HEPHAESTUS_FORGE.getBlock()).build(null));
+    public static final RegistryObject<TileEntityType<PedestalTileEntity>> PEDESTAL = register("pedestal", () -> TileEntityType.Builder.create(PedestalTileEntity::new, NewModBlocks.DARKSTONE_PEDESTAL.get(), NewModBlocks.ARCANE_DARKSTONE_PEDESTAL.get()).build(null));
 
     private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<TileEntityType<T>> tileEntityType) {
         return TILE_ENTITIES.register(name, tileEntityType);
