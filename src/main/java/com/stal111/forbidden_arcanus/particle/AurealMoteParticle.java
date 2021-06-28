@@ -6,6 +6,8 @@ import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 /**
  * Aureal Mote Particle
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.particle.AurealMoteParticle
@@ -29,6 +31,7 @@ public class AurealMoteParticle extends SpriteTexturedParticle {
         this.setAlphaF(alpha);
     }
 
+    @Nonnull
     @Override
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
@@ -61,6 +64,11 @@ public class AurealMoteParticle extends SpriteTexturedParticle {
             this.move(0, this.motionY, 0);
             this.motionY *= 0.91;
         }
+    }
+
+    @Override
+    protected int getBrightnessForRender(float partialTick) {
+        return 0xF000F0;
     }
 
     @OnlyIn(Dist.CLIENT)
