@@ -67,7 +67,7 @@ public class ModConfiguredFeatures {
     public static final class States {
         protected static final BlockState GRASS_BLOCK = Blocks.GRASS_BLOCK.getDefaultState();
         protected static final BlockState STONE = Blocks.STONE.getDefaultState();
-        protected static final BlockState ARCANE_CRYSTAL_ORE = ModBlocks.ARCANE_CRYSTAL_ORE.getBlock().getDefaultState();
+        protected static final BlockState ARCANE_CRYSTAL_ORE = NewModBlocks.ARCANE_CRYSTAL_ORE.get().getDefaultState();
         protected static final BlockState RUNESTONE = ModBlocks.RUNESTONE.getBlock().getDefaultState();
         protected static final BlockState DARKSTONE = NewModBlocks.DARKSTONE.get().getDefaultState();
         protected static final BlockState ARCANE_GILDED_DARKSTONE = NewModBlocks.ARCANE_GILDED_DARKSTONE.get().getDefaultState();

@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,7 @@ public class DrawBlockHighlightListener {
             BlockRayTraceResult blockRayTraceResult = event.getTarget();
             World world = Minecraft.getInstance().world;
             BlockState state = world.getBlockState(blockRayTraceResult.getPos());
-            if (state.getBlock() == ModBlocks.ARCANE_CRYSTAL_OBELISK.getBlock()) {
+            if (state.getBlock() == NewModBlocks.ARCANE_CRYSTAL_OBELISK.get()) {
                 ArcaneCrystalObeliskPart part = state.get(ArcaneCrystalObeliskBlock.PART);
                 if (part == ArcaneCrystalObeliskPart.LOWER) {
                     //RenderUtils.drawSelectionBox(event.getInfo(), blockRayTraceResult.getPos().up());

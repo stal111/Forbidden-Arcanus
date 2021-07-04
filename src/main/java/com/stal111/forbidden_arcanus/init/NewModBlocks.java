@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.block.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.valhelsia.valhelsia_core.registry.block.BlockRegistryHelper;
@@ -52,6 +53,9 @@ public class NewModBlocks {
     public static final RegistryObject<Block> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", new PedestalBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F).notSolid()));
     public static final RegistryObject<Block> ARCANE_DARKSTONE_PEDESTAL = HELPER.register("arcane_darkstone_pedestal", new PedestalBlock(Block.Properties.from(Blocks.STONE).hardnessAndResistance(2.0F, 8.0F).notSolid()));
     public static final RegistryObject<Block> ARCANE_GLASS = HELPER.register("arcane_glass", new GlassBlock(Block.Properties.from(Blocks.GLASS)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<Block> ARCANE_CRYSTAL_ORE = HELPER.register("arcane_crystal_ore", new ModOreBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<Block> ARCANE_CRYSTAL_BLOCK = HELPER.register("arcane_crystal_block", new TranslucentBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 10.0F).notSolid()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<Block> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", new ArcaneCrystalObeliskBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.0F, 10.0F)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> ARCANE_GLASS_PANE = HELPER.register("arcane_glass_pane", new PaneBlock(Block.Properties.from(Blocks.GLASS_PANE)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ObsidianSkullBlock> OBSIDIAN_SKULL = HELPER.registerNoItem("obsidian_skull", new ObsidianSkullBlock(Block.Properties.from(Blocks.SKELETON_SKULL)));
     public static final RegistryObject<ObsidianWallSkullBlock> OBSIDIAN_WALL_SKULL = HELPER.registerNoItem("obsidian_wall_skull", new ObsidianWallSkullBlock(Block.Properties.from(Blocks.SKELETON_SKULL).lootFrom(OBSIDIAN_SKULL)));

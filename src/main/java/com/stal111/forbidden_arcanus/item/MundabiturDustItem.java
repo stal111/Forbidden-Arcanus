@@ -86,7 +86,7 @@ public class MundabiturDustItem extends Item {
             world.addEntity(entity);
 
             return true;
-        } else if (block == ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock() || block == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
+        } else if (block == NewModBlocks.ARCANE_CRYSTAL_BLOCK.get() || block == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
             BlockPattern.PatternHelper patternHelper = getArcaneCrystalObeliskPattern().match(world, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
@@ -101,9 +101,11 @@ public class MundabiturDustItem extends Item {
                 }
             }
 
-            world.setBlockState(patternHelper.getFrontTopLeft().down(2), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 2);
-            world.setBlockState(patternHelper.getFrontTopLeft().down(1), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 2);
-            world.setBlockState(patternHelper.getFrontTopLeft(), ModBlocks.ARCANE_CRYSTAL_OBELISK.getState().with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 2);
+            BlockState state = NewModBlocks.ARCANE_CRYSTAL_OBELISK.get().getDefaultState();
+
+            world.setBlockState(patternHelper.getFrontTopLeft().down(2), state.with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 2);
+            world.setBlockState(patternHelper.getFrontTopLeft().down(1), state.with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 2);
+            world.setBlockState(patternHelper.getFrontTopLeft(), state.with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 2);
 
             return true;
         }
@@ -160,7 +162,7 @@ public class MundabiturDustItem extends Item {
         if (arcaneCrystalObeliskPattern == null) {
             arcaneCrystalObeliskPattern = BlockPatternBuilder.start()
                     .aisle("#", "#", "X")
-                    .where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK.getBlock())))
+                    .where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_CRYSTAL_BLOCK.get())))
                     .where('X', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
                     .build();
         }

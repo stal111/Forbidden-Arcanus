@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
-import com.stal111.forbidden_arcanus.block.tileentity.container.ModContainers;
 import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.config.Config;
@@ -15,6 +14,7 @@ import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.event.LootTableListener;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadListener;
 import com.stal111.forbidden_arcanus.init.*;
+import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
@@ -35,7 +35,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -103,6 +102,7 @@ public class ForbiddenArcanus {
 		ModFeatures.FEATURES.register(modEventBus);
 		ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
 		ModStructures.STRUCTURES.register(modEventBus);
+		ModContainers.CONTAINERS.register(modEventBus);
 
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, LootTableListener::registerGlobalModifiers);
 
@@ -184,11 +184,6 @@ public class ForbiddenArcanus {
 					event.getRegistry().register(item);
 				}
 			}
-		}
-
-		@SubscribeEvent
-		public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
-			ModContainers.register(event);
 		}
 
 //

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.block.tileentity.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.item.MundabiturDustItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -101,6 +101,18 @@ public class HephaestusForgeBlock extends ValhelsiaContainerBlock implements IWa
     @Override
     public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, Hand hand, @Nonnull BlockRayTraceResult hit) {
         this.updateState(state, world, pos);
+
+        if (state.get(ACTIVATED)) {
+            if (world.isRemote()) {
+                return ActionResultType.SUCCESS;
+            }
+            TileEntity tileEntity = world.getTileEntity(pos);
+
+            if (tileEntity instanceof HephaestusForgeTileEntity) {
+                player.openContainer((HephaestusForgeTileEntity) tileEntity);
+                return ActionResultType.CONSUME;
+            }
+        }
 
         return super.onBlockActivated(state, world, pos, player, hand, hit);
     }

@@ -30,7 +30,7 @@ public class SanityMeterItem extends Item {
 
         player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
             if (world.isRemote()) {
-                player.sendStatusMessage(new TranslationTextComponent("forbidden_arcanus.aureal").appendString(": " + aureal.getAureal() + "/200 - ").append(new TranslationTextComponent("forbidden_arcanus.aureal.corruption").appendString(": " + aureal.getCorruption() + "/100")), true);
+                player.sendStatusMessage(new TranslationTextComponent("forbidden_arcanus.aureal").appendString(": " + aureal.getAureal() + "/200 - ").append(new TranslationTextComponent("forbidden_arcanus.corruption").appendString(": " + aureal.getCorruption() + "/100")), true);
             }
         });
         return new ActionResult<>(ActionResultType.SUCCESS, stack);

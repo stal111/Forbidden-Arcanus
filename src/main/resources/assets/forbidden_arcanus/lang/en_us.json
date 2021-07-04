@@ -305,8 +305,9 @@
     "tooltip.forbidden_arcanus.pixie": "Pixie",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
 
-    "______comment": "Containers",
+    "containers": "Containers",
     "container.dark_beacon": "Dark Beacon",
+    "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
 
     "enchantments": "Enchantments",
     "enchantment.forbidden_arcanus.permafrost": "Permafrost",
@@ -325,5 +326,11 @@
     "forbiddenmicon.recipe.smelting.blast_furnace": "Blast Furnace",
 
     "forbidden_arcanus.aureal": "Aureal",
-    "forbidden_arcanus.aureal.corruption": "Corruption"
+    "forbidden_arcanus.corruption": "Corruption",
+    "forbidden_arcanus.souls": "Souls",
+    "forbidden_arcanus.blood": "Blood",
+    "forbidden_arcanus.experience": "Experience",
+
+    "guis_comment": "Guis",
+    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Unlocked at level"
 }

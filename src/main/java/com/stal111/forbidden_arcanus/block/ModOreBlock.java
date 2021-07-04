@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.block;
 import java.util.Random;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.OreBlock;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +17,7 @@ public class ModOreBlock extends OreBlock {
 	}
 	
 	protected int func_220281_a(Random p_220281_1_) {
-	      if (this == ModBlocks.ARCANE_CRYSTAL_ORE.getBlock()) {
+	      if (this == NewModBlocks.ARCANE_CRYSTAL_ORE.get()) {
 	         return MathHelper.nextInt(p_220281_1_, 2, 5);
 	      } else if (this == ModBlocks.RUNESTONE.getBlock()) {
 	         return MathHelper.nextInt(p_220281_1_, 4, 8);

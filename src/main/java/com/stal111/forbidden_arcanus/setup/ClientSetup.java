@@ -6,10 +6,13 @@ import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
 import com.stal111.forbidden_arcanus.block.tileentity.render.NipaTileEntityRenderer;
 import com.stal111.forbidden_arcanus.block.tileentity.render.PedestalTileEntityRenderer;
 import com.stal111.forbidden_arcanus.block.tileentity.render.UtremJarTileEntityRenderer;
+import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemModelsProperties;
@@ -45,6 +48,10 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onClientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            ScreenManager.registerFactory(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
+        });
+
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL.get(), PedestalTileEntityRenderer::new);
