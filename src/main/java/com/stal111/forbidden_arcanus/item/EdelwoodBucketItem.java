@@ -1,9 +1,15 @@
 package com.stal111.forbidden_arcanus.item;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nullable;
+
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IBucketPickupHandler;
@@ -23,7 +29,13 @@ import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.*;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -34,10 +46,13 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Random;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.wrappers.BucketPickupHandlerWrapper;
 
 public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 
@@ -70,6 +85,10 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
         }
         super.inventoryTick(stack, world, entity, slot, isSelected);
     }
+    
+    private boolean isValidFluid(Fluid fluid) {
+        return fluid.isEquivalentTo(Fluids.LAVA) || fluid.isEquivalentTo(Fluids.WATER) || (ForgeMod.MILK.isPresent() && fluid.isEquivalentTo(ForgeMod.MILK.get()));
+    }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
@@ -89,35 +108,57 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
             if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos1, direction, stack)) {
                 BlockState blockstate1 = worldIn.getBlockState(blockpos);
                 if (this.containedBlock == Fluids.EMPTY || this.containedBlock == blockstate1.getFluidState().getFluid()) {
-                    if (blockstate1.getBlock() instanceof IBucketPickupHandler) {
-                        Fluid fluid = ((IBucketPickupHandler)blockstate1.getBlock()).pickupFluid(worldIn, blockpos, blockstate1);
-                        if (fluid != Fluids.EMPTY) {
-                            if (stack.getItem() instanceof EdelwoodFishBucketItem) { ;
-                                if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos, blockraytraceresult)) {
-                                    this.onLiquidPlaced(worldIn, stack, blockpos);
-                                    if (playerIn instanceof ServerPlayerEntity) {
-                                        CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity)playerIn, blockpos, stack);
-                                    }
-                                    playerIn.addStat(Stats.ITEM_USED.get(this));
-                                    return ActionResult.resultSuccess(this.emptyBucket(stack, playerIn));
-                                } else {
-                                    return ActionResult.resultFail(stack);
-                                }
-                            } else {
-                                playerIn.addStat(Stats.ITEM_USED.get(this));
-
-                                SoundEvent soundevent = this.containedBlock.getAttributes().getEmptySound();
-                                if(soundevent == null) soundevent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL;
-                                playerIn.playSound(soundevent, 1.0F, 1.0F);
-                                ItemStack itemstack1 = fluid == Fluids.WATER ? this.fillBucket(stack, playerIn, ModItems.EDELWOOD_WATER_BUCKET.get()) : this.fillBucket(stack, playerIn, ModItems.EDELWOOD_LAVA_BUCKET.get());
-                                if (!worldIn.isRemote) {
-                                    CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)playerIn, new ItemStack(fluid.getFilledBucket()));
-                                }
-                                return ActionResult.resultSuccess(itemstack1);
-                            }
+                    IFluidHandler fluidHandler = null;
+                    TileEntity te = worldIn.getTileEntity(blockpos);
+                    if (te != null)
+                        fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).orElse(null);
+                    if (fluidHandler == null && blockstate1.getBlock() instanceof IBucketPickupHandler)
+                        fluidHandler = new BucketPickupHandlerWrapper((IBucketPickupHandler) blockstate1.getBlock(), worldIn, blockpos);
+                    Fluid fluid = Fluids.EMPTY;
+                    if (fluidHandler != null) {
+                        FluidStack fluidStack = fluidHandler.drain(FluidAttributes.BUCKET_VOLUME, FluidAction.SIMULATE);
+                        if (isValidFluid(fluidStack.getFluid()) && fluidStack.getAmount() >= FluidAttributes.BUCKET_VOLUME) {
+                            fluidStack = fluidHandler.drain(FluidAttributes.BUCKET_VOLUME, FluidAction.EXECUTE);
+                            fluid = fluidStack.getFluid();
                         }
                     }
-                    return ActionResult.resultFail(stack);
+                    
+                    if (fluid != Fluids.EMPTY) {
+                        if (stack.getItem() instanceof EdelwoodFishBucketItem) { ;
+                            if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos, blockraytraceresult)) {
+                                this.onLiquidPlaced(worldIn, stack, blockpos);
+                                if (playerIn instanceof ServerPlayerEntity) {
+                                    CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity)playerIn, blockpos, stack);
+                                }
+                                playerIn.addStat(Stats.ITEM_USED.get(this));
+                                return ActionResult.resultSuccess(this.emptyBucket(stack, playerIn));
+                            } else {
+                                return ActionResult.resultFail(stack);
+                            }
+                    } else {
+                        playerIn.addStat(Stats.ITEM_USED.get(this));
+
+                        SoundEvent soundevent = this.containedBlock.getAttributes().getEmptySound();
+                        if(soundevent == null) soundevent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL;
+                        playerIn.playSound(soundevent, 1.0F, 1.0F);
+                        ItemStack filled = ItemStack.EMPTY;
+                        if (fluid.isEquivalentTo(Fluids.WATER))
+                            filled = this.fillBucket(stack, playerIn, ModItems.EDELWOOD_WATER_BUCKET.get());
+                        else if (fluid.isEquivalentTo(Fluids.LAVA))
+                            filled = this.fillBucket(stack, playerIn, ModItems.EDELWOOD_LAVA_BUCKET.get());
+                        else if (ForgeMod.MILK.isPresent() && fluid.isEquivalentTo(ForgeMod.MILK.get()))
+                            filled = this.fillBucket(stack, playerIn, ModItems.EDELWOOD_MILK_BUCKET.get());
+
+                        if (!filled.isEmpty()) {
+                            if (!worldIn.isRemote) {
+                                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity)playerIn, new ItemStack(fluid.getFilledBucket()));
+                            }
+                            return ActionResult.resultSuccess(filled);
+                        }
+                        return ActionResult.resultFail(stack);
+                    }
+                }
+                return ActionResult.resultFail(stack);
                 } else {
                     BlockPos blockpos2 = blockstate1.getBlock() instanceof ILiquidContainer && this.containedBlock == Fluids.WATER ? blockpos : blockpos1;
                     if (this.tryPlaceContainedLiquid(playerIn, worldIn, blockpos2, blockraytraceresult)) {

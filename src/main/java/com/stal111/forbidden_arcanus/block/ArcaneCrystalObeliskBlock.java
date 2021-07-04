@@ -61,17 +61,6 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLogg
         this.setDefaultState(this.getStateContainer().getBaseState().with(PART, ArcaneCrystalObeliskPart.LOWER).with(WATERLOGGED, false));
     }
 
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        ArcaneCrystalObeliskPart part = state.get(PART);
-        if (part == ArcaneCrystalObeliskPart.LOWER) {
-            return LOWER_SHAPE;
-        } else if (part == ArcaneCrystalObeliskPart.MIDDLE) {
-            return  MIDDLE_SHAPE;
-        } else {
-            return UPPER_SHAPE;
-        }
-
     @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
