@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.tile;
 
+import com.google.common.collect.Lists;
 import com.stal111.forbidden_arcanus.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
 import com.stal111.forbidden_arcanus.common.container.InputType;
@@ -18,11 +19,14 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hephaestus Forge Tile Entity
@@ -37,6 +41,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
     private HephaestusForgeLevel level = HephaestusForgeLevel.ONE;
 
     private NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
+    private final List<BlockPos> pedestals = new ArrayList<>();
 
     private final IIntArray hephaestusForgeData;
 
@@ -231,6 +236,18 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         }
     }
 
+    public List<BlockPos> getPedestals() {
+        return pedestals;
+    }
+
+    public void addPedestal(BlockPos pos) {
+        this.pedestals.add(pos);
+    }
+
+    public void removePedestal(BlockPos pos) {
+        this.pedestals.remove(pos);
+    }
+
     @Nonnull
     @Override
     public CompoundNBT write(@Nonnull CompoundNBT compound) {
@@ -238,6 +255,10 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
         compound.putString("Level", this.getLevel().getName());
         ItemStackHelper.saveAllItems(compound, this.inventoryContents);
+
+        if (!this.getPedestals().isEmpty()) {
+            compound.putLongArray("pedestals", Lists.transform(this.getPedestals(), BlockPos::toLong));
+        }
 
         compound.putInt("Aureal", this.getAureal());
         compound.putInt("Corruption", this.getCorruption());
@@ -255,6 +276,16 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
         this.inventoryContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(compound, this.inventoryContents);
+
+        if (compound.contains("pedestals")) {
+            this.pedestals.clear();
+            long[] pedestals = compound.getLongArray("pedestals");
+
+            for (long pedestal : pedestals) {
+                this.addPedestal(BlockPos.fromLong(pedestal));
+            }
+            System.out.println(this.pedestals);
+        }
 
         this.setAureal(compound.getInt("Aureal"));
         this.setCorruption(compound.getInt("Corruption"));

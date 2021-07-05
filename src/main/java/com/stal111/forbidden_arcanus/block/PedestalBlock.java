@@ -1,11 +1,16 @@
 package com.stal111.forbidden_arcanus.block;
 
+import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
+import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -49,11 +54,12 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
             makeCuboidShape(2.0D, 11.0D, 2.0D, 14.0D, 14.0D, 14.0D)
     );
 
-    public static BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty BOUND = ModBlockStateProperties.BOUND;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public PedestalBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(WATERLOGGED, false));
+        this.setDefaultState(this.getStateContainer().getBaseState().with(BOUND, false).with(WATERLOGGED, false));
     }
 
     @Nullable
@@ -123,6 +129,29 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
     }
 
     @Override
+    public void neighborChanged(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Block block, @Nonnull BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(state, world, pos, block, fromPos, isMoving);
+
+        if (!fromPos.equals(pos.down())) {
+            return;
+        }
+
+        if (state.get(BOUND) && world.getBlockState(fromPos).getBlock() != NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get()) {
+            this.tryUnbindPedestal(world, state, pos, false);
+        } else if (!state.get(BOUND) && world.getBlockState(fromPos).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get()) {
+            this.tryBindPedestal(world, state, pos);
+        }
+    }
+
+    @Override
+    public void onBlockPlacedBy(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nullable LivingEntity placer, @Nonnull ItemStack stack) {
+        if (world.getBlockState(pos.down()).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get()) {
+            this.tryBindPedestal(world, state, pos);
+        }
+        super.onBlockPlacedBy(world, pos, state, placer, stack);
+    }
+
+    @Override
     public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (state.isIn(newState.getBlock())) {
             return;
@@ -132,9 +161,63 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
 
         if (tileEntity instanceof PedestalTileEntity) {
             world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, ((PedestalTileEntity) tileEntity).getStack()));
+
+            this.tryUnbindPedestal(world, state, pos, true);
         }
 
         super.onReplaced(state, world, pos, newState, isMoving);
+    }
+
+    private BlockPos getHephaestusForgePos(World world, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            if (direction.getAxis() == Direction.Axis.Y) {
+                continue;
+            }
+
+            BlockPos offsetPos = pos.offset(direction, 2);
+
+            if (world.getBlockState(offsetPos.offset(direction, 1)).getBlock() == ModBlocks.HEPHAESTUS_FORGE.getBlock()) {
+                return offsetPos.offset(direction, 1);
+            } else if (world.getBlockState(offsetPos.offset(direction.rotateY(), 2)).getBlock() == ModBlocks.HEPHAESTUS_FORGE.getBlock()) {
+                return offsetPos.offset(direction.rotateY(), 2);
+            }
+        }
+
+        return null;
+    }
+
+    private void tryBindPedestal(World world, BlockState state, BlockPos pos) {
+        BlockPos forgePos = this.getHephaestusForgePos(world, pos);
+
+        if (state.get(BOUND) || forgePos == null) {
+            return;
+        }
+
+        TileEntity tileEntity = world.getTileEntity(forgePos);
+
+        if (tileEntity instanceof HephaestusForgeTileEntity) {
+            ((HephaestusForgeTileEntity) tileEntity).addPedestal(pos);
+
+            world.setBlockState(pos, state.with(BOUND, true), 3);
+        }
+    }
+
+    private void tryUnbindPedestal(World world, BlockState state, BlockPos pos, boolean replaced) {
+        BlockPos forgePos = this.getHephaestusForgePos(world, pos);
+
+        if (!state.get(BOUND) || forgePos == null) {
+            return;
+        }
+
+        TileEntity tileEntity = world.getTileEntity(forgePos);
+
+        if (tileEntity instanceof HephaestusForgeTileEntity) {
+            ((HephaestusForgeTileEntity) tileEntity).removePedestal(pos);
+
+            if (!replaced) {
+                world.setBlockState(pos, state.with(BOUND, false), 3);
+            }
+        }
     }
 
     @Nonnull
@@ -145,6 +228,6 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
+        builder.add(BOUND, WATERLOGGED);
     }
 }
