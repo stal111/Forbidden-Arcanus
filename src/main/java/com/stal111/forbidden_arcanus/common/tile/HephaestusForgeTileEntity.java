@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.stal111.forbidden_arcanus.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
 import com.stal111.forbidden_arcanus.common.container.InputType;
+import com.stal111.forbidden_arcanus.common.container.input.IHephaestusForgeInput;
+import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,6 +29,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Hephaestus Forge Tile Entity
@@ -93,15 +96,19 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         }
 
         for (int i = 5; i <= 8; i++) {
-            ItemStack stack = inventoryContents.get(i);
+            ItemStack stack = this.inventoryContents.get(i);
 
             if (!stack.isEmpty()) {
                 InputType inputType = this.getInputTypeFromSlot(i);
 
-                if (inputType != null && canInput(inputType)) {
-                    stack.shrink(1);
+                if (inputType == null) {
+                    return;
+                }
 
-                    this.fillWith(inputType, stack);
+                IHephaestusForgeInput input = this.getInput(stack, inputType);
+
+                if (input != null) {
+                    this.fillWith(inputType, stack, input, i);
 
                     this.markDirty();
                 }
@@ -123,15 +130,24 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         }
     }
 
-    private boolean canInput(InputType inputType) {
+    @Nullable
+    private IHephaestusForgeInput getInput(ItemStack stack, InputType inputType) {
+        if (this.isTypeFull(inputType)) {
+            return null;
+        }
+
+        return HephaestusForgeInputs.getInputs().stream().filter(input -> input.canInput(inputType, stack)).findFirst().orElse(null);
+    }
+
+    private boolean isTypeFull(InputType inputType) {
         HephaestusForgeLevel level = this.getLevel();
 
         switch (inputType) {
-            case AUREAL: return this.getAureal() < level.getMaxAureal();
-            case SOULS: return this.getSouls() < level.getMaxSouls();
-            case BLOOD: return this.getBlood() < level.getMaxBlood();
-            case EXPERIENCE: return this.getExperience() < level.getMaxExperience();
-            default: return false;
+            case AUREAL: return this.getAureal() >= level.getMaxAureal();
+            case SOULS: return this.getSouls() >= level.getMaxSouls();
+            case BLOOD: return this.getBlood() >= level.getMaxBlood();
+            case EXPERIENCE: return this.getExperience() >= level.getMaxExperience();
+            default: return true;
         }
     }
 
@@ -227,13 +243,17 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         this.setExperience(this.getExperience() + experience);
     }
 
-    public void fillWith(InputType inputType, ItemStack stack) {
+    public void fillWith(InputType inputType, ItemStack stack, IHephaestusForgeInput input, int slot) {
+        int value = input.getInputValue(inputType, stack, Objects.requireNonNull(this.getWorld()).getRandom());
+
         switch (inputType) {
-            case AUREAL: this.increaseAureal(1); break;
-            case SOULS: this.increaseSouls(1); break;
-            case BLOOD: this.increaseBlood(1); break;
-            case EXPERIENCE: this.increaseExperience(1); break;
+            case AUREAL: this.increaseAureal(value); break;
+            case SOULS: this.increaseSouls(value); break;
+            case BLOOD: this.increaseBlood(value); break;
+            case EXPERIENCE: this.increaseExperience(value); break;
         }
+
+        input.finishInput(inputType, stack, this, slot);
     }
 
     public List<BlockPos> getPedestals() {
