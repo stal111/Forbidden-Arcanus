@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
@@ -61,6 +62,7 @@ public class ClientSetup {
 
         ItemModelsProperties.registerProperty(NewModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
         ItemModelsProperties.registerProperty(NewModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
+        ItemModelsProperties.registerProperty(NewModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, world, entity) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
     }
 
     @SubscribeEvent

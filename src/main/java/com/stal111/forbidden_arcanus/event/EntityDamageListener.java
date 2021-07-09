@@ -1,7 +1,10 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -25,10 +28,51 @@ public class EntityDamageListener {
 
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
-        World world = event.getEntity().getEntityWorld();
-        Random random = new Random();
-        if (event.getEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntity();
+        LivingEntity entity = event.getEntityLiving();
+        DamageSource source = event.getSource();
+        World world = entity.getEntityWorld();
+
+        Random random = entity.getRNG();
+
+        if (source.damageType.equals("player")) {
+            PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
+
+            if (player != null && player.getHeldItem(player.getActiveHand()).getItem() == ModItems.MYSTICAL_DAGGER.get()) {
+                int blood = (int) (75 * event.getAmount());
+
+                ItemStack stack = null;
+
+                for (ItemStack inventoryStack : player.inventory.mainInventory) {
+                    if (inventoryStack.getItem() == NewModItems.TEST_TUBE.get() && stack == null) {
+                        stack = inventoryStack;
+
+                    } else if (inventoryStack.getItem() == NewModItems.BLOOD_TEST_TUBE.get() && BloodTestTubeItem.getBlood(inventoryStack) != BloodTestTubeItem.MAX_BLOOD) {
+                        BloodTestTubeItem.addBlood(inventoryStack, blood);
+                        stack = null;
+
+                        break;
+                    }
+                }
+
+                if (stack != null) {
+                    ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(NewModItems.BLOOD_TEST_TUBE.get()), blood);
+
+                    stack.shrink(1);
+
+                    if (!stack.isEmpty()) {
+                        if (!player.addItemStackToInventory(newStack)) {
+                            player.dropItem(newStack, false);
+                        }
+                    } else {
+                        int slot = player.inventory.getSlotFor(stack);
+                        player.inventory.setInventorySlotContents(slot, newStack);
+                    }
+                }
+            }
+        }
+
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             if (event.getSource() == DamageSource.FALL && event.getAmount() >= 6) {
                 if (random.nextDouble() <= 0.75) {
                     List<Integer> list = new ArrayList<>();

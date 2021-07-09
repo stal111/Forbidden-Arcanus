@@ -286,6 +286,7 @@
     "item.forbidden_arcanus.arcane_bone_meal": "Arcane Bone Meal",
     "item.forbidden_arcanus.zombie_arm": "Zombie Arm",
     "item.forbidden_arcanus.shiny_zombie_arm": "Shiny Zombie Arm",
+    "item.forbidden_arcanus.test_tube": "Test Tube",
 
     "tooltips": "Tooltips",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",

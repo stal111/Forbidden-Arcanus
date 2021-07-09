@@ -28,7 +28,7 @@ public class ItemInput implements IHephaestusForgeInput {
     }
 
     @Override
-    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeTileEntity tileEntity, int slot) {
+    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeTileEntity tileEntity, int slot, int inputValue) {
         stack.shrink(1);
     }
 }

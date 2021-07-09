@@ -33,7 +33,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
+        getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL, NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.ARCANE_CRYSTAL_BLOCK, NewModBlocks.ARCANE_CRYSTAL_OBELISK));
 
         take(this::withExistingModel, NewModBlocks.UTREM_JAR, NewModBlocks.NIPA, NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
         take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);

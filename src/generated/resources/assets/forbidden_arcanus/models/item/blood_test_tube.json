@@ -1,0 +1,44 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forbidden_arcanus:item/test_tube"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:amount": 0.1
+      },
+      "model": "forbidden_arcanus:item/blood_test_tube_0"
+    },
+    {
+      "predicate": {
+        "minecraft:amount": 0.25
+      },
+      "model": "forbidden_arcanus:item/blood_test_tube_1"
+    },
+    {
+      "predicate": {
+        "minecraft:amount": 0.5
+      },
+      "model": "forbidden_arcanus:item/blood_test_tube_2"
+    },
+    {
+      "predicate": {
+        "minecraft:amount": 0.75
+      },
+      "model": "forbidden_arcanus:item/blood_test_tube_3"
+    },
+    {
+      "predicate": {
+        "minecraft:amount": 0.9
+      },
+      "model": "forbidden_arcanus:item/blood_test_tube_4"
+    },
+    {
+      "predicate": {
+        "minecraft:amount": 1.0
+      },
+      "model": "forbidden_arcanus:item/blood_test_tube_5"
+    }
+  ]
+}

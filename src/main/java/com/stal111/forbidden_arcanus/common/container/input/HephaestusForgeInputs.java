@@ -18,7 +18,8 @@ public class HephaestusForgeInputs {
     public static void registerInputs() {
         INPUTS.addAll(Arrays.asList(
                 new ItemInput(),
-                new EnchantmentInput()
+                new EnchantmentInput(),
+                new BloodTestTubeInput()
         ));
     }
 

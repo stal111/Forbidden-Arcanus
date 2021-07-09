@@ -18,5 +18,5 @@ public interface IHephaestusForgeInput {
 
     boolean canInput(InputType inputType, ItemStack stack);
     int getInputValue(InputType inputType, ItemStack stack, Random random);
-    void finishInput(InputType inputType, ItemStack stack, HephaestusForgeTileEntity tileEntity, int slot);
+    void finishInput(InputType inputType, ItemStack stack, HephaestusForgeTileEntity tileEntity, int slot, int inputValue);
 }

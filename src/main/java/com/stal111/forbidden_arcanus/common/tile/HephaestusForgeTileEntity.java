@@ -253,7 +253,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
             case EXPERIENCE: this.increaseExperience(value); break;
         }
 
-        input.finishInput(inputType, stack, this, slot);
+        input.finishInput(inputType, stack, this, slot, value);
     }
 
     public List<BlockPos> getPedestals() {
