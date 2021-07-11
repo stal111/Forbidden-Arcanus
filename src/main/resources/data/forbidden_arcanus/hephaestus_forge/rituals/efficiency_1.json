@@ -1,0 +1,25 @@
+{
+    "inputs": [
+        "minecraft:diamond",
+        "minecraft:feather",
+        "minecraft:ink_sac",
+        "forbidden_arcanus:ender_pearl_fragment"
+    ],
+    "hephaestus_forge_item": "minecraft:book",
+    "essences": {
+        "aureal": 75,
+        "experience": 20
+    },
+    "result": {
+        "item": "minecraft:enchanted_book",
+        "count": 1,
+        "nbt": {
+            "StoredEnchantments": [
+                {
+                    "id": "minecraft:efficiency",
+                    "lvl": 1
+                }
+            ]
+        }
+    }
+}

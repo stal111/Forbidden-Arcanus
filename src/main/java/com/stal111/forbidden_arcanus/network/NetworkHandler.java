@@ -21,21 +21,9 @@ public class NetworkHandler {
     public static void init() {
         INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(ForbiddenArcanus.MOD_ID, "channel"), () -> "1.0", s -> true, s -> true);
 
-        INSTANCE.registerMessage(
-                nextID(),
-                AurealUpdatePacket.class,
-                AurealUpdatePacket::encode,
-                AurealUpdatePacket::decode,
-                AurealUpdatePacket::consume
-        );
-
-        INSTANCE.registerMessage(
-                nextID(),
-                UpdateCounterPacket.class,
-                UpdateCounterPacket::encode,
-                UpdateCounterPacket::decode,
-                UpdateCounterPacket::consume
-        );
+        INSTANCE.registerMessage(nextID(), AurealUpdatePacket.class, AurealUpdatePacket::encode, AurealUpdatePacket::decode, AurealUpdatePacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdateCounterPacket.class, UpdateCounterPacket::encode, UpdateCounterPacket::decode, UpdateCounterPacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdatePedestalPacket.class, UpdatePedestalPacket::encode, UpdatePedestalPacket::decode, UpdatePedestalPacket::consume);
     }
 
     public static <MSG> void sendTo(PlayerEntity player, MSG msg) {

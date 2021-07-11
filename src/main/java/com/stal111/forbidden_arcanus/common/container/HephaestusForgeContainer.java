@@ -60,7 +60,7 @@ public class HephaestusForgeContainer extends Container {
         }
 
         // Main Slot
-        this.addSlot(new Slot(this.getTileEntity(), 4, 80 + x, 24));
+        this.addSlot(new MainSlot(this.getTileEntity(), 4, 80 + x, 24));
 
         // Input Slots
         this.addSlot(new InputSlot(this.getTileEntity(), 5, 8, 25, InputType.AUREAL));

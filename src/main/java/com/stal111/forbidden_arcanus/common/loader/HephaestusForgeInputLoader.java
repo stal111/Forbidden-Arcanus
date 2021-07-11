@@ -33,7 +33,7 @@ public class HephaestusForgeInputLoader extends JsonReloadListener {
     private static final Map<InputType, Map<Item, InputData>> INPUTS = Maps.newHashMap();
 
     public HephaestusForgeInputLoader() {
-        super(GSON, "hephaestus_forge_inputs");
+        super(GSON, "hephaestus_forge/inputs");
     }
 
     @Override
@@ -53,8 +53,8 @@ public class HephaestusForgeInputLoader extends JsonReloadListener {
 
                 INPUTS.computeIfAbsent(type, (inputType) -> new HashMap<>());
                 INPUTS.get(type).put(data.getStack().getItem(), data);
-            } catch (IllegalArgumentException | JsonParseException jsonparseexception) {
-                ForbiddenArcanus.LOGGER.error("Parsing error loading hephaestus forge input {}", resourceLocation, jsonparseexception);
+            } catch (IllegalArgumentException | JsonParseException jsonParseException) {
+                ForbiddenArcanus.LOGGER.error("Parsing error loading hephaestus forge input {}", resourceLocation, jsonParseException);
             }
         }
     }

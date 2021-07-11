@@ -35,6 +35,11 @@ public class EnhancerSlot extends Slot {
         return this.unlocked;
     }
 
+    @Override
+    public int getSlotStackLimit() {
+        return 1;
+    }
+
     public boolean isUnlocked() {
         return unlocked;
     }

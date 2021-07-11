@@ -1,11 +1,12 @@
 package com.stal111.forbidden_arcanus.common.tile;
 
-import com.google.common.collect.Lists;
 import com.stal111.forbidden_arcanus.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
 import com.stal111.forbidden_arcanus.common.container.InputType;
-import com.stal111.forbidden_arcanus.common.container.input.IHephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.container.input.IHephaestusForgeInput;
+import com.stal111.forbidden_arcanus.common.tile.ritual.EssenceManager;
+import com.stal111.forbidden_arcanus.common.tile.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,14 +22,11 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -44,41 +42,40 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
     private HephaestusForgeLevel level = HephaestusForgeLevel.ONE;
 
     private NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
-    private final List<BlockPos> pedestals = new ArrayList<>();
-
     private final IIntArray hephaestusForgeData;
 
-    private int aureal = 0;
-    private int corruption = 0;
-    private int souls = 0;
-    private int blood = 0;
-    private int experience = 0;
+    private final RitualManager ritualManager = new RitualManager();
+    private final EssenceManager essenceManager = new EssenceManager(this);
 
     public HephaestusForgeTileEntity() {
         super(ModTileEntities.HEPHAESTUS_FORGE.get());
         this.hephaestusForgeData = new IIntArray() {
             @Override
             public int get(int index) {
+                EssenceManager manager = HephaestusForgeTileEntity.this.getEssenceManager();
+
                 switch (index) {
-                    case 0: return HephaestusForgeTileEntity.this.getLevel().getIndex();
-                    case 1: return HephaestusForgeTileEntity.this.getAureal();
-                    case 2: return HephaestusForgeTileEntity.this.getCorruption();
-                    case 3: return HephaestusForgeTileEntity.this.getSouls();
-                    case 4: return HephaestusForgeTileEntity.this.getBlood();
-                    case 5: return HephaestusForgeTileEntity.this.getExperience();
+                    case 0: return manager.getLevel().getIndex();
+                    case 1: return manager.getAureal();
+                    case 2: return manager.getCorruption();
+                    case 3: return manager.getSouls();
+                    case 4: return manager.getBlood();
+                    case 5: return manager.getExperience();
                     default: return 0;
                 }
             }
 
             @Override
             public void set(int index, int value) {
+                EssenceManager manager = HephaestusForgeTileEntity.this.getEssenceManager();
+
                 switch (index) {
                     case 0: HephaestusForgeTileEntity.this.setLevel(HephaestusForgeLevel.getFromIndex(value)); break;
-                    case 1: HephaestusForgeTileEntity.this.setAureal(value); break;
-                    case 2: HephaestusForgeTileEntity.this.setCorruption(value); break;
-                    case 3: HephaestusForgeTileEntity.this.setSouls(value); break;
-                    case 4: HephaestusForgeTileEntity.this.setBlood(value); break;
-                    case 5: HephaestusForgeTileEntity.this.setExperience(value); break;
+                    case 1: manager.setAureal(value); break;
+                    case 2: manager.setCorruption(value); break;
+                    case 3: manager.setSouls(value); break;
+                    case 4: manager.setBlood(value); break;
+                    case 5: manager.setExperience(value); break;
                 }
             }
 
@@ -141,12 +138,13 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     private boolean isTypeFull(InputType inputType) {
         HephaestusForgeLevel level = this.getLevel();
+        EssenceManager manager = this.getEssenceManager();
 
         switch (inputType) {
-            case AUREAL: return this.getAureal() >= level.getMaxAureal();
-            case SOULS: return this.getSouls() >= level.getMaxSouls();
-            case BLOOD: return this.getBlood() >= level.getMaxBlood();
-            case EXPERIENCE: return this.getExperience() >= level.getMaxExperience();
+            case AUREAL: return manager.getAureal() >= level.getMaxAureal();
+            case SOULS: return manager.getSouls() >= level.getMaxSouls();
+            case BLOOD: return manager.getBlood() >= level.getMaxBlood();
+            case EXPERIENCE: return manager.getExperience() >= level.getMaxExperience();
             default: return true;
         }
     }
@@ -163,109 +161,26 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         return hephaestusForgeData;
     }
 
-    public int getAureal() {
-        return this.aureal;
-    }
-
-    public void setAureal(int aureal) {
-        this.aureal = aureal;
-    }
-
-    public void increaseAureal(int aureal) {
-        if (this.getAureal() + aureal >= this.getLevel().getMaxAureal()) {
-            this.setAureal(this.getLevel().getMaxAureal());
-            return;
-        }
-        this.setAureal(this.getAureal() + aureal);
-    }
-
-    public int getCorruption() {
-        return this.corruption;
-    }
-
-    public void setCorruption(int corruption) {
-        this.corruption = corruption;
-    }
-
-    public void increaseCorruption(int corruption) {
-        if (this.getCorruption() + corruption >= this.getLevel().getMaxCorruption()) {
-            this.setCorruption(this.getLevel().getMaxCorruption());
-            return;
-        }
-        this.setCorruption(this.getCorruption() + corruption);
-    }
-
-    public int getSouls() {
-        return this.souls;
-    }
-
-    public void setSouls(int souls) {
-        this.souls = souls;
-    }
-
-    public void increaseSouls(int souls) {
-        if (this.getSouls() + souls >= this.getLevel().getMaxSouls()) {
-            this.setSouls(this.getLevel().getMaxSouls());
-            return;
-        }
-        this.setSouls(this.getSouls() + souls);
-    }
-
-    public int getBlood() {
-        return this.blood;
-    }
-
-    public void setBlood(int blood) {
-        this.blood = blood;
-    }
-
-    public void increaseBlood(int blood) {
-        if (this.getBlood() + blood >= this.getLevel().getMaxBlood()) {
-            this.setBlood(this.getLevel().getMaxBlood());
-            return;
-        }
-        this.setBlood(this.getBlood() + blood);
-    }
-
-    public int getExperience() {
-        return this.experience;
-    }
-
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
-    public void increaseExperience(int experience) {
-        if (this.getExperience() + experience >= this.getLevel().getMaxExperience()) {
-            this.setExperience(this.getLevel().getMaxExperience());
-            return;
-        }
-        this.setExperience(this.getExperience() + experience);
+    public EssenceManager getEssenceManager() {
+        return essenceManager;
     }
 
     public void fillWith(InputType inputType, ItemStack stack, IHephaestusForgeInput input, int slot) {
         int value = input.getInputValue(inputType, stack, Objects.requireNonNull(this.getWorld()).getRandom());
+        EssenceManager manager = this.getEssenceManager();
 
         switch (inputType) {
-            case AUREAL: this.increaseAureal(value); break;
-            case SOULS: this.increaseSouls(value); break;
-            case BLOOD: this.increaseBlood(value); break;
-            case EXPERIENCE: this.increaseExperience(value); break;
+            case AUREAL: manager.increaseAureal(value); break;
+            case SOULS: manager.increaseSouls(value); break;
+            case BLOOD: manager.increaseBlood(value); break;
+            case EXPERIENCE: manager.increaseExperience(value); break;
         }
 
         input.finishInput(inputType, stack, this, slot, value);
     }
 
-    public List<BlockPos> getPedestals() {
-        return pedestals;
-    }
-
-    public void addPedestal(BlockPos pos) {
-        this.pedestals.add(pos);
-    }
-
-    public void removePedestal(BlockPos pos) {
-        this.pedestals.remove(pos);
+    public RitualManager getRitualManager() {
+        return ritualManager;
     }
 
     @Nonnull
@@ -276,15 +191,8 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         compound.putString("Level", this.getLevel().getName());
         ItemStackHelper.saveAllItems(compound, this.inventoryContents);
 
-        if (!this.getPedestals().isEmpty()) {
-            compound.putLongArray("pedestals", Lists.transform(this.getPedestals(), BlockPos::toLong));
-        }
-
-        compound.putInt("Aureal", this.getAureal());
-        compound.putInt("Corruption", this.getCorruption());
-        compound.putInt("Souls", this.getSouls());
-        compound.putInt("Blood", this.getBlood());
-        compound.putInt("Experience", this.getExperience());
+        compound.put("Ritual", this.getRitualManager().write(new CompoundNBT()));
+        compound.put("Essences", this.getEssenceManager().write(new CompoundNBT()));
 
         return compound;
     }
@@ -297,21 +205,8 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         this.inventoryContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(compound, this.inventoryContents);
 
-        if (compound.contains("pedestals")) {
-            this.pedestals.clear();
-            long[] pedestals = compound.getLongArray("pedestals");
-
-            for (long pedestal : pedestals) {
-                this.addPedestal(BlockPos.fromLong(pedestal));
-            }
-            System.out.println(this.pedestals);
-        }
-
-        this.setAureal(compound.getInt("Aureal"));
-        this.setCorruption(compound.getInt("Corruption"));
-        this.setSouls(compound.getInt("Souls"));
-        this.setBlood(compound.getInt("Blood"));
-        this.setExperience(compound.getInt("Experience"));
+        this.getRitualManager().read(compound.getCompound("Ritual"));
+        this.getEssenceManager().read(compound.getCompound("Essences"));
     }
 
     @Nullable

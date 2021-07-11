@@ -196,7 +196,7 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
         TileEntity tileEntity = world.getTileEntity(forgePos);
 
         if (tileEntity instanceof HephaestusForgeTileEntity) {
-            ((HephaestusForgeTileEntity) tileEntity).addPedestal(pos);
+            ((HephaestusForgeTileEntity) tileEntity).getRitualManager().addPedestal(pos);
 
             world.setBlockState(pos, state.with(BOUND, true), 3);
         }
@@ -212,7 +212,7 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
         TileEntity tileEntity = world.getTileEntity(forgePos);
 
         if (tileEntity instanceof HephaestusForgeTileEntity) {
-            ((HephaestusForgeTileEntity) tileEntity).removePedestal(pos);
+            ((HephaestusForgeTileEntity) tileEntity).getRitualManager().removePedestal(pos);
 
             if (!replaced) {
                 world.setBlockState(pos, state.with(BOUND, false), 3);
