@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.block.tileentity.render.NipaTileEntityRende
 import com.stal111.forbidden_arcanus.block.tileentity.render.PedestalTileEntityRenderer;
 import com.stal111.forbidden_arcanus.block.tileentity.render.UtremJarTileEntityRenderer;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
+import com.stal111.forbidden_arcanus.client.renderer.tile.HephaestusForgeTileEntityRenderer;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
@@ -56,6 +57,7 @@ public class ClientSetup {
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL.get(), PedestalTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeTileEntityRenderer::new);
 
         ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof UtremJarTileEntity);
         ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof NipaTileEntity);

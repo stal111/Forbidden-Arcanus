@@ -1,14 +1,15 @@
-package com.stal111.forbidden_arcanus.common.tile;
+package com.stal111.forbidden_arcanus.common.tile.forge;
 
 import com.stal111.forbidden_arcanus.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
 import com.stal111.forbidden_arcanus.common.container.InputType;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.container.input.IHephaestusForgeInput;
-import com.stal111.forbidden_arcanus.common.tile.ritual.EssenceManager;
-import com.stal111.forbidden_arcanus.common.tile.ritual.RitualManager;
+import com.stal111.forbidden_arcanus.common.tile.forge.ritual.EssenceManager;
+import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -22,16 +23,19 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Hephaestus Forge Tile Entity
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity
  *
  * @author stal111
  * @version 2.0.0
@@ -46,6 +50,10 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     private final RitualManager ritualManager = new RitualManager();
     private final EssenceManager essenceManager = new EssenceManager(this);
+
+    private final MagicCircle magicCircle = new MagicCircle();
+
+    private List<LivingEntity> entities = new ArrayList<>();
 
     public HephaestusForgeTileEntity() {
         super(ModTileEntities.HEPHAESTUS_FORGE.get());
@@ -112,9 +120,16 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
             }
         }
 
-        if (this.world.getGameTime() % 80L == 0L) {
+        if (this.world.getGameTime() % 80 == 0) {
             ((HephaestusForgeBlock) this.getBlockState().getBlock()).updateState(this.getBlockState(), this.world, this.pos);
         }
+
+        if (this.world.getGameTime() % 20 == 0) {
+            this.entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(5, 5, 5));
+
+            this.essenceManager.tick();
+        }
+        this.magicCircle.tick();
     }
 
     private InputType getInputTypeFromSlot(int slot) {
@@ -165,6 +180,14 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         return essenceManager;
     }
 
+    public MagicCircle getMagicCircle() {
+        return magicCircle;
+    }
+
+    public List<LivingEntity> getEntities() {
+        return entities;
+    }
+
     public void fillWith(InputType inputType, ItemStack stack, IHephaestusForgeInput input, int slot) {
         int value = input.getInputValue(inputType, stack, Objects.requireNonNull(this.getWorld()).getRandom());
         EssenceManager manager = this.getEssenceManager();
@@ -193,6 +216,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
         compound.put("Ritual", this.getRitualManager().write(new CompoundNBT()));
         compound.put("Essences", this.getEssenceManager().write(new CompoundNBT()));
+        compound.put("MagicCircle", this.getMagicCircle().write(new CompoundNBT()));
 
         return compound;
     }
@@ -207,6 +231,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
         this.getRitualManager().read(compound.getCompound("Ritual"));
         this.getEssenceManager().read(compound.getCompound("Essences"));
+        this.getMagicCircle().read(compound.getCompound("MagicCircle"));
     }
 
     @Nullable

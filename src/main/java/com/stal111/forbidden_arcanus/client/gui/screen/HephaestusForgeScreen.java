@@ -6,7 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.container.EnhancerSlot;
 import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;

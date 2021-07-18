@@ -1,19 +1,24 @@
-package com.stal111.forbidden_arcanus.common.tile.ritual;
+package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeLevel;
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.util.ISavedData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Essence Manager
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.ritual.EssenceManager
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.EssenceManager
  *
  * @author stal111
  * @version 2.0.0
  * @since 2021-07-10
  */
-public class EssenceManager implements ISavedData {
+public class EssenceManager implements ISavedData, ITickableTileEntity {
 
     private final HephaestusForgeTileEntity tileEntity;
 
@@ -22,6 +27,8 @@ public class EssenceManager implements ISavedData {
     private int souls = 0;
     private int blood = 0;
     private int experience = 0;
+
+    private final Map<LivingEntity, Float> cachedHealth = new HashMap<>();
 
     public EssenceManager(HephaestusForgeTileEntity tileEntity) {
         this.tileEntity = tileEntity;
@@ -153,5 +160,28 @@ public class EssenceManager implements ISavedData {
         this.setSouls(compound.getInt("Souls"));
         this.setBlood(compound.getInt("Blood"));
         this.setExperience(compound.getInt("Experience"));
+    }
+
+    @Override
+    public void tick() {
+        HephaestusForgeTileEntity tileEntity = this.getTileEntity();
+        if (tileEntity.getWorld() == null) {
+            return;
+        }
+
+        for (LivingEntity entity : tileEntity.getEntities()) {
+            if (this.cachedHealth.containsKey(entity)) {
+                float healthDifference = this.cachedHealth.get(entity) - entity.getHealth();
+
+                if (healthDifference > 0) {
+                    this.increaseBlood((int) healthDifference * 20);
+                }
+            }
+        }
+
+        this.cachedHealth.clear();
+        for (LivingEntity entity : tileEntity.getEntities()) {
+            this.cachedHealth.put(entity, entity.getHealth());
+        }
     }
 }

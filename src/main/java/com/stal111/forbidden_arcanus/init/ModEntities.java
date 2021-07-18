@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.renderers.CrimsonLightningBoltRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.CrimsonLightningBoltRenderer;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.entity.projectile.*;

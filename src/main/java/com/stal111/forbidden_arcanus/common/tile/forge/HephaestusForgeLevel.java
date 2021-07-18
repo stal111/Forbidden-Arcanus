@@ -1,8 +1,8 @@
-package com.stal111.forbidden_arcanus.common.tile;
+package com.stal111.forbidden_arcanus.common.tile.forge;
 
 /**
  * Hephaestus Forge Level
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.HephaestusForgeLevel
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel
  *
  * @author stal111
  * @version 2.0.0

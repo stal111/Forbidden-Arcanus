@@ -1,10 +1,10 @@
-package com.stal111.forbidden_arcanus.common.tile.ritual;
+package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 
 /**
  * Ritual Essences
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.ritual.RitualEssences
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualEssences
  *
  * @author stal111
  * @version 2.0.0

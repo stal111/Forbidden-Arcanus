@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.client.renderers;
+package com.stal111.forbidden_arcanus.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -16,7 +16,7 @@ import java.util.Random;
 
 /**
  * Crimson Lightning Bolt Renderer
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderers.CrimsonLightningBoltRenderer
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.CrimsonLightningBoltRenderer
  *
  * @author stal111
  * @version 2.0.0

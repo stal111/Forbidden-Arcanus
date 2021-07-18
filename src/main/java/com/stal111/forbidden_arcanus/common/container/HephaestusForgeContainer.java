@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.container;
 
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeLevel;
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

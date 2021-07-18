@@ -14,14 +14,23 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+
+import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderUtils {
@@ -151,5 +160,21 @@ public class RenderUtils {
             y1 += yOff; y2 += yOff;
         }
         return new AxisAlignedBB(tankBounds.minX, y1, tankBounds.minZ, tankBounds.maxX, y2, tankBounds.maxZ);
+    }
+
+    public static void addItemParticles(World world, ItemStack stack, BlockPos pos, int count) {
+        Random random = world.getRandom();
+
+        for(int i = 0; i < count; i++) {
+            Vector3d offset = new Vector3d(((double) random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+            Vector3d vector = new Vector3d(((double) random.nextFloat() - 0.5D) * 0.3D, -random.nextFloat() * 0.6D - 0.3D, 0.6D);
+            vector = vector.add(pos.getX(), pos.getY(), pos.getZ());
+
+            if (world instanceof ServerWorld) {
+                ((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, 1, offset.x, offset.y + 0.05D, offset.z, 0.0D);
+            } else {
+                world.addParticle(new ItemParticleData(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, offset.x, offset.y + 0.05D, offset.z);
+            }
+        }
     }
 }

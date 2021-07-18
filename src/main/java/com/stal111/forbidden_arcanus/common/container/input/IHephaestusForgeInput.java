@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.container.input;
 
 import com.stal111.forbidden_arcanus.common.container.InputType;
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;

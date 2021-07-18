@@ -24,6 +24,8 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), AurealUpdatePacket.class, AurealUpdatePacket::encode, AurealUpdatePacket::decode, AurealUpdatePacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateCounterPacket.class, UpdateCounterPacket::encode, UpdateCounterPacket::decode, UpdateCounterPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdatePedestalPacket.class, UpdatePedestalPacket::encode, UpdatePedestalPacket::decode, UpdatePedestalPacket::consume);
+        INSTANCE.registerMessage(nextID(), ItemParticlePacket.class, ItemParticlePacket::encode, ItemParticlePacket::decode, ItemParticlePacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdateMagicCirclePacket.class, UpdateMagicCirclePacket::encode, UpdateMagicCirclePacket::decode, UpdateMagicCirclePacket::consume);
     }
 
     public static <MSG> void sendTo(PlayerEntity player, MSG msg) {

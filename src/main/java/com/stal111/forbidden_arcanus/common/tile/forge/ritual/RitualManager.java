@@ -1,18 +1,19 @@
-package com.stal111.forbidden_arcanus.common.tile.ritual;
+package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
 import com.google.common.collect.Lists;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.network.AurealUpdatePacket;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.util.ISavedData;
+import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -21,7 +22,7 @@ import java.util.List;
 
 /**
  * Ritual Manager
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.ritual.RitualManager
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager
  *
  * @author stal111
  * @version 2.0.0
@@ -75,20 +76,23 @@ public class RitualManager implements ISavedData {
         }
     }
 
-    public void startRitual(World world, Ritual ritual, HephaestusForgeTileEntity forgeTileEntity, PlayerEntity player) {
-        ritual.getEssences().reduceEssences(forgeTileEntity);
-        forgeTileEntity.setInventorySlotContents(4, ritual.getResult());
+    public void startRitual(World world, Ritual ritual, HephaestusForgeTileEntity tileEntity, PlayerEntity player) {
+        tileEntity.getMagicCircle().setTextures(player, tileEntity.getPos(), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"));
+
+        ritual.getEssences().reduceEssences(tileEntity);
+        tileEntity.setInventorySlotContents(4, ritual.getResult());
 
         for (BlockPos pos : this.getPedestals()) {
-            TileEntity tileEntity = world.getTileEntity(pos);
-
-            if (!(tileEntity instanceof PedestalTileEntity)) {
+            if (!(world.getTileEntity(pos) instanceof PedestalTileEntity)) {
                 continue;
             }
 
-            PedestalTileEntity pedestalTileEntity = (PedestalTileEntity) tileEntity;
+            PedestalTileEntity pedestalTileEntity = (PedestalTileEntity) world.getTileEntity(pos);
 
             if (!pedestalTileEntity.getStack().isEmpty()) {
+                RenderUtils.addItemParticles(world, pedestalTileEntity.getStack(), pos, 1600);
+               // NetworkHandler.sendTo(player, new ItemParticlePacket(pos, pedestalTileEntity.getStack()));
+
                 pedestalTileEntity.clearStack();
                 NetworkHandler.sendTo(player, new UpdatePedestalPacket(pos));
             }

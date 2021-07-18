@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.container;
 
-import com.stal111.forbidden_arcanus.common.tile.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
