@@ -1,11 +1,11 @@
 package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
 import com.google.common.collect.Lists;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.util.ISavedData;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Ritual Manager
@@ -30,8 +31,19 @@ import java.util.List;
  */
 public class RitualManager implements ISavedData {
 
+    private final HephaestusForgeTileEntity tileEntity;
+
     private final List<BlockPos> pedestals = new ArrayList<>();
-    private boolean ritualActive = false;
+    private Ritual activeRitual;
+    private int counter;
+
+    public RitualManager(HephaestusForgeTileEntity tileEntity) {
+        this.tileEntity = tileEntity;
+    }
+
+    public HephaestusForgeTileEntity getTileEntity() {
+        return tileEntity;
+    }
 
     public List<BlockPos> getPedestals() {
         return pedestals;
@@ -45,15 +57,27 @@ public class RitualManager implements ISavedData {
         this.pedestals.remove(pos);
     }
 
+    public Ritual getActiveRitual() {
+        return activeRitual;
+    }
+
+    public void setActiveRitual(Ritual ritual) {
+        this.activeRitual = ritual;
+    }
+
     public boolean isRitualActive() {
-        return ritualActive;
+        return this.activeRitual != null;
     }
 
-    public void setRitualActive(boolean ritualActive) {
-        this.ritualActive = ritualActive;
+    public int getCounter() {
+        return counter;
     }
 
-    public void tryStartRitual(World world, HephaestusForgeTileEntity forgeTileEntity, PlayerEntity player) {
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    public void tryStartRitual(World world, PlayerEntity player) {
         List<ItemStack> list = new ArrayList<>();
 
         for (BlockPos pos : this.getPedestals()) {
@@ -68,19 +92,19 @@ public class RitualManager implements ISavedData {
             }
         }
 
-        for (Ritual ritual : RitualLoader.getRituals()) {
-            if (ritual.canStart(list, forgeTileEntity)) {
-                this.startRitual(world, ritual, forgeTileEntity, player);
+        for (Ritual ritual : RitualLoader.getRituals().values()) {
+            if (ritual.canStart(list, this.tileEntity)) {
+                this.startRitual(world, ritual, player);
                 return;
             }
         }
     }
 
-    public void startRitual(World world, Ritual ritual, HephaestusForgeTileEntity tileEntity, PlayerEntity player) {
-        tileEntity.getMagicCircle().setTextures(player, tileEntity.getPos(), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"));
+    public void startRitual(World world, Ritual ritual, PlayerEntity player) {
+        this.setActiveRitual(ritual);
 
-        ritual.getEssences().reduceEssences(tileEntity);
-        tileEntity.setInventorySlotContents(4, ritual.getResult());
+        ritual.getEssences().reduceEssences(this.tileEntity);
+        this.tileEntity.setInventorySlotContents(4, ritual.getResult());
 
         for (BlockPos pos : this.getPedestals()) {
             if (!(world.getTileEntity(pos) instanceof PedestalTileEntity)) {
@@ -99,13 +123,30 @@ public class RitualManager implements ISavedData {
         }
     }
 
+    public void tick() {
+        if (this.isRitualActive() && this.counter < this.getActiveRitual().getTime()) {
+            this.counter++;
+
+            if (this.counter == this.getActiveRitual().getTime()) {
+                this.setActiveRitual(null);
+                this.counter = 0;
+
+            }
+
+            if (!Objects.requireNonNull(this.tileEntity.getWorld()).isRemote()) {
+                NetworkHandler.sentToTrackingChunk(this.tileEntity.getWorld().getChunkAt(this.tileEntity.getPos()), new UpdateRitualPacket(this.tileEntity.getPos(), this.activeRitual, this.counter));
+            }
+        }
+    }
+
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         if (!this.getPedestals().isEmpty()) {
             compound.putLongArray("pedestals", Lists.transform(this.getPedestals(), BlockPos::toLong));
         }
         if (this.isRitualActive()) {
-            compound.putBoolean("RitualActive", true);
+            compound.putString("ActiveRitual", this.getActiveRitual().getName().toString());
+            compound.putInt("Counter", this.counter);
         }
 
         return compound;
@@ -121,8 +162,9 @@ public class RitualManager implements ISavedData {
                 this.addPedestal(BlockPos.fromLong(pedestal));
             }
         }
-        if (compound.contains("RitualActive")) {
-            this.setRitualActive(compound.getBoolean("RitualActive"));
+        if (compound.contains("ActiveRitual")) {
+            this.setActiveRitual(RitualLoader.getRituals().get(new ResourceLocation(compound.getString("ActiveRitual"))));
+            this.counter = compound.getInt("Counter");
         }
     }
 }

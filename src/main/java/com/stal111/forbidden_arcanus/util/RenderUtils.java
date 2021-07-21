@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.util;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderState;
@@ -12,9 +13,12 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SSpawnParticlePacket;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
@@ -174,6 +178,17 @@ public class RenderUtils {
                 ((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, 1, offset.x, offset.y + 0.05D, offset.z, 0.0D);
             } else {
                 world.addParticle(new ItemParticleData(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, offset.x, offset.y + 0.05D, offset.z);
+            }
+        }
+    }
+
+    public static <T extends IParticleData> void spawnAurealMoteParticle(T type, ServerWorld world, double posX, double posY, double posZ, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
+        SSpawnParticlePacket sspawnparticlepacket = new SSpawnParticlePacket(type, false, posX, posY, posZ, (float)xOffset, (float)yOffset, (float)zOffset, (float)speed, particleCount);
+
+        for(int j = 0; j < world.getPlayers().size(); ++j) {
+            ServerPlayerEntity player = world.getPlayers().get(j);
+            if (player.inventory.hasItemStack(NewModItems.Stacks.LENS_OF_VERITATIS)) {
+                world.sendPacketWithinDistance(player, false, posX, posY, posZ, sspawnparticlepacket);
             }
         }
     }

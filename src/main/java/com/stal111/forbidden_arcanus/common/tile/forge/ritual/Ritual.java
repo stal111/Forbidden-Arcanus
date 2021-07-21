@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
@@ -15,17 +16,28 @@ import java.util.List;
  */
 public class Ritual {
 
+    private final ResourceLocation name;
+
     private final List<ItemStack> inputs;
     private final ItemStack hephaestusForgeItem;
     private final ItemStack result;
 
     private final RitualEssences essences;
 
-    public Ritual(List<ItemStack> inputs, ItemStack hephaestusForgeItem, ItemStack result, RitualEssences essences) {
+    private final ResourceLocation outerTexture;
+    private final ResourceLocation innerTexture;
+
+    private final int time;
+
+    public Ritual(ResourceLocation name, List<ItemStack> inputs, ItemStack hephaestusForgeItem, ItemStack result, RitualEssences essences, ResourceLocation outerTexture, ResourceLocation innerTexture, int time) {
+        this.name = name;
         this.inputs = inputs;
         this.hephaestusForgeItem = hephaestusForgeItem;
         this.result = result;
         this.essences = essences;
+        this.outerTexture = outerTexture;
+        this.innerTexture = innerTexture;
+        this.time = time;
     }
 
     public boolean canStart(List<ItemStack> inputs, HephaestusForgeTileEntity tileEntity) {
@@ -60,6 +72,10 @@ public class Ritual {
         return this.getHephaestusForgeItem().isEmpty() ? stack.isEmpty() : this.getHephaestusForgeItem().equals(stack, false);
     }
 
+    public ResourceLocation getName() {
+        return name;
+    }
+
     public List<ItemStack> getInputs() {
         return inputs;
     }
@@ -74,5 +90,17 @@ public class Ritual {
 
     public RitualEssences getEssences() {
         return essences;
+    }
+
+    public ResourceLocation getOuterTexture() {
+        return outerTexture;
+    }
+
+    public ResourceLocation getInnerTexture() {
+        return innerTexture;
+    }
+
+    public int getTime() {
+        return time;
     }
 }

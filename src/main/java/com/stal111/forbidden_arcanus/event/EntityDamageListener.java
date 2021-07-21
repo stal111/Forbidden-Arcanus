@@ -38,7 +38,7 @@ public class EntityDamageListener {
             PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
 
             if (player != null && player.getHeldItem(player.getActiveHand()).getItem() == ModItems.MYSTICAL_DAGGER.get()) {
-                int blood = (int) (75 * event.getAmount());
+                int blood = (int) (20 * event.getAmount());
 
                 ItemStack stack = null;
 

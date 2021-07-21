@@ -31,7 +31,7 @@ public class RitualLoader extends JsonReloadListener {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    private static final List<Ritual> RITUALS = new ArrayList<>();
+    private static final Map<ResourceLocation, Ritual> RITUALS = new HashMap<>();
 
 
     public RitualLoader() {
@@ -52,7 +52,7 @@ public class RitualLoader extends JsonReloadListener {
             try {
                 Ritual ritual = deserializeRitual(resourceLocation, entry.getValue().getAsJsonObject());
                 if (ritual != null) {
-                    RITUALS.add(ritual);
+                    RITUALS.put(resourceLocation, ritual);
                 }
             } catch (IllegalArgumentException | JsonParseException jsonParseException) {
                 ForbiddenArcanus.LOGGER.error("Parsing error loading hephaestus forge input {}", resourceLocation, jsonParseException);
@@ -60,11 +60,11 @@ public class RitualLoader extends JsonReloadListener {
         }
     }
 
-    public static List<Ritual> getRituals() {
+    public static Map<ResourceLocation, Ritual> getRituals() {
         return RITUALS;
     }
 
-    private static Ritual deserializeRitual(ResourceLocation input, JsonObject jsonObject) {
+    private static Ritual deserializeRitual(ResourceLocation name, JsonObject jsonObject) {
         ItemStack hephaestusForgeInput = ItemStack.EMPTY;
 
         if (jsonObject.has("hephaestus_forge_item")) {
@@ -75,7 +75,7 @@ public class RitualLoader extends JsonReloadListener {
             System.out.println(JsonToNBT.getTagFromJson(GSON.toJson(jsonObject.get("result"))));
             ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(jsonObject, "result"), true);
 
-            return new Ritual(deserializeInputs(jsonObject), hephaestusForgeInput, result, deserializeEssences(jsonObject));
+            return new Ritual(name, deserializeInputs(jsonObject), hephaestusForgeInput, result, deserializeEssences(jsonObject), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"), 300);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }

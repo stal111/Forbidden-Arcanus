@@ -2,15 +2,11 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.block.EdelwoodLadderBlock;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.SSpawnParticlePacket;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -23,8 +19,6 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber
 public class LivingUpdateListener {
-
-    private static ItemStack lens = null;
 
     @SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
@@ -53,23 +47,8 @@ public class LivingUpdateListener {
                     double posY = (float)entity.getPosY() + rand.nextFloat();
                     double posZ = entity.getPosZ() + rand.nextFloat() * (double) k;
                     double ySpeed = ((double) rand.nextFloat() - 0.4D) * 0.125D;
-                    spawnAurealMoteParticle(ModParticles.AUREAL_MOTE.get(), (ServerWorld) world, posX, posY, posZ, 0, 0, ySpeed, 0, 1.0);
+                    RenderUtils.spawnAurealMoteParticle(ModParticles.AUREAL_MOTE.get(), (ServerWorld) world, posX, posY, posZ, 0, 0, ySpeed, 0, 1.0);
                 }
-            }
-        }
-    }
-
-    private static <T extends IParticleData> void spawnAurealMoteParticle(T type, ServerWorld world, double posX, double posY, double posZ, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
-        SSpawnParticlePacket sspawnparticlepacket = new SSpawnParticlePacket(type, false, posX, posY, posZ, (float)xOffset, (float)yOffset, (float)zOffset, (float)speed, particleCount);
-
-        if (lens == null) {
-            lens = new ItemStack(NewModItems.LENS_OF_VERITATIS.get());
-        }
-
-        for(int j = 0; j < world.getPlayers().size(); ++j) {
-            ServerPlayerEntity player = world.getPlayers().get(j);
-            if (player.inventory.hasItemStack(lens)) {
-                world.sendPacketWithinDistance(player, false, posX, posY, posZ, sspawnparticlepacket);
             }
         }
     }

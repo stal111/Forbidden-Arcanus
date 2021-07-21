@@ -109,7 +109,7 @@ public class HephaestusForgeBlock extends ValhelsiaContainerBlock implements IWa
             TileEntity tileEntity = world.getTileEntity(pos);
 
             if (tileEntity instanceof HephaestusForgeTileEntity) {
-                ((HephaestusForgeTileEntity) tileEntity).getRitualManager().tryStartRitual(world, (HephaestusForgeTileEntity) tileEntity, player);
+                ((HephaestusForgeTileEntity) tileEntity).getRitualManager().tryStartRitual(world, player);
                 player.openContainer((HephaestusForgeTileEntity) tileEntity);
                 return ActionResultType.CONSUME;
             }

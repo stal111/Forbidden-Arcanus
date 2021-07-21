@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -25,7 +26,7 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), UpdateCounterPacket.class, UpdateCounterPacket::encode, UpdateCounterPacket::decode, UpdateCounterPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdatePedestalPacket.class, UpdatePedestalPacket::encode, UpdatePedestalPacket::decode, UpdatePedestalPacket::consume);
         INSTANCE.registerMessage(nextID(), ItemParticlePacket.class, ItemParticlePacket::encode, ItemParticlePacket::decode, ItemParticlePacket::consume);
-        INSTANCE.registerMessage(nextID(), UpdateMagicCirclePacket.class, UpdateMagicCirclePacket::encode, UpdateMagicCirclePacket::decode, UpdateMagicCirclePacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdateRitualPacket.class, UpdateRitualPacket::encode, UpdateRitualPacket::decode, UpdateRitualPacket::consume);
     }
 
     public static <MSG> void sendTo(PlayerEntity player, MSG msg) {
@@ -34,5 +35,9 @@ public class NetworkHandler {
 
     public static <MSG> void sendToServer(MSG msg) {
         NetworkHandler.INSTANCE.sendToServer(msg);
+    }
+
+    public static <MSG> void sentToTrackingChunk(Chunk chunk, MSG msg) {
+        NetworkHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), msg);
     }
 }

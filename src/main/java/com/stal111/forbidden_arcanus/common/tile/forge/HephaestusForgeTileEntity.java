@@ -48,10 +48,10 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
     private NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
     private final IIntArray hephaestusForgeData;
 
-    private final RitualManager ritualManager = new RitualManager();
+    private final RitualManager ritualManager = new RitualManager(this);
     private final EssenceManager essenceManager = new EssenceManager(this);
 
-    private final MagicCircle magicCircle = new MagicCircle();
+    private final MagicCircle magicCircle = new MagicCircle(this.ritualManager);
 
     private List<LivingEntity> entities = new ArrayList<>();
 
@@ -129,6 +129,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
             this.essenceManager.tick();
         }
+        this.ritualManager.tick();
         this.magicCircle.tick();
     }
 
@@ -216,7 +217,6 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
         compound.put("Ritual", this.getRitualManager().write(new CompoundNBT()));
         compound.put("Essences", this.getEssenceManager().write(new CompoundNBT()));
-        compound.put("MagicCircle", this.getMagicCircle().write(new CompoundNBT()));
 
         return compound;
     }
@@ -231,7 +231,6 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
         this.getRitualManager().read(compound.getCompound("Ritual"));
         this.getEssenceManager().read(compound.getCompound("Essences"));
-        this.getMagicCircle().read(compound.getCompound("MagicCircle"));
     }
 
     @Nullable
