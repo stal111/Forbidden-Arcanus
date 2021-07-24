@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.network;
 
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,17 +23,23 @@ import java.util.function.Supplier;
 public class UpdatePedestalPacket {
 
     private final BlockPos pos;
+    private final ItemStack stack;
+    private final int itemHeight;
 
-    public UpdatePedestalPacket(BlockPos pos) {
+    public UpdatePedestalPacket(BlockPos pos, ItemStack stack, int itemHeight) {
         this.pos = pos;
+        this.stack = stack;
+        this.itemHeight = itemHeight;
     }
 
     public static void encode(UpdatePedestalPacket packet, PacketBuffer buffer) {
         buffer.writeBlockPos(packet.pos);
+        buffer.writeItemStack(packet.stack);
+        buffer.writeInt(packet.itemHeight);
     }
 
     public static UpdatePedestalPacket decode(PacketBuffer buffer) {
-        return new UpdatePedestalPacket(buffer.readBlockPos());
+        return new UpdatePedestalPacket(buffer.readBlockPos(), buffer.readItemStack(), buffer.readInt());
     }
 
     public static void consume(UpdatePedestalPacket packet, Supplier<NetworkEvent.Context> ctx) {
@@ -42,7 +49,10 @@ public class UpdatePedestalPacket {
             World world = Minecraft.getInstance().world;
 
             if (world != null && world.getTileEntity(packet.pos) instanceof PedestalTileEntity) {
-                ((PedestalTileEntity) Objects.requireNonNull(world.getTileEntity(packet.pos))).clearStack();
+                PedestalTileEntity tileEntity = (PedestalTileEntity) Objects.requireNonNull(world.getTileEntity(packet.pos));
+
+                tileEntity.setStack(packet.stack);
+                tileEntity.setItemHeight(packet.itemHeight);
             }
         });
         ctx.get().setPacketHandled(true);

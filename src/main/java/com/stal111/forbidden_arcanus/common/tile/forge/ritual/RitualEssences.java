@@ -44,8 +44,6 @@ public class RitualEssences {
     public void reduceEssences(HephaestusForgeTileEntity tileEntity) {
         EssenceManager manager = tileEntity.getEssenceManager();
 
-        System.out.println(this.getAureal());
-
         manager.decreaseAureal(this.getAureal());
         manager.decreaseCorruption(this.getCorruption());
         manager.decreaseSouls(this.getSouls());

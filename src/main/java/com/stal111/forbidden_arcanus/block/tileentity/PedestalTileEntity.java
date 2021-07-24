@@ -25,7 +25,8 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
     private ItemStack stack = ItemStack.EMPTY;
 
     private final float hoverStart;
-    private int ticksExisted = 0;
+    private int ticksExisted;
+    private int itemHeight = 110;
 
     public PedestalTileEntity() {
         super(ModTileEntities.PEDESTAL.get());
@@ -65,11 +66,20 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
         return (this.getTicksExisted() + partialTicks) / 20.0F + this.getHoverStart();
     }
 
+    public int getItemHeight() {
+        return this.itemHeight;
+    }
+
+    public void setItemHeight(int itemHeight) {
+        this.itemHeight = itemHeight;
+    }
+
     @Override
-    public void read(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
-        super.read(state, nbt);
-        if (nbt.contains("Stack")) {
-            this.stack = ItemStack.read(nbt.getCompound("Stack"));
+    public void read(@Nonnull BlockState state, @Nonnull CompoundNBT compound) {
+        super.read(state, compound);
+        if (compound.contains("Stack")) {
+            this.stack = ItemStack.read(compound.getCompound("Stack"));
+            this.itemHeight = compound.getInt("ItemHeight");
         }
     }
 
@@ -80,6 +90,7 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 
         if (this.stack != ItemStack.EMPTY) {
             compound.put("Stack", this.stack.write(new CompoundNBT()));
+            compound.putInt("ItemHeight", this.itemHeight);
         }
 
         return compound;

@@ -5,14 +5,11 @@ import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
+import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
 import com.stal111.forbidden_arcanus.util.ISavedData;
-import com.stal111.forbidden_arcanus.util.RenderUtils;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,6 +17,8 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Ritual Manager
@@ -77,66 +76,73 @@ public class RitualManager implements ISavedData {
         this.counter = counter;
     }
 
-    public void tryStartRitual(World world, PlayerEntity player) {
+    public void tryStartRitual() {
         List<ItemStack> list = new ArrayList<>();
 
-        for (BlockPos pos : this.getPedestals()) {
-            TileEntity tileEntity = world.getTileEntity(pos);
-
-            if (!(tileEntity instanceof PedestalTileEntity)) {
-                continue;
-            }
-
-            if (!((PedestalTileEntity) tileEntity).getStack().isEmpty()) {
-                list.add(((PedestalTileEntity) tileEntity).getStack());
-            }
-        }
+        this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> list.add(pedestalTileEntity.getStack()));
 
         for (Ritual ritual : RitualLoader.getRituals().values()) {
             if (ritual.canStart(list, this.tileEntity)) {
-                this.startRitual(world, ritual, player);
+                this.startRitual(ritual);
                 return;
             }
         }
     }
 
-    public void startRitual(World world, Ritual ritual, PlayerEntity player) {
+    public void startRitual(Ritual ritual) {
         this.setActiveRitual(ritual);
 
         ritual.getEssences().reduceEssences(this.tileEntity);
-        this.tileEntity.setInventorySlotContents(4, ritual.getResult());
-
-        for (BlockPos pos : this.getPedestals()) {
-            if (!(world.getTileEntity(pos) instanceof PedestalTileEntity)) {
-                continue;
-            }
-
-            PedestalTileEntity pedestalTileEntity = (PedestalTileEntity) world.getTileEntity(pos);
-
-            if (!pedestalTileEntity.getStack().isEmpty()) {
-                RenderUtils.addItemParticles(world, pedestalTileEntity.getStack(), pos, 1600);
-               // NetworkHandler.sendTo(player, new ItemParticlePacket(pos, pedestalTileEntity.getStack()));
-
-                pedestalTileEntity.clearStack();
-                NetworkHandler.sendTo(player, new UpdatePedestalPacket(pos));
-            }
-        }
     }
 
     public void tick() {
         if (this.isRitualActive() && this.counter < this.getActiveRitual().getTime()) {
+            World world = this.getWorld();
+
             this.counter++;
 
-            if (this.counter == this.getActiveRitual().getTime()) {
-                this.setActiveRitual(null);
-                this.counter = 0;
+            this.forEachPedestal(pedestalTileEntity -> pedestalTileEntity.hasStack() && pedestalTileEntity.getItemHeight() != 130, pedestalTileEntity -> {
+                int height = pedestalTileEntity.getItemHeight() + 1;
 
+                pedestalTileEntity.setItemHeight(height);
+
+                if (!world.isRemote()) {
+                    NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), pedestalTileEntity.getStack(), height));
+                }
+            });
+
+            if (this.counter == this.getActiveRitual().getTime()) {
+                this.finishRitual();
             }
 
             if (!Objects.requireNonNull(this.tileEntity.getWorld()).isRemote()) {
                 NetworkHandler.sentToTrackingChunk(this.tileEntity.getWorld().getChunkAt(this.tileEntity.getPos()), new UpdateRitualPacket(this.tileEntity.getPos(), this.activeRitual, this.counter));
             }
         }
+    }
+
+    public void finishRitual() {
+        World world = this.tileEntity.getWorld();
+
+        if (world == null) {
+            return;
+        }
+
+        this.counter = 0;
+        this.tileEntity.setInventorySlotContents(4, this.getActiveRitual().getResult());
+        this.setActiveRitual(null);
+
+        this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
+            pedestalTileEntity.clearStack();
+
+            if(!world.isRemote()) {
+                NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), ItemStack.EMPTY, 110));
+            }
+        });
+    }
+
+    public World getWorld() {
+        return this.tileEntity.getWorld();
     }
 
     @Override
@@ -165,6 +171,22 @@ public class RitualManager implements ISavedData {
         if (compound.contains("ActiveRitual")) {
             this.setActiveRitual(RitualLoader.getRituals().get(new ResourceLocation(compound.getString("ActiveRitual"))));
             this.counter = compound.getInt("Counter");
+        }
+    }
+
+    public void forEachPedestal(Predicate<PedestalTileEntity> predicate, Consumer<PedestalTileEntity> consumer) {
+        World world = this.getWorld();
+
+        for (BlockPos pos : this.getPedestals()) {
+            if (!(world.getTileEntity(pos) instanceof PedestalTileEntity)) {
+                continue;
+            }
+
+            PedestalTileEntity tileEntity = (PedestalTileEntity) world.getTileEntity(pos);
+
+            if (predicate.test(tileEntity)) {
+                consumer.accept(tileEntity);
+            }
         }
     }
 }
