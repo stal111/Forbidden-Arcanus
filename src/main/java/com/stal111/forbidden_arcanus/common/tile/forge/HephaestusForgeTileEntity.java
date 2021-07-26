@@ -8,6 +8,8 @@ import com.stal111.forbidden_arcanus.common.container.input.IHephaestusForgeInpu
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.EssenceManager;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.network.UpdateItemInSlotPacket;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,6 +26,7 @@ import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -45,7 +48,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     private HephaestusForgeLevel level = HephaestusForgeLevel.ONE;
 
-    private NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
     private final IIntArray hephaestusForgeData;
 
     private final RitualManager ritualManager = new RitualManager(this);
@@ -54,6 +57,8 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
     private final MagicCircle magicCircle = new MagicCircle(this.ritualManager);
 
     private List<LivingEntity> entities = new ArrayList<>();
+
+    private int displayCounter;
 
     public HephaestusForgeTileEntity() {
         super(ModTileEntities.HEPHAESTUS_FORGE.get());
@@ -131,6 +136,8 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         }
         this.ritualManager.tick();
         this.magicCircle.tick();
+
+        this.displayCounter++;
     }
 
     private InputType getInputTypeFromSlot(int slot) {
@@ -207,6 +214,10 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         return ritualManager;
     }
 
+    public int getDisplayCounter() {
+        return displayCounter;
+    }
+
     @Nonnull
     @Override
     public CompoundNBT write(@Nonnull CompoundNBT compound) {
@@ -226,7 +237,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         super.read(state, compound);
         this.setLevel(HephaestusForgeLevel.getFromName(compound.getString("Level")));
 
-        this.inventoryContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        this.inventoryContents.clear();
         ItemStackHelper.loadAllItems(compound, this.inventoryContents);
 
         this.getRitualManager().read(compound.getCompound("Ritual"));
@@ -302,6 +313,12 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         this.inventoryContents.set(index, stack);
         if (stack.getCount() > this.getInventoryStackLimit()) {
             stack.setCount(this.getInventoryStackLimit());
+        }
+
+        if (index == 4 && this.getWorld() != null && !this.getWorld().isRemote()) {
+            BlockPos pos = this.getTileEntity().getPos();
+
+            NetworkHandler.sentToTrackingChunk(this.getWorld().getChunkAt(pos), new UpdateItemInSlotPacket(pos, stack, 4));
         }
 
         this.markDirty();

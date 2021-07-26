@@ -52,6 +52,7 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 
     public void clearStack() {
         this.stack = ItemStack.EMPTY;
+        this.setItemHeight(110);
     }
 
     public int getTicksExisted() {
