@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.init.world;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.world.structure.config.NipaConfig;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.feature.IFeatureConfig;
@@ -12,7 +14,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModStructureFeatures
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-04-11
  */
 public class ModStructureFeatures {
@@ -25,6 +27,6 @@ public class ModStructureFeatures {
             FlatGenerationSettings.STRUCTURES.put(structureFeature.field_236268_b_, structureFeature);
         }
 
-        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, name, structureFeature);
+        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), structureFeature);
     }
 }

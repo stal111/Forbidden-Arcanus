@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.init.world;
 
 import com.google.common.collect.ImmutableSet;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.EdelwoodLogBlock;
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
@@ -9,6 +10,7 @@ import com.stal111.forbidden_arcanus.world.feature.config.BigFungyssFeatureConfi
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HugeMushroomBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.Heightmap;
@@ -28,6 +30,13 @@ import net.minecraft.world.gen.trunkplacer.ForkyTrunkPlacer;
 
 import java.util.OptionalInt;
 
+/**
+ * Mod Configured Features
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures
+ *
+ * @author stal111
+ * @version 2.0.0
+ */
 public class ModConfiguredFeatures {
 
     public static final ConfiguredFeature<?, ?> ARCANE_CRYSTAL_ORE = register("ore_arcane_crystal", Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, States.ARCANE_CRYSTAL_ORE, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())).range(WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_HEIGHT.get()).square().func_242731_b(WorldGenConfig.ARCANE_CRYSTAL_ORE_COUNT.get()));
@@ -52,7 +61,7 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get().withConfiguration(new BigFungyssFeatureConfig(new SimpleBlockStateProvider(NewModBlocks.FUNGYSS_BLOCK.get().getDefaultState().with(HugeMushroomBlock.DOWN, false)), new SimpleBlockStateProvider(NewModBlocks.FUNGYSS_STEM.get().getDefaultState()), new SimpleBlockStateProvider(NewModBlocks.FUNGYSS_HYPHAE.get().getDefaultState()), 1)));
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, name, configuredFeature);
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), configuredFeature);
     }
 
     public static final class Configs {
