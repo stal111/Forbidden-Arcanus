@@ -17,6 +17,7 @@ import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadLi
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.init.other.ModFlammables;
+import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
@@ -128,6 +129,7 @@ public class ForbiddenArcanus {
 	private void setup(final FMLCommonSetupEvent event) {
 		DeferredWorkQueue.runLater(() -> {
 			ModFlammables.registerFlammables();
+			ModConfiguredFeatures.load();
 			ModStructures.setupStructures();
 		});
 

@@ -64,6 +64,10 @@ public class ModConfiguredFeatures {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), configuredFeature);
     }
 
+    public static void load() {
+
+    }
+
     public static final class Configs {
         public static final BlockClusterFeatureConfig YELLOW_ORCHID = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.YELLOW_ORCHID), SimpleBlockPlacer.PLACER)).tries(10).build();
         public static final BlockClusterFeatureConfig EDELWOOD_LOG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.EDELWOOD_LOG), new ColumnBlockPlacer(2, 1))).tries(3).whitelist(ImmutableSet.of(States.GRASS_BLOCK.getBlock())).xSpread(0).ySpread(0).zSpread(0).build();
