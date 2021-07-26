@@ -314,6 +314,10 @@
     "enchantment.forbidden_arcanus.permafrost": "Permafrost",
     "enchantment.forbidden_arcanus.indestructible": "Indestructible",
 
+    "comment.enchantment.descriptions": "---Enchantment Descriptions---",
+    "enchantment.forbidden_arcanus.permafrost.desc": "Allows an Edelwood Bucket to safely carry lava.",
+    "enchantment.forbidden_arcanus.indestructible.desc": "Prevents the item from losing durability.",
+
     "forbiddenmicon": "Forbiddenmicon",
     "forbiddenmicon.category.main": "Main",
     "forbiddenmicon.category.items": "Items",
