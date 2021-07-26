@@ -44,28 +44,30 @@ public class Ritual {
         if (!this.getEssences().checkEssences(tileEntity)) {
             return false;
         }
+        return this.checkIngredients(inputs, tileEntity);
+    }
+
+    public boolean checkIngredients(List<ItemStack> ingredients, HephaestusForgeTileEntity tileEntity) {
         for (ItemStack stack : this.getInputs()) {
             boolean foundStack = false;
 
-            for (ItemStack input : inputs) {
+            for (ItemStack input : ingredients) {
                 if (stack.equals(input, false)) {
-                    inputs.remove(input);
+                    ingredients.remove(input);
 
                     foundStack = true;
-                    System.out.println("FOUND: " + stack.getItem());
                     break;
                 }
             }
 
             if (!foundStack) {
-                System.out.println("MISSING: " + stack.getItem());
                 return false;
             }
         }
 
         ItemStack stack = tileEntity.getStackInSlot(4);
 
-        if (!inputs.isEmpty()) {
+        if (!ingredients.isEmpty()) {
             return false;
         }
 

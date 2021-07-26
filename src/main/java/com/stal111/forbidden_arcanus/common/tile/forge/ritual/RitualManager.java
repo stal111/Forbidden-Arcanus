@@ -4,10 +4,13 @@ import com.google.common.collect.Lists;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
 import com.stal111.forbidden_arcanus.util.ISavedData;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +19,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -35,6 +38,7 @@ public class RitualManager implements ISavedData {
     private final List<BlockPos> pedestals = new ArrayList<>();
     private Ritual activeRitual;
     private int counter;
+    private int lightningCounter;
 
     public RitualManager(HephaestusForgeTileEntity tileEntity) {
         this.tileEntity = tileEntity;
@@ -96,63 +100,126 @@ public class RitualManager implements ISavedData {
     }
 
     public void tick() {
-        if (this.isRitualActive() && this.counter < this.getActiveRitual().getTime()) {
-            World world = this.getWorld();
+        World world = this.getWorld();
 
-            this.counter++;
-
-            this.forEachPedestal(pedestalTileEntity -> pedestalTileEntity.hasStack() && pedestalTileEntity.getItemHeight() != 130, pedestalTileEntity -> {
-                int height = pedestalTileEntity.getItemHeight() + 1;
-
-                pedestalTileEntity.setItemHeight(height);
-
-                if (!world.isRemote()) {
-                    NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), pedestalTileEntity.getStack(), height));
-                }
-            });
-
-            if (this.counter == this.getActiveRitual().getTime()) {
-                this.finishRitual();
-            }
-
-            if (!Objects.requireNonNull(this.tileEntity.getWorld()).isRemote()) {
-                NetworkHandler.sentToTrackingChunk(this.tileEntity.getWorld().getChunkAt(this.tileEntity.getPos()), new UpdateRitualPacket(this.tileEntity.getPos(), this.activeRitual, this.counter));
-            }
-        }
-    }
-
-    public void finishRitual() {
-        World world = this.tileEntity.getWorld();
-
-        if (world == null) {
+        if (!this.isRitualActive() || world.isRemote()) {
             return;
         }
 
-        this.counter = 0;
+        BlockPos pos = this.getTileEntity().getPos();
+        Random random = world.getRandom();
+
+        int time = this.getActiveRitual().getTime();
+
+        this.counter++;
+
+        if (this.lightningCounter != 0) {
+            this.lightningCounter++;
+
+            if (this.lightningCounter == 300) {
+                List<ItemStack> list = new ArrayList<>();
+
+                this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> list.add(pedestalTileEntity.getStack()));
+
+                if (!this.getActiveRitual().checkIngredients(list, this.tileEntity)) {
+                    this.failRitual(world);
+
+                    NetworkHandler.sentToTrackingChunk(world.getChunkAt(pos), new UpdateRitualPacket(pos, this.activeRitual, this.counter));
+                    return;
+                }
+
+                this.lightningCounter = 0;
+            }
+        }
+
+        this.forEachPedestal(pedestalTileEntity -> pedestalTileEntity.hasStack() && pedestalTileEntity.getItemHeight() != 130, pedestalTileEntity -> {
+            int height = pedestalTileEntity.getItemHeight() + 1;
+            pedestalTileEntity.setItemHeight(height);
+
+            NetworkHandler.sentToTrackingChunk(world.getChunkAt(pos), new UpdatePedestalPacket(pos, pedestalTileEntity.getStack(), height));
+        });
+
+        if (this.counter == time / 2.0F && random.nextDouble() <= this.getFailureChance() * 2) {
+            CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), world);
+            entity.setPosition(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
+            entity.setEffectOnly(true);
+
+            world.addEntity(entity);
+
+            this.lightningCounter++;
+
+            this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
+                if (random.nextBoolean()) {
+                    ItemStack stack = pedestalTileEntity.getStack().copy();
+                    BlockPos pedestalPos = pedestalTileEntity.getPos();
+
+                    world.addEntity(new ItemEntity(world, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalTileEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
+                    pedestalTileEntity.clearStack();
+
+                    NetworkHandler.sentToTrackingChunk(world.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, ItemStack.EMPTY, 110));
+                }
+            });
+        }
+
+        if (this.counter == time) {
+            if (random.nextDouble() > this.getFailureChance()) {
+                this.finishRitual(world);
+            } else {
+                this.failRitual(world);
+            }
+        }
+
+        NetworkHandler.sentToTrackingChunk(world.getChunkAt(pos), new UpdateRitualPacket(pos, this.activeRitual, this.counter));
+    }
+
+    public void finishRitual(World world) {
         this.tileEntity.setInventorySlotContents(4, this.getActiveRitual().getResult());
-        this.setActiveRitual(null);
+        this.reset();
 
         this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
             pedestalTileEntity.clearStack();
 
-            if(!world.isRemote()) {
-                NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), ItemStack.EMPTY, 110));
-            }
+            NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), ItemStack.EMPTY, 110));
         });
+    }
+
+    public void failRitual(World world) {
+        this.reset();
+
+        this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
+            pedestalTileEntity.clearStack();
+
+            NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), ItemStack.EMPTY, 110));
+        });
+    }
+
+    private void reset() {
+        this.counter = 0;
+        this.lightningCounter = 0;
+        this.setActiveRitual(null);
     }
 
     public World getWorld() {
         return this.tileEntity.getWorld();
     }
 
+    public double getFailureChance() {
+        System.out.println((this.getTileEntity().getEssenceManager().getCorruption() / (float) this.getTileEntity().getLevel().getMaxCorruption()) / 2);
+        return (this.getTileEntity().getEssenceManager().getCorruption() / (float) this.getTileEntity().getLevel().getMaxCorruption()) / 2;
+    }
+
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         if (!this.getPedestals().isEmpty()) {
-            compound.putLongArray("pedestals", Lists.transform(this.getPedestals(), BlockPos::toLong));
+            compound.putLongArray("Pedestals", Lists.transform(this.getPedestals(), BlockPos::toLong));
         }
         if (this.isRitualActive()) {
             compound.putString("ActiveRitual", this.getActiveRitual().getName().toString());
             compound.putInt("Counter", this.counter);
+
+            if (this.lightningCounter != 0) {
+                compound.putInt("LightningCounter", this.lightningCounter);
+            }
         }
 
         return compound;
@@ -160,9 +227,9 @@ public class RitualManager implements ISavedData {
 
     @Override
     public void read(CompoundNBT compound) {
-        if (compound.contains("pedestals")) {
+        if (compound.contains("Pedestals")) {
             this.pedestals.clear();
-            long[] pedestals = compound.getLongArray("pedestals");
+            long[] pedestals = compound.getLongArray("Pedestals");
 
             for (long pedestal : pedestals) {
                 this.addPedestal(BlockPos.fromLong(pedestal));
@@ -171,6 +238,10 @@ public class RitualManager implements ISavedData {
         if (compound.contains("ActiveRitual")) {
             this.setActiveRitual(RitualLoader.getRituals().get(new ResourceLocation(compound.getString("ActiveRitual"))));
             this.counter = compound.getInt("Counter");
+
+            if (compound.contains("LightningCounter")) {
+                this.lightningCounter = compound.getInt("LightningCounter");
+            }
         }
     }
 
