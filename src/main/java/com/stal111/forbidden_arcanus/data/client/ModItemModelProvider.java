@@ -33,13 +33,13 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
     protected void registerModels() {
         //Block Items
         getRemainingBlockItems().removeIf(item -> ((BlockItem) item.get()).getBlock() instanceof ObsidianSkullBlock);
-        getRemainingBlockItems().removeAll(Arrays.asList(NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.ARCANE_CRYSTAL_BLOCK, NewModBlocks.ARCANE_CRYSTAL_OBELISK));
 
         takeBlockItem(this::simpleModel,
                 NewModBlocks.PIXIE_UTREM_JAR,
                 NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
                 NewModBlocks.NIPA,
-                NewModBlocks.FUNGYSS_DOOR
+                NewModBlocks.FUNGYSS_DOOR,
+                NewModBlocks.ARCANE_CRYSTAL_OBELISK
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 NewModBlocks.FUNGYSS

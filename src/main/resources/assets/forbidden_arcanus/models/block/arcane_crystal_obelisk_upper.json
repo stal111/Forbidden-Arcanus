@@ -5,13 +5,6 @@
         "arcane_crystal_obelisk_top": "forbidden_arcanus:block/arcane_crystal_obelisk_top",
         "arcane_crystal_obelisk_2": "forbidden_arcanus:block/arcane_crystal_obelisk_upper"
     },
-    "display": {
-        "head": {
-            "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        }
-    },
     "elements": [
         {
             "name": "Arcane Crystal",

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.block.PillarBlock;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
@@ -33,7 +34,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL, NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.ARCANE_CRYSTAL_BLOCK, NewModBlocks.ARCANE_CRYSTAL_OBELISK));
+        getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
 
         take(this::withExistingModel, NewModBlocks.UTREM_JAR, NewModBlocks.NIPA, NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
         take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);
@@ -80,6 +81,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(block -> paneBlock((PaneBlock) block, modLoc("block/arcane_glass"), modLoc("block/arcane_glass_pane_top")), NewModBlocks.ARCANE_GLASS_PANE);
         take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
+        take(block -> cutoutBlock(block, modLoc("block/arcane_crystal_ore/arcane_crystal_ore"), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), NewModBlocks.ARCANE_CRYSTAL_ORE);
+        take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
         forEach(this::simpleBlock);
     }
@@ -128,5 +131,23 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .rotationX(state.get(RotatedPillarBlock.AXIS) != Direction.Axis.Y ? 90 : 0)
                 .rotationY(state.get(RotatedPillarBlock.AXIS) == Direction.Axis.X ? 90 : 0)
                 .build(), BlockStateProperties.WATERLOGGED);
+    }
+
+    private void cutoutBlock(Block block, ResourceLocation texture, ResourceLocation cutoutTexture, ResourceLocation particle) {
+        ModelFile model = models().withExistingParent(getName(block), modLoc("block/cube_all_cutout"))
+                .texture("particle", particle)
+                .texture("all", texture)
+                .texture("cutout", cutoutTexture);
+
+        simpleBlock(block, model);
+    }
+
+    private void arcaneCrystalObelisk(Block block) {
+        getVariantBuilder(block).forAllStatesExcept(
+                state -> ConfiguredModel.builder()
+                        .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.get(ArcaneCrystalObeliskBlock.PART).getString())))
+                        .build(),
+                BlockStateProperties.WATERLOGGED
+        );
     }
 }
