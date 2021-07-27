@@ -55,7 +55,7 @@
 			},
 			"entries": [
 				{
-				"type": "item",
+				"type": "minecraft:item",
 				"name": "forbidden_arcanus:cloth",
 				"weight": 15,
 				"functions": [
@@ -70,12 +70,7 @@
 				]
 			},
 			{
-				"type": "item",
-				"name": "forbidden_arcanus:bone_pickaxe",
-				"weight": 10
-			},
-			{
-				"type": "item",
+				"type": "minecraft:item",
 				"name": "forbidden_arcanus:obsidian_with_iron",
 				"weight": 5,
 				"functions": [
@@ -90,7 +85,7 @@
 				]
 			},
 			{
-				"type": "item",
+				"type": "minecraft:item",
 				"name": "forbidden_arcanus:bat_wing",
 				"weight": 20,
 				"functions": [
