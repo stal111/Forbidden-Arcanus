@@ -130,7 +130,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         }
 
         if (this.world.getGameTime() % 20 == 0) {
-            this.entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos).grow(5, 5, 5));
+            this.entities = this.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(this.pos).grow(5, 5, 5));
 
             this.essenceManager.tick();
         }
@@ -261,6 +261,16 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         if (this.world != null) {
             this.read(this.world.getBlockState(packet.getPos()), packet.getNbtCompound());
         }
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        AxisAlignedBB boundingBox = new AxisAlignedBB(this.getPos()).expand(0.0D, 1.0D, 0.0D);
+
+        if (this.getRitualManager().isRitualActive()) {
+            boundingBox = boundingBox.grow(2.5F, 0.0F, 2.5D);
+        }
+        return boundingBox;
     }
 
     @Nonnull

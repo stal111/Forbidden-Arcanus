@@ -44,4 +44,9 @@ public class HephaestusForgeTileEntityRenderer extends TileEntityRenderer<Hephae
             matrixStack.pop();
         }
     }
+
+    @Override
+    public boolean isGlobalRenderer(@Nonnull HephaestusForgeTileEntity tileEntity) {
+        return tileEntity.getRitualManager().isRitualActive();
+    }
 }

@@ -8,6 +8,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -114,5 +115,10 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
         if (this.world != null) {
             this.read(this.world.getBlockState(packet.getPos()), packet.getNbtCompound());
         }
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        return new AxisAlignedBB(this.getPos()).expand(0.0D, 1.0D, 0.0D);
     }
 }
