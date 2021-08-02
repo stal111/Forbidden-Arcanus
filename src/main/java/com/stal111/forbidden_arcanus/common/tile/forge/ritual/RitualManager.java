@@ -239,6 +239,10 @@ public class RitualManager implements ISavedData {
             this.setActiveRitual(RitualLoader.getRituals().get(new ResourceLocation(compound.getString("ActiveRitual"))));
             this.counter = compound.getInt("Counter");
 
+            if (this.counter != 0) {
+                this.tileEntity.getMagicCircle().setRotation(this.counter);
+            }
+
             if (compound.contains("LightningCounter")) {
                 this.lightningCounter = compound.getInt("LightningCounter");
             }

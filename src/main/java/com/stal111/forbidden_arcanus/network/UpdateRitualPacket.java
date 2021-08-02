@@ -26,23 +26,20 @@ public class UpdateRitualPacket {
 
     private final BlockPos pos;
     @Nullable private final Ritual ritual;
-    private final int counter;
 
-    public UpdateRitualPacket(BlockPos pos, @Nullable Ritual ritual, int counter) {
+    public UpdateRitualPacket(BlockPos pos, @Nullable Ritual ritual) {
         this.pos = pos;
         this.ritual = ritual;
-        this.counter = counter;
     }
 
     public static void encode(UpdateRitualPacket packet, PacketBuffer buffer) {
         buffer.writeBlockPos(packet.pos);
         ResourceLocation empty = new ResourceLocation("", "");
         buffer.writeResourceLocation(packet.ritual != null ? packet.ritual.getName() : empty);
-        buffer.writeInt(packet.counter);
     }
 
     public static UpdateRitualPacket decode(PacketBuffer buffer) {
-        return new UpdateRitualPacket(buffer.readBlockPos(), RitualLoader.getRituals().get(buffer.readResourceLocation()), buffer.readInt());
+        return new UpdateRitualPacket(buffer.readBlockPos(), RitualLoader.getRituals().get(buffer.readResourceLocation()));
     }
 
     public static void consume(UpdateRitualPacket packet, Supplier<NetworkEvent.Context> ctx) {
@@ -59,7 +56,6 @@ public class UpdateRitualPacket {
 
             if (tileEntity != null) {
                 tileEntity.getRitualManager().setActiveRitual(packet.ritual);
-                tileEntity.getRitualManager().setCounter(packet.counter);
             }
         });
         ctx.get().setPacketHandled(true);

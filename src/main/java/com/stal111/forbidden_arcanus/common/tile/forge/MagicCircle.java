@@ -44,7 +44,13 @@ public class MagicCircle {
     public void tick() {
         if (this.ritualManager.isRitualActive()) {
             this.rotation++;
+        } else if (this.rotation != 0) {
+            this.rotation = 0;
         }
+    }
+
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
     }
 
     public void render(MatrixStack matrixStack, float partialTicks, IRenderTypeBuffer buffer, int combinedLight) {
@@ -53,7 +59,7 @@ public class MagicCircle {
 
             matrixStack.push();
 
-            float ticks = this.ritualManager.getCounter() + partialTicks;
+            float ticks = this.rotation + partialTicks;
 
             matrixStack.translate(0.5D, 0.0D, 0.5D);
 
@@ -62,10 +68,10 @@ public class MagicCircle {
 
             float alpha = ticks > ritual.getTime() * 0.95F ? Math.max((ritual.getTime() - ticks), 0) / (ritual.getTime() * 0.05F) : 1.0F;
 
-            matrixStack.rotate(Vector3f.YN.rotationDegrees(this.rotation + partialTicks));
+            matrixStack.rotate(Vector3f.YN.rotationDegrees(ticks));
             this.outerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getOuterTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
-            matrixStack.rotate(Vector3f.YN.rotationDegrees(-(this.rotation + partialTicks) * 2));
+            matrixStack.rotate(Vector3f.YN.rotationDegrees(-(ticks) * 2));
             this.innerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getInnerTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
             matrixStack.pop();
