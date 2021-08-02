@@ -17,6 +17,7 @@ import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadLi
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.init.other.ModFlammables;
+import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
 import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
@@ -105,6 +106,7 @@ public class ForbiddenArcanus {
 		ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
 		ModStructures.STRUCTURES.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);
+		ModPOITypes.POI_TYPES.register(modEventBus);
 
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, LootTableListener::registerGlobalModifiers);
 

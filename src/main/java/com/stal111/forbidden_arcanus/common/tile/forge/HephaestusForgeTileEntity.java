@@ -134,7 +134,10 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
             this.essenceManager.tick();
         }
-        this.ritualManager.tick();
+
+        if (!this.world.isRemote()) {
+            this.ritualManager.tick();
+        }
         this.magicCircle.tick();
 
         this.displayCounter++;

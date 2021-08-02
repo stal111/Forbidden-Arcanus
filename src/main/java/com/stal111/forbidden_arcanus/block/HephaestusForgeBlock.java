@@ -1,9 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.item.MundabiturDustItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -14,8 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -37,7 +33,6 @@ import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 /**
  * Hephaestus Forge Block
@@ -133,36 +128,6 @@ public class HephaestusForgeBlock extends ValhelsiaContainerBlock implements IWa
         } else if (!state.get(ACTIVATED)) {
             world.setBlockState(pos, state.with(ACTIVATED, true), 3);
         }
-    }
-
-    @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        TileEntity tileEntity = world.getTileEntity(pos);
-
-        if (!(tileEntity instanceof HephaestusForgeTileEntity)) {
-            return;
-        }
-
-        HephaestusForgeTileEntity hephaestusForgeTileEntity = (HephaestusForgeTileEntity) tileEntity;
-        RitualManager ritualManager = hephaestusForgeTileEntity.getRitualManager();
-
-        if (!ritualManager.isRitualActive()) {
-            return;
-        }
-
-        ritualManager.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
-            double posX = pedestalTileEntity.getPos().getX() + 0.5D;
-            double posY = pedestalTileEntity.getPos().getY() + pedestalTileEntity.getItemHeight() / 100.0F;
-            double posZ = pedestalTileEntity.getPos().getZ() + 0.5D;
-
-            for(int i = 0; i < rand.nextInt(3) + 1; i++) {
-                double xSpeed = 0.1D * (hephaestusForgeTileEntity.getPos().getX() - pedestalTileEntity.getPos().getX());
-                double ySpeed = 0.22D;
-                double zSpeed = 0.1D * (hephaestusForgeTileEntity.getPos().getZ() - pedestalTileEntity.getPos().getZ());
-
-                world.addParticle(new ItemParticleData(ParticleTypes.ITEM, pedestalTileEntity.getStack()), posX, posY, posZ, xSpeed, ySpeed, zSpeed);
-            }
-        });
     }
 
     @Nonnull
