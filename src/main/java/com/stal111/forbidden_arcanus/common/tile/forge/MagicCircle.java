@@ -81,13 +81,11 @@ public class MagicCircle {
                 BlockPos pos = this.ritualManager.getTileEntity().getPos();
                 Random rand = world.getRandom();
 
-                int x = rand.nextInt(3);
-                int z = rand.nextInt(3);
-                double posX = pos.getX() + rand.nextFloat() + (double) x + rand.nextFloat() / 2;
-                double posZ = pos.getZ() + rand.nextFloat() + (double) z + rand.nextFloat() / 2;
+                double posX = pos.getX() + 0.25D + rand.nextFloat() + rand.nextInt(4);
+                double posZ = pos.getZ() + 0.25D + rand.nextFloat() + rand.nextInt(4);
                 double ySpeed = ((double) rand.nextFloat() - 0.4D) * 0.125D;
 
-                world.addParticle(ModParticles.AUREAL_MOTE.get(), posX - 1.5D, pos.getY() + 0.1F, posZ - 1.5D, 0, ySpeed, 0);
+                world.addParticle(ModParticles.AUREAL_MOTE.get(), posX - 2.0D, pos.getY() + 0.1F, posZ - 2.0D, 0, ySpeed, 0);
             }
         }
     }
