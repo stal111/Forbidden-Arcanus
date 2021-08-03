@@ -32,7 +32,7 @@ public class ModItems {
     public static final RegistryObject<Item> ORB_OF_TEMPORARY_FLIGHT = register("orb_of_temporary_flight", () -> new OrbOfTemporaryFlightItem(properties(Rarity.UNCOMMON, 1)));
     public static final RegistryObject<Item> MUNDABITUR_DUST = register("mundabitur_dust", () -> new MundabiturDustItem(properties()));
     public static final RegistryObject<Item> CORRUPTI_DUST = register("corrupti_dust", () -> new Item(properties()));
-    public static final RegistryObject<Item> DARK_MATTER = register("dark_matter", () -> new Item(properties()));
+    public static final RegistryObject<Item> DARK_MATTER = register("dark_matter", () -> new DarkMatterItem(properties()));
     public static final RegistryObject<Item> OBSIDIAN_WITH_IRON = register("obsidian_with_iron", () -> new Item(properties()));
     public static final RegistryObject<Item> OBSIDIAN_INGOT = register("obsidian_ingot", () -> new Item(properties()));
     public static final RegistryObject<Item> SOUL = register("soul", () -> new Item(properties()));

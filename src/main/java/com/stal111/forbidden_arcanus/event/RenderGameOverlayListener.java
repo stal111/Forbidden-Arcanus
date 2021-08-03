@@ -44,7 +44,7 @@ public class RenderGameOverlayListener {
                 Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
                 AbstractGui.blit(event.getMatrixStack(), posX, posY, 0, 0, 0, 57, 25, 25, 57);
 
-                Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get()), posX + 5, (int) (posY + 5.5F));
+                Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(NewModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
 
                 TextFormatting color = counter.getValue() / 20 <= 20 ? TextFormatting.RED : TextFormatting.WHITE;
                 int i = counter.getValue() < 12000 ? 27 : (int) 25.5F;
