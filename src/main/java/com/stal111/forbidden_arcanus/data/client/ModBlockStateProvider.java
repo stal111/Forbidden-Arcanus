@@ -147,7 +147,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 state -> ConfiguredModel.builder()
                         .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.get(ArcaneCrystalObeliskBlock.PART).getString())))
                         .build(),
-                BlockStateProperties.WATERLOGGED
+                BlockStateProperties.WATERLOGGED,
+                ModBlockStateProperties.RITUAL
         );
     }
 }

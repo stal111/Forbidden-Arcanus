@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:arcane_crystal_dust"
+    },
+    "X": {
+      "type": "forge:nbt",
+      "item": "minecraft:potion",
+      "count": 1,
+      "nbt": "{Potion:\"minecraft:strong_regeneration\"}"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:aureal_bottle"
+  }
+}
