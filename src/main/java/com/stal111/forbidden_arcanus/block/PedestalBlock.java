@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.Block;
@@ -159,24 +158,6 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
         }
 
         super.onReplaced(state, world, pos, newState, isMoving);
-    }
-
-    private BlockPos getHephaestusForgePos(World world, BlockPos pos) {
-        for (Direction direction : Direction.values()) {
-            if (direction.getAxis() == Direction.Axis.Y) {
-                continue;
-            }
-
-            BlockPos offsetPos = pos.offset(direction, 2);
-
-            if (world.getBlockState(offsetPos.offset(direction, 1)).getBlock() == ModBlocks.HEPHAESTUS_FORGE.getBlock()) {
-                return offsetPos.offset(direction, 1);
-            } else if (world.getBlockState(offsetPos.offset(direction.rotateY(), 2)).getBlock() == ModBlocks.HEPHAESTUS_FORGE.getBlock()) {
-                return offsetPos.offset(direction.rotateY(), 2);
-            }
-        }
-
-        return null;
     }
 
     @Nonnull
