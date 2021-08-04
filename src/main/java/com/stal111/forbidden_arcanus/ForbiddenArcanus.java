@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
-import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.config.Config;
@@ -150,7 +149,6 @@ public class ForbiddenArcanus {
 
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
-		EternalStellaActiveCapability.register();
 		EntitySpawningBlockingCapability.register();
 
 		CapabilityManager.INSTANCE.register(IAureal.class, new AurealStorage(), AurealImpl::new);

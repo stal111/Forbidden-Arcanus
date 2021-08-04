@@ -2,13 +2,9 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
-import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.config.AurealConfig;
-import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
-import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -23,8 +19,14 @@ import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.network.UpdateCounterPacket;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Tick Listener <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.event.TickListener
+ *
+ * @author stal111
+ * @version 2.0.0
+ */
 @Mod.EventBusSubscriber
 public class TickListener {
 
@@ -82,44 +84,12 @@ public class TickListener {
 
             if (player.isPotionActive(Effects.FIRE_RESISTANCE)) {
                 EffectInstance instance = player.getActivePotionEffect(Effects.FIRE_RESISTANCE);
-                int duration = Objects.requireNonNull(instance.getDuration());
+                int duration = Objects.requireNonNull(instance).getDuration();
 
                 if (duration == 32767 && !player.inventory.hasItemStack(new ItemStack(NewModItems.ETERNAL_OBSIDIAN_SKULL.get()))) {
                     player.removeActivePotionEffect(instance.getPotion());
                 }
             }
         }
-
-        int itemsToRepair = 0;
-
-        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-            ItemStack stack = player.inventory.getStackInSlot(i);
-
-            if (stack != ItemStack.EMPTY) {
-                if (stack.isDamageable() && stack.getDamage() > 0) {
-                    if (isEternalStellaActive(player) || (ItemStackUtils.hasStackEnchantment(stack, ModEnchantments.INDESTRUCTIBLE.get()) && EnchantmentConfig.INDESTRUCTIBLE_FULLY_REPAIR_ITEM.get())) {
-                        itemsToRepair++;
-
-                        stack.setDamage(stack.getDamage() - 1);
-                    }
-                }
-            }
-        }
-
-        if (itemsToRepair == 0 && isEternalStellaActive(player)) {
-            player.getCapability(EternalStellaActiveCapability.ETERNAL_STELLA_ACTIVE_CAPABILITY).ifPresent(iEternalStellaActive -> iEternalStellaActive.setEternalStellaActive(false));
-        }
-    }
-
-    private static boolean isEternalStellaActive(PlayerEntity player) {
-        AtomicBoolean flag = new AtomicBoolean(false);
-
-        player.getCapability(EternalStellaActiveCapability.ETERNAL_STELLA_ACTIVE_CAPABILITY).ifPresent(iEternalStellaActive -> {
-            if (iEternalStellaActive.getEternalStellaActive()) {
-                flag.set(true);
-            }
-        });
-
-        return flag.get();
     }
 }

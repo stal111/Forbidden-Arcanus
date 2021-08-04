@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.capability.eternalStellaActive.EternalStellaActiveCapability;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,53 +14,68 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/**
+ * Eternal Stella Item <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.EternalStellaItem
+ *
+ * @author stal111
+ * @version 2.0.0
+ */
 public class EternalStellaItem extends Item {
 
     public EternalStellaItem(Properties properties) {
         super(properties);
     }
 
+    @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, PlayerEntity player, @Nonnull Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
 
-        player.getCapability(EternalStellaActiveCapability.ETERNAL_STELLA_ACTIVE_CAPABILITY).ifPresent(iEternalStellaActive ->
-                iEternalStellaActive.setEternalStellaActive(true));
+        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+            ItemStack stackInSlot = player.inventory.getStackInSlot(i);
 
-        if (!player.abilities.isCreativeMode) {
-            setUsesLeft(stack, getUsesLeft(stack) - 1);
+            if (stackInSlot.isEmpty() || stackInSlot.getDamage() == 0) {
+                continue;
+            }
+
+            CompoundNBT compound = stackInSlot.getOrCreateTag();
+            compound.putBoolean("Repair", true);
         }
 
-        if (getUsesLeft(stack) == 0) {
+        if (!player.abilities.isCreativeMode) {
+            this.setRemainingUses(stack, this.getRemainingUses(stack) - 1);
+        }
+
+        if (this.getRemainingUses(stack) == 0) {
             stack.shrink(1);
         }
 
-        return ActionResult.resultSuccess(stack);
+        return ActionResult.func_233538_a_(stack, world.isRemote());
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         super.addInformation(stack, world, tooltip, flag);
 
-        tooltip.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".uses_left").appendString(": " + getUsesLeft(stack)).mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".remaining_uses").appendString(": " + this.getRemainingUses(stack)).mergeStyle(TextFormatting.GRAY));
     }
 
-    private int getUsesLeft(ItemStack stack) {
-        CompoundNBT compoundnbt = stack.getOrCreateTag();
+    private int getRemainingUses(ItemStack stack) {
+        CompoundNBT compound = stack.getOrCreateTag();
 
-        if (!compoundnbt.contains("uses_left")) {
+        if (!compound.contains("RemainingUses")) {
             return ItemConfig.ETERNAL_STELLA_USES.get();
         } else {
-            return compoundnbt.getInt("uses_left");
+            return compound.getInt("RemainingUses");
         }
     }
 
-    private void setUsesLeft(ItemStack stack, int usesLeft) {
-        CompoundNBT compoundnbt = stack.getOrCreateTag();
-
-        compoundnbt.putInt("uses_left", usesLeft);
+    private void setRemainingUses(ItemStack stack, int uses) {
+        stack.getOrCreateTag().putInt("RemainingUses", uses);
     }
 }
