@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
@@ -53,6 +52,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.wrappers.BucketPickupHandlerWrapper;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 

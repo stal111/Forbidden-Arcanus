@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.MaterialColor;
@@ -29,6 +28,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import java.util.Random;
 

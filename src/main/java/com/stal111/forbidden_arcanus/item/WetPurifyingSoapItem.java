@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.item;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.init.NewModItems;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +19,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.valhelsia.valhelsia_core.capability.counter.CounterProvider;
 import net.valhelsia.valhelsia_core.capability.counter.ICounterCapability;
 import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

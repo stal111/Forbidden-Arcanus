@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,6 +23,7 @@ import net.minecraft.util.CachedBlockInfo;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

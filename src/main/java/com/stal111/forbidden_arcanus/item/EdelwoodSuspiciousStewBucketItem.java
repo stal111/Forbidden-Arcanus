@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -11,6 +10,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.world.World;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 public class EdelwoodSuspiciousStewBucketItem extends SuspiciousStewItem {
 

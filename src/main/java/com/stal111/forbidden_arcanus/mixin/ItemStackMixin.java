@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.mixin;
 
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

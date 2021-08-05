@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.item.PixieItem;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
@@ -33,6 +32,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nullable;
 

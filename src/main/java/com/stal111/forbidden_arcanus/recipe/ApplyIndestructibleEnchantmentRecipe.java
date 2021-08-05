@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.IInventory;
@@ -15,6 +14,7 @@ import net.minecraft.item.crafting.SmithingRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

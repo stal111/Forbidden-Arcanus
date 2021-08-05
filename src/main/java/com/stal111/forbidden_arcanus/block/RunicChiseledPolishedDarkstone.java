@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpa
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.SpawningBlockingMode;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +17,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 public class RunicChiseledPolishedDarkstone extends Block implements IEntitySpawningBlockingBlock  {
 

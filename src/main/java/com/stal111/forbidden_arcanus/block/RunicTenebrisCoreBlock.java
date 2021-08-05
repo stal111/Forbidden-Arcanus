@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +20,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nullable;
 

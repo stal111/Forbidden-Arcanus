@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.command.arguments.EntityAnchorArgument;
@@ -22,6 +21,7 @@ import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

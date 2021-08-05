@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.item.*;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -31,6 +30,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 @Mod.EventBusSubscriber
 public class PlayerInteractListener {
@@ -164,7 +164,7 @@ public class PlayerInteractListener {
 						}
 					}
 				}
-			} else if (ItemStackUtils.registryContainsItem("edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket")) {
+			} else if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))) {
 				if (entity.isAlive()) {
 					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);

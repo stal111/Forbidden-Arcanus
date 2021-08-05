@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.common.container.input;
 
 import com.stal111.forbidden_arcanus.common.container.InputType;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import java.util.Map;
 import java.util.Random;

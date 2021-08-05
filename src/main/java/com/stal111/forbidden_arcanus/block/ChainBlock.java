@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ConnectedBlockType;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,12 +26,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class ChainBlock extends CutoutBlock implements IWaterLoggable {
 

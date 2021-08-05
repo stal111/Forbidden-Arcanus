@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import java.util.ArrayList;
 import java.util.List;

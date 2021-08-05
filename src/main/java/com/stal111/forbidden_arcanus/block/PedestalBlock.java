@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.block;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -30,6 +29,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.valhelsia.valhelsia_core.block.ValhelsiaContainerBlock;
 import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

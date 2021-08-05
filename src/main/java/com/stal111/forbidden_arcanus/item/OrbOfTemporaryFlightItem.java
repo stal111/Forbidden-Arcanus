@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
-import com.stal111.forbidden_arcanus.util.ItemStackUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,6 +17,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.valhelsia.valhelsia_core.capability.counter.CounterProvider;
 import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
