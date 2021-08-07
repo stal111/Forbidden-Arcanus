@@ -115,10 +115,7 @@ public enum ModBlocks {
     POLISHED_SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
     SOULLESS_SANDSTONE_STAIRS(new StairsBlock(() -> SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
     POLISHED_SOULLESS_SANDSTONE_STAIRS(new StairsBlock(() ->POLISHED_SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
-    SOULLESS_SANDSTONE_WALL(new WallBlock(from(Blocks.SANDSTONE_WALL))),
-    POTTED_CHERRYWOOD_SAPLING(new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHERRYWOOD_SAPLING::getBlock, from(Blocks.POTTED_OAK_SAPLING)), false, ModRenderType.CUTOUT),
-    POTTED_MYSTERYWOOD_SAPLING(new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, MYSTERYWOOD_SAPLING::getBlock, from(Blocks.POTTED_OAK_SAPLING)), false, ModRenderType.CUTOUT),
-    POTTED_YELLOW_ORCHID(new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, YELLOW_ORCHID::getBlock, from(Blocks.POTTED_OAK_SAPLING)), false, ModRenderType.CUTOUT);
+    SOULLESS_SANDSTONE_WALL(new WallBlock(from(Blocks.SANDSTONE_WALL)));
 
     private final Block block;
     private final BlockItem item;

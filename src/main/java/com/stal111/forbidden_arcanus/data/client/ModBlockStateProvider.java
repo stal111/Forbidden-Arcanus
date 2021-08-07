@@ -84,6 +84,11 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> cutoutBlock(block, modLoc("block/arcane_crystal_ore/arcane_crystal_ore"), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), NewModBlocks.ARCANE_CRYSTAL_ORE);
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
+        forEach(block -> block instanceof FlowerPotBlock, block -> {
+            ResourceLocation name = Objects.requireNonNull(((FlowerPotBlock) block).getFlower().getRegistryName());
+            simpleFlowerPotBlock(block, new ResourceLocation(name.getNamespace(), "block/" + name.getPath()));
+        });
+
         forEach(this::simpleBlock);
     }
 

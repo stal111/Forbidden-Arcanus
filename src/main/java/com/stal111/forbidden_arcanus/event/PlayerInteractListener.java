@@ -1,15 +1,11 @@
 package com.stal111.forbidden_arcanus.event;
 
-
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.item.EdelwoodSuspiciousStewBucketItem;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
 import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.CowEntity;
@@ -20,11 +16,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,39 +28,6 @@ import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 @Mod.EventBusSubscriber
 public class PlayerInteractListener {
-
-	@SubscribeEvent
-	public static void onInteract(PlayerInteractEvent event) {
-		World world = event.getWorld();
-		BlockPos pos = event.getPos();
-		Block block = world.getBlockState(pos).getBlock();
-		ItemStack stack = event.getItemStack();
-		PlayerEntity player = event.getPlayer();
-
-		if (block == Blocks.FLOWER_POT) {
-			if (!world.isRemote) {
-				if (stack.getItem() == ModBlocks.CHERRYWOOD_SAPLING.getItem()) {
-					world.setBlockState(pos, ModBlocks.POTTED_CHERRYWOOD_SAPLING.getState(), 3);
-					player.addStat(Stats.POT_FLOWER);
-					if (!player.abilities.isCreativeMode) {
-						stack.shrink(1);
-					}
-				} else if (stack.getItem() ==  ModBlocks.MYSTERYWOOD_SAPLING.getItem()) {
-					world.setBlockState(pos, ModBlocks.POTTED_MYSTERYWOOD_SAPLING.getState(), 3);
-					player.addStat(Stats.POT_FLOWER);
-					if (!player.abilities.isCreativeMode) {
-						stack.shrink(1);
-					}
-				} else if (stack.getItem() ==  ModBlocks.YELLOW_ORCHID.getItem()) {
-					world.setBlockState(pos, ModBlocks.POTTED_YELLOW_ORCHID.getState(), 3);
-					player.addStat(Stats.POT_FLOWER);
-					if (!player.abilities.isCreativeMode) {
-						stack.shrink(1);
-					}
-				}
-			}
-		}
-	}
 
 	@SubscribeEvent
 	public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {

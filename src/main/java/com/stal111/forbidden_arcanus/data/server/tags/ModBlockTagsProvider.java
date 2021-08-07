@@ -13,11 +13,11 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import javax.annotation.Nullable;
 
 /**
- * Mod Block Tags Provider
+ * Mod Block Tags Provider <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-02-11
  */
 public class ModBlockTagsProvider extends BlockTagsProvider {
@@ -41,5 +41,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.getOrCreateBuilder(Tags.Blocks.FENCE_GATES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE_GATE.get());
         this.getOrCreateBuilder(BlockTags.UNSTABLE_BOTTOM_CENTER).add(NewModBlocks.FUNGYSS_FENCE_GATE.get());
         this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.getBlock());
+        this.getOrCreateBuilder(BlockTags.FLOWER_POTS).add(NewModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), NewModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), NewModBlocks.POTTED_YELLOW_ORCHID.get());
     }
 }

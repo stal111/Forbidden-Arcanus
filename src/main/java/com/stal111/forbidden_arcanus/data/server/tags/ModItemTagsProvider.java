@@ -14,11 +14,11 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import javax.annotation.Nullable;
 
 /**
- * Mod Item Tags Provider
+ * Mod Item Tags Provider <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-02-11
  */
 public class ModItemTagsProvider extends ItemTagsProvider {
