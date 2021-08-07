@@ -1,10 +1,9 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
-import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -37,23 +36,7 @@ public class TickListener {
 
         if (event.phase == TickEvent.Phase.START) {
             if (!world.isRemote()) {
-                player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
-                    if (!AurealConfig.NATURAL_CORRUPTION_DECREASEMENT.get()) {
-                        return;
-                    }
-                    if (aureal.getCorruption() >= 1) {
-                        aureal.setCorruptionTimer(aureal.getCorruptionTimer() + 1);
-
-                        if (aureal.getCorruptionTimer() >= AurealConfig.NATURAL_CORRUPTION_DECREASEMENT_TIME.get()) {
-                            aureal.setCorruption(aureal.getCorruption() - 1);
-                            aureal.setCorruptionTimer(0);
-                        }
-                    } else if (aureal.getCorruptionTimer() != 0) {
-                        aureal.setCorruptionTimer(0);
-                    }
-
-                    aureal.updateActiveConsequences(player);
-                });
+                AurealHelper.playerTick(player);
 
                 player.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
                     SimpleCounter counter = counterCapability.getCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"));

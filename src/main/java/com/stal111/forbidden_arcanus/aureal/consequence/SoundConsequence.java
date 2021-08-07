@@ -2,8 +2,7 @@ package com.stal111.forbidden_arcanus.aureal.consequence;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
-import com.stal111.forbidden_arcanus.network.AurealUpdatePacket;
-import com.stal111.forbidden_arcanus.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.util.AurealHelper;
 import com.stal111.forbidden_arcanus.util.ISavedData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -68,7 +67,7 @@ public class SoundConsequence implements IConsequence, ISavedData {
                     aureal.removeActiveConsequence(this);
                 });
             }
-            NetworkHandler.sendTo(player, new AurealUpdatePacket(player));
+            AurealHelper.sendAurealUpdatePacket(player);
         }
     }
 

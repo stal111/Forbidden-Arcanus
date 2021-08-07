@@ -1,8 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
-import com.stal111.forbidden_arcanus.network.AurealUpdatePacket;
-import com.stal111.forbidden_arcanus.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -21,7 +20,8 @@ public class EntityJoinWorldListener {
         if (entity instanceof LivingEntity && !event.getWorld().isRemote()) {
             if (entity instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) entity;
-                NetworkHandler.sendTo(player, new AurealUpdatePacket(player));
+
+                AurealHelper.sendAurealUpdatePacket(player);
             }
 
             if (entity instanceof SkeletonEntity) {

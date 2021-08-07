@@ -1,8 +1,6 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.config.AurealConfig;
-import com.stal111.forbidden_arcanus.network.AurealUpdatePacket;
-import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
@@ -11,8 +9,6 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Random;
 
 /**
  * Living Death Listener
@@ -43,7 +39,8 @@ public class LivingDeathListener {
 
                 if (entity.getRNG().nextDouble() <= chance) {
                     AurealHelper.increaseCorruption(player, amount);
-                    NetworkHandler.sendTo(player, new AurealUpdatePacket(player));
+
+                    AurealHelper.sendAurealUpdatePacket(player);
                 }
             }
         }
