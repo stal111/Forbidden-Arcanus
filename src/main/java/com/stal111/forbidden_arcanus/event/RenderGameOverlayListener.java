@@ -66,6 +66,6 @@ public class RenderGameOverlayListener {
 
     private static void renderOverlay(MatrixStack matrixStack, MainWindow window, IAureal aureal, boolean corruption) {
         int ySize = Math.toIntExact(Math.round(12.0F * (corruption ? aureal.getCorruption() / 100.0F : aureal.getAureal() / 200.0F)));
-        AbstractGui.blit(matrixStack, window.getScaledWidth() / 2 - 6, window.getScaledHeight() - 36 - ySize, 27, corruption ? 51 : 38 + 12 - ySize, 12, ySize, 256, 256);
+        AbstractGui.blit(matrixStack, window.getScaledWidth() / 2 - 6, window.getScaledHeight() - 36 - ySize, 27, (corruption ? 51 : 38) + 12 - ySize, 12, ySize, 256, 256);
     }
 }
