@@ -2,16 +2,16 @@ package com.stal111.forbidden_arcanus.event;
 
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.item.*;
+import com.stal111.forbidden_arcanus.item.EdelwoodSuspiciousStewBucketItem;
+import com.stal111.forbidden_arcanus.item.ICapacityBucket;
+import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.MooshroomEntity;
 import net.minecraft.entity.passive.SquidEntity;
@@ -81,16 +81,6 @@ public class PlayerInteractListener {
 				event.setCancellationResult(((QuantumCatcherItem) stack.getItem()).onEntityInteract(stack, player, livingEntity, event.getHand()));
 			}
 
-			if (stack.getItem() == ModItems.MUNDABITUR_DUST.get() && ItemConfig.MUNDABITUR_DUST_CHARGE_CREEPER.get()) {
-				if (entity instanceof CreeperEntity) {
-					CreeperEntity creeperEntity = (CreeperEntity) entity;
-					if (!creeperEntity.getDataManager().get(CreeperEntity.POWERED)) {
-						ItemStackUtils.shrinkStack(player, stack);
-						creeperEntity.getDataManager().set(CreeperEntity.POWERED, true);
-						player.swingArm(event.getHand());
-					}
-				}
-			}
 			if (entity instanceof MooshroomEntity) {
 				if (!player.abilities.isCreativeMode && !((MooshroomEntity) entity).isChild()) {
 					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {

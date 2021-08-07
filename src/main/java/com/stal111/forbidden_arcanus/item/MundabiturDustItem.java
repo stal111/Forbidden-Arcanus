@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.item;
 import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
@@ -15,12 +16,17 @@ import net.minecraft.block.pattern.BlockMaterialMatcher;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.CachedBlockInfo;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.valhelsia.valhelsia_core.util.ItemStackUtils;
@@ -66,6 +72,23 @@ public class MundabiturDustItem extends Item {
         }
 
         return super.onItemUse(context);
+    }
+
+    @Nonnull
+    @Override
+    public ActionResultType itemInteractionForEntity(@Nonnull ItemStack stack, @Nonnull PlayerEntity player, @Nonnull LivingEntity target, @Nonnull Hand hand) {
+        if (target instanceof CreeperEntity && ItemConfig.MUNDABITUR_DUST_CHARGE_CREEPER.get()) {
+            EntityDataManager dataManager = target.getDataManager();
+
+            if (!dataManager.get(CreeperEntity.POWERED)) {
+                dataManager.set(CreeperEntity.POWERED, true);
+
+                ItemStackUtils.shrinkStack(player, stack);
+
+                return ActionResultType.func_233537_a_(player.getEntityWorld().isRemote());
+            }
+        }
+        return ActionResultType.PASS;
     }
 
     private boolean tryTransformBlock(Block block, World world, BlockPos pos, PlayerEntity player) {
