@@ -24,7 +24,7 @@ public class DimensionPlacement extends Placement<DimensionConfig> {
   public Stream<BlockPos> getPositions(WorldDecoratingHelper helper, Random rand, DimensionConfig config, BlockPos pos) {
     ServerWorld world = helper.field_242889_a.getWorld();
     RegistryKey<World> key = world.getDimensionKey();
-    if ((config.whitelist.isEmpty() || config.whitelist.contains(key)) || (!config.blacklist.isEmpty() && !config.blacklist.contains(key))) {
+    if (config.whitelist.contains(key) || config.whitelist.isEmpty() || !config.blacklist.contains(key)) {
       return Stream.of(pos);
     } else {
       return Stream.empty();

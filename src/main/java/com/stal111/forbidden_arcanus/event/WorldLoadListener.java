@@ -106,7 +106,7 @@ public class WorldLoadListener {
             // broader application of structure whitelist/blacklists. Config
             // for whitelist/blacklists could potentially be merged into the
             // IValhelsiaStructure.
-            handleStructureBlocking(tempMap, serverWorld.getDimensionKey(), ModStructures.NIPA.get(), WorldGenConfig::getNipaWhitelist, WorldGenConfig::getNipaBlacklist);
+            handleStructureBlocking(tempMap, serverWorld.getDimensionKey(), ModStructures.NIPA.get(), WorldGenConfig.nipaList);
 
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
@@ -118,13 +118,12 @@ public class WorldLoadListener {
      * @param modifiableTempMap The current temporary map. This map is modified in place.
      * @param dimension         The `RegistryKey<World>` key for this world.
      * @param struct            The instance of IValhelsiaStructure being considered.
-     * @param whitelistSupplier A supplier that returns a `Set<RegistryKey<World>>` consisting of whitelisted dimensions. If this set is empty, all dimensions are accepted. If the set contains a dimension that doesn't match `dimension`, then it's considered a failure.
-     * @param blacklistSupplier A supplier that returns a `Set<RegistryKey<<World>>` consisting of blacklisted dimension. If this set is empty, all dimensions are accepted. If the set contains a dimension matching `dimension, then it's considered a failure. Blacklists are consulted after whitelists.
+     * @param list              An instance of DimensionList which contains the whitelist and blacklist for this structure.
      */
-    private static void handleStructureBlocking(Map<Structure<?>, StructureSeparationSettings> modifiableTempMap, RegistryKey<World> dimension, IValhelsiaStructure struct, Supplier<Set<RegistryKey<World>>> whitelistSupplier, Supplier<Set<RegistryKey<World>>> blacklistSupplier) {
-        if (whitelistSupplier.get().contains(dimension)) {
+    private static void handleStructureBlocking(Map<Structure<?>, StructureSeparationSettings> modifiableTempMap, RegistryKey<World> dimension, IValhelsiaStructure struct, WorldGenConfig.DimensionList list) {
+        if (list.allowed(dimension)) {
             modifiableTempMap.putIfAbsent(struct.getStructure(), DimensionStructuresSettings.field_236191_b_.get(struct.getStructure()));
-        } else if (!whitelistSupplier.get().isEmpty() || (blacklistSupplier.get().contains(dimension) && !blacklistSupplier.get().isEmpty())) {
+        } else {
             modifiableTempMap.remove(struct.getStructure());
         }
     }

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.world.placement;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -21,7 +22,12 @@ public class DimensionConfig implements IPlacementConfig {
   public final Set<RegistryKey<World>> blacklist;
   public final Set<RegistryKey<World>> whitelist;
 
-  public DimensionConfig(Set<RegistryKey<World>> whitelist, Set<RegistryKey<World>> blacklist) {
+  public DimensionConfig(WorldGenConfig.DimensionList list) {
+    this.whitelist = list.getWhitelist();
+    this.blacklist = list.getBlacklist();
+  }
+
+  protected DimensionConfig(Set<RegistryKey<World>> whitelist, Set<RegistryKey<World>> blacklist) {
     this.whitelist = whitelist;
     this.blacklist = blacklist;
   }
