@@ -1,49 +1,74 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "credit": "Blockbench Model - Do you want a textured model? Contact me on Discord: CesarZorak#0808",
     "textures": {
-        "particle": "forbidden_arcanus:block/quantum_catcher",
-        "quantum_catcher": "forbidden_arcanus:item/quantum_catcher",
-        "quantum_catcher_inner": "forbidden_arcanus:item/quantum_catcher_inner"
+        "0": "forbidden_arcanus:item/quantum_catcher",
+        "1": "forbidden_arcanus:item/quantum_catcher_inner"
     },
-    "parent": "block/block",
+    "gui_light": "front",
     "display": {
+        "thirdperson_righthand": {
+            "rotation": [45, 135, 0],
+            "translation": [0, 3, 0],
+            "scale": [0.5, 0.5, 0.5]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [45, 135, 0],
+            "translation": [0, 3, 0],
+            "scale": [0.5, 0.5, 0.5]
+        },
         "firstperson_righthand": {
-            "rotation": [ 0, 45, 0 ],
-            "translation": [ 0, 1.0, 0 ],
-            "scale": [ 0.40, 0.40, 0.40 ]
+            "rotation": [0, 135, 0],
+            "translation": [0, 5.5, 0],
+            "scale": [0.6, 0.6, 0.6]
         },
         "firstperson_lefthand": {
-            "rotation": [ 0, 225, 0 ],
-            "translation": [ 0, 1.0, 0 ],
-            "scale": [ 0.40, 0.40, 0.40 ]
+            "rotation": [0, 135, 0],
+            "translation": [0, 5.5, 0],
+            "scale": [0.6, 0.6, 0.6]
+        },
+        "ground": {
+            "translation": [0, 4, 0],
+            "scale": [0.5, 0.5, 0.5]
+        },
+        "gui": {
+            "rotation": [30, -135, 0],
+            "translation": [0, 3, 0]
+        },
+        "head": {
+            "translation": [0, 14.5, 0]
+        },
+        "fixed": {
+            "translation": [0, 4.25, -1.5]
         }
     },
     "elements": [
         {
-            "name": "QuantumCatcher",
-            "from": [ 4, 0, 4 ], 
-            "to": [ 12, 8, 12 ], 
+            "name": "side",
+            "from": [4, 0, 4],
+            "to": [12, 8, 12],
+            "rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
             "faces": {
-                "north": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
-                "east": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
-                "south": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
-                "west": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
-                "up": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] },
-                "down": { "texture": "#quantum_catcher", "uv": [ 4, 4, 12, 12 ] }
+                "north": {"uv": [4, 4, 12, 12], "texture": "#0"},
+                "east": {"uv": [4, 4, 12, 12], "texture": "#0"},
+                "south": {"uv": [4, 4, 12, 12], "texture": "#0"},
+                "west": {"uv": [4, 4, 12, 12], "texture": "#0"},
+                "up": {"uv": [4, 4, 12, 12], "texture": "#0"},
+                "down": {"uv": [4, 4, 12, 12], "texture": "#0"}
             }
         },
         {
-            "name": "QuantumCatcherInner",
-            "from": [ 5, 1, 5 ], 
-            "to": [ 11, 7, 11 ], 
+            "name": "inner",
+            "from": [6, 2, 6],
+            "to": [10, 6, 10],
+            "rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
             "faces": {
-                "north": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
-                "east": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
-                "south": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
-                "west": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
-                "up": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] },
-                "down": { "texture": "#quantum_catcher_inner", "uv": [ 5, 5, 11, 11 ] }
+                "north": {"uv": [5, 5, 11, 11], "texture": "#1"},
+                "east": {"uv": [5, 5, 11, 11], "texture": "#1"},
+                "south": {"uv": [5, 5, 11, 11], "texture": "#1"},
+                "west": {"uv": [5, 5, 11, 11], "texture": "#1"},
+                "up": {"uv": [5, 5, 11, 11], "texture": "#1"},
+                "down": {"uv": [5, 5, 11, 11], "texture": "#1"}
             }
         }
     ]
-},
+}
