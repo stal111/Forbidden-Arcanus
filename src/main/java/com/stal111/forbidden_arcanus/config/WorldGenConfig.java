@@ -74,10 +74,6 @@ public class WorldGenConfig {
 	public static ForgeConfigSpec.BooleanValue EDELWOOD_TREE_GENERATE;
 	public static ForgeConfigSpec.BooleanValue YELLOW_ORCHID_GENERATE;
 	public static ForgeConfigSpec.BooleanValue PETRIFIED_ROOT_GENERATE;
-
-	public static ForgeConfigSpec.BooleanValue NIPA_GENERATE;
-	public static ForgeConfigSpec.IntValue NIPA_SPACING;
-	public static ForgeConfigSpec.IntValue NIPA_SEPARATION;
 	public static ForgeConfigSpec.ConfigValue<List<? extends String>> TREE_WHITELIST;
 	public static ForgeConfigSpec.ConfigValue<List<? extends String>> TREE_BLACKLIST;
 	public static Set<RegistryKey<World>> treeBlacklist = null;
@@ -101,6 +97,34 @@ public class WorldGenConfig {
 			}
 		}
 		return treeBlacklist;
+	}
+
+	public static ForgeConfigSpec.BooleanValue NIPA_GENERATE;
+	public static ForgeConfigSpec.IntValue NIPA_SPACING;
+	public static ForgeConfigSpec.IntValue NIPA_SEPARATION;
+	public static ForgeConfigSpec.ConfigValue<List<? extends String>> NIPA_WHITELIST;
+	public static ForgeConfigSpec.ConfigValue<List<? extends String>> NIPA_BLACKLIST;
+	public static Set<RegistryKey<World>> nipaBlacklist = null;
+	public static Set<RegistryKey<World>> nipaWhitelist = null;
+
+	public static Set<RegistryKey<World>> getNipaWhitelist () {
+		if (nipaWhitelist == null) {
+			nipaWhitelist = new HashSet<>();
+			for (String dim : ORE_WHITELIST.get()) {
+				nipaWhitelist.add(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dim)));
+			}
+		}
+		return nipaWhitelist;
+	}
+
+	public static Set<RegistryKey<World>> getNipaBlacklist () {
+		if (nipaBlacklist == null) {
+			nipaBlacklist = new HashSet<>();
+			for (String dim : ORE_BLACKLIST.get()) {
+				nipaBlacklist.add(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dim)));
+			}
+		}
+		return nipaBlacklist;
 	}
 
 	public static void init(ForgeConfigSpec.Builder builder) {
@@ -150,9 +174,8 @@ public class WorldGenConfig {
 		NIPA_GENERATE = builder.comment("Generate Nipas? [default: true]").define("nipa.generate", true);
 		NIPA_SPACING = builder.comment("Nipa Structure Spacing [default: 35]").defineInRange("nipa.spacing", 35, 0, Integer.MAX_VALUE);
 		NIPA_SEPARATION = builder.comment("Nipa Structure Separation [default: 8]").defineInRange("nipa.separation", 8, 0, Integer.MAX_VALUE);
-
-		TREE_WHITELIST = builder.comment("Which dimensions trees should spawn in? [example: [\"minecraft:end\"], default empty allows all dimensions]").defineList("tree_whitelist", Collections.emptyList(), o -> o instanceof String && ((String)o).contains(":"));
-		TREE_BLACKLIST = builder.comment("Which dimensions trees shouldn't spawn in? [example: [\"minecraft:end\"], empty allows all dimensions]").defineList("tree_blacklist", Collections.singletonList("minecraft:end"), o -> o instanceof String && ((String)o).contains(":"));
+		NIPA_WHITELIST = builder.comment("Which dimensions nipa structures should spawn in? [example: [\"minecraft:end\"], default empty allows all dimensions]").defineList("nipa_whitelist", Collections.emptyList(), o -> o instanceof String && ((String)o).contains(":"));
+		NIPA_BLACKLIST = builder.comment("Which dimensions nipa structures  shouldn't spawn in? [example: [\"minecraft:end\"], empty allows all dimensions]").defineList("nipa_blacklist", Collections.singletonList("minecraft:end"), o -> o instanceof String && ((String)o).contains(":"));
 
 		builder.pop();
 	}
