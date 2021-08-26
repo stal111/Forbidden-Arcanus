@@ -10,9 +10,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-@Mod.EventBusSubscriber(bus= Mod.EventBusSubscriber.Bus.MOD, modid= ForbiddenArcanus.MOD_ID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ForbiddenArcanus.MOD_ID)
 public class WorldGenConfig {
 	public static ForgeConfigSpec.BooleanValue ARCANE_CRYSTAL_ORE_GENERATE;
 	public static ForgeConfigSpec.IntValue ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE;
@@ -126,7 +129,7 @@ public class WorldGenConfig {
 	}
 
 	@SubscribeEvent
-	public static void onConfig (ModConfig.ModConfigEvent event) {
+	public static void onConfig(ModConfig.ModConfigEvent event) {
 		if (treeList != null) {
 			treeList.invalidate();
 		}

@@ -12,22 +12,22 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 public class DimensionPlacement extends Placement<DimensionConfig> {
-  public DimensionPlacement(Codec<DimensionConfig> codec) {
-    super(codec);
-  }
+	public DimensionPlacement(Codec<DimensionConfig> codec) {
+		super(codec);
+	}
 
-  public static DimensionPlacement create() {
-    return new DimensionPlacement(DimensionConfig.CODEC);
-  }
+	public static DimensionPlacement create() {
+		return new DimensionPlacement(DimensionConfig.CODEC);
+	}
 
-  @Override
-  public Stream<BlockPos> getPositions(WorldDecoratingHelper helper, Random rand, DimensionConfig config, BlockPos pos) {
-    ServerWorld world = helper.field_242889_a.getWorld();
-    RegistryKey<World> key = world.getDimensionKey();
-    if (config.whitelist.contains(key) || config.whitelist.isEmpty() || !config.blacklist.contains(key)) {
-      return Stream.of(pos);
-    } else {
-      return Stream.empty();
-    }
-  }
+	@Override
+	public Stream<BlockPos> getPositions(WorldDecoratingHelper helper, Random rand, DimensionConfig config, BlockPos pos) {
+		ServerWorld world = helper.field_242889_a.getWorld();
+		RegistryKey<World> key = world.getDimensionKey();
+		if (config.whitelist.contains(key) || config.whitelist.isEmpty() || !config.blacklist.contains(key)) {
+			return Stream.of(pos);
+		} else {
+			return Stream.empty();
+		}
+	}
 }

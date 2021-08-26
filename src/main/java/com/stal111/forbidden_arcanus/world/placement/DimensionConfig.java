@@ -13,22 +13,22 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DimensionConfig implements IPlacementConfig {
-  public static final Codec<DimensionConfig> CODEC = RecordCodecBuilder.create((codec) -> codec.group(
-      ResourceLocation.CODEC.listOf().fieldOf("whitelist").forGetter(o -> o.whitelist.stream().map(RegistryKey::getLocation).collect(Collectors.toList())),
-      ResourceLocation.CODEC.listOf().fieldOf("blacklist").forGetter(o -> o.blacklist.stream().map(RegistryKey::getLocation).collect(Collectors.toList())
-      ))
-      .apply(codec, (a, b) -> new DimensionConfig(a.stream().map(o -> RegistryKey.getOrCreateKey(Registry.WORLD_KEY, o)).collect(Collectors.toSet()), b.stream().map(o -> RegistryKey.getOrCreateKey(Registry.WORLD_KEY, o)).collect(Collectors.toSet()))));
+	public static final Codec<DimensionConfig> CODEC = RecordCodecBuilder.create((codec) -> codec.group(
+					ResourceLocation.CODEC.listOf().fieldOf("whitelist").forGetter(o -> o.whitelist.stream().map(RegistryKey::getLocation).collect(Collectors.toList())),
+					ResourceLocation.CODEC.listOf().fieldOf("blacklist").forGetter(o -> o.blacklist.stream().map(RegistryKey::getLocation).collect(Collectors.toList())
+					))
+			.apply(codec, (a, b) -> new DimensionConfig(a.stream().map(o -> RegistryKey.getOrCreateKey(Registry.WORLD_KEY, o)).collect(Collectors.toSet()), b.stream().map(o -> RegistryKey.getOrCreateKey(Registry.WORLD_KEY, o)).collect(Collectors.toSet()))));
 
-  public final Set<RegistryKey<World>> blacklist;
-  public final Set<RegistryKey<World>> whitelist;
+	public final Set<RegistryKey<World>> blacklist;
+	public final Set<RegistryKey<World>> whitelist;
 
-  public DimensionConfig(WorldGenConfig.DimensionList list) {
-    this.whitelist = list.getWhitelist();
-    this.blacklist = list.getBlacklist();
-  }
+	public DimensionConfig(WorldGenConfig.DimensionList list) {
+		this.whitelist = list.getWhitelist();
+		this.blacklist = list.getBlacklist();
+	}
 
-  protected DimensionConfig(Set<RegistryKey<World>> whitelist, Set<RegistryKey<World>> blacklist) {
-    this.whitelist = whitelist;
-    this.blacklist = blacklist;
-  }
+	protected DimensionConfig(Set<RegistryKey<World>> whitelist, Set<RegistryKey<World>> blacklist) {
+		this.whitelist = whitelist;
+		this.blacklist = blacklist;
+	}
 }

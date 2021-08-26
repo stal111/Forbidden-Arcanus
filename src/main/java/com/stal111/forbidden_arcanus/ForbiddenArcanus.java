@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
+import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.entity.PixieEntity;
@@ -28,7 +29,6 @@ import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.recipe.AwkwardPotionBrewingRecipe;
 import com.stal111.forbidden_arcanus.setup.ClientSetup;
-import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.Data;
 import com.stal111.forbidden_arcanus.util.ModUtils;
@@ -122,10 +122,10 @@ public class ForbiddenArcanus {
 		modEventBus.addListener(CommonSetup::setup);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
-        
-        Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-client.toml").toString());
-        Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-common.toml").toString());
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+
+		Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-client.toml").toString());
+		Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-common.toml").toString());
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}
