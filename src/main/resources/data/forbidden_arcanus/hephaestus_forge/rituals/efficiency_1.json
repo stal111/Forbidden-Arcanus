@@ -1,9 +1,21 @@
 {
     "inputs": [
-        "minecraft:diamond",
-        "minecraft:feather",
-        "minecraft:ink_sac",
-        "forbidden_arcanus:ender_pearl_fragment"
+        {
+            "item": "minecraft:diamond",
+            "slot": 0
+        },
+        {
+            "item": "minecraft:feather",
+            "slot": 1
+        },
+        {
+            "item": "minecraft:ink_sac",
+            "slot": 2
+        },
+        {
+            "item": "forbidden_arcanus:ender_pearl_fragment",
+            "slot": 3
+        }
     ],
     "hephaestus_forge_item": "minecraft:book",
     "essences": {

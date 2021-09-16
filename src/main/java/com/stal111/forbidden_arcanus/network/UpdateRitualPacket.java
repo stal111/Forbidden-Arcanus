@@ -39,7 +39,7 @@ public class UpdateRitualPacket {
     }
 
     public static UpdateRitualPacket decode(PacketBuffer buffer) {
-        return new UpdateRitualPacket(buffer.readBlockPos(), RitualLoader.getRituals().get(buffer.readResourceLocation()));
+        return new UpdateRitualPacket(buffer.readBlockPos(), RitualLoader.getRitual(buffer.readResourceLocation()));
     }
 
     public static void consume(UpdateRitualPacket packet, Supplier<NetworkEvent.Context> ctx) {

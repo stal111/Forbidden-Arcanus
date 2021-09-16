@@ -73,7 +73,7 @@ public class RitualManager implements ISavedData {
 
         System.out.println(list);
 
-        for (Ritual ritual : RitualLoader.getRituals().values()) {
+        for (Ritual ritual : RitualLoader.getRituals()) {
             if (ritual.canStart(list, this.tileEntity)) {
                 this.startRitual(ritual);
                 return;
@@ -211,7 +211,7 @@ public class RitualManager implements ISavedData {
         double ySpeed = 0.22D;
         double zSpeed = 0.1D * (pos.getZ() - pedestalPos.getZ());
 
-        for (int i = 0; i < world.getRandom().nextInt(2); i++) {
+        if (world.getRandom().nextDouble() < 0.6D) {
             world.spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), posX, posY, posZ, 0, xSpeed, ySpeed, zSpeed, 0.9D);
         }
     }
@@ -248,7 +248,7 @@ public class RitualManager implements ISavedData {
     @Override
     public void read(CompoundNBT compound) {
         if (compound.contains("ActiveRitual")) {
-            this.setActiveRitual(RitualLoader.getRituals().get(new ResourceLocation(compound.getString("ActiveRitual"))));
+            this.setActiveRitual(RitualLoader.getRitual(new ResourceLocation(compound.getString("ActiveRitual"))));
             this.counter = compound.getInt("Counter");
 
             if (this.counter != 0) {

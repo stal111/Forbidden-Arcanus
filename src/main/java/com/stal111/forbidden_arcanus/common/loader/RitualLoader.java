@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualEssences;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
@@ -60,8 +61,16 @@ public class RitualLoader extends JsonReloadListener {
         }
     }
 
-    public static Map<ResourceLocation, Ritual> getRituals() {
-        return RITUALS;
+    public static Ritual getRitual(ResourceLocation resourceLocation) {
+        return RITUALS.get(resourceLocation);
+    }
+
+    public static List<Ritual> getRituals() {
+        List<Ritual> rituals = new ArrayList<>();
+        for (Map.Entry<ResourceLocation, Ritual> entry : RITUALS.entrySet()) {
+            rituals.add(entry.getValue());
+        }
+        return rituals;
     }
 
     private static Ritual deserializeRitual(ResourceLocation name, JsonObject jsonObject) {
@@ -83,16 +92,23 @@ public class RitualLoader extends JsonReloadListener {
         return null;
     }
 
-    private static List<ItemStack> deserializeInputs(JsonObject jsonObject) {
-        List<ItemStack> list = new ArrayList<>();
+    private static Map<Integer, Ingredient> deserializeInputs(JsonObject jsonObject) {
+        Map<Integer, Ingredient> inputs = new HashMap<>();
         JsonArray jsonArray = jsonObject.getAsJsonArray("inputs");
 
         for (int i = 0; i < jsonArray.size(); i++) {
-            ResourceLocation name = new ResourceLocation(jsonArray.get(i).getAsString());
-            list.add(new ItemStack(deserializeItem(name)));
+            JsonObject input = jsonArray.get(i).getAsJsonObject();
+            ItemStack stack = CraftingHelper.getItemStack(input, true);
+            int slot = input.get("slot").getAsInt();
+
+            if (inputs.containsKey(slot)) {
+                throw new IllegalStateException("Slot " + slot + " was already assigned.");
+            } else {
+                inputs.put(slot, Ingredient.fromStacks(stack));
+            }
         }
 
-        return list;
+        return inputs;
     }
 
     private static Item deserializeItem(ResourceLocation name) {
@@ -108,11 +124,11 @@ public class RitualLoader extends JsonReloadListener {
     private static RitualEssences deserializeEssences(JsonObject jsonObject) {
         JsonObject essences = jsonObject.get("essences").getAsJsonObject();
 
-        int aureal = essences.has("aureal") ? JSONUtils.getInt(essences, "aureal") : 0;
-        int corruption = essences.has("corruption") ? JSONUtils.getInt(essences, "corruption") : 0;
-        int souls = essences.has("souls") ? JSONUtils.getInt(essences, "souls") : 0;
-        int blood = essences.has("blood") ? JSONUtils.getInt(essences, "blood") : 0;
-        int experience = essences.has("experience") ? JSONUtils.getInt(essences, "experience") : 0;
+        int aureal = JSONUtils.getInt(essences, "aureal", 0);
+        int corruption = JSONUtils.getInt(essences, "corruption", 0);
+        int souls = JSONUtils.getInt(essences, "souls", 0);
+        int blood = JSONUtils.getInt(essences, "blood", 0);
+        int experience = JSONUtils.getInt(essences, "experience", 0);
 
         return new RitualEssences(aureal, corruption, souls, blood, experience);
     }

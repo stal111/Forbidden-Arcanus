@@ -337,5 +337,14 @@
     "forbidden_arcanus.experience": "Experience",
 
     "guis_comment": "Guis",
-    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Unlocked at level"
+    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Unlocked at level",
+
+    "jei.forbidden_arcanus.category.hephaestusSmithing": "Hephaestus Smithing",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal": "Required pedestal",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredLevel": "Required forge level",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredAureal": "Required aureal",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredSouls": "Required souls",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredBlood": "Required blood",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredExperience": "Required experience"
+
 }

@@ -70,4 +70,19 @@ public class RitualEssences {
     public int getExperience() {
         return experience;
     }
+
+    public int getFromName(String name) {
+        switch (name) {
+            case "Aureal":
+                return this.getAureal();
+            case "Souls":
+                return this.getSouls();
+            case "Blood":
+                return this.getBlood();
+            case "Experience":
+                return this.experience;
+            default:
+                return 0;
+        }
+    }
 }
