@@ -3,9 +3,12 @@ package com.stal111.forbidden_arcanus.block;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
+import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.util.MultiblockPreview;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,10 +26,12 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -48,6 +53,7 @@ import java.util.Random;
 public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLoggable {
 
     public static final EnumProperty<ArcaneCrystalObeliskPart> PART = EnumProperty.create("part", ArcaneCrystalObeliskPart.class);
+    public static final BooleanProperty RITUAL = ModBlockStateProperties.RITUAL;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final Map<ArcaneCrystalObeliskPart, VoxelShape> SHAPES = ImmutableMap.<ArcaneCrystalObeliskPart, VoxelShape>builder()
@@ -58,13 +64,39 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLogg
 
     public ArcaneCrystalObeliskBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(PART, ArcaneCrystalObeliskPart.LOWER).with(WATERLOGGED, false));
+        this.setDefaultState(this.getStateContainer().getBaseState().with(PART, ArcaneCrystalObeliskPart.LOWER).with(RITUAL, false).with(WATERLOGGED, false));
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return state.get(RITUAL);
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new ArcaneCrystalObeliskTileEntity();
     }
 
     @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return SHAPES.get(state.get(PART));
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        BlockPos pos = context.getPos();
+        World world = context.getWorld();
+
+        if (pos.getY() > world.getHeight() - 3 || !world.getBlockState(pos.up()).isReplaceable(context) || !world.getBlockState(pos.up(2)).isReplaceable(context)) {
+            return null;
+        }
+
+        return this.getDefaultState()
+                .with(RITUAL, world.getBlockState(pos.down()).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())
+                .with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER);
     }
 
     @Nonnull
@@ -87,18 +119,19 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLogg
         return super.updatePostPlacement(state, facing, facingState, world, pos, facingPos);
     }
 
-    @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockPos pos = context.getPos();
-        World world = context.getWorld();
-        boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
+    public void neighborChanged(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Block block, @Nonnull BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(state, world, pos, block, fromPos, isMoving);
 
-        if (pos.getY() > world.getHeight() - 3 || !world.getBlockState(pos.up()).isReplaceable(context) || !world.getBlockState(pos.up(2)).isReplaceable(context)) {
-            return null;
+        if (!fromPos.equals(pos.down())) {
+            return;
         }
 
-        return this.getDefaultState().with(WATERLOGGED, flag);
+        BlockState newState = state.with(RITUAL, world.getBlockState(fromPos).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
+
+        if (state != newState) {
+            world.setBlockState(pos, newState, 3);
+        }
     }
 
     @Override
@@ -160,7 +193,7 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements IWaterLogg
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(PART, WATERLOGGED);
+        builder.add(PART, RITUAL, WATERLOGGED);
     }
 
     @Override

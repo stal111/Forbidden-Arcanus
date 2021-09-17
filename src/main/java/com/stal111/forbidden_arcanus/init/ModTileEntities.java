@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.*;
+import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.tile.BlackHoleTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -23,6 +24,7 @@ public class ModTileEntities {
     public static final RegistryObject<TileEntityType<NipaTileEntity>> NIPA = register("nipa", () -> TileEntityType.Builder.create(NipaTileEntity::new, NewModBlocks.NIPA.get()).build(null));
     public static final RegistryObject<TileEntityType<HephaestusForgeTileEntity>> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> TileEntityType.Builder.create(HephaestusForgeTileEntity::new, ModBlocks.HEPHAESTUS_FORGE.getBlock()).build(null));
     public static final RegistryObject<TileEntityType<PedestalTileEntity>> PEDESTAL = register("pedestal", () -> TileEntityType.Builder.create(PedestalTileEntity::new, NewModBlocks.DARKSTONE_PEDESTAL.get(), NewModBlocks.ARCANE_DARKSTONE_PEDESTAL.get()).build(null));
+    public static final RegistryObject<TileEntityType<ArcaneCrystalObeliskTileEntity>> ARCANE_CRYSTAL_OBELISK = register("arcane_crystal_obelisk", () -> TileEntityType.Builder.create(ArcaneCrystalObeliskTileEntity::new, NewModBlocks.ARCANE_CRYSTAL_OBELISK.get()).build(null));
 
     private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<TileEntityType<T>> tileEntityType) {
         return TILE_ENTITIES.register(name, tileEntityType);
