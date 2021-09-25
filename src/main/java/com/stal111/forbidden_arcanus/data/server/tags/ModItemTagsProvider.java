@@ -39,6 +39,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
         this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
         this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+        this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+        this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
         this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
         this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
 

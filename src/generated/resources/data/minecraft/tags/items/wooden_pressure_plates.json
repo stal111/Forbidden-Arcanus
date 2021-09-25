@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "forbidden_arcanus:fungyss_pressure_plate"
+    "forbidden_arcanus:fungyss_pressure_plate",
+    "forbidden_arcanus:cherrywood_pressure_plate",
+    "forbidden_arcanus:mysterywood_pressure_plate",
+    "forbidden_arcanus:edelwood_pressure_plate"
   ]
 }

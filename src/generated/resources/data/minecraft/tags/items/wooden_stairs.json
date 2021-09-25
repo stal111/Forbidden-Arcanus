@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "forbidden_arcanus:fungyss_stairs"
+    "forbidden_arcanus:fungyss_stairs",
+    "forbidden_arcanus:cherrywood_stairs",
+    "forbidden_arcanus:mysterywood_stairs",
+    "forbidden_arcanus:edelwood_stairs"
   ]
 }

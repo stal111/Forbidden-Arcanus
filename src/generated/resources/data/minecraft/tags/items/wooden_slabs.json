@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "forbidden_arcanus:fungyss_slab"
+    "forbidden_arcanus:fungyss_slab",
+    "forbidden_arcanus:cherrywood_slab",
+    "forbidden_arcanus:mysterywood_slab",
+    "forbidden_arcanus:edelwood_slab"
   ]
 }

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "forbidden_arcanus:fungyss_button"
+    "forbidden_arcanus:fungyss_button",
+    "forbidden_arcanus:cherrywood_button",
+    "forbidden_arcanus:mysterywood_button",
+    "forbidden_arcanus:edelwood_button"
   ]
 }
