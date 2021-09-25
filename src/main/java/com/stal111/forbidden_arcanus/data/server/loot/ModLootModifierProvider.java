@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
+import com.stal111.forbidden_arcanus.init.other.ModLootModifiers;
 import net.minecraft.advancements.criterion.EnchantmentPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
@@ -17,11 +19,11 @@ import net.valhelsia.valhelsia_core.init.ValhelsiaLootModifiers;
 import net.valhelsia.valhelsia_core.loot.modifiers.AppendLootTableModifier;
 
 /**
- * Mod Loot Modifiers
+ * Mod Loot Modifiers <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-04-10
  */
 public class ModLootModifierProvider extends GlobalLootModifierProvider {
@@ -52,6 +54,12 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         Inverted.builder(MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(2))))).build(),
                         LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"))
+        );
+        add("blacksmith_gavel_ore_doubling",
+                ModLootModifiers.BLACKSMITH_GAVEL.get(),
+                new BlacksmithGavelLootModifier(new ILootCondition[] {
+                        RandomChance.builder(0.3F).build()
+                })
         );
     }
 }

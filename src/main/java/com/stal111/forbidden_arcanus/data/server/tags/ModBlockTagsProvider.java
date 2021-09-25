@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
@@ -42,5 +43,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.getOrCreateBuilder(BlockTags.UNSTABLE_BOTTOM_CENTER).add(NewModBlocks.FUNGYSS_FENCE_GATE.get());
         this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.getBlock());
         this.getOrCreateBuilder(BlockTags.FLOWER_POTS).add(NewModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), NewModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), NewModBlocks.POTTED_YELLOW_ORCHID.get());
+        this.getOrCreateBuilder(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED).add(Blocks.IRON_ORE, Blocks.GOLD_ORE);
     }
 }

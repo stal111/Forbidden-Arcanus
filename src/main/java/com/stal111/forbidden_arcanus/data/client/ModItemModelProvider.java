@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ToolItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -66,7 +67,13 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
         takeItem(this::bloodTestTubeModel, NewModItems.BLOOD_TEST_TUBE);
 
+        forEachItem(item -> item instanceof ToolItem, this::toolItem);
         forEachItem(this::simpleModel);
+    }
+
+    public <T extends Item> void toolItem(T item) {
+        String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+        this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/generated"))).texture("layer0", "item/tool/" + name);
     }
 
     public <T extends Item> void utremJarModel(T item) {

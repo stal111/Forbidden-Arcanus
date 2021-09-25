@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.item.renderer.ObsidianSkullItemRenderer;
 import com.stal111.forbidden_arcanus.item.renderer.ObsidianSkullShieldItemRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.item.Rarity;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
@@ -42,6 +43,16 @@ public class NewModItems {
     public static final RegistryObject<ZombieArmItem> SHINY_ZOMBIE_ARM = HELPER.register("shiny_zombie_arm", () -> new ZombieArmItem(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
     public static final RegistryObject<Item> TEST_TUBE = HELPER.register("test_tube", () -> new Item(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(16)));
     public static final RegistryObject<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", () -> new BloodTestTubeItem(new Item.Properties().maxStackSize(1)));
+    public static final RegistryObject<Item> BLACKSMITH_GAVEL_HEAD = HELPER.register("blacksmith_gavel_head", () -> new Item(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(16)));
+    public static final RegistryObject<BlacksmithGavelItem> WOODEN_BLACKSMITH_GAVEL = HELPER.register("wooden_blacksmith_gavel", () -> new BlacksmithGavelItem(ItemTier.WOOD, 7, -3.25F, 1, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> STONE_BLACKSMITH_GAVEL = HELPER.register("stone_blacksmith_gavel", () -> new BlacksmithGavelItem(ItemTier.STONE, 7, -3.25F, 3, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> GOLDEN_BLACKSMITH_GAVEL = HELPER.register("golden_blacksmith_gavel", () -> new BlacksmithGavelItem(ItemTier.GOLD, 7, -3.25F, 2, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> IRON_BLACKSMITH_GAVEL = HELPER.register("iron_blacksmith_gavel", () -> new BlacksmithGavelItem(ItemTier.IRON, 7, -3.25F, 10, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> DIAMOND_BLACKSMITH_GAVEL = HELPER.register("diamond_blacksmith_gavel", () -> new BlacksmithGavelItem(ItemTier.DIAMOND, 7, -3.25F, 30, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> NETHERITE_BLACKSMITH_GAVEL = HELPER.register("netherite_blacksmith_gavel", () -> new BlacksmithGavelItem(ItemTier.NETHERITE, 7, -3.25F, 60, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> ARCANE_GOLDEN_BLACKSMITH_GAVEL = HELPER.register("arcane_golden_blacksmith_gavel", () -> new BlacksmithGavelItem(ModItemTier.ARCANE_GOLDEN, 7, -3.25F, 15, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL = HELPER.register("reinforced_arcane_golden_blacksmith_gavel", () -> new BlacksmithGavelItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 7, -3.25F, 80, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
+    public static final RegistryObject<BlacksmithGavelItem> OBSIDIAN_BLACKSMITH_GAVEL = HELPER.register("obsidian_blacksmith_gavel", () -> new BlacksmithGavelItem(ModItemTier.OBSIDIAN, 7, -3.25F, 50, new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).maxStackSize(1)));
 
     public static class Stacks {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(NewModItems.LENS_OF_VERITATIS.get());

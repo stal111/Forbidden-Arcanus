@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "forbidden_arcanus:wooden_blacksmith_gavel",
+    "forbidden_arcanus:stone_blacksmith_gavel",
+    "forbidden_arcanus:golden_blacksmith_gavel",
+    "forbidden_arcanus:iron_blacksmith_gavel",
+    "forbidden_arcanus:diamond_blacksmith_gavel",
+    "forbidden_arcanus:netherite_blacksmith_gavel",
+    "forbidden_arcanus:arcane_golden_blacksmith_gavel",
+    "forbidden_arcanus:reinforced_arcane_golden_blacksmith_gavel",
+    "forbidden_arcanus:obsidian_blacksmith_gavel"
+  ]
+}

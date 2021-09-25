@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "#S#",
+    " S "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "X": {
+      "item": "forbidden_arcanus:blacksmith_gavel_head"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:iron_blacksmith_gavel"
+  }
+}

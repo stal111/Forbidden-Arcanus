@@ -2,7 +2,9 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.item.IRitualStarterItem;
 import com.stal111.forbidden_arcanus.item.MundabiturDustItem;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -12,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -35,7 +38,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Hephaestus Forge Block
+ * Hephaestus Forge Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.block.HephaestusForgeBlock
  *
  * @author stal111
@@ -99,7 +102,7 @@ public class HephaestusForgeBlock extends ValhelsiaContainerBlock implements IWa
 
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, Hand hand, @Nonnull BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
         this.updateState(state, world, pos);
 
         if (state.get(ACTIVATED)) {
@@ -109,8 +112,13 @@ public class HephaestusForgeBlock extends ValhelsiaContainerBlock implements IWa
             TileEntity tileEntity = world.getTileEntity(pos);
 
             if (tileEntity instanceof HephaestusForgeTileEntity) {
-                ((HephaestusForgeTileEntity) tileEntity).getRitualManager().tryStartRitual();
-                player.openContainer((HephaestusForgeTileEntity) tileEntity);
+                ItemStack stack = player.getHeldItem(hand);
+
+                if (stack.getItem() instanceof IRitualStarterItem) {
+                    ((HephaestusForgeTileEntity) tileEntity).getRitualManager().tryStartRitual(stack);
+                } else {
+                    player.openContainer((HephaestusForgeTileEntity) tileEntity);
+                }
                 return ActionResultType.CONSUME;
             }
         }

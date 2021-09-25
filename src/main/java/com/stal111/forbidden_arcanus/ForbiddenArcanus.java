@@ -62,6 +62,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.helper.CounterHelper;
+import net.valhelsia.valhelsia_core.registry.LootModifierRegistryHelper;
 import net.valhelsia.valhelsia_core.registry.RegistryManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -85,7 +86,7 @@ public class ForbiddenArcanus {
 
 	public static final ForbiddenmiconPageLoadListener PAGE_LOADER = new ForbiddenmiconPageLoadListener();
 
-	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().build();
+	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().addHelpers(new LootModifierRegistryHelper()).build();
 
 	public static ForbiddenArcanus instance;
 

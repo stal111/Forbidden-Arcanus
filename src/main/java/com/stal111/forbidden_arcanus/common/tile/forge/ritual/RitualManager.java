@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
+import com.stal111.forbidden_arcanus.item.IRitualStarterItem;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
@@ -30,7 +31,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**
- * Ritual Manager
+ * Ritual Manager <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager
  *
  * @author stal111
@@ -66,15 +67,20 @@ public class RitualManager implements ISavedData {
         return this.activeRitual != null;
     }
 
-    public void tryStartRitual() {
+    public void tryStartRitual(ItemStack stack) {
+        IRitualStarterItem ritualStarterItem = (IRitualStarterItem) stack.getItem();
         List<ItemStack> list = new ArrayList<>();
+
+        if (ritualStarterItem.getRemainingUses(stack) <= 0) {
+            return;
+        }
 
         this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> list.add(pedestalTileEntity.getStack()), true);
 
-        System.out.println(list);
-
         for (Ritual ritual : RitualLoader.getRituals()) {
             if (ritual.canStart(list, this.tileEntity)) {
+                ritualStarterItem.setRemainingUses(stack, ritualStarterItem.getRemainingUses(stack) - 1);
+
                 this.startRitual(ritual);
                 return;
             }

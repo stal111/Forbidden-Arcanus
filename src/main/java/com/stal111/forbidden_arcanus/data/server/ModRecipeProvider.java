@@ -8,12 +8,15 @@ import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.valhelsia.valhelsia_core.util.ValhelsiaNBTIngredient;
@@ -54,6 +57,14 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_FENCE_GATE.get()).patternLine("#X#").patternLine("#X#").key('#', Tags.Items.RODS_WOODEN).key('X', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(NewModItems.ARCANE_BONE_MEAL.get(), 4).patternLine(" # ").patternLine("#X#").patternLine(" # ").key('#', Items.BONE_MEAL).key('X', ModItems.ARCANE_CRYSTAL_DUST.get()).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL_DUST.get())).build(consumer);
         ShapedRecipeBuilder.shapedRecipe(NewModItems.AUREAL_BOTTLE.get()).patternLine("###").patternLine("#X#").patternLine("###").key('#', ModItems.ARCANE_CRYSTAL_DUST.get()).key('X', new ValhelsiaNBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRONG_REGENERATION))).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL_DUST.get())).build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModItems.BLACKSMITH_GAVEL_HEAD.get()).patternLine("###").patternLine("# #").patternLine(" # ").key('#', Items.CLAY_BALL).addCriterion("has_item", hasItem(Items.CLAY_BALL)).build(consumer);
+        addBlacksmithGavelRecipe(NewModItems.WOODEN_BLACKSMITH_GAVEL.get(), ItemTags.PLANKS, consumer);
+        addBlacksmithGavelRecipe(NewModItems.STONE_BLACKSMITH_GAVEL.get(), ItemTags.STONE_TOOL_MATERIALS, consumer);
+        addBlacksmithGavelRecipe(NewModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD, consumer);
+        addBlacksmithGavelRecipe(NewModItems.IRON_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_IRON, consumer);
+        addBlacksmithGavelRecipe(NewModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND, consumer);
+        addBlacksmithGavelRecipe(NewModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(), ModTags.Items.ARCANE_GOLD_INGOTS, consumer);
+        addBlacksmithGavelRecipe(NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get(), ModTags.Items.OBSIDIAN_INGOTS, consumer);
 
         //Shapeless Recipes
         ShapelessRecipeBuilder.shapelessRecipe(NewModItems.PURIFYING_SOAP.get()).addIngredient(ModItems.ARCANE_CRYSTAL_DUST.get()).addIngredient(ModItems.WAX.get()).addIngredient(Items.SLIME_BALL).addIngredient(Items.PRISMARINE_CRYSTALS).addIngredient(ItemTags.SMALL_FLOWERS).addCriterion("has_item", hasItem(ModItems.WAX.get())).build(consumer);
@@ -70,5 +81,10 @@ public class ModRecipeProvider extends RecipeProvider {
         //Smithing Recipes
         SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(Items.SHIELD), Ingredient.fromItems(NewModItems.OBSIDIAN_SKULL.get()), NewModItems.OBSIDIAN_SKULL_SHIELD.get()).addCriterion("has_item", hasItem(NewModItems.OBSIDIAN_SKULL.get())).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_skull_shield"));
         SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(NewModItems.OBSIDIAN_SKULL.get()), Ingredient.fromItems(ModItems.ETERNAL_STELLA.get()), NewModItems.ETERNAL_OBSIDIAN_SKULL.get()).addCriterion("has_item", hasItem(NewModItems.OBSIDIAN_SKULL.get())).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
+        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(NewModItems.NETHERITE_BLACKSMITH_GAVEL.get()), Ingredient.fromItems(Items.NETHERITE_INGOT), NewModItems.DIAMOND_BLACKSMITH_GAVEL.get()).addCriterion("has_item", hasItem(Items.NETHERITE_INGOT)).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_blacksmith_gavel"));
+    }
+
+    private void addBlacksmithGavelRecipe(Item gavel, ITag.INamedTag<Item> material, @Nonnull Consumer<IFinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shapedRecipe(gavel).patternLine("#X#").patternLine("#S#").patternLine(" S ").key('#', material).key('X', NewModItems.BLACKSMITH_GAVEL_HEAD.get()).key('S', Tags.Items.RODS_WOODEN).addCriterion("has_item", hasItem(material)).build(consumer);
     }
 }

@@ -3,6 +3,7 @@
   "entries": [
     "forbidden_arcanus:zombie_additions",
     "forbidden_arcanus:drowned_additions",
-    "forbidden_arcanus:spawner_additions"
+    "forbidden_arcanus:spawner_additions",
+    "forbidden_arcanus:blacksmith_gavel_ore_doubling"
   ]
 }

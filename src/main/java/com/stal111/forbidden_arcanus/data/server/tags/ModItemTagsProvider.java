@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.data.BlockTagsProvider;
@@ -40,8 +41,21 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
         this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
 
-        getOrCreateBuilder(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
-        getOrCreateBuilder(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
-        getOrCreateBuilder(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
+        this.getOrCreateBuilder(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
+        this.getOrCreateBuilder(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
+        this.getOrCreateBuilder(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
+        this.getOrCreateBuilder(ModTags.Items.BLACKSMITH_GAVEL).add(
+                NewModItems.WOODEN_BLACKSMITH_GAVEL.get(),
+                NewModItems.STONE_BLACKSMITH_GAVEL.get(),
+                NewModItems.GOLDEN_BLACKSMITH_GAVEL.get(),
+                NewModItems.IRON_BLACKSMITH_GAVEL.get(),
+                NewModItems.DIAMOND_BLACKSMITH_GAVEL.get(),
+                NewModItems.NETHERITE_BLACKSMITH_GAVEL.get(),
+                NewModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(),
+                NewModItems.REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(),
+                NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get()
+        );
+        this.getOrCreateBuilder(ModTags.Items.ARCANE_GOLD_INGOTS).add(ModItems.ARCANE_GOLD_INGOT.get());
+        this.getOrCreateBuilder(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());
     }
 }
