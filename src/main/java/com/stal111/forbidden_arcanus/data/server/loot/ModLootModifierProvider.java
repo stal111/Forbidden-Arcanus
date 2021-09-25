@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
+import com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.other.ModLootModifiers;
 import net.minecraft.advancements.criterion.EnchantmentPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
@@ -34,31 +36,32 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
-        add("zombie_additions",
-                ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+        this.add("zombie_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new ILootCondition[] {
                         RandomChance.builder(0.002F).build(),
                         LootTableIdCondition.builder(new ResourceLocation("entities/zombie")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/zombie_additions"))
         );
-        add("drowned_additions",
-                ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+        this.add("drowned_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new ILootCondition[] {
                         RandomChance.builder(0.002F).build(),
                         LootTableIdCondition.builder(new ResourceLocation("entities/drowned")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/drowned_additions"))
         );
-        add("spawner_additions",
-                ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+        this.add("spawner_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new ILootCondition[] {
                         Inverted.builder(MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(2))))).build(),
                         LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"))
         );
-        add("blacksmith_gavel_ore_doubling",
-                ModLootModifiers.BLACKSMITH_GAVEL.get(),
+        this.add("blacksmith_gavel_ore_doubling", ModLootModifiers.BLACKSMITH_GAVEL.get(),
                 new BlacksmithGavelLootModifier(new ILootCondition[] {
                         RandomChance.builder(0.3F).build()
+                })
+        );
+        this.add("infernum_smelting", ModLootModifiers.INFERNUM_SMELTING.get(),
+                new InfernumPickaxeLootModifier(new ILootCondition[] {
+                        MatchTool.builder(ItemPredicate.Builder.create().item(ModItems.INFERNUM_PICKAXE.get())).build()
                 })
         );
     }

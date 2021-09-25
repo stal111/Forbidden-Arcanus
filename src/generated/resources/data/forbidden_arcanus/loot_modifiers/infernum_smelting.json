@@ -1,5 +1,4 @@
 {
-  "type": "forbidden_arcanus:infernum_smelting",
   "conditions": [
     {
       "condition": "minecraft:match_tool",
@@ -8,5 +7,5 @@
       }
     }
   ],
-  "function": "forbidden_arcanus:infernum_smelting"
+  "type": "valhelsia_core:infernum_smelting"
 }

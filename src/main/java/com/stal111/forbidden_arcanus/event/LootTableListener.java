@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.event.modifier.InfernumPickaxeLootModifier;
+import com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier;
 import net.minecraft.loot.LootEntry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.TableLootEntry;

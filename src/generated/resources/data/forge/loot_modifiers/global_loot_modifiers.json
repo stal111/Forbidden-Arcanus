@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
+    "forbidden_arcanus:infernum_smelting",
     "forbidden_arcanus:zombie_additions",
     "forbidden_arcanus:drowned_additions",
     "forbidden_arcanus:spawner_additions",
