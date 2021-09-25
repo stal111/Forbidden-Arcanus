@@ -44,5 +44,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.getBlock());
         this.getOrCreateBuilder(BlockTags.FLOWER_POTS).add(NewModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), NewModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), NewModBlocks.POTTED_YELLOW_ORCHID.get());
         this.getOrCreateBuilder(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED).add(Blocks.IRON_ORE, Blocks.GOLD_ORE);
+        this.getOrCreateBuilder(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
     }
 }

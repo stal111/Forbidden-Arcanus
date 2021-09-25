@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.data.server.loot;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier;
+import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.other.ModLootModifiers;
 import net.minecraft.advancements.criterion.EnchantmentPredicate;
@@ -64,5 +65,6 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         MatchTool.builder(ItemPredicate.Builder.create().item(ModItems.INFERNUM_PICKAXE.get())).build()
                 })
         );
+        this.add("magical_farmland_crop_doubling", ModLootModifiers.MAGICAL_FARMLAND.get(), new MagicalFarmlandLootModifier(new ILootCondition[]{}));
     }
 }
