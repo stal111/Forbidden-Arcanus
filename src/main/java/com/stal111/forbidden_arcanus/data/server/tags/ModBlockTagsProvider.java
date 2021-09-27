@@ -38,11 +38,10 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.getOrCreateBuilder(BlockTags.WOODEN_BUTTONS).add(NewModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.CHERRYWOOD_BUTTON.getBlock(), ModBlocks.MYSTERYWOOD_BUTTON.getBlock(), ModBlocks.EDELWOOD_BUTTON.getBlock());
         this.getOrCreateBuilder(BlockTags.WOODEN_FENCES).add(NewModBlocks.FUNGYSS_FENCE.get(), ModBlocks.CHERRYWOOD_FENCE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE.getBlock(), ModBlocks.EDELWOOD_FENCE.getBlock());
         this.getOrCreateBuilder(Tags.Blocks.FENCES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE.get(), ModBlocks.CHERRYWOOD_FENCE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE.getBlock(), ModBlocks.EDELWOOD_FENCE.getBlock());
-       // this.getOrCreateBuilder(BlockTags.FENCE_GATES).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.CHERRYWOOD_FENCE_GATE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE_GATE.getBlock(), ModBlocks.EDELWOOD_FENCE_GATE.getBlock());
+        this.getOrCreateBuilder(BlockTags.FENCE_GATES).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.CHERRYWOOD_FENCE_GATE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE_GATE.getBlock(), ModBlocks.EDELWOOD_FENCE_GATE.getBlock());
         this.getOrCreateBuilder(Tags.Blocks.FENCE_GATES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.CHERRYWOOD_FENCE_GATE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE_GATE.getBlock(), ModBlocks.EDELWOOD_FENCE_GATE.getBlock());
         this.getOrCreateBuilder(BlockTags.WOODEN_DOORS).add(NewModBlocks.FUNGYSS_DOOR.get(), ModBlocks.CHERRYWOOD_DOOR.getBlock(), ModBlocks.MYSTERYWOOD_DOOR.getBlock(), ModBlocks.EDELWOOD_DOOR.getBlock());
         this.getOrCreateBuilder(BlockTags.WOODEN_TRAPDOORS).add(NewModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.CHERRYWOOD_TRAPDOOR.getBlock(), ModBlocks.MYSTERYWOOD_TRAPDOOR.getBlock(), ModBlocks.EDELWOOD_TRAPDOOR.getBlock());
-        // this.getOrCreateBuilder(BlockTags.UNSTABLE_BOTTOM_CENTER).add(NewModBlocks.FUNGYSS_FENCE_GATE.get());
         this.getOrCreateBuilder(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.getBlock());
         this.getOrCreateBuilder(BlockTags.FLOWER_POTS).add(NewModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), NewModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), NewModBlocks.POTTED_YELLOW_ORCHID.get());
         this.getOrCreateBuilder(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED).add(Blocks.IRON_ORE, Blocks.GOLD_ORE);

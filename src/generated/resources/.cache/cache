@@ -372,6 +372,7 @@ e3f3faf824b8a5f26fc233c656ff20c093244952 data/forge/tags/items/heads.json
 8178490f48703d9422234b13a840ce0bf8dd6500 data/forge/tags/items/ingots/arcane_gold.json
 cc8f368faa8581f6efad42396f8a15ec3ca112c4 data/forge/tags/items/ingots/obsidian.json
 d6af0858dbc116bcfcc4a7044bf1b45bea94ea2c data/minecraft/tags/blocks/climbable.json
+9519807962c92491aabf29e7a7aaf9ac326d67e0 data/minecraft/tags/blocks/fence_gates.json
 6f8f1d4058cf01d9852ecb39370f2f46464ec486 data/minecraft/tags/blocks/flower_pots.json
 20f0200f4ade39321df4a486f08b133543fd9a83 data/minecraft/tags/blocks/logs.json
 995120e815df8632146e1d846b4addd03a34cf00 data/minecraft/tags/blocks/planks.json
