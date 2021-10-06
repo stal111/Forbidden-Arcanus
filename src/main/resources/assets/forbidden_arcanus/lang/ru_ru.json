@@ -328,13 +328,13 @@
     "forbiddenmicon.recipe.smelting.blast_furnace": "Доменная печь",
 
     "forbidden_arcanus.aureal": "Ореал",
-    "forbidden_arcanus.aureal.corruption": "Порча"
+    "forbidden_arcanus.aureal.corruption": "Порча",
     "forbidden_arcanus.souls": "Души",
     "forbidden_arcanus.blood": "Кровь",
     "forbidden_arcanus.experience": "Опыт",
 
     "guis_comment": "ГУИ",
-    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Разблокируется на уровне"
+    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Разблокируется на уровне",
     "jei.forbidden_arcanus.category.hephaestusSmithing": "Ковка гефеста",
     "jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal": "Требуется пьедестал",
     "jei.forbidden_arcanus.hephaestusSmithing.requiredLevel": "Требуется уровень наковальни",
