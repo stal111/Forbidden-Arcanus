@@ -149,7 +149,7 @@
     "block.forbidden_arcanus.fungyss_fence": "Забор из Поганки",
     "block.forbidden_arcanus.fungyss_fence_gate": "Калитка из Поганки",
 
-    "____comment": "Items",
+    "____comment": "Предметы",
     "item.forbidden_arcanus.forbiddenmicon": "Форбидденмикон",
     "item.forbidden_arcanus.stellarite_piece": "Часть стелларита",
     "item.forbidden_arcanus.arcane_gold_ingot": "Слиток мистического золота",
@@ -287,6 +287,7 @@
     "item.forbidden_arcanus.zombie_arm": "Рука зомби",
     "item.forbidden_arcanus.shiny_zombie_arm": "Сияющая рука зомби",
     "item.forbidden_arcanus.test_tube": "Пробирка",
+    "item.forbidden_arcanus.blacksmith_gavel_head": "Головка молотка кузнеца",
     "item.forbidden_arcanus.wooden_blacksmith_gavel": "Деревянный молоток кузнеца",
     "item.forbidden_arcanus.stone_blacksmith_gavel": "Каменный молоток кузнеца",
     "item.forbidden_arcanus.golden_blacksmith_gavel": "Золотой молоток кузнеца",
@@ -297,7 +298,7 @@
     "item.forbidden_arcanus.reinforced_arcane_golden_blacksmith_gavel": "Укреплённый молоток кузнеца из Мистического золота",
     "item.forbidden_arcanus.obsidian_blacksmith_gavel": "Обсидиановый молоток кузнеца",
 
-    "tooltips": "Подсказки",
+    "comment.tooltips": "---Подсказки---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "Форбидденмикон скоро будет доступен для чтения",
     "tooltip.forbidden_arcanus.obsidian_skull": "Может спасти Вас от Урона от огня сроком до 30 секунд.",
     "tooltip.forbidden_arcanus.obsidian_skull_shield": "Может спасти Вас от Урона от огня сроком до 30 секунд.",
@@ -310,12 +311,13 @@
     "tooltip.forbidden_arcanus.deactivated": "Деактивировано",
     "tooltip.forbidden_arcanus.toggle": "(Пкм, чтобы переключить)",
     "tooltip.forbidden_arcanus.duration": "Продолжительность",
-    "tooltip.forbidden_arcanus.uses_left": "Осталось использований пкм",
+    "tooltip.forbidden_arcanus.remaining_uses": "Осталось использований пкм",
+    "tooltip.forbidden_arcanus.remaining_ritual_uses": "Осталось ритуальных использований",
     "tooltip.forbidden_arcanus.entity": "Сущность",
     "tooltip.forbidden_arcanus.pixie": "Фея",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Порченная фея",
 
-    "______comment": "Контейнеры",
+    "containers": "Контейнеры",
     "container.dark_beacon": "Тёмный маяк",
     "container.forbidden_arcanus.hephaestus_forge": "Кузница Гефеста",
 
