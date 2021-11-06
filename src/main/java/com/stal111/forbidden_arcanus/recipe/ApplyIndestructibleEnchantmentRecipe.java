@@ -40,7 +40,7 @@ public class ApplyIndestructibleEnchantmentRecipe extends SmithingRecipe {
         List<Enchantment> enchantments = new ArrayList<>(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED.getAllElements());
         enchantments.add(ModEnchantments.INDESTRUCTIBLE.get());
 
-        if (!input.isDamageable() || ItemStackUtils.hasStackEnchantment(input, enchantments) || ModTags.Items.INDESTRUCTIBLE_BLACKLISTED.contains(input.getItem())) {
+        if (!input.isDamageable() || !input.isEnchantable() || ItemStackUtils.hasStackEnchantment(input, enchantments) || ModTags.Items.INDESTRUCTIBLE_BLACKLISTED.contains(input.getItem())) {
             return false;
         }
         return this.isValidAdditionItem(inv.getStackInSlot(1));
