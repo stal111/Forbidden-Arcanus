@@ -1,0 +1,38 @@
+{
+    "inputs": [
+        {
+            "item": "minecraft:ink_sac",
+            "slot": 0
+        },
+        {
+            "item": "forbidden_arcanus:arcane_crystal",
+            "slot": 1
+        },
+        {
+            "item": "minecraft:diamond",
+            "slot": 2
+        },
+        {
+            "item": "minecraft:lapis_lazuli",
+            "slot": 5
+        }
+    ],
+    "hephaestus_forge_item": "minecraft:book",
+    "essences": {
+        "aureal": 150,
+        "experience": 150,
+        "blood": 1000
+    },
+    "result": {
+        "item": "minecraft:enchanted_book",
+        "count": 1,
+        "nbt": {
+            "StoredEnchantments": [
+                {
+                    "id": "minecraft:unbreaking",
+                    "lvl": 3
+                }
+            ]
+        }
+    }
+}

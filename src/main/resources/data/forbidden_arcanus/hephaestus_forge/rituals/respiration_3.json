@@ -1,26 +1,31 @@
 {
     "inputs": [
         {
-            "item": "minecraft:diamond",
+            "item": "minecraft:ink_sac",
             "slot": 0
         },
         {
-            "item": "minecraft:feather",
+            "item": "forbidden_arcanus:arcane_crystal",
             "slot": 1
         },
         {
-            "item": "minecraft:ink_sac",
+            "item": "minecraft:pufferfish",
             "slot": 2
         },
         {
-            "item": "forbidden_arcanus:ender_pearl_fragment",
-            "slot": 3
+            "item": "minecraft:scute",
+            "slot": 4
+        },
+        {
+            "item": "minecraft:lapis_lazuli",
+            "slot": 5
         }
     ],
     "hephaestus_forge_item": "minecraft:book",
     "essences": {
-        "aureal": 75,
-        "experience": 20
+        "aureal": 150,
+        "experience": 100,
+        "blood": 1000
     },
     "result": {
         "item": "minecraft:enchanted_book",
@@ -28,8 +33,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:efficiency",
-                    "lvl": 1
+                    "id": "minecraft:respiration",
+                    "lvl": 3
                 }
             ]
         }
