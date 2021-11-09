@@ -1,13 +1,28 @@
 package com.stal111.forbidden_arcanus.config;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ForbiddenArcanus.MOD_ID)
 public class WorldGenConfig {
-
 	public static ForgeConfigSpec.BooleanValue ARCANE_CRYSTAL_ORE_GENERATE;
 	public static ForgeConfigSpec.IntValue ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE;
 	public static ForgeConfigSpec.IntValue ARCANE_CRYSTAL_ORE_COUNT;
 	public static ForgeConfigSpec.IntValue ARCANE_CRYSTAL_ORE_MAX_HEIGHT;
+	private static ForgeConfigSpec.ConfigValue<List<? extends String>> ORE_BLACKLIST;
+	private static ForgeConfigSpec.ConfigValue<List<? extends String>> ORE_WHITELIST;
 
 	public static ForgeConfigSpec.BooleanValue RUNESTONE_GENERATE;
 	public static ForgeConfigSpec.IntValue RUNESTONE_MAX_VEIN_SIZE;
@@ -41,13 +56,24 @@ public class WorldGenConfig {
 	public static ForgeConfigSpec.BooleanValue EDELWOOD_TREE_GENERATE;
 	public static ForgeConfigSpec.BooleanValue YELLOW_ORCHID_GENERATE;
 	public static ForgeConfigSpec.BooleanValue PETRIFIED_ROOT_GENERATE;
+	public static ForgeConfigSpec.ConfigValue<List<? extends String>> TREE_WHITELIST;
+	public static ForgeConfigSpec.ConfigValue<List<? extends String>> TREE_BLACKLIST;
 
 	public static ForgeConfigSpec.BooleanValue NIPA_GENERATE;
 	public static ForgeConfigSpec.IntValue NIPA_SPACING;
 	public static ForgeConfigSpec.IntValue NIPA_SEPARATION;
+	public static ForgeConfigSpec.ConfigValue<List<? extends String>> NIPA_WHITELIST;
+	public static ForgeConfigSpec.ConfigValue<List<? extends String>> NIPA_BLACKLIST;
+
+	public static DimensionList treeList;
+	public static DimensionList oreList;
+	public static DimensionList nipaList;
 
 	public static void init(ForgeConfigSpec.Builder builder) {
 		builder.push("world_gen");
+
+		ORE_WHITELIST = builder.comment("Which dimensions ores should spawn in? [example: [\"minecraft:overworld\"], default empty allows all dimensions]").defineList("ore_whitelist", Collections.emptyList(), o -> o instanceof String && ((String) o).contains(":"));
+		ORE_BLACKLIST = builder.comment("Which dimensions ores shouldn't spawn in? [example: [\"minecraft:overworld\"], default empty allows all dimensions]").defineList("ore_blacklist", Collections.emptyList(), o -> o instanceof String && ((String) o).contains(":"));
 
 		ARCANE_CRYSTAL_ORE_GENERATE = builder.comment("Generate Arcane Crystal Ore? [default: true]").define("arcane_crystal.generate", true);
 		ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE = builder.comment("Maximum size of Arcane Crystal Ore veins [default: 6]").defineInRange("arcane_crystal.max_vein_size", 5, 0, 100);
@@ -86,11 +112,83 @@ public class WorldGenConfig {
 		EDELWOOD_TREE_GENERATE = builder.comment("Generate Edelwood Trees? [default: true]").define("edelwood_tree.generate", true);
 		YELLOW_ORCHID_GENERATE = builder.comment("Generate Yellow Orchids? [default: true]").define("yellow_orchid.generate", true);
 		PETRIFIED_ROOT_GENERATE = builder.comment("Generate Petrified Roots? [default: true]").define("petrified_root.generate", true);
+		TREE_WHITELIST = builder.comment("Which dimensions trees should spawn in? [example: [\"minecraft:the_end\"], default empty allows all dimensions]").defineList("tree_whitelist", Collections.emptyList(), o -> o instanceof String && ((String) o).contains(":"));
+		TREE_BLACKLIST = builder.comment("Which dimensions trees shouldn't spawn in? [example: [\"minecraft:the_end\"], empty allows all dimensions]").defineList("tree_blacklist", Collections.singletonList("minecraft:the_end"), o -> o instanceof String && ((String) o).contains(":"));
 
 		NIPA_GENERATE = builder.comment("Generate Nipas? [default: true]").define("nipa.generate", true);
 		NIPA_SPACING = builder.comment("Nipa Structure Spacing [default: 35]").defineInRange("nipa.spacing", 35, 0, Integer.MAX_VALUE);
 		NIPA_SEPARATION = builder.comment("Nipa Structure Separation [default: 8]").defineInRange("nipa.separation", 8, 0, Integer.MAX_VALUE);
+		NIPA_WHITELIST = builder.comment("Which dimensions nipa structures should spawn in? [example: [\"minecraft:the_end\"], default empty allows all dimensions]").defineList("nipa_whitelist", Collections.emptyList(), o -> o instanceof String && ((String) o).contains(":"));
+		NIPA_BLACKLIST = builder.comment("Which dimensions nipa structures  shouldn't spawn in? [example: [\"minecraft:the_end\"], empty allows all dimensions]").defineList("nipa_blacklist", Collections.singletonList("minecraft:the_end"), o -> o instanceof String && ((String) o).contains(":"));
+
+		treeList = new DimensionList(TREE_WHITELIST, TREE_BLACKLIST);
+		oreList = new DimensionList(ORE_WHITELIST, ORE_BLACKLIST);
+		nipaList = new DimensionList(NIPA_WHITELIST, NIPA_BLACKLIST);
 
 		builder.pop();
+	}
+
+	@SubscribeEvent
+	public static void onConfig(ModConfig.ModConfigEvent event) {
+		if (treeList != null) {
+			treeList.invalidate();
+		}
+		if (oreList != null) {
+			oreList.invalidate();
+		}
+		if (nipaList != null) {
+			nipaList.invalidate();
+		}
+	}
+
+	public static class DimensionList {
+		private Set<RegistryKey<World>> whitelist = null;
+		private Set<RegistryKey<World>> blacklist = null;
+		private final ForgeConfigSpec.ConfigValue<List<? extends String>> whitelistRoot;
+		private final ForgeConfigSpec.ConfigValue<List<? extends String>> blacklistRoot;
+
+		public DimensionList(ForgeConfigSpec.ConfigValue<List<? extends String>> whitelistRoot, ForgeConfigSpec.ConfigValue<List<? extends String>> blacklistRoot) {
+			this.whitelistRoot = whitelistRoot;
+			this.blacklistRoot = blacklistRoot;
+		}
+
+		private void resolveList() {
+			if (whitelist == null) {
+				whitelist = new HashSet<>();
+				for (String dim : whitelistRoot.get()) {
+					whitelist.add(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dim)));
+				}
+			}
+			if (blacklist == null) {
+				blacklist = new HashSet<>();
+				for (String dim : blacklistRoot.get()) {
+					blacklist.add(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dim)));
+				}
+			}
+		}
+
+		public void invalidate() {
+			whitelist = null;
+		}
+
+
+		public boolean allowed(RegistryKey<World> dimension) {
+			resolveList();
+			if (whitelist.contains(dimension)) {
+				return true;
+			} else {
+				return whitelist.isEmpty() && !blacklist.contains(dimension);
+			}
+		}
+
+		public Set<RegistryKey<World>> getWhitelist() {
+			resolveList();
+			return whitelist;
+		}
+
+		public Set<RegistryKey<World>> getBlacklist() {
+			resolveList();
+			return blacklist;
+		}
 	}
 }
