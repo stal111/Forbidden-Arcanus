@@ -56,6 +56,7 @@ public class EntityDamageListener {
 
                 if (stack != null) {
                     ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(NewModItems.BLOOD_TEST_TUBE.get()), blood);
+                    int slot = player.inventory.getSlotFor(stack);
 
                     stack.shrink(1);
 
@@ -64,7 +65,6 @@ public class EntityDamageListener {
                             player.dropItem(newStack, false);
                         }
                     } else {
-                        int slot = player.inventory.getSlotFor(stack);
                         player.inventory.setInventorySlotContents(slot, newStack);
                     }
                 }
