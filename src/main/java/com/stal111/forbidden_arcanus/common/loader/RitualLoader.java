@@ -84,7 +84,7 @@ public class RitualLoader extends JsonReloadListener {
             System.out.println(JsonToNBT.getTagFromJson(GSON.toJson(jsonObject.get("result"))));
             ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(jsonObject, "result"), true);
 
-            return new Ritual(name, deserializeInputs(jsonObject), hephaestusForgeInput, result, deserializeEssences(jsonObject), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"), 1800);
+            return new Ritual(name, deserializeInputs(jsonObject), hephaestusForgeInput, result, deserializeEssences(jsonObject), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"), 1200);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }

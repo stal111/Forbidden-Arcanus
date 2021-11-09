@@ -66,7 +66,7 @@ public class MagicCircle {
             float size = 1 + Math.min(ticks, 100) / 100.0F * 7.5F;
             matrixStack.scale(size, 1.0F, size);
 
-            float alpha = ticks > ritual.getTime() * 0.95F ? Math.max((ritual.getTime() - ticks), 0) / (ritual.getTime() * 0.05F) : 1.0F;
+            float alpha = ticks > ritual.getTime() * 0.9F ? Math.max((ritual.getTime() - ticks), 0) / (ritual.getTime() * 0.1F) : 1.0F;
 
             matrixStack.rotate(Vector3f.YN.rotationDegrees(ticks));
             this.outerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getOuterTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
@@ -76,7 +76,7 @@ public class MagicCircle {
 
             matrixStack.pop();
 
-            if (ticks > ritual.getTime() * 0.95F) {
+            if (ticks > ritual.getTime() * 0.9F) {
                 World world = Objects.requireNonNull(this.ritualManager.getTileEntity().getWorld());
                 BlockPos pos = this.ritualManager.getTileEntity().getPos();
                 Random rand = world.getRandom();
