@@ -233,8 +233,7 @@ public class RitualManager implements ISavedData {
     }
 
     public double getFailureChance() {
-        System.out.println((this.getTileEntity().getEssenceManager().getCorruption() / (float) this.getTileEntity().getLevel().getMaxCorruption()) / 2);
-        return (this.getTileEntity().getEssenceManager().getCorruption() / (float) this.getTileEntity().getLevel().getMaxCorruption()) / 2;
+        return ((this.getTileEntity().getEssenceManager().getCorruption() + 5) / (float) this.getTileEntity().getLevel().getMaxCorruption()) / 2;
     }
 
     @Override
@@ -282,7 +281,6 @@ public class RitualManager implements ISavedData {
         if (updatePedestals) {
             this.updateCachedPedestals();
         }
-        System.out.println(this.cachedPedestals.size());
         this.cachedPedestals.stream().map(pos -> (PedestalTileEntity) this.getWorld().getTileEntity(pos)).filter(predicate).forEach(consumer);
     }
 }
