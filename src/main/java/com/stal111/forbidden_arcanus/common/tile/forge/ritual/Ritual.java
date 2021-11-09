@@ -7,9 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Ritual
@@ -55,7 +54,9 @@ public class Ritual {
         return this.checkIngredients(inputs, tileEntity);
     }
 
-    public boolean checkIngredients(List<ItemStack> ingredients, HephaestusForgeTileEntity tileEntity) {
+    public boolean checkIngredients(List<ItemStack> list, HephaestusForgeTileEntity tileEntity) {
+        List<ItemStack> ingredients = new ArrayList<>(list);
+
         for (Ingredient ingredient : this.getInputs()) {
             boolean foundStack = false;
 
@@ -91,11 +92,7 @@ public class Ritual {
     }
 
     public List<Ingredient> getInputs() {
-        List<Ingredient> inputs = new ArrayList<>();
-        for (Map.Entry<Integer, Ingredient> entry : this.inputs.entrySet()) {
-            inputs.add(entry.getValue());
-        }
-        return inputs;
+        return new ArrayList<>(this.inputs.values());
     }
 
     public ItemStack getHephaestusForgeItem() {
