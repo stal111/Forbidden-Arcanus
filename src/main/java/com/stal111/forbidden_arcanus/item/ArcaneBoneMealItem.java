@@ -70,35 +70,40 @@ public class ArcaneBoneMealItem extends BoneMealItem {
     }
 
     public static boolean applyBoneMeal(ItemStack stack, World world, BlockPos pos, PlayerEntity player) {
-        BlockState state = world.getBlockState(pos);
-        int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, world, pos, state, stack);
+        int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, world, pos, world.getBlockState(pos), stack);
         if (hook != 0) {
             return hook > 0;
         }
 
-        if (!isGrowable(state)) {
-            return false;
+        if (canGrow(world, pos)) {
+            grow(world, pos);
+
+            stack.shrink(1);
+
+            return true;
         }
 
-        IGrowable growable = (IGrowable) state.getBlock();
-
-        if (!growable.canGrow(world, pos, state, world.isRemote)) {
-            return false;
-        }
-
-        if (world instanceof ServerWorld) {
-            while (isGrowable(state) && growable.canGrow(world, pos, state, world.isRemote)) {
-                growable.grow((ServerWorld) world, world.rand, pos, state);
-                state = world.getBlockState(pos);
-            }
-        }
-
-        stack.shrink(1);
-
-        return true;
+        return false;
     }
 
-    private static boolean isGrowable(BlockState state) {
-        return state.getBlock() instanceof IGrowable;
+    private static boolean canGrow(World world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        if (state.getBlock() instanceof IGrowable) {
+            return ((IGrowable) state.getBlock()).canGrow(world, pos, state, world.isRemote());
+        }
+        return false;
+    }
+
+    private static void grow(World world, BlockPos pos) {
+        if (world.isRemote()) {
+            return;
+        }
+        for (int i = 0; i < 1000; i++) {
+            if (canGrow(world, pos) && !world.isRemote()) {
+                ((IGrowable) world.getBlockState(pos).getBlock()).grow((ServerWorld) world, world.rand, pos, world.getBlockState(pos));
+            } else {
+                return;
+            }
+        }
     }
 }
