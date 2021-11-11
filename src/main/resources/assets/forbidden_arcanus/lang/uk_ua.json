@@ -287,8 +287,18 @@
     "item.forbidden_arcanus.zombie_arm": "Рука зомбі",
     "item.forbidden_arcanus.shiny_zombie_arm": "Блискуча рука зомбі",
     "item.forbidden_arcanus.test_tube": "Пробірка",
+    "item.forbidden_arcanus.blacksmith_gavel_head": "Головка ковальського молотка",
+    "item.forbidden_arcanus.wooden_blacksmith_gavel": "Дерев'яний ковальський молоток",
+    "item.forbidden_arcanus.stone_blacksmith_gavel": "Кам'яний ковальський молоток",
+    "item.forbidden_arcanus.golden_blacksmith_gavel": "Золотий ковальський молоток",
+    "item.forbidden_arcanus.iron_blacksmith_gavel": "Залізний ковальський молоток",
+    "item.forbidden_arcanus.diamond_blacksmith_gavel": "Алмазний ковальський молоток",
+    "item.forbidden_arcanus.netherite_blacksmith_gavel": "Незеритовий ковальський молоток",
+    "item.forbidden_arcanus.arcane_golden_blacksmith_gavel": "Містичний ковальський золотий молоток",
+    "item.forbidden_arcanus.reinforced_arcane_golden_blacksmith_gavel": "Зміцнений містичний ковальський золотий молоток",
+    "item.forbidden_arcanus.obsidian_blacksmith_gavel": "Обсидіановий ковальський молоток",
 
-    "tooltips": "Tooltips",
+    "comment.tooltips": "---Tooltips---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "Незабаром Фобіденомікон можна буде прочитати",
     "tooltip.forbidden_arcanus.obsidian_skull": "Може врятувати вас від вогню на 30 секунд.",
     "tooltip.forbidden_arcanus.obsidian_skull_shield": "Може врятувати вас від вогню на 30 секунд.",
@@ -302,6 +312,7 @@
     "tooltip.forbidden_arcanus.toggle": "(Клацніть ПКМ для перемикання)",
     "tooltip.forbidden_arcanus.duration": "Тривалість",
     "tooltip.forbidden_arcanus.uses_left": "Використань ПКМ залишилось",
+    "tooltip.forbidden_arcanus.remaining_ritual_uses": "Ритуальних використань залишилось",
     "tooltip.forbidden_arcanus.entity": "Сутність",
     "tooltip.forbidden_arcanus.pixie": "Фея",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Химерна фея",
@@ -337,5 +348,13 @@
     "forbidden_arcanus.experience": "Досвід",
 
     "guis_comment": "Guis",
-    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Розблоковано на рівні"
+    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Розблоковано на рівні",
+
+    "jei.forbidden_arcanus.category.hephaestusSmithing": "Ковальська справа Гефеста",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal": "Потрібен п'єдестал",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredLevel": "Необхідний рівень кузні",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredAureal": "Потрібен Ауреал",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredSouls": "Потрібні душі",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredBlood": "Необхідна кров",
+    "jei.forbidden_arcanus.hephaestusSmithing.requiredExperience": "Необхідний досвід"
 }
