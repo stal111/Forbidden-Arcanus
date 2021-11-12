@@ -1,9 +1,0 @@
-{
-  "type": "smelting",
-  "ingredient": {
-    "item": "forbidden_arcanus:dark_runestone"
-  },
-  "result": "forbidden_arcanus:dark_rune",
-  "experience": 1.2,
-  "cookingtime": 250
-}

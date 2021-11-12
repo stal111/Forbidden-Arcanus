@@ -1,15 +1,9 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    
-    "ingredients": [
-        {
-            "item": "forbidden_arcanus:dark_rune_bag"
-        }
-    ],
-    
-    "result":
-    {
-        "item": "forbidden_arcanus:dark_rune",
-        "count": 4
-    }
+  "type": "smelting",
+  "ingredient": {
+    "item": "forbidden_arcanus:dark_runestone"
+  },
+  "result": "forbidden_arcanus:dark_rune",
+  "experience": 1.2,
+  "cookingtime": 250
 }
