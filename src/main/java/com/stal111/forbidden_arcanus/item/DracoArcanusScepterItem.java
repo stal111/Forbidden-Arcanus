@@ -2,16 +2,16 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
 
 public class DracoArcanusScepterItem extends Item {
 
@@ -20,26 +20,26 @@ public class DracoArcanusScepterItem extends Item {
 	}
 	
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entityLiving) {
-		if (entityLiving instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) entityLiving;
-			if (!world.isRemote) {
+	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entityLiving) {
+		if (entityLiving instanceof Player) {
+			Player player = (Player) entityLiving;
+			if (!world.isClientSide) {
 				this.fireSphere(world, player);
 			}
-			player.getCooldownTracker().setCooldown(this, 10);
+			player.getCooldowns().addCooldown(this, 10);
 		}
-		return super.onItemUseFinish(stack, world, entityLiving);
+		return super.finishUsingItem(stack, world, entityLiving);
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-		player.setActiveHand(hand);
-		return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+		player.startUsingItem(hand);
+		return new InteractionResultHolder<>(InteractionResult.SUCCESS, player.getItemInHand(hand));
 	}
 	
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
 	}
 	
 	@Override
@@ -52,16 +52,16 @@ public class DracoArcanusScepterItem extends Item {
 		return false;
 	}
 
-	private void fireSphere(World world, PlayerEntity player) {
-		world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.dark_bolt_launch, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+	private void fireSphere(Level world, Player player) {
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dark_bolt_launch, SoundSource.NEUTRAL, 1.0f, 1.0f);
 		spawnSphere(player);
 
 	}
 
-	private void spawnSphere(PlayerEntity player) {
-		EnergyBallEntity energyBall = new EnergyBallEntity(player.getEntityWorld(), player, player.getLookVec().x * 1, player.getLookVec().y * 1, player.getLookVec().z * 1);
-		energyBall.setPosition(energyBall.getPosX(), player.getPosY() + player.getEyeHeight(), energyBall.getPosZ());
+	private void spawnSphere(Player player) {
+		EnergyBallEntity energyBall = new EnergyBallEntity(player.getCommandSenderWorld(), player, player.getLookAngle().x * 1, player.getLookAngle().y * 1, player.getLookAngle().z * 1);
+		energyBall.setPos(energyBall.getX(), player.getY() + player.getEyeHeight(), energyBall.getZ());
 
-		player.getEntityWorld().addEntity(energyBall);
+		player.getCommandSenderWorld().addFreshEntity(energyBall);
 	}
 }

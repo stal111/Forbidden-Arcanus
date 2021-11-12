@@ -2,18 +2,20 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.UseAction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DrinkHelper;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
+
+import net.minecraft.world.item.Item.Properties;
 
 /**
  * Aureal Bottle Item
@@ -30,28 +32,28 @@ public class AurealBottleItem extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entityLiving) {
-        PlayerEntity player = entityLiving instanceof PlayerEntity ? (PlayerEntity) entityLiving : null;
-        if (player instanceof ServerPlayerEntity) {
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entityLiving) {
+        Player player = entityLiving instanceof Player ? (Player) entityLiving : null;
+        if (player instanceof ServerPlayer) {
+            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
         }
 
         if (player != null) {
-            player.addStat(Stats.ITEM_USED.get(this));
-            if (!player.abilities.isCreativeMode) {
+            player.awardStat(Stats.ITEM_USED.get(this));
+            if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
             }
 
             AurealHelper.increaseAureal(player, 35);
         }
 
-        if (player == null || !player.abilities.isCreativeMode) {
+        if (player == null || !player.getAbilities().instabuild) {
             if (stack.isEmpty()) {
                 return new ItemStack(Items.GLASS_BOTTLE);
             }
 
             if (player != null) {
-                player.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
+                player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
             }
         }
 
@@ -64,15 +66,15 @@ public class AurealBottleItem extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.DRINK;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.DRINK;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         if (AurealHelper.getAureal(player) < 200) {
-            return DrinkHelper.startDrinking(world, player, hand);
+            return ItemUtils.startUsingInstantly(world, player, hand);
         }
-        return super.onItemRightClick(world, player, hand);
+        return super.use(world, player, hand);
     }
 }

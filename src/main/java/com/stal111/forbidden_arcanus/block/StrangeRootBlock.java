@@ -1,50 +1,51 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.block.*;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraftforge.common.Tags;
 
 import java.util.Random;
 
-public class StrangeRootBlock extends Block implements IGrowable {
+public class StrangeRootBlock extends Block implements BonemealableBlock {
 
-    public static final IntegerProperty STRANGE_ROOT_AGE = BlockStateProperties.AGE_0_3;
+    public static final IntegerProperty STRANGE_ROOT_AGE = BlockStateProperties.AGE_3;
 
     public StrangeRootBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(STRANGE_ROOT_AGE, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(STRANGE_ROOT_AGE, 0));
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
+        return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        return Tags.Blocks.STONE.contains(world.getBlockState(pos.down()).getBlock());
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return Tags.Blocks.STONE.contains(world.getBlockState(pos.below()).getBlock());
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, IBlockReader world, BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter world, BlockPos pos) {
         return true;
     }
 
     @Override
-    public ItemStack getItem(IBlockReader world, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
         return new ItemStack(ModItems.STRANGE_ROOT.get());
     }
 
@@ -53,29 +54,29 @@ public class StrangeRootBlock extends Block implements IGrowable {
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
         super.tick(state, worldIn, pos, rand);
         if (!worldIn.isAreaLoaded(pos, 1)) return;
-        int i = state.get(STRANGE_ROOT_AGE);
+        int i = state.getValue(STRANGE_ROOT_AGE);
         if (i < this.getMaxAge()) {
             float f = getGrowthChance(this, worldIn, pos);
             if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt((int)(25.0F / f) + 1) == 0)) {
-                worldIn.setBlockState(pos, state.with(STRANGE_ROOT_AGE, state.get(STRANGE_ROOT_AGE) + 1), 2);
+                worldIn.setBlock(pos, state.setValue(STRANGE_ROOT_AGE, state.getValue(STRANGE_ROOT_AGE) + 1), 2);
                 net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
             }
         }
     }
 
-    protected static float getGrowthChance(Block blockIn, IBlockReader worldIn, BlockPos pos) {
+    protected static float getGrowthChance(Block blockIn, BlockGetter worldIn, BlockPos pos) {
         float f = 1.0F;
-        BlockPos blockpos = pos.down();
+        BlockPos blockpos = pos.below();
 
         for(int i = -1; i <= 1; ++i) {
             for(int j = -1; j <= 1; ++j) {
                 float f1 = 0.0F;
-                BlockState blockstate = worldIn.getBlockState(blockpos.add(i, 0, j));
+                BlockState blockstate = worldIn.getBlockState(blockpos.offset(i, 0, j));
                 f1 = 1.0F;
-                if (blockstate.isFertile(worldIn, blockpos.add(i, 0, j))) {
+                if (blockstate.isFertile(worldIn, blockpos.offset(i, 0, j))) {
                     f1 = 3.0F;
                 }
 
@@ -106,24 +107,24 @@ public class StrangeRootBlock extends Block implements IGrowable {
     }
 
     @Override
-    public boolean canGrow(IBlockReader world, BlockPos pos, BlockState state, boolean b) {
-        return state.get(STRANGE_ROOT_AGE) != getMaxAge();
+    public boolean isValidBonemealTarget(BlockGetter world, BlockPos pos, BlockState state, boolean b) {
+        return state.getValue(STRANGE_ROOT_AGE) != getMaxAge();
     }
 
     @Override
-    public boolean canUseBonemeal(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, Random random, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        int i = state.get(STRANGE_ROOT_AGE) + this.getBonemealAgeIncrease();
+    public void performBonemeal(ServerLevel world, Random random, BlockPos pos, BlockState state) {
+        int i = state.getValue(STRANGE_ROOT_AGE) + this.getBonemealAgeIncrease();
         int j = this.getMaxAge();
         if (i > j) {
             i = j;
         }
 
-        world.setBlockState(pos, state.with(STRANGE_ROOT_AGE, state.get(STRANGE_ROOT_AGE) + 1), 2);
+        world.setBlock(pos, state.setValue(STRANGE_ROOT_AGE, state.getValue(STRANGE_ROOT_AGE) + 1), 2);
     }
 
     protected int getBonemealAgeIncrease() {
@@ -131,7 +132,7 @@ public class StrangeRootBlock extends Block implements IGrowable {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STRANGE_ROOT_AGE);
     }
 }

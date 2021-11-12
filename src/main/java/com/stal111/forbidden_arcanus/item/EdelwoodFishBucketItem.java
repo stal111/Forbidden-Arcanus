@@ -2,29 +2,29 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.entity.passive.fish.TropicalFishEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.TropicalFish;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -39,16 +39,16 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
     }
 
     @Override
-    public void onLiquidPlaced(World world, ItemStack stack, BlockPos pos) {
-        if (!world.isRemote()) {
-            this.placeFish((ServerWorld) world, stack, pos);
+    public void onLiquidPlaced(Level world, ItemStack stack, BlockPos pos) {
+        if (!world.isClientSide()) {
+            this.placeFish((ServerLevel) world, stack, pos);
         }
         super.onLiquidPlaced(world, stack, pos);
     }
 
     @Override
-    protected ItemStack emptyBucket(ItemStack stack, PlayerEntity player) {
-        if (!player.abilities.isCreativeMode) {
+    protected ItemStack emptyBucket(ItemStack stack, Player player) {
+        if (!player.getAbilities().instabuild) {
             int fullness = ICapacityBucket.getFullness(stack);
             if ((fullness - 1) > 0) {
                 return ICapacityBucket.setFullness(ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_WATER_BUCKET.get())), fullness - 1);
@@ -58,42 +58,42 @@ public class EdelwoodFishBucketItem extends EdelwoodBucketItem {
         return stack;
     }
 
-    protected void playEmptySound(@Nullable PlayerEntity player, IWorld world, BlockPos pos) {
-        world.playSound(player, pos, SoundEvents.ITEM_BUCKET_EMPTY_FISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+    protected void playEmptySound(@Nullable Player player, LevelAccessor world, BlockPos pos) {
+        world.playSound(player, pos, SoundEvents.BUCKET_EMPTY_FISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
     }
 
-    private void placeFish(ServerWorld world, ItemStack stack, BlockPos pos) {
-        Entity entity = this.fishType.spawn(world, stack, null, pos, SpawnReason.BUCKET, true, false);
-        if (entity instanceof AbstractFishEntity) {
-            ((AbstractFishEntity)entity).setFromBucket(true);
+    private void placeFish(ServerLevel world, ItemStack stack, BlockPos pos) {
+        Entity entity = this.fishType.spawn(world, stack, null, pos, MobSpawnType.BUCKET, true, false);
+        if (entity instanceof AbstractFish) {
+            ((AbstractFish)entity).setFromBucket(true);
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         if (this.fishType == EntityType.TROPICAL_FISH) {
-            CompoundNBT compoundnbt = stack.getTag();
+            CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
-                TextFormatting[] atextformatting = new TextFormatting[]{TextFormatting.ITALIC, TextFormatting.GRAY};
-                String s = "color.minecraft." + TropicalFishEntity.func_212326_d(i);
-                String s1 = "color.minecraft." + TropicalFishEntity.func_212323_p(i);
+                ChatFormatting[] atextformatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
+                String s = "color.minecraft." + TropicalFish.getBaseColor(i);
+                String s1 = "color.minecraft." + TropicalFish.getPatternColor(i);
 
-                for(int j = 0; j < TropicalFishEntity.SPECIAL_VARIANTS.length; ++j) {
-                    if (i == TropicalFishEntity.SPECIAL_VARIANTS[j]) {
-                        tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212324_b(j))).mergeStyle(atextformatting));
+                for(int j = 0; j < TropicalFish.COMMON_VARIANTS.length; ++j) {
+                    if (i == TropicalFish.COMMON_VARIANTS[j]) {
+                        tooltip.add((new TranslatableComponent(TropicalFish.getPredefinedName(j))).withStyle(atextformatting));
                         return;
                     }
                 }
 
-                tooltip.add((new TranslationTextComponent(TropicalFishEntity.func_212327_q(i))).mergeStyle(atextformatting));
-                IFormattableTextComponent iformattabletextcomponent = new TranslationTextComponent(s);
+                tooltip.add((new TranslatableComponent(TropicalFish.getFishTypeName(i))).withStyle(atextformatting));
+                MutableComponent iformattabletextcomponent = new TranslatableComponent(s);
                 if (!s.equals(s1)) {
-                    iformattabletextcomponent.appendString(", ").append(new TranslationTextComponent(s1));
+                    iformattabletextcomponent.append(", ").append(new TranslatableComponent(s1));
                 }
 
-                iformattabletextcomponent.mergeStyle(atextformatting);
+                iformattabletextcomponent.withStyle(atextformatting);
                 tooltip.add(iformattabletextcomponent);
             }
         }

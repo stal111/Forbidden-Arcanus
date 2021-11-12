@@ -5,55 +5,55 @@ import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import java.util.Random;
 
-@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class SeedBulletEntity extends ProjectileItemEntity {
+@OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
+public class SeedBulletEntity extends ThrowableItemProjectile {
 
-	public SeedBulletEntity(World world, double x, double y, double z) {
+	public SeedBulletEntity(Level world, double x, double y, double z) {
 		super(ModEntities.SEED_BULLET.get(), x, y, z, world);
 	}
 
-	public SeedBulletEntity(World world, LivingEntity thrower) {
+	public SeedBulletEntity(Level world, LivingEntity thrower) {
 		super(ModEntities.SEED_BULLET.get(), thrower, world);
 	}
 
-    public SeedBulletEntity(EntityType<? extends ProjectileItemEntity> entityType, World world) {
+    public SeedBulletEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level world) {
 		super(entityType, world);
     }
 
     @Override
-	protected void onImpact(RayTraceResult result) {
-		if (result.getType() == RayTraceResult.Type.ENTITY) {
-			Entity entity = ((EntityRayTraceResult)result).getEntity();
-			entity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.func_234616_v_()), 0);
+	protected void onHit(HitResult result) {
+		if (result.getType() == HitResult.Type.ENTITY) {
+			Entity entity = ((EntityHitResult)result).getEntity();
+			entity.hurt(DamageSource.indirectMagic(this, this.getOwner()), 0);
 
 		}
-		if (!this.world.isRemote) {
-			this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(this.getRandomSeed())));
-			this.world.setEntityState(this, (byte)3);
-			this.remove();
+		if (!this.level.isClientSide) {
+			this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(this.getRandomSeed())));
+			this.level.broadcastEntityEvent(this, (byte)3);
+			this.remove(RemovalReason.DISCARDED);
 		}
 	}
 
@@ -62,18 +62,18 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private IParticleData func_213887_n() {
-		ItemStack lvt_1_1_ = this.func_213882_k();
-		return (lvt_1_1_.isEmpty() ? (IParticleData) ModParticles.ITEM_SEED_BULLET.get() : new ItemParticleData(ParticleTypes.ITEM, lvt_1_1_));
+	private ParticleOptions getParticle() {
+		ItemStack lvt_1_1_ = this.getItemRaw();
+		return (lvt_1_1_.isEmpty() ? (ParticleOptions) ModParticles.ITEM_SEED_BULLET.get() : new ItemParticleOption(ParticleTypes.ITEM, lvt_1_1_));
 	}
 
 	@Override
-	public void handleStatusUpdate(byte p_70103_1_) {
+	public void handleEntityEvent(byte p_70103_1_) {
 		if (p_70103_1_ == 3) {
-			IParticleData lvt_2_1_ = this.func_213887_n();
+			ParticleOptions lvt_2_1_ = this.getParticle();
 
 			for(int lvt_3_1_ = 0; lvt_3_1_ < 8; ++lvt_3_1_) {
-				this.world.addParticle(lvt_2_1_, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
+				this.level.addParticle(lvt_2_1_, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
@@ -81,9 +81,9 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		Vector3d vec3d = this.getMotion();
+		Vec3 vec3d = this.getDeltaMovement();
 		if (!this.isInWater()) {
-			this.world.addParticle(ParticleTypes.END_ROD, this.getPosX() - vec3d.x * 0.25D, (this.getPosY() - vec3d.y * 0.25D) + 0.2D, this.getPosZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+			this.level.addParticle(ParticleTypes.END_ROD, this.getX() - vec3d.x * 0.25D, (this.getY() - vec3d.y * 0.25D) + 0.2D, this.getZ() - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class SeedBulletEntity extends ProjectileItemEntity {
 	}
 
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

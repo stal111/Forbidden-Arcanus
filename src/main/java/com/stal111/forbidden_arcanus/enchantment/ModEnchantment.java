@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.enchantment;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.entity.EquipmentSlot;
 
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
+
+import net.minecraft.world.item.enchantment.Enchantment.Rarity;
 
 public class ModEnchantment extends Enchantment {
 
@@ -17,7 +19,7 @@ public class ModEnchantment extends Enchantment {
     public boolean canGenerateInLoot = true;
     public Predicate<Enchantment> canApplyTogether = enchantment -> true;
 
-    public ModEnchantment(Rarity rarity, EnchantmentType enchantmentType, EquipmentSlotType[] equipmentSlotTypes) {
+    public ModEnchantment(Rarity rarity, EnchantmentCategory enchantmentType, EquipmentSlot[] equipmentSlotTypes) {
         super(rarity, enchantmentType, equipmentSlotTypes);
     }
 
@@ -27,31 +29,31 @@ public class ModEnchantment extends Enchantment {
     }
 
     @Override
-    public boolean isTreasureEnchantment() {
+    public boolean isTreasureOnly() {
         return this.isTreasure;
     }
 
     @Override
-    public int getMinEnchantability(int minEnchantability) {
+    public int getMinCost(int minEnchantability) {
         return this.minEnchantability;
     }
 
     @Override
-    public int getMaxEnchantability(int maxEnchantability) {
+    public int getMaxCost(int maxEnchantability) {
         return this.maxEnchantability;
     }
 
     @Override
-    protected boolean canApplyTogether(@Nonnull Enchantment enchantment) {
-        return canApplyTogether.test(enchantment) && super.canApplyTogether(enchantment);
+    protected boolean checkCompatibility(@Nonnull Enchantment enchantment) {
+        return canApplyTogether.test(enchantment) && super.checkCompatibility(enchantment);
     }
 
-    public boolean func_230309_h_() {
+    public boolean isTradeable() {
         return canBeVillagerTrade;
     }
 
     @Override
-    public boolean canGenerateInLoot() {
+    public boolean isDiscoverable() {
         return canGenerateInLoot;
     }
 }

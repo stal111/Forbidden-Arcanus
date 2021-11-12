@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 
 /**
  * Saved Data Interface
@@ -11,6 +11,6 @@ import net.minecraft.nbt.CompoundNBT;
  * @since 2021-02-06
  */
 public interface ISavedData {
-    CompoundNBT write(CompoundNBT compound);
-    void read(CompoundNBT compound);
+    CompoundTag write(CompoundTag compound);
+    void read(CompoundTag compound);
 }

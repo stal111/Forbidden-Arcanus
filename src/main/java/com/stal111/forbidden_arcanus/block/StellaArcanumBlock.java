@@ -1,32 +1,34 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.config.BlockConfig;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class StellaArcanumBlock extends Block {
 
     public static boolean explode = false;
-    public static World world;
+    public static Level world;
 
     public StellaArcanumBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    public void onPlayerDestroy(IWorld iWorld, BlockPos pos, BlockState state) {
-        if (!iWorld.isRemote()) {
+    public void destroy(LevelAccessor iWorld, BlockPos pos, BlockState state) {
+        if (!iWorld.isClientSide()) {
             if (explode) {
                 if (world != null) {
-                    world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), BlockConfig.STELLA_ARCANUM_EXPLOSION_RADIUS.get(), BlockConfig.STELLA_ARCANUM_BLOCK_DAMAGE.get() ? Explosion.Mode.BREAK : Explosion.Mode.NONE);
+                    world.explode(null, pos.getX(), pos.getY(), pos.getZ(), BlockConfig.STELLA_ARCANUM_EXPLOSION_RADIUS.get(), BlockConfig.STELLA_ARCANUM_BLOCK_DAMAGE.get() ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE);
                 }
                 explode = false;
             }
         }
-        super.onPlayerDestroy(iWorld, pos, state);
+        super.destroy(iWorld, pos, state);
     }
 }

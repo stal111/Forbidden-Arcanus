@@ -6,20 +6,20 @@ import com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.other.ModLootModifiers;
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.loot.conditions.Inverted;
-import net.minecraft.loot.conditions.MatchTool;
-import net.minecraft.loot.conditions.RandomChance;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
-import net.valhelsia.valhelsia_core.init.ValhelsiaLootModifiers;
-import net.valhelsia.valhelsia_core.loot.modifiers.AppendLootTableModifier;
+import net.valhelsia.valhelsia_core.common.loot.modifiers.AppendLootTableModifier;
+import net.valhelsia.valhelsia_core.core.init.ValhelsiaLootModifiers;
 
 /**
  * Mod Loot Modifiers <br>
@@ -38,33 +38,33 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
     @Override
     protected void start() {
         this.add("zombie_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
-                new AppendLootTableModifier(new ILootCondition[] {
-                        RandomChance.builder(0.002F).build(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootItemRandomChanceCondition.randomChance(0.002F).build(),
                         LootTableIdCondition.builder(new ResourceLocation("entities/zombie")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/zombie_additions"))
         );
         this.add("drowned_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
-                new AppendLootTableModifier(new ILootCondition[] {
-                        RandomChance.builder(0.002F).build(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootItemRandomChanceCondition.randomChance(0.002F).build(),
                         LootTableIdCondition.builder(new ResourceLocation("entities/drowned")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/drowned_additions"))
         );
         this.add("spawner_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
-                new AppendLootTableModifier(new ILootCondition[] {
-                        Inverted.builder(MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(2))))).build(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(2))))).build(),
                         LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"))
         );
         this.add("blacksmith_gavel_ore_doubling", ModLootModifiers.BLACKSMITH_GAVEL.get(),
-                new BlacksmithGavelLootModifier(new ILootCondition[] {
-                        RandomChance.builder(0.3F).build()
+                new BlacksmithGavelLootModifier(new LootItemCondition[] {
+                        LootItemRandomChanceCondition.randomChance(0.3F).build()
                 })
         );
         this.add("infernum_smelting", ModLootModifiers.INFERNUM_SMELTING.get(),
-                new InfernumPickaxeLootModifier(new ILootCondition[] {
-                        MatchTool.builder(ItemPredicate.Builder.create().item(ModItems.INFERNUM_PICKAXE.get())).build()
+                new InfernumPickaxeLootModifier(new LootItemCondition[] {
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModItems.INFERNUM_PICKAXE.get())).build()
                 })
         );
-        this.add("magical_farmland_crop_doubling", ModLootModifiers.MAGICAL_FARMLAND.get(), new MagicalFarmlandLootModifier(new ILootCondition[]{}));
+        this.add("magical_farmland_crop_doubling", ModLootModifiers.MAGICAL_FARMLAND.get(), new MagicalFarmlandLootModifier(new LootItemCondition[]{}));
     }
 }

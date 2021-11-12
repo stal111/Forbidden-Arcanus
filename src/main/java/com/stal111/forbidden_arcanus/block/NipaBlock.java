@@ -4,29 +4,31 @@ import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.NipaTileEntity;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.NewModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BushBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Random;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 /**
  * Nipa Block
@@ -40,67 +42,56 @@ public class NipaBlock extends BushBlock {
 
     public static final BooleanProperty SPECK = ModBlockStateProperties.SPECK;
 
-    private static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 11.0D, 14.0D);
+    private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 11.0D, 14.0D);
 
     public NipaBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(SPECK, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(SPECK, false));
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new NipaTileEntity();
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
         return false;
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-        if (state.get(SPECK)) {
-            NipaTileEntity tileEntity = (NipaTileEntity) world.getTileEntity(pos);
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (state.getValue(SPECK)) {
+            NipaTileEntity tileEntity = (NipaTileEntity) world.getBlockEntity(pos);
             if (tileEntity != null) {
                 harvestSpeck(state, world, pos, tileEntity);
 
-                return ActionResultType.func_233537_a_(world.isRemote());
+                return InteractionResult.sidedSuccess(world.isClientSide());
             }
         }
-        return super.onBlockActivated(state, world, pos, player, hand, hit);
+        return super.use(state, world, pos, player, hand, hit);
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.isIn(newState.getBlock())) {
-            if (state.get(SPECK)) {
-                NipaTileEntity tileEntity = (NipaTileEntity) world.getTileEntity(pos);
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            if (state.getValue(SPECK)) {
+                NipaTileEntity tileEntity = (NipaTileEntity) world.getBlockEntity(pos);
                 if (tileEntity != null) {
-                    world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + tileEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
+                    world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + tileEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
                 }
             }
         }
-        super.onReplaced(state, world, pos, newState, isMoving);
+        super.onRemove(state, world, pos, newState, isMoving);
     }
 
     @Override
-    public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        NipaTileEntity tileEntity = (NipaTileEntity) world.getTileEntity(pos);
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+        NipaTileEntity tileEntity = (NipaTileEntity) world.getBlockEntity(pos);
         if (tileEntity != null) {
-            int power = world.getRedstonePowerFromNeighbors(pos);
+            int power = world.getBestNeighborSignal(pos);
 
-            if (state.get(SPECK) && tileEntity.getCachedPower() != power && power != 0) {
+            if (state.getValue(SPECK) && tileEntity.getCachedPower() != power && power != 0) {
                 harvestSpeck(state, world, pos, tileEntity);
             }
 
@@ -111,8 +102,8 @@ public class NipaBlock extends BushBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-        if (Objects.requireNonNull(Minecraft.getInstance().player).inventory.hasItemStack(new ItemStack(NewModItems.LENS_OF_VERITATIS.get()))) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+        if (Objects.requireNonNull(Minecraft.getInstance().player).getInventory().contains(new ItemStack(NewModItems.LENS_OF_VERITATIS.get()))) {
             double j = 0.4D * rand.nextFloat();
             double k = 0.4D * rand.nextFloat();
             double posX = pos.getX() + 0.5D + (rand.nextBoolean() ? j : -j);
@@ -124,13 +115,13 @@ public class NipaBlock extends BushBlock {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SPECK);
     }
 
-    private void harvestSpeck(BlockState state, World world, BlockPos pos, NipaTileEntity tileEntity) {
-        world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + tileEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
-        world.setBlockState(pos, state.with(SPECK, false));
+    private void harvestSpeck(BlockState state, Level world, BlockPos pos, NipaTileEntity tileEntity) {
+        world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + tileEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
+        world.setBlockAndUpdate(pos, state.setValue(SPECK, false));
 
         tileEntity.setSpeckHeight(10);
     }

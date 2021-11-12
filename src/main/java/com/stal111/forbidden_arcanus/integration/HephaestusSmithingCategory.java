@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.integration;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
@@ -13,12 +13,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -77,8 +76,8 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
 
     @Nonnull
     @Override
-    public String getTitle() {
-        return I18n.format("jei.forbidden_arcanus.category.hephaestusSmithing");
+    public Component getTitle() {
+        return new TranslatableComponent("jei.forbidden_arcanus.category.hephaestusSmithing");
     }
 
     @Nonnull
@@ -114,7 +113,7 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
             Ingredient ingredient = recipe.getInput(i);
             if (ingredient != null) {
                 itemStacks.init(index, true, this.inputPositions.get(i).getFirst(), this.inputPositions.get(i).getSecond());
-                itemStacks.set(index, Arrays.asList(ingredient.getMatchingStacks()));
+                itemStacks.set(index, Arrays.asList(ingredient.getItems()));
 
                 index++;
             }
@@ -131,26 +130,26 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
         itemStacks.addTooltipCallback((slot, input, ingredient, tooltip) -> {
             if (slot == pedestalIndex) {
                 tooltip.clear();
-                tooltip.add(new TranslationTextComponent("jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal").appendString(": ").append(recipe.getPedestalType().getBlock().getTranslatedName()));
-                tooltip.add(new TranslationTextComponent("jei.forbidden_arcanus.hephaestusSmithing.requiredLevel").appendString(": 1"));
+                tooltip.add(new TranslatableComponent("jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal").append(": ").append(recipe.getPedestalType().getBlock().getName()));
+                tooltip.add(new TranslatableComponent("jei.forbidden_arcanus.hephaestusSmithing.requiredLevel").append(": 1"));
             }
         });
     }
 
     @Override
-    public void draw(@Nonnull Ritual recipe, @Nonnull MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(@Nonnull Ritual recipe, @Nonnull PoseStack matrixStack, double mouseX, double mouseY) {
         this.essences.forEach(essenceInfo -> essenceInfo.getDrawable().draw(matrixStack, essenceInfo.getPosX(), essenceInfo.getPosY()));
     }
 
     @Nonnull
     @Override
-    public List<ITextComponent> getTooltipStrings(@Nonnull Ritual recipe, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(@Nonnull Ritual recipe, double mouseX, double mouseY) {
         for (EssenceInfo essenceInfo : this.essences) {
             int posX = essenceInfo.getPosX();
             int posY = essenceInfo.getPosY();
 
             if (mouseX >= posX && mouseY >= posY && mouseX <= posX + 10 && mouseY <= posY + 10) {
-                return Collections.singletonList(new TranslationTextComponent("jei.forbidden_arcanus.hephaestusSmithing.required" + essenceInfo.getName()).appendString(": " + recipe.getEssences().getFromName(essenceInfo.getName())));
+                return Collections.singletonList(new TranslatableComponent("jei.forbidden_arcanus.hephaestusSmithing.required" + essenceInfo.getName()).append(": " + recipe.getEssences().getFromName(essenceInfo.getName())));
             }
         }
 

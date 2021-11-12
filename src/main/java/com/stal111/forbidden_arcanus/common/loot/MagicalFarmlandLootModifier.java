@@ -3,17 +3,17 @@ package com.stal111.forbidden_arcanus.common.loot;
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -37,23 +37,23 @@ public class MagicalFarmlandLootModifier extends LootModifier {
      *
      * @param conditions the ILootConditions that need to be matched before the loot is modified.
      */
-    public MagicalFarmlandLootModifier(ILootCondition[] conditions) {
+    public MagicalFarmlandLootModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        BlockState state = context.get(LootParameters.BLOCK_STATE);
-        Vector3d pos = context.get(LootParameters.field_237457_g_);
-        World world = context.getWorld();
+        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+        Vec3 pos = context.getParamOrNull(LootContextParams.ORIGIN);
+        Level world = context.getLevel();
 
         if (state == null || pos == null || !BlockTags.CROPS.contains(state.getBlock()) || ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED.contains(state.getBlock())) {
             return generatedLoot;
         }
 
-        if (world.getBlockState(new BlockPos(pos).down()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock()) {
-            if (state.getBlock() instanceof CropsBlock && !((CropsBlock) state.getBlock()).isMaxAge(state)) {
+        if (world.getBlockState(new BlockPos(pos).below()).getBlock() == ModBlocks.MAGICAL_FARMLAND.getBlock()) {
+            if (state.getBlock() instanceof CropBlock && !((CropBlock) state.getBlock()).isMaxAge(state)) {
                 return generatedLoot;
             }
             generatedLoot.addAll(new ArrayList<>(generatedLoot).stream().filter(stack -> !ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED.contains(stack.getItem())).collect(Collectors.toList()));
@@ -64,7 +64,7 @@ public class MagicalFarmlandLootModifier extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<MagicalFarmlandLootModifier> {
 
         @Override
-        public MagicalFarmlandLootModifier read(ResourceLocation location, JsonObject object, ILootCondition[] conditions) {
+        public MagicalFarmlandLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
             return new MagicalFarmlandLootModifier(conditions);
         }
 

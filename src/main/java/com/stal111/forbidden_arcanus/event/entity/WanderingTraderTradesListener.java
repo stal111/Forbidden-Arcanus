@@ -2,12 +2,12 @@ package com.stal111.forbidden_arcanus.event.entity;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.BasicTrade;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.helper.TradeHelper;
+import net.valhelsia.valhelsia_core.common.helper.TradeHelper;
 
 /**
  * Wandering Trader Trades Listener

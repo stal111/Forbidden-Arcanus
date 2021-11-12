@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.block.properties;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
 
-public enum ConnectedBlockType implements IStringSerializable {
+public enum ConnectedBlockType implements StringRepresentable {
 
     SINGLE("single"),
     TOP("top"),
@@ -17,7 +17,7 @@ public enum ConnectedBlockType implements IStringSerializable {
     }
 
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name;
     }
 

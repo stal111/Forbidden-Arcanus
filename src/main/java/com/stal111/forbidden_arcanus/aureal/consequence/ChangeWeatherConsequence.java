@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.aureal.consequence;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 
 /**
  * Change Weather Consequence
@@ -21,10 +21,10 @@ public class ChangeWeatherConsequence implements IConsequence {
     }
 
     @Override
-    public void tick(PlayerEntity player) {
-        if (player.getEntityWorld() instanceof ServerWorld) {
-            ServerWorld world = (ServerWorld) player.getEntityWorld();
-            world.func_241113_a_(0, 4800, true, world.getRandom().nextBoolean());
+    public void tick(Player player) {
+        if (player.getCommandSenderWorld() instanceof ServerLevel) {
+            ServerLevel world = (ServerLevel) player.getCommandSenderWorld();
+            world.setWeatherParameters(0, 4800, true, world.getRandom().nextBoolean());
         }
     }
 

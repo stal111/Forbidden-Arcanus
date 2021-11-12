@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.common.container.InputType;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Random;
 
@@ -35,8 +35,8 @@ public class BloodTestTubeInput implements IHephaestusForgeInput {
         if (inputValue != 0) {
             ItemStack newStack = BloodTestTubeItem.removeBlood(stack, inputValue);
 
-            if (!stack.isItemEqual(newStack)) {
-                tileEntity.setInventorySlotContents(slot, newStack);
+            if (!stack.sameItem(newStack)) {
+                tileEntity.setItem(slot, newStack);
             }
         }
     }

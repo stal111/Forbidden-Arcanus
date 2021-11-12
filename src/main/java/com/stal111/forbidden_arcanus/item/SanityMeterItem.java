@@ -1,14 +1,16 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
+
+import net.minecraft.world.item.Item.Properties;
 
 /**
  * Sanity Meter Item
@@ -25,14 +27,14 @@ public class SanityMeterItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
 
         player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
-            if (world.isRemote()) {
-                player.sendStatusMessage(new TranslationTextComponent("forbidden_arcanus.aureal").appendString(": " + aureal.getAureal() + "/200 - ").append(new TranslationTextComponent("forbidden_arcanus.corruption").appendString(": " + aureal.getCorruption() + "/100")), true);
+            if (world.isClientSide()) {
+                player.displayClientMessage(new TranslatableComponent("forbidden_arcanus.aureal").append(": " + aureal.getAureal() + "/200 - ").append(new TranslatableComponent("forbidden_arcanus.corruption").append(": " + aureal.getCorruption() + "/100")), true);
             }
         });
-        return new ActionResult<>(ActionResultType.SUCCESS, stack);
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
     }
 }

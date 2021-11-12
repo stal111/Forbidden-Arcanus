@@ -1,36 +1,32 @@
 package com.stal111.forbidden_arcanus.effect;
 
 import com.stal111.forbidden_arcanus.init.ModEffects;
-import com.stal111.forbidden_arcanus.util.ModUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 
-public class FlyEffect extends Effect {
+public class FlyEffect extends MobEffect {
 
-    public FlyEffect(EffectType effectType, int p_i50391_2_) {
+    public FlyEffect(MobEffectCategory effectType, int p_i50391_2_) {
         super(effectType, p_i50391_2_);
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 
     @Override
-    public void performEffect(LivingEntity livingEntity, int amplifier) {
-        int i = livingEntity.getActivePotionEffect(ModEffects.FLY.get()).getDuration();
-        if (livingEntity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) livingEntity;
-            if (i <= 30 && !player.abilities.isCreativeMode) {
-                player.abilities.allowFlying = false;
-                player.abilities.isFlying = false;
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        int i = livingEntity.getEffect(ModEffects.FLY.get()).getDuration();
+        if (livingEntity instanceof Player) {
+            Player player = (Player) livingEntity;
+            if (i <= 30 && !player.getAbilities().instabuild) {
+                player.getAbilities().mayfly = false;
+                player.getAbilities().flying = false;
             } else {
-                player.abilities.allowFlying = true;
+                player.getAbilities().mayfly = true;
             }
         }
     }

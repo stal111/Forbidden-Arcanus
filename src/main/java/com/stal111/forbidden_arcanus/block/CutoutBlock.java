@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class CutoutBlock extends Block {
 
@@ -11,7 +13,7 @@ public class CutoutBlock extends Block {
 	}
 	
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.MODEL;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.MODEL;
 	}
 }

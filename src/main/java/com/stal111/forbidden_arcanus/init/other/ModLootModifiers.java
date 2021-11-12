@@ -4,10 +4,10 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.registry.LootModifierRegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.LootModifierRegistryHelper;
 
 /**
  * Mod Loot Modifiers <br>

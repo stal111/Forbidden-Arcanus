@@ -14,6 +14,6 @@ public class ReloadListenerManager {
     public static void addReloadListener(AddReloadListenerEvent event) {
         event.addListener(new HephaestusForgeInputLoader());
         event.addListener(new RitualLoader());
-        event.addListener(ForbiddenArcanus.PAGE_LOADER);
+       // event.addListener(ForbiddenArcanus.PAGE_LOADER);
     }
 }

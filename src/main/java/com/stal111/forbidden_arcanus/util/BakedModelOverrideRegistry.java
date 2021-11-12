@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.Map;
 public class BakedModelOverrideRegistry {
 
     public interface BakedModelOverrideFactory {
-        IBakedModel create(IBakedModel base, Map<ResourceLocation, IBakedModel> registry);
+        BakedModel create(BakedModel base, Map<ResourceLocation, BakedModel> registry);
     }
 
     private final Map<ResourceLocation, BakedModelOverrideFactory> registry = new HashMap<>();

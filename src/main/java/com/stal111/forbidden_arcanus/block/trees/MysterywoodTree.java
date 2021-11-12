@@ -1,18 +1,18 @@
 package com.stal111.forbidden_arcanus.block.trees;
 
 import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
-import net.minecraft.block.trees.Tree;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class MysterywoodTree extends Tree {
+public class MysterywoodTree extends AbstractTreeGrower {
 
 	@Nullable
 	@Override
-	protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random random, boolean p_225546_2_) {
+	protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random random, boolean p_225546_2_) {
 		return ModConfiguredFeatures.MYSTERYWOOD;
 	}
 }

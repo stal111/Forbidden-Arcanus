@@ -4,21 +4,21 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.FlatChunkGenerator;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.valhelsia.valhelsia_core.world.IValhelsiaStructure;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.valhelsia.valhelsia_core.common.world.IValhelsiaStructure;
 
 import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
@@ -44,8 +44,8 @@ public class WorldLoadListener {
 	 */
 	private static boolean getGetCodecMethod() {
 		if (GETCODEC_METHOD == null) {
-			// TODO: Beware that updating to mojmap using the standard gradle task *can and will* replace `func_230347_a_` with the actual mojmap name (if one is found). This will not cause a crash in a development environment, but will crash normal, obfuscated clients.
-			Method codec = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
+			// TODO: Beware that updating to mojmap using the standard gradle task *can and will* replace `codec` with the actual mojmap name (if one is found). This will not cause a crash in a development environment, but will crash normal, obfuscated clients.
+			Method codec = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
 			MethodHandles.Lookup l = MethodHandles.lookup();
 			try {
 				GETCODEC_METHOD = l.unreflect(codec);
@@ -65,7 +65,7 @@ public class WorldLoadListener {
 	 * @return A resource location if the GETCODEC_METHOD was properly loaded, or otherwise null, or if the lookup fails for whatever reason, also null.
 	 */
 	@Nullable
-	private static ResourceLocation getChunkGenerator(ServerWorld serverWorld) {
+	private static ResourceLocation getChunkGenerator(ServerLevel serverWorld) {
 		if (!getGetCodecMethod()) {
 			return null;
 		}
@@ -73,7 +73,7 @@ public class WorldLoadListener {
 		ResourceLocation chunkGen;
 		try {
 			//noinspection unchecked
-			chunkGen = Registry.CHUNK_GENERATOR_CODEC.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invokeExact(serverWorld.getChunkProvider().generator));
+			chunkGen = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invokeExact(serverWorld.getChunkSource().generator));
 		} catch (Throwable throwable) {
 			ForbiddenArcanus.LOGGER.error("Unable to look up " + serverWorld + "'s chunk provider's generator resource location.", throwable);
 			return null;
@@ -83,10 +83,10 @@ public class WorldLoadListener {
 
 	@SubscribeEvent
 	public static void onWorldLoad(WorldEvent.Load event) {
-		if (event.getWorld() instanceof ServerWorld) {
-			ServerWorld serverWorld = (ServerWorld) event.getWorld();
+		if (event.getWorld() instanceof ServerLevel) {
+			ServerLevel serverWorld = (ServerLevel) event.getWorld();
 
-			if (serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator && serverWorld.getDimensionKey().equals(World.OVERWORLD)) {
+			if (serverWorld.getChunkSource().getGenerator() instanceof FlatLevelSource && serverWorld.dimension().equals(Level.OVERWORLD)) {
 				return;
 			}
 
@@ -98,15 +98,15 @@ public class WorldLoadListener {
 				return;
 			}
 
-			Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+			Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
 
 			// Converted to a specific structure-specific thing to allow for
 			// broader application of structure whitelist/blacklists. Config
 			// for whitelist/blacklists could potentially be merged into the
 			// IValhelsiaStructure.
-			handleStructureBlocking(tempMap, serverWorld.getDimensionKey(), ModStructures.NIPA.get(), WorldGenConfig.nipaList);
+			handleStructureBlocking(tempMap, serverWorld.dimension(), ModStructures.NIPA.get(), WorldGenConfig.nipaList);
 
-			serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+			serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
 		}
 	}
 
@@ -118,9 +118,9 @@ public class WorldLoadListener {
 	 * @param struct            The instance of IValhelsiaStructure being considered.
 	 * @param list              An instance of DimensionList which contains the whitelist and blacklist for this structure.
 	 */
-	private static void handleStructureBlocking(Map<Structure<?>, StructureSeparationSettings> modifiableTempMap, RegistryKey<World> dimension, IValhelsiaStructure struct, WorldGenConfig.DimensionList list) {
+	private static void handleStructureBlocking(Map<StructureFeature<?>, StructureFeatureConfiguration> modifiableTempMap, ResourceKey<Level> dimension, IValhelsiaStructure struct, WorldGenConfig.DimensionList list) {
 		if (list.allowed(dimension)) {
-			modifiableTempMap.putIfAbsent(struct.getStructure(), DimensionStructuresSettings.field_236191_b_.get(struct.getStructure()));
+			modifiableTempMap.putIfAbsent(struct.getStructure(), StructureSettings.DEFAULTS.get(struct.getStructure()));
 		} else {
 			modifiableTempMap.remove(struct.getStructure());
 		}

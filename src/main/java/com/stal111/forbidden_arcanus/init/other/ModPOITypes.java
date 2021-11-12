@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.block.PedestalBlock;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.village.PointOfInterestType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -23,12 +23,12 @@ import java.util.function.Supplier;
  */
 public class ModPOITypes {
 
-    public static final DeferredRegister<PointOfInterestType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, ForbiddenArcanus.MOD_ID);
+    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, ForbiddenArcanus.MOD_ID);
 
-    public static final RegistryObject<PointOfInterestType> PEDESTAL = register("pedestal", () -> new PointOfInterestType("pedestal", ImmutableSet.of(NewModBlocks.DARKSTONE_PEDESTAL.get().getDefaultState().with(PedestalBlock.RITUAL, true)), 0, 1));
-    public static final RegistryObject<PointOfInterestType> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> new PointOfInterestType("hephaestus_forge", ImmutableSet.of(ModBlocks.HEPHAESTUS_FORGE.getBlock().getDefaultState().with(HephaestusForgeBlock.ACTIVATED, true)), 0, 1));
+    public static final RegistryObject<PoiType> PEDESTAL = register("pedestal", () -> new PoiType("pedestal", ImmutableSet.of(NewModBlocks.DARKSTONE_PEDESTAL.get().defaultBlockState().setValue(PedestalBlock.RITUAL, true)), 0, 1));
+    public static final RegistryObject<PoiType> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> new PoiType("hephaestus_forge", ImmutableSet.of(ModBlocks.HEPHAESTUS_FORGE.getBlock().defaultBlockState().setValue(HephaestusForgeBlock.ACTIVATED, true)), 0, 1));
 
-    private static <T extends PointOfInterestType> RegistryObject<T> register(String name, Supplier<T> type) {
+    private static <T extends PoiType> RegistryObject<T> register(String name, Supplier<T> type) {
         return POI_TYPES.register(name, type);
     }
 }

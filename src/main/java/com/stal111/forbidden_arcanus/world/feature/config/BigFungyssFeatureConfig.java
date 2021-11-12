@@ -2,9 +2,8 @@ package com.stal111.forbidden_arcanus.world.feature.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import net.minecraft.world.gen.feature.BigMushroomFeatureConfig;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 /**
  * Big Fungyss Feature Config
@@ -14,7 +13,7 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
  * @version 16.2.0
  * @since 2021-04-13
  */
-public class BigFungyssFeatureConfig implements IFeatureConfig {
+public class BigFungyssFeatureConfig implements FeatureConfiguration {
 
     public static final Codec<BigFungyssFeatureConfig> CODEC = RecordCodecBuilder.create((builder) -> {
         return builder.group(BlockStateProvider.CODEC.fieldOf("cap_provider").forGetter((config) -> {

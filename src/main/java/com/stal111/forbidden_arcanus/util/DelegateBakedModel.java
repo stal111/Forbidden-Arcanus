@@ -1,23 +1,23 @@
 package com.stal111.forbidden_arcanus.util;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.model.ItemOverrideList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class DelegateBakedModel implements IBakedModel {
+public class DelegateBakedModel implements BakedModel {
 
-    protected final IBakedModel base;
+    protected final BakedModel base;
 
-    public DelegateBakedModel(IBakedModel base) {
+    public DelegateBakedModel(BakedModel base) {
         this.base = base;
     }
 
@@ -28,8 +28,8 @@ public class DelegateBakedModel implements IBakedModel {
     }
 
     @Override
-    public boolean isAmbientOcclusion() {
-        return base.isAmbientOcclusion();
+    public boolean useAmbientOcclusion() {
+        return base.useAmbientOcclusion();
     }
 
     @Override
@@ -38,35 +38,35 @@ public class DelegateBakedModel implements IBakedModel {
     }
 
     @Override
-    public boolean isSideLit() {
-        return base.isSideLit();
+    public boolean usesBlockLight() {
+        return base.usesBlockLight();
     }
 
     @Override
-    public boolean isBuiltInRenderer() {
-        return base.isBuiltInRenderer();
+    public boolean isCustomRenderer() {
+        return base.isCustomRenderer();
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public TextureAtlasSprite getParticleTexture() {
-        return base.getParticleTexture();
+    public TextureAtlasSprite getParticleIcon() {
+        return base.getParticleIcon();
     }
 
     @Override
-    public ItemOverrideList getOverrides() {
+    public ItemOverrides getOverrides() {
         return base.getOverrides();
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public ItemCameraTransforms getItemCameraTransforms() {
-        return base.getItemCameraTransforms();
+    public ItemTransforms getTransforms() {
+        return base.getTransforms();
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack matrixStack) {
+    public BakedModel handlePerspective(ItemTransforms.TransformType cameraTransformType, PoseStack matrixStack) {
         return base.handlePerspective(cameraTransformType, matrixStack);
     }
 }

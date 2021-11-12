@@ -14,19 +14,18 @@ import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemModelsProperties;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.valhelsia.valhelsia_core.helper.ClientHelper;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
 
 /**
  * Client Setup
@@ -51,20 +50,20 @@ public class ClientSetup {
     @SubscribeEvent
     public void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            ScreenManager.registerFactory(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
+            MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
         });
 
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL.get(), PedestalTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeTileEntityRenderer::new);
+//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
+//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
+//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL.get(), PedestalTileEntityRenderer::new);
+//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeTileEntityRenderer::new);
+//
+//        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof UtremJarTileEntity);
+//        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof NipaTileEntity);
 
-        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof UtremJarTileEntity);
-        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof NipaTileEntity);
-
-        ItemModelsProperties.registerProperty(NewModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
-        ItemModelsProperties.registerProperty(NewModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
-        ItemModelsProperties.registerProperty(NewModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, world, entity) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
+      //  ItemProperties.register(NewModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
+       // ItemProperties.register(NewModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, world, entity) -> UtremJarItem.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
+       // ItemProperties.register(NewModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, world, entity) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
     }
 
     @SubscribeEvent
@@ -74,9 +73,9 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Pre event) {
-        ResourceLocation textureLocation = event.getMap().getTextureLocation();
+        ResourceLocation textureLocation = event.getMap().location();
 
-        if (textureLocation.equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
+        if (textureLocation.equals(TextureAtlas.LOCATION_BLOCKS)) {
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/obsidian_skull_shield"));
         }
     }

@@ -5,13 +5,13 @@ import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ToolItem;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.valhelsia.valhelsia_core.data.ValhelsiaItemModelProvider;
+import net.valhelsia.valhelsia_core.core.data.ValhelsiaItemModelProvider;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -67,7 +67,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
         takeItem(this::bloodTestTubeModel, NewModItems.BLOOD_TEST_TUBE);
 
-        forEachItem(item -> item instanceof ToolItem, this::toolItem);
+        forEachItem(item -> item instanceof DiggerItem, this::toolItem);
         forEachItem(this::simpleModel);
     }
 

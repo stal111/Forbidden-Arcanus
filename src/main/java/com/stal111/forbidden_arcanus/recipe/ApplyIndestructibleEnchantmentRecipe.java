@@ -5,16 +5,16 @@ import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.SmithingRecipe;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.UpgradeRecipe;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,33 +27,33 @@ import java.util.List;
  * @author stal111
  * @version 2.0.0
  */
-public class ApplyIndestructibleEnchantmentRecipe extends SmithingRecipe {
+public class ApplyIndestructibleEnchantmentRecipe extends UpgradeRecipe {
 
     public ApplyIndestructibleEnchantmentRecipe(ResourceLocation recipeId) {
-        super(recipeId, Ingredient.EMPTY, Ingredient.fromItems(ModItems.ETERNAL_STELLA.get()), ItemStack.EMPTY);
+        super(recipeId, Ingredient.EMPTY, Ingredient.of(ModItems.ETERNAL_STELLA.get()), ItemStack.EMPTY);
     }
 
     @Override
-    public boolean matches(IInventory inv, @Nonnull World world) {
-        ItemStack input = inv.getStackInSlot(0);
+    public boolean matches(Container inv, @Nonnull Level world) {
+        ItemStack input = inv.getItem(0);
 
-        List<Enchantment> enchantments = new ArrayList<>(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED.getAllElements());
+        List<Enchantment> enchantments = new ArrayList<>(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED.getValues());
         enchantments.add(ModEnchantments.INDESTRUCTIBLE.get());
 
-        if (!input.isDamageable() || !input.isEnchantable() || ItemStackUtils.hasStackEnchantment(input, enchantments) || ModTags.Items.INDESTRUCTIBLE_BLACKLISTED.contains(input.getItem())) {
+        if (!input.isDamageableItem() || !input.isEnchantable() || ItemStackUtils.hasStackEnchantment(input, enchantments) || ModTags.Items.INDESTRUCTIBLE_BLACKLISTED.contains(input.getItem())) {
             return false;
         }
-        return this.isValidAdditionItem(inv.getStackInSlot(1));
+        return this.isAdditionIngredient(inv.getItem(1));
     }
 
     @Nonnull
     @Override
-    public ItemStack getCraftingResult(IInventory inv) {
-        ItemStack stack = inv.getStackInSlot(0).copy();
-        stack.addEnchantment(ModEnchantments.INDESTRUCTIBLE.get(), 1);
+    public ItemStack assemble(Container inv) {
+        ItemStack stack = inv.getItem(0).copy();
+        stack.enchant(ModEnchantments.INDESTRUCTIBLE.get(), 1);
 
         if (EnchantmentConfig.INDESTRUCTIBLE_REPAIR_ITEM.get()) {
-            CompoundNBT compound = stack.getOrCreateTag();
+            CompoundTag compound = stack.getOrCreateTag();
             compound.putBoolean("Repair", true);
         }
 
@@ -62,18 +62,18 @@ public class ApplyIndestructibleEnchantmentRecipe extends SmithingRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return ItemStack.EMPTY;
     }
 
     @Nonnull
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.APPLY_INDESTRUCTIBLE_ENCHANTMENT.get();
     }
 
     @Override
-    public boolean isDynamic() {
+    public boolean isSpecial() {
         return true;
     }
 }

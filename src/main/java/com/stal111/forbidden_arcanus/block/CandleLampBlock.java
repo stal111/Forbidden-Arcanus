@@ -1,24 +1,24 @@
 package com.stal111.forbidden_arcanus.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
+import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 
 public class CandleLampBlock extends WaterloggedBlock {
 	
 	private static final VoxelShape[] SHAPE = {
-			Block.makeCuboidShape(5, 0, 5, 11, 2, 11),
-			Block.makeCuboidShape(4, 2, 4, 12, 3, 12),
-			Block.makeCuboidShape(3, 3, 3, 13, 13, 13),
-			Block.makeCuboidShape(4, 13, 4, 12, 14, 12),
-			Block.makeCuboidShape(5, 14, 5, 11, 16, 11)};
+			Block.box(5, 0, 5, 11, 2, 11),
+			Block.box(4, 2, 4, 12, 3, 12),
+			Block.box(3, 3, 3, 13, 13, 13),
+			Block.box(4, 13, 4, 12, 14, 12),
+			Block.box(5, 14, 5, 11, 16, 11)};
 
 	public CandleLampBlock(Properties properties) {
-		super(properties.hardnessAndResistance(2.0F, 15.0F));
+		super(properties.strength(2.0F, 15.0F));
 	}
 	
 	private VoxelShape generateShape() {
@@ -26,14 +26,14 @@ public class CandleLampBlock extends WaterloggedBlock {
 	}
 	
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos,
-			ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos,
+			CollisionContext context) {
 		return this.generateShape();
 	}
 	
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos,
-			ISelectionContext context) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos,
+			CollisionContext context) {
 		return this.generateShape();
 	}
 }

@@ -2,59 +2,59 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class DracoArcanusArrowEntity extends AbstractArrowEntity {
+public class DracoArcanusArrowEntity extends AbstractArrow {
 
-    public DracoArcanusArrowEntity(LivingEntity entity, World world) {
+    public DracoArcanusArrowEntity(LivingEntity entity, Level world) {
         super(ModEntities.DRACO_ARCANUS_ARROW.get(), entity, world);
     }
 
-    public DracoArcanusArrowEntity(EntityType<? extends AbstractArrowEntity> entityType, World world) {
+    public DracoArcanusArrowEntity(EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
         return new ItemStack(ModItems.DRACO_ARCANUS_ARROW.get());
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
     public void tick() {
-        Vector3d vec3d1 = this.getMotion();
-        if (this.world.isRemote() && this.rand.nextDouble() >= 0.5) {
-            this.world.addParticle(ParticleTypes.DRAGON_BREATH, this.getPosX() - vec3d1.x, this.getPosY() - vec3d1.y + 0.05D, this.getPosZ() - vec3d1.z, 0.0D, 0.0D, 0.0D);
+        Vec3 vec3d1 = this.getDeltaMovement();
+        if (this.level.isClientSide() && this.random.nextDouble() >= 0.5) {
+            this.level.addParticle(ParticleTypes.DRAGON_BREATH, this.getX() - vec3d1.x, this.getY() - vec3d1.y + 0.05D, this.getZ() - vec3d1.z, 0.0D, 0.0D, 0.0D);
         }
         super.tick();
     }
 
     @Override
-    protected void arrowHit(LivingEntity entity) {
-        AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ());
-        areaeffectcloudentity.setParticleData(ParticleTypes.DRAGON_BREATH);
+    protected void doPostHurtEffects(LivingEntity entity) {
+        AreaEffectCloud areaeffectcloudentity = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+        areaeffectcloudentity.setParticle(ParticleTypes.DRAGON_BREATH);
         areaeffectcloudentity.setRadius(2.0F);
         areaeffectcloudentity.setDuration(400);
         areaeffectcloudentity.setRadiusPerTick((7.0F - areaeffectcloudentity.getRadius()) / (float)areaeffectcloudentity.getDuration());
-        areaeffectcloudentity.addEffect(new EffectInstance(Effects.INSTANT_DAMAGE, 1, 1));
+        areaeffectcloudentity.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 1));
 
-        this.world.playEvent(2006, this.getPosition(), 0);
-        this.world.addEntity(areaeffectcloudentity);
-        super.arrowHit(entity);
+        this.level.levelEvent(2006, this.blockPosition(), 0);
+        this.level.addFreshEntity(areaeffectcloudentity);
+        super.doPostHurtEffects(entity);
     }
 }

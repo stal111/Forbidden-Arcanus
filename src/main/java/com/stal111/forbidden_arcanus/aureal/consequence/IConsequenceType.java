@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.aureal.consequence;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * Consequence Type Interface

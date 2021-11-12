@@ -10,25 +10,24 @@ import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdateItemInSlotPacket;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableTileEntity;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,12 +43,12 @@ import java.util.Objects;
  * @version 2.0.0
  * @since 2021-06-18
  */
-public class HephaestusForgeTileEntity extends LockableTileEntity implements ITickableTileEntity, IInventory {
+public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implements Container {
 
-    private HephaestusForgeLevel level = HephaestusForgeLevel.ONE;
+    private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
 
     private final NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
-    private final IIntArray hephaestusForgeData;
+    private final ContainerData hephaestusForgeData;
 
     private final RitualManager ritualManager = new RitualManager(this);
     private final EssenceManager essenceManager = new EssenceManager(this);
@@ -60,9 +59,9 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     private int displayCounter;
 
-    public HephaestusForgeTileEntity() {
-        super(ModTileEntities.HEPHAESTUS_FORGE.get());
-        this.hephaestusForgeData = new IIntArray() {
+    public HephaestusForgeTileEntity(BlockPos pos, BlockState state) {
+        super(ModTileEntities.HEPHAESTUS_FORGE.get(), pos, state);
+        this.hephaestusForgeData = new ContainerData() {
             @Override
             public int get(int index) {
                 EssenceManager manager = HephaestusForgeTileEntity.this.getEssenceManager();
@@ -93,15 +92,15 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
             }
 
             @Override
-            public int size() {
+            public int getCount() {
                 return 6;
             }
         };
     }
 
-    @Override
+   // @Override
     public void tick() {
-        if (this.world == null) {
+        if (this.level == null) {
             return;
         }
 
@@ -120,22 +119,22 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
                 if (input != null) {
                     this.fillWith(inputType, stack, input, i);
 
-                    this.markDirty();
+                    this.setChanged();
                 }
             }
         }
 
-        if (this.world.getGameTime() % 80 == 0) {
-            ((HephaestusForgeBlock) this.getBlockState().getBlock()).updateState(this.getBlockState(), this.world, this.pos);
+        if (this.level.getGameTime() % 80 == 0) {
+            ((HephaestusForgeBlock) this.getBlockState().getBlock()).updateState(this.getBlockState(), this.level, this.worldPosition);
         }
 
-        if (this.world.getGameTime() % 20 == 0) {
-            this.entities = this.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(this.pos).grow(5, 5, 5));
+        if (this.level.getGameTime() % 20 == 0) {
+            this.entities = this.level.getEntitiesOfClass(LivingEntity.class, new AABB(this.worldPosition).inflate(5, 5, 5));
 
             this.essenceManager.tick();
         }
 
-        if (!this.world.isRemote()) {
+        if (!this.level.isClientSide()) {
             this.ritualManager.tick();
         }
         this.magicCircle.tick();
@@ -163,7 +162,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
     }
 
     private boolean isTypeFull(InputType inputType) {
-        HephaestusForgeLevel level = this.getLevel();
+        HephaestusForgeLevel level = this.getForgeLevel();
         EssenceManager manager = this.getEssenceManager();
 
         switch (inputType) {
@@ -175,15 +174,15 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
         }
     }
 
-    public HephaestusForgeLevel getLevel() {
-        return level;
+    public HephaestusForgeLevel getForgeLevel() {
+        return this.forgeLevel;
     }
 
     public void setLevel(HephaestusForgeLevel level) {
-        this.level = level;
+        this.forgeLevel = level;
     }
 
-    public IIntArray getHephaestusForgeData() {
+    public ContainerData getHephaestusForgeData() {
         return hephaestusForgeData;
     }
 
@@ -200,7 +199,7 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
     }
 
     public void fillWith(InputType inputType, ItemStack stack, IHephaestusForgeInput input, int slot) {
-        int value = input.getInputValue(inputType, stack, Objects.requireNonNull(this.getWorld()).getRandom());
+        int value = input.getInputValue(inputType, stack, Objects.requireNonNull(this.getLevel()).getRandom());
         EssenceManager manager = this.getEssenceManager();
 
         switch (inputType) {
@@ -223,25 +222,25 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     @Nonnull
     @Override
-    public CompoundNBT write(@Nonnull CompoundNBT compound) {
-        super.write(compound);
+    public CompoundTag save(@Nonnull CompoundTag compound) {
+        super.save(compound);
 
-        compound.putString("Level", this.getLevel().getName());
-        ItemStackHelper.saveAllItems(compound, this.inventoryContents);
+        compound.putString("Level", this.getForgeLevel().getName());
+        ContainerHelper.saveAllItems(compound, this.inventoryContents);
 
-        compound.put("Ritual", this.getRitualManager().write(new CompoundNBT()));
-        compound.put("Essences", this.getEssenceManager().write(new CompoundNBT()));
+        compound.put("Ritual", this.getRitualManager().write(new CompoundTag()));
+        compound.put("Essences", this.getEssenceManager().write(new CompoundTag()));
 
         return compound;
     }
 
     @Override
-    public void read(@Nonnull BlockState state, @Nonnull CompoundNBT compound) {
-        super.read(state, compound);
+    public void load(@Nonnull CompoundTag compound) {
+        super.load(compound);
         this.setLevel(HephaestusForgeLevel.getFromName(compound.getString("Level")));
 
         this.inventoryContents.clear();
-        ItemStackHelper.loadAllItems(compound, this.inventoryContents);
+        ContainerHelper.loadAllItems(compound, this.inventoryContents);
 
         this.getRitualManager().read(compound.getCompound("Ritual"));
         this.getEssenceManager().read(compound.getCompound("Essences"));
@@ -249,47 +248,47 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     @Nullable
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 0, this.getUpdateTag());
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
     }
 
     @Nonnull
     @Override
-    public CompoundNBT getUpdateTag() {
-        return this.write(new CompoundNBT());
+    public CompoundTag getUpdateTag() {
+        return this.save(new CompoundTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager networkManager, SUpdateTileEntityPacket packet) {
-        if (this.world != null) {
-            this.read(this.world.getBlockState(packet.getPos()), packet.getNbtCompound());
+    public void onDataPacket(Connection networkManager, ClientboundBlockEntityDataPacket packet) {
+        if (this.level != null) {
+            this.load(packet.getTag());
         }
     }
 
     @Override
-    public AxisAlignedBB getRenderBoundingBox() {
-        AxisAlignedBB boundingBox = new AxisAlignedBB(this.getPos()).expand(0.0D, 1.0D, 0.0D);
+    public AABB getRenderBoundingBox() {
+        AABB boundingBox = new AABB(this.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
 
         if (this.getRitualManager().isRitualActive()) {
-            boundingBox = boundingBox.grow(2.5F, 0.0F, 2.5D);
+            boundingBox = boundingBox.inflate(2.5F, 0.0F, 2.5D);
         }
         return boundingBox;
     }
 
     @Nonnull
     @Override
-    protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("container.forbidden_arcanus.hephaestus_forge");
+    protected Component getDefaultName() {
+        return new TranslatableComponent("container.forbidden_arcanus.hephaestus_forge");
     }
 
     @Nonnull
     @Override
-    protected Container createMenu(int id, @Nonnull PlayerInventory player) {
+    protected AbstractContainerMenu createMenu(int id, @Nonnull Inventory player) {
         return new HephaestusForgeContainer(id, player, this);
     }
 
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return this.inventoryContents.size();
     }
 
@@ -300,16 +299,16 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     @Nonnull
     @Override
-    public ItemStack getStackInSlot(int index) {
+    public ItemStack getItem(int index) {
         return this.inventoryContents.get(index);
     }
 
     @Nonnull
     @Override
-    public ItemStack decrStackSize(int index, int count) {
-        ItemStack stack = ItemStackHelper.getAndSplit(this.inventoryContents, index, count);
+    public ItemStack removeItem(int index, int count) {
+        ItemStack stack = ContainerHelper.removeItem(this.inventoryContents, index, count);
         if (!stack.isEmpty()) {
-            this.markDirty();
+            this.setChanged();
         }
 
         return stack;
@@ -317,37 +316,37 @@ public class HephaestusForgeTileEntity extends LockableTileEntity implements ITi
 
     @Nonnull
     @Override
-    public ItemStack removeStackFromSlot(int index) {
-        return ItemStackHelper.getAndRemove(this.inventoryContents, index);
+    public ItemStack removeItemNoUpdate(int index) {
+        return ContainerHelper.takeItem(this.inventoryContents, index);
     }
 
     @Override
-    public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
+    public void setItem(int index, @Nonnull ItemStack stack) {
         this.inventoryContents.set(index, stack);
-        if (stack.getCount() > this.getInventoryStackLimit()) {
-            stack.setCount(this.getInventoryStackLimit());
+        if (stack.getCount() > this.getMaxStackSize()) {
+            stack.setCount(this.getMaxStackSize());
         }
 
-        if (index == 4 && this.getWorld() != null && !this.getWorld().isRemote()) {
-            BlockPos pos = this.getTileEntity().getPos();
+        if (index == 4 && this.getLevel() != null && !this.getLevel().isClientSide()) {
+            BlockPos pos = this.getBlockPos();
 
-            NetworkHandler.sentToTrackingChunk(this.getWorld().getChunkAt(pos), new UpdateItemInSlotPacket(pos, stack, 4));
+            NetworkHandler.sentToTrackingChunk(this.getLevel().getChunkAt(pos), new UpdateItemInSlotPacket(pos, stack, 4));
         }
 
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
-    public boolean isUsableByPlayer(@Nonnull PlayerEntity player) {
-        if (this.getWorld() == null || this.getWorld().getTileEntity(this.pos) != this) {
+    public boolean stillValid(@Nonnull Player player) {
+        if (this.getLevel() == null || this.getLevel().getBlockEntity(this.worldPosition) != this) {
             return false;
         }
 
-        return player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         this.inventoryContents.clear();
     }
 }

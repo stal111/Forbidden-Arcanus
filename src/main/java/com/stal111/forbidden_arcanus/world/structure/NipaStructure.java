@@ -3,18 +3,19 @@ package com.stal111.forbidden_arcanus.world.structure;
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
 import com.stal111.forbidden_arcanus.world.structure.config.NipaConfig;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
-import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import net.valhelsia.valhelsia_core.world.SimpleValhelsiaStructure;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.valhelsia.valhelsia_core.common.world.SimpleValhelsiaStructure;
 
 import javax.annotation.Nonnull;
 
@@ -34,37 +35,35 @@ public class NipaStructure extends SimpleValhelsiaStructure<NipaConfig> {
 
     @Nonnull
     @Override
-    public GenerationStage.Decoration getDecorationStage() {
-        return GenerationStage.Decoration.SURFACE_STRUCTURES;
-    }
-
-    @Override
-    public StructureSeparationSettings getSeparationSettings() {
-        return ModStructures.SeparationSettings.NIPA;
+    public GenerationStep.Decoration step() {
+        return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
     @Nonnull
     @Override
-    public IStartFactory<NipaConfig> getStartFactory() {
+    public StructureStartFactory<NipaConfig> getStartFactory() {
         return NipaStructure.Start::new;
+    }
+
+    @Override
+    public StructureFeatureConfiguration getFeatureConfiguration() {
+        return ModStructures.SeparationSettings.NIPA;
     }
 
     public static class Start extends StructureStart<NipaConfig> {
 
-        public Start(Structure<NipaConfig> structure, int chunkX, int chunkZ, MutableBoundingBox boundingBox, int p_i225876_5_, long p_i225876_6_) {
-            super(structure, chunkX, chunkZ, boundingBox, p_i225876_5_, p_i225876_6_);
+        public Start(StructureFeature<NipaConfig> p_163595_, ChunkPos p_163596_, int p_163597_, long p_163598_) {
+            super(p_163595_, p_163596_, p_163597_, p_163598_);
         }
 
         @Override
-        public void func_230364_a_(@Nonnull DynamicRegistries registries, @Nonnull ChunkGenerator generator, @Nonnull TemplateManager manager, int chunkX, int chunkZ, @Nonnull Biome biome, NipaConfig config) {
-            int x = (chunkX << 4) + 8;
-            int z = (chunkZ << 4) + 8;
-            BlockPos pos = new BlockPos(x, 90, z);
+        public void generatePieces(RegistryAccess registryAccess, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, NipaConfig config, LevelHeightAccessor level) {
+            BlockPos pos = new BlockPos(chunkPos.getWorldPosition().getX(), 90, chunkPos.getWorldPosition().getZ());
 
-            boolean floating = rand.nextFloat() <= config.getFloatingProbability();
-            this.components.add(new NipaPieces.Piece(manager, floating ? NipaPieces.NIPA_FLOATING : NipaPieces.NIPA, pos, Rotation.randomRotation(this.rand), floating));
+            boolean floating = random.nextFloat() <= config.getFloatingProbability();
+            this.pieces.add(new NipaPieces.Piece(structureManager, floating ? NipaPieces.NIPA_FLOATING : NipaPieces.NIPA, pos, Rotation.getRandom(this.random), floating));
 
-            this.recalculateStructureSize();
+            this.getBoundingBox();
         }
     }
 }

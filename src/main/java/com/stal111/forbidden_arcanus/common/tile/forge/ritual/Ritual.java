@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -74,7 +74,7 @@ public class Ritual {
             }
         }
 
-        ItemStack stack = tileEntity.getStackInSlot(4);
+        ItemStack stack = tileEntity.getItem(4);
 
         if (!ingredients.isEmpty()) {
             return false;

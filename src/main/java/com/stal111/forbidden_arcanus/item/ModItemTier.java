@@ -3,35 +3,35 @@ package com.stal111.forbidden_arcanus.item;
 import java.util.function.Supplier;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
 
-public enum ModItemTier implements IItemTier {
+public enum ModItemTier implements Tier {
 	DRACO_ARCANUS(4, 2661, 12.0F, 7.0F, 20, () -> {
-		return Ingredient.fromItems(ModItems.DRAGON_SCALE.get());
+		return Ingredient.of(ModItems.DRAGON_SCALE.get());
 	}),
 	ARCANE_GOLDEN(3, 1861, 9.0F, 3.5F, 26, () -> {
-		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.get());
+		return Ingredient.of(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	REINFORCED_ARCANE_GOLDEN(3, 2561, 9.0F, 3.5F, 26, () -> {
-		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.get());
+		return Ingredient.of(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
 	OBSIDIAN(3, 2861, 5.5F, 3.0F, 2, () -> {
-		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.get());
+		return Ingredient.of(ModItems.OBSIDIAN_INGOT.get());
 	}),
 	BONE(1, 131, 4.0F, 1.0F, 5, () -> {
-		return Ingredient.fromItems(Items.BONE);
+		return Ingredient.of(Items.BONE);
 	}),
 	INFERNUM(3, 1261, 8.0F, 3.0F, 5, () -> {
-		return Ingredient.fromItems(Items.BONE);
+		return Ingredient.of(Items.BONE);
 	}),
 	SLIMEC(3, 2061, 13.0F, 2.5F, 20, () -> {
-		return Ingredient.fromItems(Items.BONE);
+		return Ingredient.of(Items.BONE);
 	}),
 	MYSTICAL_DAGGER(1, 561, 4.0F, 1.0F, 5, () -> {
-		return Ingredient.fromItems(ModItems.DARK_RUNE.get());
+		return Ingredient.of(ModItems.DARK_RUNE.get());
 	});
 
 	private int harvestLevel;
@@ -39,7 +39,7 @@ public enum ModItemTier implements IItemTier {
 	private float efficiency;
 	private float attackDamage;
 	private int enchantability;
-	private LazyValue<Ingredient> repairMaterial;
+	private LazyLoadedValue<Ingredient> repairMaterial;
 
 	ModItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
 			int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
@@ -48,11 +48,11 @@ public enum ModItemTier implements IItemTier {
 		this.efficiency = efficiencyIn;
 		this.attackDamage = attackDamageIn;
 		this.enchantability = enchantabilityIn;
-		this.repairMaterial = new LazyValue<>(repairMaterialIn);
+		this.repairMaterial = new LazyLoadedValue<>(repairMaterialIn);
 	}
 
 	@Override
-	public int getMaxUses() {
+	public int getUses() {
 		return this.maxUses;
 	}
 
@@ -61,7 +61,7 @@ public enum ModItemTier implements IItemTier {
 	}
 
 	@Override
-	public float getEfficiency() {
+	public float getSpeed() {
 		return this.efficiency;
 	}
 
@@ -70,23 +70,23 @@ public enum ModItemTier implements IItemTier {
 	}
 
 	@Override
-	public float getAttackDamage() {
+	public float getAttackDamageBonus() {
 		return this.attackDamage;
 	}
 
 	@Override
-	public int getHarvestLevel() {
+	public int getLevel() {
 		return this.harvestLevel;
 	}
 
 	@Override
-	public int getEnchantability() {
+	public int getEnchantmentValue() {
 		return this.enchantability;
 	}
 
 	@Override
-	public Ingredient getRepairMaterial() {
-		return this.repairMaterial.getValue();
+	public Ingredient getRepairIngredient() {
+		return this.repairMaterial.get();
 	}
 
 }

@@ -3,9 +3,8 @@ package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.util.ISavedData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.nbt.CompoundTag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import java.util.Map;
  * @version 2.0.0
  * @since 2021-07-10
  */
-public class EssenceManager implements ISavedData, ITickableTileEntity {
+public class EssenceManager implements ISavedData {
 
     private final HephaestusForgeTileEntity tileEntity;
 
@@ -39,7 +38,7 @@ public class EssenceManager implements ISavedData, ITickableTileEntity {
     }
 
     public HephaestusForgeLevel getLevel() {
-        return this.getTileEntity().getLevel();
+        return this.getTileEntity().getForgeLevel();
     }
 
     public int getAureal() {
@@ -143,7 +142,7 @@ public class EssenceManager implements ISavedData, ITickableTileEntity {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.putInt("Aureal", this.getAureal());
         compound.putInt("Corruption", this.getCorruption());
         compound.putInt("Souls", this.getSouls());
@@ -154,7 +153,7 @@ public class EssenceManager implements ISavedData, ITickableTileEntity {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         this.setAureal(compound.getInt("Aureal"));
         this.setCorruption(compound.getInt("Corruption"));
         this.setSouls(compound.getInt("Souls"));
@@ -162,10 +161,9 @@ public class EssenceManager implements ISavedData, ITickableTileEntity {
         this.setExperience(compound.getInt("Experience"));
     }
 
-    @Override
     public void tick() {
         HephaestusForgeTileEntity tileEntity = this.getTileEntity();
-        if (tileEntity.getWorld() == null) {
+        if (tileEntity.getLevel() == null) {
             return;
         }
 

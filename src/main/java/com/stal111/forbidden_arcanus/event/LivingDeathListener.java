@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,9 +24,9 @@ public class LivingDeathListener {
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        if (entity.getType().getClassification() == EntityClassification.AMBIENT || entity.getType().getClassification() == EntityClassification.CREATURE) {
-            if (event.getSource().getDamageType().equals("player")) {
-                PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
+        if (entity.getType().getCategory() == MobCategory.AMBIENT || entity.getType().getCategory() == MobCategory.CREATURE) {
+            if (event.getSource().getMsgId().equals("player")) {
+                Player player = (Player) event.getSource().getEntity();
 
                 if (player == null || player instanceof FakePlayer) {
                     return;
@@ -37,7 +37,7 @@ public class LivingDeathListener {
                 double chance = aurealEntity ? AurealConfig.AUREAL_ENTITY_DEATH_INCREASEMENT_CHANCE.get(): AurealConfig.ENTITY_DEATH_INCREASEMENT_CHANCE.get();
                 int amount = aurealEntity ? AurealConfig.AUREAL_ENTITY_DEATH_INCREASEMENT_AMOUNT.get() : AurealConfig.ENTITY_DEATH_INCREASEMENT_AMOUNT.get();
 
-                if (entity.getRNG().nextDouble() <= chance) {
+                if (entity.getRandom().nextDouble() <= chance) {
                     AurealHelper.increaseCorruption(player, amount);
 
                     AurealHelper.sendAurealUpdatePacket(player);

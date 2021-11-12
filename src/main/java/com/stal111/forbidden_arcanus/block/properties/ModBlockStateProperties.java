@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.block.properties;
 
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class ModBlockStateProperties {
     public static final IntegerProperty CANDLES_0_3 = IntegerProperty.create("candles", 0, 3);

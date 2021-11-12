@@ -1,26 +1,21 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.tileentity.DarkBeaconTileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BeaconBeamBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockDisplayReader;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
-
-public class DarkBeaconBlock extends Block implements IBeaconBeamColorProvider, ITileEntityProvider {
+public class DarkBeaconBlock extends Block implements BeaconBeamBlock {
 
 	public DarkBeaconBlock(Properties properties) {
 		super(properties);
@@ -30,34 +25,29 @@ public class DarkBeaconBlock extends Block implements IBeaconBeamColorProvider, 
 	public DyeColor getColor() {
 		return DyeColor.WHITE;
 	}
-
-	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
-		return new DarkBeaconTileEntity();
-	}
 	
 	@Override
-	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
-		return (INamedContainerProvider) worldIn.getTileEntity(pos);
+	public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
+		return (MenuProvider) worldIn.getBlockEntity(pos);
 	}
 
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.MODEL;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.MODEL;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (stack.hasDisplayName()) {
-			TileEntity tileentity = worldIn.getTileEntity(pos);
+	public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		if (stack.hasCustomHoverName()) {
+			BlockEntity tileentity = worldIn.getBlockEntity(pos);
 			if (tileentity instanceof DarkBeaconTileEntity) {
-				((DarkBeaconTileEntity) tileentity).setCustomName(stack.getDisplayName());
+				((DarkBeaconTileEntity) tileentity).setCustomName(stack.getHoverName());
 			}
 		}
 	}
 
 	@Override
-	public boolean shouldDisplayFluidOverlay(BlockState state, IBlockDisplayReader world, BlockPos pos, FluidState fluidState) {
+	public boolean shouldDisplayFluidOverlay(BlockState state, BlockAndTintGetter world, BlockPos pos, FluidState fluidState) {
 		return true;
 	}
 }

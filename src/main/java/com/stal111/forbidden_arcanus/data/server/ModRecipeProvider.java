@@ -6,23 +6,30 @@ import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.data.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
-import net.minecraft.tags.ITag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.tags.Tag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.util.ValhelsiaNBTIngredient;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
+
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.UpgradeRecipeBuilder;
+import net.valhelsia.valhelsia_core.common.util.ValhelsiaNBTIngredient;
 
 /**
  * Mod Recipe Provider
@@ -39,25 +46,25 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
+    protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
         //Shaped Recipes
-        ShapedRecipeBuilder.shapedRecipe(NewModItems.SANITY_METER.get()).patternLine("AXA").patternLine("X#X").patternLine("AXA").key('X', Tags.Items.INGOTS_GOLD).key('#', Tags.Items.ENDER_PEARLS).key('A', ModItems.ARCANE_CRYSTAL_DUST.get()).addCriterion("has_item", hasItem(Tags.Items.INGOTS_GOLD)).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModItems.LENS_OF_VERITATIS.get()).patternLine(" # ").patternLine("#X#").patternLine("S# ").key('#', ModItems.SPAWNER_SCRAP.get()).key('X', ModItems.ARCANE_CRYSTAL.get()).key('S', Tags.Items.RODS_WOODEN).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModItems.OBSIDIAN_SKULL.get()).patternLine("#O#").patternLine("OXO").patternLine("#O#").key('#', ModItems.OBSIDIAN_INGOT.get()).key('X', Items.SKELETON_SKULL).key('O', Tags.Items.OBSIDIAN).addCriterion("has_item", hasItem(Tags.Items.OBSIDIAN)).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.UTREM_JAR.get()).patternLine("#X#").patternLine("# #").patternLine("###").key('#', Tags.Items.GLASS_COLORLESS).key('X', ModBlocks.EDELWOOD_PLANKS.getBlock()).addCriterion("has_item", hasItem(Tags.Items.GLASS_COLORLESS)).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.ARCANE_CRYSTAL_DUST.get()).patternLine("###").patternLine("###").patternLine("###").key('#', NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get()).addCriterion("has_item", hasItem(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModItems.SOUL_EXTRACTOR.get()).patternLine("U  ").patternLine("##X").patternLine("Q  ").key('U', NewModBlocks.UTREM_JAR.get()).key('#', Blocks.NETHER_BRICKS).key('X', Blocks.QUARTZ_BLOCK).key('Q', Items.QUARTZ).addCriterion("has_item", hasItem(NewModBlocks.UTREM_JAR.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_HYPHAE.get(), 3).patternLine("##").patternLine("##").key('#', NewModBlocks.FUNGYSS_STEM.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_STEM.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_SLAB.get(), 6).patternLine("###").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_STAIRS.get(), 4).patternLine("#  ").patternLine("## ").patternLine("###").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get()).patternLine("##").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_TRAPDOOR.get(), 2).patternLine("###").patternLine("###").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_DOOR.get(), 3).patternLine("##").patternLine("##").patternLine("##").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_FENCE.get(), 3).patternLine("#X#").patternLine("#X#").key('#', NewModBlocks.FUNGYSS_PLANKS.get()).key('X', Tags.Items.RODS_WOODEN).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.FUNGYSS_FENCE_GATE.get()).patternLine("#X#").patternLine("#X#").key('#', Tags.Items.RODS_WOODEN).key('X', NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModItems.ARCANE_BONE_MEAL.get(), 4).patternLine(" # ").patternLine("#X#").patternLine(" # ").key('#', Items.BONE_MEAL).key('X', ModItems.ARCANE_CRYSTAL_DUST.get()).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL_DUST.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModItems.AUREAL_BOTTLE.get()).patternLine("###").patternLine("#X#").patternLine("###").key('#', ModItems.ARCANE_CRYSTAL_DUST.get()).key('X', new ValhelsiaNBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.STRONG_REGENERATION))).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL_DUST.get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(NewModItems.BLACKSMITH_GAVEL_HEAD.get()).patternLine("###").patternLine("# #").patternLine(" # ").key('#', Items.CLAY_BALL).addCriterion("has_item", hasItem(Items.CLAY_BALL)).build(consumer);
+        ShapedRecipeBuilder.shaped(NewModItems.SANITY_METER.get()).pattern("AXA").pattern("X#X").pattern("AXA").define('X', Tags.Items.INGOTS_GOLD).define('#', Tags.Items.ENDER_PEARLS).define('A', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_item", has(Tags.Items.INGOTS_GOLD)).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModItems.LENS_OF_VERITATIS.get()).pattern(" # ").pattern("#X#").pattern("S# ").define('#', ModItems.SPAWNER_SCRAP.get()).define('X', ModItems.ARCANE_CRYSTAL.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModItems.OBSIDIAN_SKULL.get()).pattern("#O#").pattern("OXO").pattern("#O#").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.SKELETON_SKULL).define('O', Tags.Items.OBSIDIAN).unlockedBy("has_item", has(Tags.Items.OBSIDIAN)).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.UTREM_JAR.get()).pattern("#X#").pattern("# #").pattern("###").define('#', Tags.Items.GLASS_COLORLESS).define('X', ModBlocks.EDELWOOD_PLANKS.getBlock()).unlockedBy("has_item", has(Tags.Items.GLASS_COLORLESS)).save(consumer);
+        ShapedRecipeBuilder.shaped(ModItems.ARCANE_CRYSTAL_DUST.get()).pattern("###").pattern("###").pattern("###").define('#', NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get()).unlockedBy("has_item", has(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModItems.SOUL_EXTRACTOR.get()).pattern("U  ").pattern("##X").pattern("Q  ").define('U', NewModBlocks.UTREM_JAR.get()).define('#', Blocks.NETHER_BRICKS).define('X', Blocks.QUARTZ_BLOCK).define('Q', Items.QUARTZ).unlockedBy("has_item", has(NewModBlocks.UTREM_JAR.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_HYPHAE.get(), 3).pattern("##").pattern("##").define('#', NewModBlocks.FUNGYSS_STEM.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_STEM.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_SLAB.get(), 6).pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_STAIRS.get(), 4).pattern("#  ").pattern("## ").pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get()).pattern("##").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_TRAPDOOR.get(), 2).pattern("###").pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_DOOR.get(), 3).pattern("##").pattern("##").pattern("##").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_FENCE.get(), 3).pattern("#X#").pattern("#X#").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).define('X', Tags.Items.RODS_WOODEN).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_FENCE_GATE.get()).pattern("#X#").pattern("#X#").define('#', Tags.Items.RODS_WOODEN).define('X', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModItems.ARCANE_BONE_MEAL.get(), 4).pattern(" # ").pattern("#X#").pattern(" # ").define('#', Items.BONE_MEAL).define('X', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL_DUST.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModItems.AUREAL_BOTTLE.get()).pattern("###").pattern("#X#").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST.get()).define('X', new ValhelsiaNBTIngredient(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.STRONG_REGENERATION))).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL_DUST.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(NewModItems.BLACKSMITH_GAVEL_HEAD.get()).pattern("###").pattern("# #").pattern(" # ").define('#', Items.CLAY_BALL).unlockedBy("has_item", has(Items.CLAY_BALL)).save(consumer);
         addBlacksmithGavelRecipe(NewModItems.WOODEN_BLACKSMITH_GAVEL.get(), ItemTags.PLANKS, consumer);
         addBlacksmithGavelRecipe(NewModItems.STONE_BLACKSMITH_GAVEL.get(), ItemTags.STONE_TOOL_MATERIALS, consumer);
         addBlacksmithGavelRecipe(NewModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD, consumer);
@@ -67,24 +74,24 @@ public class ModRecipeProvider extends RecipeProvider {
         addBlacksmithGavelRecipe(NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get(), ModTags.Items.OBSIDIAN_INGOTS, consumer);
 
         //Shapeless Recipes
-        ShapelessRecipeBuilder.shapelessRecipe(NewModItems.PURIFYING_SOAP.get()).addIngredient(ModItems.ARCANE_CRYSTAL_DUST.get()).addIngredient(ModItems.WAX.get()).addIngredient(Items.SLIME_BALL).addIngredient(Items.PRISMARINE_CRYSTALS).addIngredient(ItemTags.SMALL_FLOWERS).addCriterion("has_item", hasItem(ModItems.WAX.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(NewModBlocks.FUNGYSS_PLANKS.get(), 4).addIngredient(ModTags.Items.FUNGYSS_STEMS).addCriterion("has_item", hasItem(ModTags.Items.FUNGYSS_STEMS)).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(NewModBlocks.FUNGYSS_BUTTON.get()).addIngredient(NewModBlocks.FUNGYSS_PLANKS.get()).addCriterion("has_item", hasItem(NewModBlocks.FUNGYSS_PLANKS.get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(NewModItems.TEST_TUBE.get()).addIngredient(Items.GLASS_BOTTLE).addIngredient(ModItems.RUNE.get()).addCriterion("has_item", hasItem(ModItems.RUNE.get())).build(consumer);
+        ShapelessRecipeBuilder.shapeless(NewModItems.PURIFYING_SOAP.get()).requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(NewModBlocks.FUNGYSS_PLANKS.get(), 4).requires(ModTags.Items.FUNGYSS_STEMS).unlockedBy("has_item", has(ModTags.Items.FUNGYSS_STEMS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(NewModBlocks.FUNGYSS_BUTTON.get()).requires(NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(NewModItems.TEST_TUBE.get()).requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE.get()).unlockedBy("has_item", has(ModItems.RUNE.get())).save(consumer);
 
         //Smelting Recipes
-        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 150).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL.get())).build(consumer, "forbidden_arcanus:smelting/arcane_crystal_dust_from_smelting");
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 150).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())).save(consumer, "forbidden_arcanus:smelting/arcane_crystal_dust_from_smelting");
 
         //Blasting Recipes
-        CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 75).addCriterion("has_item", hasItem(ModItems.ARCANE_CRYSTAL.get())).build(consumer,  "forbidden_arcanus:blasting/arcane_crystal_dust_from_blasting");
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 75).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())).save(consumer,  "forbidden_arcanus:blasting/arcane_crystal_dust_from_blasting");
 
         //Smithing Recipes
-        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(Items.SHIELD), Ingredient.fromItems(NewModItems.OBSIDIAN_SKULL.get()), NewModItems.OBSIDIAN_SKULL_SHIELD.get()).addCriterion("has_item", hasItem(NewModItems.OBSIDIAN_SKULL.get())).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_skull_shield"));
-        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(NewModItems.OBSIDIAN_SKULL.get()), Ingredient.fromItems(ModItems.ETERNAL_STELLA.get()), NewModItems.ETERNAL_OBSIDIAN_SKULL.get()).addCriterion("has_item", hasItem(NewModItems.OBSIDIAN_SKULL.get())).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
-        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(NewModItems.NETHERITE_BLACKSMITH_GAVEL.get()), Ingredient.fromItems(Items.NETHERITE_INGOT), NewModItems.DIAMOND_BLACKSMITH_GAVEL.get()).addCriterion("has_item", hasItem(Items.NETHERITE_INGOT)).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_blacksmith_gavel"));
+        UpgradeRecipeBuilder.smithing(Ingredient.of(Items.SHIELD), Ingredient.of(NewModItems.OBSIDIAN_SKULL.get()), NewModItems.OBSIDIAN_SKULL_SHIELD.get()).unlocks("has_item", has(NewModItems.OBSIDIAN_SKULL.get())).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_skull_shield"));
+        UpgradeRecipeBuilder.smithing(Ingredient.of(NewModItems.OBSIDIAN_SKULL.get()), Ingredient.of(ModItems.ETERNAL_STELLA.get()), NewModItems.ETERNAL_OBSIDIAN_SKULL.get()).unlocks("has_item", has(NewModItems.OBSIDIAN_SKULL.get())).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
+        UpgradeRecipeBuilder.smithing(Ingredient.of(NewModItems.NETHERITE_BLACKSMITH_GAVEL.get()), Ingredient.of(Items.NETHERITE_INGOT), NewModItems.DIAMOND_BLACKSMITH_GAVEL.get()).unlocks("has_item", has(Items.NETHERITE_INGOT)).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_blacksmith_gavel"));
     }
 
-    private void addBlacksmithGavelRecipe(Item gavel, ITag.INamedTag<Item> material, @Nonnull Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(gavel).patternLine("#X#").patternLine("#S#").patternLine(" S ").key('#', material).key('X', NewModItems.BLACKSMITH_GAVEL_HEAD.get()).key('S', Tags.Items.RODS_WOODEN).addCriterion("has_item", hasItem(material)).build(consumer);
+    private void addBlacksmithGavelRecipe(Item gavel, Tag.Named<Item> material, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(gavel).pattern("#X#").pattern("#S#").pattern(" S ").define('#', material).define('X', NewModItems.BLACKSMITH_GAVEL_HEAD.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy("has_item", has(material)).save(consumer);
     }
 }

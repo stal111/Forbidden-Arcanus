@@ -1,15 +1,15 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.gson.JsonObject;
-import net.minecraft.block.Block;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
@@ -33,7 +33,7 @@ public class InfernumPickaxeLootModifier extends LootModifier {
      *
      * @param conditions the ILootConditions that need to be matched before the loot is modified.
      */
-    public InfernumPickaxeLootModifier(ILootCondition[] conditions) {
+    public InfernumPickaxeLootModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 
@@ -41,17 +41,17 @@ public class InfernumPickaxeLootModifier extends LootModifier {
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
         List<ItemStack> ret = new ArrayList<>();
-        generatedLoot.forEach(s -> ret.add(this.trySmelt(s, context.getWorld())));
+        generatedLoot.forEach(s -> ret.add(this.trySmelt(s, context.getLevel())));
         return ret;
     }
 
-    private ItemStack trySmelt(ItemStack stack, World world) {
-        if (!Tags.Blocks.ORES.contains(Block.getBlockFromItem(stack.getItem()))) {
+    private ItemStack trySmelt(ItemStack stack, Level world) {
+        if (!Tags.Blocks.ORES.contains(Block.byItem(stack.getItem()))) {
             return stack;
         }
 
-        return world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(stack), world)
-                .map(FurnaceRecipe::getRecipeOutput)
+        return world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), world)
+                .map(SmeltingRecipe::getResultItem)
                 .filter(itemStack -> !itemStack.isEmpty())
                 .map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount()))
                 .orElse(stack);
@@ -61,7 +61,7 @@ public class InfernumPickaxeLootModifier extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<InfernumPickaxeLootModifier> {
 
         @Override
-        public InfernumPickaxeLootModifier read(ResourceLocation name, JsonObject json, ILootCondition[] conditions) {
+        public InfernumPickaxeLootModifier read(ResourceLocation name, JsonObject json, LootItemCondition[] conditions) {
             return new InfernumPickaxeLootModifier(conditions);
         }
 

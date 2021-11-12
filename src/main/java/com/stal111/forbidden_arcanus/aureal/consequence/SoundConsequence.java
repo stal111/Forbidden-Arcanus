@@ -4,12 +4,12 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
 import com.stal111.forbidden_arcanus.util.ISavedData;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class SoundConsequence implements IConsequence, ISavedData {
     }
 
     private void loadSounds() {
-        this.sounds.addAll(Arrays.asList(SoundEvents.BLOCK_STONE_BREAK, SoundEvents.ENTITY_CREEPER_PRIMED, SoundEvents.ENTITY_GHAST_WARN));
+        this.sounds.addAll(Arrays.asList(SoundEvents.STONE_BREAK, SoundEvents.CREEPER_PRIMED, SoundEvents.GHAST_WARN));
     }
 
     @Override
@@ -51,12 +51,12 @@ public class SoundConsequence implements IConsequence, ISavedData {
     }
 
     @Override
-    public void tick(PlayerEntity player) {
-        if (!player.getEntityWorld().isRemote()) {
+    public void tick(Player player) {
+        if (!player.getCommandSenderWorld().isClientSide()) {
             if (this.ticksUntilNextSound <= 0) {
-                player.playSound(sounds.get(player.getRNG().nextInt(sounds.size())), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                player.playNotifySound(sounds.get(player.getRandom().nextInt(sounds.size())), SoundSource.PLAYERS, 1.0F, 1.0F);
 
-                this.ticksUntilNextSound = Math.max(player.getRNG().nextInt(450), 100);
+                this.ticksUntilNextSound = Math.max(player.getRandom().nextInt(450), 100);
             } else {
                 this.ticksUntilNextSound--;
             }
@@ -77,7 +77,7 @@ public class SoundConsequence implements IConsequence, ISavedData {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.putInt("ticksUntilNextSound", this.ticksUntilNextSound);
         compound.putInt("timer", this.timer);
 
@@ -85,7 +85,7 @@ public class SoundConsequence implements IConsequence, ISavedData {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         this.ticksUntilNextSound = compound.getInt("ticksUntilNextSound");
         this.timer = compound.getInt("timer");
     }

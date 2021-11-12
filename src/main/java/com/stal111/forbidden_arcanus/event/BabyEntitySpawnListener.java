@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,7 +21,7 @@ public class BabyEntitySpawnListener {
 
     @SubscribeEvent
     public static void onBabyEntitySpawn(BabyEntitySpawnEvent event) {
-        PlayerEntity player = event.getCausedByPlayer();
+        Player player = event.getCausedByPlayer();
 
         if (player == null) {
             return;
@@ -29,7 +29,7 @@ public class BabyEntitySpawnListener {
 
         IAureal aureal = AurealHelper.getCapability(player);
 
-        if (aureal.getCorruption() != 0 && player.getRNG().nextDouble() < AurealConfig.BREEDING_DECREASEMENT_CHANCE.get()) {
+        if (aureal.getCorruption() != 0 && player.getRandom().nextDouble() < AurealConfig.BREEDING_DECREASEMENT_CHANCE.get()) {
             aureal.decreaseCorruption(1);
 
             AurealHelper.sendAurealUpdatePacket(player);

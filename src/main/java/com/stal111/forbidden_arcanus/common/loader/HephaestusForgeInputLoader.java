@@ -4,13 +4,13 @@ import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.container.InputType;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
@@ -26,7 +26,7 @@ import java.util.Map;
  * @version 2.0.0
  * @since 2021-07-05
  */
-public class HephaestusForgeInputLoader extends JsonReloadListener {
+public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -37,7 +37,7 @@ public class HephaestusForgeInputLoader extends JsonReloadListener {
     }
 
     @Override
-    protected void apply(@Nonnull Map<ResourceLocation, JsonElement> object, @Nonnull IResourceManager resourceManager, @Nonnull IProfiler profiler) {
+    protected void apply(@Nonnull Map<ResourceLocation, JsonElement> object, @Nonnull ResourceManager resourceManager, @Nonnull ProfilerFiller profiler) {
         INPUTS.clear();
 
         for(Map.Entry<ResourceLocation, JsonElement> entry : object.entrySet()) {
@@ -48,7 +48,7 @@ public class HephaestusForgeInputLoader extends JsonReloadListener {
             }
 
             try {
-                InputType type = InputType.valueOf(JSONUtils.getString(entry.getValue().getAsJsonObject(), "type").toUpperCase(Locale.ROOT));
+                InputType type = InputType.valueOf(GsonHelper.getAsString(entry.getValue().getAsJsonObject(), "type").toUpperCase(Locale.ROOT));
                 InputData data = deserializeInput(resourceLocation, entry.getValue().getAsJsonObject());
 
                 INPUTS.computeIfAbsent(type, (inputType) -> new HashMap<>());
@@ -64,7 +64,7 @@ public class HephaestusForgeInputLoader extends JsonReloadListener {
     }
 
     private static InputData deserializeInput(ResourceLocation input, JsonObject jsonObject) {
-        ResourceLocation resourceLocation = new ResourceLocation(JSONUtils.getString(jsonObject, "item"));
+        ResourceLocation resourceLocation = new ResourceLocation(GsonHelper.getAsString(jsonObject, "item"));
         Item item = ForgeRegistries.ITEMS.getValue(resourceLocation);
 
         if (item == null) {
@@ -72,7 +72,7 @@ public class HephaestusForgeInputLoader extends JsonReloadListener {
             throw new IllegalArgumentException();
         }
 
-        int value = JSONUtils.getInt(jsonObject, "value");
+        int value = GsonHelper.getAsInt(jsonObject, "value");
 
         return new InputData(new ItemStack(item), value);
     }

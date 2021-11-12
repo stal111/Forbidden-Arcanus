@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.aureal.consequence;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * Consequence Interface
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public interface IConsequence {
     ResourceLocation getName();
-    void tick(PlayerEntity player);
+    void tick(Player player);
 
     IConsequenceType getType();
 }

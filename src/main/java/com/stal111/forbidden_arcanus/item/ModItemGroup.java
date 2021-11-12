@@ -3,20 +3,20 @@ package com.stal111.forbidden_arcanus.item;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
-public class ModItemGroup extends ItemGroup {
+public class ModItemGroup extends CreativeModeTab {
 
 	public ModItemGroup(String label) {
 		super(label);
-		this.setBackgroundImageName("forbidden_arcanus_item_search.png");
-		this.setNoTitle();
+		this.setBackgroundSuffix("forbidden_arcanus_item_search.png");
+		this.hideTitle();
 	}
 
 	@Override
-	public ItemStack createIcon() {
+	public ItemStack makeIcon() {
 		return new ItemStack(ModBlocks.RUNIC_TENEBRIS_CORE.getBlock());
 	}
 	

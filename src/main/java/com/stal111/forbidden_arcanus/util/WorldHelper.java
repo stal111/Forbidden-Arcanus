@@ -1,23 +1,23 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class WorldHelper {
 
-	public static boolean isServerWorld(World world) {
-		return world != null && !world.isRemote;
+	public static boolean isServerWorld(Level world) {
+		return world != null && !world.isClientSide;
 	}
 
-	public static boolean isClientWorld(World world) {
+	public static boolean isClientWorld(Level world) {
 		return !isServerWorld(world);
 	}
 
-	public static void updateClient(World world, BlockPos pos) {
+	public static void updateClient(Level world, BlockPos pos) {
 		if (world != null) {
 			BlockState iBlockState = world.getBlockState(pos);
-			world.notifyBlockUpdate(pos, iBlockState, iBlockState, 4);
+			world.sendBlockUpdated(pos, iBlockState, iBlockState, 4);
 		}
 	}
 

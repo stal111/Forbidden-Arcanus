@@ -1,15 +1,16 @@
 package com.stal111.forbidden_arcanus.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import com.mojang.math.Matrix4f;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -24,17 +25,17 @@ import java.util.Random;
  */
 public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightningBoltEntity> {
 
-    public CrimsonLightningBoltRenderer(EntityRendererManager renderManager) {
-        super(renderManager);
+    public CrimsonLightningBoltRenderer(EntityRendererProvider.Context context) {
+        super(context);
     }
 
     @Override
-    public void render(CrimsonLightningBoltEntity entity, float entityYaw, float partialTicks, @Nonnull MatrixStack matrixStack, @Nonnull IRenderTypeBuffer buffer, int packedLight) {
+    public void render(CrimsonLightningBoltEntity entity, float entityYaw, float partialTicks, @Nonnull PoseStack matrixStack, @Nonnull MultiBufferSource buffer, int packedLight) {
         float[] afloat = new float[8];
         float[] afloat1 = new float[8];
         float f = 0.0F;
         float f1 = 0.0F;
-        Random random = new Random(entity.boltVertex);
+        Random random = new Random(entity.seed);
 
         for(int i = 7; i >= 0; --i) {
             afloat[i] = f;
@@ -43,11 +44,11 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
             f1 += (float) (random.nextInt(11) - 5);
         }
 
-        IVertexBuilder vertexBuilder = buffer.getBuffer(RenderType.getLightning());
-        Matrix4f matrix4f = matrixStack.getLast().getMatrix();
+        VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.lightning());
+        Matrix4f matrix4f = matrixStack.last().pose();
 
         for(int j = 0; j < 4; ++j) {
-            Random random1 = new Random(entity.boltVertex);
+            Random random1 = new Random(entity.seed);
 
             for(int k = 0; k < 3; ++k) {
                 int l = 7;
@@ -94,16 +95,16 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
 
     }
 
-    private static void renderBolt(Matrix4f matrix4f, IVertexBuilder vertexBuilder, float p_229116_2_, float p_229116_3_, int p_229116_4_, float p_229116_5_, float p_229116_6_, float p_229116_10_, float p_229116_11_, boolean p_229116_12_, boolean p_229116_13_, boolean p_229116_14_, boolean p_229116_15_) {
-        vertexBuilder.pos(matrix4f, p_229116_2_ + (p_229116_12_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_13_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
-        vertexBuilder.pos(matrix4f, p_229116_5_ + (p_229116_12_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_13_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
-        vertexBuilder.pos(matrix4f, p_229116_5_ + (p_229116_14_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_15_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
-        vertexBuilder.pos(matrix4f, p_229116_2_ + (p_229116_14_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_15_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+    private static void renderBolt(Matrix4f matrix4f, VertexConsumer vertexBuilder, float p_229116_2_, float p_229116_3_, int p_229116_4_, float p_229116_5_, float p_229116_6_, float p_229116_10_, float p_229116_11_, boolean p_229116_12_, boolean p_229116_13_, boolean p_229116_14_, boolean p_229116_15_) {
+        vertexBuilder.vertex(matrix4f, p_229116_2_ + (p_229116_12_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_13_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+        vertexBuilder.vertex(matrix4f, p_229116_5_ + (p_229116_12_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_13_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+        vertexBuilder.vertex(matrix4f, p_229116_5_ + (p_229116_14_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_15_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+        vertexBuilder.vertex(matrix4f, p_229116_2_ + (p_229116_14_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_15_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
     }
 
     @Nonnull
     @Override
-    public ResourceLocation getEntityTexture(@Nonnull CrimsonLightningBoltEntity entity) {
-        return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+    public ResourceLocation getTextureLocation(@Nonnull CrimsonLightningBoltEntity entity) {
+        return TextureAtlas.LOCATION_BLOCKS;
     }
 }

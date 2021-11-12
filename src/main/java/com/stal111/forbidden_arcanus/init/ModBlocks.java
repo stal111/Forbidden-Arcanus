@@ -1,63 +1,64 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.*;
+import com.stal111.forbidden_arcanus.block.CandleBlock;
 import com.stal111.forbidden_arcanus.block.ChainBlock;
+import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
 import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SignItem;
-import net.minecraft.potion.Effects;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SignItem;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 
 import java.util.Locale;
 
 public enum ModBlocks {
     DARK_BEACON(new DarkBeaconBlock(from(Blocks.BEACON)), ModRenderType.CUTOUT),
-    RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.ROCK, 2.0F, 15.0F).notSolid())),
-    RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.ROCK, 2.0F, 15.0F).notSolid().setLightLevel(state -> 12)), ModRenderType.CUTOUT),
-    DARK_RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)), ModRenderType.CUTOUT),
-    ARCANE_DARK_STONE(new Block(addProperties(Material.ROCK, 1.5F, 6.0F))),
+    RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion())),
+    RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion().lightLevel(state -> 12)), ModRenderType.CUTOUT),
+    DARK_RUNESTONE(new ModOreBlock(addProperties(Material.STONE, 3.0F, 3.0F)), ModRenderType.CUTOUT),
+    ARCANE_DARK_STONE(new Block(addProperties(Material.STONE, 1.5F, 6.0F))),
     RUNIC_GLASS(new GlassBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
-    RUNIC_GLASS_PANE(new PaneBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
+    RUNIC_GLASS_PANE(new IronBarsBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
     DARK_RUNIC_GLASS(new GlassBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
-    DARK_RUNIC_GLASS_PANE(new PaneBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
-    RUNESTONE(new ModOreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3)), ModRenderType.CUTOUT),
+    DARK_RUNIC_GLASS_PANE(new IronBarsBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
+    RUNESTONE(new ModOreBlock(addProperties(Material.STONE, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
-    END_CRYSTAL_GEM(new EndCrystalGemBlock(addProperties(Material.GLASS, 1.0F, 5.0F).notSolid()), ModRenderType.TRANSLUCENT),
-    HEPHAESTUS_FORGE(new HephaestusForgeBlock(from(Blocks.IRON_BLOCK).notSolid()), ModRenderType.CUTOUT),
-    STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).hardnessAndResistance(38.0F, 1200.0F).harvestTool(ToolType.PICKAXE).harvestLevel(3))),
-    STELLARITE_BLOCK(new Block(from(Blocks.OBSIDIAN).harvestTool(ToolType.PICKAXE).harvestLevel(3))),
-    PETRIFIED_ROOT(new Block(from(Blocks.OAK_PLANKS).harvestTool(ToolType.AXE).harvestLevel(1).notSolid()), ModRenderType.CUTOUT),
-    XPETRIFIED_ORE(new OreBlock(addProperties(Material.ROCK, 3.0F, 3.0F).harvestTool(ToolType.PICKAXE).harvestLevel(2)), ModRenderType.CUTOUT),
-    ARCANE_GOLD_BLOCK(new Block(from(Blocks.GOLD_BLOCK).harvestTool(ToolType.PICKAXE).harvestLevel(2))),
+    END_CRYSTAL_GEM(new EndCrystalGemBlock(addProperties(Material.GLASS, 1.0F, 5.0F).noOcclusion()), ModRenderType.TRANSLUCENT),
+    HEPHAESTUS_FORGE(new HephaestusForgeBlock(from(Blocks.IRON_BLOCK).noOcclusion()), ModRenderType.CUTOUT),
+    STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).strength(38.0F, 1200.0F))),
+    STELLARITE_BLOCK(new Block(from(Blocks.OBSIDIAN))),
+    PETRIFIED_ROOT(new Block(from(Blocks.OAK_PLANKS).noOcclusion()), ModRenderType.CUTOUT),
+    XPETRIFIED_ORE(new OreBlock(addProperties(Material.STONE, 3.0F, 3.0F)), ModRenderType.CUTOUT),
+    ARCANE_GOLD_BLOCK(new Block(from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
-    ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).notSolid()), ModRenderType.CUTOUT),
-    ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG).setLightLevel(state -> 9))),
-    CANDLE(new CandleBlock(addProperties(Material.MISCELLANEOUS).doesNotBlockMovement().zeroHardnessAndResistance()), ModRenderType.CUTOUT),
-    STONE_CANDELABRA(new CandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
-    WALL_STONE_CANDELABRA(new WallCandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_STONE_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.ROCK, 1.5F, 6.0F).notSolid()), false, ModRenderType.CUTOUT),
-    IRON_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    WALL_IRON_CANDELABRA(new WallCandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_IRON_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 5.0F, 6.0F).notSolid()), false, ModRenderType.CUTOUT),
-    ARCANE_GOLDEN_CANDELABRA(new CandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    WALL_ARCANE_GOLDEN_CANDELABRA(new WallCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.IRON, 3.0F, 6.0F).notSolid()), false, ModRenderType.CUTOUT),
-    IRON_CHAIN(new ChainBlock(addProperties(Material.IRON, 5.0F, 6.0F).setRequiresTool().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
-    ARCANE_GOLDEN_CHAIN(new ChainBlock(addProperties(Material.IRON, 3.0F, 6.0F).setRequiresTool().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
-    CANDLE_LAMP(new CandleLampBlock(addProperties(Material.ROCK).setLightLevel(state -> 15)), ModRenderType.CUTOUT),
-    EDELWOOD_LOG(new EdelwoodLogBlock(MaterialColor.BROWN, from(Blocks.OAK_LOG).tickRandomly()), ModRenderType.CUTOUT),
+    ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).noOcclusion()), ModRenderType.CUTOUT),
+    ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG).lightLevel(state -> 9))),
+    CANDLE(new CandleBlock(addProperties(Material.DECORATION).noCollission().instabreak()), ModRenderType.CUTOUT),
+    STONE_CANDELABRA(new CandelabraBlock(addProperties(Material.STONE, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
+    WALL_STONE_CANDELABRA(new WallCandelabraBlock(addProperties(Material.STONE, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
+    HANGING_STONE_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.STONE, 1.5F, 6.0F).noOcclusion()), false, ModRenderType.CUTOUT),
+    IRON_CANDELABRA(new CandelabraBlock(addProperties(Material.METAL, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    WALL_IRON_CANDELABRA(new WallCandelabraBlock(addProperties(Material.METAL, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    HANGING_IRON_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.METAL, 5.0F, 6.0F).noOcclusion()), false, ModRenderType.CUTOUT),
+    ARCANE_GOLDEN_CANDELABRA(new CandelabraBlock(addProperties(Material.METAL, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    WALL_ARCANE_GOLDEN_CANDELABRA(new WallCandelabraBlock(addProperties(Material.METAL, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
+    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.METAL, 3.0F, 6.0F).noOcclusion()), false, ModRenderType.CUTOUT),
+    IRON_CHAIN(new ChainBlock(addProperties(Material.METAL, 5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
+    ARCANE_GOLDEN_CHAIN(new ChainBlock(addProperties(Material.METAL, 3.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
+    CANDLE_LAMP(new CandleLampBlock(addProperties(Material.STONE).lightLevel(state -> 15)), ModRenderType.CUTOUT),
+    EDELWOOD_LOG(new EdelwoodLogBlock(MaterialColor.COLOR_BROWN, from(Blocks.OAK_LOG).randomTicks()), ModRenderType.CUTOUT),
     EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     ARCANE_EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     EDELWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),
-    EDELWOOD_STAIRS(new StairsBlock(() -> EDELWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),
+    EDELWOOD_STAIRS(new StairBlock(() -> EDELWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),
     EDELWOOD_FENCE(new FenceBlock(from(Blocks.OAK_FENCE))),
     EDELWOOD_FENCE_GATE(new FenceGateBlock(from(Blocks.OAK_FENCE_GATE))),
     EDELWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
@@ -66,7 +67,7 @@ public enum ModBlocks {
     EDELWOOD_DOOR(new DoorBlock(from(Blocks.OAK_DOOR))),
     EDELWOOD_LADDER(new EdelwoodLadderBlock(from(Blocks.LADDER)), ModRenderType.CUTOUT),
     EDELWOOD_WALL_SIGN(ForbiddenArcanus.EDELWOOD_WALL_SIGN, false),
-    EDELWOOD_SIGN(ForbiddenArcanus.EDELWOOD_SIGN, new SignItem(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.EDELWOOD_SIGN, EDELWOOD_WALL_SIGN.getBlock())),
+    EDELWOOD_SIGN(ForbiddenArcanus.EDELWOOD_SIGN, new SignItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.EDELWOOD_SIGN, EDELWOOD_WALL_SIGN.getBlock())),
     CHERRYWOOD_LOG(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
     CHERRYWOOD(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
     STRIPPED_CHERRYWOOD_LOG(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
@@ -76,7 +77,7 @@ public enum ModBlocks {
     CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CARVED_CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CHERRYWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),
-    CHERRYWOOD_STAIRS(new StairsBlock(() -> CHERRYWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),
+    CHERRYWOOD_STAIRS(new StairBlock(() -> CHERRYWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),
     CHERRYWOOD_FENCE(new FenceBlock(from(Blocks.OAK_FENCE))),
     CHERRYWOOD_FENCE_GATE(new FenceGateBlock(from(Blocks.OAK_FENCE_GATE))),
     CHERRYWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
@@ -84,7 +85,7 @@ public enum ModBlocks {
     CHERRYWOOD_TRAPDOOR(new TrapDoorBlock(from(Blocks.OAK_TRAPDOOR)), ModRenderType.CUTOUT),
     CHERRYWOOD_DOOR(new DoorBlock(from(Blocks.OAK_DOOR)), ModRenderType.CUTOUT),
     CHERRYWOOD_WALL_SIGN(ForbiddenArcanus.CHERRYWOOD_WALL_SIGN, false),
-    CHERRYWOOD_SIGN(ForbiddenArcanus.CHERRYWOOD_SIGN, new SignItem(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.CHERRYWOOD_SIGN, CHERRYWOOD_WALL_SIGN.getBlock())),
+    CHERRYWOOD_SIGN(ForbiddenArcanus.CHERRYWOOD_SIGN, new SignItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.CHERRYWOOD_SIGN, CHERRYWOOD_WALL_SIGN.getBlock())),
     MYSTERYWOOD_LOG(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
     MYSTERYWOOD(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
     STRIPPED_MYSTERYWOOD_LOG(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
@@ -93,7 +94,7 @@ public enum ModBlocks {
     MYSTERYWOOD_SAPLING(new SaplingBlock(new MysterywoodTree(), from(Blocks.OAK_SAPLING)), ModRenderType.CUTOUT),
     MYSTERYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     MYSTERYWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),
-    MYSTERYWOOD_STAIRS(new StairsBlock(() -> MYSTERYWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),
+    MYSTERYWOOD_STAIRS(new StairBlock(() -> MYSTERYWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),
     MYSTERYWOOD_FENCE(new FenceBlock(from(Blocks.OAK_FENCE))),
     MYSTERYWOOD_FENCE_GATE(new FenceGateBlock(from(Blocks.OAK_FENCE_GATE))),
     MYSTERYWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
@@ -101,9 +102,9 @@ public enum ModBlocks {
     MYSTERYWOOD_TRAPDOOR(new TrapDoorBlock(from(Blocks.OAK_TRAPDOOR)), ModRenderType.CUTOUT),
     MYSTERYWOOD_DOOR(new DoorBlock(from(Blocks.OAK_DOOR)), ModRenderType.CUTOUT),
     MYSTERYWOOD_WALL_SIGN(ForbiddenArcanus.MYSTERYWOOD_WALL_SIGN, false),
-    MYSTERYWOOD_SIGN(ForbiddenArcanus.MYSTERYWOOD_SIGN, new SignItem(new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.MYSTERYWOOD_SIGN, MYSTERYWOOD_WALL_SIGN.getBlock())),
-    YELLOW_ORCHID(new FlowerBlock(Effects.GLOWING, 25, from(Blocks.BLUE_ORCHID)), ModRenderType.CUTOUT),
-    GOLDEN_ORCHID(new GoldenOrchidBlock(from(Blocks.BLUE_ORCHID).tickRandomly()), false, ModRenderType.CUTOUT),
+    MYSTERYWOOD_SIGN(ForbiddenArcanus.MYSTERYWOOD_SIGN, new SignItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS), ForbiddenArcanus.MYSTERYWOOD_SIGN, MYSTERYWOOD_WALL_SIGN.getBlock())),
+    YELLOW_ORCHID(new FlowerBlock(MobEffects.GLOWING, 25, from(Blocks.BLUE_ORCHID)), ModRenderType.CUTOUT),
+    GOLDEN_ORCHID(new GoldenOrchidBlock(from(Blocks.BLUE_ORCHID).randomTicks()), false, ModRenderType.CUTOUT),
     STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT),
     MAGICAL_FARMLAND(new ModFarmlandBlock(from(Blocks.FARMLAND))),
     SOULLESS_SAND(new SoullessSandBlock(from(Blocks.SOUL_SAND))),
@@ -113,8 +114,8 @@ public enum ModBlocks {
     SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
     CUT_SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
     POLISHED_SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
-    SOULLESS_SANDSTONE_STAIRS(new StairsBlock(() -> SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
-    POLISHED_SOULLESS_SANDSTONE_STAIRS(new StairsBlock(() ->POLISHED_SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
+    SOULLESS_SANDSTONE_STAIRS(new StairBlock(() -> SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
+    POLISHED_SOULLESS_SANDSTONE_STAIRS(new StairBlock(() ->POLISHED_SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
     SOULLESS_SANDSTONE_WALL(new WallBlock(from(Blocks.SANDSTONE_WALL)));
 
     private final Block block;
@@ -176,7 +177,7 @@ public enum ModBlocks {
     }
 
     public BlockState getState() {
-        return getBlock().getDefaultState();
+        return getBlock().defaultBlockState();
     }
 
     public Item getItem() {
@@ -202,7 +203,7 @@ public enum ModBlocks {
     }
 
     public boolean needsSpecialRender() {
-        return renderType.getRenderType() != RenderType.getSolid();
+        return renderType.getRenderType() != RenderType.solid();
     }
 
     public RenderType getRenderType() {
@@ -210,30 +211,30 @@ public enum ModBlocks {
     }
 
     public static Block.Properties addProperties(Material material) {
-        Block.Properties properties = Block.Properties.create(material);
+        Block.Properties properties = Block.Properties.of(material);
         return properties;
 
     }
 
     public static Block.Properties addProperties(Material material, SoundType soundType) {
-        Block.Properties properties = Block.Properties.create(material).sound(soundType);
+        Block.Properties properties = Block.Properties.of(material).sound(soundType);
         return properties;
 
     }
 
     public static Block.Properties addProperties(Material material, float hardness, float resistance) {
-        Block.Properties properties = Block.Properties.create(material).hardnessAndResistance(hardness, resistance);
+        Block.Properties properties = Block.Properties.of(material).strength(hardness, resistance);
         return properties;
 
     }
 
     public static Block.Properties addProperties(Material material, float hardness, float resistance, SoundType soundType) {
-        Block.Properties properties = Block.Properties.create(material).hardnessAndResistance(hardness, resistance).sound(soundType);
+        Block.Properties properties = Block.Properties.of(material).strength(hardness, resistance).sound(soundType);
         return properties;
 
     }
 
     private static Block.Properties from(Block block) {
-        return Block.Properties.from(block);
+        return Block.Properties.copy(block);
     }
 }

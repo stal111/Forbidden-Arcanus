@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.common.container.input;
 
 import com.stal111.forbidden_arcanus.common.container.InputType;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.item.ItemStack;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.ItemStack;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import java.util.Map;
 import java.util.Random;
@@ -40,7 +40,7 @@ public class EnchantmentInput implements IHephaestusForgeInput {
     @Override
     public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeTileEntity tileEntity, int slot, int inputValue) {
         if (inputValue != 0) {
-            tileEntity.setInventorySlotContents(slot, ItemStackUtils.removeEnchantments(stack));
+            tileEntity.setItem(slot, ItemStackUtils.removeEnchantments(stack));
         }
     }
 
@@ -52,7 +52,7 @@ public class EnchantmentInput implements IHephaestusForgeInput {
             Enchantment enchantment = entry.getKey();
             Integer integer = entry.getValue();
             if (!enchantment.isCurse()) {
-                xp += enchantment.getMinEnchantability(integer);
+                xp += enchantment.getMinCost(integer);
             }
         }
 

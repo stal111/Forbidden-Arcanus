@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.container.input;
 import com.stal111.forbidden_arcanus.common.container.InputType;
 import com.stal111.forbidden_arcanus.common.loader.HephaestusForgeInputLoader;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Random;
 

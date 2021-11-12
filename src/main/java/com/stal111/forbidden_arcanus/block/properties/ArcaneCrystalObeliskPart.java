@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.block.properties;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum ArcaneCrystalObeliskPart implements IStringSerializable {
+public enum ArcaneCrystalObeliskPart implements StringRepresentable {
     UPPER("upper"),
     MIDDLE("middle"),
     LOWER("lower");
@@ -14,7 +14,7 @@ public enum ArcaneCrystalObeliskPart implements IStringSerializable {
     }
 
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

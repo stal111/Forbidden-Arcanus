@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 /**
@@ -16,9 +16,9 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
  */
 public class FluidTankTile extends FluidTank {
 
-    private final TileEntity tileEntity;
+    private final BlockEntity tileEntity;
 
-    public FluidTankTile(int capacity, TileEntity tileEntity) {
+    public FluidTankTile(int capacity, BlockEntity tileEntity) {
         super(capacity);
         this.tileEntity = tileEntity;
     }
@@ -26,12 +26,12 @@ public class FluidTankTile extends FluidTank {
     @Override
     protected void onContentsChanged() {
         BlockState state = tileEntity.getBlockState();
-        World world = tileEntity.getWorld();
-        BlockPos pos = tileEntity.getPos();
+        Level world = tileEntity.getLevel();
+        BlockPos pos = tileEntity.getBlockPos();
 
-        world.notifyBlockUpdate(pos, state, state, 8);
-        world.getLightManager().checkBlock(pos);
+        world.sendBlockUpdated(pos, state, state, 8);
+        world.getLightEngine().checkBlock(pos);
 
-        tileEntity.markDirty();
+        tileEntity.setChanged();
     }
 }

@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.entity.render;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.resources.ResourceLocation;
+import com.mojang.math.Matrix4f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,35 +20,35 @@ public class EnergyBallRender extends EntityRenderer<EnergyBallEntity> {
 
     private static final ResourceLocation ENERGY_BALL = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/energy_ball.png");
 
-    public EnergyBallRender(EntityRendererManager renderManager) {
-        super(renderManager);
+    public EnergyBallRender(EntityRendererProvider.Context context) {
+        super(context);
     }
 
     @Override
-    public void render(EnergyBallEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLightIn) {
-        matrixStack.push();
+    public void render(EnergyBallEntity entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLightIn) {
+        matrixStack.pushPose();
         matrixStack.scale(1.0F, 1.0F, 1.0F);
 
-        IVertexBuilder ivertexbuilder = buffer.getBuffer(RenderType.getEntityTranslucent(this.getEntityTexture(entity)));
-        MatrixStack.Entry matrixstack$entry = matrixStack.getLast();
-        Matrix4f matrix4f = matrixstack$entry.getMatrix();
+        VertexConsumer ivertexbuilder = buffer.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(entity)));
+        PoseStack.Pose matrixstack$entry = matrixStack.last();
+        Matrix4f matrix4f = matrixstack$entry.pose();
 
         long t = System.currentTimeMillis() % 6;
 
-        matrixStack.rotate(renderManager.getCameraOrientation());
+        matrixStack.mulPose(entityRenderDispatcher.cameraOrientation());
 
 
-        ivertexbuilder.pos(matrix4f, -1, -1, 0).color(255, 255, 255, 255).tex(0, 0 +  t * (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
-        ivertexbuilder.pos(matrix4f, -1, 1, 0).color(255, 255, 255, 255).tex(0, 0 +  t * (1.0f / 4.0f) + (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
-        ivertexbuilder.pos(matrix4f, 1, 1, 0).color(255, 255, 255, 255).tex(1, 0 +  t * (1.0f / 4.0f) + (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
-        ivertexbuilder.pos(matrix4f, 1, -1, 0).color(255, 255, 255, 255).tex(1, 0 +  t * (1.0f / 4.0f)).overlay(OverlayTexture.NO_OVERLAY).lightmap(packedLightIn).normal(0, 1, 0).endVertex();
+        ivertexbuilder.vertex(matrix4f, -1, -1, 0).color(255, 255, 255, 255).uv(0, 0 +  t * (1.0f / 4.0f)).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(0, 1, 0).endVertex();
+        ivertexbuilder.vertex(matrix4f, -1, 1, 0).color(255, 255, 255, 255).uv(0, 0 +  t * (1.0f / 4.0f) + (1.0f / 4.0f)).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(0, 1, 0).endVertex();
+        ivertexbuilder.vertex(matrix4f, 1, 1, 0).color(255, 255, 255, 255).uv(1, 0 +  t * (1.0f / 4.0f) + (1.0f / 4.0f)).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(0, 1, 0).endVertex();
+        ivertexbuilder.vertex(matrix4f, 1, -1, 0).color(255, 255, 255, 255).uv(1, 0 +  t * (1.0f / 4.0f)).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(packedLightIn).normal(0, 1, 0).endVertex();
 
-        matrixStack.pop();
+        matrixStack.popPose();
         super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLightIn);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(EnergyBallEntity entity) {
+    public ResourceLocation getTextureLocation(EnergyBallEntity entity) {
         return ENERGY_BALL;
     }
 }

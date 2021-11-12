@@ -1,19 +1,15 @@
 package com.stal111.forbidden_arcanus;
 
-import com.stal111.forbidden_arcanus.aureal.capability.AurealImpl;
-import com.stal111.forbidden_arcanus.aureal.capability.AurealStorage;
+
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
-import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.config.Config;
-import com.stal111.forbidden_arcanus.entity.PixieEntity;
 import com.stal111.forbidden_arcanus.event.LootTableListener;
-import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconPageLoadListener;
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.init.other.ModFlammables;
@@ -33,16 +29,13 @@ import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.Data;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.util.ModWoodType;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -51,7 +44,6 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -60,10 +52,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
-import net.valhelsia.valhelsia_core.helper.CounterHelper;
-import net.valhelsia.valhelsia_core.registry.LootModifierRegistryHelper;
-import net.valhelsia.valhelsia_core.registry.RegistryManager;
+import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
+import net.valhelsia.valhelsia_core.core.registry.LootModifierRegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,19 +64,17 @@ public class ForbiddenArcanus {
 
 	public static final String MOD_ID = "forbidden_arcanus";
 	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
-	public static final ItemGroup FORBIDDEN_ARCANUS = new ModItemGroup(ForbiddenArcanus.MOD_ID);
+	public static final CreativeModeTab FORBIDDEN_ARCANUS = new ModItemGroup(ForbiddenArcanus.MOD_ID);
 
-	public static final Block EDELWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_sign"));
-	public static final Block EDELWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(EDELWOOD_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_wall_sign"));
-	public static final Block CHERRYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_sign"));
-	public static final Block CHERRYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(CHERRYWOOD_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
-	public static final Block MYSTERYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.from(Blocks.OAK_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_sign"));
-	public static final Block MYSTERYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.from(Blocks.OAK_WALL_SIGN).lootFrom(MYSTERYWOOD_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
+	public static final Block EDELWOOD_SIGN = new ModStandingSignBlock(Block.Properties.copy(Blocks.OAK_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_sign"));
+	public static final Block EDELWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.copy(Blocks.OAK_WALL_SIGN).dropsLike(EDELWOOD_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_wall_sign"));
+	public static final Block CHERRYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.copy(Blocks.OAK_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_sign"));
+	public static final Block CHERRYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.copy(Blocks.OAK_WALL_SIGN).dropsLike(CHERRYWOOD_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
+	public static final Block MYSTERYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.copy(Blocks.OAK_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_sign"));
+	public static final Block MYSTERYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.copy(Blocks.OAK_WALL_SIGN).dropsLike(MYSTERYWOOD_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
 
 	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 	private static final Data DATA = new Data();
-
-	public static final ForbiddenmiconPageLoadListener PAGE_LOADER = new ForbiddenmiconPageLoadListener();
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().addHelpers(new LootModifierRegistryHelper()).build();
 
@@ -132,7 +122,7 @@ public class ForbiddenArcanus {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-		DeferredWorkQueue.runLater(() -> {
+		event.enqueueWork(() -> {
 			ModFlammables.registerFlammables();
 			ModConfiguredFeatures.load();
 			ModStructures.setupStructures();
@@ -153,16 +143,12 @@ public class ForbiddenArcanus {
 
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
-		EntitySpawningBlockingCapability.register();
-
-		CapabilityManager.INSTANCE.register(IAureal.class, new AurealStorage(), AurealImpl::new);
+		CapabilityManager.INSTANCE.register(IAureal.class);
 
 		CounterHelper.addCounter(new SimpleCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"), 0, false));
 
 		Consequences.registerConsequences();
 		HephaestusForgeInputs.registerInputs();
-
-		GlobalEntityTypeAttributes.put((EntityType<? extends LivingEntity>) ModEntities.PIXIE.get(), PixieEntity.registerAttributes().create());
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

@@ -3,22 +3,22 @@ package com.stal111.forbidden_arcanus.item;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,28 +29,28 @@ public class EdelwoodMilkBucketItem extends Item implements ICapacityBucket {
         super(properties);
     }
 
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-        if (!worldIn.isRemote) entityLiving.curePotionEffects(stack);
+    public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
+        if (!worldIn.isClientSide) entityLiving.curePotionEffects(stack);
 
-        if (entityLiving instanceof ServerPlayerEntity) {
-            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)entityLiving;
+        if (entityLiving instanceof ServerPlayer) {
+            ServerPlayer serverplayerentity = (ServerPlayer)entityLiving;
             CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, stack);
-            serverplayerentity.addStat(Stats.ITEM_USED.get(this));
+            serverplayerentity.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        if (entityLiving instanceof PlayerEntity) {
-            stack = emptyBucket(stack, (PlayerEntity) entityLiving);
+        if (entityLiving instanceof Player) {
+            stack = emptyBucket(stack, (Player) entityLiving);
         }
 
-        if (!worldIn.isRemote) {
-            entityLiving.clearActivePotions();
+        if (!worldIn.isClientSide) {
+            entityLiving.removeAllEffects();
         }
 
         return stack;
     }
 
-    protected ItemStack emptyBucket(ItemStack stack, PlayerEntity player) {
-        if (!player.abilities.isCreativeMode) {
+    protected ItemStack emptyBucket(ItemStack stack, Player player) {
+        if (!player.getAbilities().instabuild) {
             int fullness = ICapacityBucket.getFullness(stack);
             if ((fullness - 1) > 0) {
                 return ICapacityBucket.setFullness(stack, fullness - 1);
@@ -64,27 +64,27 @@ public class EdelwoodMilkBucketItem extends Item implements ICapacityBucket {
         return 32;
     }
 
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.DRINK;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.DRINK;
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        player.setActiveHand(hand);
-        return ActionResult.resultSuccess(player.getHeldItem(hand));
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        player.startUsingItem(hand);
+        return InteractionResultHolder.success(player.getItemInHand(hand));
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(new StringTextComponent(" "));
-        tooltip.add(new StringTextComponent(" "));
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(new TextComponent(" "));
+        tooltip.add(new TextComponent(" "));
 
-        super.addInformation(stack, world, tooltip, flag);
+        super.appendHoverText(stack, world, tooltip, flag);
     }
 
 
     @Override
-    public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable net.minecraft.nbt.CompoundNBT nbt) {
+    public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable net.minecraft.nbt.CompoundTag nbt) {
         return new net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper(stack);
     }
 

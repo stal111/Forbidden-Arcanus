@@ -2,87 +2,87 @@ package com.stal111.forbidden_arcanus.entity.projectile;
 
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class ChorusPearlEntity extends ProjectileItemEntity {
+@OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
+public class ChorusPearlEntity extends ThrowableItemProjectile {
 
-    public ChorusPearlEntity(World world, double x, double y, double z) {
+    public ChorusPearlEntity(Level world, double x, double y, double z) {
         super(ModEntities.CHORUS_PEARL.get(), x, y, z, world);
     }
 
-    public ChorusPearlEntity(World world, LivingEntity thrower) {
+    public ChorusPearlEntity(Level world, LivingEntity thrower) {
         super(ModEntities.CHORUS_PEARL.get(), thrower, world);
     }
 
-    public ChorusPearlEntity(EntityType<? extends ProjectileItemEntity> entityType, World world) {
+    public ChorusPearlEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        if (this.world.isRemote()) {
+    protected void onHit(HitResult result) {
+        if (this.level.isClientSide()) {
             return;
         }
 
-        if (result.getType() == RayTraceResult.Type.ENTITY) {
-            if (!(((EntityRayTraceResult) result).getEntity() instanceof LivingEntity)) {
+        if (result.getType() == HitResult.Type.ENTITY) {
+            if (!(((EntityHitResult) result).getEntity() instanceof LivingEntity)) {
                 return;
             }
-            LivingEntity entity = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
+            LivingEntity entity = (LivingEntity) ((EntityHitResult) result).getEntity();
 
-            if (entity instanceof PlayerEntity) {
-                if (((PlayerEntity) entity).abilities.isCreativeMode) {
-                    this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
-                    this.world.setEntityState(this, (byte) 3);
-                    this.remove();
+            if (entity instanceof Player) {
+                if (((Player) entity).getAbilities().instabuild) {
+                    this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
+                    this.level.broadcastEntityEvent(this, (byte) 3);
+                    this.remove(RemovalReason.DISCARDED);
                     return;
                 }
             }
-            entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), 0.0F);
+            entity.hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
 
-            double d0 = entity.getPosX();
-            double d1 = entity.getPosY();
-            double d2 = entity.getPosZ();
+            double d0 = entity.getX();
+            double d1 = entity.getY();
+            double d2 = entity.getZ();
 
             for (int i = 0; i < 16; ++i) {
-                double d3 = entity.getPosX() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
-                double d4 = MathHelper.clamp(entity.getPosY() + (double) (entity.getRNG().nextInt(16) - 8), 0.0D, 256 - 1);
-                double d5 = entity.getPosZ() + (entity.getRNG().nextDouble() - 0.5D) * 56.0D;
+                double d3 = entity.getX() + (entity.getRandom().nextDouble() - 0.5D) * 56.0D;
+                double d4 = Mth.clamp(entity.getY() + (double) (entity.getRandom().nextInt(16) - 8), 0.0D, 256 - 1);
+                double d5 = entity.getZ() + (entity.getRandom().nextDouble() - 0.5D) * 56.0D;
                 if (entity.isPassenger()) {
                     entity.stopRiding();
                 }
 
-                if (entity.attemptTeleport(d3, d4, d5, true)) {
-                    world.playSound(null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                    entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+                if (entity.randomTeleport(d3, d4, d5, true)) {
+                    level.playSound(null, d0, d1, d2, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    entity.playSound(SoundEvents.CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
                     break;
                 }
 
             }
         } else {
-            this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
+            this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), new ItemStack(ModItems.CHORUS_PEARL.get())));
         }
-        this.world.setEntityState(this, (byte) 3);
-        this.remove();
+        this.level.broadcastEntityEvent(this, (byte) 3);
+        this.remove(RemovalReason.DISCARDED);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ChorusPearlEntity extends ProjectileItemEntity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -1,14 +1,15 @@
 package com.stal111.forbidden_arcanus.config;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -129,7 +130,7 @@ public class WorldGenConfig {
 	}
 
 	@SubscribeEvent
-	public static void onConfig(ModConfig.ModConfigEvent event) {
+	public static void onConfig(ModConfigEvent event) {
 		if (treeList != null) {
 			treeList.invalidate();
 		}
@@ -142,8 +143,8 @@ public class WorldGenConfig {
 	}
 
 	public static class DimensionList {
-		private Set<RegistryKey<World>> whitelist = null;
-		private Set<RegistryKey<World>> blacklist = null;
+		private Set<ResourceKey<Level>> whitelist = null;
+		private Set<ResourceKey<Level>> blacklist = null;
 		private final ForgeConfigSpec.ConfigValue<List<? extends String>> whitelistRoot;
 		private final ForgeConfigSpec.ConfigValue<List<? extends String>> blacklistRoot;
 
@@ -156,13 +157,13 @@ public class WorldGenConfig {
 			if (whitelist == null) {
 				whitelist = new HashSet<>();
 				for (String dim : whitelistRoot.get()) {
-					whitelist.add(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dim)));
+					whitelist.add(ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(dim)));
 				}
 			}
 			if (blacklist == null) {
 				blacklist = new HashSet<>();
 				for (String dim : blacklistRoot.get()) {
-					blacklist.add(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(dim)));
+					blacklist.add(ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(dim)));
 				}
 			}
 		}
@@ -172,7 +173,7 @@ public class WorldGenConfig {
 		}
 
 
-		public boolean allowed(RegistryKey<World> dimension) {
+		public boolean allowed(ResourceKey<Level> dimension) {
 			resolveList();
 			if (whitelist.contains(dimension)) {
 				return true;
@@ -181,12 +182,12 @@ public class WorldGenConfig {
 			}
 		}
 
-		public Set<RegistryKey<World>> getWhitelist() {
+		public Set<ResourceKey<Level>> getWhitelist() {
 			resolveList();
 			return whitelist;
 		}
 
-		public Set<RegistryKey<World>> getBlacklist() {
+		public Set<ResourceKey<Level>> getBlacklist() {
 			resolveList();
 			return blacklist;
 		}

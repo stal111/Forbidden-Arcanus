@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.common.container;
 
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -19,13 +19,13 @@ public class InputSlot extends Slot {
 
     private final InputType inputType;
 
-    public InputSlot(IInventory inventory, int index, int xPosition, int yPosition, InputType inputType) {
+    public InputSlot(Container inventory, int index, int xPosition, int yPosition, InputType inputType) {
         super(inventory, index, xPosition, yPosition);
         this.inputType = inputType;
     }
 
     @Override
-    public boolean isItemValid(@Nonnull ItemStack stack) {
+    public boolean mayPlace(@Nonnull ItemStack stack) {
         return HephaestusForgeInputs.getInputs().stream().anyMatch(input -> input.canInput(inputType, stack));
     }
 

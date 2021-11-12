@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.particle;
 
 import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.BasicParticleType;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -16,72 +16,72 @@ import javax.annotation.Nonnull;
  * @version 16.2.0
  * @since 2021-01-28
  */
-public class AurealMoteParticle extends SpriteTexturedParticle {
+public class AurealMoteParticle extends TextureSheetParticle {
 
     private float alpha = 0.0F;
 
-    private AurealMoteParticle(ClientWorld world, double x, double y, double z, double motionX, double motionY, double motionZ) {
+    private AurealMoteParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ) {
         super(world, x, y, z, motionX, motionY, motionZ);
-        this.posX = x;
-        this.posY = y;
-        this.posZ = z;
-        this.motionY = motionY;
-        this.particleScale = 0.1F * (this.rand.nextFloat() * 0.3F + 0.8F);
-        this.maxAge = 60 + this.rand.nextInt(12);
-        this.setAlphaF(alpha);
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.yd = motionY;
+        this.quadSize = 0.1F * (this.random.nextFloat() * 0.3F + 0.8F);
+        this.lifetime = 60 + this.random.nextInt(12);
+        this.setAlpha(alpha);
     }
 
     @Nonnull
     @Override
-    public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
     @Override
     public void move(double x, double y, double z) {
-        this.setBoundingBox(this.getBoundingBox().offset(x, y, z));
-        this.resetPositionToBB();
+        this.setBoundingBox(this.getBoundingBox().move(x, y, z));
+        this.setLocationFromBoundingbox();
     }
 
     @Override
-    public float getScale(float scaleFactor) {
-        float f = ((float) this.age + scaleFactor) / (float) this.maxAge;
-        return this.particleScale * (1.0F - f * f * 0.5F);
+    public float getQuadSize(float scaleFactor) {
+        float f = ((float) this.age + scaleFactor) / (float) this.lifetime;
+        return this.quadSize * (1.0F - f * f * 0.5F);
     }
 
     @Override
     public void tick() {
         if (alpha < 1.0F) {
             alpha += 0.05F;
-            this.setAlphaF(alpha);
+            this.setAlpha(alpha);
         }
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        if (this.age++ >= this.maxAge) {
-            this.setExpired();
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
+        if (this.age++ >= this.lifetime) {
+            this.remove();
         } else {
-            this.move(0, this.motionY, 0);
-            this.motionY *= 0.91;
+            this.move(0, this.yd, 0);
+            this.yd *= 0.91;
         }
     }
 
     @Override
-    protected int getBrightnessForRender(float partialTick) {
+    protected int getLightColor(float partialTick) {
         return 0xF000F0;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements IParticleFactory<BasicParticleType> {
-        private final IAnimatedSprite spriteSet;
+    public static class Factory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
 
-        public Factory(IAnimatedSprite spriteSet) {
+        public Factory(SpriteSet spriteSet) {
             this.spriteSet = spriteSet;
         }
 
-        public Particle makeParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             AurealMoteParticle particle = new AurealMoteParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.selectSpriteRandomly(spriteSet);
+            particle.pickSprite(spriteSet);
             return particle;
         }
     }

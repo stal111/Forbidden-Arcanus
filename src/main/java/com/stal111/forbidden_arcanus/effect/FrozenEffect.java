@@ -2,14 +2,12 @@ package com.stal111.forbidden_arcanus.effect;
 
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 
-public class FrozenEffect extends Effect {
+public class FrozenEffect extends MobEffect {
 
-    protected FrozenEffect(EffectType effectType, int color) {
+    protected FrozenEffect(MobEffectCategory effectType, int color) {
         super(effectType, color);
     }
 

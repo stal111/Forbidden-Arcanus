@@ -1,12 +1,14 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.NewModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+
+import net.minecraft.world.item.Item.Properties;
 
 /**
  * Purifying Soap Item
@@ -24,18 +26,18 @@ public class PurifyingSoapItem extends Item {
 
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
-        if (entity.isInWaterRainOrBubbleColumn()) {
+        if (entity.isInWaterRainOrBubble()) {
             entity.setItem(new ItemStack(NewModItems.WET_PURIFYING_SOAP.get()));
         }
         return false;
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if (entity.isInWaterRainOrBubbleColumn() && entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entity;
+    public void inventoryTick(ItemStack stack, Level world, Entity entity, int itemSlot, boolean isSelected) {
+        if (entity.isInWaterRainOrBubble() && entity instanceof Player) {
+            Player player = (Player) entity;
             stack.shrink(1);
-            player.inventory.setInventorySlotContents(itemSlot, new ItemStack(NewModItems.WET_PURIFYING_SOAP.get()));
+            player.getInventory().setItem(itemSlot, new ItemStack(NewModItems.WET_PURIFYING_SOAP.get()));
         }
         super.inventoryTick(stack, world, entity, itemSlot, isSelected);
     }

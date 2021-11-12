@@ -4,18 +4,18 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.capability.counter.SimpleCounter;
-import net.valhelsia.valhelsia_core.network.UpdateCounterPacket;
+import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
+import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.common.network.UpdateCounterPacket;
 
 import java.util.Objects;
 
@@ -31,11 +31,11 @@ public class TickListener {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        World world = player.getEntityWorld();
+        Player player = event.player;
+        Level world = player.getCommandSenderWorld();
 
         if (event.phase == TickEvent.Phase.START) {
-            if (!world.isRemote()) {
+            if (!world.isClientSide()) {
                 AurealHelper.playerTick(player);
 
                 player.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
@@ -47,17 +47,17 @@ public class TickListener {
                         if (counter.getValue() <= 0) {
                             counter.setActive(false);
 
-                            if (!player.abilities.isCreativeMode && !player.isSpectator()) {
-                                player.abilities.allowFlying = false;
-                                player.abilities.isFlying = false;
+                            if (!player.getAbilities().instabuild && !player.isSpectator()) {
+                                player.getAbilities().mayfly = false;
+                                player.getAbilities().flying = false;
 
-                                player.sendPlayerAbilities();
+                                player.onUpdateAbilities();
                             }
 
-                        } else if (!player.abilities.allowFlying) {
-                            player.abilities.allowFlying = true;
+                        } else if (!player.getAbilities().mayfly) {
+                            player.getAbilities().mayfly = true;
 
-                            player.sendPlayerAbilities();
+                            player.onUpdateAbilities();
                         }
 
                         NetworkHandler.sendTo(player, new UpdateCounterPacket(counter));
@@ -65,12 +65,12 @@ public class TickListener {
                 });
             }
 
-            if (player.isPotionActive(Effects.FIRE_RESISTANCE)) {
-                EffectInstance instance = player.getActivePotionEffect(Effects.FIRE_RESISTANCE);
+            if (player.hasEffect(MobEffects.FIRE_RESISTANCE)) {
+                MobEffectInstance instance = player.getEffect(MobEffects.FIRE_RESISTANCE);
                 int duration = Objects.requireNonNull(instance).getDuration();
 
-                if (duration == 32767 && !player.inventory.hasItemStack(new ItemStack(NewModItems.ETERNAL_OBSIDIAN_SKULL.get()))) {
-                    player.removeActivePotionEffect(instance.getPotion());
+                if (duration == 32767 && !player.getInventory().contains(new ItemStack(NewModItems.ETERNAL_OBSIDIAN_SKULL.get()))) {
+                    player.removeEffectNoUpdate(instance.getEffect());
                 }
             }
         }

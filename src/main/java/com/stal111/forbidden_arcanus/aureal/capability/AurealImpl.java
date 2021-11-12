@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.aureal.capability;
 
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +104,7 @@ public class AurealImpl implements IAureal {
     }
 
     @Override
-    public void updateActiveConsequences(PlayerEntity player) {
+    public void updateActiveConsequences(Player player) {
         if (!getActiveConsequences().isEmpty()) {
             for (int i = 0; i < getActiveConsequences().size(); i++) {
                 getActiveConsequences().get(i).tick(player);

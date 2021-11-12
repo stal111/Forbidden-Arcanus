@@ -1,18 +1,18 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IWorldReader;
-import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 
 public class HangingCandelabraBlock extends AbstractCandelabraBlock {
 
@@ -20,12 +20,12 @@ public class HangingCandelabraBlock extends AbstractCandelabraBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     private static final VoxelShape SHAPE = VoxelShapeHelper.combineAll(
-            Block.makeCuboidShape(6.0D, 12.0D, 6.0D, 10.0D, 13.0D, 10.0D),
-            Block.makeCuboidShape(5.0D, 3.0D, 5.0D, 11.0D, 12.0D, 11.0D));
+            Block.box(6.0D, 12.0D, 6.0D, 10.0D, 13.0D, 10.0D),
+            Block.box(5.0D, 3.0D, 5.0D, 11.0D, 12.0D, 11.0D));
 
     public HangingCandelabraBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(CANDLE, false).with(LIT, true).with(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(CANDLE, false).setValue(LIT, true).setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -40,28 +40,28 @@ public class HangingCandelabraBlock extends AbstractCandelabraBlock {
 
     @Override
     public int getCurrentCandles(BlockState state) {
-        return state.get(CANDLE) ? 1 : 0;
+        return state.getValue(CANDLE) ? 1 : 0;
     }
 
     @Override
-    public String getTranslationKey() {
-        return this.asItem().getTranslationKey();
+    public String getDescriptionId() {
+        return this.asItem().getDescriptionId();
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        return Block.hasEnoughSolidSide(world, pos.up(), Direction.DOWN);
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        return Block.canSupportCenter(world, pos.above(), Direction.DOWN);
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
 
-        return this.getDefaultState().with(WATERLOGGED, flag).with(LIT, !flag);
+        return this.defaultBlockState().setValue(WATERLOGGED, flag).setValue(LIT, !flag);
     }
 
     @Override
-    public void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    public void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(CANDLE, LIT, WATERLOGGED);
     }
 }

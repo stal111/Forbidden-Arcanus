@@ -3,12 +3,12 @@ package com.stal111.forbidden_arcanus.common.tile;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.village.PointOfInterest;
-import net.minecraft.village.PointOfInterestManager;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.village.poi.PoiRecord;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Objects;
 
@@ -20,24 +20,24 @@ import java.util.Objects;
  * @version 2.0.0
  * @since 2021-08-03
  */
-public class ArcaneCrystalObeliskTileEntity extends TileEntity implements ITickableTileEntity {
+public class ArcaneCrystalObeliskTileEntity extends BlockEntity {
 
-    public ArcaneCrystalObeliskTileEntity() {
-        super(ModTileEntities.ARCANE_CRYSTAL_OBELISK.get());
+    public ArcaneCrystalObeliskTileEntity(BlockPos pos, BlockState state) {
+        super(ModTileEntities.ARCANE_CRYSTAL_OBELISK.get(), pos, state);
     }
 
-    @Override
+   // @Override
     public void tick() {
-        if (this.world == null || this.world.isRemote() || this.world.getGameTime() % 100 != 0) {
+        if (this.level == null || this.level.isClientSide() || this.level.getGameTime() % 100 != 0) {
             return;
         }
 
-        PointOfInterestManager manager = ((ServerWorld) this.world).getPointOfInterestManager();
+        PoiManager manager = ((ServerLevel) this.level).getPoiManager();
 
-        BlockPos pos = manager.func_219146_b(poiType -> poiType == ModPOITypes.HEPHAESTUS_FORGE.get(), this.pos, 4, PointOfInterestManager.Status.ANY).map(PointOfInterest::getPos).findFirst().orElse(null);
+        BlockPos pos = manager.getInRange(poiType -> poiType == ModPOITypes.HEPHAESTUS_FORGE.get(), this.worldPosition, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst().orElse(null);
 
         if (pos != null) {
-            HephaestusForgeTileEntity tileEntity = (HephaestusForgeTileEntity) world.getTileEntity(pos);
+            HephaestusForgeTileEntity tileEntity = (HephaestusForgeTileEntity) level.getBlockEntity(pos);
 
             Objects.requireNonNull(tileEntity).getEssenceManager().increaseAureal(1);
         }

@@ -4,12 +4,12 @@ import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -32,13 +32,13 @@ public class UpdateRitualPacket {
         this.ritual = ritual;
     }
 
-    public static void encode(UpdateRitualPacket packet, PacketBuffer buffer) {
+    public static void encode(UpdateRitualPacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
         ResourceLocation empty = new ResourceLocation("", "");
         buffer.writeResourceLocation(packet.ritual != null ? packet.ritual.getName() : empty);
     }
 
-    public static UpdateRitualPacket decode(PacketBuffer buffer) {
+    public static UpdateRitualPacket decode(FriendlyByteBuf buffer) {
         return new UpdateRitualPacket(buffer.readBlockPos(), RitualLoader.getRitual(buffer.readResourceLocation()));
     }
 
@@ -46,13 +46,13 @@ public class UpdateRitualPacket {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            World world = Minecraft.getInstance().world;
+            Level world = Minecraft.getInstance().level;
 
-            if (world == null || !(world.getTileEntity(packet.pos) instanceof HephaestusForgeTileEntity)) {
+            if (world == null || !(world.getBlockEntity(packet.pos) instanceof HephaestusForgeTileEntity)) {
                 return;
             }
 
-            HephaestusForgeTileEntity tileEntity = (HephaestusForgeTileEntity) world.getTileEntity(packet.pos);
+            HephaestusForgeTileEntity tileEntity = (HephaestusForgeTileEntity) world.getBlockEntity(packet.pos);
 
             if (tileEntity != null) {
                 tileEntity.getRitualManager().setActiveRitual(packet.ritual);

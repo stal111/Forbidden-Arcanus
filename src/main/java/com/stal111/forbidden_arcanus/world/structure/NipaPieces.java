@@ -2,33 +2,24 @@ package com.stal111.forbidden_arcanus.world.structure;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.world.ModStructurePieces;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.monster.DrownedEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.loot.LootTables;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.structure.*;
-import net.minecraft.world.gen.feature.template.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.StructurePieceType;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 
 import java.util.Random;
 
@@ -42,55 +33,49 @@ import java.util.Random;
  */
 public class NipaPieces {
 
+    //TODO
+
     public static final ResourceLocation NIPA = new ResourceLocation(ForbiddenArcanus.MOD_ID, "nipa");
     public static final ResourceLocation NIPA_FLOATING = new ResourceLocation(ForbiddenArcanus.MOD_ID, "nipa_floating");
 
     public static class Piece extends TemplateStructurePiece {
-        private final ResourceLocation templateName;
-        private final Rotation rotation;
-        private final boolean floating;
 
-        public Piece(TemplateManager templateManager, ResourceLocation templateName, BlockPos templatePosition, Rotation rotation, boolean floating) {
-            super(ModStructurePieces.NIPA, 0);
-            this.templateName = templateName;
+        public Piece(StructureManager templateManager, ResourceLocation templateName, BlockPos templatePosition, Rotation rotation, boolean floating) {
+            super(ModStructurePieces.NIPA, 0, templateManager, templateName, templatePosition.toString(), makeSettings(rotation, templateName), templatePosition);
             this.templatePosition = templatePosition;
-            this.rotation = rotation;
-            this.floating = floating;
-            this.setup(templateManager);
+
         }
 
-        public Piece(TemplateManager templateManager, CompoundNBT compound) {
-            super(ModStructurePieces.NIPA, compound);
-            this.templateName = new ResourceLocation(compound.getString("Template"));
-            this.rotation = Rotation.valueOf(compound.getString("Rot"));
-            this.floating = compound.getBoolean("Floating");
-            this.setup(templateManager);
+        public Piece(ServerLevel p_162441_, CompoundTag p_162442_) {
+            super(ModStructurePieces.NIPA, p_162442_, p_162441_, (p_162451_) -> {
+                return makeSettings(Rotation.valueOf(p_162442_.getString("Rot")), p_162451_);
+            });
         }
 
-        private void setup(TemplateManager templateManagerIn) {
-            Template template = templateManagerIn.getTemplateDefaulted(this.templateName);
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            this.setup(template, this.templatePosition, placementsettings);
+        private static StructurePlaceSettings makeSettings(Rotation p_162447_, ResourceLocation p_162448_) {
+            return  (new StructurePlaceSettings()).setRotation(p_162447_).setMirror(Mirror.NONE).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
         }
+
 
         @Override
-        protected void readAdditional(CompoundNBT tagCompound) {
-            super.readAdditional(tagCompound);
+        protected void addAdditionalSaveData(ServerLevel level, CompoundTag tagCompound) {
+            super.addAdditionalSaveData(level, tagCompound);
             tagCompound.putString("Template", this.templateName.toString());
-            tagCompound.putString("Rot", this.rotation.name());
-            tagCompound.putBoolean("Floating", this.floating);
-        }
-
-        @Override
-        protected void handleDataMarker(String function, BlockPos pos, IServerWorld worldIn, Random rand, MutableBoundingBox sbb) {
 
         }
 
         @Override
-        public boolean func_230383_a_(ISeedReader seedReader, StructureManager structureManager, ChunkGenerator generator, Random random, MutableBoundingBox boundingBox, ChunkPos chunkPos, BlockPos pos) {
-            int i = seedReader.getHeight(Heightmap.Type.WORLD_SURFACE_WG, pos.getX(), pos.getZ());
-            this.templatePosition = new BlockPos(this.templatePosition.getX(), floating ? i + 60 : i - 3, this.templatePosition.getZ());
-            return super.func_230383_a_(seedReader, structureManager, generator, random, boundingBox, chunkPos, pos);
+        protected void handleDataMarker(String function, BlockPos pos, ServerLevelAccessor worldIn, Random rand, BoundingBox sbb) {
+
+        }
+
+        @Override
+        public boolean postProcess(WorldGenLevel seedReader, StructureFeatureManager structureManager, ChunkGenerator generator, Random random, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos pos) {
+            int i = seedReader.getHeight(Heightmap.Types.WORLD_SURFACE_WG, pos.getX(), pos.getZ());
+            //this.templatePosition = new BlockPos(this.templatePosition.getX(), floating ? i + 60 : i - 3, this.templatePosition.getZ());
+            this.templatePosition = new BlockPos(this.templatePosition.getX(), i + 60, this.templatePosition.getZ());
+
+            return super.postProcess(seedReader, structureManager, generator, random, boundingBox, chunkPos, pos);
         }
     }
 }

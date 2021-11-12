@@ -2,12 +2,12 @@ package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
@@ -31,15 +31,15 @@ public class BlacksmithGavelLootModifier extends LootModifier {
      *
      * @param conditions the ILootConditions that need to be matched before the loot is modified.
      */
-    public BlacksmithGavelLootModifier(ILootCondition[] conditions) {
+    public BlacksmithGavelLootModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        BlockState state = context.get(LootParameters.BLOCK_STATE);
-        ItemStack stack = context.get(LootParameters.TOOL);
+        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+        ItemStack stack = context.getParamOrNull(LootContextParams.TOOL);
 
         if (state == null || stack == null) {
             return generatedLoot;
@@ -54,7 +54,7 @@ public class BlacksmithGavelLootModifier extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<BlacksmithGavelLootModifier> {
 
         @Override
-        public BlacksmithGavelLootModifier read(ResourceLocation location, JsonObject object, ILootCondition[] conditions) {
+        public BlacksmithGavelLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
             return new BlacksmithGavelLootModifier(conditions);
         }
 

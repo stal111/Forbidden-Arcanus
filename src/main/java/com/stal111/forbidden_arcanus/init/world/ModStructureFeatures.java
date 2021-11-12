@@ -2,12 +2,12 @@ package com.stal111.forbidden_arcanus.init.world;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.world.structure.config.NipaConfig;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.FlatGenerationSettings;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
 /**
  * Mod Structure Features
@@ -19,14 +19,14 @@ import net.minecraft.world.gen.feature.structure.Structure;
  */
 public class ModStructureFeatures {
 
-    public static final StructureFeature<NipaConfig, ? extends Structure<NipaConfig>> NIPA = register("nipa", ModStructures.NIPA.get().withConfiguration(new NipaConfig(0.3F)));
-    public static final StructureFeature<NipaConfig, ? extends Structure<NipaConfig>> NIPA_ALWAYS_FLOATING = register("nipa_floating", ModStructures.NIPA.get().withConfiguration(new NipaConfig(1.0F)));
+    public static final ConfiguredStructureFeature<NipaConfig, ? extends StructureFeature<NipaConfig>> NIPA = register("nipa", ModStructures.NIPA.get().configured(new NipaConfig(0.3F)));
+    public static final ConfiguredStructureFeature<NipaConfig, ? extends StructureFeature<NipaConfig>> NIPA_ALWAYS_FLOATING = register("nipa_floating", ModStructures.NIPA.get().configured(new NipaConfig(1.0F)));
 
-    private static <FC extends IFeatureConfig, F extends Structure<FC>> StructureFeature<FC, F> register(String name, StructureFeature<FC, F> structureFeature) {
-        if (!FlatGenerationSettings.STRUCTURES.containsKey(structureFeature.field_236268_b_)) {
-            FlatGenerationSettings.STRUCTURES.put(structureFeature.field_236268_b_, structureFeature);
+    private static <FC extends FeatureConfiguration, F extends StructureFeature<FC>> ConfiguredStructureFeature<FC, F> register(String name, ConfiguredStructureFeature<FC, F> structureFeature) {
+        if (!FlatLevelGeneratorSettings.STRUCTURE_FEATURES.containsKey(structureFeature.feature)) {
+            FlatLevelGeneratorSettings.STRUCTURE_FEATURES.put(structureFeature.feature, structureFeature);
         }
 
-        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), structureFeature);
+        return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), structureFeature);
     }
 }

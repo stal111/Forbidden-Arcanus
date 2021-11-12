@@ -3,12 +3,12 @@ package com.stal111.forbidden_arcanus.common.container;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIntArray;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.ContainerData;
 
 import javax.annotation.Nonnull;
 
@@ -20,22 +20,23 @@ import javax.annotation.Nonnull;
  * @version 2.0.0
  * @since 2021-06-28
  */
-public class HephaestusForgeContainer extends Container {
+public class HephaestusForgeContainer extends AbstractContainerMenu {
 
     private final HephaestusForgeTileEntity tileEntity;
-    private final IIntArray hephaestusForgeData;
+    private final ContainerData hephaestusForgeData;
 
-    public HephaestusForgeContainer(int id, PlayerInventory playerInventory) {
-        this(id, playerInventory, new HephaestusForgeTileEntity());
+    public HephaestusForgeContainer(int id, Inventory playerInventory) {
+        //TODO
+        this(id, playerInventory, null);
     }
 
-    public HephaestusForgeContainer(int id, PlayerInventory playerInventory, HephaestusForgeTileEntity tileEntity) {
+    public HephaestusForgeContainer(int id, Inventory playerInventory, HephaestusForgeTileEntity tileEntity) {
         super(ModContainers.HEPHAESTUS_FORGE.get(), id);
         this.tileEntity = tileEntity;
         this.hephaestusForgeData = tileEntity.getHephaestusForgeData();
 
-        assertIntArraySize(this.hephaestusForgeData, 5);
-        this.trackIntArray(this.hephaestusForgeData);
+        checkContainerDataCount(this.hephaestusForgeData, 5);
+        this.addDataSlots(this.hephaestusForgeData);
 
         int x = 26;
 
@@ -45,7 +46,7 @@ public class HephaestusForgeContainer extends Container {
         this.addSlot(new EnhancerSlot(this.getTileEntity(), 2, 128 + x, 24, HephaestusForgeLevel.getRequiredLevelForSlot(3)));
         this.addSlot(new EnhancerSlot(this.getTileEntity(), 3, 128 + x, 46, HephaestusForgeLevel.getRequiredLevelForSlot(4)));
 
-        HephaestusForgeLevel level = this.getTileEntity().getLevel();
+        HephaestusForgeLevel level = this.getTileEntity().getForgeLevel();
 
         if (level.getEnhancerSlots() < 4) {
             ((EnhancerSlot) this.getSlot(3)).setUnlocked(false);
@@ -83,34 +84,34 @@ public class HephaestusForgeContainer extends Container {
 
     @Nonnull
     @Override
-    public ItemStack transferStackInSlot(@Nonnull PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(@Nonnull Player player, int index) {
         ItemStack result = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+        Slot slot = this.slots.get(index);
 
-        if (slot != null && slot.getHasStack()) {
-            ItemStack stack = slot.getStack();
+        if (slot != null && slot.hasItem()) {
+            ItemStack stack = slot.getItem();
             result = stack.copy();
 
             if (index <= 4) {
-                if (!this.mergeItemStack(stack, 5, 41, true)) {
+                if (!this.moveItemStackTo(stack, 5, 41, true)) {
                     return ItemStack.EMPTY;
                 }
 
-                slot.onSlotChange(stack, result);
+                slot.onQuickCraft(stack, result);
             } else {
-                if (this.tileEntity.getStackInSlot(4).isEmpty()) {
-                    if (!this.mergeItemStack(stack, 4, 5, false)) {
+                if (this.tileEntity.getItem(4).isEmpty()) {
+                    if (!this.moveItemStackTo(stack, 4, 5, false)) {
                         return ItemStack.EMPTY;
                     }
 
-                    slot.onSlotChange(stack, result);
+                    slot.onQuickCraft(stack, result);
                 } else {
-                    if (!this.mergeItemStack(stack, 0, 4, false)) {
+                    if (!this.moveItemStackTo(stack, 0, 4, false)) {
                         if (index < 32) {
-                            if (!this.mergeItemStack(stack, 32, 41, false)) {
+                            if (!this.moveItemStackTo(stack, 32, 41, false)) {
                                 return ItemStack.EMPTY;
                             }
-                        } else if (index < 41 && !this.mergeItemStack(stack, 5, 32, false)) {
+                        } else if (index < 41 && !this.moveItemStackTo(stack, 5, 32, false)) {
                             return ItemStack.EMPTY;
                         }
                     }
@@ -122,15 +123,15 @@ public class HephaestusForgeContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(@Nonnull PlayerEntity player) {
-        return tileEntity.isUsableByPlayer(player);
+    public boolean stillValid(@Nonnull Player player) {
+        return tileEntity.stillValid(player);
     }
 
     public HephaestusForgeTileEntity getTileEntity() {
         return tileEntity;
     }
 
-    public IIntArray getHephaestusForgeData() {
+    public ContainerData getHephaestusForgeData() {
         return hephaestusForgeData;
     }
 }

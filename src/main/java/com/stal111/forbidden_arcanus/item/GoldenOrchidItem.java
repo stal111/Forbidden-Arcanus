@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.BlockItem;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class GoldenOrchidItem extends BlockItem {
 
@@ -10,7 +12,7 @@ public class GoldenOrchidItem extends BlockItem {
     }
 
     @Override
-    public String getTranslationKey() {
-        return this.getDefaultTranslationKey();
+    public String getDescriptionId() {
+        return this.getOrCreateDescriptionId();
     }
 }

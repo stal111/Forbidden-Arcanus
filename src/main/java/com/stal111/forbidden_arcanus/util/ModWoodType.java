@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.block.WoodType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class ModWoodType extends WoodType {
 

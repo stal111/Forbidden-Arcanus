@@ -2,31 +2,36 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.*;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 /**
  * Quantum Catcher Item
@@ -43,44 +48,44 @@ public class QuantumCatcherItem extends Item {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        ItemStack stack = context.getItem();
-        BlockPos pos = context.getPos();
-        World world = context.getWorld();
+    public InteractionResult useOn(UseOnContext context) {
+        ItemStack stack = context.getItemInHand();
+        BlockPos pos = context.getClickedPos();
+        Level world = context.getLevel();
 
         if (this.getEntity(stack, world) != null) {
             Entity entity = this.getEntity(stack, world);
 
-            if (!world.getBlockState(pos).isReplaceable(new BlockItemUseContext(context))) {
-                pos = pos.offset(context.getFace());
+            if (!world.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context))) {
+                pos = pos.relative(context.getClickedFace());
             }
 
-            if (entity == null || !world.getBlockState(pos).isReplaceable(new BlockItemUseContext(context))) {
-                return ActionResultType.FAIL;
+            if (entity == null || !world.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context))) {
+                return InteractionResult.FAIL;
             }
 
-            if (!world.isRemote()) {
-                entity.setPosition(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+            if (!world.isClientSide()) {
+                entity.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
 
                 if (context.getPlayer() != null) {
-                    entity.lookAt(EntityAnchorArgument.Type.EYES, context.getPlayer().getPositionVec());
+                    entity.lookAt(EntityAnchorArgument.Anchor.EYES, context.getPlayer().position());
                 }
-                world.addEntity(entity);
+                world.addFreshEntity(entity);
             }
 
             this.clearEntity(stack);
 
-            return ActionResultType.func_233537_a_(world.isRemote());
+            return InteractionResult.sidedSuccess(world.isClientSide());
         }
 
-        return super.onItemUse(context);
+        return super.useOn(context);
     }
 
-    public ActionResultType onEntityInteract(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
-        World world = player.getEntityWorld();
+    public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+        Level world = player.getCommandSenderWorld();
 
-        if (target instanceof PlayerEntity || ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED.contains(target.getType())) {
-            return ActionResultType.PASS;
+        if (target instanceof Player || ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED.contains(target.getType())) {
+            return InteractionResult.PASS;
         }
 
         if (this.getEntity(stack, world) == null && target.isAlive()) {
@@ -90,34 +95,34 @@ public class QuantumCatcherItem extends Item {
                 ItemStack newStack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
                 this.setEntity(target, newStack);
 
-                if (!player.addItemStackToInventory(newStack)) {
-                    player.dropItem(newStack, false);
+                if (!player.addItem(newStack)) {
+                    player.drop(newStack, false);
                 }
             } else {
                 this.setEntity(target, stack);
             }
 
-            target.remove(true);
+            target.remove(Entity.RemovalReason.DISCARDED);
 
-            return ActionResultType.func_233537_a_(world.isRemote());
+            return InteractionResult.sidedSuccess(world.isClientSide());
         }
 
-        return super.itemInteractionForEntity(stack, player, target, hand);
+        return super.interactLivingEntity(stack, player, target, hand);
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (world != null && getEntity(stack, world) != null)  {
             Entity entity = this.getEntity(stack, world);
 
             if (entity != null) {
-                IFormattableTextComponent textComponent = new TranslationTextComponent("tooltip.forbidden_arcanus.entity").appendString(": ").append(new StringTextComponent(Objects.requireNonNull(entity.getType().getRegistryName()).toString()));
+                MutableComponent textComponent = new TranslatableComponent("tooltip.forbidden_arcanus.entity").append(": ").append(new TextComponent(Objects.requireNonNull(entity.getType().getRegistryName()).toString()));
 
                 if (this.getEntityName(stack) != null)  {
-                    textComponent.appendString(" (").append(Objects.requireNonNull(this.getEntityName(stack))).appendString(")");
+                    textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
                 }
 
-                textComponent.mergeStyle(TextFormatting.GRAY);
+                textComponent.withStyle(ChatFormatting.GRAY);
 
                 tooltip.add(textComponent);
             }
@@ -126,9 +131,9 @@ public class QuantumCatcherItem extends Item {
 
     private void setEntity(Entity entity, ItemStack stack) {
         entity.stopRiding();
-        entity.removePassengers();
+        entity.ejectPassengers();
 
-        CompoundNBT entityNBT = new CompoundNBT();
+        CompoundTag entityNBT = new CompoundTag();
 
         if (entity.getType().getRegistryName() == null) return;
 
@@ -136,41 +141,41 @@ public class QuantumCatcherItem extends Item {
         if (entity.hasCustomName()) {
             entityNBT.putString("name", Objects.requireNonNull(entity.getCustomName()).getString());
         }
-        entity.writeUnlessPassenger(entityNBT);
+        entity.save(entityNBT);
 
-        CompoundNBT itemNBT = stack.getOrCreateTag();
+        CompoundTag itemNBT = stack.getOrCreateTag();
         itemNBT.put("entity", entityNBT);
     }
 
-    private Entity getEntity(ItemStack stack, World world) {
-        CompoundNBT itemNBT = stack.getTag();
+    private Entity getEntity(ItemStack stack, Level world) {
+        CompoundTag itemNBT = stack.getTag();
 
         if (itemNBT == null) return null;
 
-        CompoundNBT entityNBT = itemNBT.getCompound("entity");
+        CompoundTag entityNBT = itemNBT.getCompound("entity");
         EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityNBT.getString("entity")));
 
         if (entityType == null) return null;
 
         Entity entity = entityType.create(world);
 
-        if (world instanceof ServerWorld && entity != null) {
-            entity.read(entityNBT);
+        if (world instanceof ServerLevel && entity != null) {
+            entity.load(entityNBT);
         }
 
         return entity;
     }
 
-    private ITextComponent getEntityName(ItemStack stack) {
-        CompoundNBT itemNBT = stack.getTag();
+    private Component getEntityName(ItemStack stack) {
+        CompoundTag itemNBT = stack.getTag();
 
         if (itemNBT == null) return null;
 
         if (itemNBT.contains("entity")) {
-            CompoundNBT entityNBT = itemNBT.getCompound("entity");
+            CompoundTag entityNBT = itemNBT.getCompound("entity");
 
             if (entityNBT.contains("name")) {
-                return new StringTextComponent(entityNBT.getString("name"));
+                return new TextComponent(entityNBT.getString("name"));
             }
         }
         return null;

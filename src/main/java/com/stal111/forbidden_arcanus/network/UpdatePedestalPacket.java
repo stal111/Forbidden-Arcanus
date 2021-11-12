@@ -2,12 +2,12 @@ package com.stal111.forbidden_arcanus.network;
 
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -32,24 +32,24 @@ public class UpdatePedestalPacket {
         this.itemHeight = itemHeight;
     }
 
-    public static void encode(UpdatePedestalPacket packet, PacketBuffer buffer) {
+    public static void encode(UpdatePedestalPacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
-        buffer.writeItemStack(packet.stack);
+        buffer.writeItem(packet.stack);
         buffer.writeInt(packet.itemHeight);
     }
 
-    public static UpdatePedestalPacket decode(PacketBuffer buffer) {
-        return new UpdatePedestalPacket(buffer.readBlockPos(), buffer.readItemStack(), buffer.readInt());
+    public static UpdatePedestalPacket decode(FriendlyByteBuf buffer) {
+        return new UpdatePedestalPacket(buffer.readBlockPos(), buffer.readItem(), buffer.readInt());
     }
 
     public static void consume(UpdatePedestalPacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            World world = Minecraft.getInstance().world;
+            Level world = Minecraft.getInstance().level;
 
-            if (world != null && world.getTileEntity(packet.pos) instanceof PedestalTileEntity) {
-                PedestalTileEntity tileEntity = (PedestalTileEntity) Objects.requireNonNull(world.getTileEntity(packet.pos));
+            if (world != null && world.getBlockEntity(packet.pos) instanceof PedestalTileEntity) {
+                PedestalTileEntity tileEntity = (PedestalTileEntity) Objects.requireNonNull(world.getBlockEntity(packet.pos));
 
                 tileEntity.setStack(packet.stack);
                 tileEntity.setItemHeight(packet.itemHeight);

@@ -3,48 +3,48 @@ package com.stal111.forbidden_arcanus.block.tileentity.container;
 import javax.annotation.Nullable;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.IntArray;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DarkBeaconContainer extends ModContainer {
 
-	private final IInventory tileBeacon = new Inventory(1) {
+	private final Container tileBeacon = new SimpleContainer(1) {
 		/**
 		 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
 		 * guis use Slot.isItemValid
 		 */
-		public boolean isItemValidForSlot(int index, ItemStack stack) {
+		public boolean canPlaceItem(int index, ItemStack stack) {
 			return false;
 		}
 
 		/**
 		 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
 		 */
-		public int getInventoryStackLimit() {
+		public int getMaxStackSize() {
 			return 1;
 		}
 	};
 	private final DarkBeaconContainer.BeaconSlot beaconSlot;
-	private final IIntArray field_216972_f;
+	private final ContainerData beaconData;
 
-	public DarkBeaconContainer(int id, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity playerEntity) {
+	public DarkBeaconContainer(int id, Level world, BlockPos pos, Inventory inventory, Player playerEntity) {
 		super(ModContainers.dark_beacon, id, world, pos, inventory, playerEntity, 1);
-		assertIntArraySize(new IntArray(3), 3);
-		this.field_216972_f = new IntArray(3);
+		checkContainerDataCount(new SimpleContainerData(3), 3);
+		this.beaconData = new SimpleContainerData(3);
 		this.beaconSlot = new DarkBeaconContainer.BeaconSlot(this.tileBeacon, 0, 136, 110);
 		this.addSlot(this.beaconSlot);
-		this.trackIntArray(new IntArray(3));
+		this.addDataSlots(new SimpleContainerData(3));
 
 		for(int k = 0; k < 3; ++k) {
 			for(int l = 0; l < 9; ++l) {
@@ -60,53 +60,53 @@ public class DarkBeaconContainer extends ModContainer {
 	/**
 	 * Called when the container is closed.
 	 */
-	public void onContainerClosed(PlayerEntity playerIn) {
-		super.onContainerClosed(playerIn);
-		if (!playerIn.world.isRemote) {
-			ItemStack itemstack = this.beaconSlot.decrStackSize(this.beaconSlot.getSlotStackLimit());
+	public void removed(Player playerIn) {
+		super.removed(playerIn);
+		if (!playerIn.level.isClientSide) {
+			ItemStack itemstack = this.beaconSlot.remove(this.beaconSlot.getMaxStackSize());
 			if (!itemstack.isEmpty()) {
-				playerIn.dropItem(itemstack, false);
+				playerIn.drop(itemstack, false);
 			}
 
 		}
 	}
 
-	public void updateProgressBar(int id, int data) {
-		super.updateProgressBar(id, data);
-		this.detectAndSendChanges();
+	public void setData(int id, int data) {
+		super.setData(id, data);
+		this.broadcastChanges();
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+	public ItemStack quickMoveStack(Player playerIn, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.inventorySlots.get(index);
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
+		Slot slot = this.slots.get(index);
+		if (slot != null && slot.hasItem()) {
+			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
 			if (index == 0) {
-				if (!this.mergeItemStack(itemstack1, 1, 37, true)) {
+				if (!this.moveItemStackTo(itemstack1, 1, 37, true)) {
 					return ItemStack.EMPTY;
 				}
 
-				slot.onSlotChange(itemstack1, itemstack);
-			} else if (this.mergeItemStack(itemstack1, 0, 1, false)) { //Forge Fix Shift Clicking in beacons with stacks larger then 1.
+				slot.onQuickCraft(itemstack1, itemstack);
+			} else if (this.moveItemStackTo(itemstack1, 0, 1, false)) { //Forge Fix Shift Clicking in beacons with stacks larger then 1.
 				return ItemStack.EMPTY;
 			} else if (index >= 1 && index < 28) {
-				if (!this.mergeItemStack(itemstack1, 28, 37, false)) {
+				if (!this.moveItemStackTo(itemstack1, 28, 37, false)) {
 					return ItemStack.EMPTY;
 				}
 			} else if (index >= 28 && index < 37) {
-				if (!this.mergeItemStack(itemstack1, 1, 28, false)) {
+				if (!this.moveItemStackTo(itemstack1, 1, 28, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.mergeItemStack(itemstack1, 1, 37, false)) {
+			} else if (!this.moveItemStackTo(itemstack1, 1, 37, false)) {
 				return ItemStack.EMPTY;
 			}
 
 			if (itemstack1.isEmpty()) {
-				slot.putStack(ItemStack.EMPTY);
+				slot.set(ItemStack.EMPTY);
 			} else {
-				slot.onSlotChanged();
+				slot.setChanged();
 			}
 
 			if (itemstack1.getCount() == itemstack.getCount()) {
@@ -120,44 +120,44 @@ public class DarkBeaconContainer extends ModContainer {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public int func_216969_e() {
-		return this.field_216972_f.get(0);
+	public int getLevels() {
+		return this.beaconData.get(0);
 	}
 
 	@Nullable
 	@OnlyIn(Dist.CLIENT)
-	public Effect func_216967_f() {
-		return Effect.get(this.field_216972_f.get(1));
+	public MobEffect getPrimaryEffect() {
+		return MobEffect.byId(this.beaconData.get(1));
 	}
 
 	@Nullable
 	@OnlyIn(Dist.CLIENT)
-	public Effect func_216968_g() {
-		return Effect.get(this.field_216972_f.get(2));
+	public MobEffect getSecondaryEffect() {
+		return MobEffect.byId(this.beaconData.get(2));
 	}
 
-	public void func_216966_c(int p_216966_1_, int p_216966_2_) {
-		if (this.beaconSlot.getHasStack()) {
-			this.field_216972_f.set(1, p_216966_1_);
-			this.field_216972_f.set(2, p_216966_2_);
-			this.beaconSlot.decrStackSize(1);
+	public void updateEffects(int p_216966_1_, int p_216966_2_) {
+		if (this.beaconSlot.hasItem()) {
+			this.beaconData.set(1, p_216966_1_);
+			this.beaconData.set(2, p_216966_2_);
+			this.beaconSlot.remove(1);
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public boolean func_216970_h() {
-		return !this.tileBeacon.getStackInSlot(0).isEmpty();
+	public boolean hasPayment() {
+		return !this.tileBeacon.getItem(0).isEmpty();
 	}
 
 	class BeaconSlot extends Slot {
-		public BeaconSlot(IInventory inventoryIn, int index, int xIn, int yIn) {
+		public BeaconSlot(Container inventoryIn, int index, int xIn, int yIn) {
 			super(inventoryIn, index, xIn, yIn);
 		}
 
 		/**
 		 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 		 */
-		public boolean isItemValid(ItemStack stack) {
+		public boolean mayPlace(ItemStack stack) {
 			return stack.getItem() == ModItems.ARCANE_CRYSTAL.get();
 		}
 
@@ -165,7 +165,7 @@ public class DarkBeaconContainer extends ModContainer {
 		 * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the
 		 * case of armor slots)
 		 */
-		public int getSlotStackLimit() {
+		public int getMaxStackSize() {
 			return 1;
 		}
 	}

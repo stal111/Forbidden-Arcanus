@@ -1,17 +1,19 @@
 package com.stal111.forbidden_arcanus.item.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.Item;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.level.LevelReader;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class WallFloorOrCeilingItem extends BlockItem {
 
@@ -26,31 +28,31 @@ public class WallFloorOrCeilingItem extends BlockItem {
 
 
     @Nullable
-    protected BlockState getStateForPlacement(BlockItemUseContext context) {
+    protected BlockState getPlacementState(BlockPlaceContext context) {
         BlockState blockstate1 = null;
-        IWorldReader iworldreader = context.getWorld();
-        BlockPos blockpos = context.getPos();
-        Direction direction = context.getFace();
+        LevelReader iworldreader = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
+        Direction direction = context.getClickedFace();
         Direction.Axis axis = direction.getAxis();
 
         if (axis == Direction.Axis.Y) {
             BlockState state2 = direction == Direction.DOWN ? this.ceilingBlock.getStateForPlacement(context) : this.getBlock().getStateForPlacement(context);
-            if (state2.isValidPosition(iworldreader, blockpos)) {
+            if (state2.canSurvive(iworldreader, blockpos)) {
                 blockstate1 = state2;
             }
         } else {
             BlockState state2 = this.wallBlock.getStateForPlacement(context);
-            if (state2.isValidPosition(iworldreader, blockpos)) {
+            if (state2.canSurvive(iworldreader, blockpos)) {
                 blockstate1 = state2;
             }
         }
 
-        return blockstate1 != null && iworldreader.placedBlockCollides(blockstate1, blockpos, ISelectionContext.dummy()) ? blockstate1 : null;
+        return blockstate1 != null && iworldreader.isUnobstructed(blockstate1, blockpos, CollisionContext.empty()) ? blockstate1 : null;
     }
 
     @Override
-    public void addToBlockToItemMap(Map<Block, Item> map, Item item) {
-        super.addToBlockToItemMap(map, item);
+    public void registerBlocks(Map<Block, Item> map, Item item) {
+        super.registerBlocks(map, item);
         map.put(this.wallBlock, item);
         map.put(this.ceilingBlock, item);
     }

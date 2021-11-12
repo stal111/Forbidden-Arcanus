@@ -2,31 +2,31 @@ package com.stal111.forbidden_arcanus.util;
 
 import com.google.common.collect.Maps;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IGrowable;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.InputMappings;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.scoreboard.Scoreboard;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.scores.PlayerTeam;
+import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.server.level.ServerLevel;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nonnull;
@@ -45,19 +45,19 @@ public class ModUtils {
     }
 
     public static boolean isShiftDown() {
-        return InputMappings.isKeyDown(GLFW.glfwGetCurrentContext(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputMappings.isKeyDown(GLFW.glfwGetCurrentContext(), GLFW.GLFW_KEY_RIGHT_SHIFT);
+        return InputConstants.isKeyDown(GLFW.glfwGetCurrentContext(), GLFW.GLFW_KEY_LEFT_SHIFT) || InputConstants.isKeyDown(GLFW.glfwGetCurrentContext(), GLFW.GLFW_KEY_RIGHT_SHIFT);
     }
 
-    public static boolean applyBonemeal(ItemStack stack, ServerWorld worldIn, BlockPos pos, net.minecraft.entity.player.PlayerEntity player) {
+    public static boolean applyBonemeal(ItemStack stack, ServerLevel worldIn, BlockPos pos, net.minecraft.world.entity.player.Player player) {
         BlockState blockstate = worldIn.getBlockState(pos);
         int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, worldIn, pos, blockstate, stack);
         if (hook != 0) return hook > 0;
-        if (blockstate.getBlock() instanceof IGrowable) {
-            IGrowable igrowable = (IGrowable) blockstate.getBlock();
-            if (igrowable.canGrow(worldIn, pos, blockstate, worldIn.isRemote)) {
-                if (!worldIn.isRemote) {
-                    if (igrowable.canUseBonemeal(worldIn, worldIn.rand, pos, blockstate)) {
-                        igrowable.grow(worldIn, worldIn.rand, pos, blockstate);
+        if (blockstate.getBlock() instanceof BonemealableBlock) {
+            BonemealableBlock igrowable = (BonemealableBlock) blockstate.getBlock();
+            if (igrowable.isValidBonemealTarget(worldIn, pos, blockstate, worldIn.isClientSide)) {
+                if (!worldIn.isClientSide) {
+                    if (igrowable.isBonemealSuccess(worldIn, worldIn.random, pos, blockstate)) {
+                        igrowable.performBonemeal(worldIn, worldIn.random, pos, blockstate);
                     }
                 }
                 return true;
@@ -67,8 +67,8 @@ public class ModUtils {
     }
 
     public static void addStrippable(Block block, Block strippedBlock) {
-        AxeItem.BLOCK_STRIPPING_MAP = Maps.newHashMap(AxeItem.BLOCK_STRIPPING_MAP);
-        AxeItem.BLOCK_STRIPPING_MAP.put(block, strippedBlock);
+        AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
+        AxeItem.STRIPPABLES.put(block, strippedBlock);
     }
 
     public static List<?> removeLastFromList(List<?> list) {
@@ -79,69 +79,69 @@ public class ModUtils {
         return list1;
     }
 
-    public static void shrinkAndAddStack(PlayerEntity player, Hand hand, ItemStack stack, ItemStack newStack) {
+    public static void shrinkAndAddStack(Player player, InteractionHand hand, ItemStack stack, ItemStack newStack) {
         stack.shrink(1);
         if (stack.isEmpty()) {
-            player.setHeldItem(hand, newStack);
-        } else if (!player.inventory.addItemStackToInventory(newStack)) {
-            player.dropItem(newStack, false);
+            player.setItemInHand(hand, newStack);
+        } else if (!player.getInventory().add(newStack)) {
+            player.drop(newStack, false);
         }
     }
 
-    public static ScorePlayerTeam createTeam(Scoreboard scoreboard, String name, TextFormatting color) {
+    public static PlayerTeam createTeam(Scoreboard scoreboard, String name, ChatFormatting color) {
         if (scoreboard.getTeamNames().contains(name)) {
-            return scoreboard.getTeam(name);
+            return scoreboard.getPlayerTeam(name);
         } else {
-            ScorePlayerTeam team = scoreboard.createTeam(name);
-            team.setDisplayName(new StringTextComponent(name));
+            PlayerTeam team = scoreboard.addPlayerTeam(name);
+            team.setDisplayName(new TextComponent(name));
             team.setColor(color);
             return team;
         }
     }
 
-    public static void removeTeam(Scoreboard scoreboard, ScorePlayerTeam team) {
+    public static void removeTeam(Scoreboard scoreboard, PlayerTeam team) {
         if (scoreboard.getTeamNames().contains(team.getName())) {
-            scoreboard.removeTeam(team);
+            scoreboard.removePlayerTeam(team);
         }
     }
 
-    public static Collection<IRecipe<?>> getRecipesByOutput(ItemStack targetOutput, Collection<IRecipeSerializer<?>> recipeSerializer) {
-        return Minecraft.getInstance().world.getRecipeManager().getRecipes().stream()
+    public static Collection<Recipe<?>> getRecipesByOutput(ItemStack targetOutput, Collection<RecipeSerializer<?>> recipeSerializer) {
+        return Minecraft.getInstance().level.getRecipeManager().getRecipes().stream()
                 .filter(r -> {
                     boolean flag = false;
-                    for (IRecipeSerializer<?> serializer : recipeSerializer) {
+                    for (RecipeSerializer<?> serializer : recipeSerializer) {
                         if (serializer == r.getSerializer()) {
                             flag = true;
                         }
                     }
-                    return !r.isDynamic() && flag && ItemStack.areItemsEqualIgnoreDurability(targetOutput, r.getRecipeOutput());
+                    return !r.isSpecial() && flag && ItemStack.isSameIgnoreDurability(targetOutput, r.getResultItem());
                 }).collect(Collectors.toList());
     }
 
-    public static Collection<IRecipe<?>> getCraftingRecipesByOutput(@Nonnull ItemStack targetOutput) {
-        return Minecraft.getInstance().world.getRecipeManager().getRecipes().stream()
-                .filter(r -> !r.isDynamic() && (r.getSerializer() == IRecipeSerializer.CRAFTING_SHAPED || r.getSerializer() == IRecipeSerializer.CRAFTING_SHAPELESS) && ItemStack.areItemsEqualIgnoreDurability(targetOutput, r.getRecipeOutput())).collect(Collectors.toList());
+    public static Collection<Recipe<?>> getCraftingRecipesByOutput(@Nonnull ItemStack targetOutput) {
+        return Minecraft.getInstance().level.getRecipeManager().getRecipes().stream()
+                .filter(r -> !r.isSpecial() && (r.getSerializer() == RecipeSerializer.SHAPED_RECIPE || r.getSerializer() == RecipeSerializer.SHAPELESS_RECIPE) && ItemStack.isSameIgnoreDurability(targetOutput, r.getResultItem())).collect(Collectors.toList());
     }
 
-    public static Collection<IRecipe<?>> getSmeltingRecipesByOutput(@Nonnull ItemStack targetOutput) {
-        return Minecraft.getInstance().world.getRecipeManager().getRecipes().stream()
-                .filter(r -> !r.isDynamic() && r.getSerializer() == IRecipeSerializer.SMELTING && ItemStack.areItemsEqualIgnoreDurability(targetOutput, r.getRecipeOutput())).collect(Collectors.toList());
+    public static Collection<Recipe<?>> getSmeltingRecipesByOutput(@Nonnull ItemStack targetOutput) {
+        return Minecraft.getInstance().level.getRecipeManager().getRecipes().stream()
+                .filter(r -> !r.isSpecial() && r.getSerializer() == RecipeSerializer.SMELTING_RECIPE && ItemStack.isSameIgnoreDurability(targetOutput, r.getResultItem())).collect(Collectors.toList());
     }
 
-    public static boolean hasBlockEnoughSolidSite(VoxelShape shape, IWorldReader world, BlockPos pos, Direction direction) {
+    public static boolean hasBlockEnoughSolidSite(VoxelShape shape, LevelReader world, BlockPos pos, Direction direction) {
         BlockState state = world.getBlockState(pos);
-        if (direction == Direction.DOWN && state.isIn(BlockTags.UNSTABLE_BOTTOM_CENTER)) {
+        if (direction == Direction.DOWN && state.is(BlockTags.UNSTABLE_BOTTOM_CENTER)) {
             return false;
         } else {
-            return !VoxelShapes.compare(state.getRenderShape(world, pos).project(direction), shape, IBooleanFunction.ONLY_SECOND);
+            return !Shapes.joinIsNotEmpty(state.getBlockSupportShape(world, pos).getFaceShape(direction), shape, BooleanOp.ONLY_SECOND);
         }
     }
 
-    public static Vector3d blockPosToVector(BlockPos pos) {
+    public static Vec3 blockPosToVector(BlockPos pos) {
         return blockPosToVector(pos, 0);
     }
 
-    public static Vector3d blockPosToVector(BlockPos pos, double offset) {
-        return new Vector3d(pos.getX() + offset, pos.getY() + offset, pos.getZ() + offset);
+    public static Vec3 blockPosToVector(BlockPos pos, double offset) {
+        return new Vec3(pos.getX() + offset, pos.getY() + offset, pos.getZ() + offset);
     }
 }

@@ -3,11 +3,11 @@ package com.stal111.forbidden_arcanus.util;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 
@@ -33,14 +33,14 @@ public class FullbrightBakedModel extends DelegateBakedModel {
     private final boolean doCaching;
     private Predicate<BlockState> state = null;
 
-    public FullbrightBakedModel(IBakedModel base, boolean doCaching, ResourceLocation... textures) {
+    public FullbrightBakedModel(BakedModel base, boolean doCaching, ResourceLocation... textures) {
         super(base);
 
         this.textures = new HashSet<>(Arrays.asList(textures));
         this.doCaching = doCaching;
     }
 
-    public FullbrightBakedModel(IBakedModel base, boolean doCaching, Predicate<BlockState> state, ResourceLocation... textures) {
+    public FullbrightBakedModel(BakedModel base, boolean doCaching, Predicate<BlockState> state, ResourceLocation... textures) {
         super(base);
 
         this.textures = new HashSet<>(Arrays.asList(textures));
@@ -81,7 +81,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
     }
 
     private static BakedQuad transformQuad(BakedQuad quad) {
-        int[] vertexData = quad.getVertexData().clone();
+        int[] vertexData = quad.getVertices().clone();
         int step = vertexData.length / 4;
 
         // Set lighting to fullbright on all vertices
@@ -93,20 +93,20 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         return new BakedQuad(
                 vertexData,
                 quad.getTintIndex(),
-                quad.getFace(),
+                quad.getDirection(),
                 quad.getSprite(),
-                quad.applyDiffuseLighting()
+                quad.isShade()
         );
     }
 
     private static class CacheKey {
-        private final IBakedModel base;
+        private final BakedModel base;
         private final Set<ResourceLocation> textures;
         private final Random random;
         private final BlockState state;
         private final Direction side;
 
-        public CacheKey(IBakedModel base, Set<ResourceLocation> textures, Random random, BlockState state, Direction side) {
+        public CacheKey(BakedModel base, Set<ResourceLocation> textures, Random random, BlockState state, Direction side) {
             this.base = base;
             this.textures = textures;
             this.random = random;

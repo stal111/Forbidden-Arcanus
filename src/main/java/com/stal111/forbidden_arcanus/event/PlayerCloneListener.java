@@ -3,12 +3,12 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.capability.counter.ICounterCapability;
+import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
+import net.valhelsia.valhelsia_core.common.capability.counter.ICounterCapability;
 
 @Mod.EventBusSubscriber
 public class PlayerCloneListener {
@@ -16,7 +16,7 @@ public class PlayerCloneListener {
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
-            PlayerEntity player = event.getPlayer();
+            Player player = event.getPlayer();
 
             IAureal capability = event.getOriginal().getCapability(AurealProvider.CAPABILITY).resolve().get();
 

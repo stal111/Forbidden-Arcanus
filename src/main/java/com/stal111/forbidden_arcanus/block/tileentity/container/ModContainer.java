@@ -1,35 +1,35 @@
 package com.stal111.forbidden_arcanus.block.tileentity.container;
 
 import com.stal111.forbidden_arcanus.util.GuiTile;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class ModContainer extends Container {
+public class ModContainer extends AbstractContainerMenu {
 
-    public TileEntity tile;
-    private PlayerEntity player;
-    private PlayerInventory inventory;
+    public BlockEntity tile;
+    private Player player;
+    private Inventory inventory;
     public final int SIZE;
 
-    protected ModContainer(@Nullable ContainerType<?> type, int id, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity player, int size) {
+    protected ModContainer(@Nullable MenuType<?> type, int id, Level world, BlockPos pos, Inventory inventory, Player player, int size) {
         super(type, id);
-        this.tile = world.getTileEntity(pos);
+        this.tile = world.getBlockEntity(pos);
         this.player = player;
         this.inventory = inventory;
         this.SIZE = size;
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
         return true;
     }
 
@@ -50,21 +50,21 @@ public class ModContainer extends Container {
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);//[index];
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);//[index];
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
 
             if (index < SIZE) {
-                if (!this.mergeItemStack(itemstack1, SIZE, this.inventorySlots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, SIZE, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 0, SIZE, false)) return ItemStack.EMPTY;
+            } else if (!this.moveItemStackTo(itemstack1, 0, SIZE, false)) return ItemStack.EMPTY;
 
-            if (itemstack1.getCount() <= 0) slot.putStack(ItemStack.EMPTY);
-            else slot.onSlotChanged();
+            if (itemstack1.getCount() <= 0) slot.set(ItemStack.EMPTY);
+            else slot.setChanged();
         }
         return itemstack;
     }

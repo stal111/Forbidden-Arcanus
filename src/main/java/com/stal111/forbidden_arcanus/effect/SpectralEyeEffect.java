@@ -1,60 +1,58 @@
 package com.stal111.forbidden_arcanus.effect;
 
 import com.stal111.forbidden_arcanus.util.ModUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.passive.AmbientEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
-import net.minecraft.potion.Effects;
-import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.ambient.AmbientCreature;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.scores.PlayerTeam;
+import net.minecraft.world.scores.Scoreboard;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.ChatFormatting;
 
 import java.util.List;
 
-public class SpectralEyeEffect extends Effect {
+public class SpectralEyeEffect extends MobEffect {
 
-    public SpectralEyeEffect(EffectType effectType, int p_i50391_2_) {
+    public SpectralEyeEffect(MobEffectCategory effectType, int p_i50391_2_) {
         super(effectType, p_i50391_2_);
     }
 
     @Override
-    public boolean isReady(int p_76397_1_, int p_76397_2_) {
+    public boolean isDurationEffectTick(int p_76397_1_, int p_76397_2_) {
         return true;
     }
 
     @Override
-    public void performEffect(LivingEntity entity, int amplifier) {
-        int i = entity.getActivePotionEffect(this).getDuration();
-        if (!entity.getEntityWorld().isRemote()) {
-            Scoreboard scoreboard = entity.getEntityWorld().getServer().getScoreboard();
-            ScorePlayerTeam teamPassiveOrNeutral = ModUtils.createTeam(scoreboard, "PassiveOrNeutral", TextFormatting.GREEN);
-            ScorePlayerTeam teamHostile = ModUtils.createTeam(scoreboard, "Hostile", TextFormatting.RED);
-            ScorePlayerTeam teamWater = ModUtils.createTeam(scoreboard, "Water", TextFormatting.BLUE);
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
+        int i = entity.getEffect(this).getDuration();
+        if (!entity.getCommandSenderWorld().isClientSide()) {
+            Scoreboard scoreboard = entity.getCommandSenderWorld().getServer().getScoreboard();
+            PlayerTeam teamPassiveOrNeutral = ModUtils.createTeam(scoreboard, "PassiveOrNeutral", ChatFormatting.GREEN);
+            PlayerTeam teamHostile = ModUtils.createTeam(scoreboard, "Hostile", ChatFormatting.RED);
+            PlayerTeam teamWater = ModUtils.createTeam(scoreboard, "Water", ChatFormatting.BLUE);
 
-            double k = entity.getPosX();
-            double l = entity.getPosY();
-            double i1 = entity.getPosZ();
+            double k = entity.getX();
+            double l = entity.getY();
+            double i1 = entity.getZ();
 
-            AxisAlignedBB axisalignedbb = (new AxisAlignedBB(k, l, i1, (k + 1), (l + 1), (i1 + 1))).grow(70).expand(0.0D, entity.world.getHeight(), 0.0D);
-            List<LivingEntity> list = entity.world.getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);
+            AABB axisalignedbb = (new AABB(k, l, i1, (k + 1), (l + 1), (i1 + 1))).inflate(70).expandTowards(0.0D, entity.level.getMaxBuildHeight(), 0.0D);
+            List<LivingEntity> list = entity.level.getEntitiesOfClass(LivingEntity.class, axisalignedbb);
 
             for(LivingEntity livingEntity : list) {
-                if (livingEntity instanceof AnimalEntity || livingEntity instanceof AmbientEntity) {
+                if (livingEntity instanceof Animal || livingEntity instanceof AmbientCreature) {
                     scoreboard.addPlayerToTeam(livingEntity.getScoreboardName(), teamPassiveOrNeutral);
-                } else if (livingEntity instanceof MonsterEntity) {
+                } else if (livingEntity instanceof Monster) {
                     scoreboard.addPlayerToTeam(livingEntity.getScoreboardName(), teamHostile);
-                } else if (!(livingEntity instanceof PlayerEntity)) {
+                } else if (!(livingEntity instanceof Player)) {
                     scoreboard.addPlayerToTeam(livingEntity.getScoreboardName(), teamWater);
                 }
-                livingEntity.addPotionEffect(new EffectInstance(Effects.GLOWING, 5, 0, true, true, false));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 5, 0, true, true, false));
             }
 
             if (i <= 5) {

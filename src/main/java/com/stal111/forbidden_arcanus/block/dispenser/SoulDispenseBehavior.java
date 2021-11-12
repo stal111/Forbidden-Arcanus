@@ -1,15 +1,15 @@
 package com.stal111.forbidden_arcanus.block.dispenser;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.BlockSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class SoulDispenseBehavior extends DefaultDispenseItemBehavior {
 
@@ -17,17 +17,17 @@ public class SoulDispenseBehavior extends DefaultDispenseItemBehavior {
     }
 
     @Override
-    protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-        World world = source.getWorld();
-        Direction direction = source.getBlockState().get(DispenserBlock.FACING);
-        BlockPos pos = source.getBlockPos().offset(direction, 1);
+    protected ItemStack execute(BlockSource source, ItemStack stack) {
+        Level world = source.getLevel();
+        Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+        BlockPos pos = source.getPos().relative(direction, 1);
         Block block = world.getBlockState(pos).getBlock();
         if (block == ModBlocks.SOULLESS_SAND.getBlock()) {
-            world.playEvent(2001, pos, Block.getStateId(world.getBlockState(pos)));
-            world.setBlockState(pos, Blocks.SOUL_SAND.getDefaultState());
+            world.levelEvent(2001, pos, Block.getId(world.getBlockState(pos)));
+            world.setBlockAndUpdate(pos, Blocks.SOUL_SAND.defaultBlockState());
             stack.shrink(1);
             return stack;
         }
-        return super.dispenseStack(source, stack);
+        return super.execute(source, stack);
     }
 }

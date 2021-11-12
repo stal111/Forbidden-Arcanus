@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.data.server.tags;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeRegistryTagsProvider;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,8 +26,8 @@ public class ModEnchantmentTagsProvider extends ForgeRegistryTagsProvider<Enchan
     }
 
     @Override
-    protected void registerTags() {
-        getOrCreateBuilder(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED).add(Enchantments.UNBREAKING, Enchantments.MENDING);
+    protected void addTags() {
+        tag(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED).add(Enchantments.UNBREAKING, Enchantments.MENDING);
     }
 
     @Override

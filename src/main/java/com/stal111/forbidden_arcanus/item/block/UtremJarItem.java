@@ -1,25 +1,27 @@
 package com.stal111.forbidden_arcanus.item.block;
 
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.item.filler.TargetItemGroupFiller;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import net.minecraft.world.item.Item.Properties;
+import net.valhelsia.valhelsia_core.common.item.filler.TargetItemGroupFiller;
 
 /**
  * Liquid Filled Utrem Jar Item
@@ -36,7 +38,7 @@ public class UtremJarItem extends BlockItem {
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         new TargetItemGroupFiller(() -> NewModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(new ItemStack(this), group, items);
         new TargetItemGroupFiller(() -> NewModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(withFluid(Fluids.WATER), group, items);
         new TargetItemGroupFiller(() -> NewModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(withFluid(Fluids.LAVA), group, items);
@@ -45,20 +47,20 @@ public class UtremJarItem extends BlockItem {
     private ItemStack withFluid(Fluid fluid) {
         ItemStack stack = new ItemStack(this);
 
-        CompoundNBT compound = new CompoundNBT();
+        CompoundTag compound = new CompoundTag();
         compound.putString("FluidName", fluid.getRegistryName().toString());
         compound.putInt("Amount", 1000);
 
-        stack.getOrCreateChildTag("BlockEntityTag").put("Fluid", compound);
+        stack.getOrCreateTagElement("BlockEntityTag").put("Fluid", compound);
 
         return stack;
     }
 
     public static Fluid getFluid(ItemStack stack) {
         if (stack.hasTag()) {
-            CompoundNBT tag = stack.getOrCreateChildTag("BlockEntityTag");
+            CompoundTag tag = stack.getOrCreateTagElement("BlockEntityTag");
             if (tag.contains("Fluid")) {
-                CompoundNBT compound = (CompoundNBT) tag.get("Fluid");
+                CompoundTag compound = (CompoundTag) tag.get("Fluid");
                 return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(compound.getString("FluidName")));
             }
         }
@@ -66,10 +68,10 @@ public class UtremJarItem extends BlockItem {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        super.addInformation(stack, worldIn, tooltip, flag);
+    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, worldIn, tooltip, flag);
         if (getFluid(stack) != Fluids.EMPTY) {
-            tooltip.add(new TranslationTextComponent(getFluid(stack).getAttributes().getTranslationKey()).mergeStyle(TextFormatting.GRAY));
+            tooltip.add(new TranslatableComponent(getFluid(stack).getAttributes().getTranslationKey()).withStyle(ChatFormatting.GRAY));
         }
     }
 }

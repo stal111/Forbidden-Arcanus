@@ -5,30 +5,30 @@ import java.util.function.Supplier;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public enum ModArmorMaterial implements IArmorMaterial {
-	DRACO_ARCANUS(ForbiddenArcanus.MOD_ID + ":draco_arcanus", 40, new int[]{6, 8, 10, 6}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 3.0F, () -> {
-	      return Ingredient.fromItems(ModItems.DRAGON_SCALE.get());
+public enum ModArmorMaterial implements ArmorMaterial {
+	DRACO_ARCANUS(ForbiddenArcanus.MOD_ID + ":draco_arcanus", 40, new int[]{6, 8, 10, 6}, 15, SoundEvents.ARMOR_EQUIP_GENERIC, 3.0F, () -> {
+	      return Ingredient.of(ModItems.DRAGON_SCALE.get());
 	}),
-	TYR(ForbiddenArcanus.MOD_ID + ":tyr", 50, new int[]{8, 10, 12, 7}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 4.0F, () -> {
-		return Ingredient.fromItems(ModItems.GOLDEN_DRAGON_SCALE.get(), ModItems.AQUATIC_DRAGON_SCALE.get());
+	TYR(ForbiddenArcanus.MOD_ID + ":tyr", 50, new int[]{8, 10, 12, 7}, 15, SoundEvents.ARMOR_EQUIP_GENERIC, 4.0F, () -> {
+		return Ingredient.of(ModItems.GOLDEN_DRAGON_SCALE.get(), ModItems.AQUATIC_DRAGON_SCALE.get());
 	}),
-	MORTEM(ForbiddenArcanus.MOD_ID + ":mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, () -> {
-		return Ingredient.fromItems(ModItems.CLOTH.get());
+	MORTEM(ForbiddenArcanus.MOD_ID + ":mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, () -> {
+		return Ingredient.of(ModItems.CLOTH.get());
 	}),
-	ARCANE_GOLD(ForbiddenArcanus.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.5F, () -> {
-		return Ingredient.fromItems(ModItems.ARCANE_GOLD_INGOT.get());
+	ARCANE_GOLD(ForbiddenArcanus.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ARMOR_EQUIP_GOLD, 1.5F, () -> {
+		return Ingredient.of(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
-	OBSIDIAN(ForbiddenArcanus.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, () -> {
-		return Ingredient.fromItems(ModItems.OBSIDIAN_INGOT.get());
+	OBSIDIAN(ForbiddenArcanus.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ARMOR_EQUIP_GENERIC, 1.5F, () -> {
+		return Ingredient.of(ModItems.OBSIDIAN_INGOT.get());
 	});
 	
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
@@ -39,7 +39,7 @@ public enum ModArmorMaterial implements IArmorMaterial {
 	private int enchantability;
 	private SoundEvent soundEvent;
 	private float toughness;
-	private LazyValue<Ingredient> repairMaterial;
+	private LazyLoadedValue<Ingredient> repairMaterial;
 
 	ModArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
 					 SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterial) {
@@ -49,21 +49,21 @@ public enum ModArmorMaterial implements IArmorMaterial {
 		this.enchantability = enchantability;
 		this.soundEvent = soundEvent;
 		this.toughness = toughness;
-		this.repairMaterial = new LazyValue<>(repairMaterial);
+		this.repairMaterial = new LazyLoadedValue<>(repairMaterial);
 	}
 
 	@Override
-	public int getDamageReductionAmount(EquipmentSlotType slot) {
+	public int getDefenseForSlot(EquipmentSlot slot) {
 		return this.damageReductionAmountArray[slot.getIndex()];
 	}
 
 	@Override
-	public int getDurability(EquipmentSlotType slot) {
+	public int getDurabilityForSlot(EquipmentSlot slot) {
 		return MAX_DAMAGE_ARRAY[slot.getIndex()] * this.maxDamageFactor;
 	}
 
 	@Override
-	public int getEnchantability() {
+	public int getEnchantmentValue() {
 		 return this.enchantability;
 	}
 
@@ -74,12 +74,12 @@ public enum ModArmorMaterial implements IArmorMaterial {
 	}
 
 	@Override
-	public Ingredient getRepairMaterial() {
-		return this.repairMaterial.getValue();
+	public Ingredient getRepairIngredient() {
+		return this.repairMaterial.get();
 	}
 	
 	@Override
-	public SoundEvent getSoundEvent() {
+	public SoundEvent getEquipSound() {
 		return soundEvent;
 	}
 

@@ -1,23 +1,21 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.EntitySpawningBlockingCapability;
-import com.stal111.forbidden_arcanus.capability.spawningBlockingBlocks.SpawningBlockingMode;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.Level;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 public class RunicChiseledPolishedDarkstone extends Block implements IEntitySpawningBlockingBlock  {
 
@@ -25,7 +23,7 @@ public class RunicChiseledPolishedDarkstone extends Block implements IEntitySpaw
 
     public RunicChiseledPolishedDarkstone(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(ACTIVATED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVATED, false));
     }
 
     @Override
@@ -33,17 +31,17 @@ public class RunicChiseledPolishedDarkstone extends Block implements IEntitySpaw
         return BlockConfig.RUNIC_CHISELED_POLISHED_DARKSTONE_RADIUS.get();
     }
 
-    @Override
-    public SpawningBlockingMode getBlockingMode() {
-        return SpawningBlockingMode.MONSTER;
-    }
+//    @Override
+//    public SpawningBlockingMode getBlockingMode() {
+//        return SpawningBlockingMode.MONSTER;
+//    }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-        ItemStack stack = player.getHeldItem(hand);
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.getItem() == ModItems.ARCANE_CRYSTAL.get() && !state.get(ACTIVATED)) {
-            if (world.isRemote()) {
+        if (stack.getItem() == ModItems.ARCANE_CRYSTAL.get() && !state.getValue(ACTIVATED)) {
+            if (world.isClientSide()) {
                 for (int i = 0; i < 15; i++) {
                     int j = world.getRandom().nextInt(2) * 2 - 1;
                     int k = world.getRandom().nextInt(2) * 2 - 1;
@@ -52,33 +50,33 @@ public class RunicChiseledPolishedDarkstone extends Block implements IEntitySpaw
                     double d5 = world.getRandom().nextFloat() * (float) k;
                     world.addParticle(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, d3, d4, d5);
                 }
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
 
-            world.setBlockState(pos, state.with(ACTIVATED, true));
+            world.setBlockAndUpdate(pos, state.setValue(ACTIVATED, true));
             ItemStackUtils.shrinkStack(player, stack);
 
-            world.getCapability(EntitySpawningBlockingCapability.ENTITY_SPAWNING_BLOCKING_BLOCKS_CAPABILITY).ifPresent(reg ->
-                    reg.addSpawningBlockingBlock(pos, getBlockingMode()));
+//            world.getCapability(EntitySpawningBlockingCapability.ENTITY_SPAWNING_BLOCKING_BLOCKS_CAPABILITY).ifPresent(reg ->
+//                    reg.addSpawningBlockingBlock(pos, getBlockingMode()));
 
-            return ActionResultType.CONSUME;
+            return InteractionResult.CONSUME;
 
         }
-        return super.onBlockActivated(state, world, pos, player, hand, hit);
+        return super.use(state, world, pos, player, hand, hit);
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
-        super.onReplaced(state, world, pos, newState, isMoving);
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        super.onRemove(state, world, pos, newState, isMoving);
 
-        if (state.get(ACTIVATED)) {
-            world.getCapability(EntitySpawningBlockingCapability.ENTITY_SPAWNING_BLOCKING_BLOCKS_CAPABILITY).ifPresent(reg ->
-                    reg.removeSpawningBlockingBlock(pos));
+        if (state.getValue(ACTIVATED)) {
+//            world.getCapability(EntitySpawningBlockingCapability.ENTITY_SPAWNING_BLOCKING_BLOCKS_CAPABILITY).ifPresent(reg ->
+//                    reg.removeSpawningBlockingBlock(pos));
         }
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ACTIVATED);
     }
 }

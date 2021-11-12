@@ -2,18 +2,20 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.NewModItems;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+
+import net.minecraft.world.item.Item.Properties;
 
 /**
  * Blood Test Tube Item
@@ -33,8 +35,8 @@ public class BloodTestTubeItem extends Item {
 
     @Nonnull
     @Override
-    public String getTranslationKey(@Nonnull ItemStack stack) {
-        return NewModItems.TEST_TUBE.get().getTranslationKey();
+    public String getDescriptionId(@Nonnull ItemStack stack) {
+        return NewModItems.TEST_TUBE.get().getDescriptionId();
     }
 
     public static int getBlood(ItemStack stack) {
@@ -42,7 +44,7 @@ public class BloodTestTubeItem extends Item {
     }
 
     public static ItemStack setBlood(ItemStack stack, int blood) {
-        CompoundNBT compound = stack.getOrCreateTag();
+        CompoundTag compound = stack.getOrCreateTag();
         compound.putInt("Blood", blood);
 
         return stack;
@@ -62,8 +64,8 @@ public class BloodTestTubeItem extends Item {
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-        super.addInformation(stack, worldIn, tooltip, flag);
-        tooltip.add(new TranslationTextComponent(ForbiddenArcanus.MOD_ID + ".blood").appendString(": " + getBlood(stack) + "/" + MAX_BLOOD).mergeStyle(TextFormatting.GRAY));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        super.appendHoverText(stack, worldIn, tooltip, flag);
+        tooltip.add(new TranslatableComponent(ForbiddenArcanus.MOD_ID + ".blood").append(": " + getBlood(stack) + "/" + MAX_BLOOD).withStyle(ChatFormatting.GRAY));
     }
 }

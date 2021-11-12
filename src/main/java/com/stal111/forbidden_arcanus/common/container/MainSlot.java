@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.container;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
 
 /**
  * Main Slot
@@ -13,12 +13,12 @@ import net.minecraft.inventory.container.Slot;
  */
 public class MainSlot extends Slot {
 
-    public MainSlot(IInventory inventory, int index, int xPosition, int yPosition) {
+    public MainSlot(Container inventory, int index, int xPosition, int yPosition) {
         super(inventory, index, xPosition, yPosition);
     }
 
     @Override
-    public int getSlotStackLimit() {
+    public int getMaxStackSize() {
         return 1;
     }
 }

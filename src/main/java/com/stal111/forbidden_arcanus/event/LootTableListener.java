@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier;
-import net.minecraft.loot.LootEntry;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.TableLootEntry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -59,15 +59,15 @@ public class LootTableListener {
     }
 
     private static LootPool getInjectPool(String entryName) {
-        return LootPool.builder()
-                .addEntry(getInjectEntry(entryName, 1))
+        return LootPool.lootPool()
+                .add(getInjectEntry(entryName, 1))
                 .bonusRolls(0, 3)
                 .name("forbidden_arcanus_inject")
                 .build();
     }
 
-    private static LootEntry.Builder getInjectEntry(String name, int weight) {
+    private static LootPoolEntryContainer.Builder getInjectEntry(String name, int weight) {
         ResourceLocation table = new ResourceLocation(ForbiddenArcanus.MOD_ID, "inject/" + name);
-        return TableLootEntry.builder(table).weight(weight);
+        return LootTableReference.lootTableReference(table).setWeight(weight);
     }
 }

@@ -8,28 +8,28 @@ import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.pattern.BlockMaterialMatcher;
-import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.CachedBlockInfo;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.predicate.BlockMaterialPredicate;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,77 +58,77 @@ public class MundabiturDustItem extends Item {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
+    public InteractionResult useOn(UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        PlayerEntity player = context.getPlayer();
+        Player player = context.getPlayer();
 
         if (this.tryTransformBlock(block, world, pos, player)) {
-            ItemStackUtils.shrinkStack(player, context.getItem());
+            ItemStackUtils.shrinkStack(player, context.getItemInHand());
 
-            return ActionResultType.func_233537_a_(world.isRemote());
+            return InteractionResult.sidedSuccess(world.isClientSide());
         }
 
-        return super.onItemUse(context);
+        return super.useOn(context);
     }
 
     @Nonnull
     @Override
-    public ActionResultType itemInteractionForEntity(@Nonnull ItemStack stack, @Nonnull PlayerEntity player, @Nonnull LivingEntity target, @Nonnull Hand hand) {
-        if (target instanceof CreeperEntity && ItemConfig.MUNDABITUR_DUST_CHARGE_CREEPER.get()) {
-            EntityDataManager dataManager = target.getDataManager();
+    public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity target, @Nonnull InteractionHand hand) {
+        if (target instanceof Creeper && ItemConfig.MUNDABITUR_DUST_CHARGE_CREEPER.get()) {
+            SynchedEntityData dataManager = target.getEntityData();
 
-            if (!dataManager.get(CreeperEntity.POWERED)) {
-                dataManager.set(CreeperEntity.POWERED, true);
+            if (!dataManager.get(Creeper.DATA_IS_POWERED)) {
+                dataManager.set(Creeper.DATA_IS_POWERED, true);
 
                 ItemStackUtils.shrinkStack(player, stack);
 
-                return ActionResultType.func_233537_a_(player.getEntityWorld().isRemote());
+                return InteractionResult.sidedSuccess(player.getCommandSenderWorld().isClientSide());
             }
         }
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 
-    private boolean tryTransformBlock(Block block, World world, BlockPos pos, PlayerEntity player) {
+    private boolean tryTransformBlock(Block block, Level world, BlockPos pos, Player player) {
         if (block == Blocks.SMITHING_TABLE) {
-            BlockPattern.PatternHelper patternHelper = getHephaestusPattern().match(world, pos);
+            BlockPattern.BlockPatternMatch patternHelper = getHephaestusPattern().find(world, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
             }
 
-            world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
-            world.setBlockState(pos, ModBlocks.HEPHAESTUS_FORGE.getState().with(ModBlockStateProperties.ACTIVATED, true));
+            world.levelEvent(player, 2001, pos, Block.getId(world.getBlockState(pos)));
+            world.setBlockAndUpdate(pos, ModBlocks.HEPHAESTUS_FORGE.getState().setValue(ModBlockStateProperties.ACTIVATED, true));
 
             CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), world);
-            entity.setPosition(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
-            entity.setEffectOnly(true);
+            entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
+            entity.setVisualOnly(true);
 
-            world.addEntity(entity);
+            world.addFreshEntity(entity);
 
             return true;
         } else if (block == NewModBlocks.ARCANE_CRYSTAL_BLOCK.get() || block == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
-            BlockPattern.PatternHelper patternHelper = getArcaneCrystalObeliskPattern().match(world, pos);
+            BlockPattern.BlockPatternMatch patternHelper = getArcaneCrystalObeliskPattern().find(world, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
             }
 
-            for(int i = 0; i < getArcaneCrystalObeliskPattern().getPalmLength(); i++) {
-                for(int j = 0; j < getArcaneCrystalObeliskPattern().getThumbLength(); j++) {
-                    CachedBlockInfo cachedBlockInfo = patternHelper.translateOffset(i, j, 0);
-                    world.setBlockState(cachedBlockInfo.getPos(), Blocks.AIR.getDefaultState(), 2);
-                    world.playEvent(2001, cachedBlockInfo.getPos(), Block.getStateId(cachedBlockInfo.getBlockState()));
+            for(int i = 0; i < getArcaneCrystalObeliskPattern().getWidth(); i++) {
+                for(int j = 0; j < getArcaneCrystalObeliskPattern().getHeight(); j++) {
+                    BlockInWorld cachedBlockInfo = patternHelper.getBlock(i, j, 0);
+                    world.setBlock(cachedBlockInfo.getPos(), Blocks.AIR.defaultBlockState(), 2);
+                    world.levelEvent(2001, cachedBlockInfo.getPos(), Block.getId(cachedBlockInfo.getState()));
                 }
             }
 
-            BlockState state = NewModBlocks.ARCANE_CRYSTAL_OBELISK.get().getDefaultState();
+            BlockState state = NewModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
 
-            world.setBlockState(patternHelper.getFrontTopLeft().down(2), state.with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 2);
-            world.setBlockState(patternHelper.getFrontTopLeft().down(1), state.with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 2);
-            world.setBlockState(patternHelper.getFrontTopLeft(), state.with(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 2);
+            world.setBlock(patternHelper.getFrontTopLeft().below(2), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 2);
+            world.setBlock(patternHelper.getFrontTopLeft().below(1), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 2);
+            world.setBlock(patternHelper.getFrontTopLeft(), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 2);
 
             return true;
         }
@@ -148,12 +148,12 @@ public class MundabiturDustItem extends Item {
                     .aisle("~~~~~~~~~", "*PAPPPAP*")
                     .aisle("~~~~~~~~~", "*PPPAPPP*")
                     .aisle("~~~~~~~~~", "***PPP***")
-                    .where('^', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(Blocks.SMITHING_TABLE)))
-                    .where('A', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
-                    .where('C', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
-                    .where('P', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.POLISHED_DARKSTONE.get())))
-                    .where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
-                    .where('*', CachedBlockInfo.hasState(BlockStateMatcher.ANY))
+                    .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.SMITHING_TABLE)))
+                    .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
+                    .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
+                    .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.POLISHED_DARKSTONE.get())))
+                    .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
+                    .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
                     .build();
         }
         return hephaestusPattern;
@@ -171,11 +171,11 @@ public class MundabiturDustItem extends Item {
                     .aisle("*PAPPPAP*")
                     .aisle("*PPPAPPP*")
                     .aisle("***PPP***")
-                    .where('A', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
-                    .where('C', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
-                    .where('P', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.POLISHED_DARKSTONE.get())))
-                    .where('~', CachedBlockInfo.hasState(BlockMaterialMatcher.forMaterial(Material.AIR)))
-                    .where('*', CachedBlockInfo.hasState(BlockStateMatcher.ANY))
+                    .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
+                    .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
+                    .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.POLISHED_DARKSTONE.get())))
+                    .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
+                    .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
                     .build();
         }
         return baseHephaestusPattern;
@@ -185,8 +185,8 @@ public class MundabiturDustItem extends Item {
         if (arcaneCrystalObeliskPattern == null) {
             arcaneCrystalObeliskPattern = BlockPatternBuilder.start()
                     .aisle("#", "#", "X")
-                    .where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_CRYSTAL_BLOCK.get())))
-                    .where('X', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(NewModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
+                    .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_CRYSTAL_BLOCK.get())))
+                    .where('X', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
                     .build();
         }
         return arcaneCrystalObeliskPattern;

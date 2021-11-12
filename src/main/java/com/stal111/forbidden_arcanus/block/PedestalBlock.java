@@ -3,33 +3,32 @@ package com.stal111.forbidden_arcanus.block;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IWaterLoggable;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.valhelsia.valhelsia_core.block.ValhelsiaContainerBlock;
-import net.valhelsia.valhelsia_core.helper.VoxelShapeHelper;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,13 +41,13 @@ import javax.annotation.Nullable;
  * @version 2.0.0
  * @since 2021-06-25
  */
-public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLoggable {
+public class PedestalBlock extends Block implements SimpleWaterloggedBlock {
 
     private static final VoxelShape SHAPE = VoxelShapeHelper.combineAll(
-            makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D),
-            makeCuboidShape(3.0D, 4.0D, 3.0D, 13.0D, 6.0D, 13.0D),
-            makeCuboidShape(4.0D, 6.0D, 4.0D, 12.0D, 11.0D, 12.0D),
-            makeCuboidShape(2.0D, 11.0D, 2.0D, 14.0D, 14.0D, 14.0D)
+            box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D),
+            box(3.0D, 4.0D, 3.0D, 13.0D, 6.0D, 13.0D),
+            box(4.0D, 6.0D, 4.0D, 12.0D, 11.0D, 12.0D),
+            box(2.0D, 11.0D, 2.0D, 14.0D, 14.0D, 14.0D)
     );
 
     public static final BooleanProperty RITUAL = ModBlockStateProperties.RITUAL;
@@ -56,54 +55,48 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
 
     public PedestalBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getStateContainer().getBaseState().with(RITUAL, false).with(WATERLOGGED, false));
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new PedestalTileEntity();
+        this.registerDefaultState(this.getStateDefinition().any().setValue(RITUAL, false).setValue(WATERLOGGED, false));
     }
 
     @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(@Nonnull BlockItemUseContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
+    public BlockState getStateForPlacement(@Nonnull BlockPlaceContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
 
-        return this.getDefaultState()
-                .with(RITUAL, world.getBlockState(pos.down()).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())
-                .with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER);
+        return this.defaultBlockState()
+                .setValue(RITUAL, world.getBlockState(pos.below()).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())
+                .setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER);
     }
 
     @Nonnull
     @Override
-    public BlockState updatePostPlacement(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld world, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
-        if (state.get(WATERLOGGED)) {
-            world.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor world, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
-        return super.updatePostPlacement(state, facing, facingState, world, currentPos, facingPos);
+        return super.updateShape(state, facing, facingState, world, currentPos, facingPos);
     }
 
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
-        ItemStack stack = player.getHeldItem(hand);
-        TileEntity tileEntity = world.getTileEntity(pos);
+    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
+        ItemStack stack = player.getItemInHand(hand);
+        BlockEntity tileEntity = world.getBlockEntity(pos);
 
         if (!(tileEntity instanceof PedestalTileEntity)) {
-            return ActionResultType.PASS;
+            return InteractionResult.PASS;
         }
         PedestalTileEntity pedestalTileEntity = (PedestalTileEntity) tileEntity;
 
@@ -111,9 +104,9 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
             ItemStack pedestalStack = pedestalTileEntity.getStack();
 
             if (stack.isEmpty()) {
-                player.setHeldItem(hand, pedestalStack);
-            } else if (!player.addItemStackToInventory(pedestalStack)) {
-                player.dropItem(pedestalStack, false);
+                player.setItemInHand(hand, pedestalStack);
+            } else if (!player.addItem(pedestalStack)) {
+                player.drop(pedestalStack, false);
             }
 
             pedestalTileEntity.clearStack();
@@ -124,50 +117,50 @@ public class PedestalBlock extends ValhelsiaContainerBlock implements IWaterLogg
             ItemStackUtils.shrinkStack(player, stack);
             
         } else {
-            return ActionResultType.PASS;
+            return InteractionResult.PASS;
         }
 
-        return ActionResultType.func_233537_a_(world.isRemote);
+        return InteractionResult.sidedSuccess(world.isClientSide);
     }
 
     @Override
-    public void neighborChanged(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Block block, @Nonnull BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull Block block, @Nonnull BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, world, pos, block, fromPos, isMoving);
 
-        if (!fromPos.equals(pos.down())) {
+        if (!fromPos.equals(pos.below())) {
             return;
         }
 
-        BlockState newState = state.with(RITUAL, world.getBlockState(fromPos).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
+        BlockState newState = state.setValue(RITUAL, world.getBlockState(fromPos).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
 
         if (state != newState) {
-            world.setBlockState(pos, newState, 3);
+            world.setBlock(pos, newState, 3);
         }
     }
 
     @Override
-    public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-        if (state.isIn(newState.getBlock())) {
+    public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+        if (state.is(newState.getBlock())) {
             return;
         }
 
-        TileEntity tileEntity = world.getTileEntity(pos);
+        BlockEntity tileEntity = world.getBlockEntity(pos);
 
         if (tileEntity instanceof PedestalTileEntity) {
-            world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, ((PedestalTileEntity) tileEntity).getStack()));
+            world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, ((PedestalTileEntity) tileEntity).getStack()));
         }
 
-        super.onReplaced(state, world, pos, newState, isMoving);
+        super.onRemove(state, world, pos, newState, isMoving);
     }
 
     @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(RITUAL, WATERLOGGED);
     }
 }

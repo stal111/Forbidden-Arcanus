@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Ritual Starter Item Interface <br>

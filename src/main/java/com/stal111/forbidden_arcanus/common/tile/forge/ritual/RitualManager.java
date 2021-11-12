@@ -12,17 +12,17 @@ import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
 import com.stal111.forbidden_arcanus.util.ISavedData;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.village.PointOfInterestManager;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,13 +94,13 @@ public class RitualManager implements ISavedData {
     }
 
     public void tick() {
-        ServerWorld world = this.getWorld();
+        ServerLevel world = this.getWorld();
 
         if (!this.isRitualActive()) {
             return;
         }
 
-        BlockPos pos = this.getTileEntity().getPos();
+        BlockPos pos = this.getTileEntity().getBlockPos();
         Random random = world.getRandom();
 
         int time = this.getActiveRitual().getTime();
@@ -128,7 +128,7 @@ public class RitualManager implements ISavedData {
         }
 
         this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
-            BlockPos pedestalPos = pedestalTileEntity.getPos();
+            BlockPos pedestalPos = pedestalTileEntity.getBlockPos();
 
             if (pedestalTileEntity.getItemHeight() != 130) {
                 int height = pedestalTileEntity.getItemHeight() + 1;
@@ -142,19 +142,19 @@ public class RitualManager implements ISavedData {
 
         if (this.counter == time / 2.0F && random.nextDouble() <= this.getFailureChance() * 2) {
             CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), world);
-            entity.setPosition(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
-            entity.setEffectOnly(true);
+            entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
+            entity.setVisualOnly(true);
 
-            world.addEntity(entity);
+            world.addFreshEntity(entity);
 
             this.lightningCounter++;
 
             this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
                 if (random.nextBoolean()) {
                     ItemStack stack = pedestalTileEntity.getStack().copy();
-                    BlockPos pedestalPos = pedestalTileEntity.getPos();
+                    BlockPos pedestalPos = pedestalTileEntity.getBlockPos();
 
-                    world.addEntity(new ItemEntity(world, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalTileEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
+                    world.addFreshEntity(new ItemEntity(world, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalTileEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
                     pedestalTileEntity.clearStack();
 
                     NetworkHandler.sentToTrackingChunk(world.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, ItemStack.EMPTY, 110));
@@ -173,42 +173,42 @@ public class RitualManager implements ISavedData {
         NetworkHandler.sentToTrackingChunk(world.getChunkAt(pos), new UpdateRitualPacket(pos, this.activeRitual));
     }
 
-    public void finishRitual(ServerWorld world) {
-        this.tileEntity.setInventorySlotContents(4, this.getActiveRitual().getResult());
+    public void finishRitual(ServerLevel world) {
+        this.tileEntity.setItem(4, this.getActiveRitual().getResult());
         this.reset();
 
         this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
             pedestalTileEntity.clearStack();
 
-            NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), ItemStack.EMPTY, 110));
+            NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getBlockPos()), new UpdatePedestalPacket(pedestalTileEntity.getBlockPos(), ItemStack.EMPTY, 110));
         });
     }
 
-    public void failRitual(ServerWorld world) {
-        ItemStack stack = this.tileEntity.getStackInSlot(4);
-        BlockPos pos = this.tileEntity.getPos();
+    public void failRitual(ServerLevel world) {
+        ItemStack stack = this.tileEntity.getItem(4);
+        BlockPos pos = this.tileEntity.getBlockPos();
 
         this.reset();
 
         if (!stack.isEmpty()) {
-            world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
+            world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
 
-            this.tileEntity.setInventorySlotContents(4, ItemStack.EMPTY);
+            this.tileEntity.setItem(4, ItemStack.EMPTY);
         }
 
         this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
             pedestalTileEntity.clearStack();
             this.tileEntity.getEssenceManager().increaseCorruption(2);
 
-            NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getPos()), new UpdatePedestalPacket(pedestalTileEntity.getPos(), ItemStack.EMPTY, 110));
+            NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getBlockPos()), new UpdatePedestalPacket(pedestalTileEntity.getBlockPos(), ItemStack.EMPTY, 110));
         });
 
-        world.spawnParticle(ModParticles.HUGE_MAGIC_EXPLOSION.get(), pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0, 1.0D, 0.0D, 0.0D, 0.0D);
-        world.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2F) * 0.7F);
+        world.sendParticles(ModParticles.HUGE_MAGIC_EXPLOSION.get(), pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0, 1.0D, 0.0D, 0.0D, 0.0D);
+        world.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2F) * 0.7F);
     }
 
-    private void addItemParticles(ServerWorld world, BlockPos pedestalPos, int itemHeight, ItemStack stack) {
-        BlockPos pos = this.tileEntity.getPos();
+    private void addItemParticles(ServerLevel world, BlockPos pedestalPos, int itemHeight, ItemStack stack) {
+        BlockPos pos = this.tileEntity.getBlockPos();
 
         double posX = pedestalPos.getX() + 0.5D;
         double posY = pedestalPos.getY() + 0.1D + itemHeight / 100.0F;
@@ -218,7 +218,7 @@ public class RitualManager implements ISavedData {
         double zSpeed = 0.1D * (pos.getZ() - pedestalPos.getZ());
 
         if (world.getRandom().nextDouble() < 0.6D) {
-            world.spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), posX, posY, posZ, 0, xSpeed, ySpeed, zSpeed, 0.9D);
+            world.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), posX, posY, posZ, 0, xSpeed, ySpeed, zSpeed, 0.9D);
         }
     }
 
@@ -228,16 +228,16 @@ public class RitualManager implements ISavedData {
         this.setActiveRitual(null);
     }
 
-    public ServerWorld getWorld() {
-        return (ServerWorld) this.tileEntity.getWorld();
+    public ServerLevel getWorld() {
+        return (ServerLevel) this.tileEntity.getLevel();
     }
 
     public double getFailureChance() {
-        return ((this.getTileEntity().getEssenceManager().getCorruption() + 5) / (float) this.getTileEntity().getLevel().getMaxCorruption()) / 2;
+        return ((this.getTileEntity().getEssenceManager().getCorruption() + 5) / (float) this.getTileEntity().getForgeLevel().getMaxCorruption()) / 2;
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         if (this.isRitualActive()) {
             compound.putString("ActiveRitual", this.getActiveRitual().getName().toString());
             compound.putInt("Counter", this.counter);
@@ -251,7 +251,7 @@ public class RitualManager implements ISavedData {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         if (compound.contains("ActiveRitual")) {
             this.setActiveRitual(RitualLoader.getRitual(new ResourceLocation(compound.getString("ActiveRitual"))));
             this.counter = compound.getInt("Counter");
@@ -267,10 +267,10 @@ public class RitualManager implements ISavedData {
     }
 
     public void updateCachedPedestals() {
-        PointOfInterestManager manager = this.getWorld().getPointOfInterestManager();
+        PoiManager manager = this.getWorld().getPoiManager();
 
         this.cachedPedestals.clear();
-        manager.func_219146_b(poiType -> poiType == ModPOITypes.PEDESTAL.get(), this.tileEntity.getPos(), 4, PointOfInterestManager.Status.ANY).forEach(pointOfInterest -> this.cachedPedestals.add(pointOfInterest.getPos()));
+        manager.getInRange(poiType -> poiType == ModPOITypes.PEDESTAL.get(), this.tileEntity.getBlockPos(), 4, PoiManager.Occupancy.ANY).forEach(pointOfInterest -> this.cachedPedestals.add(pointOfInterest.getPos()));
     }
 
     public void forEachPedestal(Predicate<PedestalTileEntity> predicate, Consumer<PedestalTileEntity> consumer) {
@@ -281,6 +281,6 @@ public class RitualManager implements ISavedData {
         if (updatePedestals) {
             this.updateCachedPedestals();
         }
-        this.cachedPedestals.stream().map(pos -> (PedestalTileEntity) this.getWorld().getTileEntity(pos)).filter(predicate).forEach(consumer);
+        this.cachedPedestals.stream().map(pos -> (PedestalTileEntity) this.getWorld().getBlockEntity(pos)).filter(predicate).forEach(consumer);
     }
 }

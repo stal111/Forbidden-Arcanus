@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.block.properties;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum CandelabraAttachment implements IStringSerializable {
+public enum CandelabraAttachment implements StringRepresentable {
     FLOOR("floor"),
     CEILING("ceiling"),
     SINGLE_WALL("wall");
@@ -14,7 +14,7 @@ public enum CandelabraAttachment implements IStringSerializable {
     }
 
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

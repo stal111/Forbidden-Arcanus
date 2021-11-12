@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.init.other;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.mixin.AccessorFireBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class ModFlammables {
 

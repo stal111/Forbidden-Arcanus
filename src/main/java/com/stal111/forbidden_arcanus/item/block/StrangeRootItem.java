@@ -1,16 +1,12 @@
 package com.stal111.forbidden_arcanus.item.block;
 
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.Block;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.World;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 public class StrangeRootItem extends BlockItem {
 
@@ -19,13 +15,13 @@ public class StrangeRootItem extends BlockItem {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
-        super.onItemUseFinish(stack, world, entity);
-        if (!world.isRemote) {
-            for (int i = 0; i < entity.getActivePotionEffects().size(); i++) {
-                EffectInstance effectInstance = (EffectInstance) entity.getActivePotionEffects().toArray()[i];
-                if (effectInstance.getPotion().getEffect().getEffectType() == EffectType.HARMFUL) {
-                    entity.removePotionEffect(effectInstance.getPotion());
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
+        super.finishUsingItem(stack, world, entity);
+        if (!world.isClientSide) {
+            for (int i = 0; i < entity.getActiveEffects().size(); i++) {
+                MobEffectInstance effectInstance = (MobEffectInstance) entity.getActiveEffects().toArray()[i];
+                if (effectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
+                    entity.removeEffect(effectInstance.getEffect());
                 }
             }
         }
@@ -34,7 +30,7 @@ public class StrangeRootItem extends BlockItem {
     }
 
     @Override
-    public String getTranslationKey(ItemStack stack) {
-        return this.getDefaultTranslationKey();
+    public String getDescriptionId(ItemStack stack) {
+        return this.getOrCreateDescriptionId();
     }
 }

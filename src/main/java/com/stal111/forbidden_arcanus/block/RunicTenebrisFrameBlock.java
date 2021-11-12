@@ -3,14 +3,16 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.Level;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class RunicTenebrisFrameBlock extends WaterloggedBlock {
 
@@ -19,20 +21,20 @@ public class RunicTenebrisFrameBlock extends WaterloggedBlock {
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
-		ItemStack stack = player.getHeldItemMainhand();
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+		ItemStack stack = player.getMainHandItem();
 		if (stack.isEmpty()) {
-			return ActionResultType.SUCCESS;
+			return InteractionResult.SUCCESS;
 		} else {
-			boolean flag = state.get(WATERLOGGED);
-			if (stack.getItem() == ModItems.DARK_NETHER_STAR.get() && !world.isRemote) {
-				if (!player.abilities.isCreativeMode) {
+			boolean flag = state.getValue(WATERLOGGED);
+			if (stack.getItem() == ModItems.DARK_NETHER_STAR.get() && !world.isClientSide) {
+				if (!player.getAbilities().instabuild) {
 					stack.shrink(1);
 				}
-				world.setBlockState(pos, ModBlocks.RUNIC_TENEBRIS_CORE.getBlock().getDefaultState().with(WATERLOGGED, flag));
-				return ActionResultType.SUCCESS;
+				world.setBlockAndUpdate(pos, ModBlocks.RUNIC_TENEBRIS_CORE.getBlock().defaultBlockState().setValue(WATERLOGGED, flag));
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return super.onBlockActivated(state, world, pos, player, hand, result);
+		return super.use(state, world, pos, player, hand, result);
 	}
 }

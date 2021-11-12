@@ -4,10 +4,10 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.data.BlockTagsProvider;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ItemTagsProvider;
-import net.minecraft.item.Items;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.world.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
@@ -30,7 +30,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         this.copy(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Items.FUNGYSS_STEMS);
         this.copy(BlockTags.LOGS, ItemTags.LOGS);
         this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
@@ -44,10 +44,10 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
         this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
 
-        this.getOrCreateBuilder(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
-        this.getOrCreateBuilder(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
-        this.getOrCreateBuilder(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
-        this.getOrCreateBuilder(ModTags.Items.BLACKSMITH_GAVEL).add(
+        this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
+        this.tag(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
+        this.tag(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
+        this.tag(ModTags.Items.BLACKSMITH_GAVEL).add(
                 NewModItems.WOODEN_BLACKSMITH_GAVEL.get(),
                 NewModItems.STONE_BLACKSMITH_GAVEL.get(),
                 NewModItems.GOLDEN_BLACKSMITH_GAVEL.get(),
@@ -58,8 +58,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 NewModItems.REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(),
                 NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get()
         );
-        this.getOrCreateBuilder(ModTags.Items.ARCANE_GOLD_INGOTS).add(ModItems.ARCANE_GOLD_INGOT.get());
-        this.getOrCreateBuilder(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());
-        this.getOrCreateBuilder(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED).add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, ModItems.GOLDEN_ORCHID_SEEDS.get());
+        this.tag(ModTags.Items.ARCANE_GOLD_INGOTS).add(ModItems.ARCANE_GOLD_INGOT.get());
+        this.tag(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());
+        this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED).add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, ModItems.GOLDEN_ORCHID_SEEDS.get());
     }
 }

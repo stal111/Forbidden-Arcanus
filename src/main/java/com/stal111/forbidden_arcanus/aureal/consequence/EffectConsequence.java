@@ -3,11 +3,11 @@ package com.stal111.forbidden_arcanus.aureal.consequence;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class EffectConsequence implements IConsequence {
 
-    public List<Pair<Effect, Integer>> effects = new ArrayList<>();
+    public List<Pair<MobEffect, Integer>> effects = new ArrayList<>();
 
     @Override
     public ResourceLocation getName() {
@@ -30,16 +30,16 @@ public class EffectConsequence implements IConsequence {
     }
 
     @Override
-    public void tick(PlayerEntity player) {
+    public void tick(Player player) {
         effects.clear();
-        effects.add(Pair.of(Effects.NAUSEA, 100));
-        effects.add(Pair.of(Effects.WEAKNESS, 1800));
-        effects.add(Pair.of(Effects.UNLUCK, 3600));
-        effects.add(Pair.of(Effects.BAD_OMEN, 3600));
+        effects.add(Pair.of(MobEffects.CONFUSION, 100));
+        effects.add(Pair.of(MobEffects.WEAKNESS, 1800));
+        effects.add(Pair.of(MobEffects.UNLUCK, 3600));
+        effects.add(Pair.of(MobEffects.BAD_OMEN, 3600));
         effects.add(Pair.of(ModEffects.DARKENED.get(), 2400));
 
-        Pair<Effect, Integer> pair = effects.get(player.getRNG().nextInt(effects.size()));
-        player.addPotionEffect(new EffectInstance(pair.getFirst(), pair.getSecond()));
+        Pair<MobEffect, Integer> pair = effects.get(player.getRandom().nextInt(effects.size()));
+        player.addEffect(new MobEffectInstance(pair.getFirst(), pair.getSecond()));
     }
 
     @Override

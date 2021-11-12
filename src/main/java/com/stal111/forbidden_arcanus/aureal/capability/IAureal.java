@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.aureal.capability;
 
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.List;
 
@@ -28,6 +28,6 @@ public interface IAureal {
 
     void addActiveConsequence(IConsequence consequence);
     void removeActiveConsequence(IConsequence consequence);
-    void updateActiveConsequences(PlayerEntity player);
+    void updateActiveConsequences(Player player);
     List<IConsequence> getActiveConsequences();
 }

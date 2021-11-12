@@ -3,21 +3,21 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +30,19 @@ public class EntityDamageListener {
     public static void onEntityDamage(LivingDamageEvent event) {
         LivingEntity entity = event.getEntityLiving();
         DamageSource source = event.getSource();
-        World world = entity.getEntityWorld();
+        Level world = entity.getCommandSenderWorld();
 
-        Random random = entity.getRNG();
+        Random random = entity.getRandom();
 
-        if (source.damageType.equals("player")) {
-            PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
+        if (source.msgId.equals("player")) {
+            Player player = (Player) event.getSource().getEntity();
 
-            if (player != null && player.getHeldItem(player.getActiveHand()).getItem() == ModItems.MYSTICAL_DAGGER.get()) {
+            if (player != null && player.getItemInHand(player.getUsedItemHand()).getItem() == ModItems.MYSTICAL_DAGGER.get()) {
                 int blood = (int) (20 * event.getAmount());
 
                 ItemStack stack = null;
 
-                for (ItemStack inventoryStack : player.inventory.mainInventory) {
+                for (ItemStack inventoryStack : player.getInventory().items) {
                     if (inventoryStack.getItem() == NewModItems.TEST_TUBE.get() && stack == null) {
                         stack = inventoryStack;
 
@@ -56,66 +56,66 @@ public class EntityDamageListener {
 
                 if (stack != null) {
                     ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(NewModItems.BLOOD_TEST_TUBE.get()), blood);
-                    int slot = player.inventory.getSlotFor(stack);
+                    int slot = player.getInventory().findSlotMatchingItem(stack);
 
                     stack.shrink(1);
 
                     if (!stack.isEmpty()) {
-                        if (!player.addItemStackToInventory(newStack)) {
-                            player.dropItem(newStack, false);
+                        if (!player.addItem(newStack)) {
+                            player.drop(newStack, false);
                         }
                     } else {
-                        player.inventory.setInventorySlotContents(slot, newStack);
+                        player.getInventory().setItem(slot, newStack);
                     }
                 }
             }
         }
 
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entity;
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
             if (event.getSource() == DamageSource.FALL && event.getAmount() >= 6) {
                 if (random.nextDouble() <= 0.75) {
                     List<Integer> list = new ArrayList<>();
-                    player.inventory.mainInventory.forEach((stack -> {
+                    player.getInventory().items.forEach((stack -> {
                         if (stack.getItem() == ModItems.EDELWOOD_SLIME_BUCKET.get()) {
-                            list.add(player.inventory.getSlotFor(stack));
+                            list.add(player.getInventory().findSlotMatchingItem(stack));
                         }
                     }));
                     if (!list.isEmpty()) {
-                        player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
+                        player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
 
-                        world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), Items.SLIME_BALL.getDefaultInstance()));
+                        world.addFreshEntity(new ItemEntity(world, player.getX(), player.getY(), player.getZ(), Items.SLIME_BALL.getDefaultInstance()));
                         for(int j = 0; j < 4 * 8; ++j) {
                             float f = random.nextFloat() * ((float) Math.PI * 2F);
                             float f1 = random.nextFloat() * 0.5F + 0.5F;
-                            float f2 = MathHelper.sin(f) * (float) 4 * 0.5F * f1;
-                            float f3 = MathHelper.cos(f) * (float) 4 * 0.5F * f1;
-                            world.addParticle(ParticleTypes.ITEM_SLIME, player.getPosX() + (double)f2, player.getPosY(), player.getPosZ() + (double)f3, 0.0D, 0.0D, 0.0D);
+                            float f2 = Mth.sin(f) * (float) 4 * 0.5F * f1;
+                            float f3 = Mth.cos(f) * (float) 4 * 0.5F * f1;
+                            world.addParticle(ParticleTypes.ITEM_SLIME, player.getX() + (double)f2, player.getY(), player.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
                         }
                         event.setAmount(0);
                     }
                 }
             } else if (event.getSource() == DamageSource.LAVA || event.getSource() == DamageSource.ON_FIRE || event.getSource() == DamageSource.IN_FIRE) {
                 List<Integer> list = new ArrayList<>();
-                player.inventory.mainInventory.forEach((stack -> {
+                player.getInventory().items.forEach((stack -> {
                     if (stack.getItem() == ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.get()) {
-                        list.add(player.inventory.getSlotFor(stack));
+                        list.add(player.getInventory().findSlotMatchingItem(stack));
                     }
                 }));
                 if (!list.isEmpty()) {
-                    player.inventory.setInventorySlotContents(list.get(0), ItemStackUtils.transferEnchantments(player.inventory.getStackInSlot(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
+                    player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
 
-                    world.addEntity(new ItemEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), Items.MAGMA_CREAM.getDefaultInstance()));
+                    world.addFreshEntity(new ItemEntity(world, player.getX(), player.getY(), player.getZ(), Items.MAGMA_CREAM.getDefaultInstance()));
 
                     for(int j = 0; j < 4 * 8; ++j) {
                         float f = random.nextFloat() * ((float) Math.PI * 2F);
                         float f1 = random.nextFloat() * 0.5F + 0.5F;
-                        float f2 = MathHelper.sin(f) * (float) 4 * 0.5F * f1;
-                        float f3 = MathHelper.cos(f) * (float) 4 * 0.5F * f1;
-                        world.addParticle(ParticleTypes.FLAME, player.getPosX() + (double)f2, player.getPosY(), player.getPosZ() + (double)f3, 0.0D, 0.0D, 0.0D);
+                        float f2 = Mth.sin(f) * (float) 4 * 0.5F * f1;
+                        float f3 = Mth.cos(f) * (float) 4 * 0.5F * f1;
+                        world.addParticle(ParticleTypes.FLAME, player.getX() + (double)f2, player.getY(), player.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
                     }
                     event.setAmount(0);
-                    player.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600));
+                    player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600));
                 }
             }
         }

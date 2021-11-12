@@ -2,12 +2,12 @@ package com.stal111.forbidden_arcanus.network;
 
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -30,20 +30,20 @@ public class ItemParticlePacket {
         this.stack = stack;
     }
 
-    public static void encode(ItemParticlePacket packet, PacketBuffer buffer) {
+    public static void encode(ItemParticlePacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
-        buffer.writeItemStack(packet.stack);
+        buffer.writeItem(packet.stack);
     }
 
-    public static ItemParticlePacket decode(PacketBuffer buffer) {
-        return new ItemParticlePacket(buffer.readBlockPos(), buffer.readItemStack());
+    public static ItemParticlePacket decode(FriendlyByteBuf buffer) {
+        return new ItemParticlePacket(buffer.readBlockPos(), buffer.readItem());
     }
 
     public static void consume(ItemParticlePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            World world = Minecraft.getInstance().world;
+            Level world = Minecraft.getInstance().level;
 
             RenderUtils.addItemParticles(Objects.requireNonNull(world), packet.stack, packet.pos, 16);
         });

@@ -4,30 +4,30 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.particles.IParticleData;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -36,51 +36,51 @@ import java.util.Random;
 public class SoulExtractorItem extends Item {
 
     public SoulExtractorItem() {
-        super(ModItems.properties().maxDamage(128));
+        super(ModItems.properties().durability(128));
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        RayTraceResult rayTraceResult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        HitResult rayTraceResult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.SOURCE_ONLY);
 
         //if (!player.isSneaking()) {
-            if (rayTraceResult.getType() == RayTraceResult.Type.BLOCK) {
-                BlockRayTraceResult blockRayTraceResult = (BlockRayTraceResult) rayTraceResult;
-                BlockPos pos = blockRayTraceResult.getPos();
-                if (world.isBlockModifiable(player, pos)) {
+            if (rayTraceResult.getType() == HitResult.Type.BLOCK) {
+                BlockHitResult blockRayTraceResult = (BlockHitResult) rayTraceResult;
+                BlockPos pos = blockRayTraceResult.getBlockPos();
+                if (world.mayInteract(player, pos)) {
                     Block block = world.getBlockState(pos).getBlock();
                     if (block == Blocks.SOUL_SAND) {
-                        player.setActiveHand(hand);
-                        return new ActionResult<>(ActionResultType.SUCCESS, stack);
+                        player.startUsingItem(hand);
+                        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
                     }
                 }
             }
         //}
-        return new ActionResult<>(ActionResultType.FAIL, stack);
+        return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity livingEntity) {
-        if (livingEntity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) livingEntity;
-            RayTraceResult rayTraceResult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity livingEntity) {
+        if (livingEntity instanceof Player) {
+            Player player = (Player) livingEntity;
+            HitResult rayTraceResult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.SOURCE_ONLY);
          //   if (!player.isSneaking()) {
-                if (rayTraceResult.getType() == RayTraceResult.Type.BLOCK) {
-                    BlockRayTraceResult blockRayTraceResult = (BlockRayTraceResult) rayTraceResult;
-                    BlockPos pos = blockRayTraceResult.getPos();
-                    if (world.isBlockModifiable(player, pos)) {
+                if (rayTraceResult.getType() == HitResult.Type.BLOCK) {
+                    BlockHitResult blockRayTraceResult = (BlockHitResult) rayTraceResult;
+                    BlockPos pos = blockRayTraceResult.getBlockPos();
+                    if (world.mayInteract(player, pos)) {
                         if (world.getBlockState(pos).getBlock() == Blocks.SOUL_SAND) {
-                            stack.damageItem(1, player, (playerEntity) -> {
-                                playerEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+                            stack.hurtAndBreak(1, player, (playerEntity) -> {
+                                playerEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
                             });
                             for (int i = 0; i < 4; i++) {
-                                world.addParticle((IParticleData) ModParticles.SOUL.get(), pos.getX() + random.nextFloat(), pos.getY() + 1, pos.getZ() + random.nextFloat(), 1, 1, 1);
+                                world.addParticle((ParticleOptions) ModParticles.SOUL.get(), pos.getX() + player.getRandom().nextFloat(), pos.getY() + 1, pos.getZ() + player.getRandom().nextFloat(), 1, 1, 1);
                             }
-                            player.addStat(Stats.ITEM_USED.get(this));
-                            if (!world.isRemote) {
-                                world.setBlockState(pos, ModBlocks.SOULLESS_SAND.getState());
-                                world.addEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1F, pos.getZ(), new ItemStack(ModItems.SOUL.get())));
+                            player.awardStat(Stats.ITEM_USED.get(this));
+                            if (!world.isClientSide) {
+                                world.setBlockAndUpdate(pos, ModBlocks.SOULLESS_SAND.getState());
+                                world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1F, pos.getZ(), new ItemStack(ModItems.SOUL.get())));
                             }
                         }
                     }
@@ -92,20 +92,20 @@ public class SoulExtractorItem extends Item {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity livingEntity, int count) {
-        if (livingEntity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) livingEntity;
-            World world = player.getEntityWorld();
-            RayTraceResult rayTraceResult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+        if (livingEntity instanceof Player) {
+            Player player = (Player) livingEntity;
+            Level world = player.getCommandSenderWorld();
+            HitResult rayTraceResult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.SOURCE_ONLY);
 
           //  if (!player.isSneaking()) {
-                if (rayTraceResult.getType() == RayTraceResult.Type.BLOCK) {
-                    BlockRayTraceResult blockRayTraceResult = (BlockRayTraceResult) rayTraceResult;
-                    BlockPos pos = blockRayTraceResult.getPos();
-                    if (world.isBlockModifiable(player, pos)) {
+                if (rayTraceResult.getType() == HitResult.Type.BLOCK) {
+                    BlockHitResult blockRayTraceResult = (BlockHitResult) rayTraceResult;
+                    BlockPos pos = blockRayTraceResult.getBlockPos();
+                    if (world.mayInteract(player, pos)) {
                         Block block = world.getBlockState(pos).getBlock();
                         if (block == Blocks.SOUL_SAND) {
                             if (new Random().nextInt(6) == 1) {
-                                world.playEvent(player, 2001, pos, Block.getStateId(world.getBlockState(pos)));
+                                world.levelEvent(player, 2001, pos, Block.getId(world.getBlockState(pos)));
                             }
                         }
                     }
@@ -120,18 +120,18 @@ public class SoulExtractorItem extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.BOW;
     }
 
     @Override
-    public boolean canPlayerBreakBlockWhileHolding(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-        return !player.abilities.isCreativeMode;
+    public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player player) {
+        return !player.getAbilities().instabuild;
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> list, ITooltipFlag flag) {
-        list.add(new TranslationTextComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").mergeStyle(TextFormatting.GRAY));
-        super.addInformation(stack, world, list, flag);
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
+        list.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").withStyle(ChatFormatting.GRAY));
+        super.appendHoverText(stack, world, list, flag);
     }
 }

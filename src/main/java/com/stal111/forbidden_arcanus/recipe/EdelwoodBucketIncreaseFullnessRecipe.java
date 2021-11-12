@@ -3,16 +3,16 @@ package com.stal111.forbidden_arcanus.recipe;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,20 +20,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
+public class EdelwoodBucketIncreaseFullnessRecipe extends CustomRecipe {
 
     public EdelwoodBucketIncreaseFullnessRecipe(ResourceLocation resourceLocation) {
         super(resourceLocation);
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, World worldIn) {
+    public boolean matches(CraftingContainer inv, Level worldIn) {
         AtomicInteger i = new AtomicInteger();
         List<Integer> list = new ArrayList<>();
         ItemStack stack = ItemStack.EMPTY;
 
-        for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
-            ItemStack stackInSlot = inv.getStackInSlot(slot);
+        for (int slot = 0; slot < inv.getContainerSize(); slot++) {
+            ItemStack stackInSlot = inv.getItem(slot);
             if (stack.isEmpty()) {
                 if (stackInSlot.getItem() instanceof ICapacityBucket) {
                     stack = stackInSlot.copy();
@@ -56,7 +56,7 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
         if (!stack.isEmpty()) {
             ItemStack finalStack = stack;
             list.forEach((integer -> {
-                if (getValidItems(finalStack).contains(inv.getStackInSlot(integer).getItem())) {
+                if (getValidItems(finalStack).contains(inv.getItem(integer).getItem())) {
                     i.getAndIncrement();
                 }
             }));
@@ -70,13 +70,13 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
     }
 
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inv) {
+    public ItemStack assemble(CraftingContainer inv) {
         AtomicInteger i = new AtomicInteger();
         List<Integer> list = new ArrayList<>();
         ItemStack stack = ItemStack.EMPTY;
 
-        for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
-            ItemStack stackInSlot = inv.getStackInSlot(slot);
+        for (int slot = 0; slot < inv.getContainerSize(); slot++) {
+            ItemStack stackInSlot = inv.getItem(slot);
             if (stack.isEmpty()) {
                 if (stackInSlot.getItem() instanceof ICapacityBucket) {
                     stack = stackInSlot.copy();
@@ -99,7 +99,7 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
         if (!stack.isEmpty()) {
             ItemStack finalStack = stack;
             list.forEach((integer -> {
-                if (getValidItems(finalStack).contains(inv.getStackInSlot(integer).getItem())) {
+                if (getValidItems(finalStack).contains(inv.getItem(integer).getItem())) {
                     i.getAndIncrement();
                 }
             }));
@@ -114,13 +114,13 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
     private List<Item> getValidItems(ItemStack stack) {
         List<Item> list = new ArrayList<>();
         if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get()) {
-            list.add(Items.WATER_BUCKET.getItem());
+            list.add(Items.WATER_BUCKET);
         } else if (stack.getItem() == ModItems.EDELWOOD_LAVA_BUCKET.get()) {
-            list.add(Items.LAVA_BUCKET.getItem());
+            list.add(Items.LAVA_BUCKET);
         } else if (stack.getItem() == ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get()) {
-            list.add(Items.MUSHROOM_STEW.getItem());
+            list.add(Items.MUSHROOM_STEW);
         } else if (stack.getItem() == ModItems.EDELWOOD_BEETROOT_SOUP_BUCKET.get()) {
-            list.add(Items.BEETROOT_SOUP.getItem());
+            list.add(Items.BEETROOT_SOUP);
         } else if (stack.getItem() == ModItems.EDELWOOD_BAT_SOUP_BUCKET.get()) {
             list.add(ModItems.BAT_SOUP.get());
         }
@@ -128,13 +128,13 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
     }
 
     @Override
-    public NonNullList<ItemStack> getRemainingItems(CraftingInventory inventory) {
-        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inventory.getSizeInventory(), ItemStack.EMPTY);
+    public NonNullList<ItemStack> getRemainingItems(CraftingContainer inventory) {
+        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inventory.getContainerSize(), ItemStack.EMPTY);
 
         Map<Integer, ItemStack> slot = new HashMap<>();
 
         for(int i = 0; i < nonnulllist.size(); i++) {
-            ItemStack item = inventory.getStackInSlot(i);
+            ItemStack item = inventory.getItem(i);
             if (item.hasContainerItem()) {
                 slot.put(i, item.getContainerItem());
             }
@@ -159,12 +159,12 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends SpecialRecipe {
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 2;
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.EDELWOOD_BUCKET_INCREASE_FULLNESS.get();
     }
 }

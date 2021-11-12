@@ -1,10 +1,10 @@
 package com.stal111.forbidden_arcanus.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.effect.LightningBoltEntity;
-import net.minecraft.network.IPacket;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 
@@ -16,15 +16,15 @@ import javax.annotation.Nonnull;
  * @version 2.0.0
  * @since 2021-06-11
  */
-public class CrimsonLightningBoltEntity extends LightningBoltEntity {
+public class CrimsonLightningBoltEntity extends LightningBolt {
 
-    public CrimsonLightningBoltEntity(EntityType<? extends LightningBoltEntity> entityType, World world) {
+    public CrimsonLightningBoltEntity(EntityType<? extends LightningBolt> entityType, Level world) {
         super(entityType, world);
     }
 
     @Nonnull
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

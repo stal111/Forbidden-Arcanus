@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class EnchantmentGlintItem extends Item {
 
@@ -10,7 +10,7 @@ public class EnchantmentGlintItem extends Item {
 	}
 
 	@Override
-	public boolean hasEffect(ItemStack stack) {
+	public boolean isFoil(ItemStack stack) {
 		return true;
 	}
 

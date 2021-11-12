@@ -1,20 +1,20 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BoneMealItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.valhelsia.valhelsia_core.util.ItemStackUtils;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BoneMealItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 
@@ -34,42 +34,42 @@ public class ArcaneBoneMealItem extends BoneMealItem {
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(@Nonnull ItemUseContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
-        BlockPos offsetPos = pos.offset(context.getFace());
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        BlockPos offsetPos = pos.relative(context.getClickedFace());
         BlockState state = world.getBlockState(pos);
-        PlayerEntity player = context.getPlayer();
+        Player player = context.getPlayer();
 
         if (state.getBlock() == Blocks.FARMLAND) {
-            world.setBlockState(pos, ModBlocks.MAGICAL_FARMLAND.getBlock().getDefaultState().with(BlockStateProperties.MOISTURE_0_7, state.get(BlockStateProperties.MOISTURE_0_7)));
-            world.playEvent(player, 2001, pos, Block.getStateId(state));
+            world.setBlockAndUpdate(pos, ModBlocks.MAGICAL_FARMLAND.getBlock().defaultBlockState().setValue(BlockStateProperties.MOISTURE, state.getValue(BlockStateProperties.MOISTURE)));
+            world.levelEvent(player, 2001, pos, Block.getId(state));
 
-            ItemStackUtils.shrinkStack(player, context.getItem());
+            ItemStackUtils.shrinkStack(player, context.getItemInHand());
 
-            return ActionResultType.func_233537_a_(world.isRemote);
-        } else if (ArcaneBoneMealItem.applyBoneMeal(context.getItem(), world, pos, player)) {
-            if (!world.isRemote) {
-                world.playEvent(2005, pos, 0);
+            return InteractionResult.sidedSuccess(world.isClientSide);
+        } else if (ArcaneBoneMealItem.applyBoneMeal(context.getItemInHand(), world, pos, player)) {
+            if (!world.isClientSide) {
+                world.levelEvent(2005, pos, 0);
             }
 
-            return ActionResultType.func_233537_a_(world.isRemote);
+            return InteractionResult.sidedSuccess(world.isClientSide);
         } else {
-            boolean flag = state.isSolidSide(world, pos, context.getFace());
+            boolean flag = state.isFaceSturdy(world, pos, context.getClickedFace());
 
-            if (flag && growSeagrass(context.getItem(), world, offsetPos, context.getFace())) {
-                if (!world.isRemote) {
-                    world.playEvent(2005, offsetPos, 0);
+            if (flag && growWaterPlant(context.getItemInHand(), world, offsetPos, context.getClickedFace())) {
+                if (!world.isClientSide) {
+                    world.levelEvent(2005, offsetPos, 0);
                 }
 
-                return ActionResultType.func_233537_a_(world.isRemote);
+                return InteractionResult.sidedSuccess(world.isClientSide);
             } else {
-                return ActionResultType.PASS;
+                return InteractionResult.PASS;
             }
         }
     }
 
-    public static boolean applyBoneMeal(ItemStack stack, World world, BlockPos pos, PlayerEntity player) {
+    public static boolean applyBoneMeal(ItemStack stack, Level world, BlockPos pos, Player player) {
         int hook = net.minecraftforge.event.ForgeEventFactory.onApplyBonemeal(player, world, pos, world.getBlockState(pos), stack);
         if (hook != 0) {
             return hook > 0;
@@ -86,21 +86,21 @@ public class ArcaneBoneMealItem extends BoneMealItem {
         return false;
     }
 
-    private static boolean canGrow(World world, BlockPos pos) {
+    private static boolean canGrow(Level world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof IGrowable) {
-            return ((IGrowable) state.getBlock()).canGrow(world, pos, state, world.isRemote());
+        if (state.getBlock() instanceof BonemealableBlock) {
+            return ((BonemealableBlock) state.getBlock()).isValidBonemealTarget(world, pos, state, world.isClientSide());
         }
         return false;
     }
 
-    private static void grow(World world, BlockPos pos) {
-        if (world.isRemote()) {
+    private static void grow(Level world, BlockPos pos) {
+        if (world.isClientSide()) {
             return;
         }
         for (int i = 0; i < 1000; i++) {
-            if (canGrow(world, pos) && !world.isRemote()) {
-                ((IGrowable) world.getBlockState(pos).getBlock()).grow((ServerWorld) world, world.rand, pos, world.getBlockState(pos));
+            if (canGrow(world, pos) && !world.isClientSide()) {
+                ((BonemealableBlock) world.getBlockState(pos).getBlock()).performBonemeal((ServerLevel) world, world.random, pos, world.getBlockState(pos));
             } else {
                 return;
             }

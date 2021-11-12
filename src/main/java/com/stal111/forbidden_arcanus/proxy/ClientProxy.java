@@ -2,30 +2,23 @@ package com.stal111.forbidden_arcanus.proxy;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.block.tileentity.render.BlackHoleTileEntityRenderer;
-import com.stal111.forbidden_arcanus.block.tileentity.render.ObsidianSkullTileEntityRenderer;
 import com.stal111.forbidden_arcanus.gui.forbiddenmicon.ForbiddenmiconScreen;
-import com.stal111.forbidden_arcanus.init.*;
-import com.stal111.forbidden_arcanus.item.ForbiddenmiconItem;
-import com.stal111.forbidden_arcanus.item.SpectralEyeAmuletItem;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.util.BakedModelOverrideRegistry;
 import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemModelsProperties;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -49,7 +42,7 @@ public class ClientProxy implements IProxy {
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_upper"),
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_top")
         ));
-        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "runic_chiseled_polished_darkstone"), (base, registry) -> new FullbrightBakedModel(base, true, state -> state.get(ModBlockStateProperties.ACTIVATED), new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
+        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "runic_chiseled_polished_darkstone"), (base, registry) -> new FullbrightBakedModel(base, true, state -> state.getValue(ModBlockStateProperties.ACTIVATED), new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
         bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "hephaestus_forge"), (base, registry) -> new FullbrightBakedModel(base, true,
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_side_layer"),
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_top_layer")
@@ -59,9 +52,9 @@ public class ClientProxy implements IProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::stitchTextures);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onModelBake);
 
-        ItemModelsProperties.registerProperty(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
-        ItemModelsProperties.registerProperty(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && SpectralEyeAmuletItem.isDeactivated(stack) ? 1.0F : 0.0F);
-        ItemModelsProperties.registerProperty(NewModItems.OBSIDIAN_SKULL_SHIELD.get(), new ResourceLocation("blocking"), (stack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack ? 1.0F : 0.0F);
+        //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
+       // ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, world, entity) -> entity != null && SpectralEyeAmuletItem.isDeactivated(stack) ? 1.0F : 0.0F);
+       // ItemProperties.register(NewModItems.OBSIDIAN_SKULL_SHIELD.get(), new ResourceLocation("blocking"), (stack, world, entity) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F);
     }
 
     @SubscribeEvent
@@ -72,9 +65,9 @@ public class ClientProxy implements IProxy {
             }
         }
 
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN.get(), SignTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_HOLE.get(), BlackHoleTileEntityRenderer::new);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.OBSIDIAN_SKULL.get(), ObsidianSkullTileEntityRenderer::new);
+      //  ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN.get(), SignRenderer::new);
+       // ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_HOLE.get(), BlackHoleTileEntityRenderer::new);
+       // ClientRegistry.bindTileEntityRenderer(ModTileEntities.OBSIDIAN_SKULL.get(), ObsidianSkullTileEntityRenderer::new);
 
 
         //  ClientRegistry.bindTileEntityRenderer(DarkBeaconTileEntity.class, new DarkBeaconTileEntityRenderer());
@@ -82,18 +75,18 @@ public class ClientProxy implements IProxy {
     }
 
     @Override
-    public World getClientWorld() {
-        return Minecraft.getInstance().world;
+    public Level getClientWorld() {
+        return Minecraft.getInstance().level;
     }
 
     @Override
-    public PlayerEntity getClientPlayer() {
+    public Player getClientPlayer() {
         return Minecraft.getInstance().player;
     }
 
     @Override
     public void displayForbiddenmiconScreen(ItemStack stack) {
-        Minecraft.getInstance().displayGuiScreen(new ForbiddenmiconScreen(stack));
+        Minecraft.getInstance().setScreen(new ForbiddenmiconScreen(stack));
     }
 
     public void onModelBake(ModelBakeEvent e) {
@@ -109,7 +102,7 @@ public class ClientProxy implements IProxy {
     }
 
     public void stitchTextures(TextureStitchEvent.Pre event) {
-        if (event.getMap().getTextureLocation().equals(Atlases.SIGN_ATLAS)) {
+        if (event.getMap().location().equals(Sheets.SIGN_SHEET)) {
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/edelwood"));
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/cherrywood"));
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/mysterywood"));

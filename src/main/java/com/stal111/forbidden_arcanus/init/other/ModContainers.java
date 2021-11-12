@@ -1,20 +1,12 @@
 package com.stal111.forbidden_arcanus.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.tileentity.*;
 import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import com.stal111.forbidden_arcanus.tile.BlackHoleTileEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.function.Supplier;
 
 /**
  * Mod Containers
@@ -26,11 +18,11 @@ import java.util.function.Supplier;
  */
 public class ModContainers {
 
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, ForbiddenArcanus.MOD_ID);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, ForbiddenArcanus.MOD_ID);
 
-    public static final RegistryObject<ContainerType<HephaestusForgeContainer>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeContainer::new);
+    public static final RegistryObject<MenuType<HephaestusForgeContainer>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeContainer::new);
 
-    private static <T extends Container> RegistryObject<ContainerType<T>> register(String name, ContainerType.IFactory<T> factory) {
-        return CONTAINERS.register(name, () -> new ContainerType<>(factory));
+    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String name, MenuType.MenuSupplier<T> factory) {
+        return CONTAINERS.register(name, () -> new MenuType<>(factory));
     }
 }

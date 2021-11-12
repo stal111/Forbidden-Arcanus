@@ -1,16 +1,16 @@
 package com.stal111.forbidden_arcanus.common.tile.forge;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.util.CustomRenderType;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import com.mojang.math.Vector3f;
+import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 import java.util.Random;
@@ -27,18 +27,20 @@ public class MagicCircle {
 
     private final RitualManager ritualManager;
 
-    private final ModelRenderer outerRing;
-    private final ModelRenderer innerRing;
+//    private final ModelPart outerRing;
+//    private final ModelPart innerRing;
 
     private int rotation;
 
     public MagicCircle(RitualManager ritualManager) {
         this.ritualManager = ritualManager;
 
-        this.outerRing = new ModelRenderer(10, 10, 0, 0);
-        this.outerRing.addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F);
-        this.innerRing = new ModelRenderer(10, 10, 0, 0);
-        this.innerRing.addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F);
+        //TODO
+
+//        this.outerRing = new ModelPart(10, 10, 0, 0);
+//        this.outerRing.addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F);
+//        this.innerRing = new ModelPart(10, 10, 0, 0);
+//        this.innerRing.addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F);
     }
 
     public void tick() {
@@ -53,11 +55,11 @@ public class MagicCircle {
         this.rotation = rotation;
     }
 
-    public void render(MatrixStack matrixStack, float partialTicks, IRenderTypeBuffer buffer, int combinedLight) {
+    public void render(PoseStack matrixStack, float partialTicks, MultiBufferSource buffer, int combinedLight) {
         if (this.ritualManager.isRitualActive()) {
             Ritual ritual = this.ritualManager.getActiveRitual();
 
-            matrixStack.push();
+            matrixStack.pushPose();
 
             float ticks = this.rotation + partialTicks;
 
@@ -68,17 +70,17 @@ public class MagicCircle {
 
             float alpha = ticks > ritual.getTime() * 0.9F ? Math.max((ritual.getTime() - ticks), 0) / (ritual.getTime() * 0.1F) : 1.0F;
 
-            matrixStack.rotate(Vector3f.YN.rotationDegrees(ticks));
-            this.outerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getOuterTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
+            matrixStack.mulPose(Vector3f.YN.rotationDegrees(ticks));
+          //  this.outerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getOuterTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
-            matrixStack.rotate(Vector3f.YN.rotationDegrees(-(ticks) * 2));
-            this.innerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getInnerTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
+            matrixStack.mulPose(Vector3f.YN.rotationDegrees(-(ticks) * 2));
+          //  this.innerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getInnerTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
-            matrixStack.pop();
+            matrixStack.popPose();
 
             if (ticks > ritual.getTime() * 0.9F) {
-                World world = Objects.requireNonNull(this.ritualManager.getTileEntity().getWorld());
-                BlockPos pos = this.ritualManager.getTileEntity().getPos();
+                Level world = Objects.requireNonNull(this.ritualManager.getTileEntity().getLevel());
+                BlockPos pos = this.ritualManager.getTileEntity().getBlockPos();
                 Random rand = world.getRandom();
 
                 double posX = pos.getX() + 0.25D + rand.nextFloat() + rand.nextInt(4);

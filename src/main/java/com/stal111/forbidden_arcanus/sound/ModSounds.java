@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.sound;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ObjectHolder;
 

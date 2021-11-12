@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -10,7 +10,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public abstract class SideProxy {
@@ -19,8 +18,6 @@ public abstract class SideProxy {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(SideProxy::commonSetup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(SideProxy::enqueueIMC);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(SideProxy::processIMC);
-
-		MinecraftForge.EVENT_BUS.addListener(SideProxy::serverStarting);
 	}
 
 	private static void commonSetup(FMLCommonSetupEvent event) {
@@ -34,20 +31,18 @@ public abstract class SideProxy {
 	private static void processIMC(final InterModProcessEvent event) {
 	}
 
-	private static void serverStarting(FMLServerStartingEvent event) {
-	}
 
-	public abstract World getClientWorld();
+	public abstract Level getClientWorld();
 
-	public abstract PlayerEntity getClientPlayer();
+	public abstract Player getClientPlayer();
 
 	public static class Client extends SideProxy {
 
-		public World getClientWorld() {
-			return Minecraft.getInstance().world;
+		public Level getClientWorld() {
+			return Minecraft.getInstance().level;
 		}
 
-		public PlayerEntity getClientPlayer() {
+		public Player getClientPlayer() {
 			return Minecraft.getInstance().player;
 		}
 	}
@@ -62,11 +57,11 @@ public abstract class SideProxy {
 		private static void serverSetup(FMLDedicatedServerSetupEvent event) {
 		}
 
-		public World getClientWorld() {
+		public Level getClientWorld() {
 			throw new IllegalStateException("Only run on the client");
 		}
 
-		public PlayerEntity getClientPlayer() {
+		public Player getClientPlayer() {
 			throw new IllegalStateException("Only run on the client");
 		}
 	}

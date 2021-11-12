@@ -3,14 +3,14 @@ package com.stal111.forbidden_arcanus.block.tileentity;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -23,7 +23,7 @@ import java.util.*;
  * @version 16.2.0
  * @since 2021-03-21
  */
-public class NipaTileEntity extends TileEntity implements ITickableTileEntity {
+public class NipaTileEntity extends BlockEntity {
 
     private int lastSpeck = 0;
     private int speckHeight = 10;
@@ -32,17 +32,18 @@ public class NipaTileEntity extends TileEntity implements ITickableTileEntity {
 
     private int cachedPower = 0;
 
-    public NipaTileEntity() {
-        super(ModTileEntities.NIPA.get());
+    public NipaTileEntity(BlockPos pos, BlockState state) {
+        super(ModTileEntities.NIPA.get(), pos, state);
     }
 
-    @Override
+    //TODO
+    //@Override
     public void tick() {
-        if (!this.getBlockState().get(ModBlockStateProperties.SPECK)) {
+        if (!this.getBlockState().getValue(ModBlockStateProperties.SPECK)) {
             this.lastSpeck++;
 
             if (this.lastSpeck >= 3600) {
-                this.getWorld().setBlockState(this.getPos(), this.getBlockState().with(ModBlockStateProperties.SPECK, true), 3);
+                this.getLevel().setBlock(this.getBlockPos(), this.getBlockState().setValue(ModBlockStateProperties.SPECK, true), 3);
                 this.lastSpeck = 0;
                 this.speckHeight = 10;
             }
@@ -53,18 +54,18 @@ public class NipaTileEntity extends TileEntity implements ITickableTileEntity {
             this.lastSpeck = 0;
         }
 
-        if (this.world != null && this.world.getGameTime() % 20 == 0) {
-            AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.pos).grow(3);
-            List<PlayerEntity> playersInRange = this.world.getEntitiesWithinAABB(PlayerEntity.class, axisAlignedBB);
+        if (this.level != null && this.level.getGameTime() % 20 == 0) {
+            AABB axisAlignedBB = new AABB(this.worldPosition).inflate(3);
+            List<Player> playersInRange = this.level.getEntitiesOfClass(Player.class, axisAlignedBB);
 
             Map<UUID, Integer> players = new HashMap<>();
 
-            for (PlayerEntity player : playersInRange) {
-                players.put(player.getUniqueID(), this.players.getOrDefault(player.getUniqueID(), 0) + 1);
+            for (Player player : playersInRange) {
+                players.put(player.getUUID(), this.players.getOrDefault(player.getUUID(), 0) + 1);
 
-                if (players.get(player.getUniqueID()) == 30) {
+                if (players.get(player.getUUID()) == 30) {
                     AurealHelper.increaseAureal(player, 1);
-                    players.remove(player.getUniqueID());
+                    players.remove(player.getUUID());
                 }
             }
 
@@ -73,36 +74,36 @@ public class NipaTileEntity extends TileEntity implements ITickableTileEntity {
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         this.lastSpeck = compound.getInt("LastSpeck");
         this.speckHeight = compound.getInt("SpeckHeight");
 
-        ListNBT players = compound.getList("Players", 10);
+        ListTag players = compound.getList("Players", 10);
 
         Map<UUID, Integer> playersInRange = new HashMap<>();
 
         players.forEach(nbt -> {
-            if (nbt instanceof CompoundNBT) {
-                CompoundNBT player = (CompoundNBT) nbt;
+            if (nbt instanceof CompoundTag) {
+                CompoundTag player = (CompoundTag) nbt;
 
-                playersInRange.put(player.getUniqueId("Player"), player.getInt("Time"));
+                playersInRange.put(player.getUUID("Player"), player.getInt("Time"));
             }
             this.players = playersInRange;
         });
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        compound = super.write(compound);
+    public CompoundTag save(CompoundTag compound) {
+        compound = super.save(compound);
         compound.putInt("LastSpeck", this.lastSpeck);
         compound.putInt("SpeckHeight", this.speckHeight);
 
-        ListNBT players = new ListNBT();
+        ListTag players = new ListTag();
 
         this.players.forEach((uuid, integer) -> {
-            CompoundNBT player = new CompoundNBT();
-            player.putUniqueId("Player", uuid);
+            CompoundTag player = new CompoundTag();
+            player.putUUID("Player", uuid);
             player.putInt("Time", integer);
 
             players.add(player);
@@ -114,13 +115,13 @@ public class NipaTileEntity extends TileEntity implements ITickableTileEntity {
 
     @Nullable
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 0, this.getUpdateTag());
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
     }
 
     @Override
-    public CompoundNBT getUpdateTag() {
-        return this.write(new CompoundNBT());
+    public CompoundTag getUpdateTag() {
+        return this.save(new CompoundTag());
     }
 
     public double getSpeckHeight() {

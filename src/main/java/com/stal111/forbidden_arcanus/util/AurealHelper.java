@@ -8,7 +8,7 @@ import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
 import com.stal111.forbidden_arcanus.config.AurealConfig;
 import com.stal111.forbidden_arcanus.network.AurealUpdatePacket;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * Aureal Helper <br>
@@ -20,19 +20,19 @@ import net.minecraft.entity.player.PlayerEntity;
  */
 public class AurealHelper {
 
-    public static IAureal getCapability(PlayerEntity player) {
+    public static IAureal getCapability(Player player) {
         return player.getCapability(AurealProvider.CAPABILITY).orElse(new AurealImpl());
     }
 
-    public static int getAureal(PlayerEntity player) {
+    public static int getAureal(Player player) {
         return getCapability(player).getAureal();
     }
 
-    public static void increaseAureal(PlayerEntity player, int amount) {
+    public static void increaseAureal(Player player, int amount) {
         getCapability(player).increaseAureal(amount);
     }
 
-    public static void increaseCorruption(PlayerEntity player, int amount) {
+    public static void increaseCorruption(Player player, int amount) {
         IAureal aureal = getCapability(player);
 
         for (int i = 0; i < amount; i++) {
@@ -44,8 +44,8 @@ public class AurealHelper {
                 continue;
             }
 
-            if (player.getRNG().nextDouble() < (corruption + 3) / 185.0F) {
-                IConsequence consequence = Consequences.getRandomConsequence(player.getRNG()).createConsequence();
+            if (player.getRandom().nextDouble() < (corruption + 3) / 185.0F) {
+                IConsequence consequence = Consequences.getRandomConsequence(player.getRandom()).createConsequence();
                 consequence.tick(player);
 
                 if (consequence instanceof ISavedData) {
@@ -55,7 +55,7 @@ public class AurealHelper {
         }
     }
 
-    public static void playerTick(PlayerEntity player) {
+    public static void playerTick(Player player) {
         IAureal aureal = AurealHelper.getCapability(player);
 
         aureal.updateActiveConsequences(player);
@@ -84,7 +84,7 @@ public class AurealHelper {
      *
      * @param player the player the packet gets sent to.
      */
-    public static void sendAurealUpdatePacket(PlayerEntity player) {
+    public static void sendAurealUpdatePacket(Player player) {
         NetworkHandler.sendTo(player, new AurealUpdatePacket(player));
     }
 }

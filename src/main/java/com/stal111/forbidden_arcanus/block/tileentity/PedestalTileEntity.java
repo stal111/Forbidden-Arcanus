@@ -1,14 +1,14 @@
 package com.stal111.forbidden_arcanus.block.tileentity;
 
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
  * @version 2.0.0
  * @since 2021-06-25
  */
-public class PedestalTileEntity extends TileEntity implements ITickableTileEntity {
+public class PedestalTileEntity extends BlockEntity {
 
     private ItemStack stack = ItemStack.EMPTY;
 
@@ -29,12 +29,12 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
     private int ticksExisted;
     private int itemHeight = 110;
 
-    public PedestalTileEntity() {
-        super(ModTileEntities.PEDESTAL.get());
+    public PedestalTileEntity(BlockPos pos, BlockState state) {
+        super(ModTileEntities.PEDESTAL.get(), pos, state);
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
 
-    @Override
+    //@Override
     public void tick() {
         this.ticksExisted++;
     }
@@ -77,21 +77,21 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
     }
 
     @Override
-    public void read(@Nonnull BlockState state, @Nonnull CompoundNBT compound) {
-        super.read(state, compound);
+    public void load(@Nonnull CompoundTag compound) {
+        super.load(compound);
         if (compound.contains("Stack")) {
-            this.stack = ItemStack.read(compound.getCompound("Stack"));
+            this.stack = ItemStack.of(compound.getCompound("Stack"));
             this.itemHeight = compound.getInt("ItemHeight");
         }
     }
 
     @Nonnull
     @Override
-    public CompoundNBT write(@Nonnull CompoundNBT compound) {
-        super.write(compound);
+    public CompoundTag save(@Nonnull CompoundTag compound) {
+        super.save(compound);
 
         if (this.stack != ItemStack.EMPTY) {
-            compound.put("Stack", this.stack.write(new CompoundNBT()));
+            compound.put("Stack", this.stack.save(new CompoundTag()));
             compound.putInt("ItemHeight", this.itemHeight);
         }
 
@@ -100,25 +100,25 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 
     @Nullable
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(this.pos, 0, this.getUpdateTag());
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
     }
 
     @Nonnull
     @Override
-    public CompoundNBT getUpdateTag() {
-        return this.write(new CompoundNBT());
+    public CompoundTag getUpdateTag() {
+        return this.save(new CompoundTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager networkManager, SUpdateTileEntityPacket packet) {
-        if (this.world != null) {
-            this.read(this.world.getBlockState(packet.getPos()), packet.getNbtCompound());
+    public void onDataPacket(Connection networkManager, ClientboundBlockEntityDataPacket packet) {
+        if (this.level != null) {
+            this.load(packet.getTag());
         }
     }
 
     @Override
-    public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(this.getPos()).expand(0.0D, 1.0D, 0.0D);
+    public AABB getRenderBoundingBox() {
+        return new AABB(this.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
     }
 }

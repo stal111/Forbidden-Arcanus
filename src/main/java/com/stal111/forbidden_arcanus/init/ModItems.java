@@ -4,17 +4,29 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.item.*;
 import com.stal111.forbidden_arcanus.item.armor.ModArmorMaterial;
 import com.stal111.forbidden_arcanus.item.block.StrangeRootItem;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
+
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BowlFoodItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
 
 public class ModItems {
 
@@ -54,8 +66,8 @@ public class ModItems {
     public static final RegistryObject<Item> ROTTEN_LEATHER = register("rotten_leather", () -> new Item(properties()));
     public static final RegistryObject<Item> SPECTRAL_EYE_AMULET = register("spectral_eye_amulet", () -> new SpectralEyeAmuletItem(properties(Rarity.RARE, 1)));
     public static final RegistryObject<Item> SEED_BULLET = register("seed_bullet", () -> new SeedBulletItem(properties(16)));
-    public static final RegistryObject<Item> BAT_WING = register("bat_wing", () -> new Item(properties().food(build(3, 0.2F, new EffectInstance(Effects.POISON, 160, 0), 0.9F))));
-    public static final RegistryObject<Item> BAT_SOUP = register("bat_soup", () -> new SoupItem(properties(1).food(build(7, 0.7F, new EffectInstance(Effects.NIGHT_VISION, 240, 0), 1.0F))));
+    public static final RegistryObject<Item> BAT_WING = register("bat_wing", () -> new Item(properties().food(build(3, 0.2F, new MobEffectInstance(MobEffects.POISON, 160, 0), 0.9F))));
+    public static final RegistryObject<Item> BAT_SOUP = register("bat_soup", () -> new BowlFoodItem(properties(1).food(build(7, 0.7F, new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F))));
     public static final RegistryObject<Item> TENTACLE = register("tentacle", () -> new Item(properties().food(build(2, 0.1F, true))));
     public static final RegistryObject<Item> COOKED_TENTACLE = register("cooked_tentacle", () -> new Item(properties().food(build(5, 0.6F, true))));
     public static final RegistryObject<Item> STRANGE_ROOT = register("strange_root", () -> new StrangeRootItem(ModBlocks.STRANGE_ROOT.getBlock(), properties().food(build(3, 0.6F))));
@@ -69,17 +81,17 @@ public class ModItems {
     public static final RegistryObject<Item> SPAWNER_SCRAP = register("spawner_scrap", () -> new Item(properties()));
     public static final RegistryObject<Item> QUANTUM_CATCHER = register("quantum_catcher", () -> new QuantumCatcherItem(properties()));
     public static final RegistryObject<Item> EDELWOOD_BUCKET = register("edelwood_bucket", () -> new EdelwoodBucketItem(Fluids.EMPTY, properties(16)));
-    public static final RegistryObject<Item> EDELWOOD_WATER_BUCKET = register("edelwood_water_bucket", () -> new EdelwoodBucketItem(Fluids.WATER, properties(1).containerItem(EDELWOOD_BUCKET.get())));
-    public static final RegistryObject<Item> EDELWOOD_LAVA_BUCKET = register("edelwood_lava_bucket", () -> new EdelwoodBucketItem(Fluids.LAVA, properties(1).containerItem(EDELWOOD_BUCKET.get())));
-    public static final RegistryObject<Item> EDELWOOD_MILK_BUCKET = register("edelwood_milk_bucket", () -> new EdelwoodMilkBucketItem(properties(1).containerItem(EDELWOOD_BUCKET.get())));
+    public static final RegistryObject<Item> EDELWOOD_WATER_BUCKET = register("edelwood_water_bucket", () -> new EdelwoodBucketItem(Fluids.WATER, properties(1).craftRemainder(EDELWOOD_BUCKET.get())));
+    public static final RegistryObject<Item> EDELWOOD_LAVA_BUCKET = register("edelwood_lava_bucket", () -> new EdelwoodBucketItem(Fluids.LAVA, properties(1).craftRemainder(EDELWOOD_BUCKET.get())));
+    public static final RegistryObject<Item> EDELWOOD_MILK_BUCKET = register("edelwood_milk_bucket", () -> new EdelwoodMilkBucketItem(properties(1).craftRemainder(EDELWOOD_BUCKET.get())));
     public static final RegistryObject<Item> EDELWOOD_PUFFERFISH_BUCKET = register("edelwood_pufferfish_bucket", () -> new EdelwoodFishBucketItem(EntityType.PUFFERFISH, Fluids.WATER, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_SALMON_BUCKET = register("edelwood_salmon_bucket", () -> new EdelwoodFishBucketItem(EntityType.SALMON, Fluids.WATER, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_COD_BUCKET = register("edelwood_cod_bucket", () -> new EdelwoodFishBucketItem(EntityType.COD, Fluids.WATER, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_TROPICAL_FISH_BUCKET = register("edelwood_tropical_fish_bucket", () -> new EdelwoodFishBucketItem(EntityType.TROPICAL_FISH, Fluids.WATER, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_MUSHROOM_STEW_BUCKET = register("edelwood_mushroom_stew_bucket", () -> new EdelwoodSoupBucketItem(properties(1).containerItem(EDELWOOD_BUCKET.get()).food(Foods.MUSHROOM_STEW)));
+    public static final RegistryObject<Item> EDELWOOD_MUSHROOM_STEW_BUCKET = register("edelwood_mushroom_stew_bucket", () -> new EdelwoodSoupBucketItem(properties(1).craftRemainder(EDELWOOD_BUCKET.get()).food(Foods.MUSHROOM_STEW)));
     public static final RegistryObject<Item> EDELWOOD_SUSPICIOUS_STEW_BUCKET = register("edelwood_suspicious_stew_bucket", () -> new EdelwoodSuspiciousStewBucketItem(properties(1).food(Foods.SUSPICIOUS_STEW)));
-    public static final RegistryObject<Item> EDELWOOD_BEETROOT_SOUP_BUCKET = register("edelwood_beetroot_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).containerItem(EDELWOOD_BUCKET.get()).food(Foods.BEETROOT_SOUP)));
-    public static final RegistryObject<Item> EDELWOOD_BAT_SOUP_BUCKET = register("edelwood_bat_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).containerItem(EDELWOOD_BUCKET.get()).food(build(7, 0.7F, new EffectInstance(Effects.NIGHT_VISION, 240, 0), 1.0F))));
+    public static final RegistryObject<Item> EDELWOOD_BEETROOT_SOUP_BUCKET = register("edelwood_beetroot_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).craftRemainder(EDELWOOD_BUCKET.get()).food(Foods.BEETROOT_SOUP)));
+    public static final RegistryObject<Item> EDELWOOD_BAT_SOUP_BUCKET = register("edelwood_bat_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).craftRemainder(EDELWOOD_BUCKET.get()).food(build(7, 0.7F, new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F))));
     public static final RegistryObject<Item> EDELWOOD_BAT_BUCKET = register("edelwood_bat_bucket", () -> new EdelwoodEntityBucketItem(EntityType.BAT, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_SQUID_BUCKET = register("edelwood_squid_bucket", () -> new EdelwoodFishBucketItem(EntityType.SQUID, Fluids.WATER, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_MAGMA_CUBE_BUCKET = register("edelwood_magma_cube_bucket", () -> new EdelwoodEntityBucketItem(EntityType.MAGMA_CUBE, properties(1)));
@@ -111,26 +123,26 @@ public class ModItems {
     public static final RegistryObject<Item> OBSIDIAN_AXE = register("obsidian_axe", () -> new AxeItem(ModItemTier.OBSIDIAN, 5, -3.0F, properties()));
     public static final RegistryObject<Item> OBSIDIAN_HOE = register("obsidian_hoe", () -> new HoeItem(ModItemTier.OBSIDIAN, -3, 0, properties()));
     public static final RegistryObject<Item> MYSTICAL_DAGGER = register("mystical_dagger", () -> new MysticalDaggerItem(ModItemTier.MYSTICAL_DAGGER, 2.5F, -0.3F, properties(1)));
-    public static final RegistryObject<Item> DRACO_ARCANUS_HELMET = register("draco_arcanus_helmet", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.HEAD, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_CHESTPLATE = register("draco_arcanus_chestplate", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.CHEST, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_LEGGINGS = register("draco_arcanus_leggings", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.LEGS, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_BOOTS = register("draco_arcanus_boots", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlotType.FEET, properties()));
-    public static final RegistryObject<Item> TYR_HELMET = register("tyr_helmet", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlotType.HEAD, properties()));
-    public static final RegistryObject<Item> TYR_CHESTPLATE = register("tyr_chestplate", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlotType.CHEST, properties()));
-    public static final RegistryObject<Item> TYR_LEGGINGS = register("tyr_leggings", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlotType.LEGS, properties()));
-    public static final RegistryObject<Item> TYR_BOOTS = register("tyr_boots", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlotType.FEET, properties()));
-    public static final RegistryObject<Item> MORTEM_HELMET = register("mortem_helmet", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlotType.HEAD, properties()));
-    public static final RegistryObject<Item> MORTEM_CHESTPLATE = register("mortem_chestplate", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlotType.CHEST, properties()));
-    public static final RegistryObject<Item> MORTEM_LEGGINGS = register("mortem_leggings", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlotType.LEGS, properties()));
-    public static final RegistryObject<Item> MORTEM_BOOTS = register("mortem_boots", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlotType.FEET, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_HELMET = register("arcane_gold_helmet", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.HEAD, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_CHESTPLATE = register("arcane_gold_chestplate", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.CHEST, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_LEGGINGS = register("arcane_gold_leggings", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.LEGS, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_BOOTS = register("arcane_gold_boots", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlotType.FEET, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_HELMET = register("obsidian_helmet", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.HEAD, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_SHOULDER_PADS = register("obsidian_shoulder_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.CHEST, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_KNEE_PADS = register("obsidian_knee_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.LEGS, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_BOOTS = register("obsidian_boots", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlotType.FEET, properties()));
+    public static final RegistryObject<Item> DRACO_ARCANUS_HELMET = register("draco_arcanus_helmet", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.HEAD, properties()));
+    public static final RegistryObject<Item> DRACO_ARCANUS_CHESTPLATE = register("draco_arcanus_chestplate", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.CHEST, properties()));
+    public static final RegistryObject<Item> DRACO_ARCANUS_LEGGINGS = register("draco_arcanus_leggings", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.LEGS, properties()));
+    public static final RegistryObject<Item> DRACO_ARCANUS_BOOTS = register("draco_arcanus_boots", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.FEET, properties()));
+    public static final RegistryObject<Item> TYR_HELMET = register("tyr_helmet", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.HEAD, properties()));
+    public static final RegistryObject<Item> TYR_CHESTPLATE = register("tyr_chestplate", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.CHEST, properties()));
+    public static final RegistryObject<Item> TYR_LEGGINGS = register("tyr_leggings", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.LEGS, properties()));
+    public static final RegistryObject<Item> TYR_BOOTS = register("tyr_boots", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.FEET, properties()));
+    public static final RegistryObject<Item> MORTEM_HELMET = register("mortem_helmet", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.HEAD, properties()));
+    public static final RegistryObject<Item> MORTEM_CHESTPLATE = register("mortem_chestplate", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.CHEST, properties()));
+    public static final RegistryObject<Item> MORTEM_LEGGINGS = register("mortem_leggings", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.LEGS, properties()));
+    public static final RegistryObject<Item> MORTEM_BOOTS = register("mortem_boots", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.FEET, properties()));
+    public static final RegistryObject<Item> ARCANE_GOLD_HELMET = register("arcane_gold_helmet", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.HEAD, properties()));
+    public static final RegistryObject<Item> ARCANE_GOLD_CHESTPLATE = register("arcane_gold_chestplate", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.CHEST, properties()));
+    public static final RegistryObject<Item> ARCANE_GOLD_LEGGINGS = register("arcane_gold_leggings", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.LEGS, properties()));
+    public static final RegistryObject<Item> ARCANE_GOLD_BOOTS = register("arcane_gold_boots", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.FEET, properties()));
+    public static final RegistryObject<Item> OBSIDIAN_HELMET = register("obsidian_helmet", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.HEAD, properties()));
+    public static final RegistryObject<Item> OBSIDIAN_SHOULDER_PADS = register("obsidian_shoulder_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.CHEST, properties()));
+    public static final RegistryObject<Item> OBSIDIAN_KNEE_PADS = register("obsidian_knee_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.LEGS, properties()));
+    public static final RegistryObject<Item> OBSIDIAN_BOOTS = register("obsidian_boots", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.FEET, properties()));
     public static final RegistryObject<Item> PIXIE_SPAWN_EGG = register("pixie_spawn_egg", () -> new ModSpawnEggItem<>(ModEntities.PIXIE, 894731, 0, properties()));
 
     private static RegistryObject<Item> register(String name, Supplier<? extends Item> item) {
@@ -150,24 +162,24 @@ public class ModItems {
     }
 
     public static Item.Properties properties(Rarity rarity, int maxStackSize) {
-        return new Item.Properties().group(ForbiddenArcanus.FORBIDDEN_ARCANUS).rarity(rarity).maxStackSize(maxStackSize);
+        return new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).rarity(rarity).stacksTo(maxStackSize);
     }
 
-    public static Food build(int hunger, float saturation) {
+    public static FoodProperties build(int hunger, float saturation) {
         return build(hunger, saturation, false);
     }
 
-    public static Food build(int hunger, float saturation, boolean meat) {
-        Food.Builder food = new Food.Builder().hunger(hunger).saturation(saturation);
+    public static FoodProperties build(int hunger, float saturation, boolean meat) {
+        FoodProperties.Builder food = new FoodProperties.Builder().nutrition(hunger).saturationMod(saturation);
         return meat ? food.meat().build() : food.build();
     }
 
-    public static Food build(int hunger, float saturation, EffectInstance effect, float chance) {
+    public static FoodProperties build(int hunger, float saturation, MobEffectInstance effect, float chance) {
         return build(hunger, saturation, effect, chance, false);
     }
 
-    public static Food build(int hunger, float saturation, EffectInstance effect, float chance, boolean meat) {
-        Food.Builder food = new Food.Builder().hunger(hunger).saturation(saturation).effect(effect, chance);
+    public static FoodProperties build(int hunger, float saturation, MobEffectInstance effect, float chance, boolean meat) {
+        FoodProperties.Builder food = new FoodProperties.Builder().nutrition(hunger).saturationMod(saturation).effect(effect, chance);
         return meat ? food.meat().build() : food.build();
     }
 }

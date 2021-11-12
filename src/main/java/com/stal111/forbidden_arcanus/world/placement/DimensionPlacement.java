@@ -1,17 +1,17 @@
 package com.stal111.forbidden_arcanus.world.placement;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldDecoratingHelper;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.placement.DecorationContext;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class DimensionPlacement extends Placement<DimensionConfig> {
+public class DimensionPlacement extends FeatureDecorator<DimensionConfig> {
 	public DimensionPlacement(Codec<DimensionConfig> codec) {
 		super(codec);
 	}
@@ -21,9 +21,9 @@ public class DimensionPlacement extends Placement<DimensionConfig> {
 	}
 
 	@Override
-	public Stream<BlockPos> getPositions(WorldDecoratingHelper helper, Random rand, DimensionConfig config, BlockPos pos) {
-		ServerWorld world = helper.field_242889_a.getWorld();
-		RegistryKey<World> key = world.getDimensionKey();
+	public Stream<BlockPos> getPositions(DecorationContext helper, Random rand, DimensionConfig config, BlockPos pos) {
+		ServerLevel world = helper.level.getLevel();
+		ResourceKey<Level> key = world.dimension();
 		if (config.whitelist.contains(key) || config.whitelist.isEmpty() || !config.blacklist.contains(key)) {
 			return Stream.of(pos);
 		} else {

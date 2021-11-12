@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.util;
 
 import com.google.common.collect.Lists;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.particles.ParticleType;
-import net.minecraft.potion.Effect;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,9 +18,9 @@ public class Data {
 
     public static final List<DeferredRegister<?>> registerList = Lists.newArrayList();
 
-    public static final List<Effect> EFFECTS = new LinkedList<>();
+    public static final List<MobEffect> EFFECTS = new LinkedList<>();
     public static final List<Enchantment> ENCHANTMENTS = new LinkedList<>();
-    public static final List<TileEntityType<?>> TILE_ENTITY_TYPES = new LinkedList<>();
+    public static final List<BlockEntityType<?>> TILE_ENTITY_TYPES = new LinkedList<>();
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ForbiddenArcanus.MOD_ID);
 
     private static <T extends IForgeRegistryEntry<T>> DeferredRegister<T> createDeferred(IForgeRegistry<T> registry) {

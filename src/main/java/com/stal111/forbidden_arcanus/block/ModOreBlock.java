@@ -4,11 +4,13 @@ import java.util.Random;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.OreBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.OreBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.LevelReader;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class ModOreBlock extends OreBlock {
 
@@ -16,20 +18,20 @@ public class ModOreBlock extends OreBlock {
 		super(properties);
 	}
 	
-	protected int func_220281_a(Random p_220281_1_) {
+	protected int xpOnDrop(Random p_220281_1_) {
 	      if (this == NewModBlocks.ARCANE_CRYSTAL_ORE.get()) {
-	         return MathHelper.nextInt(p_220281_1_, 2, 5);
+	         return Mth.nextInt(p_220281_1_, 2, 5);
 	      } else if (this == ModBlocks.RUNESTONE.getBlock()) {
-	         return MathHelper.nextInt(p_220281_1_, 4, 8);
+	         return Mth.nextInt(p_220281_1_, 4, 8);
 	      } else if (this == ModBlocks.DARK_RUNESTONE.getBlock()) {
-	         return MathHelper.nextInt(p_220281_1_, 5, 9);
+	         return Mth.nextInt(p_220281_1_, 5, 9);
 	      } else {
 	         return 0;
 	      }
 	   }
 	
 	@Override
-	public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
-		  return silktouch == 0 ? this.func_220281_a(RANDOM) : 0;
+	public int getExpDrop(BlockState state, LevelReader reader, BlockPos pos, int fortune, int silktouch) {
+		  return silktouch == 0 ? this.xpOnDrop(RANDOM) : 0;
 	}
 }

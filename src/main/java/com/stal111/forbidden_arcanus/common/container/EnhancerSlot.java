@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.common.container;
 
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -20,23 +20,23 @@ public class EnhancerSlot extends Slot {
     private boolean unlocked = true;
     private final HephaestusForgeLevel requiredLevel;
 
-    public EnhancerSlot(IInventory inventory, int index, int xPosition, int yPosition, HephaestusForgeLevel requiredLevel) {
+    public EnhancerSlot(Container inventory, int index, int xPosition, int yPosition, HephaestusForgeLevel requiredLevel) {
         super(inventory, index, xPosition, yPosition);
         this.requiredLevel = requiredLevel;
     }
 
     @Override
-    public boolean isItemValid(@Nonnull ItemStack stack) {
+    public boolean mayPlace(@Nonnull ItemStack stack) {
         return this.unlocked;
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isActive() {
         return this.unlocked;
     }
 
     @Override
-    public int getSlotStackLimit() {
+    public int getMaxStackSize() {
         return 1;
     }
 

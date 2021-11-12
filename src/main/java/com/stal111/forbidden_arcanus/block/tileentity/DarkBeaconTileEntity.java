@@ -2,72 +2,65 @@ package com.stal111.forbidden_arcanus.block.tileentity;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
+import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.util.GuiTile;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.LockCode;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.annotation.Nullable;
 
-import com.stal111.forbidden_arcanus.block.tileentity.container.DarkBeaconContainer;
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
-import com.stal111.forbidden_arcanus.util.GuiTile;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.LockableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.LockCode;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-public class DarkBeaconTileEntity extends TileEntity implements INamedContainerProvider, ITickableTileEntity, GuiTile {
+public class DarkBeaconTileEntity extends BlockEntity implements MenuProvider, GuiTile {
 	/** List of effects that Beacons can apply */
-	public static final Effect[][] EFFECTS_LIST = new Effect[][]{{Effects.SPEED, Effects.HASTE}, {Effects.RESISTANCE, Effects.JUMP_BOOST}, {Effects.STRENGTH}, {Effects.REGENERATION}};
-	private static final Set<Effect> VALID_EFFECTS = Arrays.stream(EFFECTS_LIST).<Effect>flatMap(Arrays::stream).collect(Collectors.toSet());
+	public static final MobEffect[][] EFFECTS_LIST = new MobEffect[][]{{MobEffects.MOVEMENT_SPEED, MobEffects.DIG_SPEED}, {MobEffects.DAMAGE_RESISTANCE, MobEffects.JUMP}, {MobEffects.DAMAGE_BOOST}, {MobEffects.REGENERATION}};
+	private static final Set<MobEffect> VALID_EFFECTS = Arrays.stream(EFFECTS_LIST).<MobEffect>flatMap(Arrays::stream).collect(Collectors.toSet());
 	private List<DarkBeaconTileEntity.BeamSegment> beamSegments = Lists.newArrayList();
-	private List<DarkBeaconTileEntity.BeamSegment> field_213934_g = Lists.newArrayList();
+	private List<DarkBeaconTileEntity.BeamSegment> checkingBeamSections = Lists.newArrayList();
 	private int levels = 0;
-	private int field_213935_i = -1;
+	private int lastCheckY = -1;
 	/** Primary potion effect given by this beacon */
 	@Nullable
-	private Effect primaryEffect;
+	private MobEffect primaryEffect;
 	/** Secondary potion effect given by this beacon. */
 	@Nullable
-	private Effect secondaryEffect;
+	private MobEffect secondaryEffect;
 	/** The custom name for this beacon. This was unused until 1.14; see https://bugs.mojang.com/browse/MC-124395 */
 	@Nullable
-	private ITextComponent customName;
-	private LockCode field_213936_m = LockCode.EMPTY_CODE;
-	private final IIntArray field_213937_n = new IIntArray() {
+	private Component customName;
+	private LockCode lockKey = LockCode.NO_LOCK;
+	private final ContainerData dataAccess = new ContainerData() {
 		public int get(int index) {
 			switch(index) {
 				case 0:
 					return DarkBeaconTileEntity.this.levels;
 				case 1:
-					return Effect.getId(DarkBeaconTileEntity.this.primaryEffect);
+					return MobEffect.getId(DarkBeaconTileEntity.this.primaryEffect);
 				case 2:
-					return Effect.getId(DarkBeaconTileEntity.this.secondaryEffect);
+					return MobEffect.getId(DarkBeaconTileEntity.this.secondaryEffect);
 				default:
 					return 0;
 			}
@@ -79,8 +72,8 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 					DarkBeaconTileEntity.this.levels = value;
 					break;
 				case 1:
-					if (!DarkBeaconTileEntity.this.world.isRemote && !DarkBeaconTileEntity.this.beamSegments.isEmpty()) {
-						DarkBeaconTileEntity.this.playSound(SoundEvents.BLOCK_BEACON_POWER_SELECT);
+					if (!DarkBeaconTileEntity.this.level.isClientSide && !DarkBeaconTileEntity.this.beamSegments.isEmpty()) {
+						DarkBeaconTileEntity.this.playSound(SoundEvents.BEACON_POWER_SELECT);
 					}
 
 					DarkBeaconTileEntity.this.primaryEffect = DarkBeaconTileEntity.isBeaconEffect(value);
@@ -91,13 +84,13 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 
 		}
 
-		public int size() {
+		public int getCount() {
 			return 3;
 		}
 	};
 
-	public DarkBeaconTileEntity() {
-		super(ModTileEntities.SIGN.get());
+	public DarkBeaconTileEntity(BlockPos pos, BlockState state) {
+		super(ModTileEntities.SIGN.get(), pos, state);
 	}
 
 //	public void tick() {
@@ -105,15 +98,15 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 //		int j = this.pos.getY();
 //		int k = this.pos.getZ();
 //		BlockPos blockpos;
-//		if (this.field_213935_i < j) {
+//		if (this.lastCheckY < j) {
 //			blockpos = this.pos;
-//			this.field_213934_g = Lists.newArrayList();
-//			this.field_213935_i = blockpos.getY() - 1;
+//			this.checkingBeamSections = Lists.newArrayList();
+//			this.lastCheckY = blockpos.getY() - 1;
 //		} else {
-//			blockpos = new BlockPos(i, this.field_213935_i + 1, k);
+//			blockpos = new BlockPos(i, this.lastCheckY + 1, k);
 //		}
 //
-//		DarkBeaconTileEntity.BeamSegment beacontileentity$beamsegment = this.field_213934_g.isEmpty() ? null : this.field_213934_g.get(this.field_213934_g.size() - 1);
+//		DarkBeaconTileEntity.BeamSegment beacontileentity$beamsegment = this.checkingBeamSections.isEmpty() ? null : this.checkingBeamSections.get(this.checkingBeamSections.size() - 1);
 //		int l = this.world.getHeight(Heightmap.Type.WORLD_SURFACE, i, k);
 //
 //		for(int i1 = 0; i1 < 10 && blockpos.getY() <= l; ++i1) {
@@ -121,21 +114,21 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 //			Block block = blockstate.getBlock();
 //			float[] afloat = blockstate.getBeaconColorMultiplier(this.world, blockpos, getPos());
 //			if (afloat != null) {
-//				if (this.field_213934_g.size() <= 1) {
+//				if (this.checkingBeamSections.size() <= 1) {
 //					beacontileentity$beamsegment = new DarkBeaconTileEntity.BeamSegment(afloat);
-//					this.field_213934_g.add(beacontileentity$beamsegment);
+//					this.checkingBeamSections.add(beacontileentity$beamsegment);
 //				} else if (beacontileentity$beamsegment != null) {
 //					if (Arrays.equals(afloat, beacontileentity$beamsegment.colors)) {
 //						beacontileentity$beamsegment.incrementHeight();
 //					} else {
 //						beacontileentity$beamsegment = new DarkBeaconTileEntity.BeamSegment(new float[]{(beacontileentity$beamsegment.colors[0] + afloat[0]) / 2.0F, (beacontileentity$beamsegment.colors[1] + afloat[1]) / 2.0F, (beacontileentity$beamsegment.colors[2] + afloat[2]) / 2.0F});
-//						this.field_213934_g.add(beacontileentity$beamsegment);
+//						this.checkingBeamSections.add(beacontileentity$beamsegment);
 //					}
 //				}
 //			} else {
 //				if (beacontileentity$beamsegment == null || blockstate.getOpacity(this.world, blockpos) >= 15 && block != Blocks.BEDROCK) {
-//					this.field_213934_g.clear();
-//					this.field_213935_i = l;
+//					this.checkingBeamSections.clear();
+//					this.lastCheckY = l;
 //					break;
 //				}
 //
@@ -143,13 +136,13 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 //			}
 //
 //			blockpos = blockpos.up();
-//			++this.field_213935_i;
+//			++this.lastCheckY;
 //		}
 //
 //		int j1 = this.levels;
 //		if (this.world.getGameTime() % 80L == 0L) {
 //			if (!this.beamSegments.isEmpty()) {
-//				this.func_213927_a(i, j, k);
+//				this.updateBase(i, j, k);
 //			}
 //
 //			if (this.levels > 0 && !this.beamSegments.isEmpty()) {
@@ -158,10 +151,10 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 //			}
 //		}
 //
-//		if (this.field_213935_i >= l) {
-//			this.field_213935_i = -1;
+//		if (this.lastCheckY >= l) {
+//			this.lastCheckY = -1;
 //			boolean flag = j1 > 0;
-//			this.beamSegments = this.field_213934_g;
+//			this.beamSegments = this.checkingBeamSections;
 //			if (!this.world.isRemote) {
 //				boolean flag1 = this.levels > 0;
 //				if (!flag && flag1) {
@@ -177,7 +170,7 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 //
 //	}
 //
-//	private void func_213927_a(int p_213927_1_, int p_213927_2_, int p_213927_3_) {
+//	private void updateBase(int p_213927_1_, int p_213927_2_, int p_213927_3_) {
 //		this.levels = 0;
 //
 //		for(int i = 1; i <= 4; this.levels = i++) {
@@ -207,13 +200,13 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 	/**
 	 * invalidates a tile entity
 	 */
-	public void remove() {
-		this.playSound(SoundEvents.BLOCK_BEACON_DEACTIVATE);
-		super.remove();
+	public void setRemoved() {
+		this.playSound(SoundEvents.BEACON_DEACTIVATE);
+		super.setRemoved();
 	}
 
 	private void addEffectsToPlayers() {
-		if (!this.world.isRemote && this.primaryEffect != null) {
+		if (!this.level.isClientSide && this.primaryEffect != null) {
 			double d0 = (double)(this.levels * 10 + 10);
 			int i = 0;
 			if (this.levels >= 4 && this.primaryEffect == this.secondaryEffect) {
@@ -221,16 +214,16 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 			}
 
 			int j = (9 + this.levels * 2) * 20;
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.pos)).grow(d0).expand(0.0D, (double)this.world.getHeight(), 0.0D);
-			List<PlayerEntity> list = this.world.getEntitiesWithinAABB(PlayerEntity.class, axisalignedbb);
+			AABB axisalignedbb = (new AABB(this.worldPosition)).inflate(d0).expandTowards(0.0D, (double)this.level.getMaxBuildHeight(), 0.0D);
+			List<Player> list = this.level.getEntitiesOfClass(Player.class, axisalignedbb);
 
-			for(PlayerEntity playerentity : list) {
-				playerentity.addPotionEffect(new EffectInstance(this.primaryEffect, j, i, true, true));
+			for(Player playerentity : list) {
+				playerentity.addEffect(new MobEffectInstance(this.primaryEffect, j, i, true, true));
 			}
 
 			if (this.levels >= 4 && this.primaryEffect != this.secondaryEffect && this.secondaryEffect != null) {
-				for(PlayerEntity playerentity1 : list) {
-					playerentity1.addPotionEffect(new EffectInstance(this.secondaryEffect, j, 0, true, true));
+				for(Player playerentity1 : list) {
+					playerentity1.addEffect(new MobEffectInstance(this.secondaryEffect, j, 0, true, true));
 				}
 			}
 
@@ -238,7 +231,7 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 	}
 
 	public void playSound(SoundEvent p_205736_1_) {
-		this.world.playSound(null, this.pos, p_205736_1_, SoundCategory.BLOCKS, 1.0F, 1.0F);
+		this.level.playSound(null, this.worldPosition, p_205736_1_, SoundSource.BLOCKS, 1.0F, 1.0F);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -255,75 +248,70 @@ public class DarkBeaconTileEntity extends TileEntity implements INamedContainerP
 	 * modded TE's, this packet comes back to you clientside in {@link #onDataPacket}
 	 */
 	@Nullable
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(this.pos, 3, this.getUpdateTag());
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return new ClientboundBlockEntityDataPacket(this.worldPosition, 3, this.getUpdateTag());
 	}
 
 	/**
 	 * Get an NBT compound to sync to the client with SPacketChunkData, used for initial loading of the chunk or when
 	 * many blocks change at once. This compound comes back to you clientside in {@link }
 	 */
-	public CompoundNBT getUpdateTag() {
-		return this.write(new CompoundNBT());
+	public CompoundTag getUpdateTag() {
+		return this.save(new CompoundTag());
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public double getMaxRenderDistanceSquared() {
+	public double getViewDistance() {
 		return 65536.0D;
 	}
 
 	@Nullable
-	private static Effect isBeaconEffect(int p_184279_0_) {
-		Effect effect = Effect.get(p_184279_0_);
+	private static MobEffect isBeaconEffect(int p_184279_0_) {
+		MobEffect effect = MobEffect.byId(p_184279_0_);
 		return VALID_EFFECTS.contains(effect) ? effect : null;
 	}
 
 	@Override
-	public void read(BlockState state, CompoundNBT compound) {
-		super.read(state, compound);
+	public void load(CompoundTag compound) {
+		super.load(compound);
 		this.primaryEffect = isBeaconEffect(compound.getInt("Primary"));
 		this.secondaryEffect = isBeaconEffect(compound.getInt("Secondary"));
 //		if (compound.contains("CustomName", 8)) {
 //			this.customName = ITextComponent.Serializer.fromJson(compound.getString("CustomName"));
 //		}
 
-		this.field_213936_m = LockCode.read(compound);
+		this.lockKey = LockCode.fromTag(compound);
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		super.write(compound);
-		compound.putInt("Primary", Effect.getId(this.primaryEffect));
-		compound.putInt("Secondary", Effect.getId(this.secondaryEffect));
+	public CompoundTag save(CompoundTag compound) {
+		super.save(compound);
+		compound.putInt("Primary", MobEffect.getId(this.primaryEffect));
+		compound.putInt("Secondary", MobEffect.getId(this.secondaryEffect));
 		compound.putInt("Levels", this.levels);
 		if (this.customName != null) {
-			compound.putString("CustomName", ITextComponent.Serializer.toJson(this.customName));
+			compound.putString("CustomName", Component.Serializer.toJson(this.customName));
 		}
 
-		this.field_213936_m.write(compound);
+		this.lockKey.addToTag(compound);
 		return compound;
 	}
 
 	/**
 	 * Sets the custom name for this beacon.
 	 */
-	public void setCustomName(@Nullable ITextComponent aname) {
+	public void setCustomName(@Nullable Component aname) {
 		this.customName = aname;
 	}
 
 	@Nullable
 	@Override
-	public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
-		return new DarkBeaconContainer(i, world, pos, inventory, player);
+	public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+		return new DarkBeaconContainer(i, level, worldPosition, inventory, player);
 	}
 
-	public ITextComponent getDisplayName() {
-		return (this.customName != null ? this.customName : new TranslationTextComponent("container.dark_beacon"));
-	}
-
-	@Override
-	public void tick() {
-
+	public Component getDisplayName() {
+		return (this.customName != null ? this.customName : new TranslatableComponent("container.dark_beacon"));
 	}
 
 	public static class BeamSegment {

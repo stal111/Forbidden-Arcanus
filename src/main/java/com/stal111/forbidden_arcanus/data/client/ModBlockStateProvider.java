@@ -5,18 +5,30 @@ import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.block.PillarBlock;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
-import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.valhelsia.valhelsia_core.data.ValhelsiaBlockStateProvider;
 
 import java.util.Arrays;
 import java.util.Objects;
+
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockStateProvider;
 
 /**
  * Mod Block State Provider
@@ -46,9 +58,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         ResourceLocation fungyssPlanks = modLoc("block/fungyss_planks");
         take(block -> slabBlock((SlabBlock) block, fungyssPlanks, fungyssPlanks), NewModBlocks.FUNGYSS_SLAB);
-        take(block -> stairsBlock((StairsBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_STAIRS);
+        take(block -> stairsBlock((StairBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_STAIRS);
         take(block -> pressurePlateBlock(block, fungyssPlanks), NewModBlocks.FUNGYSS_PRESSURE_PLATE);
-        take(block -> buttonBlock((AbstractButtonBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_BUTTON);
+        take(block -> buttonBlock((ButtonBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_BUTTON);
         take(block -> trapdoorBlock((TrapDoorBlock) block, modLoc("block/fungyss_trapdoor"), true), NewModBlocks.FUNGYSS_TRAPDOOR);
         take(block -> doorBlock((DoorBlock) block, modLoc("block/fungyss_door_bottom"), modLoc("block/fungyss_door_top")), NewModBlocks.FUNGYSS_DOOR);
 
@@ -57,35 +69,35 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         ResourceLocation darkstone = modLoc("block/darkstone");
         take(block -> slabBlock((SlabBlock) block, darkstone, darkstone), NewModBlocks.DARKSTONE_SLAB);
-        take(block -> stairsBlock((StairsBlock) block, darkstone), NewModBlocks.DARKSTONE_STAIRS);
+        take(block -> stairsBlock((StairBlock) block, darkstone), NewModBlocks.DARKSTONE_STAIRS);
         take(block -> wallBlock((WallBlock) block, darkstone), NewModBlocks.DARKSTONE_WALL);
 
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
         take(block -> slabBlock((SlabBlock) block, polishedDarkstone, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_SLAB);
-        take(block -> stairsBlock((StairsBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_STAIRS);
+        take(block -> stairsBlock((StairBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_STAIRS);
         take(block -> wallBlock((WallBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_WALL);
         take(block -> pressurePlateBlock(block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
-        take(block -> buttonBlock((AbstractButtonBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_BUTTON);
+        take(block -> buttonBlock((ButtonBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_BUTTON);
         take(this::runicChiseledPolishedDarkstone, NewModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE);
 
         ResourceLocation polishedDarkstoneBricks = modLoc("block/polished_darkstone_bricks");
         take(block -> slabBlock((SlabBlock) block, polishedDarkstoneBricks, polishedDarkstoneBricks), NewModBlocks.POLISHED_DARKSTONE_BRICK_SLAB);
-        take(block -> stairsBlock((StairsBlock) block, polishedDarkstoneBricks), NewModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS);
+        take(block -> stairsBlock((StairBlock) block, polishedDarkstoneBricks), NewModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS);
         take(block -> wallBlock((WallBlock) block, polishedDarkstoneBricks), NewModBlocks.POLISHED_DARKSTONE_BRICK_WALL);
 
         ResourceLocation arcanePolishedDarkstone = modLoc("block/arcane_polished_darkstone");
         take(block -> slabBlock((SlabBlock) block, arcanePolishedDarkstone, arcanePolishedDarkstone), NewModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB);
-        take(block -> stairsBlock((StairsBlock) block, arcanePolishedDarkstone), NewModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS);
+        take(block -> stairsBlock((StairBlock) block, arcanePolishedDarkstone), NewModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS);
         take(block -> wallBlock((WallBlock) block, arcanePolishedDarkstone), NewModBlocks.ARCANE_POLISHED_DARKSTONE_WALL);
         take(this::arcanePolishedDarkstonePillar, NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
 
-        take(block -> paneBlock((PaneBlock) block, modLoc("block/arcane_glass"), modLoc("block/arcane_glass_pane_top")), NewModBlocks.ARCANE_GLASS_PANE);
+        take(block -> paneBlock((IronBarsBlock) block, modLoc("block/arcane_glass"), modLoc("block/arcane_glass_pane_top")), NewModBlocks.ARCANE_GLASS_PANE);
         take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
         take(block -> cutoutBlock(block, modLoc("block/arcane_crystal_ore/arcane_crystal_ore"), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), NewModBlocks.ARCANE_CRYSTAL_ORE);
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
         forEach(block -> block instanceof FlowerPotBlock, block -> {
-            ResourceLocation name = Objects.requireNonNull(((FlowerPotBlock) block).getFlower().getRegistryName());
+            ResourceLocation name = Objects.requireNonNull(((FlowerPotBlock) block).getContent().getRegistryName());
             simpleFlowerPotBlock(block, new ResourceLocation(name.getNamespace(), "block/" + name.getPath()));
         });
 
@@ -132,9 +144,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
     private void arcanePolishedDarkstonePillar(Block block) {
         getVariantBuilder(block).forAllStatesExcept(state -> ConfiguredModel.builder()
-                .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.get(PillarBlock.TYPE).getString())))
-                .rotationX(state.get(RotatedPillarBlock.AXIS) != Direction.Axis.Y ? 90 : 0)
-                .rotationY(state.get(RotatedPillarBlock.AXIS) == Direction.Axis.X ? 90 : 0)
+                .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.getValue(PillarBlock.TYPE).getSerializedName())))
+                .rotationX(state.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y ? 90 : 0)
+                .rotationY(state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.X ? 90 : 0)
                 .build(), BlockStateProperties.WATERLOGGED);
     }
 
@@ -150,7 +162,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     private void arcaneCrystalObelisk(Block block) {
         getVariantBuilder(block).forAllStatesExcept(
                 state -> ConfiguredModel.builder()
-                        .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.get(ArcaneCrystalObeliskBlock.PART).getString())))
+                        .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.getValue(ArcaneCrystalObeliskBlock.PART).getSerializedName())))
                         .build(),
                 BlockStateProperties.WATERLOGGED,
                 ModBlockStateProperties.RITUAL
