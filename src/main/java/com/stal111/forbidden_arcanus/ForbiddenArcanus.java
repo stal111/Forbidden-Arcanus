@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus;
 
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
-import com.stal111.forbidden_arcanus.block.CandelabraBlock;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
@@ -18,7 +17,6 @@ import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
 import com.stal111.forbidden_arcanus.item.ModItemGroup;
-import com.stal111.forbidden_arcanus.item.block.WallFloorOrCeilingItem;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
@@ -51,7 +49,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
 import net.valhelsia.valhelsia_core.core.registry.LootModifierRegistryHelper;
@@ -172,10 +169,6 @@ public class ForbiddenArcanus {
 						item.setRegistryName(ModUtils.location(block.getName()));
 						event.getRegistry().register(item);
 					}
-				} else if (block.getBlock() instanceof CandelabraBlock) {
-					BlockItem item = new WallFloorOrCeilingItem(block.getBlock(), ForgeRegistries.BLOCKS.getValue(ModUtils.location("wall_" + block.getBlock().getRegistryName().getPath())), ForgeRegistries.BLOCKS.getValue(ModUtils.location("hanging_" + block.getBlock().getRegistryName().getPath())), ModItems.properties());
-					item.setRegistryName(ModUtils.location(block.getName()));
-					event.getRegistry().register(item);
 				}
 			}
 		}

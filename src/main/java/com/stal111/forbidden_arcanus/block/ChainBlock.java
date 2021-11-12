@@ -122,7 +122,7 @@ public class ChainBlock extends CutoutBlock implements SimpleWaterloggedBlock {
             if(getChainBlocks().contains(block))
                 continue;
             if(endChain) {
-                can = wasAirAtEnd || level.isEmptyBlock(pos) || level.getBlockState(pos).getBlock() instanceof LanternBlock || level.getBlockState(pos).getBlock() instanceof HangingCandelabraBlock || state.getMaterial().isReplaceable();
+                can = wasAirAtEnd || level.isEmptyBlock(pos) || level.getBlockState(pos).getBlock() instanceof LanternBlock || state.getMaterial().isReplaceable();
                 break;
             }
             endChain = true;
@@ -149,7 +149,7 @@ public class ChainBlock extends CutoutBlock implements SimpleWaterloggedBlock {
         BlockState state = world.getBlockState(srcPos);
         Block block = state.getBlock();
 
-        if((state.getDestroySpeed(world, srcPos) == -1 || !state.canSurvive(world, dstPos) || state.isAir() || state.getPistonPushReaction() != PushReaction.NORMAL || block == Blocks.OBSIDIAN) && !(world.getBlockState(srcPos).getBlock() instanceof LanternBlock) && !(world.getBlockState(srcPos).getBlock() instanceof HangingCandelabraBlock)) {
+        if((state.getDestroySpeed(world, srcPos) == -1 || !state.canSurvive(world, dstPos) || state.isAir() || state.getPistonPushReaction() != PushReaction.NORMAL || block == Blocks.OBSIDIAN) && !(world.getBlockState(srcPos).getBlock() instanceof LanternBlock)) {
             return;
         }
 
@@ -180,11 +180,11 @@ public class ChainBlock extends CutoutBlock implements SimpleWaterloggedBlock {
         boolean flagUp = stateUp.getBlock() instanceof ChainBlock;
         boolean flagDown = stateDown.getBlock() instanceof ChainBlock;
 
-        if (flagUp && !flagDown && !(stateDown.getBlock() instanceof LanternBlock || stateDown.getBlock() instanceof HangingCandelabraBlock)) {
+        if (flagUp && !flagDown && !(stateDown.getBlock() instanceof LanternBlock)) {
             return state.setValue(TYPE, ConnectedBlockType.BOTTOM);
-        } else if (!flagUp && (flagDown || stateDown.getBlock() instanceof LanternBlock || stateDown.getBlock() instanceof HangingCandelabraBlock)) {
+        } else if (!flagUp && (flagDown || stateDown.getBlock() instanceof LanternBlock)) {
             return state.setValue(TYPE, ConnectedBlockType.TOP);
-        } else if (flagUp || stateDown.getBlock() instanceof LanternBlock || stateDown.getBlock() instanceof HangingCandelabraBlock) {
+        } else if (flagUp || stateDown.getBlock() instanceof LanternBlock) {
             return state.setValue(TYPE, ConnectedBlockType.CENTER);
         }
         return state.setValue(TYPE, ConnectedBlockType.SINGLE);

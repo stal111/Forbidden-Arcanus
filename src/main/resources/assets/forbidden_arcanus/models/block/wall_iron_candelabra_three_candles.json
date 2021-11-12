@@ -1,6 +1,0 @@
-{
-    "parent": "forbidden_arcanus:block/candelabra_wall_three_candles",
-    "textures": {
-        "candelabra": "forbidden_arcanus:block/iron_candelabra"
-    }
-}

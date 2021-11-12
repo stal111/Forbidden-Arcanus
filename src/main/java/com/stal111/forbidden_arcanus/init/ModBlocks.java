@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.CandleBlock;
 import com.stal111.forbidden_arcanus.block.ChainBlock;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
@@ -41,16 +40,6 @@ public enum ModBlocks {
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).noOcclusion()), ModRenderType.CUTOUT),
     ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG).lightLevel(state -> 9))),
-    CANDLE(new CandleBlock(addProperties(Material.DECORATION).noCollission().instabreak()), ModRenderType.CUTOUT),
-    STONE_CANDELABRA(new CandelabraBlock(addProperties(Material.STONE, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
-    WALL_STONE_CANDELABRA(new WallCandelabraBlock(addProperties(Material.STONE, 1.5F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_STONE_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.STONE, 1.5F, 6.0F).noOcclusion()), false, ModRenderType.CUTOUT),
-    IRON_CANDELABRA(new CandelabraBlock(addProperties(Material.METAL, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    WALL_IRON_CANDELABRA(new WallCandelabraBlock(addProperties(Material.METAL, 5.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_IRON_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.METAL, 5.0F, 6.0F).noOcclusion()), false, ModRenderType.CUTOUT),
-    ARCANE_GOLDEN_CANDELABRA(new CandelabraBlock(addProperties(Material.METAL, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    WALL_ARCANE_GOLDEN_CANDELABRA(new WallCandelabraBlock(addProperties(Material.METAL, 3.0F, 6.0F)), false, ModRenderType.CUTOUT),
-    HANGING_ARCANE_GOLDEN_CANDELABRA(new HangingCandelabraBlock(addProperties(Material.METAL, 3.0F, 6.0F).noOcclusion()), false, ModRenderType.CUTOUT),
     IRON_CHAIN(new ChainBlock(addProperties(Material.METAL, 5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
     ARCANE_GOLDEN_CHAIN(new ChainBlock(addProperties(Material.METAL, 3.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
     CANDLE_LAMP(new CandleLampBlock(addProperties(Material.STONE).lightLevel(state -> 15)), ModRenderType.CUTOUT),

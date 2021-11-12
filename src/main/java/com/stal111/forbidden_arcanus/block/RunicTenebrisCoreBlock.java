@@ -32,7 +32,7 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty()) {
-			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.get(), ModItems.DARK_RUNE.get()).put(ModItems.RUNE_BAG.get(), ModItems.DARK_RUNE_BAG.get()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
+			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.get(), ModItems.DARK_RUNE.get()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
 			Item transformedItem = ITEM_TRANSFORM_MAP.get(stack.getItem());
 			if (transformedItem != null) {
 				ItemStackUtils.shrinkStack(player, stack);
