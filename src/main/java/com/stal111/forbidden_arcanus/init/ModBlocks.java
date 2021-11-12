@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.ChainBlock;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
 import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
@@ -40,9 +39,6 @@ public enum ModBlocks {
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).noOcclusion()), ModRenderType.CUTOUT),
     ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG).lightLevel(state -> 9))),
-    IRON_CHAIN(new ChainBlock(addProperties(Material.METAL, 5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
-    ARCANE_GOLDEN_CHAIN(new ChainBlock(addProperties(Material.METAL, 3.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.CHAIN)), ModRenderType.CUTOUT),
-    CANDLE_LAMP(new CandleLampBlock(addProperties(Material.STONE).lightLevel(state -> 15)), ModRenderType.CUTOUT),
     EDELWOOD_LOG(new EdelwoodLogBlock(MaterialColor.COLOR_BROWN, from(Blocks.OAK_LOG).randomTicks()), ModRenderType.CUTOUT),
     EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     ARCANE_EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
