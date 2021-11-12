@@ -18,7 +18,6 @@ import net.minecraft.world.level.material.MaterialColor;
 import java.util.Locale;
 
 public enum ModBlocks {
-    DARK_BEACON(new DarkBeaconBlock(from(Blocks.BEACON)), ModRenderType.CUTOUT),
     RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion())),
     RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion().lightLevel(state -> 12)), ModRenderType.CUTOUT),
     DARK_RUNESTONE(new ModOreBlock(addProperties(Material.STONE, 3.0F, 3.0F)), ModRenderType.CUTOUT),
