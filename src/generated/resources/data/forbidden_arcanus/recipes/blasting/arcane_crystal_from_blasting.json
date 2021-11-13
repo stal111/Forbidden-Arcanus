@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "forbidden_arcanus:arcane_crystal_ores"
+  },
+  "result": "forbidden_arcanus:arcane_crystal",
+  "experience": 1.0,
+  "cookingtime": 100
+}

@@ -55,8 +55,8 @@ public class NewModBlocks {
     public static final RegistryObject<Block> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));
     public static final RegistryObject<Block> ARCANE_DARKSTONE_PEDESTAL = HELPER.register("arcane_darkstone_pedestal", new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));
     public static final RegistryObject<Block> ARCANE_GLASS = HELPER.register("arcane_glass", new GlassBlock(Block.Properties.copy(Blocks.GLASS)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<Block> ARCANE_CRYSTAL_ORE = HELPER.register("arcane_crystal_ore", new ModOreBlock(Block.Properties.of(Material.STONE).strength(3.0F)), ValhelsiaRenderType.CUTOUT);
-
+    public static final RegistryObject<Block> ARCANE_CRYSTAL_ORE = HELPER.register("arcane_crystal_ore", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F), UniformInt.of(2, 5)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<Block> DEEPSLATE_ARCANE_CRYSTAL_ORE = HELPER.register("deepslate_arcane_crystal_ore", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(4.5F, 3.0F), UniformInt.of(2, 5)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> RUNIC_STONE = HELPER.register("runic_stone", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> RUNIC_DEEPSLATE = HELPER.register("runic_deepslate", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> RUNIC_DARKSTONE = HELPER.register("runic_darkstone", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(6.0F, 4.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);

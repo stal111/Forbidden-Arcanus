@@ -1,6 +1,7 @@
 {
   "parent": "forbidden_arcanus:block/cube_all_cutout",
   "textures": {
+    "particle": "minecraft:block/stone",
     "all": "forbidden_arcanus:block/runic_stone/runic_darkstone",
     "cutout": "forbidden_arcanus:block/runic_stone/rune_layer"
   }

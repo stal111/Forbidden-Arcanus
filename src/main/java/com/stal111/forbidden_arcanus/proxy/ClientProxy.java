@@ -31,10 +31,7 @@ public class ClientProxy implements IProxy {
     public void init() {
         ModEntities.initModels();
 
-        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "arcane_crystal_ore"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
         bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "arcane_crystal_block"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_block")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runestone/runestone_layer")));
-        bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "dark_runestone"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runestone/runestone_layer")));
         bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "xpetrified_ore"), (base, registry) -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
         bakedModelOverrideRegistry.add(new ResourceLocation(ForbiddenArcanus.MOD_ID, "arcane_crystal_obelisk"), (base, registry) -> new FullbrightBakedModel(base, true,
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_lower_layer"),

@@ -55,6 +55,8 @@ public class ClientSetup {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
         });
 
+        this.registerModelOverride(NewModBlocks.ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
+        this.registerModelOverride(NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
         this.registerModelOverride(NewModBlocks.RUNIC_STONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
         this.registerModelOverride(NewModBlocks.RUNIC_DEEPSLATE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
         this.registerModelOverride(NewModBlocks.RUNIC_DARKSTONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));

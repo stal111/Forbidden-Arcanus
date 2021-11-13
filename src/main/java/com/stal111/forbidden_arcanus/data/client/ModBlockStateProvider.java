@@ -48,7 +48,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     protected void registerStatesAndModels() {
         getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
 
-        take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer")),
+        take(block -> cubeAllCutout(block, modLoc("block/arcane_crystal_ore/" + getName(block)), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")),
+                NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
+        take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer"), mcLoc("block/stone")),
                 NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
 
         take(this::withExistingModel, NewModBlocks.UTREM_JAR, NewModBlocks.NIPA, NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
@@ -96,7 +98,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(block -> paneBlock((IronBarsBlock) block, modLoc("block/arcane_glass"), modLoc("block/arcane_glass_pane_top")), NewModBlocks.ARCANE_GLASS_PANE);
         take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
-        take(block -> cutoutBlock(block, modLoc("block/arcane_crystal_ore/arcane_crystal_ore"), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), NewModBlocks.ARCANE_CRYSTAL_ORE);
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
         forEach(block -> block instanceof FlowerPotBlock, block -> {
@@ -109,6 +110,14 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
     private void cubeAllCutout(Block block, ResourceLocation texture, ResourceLocation emissiveTexture) {
         simpleBlock(block, models().withExistingParent(getName(block), modLoc("block/cube_all_cutout"))
+                .texture("all", texture)
+                .texture("cutout", emissiveTexture)
+        );
+    }
+
+    private void cubeAllCutout(Block block, ResourceLocation texture, ResourceLocation emissiveTexture, ResourceLocation particle) {
+        simpleBlock(block, models().withExistingParent(getName(block), modLoc("block/cube_all_cutout"))
+                .texture("particle", particle)
                 .texture("all", texture)
                 .texture("cutout", emissiveTexture)
         );
@@ -158,15 +167,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .rotationX(state.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y ? 90 : 0)
                 .rotationY(state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.X ? 90 : 0)
                 .build(), BlockStateProperties.WATERLOGGED);
-    }
-
-    private void cutoutBlock(Block block, ResourceLocation texture, ResourceLocation cutoutTexture, ResourceLocation particle) {
-        ModelFile model = models().withExistingParent(getName(block), modLoc("block/cube_all_cutout"))
-                .texture("particle", particle)
-                .texture("all", texture)
-                .texture("cutout", cutoutTexture);
-
-        simpleBlock(block, model);
     }
 
     private void arcaneCrystalObelisk(Block block) {

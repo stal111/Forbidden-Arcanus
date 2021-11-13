@@ -1,9 +1,0 @@
-{
-  "type": "smelting",
-  "ingredient": {
-    "item": "forbidden_arcanus:arcane_crystal_ore"
-  },
-  "result": "forbidden_arcanus:arcane_crystal",
-  "experience": 0.4,
-  "cookingtime": 200
-}

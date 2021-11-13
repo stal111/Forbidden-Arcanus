@@ -43,7 +43,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         take(block -> registerLootTable(block, LootTable.lootTable()), NewModBlocks.BLACK_HOLE);
         take(block -> registerLootTable(block, droppingWithSilkTouch(block, LootItem.lootTableItem(NewModBlocks.FUNGYSS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0))).apply(ApplyExplosionDecay.explosionDecay()))), NewModBlocks.FUNGYSS_BLOCK);
         take(block -> registerLootTable(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER)), NewModBlocks.ARCANE_CRYSTAL_OBELISK);
-        take(block -> registerLootTable(block, droppingWithSilkTouch(block, ModItems.ARCANE_CRYSTAL.get()).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))), NewModBlocks.ARCANE_CRYSTAL_ORE);
+        take(block -> registerLootTable(block, droppingWithSilkTouch(block, ModItems.ARCANE_CRYSTAL.get()).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))), NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
         take(block -> registerLootTable(block, droppingWithSilkTouch(block, ModItems.RUNE.get())), NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
         forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);
 

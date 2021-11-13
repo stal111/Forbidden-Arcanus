@@ -48,8 +48,10 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
         this.tag(ModTags.Blocks.RUNIC_STONES).add(NewModBlocks.RUNIC_STONE.get(), NewModBlocks.RUNIC_DEEPSLATE.get(), NewModBlocks.RUNIC_DARKSTONE.get());
         this.tag(ModTags.Blocks.RUNE_BLOCKS).add(NewModBlocks.RUNE_BLOCK.get(), NewModBlocks.DARK_RUNE_BLOCK.get());
+        this.tag(ModTags.Blocks.ARCANE_CRYSTAL_ORES).add(NewModBlocks.ARCANE_CRYSTAL_ORE.get(), NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get());
 
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS);
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS);
+        this.tag(BlockTags.NEEDS_IRON_TOOL).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
     }
 }
