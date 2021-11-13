@@ -46,5 +46,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.FLOWER_POTS).add(NewModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), NewModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), NewModBlocks.POTTED_YELLOW_ORCHID.get());
         this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED).add(Blocks.IRON_ORE, Blocks.GOLD_ORE);
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
+        this.tag(ModTags.Blocks.RUNIC_STONES).add(NewModBlocks.RUNIC_STONE.get(), NewModBlocks.RUNIC_DEEPSLATE.get(), NewModBlocks.RUNIC_DARKSTONE.get());
+
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).addTag(ModTags.Blocks.RUNIC_STONES);
+        this.tag(BlockTags.NEEDS_DIAMOND_TOOL).addTag(ModTags.Blocks.RUNIC_STONES);
     }
 }

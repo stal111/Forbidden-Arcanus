@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "forbidden_arcanus:arcane_crystal"
+            "items": [
+              "forbidden_arcanus:arcane_crystal"
+            ]
           }
         ]
       }

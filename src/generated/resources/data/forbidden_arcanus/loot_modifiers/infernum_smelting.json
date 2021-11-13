@@ -3,7 +3,9 @@
     {
       "condition": "minecraft:match_tool",
       "predicate": {
-        "item": "forbidden_arcanus:infernum_pickaxe"
+        "items": [
+          "forbidden_arcanus:infernum_pickaxe"
+        ]
       }
     }
   ],

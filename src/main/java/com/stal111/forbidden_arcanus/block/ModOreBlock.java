@@ -17,14 +17,10 @@ public class ModOreBlock extends OreBlock {
 	public ModOreBlock(Properties properties) {
 		super(properties);
 	}
-	
+
 	protected int xpOnDrop(Random p_220281_1_) {
 	      if (this == NewModBlocks.ARCANE_CRYSTAL_ORE.get()) {
 	         return Mth.nextInt(p_220281_1_, 2, 5);
-	      } else if (this == ModBlocks.RUNESTONE.getBlock()) {
-	         return Mth.nextInt(p_220281_1_, 4, 8);
-	      } else if (this == ModBlocks.DARK_RUNESTONE.getBlock()) {
-	         return Mth.nextInt(p_220281_1_, 5, 9);
 	      } else {
 	         return 0;
 	      }

@@ -31,19 +31,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        this.copy(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Items.FUNGYSS_STEMS);
-        this.copy(BlockTags.LOGS, ItemTags.LOGS);
-        this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
-        this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
-        this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
-        this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
-        this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
-        this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
-        this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
-        this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
-        this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
-        this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
-
         this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
         this.tag(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
         this.tag(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
@@ -61,5 +48,19 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.tag(ModTags.Items.ARCANE_GOLD_INGOTS).add(ModItems.ARCANE_GOLD_INGOT.get());
         this.tag(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());
         this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED).add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, ModItems.GOLDEN_ORCHID_SEEDS.get());
+
+        this.copy(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Items.FUNGYSS_STEMS);
+        this.copy(BlockTags.LOGS, ItemTags.LOGS);
+        this.copy(BlockTags.PLANKS, ItemTags.PLANKS);
+        this.copy(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
+        this.copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
+        this.copy(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES);
+        this.copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
+        this.copy(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
+        this.copy(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS);
+        this.copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
+        this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
+        this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
+        this.copy(ModTags.Blocks.RUNIC_STONES, ModTags.Items.RUNIC_STONES);
     }
 }

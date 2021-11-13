@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.google.common.collect.ImmutableMap;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -32,7 +31,7 @@ public class RunicTenebrisCoreBlock extends WaterloggedBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty()) {
-			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.get(), ModItems.DARK_RUNE.get()).put(ModBlocks.RUNESTONE.getItem(), ModBlocks.DARK_RUNESTONE.getItem()).build();
+			Map<Item, Item> ITEM_TRANSFORM_MAP = (new ImmutableMap.Builder<Item, Item>()).put(ModItems.RUNE.get(), ModItems.DARK_RUNE.get()).build();
 			Item transformedItem = ITEM_TRANSFORM_MAP.get(stack.getItem());
 			if (transformedItem != null) {
 				ItemStackUtils.shrinkStack(player, stack);

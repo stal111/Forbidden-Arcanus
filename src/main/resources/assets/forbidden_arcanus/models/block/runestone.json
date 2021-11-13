@@ -1,8 +1,0 @@
-{
-    "parent": "forbidden_arcanus:block/cube_all_cutout",
-    "textures": {
-        "particle": "forbidden_arcanus:block/runestone/runestone",
-        "all": "forbidden_arcanus:block/runestone/runestone",
-        "cutout": "forbidden_arcanus:block/runestone/runestone_layer"
-    }
-}

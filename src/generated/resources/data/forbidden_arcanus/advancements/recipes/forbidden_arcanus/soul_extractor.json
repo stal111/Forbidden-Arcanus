@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "forbidden_arcanus:utrem_jar"
+            "items": [
+              "forbidden_arcanus:utrem_jar"
+            ]
           }
         ]
       }

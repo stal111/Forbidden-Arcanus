@@ -20,13 +20,11 @@ import java.util.Locale;
 public enum ModBlocks {
     RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion())),
     RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion().lightLevel(state -> 12)), ModRenderType.CUTOUT),
-    DARK_RUNESTONE(new ModOreBlock(addProperties(Material.STONE, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     ARCANE_DARK_STONE(new Block(addProperties(Material.STONE, 1.5F, 6.0F))),
     RUNIC_GLASS(new GlassBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     RUNIC_GLASS_PANE(new IronBarsBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
     DARK_RUNIC_GLASS(new GlassBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     DARK_RUNIC_GLASS_PANE(new IronBarsBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
-    RUNESTONE(new ModOreBlock(addProperties(Material.STONE, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
     END_CRYSTAL_GEM(new EndCrystalGemBlock(addProperties(Material.GLASS, 1.0F, 5.0F).noOcclusion()), ModRenderType.TRANSLUCENT),
     HEPHAESTUS_FORGE(new HephaestusForgeBlock(from(Blocks.IRON_BLOCK).noOcclusion()), ModRenderType.CUTOUT),

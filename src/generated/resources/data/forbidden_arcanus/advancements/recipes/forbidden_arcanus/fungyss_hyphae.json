@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "forbidden_arcanus:fungyss_stem"
+            "items": [
+              "forbidden_arcanus:fungyss_stem"
+            ]
           }
         ]
       }

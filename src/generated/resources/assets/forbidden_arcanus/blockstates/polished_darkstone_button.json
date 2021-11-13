@@ -1,13 +1,11 @@
 {
   "variants": {
     "face=floor,facing=north,powered=false": {
-      "model": "forbidden_arcanus:block/polished_darkstone_button",
-      "y": 360
+      "model": "forbidden_arcanus:block/polished_darkstone_button"
     },
     "face=wall,facing=north,powered=false": {
       "model": "forbidden_arcanus:block/polished_darkstone_button",
       "x": 90,
-      "y": 360,
       "uvlock": true
     },
     "face=ceiling,facing=north,powered=false": {
@@ -57,16 +55,14 @@
     "face=ceiling,facing=east,powered=false": {
       "model": "forbidden_arcanus:block/polished_darkstone_button",
       "x": 180,
-      "y": -90
+      "y": 270
     },
     "face=floor,facing=north,powered=true": {
-      "model": "forbidden_arcanus:block/polished_darkstone_button_pressed",
-      "y": 360
+      "model": "forbidden_arcanus:block/polished_darkstone_button_pressed"
     },
     "face=wall,facing=north,powered=true": {
       "model": "forbidden_arcanus:block/polished_darkstone_button_pressed",
       "x": 90,
-      "y": 360,
       "uvlock": true
     },
     "face=ceiling,facing=north,powered=true": {
@@ -116,7 +112,7 @@
     "face=ceiling,facing=east,powered=true": {
       "model": "forbidden_arcanus:block/polished_darkstone_button_pressed",
       "x": 180,
-      "y": -90
+      "y": 270
     }
   }
 }

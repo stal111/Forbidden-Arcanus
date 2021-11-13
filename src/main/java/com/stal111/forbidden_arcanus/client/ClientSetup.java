@@ -1,41 +1,43 @@
-package com.stal111.forbidden_arcanus.setup;
+package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.tileentity.NipaTileEntity;
-import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
-import com.stal111.forbidden_arcanus.block.tileentity.render.NipaTileEntityRenderer;
-import com.stal111.forbidden_arcanus.block.tileentity.render.PedestalTileEntityRenderer;
-import com.stal111.forbidden_arcanus.block.tileentity.render.UtremJarTileEntityRenderer;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
-import com.stal111.forbidden_arcanus.client.renderer.tile.HephaestusForgeTileEntityRenderer;
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
-import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
-import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
+import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmlclient.registry.ClientRegistry;
+import net.minecraftforge.fmllegacy.RegistryObject;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Client Setup
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.setup.ClientSetup
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.ClientSetup
  *
  * @author stal111
  * @version 16.2.0
  * @since 2021-02-13
  */
 public class ClientSetup {
+
+    private final List<Triple<Block, StatePropertiesPredicate, Function<BakedModel, BakedModel>>> bakedModelOverrideRegistry = new ArrayList<>();
 
     public ClientSetup() {
         Minecraft minecraft = Minecraft.getInstance();
@@ -53,6 +55,10 @@ public class ClientSetup {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
         });
 
+        this.registerModelOverride(NewModBlocks.RUNIC_STONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
+        this.registerModelOverride(NewModBlocks.RUNIC_DEEPSLATE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
+        this.registerModelOverride(NewModBlocks.RUNIC_DARKSTONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
+
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL.get(), PedestalTileEntityRenderer::new);
@@ -68,7 +74,16 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent event) {
+        Map<ResourceLocation, BakedModel> modelRegistry = event.getModelRegistry();
 
+        FullbrightBakedModel.invalidateCache();
+
+        for (Triple<Block, StatePropertiesPredicate, Function<BakedModel, BakedModel>> triple : this.bakedModelOverrideRegistry) {
+            triple.getLeft().getStateDefinition().getPossibleStates().stream().filter(state -> triple.getMiddle().matches(state)).map(BlockModelShaper::stateToModelLocation).forEach(modelResourceLocation -> {
+                System.out.println(modelResourceLocation);
+                modelRegistry.put(modelResourceLocation, triple.getRight().apply(modelRegistry.get(modelResourceLocation)));
+            });
+        }
     }
 
     @SubscribeEvent
@@ -78,5 +93,19 @@ public class ClientSetup {
         if (textureLocation.equals(TextureAtlas.LOCATION_BLOCKS)) {
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/obsidian_skull_shield"));
         }
+    }
+
+    /**
+     * Registers a model override under the mods MOD_ID. All states of the Block will be overridden.
+     */
+    private void registerModelOverride(RegistryObject<Block> block, Function<BakedModel, BakedModel> function) {
+        this.registerModelOverride(block, StatePropertiesPredicate.ANY, function);
+    }
+
+    /**
+     * Registers a model override under the mods MOD_ID.
+     */
+    private void registerModelOverride(RegistryObject<Block> block, StatePropertiesPredicate predicate, Function<BakedModel, BakedModel> function) {
+        this.bakedModelOverrideRegistry.add(Triple.of(block.get(), predicate, function));
     }
 }

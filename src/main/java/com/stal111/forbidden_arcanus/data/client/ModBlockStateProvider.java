@@ -48,6 +48,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     protected void registerStatesAndModels() {
         getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
 
+        take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer")),
+                NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
+
         take(this::withExistingModel, NewModBlocks.UTREM_JAR, NewModBlocks.NIPA, NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
         take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);
         take(block -> pixieUtremJarBlock(block, true), NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
@@ -102,6 +105,13 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         });
 
         forEach(this::simpleBlock);
+    }
+
+    private void cubeAllCutout(Block block, ResourceLocation texture, ResourceLocation emissiveTexture) {
+        simpleBlock(block, models().withExistingParent(getName(block), modLoc("block/cube_all_cutout"))
+                .texture("all", texture)
+                .texture("cutout", emissiveTexture)
+        );
     }
 
     private void pixieUtremJarBlock(Block block, boolean corrupted) {

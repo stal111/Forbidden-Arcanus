@@ -22,7 +22,7 @@ import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.recipe.AwkwardPotionBrewingRecipe;
-import com.stal111.forbidden_arcanus.setup.ClientSetup;
+import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.Data;
 import com.stal111.forbidden_arcanus.util.ModUtils;

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "forbidden_arcanus:runic_stones"
+  },
+  "result": "forbidden_arcanus:rune",
+  "experience": 1.0,
+  "cookingtime": 200
+}

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "forbidden_arcanus:obsidian_skull"
+            "items": [
+              "forbidden_arcanus:obsidian_skull"
+            ]
           }
         ]
       }

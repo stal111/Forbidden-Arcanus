@@ -2,7 +2,8 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -28,14 +29,9 @@
             },
             {
               "type": "minecraft:item",
-              "functions": [
+              "conditions": [
                 {
-                  "function": "minecraft:apply_bonus",
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:ore_drops"
-                },
-                {
-                  "function": "minecraft:explosion_decay"
+                  "condition": "minecraft:survives_explosion"
                 }
               ],
               "name": "forbidden_arcanus:arcane_crystal"
@@ -43,6 +39,13 @@
           ]
         }
       ]
+    }
+  ],
+  "functions": [
+    {
+      "function": "minecraft:apply_bonus",
+      "enchantment": "minecraft:fortune",
+      "formula": "minecraft:ore_drops"
     }
   ]
 }
