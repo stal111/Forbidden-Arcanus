@@ -62,5 +62,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(Tags.Blocks.FENCES_WOODEN, Tags.Items.FENCES_WOODEN);
         this.copy(Tags.Blocks.FENCE_GATES_WOODEN, Tags.Items.FENCE_GATES_WOODEN);
         this.copy(ModTags.Blocks.RUNIC_STONES, ModTags.Items.RUNIC_STONES);
+        this.copy(ModTags.Blocks.RUNE_BLOCKS, ModTags.Items.RUNE_BLOCKS);
     }
 }

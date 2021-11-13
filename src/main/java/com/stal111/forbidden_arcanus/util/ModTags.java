@@ -26,6 +26,7 @@ public class ModTags {
         public static final Tag.Named<Block> BLACKSMITH_GAVEL_UNAFFECTED = modTag("blacksmith_gavel_unaffected");
         public static final Tag.Named<Block> MAGICAL_FARMLAND_BLACKLISTED = modTag("magical_farmland_blacklisted");
         public static final Tag.Named<Block> RUNIC_STONES = modTag("runic_stones");
+        public static final Tag.Named<Block> RUNE_BLOCKS = modTag("rune_blocks");
 
         private static Tag.Named<Block> forgeTag(String name) {
             return BlockTags.bind(new ResourceLocation("forge", name).toString());
@@ -51,6 +52,7 @@ public class ModTags {
         public static final Tag.Named<Item> OBSIDIAN_INGOTS = forgeTag("ingots/obsidian");
         public static final Tag.Named<Item> MAGICAL_FARMLAND_BLACKLISTED = modTag("magical_farmland_blacklisted");
         public static final Tag.Named<Item> RUNIC_STONES = modTag("runic_stones");
+        public static final Tag.Named<Item> RUNE_BLOCKS = modTag("rune_blocks");
 
         private static Tag.Named<Item> forgeTag(String name) {
             return ItemTags.bind(new ResourceLocation("forge", name).toString());
