@@ -50,6 +50,7 @@ public class ModTags {
         public static final Tag.Named<Item> FUNGYSS_STEMS = modTag("fungyss_stems");
         public static final Tag.Named<Item> BLACKSMITH_GAVEL = modTag("blacksmith_gavel");
         public static final Tag.Named<Item> ARCANE_GOLD_INGOTS = forgeTag("ingots/arcane_gold");
+        public static final Tag.Named<Item> ARCANE_GOLD_NUGGETS = forgeTag("nuggets/arcane_gold");
         public static final Tag.Named<Item> OBSIDIAN_INGOTS = forgeTag("ingots/obsidian");
         public static final Tag.Named<Item> MAGICAL_FARMLAND_BLACKLISTED = modTag("magical_farmland_blacklisted");
         public static final Tag.Named<Item> RUNIC_STONES = modTag("runic_stones");

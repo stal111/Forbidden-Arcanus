@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/chain",
+  "textures": {
+    "particle": "forbidden_arcanus:block/arcane_golden_chain",
+    "all": "forbidden_arcanus:block/arcane_golden_chain"
+  }
+}

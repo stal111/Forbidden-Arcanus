@@ -100,6 +100,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
+        take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), NewModBlocks.ARCANE_GOLDEN_CHAIN);
+
         forEach(block -> block instanceof FlowerPotBlock, block -> {
             ResourceLocation name = Objects.requireNonNull(((FlowerPotBlock) block).getContent().getRegistryName());
             simpleFlowerPotBlock(block, new ResourceLocation(name.getNamespace(), "block/" + name.getPath()));
@@ -176,6 +178,21 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                         .build(),
                 BlockStateProperties.WATERLOGGED,
                 ModBlockStateProperties.RITUAL
+        );
+    }
+
+    private void chainBlock(Block block, ResourceLocation resourceLocation) {
+        ModelFile model = models().withExistingParent(getName(block), mcLoc("block/chain"))
+                .texture("particle", resourceLocation)
+                .texture("all", resourceLocation);
+
+        getVariantBuilder(block).forAllStatesExcept(
+                state -> ConfiguredModel.builder()
+                        .modelFile(model)
+                        .rotationX(state.getValue(BlockStateProperties.AXIS) != Direction.Axis.Y ? 90 : 0)
+                        .rotationY(state.getValue(BlockStateProperties.AXIS) == Direction.Axis.X ? 90 : 0)
+                        .build(),
+                BlockStateProperties.WATERLOGGED
         );
     }
 }

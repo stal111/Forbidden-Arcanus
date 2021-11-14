@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:arcane_golden_chain"
+    ]
+  },
+  "criteria": {
+    "has_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/arcane_gold"
+          }
+        ]
+      }
+    },
+    "has_nugget": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:nuggets/arcane_gold"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "forbidden_arcanus:arcane_golden_chain"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ingot",
+      "has_nugget",
+      "has_the_recipe"
+    ]
+  ]
+}

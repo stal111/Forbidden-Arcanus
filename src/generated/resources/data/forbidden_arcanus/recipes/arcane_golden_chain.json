@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:nuggets/arcane_gold"
+    },
+    "X": {
+      "tag": "forge:ingots/arcane_gold"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:arcane_golden_chain"
+  }
+}
