@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
 import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
+import com.stal111.forbidden_arcanus.block.NoFluidOverlayBlock;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.effect.MobEffects;
@@ -26,7 +27,7 @@ public enum ModBlocks {
     DARK_RUNIC_GLASS(new GlassBlock(from(Blocks.GLASS)), ModRenderType.CUTOUT),
     DARK_RUNIC_GLASS_PANE(new IronBarsBlock(from(Blocks.GLASS_PANE)), ModRenderType.CUTOUT),
     DARK_NETHER_STAR_BLOCk(new Block(from(Blocks.DIAMOND_BLOCK))),
-    END_CRYSTAL_GEM(new EndCrystalGemBlock(addProperties(Material.GLASS, 1.0F, 5.0F).noOcclusion()), ModRenderType.TRANSLUCENT),
+    END_CRYSTAL_GEM(new NoFluidOverlayBlock(addProperties(Material.GLASS, 1.0F, 5.0F).noOcclusion()), ModRenderType.TRANSLUCENT),
     HEPHAESTUS_FORGE(new HephaestusForgeBlock(from(Blocks.IRON_BLOCK).noOcclusion()), ModRenderType.CUTOUT),
     STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).strength(38.0F, 1200.0F))),
     STELLARITE_BLOCK(new Block(from(Blocks.OBSIDIAN))),
