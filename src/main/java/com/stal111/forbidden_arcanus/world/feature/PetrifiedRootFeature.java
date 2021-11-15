@@ -1,10 +1,11 @@
 package com.stal111.forbidden_arcanus.world.feature;
 
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -27,7 +28,9 @@ public class PetrifiedRootFeature extends Feature<NoneFeatureConfiguration> {
         int i = 0;
 
         if (level.isEmptyBlock(pos) && Tags.Blocks.STONE.contains(level.getBlockState(pos.above()).getBlock())) {
-            level.setBlock(pos, ModBlocks.PETRIFIED_ROOT.getState(), 2);
+            BlockState state = NewModBlocks.PETRIFIED_ROOT.get().defaultBlockState();
+
+            level.setBlock(pos, state, 2);
             Direction direction = null;
             for (int j = 1; j <= 5; j++) {
                 if (rand.nextDouble() >= 0.1D * i) {
@@ -40,12 +43,12 @@ public class PetrifiedRootFeature extends Feature<NoneFeatureConfiguration> {
                     }
                     if (direction != null) {
                         if (level.getBlockState(pos.below(j).relative(direction)).isAir()) {
-                            level.setBlock(pos.below(j).relative(direction), ModBlocks.PETRIFIED_ROOT.getState(), 2);
+                            level.setBlock(pos.below(j).relative(direction), state, 2);
                             i = j;
                         }
                     } else {
                         if (level.getBlockState(pos.below(j)).isAir()) {
-                            level.setBlock(pos.below(j), ModBlocks.PETRIFIED_ROOT.getState(), 2);
+                            level.setBlock(pos.below(j), state, 2);
                             i = j;
                         }
                     }

@@ -30,7 +30,6 @@ public enum ModBlocks {
     HEPHAESTUS_FORGE(new HephaestusForgeBlock(from(Blocks.IRON_BLOCK).noOcclusion()), ModRenderType.CUTOUT),
     STELLA_ARCANUM(new StellaArcanumBlock(from(Blocks.OBSIDIAN).strength(38.0F, 1200.0F))),
     STELLARITE_BLOCK(new Block(from(Blocks.OBSIDIAN))),
-    PETRIFIED_ROOT(new Block(from(Blocks.OAK_PLANKS).noOcclusion()), ModRenderType.CUTOUT),
     XPETRIFIED_ORE(new OreBlock(addProperties(Material.STONE, 3.0F, 3.0F)), ModRenderType.CUTOUT),
     ARCANE_GOLD_BLOCK(new Block(from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
