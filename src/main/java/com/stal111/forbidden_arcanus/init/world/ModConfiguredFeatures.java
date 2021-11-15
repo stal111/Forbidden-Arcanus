@@ -56,7 +56,7 @@ public class ModConfiguredFeatures {
 
     public static final ConfiguredFeature<?, ?> YELLOW_ORCHID = register("flower_yellow_orchid", Feature.FLOWER.configured(Configs.YELLOW_ORCHID).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(14)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList)));
     public static final ConfiguredFeature<?, ?> EDELWOOD_LOG = register("edelwood_log", Feature.RANDOM_PATCH.configured(Configs.EDELWOOD_LOG).count(3).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-    public static final ConfiguredFeature<?, ?> PETRIFIED_ROOT = register("petrified_root", ModFeatures.PETRIFIED_ROOT.get().configured(FeatureConfiguration.NONE).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(50)).squared().count(50).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
+    public static final ConfiguredFeature<?, ?> PETRIFIED_ROOT = register("petrified_root", ModFeatures.PETRIFIED_ROOT.get().configured(new BlockStateConfiguration(States.PETRIFIED_ROOT)).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(50)).squared().count(50).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
 
     public static final ConfiguredFeature<?, ?> CHERRYWOOD_TREES = register("trees_cherrywood", CHERRYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
     public static final ConfiguredFeature<?, ?> MYSTERYWOOD_TREES = register("trees_mysterywood", MYSTERYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
@@ -101,5 +101,6 @@ public class ModConfiguredFeatures {
         private static final BlockState MYSTERYWOOD_SAPLING = ModBlocks.MYSTERYWOOD_SAPLING.getBlock().defaultBlockState();
         private static final BlockState YELLOW_ORCHID = ModBlocks.YELLOW_ORCHID.getBlock().defaultBlockState();
         private static final BlockState EDELWOOD_LOG = ModBlocks.EDELWOOD_LOG.getBlock().defaultBlockState().setValue(EdelwoodLogBlock.LEAVES, true);
+        private static final BlockState PETRIFIED_ROOT = NewModBlocks.PETRIFIED_ROOT.get().defaultBlockState();
     }
 }
