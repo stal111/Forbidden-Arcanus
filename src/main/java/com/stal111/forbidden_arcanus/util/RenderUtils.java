@@ -181,15 +181,4 @@ public class RenderUtils {
             }
         }
     }
-
-    public static <T extends IParticleData> void spawnAurealMoteParticle(T type, ServerWorld world, double posX, double posY, double posZ, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
-        SSpawnParticlePacket sspawnparticlepacket = new SSpawnParticlePacket(type, false, posX, posY, posZ, (float)xOffset, (float)yOffset, (float)zOffset, (float)speed, particleCount);
-
-        for(int j = 0; j < world.getPlayers().size(); ++j) {
-            ServerPlayerEntity player = world.getPlayers().get(j);
-            if (player.inventory.hasItemStack(NewModItems.Stacks.LENS_OF_VERITATIS)) {
-                world.sendPacketWithinDistance(player, false, posX, posY, posZ, sspawnparticlepacket);
-            }
-        }
-    }
 }
