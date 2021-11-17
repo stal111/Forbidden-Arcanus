@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.network;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +46,7 @@ public class UpdateRitualPacket {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            World world = Minecraft.getInstance().world;
+            World world = ForbiddenArcanus.proxy.getClientWorld();
 
             if (world == null || !(world.getTileEntity(packet.pos) instanceof HephaestusForgeTileEntity)) {
                 return;
