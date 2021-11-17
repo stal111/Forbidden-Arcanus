@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.loader;
 
 import com.google.gson.*;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualEssences;
@@ -9,7 +8,6 @@ import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
@@ -18,7 +16,10 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Ritual Loader
@@ -51,10 +52,7 @@ public class RitualLoader extends JsonReloadListener {
             }
 
             try {
-                Ritual ritual = deserializeRitual(resourceLocation, entry.getValue().getAsJsonObject());
-                if (ritual != null) {
-                    RITUALS.put(resourceLocation, ritual);
-                }
+                RITUALS.put(resourceLocation, deserializeRitual(resourceLocation, entry.getValue().getAsJsonObject()));
             } catch (IllegalArgumentException | JsonParseException jsonParseException) {
                 ForbiddenArcanus.LOGGER.error("Parsing error loading hephaestus forge input {}", resourceLocation, jsonParseException);
             }
@@ -80,16 +78,9 @@ public class RitualLoader extends JsonReloadListener {
             hephaestusForgeInput = new ItemStack(deserializeItem(new ResourceLocation(JSONUtils.getString(jsonObject, "hephaestus_forge_item"))));
         }
 
-        try {
-            System.out.println(JsonToNBT.getTagFromJson(GSON.toJson(jsonObject.get("result"))));
-            ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(jsonObject, "result"), true);
+        ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(jsonObject, "result"), true);
 
-            return new Ritual(name, deserializeInputs(jsonObject), hephaestusForgeInput, result, deserializeEssences(jsonObject), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"), 1200);
-        } catch (CommandSyntaxException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return new Ritual(name, deserializeInputs(jsonObject), hephaestusForgeInput, result, deserializeEssences(jsonObject), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"), 1200);
     }
 
     private static Map<Integer, Ingredient> deserializeInputs(JsonObject jsonObject) {

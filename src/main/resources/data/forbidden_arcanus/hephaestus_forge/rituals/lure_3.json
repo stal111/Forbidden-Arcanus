@@ -13,7 +13,11 @@
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "minecraft:sugar",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:string",
             "slot": 4
         },
         {
@@ -34,7 +38,7 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
+                    "id": "minecraft:lure",
                     "lvl": 3
                 }
             ]

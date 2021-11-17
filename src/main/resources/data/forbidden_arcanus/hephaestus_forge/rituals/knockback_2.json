@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:raw_cod",
+            "item": "minecraft:shield",
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "minecraft:gunpowder",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:slime_ball",
             "slot": 4
         },
         {
@@ -34,8 +38,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
-                    "lvl": 3
+                    "id": "minecraft:knockback",
+                    "lvl": 2
                 }
             ]
         }

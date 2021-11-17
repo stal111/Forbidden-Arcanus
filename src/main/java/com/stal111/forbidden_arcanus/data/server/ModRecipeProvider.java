@@ -65,6 +65,7 @@ public class ModRecipeProvider extends RecipeProvider {
         addBlacksmithGavelRecipe(NewModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND, consumer);
         addBlacksmithGavelRecipe(NewModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(), ModTags.Items.ARCANE_GOLD_INGOTS, consumer);
         addBlacksmithGavelRecipe(NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get(), ModTags.Items.OBSIDIAN_INGOTS, consumer);
+        ShapedRecipeBuilder.shapedRecipe(NewModBlocks.DARKSTONE_PEDESTAL.get()).patternLine("###").patternLine(" * ").patternLine("XXX").key('#', NewModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get()).key('*', NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get()).key('X', NewModBlocks.POLISHED_DARKSTONE.get()).addCriterion("has_item", hasItem(NewModBlocks.POLISHED_DARKSTONE.get())).build(consumer);
 
         //Shapeless Recipes
         ShapelessRecipeBuilder.shapelessRecipe(NewModItems.PURIFYING_SOAP.get()).addIngredient(ModItems.ARCANE_CRYSTAL_DUST.get()).addIngredient(ModItems.WAX.get()).addIngredient(Items.SLIME_BALL).addIngredient(Items.PRISMARINE_CRYSTALS).addIngredient(ItemTags.SMALL_FLOWERS).addCriterion("has_item", hasItem(ModItems.WAX.get())).build(consumer);

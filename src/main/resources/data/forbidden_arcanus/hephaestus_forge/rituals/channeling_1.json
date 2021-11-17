@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:raw_cod",
+            "item": "minecraft:prismarine_crystals",
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "minecraft:prismarine_shard",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:redstone_dust",
             "slot": 4
         },
         {
@@ -34,8 +38,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
-                    "lvl": 3
+                    "id": "minecraft:channeling",
+                    "lvl": 1
                 }
             ]
         }

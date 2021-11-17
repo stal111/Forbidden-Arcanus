@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:raw_cod",
+            "item": "minecraft:fishing_rod",
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "minecraft:gold_nugget",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:redstone_dust",
             "slot": 4
         },
         {
@@ -34,7 +38,7 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
+                    "id": "minecraft:looting",
                     "lvl": 3
                 }
             ]

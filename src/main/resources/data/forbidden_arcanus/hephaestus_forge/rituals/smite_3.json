@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:raw_cod",
+            "item": "minecraft:rotten_flesh",
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "minecraft:flint",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:fermented_spider_eye",
             "slot": 4
         },
         {
@@ -34,7 +38,7 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
+                    "id": "minecraft:smite",
                     "lvl": 3
                 }
             ]

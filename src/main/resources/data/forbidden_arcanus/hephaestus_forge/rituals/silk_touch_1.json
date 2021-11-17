@@ -9,11 +9,11 @@
             "slot": 1
         },
         {
-            "item": "minecraft:raw_cod",
+            "item": "minecraft:slime_ball",
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "minecraft:string",
             "slot": 4
         },
         {
@@ -34,8 +34,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
-                    "lvl": 3
+                    "id": "minecraft:silk_touch",
+                    "lvl": 1
                 }
             ]
         }

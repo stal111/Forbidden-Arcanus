@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:raw_cod",
+            "item": "minecraft:ender_pearl",
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "forbidden_arcanus:mundabitur_dust",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:prismarine_shard",
             "slot": 4
         },
         {
@@ -34,7 +38,7 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
+                    "id": "minecraft:riptide",
                     "lvl": 3
                 }
             ]

@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:raw_cod",
+            "item": "minecraft:blaze_powder",
             "slot": 2
         },
         {
-            "item": "minecraft:bamboo",
+            "item": "minecraft:magma_cream",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:arrow",
             "slot": 4
         },
         {
@@ -34,8 +38,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:respiration",
-                    "lvl": 3
+                    "id": "minecraft:flame",
+                    "lvl": 1
                 }
             ]
         }

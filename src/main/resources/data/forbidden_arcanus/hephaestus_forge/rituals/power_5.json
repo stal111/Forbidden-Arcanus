@@ -9,23 +9,28 @@
             "slot": 1
         },
         {
-            "item": "minecraft:diamond",
+            "item": "minecraft:redstone_block",
             "slot": 2
         },
         {
-            "item": "forbidden_arcanus:ender_pearl_fragment",
+            "item": "forbidden_arcanus:mundabitur_dust",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:arrow",
             "slot": 4
         },
         {
-            "item": "minecraft:lapis_lazuli",
+            "item": "minecraft:glowstone_dust",
             "slot": 5
         }
     ],
     "hephaestus_forge_item": "minecraft:book",
     "essences": {
-        "aureal": 150,
-        "experience": 100,
-        "blood": 1000
+        "aureal": 70,
+        "experience": 40,
+        "blood": 1000,
+        "souls": 1
     },
     "result": {
         "item": "minecraft:enchanted_book",
@@ -33,8 +38,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:efficiency",
-                    "lvl": 4
+                    "id": "minecraft:power",
+                    "lvl": 5
                 }
             ]
         }

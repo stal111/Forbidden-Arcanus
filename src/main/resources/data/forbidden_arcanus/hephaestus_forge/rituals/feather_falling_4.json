@@ -9,27 +9,24 @@
             "slot": 1
         },
         {
-            "item": "minecraft:feather",
+            "item": "minecraft:slime_ball",
             "slot": 2
-        },
-        {
-            "item": "minecraft:honey_bottle",
-            "slot": 3
         },
         {
             "item": "minecraft:feather",
             "slot": 4
         },
         {
-            "item": "minecraft:lapis_lazuli",
+            "item": "minecraft:glowstone_dust",
             "slot": 5
         }
     ],
     "hephaestus_forge_item": "minecraft:book",
     "essences": {
-        "aureal": 150,
-        "experience": 100,
-        "blood": 1000
+        "aureal": 70,
+        "experience": 40,
+        "blood": 1000,
+        "souls": 1
     },
     "result": {
         "item": "minecraft:enchanted_book",
