@@ -40,7 +40,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
                 NewModBlocks.NIPA,
                 NewModBlocks.FUNGYSS_DOOR,
-                NewModBlocks.ARCANE_CRYSTAL_OBELISK
+                NewModBlocks.ARCANE_CRYSTAL_OBELISK,
+                NewModBlocks.ARCANE_GOLDEN_CHAIN
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 NewModBlocks.FUNGYSS
