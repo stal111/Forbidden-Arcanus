@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.network;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +46,7 @@ public class UpdatePedestalPacket {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            World world = Minecraft.getInstance().world;
+            World world = ForbiddenArcanus.proxy.getClientWorld();
 
             if (world != null && world.getTileEntity(packet.pos) instanceof PedestalTileEntity) {
                 PedestalTileEntity tileEntity = (PedestalTileEntity) Objects.requireNonNull(world.getTileEntity(packet.pos));

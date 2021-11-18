@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.network;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -11,6 +10,8 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.Objects;
 import java.util.function.Supplier;
+
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
 /**
  * Update Item In Slot Packet
@@ -46,7 +47,7 @@ public class UpdateItemInSlotPacket {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            World world = Minecraft.getInstance().world;
+            World world = ForbiddenArcanus.proxy.getClientWorld();
 
             if (world != null && world.getTileEntity(packet.pos) instanceof IInventory) {
                 IInventory tileEntity = (IInventory) Objects.requireNonNull(world.getTileEntity(packet.pos));
