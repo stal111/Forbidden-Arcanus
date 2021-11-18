@@ -5,7 +5,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class BlockConfig {
 
     public static ForgeConfigSpec.BooleanValue STELLA_ARCANUM_EXPLODE;
-    public static ForgeConfigSpec.BooleanValue STELLA_ARCANUM_ONLY_EXPLODE_WRONG_TOOL;
     public static ForgeConfigSpec.BooleanValue STELLA_ARCANUM_BLOCK_DAMAGE;
     public static ForgeConfigSpec.IntValue STELLA_ARCANUM_EXPLOSION_RADIUS;
 
@@ -16,7 +15,6 @@ public class BlockConfig {
         builder.push("blocks");
 
         STELLA_ARCANUM_EXPLODE = builder.comment("Should Stella Arcanum explode when mined [default: true]").define("stella_arcanum.explode", true);
-        STELLA_ARCANUM_ONLY_EXPLODE_WRONG_TOOL = builder.comment("Should Stella Arcanum only explode when mined with a wrong tool (if explosions enabled) [default: false]").define("stella_arcanum.only_explode_wrong_tool", false);
         STELLA_ARCANUM_BLOCK_DAMAGE = builder.comment("Should Stella Arcanum explosions deal Block Damage (if explosions enabled) [default: true]").define("stella_arcanum.block_damage", true);
         STELLA_ARCANUM_EXPLOSION_RADIUS = builder.comment("Radius of Stella Arcanum explosions (if explosions enabled) [default: 3]").defineInRange("stella_arcanum.explosion_radius", 3, 1, 10);
 
