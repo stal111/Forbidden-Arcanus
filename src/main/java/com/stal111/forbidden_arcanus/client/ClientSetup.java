@@ -32,7 +32,7 @@ import java.util.function.Function;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.ClientSetup
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-02-13
  */
 public class ClientSetup {
@@ -55,11 +55,13 @@ public class ClientSetup {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
         });
 
+        this.registerModelOverride(NewModBlocks.XPETRIFIED_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
         this.registerModelOverride(NewModBlocks.ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
         this.registerModelOverride(NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
         this.registerModelOverride(NewModBlocks.RUNIC_STONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
         this.registerModelOverride(NewModBlocks.RUNIC_DEEPSLATE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
         this.registerModelOverride(NewModBlocks.RUNIC_DARKSTONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
+        this.registerModelOverride(NewModBlocks.ARCANE_CRYSTAL_BLOCK, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_block")));
 
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
@@ -100,14 +102,14 @@ public class ClientSetup {
     /**
      * Registers a model override under the mods MOD_ID. All states of the Block will be overridden.
      */
-    private void registerModelOverride(RegistryObject<Block> block, Function<BakedModel, BakedModel> function) {
+    private<T extends Block> void registerModelOverride(RegistryObject<T> block, Function<BakedModel, BakedModel> function) {
         this.registerModelOverride(block, StatePropertiesPredicate.ANY, function);
     }
 
     /**
      * Registers a model override under the mods MOD_ID.
      */
-    private void registerModelOverride(RegistryObject<Block> block, StatePropertiesPredicate predicate, Function<BakedModel, BakedModel> function) {
+    private<T extends Block> void registerModelOverride(RegistryObject<T> block, StatePropertiesPredicate predicate, Function<BakedModel, BakedModel> function) {
         this.bakedModelOverrideRegistry.add(Triple.of(block.get(), predicate, function));
     }
 }

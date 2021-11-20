@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.NewerModBlocks
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2.0.0
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -55,16 +55,20 @@ public class NewModBlocks {
     public static final RegistryObject<Block> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));
     public static final RegistryObject<Block> ARCANE_DARKSTONE_PEDESTAL = HELPER.register("arcane_darkstone_pedestal", new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));
     public static final RegistryObject<Block> ARCANE_GLASS = HELPER.register("arcane_glass", new GlassBlock(Block.Properties.copy(Blocks.GLASS)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<Block> ARCANE_CRYSTAL_ORE = HELPER.register("arcane_crystal_ore", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F), UniformInt.of(2, 5)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<Block> DEEPSLATE_ARCANE_CRYSTAL_ORE = HELPER.register("deepslate_arcane_crystal_ore", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(4.5F, 3.0F), UniformInt.of(2, 5)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<Block> RUNIC_STONE = HELPER.register("runic_stone", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<Block> RUNIC_DEEPSLATE = HELPER.register("runic_deepslate", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<Block> RUNIC_DARKSTONE = HELPER.register("runic_darkstone", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(6.0F, 4.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
+
+    public static final RegistryObject<StellaArcanumBlock> STELLA_ARCANUM = HELPER.register("stella_arcanum", new StellaArcanumBlock(Block.Properties.copy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F)));
+    public static final RegistryObject<OreBlock> XPETRIFIED_ORE = HELPER.register("xpetrified_ore", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<OreBlock> ARCANE_CRYSTAL_ORE = HELPER.register("arcane_crystal_ore", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F), UniformInt.of(2, 5)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<OreBlock> DEEPSLATE_ARCANE_CRYSTAL_ORE = HELPER.register("deepslate_arcane_crystal_ore", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE), UniformInt.of(2, 5)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<OreBlock> RUNIC_STONE = HELPER.register("runic_stone", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<OreBlock> RUNIC_DEEPSLATE = HELPER.register("runic_deepslate", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<OreBlock> RUNIC_DARKSTONE = HELPER.register("runic_darkstone", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(6.0F, 4.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<Block> STELLARITE_BLOCK = HELPER.register("stellarite_block", new Block(Block.Properties.copy(Blocks.OBSIDIAN)));
     public static final RegistryObject<Block> DARK_NETHER_STAR_BLOCK = HELPER.register("dark_nether_star_block", new Block(Block.Properties.of(Materials.DARK_NETHER_STAR).requiresCorrectToolForDrops().strength(10.0F, 1200.0F)));
+    public static final RegistryObject<Block> ARCANE_CRYSTAL_BLOCK = HELPER.register("arcane_crystal_block", new Block(Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(1.0F, 3.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> RUNE_BLOCK = HELPER.register("rune_block", new Block(Block.Properties.of(Materials.RUNE).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
     public static final RegistryObject<Block> DARK_RUNE_BLOCK = HELPER.register("dark_rune_block", new Block(Block.Properties.of(Materials.RUNE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 
-    public static final RegistryObject<Block> ARCANE_CRYSTAL_BLOCK = HELPER.register("arcane_crystal_block", new Block(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", new ArcaneCrystalObeliskBlock(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> ARCANE_GLASS_PANE = HELPER.register("arcane_glass_pane", new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ObsidianSkullBlock> OBSIDIAN_SKULL = HELPER.registerNoItem("obsidian_skull", new ObsidianSkullBlock(Block.Properties.copy(Blocks.SKELETON_SKULL)));

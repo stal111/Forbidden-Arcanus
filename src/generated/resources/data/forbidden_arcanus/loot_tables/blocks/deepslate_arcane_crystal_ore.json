@@ -29,9 +29,14 @@
             },
             {
               "type": "minecraft:item",
-              "conditions": [
+              "functions": [
                 {
-                  "condition": "minecraft:survives_explosion"
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
                 }
               ],
               "name": "forbidden_arcanus:arcane_crystal"
@@ -39,13 +44,6 @@
           ]
         }
       ]
-    }
-  ],
-  "functions": [
-    {
-      "function": "minecraft:apply_bonus",
-      "enchantment": "minecraft:fortune",
-      "formula": "minecraft:ore_drops"
     }
   ]
 }

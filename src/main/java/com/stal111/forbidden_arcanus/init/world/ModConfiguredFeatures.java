@@ -91,8 +91,8 @@ public class ModConfiguredFeatures {
         private static final BlockState RUNIC_DARKSTONE = NewModBlocks.RUNIC_DARKSTONE.get().defaultBlockState();
         private static final BlockState DARKSTONE = NewModBlocks.DARKSTONE.get().defaultBlockState();
         private static final BlockState ARCANE_GILDED_DARKSTONE = NewModBlocks.ARCANE_GILDED_DARKSTONE.get().defaultBlockState();
-        private static final BlockState STELLA_ARCANUM = ModBlocks.STELLA_ARCANUM.getBlock().defaultBlockState();
-        private static final BlockState XPETRIFIED_ORE = ModBlocks.XPETRIFIED_ORE.getBlock().defaultBlockState();
+        private static final BlockState STELLA_ARCANUM = NewModBlocks.STELLA_ARCANUM.get().defaultBlockState();
+        private static final BlockState XPETRIFIED_ORE = NewModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
         private static final BlockState CHERRYWOOD_LOG = ModBlocks.CHERRYWOOD_LOG.getBlock().defaultBlockState();
         private static final BlockState CHERRYWOOD_LEAVES = ModBlocks.CHERRYWOOD_LEAVES.getBlock().defaultBlockState();
         private static final BlockState CHERRYWOOD_SAPLING = ModBlocks.CHERRYWOOD_SAPLING.getBlock().defaultBlockState();

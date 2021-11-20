@@ -33,7 +33,6 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<Item> FORBIDDENMICON = register("forbiddenmicon", () -> new ForbiddenmiconItem(properties(1)));
-    public static final RegistryObject<Item> STELLARITE_PIECE = register("stellarite_piece", () -> new Item(properties()));
     public static final RegistryObject<Item> ARCANE_CRYSTAL = register("arcane_crystal", () -> new Item(properties()));
     public static final RegistryObject<Item> ARCANE_CRYSTAL_DUST = register("arcane_crystal_dust", () -> new Item(properties()));
     public static final RegistryObject<Item> ARCANE_GOLD_INGOT = register("arcane_gold_ingot", () -> new Item(properties()));

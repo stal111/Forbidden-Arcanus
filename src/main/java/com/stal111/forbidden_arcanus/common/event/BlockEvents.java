@@ -2,6 +2,10 @@ package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.block.StellaArcanumBlock;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,9 +29,11 @@ public class BlockEvents {
         LevelAccessor level = event.getWorld();
 
         if (!level.isClientSide()) {
+            Player player = event.getPlayer();
             BlockState state = event.getState();
+            ItemStack stack = player.getMainHandItem();
 
-            if (state.getBlock() instanceof StellaArcanumBlock && BlockConfig.STELLA_ARCANUM_EXPLODE.get()) {
+            if (state.getBlock() instanceof StellaArcanumBlock && BlockConfig.STELLA_ARCANUM_EXPLODE.get() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
                 StellaArcanumBlock.explode = true;
                 StellaArcanumBlock.world = (Level) event.getWorld();
             }

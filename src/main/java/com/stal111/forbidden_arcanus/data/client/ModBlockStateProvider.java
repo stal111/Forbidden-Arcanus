@@ -35,7 +35,7 @@ import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockStateProvider;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-02-18
  */
 public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
@@ -52,6 +52,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
         take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer"), mcLoc("block/stone")),
                 NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
+        take(block -> cubeAllCutout(block, modLoc("block/" + getName(block)), modLoc("block/xpetrified_ore_layer"), modLoc("block/" + getName(block))),
+                NewModBlocks.XPETRIFIED_ORE);
 
         take(this::withExistingModel, NewModBlocks.UTREM_JAR, NewModBlocks.NIPA, NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD, NewModBlocks.PETRIFIED_ROOT);
         take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);

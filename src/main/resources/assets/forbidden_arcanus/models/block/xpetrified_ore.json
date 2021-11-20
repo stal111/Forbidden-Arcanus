@@ -1,8 +1,0 @@
-{
-    "parent": "forbidden_arcanus:block/cube_all_cutout",
-    "textures": {
-        "particle": "forbidden_arcanus:block/xpetrified_ore",
-        "all": "forbidden_arcanus:block/xpetrified_ore",
-        "cutout": "forbidden_arcanus:block/xpetrified_ore_layer"
-    }
-}

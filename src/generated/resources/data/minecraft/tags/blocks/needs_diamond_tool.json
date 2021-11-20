@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "forbidden_arcanus:dark_nether_star_block",
+    "forbidden_arcanus:stella_arcanum",
+    "forbidden_arcanus:stellarite_block",
     "#forbidden_arcanus:runic_stones",
     "#forbidden_arcanus:rune_blocks"
   ]

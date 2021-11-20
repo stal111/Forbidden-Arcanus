@@ -25,7 +25,7 @@
                   }
                 }
               ],
-              "name": "forbidden_arcanus:arcane_crystal_ore"
+              "name": "forbidden_arcanus:xpetrified_ore"
             },
             {
               "type": "minecraft:item",
@@ -39,7 +39,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "forbidden_arcanus:arcane_crystal"
+              "name": "forbidden_arcanus:xpetrified_orb"
             }
           ]
         }

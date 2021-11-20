@@ -69,6 +69,8 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addBlacksmithGavelRecipe(NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get(), ModTags.Items.OBSIDIAN_INGOTS, consumer);
         ShapedRecipeBuilder.shaped(NewModItems.DARK_NETHER_STAR.get()).pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy("has_obsidian_ingot", has(ModItems.OBSIDIAN_INGOT.get())).unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(consumer);
         this.addStorageRecipe(NewModItems.DARK_NETHER_STAR.get(), NewModBlocks.DARK_NETHER_STAR_BLOCK.get(), consumer);
+        this.addStorageRecipe(NewModItems.STELLARITE_PIECE.get(), NewModBlocks.STELLARITE_BLOCK.get(), consumer);
+        this.addStorageRecipe(ModItems.ARCANE_CRYSTAL.get(), NewModBlocks.ARCANE_CRYSTAL_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.RUNE.get(), NewModBlocks.RUNE_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.DARK_RUNE.get(), NewModBlocks.DARK_RUNE_BLOCK.get(), consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.ARCANE_GOLDEN_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
