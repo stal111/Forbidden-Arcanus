@@ -23,6 +23,7 @@ import net.minecraftforge.common.Tags;
 import net.valhelsia.valhelsia_core.common.util.ValhelsiaNBTIngredient;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -66,6 +67,8 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addBlacksmithGavelRecipe(NewModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND, consumer);
         this.addBlacksmithGavelRecipe(NewModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(), ModTags.Items.ARCANE_GOLD_INGOTS, consumer);
         this.addBlacksmithGavelRecipe(NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get(), ModTags.Items.OBSIDIAN_INGOTS, consumer);
+        ShapedRecipeBuilder.shaped(NewModItems.DARK_NETHER_STAR.get()).pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy("has_obsidian_ingot", has(ModItems.OBSIDIAN_INGOT.get())).unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(consumer);
+        this.addStorageRecipe(NewModItems.DARK_NETHER_STAR.get(), NewModBlocks.DARK_NETHER_STAR_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.RUNE.get(), NewModBlocks.RUNE_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.DARK_RUNE.get(), NewModBlocks.DARK_RUNE_BLOCK.get(), consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.ARCANE_GOLDEN_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
@@ -96,8 +99,12 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(gavel).pattern("#X#").pattern("#S#").pattern(" S ").define('#', material).define('X', NewModItems.BLACKSMITH_GAVEL_HEAD.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy("has_item", has(material)).save(consumer);
     }
 
-    private void addStorageRecipe(ItemLike item, ItemLike result, @Nonnull Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(result).pattern("###").pattern("###").pattern("###").define('#', item).unlockedBy("has_item", has(item)).save(consumer);
-        ShapelessRecipeBuilder.shapeless(item, 9).requires(result).unlockedBy("has_item", has(result)).save(consumer);
+    private void addStorageRecipe(ItemLike item, ItemLike block, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(block).pattern("###").pattern("###").pattern("###").define('#', item).unlockedBy("has_item", has(item)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(item, 9).requires(block).unlockedBy("has_item", has(block)).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, getName(item) + "_from_" + getName(block)));
+    }
+
+    private String getName(ItemLike item) {
+        return Objects.requireNonNull(item.asItem().getRegistryName()).getPath();
     }
 }

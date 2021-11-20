@@ -60,7 +60,8 @@ public class NewModBlocks {
     public static final RegistryObject<Block> RUNIC_STONE = HELPER.register("runic_stone", new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> RUNIC_DEEPSLATE = HELPER.register("runic_deepslate", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.DEEPSLATE).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> RUNIC_DARKSTONE = HELPER.register("runic_darkstone", new OreBlock(Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(6.0F, 4.0F), UniformInt.of(4, 8)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<Block> RUNE_BLOCK = HELPER.register("rune_block", new Block(Block.Properties.of(Materials.RUNE, MaterialColor.COLOR_MAGENTA).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
+    public static final RegistryObject<Block> DARK_NETHER_STAR_BLOCK = HELPER.register("dark_nether_star_block", new Block(Block.Properties.of(Materials.DARK_NETHER_STAR).requiresCorrectToolForDrops().strength(10.0F, 1200.0F)));
+    public static final RegistryObject<Block> RUNE_BLOCK = HELPER.register("rune_block", new Block(Block.Properties.of(Materials.RUNE).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
     public static final RegistryObject<Block> DARK_RUNE_BLOCK = HELPER.register("dark_rune_block", new Block(Block.Properties.of(Materials.RUNE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
 
     public static final RegistryObject<Block> ARCANE_CRYSTAL_BLOCK = HELPER.register("arcane_crystal_block", new Block(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
@@ -94,7 +95,8 @@ public class NewModBlocks {
     public static final RegistryObject<FlowerPotBlock> POTTED_YELLOW_ORCHID = HELPER.registerNoItem("potted_yellow_orchid", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, ModBlocks.YELLOW_ORCHID::getBlock, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ChainBlock> ARCANE_GOLDEN_CHAIN = HELPER.register("arcane_golden_chain", new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)), ValhelsiaRenderType.CUTOUT_MIPPED);
 
-    public class Materials {
-        public static final Material RUNE = (new Material.Builder(MaterialColor.METAL)).build();
+    public static class Materials {
+        public static final Material DARK_NETHER_STAR = (new Material.Builder(MaterialColor.COLOR_PURPLE)).build();
+        public static final Material RUNE = (new Material.Builder(MaterialColor.COLOR_MAGENTA)).build();
     }
 }

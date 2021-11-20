@@ -50,8 +50,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.RUNE_BLOCKS).add(NewModBlocks.RUNE_BLOCK.get(), NewModBlocks.DARK_RUNE_BLOCK.get());
         this.tag(ModTags.Blocks.ARCANE_CRYSTAL_ORES).add(NewModBlocks.ARCANE_CRYSTAL_ORE.get(), NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get());
 
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(NewModBlocks.ARCANE_GOLDEN_CHAIN.get(), NewModBlocks.PETRIFIED_ROOT.get()).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
-        this.tag(BlockTags.NEEDS_DIAMOND_TOOL).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS);
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(NewModBlocks.ARCANE_GOLDEN_CHAIN.get(), NewModBlocks.PETRIFIED_ROOT.get(), NewModBlocks.DARK_NETHER_STAR_BLOCK.get()).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
+        this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(NewModBlocks.DARK_NETHER_STAR_BLOCK.get()).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS);
         this.tag(BlockTags.NEEDS_IRON_TOOL).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
     }
 }

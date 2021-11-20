@@ -7,10 +7,7 @@ import com.stal111.forbidden_arcanus.item.block.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import com.stal111.forbidden_arcanus.item.renderer.ObsidianSkullItemRenderer;
 import com.stal111.forbidden_arcanus.item.renderer.ObsidianSkullShieldItemRenderer;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.valhelsia.valhelsia_core.core.registry.ItemRegistryHelper;
@@ -53,6 +50,7 @@ public class NewModItems {
     public static final RegistryObject<BlacksmithGavelItem> ARCANE_GOLDEN_BLACKSMITH_GAVEL = HELPER.register("arcane_golden_blacksmith_gavel", () -> new BlacksmithGavelItem(ModItemTier.ARCANE_GOLDEN, 7, -3.25F, 15, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<BlacksmithGavelItem> REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL = HELPER.register("reinforced_arcane_golden_blacksmith_gavel", () -> new BlacksmithGavelItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 7, -3.25F, 80, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<BlacksmithGavelItem> OBSIDIAN_BLACKSMITH_GAVEL = HELPER.register("obsidian_blacksmith_gavel", () -> new BlacksmithGavelItem(ModItemTier.OBSIDIAN, 7, -3.25F, 50, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<SimpleFoiledItem> DARK_NETHER_STAR = HELPER.register("dark_nether_star", () -> new SimpleFoiledItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).rarity(Rarity.RARE)));
 
     public static class Stacks {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(NewModItems.LENS_OF_VERITATIS.get());

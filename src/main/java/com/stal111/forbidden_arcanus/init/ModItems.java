@@ -56,7 +56,6 @@ public class ModItems {
     public static final RegistryObject<Item> CLOTH = register("cloth", () -> new Item(properties()));
     public static final RegistryObject<Item> CHERRY_PEACH = register("cherry_peach", () -> new Item(properties().food(build(4, 0.4F))));
     public static final RegistryObject<Item> ENDER_PEARL_FRAGMENT = register("ender_pearl_fragment", () -> new Item(properties()));
-    public static final RegistryObject<Item> DARK_NETHER_STAR = register("dark_nether_star", () -> new EnchantmentGlintItem(properties(Rarity.RARE)));
     public static final RegistryObject<Item> DRAGON_SCALE = register("dragon_scale", () -> new Item(properties()));
     public static final RegistryObject<Item> SILVER_DRAGON_SCALE = register("silver_dragon_scale", () -> new Item(properties()));
     public static final RegistryObject<Item> GOLDEN_DRAGON_SCALE = register("golden_dragon_scale", () -> new Item(properties()));
