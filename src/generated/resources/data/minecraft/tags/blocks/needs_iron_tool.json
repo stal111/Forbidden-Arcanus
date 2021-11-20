@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "forbidden_arcanus:xpetrified_ore",
+    "forbidden_arcanus:arcane_gold_block",
     "forbidden_arcanus:arcane_crystal_block",
     "#forbidden_arcanus:arcane_crystal_ores"
   ]

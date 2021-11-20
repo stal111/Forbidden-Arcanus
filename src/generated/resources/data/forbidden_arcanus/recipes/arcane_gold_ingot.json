@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#*#",
+    "MXM",
+    "#*#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:charcoal"
+    },
+    "X": {
+      "item": "minecraft:gold_ingot"
+    },
+    "M": {
+      "item": "forbidden_arcanus:mundabitur_dust"
+    },
+    "*": {
+      "item": "forbidden_arcanus:arcane_crystal_dust"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:arcane_gold_ingot"
+  }
+}

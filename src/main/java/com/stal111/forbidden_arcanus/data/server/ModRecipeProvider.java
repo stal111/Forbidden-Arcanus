@@ -23,11 +23,12 @@ import net.minecraftforge.common.Tags;
 import net.valhelsia.valhelsia_core.common.util.ValhelsiaNBTIngredient;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * Mod Recipe Provider
+ * Mod Recipe Provider <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.ModRecipeProvider
  *
  * @author stal111
@@ -68,11 +69,20 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addBlacksmithGavelRecipe(NewModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(), ModTags.Items.ARCANE_GOLD_INGOTS, consumer);
         this.addBlacksmithGavelRecipe(NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get(), ModTags.Items.OBSIDIAN_INGOTS, consumer);
         ShapedRecipeBuilder.shaped(NewModItems.DARK_NETHER_STAR.get()).pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy("has_obsidian_ingot", has(ModItems.OBSIDIAN_INGOT.get())).unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(consumer);
+        ShapedRecipeBuilder.shaped(ModItems.ARCANE_GOLD_INGOT.get()).pattern("#*#").pattern("MXM").pattern("#*#").define('#', Items.CHARCOAL).define('X', Items.GOLD_INGOT).define('M', ModItems.MUNDABITUR_DUST.get()).define('*', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT)).unlockedBy("has_arcane_crystal_dust", has(ModItems.ARCANE_CRYSTAL_DUST.get())).unlockedBy("has_mundabitur_dust", has(ModItems.MUNDABITUR_DUST.get())).save(consumer);
         this.addStorageRecipe(NewModItems.DARK_NETHER_STAR.get(), NewModBlocks.DARK_NETHER_STAR_BLOCK.get(), consumer);
+        this.addStorageRecipe(ModItems.ARCANE_GOLD_INGOT.get(), NewModBlocks.ARCANE_GOLD_BLOCK.get(), "arcane_gold_ingot", null, consumer);
+        this.addStorageRecipe(ModItems.ARCANE_GOLD_NUGGET.get(), ModItems.ARCANE_GOLD_INGOT.get(), null, "arcane_gold_ingot", consumer);
         this.addStorageRecipe(NewModItems.STELLARITE_PIECE.get(), NewModBlocks.STELLARITE_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.ARCANE_CRYSTAL.get(), NewModBlocks.ARCANE_CRYSTAL_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.RUNE.get(), NewModBlocks.RUNE_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.DARK_RUNE.get(), NewModBlocks.DARK_RUNE_BLOCK.get(), consumer);
+        this.addSurroundingItemRecipe(NewModBlocks.ARCANE_GOLDEN_GLASS.get(), ModItems.ARCANE_GOLD_INGOT.get(), Blocks.GLASS, 8, consumer);
+        this.addGlassPaneRecipe(NewModBlocks.ARCANE_GOLDEN_GLASS.get(), NewModBlocks.ARCANE_GOLDEN_GLASS_PANE.get(), consumer);
+        this.addSurroundingItemRecipe(NewModBlocks.RUNIC_GLASS.get(), ModItems.RUNE.get(), Blocks.GLASS, 8, consumer);
+        this.addGlassPaneRecipe(NewModBlocks.RUNIC_GLASS.get(), NewModBlocks.RUNIC_GLASS_PANE.get(), consumer);
+        this.addSurroundingItemRecipe(NewModBlocks.DARK_RUNIC_GLASS.get(), ModItems.DARK_RUNE.get(), Blocks.GLASS, 8, consumer);
+        this.addGlassPaneRecipe(NewModBlocks.DARK_RUNIC_GLASS.get(), NewModBlocks.DARK_RUNIC_GLASS_PANE.get(), consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.ARCANE_GOLDEN_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
 
         //Shapeless Recipes
@@ -102,11 +112,27 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private void addStorageRecipe(ItemLike item, ItemLike block, @Nonnull Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(block).pattern("###").pattern("###").pattern("###").define('#', item).unlockedBy("has_item", has(item)).save(consumer);
-        ShapelessRecipeBuilder.shapeless(item, 9).requires(block).unlockedBy("has_item", has(block)).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, getName(item) + "_from_" + getName(block)));
+        addStorageRecipe(item, block, null, null, consumer);
+    }
+
+    private void addStorageRecipe(ItemLike item, ItemLike block, @Nullable String groupItem, @Nullable String groupBlock, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(block).group(groupBlock).pattern("###").pattern("###").pattern("###").define('#', item).unlockedBy("has_item", has(item)).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, getName(block) + "_from_" + getName(item)));
+        ShapelessRecipeBuilder.shapeless(item, 9).group(groupItem).requires(block).unlockedBy("has_item", has(block)).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, getName(item) + "_from_" + getName(block)));
+    }
+
+    private void addGlassPaneRecipe(ItemLike glass, ItemLike glassPane, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(glassPane, 16).pattern("###").pattern("###").define('#', glass).unlockedBy("has_item", has(glass)).save(consumer);
+    }
+
+    private void addSurroundingItemRecipe(ItemLike result, ItemLike middle, ItemLike outside, int amount, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result, amount).pattern("###").pattern("#X#").pattern("###").define('#', outside).define('X', middle).unlockedBy(getHasName(middle), has(middle)).unlockedBy(getHasName(outside), has(outside)).save(consumer);
     }
 
     private String getName(ItemLike item) {
         return Objects.requireNonNull(item.asItem().getRegistryName()).getPath();
+    }
+
+    private String getHasName(ItemLike item) {
+        return "has_" + getName(item);
     }
 }

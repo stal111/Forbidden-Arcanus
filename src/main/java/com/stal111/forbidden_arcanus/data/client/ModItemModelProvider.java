@@ -9,6 +9,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaItemModelProvider;
@@ -59,7 +60,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         takeBlockItem(this::utremJarModel, NewModBlocks.UTREM_JAR);
         takeBlockItem(item -> withParent(item, "arcane_polished_darkstone_pillar_single"), NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
         takeBlockItem(item -> withParent(item, "fungyss_trapdoor_bottom"), NewModBlocks.FUNGYSS_TRAPDOOR);
-        takeBlockItem(item -> simpleModelBlockTexture(item, "arcane_glass"), NewModBlocks.ARCANE_GLASS_PANE);
+
+        forEachBlockItem(item -> item.getBlock() instanceof IronBarsBlock, item -> simpleModelBlockTexture(item, getName(item).substring(0, getName(item).length() - 5)));
 
         forEachBlockItem(this::withParent);
 
@@ -104,5 +106,9 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 .override().predicate(new ResourceLocation("amount"), 0.75F).model(model3).end()
                 .override().predicate(new ResourceLocation("amount"), 0.9F).model(model4).end()
                 .override().predicate(new ResourceLocation("amount"), 1.0F).model(model5).end();
+    }
+
+    private String getName(Item item) {
+        return Objects.requireNonNull(item.getRegistryName()).getPath();
     }
 }

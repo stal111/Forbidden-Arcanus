@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#forge:glass/arcane",
     "#forge:glass/dark_runic",
     "#forge:glass/runic"
   ]
