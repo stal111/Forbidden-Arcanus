@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
 import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
+import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.config.Config;
@@ -23,9 +24,7 @@ import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.recipe.AwkwardPotionBrewingRecipe;
-import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
-import com.stal111.forbidden_arcanus.util.Data;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import com.stal111.forbidden_arcanus.util.ModWoodType;
 import net.minecraft.resources.ResourceLocation;
@@ -72,7 +71,6 @@ public class ForbiddenArcanus {
 	public static final Block MYSTERYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.copy(Blocks.OAK_WALL_SIGN).dropsLike(MYSTERYWOOD_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
 
 	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-	private static final Data DATA = new Data();
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().addHelpers(new LootModifierRegistryHelper()).build();
 
@@ -99,9 +97,6 @@ public class ForbiddenArcanus {
 		ModPOITypes.POI_TYPES.register(modEventBus);
 
 		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, LootTableListener::registerGlobalModifiers);
-
-		Data.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-		DATA.subscribeEvents(FMLJavaModLoadingContext.get().getModEventBus());
 
 		REGISTRY_MANAGER.getBlockHelper().setDefaultGroup(FORBIDDEN_ARCANUS);
 
