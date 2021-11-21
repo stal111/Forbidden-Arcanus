@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.event.LootTableListener;
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.init.other.ModDispenseBehaviors;
 import com.stal111.forbidden_arcanus.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
 import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
@@ -121,6 +122,7 @@ public class ForbiddenArcanus {
 	private void setup(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			ModFlammables.registerFlammables();
+			ModDispenseBehaviors.registerDispenseBehaviours();
 			ModConfiguredFeatures.load();
 			ModStructures.setupStructures();
 		});
