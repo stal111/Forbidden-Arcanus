@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block.dispenser;
 
-import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -22,7 +22,7 @@ public class SoulDispenseBehavior extends DefaultDispenseItemBehavior {
         Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
         BlockPos pos = source.getPos().relative(direction, 1);
         Block block = world.getBlockState(pos).getBlock();
-        if (block == ModBlocks.SOULLESS_SAND.getBlock()) {
+        if (block == NewModBlocks.SOULLESS_SAND.get()) {
             world.levelEvent(2001, pos, Block.getId(world.getBlockState(pos)));
             world.setBlockAndUpdate(pos, Blocks.SOUL_SAND.defaultBlockState());
             stack.shrink(1);

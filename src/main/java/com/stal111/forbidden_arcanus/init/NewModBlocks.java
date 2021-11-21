@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
+import com.stal111.forbidden_arcanus.common.block.SoullessSandBlock;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.material.Material;
@@ -74,6 +75,17 @@ public class NewModBlocks {
     public static final RegistryObject<Block> ARCANE_GOLDEN_GLASS_PANE = HELPER.register("arcane_golden_glass_pane", new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> RUNIC_GLASS_PANE = HELPER.register("runic_glass_pane", new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> DARK_RUNIC_GLASS_PANE = HELPER.register("dark_runic_glass_pane", new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)), ValhelsiaRenderType.CUTOUT);
+
+    public static final RegistryObject<SoullessSandBlock> SOULLESS_SAND = HELPER.register("soulless_sand", new SoullessSandBlock(Block.Properties.copy(Blocks.SOUL_SAND).speedFactor(1.0F)));
+    public static final RegistryObject<Block> SOULLESS_SANDSTONE = HELPER.register("soulless_sandstone", new Block(Block.Properties.copy(Blocks.SANDSTONE)));
+    public static final RegistryObject<Block> CUT_SOULLESS_SANDSTONE = HELPER.register("cut_soulless_sandstone", new Block(Block.Properties.copy(Blocks.SANDSTONE)));
+    public static final RegistryObject<Block> POLISHED_SOULLESS_SANDSTONE = HELPER.register("polished_soulless_sandstone", new Block(Block.Properties.copy(Blocks.SANDSTONE)));
+    public static final RegistryObject<SlabBlock> SOULLESS_SANDSTONE_SLAB = HELPER.register("soulless_sandstone_slab", new SlabBlock(Block.Properties.copy(Blocks.SANDSTONE_SLAB)));
+    public static final RegistryObject<SlabBlock> CUT_SOULLESS_SANDSTONE_SLAB = HELPER.register("cut_soulless_sandstone_slab", new SlabBlock(Block.Properties.copy(Blocks.SANDSTONE_SLAB)));
+    public static final RegistryObject<SlabBlock> POLISHED_SOULLESS_SANDSTONE_SLAB = HELPER.register("polished_soulless_sandstone_slab", new SlabBlock(Block.Properties.copy(Blocks.SANDSTONE_SLAB)));
+    public static final RegistryObject<StairBlock> SOULLESS_SANDSTONE_STAIRS = HELPER.register("soulless_sandstone_stairs", new StairBlock(() -> SOULLESS_SANDSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.SANDSTONE_STAIRS)));
+    public static final RegistryObject<StairBlock> POLISHED_SOULLESS_SANDSTONE_STAIRS = HELPER.register("polished_soulless_sandstone_stairs", new StairBlock(() -> POLISHED_SOULLESS_SANDSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.SANDSTONE_STAIRS)));
+    public static final RegistryObject<WallBlock> SOULLESS_SANDSTONE_WALL = HELPER.register("soulless_sandstone_wall", new WallBlock(Block.Properties.copy(Blocks.SANDSTONE_WALL)));
 
     public static final RegistryObject<Block> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", new ArcaneCrystalObeliskBlock(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ObsidianSkullBlock> OBSIDIAN_SKULL = HELPER.registerNoItem("obsidian_skull", new ObsidianSkullBlock(Block.Properties.copy(Blocks.SKELETON_SKULL)));

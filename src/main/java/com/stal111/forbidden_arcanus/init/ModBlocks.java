@@ -79,17 +79,7 @@ public enum ModBlocks {
     YELLOW_ORCHID(new FlowerBlock(MobEffects.GLOWING, 25, from(Blocks.BLUE_ORCHID)), ModRenderType.CUTOUT),
     GOLDEN_ORCHID(new GoldenOrchidBlock(from(Blocks.BLUE_ORCHID).randomTicks()), false, ModRenderType.CUTOUT),
     STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT),
-    MAGICAL_FARMLAND(new ModFarmlandBlock(from(Blocks.FARMLAND))),
-    SOULLESS_SAND(new SoullessSandBlock(from(Blocks.SOUL_SAND))),
-    SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),
-    CUT_SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),
-    POLISHED_SOULLESS_SANDSTONE(new Block(from(Blocks.SANDSTONE))),
-    SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
-    CUT_SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
-    POLISHED_SOULLESS_SANDSTONE_SLAB(new SlabBlock(from(Blocks.SANDSTONE_SLAB))),
-    SOULLESS_SANDSTONE_STAIRS(new StairBlock(() -> SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
-    POLISHED_SOULLESS_SANDSTONE_STAIRS(new StairBlock(() ->POLISHED_SOULLESS_SANDSTONE.getState(), from(Blocks.SANDSTONE_STAIRS))),
-    SOULLESS_SANDSTONE_WALL(new WallBlock(from(Blocks.SANDSTONE_WALL)));
+    MAGICAL_FARMLAND(new ModFarmlandBlock(from(Blocks.FARMLAND)));
 
     private final Block block;
     private final BlockItem item;

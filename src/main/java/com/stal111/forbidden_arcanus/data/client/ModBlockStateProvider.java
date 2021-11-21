@@ -9,11 +9,14 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import net.minecraft.world.level.block.Block;
@@ -48,12 +51,11 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     protected void registerStatesAndModels() {
         getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
 
-        take(block -> cubeAllCutout(block, modLoc("block/arcane_crystal_ore/" + getName(block)), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")),
-                NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
-        take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer"), mcLoc("block/stone")),
-                NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
-        take(block -> cubeAllCutout(block, modLoc("block/" + getName(block)), modLoc("block/xpetrified_ore_layer"), modLoc("block/" + getName(block))),
-                NewModBlocks.XPETRIFIED_ORE);
+        take(block -> cubeAllCutout(block, modLoc("block/arcane_crystal_ore/" + getName(block)), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
+        take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer"), mcLoc("block/stone")), NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
+        take(block -> cubeAllCutout(block, modLoc("block/" + getName(block)), modLoc("block/xpetrified_ore_layer"), modLoc("block/" + getName(block))), NewModBlocks.XPETRIFIED_ORE);
+
+        take(block -> cubeColumn(block, modLoc("block/cut_soulless_sandstone_side"), modLoc("block/cut_soulless_sandstone")), NewModBlocks.CUT_SOULLESS_SANDSTONE);
 
         take(this::withExistingModel, NewModBlocks.UTREM_JAR, NewModBlocks.NIPA, NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD, NewModBlocks.PETRIFIED_ROOT);
         take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);
@@ -64,8 +66,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), NewModBlocks.FUNGYSS_HYPHAE);
 
         ResourceLocation fungyssPlanks = modLoc("block/fungyss_planks");
-        take(block -> slabBlock((SlabBlock) block, fungyssPlanks, fungyssPlanks), NewModBlocks.FUNGYSS_SLAB);
-        take(block -> stairsBlock((StairBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_STAIRS);
         take(block -> pressurePlateBlock(block, fungyssPlanks), NewModBlocks.FUNGYSS_PRESSURE_PLATE);
         take(block -> buttonBlock((ButtonBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_BUTTON);
         take(block -> trapdoorBlock((TrapDoorBlock) block, modLoc("block/fungyss_trapdoor"), true), NewModBlocks.FUNGYSS_TRAPDOOR);
@@ -74,28 +74,10 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> fenceBlock((FenceBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE);
         take(block -> fenceGateBlock((FenceGateBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE_GATE);
 
-        ResourceLocation darkstone = modLoc("block/darkstone");
-        take(block -> slabBlock((SlabBlock) block, darkstone, darkstone), NewModBlocks.DARKSTONE_SLAB);
-        take(block -> stairsBlock((StairBlock) block, darkstone), NewModBlocks.DARKSTONE_STAIRS);
-        take(block -> wallBlock((WallBlock) block, darkstone), NewModBlocks.DARKSTONE_WALL);
-
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
-        take(block -> slabBlock((SlabBlock) block, polishedDarkstone, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_SLAB);
-        take(block -> stairsBlock((StairBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_STAIRS);
-        take(block -> wallBlock((WallBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_WALL);
         take(block -> pressurePlateBlock(block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
         take(block -> buttonBlock((ButtonBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_BUTTON);
         take(this::runicChiseledPolishedDarkstone, NewModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE);
-
-        ResourceLocation polishedDarkstoneBricks = modLoc("block/polished_darkstone_bricks");
-        take(block -> slabBlock((SlabBlock) block, polishedDarkstoneBricks, polishedDarkstoneBricks), NewModBlocks.POLISHED_DARKSTONE_BRICK_SLAB);
-        take(block -> stairsBlock((StairBlock) block, polishedDarkstoneBricks), NewModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS);
-        take(block -> wallBlock((WallBlock) block, polishedDarkstoneBricks), NewModBlocks.POLISHED_DARKSTONE_BRICK_WALL);
-
-        ResourceLocation arcanePolishedDarkstone = modLoc("block/arcane_polished_darkstone");
-        take(block -> slabBlock((SlabBlock) block, arcanePolishedDarkstone, arcanePolishedDarkstone), NewModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB);
-        take(block -> stairsBlock((StairBlock) block, arcanePolishedDarkstone), NewModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS);
-        take(block -> wallBlock((WallBlock) block, arcanePolishedDarkstone), NewModBlocks.ARCANE_POLISHED_DARKSTONE_WALL);
         take(this::arcanePolishedDarkstonePillar, NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
 
         take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
@@ -104,13 +86,41 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), NewModBlocks.ARCANE_GOLDEN_CHAIN);
 
         forEach(block -> block instanceof IronBarsBlock, block -> paneBlock((IronBarsBlock) block, modLoc("block/" + getName(block).substring(0, getName(block).length() - 5)), modLoc("block/" + getName(block) + "_top")));
+        forEach(block -> block instanceof StairBlock, block -> {
+            ResourceLocation resourceLocation = getName(block).contains("brick") ? modLoc("block/" + getName(block).substring(0, getName(block).length() - 7).concat("s")) : modLoc("block/" + getName(block).substring(0, getName(block).length() - 7));
+
+            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
+                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
+            }
+            stairsBlock((StairBlock) block, resourceLocation);
+        });
+        forEach(block -> block instanceof WallBlock, block -> {
+            ResourceLocation resourceLocation = getName(block).contains("brick") ? modLoc("block/" + getName(block).substring(0, getName(block).length() - 5).concat("s")) : modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
+
+            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
+                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
+            }
+            wallBlock((WallBlock) block, resourceLocation);
+        });
 
         forEach(block -> block instanceof FlowerPotBlock, block -> {
             ResourceLocation name = Objects.requireNonNull(((FlowerPotBlock) block).getContent().getRegistryName());
             simpleFlowerPotBlock(block, new ResourceLocation(name.getNamespace(), "block/" + name.getPath()));
         });
 
+        List<Block> slabs = new ArrayList<>();
+        forEach(block -> block instanceof SlabBlock, slabs::add);
+
         forEach(this::simpleBlock);
+
+        slabs.forEach(block -> {
+            ResourceLocation resourceLocation = getName(block).contains("brick") ? modLoc("block/" + getName(block).substring(0, getName(block).length() - 5).concat("s")) : modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
+
+            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
+                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
+            }
+            slabBlock((SlabBlock) block, resourceLocation, resourceLocation);
+        });
     }
 
     private void cubeAllCutout(Block block, ResourceLocation texture, ResourceLocation emissiveTexture) {
@@ -126,6 +136,10 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .texture("all", texture)
                 .texture("cutout", emissiveTexture)
         );
+    }
+
+    private void cubeColumn(Block block, ResourceLocation side, ResourceLocation end) {
+        simpleBlock(block, models().cubeColumn(getName(block), side, end));
     }
 
     private void pixieUtremJarBlock(Block block, boolean corrupted) {
