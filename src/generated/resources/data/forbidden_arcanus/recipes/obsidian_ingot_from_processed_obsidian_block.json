@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "obsidian_ingot",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:processed_obsidian_block"
+    }
+  ],
+  "result": {
+    "item": "forbidden_arcanus:obsidian_ingot",
+    "count": 9
+  }
+}
