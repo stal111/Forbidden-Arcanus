@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
@@ -55,6 +56,7 @@ public class ClientSetup {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
         });
 
+        this.registerModelOverride(NewModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE, StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.ACTIVATED, true).build(), base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
         this.registerModelOverride(NewModBlocks.XPETRIFIED_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
         this.registerModelOverride(NewModBlocks.ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
         this.registerModelOverride(NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
@@ -62,6 +64,16 @@ public class ClientSetup {
         this.registerModelOverride(NewModBlocks.RUNIC_DEEPSLATE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
         this.registerModelOverride(NewModBlocks.RUNIC_DARKSTONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
         this.registerModelOverride(NewModBlocks.ARCANE_CRYSTAL_BLOCK, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_block")));
+        this.registerModelOverride(NewModBlocks.ARCANE_CRYSTAL_OBELISK, base -> new FullbrightBakedModel(base, true,
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_lower_layer"),
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_middle"),
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_upper"),
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_top")
+        ));
+        this.registerModelOverride(NewModBlocks.HEPHAESTUS_FORGE, base -> new FullbrightBakedModel(base, true,
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_side_layer"),
+                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_top_layer")
+        ));
 
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
 //        ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
@@ -84,7 +96,6 @@ public class ClientSetup {
 
         for (Triple<Block, StatePropertiesPredicate, Function<BakedModel, BakedModel>> triple : this.bakedModelOverrideRegistry) {
             triple.getLeft().getStateDefinition().getPossibleStates().stream().filter(state -> triple.getMiddle().matches(state)).map(BlockModelShaper::stateToModelLocation).forEach(modelResourceLocation -> {
-                System.out.println(modelResourceLocation);
                 modelRegistry.put(modelResourceLocation, triple.getRight().apply(modelRegistry.get(modelResourceLocation)));
             });
         }

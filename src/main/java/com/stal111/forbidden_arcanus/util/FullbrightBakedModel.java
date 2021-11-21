@@ -3,18 +3,17 @@ package com.stal111.forbidden_arcanus.util;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.Predicate;
 
 public class FullbrightBakedModel extends DelegateBakedModel {
 
@@ -31,7 +30,6 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
     private final Set<ResourceLocation> textures;
     private final boolean doCaching;
-    private Predicate<BlockState> state = null;
 
     public FullbrightBakedModel(BakedModel base, boolean doCaching, ResourceLocation... textures) {
         super(base);
@@ -40,23 +38,11 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         this.doCaching = doCaching;
     }
 
-    public FullbrightBakedModel(BakedModel base, boolean doCaching, Predicate<BlockState> state, ResourceLocation... textures) {
-        super(base);
-
-        this.textures = new HashSet<>(Arrays.asList(textures));
-        this.doCaching = doCaching;
-        this.state = state;
-    }
-
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
         if (state == null) {
             return base.getQuads(null, side, rand, data);
-        }
-
-        if (this.state != null && !this.state.test(state)) {
-            return base.getQuads(state, side, rand, data);
         }
 
         if (!doCaching) {

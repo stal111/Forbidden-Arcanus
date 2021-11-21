@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
 import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.world.level.block.Block;
@@ -100,7 +99,7 @@ public class MundabiturDustItem extends Item {
             }
 
             world.levelEvent(player, 2001, pos, Block.getId(world.getBlockState(pos)));
-            world.setBlockAndUpdate(pos, ModBlocks.HEPHAESTUS_FORGE.getState().setValue(ModBlockStateProperties.ACTIVATED, true));
+            world.setBlockAndUpdate(pos, NewModBlocks.HEPHAESTUS_FORGE.get().defaultBlockState().setValue(ModBlockStateProperties.ACTIVATED, true));
 
             CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), world);
             entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);

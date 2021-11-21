@@ -170,12 +170,6 @@ public class ForbiddenArcanus {
 			}
 		}
 
-//
-//	@SubscribeEvent
-//	public static void registerPotions(RegistryEvent.Register<Potion> event) {
-//		ModPotions.register(event);
-//	}
-
 		@SubscribeEvent
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 			ModSounds.register(event);

@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.integration;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -35,7 +35,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(@Nonnull IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.getBlock()), this.hephaestusSmithing.getUid());
+        registration.addRecipeCatalyst(new ItemStack(NewModBlocks.HEPHAESTUS_FORGE.get()), this.hephaestusSmithing.getUid());
     }
 
     @Override
