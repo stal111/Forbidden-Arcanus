@@ -15,7 +15,7 @@ import net.valhelsia.valhelsia_core.core.registry.block.BlockRegistryHelper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Newer Mod Blocks
+ * Newer Mod Blocks <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.NewerModBlocks
  *
  * @author stal111
@@ -88,7 +88,7 @@ public class NewModBlocks {
     public static final RegistryObject<StairBlock> POLISHED_SOULLESS_SANDSTONE_STAIRS = HELPER.register("polished_soulless_sandstone_stairs", new StairBlock(() -> POLISHED_SOULLESS_SANDSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.SANDSTONE_STAIRS)));
     public static final RegistryObject<WallBlock> SOULLESS_SANDSTONE_WALL = HELPER.register("soulless_sandstone_wall", new WallBlock(Block.Properties.copy(Blocks.SANDSTONE_WALL)));
 
-    public static final RegistryObject<HephaestusForgeBlock> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", new HephaestusForgeBlock(Block.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<HephaestusForgeBlock> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", new HephaestusForgeBlock(Block.Properties.copy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
 
     public static final RegistryObject<Block> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", new ArcaneCrystalObeliskBlock(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ObsidianSkullBlock> OBSIDIAN_SKULL = HELPER.registerNoItem("obsidian_skull", new ObsidianSkullBlock(Block.Properties.copy(Blocks.SKELETON_SKULL)));
