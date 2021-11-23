@@ -3,7 +3,7 @@
     
     "pattern":
     [
-        "OHO",
+        "O O",
         "D D"
     
     ],
@@ -13,11 +13,7 @@
         "D":
         {
             "item": "forbidden_arcanus:dragon_scale"
-        },  
-        "H":
-        {
-            "item": "forbidden_arcanus:obsidian_boots"
-        },
+        }
         "O":
         {
             "item": "forbidden_arcanus:obsidian_ingot"

@@ -26,9 +26,6 @@ public enum ModArmorMaterial implements ArmorMaterial {
 	}),
 	ARCANE_GOLD(ForbiddenArcanus.MOD_ID + ":arcane_gold", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ARMOR_EQUIP_GOLD, 1.5F, () -> {
 		return Ingredient.of(ModItems.ARCANE_GOLD_INGOT.get());
-	}),
-	OBSIDIAN(ForbiddenArcanus.MOD_ID + ":obsidian", 36, new int[]{4, 3, 3, 4}, 5, SoundEvents.ARMOR_EQUIP_GENERIC, 1.5F, () -> {
-		return Ingredient.of(ModItems.OBSIDIAN_INGOT.get());
 	});
 	
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};

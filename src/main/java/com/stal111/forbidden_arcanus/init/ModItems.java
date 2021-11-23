@@ -94,7 +94,6 @@ public class ModItems {
     public static final RegistryObject<Item> EDELWOOD_SLIME_BUCKET = register("edelwood_slime_bucket", () -> new EdelwoodEntityBucketItem(EntityType.SLIME, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_CHICKEN_BUCKET = register("edelwood_chicken_bucket", () -> new EdelwoodEntityBucketItem(EntityType.CHICKEN, properties(1)));
     public static final RegistryObject<Item> SOUL_EXTRACTOR = register("soul_extractor", SoulExtractorItem::new);
-    public static final RegistryObject<Item> INFERNUM_PICKAXE = register("infernum_pickaxe", () -> new InfernumPickaxeItem(ModItemTier.INFERNUM, 1, -2.8F, properties()));
     public static final RegistryObject<Item> SLIMEC_PICKAXE = register("slimec_pickaxe", () -> new SlimecPickaxeItem(ModItemTier.SLIMEC, 1, -2.5F, properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_STAFF = register("draco_arcanus_staff", () -> new Item(properties(1)));
     public static final RegistryObject<Item> DRACO_ARCANUS_SWORD = register("draco_arcanus_sword", () -> new SwordItem(ModItemTier.DRACO_ARCANUS, 4, -2.2F, properties()));
@@ -113,11 +112,6 @@ public class ModItems {
     public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_PICKAXE = register("reinforced_arcane_golden_pickaxe", () -> new PickaxeItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 1, -2.8F, properties()));
     public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_AXE = register("reinforced_arcane_golden_axe", () -> new AxeItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 5, -3.0F, properties()));
     public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_HOE = register("reinforced_arcane_golden_hoe", () -> new HoeItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, -3, 0, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_SWORD = register("obsidian_sword", () -> new SwordItem(ModItemTier.OBSIDIAN, 3, -2.4F, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_SHOVEL = register("obsidian_shovel", () -> new ShovelItem(ModItemTier.OBSIDIAN, 1.5F, -3.0F, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_PICKAXE = register("obsidian_pickaxe", () -> new PickaxeItem(ModItemTier.OBSIDIAN, 1, -2.8F, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_AXE = register("obsidian_axe", () -> new AxeItem(ModItemTier.OBSIDIAN, 5, -3.0F, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_HOE = register("obsidian_hoe", () -> new HoeItem(ModItemTier.OBSIDIAN, -3, 0, properties()));
     public static final RegistryObject<Item> MYSTICAL_DAGGER = register("mystical_dagger", () -> new MysticalDaggerItem(ModItemTier.MYSTICAL_DAGGER, 2.5F, -0.3F, properties(1)));
     public static final RegistryObject<Item> DRACO_ARCANUS_HELMET = register("draco_arcanus_helmet", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.HEAD, properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_CHESTPLATE = register("draco_arcanus_chestplate", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.CHEST, properties()));
@@ -135,10 +129,6 @@ public class ModItems {
     public static final RegistryObject<Item> ARCANE_GOLD_CHESTPLATE = register("arcane_gold_chestplate", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.CHEST, properties()));
     public static final RegistryObject<Item> ARCANE_GOLD_LEGGINGS = register("arcane_gold_leggings", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.LEGS, properties()));
     public static final RegistryObject<Item> ARCANE_GOLD_BOOTS = register("arcane_gold_boots", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.FEET, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_HELMET = register("obsidian_helmet", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.HEAD, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_SHOULDER_PADS = register("obsidian_shoulder_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.CHEST, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_KNEE_PADS = register("obsidian_knee_pads", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.LEGS, properties()));
-    public static final RegistryObject<Item> OBSIDIAN_BOOTS = register("obsidian_boots", () -> new ArmorItem(ModArmorMaterial.OBSIDIAN, EquipmentSlot.FEET, properties()));
     public static final RegistryObject<Item> PIXIE_SPAWN_EGG = register("pixie_spawn_egg", () -> new ModSpawnEggItem<>(ModEntities.PIXIE, 894731, 0, properties()));
 
     private static RegistryObject<Item> register(String name, Supplier<? extends Item> item) {

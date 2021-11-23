@@ -4,7 +4,7 @@
     "pattern":
     [
         "ODO",
-        "DHD",
+        "D D",
         "O O"
     
     ],
@@ -14,10 +14,6 @@
         "D":
         {
             "item": "forbidden_arcanus:dragon_scale"
-        },  
-        "H":
-        {
-            "item": "forbidden_arcanus:obsidian_knee_pads"
         },
         "O":
         {

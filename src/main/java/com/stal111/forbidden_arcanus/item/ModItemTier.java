@@ -18,13 +18,7 @@ public enum ModItemTier implements Tier {
 	REINFORCED_ARCANE_GOLDEN(3, 2561, 9.0F, 3.5F, 26, () -> {
 		return Ingredient.of(ModItems.ARCANE_GOLD_INGOT.get());
 	}),
-	OBSIDIAN(3, 2861, 5.5F, 3.0F, 2, () -> {
-		return Ingredient.of(ModItems.OBSIDIAN_INGOT.get());
-	}),
 	BONE(1, 131, 4.0F, 1.0F, 5, () -> {
-		return Ingredient.of(Items.BONE);
-	}),
-	INFERNUM(3, 1261, 8.0F, 3.0F, 5, () -> {
 		return Ingredient.of(Items.BONE);
 	}),
 	SLIMEC(3, 2061, 13.0F, 2.5F, 20, () -> {

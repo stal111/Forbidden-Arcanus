@@ -42,8 +42,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 NewModItems.DIAMOND_BLACKSMITH_GAVEL.get(),
                 NewModItems.NETHERITE_BLACKSMITH_GAVEL.get(),
                 NewModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(),
-                NewModItems.REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(),
-                NewModItems.OBSIDIAN_BLACKSMITH_GAVEL.get()
+                NewModItems.REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL.get()
         );
         this.tag(ModTags.Items.ARCANE_GOLD_INGOTS).add(ModItems.ARCANE_GOLD_INGOT.get());
         this.tag(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());

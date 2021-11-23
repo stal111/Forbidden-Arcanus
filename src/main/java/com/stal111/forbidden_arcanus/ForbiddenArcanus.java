@@ -24,7 +24,6 @@ import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.recipe.AwkwardPotionBrewingRecipe;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import com.stal111.forbidden_arcanus.util.ModUtils;
-import com.stal111.forbidden_arcanus.util.ModWoodType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
@@ -115,10 +114,6 @@ public class ForbiddenArcanus {
 		proxy.init();
 
 		NetworkHandler.init();
-
-		//ModWoodType.register(ModWoodType.EDELWOOD);
-		ModWoodType.register(ModWoodType.CHERRYWOOD);
-		ModWoodType.register(ModWoodType.MYSTERYWOOD);
 
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
 		ModUtils.addStrippable(ModBlocks.CHERRYWOOD.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD.getBlock());

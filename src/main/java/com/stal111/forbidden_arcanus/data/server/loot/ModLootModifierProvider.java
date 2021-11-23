@@ -60,11 +60,11 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         LootItemRandomChanceCondition.randomChance(0.3F).build()
                 })
         );
-        this.add("infernum_smelting", ModLootModifiers.INFERNUM_SMELTING.get(),
-                new InfernumPickaxeLootModifier(new LootItemCondition[] {
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModItems.INFERNUM_PICKAXE.get())).build()
-                })
-        );
+//        this.add("infernum_smelting", ModLootModifiers.INFERNUM_SMELTING.get(),
+//                new InfernumPickaxeLootModifier(new LootItemCondition[] {
+//                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModItems.INFERNUM_PICKAXE.get())).build()
+//                })
+//        );
         this.add("magical_farmland_crop_doubling", ModLootModifiers.MAGICAL_FARMLAND.get(), new MagicalFarmlandLootModifier(new LootItemCondition[]{}));
     }
 }
