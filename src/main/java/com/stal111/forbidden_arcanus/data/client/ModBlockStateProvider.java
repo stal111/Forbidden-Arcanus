@@ -80,6 +80,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
+        take(block -> signBlock(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_SIGN.getSecond().get()), NewModBlocks.FUNGYSS_SIGN.getFirst());
         take(block -> signBlock(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), NewModBlocks.CHERRYWOOD_SIGN.getSecond().get()), NewModBlocks.CHERRYWOOD_SIGN.getFirst());
         take(block -> signBlock(NewModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), NewModBlocks.MYSTERYWOOD_SIGN.getSecond().get()), NewModBlocks.MYSTERYWOOD_SIGN.getFirst());
         take(block -> signBlock(NewModBlocks.EDELWOOD_SIGN.getFirst().get(), NewModBlocks.EDELWOOD_SIGN.getSecond().get()), NewModBlocks.EDELWOOD_SIGN.getFirst());

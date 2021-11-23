@@ -85,6 +85,7 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addSurroundingItemRecipe(NewModBlocks.DARK_RUNIC_GLASS.get(), ModItems.DARK_RUNE.get(), Blocks.GLASS, 8, consumer);
         this.addGlassPaneRecipe(NewModBlocks.DARK_RUNIC_GLASS.get(), NewModBlocks.DARK_RUNIC_GLASS_PANE.get(), consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.ARCANE_GOLDEN_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
+        this.addSignRecipe(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addSignRecipe(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), ModBlocks.CHERRYWOOD_PLANKS.getBlock(), consumer);
         this.addSignRecipe(NewModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), ModBlocks.MYSTERYWOOD_PLANKS.getBlock(), consumer);
         this.addSignRecipe(NewModBlocks.EDELWOOD_SIGN.getFirst().get(), ModBlocks.EDELWOOD_PLANKS.getBlock(), consumer);

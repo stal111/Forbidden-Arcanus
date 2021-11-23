@@ -57,6 +57,7 @@ public class ClientSetup {
         event.enqueueWork(() -> {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
 
+            Sheets.addWoodType(ModWoodTypes.FUNGYSS);
             Sheets.addWoodType(ModWoodTypes.CHERRYWOOD);
             Sheets.addWoodType(ModWoodTypes.MYSTERYWOOD);
             Sheets.addWoodType(ModWoodTypes.EDELWOOD);
