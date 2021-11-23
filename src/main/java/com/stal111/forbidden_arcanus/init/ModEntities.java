@@ -27,7 +27,6 @@ public class ModEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, ForbiddenArcanus.MOD_ID);
 
-    public static final RegistryObject<EntityType<ChorusPearlEntity>> CHORUS_PEARL = register("chorus_pearl", EntityType.Builder.<ChorusPearlEntity>of(ChorusPearlEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
     public static final RegistryObject<EntityType<SeedBulletEntity>> SEED_BULLET = register("seed_bullet", EntityType.Builder.<SeedBulletEntity>of(SeedBulletEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
     public static final RegistryObject<EntityType<EnergyBallEntity>> ENERGY_BALL = register("energy_ball", EntityType.Builder.<EnergyBallEntity>of(EnergyBallEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
     public static final RegistryObject<EntityType<BoomArrowEntity>> BOOM_ARROW = register("boom_arrow", EntityType.Builder.<BoomArrowEntity>of(BoomArrowEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
