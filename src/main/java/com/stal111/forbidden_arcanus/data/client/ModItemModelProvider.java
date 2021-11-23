@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Mod Item Model Provider
+ * Mod Item Model Provider <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.client.ModItemModelProvider
  *
  * @author stal111
@@ -60,6 +61,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
         forEachBlockItem(item -> item.getBlock() instanceof IronBarsBlock, item -> simpleModelBlockTexture(item, getName(item).substring(0, getName(item).length() - 5)));
         forEachBlockItem(item -> item.getBlock() instanceof WallBlock, this::withParentInventory);
+        forEachBlockItem(item -> item.getBlock() instanceof StandingSignBlock, this::simpleModel);
 
         forEachBlockItem(this::withParent);
 

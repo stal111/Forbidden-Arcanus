@@ -3,8 +3,6 @@ package com.stal111.forbidden_arcanus;
 
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
-import com.stal111.forbidden_arcanus.block.ModStandingSignBlock;
-import com.stal111.forbidden_arcanus.block.ModWallSignBlock;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
@@ -33,7 +31,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -62,13 +59,6 @@ public class ForbiddenArcanus {
 	public static final String MOD_ID = "forbidden_arcanus";
 	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
 	public static final CreativeModeTab FORBIDDEN_ARCANUS = new ModItemGroup(ForbiddenArcanus.MOD_ID);
-
-	public static final Block EDELWOOD_SIGN = new ModStandingSignBlock(Block.Properties.copy(Blocks.OAK_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_sign"));
-	public static final Block EDELWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.copy(Blocks.OAK_WALL_SIGN).dropsLike(EDELWOOD_SIGN), ModWoodType.EDELWOOD).setRegistryName(ModUtils.location("edelwood_wall_sign"));
-	public static final Block CHERRYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.copy(Blocks.OAK_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_sign"));
-	public static final Block CHERRYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.copy(Blocks.OAK_WALL_SIGN).dropsLike(CHERRYWOOD_SIGN), ModWoodType.CHERRYWOOD).setRegistryName(ModUtils.location("cherrywood_wall_sign"));
-	public static final Block MYSTERYWOOD_SIGN = new ModStandingSignBlock(Block.Properties.copy(Blocks.OAK_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_sign"));
-	public static final Block MYSTERYWOOD_WALL_SIGN = new ModWallSignBlock(Block.Properties.copy(Blocks.OAK_WALL_SIGN).dropsLike(MYSTERYWOOD_SIGN), ModWoodType.MYSTERYWOOD).setRegistryName(ModUtils.location("mysterywood_wall_sign"));
 
 	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
@@ -126,7 +116,7 @@ public class ForbiddenArcanus {
 
 		NetworkHandler.init();
 
-		ModWoodType.register(ModWoodType.EDELWOOD);
+		//ModWoodType.register(ModWoodType.EDELWOOD);
 		ModWoodType.register(ModWoodType.CHERRYWOOD);
 		ModWoodType.register(ModWoodType.MYSTERYWOOD);
 

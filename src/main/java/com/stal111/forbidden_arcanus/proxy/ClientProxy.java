@@ -41,7 +41,6 @@ public class ClientProxy implements IProxy {
             }
         }
 
-      //  ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN.get(), SignRenderer::new);
        // ClientRegistry.bindTileEntityRenderer(ModTileEntities.BLACK_HOLE.get(), BlackHoleTileEntityRenderer::new);
        // ClientRegistry.bindTileEntityRenderer(ModTileEntities.OBSIDIAN_SKULL.get(), ObsidianSkullTileEntityRenderer::new);
     }
@@ -63,7 +62,7 @@ public class ClientProxy implements IProxy {
 
     public void stitchTextures(TextureStitchEvent.Pre event) {
         if (event.getMap().location().equals(Sheets.SIGN_SHEET)) {
-            event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/edelwood"));
+           // event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/edelwood"));
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/cherrywood"));
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/signs/mysterywood"));
         }

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +20,8 @@ public class CommonSetup {
 
     public static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ModWoodTypes.registerWoodTypes();
+
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 
             flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "cherrywood_sapling"), NewModBlocks.POTTED_CHERRYWOOD_SAPLING);

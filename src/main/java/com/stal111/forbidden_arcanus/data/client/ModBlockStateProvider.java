@@ -14,6 +14,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.common.block.ValhelsiaStandingSignBlock;
+import net.valhelsia.valhelsia_core.common.block.ValhelsiaWallSignBlock;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockStateProvider;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
+        getRemainingBlocks().removeIf(registryObject -> registryObject.get() instanceof WallSignBlock);
 
         take(block -> cubeAllCutout(block, modLoc("block/arcane_crystal_ore/" + getName(block)), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
         take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer"), mcLoc("block/stone")), NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
@@ -76,6 +79,10 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
+
+        take(block -> signBlock(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), NewModBlocks.CHERRYWOOD_SIGN.getSecond().get()), NewModBlocks.CHERRYWOOD_SIGN.getFirst());
+        take(block -> signBlock(NewModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), NewModBlocks.MYSTERYWOOD_SIGN.getSecond().get()), NewModBlocks.MYSTERYWOOD_SIGN.getFirst());
+        take(block -> signBlock(NewModBlocks.EDELWOOD_SIGN.getFirst().get(), NewModBlocks.EDELWOOD_SIGN.getSecond().get()), NewModBlocks.EDELWOOD_SIGN.getFirst());
 
         take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), NewModBlocks.ARCANE_GOLDEN_CHAIN);
 
@@ -144,6 +151,12 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .texture("pixie", modLoc("block/" + (corrupted ? "corrupted_" : "") + "utrem_jar_pixie"));
 
         simpleBlock(block, model);
+    }
+
+    private void signBlock(StandingSignBlock signBlock, WallSignBlock wallSignBlock) {
+        ModelFile sign = models().sign(getName(signBlock), modLoc("block/" + signBlock.type().name().split(":")[1] + "_planks"));
+        simpleBlock(signBlock, sign);
+        simpleBlock(wallSignBlock, sign);
     }
 
     private void mushroomBlock(Block block) {

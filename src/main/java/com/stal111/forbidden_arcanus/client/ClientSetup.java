@@ -5,10 +5,12 @@ import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
@@ -54,6 +56,10 @@ public class ClientSetup {
     public void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
+
+            Sheets.addWoodType(ModWoodTypes.CHERRYWOOD);
+            Sheets.addWoodType(ModWoodTypes.MYSTERYWOOD);
+            Sheets.addWoodType(ModWoodTypes.EDELWOOD);
         });
 
         this.registerModelOverride(NewModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE, StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.ACTIVATED, true).build(), base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
