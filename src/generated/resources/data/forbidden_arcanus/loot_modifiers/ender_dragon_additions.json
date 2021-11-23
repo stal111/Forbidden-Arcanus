@@ -1,0 +1,10 @@
+{
+  "add_loot": "forbidden_arcanus:entities/additions/ender_dragon_additions",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/ender_dragon"
+    }
+  ],
+  "type": "valhelsia_core:append_loot"
+}

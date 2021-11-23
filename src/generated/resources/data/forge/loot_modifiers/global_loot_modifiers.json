@@ -1,10 +1,17 @@
 {
   "replace": false,
   "entries": [
+    "forbidden_arcanus:bat_additions",
     "forbidden_arcanus:zombie_additions",
+    "forbidden_arcanus:squid_additions",
+    "forbidden_arcanus:simple_dungeon_additions",
     "forbidden_arcanus:drowned_additions",
+    "forbidden_arcanus:enderman_additions",
     "forbidden_arcanus:magical_farmland_crop_doubling",
     "forbidden_arcanus:spawner_additions",
-    "forbidden_arcanus:blacksmith_gavel_ore_doubling"
+    "forbidden_arcanus:end_city_treasure_additions",
+    "forbidden_arcanus:abandoned_mineshaft_additions",
+    "forbidden_arcanus:blacksmith_gavel_ore_doubling",
+    "forbidden_arcanus:ender_dragon_additions"
   ]
 }

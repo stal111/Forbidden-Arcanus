@@ -1,0 +1,10 @@
+{
+  "add_loot": "forbidden_arcanus:chests/additions/simple_dungeon_additions",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/simple_dungeon"
+    }
+  ],
+  "type": "valhelsia_core:append_loot"
+}

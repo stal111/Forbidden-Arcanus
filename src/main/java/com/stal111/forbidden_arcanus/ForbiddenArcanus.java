@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.config.Config;
-import com.stal111.forbidden_arcanus.event.LootTableListener;
 import com.stal111.forbidden_arcanus.init.*;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.init.other.ModDispenseBehaviors;
@@ -84,8 +83,6 @@ public class ForbiddenArcanus {
 		ModStructures.STRUCTURES.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);
 		ModPOITypes.POI_TYPES.register(modEventBus);
-
-		modEventBus.addGenericListener(GlobalLootModifierSerializer.class, LootTableListener::registerGlobalModifiers);
 
 		REGISTRY_MANAGER.getBlockHelper().setDefaultGroup(FORBIDDEN_ARCANUS);
 

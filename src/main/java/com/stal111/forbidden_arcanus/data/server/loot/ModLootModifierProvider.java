@@ -2,20 +2,18 @@ package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
-import com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
-import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.other.ModLootModifiers;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
 import net.valhelsia.valhelsia_core.common.loot.modifiers.AppendLootTableModifier;
@@ -37,6 +35,7 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
 
     @Override
     protected void start() {
+        // Entities
         this.add("zombie_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new LootItemCondition[] {
                         LootItemRandomChanceCondition.randomChance(0.002F).build(),
@@ -66,5 +65,48 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
 //                })
 //        );
         this.add("magical_farmland_crop_doubling", ModLootModifiers.MAGICAL_FARMLAND.get(), new MagicalFarmlandLootModifier(new LootItemCondition[]{}));
+        this.add("enderman_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("entities/enderman")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/enderman_additions"))
+        );
+        this.add("bat_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("entities/bat")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/bat_additions"))
+        );
+        this.add("squid_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootItemRandomChanceCondition.randomChance(0.7F).build(),
+                        LootTableIdCondition.builder(new ResourceLocation("entities/squid")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/squid_additions"))
+        );
+        this.add("ender_dragon_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("entities/ender_dragon")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/ender_dragon_additions"))
+        );
+
+        // Chests
+        this.add("simple_dungeon_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("chests/simple_dungeon")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/simple_dungeon_additions"))
+        );
+        this.add("simple_dungeon_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("chests/simple_dungeon")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/simple_dungeon_additions"))
+        );
+        this.add("abandoned_mineshaft_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("chests/abandoned_mineshaft")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/abandoned_mineshaft_additions"))
+        );
+        this.add("end_city_treasure_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("chests/end_city_treasure")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/end_city_treasure_additions"))
+        );
     }
 }
