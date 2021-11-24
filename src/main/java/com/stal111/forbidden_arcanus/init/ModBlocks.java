@@ -2,15 +2,11 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
-import com.stal111.forbidden_arcanus.block.trees.CherrywoodTree;
-import com.stal111.forbidden_arcanus.block.trees.MysterywoodTree;
-import com.stal111.forbidden_arcanus.block.NoFluidOverlayBlock;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -24,7 +20,6 @@ public enum ModBlocks {
     ARCANE_DARK_STONE(new Block(addProperties(Material.STONE, 1.5F, 6.0F))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
     ARCANE_GOLD_DOOR(new DoorBlock(from(Blocks.GOLD_BLOCK).noOcclusion()), ModRenderType.CUTOUT),
-    ARCANE_DRAGON_EGG(new ArcaneDragonEggBlock(from(Blocks.DRAGON_EGG).lightLevel(state -> 9))),
     EDELWOOD_LOG(new EdelwoodLogBlock(MaterialColor.COLOR_BROWN, from(Blocks.OAK_LOG).randomTicks()), ModRenderType.CUTOUT),
     EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     ARCANE_EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
@@ -42,7 +37,6 @@ public enum ModBlocks {
     STRIPPED_CHERRYWOOD_LOG(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
     STRIPPED_CHERRYWOOD(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
     CHERRYWOOD_LEAVES(new LeavesBlock(from(Blocks.OAK_LEAVES))),
-    CHERRYWOOD_SAPLING(new SaplingBlock(new CherrywoodTree(), from(Blocks.OAK_SAPLING)), ModRenderType.CUTOUT),
     CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CARVED_CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CHERRYWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),
@@ -58,7 +52,6 @@ public enum ModBlocks {
     STRIPPED_MYSTERYWOOD_LOG(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
     STRIPPED_MYSTERYWOOD(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
     MYSTERYWOOD_LEAVES(new LeavesBlock(from(Blocks.OAK_LEAVES))),
-    MYSTERYWOOD_SAPLING(new SaplingBlock(new MysterywoodTree(), from(Blocks.OAK_SAPLING)), ModRenderType.CUTOUT),
     MYSTERYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     MYSTERYWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),
     MYSTERYWOOD_STAIRS(new StairBlock(() -> MYSTERYWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),

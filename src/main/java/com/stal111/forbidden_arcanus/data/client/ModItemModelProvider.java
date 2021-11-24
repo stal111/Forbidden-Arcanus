@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -44,7 +45,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 NewModBlocks.NIPA,
                 NewModBlocks.FUNGYSS_DOOR,
                 NewModBlocks.ARCANE_CRYSTAL_OBELISK,
-                NewModBlocks.ARCANE_GOLDEN_CHAIN
+                NewModBlocks.ARCANE_GOLDEN_CHAIN,
+                NewModBlocks.ARCANE_DRAGON_EGG
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 NewModBlocks.FUNGYSS
@@ -62,6 +64,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         forEachBlockItem(item -> item.getBlock() instanceof IronBarsBlock, item -> simpleModelBlockTexture(item, getName(item).substring(0, getName(item).length() - 5)));
         forEachBlockItem(item -> item.getBlock() instanceof WallBlock, this::withParentInventory);
         forEachBlockItem(item -> item.getBlock() instanceof StandingSignBlock, this::simpleModel);
+        forEachBlockItem(item -> item.getBlock() instanceof SaplingBlock, this::simpleModelBlockTexture);
 
         forEachBlockItem(this::withParent);
 

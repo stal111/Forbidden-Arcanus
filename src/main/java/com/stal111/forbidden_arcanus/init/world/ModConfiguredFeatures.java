@@ -95,10 +95,10 @@ public class ModConfiguredFeatures {
         private static final BlockState XPETRIFIED_ORE = NewModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
         private static final BlockState CHERRYWOOD_LOG = ModBlocks.CHERRYWOOD_LOG.getBlock().defaultBlockState();
         private static final BlockState CHERRYWOOD_LEAVES = ModBlocks.CHERRYWOOD_LEAVES.getBlock().defaultBlockState();
-        private static final BlockState CHERRYWOOD_SAPLING = ModBlocks.CHERRYWOOD_SAPLING.getBlock().defaultBlockState();
+        private static final BlockState CHERRYWOOD_SAPLING = NewModBlocks.CHERRYWOOD_SAPLING.get().defaultBlockState();
         private static final BlockState MYSTERYWOOD_LOG = ModBlocks.MYSTERYWOOD_LOG.getBlock().defaultBlockState();
         private static final BlockState MYSTERYWOOD_LEAVES = ModBlocks.MYSTERYWOOD_LEAVES.getBlock().defaultBlockState();
-        private static final BlockState MYSTERYWOOD_SAPLING = ModBlocks.MYSTERYWOOD_SAPLING.getBlock().defaultBlockState();
+        private static final BlockState MYSTERYWOOD_SAPLING = NewModBlocks.MYSTERYWOOD_SAPLING.get().defaultBlockState();
         private static final BlockState YELLOW_ORCHID = ModBlocks.YELLOW_ORCHID.getBlock().defaultBlockState();
         private static final BlockState EDELWOOD_LOG = ModBlocks.EDELWOOD_LOG.getBlock().defaultBlockState().setValue(EdelwoodLogBlock.LEAVES, true);
         private static final BlockState PETRIFIED_ROOT = NewModBlocks.PETRIFIED_ROOT.get().defaultBlockState();

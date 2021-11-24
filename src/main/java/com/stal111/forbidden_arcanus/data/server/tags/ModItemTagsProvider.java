@@ -64,5 +64,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(ModTags.Blocks.RUNE_BLOCKS, ModTags.Items.RUNE_BLOCKS);
         this.copy(ModTags.Blocks.ARCANE_CRYSTAL_ORES, ModTags.Items.ARCANE_CRYSTAL_ORES);
         this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
+        this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
     }
 }

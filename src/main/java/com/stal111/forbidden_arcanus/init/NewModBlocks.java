@@ -3,7 +3,10 @@ package com.stal111.forbidden_arcanus.init;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
+import com.stal111.forbidden_arcanus.common.block.ArcaneDragonEggBlock;
 import com.stal111.forbidden_arcanus.common.block.SoullessSandBlock;
+import com.stal111.forbidden_arcanus.common.block.grower.CherrywoodTreeGrower;
+import com.stal111.forbidden_arcanus.common.block.grower.MysterywoodTreeGrower;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
@@ -92,12 +95,17 @@ public class NewModBlocks {
     public static final RegistryObject<StairBlock> POLISHED_SOULLESS_SANDSTONE_STAIRS = HELPER.register("polished_soulless_sandstone_stairs", new StairBlock(() -> POLISHED_SOULLESS_SANDSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.SANDSTONE_STAIRS)));
     public static final RegistryObject<WallBlock> SOULLESS_SANDSTONE_WALL = HELPER.register("soulless_sandstone_wall", new WallBlock(Block.Properties.copy(Blocks.SANDSTONE_WALL)));
 
+    public static final RegistryObject<SaplingBlock> CHERRYWOOD_SAPLING = HELPER.register("cherrywood_sapling", new SaplingBlock(new CherrywoodTreeGrower(), Block.Properties.copy(Blocks.OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<SaplingBlock> MYSTERYWOOD_SAPLING = HELPER.register("mysterywood_sapling", new SaplingBlock(new MysterywoodTreeGrower(), Block.Properties.copy(Blocks.OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
+
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> FUNGYSS_SIGN  = HELPER.createSignBlock("fungyss", MaterialColor.WOOL, ModWoodTypes.FUNGYSS);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> CHERRYWOOD_SIGN  = HELPER.createSignBlock("cherrywood", MaterialColor.COLOR_PINK, ModWoodTypes.CHERRYWOOD);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> MYSTERYWOOD_SIGN  = HELPER.createSignBlock("mysterywood", MaterialColor.COLOR_BROWN, ModWoodTypes.MYSTERYWOOD);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> EDELWOOD_SIGN  = HELPER.createSignBlock("edelwood", MaterialColor.COLOR_BROWN, ModWoodTypes.EDELWOOD);
 
     public static final RegistryObject<HephaestusForgeBlock> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", new HephaestusForgeBlock(Block.Properties.copy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+
+    public static final RegistryObject<ArcaneDragonEggBlock> ARCANE_DRAGON_EGG = HELPER.register("arcane_dragon_egg", new ArcaneDragonEggBlock(Block.Properties.copy(Blocks.DRAGON_EGG).lightLevel(value -> 5)));
 
     public static final RegistryObject<Block> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", new ArcaneCrystalObeliskBlock(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ObsidianSkullBlock> OBSIDIAN_SKULL = HELPER.registerNoItem("obsidian_skull", new ObsidianSkullBlock(Block.Properties.copy(Blocks.SKELETON_SKULL)));
@@ -123,8 +131,8 @@ public class NewModBlocks {
     public static final RegistryObject<NipaBlock> NIPA = HELPER.register("nipa", new NipaBlock(Block.Properties.copy(Blocks.LARGE_FERN)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<NoFluidOverlayBlock> PETRIFIED_ROOT = HELPER.register("petrified_root", new NoFluidOverlayBlock(Block.Properties.copy(Blocks.STONE).noOcclusion()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> BLACK_HOLE = HELPER.registerNoItem("black_hole", new BlackHoleBlock(Block.Properties.copy(Blocks.STONE).strength(2.0F, 8.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<FlowerPotBlock> POTTED_CHERRYWOOD_SAPLING = HELPER.registerNoItem("potted_cherrywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, ModBlocks.CHERRYWOOD_SAPLING::getBlock, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<FlowerPotBlock> POTTED_MYSTERYWOOD_SAPLING = HELPER.registerNoItem("potted_mysterywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, ModBlocks.MYSTERYWOOD_SAPLING::getBlock, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<FlowerPotBlock> POTTED_CHERRYWOOD_SAPLING = HELPER.registerNoItem("potted_cherrywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHERRYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<FlowerPotBlock> POTTED_MYSTERYWOOD_SAPLING = HELPER.registerNoItem("potted_mysterywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, MYSTERYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<FlowerPotBlock> POTTED_YELLOW_ORCHID = HELPER.registerNoItem("potted_yellow_orchid", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, ModBlocks.YELLOW_ORCHID::getBlock, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<ChainBlock> ARCANE_GOLDEN_CHAIN = HELPER.register("arcane_golden_chain", new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)), ValhelsiaRenderType.CUTOUT_MIPPED);
 

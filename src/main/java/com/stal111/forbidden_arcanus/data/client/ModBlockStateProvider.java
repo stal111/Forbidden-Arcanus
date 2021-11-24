@@ -53,7 +53,10 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 NewModBlocks.NIPA,
                 NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD,
                 NewModBlocks.PETRIFIED_ROOT,
-                NewModBlocks.HEPHAESTUS_FORGE
+                NewModBlocks.HEPHAESTUS_FORGE,
+                NewModBlocks.ARCANE_DRAGON_EGG,
+                NewModBlocks.DARKSTONE_PEDESTAL,
+                NewModBlocks.ARCANE_DARKSTONE_PEDESTAL
         );
         take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);
         take(block -> pixieUtremJarBlock(block, true), NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
@@ -77,7 +80,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::runicChiseledPolishedDarkstone, NewModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE);
         take(this::arcanePolishedDarkstonePillar, NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
 
-        take(this::withExistingModel, NewModBlocks.DARKSTONE_PEDESTAL, NewModBlocks.ARCANE_DARKSTONE_PEDESTAL);
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
         take(block -> signBlock(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_SIGN.getSecond().get()), NewModBlocks.FUNGYSS_SIGN.getFirst());
@@ -87,6 +89,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), NewModBlocks.ARCANE_GOLDEN_CHAIN);
 
+        forEach(block -> block instanceof SaplingBlock, block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))));
         forEach(block -> block instanceof IronBarsBlock, block -> paneBlock((IronBarsBlock) block, modLoc("block/" + getName(block).substring(0, getName(block).length() - 5)), modLoc("block/" + getName(block) + "_top")));
         forEach(block -> block instanceof StairBlock, block -> {
             ResourceLocation resourceLocation = getName(block).contains("brick") ? modLoc("block/" + getName(block).substring(0, getName(block).length() - 7).concat("s")) : modLoc("block/" + getName(block).substring(0, getName(block).length() - 7));

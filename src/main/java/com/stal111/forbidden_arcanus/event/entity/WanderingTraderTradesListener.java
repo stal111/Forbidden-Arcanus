@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.valhelsia.valhelsia_core.common.helper.TradeHelper;
 
 /**
- * Wandering Trader Trades Listener
+ * Wandering Trader Trades Listener <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.event.entity.WanderingTraderTradesListener
  *
  * @author stal111
@@ -24,8 +24,8 @@ public class WanderingTraderTradesListener {
     public static void onWanderingTraderTradesEvent(WandererTradesEvent event) {
         TradeHelper.addWanderingTraderTrades(event,
                 new BasicTrade(3, new ItemStack(NewModBlocks.FUNGYSS.get()), 5, 1),
-                new BasicTrade(5, new ItemStack(ModBlocks.CHERRYWOOD_SAPLING.getBlock()), 8, 1),
-                new BasicTrade(5, new ItemStack(ModBlocks.MYSTERYWOOD_SAPLING.getBlock()), 8, 1),
+                new BasicTrade(5, new ItemStack(NewModBlocks.CHERRYWOOD_SAPLING.get()), 8, 1),
+                new BasicTrade(5, new ItemStack(NewModBlocks.MYSTERYWOOD_SAPLING.get()), 8, 1),
                 new BasicTrade(2, new ItemStack(ModBlocks.YELLOW_ORCHID.getBlock()), 6, 1)
         );
     }
