@@ -68,6 +68,9 @@
 
     "block.forbidden_arcanus.cherrywood_sapling": "Cherrywood Sapling",
     "block.forbidden_arcanus.mysterywood_sapling": "Mysterywood Sapling",
+    "block.forbidden_arcanus.cherrywood_leaves": "Cherrywood Leaves",
+    "block.forbidden_arcanus.mysterywood_leaves": "Mysterywood Leaves",
+    "block.forbidden_arcanus.nuggety_mysterywood_leaves": "Nuggety Mysterywood Leaves",
 
     "block.forbidden_arcanus.fungyss_sign": "Fungyss Sign",
     "block.forbidden_arcanus.cherrywood_sign": "Cherrywood Sign",
@@ -99,7 +102,6 @@
     "block.forbidden_arcanus.cherrywood": "Cherrywood",
     "block.forbidden_arcanus.stripped_cherrywood_log": "Stripped Cherrywood Log",
     "block.forbidden_arcanus.stripped_cherrywood": "Stripped Cherrywood",
-    "block.forbidden_arcanus.cherrywood_leaves": "Cherrywood Leaves",
     "block.forbidden_arcanus.cherrywood_planks": "Cherrywood Planks",
     "block.forbidden_arcanus.cherrywood_stairs": "Cherrywood Stairs",
     "block.forbidden_arcanus.cherrywood_slab": "Cherrywood Slab",
@@ -114,7 +116,6 @@
     "block.forbidden_arcanus.mysterywood": "Mysterywood",
     "block.forbidden_arcanus.stripped_mysterywood_log": "Stripped Mysterywood Log",
     "block.forbidden_arcanus.stripped_mysterywood": "Stripped Mysterywood",
-    "block.forbidden_arcanus.mysterywood_leaves": "Mysterywood Leaves",
     "block.forbidden_arcanus.mysterywood_planks": "Mysterywood Planks",
     "block.forbidden_arcanus.mysterywood_stairs": "Mysterywood Stairs",
     "block.forbidden_arcanus.mysterywood_slab": "Mysterywood Slab",

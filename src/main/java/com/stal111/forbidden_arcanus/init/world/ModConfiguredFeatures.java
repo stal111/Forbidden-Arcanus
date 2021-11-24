@@ -12,6 +12,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSi
 import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
@@ -52,7 +54,7 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> STELLA_ARCANUM = register("ore_stella_arcanum", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, States.STELLA_ARCANUM, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.STELLA_ARCANUM_MAX_HEIGHT.get())).squared().count(WorldGenConfig.STELLA_ARCANUM_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
     public static final ConfiguredFeature<?, ?> XPETRIFIED_ORE = register("ore_xpetrified", Feature.REPLACE_SINGLE_BLOCK.configured(new ReplaceBlockConfiguration(States.STONE, States.XPETRIFIED_ORE)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
     public static final ConfiguredFeature<TreeConfiguration, ?> CHERRYWOOD = (ConfiguredFeature<TreeConfiguration, ?>) register("cherrywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(new SimpleStateProvider(States.CHERRYWOOD_LOG), new ForkingTrunkPlacer(5, 2, 2), new SimpleStateProvider(States.CHERRYWOOD_LEAVES), new SimpleStateProvider(States.CHERRYWOOD_SAPLING), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-    public static final ConfiguredFeature<TreeConfiguration, ?> MYSTERYWOOD = (ConfiguredFeature<TreeConfiguration, ?>) register("mysterywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(new SimpleStateProvider(States.MYSTERYWOOD_LOG), new FancyTrunkPlacer(3, 11, 0), new SimpleStateProvider(States.MYSTERYWOOD_LEAVES), new SimpleStateProvider(States.MYSTERYWOOD_SAPLING), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().build())).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList)));
+    public static final ConfiguredFeature<TreeConfiguration, ?> MYSTERYWOOD = (ConfiguredFeature<TreeConfiguration, ?>) register("mysterywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(new SimpleStateProvider(States.MYSTERYWOOD_LOG), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES, 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES, 1)), new SimpleStateProvider(States.MYSTERYWOOD_SAPLING), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().build())).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList)));
 
     public static final ConfiguredFeature<?, ?> YELLOW_ORCHID = register("flower_yellow_orchid", Feature.FLOWER.configured(Configs.YELLOW_ORCHID).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(14)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList)));
     public static final ConfiguredFeature<?, ?> EDELWOOD_LOG = register("edelwood_log", Feature.RANDOM_PATCH.configured(Configs.EDELWOOD_LOG).count(3).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
@@ -72,6 +74,10 @@ public class ModConfiguredFeatures {
 
     public static void load() {
 
+    }
+
+    private static SimpleWeightedRandomList.Builder<BlockState> weightedBlockStateBuilder() {
+        return SimpleWeightedRandomList.builder();
     }
 
     public static final class Configs {
@@ -94,10 +100,11 @@ public class ModConfiguredFeatures {
         private static final BlockState STELLA_ARCANUM = NewModBlocks.STELLA_ARCANUM.get().defaultBlockState();
         private static final BlockState XPETRIFIED_ORE = NewModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
         private static final BlockState CHERRYWOOD_LOG = ModBlocks.CHERRYWOOD_LOG.getBlock().defaultBlockState();
-        private static final BlockState CHERRYWOOD_LEAVES = ModBlocks.CHERRYWOOD_LEAVES.getBlock().defaultBlockState();
+        private static final BlockState CHERRYWOOD_LEAVES = NewModBlocks.CHERRYWOOD_LEAVES.get().defaultBlockState();
         private static final BlockState CHERRYWOOD_SAPLING = NewModBlocks.CHERRYWOOD_SAPLING.get().defaultBlockState();
         private static final BlockState MYSTERYWOOD_LOG = ModBlocks.MYSTERYWOOD_LOG.getBlock().defaultBlockState();
-        private static final BlockState MYSTERYWOOD_LEAVES = ModBlocks.MYSTERYWOOD_LEAVES.getBlock().defaultBlockState();
+        private static final BlockState MYSTERYWOOD_LEAVES = NewModBlocks.MYSTERYWOOD_LEAVES.get().defaultBlockState();
+        private static final BlockState NUGGETY_MYSTERYWOOD_LEAVES = NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get().defaultBlockState();
         private static final BlockState MYSTERYWOOD_SAPLING = NewModBlocks.MYSTERYWOOD_SAPLING.get().defaultBlockState();
         private static final BlockState YELLOW_ORCHID = ModBlocks.YELLOW_ORCHID.getBlock().defaultBlockState();
         private static final BlockState EDELWOOD_LOG = ModBlocks.EDELWOOD_LOG.getBlock().defaultBlockState().setValue(EdelwoodLogBlock.LEAVES, true);

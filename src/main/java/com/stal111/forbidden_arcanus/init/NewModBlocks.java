@@ -97,6 +97,9 @@ public class NewModBlocks {
 
     public static final RegistryObject<SaplingBlock> CHERRYWOOD_SAPLING = HELPER.register("cherrywood_sapling", new SaplingBlock(new CherrywoodTreeGrower(), Block.Properties.copy(Blocks.OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<SaplingBlock> MYSTERYWOOD_SAPLING = HELPER.register("mysterywood_sapling", new SaplingBlock(new MysterywoodTreeGrower(), Block.Properties.copy(Blocks.OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<LeavesBlock> CHERRYWOOD_LEAVES = HELPER.register("cherrywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<LeavesBlock> MYSTERYWOOD_LEAVES = HELPER.register("mysterywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<LeavesBlock> NUGGETY_MYSTERYWOOD_LEAVES = HELPER.register("nuggety_mysterywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
 
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> FUNGYSS_SIGN  = HELPER.createSignBlock("fungyss", MaterialColor.WOOL, ModWoodTypes.FUNGYSS);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> CHERRYWOOD_SIGN  = HELPER.createSignBlock("cherrywood", MaterialColor.COLOR_PINK, ModWoodTypes.CHERRYWOOD);

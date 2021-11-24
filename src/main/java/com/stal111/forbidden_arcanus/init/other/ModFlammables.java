@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.init.other;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.mixin.AccessorFireBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -8,6 +9,10 @@ import net.minecraft.world.level.block.Blocks;
 public class ModFlammables {
 
     public static void registerFlammables() {
+        registerLeaves(NewModBlocks.CHERRYWOOD_LEAVES.get());
+        registerLeaves(NewModBlocks.MYSTERYWOOD_LEAVES.get());
+        registerLeaves(NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
+
         registerLog(ModBlocks.EDELWOOD_LOG.getBlock());
         registerWoodenBlock(ModBlocks.EDELWOOD_PLANKS.getBlock());
         registerWoodenBlock(ModBlocks.ARCANE_EDELWOOD_PLANKS.getBlock());
@@ -20,7 +25,6 @@ public class ModFlammables {
         registerLog(ModBlocks.CHERRYWOOD.getBlock());
         registerLog(ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
         registerLog(ModBlocks.STRIPPED_CHERRYWOOD.getBlock());
-        registerLeaves(ModBlocks.CHERRYWOOD_LEAVES.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_PLANKS.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_SLAB.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_STAIRS.getBlock());
@@ -31,7 +35,6 @@ public class ModFlammables {
         registerLog(ModBlocks.MYSTERYWOOD.getBlock());
         registerLog(ModBlocks.STRIPPED_MYSTERYWOOD_LOG.getBlock());
         registerLog(ModBlocks.STRIPPED_MYSTERYWOOD.getBlock());
-        registerLeaves(ModBlocks.MYSTERYWOOD_LEAVES.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_PLANKS.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_SLAB.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_STAIRS.getBlock());
