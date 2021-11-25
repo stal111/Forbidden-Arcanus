@@ -1,8 +1,9 @@
 package com.stal111.forbidden_arcanus.integration;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.init.ModEnchantments;
+import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.other.ModItemModifiers;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,9 +34,9 @@ public class ApplyIndestructibleEnchantmentMaker {
                 return;
             }
 
-            ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_indestructible_enchantment." + item.getDescriptionId());
+            ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_eternal_modifier." + item.getDescriptionId());
 
-            stack.enchant(ModEnchantments.INDESTRUCTIBLE.get(), 1);
+            ModifierHelper.setModifier(stack, ModItemModifiers.ETERNAL.get());
 
             recipes.add(new UpgradeRecipe(id, Ingredient.of(item), eternalStella, stack));
         });

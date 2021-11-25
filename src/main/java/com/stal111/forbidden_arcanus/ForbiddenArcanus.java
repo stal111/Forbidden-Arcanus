@@ -6,12 +6,10 @@ import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.init.*;
-import com.stal111.forbidden_arcanus.init.other.ModContainers;
-import com.stal111.forbidden_arcanus.init.other.ModDispenseBehaviors;
-import com.stal111.forbidden_arcanus.init.other.ModFlammables;
-import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
+import com.stal111.forbidden_arcanus.init.other.*;
 import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
@@ -33,7 +31,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,12 +41,16 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
 import net.valhelsia.valhelsia_core.core.registry.LootModifierRegistryHelper;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.function.Supplier;
 
 @Mod(ForbiddenArcanus.MOD_ID)
 public class ForbiddenArcanus {
@@ -61,6 +62,12 @@ public class ForbiddenArcanus {
 	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().addHelpers(new LootModifierRegistryHelper()).build();
+
+	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry("item_modifiers", () ->
+			new RegistryBuilder<ItemModifier>().setMaxID(Integer.MAX_VALUE - 1).onAdd((owner, stage, id, obj, old) -> {
+						LOGGER.info("ExplosionType Added: " + obj.getRegistryName().toString() + " ");
+					}
+			).setDefaultKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "null")));
 
 	public static ForbiddenArcanus instance;
 
@@ -83,6 +90,7 @@ public class ForbiddenArcanus {
 		ModStructures.STRUCTURES.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);
 		ModPOITypes.POI_TYPES.register(modEventBus);
+		ModItemModifiers.MODIFIERS.register(modEventBus);
 
 		REGISTRY_MANAGER.getBlockHelper().setDefaultGroup(FORBIDDEN_ARCANUS);
 

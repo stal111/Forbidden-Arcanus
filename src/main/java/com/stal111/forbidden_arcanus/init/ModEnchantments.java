@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.init;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.enchantment.ModEnchantment;
 import com.stal111.forbidden_arcanus.item.EdelwoodBucketItem;
-import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -18,7 +17,6 @@ public class ModEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new EnchantmentBuilder(Enchantment.Rarity.UNCOMMON, ModEnchantmentType.EDELWOOD_BUCKET, EquipmentSlot.MAINHAND).isTreasure().build());
-    public static final RegistryObject<Enchantment> INDESTRUCTIBLE = register("indestructible", new EnchantmentBuilder(Enchantment.Rarity.RARE, ModEnchantmentType.INDESTRUCTIBLE, EquipmentSlot.MAINHAND).canApplyTogether(enchantment -> !ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED.contains(enchantment)).isTreasure().canBeVillagerTrade(false).canGenerateInLoot(false).build());
 
     private static <T extends Enchantment> RegistryObject<T> register(String name, T enchantment) {
         return ENCHANTMENTS.register(name, () -> enchantment);
@@ -26,7 +24,6 @@ public class ModEnchantments {
 
     public static class ModEnchantmentType {
         public static final EnchantmentCategory EDELWOOD_BUCKET = EnchantmentCategory.create("EDELWOOD_BUCKET", item -> item instanceof EdelwoodBucketItem);
-        public static final EnchantmentCategory INDESTRUCTIBLE = EnchantmentCategory.create("INDESTRUCTIBLE_CONFIG_BLACKLIST", item -> item.canBeDepleted() && !(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED.contains(item)));
     }
 
     public static class EnchantmentBuilder {
