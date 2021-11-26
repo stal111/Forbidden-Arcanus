@@ -33,11 +33,6 @@ public class ModifierItemPredicate extends ItemPredicate {
 
     @Override
     public boolean matches(@Nonnull ItemStack stack) {
-        System.out.println(stack);
-        System.out.println(this.modifier);
-        System.out.println(ModifierHelper.getModifier(stack));
-        System.out.println(ModifierHelper.getModifier(stack) == this.modifier);
-
         return ModifierHelper.getModifier(stack) == this.modifier;
     }
 
