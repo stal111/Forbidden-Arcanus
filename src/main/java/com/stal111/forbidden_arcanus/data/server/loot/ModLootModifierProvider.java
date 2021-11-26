@@ -2,7 +2,10 @@ package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
+import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
+import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
+import com.stal111.forbidden_arcanus.init.other.ModItemModifiers;
 import com.stal111.forbidden_arcanus.init.other.ModLootModifiers;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -54,17 +57,6 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"))
         );
-        this.add("blacksmith_gavel_ore_doubling", ModLootModifiers.BLACKSMITH_GAVEL.get(),
-                new BlacksmithGavelLootModifier(new LootItemCondition[] {
-                        LootItemRandomChanceCondition.randomChance(0.3F).build()
-                })
-        );
-//        this.add("infernum_smelting", ModLootModifiers.INFERNUM_SMELTING.get(),
-//                new InfernumPickaxeLootModifier(new LootItemCondition[] {
-//                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModItems.INFERNUM_PICKAXE.get())).build()
-//                })
-//        );
-        this.add("magical_farmland_crop_doubling", ModLootModifiers.MAGICAL_FARMLAND.get(), new MagicalFarmlandLootModifier(new LootItemCondition[]{}));
         this.add("enderman_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new LootItemCondition[] {
                         LootTableIdCondition.builder(new ResourceLocation("entities/enderman")).build()
@@ -108,5 +100,20 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         LootTableIdCondition.builder(new ResourceLocation("chests/end_city_treasure")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/end_city_treasure_additions"))
         );
+
+        // Items
+        this.add("fiery_modifier", ModLootModifiers.FIERY.get(),
+                new FieryLootModifier(new LootItemCondition[] {
+                        new MatchTool(new ModifierItemPredicate(ModItemModifiers.FIERY.get()))
+                })
+        );
+        this.add("blacksmith_gavel_ore_doubling", ModLootModifiers.BLACKSMITH_GAVEL.get(),
+                new BlacksmithGavelLootModifier(new LootItemCondition[] {
+                        LootItemRandomChanceCondition.randomChance(0.3F).build()
+                })
+        );
+
+        // Blocks
+        this.add("magical_farmland_crop_doubling", ModLootModifiers.MAGICAL_FARMLAND.get(), new MagicalFarmlandLootModifier(new LootItemCondition[]{}));
     }
 }

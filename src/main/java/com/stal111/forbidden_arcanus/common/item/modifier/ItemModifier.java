@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -15,5 +16,12 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
 
     public void onApplied(ItemStack stack) {
 
+    }
+
+    public TranslatableComponent getComponent() {
+        if (this.getRegistryName() == null) {
+            return new TranslatableComponent("");
+        }
+        return new TranslatableComponent("modifier." + this.getRegistryName().getNamespace() + "." + this.getRegistryName().getPath());
     }
 }

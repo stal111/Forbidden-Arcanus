@@ -19,4 +19,5 @@ public class ModItemModifiers {
     public static final DeferredRegister<ItemModifier> MODIFIERS = DeferredRegister.create(ItemModifier.class, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<EternalModifier> ETERNAL = MODIFIERS.register("eternal", EternalModifier::new);
+    public static final RegistryObject<ItemModifier> FIERY = MODIFIERS.register("fiery", ItemModifier::new);
 }

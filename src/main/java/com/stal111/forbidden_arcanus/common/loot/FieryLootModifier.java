@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.gson.JsonObject;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
@@ -10,7 +9,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -20,20 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Infernum Pickaxe Loot Modifier <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loot.InfernumPickaxeLootModifier
+ * Fiery Loot Modifier <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loot.FieryLootModifier
  *
  * @author stal111
  * @version 2.0.0
  */
-public class InfernumPickaxeLootModifier extends LootModifier {
+public class FieryLootModifier extends LootModifier {
 
     /**
      * Constructs a LootModifier.
      *
      * @param conditions the ILootConditions that need to be matched before the loot is modified.
      */
-    public InfernumPickaxeLootModifier(LootItemCondition[] conditions) {
+    public FieryLootModifier(LootItemCondition[] conditions) {
         super(conditions);
     }
 
@@ -46,10 +44,6 @@ public class InfernumPickaxeLootModifier extends LootModifier {
     }
 
     private ItemStack trySmelt(ItemStack stack, Level world) {
-        if (!Tags.Blocks.ORES.contains(Block.byItem(stack.getItem()))) {
-            return stack;
-        }
-
         return world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), world)
                 .map(SmeltingRecipe::getResultItem)
                 .filter(itemStack -> !itemStack.isEmpty())
@@ -58,15 +52,15 @@ public class InfernumPickaxeLootModifier extends LootModifier {
 
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<InfernumPickaxeLootModifier> {
+    public static class Serializer extends GlobalLootModifierSerializer<FieryLootModifier> {
 
         @Override
-        public InfernumPickaxeLootModifier read(ResourceLocation name, JsonObject json, LootItemCondition[] conditions) {
-            return new InfernumPickaxeLootModifier(conditions);
+        public FieryLootModifier read(ResourceLocation name, JsonObject json, LootItemCondition[] conditions) {
+            return new FieryLootModifier(conditions);
         }
 
         @Override
-        public JsonObject write(InfernumPickaxeLootModifier instance) {
+        public JsonObject write(FieryLootModifier instance) {
             return super.makeConditions(instance.conditions);
         }
     }

@@ -1,0 +1,12 @@
+{
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "type": "forbidden_arcanus:modifier",
+        "modifier": "forbidden_arcanus:fiery"
+      }
+    }
+  ],
+  "type": "forbidden_arcanus:fiery"
+}

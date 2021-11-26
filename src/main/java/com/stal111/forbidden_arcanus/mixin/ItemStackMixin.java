@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.mixin;
 
+import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.init.other.ModItemModifiers;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,8 +31,10 @@ public abstract class ItemStackMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "getHoverName", cancellable = true)
     private void forbiddenArcanus_getHoverName(CallbackInfoReturnable<Component> cir) {
-        if (!this.hasCustomHoverName() && ModifierHelper.getModifier(this.copy()) != null) {
-            cir.setReturnValue(new TranslatableComponent("Eternal").append(" ").append(cir.getReturnValue()));
+        ItemModifier modifier = ModifierHelper.getModifier(this.copy());
+
+        if (!this.hasCustomHoverName() && modifier != null) {
+            cir.setReturnValue(modifier.getComponent().append(" ").append(cir.getReturnValue()));
         }
     }
 }
