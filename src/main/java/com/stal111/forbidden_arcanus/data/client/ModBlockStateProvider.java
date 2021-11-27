@@ -67,7 +67,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> pressurePlateBlock(block, fungyssPlanks), NewModBlocks.FUNGYSS_PRESSURE_PLATE);
         take(block -> buttonBlock((ButtonBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_BUTTON);
         take(block -> trapdoorBlock((TrapDoorBlock) block, modLoc("block/fungyss_trapdoor"), true), NewModBlocks.FUNGYSS_TRAPDOOR);
-        take(block -> doorBlock((DoorBlock) block, modLoc("block/fungyss_door_bottom"), modLoc("block/fungyss_door_top")), NewModBlocks.FUNGYSS_DOOR);
 
         take(block -> fenceBlock((FenceBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE);
         take(block -> fenceGateBlock((FenceGateBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE_GATE);
@@ -87,6 +86,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), NewModBlocks.ARCANE_GOLDEN_CHAIN);
 
+        forEach(block -> block instanceof DoorBlock, block -> doorBlock((DoorBlock) block, modLoc("block/" + getName(block) + "_bottom"), modLoc("block/" + getName(block) + "_top")));
         forEach(block -> block instanceof SaplingBlock, block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))));
         forEach(block -> block instanceof IronBarsBlock, block -> paneBlock((IronBarsBlock) block, modLoc("block/" + getName(block).substring(0, getName(block).length() - 5)), modLoc("block/" + getName(block) + "_top")));
         forEach(block -> block instanceof StairBlock, block -> {

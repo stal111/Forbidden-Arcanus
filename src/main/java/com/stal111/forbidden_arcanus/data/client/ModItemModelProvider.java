@@ -9,10 +9,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.IronBarsBlock;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.StandingSignBlock;
-import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaItemModelProvider;
@@ -43,7 +40,6 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 NewModBlocks.PIXIE_UTREM_JAR,
                 NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
                 NewModBlocks.NIPA,
-                NewModBlocks.FUNGYSS_DOOR,
                 NewModBlocks.ARCANE_CRYSTAL_OBELISK,
                 NewModBlocks.ARCANE_GOLDEN_CHAIN,
                 NewModBlocks.ARCANE_DRAGON_EGG
@@ -61,6 +57,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         takeBlockItem(item -> withParent(item, "arcane_polished_darkstone_pillar_single"), NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
         takeBlockItem(item -> withParent(item, "fungyss_trapdoor_bottom"), NewModBlocks.FUNGYSS_TRAPDOOR);
 
+        forEachBlockItem(item -> item.getBlock() instanceof DoorBlock, this::simpleModel);
         forEachBlockItem(item -> item.getBlock() instanceof IronBarsBlock, item -> simpleModelBlockTexture(item, getName(item).substring(0, getName(item).length() - 5)));
         forEachBlockItem(item -> item.getBlock() instanceof WallBlock, this::withParentInventory);
         forEachBlockItem(item -> item.getBlock() instanceof StandingSignBlock, this::simpleModel);

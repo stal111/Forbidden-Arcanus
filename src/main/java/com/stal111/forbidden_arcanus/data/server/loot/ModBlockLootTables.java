@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.DoorBlock;
@@ -62,7 +63,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         forEach(block -> block instanceof IronBarsBlock, this::dropWhenSilkTouch);
         forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);
         forEach(block -> block instanceof SlabBlock, block -> add(block, ValhelsiaBlockLootTables::droppingSlab));
-        forEach(block -> block instanceof DoorBlock, ValhelsiaBlockLootTables::registerDoor);
+        forEach(block -> block instanceof DoorBlock, block -> add(block, BlockLoot::createDoorTable));
 
         forEach(this::registerDropSelfLootTable);
     }

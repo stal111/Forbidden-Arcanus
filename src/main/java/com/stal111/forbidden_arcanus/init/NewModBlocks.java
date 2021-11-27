@@ -102,6 +102,12 @@ public class NewModBlocks {
     public static final RegistryObject<LeavesBlock> MYSTERYWOOD_LEAVES = HELPER.register("mysterywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<LeavesBlock> NUGGETY_MYSTERYWOOD_LEAVES = HELPER.register("nuggety_mysterywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
 
+    public static final RegistryObject<DoorBlock> ARCANE_GOLD_DOOR = HELPER.register("arcane_gold_door", new DoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<DoorBlock> FUNGYSS_DOOR = HELPER.register("fungyss_door", new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<DoorBlock> CHERRYWOOD_DOOR = HELPER.register("cherrywood_door", new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<DoorBlock> MYSTERYWOOD_DOOR = HELPER.register("mysterywood_door", new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<DoorBlock> EDELWOOD_DOOR = HELPER.register("edelwood_door", new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> FUNGYSS_SIGN  = HELPER.createSignBlock("fungyss", MaterialColor.WOOL, ModWoodTypes.FUNGYSS);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> CHERRYWOOD_SIGN  = HELPER.createSignBlock("cherrywood", MaterialColor.COLOR_PINK, ModWoodTypes.CHERRYWOOD);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> MYSTERYWOOD_SIGN  = HELPER.createSignBlock("mysterywood", MaterialColor.COLOR_BROWN, ModWoodTypes.MYSTERYWOOD);
@@ -129,7 +135,6 @@ public class NewModBlocks {
     public static final RegistryObject<PressurePlateBlock> FUNGYSS_PRESSURE_PLATE = HELPER.register("fungyss_pressure_plate", new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<WoodButtonBlock> FUNGYSS_BUTTON = HELPER.register("fungyss_button", new WoodButtonBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<TrapDoorBlock> FUNGYSS_TRAPDOOR = HELPER.register("fungyss_trapdoor", new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<DoorBlock> FUNGYSS_DOOR = HELPER.register("fungyss_door", new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<FenceBlock> FUNGYSS_FENCE = HELPER.register("fungyss_fence", new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<FenceGateBlock> FUNGYSS_FENCE_GATE = HELPER.register("fungyss_fence_gate", new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<NipaBlock> NIPA = HELPER.register("nipa", new NipaBlock(Block.Properties.copy(Blocks.LARGE_FERN)), ValhelsiaRenderType.CUTOUT);
