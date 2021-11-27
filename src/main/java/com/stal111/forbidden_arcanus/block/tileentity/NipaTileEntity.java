@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block.tileentity;
 
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.ModTileEntities;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.core.BlockPos;

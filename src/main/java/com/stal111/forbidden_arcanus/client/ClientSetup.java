@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;

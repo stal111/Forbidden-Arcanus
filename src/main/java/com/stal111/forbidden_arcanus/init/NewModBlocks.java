@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.common.block.ArcaneDragonEggBlock;
+import com.stal111.forbidden_arcanus.common.block.PillarBlock;
 import com.stal111.forbidden_arcanus.common.block.SoullessSandBlock;
 import com.stal111.forbidden_arcanus.common.block.grower.CherrywoodTreeGrower;
 import com.stal111.forbidden_arcanus.common.block.grower.MysterywoodTreeGrower;
@@ -58,7 +59,7 @@ public class NewModBlocks {
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_STAIRS = HELPER.register("arcane_polished_darkstone_stairs", new StairBlock(() -> ARCANE_POLISHED_DARKSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.STONE_STAIRS).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_WALL = HELPER.register("arcane_polished_darkstone_wall", new WallBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> CHISELED_ARCANE_POLISHED_DARKSTONE = HELPER.register("chiseled_arcane_polished_darkstone", new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
-    public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_PILLAR = HELPER.register("arcane_polished_darkstone_pillar", new PillarBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<PillarBlock> ARCANE_POLISHED_DARKSTONE_PILLAR = HELPER.register("arcane_polished_darkstone_pillar", new PillarBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_ROD = HELPER.register("arcane_polished_darkstone_rod", new ArcanePolishedDarkstoneRod(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));
     public static final RegistryObject<Block> ARCANE_DARKSTONE_PEDESTAL = HELPER.register("arcane_darkstone_pedestal", new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));

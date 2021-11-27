@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
-import com.stal111.forbidden_arcanus.block.PillarBlock;
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
@@ -14,8 +14,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.valhelsia.valhelsia_core.common.block.ValhelsiaStandingSignBlock;
-import net.valhelsia.valhelsia_core.common.block.ValhelsiaWallSignBlock;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockStateProvider;
 
 import java.util.ArrayList;
@@ -192,11 +190,16 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     }
 
     private void arcanePolishedDarkstonePillar(Block block) {
-        getVariantBuilder(block).forAllStatesExcept(state -> ConfiguredModel.builder()
-                .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.getValue(PillarBlock.TYPE).getSerializedName())))
-                .rotationX(state.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y ? 90 : 0)
-                .rotationY(state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.X ? 90 : 0)
-                .build(), BlockStateProperties.WATERLOGGED);
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            PillarType type = state.getValue(ModBlockStateProperties.PILLAR_TYPE);
+            Direction.Axis axis = state.getValue(RotatedPillarBlock.AXIS);
+
+            return ConfiguredModel.builder()
+                    .modelFile(getExistingModel(modLoc(getName(block) + "_" + type.getSerializedName())))
+                    .rotationX(axis != Direction.Axis.Y ? 90 : 0)
+                    .rotationY(axis == Direction.Axis.X ? 90 : axis == Direction.Axis.Z ? 180 : 0)
+                    .build();
+        }, BlockStateProperties.WATERLOGGED);
     }
 
     private void arcaneCrystalObelisk(Block block) {

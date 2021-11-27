@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModEntities;

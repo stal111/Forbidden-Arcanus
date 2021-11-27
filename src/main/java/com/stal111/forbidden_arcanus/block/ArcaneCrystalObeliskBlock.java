@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.block;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;

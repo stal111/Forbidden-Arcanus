@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.item.IRitualStarterItem;
 import com.stal111.forbidden_arcanus.item.MundabiturDustItem;

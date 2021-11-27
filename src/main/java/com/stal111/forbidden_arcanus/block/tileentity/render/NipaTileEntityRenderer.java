@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.block.tileentity.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.NipaTileEntity;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

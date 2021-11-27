@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.NipaTileEntity;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.world.level.block.Block;

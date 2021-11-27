@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

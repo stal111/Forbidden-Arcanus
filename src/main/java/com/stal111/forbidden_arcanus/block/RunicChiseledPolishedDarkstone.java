@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block;
 
-import com.stal111.forbidden_arcanus.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.world.level.block.Block;
