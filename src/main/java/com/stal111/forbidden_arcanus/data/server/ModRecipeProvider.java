@@ -92,6 +92,7 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addDoorRecipe(NewModBlocks.MYSTERYWOOD_DOOR.get(), ModBlocks.MYSTERYWOOD_PLANKS.getBlock(), consumer);
         this.addDoorRecipe(NewModBlocks.EDELWOOD_DOOR.get(), ModBlocks.EDELWOOD_PLANKS.getBlock(), consumer);
 
+        this.addTrapdoorRecipe(NewModBlocks.ARCANE_GOLD_TRAPDOOR.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
         this.addTrapdoorRecipe(NewModBlocks.FUNGYSS_TRAPDOOR.get(), NewModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addTrapdoorRecipe(NewModBlocks.CHERRYWOOD_TRAPDOOR.get(), ModBlocks.CHERRYWOOD_PLANKS.getBlock(), consumer);
         this.addTrapdoorRecipe(NewModBlocks.MYSTERYWOOD_TRAPDOOR.get(), ModBlocks.MYSTERYWOOD_PLANKS.getBlock(), consumer);
