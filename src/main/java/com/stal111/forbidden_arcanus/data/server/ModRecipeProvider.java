@@ -54,7 +54,6 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_SLAB.get(), 6).pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_STAIRS.get(), 4).pattern("#  ").pattern("## ").pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get()).pattern("##").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_TRAPDOOR.get(), 2).pattern("###").pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_FENCE.get(), 3).pattern("#X#").pattern("#X#").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).define('X', Tags.Items.RODS_WOODEN).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_FENCE_GATE.get()).pattern("#X#").pattern("#X#").define('#', Tags.Items.RODS_WOODEN).define('X', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModItems.ARCANE_BONE_MEAL.get(), 4).pattern(" # ").pattern("#X#").pattern(" # ").define('#', Items.BONE_MEAL).define('X', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL_DUST.get())).save(consumer);
@@ -92,6 +91,11 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addDoorRecipe(NewModBlocks.CHERRYWOOD_DOOR.get(), ModBlocks.CHERRYWOOD_PLANKS.getBlock(), consumer);
         this.addDoorRecipe(NewModBlocks.MYSTERYWOOD_DOOR.get(), ModBlocks.MYSTERYWOOD_PLANKS.getBlock(), consumer);
         this.addDoorRecipe(NewModBlocks.EDELWOOD_DOOR.get(), ModBlocks.EDELWOOD_PLANKS.getBlock(), consumer);
+
+        this.addTrapdoorRecipe(NewModBlocks.FUNGYSS_TRAPDOOR.get(), NewModBlocks.FUNGYSS_PLANKS.get(), consumer);
+        this.addTrapdoorRecipe(NewModBlocks.CHERRYWOOD_TRAPDOOR.get(), ModBlocks.CHERRYWOOD_PLANKS.getBlock(), consumer);
+        this.addTrapdoorRecipe(NewModBlocks.MYSTERYWOOD_TRAPDOOR.get(), ModBlocks.MYSTERYWOOD_PLANKS.getBlock(), consumer);
+        this.addTrapdoorRecipe(NewModBlocks.EDELWOOD_TRAPDOOR.get(), ModBlocks.EDELWOOD_PLANKS.getBlock(), consumer);
 
         this.addSignRecipe(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addSignRecipe(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), ModBlocks.CHERRYWOOD_PLANKS.getBlock(), consumer);
@@ -147,6 +151,10 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private void addDoorRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(result, 3).pattern("##").pattern("##").pattern("##").define('#', planks).unlockedBy("has_planks", has(planks)).save(consumer);
+    }
+
+    private void addTrapdoorRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result, 2).pattern("###").pattern("###").define('#', planks).unlockedBy("has_planks", has(planks)).save(consumer);
     }
 
     private String getName(ItemLike item) {
