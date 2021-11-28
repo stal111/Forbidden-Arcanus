@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 
 import java.util.Locale;
 
@@ -28,10 +27,6 @@ public enum ModBlocks {
     EDELWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
     EDELWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
     EDELWOOD_LADDER(new EdelwoodLadderBlock(from(Blocks.LADDER)), ModRenderType.CUTOUT),
-    CHERRYWOOD_LOG(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
-    CHERRYWOOD(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
-    STRIPPED_CHERRYWOOD_LOG(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
-    STRIPPED_CHERRYWOOD(new RotatedPillarBlock(from(Blocks.OAK_LOG))),
     CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CARVED_CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CHERRYWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),
@@ -40,10 +35,6 @@ public enum ModBlocks {
     CHERRYWOOD_FENCE_GATE(new FenceGateBlock(from(Blocks.OAK_FENCE_GATE))),
     CHERRYWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
     CHERRYWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
-    MYSTERYWOOD_LOG(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
-    MYSTERYWOOD(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
-    STRIPPED_MYSTERYWOOD_LOG(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
-    STRIPPED_MYSTERYWOOD(new MysterywoodLogBlock(from(Blocks.OAK_LOG))),
     MYSTERYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     MYSTERYWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),
     MYSTERYWOOD_STAIRS(new StairBlock(() -> MYSTERYWOOD_PLANKS.getState(), from(Blocks.OAK_STAIRS))),

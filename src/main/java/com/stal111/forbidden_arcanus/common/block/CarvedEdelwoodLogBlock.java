@@ -34,8 +34,8 @@ import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 import javax.annotation.Nonnull;
 
 /**
- * Edelwood Log Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.EdelwoodLogBlock
+ * Carved Edelwood Log Block <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.CarvedEdelwoodLogBlock
  *
  * @author stal111
  * @version 2.0.0

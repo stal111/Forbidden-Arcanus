@@ -50,7 +50,6 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(NewModBlocks.UTREM_JAR.get()).pattern("#X#").pattern("# #").pattern("###").define('#', Tags.Items.GLASS_COLORLESS).define('X', ModBlocks.EDELWOOD_PLANKS.getBlock()).unlockedBy("has_item", has(Tags.Items.GLASS_COLORLESS)).save(consumer);
         ShapedRecipeBuilder.shaped(ModItems.ARCANE_CRYSTAL_DUST.get()).pattern("###").pattern("###").pattern("###").define('#', NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get()).unlockedBy("has_item", has(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())).save(consumer);
         ShapedRecipeBuilder.shaped(ModItems.SOUL_EXTRACTOR.get()).pattern("U  ").pattern("##X").pattern("Q  ").define('U', NewModBlocks.UTREM_JAR.get()).define('#', Blocks.NETHER_BRICKS).define('X', Blocks.QUARTZ_BLOCK).define('Q', Items.QUARTZ).unlockedBy("has_item", has(NewModBlocks.UTREM_JAR.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_HYPHAE.get(), 3).pattern("##").pattern("##").define('#', NewModBlocks.FUNGYSS_STEM.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_STEM.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_SLAB.get(), 6).pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_STAIRS.get(), 4).pattern("#  ").pattern("## ").pattern("###").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get()).pattern("##").define('#', NewModBlocks.FUNGYSS_PLANKS.get()).unlockedBy("has_item", has(NewModBlocks.FUNGYSS_PLANKS.get())).save(consumer);
@@ -85,6 +84,10 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addGlassPaneRecipe(NewModBlocks.DARK_RUNIC_GLASS.get(), NewModBlocks.DARK_RUNIC_GLASS_PANE.get(), consumer);
 
         ShapedRecipeBuilder.shaped(NewModBlocks.ARCANE_GOLDEN_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
+
+        this.addWoodRecipe(NewModBlocks.FUNGYSS_HYPHAE.get(), NewModBlocks.FUNGYSS_STEM.get(), consumer);
+        this.addWoodRecipe(NewModBlocks.CHERRYWOOD.get(), NewModBlocks.CHERRYWOOD_LOG.get(), consumer);
+        this.addWoodRecipe(NewModBlocks.MYSTERYWOOD.get(), NewModBlocks.MYSTERYWOOD_LOG.get(), consumer);
 
         this.addDoorRecipe(NewModBlocks.ARCANE_GOLD_DOOR.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
         this.addDoorRecipe(NewModBlocks.FUNGYSS_DOOR.get(), NewModBlocks.FUNGYSS_PLANKS.get(), consumer);
@@ -144,6 +147,10 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private void addSurroundingItemRecipe(ItemLike result, ItemLike middle, ItemLike outside, int amount, @Nonnull Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(result, amount).pattern("###").pattern("#X#").pattern("###").define('#', outside).define('X', middle).unlockedBy(getHasName(middle), has(middle)).unlockedBy(getHasName(outside), has(outside)).save(consumer);
+    }
+
+    private void addWoodRecipe(ItemLike result, ItemLike log, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result, 3).pattern("##").pattern("##").define('#', log).unlockedBy("has_log", has(log)).save(consumer);
     }
 
     private void addSignRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {

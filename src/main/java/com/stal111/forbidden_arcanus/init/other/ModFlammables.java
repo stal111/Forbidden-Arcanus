@@ -13,7 +13,17 @@ public class ModFlammables {
         registerLeaves(NewModBlocks.MYSTERYWOOD_LEAVES.get());
         registerLeaves(NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
 
+        registerLog(NewModBlocks.CHERRYWOOD_LOG.get());
+        registerLog(NewModBlocks.MYSTERYWOOD_LOG.get());
         registerLog(NewModBlocks.EDELWOOD_LOG.get());
+        registerLog(NewModBlocks.CARVED_EDELWOOD_LOG.get());
+        registerLog(NewModBlocks.STRIPPED_CHERRYWOOD_LOG.get());
+        registerLog(NewModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
+        registerLog(NewModBlocks.CHERRYWOOD.get());
+        registerLog(NewModBlocks.MYSTERYWOOD.get());
+        registerLog(NewModBlocks.STRIPPED_CHERRYWOOD.get());
+        registerLog(NewModBlocks.STRIPPED_MYSTERYWOOD.get());
+
         registerWoodenBlock(ModBlocks.EDELWOOD_PLANKS.getBlock());
         registerWoodenBlock(ModBlocks.ARCANE_EDELWOOD_PLANKS.getBlock());
         registerWoodenBlock(ModBlocks.EDELWOOD_SLAB.getBlock());
@@ -21,20 +31,12 @@ public class ModFlammables {
         registerWoodenBlock(ModBlocks.EDELWOOD_FENCE.getBlock());
         registerWoodenBlock(ModBlocks.EDELWOOD_FENCE_GATE.getBlock());
 
-        registerLog(ModBlocks.CHERRYWOOD_LOG.getBlock());
-        registerLog(ModBlocks.CHERRYWOOD.getBlock());
-        registerLog(ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
-        registerLog(ModBlocks.STRIPPED_CHERRYWOOD.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_PLANKS.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_SLAB.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_STAIRS.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_FENCE.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_FENCE_GATE.getBlock());
 
-        registerLog(ModBlocks.MYSTERYWOOD_LOG.getBlock());
-        registerLog(ModBlocks.MYSTERYWOOD.getBlock());
-        registerLog(ModBlocks.STRIPPED_MYSTERYWOOD_LOG.getBlock());
-        registerLog(ModBlocks.STRIPPED_MYSTERYWOOD.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_PLANKS.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_SLAB.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_STAIRS.getBlock());

@@ -98,10 +98,10 @@ public class ModConfiguredFeatures {
         private static final BlockState ARCANE_GILDED_DARKSTONE = NewModBlocks.ARCANE_GILDED_DARKSTONE.get().defaultBlockState();
         private static final BlockState STELLA_ARCANUM = NewModBlocks.STELLA_ARCANUM.get().defaultBlockState();
         private static final BlockState XPETRIFIED_ORE = NewModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
-        private static final BlockState CHERRYWOOD_LOG = ModBlocks.CHERRYWOOD_LOG.getBlock().defaultBlockState();
+        private static final BlockState CHERRYWOOD_LOG = NewModBlocks.CHERRYWOOD_LOG.get().defaultBlockState();
         private static final BlockState CHERRYWOOD_LEAVES = NewModBlocks.CHERRYWOOD_LEAVES.get().defaultBlockState();
         private static final BlockState CHERRYWOOD_SAPLING = NewModBlocks.CHERRYWOOD_SAPLING.get().defaultBlockState();
-        private static final BlockState MYSTERYWOOD_LOG = ModBlocks.MYSTERYWOOD_LOG.getBlock().defaultBlockState();
+        private static final BlockState MYSTERYWOOD_LOG = NewModBlocks.MYSTERYWOOD_LOG.get().defaultBlockState();
         private static final BlockState MYSTERYWOOD_LEAVES = NewModBlocks.MYSTERYWOOD_LEAVES.get().defaultBlockState();
         private static final BlockState NUGGETY_MYSTERYWOOD_LEAVES = NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get().defaultBlockState();
         private static final BlockState MYSTERYWOOD_SAPLING = NewModBlocks.MYSTERYWOOD_SAPLING.get().defaultBlockState();

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:fungyss_hyphae"
+      "forbidden_arcanus:mysterywood"
     ]
   },
   "criteria": {
@@ -12,7 +12,7 @@
         "items": [
           {
             "items": [
-              "forbidden_arcanus:fungyss_stem"
+              "forbidden_arcanus:mysterywood_log"
             ]
           }
         ]
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "forbidden_arcanus:fungyss_hyphae"
+        "recipe": "forbidden_arcanus:mysterywood"
       }
     }
   },

@@ -60,8 +60,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> pixieUtremJarBlock(block, true), NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
         take(block -> simpleBlock(block, models().cross(Objects.requireNonNull(block.getRegistryName()).getPath(), modLoc("block/fungyss"))), NewModBlocks.FUNGYSS);
         take(this::mushroomBlock, NewModBlocks.FUNGYSS_BLOCK);
-        take(block -> logBlock((RotatedPillarBlock) block), NewModBlocks.FUNGYSS_STEM);
+        take(block -> logBlock((RotatedPillarBlock) block), NewModBlocks.FUNGYSS_STEM, NewModBlocks.CHERRYWOOD_LOG, NewModBlocks.MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_CHERRYWOOD_LOG);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), NewModBlocks.FUNGYSS_HYPHAE);
+        take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), NewModBlocks.CHERRYWOOD, NewModBlocks.MYSTERYWOOD, NewModBlocks.STRIPPED_CHERRYWOOD, NewModBlocks.STRIPPED_MYSTERYWOOD);
 
         ResourceLocation fungyssPlanks = modLoc("block/fungyss_planks");
         take(block -> pressurePlateBlock(block, fungyssPlanks), NewModBlocks.FUNGYSS_PRESSURE_PLATE);

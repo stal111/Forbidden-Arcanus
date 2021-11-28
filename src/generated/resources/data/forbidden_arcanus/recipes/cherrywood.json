@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:cherrywood_log"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:cherrywood",
+    "count": 3
+  }
+}

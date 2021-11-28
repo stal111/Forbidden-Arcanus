@@ -30,6 +30,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags() {
         this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(NewModBlocks.FUNGYSS_STEM.get(), NewModBlocks.FUNGYSS_HYPHAE.get());
+        this.tag(ModTags.Blocks.CHERRYWOOD_LOGS).add(NewModBlocks.CHERRYWOOD_LOG.get(), NewModBlocks.CHERRYWOOD.get(), NewModBlocks.STRIPPED_CHERRYWOOD_LOG.get(), NewModBlocks.STRIPPED_CHERRYWOOD.get());
+        this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(NewModBlocks.MYSTERYWOOD_LOG.get(), NewModBlocks.MYSTERYWOOD.get(), NewModBlocks.STRIPPED_MYSTERYWOOD_LOG.get(), NewModBlocks.STRIPPED_MYSTERYWOOD.get());
         this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(NewModBlocks.EDELWOOD_LOG.get(), NewModBlocks.CARVED_EDELWOOD_LOG.get());
         this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS);
         this.tag(BlockTags.PLANKS).add(NewModBlocks.FUNGYSS_PLANKS.get(), ModBlocks.CHERRYWOOD_PLANKS.getBlock(), ModBlocks.CARVED_CHERRYWOOD_PLANKS.getBlock(), ModBlocks.MYSTERYWOOD_PLANKS.getBlock(), ModBlocks.EDELWOOD_PLANKS.getBlock(), ModBlocks.ARCANE_EDELWOOD_PLANKS.getBlock());
