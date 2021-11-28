@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.init.world;
 
 import com.google.common.collect.ImmutableSet;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.EdelwoodLogBlock;
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
@@ -107,7 +106,7 @@ public class ModConfiguredFeatures {
         private static final BlockState NUGGETY_MYSTERYWOOD_LEAVES = NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get().defaultBlockState();
         private static final BlockState MYSTERYWOOD_SAPLING = NewModBlocks.MYSTERYWOOD_SAPLING.get().defaultBlockState();
         private static final BlockState YELLOW_ORCHID = ModBlocks.YELLOW_ORCHID.getBlock().defaultBlockState();
-        private static final BlockState EDELWOOD_LOG = ModBlocks.EDELWOOD_LOG.getBlock().defaultBlockState().setValue(EdelwoodLogBlock.LEAVES, true);
+        private static final BlockState EDELWOOD_LOG = NewModBlocks.EDELWOOD_LOG.get().defaultBlockState();
         private static final BlockState PETRIFIED_ROOT = NewModBlocks.PETRIFIED_ROOT.get().defaultBlockState();
     }
 }

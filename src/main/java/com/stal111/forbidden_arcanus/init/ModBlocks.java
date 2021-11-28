@@ -19,7 +19,6 @@ public enum ModBlocks {
     RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion().lightLevel(state -> 12)), ModRenderType.CUTOUT),
     ARCANE_DARK_STONE(new Block(addProperties(Material.STONE, 1.5F, 6.0F))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
-    EDELWOOD_LOG(new EdelwoodLogBlock(MaterialColor.COLOR_BROWN, from(Blocks.OAK_LOG).randomTicks()), ModRenderType.CUTOUT),
     EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     ARCANE_EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     EDELWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),

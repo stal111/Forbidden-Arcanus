@@ -118,11 +118,6 @@ public class ForbiddenArcanus {
 
 		NetworkHandler.init();
 
-		ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.getBlock());
-		ModUtils.addStrippable(ModBlocks.CHERRYWOOD.getBlock(), ModBlocks.STRIPPED_CHERRYWOOD.getBlock());
-		ModUtils.addStrippable(ModBlocks.MYSTERYWOOD_LOG.getBlock(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.getBlock());
-		ModUtils.addStrippable(ModBlocks.MYSTERYWOOD.getBlock(), ModBlocks.STRIPPED_MYSTERYWOOD.getBlock());
-
 		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
 		CapabilityManager.INSTANCE.register(IAureal.class);

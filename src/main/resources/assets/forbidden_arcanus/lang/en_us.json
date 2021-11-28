@@ -71,6 +71,9 @@
     "block.forbidden_arcanus.mysterywood_leaves": "Mysterywood Leaves",
     "block.forbidden_arcanus.nuggety_mysterywood_leaves": "Nuggety Mysterywood Leaves",
 
+    "block.forbidden_arcanus.edelwood_log": "Edelwood Log",
+    "block.forbidden_arcanus.carved_edelwood_log": "Carved Edelwood Log",
+
     "block.forbidden_arcanus.arcane_gold_door": "Arcane Gold Door",
     "block.forbidden_arcanus.fungyss_door": "Fungyss Door",
     "block.forbidden_arcanus.cherrywood_door": "Cherrywood Door",
@@ -95,7 +98,6 @@
     "block.forbidden_arcanus.petrified_root": "Petrified Root",
     "block.forbidden_arcanus.arcane_gold_pressure_plate": "Arcane Gold Pressure Plate",
     "block.forbidden_arcanus.arcane_dragon_egg": "Arcane Dragon Egg",
-    "block.forbidden_arcanus.edelwood_log": "Edelwood Log",
     "block.forbidden_arcanus.edelwood_planks": "Edelwood Planks",
     "block.forbidden_arcanus.edelwood_stairs": "Edelwood Stairs",
     "block.forbidden_arcanus.edelwood_slab": "Edelwood Slab",

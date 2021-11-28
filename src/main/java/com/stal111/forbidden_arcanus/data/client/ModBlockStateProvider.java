@@ -78,6 +78,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
 
+        take(this::edelwoodLogBlock, NewModBlocks.EDELWOOD_LOG);
+        take(this::carvedEdelwoodLogBlock, NewModBlocks.CARVED_EDELWOOD_LOG);
+
         take(block -> signBlock(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_SIGN.getSecond().get()), NewModBlocks.FUNGYSS_SIGN.getFirst());
         take(block -> signBlock(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), NewModBlocks.CHERRYWOOD_SIGN.getSecond().get()), NewModBlocks.CHERRYWOOD_SIGN.getFirst());
         take(block -> signBlock(NewModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), NewModBlocks.MYSTERYWOOD_SIGN.getSecond().get()), NewModBlocks.MYSTERYWOOD_SIGN.getFirst());
@@ -222,6 +225,27 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                         .modelFile(model)
                         .rotationX(state.getValue(BlockStateProperties.AXIS) != Direction.Axis.Y ? 90 : 0)
                         .rotationY(state.getValue(BlockStateProperties.AXIS) == Direction.Axis.X ? 90 : 0)
+                        .build(),
+                BlockStateProperties.WATERLOGGED
+        );
+    }
+
+    private void edelwoodLogBlock(Block block) {
+        getVariantBuilder(block).forAllStatesExcept(
+                state -> ConfiguredModel.builder()
+                        .modelFile(models().getExistingFile(modLoc("block/" + getName(block) + (state.getValue(ModBlockStateProperties.OILY) ? "_oily" : ""))))
+                        .rotationX(state.getValue(BlockStateProperties.AXIS) != Direction.Axis.Y ? 90 : 0)
+                        .rotationY(state.getValue(BlockStateProperties.AXIS) == Direction.Axis.X ? 90 : 0)
+                        .build(),
+                BlockStateProperties.WATERLOGGED
+        );
+    }
+
+    private void carvedEdelwoodLogBlock(Block block) {
+        getVariantBuilder(block).forAllStatesExcept(
+                state -> ConfiguredModel.builder()
+                        .modelFile(models().getExistingFile(modLoc("block/" + getName(block) + (state.getValue(ModBlockStateProperties.LEAVES) ? "_leaves" : "") + (state.getValue(ModBlockStateProperties.OILY) ? "_oily" : ""))))
+                        .rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
                         .build(),
                 BlockStateProperties.WATERLOGGED
         );

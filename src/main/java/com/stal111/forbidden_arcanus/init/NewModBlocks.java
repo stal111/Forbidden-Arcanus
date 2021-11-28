@@ -3,9 +3,8 @@ package com.stal111.forbidden_arcanus.init;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
-import com.stal111.forbidden_arcanus.common.block.ArcaneDragonEggBlock;
-import com.stal111.forbidden_arcanus.common.block.PillarBlock;
-import com.stal111.forbidden_arcanus.common.block.SoullessSandBlock;
+import com.stal111.forbidden_arcanus.common.block.*;
+import com.stal111.forbidden_arcanus.common.block.EdelwoodLogBlock;
 import com.stal111.forbidden_arcanus.common.block.grower.CherrywoodTreeGrower;
 import com.stal111.forbidden_arcanus.common.block.grower.MysterywoodTreeGrower;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
@@ -105,6 +104,9 @@ public class NewModBlocks {
     public static final RegistryObject<LeavesBlock> CHERRYWOOD_LEAVES = HELPER.register("cherrywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<LeavesBlock> MYSTERYWOOD_LEAVES = HELPER.register("mysterywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
     public static final RegistryObject<LeavesBlock> NUGGETY_MYSTERYWOOD_LEAVES = HELPER.register("nuggety_mysterywood_leaves", new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)));
+
+    public static final RegistryObject<EdelwoodLogBlock> EDELWOOD_LOG = HELPER.register("edelwood_log", new EdelwoodLogBlock(Block.Properties.copy(Blocks.OAK_LOG).color(MaterialColor.COLOR_BROWN).randomTicks()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<CarvedEdelwoodLogBlock> CARVED_EDELWOOD_LOG = HELPER.register("carved_edelwood_log", new CarvedEdelwoodLogBlock(Block.Properties.copy(Blocks.OAK_LOG).color(MaterialColor.COLOR_BROWN).randomTicks()), ValhelsiaRenderType.CUTOUT);
 
     public static final RegistryObject<DoorBlock> ARCANE_GOLD_DOOR = HELPER.register("arcane_gold_door", new DoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<DoorBlock> FUNGYSS_DOOR = HELPER.register("fungyss_door", new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion()), ValhelsiaRenderType.CUTOUT);

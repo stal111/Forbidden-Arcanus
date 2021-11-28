@@ -30,7 +30,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags() {
         this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(NewModBlocks.FUNGYSS_STEM.get(), NewModBlocks.FUNGYSS_HYPHAE.get());
-        this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS).add(ModBlocks.EDELWOOD_LOG.getBlock());
+        this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(NewModBlocks.EDELWOOD_LOG.get(), NewModBlocks.CARVED_EDELWOOD_LOG.get());
+        this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS);
         this.tag(BlockTags.PLANKS).add(NewModBlocks.FUNGYSS_PLANKS.get(), ModBlocks.CHERRYWOOD_PLANKS.getBlock(), ModBlocks.CARVED_CHERRYWOOD_PLANKS.getBlock(), ModBlocks.MYSTERYWOOD_PLANKS.getBlock(), ModBlocks.EDELWOOD_PLANKS.getBlock(), ModBlocks.ARCANE_EDELWOOD_PLANKS.getBlock());
         this.tag(BlockTags.WOODEN_SLABS).add(NewModBlocks.FUNGYSS_SLAB.get(), ModBlocks.CHERRYWOOD_SLAB.getBlock(), ModBlocks.MYSTERYWOOD_SLAB.getBlock(), ModBlocks.EDELWOOD_SLAB.getBlock());
         this.tag(BlockTags.WOODEN_STAIRS).add(NewModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.CHERRYWOOD_STAIRS.getBlock(), ModBlocks.MYSTERYWOOD_STAIRS.getBlock(), ModBlocks.EDELWOOD_STAIRS.getBlock());

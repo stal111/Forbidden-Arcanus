@@ -1,0 +1,153 @@
+{
+    "credit": "Blockbench Model - Do you want a textured model? Contact me on Discord: CesarZorak#0808",
+    "parent": "block/cube_all",
+    "textures": {
+        "0": "forbidden_arcanus:block/edelwood_log",
+        "1": "forbidden_arcanus:block/edelwood_log_top",
+        "2": "forbidden_arcanus:block/carved_edelwood_log",
+        "4": "forbidden_arcanus:block/edelwood_leaves",
+        "particle": "forbidden_arcanus:block/edelwood_log"
+    },
+    "elements": [
+        {
+            "name": "Log_0",
+            "from": [0, 0, 0],
+            "to": [16, 16, 2],
+            "rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface": "north"},
+                "east": {"uv": [14, 0, 16, 16], "texture": "#0", "cullface": "east"},
+                "south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+                "west": {"uv": [0, 0, 2, 16], "texture": "#0", "cullface": "west"},
+                "up": {"uv": [0, 0, 16, 2], "texture": "#1", "cullface": "up"},
+                "down": {"uv": [0, 14, 16, 16], "texture": "#1", "cullface": "down"}
+            }
+        },
+        {
+            "name": "Log_1",
+            "from": [0, 0, 2],
+            "to": [2, 16, 14],
+            "rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "east": {"uv": [2, 0, 14, 16], "texture": "#0"},
+                "west": {"uv": [2, 0, 14, 16], "texture": "#0", "cullface": "west"},
+                "up": {"uv": [0, 2, 2, 14], "texture": "#1", "cullface": "up"},
+                "down": {"uv": [14, 2, 16, 14], "texture": "#1", "cullface": "down"}
+            }
+        },
+        {
+            "name": "Log_2",
+            "from": [0, 0, 14],
+            "to": [16, 16, 16],
+            "rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+                "east": {"uv": [0, 0, 2, 16], "texture": "#0", "cullface": "east"},
+                "south": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface": "south"},
+                "west": {"uv": [14, 0, 16, 16], "texture": "#0", "cullface": "west"},
+                "up": {"uv": [0, 14, 16, 16], "texture": "#1", "cullface": "up"},
+                "down": {"uv": [0, 0, 16, 2], "texture": "#1", "cullface": "down"}
+            }
+        },
+        {
+            "name": "Log_3",
+            "from": [14, 0, 2],
+            "to": [16, 16, 14],
+            "rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "east": {"uv": [2, 0, 14, 16], "texture": "#0", "cullface": "east"},
+                "west": {"uv": [2, 0, 14, 16], "texture": "#0"},
+                "up": {"uv": [14, 2, 16, 14], "texture": "#1", "cullface": "up"},
+                "down": {"uv": [0, 2, 2, 14], "texture": "#1", "cullface": "down"}
+            }
+        },
+        {
+            "name": "Leaves_0",
+            "from": [-8, 5, 8],
+            "to": [0, 13, 8],
+            "rotation": {"angle": 22.5, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [8, 0, 16, 8], "texture": "#4", "cullface": "west"},
+                "south": {"uv": [16, 0, 8, 8], "texture": "#4", "cullface": "west"}
+            }
+        },
+        {
+            "name": "Leaves_1",
+            "from": [-7, 4, 8],
+            "to": [1, 12, 8],
+            "rotation": {"angle": 22.5, "axis": "z", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [8, 8, 16, 16], "texture": "#4", "cullface": "west"},
+                "south": {"uv": [16, 8, 8, 16], "texture": "#4", "cullface": "west"}
+            }
+        },
+        {
+            "name": "Leaves_2",
+            "from": [-8, 7, 8],
+            "to": [0, 15, 8],
+            "rotation": {"angle": -22.5, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [8, 8, 0, 16], "texture": "#4", "cullface": "west"},
+                "south": {"uv": [0, 8, 8, 16], "texture": "#4", "cullface": "west"}
+            }
+        },
+        {
+            "name": "Leaves_3",
+            "from": [16, 5, 8],
+            "to": [24, 13, 8],
+            "rotation": {"angle": -22.5, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [0, 0, 8, 8], "texture": "#4", "cullface": "east"},
+                "south": {"uv": [8, 0, 0, 8], "texture": "#4", "cullface": "east"}
+            }
+        },
+        {
+            "name": "Leaves_4",
+            "from": [15, 4, 8],
+            "to": [23, 12, 8],
+            "rotation": {"angle": -22.5, "axis": "z", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [0, 8, 8, 16], "texture": "#4", "cullface": "east"},
+                "south": {"uv": [8, 8, 0, 16], "texture": "#4", "cullface": "east"}
+            }
+        },
+        {
+            "name": "Leaves_5",
+            "from": [16, 7, 8],
+            "to": [24, 15, 8],
+            "rotation": {"angle": 22.5, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "north": {"uv": [16, 0, 8, 8], "texture": "#4", "cullface": "east"},
+                "south": {"uv": [8, 0, 16, 8], "texture": "#4", "cullface": "east"}
+            }
+        },
+        {
+            "name": "Leaves_6",
+            "from": [8, 7, 16],
+            "to": [8, 15, 24],
+            "rotation": {"angle": 22.5, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "east": {"uv": [16, 0, 8, 8], "texture": "#4", "cullface": "south"},
+                "west": {"uv": [8, 0, 16, 8], "texture": "#4", "cullface": "south"}
+            }
+        },
+        {
+            "name": "Leaves_7",
+            "from": [8, 2, 16],
+            "to": [8, 10, 24],
+            "rotation": {"angle": -22.5, "axis": "y", "origin": [8, 8, 8]},
+            "faces": {
+                "east": {"uv": [0, 8, 8, 16], "texture": "#4", "cullface": "south"},
+                "west": {"uv": [8, 8, 0, 16], "texture": "#4", "cullface": "south"}
+            }
+        }
+    ],
+    "groups": [
+        {
+            "name": "north",
+            "origin": [8, 8, 8],
+            "color": 0,
+            "children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        }
+    ]
+}

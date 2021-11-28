@@ -23,6 +23,7 @@ public class ModTags {
         public static final Tag.Named<Block> FUNGYSS_STEMS = modTag("fungyss_stems");
         public static final Tag.Named<Block> CHERRYWOOD_LOGS = modTag("cherrywood_logs");
         public static final Tag.Named<Block> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
+        public static final Tag.Named<Block> EDELWOOD_LOGS = modTag("edelwood_logs");
         public static final Tag.Named<Block> BLACKSMITH_GAVEL_UNAFFECTED = modTag("blacksmith_gavel_unaffected");
         public static final Tag.Named<Block> MAGICAL_FARMLAND_BLACKLISTED = modTag("magical_farmland_blacklisted");
         public static final Tag.Named<Block> RUNIC_STONES = modTag("runic_stones");
@@ -48,6 +49,9 @@ public class ModTags {
         public static final Tag.Named<Item> OBSIDIAN_SKULLS = modTag("obsidian_skulls");
         public static final Tag.Named<Item> INDESTRUCTIBLE_BLACKLISTED = modTag("indestructible_blacklisted");
         public static final Tag.Named<Item> FUNGYSS_STEMS = modTag("fungyss_stems");
+        public static final Tag.Named<Item> CHERRYWOOD_LOGS = modTag("cherrywood_logs");
+        public static final Tag.Named<Item> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
+        public static final Tag.Named<Item> EDELWOOD_LOGS = modTag("edelwood_logs");
         public static final Tag.Named<Item> BLACKSMITH_GAVEL = modTag("blacksmith_gavel");
         public static final Tag.Named<Item> ARCANE_GOLD_INGOTS = forgeTag("ingots/arcane_gold");
         public static final Tag.Named<Item> ARCANE_GOLD_NUGGETS = forgeTag("nuggets/arcane_gold");
