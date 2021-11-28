@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block.tileentity;
 
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +30,7 @@ public class PedestalTileEntity extends BlockEntity {
     private int itemHeight = 110;
 
     public PedestalTileEntity(BlockPos pos, BlockState state) {
-        super(ModTileEntities.PEDESTAL.get(), pos, state);
+        super(ModBlockEntities.PEDESTAL.get(), pos, state);
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
 

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.*;
+import com.stal111.forbidden_arcanus.common.block.entity.NipaBlockEntity;
 import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.tile.BlackHoleTileEntity;
@@ -13,14 +14,21 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
-public class ModTileEntities {
+/**
+ * Mod Block Entities <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModBlockEntities
+ *
+ * @author stal111
+ * @version 2.0.0
+ */
+public class ModBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<BlackHoleTileEntity>> BLACK_HOLE = register("black_hole", () -> BlockEntityType.Builder.of(BlackHoleTileEntity::new, NewModBlocks.BLACK_HOLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ObsidianSkullTileEntity>> OBSIDIAN_SKULL = register("obsidian_skull", () -> BlockEntityType.Builder.of(ObsidianSkullTileEntity::new, NewModBlocks.OBSIDIAN_SKULL.get(), NewModBlocks.OBSIDIAN_WALL_SKULL.get(), NewModBlocks.ETERNAL_OBSIDIAN_SKULL.get(), NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get()).build(null));
     public static final RegistryObject<BlockEntityType<UtremJarTileEntity>> UTREM_JAR = register("utrem_jar", () -> BlockEntityType.Builder.of(UtremJarTileEntity::new, NewModBlocks.UTREM_JAR.get()).build(null));
-    public static final RegistryObject<BlockEntityType<NipaTileEntity>> NIPA = register("nipa", () -> BlockEntityType.Builder.of(NipaTileEntity::new, NewModBlocks.NIPA.get()).build(null));
+    public static final RegistryObject<BlockEntityType<NipaBlockEntity>> NIPA = register("nipa", () -> BlockEntityType.Builder.of(NipaBlockEntity::new, NewModBlocks.NIPA.get()).build(null));
     public static final RegistryObject<BlockEntityType<HephaestusForgeTileEntity>> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> BlockEntityType.Builder.of(HephaestusForgeTileEntity::new, NewModBlocks.HEPHAESTUS_FORGE.get()).build(null));
     public static final RegistryObject<BlockEntityType<PedestalTileEntity>> PEDESTAL = register("pedestal", () -> BlockEntityType.Builder.of(PedestalTileEntity::new, NewModBlocks.DARKSTONE_PEDESTAL.get(), NewModBlocks.ARCANE_DARKSTONE_PEDESTAL.get()).build(null));
     public static final RegistryObject<BlockEntityType<ArcaneCrystalObeliskTileEntity>> ARCANE_CRYSTAL_OBELISK = register("arcane_crystal_obelisk", () -> BlockEntityType.Builder.of(ArcaneCrystalObeliskTileEntity::new, NewModBlocks.ARCANE_CRYSTAL_OBELISK.get()).build(null));

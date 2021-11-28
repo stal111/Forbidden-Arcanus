@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
  *
  * @author stal111
  * @version 2.0.0
- * @since 2.0.0
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class NewModBlocks {

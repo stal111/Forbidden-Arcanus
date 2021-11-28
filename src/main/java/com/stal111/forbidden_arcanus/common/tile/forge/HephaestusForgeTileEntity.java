@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInput
 import com.stal111.forbidden_arcanus.common.container.input.IHephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.EssenceManager;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdateItemInSlotPacket;
 import net.minecraft.world.level.block.state.BlockState;
@@ -60,7 +60,7 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
     private int displayCounter;
 
     public HephaestusForgeTileEntity(BlockPos pos, BlockState state) {
-        super(ModTileEntities.HEPHAESTUS_FORGE.get(), pos, state);
+        super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state);
         this.hephaestusForgeData = new ContainerData() {
             @Override
             public int get(int index) {

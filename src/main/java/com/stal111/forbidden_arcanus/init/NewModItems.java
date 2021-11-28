@@ -56,5 +56,6 @@ public class NewModItems {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(NewModItems.LENS_OF_VERITATIS.get());
         public static final ItemStack ORB_OF_TEMPORARY_FLIGHT = new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get());
         public static final ItemStack SANITY_METER = new ItemStack(NewModItems.SANITY_METER.get());
+        public static final ItemStack ARCANE_CRYSTAL_DUST_SPECK = new ItemStack(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get());
     }
 }

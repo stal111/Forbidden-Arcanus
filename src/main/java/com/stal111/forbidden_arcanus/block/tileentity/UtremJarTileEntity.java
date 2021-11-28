@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block.tileentity;
 
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.util.FluidTankTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +33,7 @@ public class UtremJarTileEntity extends BlockEntity {
     private final LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
 
     public UtremJarTileEntity(BlockPos pos, BlockState state) {
-        super(ModTileEntities.UTREM_JAR.get(), pos, state);
+        super(ModBlockEntities.UTREM_JAR.get(), pos, state);
     }
 
     public FluidTank getTank() {

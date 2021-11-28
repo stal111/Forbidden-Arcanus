@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.block.tileentity;
 
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,6 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ObsidianSkullTileEntity extends BlockEntity {
 
     public ObsidianSkullTileEntity(BlockPos pos, BlockState state) {
-        super(ModTileEntities.OBSIDIAN_SKULL.get(), pos, state);
+        super(ModBlockEntities.OBSIDIAN_SKULL.get(), pos, state);
     }
 }

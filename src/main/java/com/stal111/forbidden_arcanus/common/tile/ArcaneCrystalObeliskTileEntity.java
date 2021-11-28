@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.tile;
 
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
@@ -23,7 +23,7 @@ import java.util.Objects;
 public class ArcaneCrystalObeliskTileEntity extends BlockEntity {
 
     public ArcaneCrystalObeliskTileEntity(BlockPos pos, BlockState state) {
-        super(ModTileEntities.ARCANE_CRYSTAL_OBELISK.get(), pos, state);
+        super(ModBlockEntities.ARCANE_CRYSTAL_OBELISK.get(), pos, state);
     }
 
    // @Override

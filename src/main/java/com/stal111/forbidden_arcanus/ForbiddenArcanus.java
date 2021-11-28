@@ -78,7 +78,7 @@ public class ForbiddenArcanus {
 
 		ModEntities.ENTITY_TYPES.register(modEventBus);
 		ModItems.ITEMS.register(modEventBus);
-		ModTileEntities.TILE_ENTITIES.register(modEventBus);
+		ModBlockEntities.TILE_ENTITIES.register(modEventBus);
 		ModParticles.PARTICLE_TYPES.register(modEventBus);
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);
 		ModEffects.EFFECTS.register(modEventBus);

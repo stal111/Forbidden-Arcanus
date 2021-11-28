@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.tile;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.ModTileEntities;
+import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +30,7 @@ public class BlackHoleTileEntity extends BlockEntity {
     public int auraTexture = 0;
 
     public BlackHoleTileEntity(BlockPos pos, BlockState state) {
-        super(ModTileEntities.BLACK_HOLE.get(), pos, state);
+        super(ModBlockEntities.BLACK_HOLE.get(), pos, state);
         this.blackHoleRotation = new Random().nextInt(100000);
     }
 
