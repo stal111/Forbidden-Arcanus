@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
-import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
@@ -75,7 +75,7 @@ public class RitualManager implements ISavedData {
             return;
         }
 
-        this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> list.add(pedestalTileEntity.getStack()), true);
+        this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalTileEntity -> list.add(pedestalTileEntity.getStack()), true);
 
         for (Ritual ritual : RitualLoader.getRituals()) {
             if (ritual.canStart(list, this.tileEntity)) {
@@ -114,7 +114,7 @@ public class RitualManager implements ISavedData {
             if (this.lightningCounter == 300) {
                 List<ItemStack> list = new ArrayList<>();
 
-                this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> list.add(pedestalTileEntity.getStack()));
+                this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalTileEntity -> list.add(pedestalTileEntity.getStack()));
 
                 if (!this.getActiveRitual().checkIngredients(list, this.tileEntity)) {
                     this.failRitual(world);
@@ -127,7 +127,7 @@ public class RitualManager implements ISavedData {
             }
         }
 
-        this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
+        this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalTileEntity -> {
             BlockPos pedestalPos = pedestalTileEntity.getBlockPos();
 
             if (pedestalTileEntity.getItemHeight() != 130) {
@@ -149,7 +149,7 @@ public class RitualManager implements ISavedData {
 
             this.lightningCounter++;
 
-            this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
+            this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalTileEntity -> {
                 if (random.nextBoolean()) {
                     ItemStack stack = pedestalTileEntity.getStack().copy();
                     BlockPos pedestalPos = pedestalTileEntity.getBlockPos();
@@ -177,7 +177,7 @@ public class RitualManager implements ISavedData {
         this.tileEntity.setItem(4, this.getActiveRitual().getResult());
         this.reset();
 
-        this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
+        this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalTileEntity -> {
             pedestalTileEntity.clearStack();
 
             NetworkHandler.sentToTrackingChunk(world.getChunkAt(this.tileEntity.getBlockPos()), new UpdatePedestalPacket(pedestalTileEntity.getBlockPos(), ItemStack.EMPTY, 110));
@@ -196,7 +196,7 @@ public class RitualManager implements ISavedData {
             this.tileEntity.setItem(4, ItemStack.EMPTY);
         }
 
-        this.forEachPedestal(PedestalTileEntity::hasStack, pedestalTileEntity -> {
+        this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalTileEntity -> {
             pedestalTileEntity.clearStack();
             this.tileEntity.getEssenceManager().increaseCorruption(2);
 
@@ -273,14 +273,14 @@ public class RitualManager implements ISavedData {
         manager.getInRange(poiType -> poiType == ModPOITypes.PEDESTAL.get(), this.tileEntity.getBlockPos(), 4, PoiManager.Occupancy.ANY).forEach(pointOfInterest -> this.cachedPedestals.add(pointOfInterest.getPos()));
     }
 
-    public void forEachPedestal(Predicate<PedestalTileEntity> predicate, Consumer<PedestalTileEntity> consumer) {
+    public void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
         this.forEachPedestal(predicate, consumer, false);
     }
 
-    public void forEachPedestal(Predicate<PedestalTileEntity> predicate, Consumer<PedestalTileEntity> consumer, boolean updatePedestals) {
+    public void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer, boolean updatePedestals) {
         if (updatePedestals) {
             this.updateCachedPedestals();
         }
-        this.cachedPedestals.stream().map(pos -> (PedestalTileEntity) this.getWorld().getBlockEntity(pos)).filter(predicate).forEach(consumer);
+        this.cachedPedestals.stream().map(pos -> (PedestalBlockEntity) this.getWorld().getBlockEntity(pos)).filter(predicate).forEach(consumer);
     }
 }

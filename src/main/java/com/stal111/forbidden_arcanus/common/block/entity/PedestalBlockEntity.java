@@ -1,7 +1,8 @@
-package com.stal111.forbidden_arcanus.block.tileentity;
+package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -14,14 +15,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Pedestal Tile Entity
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity
+ * Pedestal Block Entity <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity
  *
  * @author stal111
  * @version 2.0.0
  * @since 2021-06-25
  */
-public class PedestalTileEntity extends BlockEntity {
+public class PedestalBlockEntity extends BlockEntity {
 
     private ItemStack stack = ItemStack.EMPTY;
 
@@ -29,14 +30,13 @@ public class PedestalTileEntity extends BlockEntity {
     private int ticksExisted;
     private int itemHeight = 110;
 
-    public PedestalTileEntity(BlockPos pos, BlockState state) {
+    public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL.get(), pos, state);
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
     }
 
-    //@Override
-    public void tick() {
-        this.ticksExisted++;
+    public static void clientTick(Level level, BlockPos pos, BlockState state, PedestalBlockEntity blockEntity) {
+        blockEntity.ticksExisted++;
     }
 
     public void setStack(ItemStack stack) {
@@ -56,16 +56,8 @@ public class PedestalTileEntity extends BlockEntity {
         this.setItemHeight(110);
     }
 
-    public int getTicksExisted() {
-        return ticksExisted;
-    }
-
-    public float getHoverStart() {
-        return hoverStart;
-    }
-
     public float getItemHover(float partialTicks) {
-        return (this.getTicksExisted() + partialTicks) / 20.0F + this.getHoverStart();
+        return (this.ticksExisted + partialTicks) / 20.0F + this.hoverStart;
     }
 
     public int getItemHeight() {
@@ -79,6 +71,7 @@ public class PedestalTileEntity extends BlockEntity {
     @Override
     public void load(@Nonnull CompoundTag compound) {
         super.load(compound);
+
         if (compound.contains("Stack")) {
             this.stack = ItemStack.of(compound.getCompound("Stack"));
             this.itemHeight = compound.getInt("ItemHeight");

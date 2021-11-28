@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.network;
 
-import com.stal111.forbidden_arcanus.block.tileentity.PedestalTileEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
@@ -48,8 +48,8 @@ public class UpdatePedestalPacket {
 
             Level world = Minecraft.getInstance().level;
 
-            if (world != null && world.getBlockEntity(packet.pos) instanceof PedestalTileEntity) {
-                PedestalTileEntity tileEntity = (PedestalTileEntity) Objects.requireNonNull(world.getBlockEntity(packet.pos));
+            if (world != null && world.getBlockEntity(packet.pos) instanceof PedestalBlockEntity) {
+                PedestalBlockEntity tileEntity = (PedestalBlockEntity) Objects.requireNonNull(world.getBlockEntity(packet.pos));
 
                 tileEntity.setStack(packet.stack);
                 tileEntity.setItemHeight(packet.itemHeight);

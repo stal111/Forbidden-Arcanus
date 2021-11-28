@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.init;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.*;
 import com.stal111.forbidden_arcanus.common.block.entity.NipaBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.tile.BlackHoleTileEntity;
@@ -30,7 +31,7 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<UtremJarTileEntity>> UTREM_JAR = register("utrem_jar", () -> BlockEntityType.Builder.of(UtremJarTileEntity::new, NewModBlocks.UTREM_JAR.get()).build(null));
     public static final RegistryObject<BlockEntityType<NipaBlockEntity>> NIPA = register("nipa", () -> BlockEntityType.Builder.of(NipaBlockEntity::new, NewModBlocks.NIPA.get()).build(null));
     public static final RegistryObject<BlockEntityType<HephaestusForgeTileEntity>> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> BlockEntityType.Builder.of(HephaestusForgeTileEntity::new, NewModBlocks.HEPHAESTUS_FORGE.get()).build(null));
-    public static final RegistryObject<BlockEntityType<PedestalTileEntity>> PEDESTAL = register("pedestal", () -> BlockEntityType.Builder.of(PedestalTileEntity::new, NewModBlocks.DARKSTONE_PEDESTAL.get(), NewModBlocks.ARCANE_DARKSTONE_PEDESTAL.get()).build(null));
+    public static final RegistryObject<BlockEntityType<PedestalBlockEntity>> PEDESTAL = register("pedestal", () -> BlockEntityType.Builder.of(PedestalBlockEntity::new, NewModBlocks.DARKSTONE_PEDESTAL.get(), NewModBlocks.ARCANE_DARKSTONE_PEDESTAL.get()).build(null));
     public static final RegistryObject<BlockEntityType<ArcaneCrystalObeliskTileEntity>> ARCANE_CRYSTAL_OBELISK = register("arcane_crystal_obelisk", () -> BlockEntityType.Builder.of(ArcaneCrystalObeliskTileEntity::new, NewModBlocks.ARCANE_CRYSTAL_OBELISK.get()).build(null));
 
     private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> tileEntityType) {
