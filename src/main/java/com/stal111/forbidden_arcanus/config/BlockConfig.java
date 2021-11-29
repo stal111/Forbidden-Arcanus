@@ -10,6 +10,7 @@ public class BlockConfig {
 
     public static ForgeConfigSpec.IntValue RUNIC_CHISELED_POLISHED_DARKSTONE_RADIUS;
 
+    public static ForgeConfigSpec.DoubleValue EDELWOOD_LADDER_SPEED;
 
     public static void init(ForgeConfigSpec.Builder builder) {
         builder.push("blocks");
@@ -19,6 +20,9 @@ public class BlockConfig {
         STELLA_ARCANUM_EXPLOSION_RADIUS = builder.comment("Radius of Stella Arcanum explosions (if explosions enabled) [default: 3]").defineInRange("stella_arcanum.explosion_radius", 3, 1, 10);
 
         RUNIC_CHISELED_POLISHED_DARKSTONE_RADIUS = builder.comment("Radius the Activated Runic Chiseled Polished Darkstone prevents Entities from spawning in (in Blocks) [default: 25]").defineInRange("runic_chiseled_polished_darkstone.entity_spawn_blocking_radius", 25, 1, 100);
+
+
+        EDELWOOD_LADDER_SPEED = builder.comment("How much speed is added to the player when using an Edelwood Ladder [default: 0.07").defineInRange("edelwood_ladder.speed", 0.07, 0, 10);
 
         builder.pop();
     }

@@ -1,16 +1,10 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.block.EdelwoodLadderBlock;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,19 +18,7 @@ public class LivingUpdateListener {
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
         Level world = entity.getCommandSenderWorld();
-        if (entity instanceof Player) {
-            Player player = (Player) event.getEntityLiving();
-            Block block = player.level.getBlockState(new BlockPos(player.getX(), player.getY(), player.getZ())).getBlock();
-            if (block instanceof EdelwoodLadderBlock) {
-                if (!player.isCrouching()) {
-                    if (player.zza > 0.0f) {
-                        player.move(MoverType.SELF, new Vec3(0.0, 0.05, 0.0));
-                    } else {
-                        player.move(MoverType.SELF, new Vec3(0.0, -0.05, 0.0));
-                    }
-                }
-            }
-        } else if (entity.getPersistentData().contains("aureal")) {
+        if (entity.getPersistentData().contains("aureal")) {
             if (entity.getPersistentData().getBoolean("aureal")) {
                 if (world instanceof ServerLevel) {
                     Random rand = world.getRandom();

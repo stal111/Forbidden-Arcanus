@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Mod Block State Provider
+ * Mod Block State Provider <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider
  *
  * @author stal111
@@ -81,6 +81,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(this::edelwoodLogBlock, NewModBlocks.EDELWOOD_LOG);
         take(this::carvedEdelwoodLogBlock, NewModBlocks.CARVED_EDELWOOD_LOG);
+
+        take(block -> horizontalBlock(block, models().getExistingFile(modLoc("block/edelwood_ladder"))), NewModBlocks.EDELWOOD_LADDER);
 
         take(block -> signBlock(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_SIGN.getSecond().get()), NewModBlocks.FUNGYSS_SIGN.getFirst());
         take(block -> signBlock(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), NewModBlocks.CHERRYWOOD_SIGN.getSecond().get()), NewModBlocks.CHERRYWOOD_SIGN.getFirst());

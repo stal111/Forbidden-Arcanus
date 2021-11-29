@@ -26,7 +26,6 @@ public enum ModBlocks {
     EDELWOOD_FENCE_GATE(new FenceGateBlock(from(Blocks.OAK_FENCE_GATE))),
     EDELWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
     EDELWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
-    EDELWOOD_LADDER(new EdelwoodLadderBlock(from(Blocks.LADDER)), ModRenderType.CUTOUT),
     CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CARVED_CHERRYWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),
     CHERRYWOOD_SLAB(new SlabBlock(from(Blocks.OAK_SLAB))),

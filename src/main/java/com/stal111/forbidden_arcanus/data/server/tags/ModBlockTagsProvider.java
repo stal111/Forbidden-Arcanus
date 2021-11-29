@@ -47,7 +47,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.DOORS).add(NewModBlocks.ARCANE_GOLD_DOOR.get());
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(NewModBlocks.FUNGYSS_TRAPDOOR.get(), NewModBlocks.CHERRYWOOD_TRAPDOOR.get(), NewModBlocks.MYSTERYWOOD_TRAPDOOR.get(), NewModBlocks.EDELWOOD_TRAPDOOR.get());
         this.tag(BlockTags.TRAPDOORS).add(NewModBlocks.ARCANE_GOLD_TRAPDOOR.get());
-        this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.getBlock());
+        this.tag(BlockTags.CLIMBABLE).add(NewModBlocks.EDELWOOD_LADDER.get());
         this.tag(BlockTags.FLOWER_POTS).add(NewModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), NewModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), NewModBlocks.POTTED_YELLOW_ORCHID.get());
         this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED).add(Blocks.IRON_ORE, Blocks.GOLD_ORE);
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
