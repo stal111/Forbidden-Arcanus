@@ -128,7 +128,6 @@ public class ModItems {
     public static final RegistryObject<Item> ARCANE_GOLD_CHESTPLATE = register("arcane_gold_chestplate", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.CHEST, properties()));
     public static final RegistryObject<Item> ARCANE_GOLD_LEGGINGS = register("arcane_gold_leggings", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.LEGS, properties()));
     public static final RegistryObject<Item> ARCANE_GOLD_BOOTS = register("arcane_gold_boots", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.FEET, properties()));
-    public static final RegistryObject<Item> PIXIE_SPAWN_EGG = register("pixie_spawn_egg", () -> new ModSpawnEggItem<>(ModEntities.PIXIE, 894731, 0, properties()));
 
     private static RegistryObject<Item> register(String name, Supplier<? extends Item> item) {
         return ITEMS.register(name, item);
