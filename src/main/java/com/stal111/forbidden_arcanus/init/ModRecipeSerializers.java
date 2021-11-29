@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.recipe.ApplyEternalModifierRecipe;
+import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.recipe.EdelwoodBucketIncreaseFullnessRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
@@ -14,7 +14,7 @@ public class ModRecipeSerializers {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<RecipeSerializer<?>> EDELWOOD_BUCKET_INCREASE_FULLNESS = register("edelwood_bucket_increase_fullness", new SimpleRecipeSerializer<>(EdelwoodBucketIncreaseFullnessRecipe::new));
-    public static final RegistryObject<RecipeSerializer<?>> APPLY_INDESTRUCTIBLE_ENCHANTMENT = register("apply_indestructible_enchantment", new SimpleRecipeSerializer<>(ApplyEternalModifierRecipe::new));
+    public static final RegistryObject<RecipeSerializer<ApplyModifierRecipe>> APPLY_MODIFIER = register("apply_modifier", new ApplyModifierRecipe.Serializer());
 
     private static <T extends RecipeSerializer<?>> RegistryObject<T> register(String name, T recipeSerializer) {
         return RECIPE_SERIALIZERS.register(name, () -> recipeSerializer);

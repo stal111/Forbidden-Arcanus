@@ -126,6 +126,8 @@ public class ModRecipeProvider extends RecipeProvider {
         UpgradeRecipeBuilder.smithing(Ingredient.of(Items.SHIELD), Ingredient.of(NewModItems.OBSIDIAN_SKULL.get()), NewModItems.OBSIDIAN_SKULL_SHIELD.get()).unlocks("has_item", has(NewModItems.OBSIDIAN_SKULL.get())).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_skull_shield"));
         UpgradeRecipeBuilder.smithing(Ingredient.of(NewModItems.OBSIDIAN_SKULL.get()), Ingredient.of(ModItems.ETERNAL_STELLA.get()), NewModItems.ETERNAL_OBSIDIAN_SKULL.get()).unlocks("has_item", has(NewModItems.OBSIDIAN_SKULL.get())).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
         UpgradeRecipeBuilder.smithing(Ingredient.of(NewModItems.NETHERITE_BLACKSMITH_GAVEL.get()), Ingredient.of(Items.NETHERITE_INGOT), NewModItems.DIAMOND_BLACKSMITH_GAVEL.get()).unlocks("has_item", has(Items.NETHERITE_INGOT)).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_blacksmith_gavel"));
+
+        //TODO add recipe provider for apply modifier recipes
     }
 
     private void addBlacksmithGavelRecipe(Item gavel, Tag.Named<Item> material, @Nonnull Consumer<FinishedRecipe> consumer) {

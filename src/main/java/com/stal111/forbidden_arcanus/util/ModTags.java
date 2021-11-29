@@ -61,6 +61,9 @@ public class ModTags {
         public static final Tag.Named<Item> RUNE_BLOCKS = modTag("rune_blocks");
         public static final Tag.Named<Item> ARCANE_CRYSTAL_ORES = modTag("arcane_crystal_ores");
 
+        public static final Tag.Named<Item> ETERNAL_INCOMPATIBLE = modTag("modifier/eternal_incompatible");
+        public static final Tag.Named<Item> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
+
         private static Tag.Named<Item> forgeTag(String name) {
             return ItemTags.bind(new ResourceLocation("forge", name).toString());
         }
@@ -84,6 +87,9 @@ public class ModTags {
 
     public static class Enchantments {
         public static final Tag.Named<Enchantment> INDESTRUCTIBLE_BLACKLISTED = modTag("indestructible_blacklisted");
+
+        public static final Tag.Named<Enchantment> ETERNAL_INCOMPATIBLE = modTag("modifier/eternal_incompatible");
+        public static final Tag.Named<Enchantment> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
 
         private static Tag.Named<Enchantment> modTag(String name) {
             return ForgeTagHandler.makeWrapperTag(ForgeRegistries.ENCHANTMENTS, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));

@@ -27,7 +27,9 @@ public class ModEnchantmentTagsProvider extends ForgeRegistryTagsProvider<Enchan
 
     @Override
     protected void addTags() {
-        tag(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED).add(Enchantments.UNBREAKING, Enchantments.MENDING);
+        this.tag(ModTags.Enchantments.INDESTRUCTIBLE_BLACKLISTED).add(Enchantments.UNBREAKING, Enchantments.MENDING);
+        this.tag(ModTags.Enchantments.ETERNAL_INCOMPATIBLE).add(Enchantments.UNBREAKING, Enchantments.MENDING);
+        this.tag(ModTags.Enchantments.FIERY_INCOMPATIBLE).add(Enchantments.SILK_TOUCH);
     }
 
     @Override
