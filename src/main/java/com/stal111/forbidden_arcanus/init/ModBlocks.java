@@ -14,8 +14,6 @@ import net.minecraft.world.level.material.Material;
 import java.util.Locale;
 
 public enum ModBlocks {
-    RUNIC_TENEBRIS_FRAME(new RunicTenebrisFrameBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion())),
-    RUNIC_TENEBRIS_CORE(new RunicTenebrisCoreBlock(addProperties(Material.STONE, 2.0F, 15.0F).noOcclusion().lightLevel(state -> 12)), ModRenderType.CUTOUT),
     ARCANE_DARK_STONE(new Block(addProperties(Material.STONE, 1.5F, 6.0F))),
     ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
     EDELWOOD_PLANKS(new Block(from(Blocks.OAK_PLANKS))),

@@ -13,7 +13,7 @@ import com.stal111.forbidden_arcanus.init.other.*;
 import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
-import com.stal111.forbidden_arcanus.item.ModItemGroup;
+import com.stal111.forbidden_arcanus.common.item.group.ModItemGroup;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;

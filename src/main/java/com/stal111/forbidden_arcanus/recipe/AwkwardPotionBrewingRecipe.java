@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.recipe;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.item.ModItemGroup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
