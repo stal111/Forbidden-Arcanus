@@ -13,7 +13,7 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.valhelsia.valhelsia_core.core.registry.ItemRegistryHelper;
 
 /**
- * Mod Items
+ * Mod Items <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.NewModItems
  *
  * @author Valhelsia Team
@@ -51,6 +51,7 @@ public class NewModItems {
     public static final RegistryObject<BlacksmithGavelItem> REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL = HELPER.register("reinforced_arcane_golden_blacksmith_gavel", () -> new BlacksmithGavelItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 7, -3.25F, 80, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<Item> STELLARITE_PIECE = HELPER.register("stellarite_piece", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<SimpleFoiledItem> DARK_NETHER_STAR = HELPER.register("dark_nether_star", () -> new SimpleFoiledItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SMELTER_PRISM = HELPER.register("smelter_prism", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
 
     public static class Stacks {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(NewModItems.LENS_OF_VERITATIS.get());
