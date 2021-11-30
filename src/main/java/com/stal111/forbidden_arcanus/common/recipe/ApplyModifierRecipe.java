@@ -68,6 +68,14 @@ public class ApplyModifierRecipe extends UpgradeRecipe {
         return ModRecipeSerializers.APPLY_MODIFIER.get();
     }
 
+    public ItemModifier getModifier() {
+        return this.modifier;
+    }
+
+    public Ingredient getAddition() {
+        return this.addition;
+    }
+
     @Override
     public boolean isSpecial() {
         return true;

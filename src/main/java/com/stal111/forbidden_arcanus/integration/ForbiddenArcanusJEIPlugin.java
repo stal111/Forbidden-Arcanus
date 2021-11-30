@@ -29,7 +29,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(ApplyIndestructibleEnchantmentMaker.getRecipes(), VanillaRecipeCategoryUid.SMITHING);
+        registration.addRecipes(ApplyModifierRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.SMITHING);
         registration.addRecipes(RitualLoader.getRituals(), this.hephaestusSmithing.getUid());
     }
 
