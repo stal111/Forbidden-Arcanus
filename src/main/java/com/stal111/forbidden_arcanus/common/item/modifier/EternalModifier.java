@@ -6,6 +6,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
+import java.util.function.Predicate;
+
 /**
  * Eternal Modifier <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.modifier.EternalModifier
@@ -16,8 +18,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
  */
 public class EternalModifier extends ItemModifier {
 
-    public EternalModifier(Tag.Named<Item> blacklistedItems, Tag.Named<Enchantment> blacklistedEnchantments) {
-        super(blacklistedItems, blacklistedEnchantments);
+    public EternalModifier(Predicate<ItemStack> predicate, Tag.Named<Item> blacklistedItems, Tag.Named<Enchantment> blacklistedEnchantments) {
+        super(predicate, blacklistedItems, blacklistedEnchantments);
     }
 
     @Override

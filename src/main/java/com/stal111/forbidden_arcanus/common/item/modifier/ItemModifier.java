@@ -10,6 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -22,13 +23,16 @@ import java.util.stream.Collectors;
  */
 public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
 
+    private final Predicate<ItemStack> predicate;
+
     private final Tag.Named<Item> incompatibleItems;
     private final Tag.Named<Enchantment> incompatibleEnchantments;
 
     //TODO clear cached items on datapack reload
     private List<ItemStack> cachedValidItems;
 
-    public ItemModifier(Tag.Named<Item> incompatibleItems, Tag.Named<Enchantment> incompatibleEnchantments) {
+    public ItemModifier(Predicate<ItemStack> predicate, Tag.Named<Item> incompatibleItems, Tag.Named<Enchantment> incompatibleEnchantments) {
+        this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
         this.incompatibleEnchantments = incompatibleEnchantments;
     }
@@ -53,11 +57,9 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
     }
 
     public boolean canItemContainModifier(ItemStack stack) {
-        if (this.getIncompatibleItems().contains(stack.getItem())) {
+        if (this.getIncompatibleItems().contains(stack.getItem()) || !this.predicate.test(stack)) {
             return false;
         }
-
-        //TODO add more checks
 
         return EnchantmentHelper.getEnchantments(stack).keySet().stream()
                 .noneMatch(enchantment -> this.getIncompatibleEnchantments().contains(enchantment));
