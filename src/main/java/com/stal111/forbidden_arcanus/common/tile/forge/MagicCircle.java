@@ -1,12 +1,12 @@
 package com.stal111.forbidden_arcanus.common.tile.forge;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.stal111.forbidden_arcanus.common.tile.forge.ritual.MagicCircleModel;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.util.CustomRenderType;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
@@ -27,18 +27,10 @@ public class MagicCircle {
 
     private final RitualManager ritualManager;
 
-    private final ModelRenderer outerRing;
-    private final ModelRenderer innerRing;
-
     private int rotation;
 
     public MagicCircle(RitualManager ritualManager) {
         this.ritualManager = ritualManager;
-
-        this.outerRing = new ModelRenderer(10, 10, 0, 0);
-        this.outerRing.addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F);
-        this.innerRing = new ModelRenderer(10, 10, 0, 0);
-        this.innerRing.addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F);
     }
 
     public void tick() {
@@ -53,7 +45,7 @@ public class MagicCircle {
         this.rotation = rotation;
     }
 
-    public void render(MatrixStack matrixStack, float partialTicks, IRenderTypeBuffer buffer, int combinedLight) {
+    public void render(MatrixStack matrixStack, float partialTicks, IRenderTypeBuffer buffer, int combinedLight, MagicCircleModel model) {
         if (this.ritualManager.isRitualActive()) {
             Ritual ritual = this.ritualManager.getActiveRitual();
 
@@ -69,10 +61,10 @@ public class MagicCircle {
             float alpha = ticks > ritual.getTime() * 0.9F ? Math.max((ritual.getTime() - ticks), 0) / (ritual.getTime() * 0.1F) : 1.0F;
 
             matrixStack.rotate(Vector3f.YN.rotationDegrees(ticks));
-            this.outerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getOuterTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
+            model.getOuterRing().render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getOuterTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
             matrixStack.rotate(Vector3f.YN.rotationDegrees(-(ticks) * 2));
-            this.innerRing.render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getInnerTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
+            model.getInnerRing().render(matrixStack, buffer.getBuffer(CustomRenderType.getCutoutFullbright(ritual.getInnerTexture())), combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
             matrixStack.pop();
 

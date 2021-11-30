@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.renderer.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.tile.forge.ritual.MagicCircleModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -23,13 +24,16 @@ import javax.annotation.Nonnull;
  */
 public class HephaestusForgeTileEntityRenderer extends TileEntityRenderer<HephaestusForgeTileEntity> {
 
+    private final MagicCircleModel model;
+
     public HephaestusForgeTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcher) {
         super(rendererDispatcher);
+        this.model = new MagicCircleModel();
     }
 
     @Override
     public void render(@Nonnull HephaestusForgeTileEntity tileEntity, float partialTicks, @Nonnull MatrixStack matrixStack, @Nonnull IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-        tileEntity.getMagicCircle().render(matrixStack, partialTicks, buffer, combinedLight);
+        tileEntity.getMagicCircle().render(matrixStack, partialTicks, buffer, combinedLight, this.model);
 
         ItemStack stack = tileEntity.getStackInSlot(4);
 
