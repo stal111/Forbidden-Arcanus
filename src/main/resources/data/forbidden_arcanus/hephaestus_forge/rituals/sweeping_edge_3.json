@@ -38,7 +38,7 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:sweeping_edge",
+                    "id": "minecraft:sweeping",
                     "lvl": 3
                 }
             ]
