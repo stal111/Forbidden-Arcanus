@@ -157,7 +157,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     protected boolean shouldHandlePrecipitation(BlockState state, Level level, Biome.Precipitation precipitation) {
-        if (!state.getValue(WATERLOGGED) && state.getValue(AXIS) == Direction.Axis.Y && precipitation == Biome.Precipitation.RAIN) {
+        if (!state.getValue(WATERLOGGED) && (!state.hasProperty(AXIS) || state.getValue(AXIS) == Direction.Axis.Y) && precipitation == Biome.Precipitation.RAIN) {
             return level.getRandom().nextFloat() < RAIN_FILL_CHANCE;
         }
         return false;
