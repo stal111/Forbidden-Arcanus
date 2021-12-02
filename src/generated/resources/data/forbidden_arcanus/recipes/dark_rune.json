@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:rune"
+    },
+    {
+      "item": "forbidden_arcanus:rune"
+    },
+    {
+      "item": "forbidden_arcanus:corrupti_dust"
+    }
+  ],
+  "result": {
+    "item": "forbidden_arcanus:dark_rune",
+    "count": 2
+  }
+}
