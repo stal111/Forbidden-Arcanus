@@ -12,7 +12,8 @@
     "WorldEntitySpawnerMixin"
   ],
   "client": [
-    "HeadLayerMixin"
+    "HeadLayerMixin",
+    "ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

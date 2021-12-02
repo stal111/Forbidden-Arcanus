@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.init.other;
 
+import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.modifier.EternalModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.util.ModTags;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.fmllegacy.RegistryObject;
@@ -21,6 +23,6 @@ public class ModItemModifiers {
 
     public static final DeferredRegister<ItemModifier> MODIFIERS = DeferredRegister.create(ItemModifier.class, ForbiddenArcanus.MOD_ID);
 
-    public static final RegistryObject<EternalModifier> ETERNAL = MODIFIERS.register("eternal", () -> new EternalModifier(ItemStack::isDamageableItem, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE));
-    public static final RegistryObject<ItemModifier> FIERY = MODIFIERS.register("fiery", () -> new ItemModifier(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG) || stack.canPerformAction(ToolActions.AXE_DIG) || stack.canPerformAction(ToolActions.SHOVEL_DIG) || stack.canPerformAction(ToolActions.HOE_DIG) || stack.canPerformAction(ToolActions.PICKAXE_DIG), ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE));
+    public static final RegistryObject<EternalModifier> ETERNAL = MODIFIERS.register("eternal", () -> new EternalModifier(ItemStack::isDamageableItem, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, Pair.of(FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56))));
+    public static final RegistryObject<ItemModifier> FIERY = MODIFIERS.register("fiery", () -> new ItemModifier(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG) || stack.canPerformAction(ToolActions.AXE_DIG) || stack.canPerformAction(ToolActions.SHOVEL_DIG) || stack.canPerformAction(ToolActions.HOE_DIG) || stack.canPerformAction(ToolActions.PICKAXE_DIG), ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, Pair.of(FastColor.ARGB32.color(255, 255, 216, 0), FastColor.ARGB32.color(255, 88, 6, 6))));
 }

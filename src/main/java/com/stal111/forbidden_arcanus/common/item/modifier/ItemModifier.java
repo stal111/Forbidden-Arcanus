@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
@@ -28,13 +29,16 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
     private final Tag.Named<Item> incompatibleItems;
     private final Tag.Named<Enchantment> incompatibleEnchantments;
 
+    private final Pair<Integer, Integer> tooltipColors;
+
     //TODO clear cached items on datapack reload
     private List<ItemStack> cachedValidItems;
 
-    public ItemModifier(Predicate<ItemStack> predicate, Tag.Named<Item> incompatibleItems, Tag.Named<Enchantment> incompatibleEnchantments) {
+    public ItemModifier(Predicate<ItemStack> predicate, Tag.Named<Item> incompatibleItems, Tag.Named<Enchantment> incompatibleEnchantments, Pair<Integer, Integer> tooltipColors) {
         this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
         this.incompatibleEnchantments = incompatibleEnchantments;
+        this.tooltipColors = tooltipColors;
     }
 
     public void onApplied(ItemStack stack) {
@@ -70,5 +74,9 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
             this.cachedValidItems = ForgeRegistries.ITEMS.getValues().stream().map(ItemStack::new).filter(this::canItemContainModifier).collect(Collectors.toList());
         }
         return this.cachedValidItems;
+    }
+
+    public Pair<Integer, Integer> getTooltipColors() {
+        return this.tooltipColors;
     }
 }
