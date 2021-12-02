@@ -1,9 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "forbidden_arcanus:block/mysterywood_planks",
-        "top": "forbidden_arcanus:block/mysterywood_planks",
-        "side": "forbidden_arcanus:block/mysterywood_planks"
-    }
-}
-

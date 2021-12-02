@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "forbidden_arcanus:block/mysterywood_slab" },
-        "type=top": { "model": "forbidden_arcanus:block/mysterywood_slab_top" },
-        "type=double": { "model": "forbidden_arcanus:block/mysterywood_planks" }
-    }
-}

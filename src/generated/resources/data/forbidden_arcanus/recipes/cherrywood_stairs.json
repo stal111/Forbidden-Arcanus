@@ -5,11 +5,11 @@
   ],
   "key": {
     "#": {
-      "item": "forbidden_arcanus:fungyss_planks"
+      "item": "forbidden_arcanus:cherrywood_planks"
     }
   },
   "result": {
-    "item": "forbidden_arcanus:fungyss_stairs",
+    "item": "forbidden_arcanus:cherrywood_stairs",
     "count": 6
   }
 }

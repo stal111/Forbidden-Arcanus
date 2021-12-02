@@ -35,8 +35,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(NewModBlocks.EDELWOOD_LOG.get(), NewModBlocks.CARVED_EDELWOOD_LOG.get());
         this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS);
         this.tag(BlockTags.PLANKS).add(NewModBlocks.FUNGYSS_PLANKS.get(), NewModBlocks.CHERRYWOOD_PLANKS.get(), NewModBlocks.CARVED_CHERRYWOOD_PLANKS.get(), NewModBlocks.MYSTERYWOOD_PLANKS.get(), NewModBlocks.EDELWOOD_PLANKS.get(), NewModBlocks.ARCANE_EDELWOOD_PLANKS.get());
-        this.tag(BlockTags.WOODEN_SLABS).add(NewModBlocks.FUNGYSS_SLAB.get(), ModBlocks.CHERRYWOOD_SLAB.getBlock(), ModBlocks.MYSTERYWOOD_SLAB.getBlock(), ModBlocks.EDELWOOD_SLAB.getBlock());
-        this.tag(BlockTags.WOODEN_STAIRS).add(NewModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.CHERRYWOOD_STAIRS.getBlock(), ModBlocks.MYSTERYWOOD_STAIRS.getBlock(), ModBlocks.EDELWOOD_STAIRS.getBlock());
+        this.tag(BlockTags.WOODEN_SLABS).add(NewModBlocks.FUNGYSS_SLAB.get(), NewModBlocks.CHERRYWOOD_SLAB.get(), NewModBlocks.MYSTERYWOOD_SLAB.get(), NewModBlocks.EDELWOOD_SLAB.get());
+        this.tag(BlockTags.WOODEN_STAIRS).add(NewModBlocks.FUNGYSS_STAIRS.get(), NewModBlocks.CHERRYWOOD_STAIRS.get(), NewModBlocks.MYSTERYWOOD_STAIRS.get(), NewModBlocks.EDELWOOD_STAIRS.get());
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.CHERRYWOOD_PRESSURE_PLATE.getBlock(), ModBlocks.MYSTERYWOOD_PRESSURE_PLATE.getBlock(), ModBlocks.EDELWOOD_PRESSURE_PLATE.getBlock());
         this.tag(BlockTags.WOODEN_BUTTONS).add(NewModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.CHERRYWOOD_BUTTON.getBlock(), ModBlocks.MYSTERYWOOD_BUTTON.getBlock(), ModBlocks.EDELWOOD_BUTTON.getBlock());
         this.tag(BlockTags.WOODEN_FENCES).add(NewModBlocks.FUNGYSS_FENCE.get(), ModBlocks.CHERRYWOOD_FENCE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE.getBlock(), ModBlocks.EDELWOOD_FENCE.getBlock());
