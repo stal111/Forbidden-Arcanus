@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:arcane_edelwood_planks"
+    ]
+  },
+  "criteria": {
+    "has_arcane_gold_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forbidden_arcanus:arcane_gold_ingot"
+            ]
+          }
+        ]
+      }
+    },
+    "has_edelwood_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forbidden_arcanus:edelwood_planks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "forbidden_arcanus:arcane_edelwood_planks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_arcane_gold_ingot",
+      "has_edelwood_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

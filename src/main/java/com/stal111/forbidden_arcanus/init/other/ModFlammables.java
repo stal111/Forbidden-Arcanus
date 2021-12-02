@@ -24,20 +24,20 @@ public class ModFlammables {
         registerLog(NewModBlocks.STRIPPED_CHERRYWOOD.get());
         registerLog(NewModBlocks.STRIPPED_MYSTERYWOOD.get());
 
-        registerWoodenBlock(ModBlocks.EDELWOOD_PLANKS.getBlock());
-        registerWoodenBlock(ModBlocks.ARCANE_EDELWOOD_PLANKS.getBlock());
+        registerWoodenBlock(NewModBlocks.EDELWOOD_PLANKS.get());
+        registerWoodenBlock(NewModBlocks.ARCANE_EDELWOOD_PLANKS.get());
         registerWoodenBlock(ModBlocks.EDELWOOD_SLAB.getBlock());
         registerWoodenBlock(ModBlocks.EDELWOOD_STAIRS.getBlock());
         registerWoodenBlock(ModBlocks.EDELWOOD_FENCE.getBlock());
         registerWoodenBlock(ModBlocks.EDELWOOD_FENCE_GATE.getBlock());
 
-        registerWoodenBlock(ModBlocks.CHERRYWOOD_PLANKS.getBlock());
+        registerWoodenBlock(NewModBlocks.CHERRYWOOD_PLANKS.get());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_SLAB.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_STAIRS.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_FENCE.getBlock());
         registerWoodenBlock(ModBlocks.CHERRYWOOD_FENCE_GATE.getBlock());
 
-        registerWoodenBlock(ModBlocks.MYSTERYWOOD_PLANKS.getBlock());
+        registerWoodenBlock(NewModBlocks.MYSTERYWOOD_PLANKS.get());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_SLAB.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_STAIRS.getBlock());
         registerWoodenBlock(ModBlocks.MYSTERYWOOD_FENCE.getBlock());

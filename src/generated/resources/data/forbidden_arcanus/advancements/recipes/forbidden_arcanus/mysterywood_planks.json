@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:fungyss_planks"
+      "forbidden_arcanus:mysterywood_planks"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forbidden_arcanus:fungyss_stems"
+            "tag": "forbidden_arcanus:mysterywood_logs"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "forbidden_arcanus:fungyss_planks"
+        "recipe": "forbidden_arcanus:mysterywood_planks"
       }
     }
   },
