@@ -82,7 +82,7 @@ public class EntityDamageListener {
                         }
                     }));
                     if (!list.isEmpty()) {
-                        player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
+                        player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(NewModItems.EDELWOOD_BUCKET.get())));
 
                         world.addFreshEntity(new ItemEntity(world, player.getX(), player.getY(), player.getZ(), Items.SLIME_BALL.getDefaultInstance()));
                         for(int j = 0; j < 4 * 8; ++j) {
@@ -103,7 +103,7 @@ public class EntityDamageListener {
                     }
                 }));
                 if (!list.isEmpty()) {
-                    player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(ModItems.EDELWOOD_BUCKET.get())));
+                    player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(NewModItems.EDELWOOD_BUCKET.get())));
 
                     world.addFreshEntity(new ItemEntity(world, player.getX(), player.getY(), player.getZ(), Items.MAGMA_CREAM.getDefaultInstance()));
 

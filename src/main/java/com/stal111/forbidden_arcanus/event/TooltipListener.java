@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.EdelwoodFishBucketItem;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
 import com.stal111.forbidden_arcanus.util.TooltipUtils;
@@ -42,7 +43,7 @@ public class TooltipListener {
                     int x = event.getX() + i * 14 + (fullness * 14 - 2);
 
                     itemRenderer.blitOffset += 500;
-                    itemRenderer.renderAndDecorateItem(new ItemStack(ModItems.EDELWOOD_BUCKET.get()), x, y);
+                    itemRenderer.renderAndDecorateItem(new ItemStack(NewModItems.EDELWOOD_BUCKET.get()), x, y);
                     itemRenderer.blitOffset -= 500;
 
                 }

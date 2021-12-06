@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.recipe;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BucketItem;
@@ -113,9 +114,9 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends CustomRecipe {
 
     private List<Item> getValidItems(ItemStack stack) {
         List<Item> list = new ArrayList<>();
-        if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get()) {
+        if (stack.getItem() == NewModItems.EDELWOOD_WATER_BUCKET.get()) {
             list.add(Items.WATER_BUCKET);
-        } else if (stack.getItem() == ModItems.EDELWOOD_LAVA_BUCKET.get()) {
+        } else if (stack.getItem() == NewModItems.EDELWOOD_LAVA_BUCKET.get()) {
             list.add(Items.LAVA_BUCKET);
         } else if (stack.getItem() == ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get()) {
             list.add(Items.MUSHROOM_STEW);

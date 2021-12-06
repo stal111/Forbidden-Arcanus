@@ -5,10 +5,10 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.ModItems;
 
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.BucketPickup;
@@ -143,9 +143,9 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
                         playerIn.playSound(soundevent, 1.0F, 1.0F);
                         ItemStack filled = ItemStack.EMPTY;
                         if (fluid.isSame(Fluids.WATER))
-                            filled = this.fillBucket(stack, playerIn, ModItems.EDELWOOD_WATER_BUCKET.get());
+                            filled = this.fillBucket(stack, playerIn, NewModItems.EDELWOOD_WATER_BUCKET.get());
                         else if (fluid.isSame(Fluids.LAVA))
-                            filled = this.fillBucket(stack, playerIn, ModItems.EDELWOOD_LAVA_BUCKET.get());
+                            filled = this.fillBucket(stack, playerIn, NewModItems.EDELWOOD_LAVA_BUCKET.get());
                         else if (ForgeMod.MILK.isPresent() && fluid.isSame(ForgeMod.MILK.get()))
                             filled = this.fillBucket(stack, playerIn, ModItems.EDELWOOD_MILK_BUCKET.get());
 
@@ -184,7 +184,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
             if ((fullness - 1) > 0) {
                 return ICapacityBucket.setFullness(stack, fullness - 1);
             }
-            return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
+            return ItemStackUtils.transferEnchantments(stack, new ItemStack(NewModItems.EDELWOOD_BUCKET.get()));
         }
         return stack;
     }
@@ -259,7 +259,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-        if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get() || stack.getItem() == ModItems.EDELWOOD_LAVA_BUCKET.get()) {
+        if (stack.getItem() == NewModItems.EDELWOOD_WATER_BUCKET.get() || stack.getItem() == NewModItems.EDELWOOD_LAVA_BUCKET.get()) {
             tooltip.add(new TextComponent(" "));
             tooltip.add(new TextComponent(" "));
         }
@@ -280,6 +280,7 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
 
     @Override
     public int getCapacity() {
-        return this == ModItems.EDELWOOD_BUCKET.get() ? 0 : this == ModItems.EDELWOOD_WATER_BUCKET.get() ? ItemConfig.EDELWOOD_WATER_BUCKET_CAPACITY.get() : ItemConfig.EDELWOOD_LAVA_BUCKET_CAPACITY.get();
+        //return this == NewModItems.EDELWOOD_BUCKET.get() ? 0 : this == ModItems.EDELWOOD_WATER_BUCKET.get() ? ItemConfig.EDELWOOD_WATER_BUCKET_CAPACITY.get() : ItemConfig.EDELWOOD_LAVA_BUCKET_CAPACITY.get();
+        return 3;
     }
 }

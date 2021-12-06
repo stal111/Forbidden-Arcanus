@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.EdelwoodSuspiciousStewBucketItem;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
 import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
@@ -44,7 +45,7 @@ public class PlayerInteractListener {
 
 			if (entity instanceof MushroomCow) {
 				if (!player.getAbilities().instabuild && !((MushroomCow) entity).isBaby()) {
-					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
+					if (stack.getItem() == NewModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);
 						boolean flag = ((MushroomCow) entity).effect != null;
 						ItemStack stew_bucket = ItemStackUtils.transferEnchantments(stack, flag ? new ItemStack(ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.get()) : new ItemStack(ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get()));
@@ -72,7 +73,7 @@ public class PlayerInteractListener {
 				}
 			} else if (entity instanceof Cow) {
 				if (!player.getAbilities().instabuild && !((Cow) entity).isBaby()) {
-					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
+					if (stack.getItem() == NewModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);
 						ItemStack milk_bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_MILK_BUCKET.get()));
 						if (stack.isEmpty()) {
@@ -90,7 +91,7 @@ public class PlayerInteractListener {
 				}
 			} else if (entity instanceof AbstractFish || entity instanceof Squid) {
 				if (entity.isAlive()) {
-					if (stack.getItem() == ModItems.EDELWOOD_WATER_BUCKET.get()) {
+					if (stack.getItem() == NewModItems.EDELWOOD_WATER_BUCKET.get()) {
 						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
 							stack.shrink(1);
 							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))));
@@ -117,7 +118,7 @@ public class PlayerInteractListener {
 				}
 			} else if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))) {
 				if (entity.isAlive()) {
-					if (stack.getItem() == ModItems.EDELWOOD_BUCKET.get()) {
+					if (stack.getItem() == NewModItems.EDELWOOD_BUCKET.get()) {
 						stack.shrink(1);
 
 						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))));
