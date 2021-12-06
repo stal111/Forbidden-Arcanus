@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.common;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
+import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
@@ -9,6 +11,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 /**
@@ -38,5 +41,7 @@ public class CommonSetup {
         ModUtils.addStrippable(NewModBlocks.CHERRYWOOD.get(), NewModBlocks.STRIPPED_CHERRYWOOD.get());
         ModUtils.addStrippable(NewModBlocks.MYSTERYWOOD_LOG.get(), NewModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
         ModUtils.addStrippable(NewModBlocks.MYSTERYWOOD.get(), NewModBlocks.STRIPPED_MYSTERYWOOD.get());
+
+        MinecraftForgeClient.registerTooltipComponentFactory(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
     }
 }
