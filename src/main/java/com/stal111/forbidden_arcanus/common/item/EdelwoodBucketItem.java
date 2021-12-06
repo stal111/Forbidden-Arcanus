@@ -1,16 +1,20 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.google.common.collect.ImmutableMap;
+import com.stal111.forbidden_arcanus.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BucketPickup;
@@ -36,7 +40,8 @@ import java.util.function.Supplier;
  */
 public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
 
-    public static Map<Item, Supplier<? extends Item>> ITEM_TO_BUCKET = new ImmutableMap.Builder<Item, Supplier<? extends Item>>().put(Items.WATER_BUCKET, NewModItems.EDELWOOD_WATER_BUCKET).put(Items.LAVA_BUCKET, NewModItems.EDELWOOD_LAVA_BUCKET).build();
+    public static final Map<Item, Supplier<? extends Item>> ITEM_TO_BUCKET = new ImmutableMap.Builder<Item, Supplier<? extends Item>>().put(Items.WATER_BUCKET, NewModItems.EDELWOOD_WATER_BUCKET).put(Items.LAVA_BUCKET, NewModItems.EDELWOOD_LAVA_BUCKET).build();
+    private static final double BURN_CHANCE = 0.005;
 
     private final int capacity;
 
@@ -47,6 +52,30 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
     public EdelwoodBucketItem(Supplier<? extends Fluid> supplier, int capacity, Properties properties) {
         super(supplier, properties);
         this.capacity = capacity;
+    }
+
+    @Override
+    public void inventoryTick(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull Entity entity, int slot, boolean isSelected) {
+        if (this.shouldBurn(stack, level, entity)) {
+            if (entity instanceof Player player) {
+                player.getInventory().setItem(slot, new ItemStack(Items.CHARCOAL));
+            }
+            level.setBlockAndUpdate(entity.blockPosition(), this.getFluid().defaultFluidState().createLegacyBlock());
+        }
+
+        super.inventoryTick(stack, level, entity, slot, isSelected);
+    }
+
+    private boolean shouldBurn(ItemStack stack, Level level, Entity entity) {
+        if (level.isClientSide() || !FluidTags.LAVA.contains(this.getFluid()) || EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PERMAFROST.get(), stack) != 0) {
+            return false;
+        }
+
+        if (entity instanceof Player player && player.getAbilities().instabuild) {
+            return false;
+        }
+
+        return level.getRandom().nextDouble() < BURN_CHANCE;
     }
 
     @Nonnull
