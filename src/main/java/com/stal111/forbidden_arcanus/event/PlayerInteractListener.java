@@ -9,7 +9,6 @@ import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.animal.AbstractFish;
@@ -69,24 +68,6 @@ public class PlayerInteractListener {
 							entity.playSound(SoundEvents.MOOSHROOM_MILK, 1.0F, 1.0F);
 							player.swing(event.getHand());
 						}
-					}
-				}
-			} else if (entity instanceof Cow) {
-				if (!player.getAbilities().instabuild && !((Cow) entity).isBaby()) {
-					if (stack.getItem() == NewModItems.EDELWOOD_BUCKET.get()) {
-						stack.shrink(1);
-						ItemStack milk_bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_MILK_BUCKET.get()));
-						if (stack.isEmpty()) {
-							player.setItemInHand(event.getHand(), milk_bucket);
-						} else if (!player.getInventory().add(milk_bucket)) {
-							player.drop(milk_bucket, false);
-						}
-						player.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
-						player.swing(event.getHand());
-					} else if (stack.getItem() == ModItems.EDELWOOD_MILK_BUCKET.get() && ICapacityBucket.getFullness(stack) != ((ICapacityBucket) stack.getItem()).getCapacity()) {
-						ICapacityBucket.setFullness(stack, ICapacityBucket.getFullness(stack) + 1);
-						player.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
-						player.swing(event.getHand());
 					}
 				}
 			} else if (entity instanceof AbstractFish || entity instanceof Squid) {

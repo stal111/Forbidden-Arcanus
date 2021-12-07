@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -36,13 +37,13 @@ public interface CapacityBucket {
         return this.getFullness(stack) >= this.getCapacity();
     }
 
-    default boolean tryFill(ItemStack stack) {
+    default Pair<Boolean, ItemStack> tryFill(ItemStack stack) {
         if (this.isFull(stack)) {
-            return false;
+            return Pair.of(false, stack);
         }
         this.setFullness(stack, this.getFullness(stack) + 1);
 
-        return true;
+        return Pair.of(true, stack);
     }
 
     default ItemStack tryDrain(ItemStack stack) {

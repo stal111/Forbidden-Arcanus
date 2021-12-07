@@ -146,8 +146,6 @@ public class EdelwoodBucketItem extends Item implements ICapacityBucket {
                             filled = this.fillBucket(stack, playerIn, NewModItems.EDELWOOD_WATER_BUCKET.get());
                         else if (fluid.isSame(Fluids.LAVA))
                             filled = this.fillBucket(stack, playerIn, NewModItems.EDELWOOD_LAVA_BUCKET.get());
-                        else if (ForgeMod.MILK.isPresent() && fluid.isSame(ForgeMod.MILK.get()))
-                            filled = this.fillBucket(stack, playerIn, ModItems.EDELWOOD_MILK_BUCKET.get());
 
                         if (!filled.isEmpty()) {
                             if (!worldIn.isClientSide) {

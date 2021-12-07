@@ -75,7 +75,6 @@ public class ModItems {
     public static final RegistryObject<Item> WAX = register("wax", () -> new Item(properties()));
     public static final RegistryObject<Item> SPAWNER_SCRAP = register("spawner_scrap", () -> new Item(properties()));
     public static final RegistryObject<Item> QUANTUM_CATCHER = register("quantum_catcher", () -> new QuantumCatcherItem(properties()));
-    public static final RegistryObject<Item> EDELWOOD_MILK_BUCKET = register("edelwood_milk_bucket", () -> new EdelwoodMilkBucketItem(properties(1)));
     public static final RegistryObject<Item> EDELWOOD_PUFFERFISH_BUCKET = register("edelwood_pufferfish_bucket", () -> new EdelwoodFishBucketItem(EntityType.PUFFERFISH, Fluids.WATER, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_SALMON_BUCKET = register("edelwood_salmon_bucket", () -> new EdelwoodFishBucketItem(EntityType.SALMON, Fluids.WATER, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_COD_BUCKET = register("edelwood_cod_bucket", () -> new EdelwoodFishBucketItem(EntityType.COD, Fluids.WATER, properties(1)));

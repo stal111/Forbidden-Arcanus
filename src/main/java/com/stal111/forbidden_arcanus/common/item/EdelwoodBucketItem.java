@@ -40,7 +40,7 @@ import java.util.function.Supplier;
  */
 public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
 
-    public static final Map<Item, Supplier<? extends Item>> ITEM_TO_BUCKET = new ImmutableMap.Builder<Item, Supplier<? extends Item>>().put(Items.WATER_BUCKET, NewModItems.EDELWOOD_WATER_BUCKET).put(Items.LAVA_BUCKET, NewModItems.EDELWOOD_LAVA_BUCKET).build();
+    public static final Map<Item, Supplier<? extends Item>> ITEM_TO_BUCKET = new ImmutableMap.Builder<Item, Supplier<? extends Item>>().put(Items.WATER_BUCKET, NewModItems.EDELWOOD_WATER_BUCKET).put(Items.LAVA_BUCKET, NewModItems.EDELWOOD_LAVA_BUCKET).put(Items.MILK_BUCKET, NewModItems.EDELWOOD_MILK_BUCKET).build();
     private static final double BURN_CHANCE = 0.005;
 
     private final int capacity;
@@ -126,7 +126,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
                 filledBucket = stack.is(bucket.getItem()) ? stack.copy() : bucket;
 
 
-                if (!isEmptyFluid && !this.tryFill(filledBucket)) {
+                if (!isEmptyFluid && !this.tryFill(filledBucket).getFirst()) {
                     return this.cancelFluidPickup(pos, state, level, stack);
                 }
 
