@@ -40,7 +40,12 @@ import java.util.function.Supplier;
  */
 public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
 
-    public static final Map<Item, Supplier<? extends Item>> ITEM_TO_BUCKET = new ImmutableMap.Builder<Item, Supplier<? extends Item>>().put(Items.WATER_BUCKET, NewModItems.EDELWOOD_WATER_BUCKET).put(Items.LAVA_BUCKET, NewModItems.EDELWOOD_LAVA_BUCKET).put(Items.MILK_BUCKET, NewModItems.EDELWOOD_MILK_BUCKET).build();
+    public static final Map<Item, Supplier<? extends Item>> ITEM_TO_BUCKET = new ImmutableMap.Builder<Item, Supplier<? extends Item>>()
+            .put(Items.WATER_BUCKET, NewModItems.EDELWOOD_WATER_BUCKET)
+            .put(Items.LAVA_BUCKET, NewModItems.EDELWOOD_LAVA_BUCKET)
+            .put(Items.MILK_BUCKET, NewModItems.EDELWOOD_MILK_BUCKET)
+            .put(Items.POWDER_SNOW_BUCKET, NewModItems.EDELWOOD_POWDER_SNOW_BUCKET)
+            .build();
     private static final double BURN_CHANCE = 0.005;
 
     private final int capacity;

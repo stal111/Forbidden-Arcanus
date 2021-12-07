@@ -42,7 +42,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 NewModBlocks.NIPA,
                 NewModBlocks.ARCANE_CRYSTAL_OBELISK,
                 NewModBlocks.ARCANE_GOLDEN_CHAIN,
-                NewModBlocks.ARCANE_DRAGON_EGG
+                NewModBlocks.ARCANE_DRAGON_EGG,
+                NewModItems.EDELWOOD_POWDER_SNOW_BUCKET
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 NewModBlocks.FUNGYSS,
