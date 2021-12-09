@@ -77,9 +77,9 @@ public class EntityDamageListener {
                 if (random.nextDouble() <= 0.75) {
                     List<Integer> list = new ArrayList<>();
                     player.getInventory().items.forEach((stack -> {
-                        if (stack.getItem() == ModItems.EDELWOOD_SLIME_BUCKET.get()) {
-                            list.add(player.getInventory().findSlotMatchingItem(stack));
-                        }
+//                        if (stack.getItem() == ModItems.EDELWOOD_SLIME_BUCKET.get()) {
+//                            list.add(player.getInventory().findSlotMatchingItem(stack));
+//                        }
                     }));
                     if (!list.isEmpty()) {
                         player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(NewModItems.EDELWOOD_BUCKET.get())));
@@ -98,9 +98,9 @@ public class EntityDamageListener {
             } else if (event.getSource() == DamageSource.LAVA || event.getSource() == DamageSource.ON_FIRE || event.getSource() == DamageSource.IN_FIRE) {
                 List<Integer> list = new ArrayList<>();
                 player.getInventory().items.forEach((stack -> {
-                    if (stack.getItem() == ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.get()) {
-                        list.add(player.getInventory().findSlotMatchingItem(stack));
-                    }
+//                    if (stack.getItem() == ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.get()) {
+//                        list.add(player.getInventory().findSlotMatchingItem(stack));
+//                    }
                 }));
                 if (!list.isEmpty()) {
                     player.getInventory().setItem(list.get(0), ItemStackUtils.transferEnchantments(player.getInventory().getItem(list.get(0)), new ItemStack(NewModItems.EDELWOOD_BUCKET.get())));

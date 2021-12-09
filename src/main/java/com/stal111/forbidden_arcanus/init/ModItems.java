@@ -75,19 +75,11 @@ public class ModItems {
     public static final RegistryObject<Item> WAX = register("wax", () -> new Item(properties()));
     public static final RegistryObject<Item> SPAWNER_SCRAP = register("spawner_scrap", () -> new Item(properties()));
     public static final RegistryObject<Item> QUANTUM_CATCHER = register("quantum_catcher", () -> new QuantumCatcherItem(properties()));
-    public static final RegistryObject<Item> EDELWOOD_PUFFERFISH_BUCKET = register("edelwood_pufferfish_bucket", () -> new EdelwoodFishBucketItem(EntityType.PUFFERFISH, Fluids.WATER, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_SALMON_BUCKET = register("edelwood_salmon_bucket", () -> new EdelwoodFishBucketItem(EntityType.SALMON, Fluids.WATER, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_COD_BUCKET = register("edelwood_cod_bucket", () -> new EdelwoodFishBucketItem(EntityType.COD, Fluids.WATER, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_TROPICAL_FISH_BUCKET = register("edelwood_tropical_fish_bucket", () -> new EdelwoodFishBucketItem(EntityType.TROPICAL_FISH, Fluids.WATER, properties(1)));
     public static final RegistryObject<Item> EDELWOOD_MUSHROOM_STEW_BUCKET = register("edelwood_mushroom_stew_bucket", () -> new EdelwoodSoupBucketItem(properties(1).food(Foods.MUSHROOM_STEW)));
     public static final RegistryObject<Item> EDELWOOD_SUSPICIOUS_STEW_BUCKET = register("edelwood_suspicious_stew_bucket", () -> new EdelwoodSuspiciousStewBucketItem(properties(1).food(Foods.SUSPICIOUS_STEW)));
     public static final RegistryObject<Item> EDELWOOD_BEETROOT_SOUP_BUCKET = register("edelwood_beetroot_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).food(Foods.BEETROOT_SOUP)));
     public static final RegistryObject<Item> EDELWOOD_BAT_SOUP_BUCKET = register("edelwood_bat_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).food(build(7, 0.7F, new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F))));
-    public static final RegistryObject<Item> EDELWOOD_BAT_BUCKET = register("edelwood_bat_bucket", () -> new EdelwoodEntityBucketItem(EntityType.BAT, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_SQUID_BUCKET = register("edelwood_squid_bucket", () -> new EdelwoodFishBucketItem(EntityType.SQUID, Fluids.WATER, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_MAGMA_CUBE_BUCKET = register("edelwood_magma_cube_bucket", () -> new EdelwoodEntityBucketItem(EntityType.MAGMA_CUBE, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_SLIME_BUCKET = register("edelwood_slime_bucket", () -> new EdelwoodEntityBucketItem(EntityType.SLIME, properties(1)));
-    public static final RegistryObject<Item> EDELWOOD_CHICKEN_BUCKET = register("edelwood_chicken_bucket", () -> new EdelwoodEntityBucketItem(EntityType.CHICKEN, properties(1)));
+
     public static final RegistryObject<Item> SOUL_EXTRACTOR = register("soul_extractor", SoulExtractorItem::new);
     public static final RegistryObject<Item> SLIMEC_PICKAXE = register("slimec_pickaxe", () -> new SlimecPickaxeItem(ModItemTier.SLIMEC, 1, -2.5F, properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_STAFF = register("draco_arcanus_staff", () -> new Item(properties(1)));

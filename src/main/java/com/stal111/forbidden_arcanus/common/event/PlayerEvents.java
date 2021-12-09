@@ -1,22 +1,42 @@
 package com.stal111.forbidden_arcanus.common.event;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.CapacityBucket;
+import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
+import com.stal111.forbidden_arcanus.common.item.EdelwoodMobBucketItem;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Player Events <br>
@@ -28,6 +48,11 @@ import net.minecraftforge.fml.common.Mod;
  */
 @Mod.EventBusSubscriber
 public class PlayerEvents {
+
+    private static final Map<Fluid, List<EntityType<?>>> FLUID_TO_ENTITY = ImmutableMap.of(
+            Fluids.EMPTY, ImmutableList.of(EntityType.BAT, EntityType.SLIME, EntityType.MAGMA_CUBE, EntityType.CHICKEN),
+            Fluids.WATER, ImmutableList.of(EntityType.PUFFERFISH, EntityType.SALMON, EntityType.COD, EntityType.TROPICAL_FISH, EntityType.SQUID, EntityType.AXOLOTL)
+    );
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -51,7 +76,11 @@ public class PlayerEvents {
         Entity entity = event.getTarget();
         InteractionHand hand = event.getHand();
 
-        if (entity instanceof Cow cow && !cow.isBaby()) {
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+
+        if (livingEntity instanceof Cow cow && !cow.isBaby()) {
             if (stack.getItem() instanceof CapacityBucket capacityBucket) {
                 ItemStack copy = stack.copy();
 
@@ -70,5 +99,40 @@ public class PlayerEvents {
                 }
             }
         }
+
+        tryPickupMob(player, hand, livingEntity);
+    }
+
+    private static boolean tryPickupMob(Player player, InteractionHand hand, LivingEntity entity) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (!(stack.getItem() instanceof EdelwoodBucketItem edelwoodBucketItem) || edelwoodBucketItem instanceof EdelwoodMobBucketItem || !FLUID_TO_ENTITY.getOrDefault(edelwoodBucketItem.getFluid(), new ArrayList<>()).contains(entity.getType()) || !entity.isAlive()) {
+            return false;
+        }
+
+        ResourceLocation resourceLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + Objects.requireNonNull(entity.getType().getRegistryName()).getPath() + "_bucket");
+        if (ForgeRegistries.ITEMS.containsKey(resourceLocation)) {
+            ItemStack entityBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(resourceLocation)));
+
+            if (stack.getItem() instanceof CapacityBucket capacityBucket) {
+                entityBucket = capacityBucket.transferFullness(stack, entityBucket);
+            }
+
+            if (entity instanceof Bucketable bucketable) {
+                bucketable.saveToBucketTag(entityBucket);
+            }
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.FILLED_BUCKET.trigger(serverPlayer, entityBucket);
+            }
+
+            player.swing(hand);
+            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, entityBucket, false));
+
+            entity.discard();
+
+            return true;
+        }
+        return false;
     }
 }

@@ -37,7 +37,7 @@ public class TooltipEvents {
     public static void onGatherComponents(RenderTooltipEvent.GatherComponents event) {
         ItemStack stack = event.getStack();
 
-        if (stack.getItem() instanceof CapacityBucket capacityBucket && !capacityBucket.getEmptyBucket().is(stack.getItem())) {
+        if (stack.getItem() instanceof CapacityBucket capacityBucket && capacityBucket.getCapacity() != 0) {
             event.getTooltipElements().add(1, Either.right(new EdelwoodBucketTooltip(stack, capacityBucket.getFullness(stack), capacityBucket.getCapacity())));
         }
     }

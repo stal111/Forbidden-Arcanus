@@ -1,29 +1,21 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.EdelwoodSuspiciousStewBucketItem;
 import com.stal111.forbidden_arcanus.item.ICapacityBucket;
 import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.MushroomCow;
-import net.minecraft.world.entity.animal.Squid;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 @Mod.EventBusSubscriber
@@ -68,49 +60,6 @@ public class PlayerInteractListener {
 							entity.playSound(SoundEvents.MOOSHROOM_MILK, 1.0F, 1.0F);
 							player.swing(event.getHand());
 						}
-					}
-				}
-			} else if (entity instanceof AbstractFish || entity instanceof Squid) {
-				if (entity.isAlive()) {
-					if (stack.getItem() == NewModItems.EDELWOOD_WATER_BUCKET.get()) {
-						if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))) {
-							stack.shrink(1);
-							ItemStack fishBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" +  entity.getType().getRegistryName().getPath() + "_bucket"))));
-							CompoundTag compoundNBT = fishBucket.getOrCreateTagElement("EdelwoodBucket");
-							compoundNBT.putInt("Fullness", stack.getOrCreateTagElement("EdelwoodBucket").getInt("Fullness"));
-							if (entity.hasCustomName()) {
-								fishBucket.setHoverName(entity.getCustomName());
-							}
-							if (!world.isClientSide()) {
-								CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)player, fishBucket);
-							}
-
-							if (stack.isEmpty()) {
-								player.setItemInHand(event.getHand(), fishBucket);
-							} else if (!player.getInventory().add(fishBucket)) {
-								player.drop(fishBucket, false);
-							}
-
-							entity.remove(Entity.RemovalReason.DISCARDED);
-							entity.playSound(SoundEvents.BUCKET_FILL_FISH, 1.0F, 1.0F);
-							player.swing(event.getHand());
-						}
-					}
-				}
-			} else if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))) {
-				if (entity.isAlive()) {
-					if (stack.getItem() == NewModItems.EDELWOOD_BUCKET.get()) {
-						stack.shrink(1);
-
-						ItemStack bucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + entity.getType().getRegistryName().getPath() + "_bucket"))));
-
-						if (stack.isEmpty()) {
-							player.setItemInHand(event.getHand(), bucket);
-						} else if (!player.getInventory().add(bucket)) {
-							player.drop(bucket, false);
-						}
-						entity.remove(Entity.RemovalReason.DISCARDED);
-						player.swing(event.getHand());
 					}
 				}
 			}

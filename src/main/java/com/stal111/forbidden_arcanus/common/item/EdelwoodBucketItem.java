@@ -175,7 +175,13 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
         if (player.getAbilities().instabuild) {
             return stack;
         }
-        return this.tryDrain(stack);
+        if (this instanceof EdelwoodMobBucketItem item) {
+            stack = this.transferFullness(stack, item.getFluidBucket());
+        }
+
+        stack = ((CapacityBucket) stack.getItem()).tryDrain(stack);
+
+        return stack;
     }
 
     private boolean canBlockContainFluid(Level level, BlockPos pos, BlockState state) {

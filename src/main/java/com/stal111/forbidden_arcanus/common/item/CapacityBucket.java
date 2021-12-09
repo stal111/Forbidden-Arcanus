@@ -3,6 +3,8 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Objects;
+
 /**
  * Capacity Bucket <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.CapacityBucket
@@ -16,6 +18,9 @@ public interface CapacityBucket {
     ItemStack getEmptyBucket();
 
     default int getFullness(ItemStack stack) {
+        if (stack.hasTag() && Objects.requireNonNull(stack.getTag()).contains("Fullness")) {
+            return stack.getOrCreateTag().getInt("Fullness");
+        }
         if (!this.isValidBucket(stack)) {
             return 0;
         }
@@ -55,5 +60,10 @@ public interface CapacityBucket {
 
     private boolean isValidBucket(ItemStack stack) {
         return stack.getItem() instanceof CapacityBucket && this.getCapacity() != 0;
+    }
+
+    default ItemStack transferFullness(ItemStack oldStack, ItemStack newStack) {
+        newStack.getOrCreateTag().putInt("Fullness", this.getFullness(oldStack));
+        return newStack;
     }
 }
