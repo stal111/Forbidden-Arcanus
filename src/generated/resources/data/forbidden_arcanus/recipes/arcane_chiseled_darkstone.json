@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:darkstone"
+    },
+    "X": {
+      "tag": "forge:ingots/arcane_gold"
+    }
+  },
+  "result": {
+    "item": "forbidden_arcanus:arcane_chiseled_darkstone",
+    "count": 8
+  }
+}

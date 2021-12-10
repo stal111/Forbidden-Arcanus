@@ -39,6 +39,7 @@ public class NewModBlocks {
     public static final BlockRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getBlockHelper();
 
     public static final RegistryObject<Block> DARKSTONE = HELPER.register("darkstone", new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<Block> ARCANE_CHISELED_DARKSTONE = HELPER.register("arcane_chiseled_darkstone", new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_SLAB = HELPER.register("darkstone_slab", new SlabBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_STAIRS = HELPER.register("darkstone_stairs", new StairBlock(() -> DARKSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_WALL = HELPER.register("darkstone_wall", new WallBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
