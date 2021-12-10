@@ -80,6 +80,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::carvedEdelwoodLogBlock, NewModBlocks.CARVED_EDELWOOD_LOG);
 
         take(block -> horizontalBlock(block, models().getExistingFile(modLoc("block/edelwood_ladder"))), NewModBlocks.EDELWOOD_LADDER);
+        take(block -> pressurePlateBlock(block, modLoc("block/arcane_gold_block")), NewModBlocks.ARCANE_GOLD_PRESSURE_PLATE);
 
         take(block -> signBlock(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_SIGN.getSecond().get()), NewModBlocks.FUNGYSS_SIGN.getFirst());
         take(block -> signBlock(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), NewModBlocks.CHERRYWOOD_SIGN.getSecond().get()), NewModBlocks.CHERRYWOOD_SIGN.getFirst());
@@ -97,6 +98,16 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
             ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 10));
 
             fenceGateBlock((FenceGateBlock) block, new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("planks")));
+        });
+        forEach(block -> block instanceof ButtonBlock, block -> {
+            ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 6));
+
+            buttonBlock((ButtonBlock) block, new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("planks")));
+        });
+        forEach(block -> block instanceof PressurePlateBlock && block.defaultBlockState().getMaterial() == Material.WOOD, block -> {
+            ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 14));
+
+            pressurePlateBlock(block, new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("planks")));
         });
         forEach(block -> block instanceof DoorBlock, block -> doorBlock((DoorBlock) block, modLoc("block/" + getName(block) + "_bottom"), modLoc("block/" + getName(block) + "_top")));
         forEach(block -> block instanceof TrapDoorBlock, block -> trapdoorBlock((TrapDoorBlock) block, modLoc("block/" + getName(block)), true));

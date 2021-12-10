@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:fungyss_button"
+      "forbidden_arcanus:edelwood_pressure_plate"
     ]
   },
   "criteria": {
@@ -12,7 +12,7 @@
         "items": [
           {
             "items": [
-              "forbidden_arcanus:fungyss_planks"
+              "forbidden_arcanus:edelwood_planks"
             ]
           }
         ]
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "forbidden_arcanus:fungyss_button"
+        "recipe": "forbidden_arcanus:edelwood_pressure_plate"
       }
     }
   },

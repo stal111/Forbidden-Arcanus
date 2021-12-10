@@ -15,13 +15,6 @@ import java.util.Locale;
 
 public enum ModBlocks {
     ARCANE_DARK_STONE(new Block(addProperties(Material.STONE, 1.5F, 6.0F))),
-    ARCANE_GOLD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.GOLD_BLOCK))),
-    EDELWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
-    EDELWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
-    CHERRYWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
-    CHERRYWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
-    MYSTERYWOOD_BUTTON(new WoodButtonBlock(from(Blocks.OAK_BUTTON))),
-    MYSTERYWOOD_PRESSURE_PLATE(new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, from(Blocks.OAK_PRESSURE_PLATE))),
     YELLOW_ORCHID(new FlowerBlock(MobEffects.GLOWING, 25, from(Blocks.BLUE_ORCHID)), ModRenderType.CUTOUT),
     GOLDEN_ORCHID(new GoldenOrchidBlock(from(Blocks.BLUE_ORCHID).randomTicks()), false, ModRenderType.CUTOUT),
     STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT),

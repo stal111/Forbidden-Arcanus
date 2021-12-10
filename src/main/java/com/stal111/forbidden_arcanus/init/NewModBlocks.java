@@ -150,13 +150,20 @@ public class NewModBlocks {
     public static final RegistryObject<FenceGateBlock> CHERRYWOOD_FENCE_GATE = HELPER.register("cherrywood_fence_gate", new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
     public static final RegistryObject<FenceGateBlock> MYSTERYWOOD_FENCE_GATE = HELPER.register("mysterywood_fence_gate", new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
     public static final RegistryObject<FenceGateBlock> EDELWOOD_FENCE_GATE = HELPER.register("edelwood_fence_gate", new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
-
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> FUNGYSS_SIGN  = HELPER.createSignBlock("fungyss", MaterialColor.WOOL, ModWoodTypes.FUNGYSS);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> CHERRYWOOD_SIGN  = HELPER.createSignBlock("cherrywood", MaterialColor.COLOR_PINK, ModWoodTypes.CHERRYWOOD);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> MYSTERYWOOD_SIGN  = HELPER.createSignBlock("mysterywood", MaterialColor.COLOR_BROWN, ModWoodTypes.MYSTERYWOOD);
     public static final Pair<RegistryObject<ValhelsiaStandingSignBlock>, RegistryObject<ValhelsiaWallSignBlock>> EDELWOOD_SIGN  = HELPER.createSignBlock("edelwood", MaterialColor.COLOR_BROWN, ModWoodTypes.EDELWOOD);
-
     public static final RegistryObject<LadderBlock> EDELWOOD_LADDER = HELPER.register("edelwood_ladder", new LadderBlock(BlockBehaviour.Properties.copy(Blocks.LADDER)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<WoodButtonBlock> FUNGYSS_BUTTON = HELPER.register("fungyss_button", new WoodButtonBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<WoodButtonBlock> CHERRYWOOD_BUTTON = HELPER.register("cherrywood_button", new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+    public static final RegistryObject<WoodButtonBlock> MYSTERYWOOD_BUTTON = HELPER.register("mysterywood_button", new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+    public static final RegistryObject<WoodButtonBlock> EDELWOOD_BUTTON = HELPER.register("edelwood_button", new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
+    public static final RegistryObject<PressurePlateBlock> ARCANE_GOLD_PRESSURE_PLATE = HELPER.register("arcane_gold_pressure_plate", new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE)));
+    public static final RegistryObject<PressurePlateBlock> FUNGYSS_PRESSURE_PLATE = HELPER.register("fungyss_pressure_plate", new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+    public static final RegistryObject<PressurePlateBlock> CHERRYWOOD_PRESSURE_PLATE = HELPER.register("cherrywood_pressure_plate", new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
+    public static final RegistryObject<PressurePlateBlock> MYSTERYWOOD_PRESSURE_PLATE = HELPER.register("mysterywood_pressure_plate", new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
+    public static final RegistryObject<PressurePlateBlock> EDELWOOD_PRESSURE_PLATE = HELPER.register("edelwood_pressure_plate", new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
 
     public static final RegistryObject<HephaestusForgeBlock> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", new HephaestusForgeBlock(Block.Properties.copy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
 
@@ -172,8 +179,6 @@ public class NewModBlocks {
     public static final RegistryObject<PixieUtremJarBlock> CORRUPTED_PIXIE_UTREM_JAR = HELPER.register("corrupted_pixie_utrem_jar", new PixieUtremJarBlock(ModItems.CORRUPTED_PIXIE, Block.Properties.copy(Blocks.GLASS)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<FungyssBlock> FUNGYSS = HELPER.register("fungyss", new FungyssBlock(Block.Properties.copy(Blocks.WARPED_FUNGUS).sound(SoundType.GRASS)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<HugeMushroomBlock> FUNGYSS_BLOCK = HELPER.register("fungyss_block", new HugeMushroomBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_BLUE).strength(0.2F).sound(SoundType.WOOD)));
-    public static final RegistryObject<PressurePlateBlock> FUNGYSS_PRESSURE_PLATE = HELPER.register("fungyss_pressure_plate", new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
-    public static final RegistryObject<WoodButtonBlock> FUNGYSS_BUTTON = HELPER.register("fungyss_button", new WoodButtonBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<NipaBlock> NIPA = HELPER.register("nipa", new NipaBlock(Block.Properties.copy(Blocks.LARGE_FERN)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<NoFluidOverlayBlock> PETRIFIED_ROOT = HELPER.register("petrified_root", new NoFluidOverlayBlock(Block.Properties.copy(Blocks.STONE).noOcclusion()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> BLACK_HOLE = HELPER.registerNoItem("black_hole", new BlackHoleBlock(Block.Properties.copy(Blocks.STONE).strength(2.0F, 8.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);

@@ -1,13 +1,12 @@
 package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -37,8 +36,10 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.PLANKS).add(NewModBlocks.FUNGYSS_PLANKS.get(), NewModBlocks.CHERRYWOOD_PLANKS.get(), NewModBlocks.CARVED_CHERRYWOOD_PLANKS.get(), NewModBlocks.MYSTERYWOOD_PLANKS.get(), NewModBlocks.EDELWOOD_PLANKS.get(), NewModBlocks.ARCANE_EDELWOOD_PLANKS.get());
         this.tag(BlockTags.WOODEN_SLABS).add(NewModBlocks.FUNGYSS_SLAB.get(), NewModBlocks.CHERRYWOOD_SLAB.get(), NewModBlocks.MYSTERYWOOD_SLAB.get(), NewModBlocks.EDELWOOD_SLAB.get());
         this.tag(BlockTags.WOODEN_STAIRS).add(NewModBlocks.FUNGYSS_STAIRS.get(), NewModBlocks.CHERRYWOOD_STAIRS.get(), NewModBlocks.MYSTERYWOOD_STAIRS.get(), NewModBlocks.EDELWOOD_STAIRS.get());
-        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.CHERRYWOOD_PRESSURE_PLATE.getBlock(), ModBlocks.MYSTERYWOOD_PRESSURE_PLATE.getBlock(), ModBlocks.EDELWOOD_PRESSURE_PLATE.getBlock());
-        this.tag(BlockTags.WOODEN_BUTTONS).add(NewModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.CHERRYWOOD_BUTTON.getBlock(), ModBlocks.MYSTERYWOOD_BUTTON.getBlock(), ModBlocks.EDELWOOD_BUTTON.getBlock());
+        this.tag(BlockTags.PRESSURE_PLATES).add(NewModBlocks.ARCANE_GOLD_PRESSURE_PLATE.get());
+        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get(), NewModBlocks.CHERRYWOOD_PRESSURE_PLATE.get(), NewModBlocks.MYSTERYWOOD_PRESSURE_PLATE.get(), NewModBlocks.EDELWOOD_PRESSURE_PLATE.get());
+        this.tag(BlockTags.BUTTONS).add(NewModBlocks.POLISHED_DARKSTONE_BUTTON.get());
+        this.tag(BlockTags.WOODEN_BUTTONS).add(NewModBlocks.FUNGYSS_BUTTON.get(), NewModBlocks.CHERRYWOOD_BUTTON.get(), NewModBlocks.MYSTERYWOOD_BUTTON.get(), NewModBlocks.EDELWOOD_BUTTON.get());
         this.tag(BlockTags.WOODEN_FENCES).add(NewModBlocks.FUNGYSS_FENCE.get(), NewModBlocks.CHERRYWOOD_FENCE.get(), NewModBlocks.MYSTERYWOOD_FENCE.get(), NewModBlocks.EDELWOOD_FENCE.get());
         this.tag(Tags.Blocks.FENCES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE.get(), NewModBlocks.CHERRYWOOD_FENCE.get(), NewModBlocks.MYSTERYWOOD_FENCE.get(), NewModBlocks.EDELWOOD_FENCE.get());
         this.tag(BlockTags.FENCE_GATES).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), NewModBlocks.CHERRYWOOD_FENCE_GATE.get(), NewModBlocks.MYSTERYWOOD_FENCE_GATE.get(), NewModBlocks.EDELWOOD_FENCE_GATE.get());
@@ -60,7 +61,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.SAPLINGS).add(NewModBlocks.CHERRYWOOD_SAPLING.get(), NewModBlocks.MYSTERYWOOD_SAPLING.get());
         this.tag(BlockTags.LEAVES).add(NewModBlocks.CHERRYWOOD_LEAVES.get(), NewModBlocks.MYSTERYWOOD_LEAVES.get(), NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
 
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(NewModBlocks.ARCANE_GOLDEN_CHAIN.get(), NewModBlocks.PETRIFIED_ROOT.get(), NewModBlocks.DARK_NETHER_STAR_BLOCK.get(), NewModBlocks.STELLA_ARCANUM.get(), NewModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), NewModBlocks.ARCANE_GOLD_BLOCK.get(), NewModBlocks.STELLARITE_BLOCK.get(), NewModBlocks.XPETRIFIED_ORE.get(), NewModBlocks.ARCANE_CRYSTAL_BLOCK.get(), NewModBlocks.SOULLESS_SANDSTONE.get(), NewModBlocks.CUT_SOULLESS_SANDSTONE.get(), NewModBlocks.POLISHED_SOULLESS_SANDSTONE.get(), NewModBlocks.SOULLESS_SANDSTONE_SLAB.get(), NewModBlocks.CUT_SOULLESS_SANDSTONE_SLAB.get(), NewModBlocks.POLISHED_SOULLESS_SANDSTONE_SLAB.get(), NewModBlocks.SOULLESS_SANDSTONE_STAIRS.get(), NewModBlocks.POLISHED_SOULLESS_SANDSTONE_STAIRS.get(), NewModBlocks.HEPHAESTUS_FORGE.get(), NewModBlocks.ARCANE_GOLD_DOOR.get()).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(NewModBlocks.ARCANE_GOLDEN_CHAIN.get(), NewModBlocks.PETRIFIED_ROOT.get(), NewModBlocks.DARK_NETHER_STAR_BLOCK.get(), NewModBlocks.STELLA_ARCANUM.get(), NewModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), NewModBlocks.ARCANE_GOLD_BLOCK.get(), NewModBlocks.STELLARITE_BLOCK.get(), NewModBlocks.XPETRIFIED_ORE.get(), NewModBlocks.ARCANE_CRYSTAL_BLOCK.get(), NewModBlocks.SOULLESS_SANDSTONE.get(), NewModBlocks.CUT_SOULLESS_SANDSTONE.get(), NewModBlocks.POLISHED_SOULLESS_SANDSTONE.get(), NewModBlocks.SOULLESS_SANDSTONE_SLAB.get(), NewModBlocks.CUT_SOULLESS_SANDSTONE_SLAB.get(), NewModBlocks.POLISHED_SOULLESS_SANDSTONE_SLAB.get(), NewModBlocks.SOULLESS_SANDSTONE_STAIRS.get(), NewModBlocks.POLISHED_SOULLESS_SANDSTONE_STAIRS.get(), NewModBlocks.HEPHAESTUS_FORGE.get(), NewModBlocks.ARCANE_GOLD_DOOR.get(), NewModBlocks.ARCANE_GOLD_PRESSURE_PLATE.get()).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(NewModBlocks.SOULLESS_SAND.get());
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(NewModBlocks.DARK_NETHER_STAR_BLOCK.get(), NewModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), NewModBlocks.STELLA_ARCANUM.get(), NewModBlocks.STELLARITE_BLOCK.get(), NewModBlocks.HEPHAESTUS_FORGE.get()).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS);
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(NewModBlocks.XPETRIFIED_ORE.get(), NewModBlocks.ARCANE_GOLD_BLOCK.get(), NewModBlocks.ARCANE_CRYSTAL_BLOCK.get()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
