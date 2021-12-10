@@ -31,4 +31,14 @@ public class EdelwoodSuspiciousStewBucketItem extends SuspiciousStewItem {
 
         return livingEntity instanceof Player player && player.getAbilities().instabuild ? stack : ItemStackUtils.transferEnchantments(stack, new ItemStack(NewModItems.EDELWOOD_BUCKET.get()));
     }
+
+    @Override
+    public boolean hasContainerItem(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getContainerItem(ItemStack stack) {
+        return ItemStackUtils.transferEnchantments(stack, new ItemStack(NewModItems.EDELWOOD_BUCKET.get()));
+    }
 }

@@ -7,8 +7,10 @@ import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -62,6 +64,10 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
         for (int slot = 0; slot < container.getContainerSize(); slot++) {
             ItemStack stack = container.getItem(slot);
 
+            if (slot == this.bucketSlot) {
+                continue;
+            }
+
             if (this.isValidIncreasementItem(bucket, stack)) {
                 if (stack.getItem() instanceof CapacityBucket capacityBucket && stack.is(bucket.getItem())) {
                     for (int j = 0; j < capacityBucket.getFullness(stack); j++) {
@@ -87,7 +93,7 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
         }
 
         if (bucket.getItem() instanceof EdelwoodSoupBucketItem soupBucketItem) {
-            return increasement.is(soupBucketItem.getSoup());
+            return increasement.is(soupBucketItem.getSoup()) || increasement.is(soupBucketItem);
         }
 
         return !bucket.isEmpty() && bucket.is(increasement.getItem());
@@ -107,7 +113,21 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
     @Nonnull
     @Override
     public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer container) {
-        return super.getRemainingItems(container);
+        NonNullList<ItemStack> list = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
+
+        for (int i = 0; i < list.size(); ++i) {
+            ItemStack stack = container.getItem(i);
+
+            if (stack.hasContainerItem()) {
+                list.set(i, stack.getContainerItem());
+            } else if (stack.getItem() instanceof BowlFoodItem) {
+                list.set(i, new ItemStack(Items.BOWL));
+            }
+        }
+
+        list.set(this.bucketSlot, ItemStack.EMPTY);
+
+        return list;
     }
 
     @Override
