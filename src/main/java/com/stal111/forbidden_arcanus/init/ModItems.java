@@ -75,10 +75,6 @@ public class ModItems {
     public static final RegistryObject<Item> WAX = register("wax", () -> new Item(properties()));
     public static final RegistryObject<Item> SPAWNER_SCRAP = register("spawner_scrap", () -> new Item(properties()));
     public static final RegistryObject<Item> QUANTUM_CATCHER = register("quantum_catcher", () -> new QuantumCatcherItem(properties()));
-    public static final RegistryObject<Item> EDELWOOD_MUSHROOM_STEW_BUCKET = register("edelwood_mushroom_stew_bucket", () -> new EdelwoodSoupBucketItem(properties(1).food(Foods.MUSHROOM_STEW)));
-    public static final RegistryObject<Item> EDELWOOD_SUSPICIOUS_STEW_BUCKET = register("edelwood_suspicious_stew_bucket", () -> new EdelwoodSuspiciousStewBucketItem(properties(1).food(Foods.SUSPICIOUS_STEW)));
-    public static final RegistryObject<Item> EDELWOOD_BEETROOT_SOUP_BUCKET = register("edelwood_beetroot_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).food(Foods.BEETROOT_SOUP)));
-    public static final RegistryObject<Item> EDELWOOD_BAT_SOUP_BUCKET = register("edelwood_bat_soup_bucket", () -> new EdelwoodSoupBucketItem(properties(1).food(build(7, 0.7F, new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F))));
 
     public static final RegistryObject<Item> SOUL_EXTRACTOR = register("soul_extractor", SoulExtractorItem::new);
     public static final RegistryObject<Item> SLIMEC_PICKAXE = register("slimec_pickaxe", () -> new SlimecPickaxeItem(ModItemTier.SLIMEC, 1, -2.5F, properties()));

@@ -118,12 +118,6 @@ public class EdelwoodBucketIncreaseFullnessRecipe extends CustomRecipe {
             list.add(Items.WATER_BUCKET);
         } else if (stack.getItem() == NewModItems.EDELWOOD_LAVA_BUCKET.get()) {
             list.add(Items.LAVA_BUCKET);
-        } else if (stack.getItem() == ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get()) {
-            list.add(Items.MUSHROOM_STEW);
-        } else if (stack.getItem() == ModItems.EDELWOOD_BEETROOT_SOUP_BUCKET.get()) {
-            list.add(Items.BEETROOT_SOUP);
-        } else if (stack.getItem() == ModItems.EDELWOOD_BAT_SOUP_BUCKET.get()) {
-            list.add(ModItems.BAT_SOUP.get());
         }
         return list;
     }

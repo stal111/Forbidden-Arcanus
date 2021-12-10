@@ -1,10 +1,10 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodMilkBucketItem;
-import com.stal111.forbidden_arcanus.common.item.EdelwoodMobBucketItem;
-import com.stal111.forbidden_arcanus.common.item.SolidEdelwoodBucketItem;
+import com.stal111.forbidden_arcanus.common.item.EdelwoodSuspiciousStewBucketItem;
 import com.stal111.forbidden_arcanus.item.*;
 import com.stal111.forbidden_arcanus.item.block.EternalObsidianSkullItem;
 import com.stal111.forbidden_arcanus.item.block.ObsidianSkullItem;
@@ -12,7 +12,11 @@ import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import com.stal111.forbidden_arcanus.item.renderer.ObsidianSkullItemRenderer;
 import com.stal111.forbidden_arcanus.item.renderer.ObsidianSkullShieldItemRenderer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
@@ -69,13 +73,16 @@ public class NewModItems {
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_SALMON_BUCKET = HELPER.register("edelwood_salmon_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.SALMON, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_COD_BUCKET = HELPER.register("edelwood_cod_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.COD, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_TROPICAL_FISH_BUCKET = HELPER.register("edelwood_tropical_fish_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.TROPICAL_FISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
-
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_BAT_BUCKET = HELPER.register("edelwood_bat_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.BAT, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_SQUID_BUCKET = HELPER.register("edelwood_squid_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.SQUID, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_MAGMA_CUBE_BUCKET = HELPER.register("edelwood_magma_cube_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.MAGMA_CUBE, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_SLIME_BUCKET = HELPER.register("edelwood_slime_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.SLIME, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_CHICKEN_BUCKET = HELPER.register("edelwood_chicken_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.CHICKEN, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_AXOLOTL_BUCKET = HELPER.register("edelwood_axolotl_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.AXOLOTL, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_AXOLOTL, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<EdelwoodSoupBucketItem> EDELWOOD_MUSHROOM_STEW_BUCKET = HELPER.register("edelwood_mushroom_stew_bucket", () -> new EdelwoodSoupBucketItem(() -> Items.MUSHROOM_STEW, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(Foods.MUSHROOM_STEW)));
+    public static final RegistryObject<EdelwoodSuspiciousStewBucketItem> EDELWOOD_SUSPICIOUS_STEW_BUCKET = HELPER.register("edelwood_suspicious_stew_bucket", () -> new EdelwoodSuspiciousStewBucketItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(Foods.SUSPICIOUS_STEW)));
+    public static final RegistryObject<EdelwoodSoupBucketItem> EDELWOOD_BEETROOT_SOUP_BUCKET = HELPER.register("edelwood_beetroot_soup_bucket", () -> new EdelwoodSoupBucketItem(() -> Items.BEETROOT_SOUP, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(Foods.BEETROOT_SOUP)));
+    public static final RegistryObject<EdelwoodSoupBucketItem> EDELWOOD_BAT_SOUP_BUCKET = HELPER.register("edelwood_bat_soup_bucket", () -> new EdelwoodSoupBucketItem(ModItems.BAT_SOUP, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(new FoodProperties.Builder().nutrition(7).saturationMod (0.7F).effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F).build())));
 
     public static class Stacks {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(NewModItems.LENS_OF_VERITATIS.get());

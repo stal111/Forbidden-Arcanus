@@ -2,16 +2,21 @@ package com.stal111.forbidden_arcanus.common.event;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.CapacityBucket;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodMobBucketItem;
+import com.stal111.forbidden_arcanus.common.item.EdelwoodSuspiciousStewBucketItem;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +25,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -81,30 +87,64 @@ public class PlayerEvents {
         }
 
         if (livingEntity instanceof Cow cow && !cow.isBaby()) {
-            if (stack.getItem() instanceof CapacityBucket capacityBucket) {
-                ItemStack copy = stack.copy();
-
-                ItemStack result = null;
-
-                if (stack.is(NewModItems.EDELWOOD_MILK_BUCKET.get()) && !capacityBucket.isFull(stack)) {
-                    result = capacityBucket.tryFill(ItemUtils.createFilledResult(copy, player, stack)).getSecond();
-                } else if (stack.is(capacityBucket.getEmptyBucket().getItem())) {
-                    result = ItemUtils.createFilledResult(copy, player, new ItemStack(NewModItems.EDELWOOD_MILK_BUCKET.get()));
-                }
-
-                if (result != null) {
-                    player.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
-                    player.setItemInHand(hand, result);
-                    player.swing(hand);
-                }
+            if (stack.getItem() instanceof CapacityBucket capacityBucket && milkCow(cow, stack, capacityBucket, player, hand)) {
+                return;
             }
         }
 
         tryPickupMob(player, hand, livingEntity);
     }
 
+    private static boolean milkCow(Cow cow, ItemStack stack, CapacityBucket capacityBucket, Player player, InteractionHand hand) {
+        ItemStack copy = stack.copy();
+        ItemStack result = null;
+        SoundEvent soundEvent = SoundEvents.COW_MILK;
+
+        if (cow instanceof MushroomCow mushroomCow) {
+            if (stack.is(NewModItems.EDELWOOD_BUCKET.get())) {
+                boolean flag = mushroomCow.effect != null;
+
+                result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(flag ? NewModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.get() : NewModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())));
+
+                if (flag) {
+                    soundEvent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
+
+                    EdelwoodSuspiciousStewBucketItem.saveMobEffect(result, mushroomCow.effect, mushroomCow.effectDuration);
+                    mushroomCow.effect = null;
+                    mushroomCow.effectDuration = 0;
+                } else {
+                    soundEvent = SoundEvents.MOOSHROOM_MILK;
+                }
+            } else if (stack.is(NewModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())) {
+                Pair<Boolean, ItemStack> pair = capacityBucket.tryFill(stack);
+
+                if (pair.getFirst()) {
+                    result = pair.getSecond();
+                }
+            }
+        } else if (stack.is(NewModItems.EDELWOOD_MILK_BUCKET.get()) && !capacityBucket.isFull(stack)) {
+            result = capacityBucket.tryFill(ItemUtils.createFilledResult(copy, player, stack)).getSecond();
+        } else if (stack.is(capacityBucket.getEmptyBucket().getItem())) {
+            result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(NewModItems.EDELWOOD_MILK_BUCKET.get())));
+        }
+
+        if (result != null) {
+            player.playSound(soundEvent, 1.0F, 1.0F);
+            player.setItemInHand(hand, result);
+            player.swing(hand);
+
+            return true;
+        }
+
+        return false;
+    }
+
     private static boolean tryPickupMob(Player player, InteractionHand hand, LivingEntity entity) {
         ItemStack stack = player.getItemInHand(hand);
+
+        if (stack.is(ModItems.QUANTUM_CATCHER.get())) {
+            return ((QuantumCatcherItem) stack.getItem()).onEntityInteract(stack, player, entity, hand).consumesAction();
+        }
 
         if (!(stack.getItem() instanceof EdelwoodBucketItem edelwoodBucketItem) || edelwoodBucketItem instanceof EdelwoodMobBucketItem || !FLUID_TO_ENTITY.getOrDefault(edelwoodBucketItem.getFluid(), new ArrayList<>()).contains(entity.getType()) || !entity.isAlive()) {
             return false;

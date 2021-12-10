@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.ItemStack;
+import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import java.util.Objects;
 
@@ -53,7 +54,7 @@ public interface CapacityBucket {
 
     default ItemStack tryDrain(ItemStack stack) {
         if (this.getFullness(stack) - 1 <= 0) {
-            return this.getEmptyBucket();
+            return ItemStackUtils.transferEnchantments(stack, this.getEmptyBucket());
         }
         return this.setFullness(stack, this.getFullness(stack) - 1);
     }
