@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_planks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_item",
+      "has_planks",
       "has_the_recipe"
     ]
   ]

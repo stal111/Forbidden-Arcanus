@@ -5,14 +5,15 @@
     "#X#"
   ],
   "key": {
-    "X": {
-      "item": "forbidden_arcanus:fungyss_planks"
-    },
     "#": {
+      "item": "forbidden_arcanus:mysterywood_planks"
+    },
+    "X": {
       "tag": "forge:rods/wooden"
     }
   },
   "result": {
-    "item": "forbidden_arcanus:fungyss_fence_gate"
+    "item": "forbidden_arcanus:mysterywood_fence",
+    "count": 3
   }
 }

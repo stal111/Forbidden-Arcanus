@@ -68,9 +68,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> pressurePlateBlock(block, fungyssPlanks), NewModBlocks.FUNGYSS_PRESSURE_PLATE);
         take(block -> buttonBlock((ButtonBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_BUTTON);
 
-        take(block -> fenceBlock((FenceBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE);
-        take(block -> fenceGateBlock((FenceGateBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_FENCE_GATE);
-
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
         take(block -> pressurePlateBlock(block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
         take(block -> buttonBlock((ButtonBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_BUTTON);
@@ -91,6 +88,16 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), NewModBlocks.ARCANE_GOLDEN_CHAIN);
 
+        forEach(block -> block instanceof FenceBlock, block -> {
+            ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
+
+            fenceBlock((FenceBlock) block, new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("planks")));
+        });
+        forEach(block -> block instanceof FenceGateBlock, block -> {
+            ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 10));
+
+            fenceGateBlock((FenceGateBlock) block, new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("planks")));
+        });
         forEach(block -> block instanceof DoorBlock, block -> doorBlock((DoorBlock) block, modLoc("block/" + getName(block) + "_bottom"), modLoc("block/" + getName(block) + "_top")));
         forEach(block -> block instanceof TrapDoorBlock, block -> trapdoorBlock((TrapDoorBlock) block, modLoc("block/" + getName(block)), true));
         forEach(block -> block instanceof SaplingBlock, block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))));

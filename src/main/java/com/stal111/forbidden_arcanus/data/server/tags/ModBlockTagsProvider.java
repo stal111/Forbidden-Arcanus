@@ -39,10 +39,10 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.WOODEN_STAIRS).add(NewModBlocks.FUNGYSS_STAIRS.get(), NewModBlocks.CHERRYWOOD_STAIRS.get(), NewModBlocks.MYSTERYWOOD_STAIRS.get(), NewModBlocks.EDELWOOD_STAIRS.get());
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(NewModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.CHERRYWOOD_PRESSURE_PLATE.getBlock(), ModBlocks.MYSTERYWOOD_PRESSURE_PLATE.getBlock(), ModBlocks.EDELWOOD_PRESSURE_PLATE.getBlock());
         this.tag(BlockTags.WOODEN_BUTTONS).add(NewModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.CHERRYWOOD_BUTTON.getBlock(), ModBlocks.MYSTERYWOOD_BUTTON.getBlock(), ModBlocks.EDELWOOD_BUTTON.getBlock());
-        this.tag(BlockTags.WOODEN_FENCES).add(NewModBlocks.FUNGYSS_FENCE.get(), ModBlocks.CHERRYWOOD_FENCE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE.getBlock(), ModBlocks.EDELWOOD_FENCE.getBlock());
-        this.tag(Tags.Blocks.FENCES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE.get(), ModBlocks.CHERRYWOOD_FENCE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE.getBlock(), ModBlocks.EDELWOOD_FENCE.getBlock());
-        this.tag(BlockTags.FENCE_GATES).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.CHERRYWOOD_FENCE_GATE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE_GATE.getBlock(), ModBlocks.EDELWOOD_FENCE_GATE.getBlock());
-        this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.CHERRYWOOD_FENCE_GATE.getBlock(), ModBlocks.MYSTERYWOOD_FENCE_GATE.getBlock(), ModBlocks.EDELWOOD_FENCE_GATE.getBlock());
+        this.tag(BlockTags.WOODEN_FENCES).add(NewModBlocks.FUNGYSS_FENCE.get(), NewModBlocks.CHERRYWOOD_FENCE.get(), NewModBlocks.MYSTERYWOOD_FENCE.get(), NewModBlocks.EDELWOOD_FENCE.get());
+        this.tag(Tags.Blocks.FENCES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE.get(), NewModBlocks.CHERRYWOOD_FENCE.get(), NewModBlocks.MYSTERYWOOD_FENCE.get(), NewModBlocks.EDELWOOD_FENCE.get());
+        this.tag(BlockTags.FENCE_GATES).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), NewModBlocks.CHERRYWOOD_FENCE_GATE.get(), NewModBlocks.MYSTERYWOOD_FENCE_GATE.get(), NewModBlocks.EDELWOOD_FENCE_GATE.get());
+        this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(NewModBlocks.FUNGYSS_FENCE_GATE.get(), NewModBlocks.CHERRYWOOD_FENCE_GATE.get(), NewModBlocks.MYSTERYWOOD_FENCE_GATE.get(), NewModBlocks.EDELWOOD_FENCE_GATE.get());
         this.tag(BlockTags.WOODEN_DOORS).add(NewModBlocks.FUNGYSS_DOOR.get(), NewModBlocks.CHERRYWOOD_DOOR.get(), NewModBlocks.MYSTERYWOOD_DOOR.get(), NewModBlocks.EDELWOOD_DOOR.get());
         this.tag(BlockTags.DOORS).add(NewModBlocks.ARCANE_GOLD_DOOR.get());
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(NewModBlocks.FUNGYSS_TRAPDOOR.get(), NewModBlocks.CHERRYWOOD_TRAPDOOR.get(), NewModBlocks.MYSTERYWOOD_TRAPDOOR.get(), NewModBlocks.EDELWOOD_TRAPDOOR.get());

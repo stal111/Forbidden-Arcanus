@@ -52,7 +52,6 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         takeBlockItem(this::withParentInventory,
                 NewModBlocks.FUNGYSS_BLOCK,
                 NewModBlocks.FUNGYSS_BUTTON,
-                NewModBlocks.FUNGYSS_FENCE,
                 NewModBlocks.POLISHED_DARKSTONE_BUTTON
         );
         takeBlockItem(this::utremJarModel, NewModBlocks.UTREM_JAR);
@@ -64,6 +63,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         forEachBlockItem(item -> item.getBlock() instanceof WallBlock, this::withParentInventory);
         forEachBlockItem(item -> item.getBlock() instanceof StandingSignBlock, this::simpleModel);
         forEachBlockItem(item -> item.getBlock() instanceof SaplingBlock, this::simpleModelBlockTexture);
+        forEachBlockItem(item -> item.getBlock() instanceof FenceBlock, this::withParentInventory);
 
         forEachBlockItem(this::withParent);
 
