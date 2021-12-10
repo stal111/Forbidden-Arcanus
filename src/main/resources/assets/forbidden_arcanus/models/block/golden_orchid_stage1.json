@@ -1,6 +1,0 @@
-{
-    "parent": "block/cross",
-    "textures": {
-        "cross": "forbidden_arcanus:block/golden_orchid_stage1"
-    }
-}

@@ -68,7 +68,7 @@ public class ModItems {
     public static final RegistryObject<Item> STRANGE_ROOT = register("strange_root", () -> new StrangeRootItem(ModBlocks.STRANGE_ROOT.getBlock(), properties().food(build(3, 0.6F))));
     public static final RegistryObject<Item> BOOM_ARROW = register("boom_arrow", () -> new ModArrowItem(properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_ARROW = register("draco_arcanus_arrow", () -> new ModArrowItem(properties()));
-    public static final RegistryObject<Item> GOLDEN_ORCHID_SEEDS = register("golden_orchid_seeds", () -> new GoldenOrchidItem(ModBlocks.GOLDEN_ORCHID.getBlock(), properties()));
+    public static final RegistryObject<Item> GOLDEN_ORCHID_SEEDS = register("golden_orchid_seeds", () -> new GoldenOrchidItem(NewModBlocks.GOLDEN_ORCHID.get(), properties()));
     public static final RegistryObject<Item> GOLDEN_FEATHER = register("golden_feather", () -> new Item(properties()));
     public static final RegistryObject<Item> EDELWOOD_STICK = register("edelwood_stick", () -> new Item(properties()));
     public static final RegistryObject<Item> EDELWOOD_OIL = register("edelwood_oil", () -> new ContainerItem(Items.GLASS_BOTTLE, properties()));

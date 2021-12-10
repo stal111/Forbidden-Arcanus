@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "forbidden_arcanus:block/golden_orchid_stage0"
+    },
+    "age=1": {
+      "model": "forbidden_arcanus:block/golden_orchid_stage1"
+    },
+    "age=2": {
+      "model": "forbidden_arcanus:block/golden_orchid_stage2"
+    },
+    "age=3": {
+      "model": "forbidden_arcanus:block/golden_orchid_stage3"
+    },
+    "age=4": {
+      "model": "forbidden_arcanus:block/golden_orchid_stage4"
+    },
+    "age=5": {
+      "model": "forbidden_arcanus:block/golden_orchid_stage5"
+    },
+    "age=6": {
+      "model": "forbidden_arcanus:block/golden_orchid_stage6"
+    }
+  }
+}

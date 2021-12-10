@@ -5,12 +5,14 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.common.block.*;
 import com.stal111.forbidden_arcanus.common.block.EdelwoodLogBlock;
+import com.stal111.forbidden_arcanus.common.block.GoldenOrchidBlock;
 import com.stal111.forbidden_arcanus.common.block.MysterywoodLogBlock;
 import com.stal111.forbidden_arcanus.common.block.grower.CherrywoodTreeGrower;
 import com.stal111.forbidden_arcanus.common.block.grower.MysterywoodTreeGrower;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
@@ -183,10 +185,13 @@ public class NewModBlocks {
     public static final RegistryObject<NipaBlock> NIPA = HELPER.register("nipa", new NipaBlock(Block.Properties.copy(Blocks.LARGE_FERN)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<NoFluidOverlayBlock> PETRIFIED_ROOT = HELPER.register("petrified_root", new NoFluidOverlayBlock(Block.Properties.copy(Blocks.STONE).noOcclusion()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<Block> BLACK_HOLE = HELPER.registerNoItem("black_hole", new BlackHoleBlock(Block.Properties.copy(Blocks.STONE).strength(2.0F, 8.0F).noOcclusion()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<ChainBlock> ARCANE_GOLDEN_CHAIN = HELPER.register("arcane_golden_chain", new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)), ValhelsiaRenderType.CUTOUT_MIPPED);
+    public static final RegistryObject<FlowerBlock> YELLOW_ORCHID = HELPER.register("yellow_orchid", new FlowerBlock(MobEffects.GLOWING, 10, BlockBehaviour.Properties.copy(Blocks.BLUE_ORCHID)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<GoldenOrchidBlock> GOLDEN_ORCHID = HELPER.registerNoItem("golden_orchid", new GoldenOrchidBlock(BlockBehaviour.Properties.copy(Blocks.BLUE_ORCHID).randomTicks()), ValhelsiaRenderType.CUTOUT);
+
     public static final RegistryObject<FlowerPotBlock> POTTED_CHERRYWOOD_SAPLING = HELPER.registerNoItem("potted_cherrywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHERRYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<FlowerPotBlock> POTTED_MYSTERYWOOD_SAPLING = HELPER.registerNoItem("potted_mysterywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, MYSTERYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<FlowerPotBlock> POTTED_YELLOW_ORCHID = HELPER.registerNoItem("potted_yellow_orchid", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, ModBlocks.YELLOW_ORCHID::getBlock, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
-    public static final RegistryObject<ChainBlock> ARCANE_GOLDEN_CHAIN = HELPER.register("arcane_golden_chain", new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)), ValhelsiaRenderType.CUTOUT_MIPPED);
+    public static final RegistryObject<FlowerPotBlock> POTTED_YELLOW_ORCHID = HELPER.registerNoItem("potted_yellow_orchid", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, NewModBlocks.YELLOW_ORCHID, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
 
     private static boolean never(BlockState state, BlockGetter level, BlockPos pos, EntityType<?> entityType) {
         return false;

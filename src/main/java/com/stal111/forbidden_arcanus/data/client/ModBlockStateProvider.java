@@ -10,6 +10,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -56,6 +57,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 NewModBlocks.DARKSTONE_PEDESTAL,
                 NewModBlocks.ARCANE_DARKSTONE_PEDESTAL
         );
+        take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), NewModBlocks.YELLOW_ORCHID);
         take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);
         take(block -> pixieUtremJarBlock(block, true), NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
         take(block -> simpleBlock(block, models().cross(Objects.requireNonNull(block.getRegistryName()).getPath(), modLoc("block/fungyss"))), NewModBlocks.FUNGYSS);
@@ -63,10 +65,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> logBlock((RotatedPillarBlock) block), NewModBlocks.FUNGYSS_STEM, NewModBlocks.CHERRYWOOD_LOG, NewModBlocks.MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_CHERRYWOOD_LOG);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), NewModBlocks.FUNGYSS_HYPHAE);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), NewModBlocks.CHERRYWOOD, NewModBlocks.MYSTERYWOOD, NewModBlocks.STRIPPED_CHERRYWOOD, NewModBlocks.STRIPPED_MYSTERYWOOD);
-
-        ResourceLocation fungyssPlanks = modLoc("block/fungyss_planks");
-        take(block -> pressurePlateBlock(block, fungyssPlanks), NewModBlocks.FUNGYSS_PRESSURE_PLATE);
-        take(block -> buttonBlock((ButtonBlock) block, fungyssPlanks), NewModBlocks.FUNGYSS_BUTTON);
+        take(block -> goldenOrchid((CropBlock) block), NewModBlocks.GOLDEN_ORCHID);
 
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
         take(block -> pressurePlateBlock(block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
@@ -269,6 +268,16 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                         .rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + 180) % 360)
                         .build(),
                 BlockStateProperties.WATERLOGGED
+        );
+    }
+
+    private void goldenOrchid(CropBlock block) {
+        IntegerProperty age = block.getAgeProperty();
+
+        getVariantBuilder(block).forAllStates(
+                state -> ConfiguredModel.builder()
+                        .modelFile(models().cross(getName(block) + "_stage" + state.getValue(age), modLoc("block/" + getName(block) + "_stage" + state.getValue(age))))
+                        .build()
         );
     }
 }

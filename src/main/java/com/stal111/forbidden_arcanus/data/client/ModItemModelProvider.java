@@ -47,7 +47,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 NewModBlocks.FUNGYSS,
-                NewModBlocks.EDELWOOD_LADDER
+                NewModBlocks.EDELWOOD_LADDER,
+                NewModBlocks.YELLOW_ORCHID
         );
         takeBlockItem(this::withParentInventory,
                 NewModBlocks.FUNGYSS_BLOCK,

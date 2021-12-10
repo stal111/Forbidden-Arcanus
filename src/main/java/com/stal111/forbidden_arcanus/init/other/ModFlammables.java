@@ -43,7 +43,7 @@ public class ModFlammables {
         registerWoodenBlock(NewModBlocks.MYSTERYWOOD_FENCE.get());
         registerWoodenBlock(NewModBlocks.MYSTERYWOOD_FENCE_GATE.get());
 
-        registerPlant(ModBlocks.YELLOW_ORCHID.getBlock());
+        registerPlant(NewModBlocks.YELLOW_ORCHID.get());
         registerPlant(ModBlocks.STRANGE_ROOT.getBlock());
     }
 

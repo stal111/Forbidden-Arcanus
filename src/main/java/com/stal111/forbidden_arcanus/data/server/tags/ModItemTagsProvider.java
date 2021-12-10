@@ -75,5 +75,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
+        this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
     }
 }
