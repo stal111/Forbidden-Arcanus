@@ -46,7 +46,7 @@ import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
  * @author stal111
  * @version 2.0.0
  */
-public class ArcaneCrystalObeliskBlock extends CutoutBlock implements SimpleWaterloggedBlock {
+public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final EnumProperty<ArcaneCrystalObeliskPart> PART = EnumProperty.create("part", ArcaneCrystalObeliskPart.class);
     public static final BooleanProperty RITUAL = ModBlockStateProperties.RITUAL;
