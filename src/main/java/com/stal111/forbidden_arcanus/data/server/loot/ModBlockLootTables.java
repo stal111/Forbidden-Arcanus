@@ -42,7 +42,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
     @Override
     public void addTables() {
         take(block -> add(block, droppingWithFunction(block, builder -> builder.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fluid", "BlockEntityTag.Fluid")))), ModBlocks.UTREM_JAR);
-        take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModItems.ARCANE_GOLD_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModItems.ARCANE_GOLDEN_PICKAXE.get()))).otherwise(LootItem.lootTableItem(block)))), ModBlocks.ARCANE_GILDED_DARKSTONE);
+        take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModItems.ARCANE_GOLD_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(NewModItems.ARCANE_GOLDEN_PICKAXE.get()))).otherwise(LootItem.lootTableItem(block)))), ModBlocks.ARCANE_GILDED_DARKSTONE);
         take(block -> add(block, LootTable.lootTable()), ModBlocks.BLACK_HOLE);
         take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModBlocks.FUNGYSS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0))).apply(ApplyExplosionDecay.explosionDecay()))), ModBlocks.FUNGYSS_BLOCK);
         take(block -> add(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER)), ModBlocks.ARCANE_CRYSTAL_OBELISK);

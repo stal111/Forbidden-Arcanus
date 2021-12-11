@@ -5,9 +5,7 @@ import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -73,14 +71,26 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         getRemainingItems().removeAll(Arrays.asList(NewModItems.LENS_OF_VERITATIS, NewModItems.OBSIDIAN_SKULL_SHIELD, NewModItems.ZOMBIE_ARM, NewModItems.SHINY_ZOMBIE_ARM));
 
         takeItem(this::bloodTestTubeModel, NewModItems.BLOOD_TEST_TUBE);
+        takeItem(this::toolItem, NewModItems.DRACO_ARCANUS_STAFF, NewModItems.DRACO_ARCANUS_SCEPTER);
 
-        forEachItem(item -> item instanceof DiggerItem, this::toolItem);
+        forEachItem(item -> item instanceof DiggerItem || item instanceof SwordItem, this::toolItem);
+        forEachItem(item -> item instanceof ArmorItem, this::armorItem);
         forEachItem(this::simpleModel);
     }
 
     public <T extends Item> void toolItem(T item) {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
         this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/generated"))).texture("layer0", "item/tool/" + name);
+    }
+
+    public <T extends Item> void armorItem(T item) {
+        String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+
+        if (item instanceof DyeableArmorItem) {
+            this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/generated"))).texture("layer0", "item/armor/" + name).texture("layer1", "item/armor/" + name + "_overlay");
+        } else {
+            this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/generated"))).texture("layer0", "item/armor/" + name);
+        }
     }
 
     public <T extends Item> void utremJarModel(T item) {

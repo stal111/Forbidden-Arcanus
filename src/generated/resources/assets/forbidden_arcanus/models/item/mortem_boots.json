@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forbidden_arcanus:item/armor/mortem_boots",
+    "layer1": "forbidden_arcanus:item/armor/mortem_boots_overlay"
+  }
+}

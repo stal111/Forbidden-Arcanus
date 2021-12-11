@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,7 +19,7 @@ public class EntityDamageListener {
         if (source.msgId.equals("player")) {
             Player player = (Player) event.getSource().getEntity();
 
-            if (player != null && player.getItemInHand(player.getUsedItemHand()).getItem() == ModItems.MYSTICAL_DAGGER.get()) {
+            if (player != null && player.getItemInHand(player.getUsedItemHand()).getItem() == NewModItems.MYSTICAL_DAGGER.get()) {
                 int blood = (int) (20 * event.getAmount());
 
                 ItemStack stack = null;

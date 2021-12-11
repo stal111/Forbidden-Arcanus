@@ -2,28 +2,19 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.item.*;
-import com.stal111.forbidden_arcanus.item.armor.ModArmorMaterial;
 import com.stal111.forbidden_arcanus.item.block.StrangeRootItem;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BowlFoodItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
-
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.SwordItem;
 
 public class ModItems {
 
@@ -74,41 +65,6 @@ public class ModItems {
     public static final RegistryObject<Item> QUANTUM_CATCHER = register("quantum_catcher", () -> new QuantumCatcherItem(properties()));
 
     public static final RegistryObject<Item> SOUL_EXTRACTOR = register("soul_extractor", SoulExtractorItem::new);
-    public static final RegistryObject<Item> SLIMEC_PICKAXE = register("slimec_pickaxe", () -> new SlimecPickaxeItem(ModItemTier.SLIMEC, 1, -2.5F, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_STAFF = register("draco_arcanus_staff", () -> new Item(properties(1)));
-    public static final RegistryObject<Item> DRACO_ARCANUS_SWORD = register("draco_arcanus_sword", () -> new SwordItem(ModItemTier.DRACO_ARCANUS, 4, -2.2F, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_SHOVEL = register("draco_arcanus_shovel", () -> new ShovelItem(ModItemTier.DRACO_ARCANUS, 2.5F, -2.8F, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_PICKAXE = register("draco_arcanus_pickaxe", () -> new PickaxeItem(ModItemTier.DRACO_ARCANUS, 2, -2.6F, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_AXE = register("draco_arcanus_axe", () -> new AxeItem(ModItemTier.DRACO_ARCANUS, 6, -2.8F, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_HOE = register("draco_arcanus_hoe", () -> new HoeItem(ModItemTier.DRACO_ARCANUS, -4, 1, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_SCEPTER = register("draco_arcanus_scepter", () -> new DracoArcanusScepterItem(properties(1)));
-    public static final RegistryObject<Item> ARCANE_GOLDEN_SWORD = register("arcane_golden_sword", () -> new SwordItem(ModItemTier.ARCANE_GOLDEN, 3, -2.4F, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLDEN_SHOVEL = register("arcane_golden_shovel", () -> new ShovelItem(ModItemTier.ARCANE_GOLDEN, 1.5F, -3.0F, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLDEN_PICKAXE = register("arcane_golden_pickaxe", () -> new PickaxeItem(ModItemTier.ARCANE_GOLDEN, 1, -2.8F, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLDEN_AXE = register("arcane_golden_axe", () -> new AxeItem(ModItemTier.ARCANE_GOLDEN, 5, -3.0F, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLDEN_HOE = register("arcane_golden_hoe", () -> new HoeItem(ModItemTier.ARCANE_GOLDEN, -3, 0, properties()));
-    public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_SWORD = register("reinforced_arcane_golden_sword", () -> new SwordItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 3, -2.4F, properties()));
-    public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_SHOVEL = register("reinforced_arcane_golden_shovel", () -> new ShovelItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 1.5F, -3.0F, properties()));
-    public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_PICKAXE = register("reinforced_arcane_golden_pickaxe", () -> new PickaxeItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 1, -2.8F, properties()));
-    public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_AXE = register("reinforced_arcane_golden_axe", () -> new AxeItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, 5, -3.0F, properties()));
-    public static final RegistryObject<Item> REINFORCED_ARCANE_GOLDEN_HOE = register("reinforced_arcane_golden_hoe", () -> new HoeItem(ModItemTier.REINFORCED_ARCANE_GOLDEN, -3, 0, properties()));
-    public static final RegistryObject<Item> MYSTICAL_DAGGER = register("mystical_dagger", () -> new MysticalDaggerItem(ModItemTier.MYSTICAL_DAGGER, 2.5F, -0.3F, properties(1)));
-    public static final RegistryObject<Item> DRACO_ARCANUS_HELMET = register("draco_arcanus_helmet", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.HEAD, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_CHESTPLATE = register("draco_arcanus_chestplate", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.CHEST, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_LEGGINGS = register("draco_arcanus_leggings", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.LEGS, properties()));
-    public static final RegistryObject<Item> DRACO_ARCANUS_BOOTS = register("draco_arcanus_boots", () -> new ArmorItem(ModArmorMaterial.DRACO_ARCANUS, EquipmentSlot.FEET, properties()));
-    public static final RegistryObject<Item> TYR_HELMET = register("tyr_helmet", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.HEAD, properties()));
-    public static final RegistryObject<Item> TYR_CHESTPLATE = register("tyr_chestplate", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.CHEST, properties()));
-    public static final RegistryObject<Item> TYR_LEGGINGS = register("tyr_leggings", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.LEGS, properties()));
-    public static final RegistryObject<Item> TYR_BOOTS = register("tyr_boots", () -> new ArmorItem(ModArmorMaterial.TYR, EquipmentSlot.FEET, properties()));
-    public static final RegistryObject<Item> MORTEM_HELMET = register("mortem_helmet", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.HEAD, properties()));
-    public static final RegistryObject<Item> MORTEM_CHESTPLATE = register("mortem_chestplate", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.CHEST, properties()));
-    public static final RegistryObject<Item> MORTEM_LEGGINGS = register("mortem_leggings", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.LEGS, properties()));
-    public static final RegistryObject<Item> MORTEM_BOOTS = register("mortem_boots", () -> new ArmorItem(ModArmorMaterial.MORTEM, EquipmentSlot.FEET, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_HELMET = register("arcane_gold_helmet", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.HEAD, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_CHESTPLATE = register("arcane_gold_chestplate", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.CHEST, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_LEGGINGS = register("arcane_gold_leggings", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.LEGS, properties()));
-    public static final RegistryObject<Item> ARCANE_GOLD_BOOTS = register("arcane_gold_boots", () -> new ArmorItem(ModArmorMaterial.ARCANE_GOLD, EquipmentSlot.FEET, properties()));
 
     private static RegistryObject<Item> register(String name, Supplier<? extends Item> item) {
         return ITEMS.register(name, item);
