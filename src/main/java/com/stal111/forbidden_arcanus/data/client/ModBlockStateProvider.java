@@ -65,8 +65,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> logBlock((RotatedPillarBlock) block), NewModBlocks.FUNGYSS_STEM, NewModBlocks.CHERRYWOOD_LOG, NewModBlocks.MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_CHERRYWOOD_LOG);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), NewModBlocks.FUNGYSS_HYPHAE);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), NewModBlocks.CHERRYWOOD, NewModBlocks.MYSTERYWOOD, NewModBlocks.STRIPPED_CHERRYWOOD, NewModBlocks.STRIPPED_MYSTERYWOOD);
-        take(block -> goldenOrchid((CropBlock) block), NewModBlocks.GOLDEN_ORCHID);
-        take(this::magicalFarmland, NewModBlocks.MAGICAL_FARMLAND);
+        take(block -> crossCropBlock((CropBlock) block), NewModBlocks.GOLDEN_ORCHID, NewModBlocks.STRANGE_ROOT);
+        take(this::magicalFarmlandBlock, NewModBlocks.MAGICAL_FARMLAND);
 
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
         take(block -> pressurePlateBlock(block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
@@ -272,7 +272,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         );
     }
 
-    private void goldenOrchid(CropBlock block) {
+    private void crossCropBlock(CropBlock block) {
         IntegerProperty age = block.getAgeProperty();
 
         getVariantBuilder(block).forAllStates(
@@ -282,7 +282,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         );
     }
 
-    private void magicalFarmland(Block block) {
+    private void magicalFarmlandBlock(Block block) {
         ModelFile model = models().withExistingParent(getName(block), mcLoc("block/template_farmland"))
                 .texture("dirt", modLoc("block/magical_dirt"))
                 .texture("top", modLoc("block/magical_farmland"));

@@ -13,6 +13,7 @@ import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -57,6 +58,10 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
             LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.AGE_6, 6));
             add(block, applyExplosionDecay(block, createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(ModItems.GOLDEN_ORCHID_SEEDS.get()))).withPool(LootPool.lootPool().when(HAS_NO_SILK_TOUCH).when(builder).add(LootItem.lootTableItem(ModItems.ARCANE_GOLD_NUGGET.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
         }, NewModBlocks.GOLDEN_ORCHID);
+        take(block -> {
+            LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3));
+            add(block, createSingleItemTable(ModItems.STRANGE_ROOT.get()).withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(ModItems.STRANGE_ROOT.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3)))));
+        }, NewModBlocks.STRANGE_ROOT);
 
         forEach(block -> block instanceof IronBarsBlock, this::dropWhenSilkTouch);
         forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);

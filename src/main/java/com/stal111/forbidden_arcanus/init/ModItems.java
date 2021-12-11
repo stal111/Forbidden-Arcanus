@@ -65,7 +65,7 @@ public class ModItems {
     public static final RegistryObject<Item> BAT_SOUP = register("bat_soup", () -> new BowlFoodItem(properties(1).food(build(7, 0.7F, new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F))));
     public static final RegistryObject<Item> TENTACLE = register("tentacle", () -> new Item(properties().food(build(2, 0.1F, true))));
     public static final RegistryObject<Item> COOKED_TENTACLE = register("cooked_tentacle", () -> new Item(properties().food(build(5, 0.6F, true))));
-    public static final RegistryObject<Item> STRANGE_ROOT = register("strange_root", () -> new StrangeRootItem(ModBlocks.STRANGE_ROOT.getBlock(), properties().food(build(3, 0.6F))));
+    public static final RegistryObject<Item> STRANGE_ROOT = register("strange_root", () -> new StrangeRootItem(NewModBlocks.STRANGE_ROOT.get(), properties().food(build(3, 0.6F))));
     public static final RegistryObject<Item> BOOM_ARROW = register("boom_arrow", () -> new ModArrowItem(properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_ARROW = register("draco_arcanus_arrow", () -> new ModArrowItem(properties()));
     public static final RegistryObject<Item> GOLDEN_ORCHID_SEEDS = register("golden_orchid_seeds", () -> new GoldenOrchidItem(NewModBlocks.GOLDEN_ORCHID.get(), properties()));

@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.*;
 import com.stal111.forbidden_arcanus.common.block.EdelwoodLogBlock;
 import com.stal111.forbidden_arcanus.common.block.GoldenOrchidBlock;
 import com.stal111.forbidden_arcanus.common.block.MysterywoodLogBlock;
+import com.stal111.forbidden_arcanus.common.block.StrangeRootBlock;
 import com.stal111.forbidden_arcanus.common.block.grower.CherrywoodTreeGrower;
 import com.stal111.forbidden_arcanus.common.block.grower.MysterywoodTreeGrower;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
@@ -189,6 +190,7 @@ public class NewModBlocks {
     public static final RegistryObject<FlowerBlock> YELLOW_ORCHID = HELPER.register("yellow_orchid", new FlowerBlock(MobEffects.GLOWING, 10, BlockBehaviour.Properties.copy(Blocks.BLUE_ORCHID)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<GoldenOrchidBlock> GOLDEN_ORCHID = HELPER.registerNoItem("golden_orchid", new GoldenOrchidBlock(BlockBehaviour.Properties.copy(Blocks.BLUE_ORCHID).randomTicks()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<FarmBlock> MAGICAL_FARMLAND = HELPER.register("magical_farmland", new FarmBlock(BlockBehaviour.Properties.copy(Blocks.FARMLAND).randomTicks()));
+    public static final RegistryObject<StrangeRootBlock> STRANGE_ROOT = HELPER.registerNoItem("strange_root", new StrangeRootBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)), ValhelsiaRenderType.CUTOUT);
 
     public static final RegistryObject<FlowerPotBlock> POTTED_CHERRYWOOD_SAPLING = HELPER.registerNoItem("potted_cherrywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHERRYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<FlowerPotBlock> POTTED_MYSTERYWOOD_SAPLING = HELPER.registerNoItem("potted_mysterywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, MYSTERYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);

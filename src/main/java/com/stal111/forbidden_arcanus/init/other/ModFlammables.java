@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.init.other;
 
-import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.mixin.AccessorFireBlock;
 import net.minecraft.world.level.block.Block;
@@ -44,7 +43,7 @@ public class ModFlammables {
         registerWoodenBlock(NewModBlocks.MYSTERYWOOD_FENCE_GATE.get());
 
         registerPlant(NewModBlocks.YELLOW_ORCHID.get());
-        registerPlant(ModBlocks.STRANGE_ROOT.getBlock());
+        registerPlant(NewModBlocks.STRANGE_ROOT.get());
     }
 
     private static void register(Block block, int encouragement, int flammability) {

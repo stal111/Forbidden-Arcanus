@@ -1,20 +1,19 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.*;
 import com.stal111.forbidden_arcanus.util.ModRenderType;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
 import java.util.Locale;
 
 public enum ModBlocks {
-    STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT);
+    ;
 
     private final Block block;
     private final BlockItem item;
