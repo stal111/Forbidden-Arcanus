@@ -14,8 +14,7 @@ import net.minecraft.world.level.material.Material;
 import java.util.Locale;
 
 public enum ModBlocks {
-    STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT),
-    MAGICAL_FARMLAND(new ModFarmlandBlock(from(Blocks.FARMLAND)));
+    STRANGE_ROOT(new StrangeRootBlock(from(Blocks.WHEAT)), false, ModRenderType.CUTOUT);
 
     private final Block block;
     private final BlockItem item;

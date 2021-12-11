@@ -188,6 +188,7 @@ public class NewModBlocks {
     public static final RegistryObject<ChainBlock> ARCANE_GOLDEN_CHAIN = HELPER.register("arcane_golden_chain", new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)), ValhelsiaRenderType.CUTOUT_MIPPED);
     public static final RegistryObject<FlowerBlock> YELLOW_ORCHID = HELPER.register("yellow_orchid", new FlowerBlock(MobEffects.GLOWING, 10, BlockBehaviour.Properties.copy(Blocks.BLUE_ORCHID)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<GoldenOrchidBlock> GOLDEN_ORCHID = HELPER.registerNoItem("golden_orchid", new GoldenOrchidBlock(BlockBehaviour.Properties.copy(Blocks.BLUE_ORCHID).randomTicks()), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<FarmBlock> MAGICAL_FARMLAND = HELPER.register("magical_farmland", new FarmBlock(BlockBehaviour.Properties.copy(Blocks.FARMLAND).randomTicks()));
 
     public static final RegistryObject<FlowerPotBlock> POTTED_CHERRYWOOD_SAPLING = HELPER.registerNoItem("potted_cherrywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHERRYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<FlowerPotBlock> POTTED_MYSTERYWOOD_SAPLING = HELPER.registerNoItem("potted_mysterywood_sapling", new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, MYSTERYWOOD_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)), ValhelsiaRenderType.CUTOUT);

@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -42,7 +42,7 @@ public class ArcaneBoneMealItem extends BoneMealItem {
         Player player = context.getPlayer();
 
         if (state.getBlock() == Blocks.FARMLAND) {
-            world.setBlockAndUpdate(pos, ModBlocks.MAGICAL_FARMLAND.getBlock().defaultBlockState().setValue(BlockStateProperties.MOISTURE, state.getValue(BlockStateProperties.MOISTURE)));
+            world.setBlockAndUpdate(pos, NewModBlocks.MAGICAL_FARMLAND.get().defaultBlockState().setValue(BlockStateProperties.MOISTURE, state.getValue(BlockStateProperties.MOISTURE)));
             world.levelEvent(player, 2001, pos, Block.getId(state));
 
             ItemStackUtils.shrinkStack(player, context.getItemInHand());

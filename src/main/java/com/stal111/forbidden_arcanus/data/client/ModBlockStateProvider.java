@@ -66,6 +66,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), NewModBlocks.FUNGYSS_HYPHAE);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), NewModBlocks.CHERRYWOOD, NewModBlocks.MYSTERYWOOD, NewModBlocks.STRIPPED_CHERRYWOOD, NewModBlocks.STRIPPED_MYSTERYWOOD);
         take(block -> goldenOrchid((CropBlock) block), NewModBlocks.GOLDEN_ORCHID);
+        take(this::magicalFarmland, NewModBlocks.MAGICAL_FARMLAND);
 
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
         take(block -> pressurePlateBlock(block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
@@ -277,6 +278,21 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         getVariantBuilder(block).forAllStates(
                 state -> ConfiguredModel.builder()
                         .modelFile(models().cross(getName(block) + "_stage" + state.getValue(age), modLoc("block/" + getName(block) + "_stage" + state.getValue(age))))
+                        .build()
+        );
+    }
+
+    private void magicalFarmland(Block block) {
+        ModelFile model = models().withExistingParent(getName(block), mcLoc("block/template_farmland"))
+                .texture("dirt", modLoc("block/magical_dirt"))
+                .texture("top", modLoc("block/magical_farmland"));
+        ModelFile modelMoist = models().withExistingParent(getName(block) + "_moist", mcLoc("block/template_farmland"))
+                .texture("dirt", modLoc("block/magical_dirt"))
+                .texture("top", modLoc("block/magical_farmland_moist"));
+
+        getVariantBuilder(block).forAllStates(
+                state -> ConfiguredModel.builder()
+                        .modelFile(state.getValue(FarmBlock.MOISTURE) == 7 ? modelMoist : model)
                         .build()
         );
     }
