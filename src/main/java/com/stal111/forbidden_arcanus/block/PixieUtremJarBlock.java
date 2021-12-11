@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,7 +67,7 @@ public class PixieUtremJarBlock extends Block implements SimpleWaterloggedBlock 
 
     @Override
     public String getDescriptionId() {
-        return NewModBlocks.UTREM_JAR.get().getDescriptionId();
+        return ModBlocks.UTREM_JAR.get().getDescriptionId();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class PixieUtremJarBlock extends Block implements SimpleWaterloggedBlock 
             ItemStack newStack = new ItemStack(this.pixie.get());
 
             player.setItemInHand(hand, newStack);
-            world.setBlock(pos, NewModBlocks.UTREM_JAR.get().defaultBlockState().setValue(WATERLOGGED, state.getValue(WATERLOGGED)), 3);
+            world.setBlock(pos, ModBlocks.UTREM_JAR.get().defaultBlockState().setValue(WATERLOGGED, state.getValue(WATERLOGGED)), 3);
         }
         return super.use(state, world, pos, player, hand, hit);
     }
@@ -114,7 +114,7 @@ public class PixieUtremJarBlock extends Block implements SimpleWaterloggedBlock 
 
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
-        if (state.getBlock() == NewModBlocks.PIXIE_UTREM_JAR.get()) {
+        if (state.getBlock() == ModBlocks.PIXIE_UTREM_JAR.get()) {
             if (Objects.requireNonNull(Minecraft.getInstance().player).getInventory().contains(new ItemStack(NewModItems.LENS_OF_VERITATIS.get()))) {
                 double j = 0.4D * rand.nextFloat();
                 double k = 0.4D * rand.nextFloat();
@@ -130,7 +130,7 @@ public class PixieUtremJarBlock extends Block implements SimpleWaterloggedBlock 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, worldIn, tooltip, flag);
-        boolean corrupted = this == NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get();
+        boolean corrupted = this == ModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get();
         tooltip.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + (corrupted ? ".corrupted_pixie" : ".pixie")).withStyle(ChatFormatting.GRAY));
     }
 

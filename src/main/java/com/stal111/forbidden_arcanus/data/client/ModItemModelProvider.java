@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.BlockItem;
@@ -37,26 +37,26 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         getRemainingBlockItems().removeIf(item -> ((BlockItem) item.get()).getBlock() instanceof ObsidianSkullBlock);
 
         takeBlockItem(this::simpleModel,
-                NewModBlocks.PIXIE_UTREM_JAR,
-                NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
-                NewModBlocks.NIPA,
-                NewModBlocks.ARCANE_CRYSTAL_OBELISK,
-                NewModBlocks.ARCANE_GOLDEN_CHAIN,
-                NewModBlocks.ARCANE_DRAGON_EGG,
+                ModBlocks.PIXIE_UTREM_JAR,
+                ModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
+                ModBlocks.NIPA,
+                ModBlocks.ARCANE_CRYSTAL_OBELISK,
+                ModBlocks.ARCANE_GOLDEN_CHAIN,
+                ModBlocks.ARCANE_DRAGON_EGG,
                 NewModItems.EDELWOOD_POWDER_SNOW_BUCKET
         );
         takeBlockItem(this::simpleModelBlockTexture,
-                NewModBlocks.FUNGYSS,
-                NewModBlocks.EDELWOOD_LADDER,
-                NewModBlocks.YELLOW_ORCHID
+                ModBlocks.FUNGYSS,
+                ModBlocks.EDELWOOD_LADDER,
+                ModBlocks.YELLOW_ORCHID
         );
         takeBlockItem(this::withParentInventory,
-                NewModBlocks.FUNGYSS_BLOCK,
-                NewModBlocks.FUNGYSS_BUTTON,
-                NewModBlocks.POLISHED_DARKSTONE_BUTTON
+                ModBlocks.FUNGYSS_BLOCK,
+                ModBlocks.FUNGYSS_BUTTON,
+                ModBlocks.POLISHED_DARKSTONE_BUTTON
         );
-        takeBlockItem(this::utremJarModel, NewModBlocks.UTREM_JAR);
-        takeBlockItem(item -> withParent(item, "arcane_polished_darkstone_pillar_single"), NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
+        takeBlockItem(this::utremJarModel, ModBlocks.UTREM_JAR);
+        takeBlockItem(item -> withParent(item, "arcane_polished_darkstone_pillar_single"), ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
 
         forEachBlockItem(item -> item.getBlock() instanceof DoorBlock, this::simpleModel);
         forEachBlockItem(item -> item.getBlock() instanceof TrapDoorBlock, item -> withParent(item, getName(item) + "_bottom"));

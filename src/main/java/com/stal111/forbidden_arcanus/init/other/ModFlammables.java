@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.init.other;
 
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.mixin.AccessorFireBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -8,42 +8,42 @@ import net.minecraft.world.level.block.Blocks;
 public class ModFlammables {
 
     public static void registerFlammables() {
-        registerLeaves(NewModBlocks.CHERRYWOOD_LEAVES.get());
-        registerLeaves(NewModBlocks.MYSTERYWOOD_LEAVES.get());
-        registerLeaves(NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
+        registerLeaves(ModBlocks.CHERRYWOOD_LEAVES.get());
+        registerLeaves(ModBlocks.MYSTERYWOOD_LEAVES.get());
+        registerLeaves(ModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
 
-        registerLog(NewModBlocks.CHERRYWOOD_LOG.get());
-        registerLog(NewModBlocks.MYSTERYWOOD_LOG.get());
-        registerLog(NewModBlocks.EDELWOOD_LOG.get());
-        registerLog(NewModBlocks.CARVED_EDELWOOD_LOG.get());
-        registerLog(NewModBlocks.STRIPPED_CHERRYWOOD_LOG.get());
-        registerLog(NewModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
-        registerLog(NewModBlocks.CHERRYWOOD.get());
-        registerLog(NewModBlocks.MYSTERYWOOD.get());
-        registerLog(NewModBlocks.STRIPPED_CHERRYWOOD.get());
-        registerLog(NewModBlocks.STRIPPED_MYSTERYWOOD.get());
+        registerLog(ModBlocks.CHERRYWOOD_LOG.get());
+        registerLog(ModBlocks.MYSTERYWOOD_LOG.get());
+        registerLog(ModBlocks.EDELWOOD_LOG.get());
+        registerLog(ModBlocks.CARVED_EDELWOOD_LOG.get());
+        registerLog(ModBlocks.STRIPPED_CHERRYWOOD_LOG.get());
+        registerLog(ModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
+        registerLog(ModBlocks.CHERRYWOOD.get());
+        registerLog(ModBlocks.MYSTERYWOOD.get());
+        registerLog(ModBlocks.STRIPPED_CHERRYWOOD.get());
+        registerLog(ModBlocks.STRIPPED_MYSTERYWOOD.get());
 
-        registerWoodenBlock(NewModBlocks.EDELWOOD_PLANKS.get());
-        registerWoodenBlock(NewModBlocks.ARCANE_EDELWOOD_PLANKS.get());
-        registerWoodenBlock(NewModBlocks.EDELWOOD_SLAB.get());
-        registerWoodenBlock(NewModBlocks.EDELWOOD_STAIRS.get());
-        registerWoodenBlock(NewModBlocks.EDELWOOD_FENCE.get());
-        registerWoodenBlock(NewModBlocks.EDELWOOD_FENCE_GATE.get());
+        registerWoodenBlock(ModBlocks.EDELWOOD_PLANKS.get());
+        registerWoodenBlock(ModBlocks.ARCANE_EDELWOOD_PLANKS.get());
+        registerWoodenBlock(ModBlocks.EDELWOOD_SLAB.get());
+        registerWoodenBlock(ModBlocks.EDELWOOD_STAIRS.get());
+        registerWoodenBlock(ModBlocks.EDELWOOD_FENCE.get());
+        registerWoodenBlock(ModBlocks.EDELWOOD_FENCE_GATE.get());
 
-        registerWoodenBlock(NewModBlocks.CHERRYWOOD_PLANKS.get());
-        registerWoodenBlock(NewModBlocks.CHERRYWOOD_SLAB.get());
-        registerWoodenBlock(NewModBlocks.CHERRYWOOD_STAIRS.get());
-        registerWoodenBlock(NewModBlocks.CHERRYWOOD_FENCE.get());
-        registerWoodenBlock(NewModBlocks.CHERRYWOOD_FENCE_GATE.get());
+        registerWoodenBlock(ModBlocks.CHERRYWOOD_PLANKS.get());
+        registerWoodenBlock(ModBlocks.CHERRYWOOD_SLAB.get());
+        registerWoodenBlock(ModBlocks.CHERRYWOOD_STAIRS.get());
+        registerWoodenBlock(ModBlocks.CHERRYWOOD_FENCE.get());
+        registerWoodenBlock(ModBlocks.CHERRYWOOD_FENCE_GATE.get());
 
-        registerWoodenBlock(NewModBlocks.MYSTERYWOOD_PLANKS.get());
-        registerWoodenBlock(NewModBlocks.MYSTERYWOOD_SLAB.get());
-        registerWoodenBlock(NewModBlocks.MYSTERYWOOD_STAIRS.get());
-        registerWoodenBlock(NewModBlocks.MYSTERYWOOD_FENCE.get());
-        registerWoodenBlock(NewModBlocks.MYSTERYWOOD_FENCE_GATE.get());
+        registerWoodenBlock(ModBlocks.MYSTERYWOOD_PLANKS.get());
+        registerWoodenBlock(ModBlocks.MYSTERYWOOD_SLAB.get());
+        registerWoodenBlock(ModBlocks.MYSTERYWOOD_STAIRS.get());
+        registerWoodenBlock(ModBlocks.MYSTERYWOOD_FENCE.get());
+        registerWoodenBlock(ModBlocks.MYSTERYWOOD_FENCE_GATE.get());
 
-        registerPlant(NewModBlocks.YELLOW_ORCHID.get());
-        registerPlant(NewModBlocks.STRANGE_ROOT.get());
+        registerPlant(ModBlocks.YELLOW_ORCHID.get());
+        registerPlant(ModBlocks.STRANGE_ROOT.get());
     }
 
     private static void register(Block block, int encouragement, int flammability) {

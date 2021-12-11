@@ -10,7 +10,7 @@ import com.stal111.forbidden_arcanus.common.item.EdelwoodMobBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodSuspiciousStewBucketItem;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -65,7 +65,7 @@ public class PlayerEvents {
         if (event.phase == TickEvent.Phase.START) {
             Player player = event.player;
 
-            if (player.onClimbable() && !player.isCrouching() && player.getFeetBlockState().is(NewModBlocks.EDELWOOD_LADDER.get())) {
+            if (player.onClimbable() && !player.isCrouching() && player.getFeetBlockState().is(ModBlocks.EDELWOOD_LADDER.get())) {
                 if (player.zza > 0.0f) {
                     player.move(MoverType.SELF, new Vec3(0.0, BlockConfig.EDELWOOD_LADDER_SPEED.get(), 0.0));
                 } else {

@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -85,7 +85,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return context.isHoldingItem(NewModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(NewModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : SHAPES.get(state.getValue(AXIS));
+        return context.isHoldingItem(ModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(ModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : SHAPES.get(state.getValue(AXIS));
     }
 
     @Override
@@ -148,7 +148,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, pos, stack);
             }
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.setBlockAndUpdate(pos, NewModBlocks.CARVED_EDELWOOD_LOG.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(OILY, state.getValue(OILY)).setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
+            level.setBlockAndUpdate(pos, ModBlocks.CARVED_EDELWOOD_LOG.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(OILY, state.getValue(OILY)).setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
 
             return InteractionResult.sidedSuccess(level.isClientSide());
         }

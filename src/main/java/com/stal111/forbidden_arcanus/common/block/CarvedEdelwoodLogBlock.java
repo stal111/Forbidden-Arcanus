@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -54,7 +54,7 @@ public class CarvedEdelwoodLogBlock extends EdelwoodLogBlock {
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return context.isHoldingItem(NewModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(NewModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : SHAPES.get(Direction.Axis.Y);
+        return context.isHoldingItem(ModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(ModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : SHAPES.get(Direction.Axis.Y);
     }
 
     @Override

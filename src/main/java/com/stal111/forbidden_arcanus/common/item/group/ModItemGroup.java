@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.item.group;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +29,7 @@ public class ModItemGroup extends CreativeModeTab {
 	@Nonnull
 	@Override
 	public ItemStack makeIcon() {
-		return new ItemStack(NewModBlocks.HEPHAESTUS_FORGE.get());
+		return new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get());
 	}
 	
 	@Override

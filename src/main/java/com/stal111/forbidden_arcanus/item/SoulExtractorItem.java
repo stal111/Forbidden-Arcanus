@@ -1,10 +1,9 @@
 package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -80,7 +79,7 @@ public class SoulExtractorItem extends Item {
                             }
                             player.awardStat(Stats.ITEM_USED.get(this));
                             if (!world.isClientSide) {
-                                world.setBlockAndUpdate(pos, NewModBlocks.SOULLESS_SAND.get().defaultBlockState());
+                                world.setBlockAndUpdate(pos, ModBlocks.SOULLESS_SAND.get().defaultBlockState());
                                 world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1F, pos.getZ(), new ItemStack(ModItems.SOUL.get())));
                             }
                         }

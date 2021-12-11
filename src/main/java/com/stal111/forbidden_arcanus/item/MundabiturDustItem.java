@@ -5,8 +5,8 @@ import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -99,7 +99,7 @@ public class MundabiturDustItem extends Item {
             }
 
             world.levelEvent(player, 2001, pos, Block.getId(world.getBlockState(pos)));
-            world.setBlockAndUpdate(pos, NewModBlocks.HEPHAESTUS_FORGE.get().defaultBlockState().setValue(ModBlockStateProperties.ACTIVATED, true));
+            world.setBlockAndUpdate(pos, ModBlocks.HEPHAESTUS_FORGE.get().defaultBlockState().setValue(ModBlockStateProperties.ACTIVATED, true));
 
             CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), world);
             entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
@@ -108,7 +108,7 @@ public class MundabiturDustItem extends Item {
             world.addFreshEntity(entity);
 
             return true;
-        } else if (block == NewModBlocks.ARCANE_CRYSTAL_BLOCK.get() || block == NewModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
+        } else if (block == ModBlocks.ARCANE_CRYSTAL_BLOCK.get() || block == ModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
             BlockPattern.BlockPatternMatch patternHelper = getArcaneCrystalObeliskPattern().find(world, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
@@ -123,7 +123,7 @@ public class MundabiturDustItem extends Item {
                 }
             }
 
-            BlockState state = NewModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
+            BlockState state = ModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
 
             world.setBlock(patternHelper.getFrontTopLeft().below(2), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 2);
             world.setBlock(patternHelper.getFrontTopLeft().below(1), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 2);
@@ -148,9 +148,9 @@ public class MundabiturDustItem extends Item {
                     .aisle("~~~~~~~~~", "*PPPAPPP*")
                     .aisle("~~~~~~~~~", "***PPP***")
                     .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.SMITHING_TABLE)))
-                    .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
-                    .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
-                    .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.POLISHED_DARKSTONE.get())))
+                    .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
+                    .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
+                    .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
                     .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
                     .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
                     .build();
@@ -170,9 +170,9 @@ public class MundabiturDustItem extends Item {
                     .aisle("*PAPPPAP*")
                     .aisle("*PPPAPPP*")
                     .aisle("***PPP***")
-                    .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
-                    .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
-                    .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.POLISHED_DARKSTONE.get())))
+                    .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
+                    .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
+                    .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
                     .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
                     .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
                     .build();
@@ -184,8 +184,8 @@ public class MundabiturDustItem extends Item {
         if (arcaneCrystalObeliskPattern == null) {
             arcaneCrystalObeliskPattern = BlockPatternBuilder.start()
                     .aisle("#", "#", "X")
-                    .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_CRYSTAL_BLOCK.get())))
-                    .where('X', BlockInWorld.hasState(BlockStatePredicate.forBlock(NewModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
+                    .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())))
+                    .where('X', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
                     .build();
         }
         return arcaneCrystalObeliskPattern;

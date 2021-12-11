@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.item.block;
 
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.material.Fluid;
@@ -20,7 +20,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.world.item.Item.Properties;
 import net.valhelsia.valhelsia_core.common.item.filler.TargetItemGroupFiller;
 
 /**
@@ -39,9 +38,9 @@ public class UtremJarItem extends BlockItem {
 
     @Override
     public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-        new TargetItemGroupFiller(() -> NewModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(new ItemStack(this), group, items);
-        new TargetItemGroupFiller(() -> NewModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(withFluid(Fluids.WATER), group, items);
-        new TargetItemGroupFiller(() -> NewModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(withFluid(Fluids.LAVA), group, items);
+        new TargetItemGroupFiller(() -> ModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(new ItemStack(this), group, items);
+        new TargetItemGroupFiller(() -> ModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(withFluid(Fluids.WATER), group, items);
+        new TargetItemGroupFiller(() -> ModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(withFluid(Fluids.LAVA), group, items);
     }
 
     private ItemStack withFluid(Fluid fluid) {

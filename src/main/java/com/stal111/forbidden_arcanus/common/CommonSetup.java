@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -30,17 +30,17 @@ public class CommonSetup {
 
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "cherrywood_sapling"), NewModBlocks.POTTED_CHERRYWOOD_SAPLING);
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "mysterywood_sapling"), NewModBlocks.POTTED_MYSTERYWOOD_SAPLING);
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "yellow_orchid"), NewModBlocks.POTTED_YELLOW_ORCHID);
+            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "cherrywood_sapling"), ModBlocks.POTTED_CHERRYWOOD_SAPLING);
+            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "mysterywood_sapling"), ModBlocks.POTTED_MYSTERYWOOD_SAPLING);
+            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
         });
 
         ItemPredicate.register(new ResourceLocation(ForbiddenArcanus.MOD_ID, "modifier"), ModifierItemPredicate::fromJson);
 
-        ModUtils.addStrippable(NewModBlocks.CHERRYWOOD_LOG.get(), NewModBlocks.STRIPPED_CHERRYWOOD_LOG.get());
-        ModUtils.addStrippable(NewModBlocks.CHERRYWOOD.get(), NewModBlocks.STRIPPED_CHERRYWOOD.get());
-        ModUtils.addStrippable(NewModBlocks.MYSTERYWOOD_LOG.get(), NewModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
-        ModUtils.addStrippable(NewModBlocks.MYSTERYWOOD.get(), NewModBlocks.STRIPPED_MYSTERYWOOD.get());
+        ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.get(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.get());
+        ModUtils.addStrippable(ModBlocks.CHERRYWOOD.get(), ModBlocks.STRIPPED_CHERRYWOOD.get());
+        ModUtils.addStrippable(ModBlocks.MYSTERYWOOD_LOG.get(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
+        ModUtils.addStrippable(ModBlocks.MYSTERYWOOD.get(), ModBlocks.STRIPPED_MYSTERYWOOD.get());
 
         MinecraftForgeClient.registerTooltipComponentFactory(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
     }

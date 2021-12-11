@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.item.PixieItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -85,9 +85,9 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
                 BlockState newState = null;
 
                 if (stack.getItem() instanceof PixieItem) {
-                    newState = NewModBlocks.PIXIE_UTREM_JAR.get().defaultBlockState();
+                    newState = ModBlocks.PIXIE_UTREM_JAR.get().defaultBlockState();
                 } else if (stack.getItem() == ModItems.CORRUPTED_PIXIE.get()) {
-                    newState = NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().defaultBlockState();
+                    newState = ModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().defaultBlockState();
                 }
 
                 if (newState != null) {

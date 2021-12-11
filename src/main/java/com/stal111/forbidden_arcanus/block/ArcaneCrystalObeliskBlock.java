@@ -1,12 +1,10 @@
 package com.stal111.forbidden_arcanus.block;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,7 +23,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -83,7 +80,7 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements SimpleWate
         }
 
         return this.defaultBlockState()
-                .setValue(RITUAL, world.getBlockState(pos.below()).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())
+                .setValue(RITUAL, world.getBlockState(pos.below()).getBlock() == ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())
                 .setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER);
     }
 
@@ -115,7 +112,7 @@ public class ArcaneCrystalObeliskBlock extends CutoutBlock implements SimpleWate
             return;
         }
 
-        BlockState newState = state.setValue(RITUAL, world.getBlockState(fromPos).getBlock() == NewModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
+        BlockState newState = state.setValue(RITUAL, world.getBlockState(fromPos).getBlock() == ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
 
         if (state != newState) {
             world.setBlock(pos, newState, 3);

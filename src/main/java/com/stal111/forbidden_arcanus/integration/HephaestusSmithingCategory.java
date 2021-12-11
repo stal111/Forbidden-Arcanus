@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -53,7 +53,7 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
 
     public HephaestusSmithingCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 147, 107);
-        this.icon = guiHelper.createDrawableIngredient(new ItemStack(NewModBlocks.HEPHAESTUS_FORGE.get()));
+        this.icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()));
         this.essences.addAll(Arrays.asList(
                 new EssenceInfo(guiHelper.createDrawable(TEXTURE, 161, 1, 10, 10), "Aureal", 42, 79),
                 new EssenceInfo(guiHelper.createDrawable(TEXTURE, 173, 1, 10, 10), "Souls", 58, 79),

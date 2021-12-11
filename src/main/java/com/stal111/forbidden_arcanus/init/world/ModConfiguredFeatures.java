@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
 import com.stal111.forbidden_arcanus.world.feature.config.BigFungyssFeatureConfig;
 import com.stal111.forbidden_arcanus.world.placement.DimensionConfig;
 import net.minecraft.core.Registry;
@@ -62,10 +61,10 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> CHERRYWOOD_TREES = register("trees_cherrywood", CHERRYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
     public static final ConfiguredFeature<?, ?> MYSTERYWOOD_TREES = register("trees_mysterywood", MYSTERYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
 
-    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_0 = register("big_fungyss_0", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(NewModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(NewModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(NewModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 0)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_1 = register("big_fungyss_1", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(NewModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(NewModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(NewModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 1)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_0 = register("mega_fungyss_0", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(NewModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(NewModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(NewModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 0)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(NewModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(NewModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(NewModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 1)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
+    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_0 = register("big_fungyss_0", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(ModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(ModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(ModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 0)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
+    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_1 = register("big_fungyss_1", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(ModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(ModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(ModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 1)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
+    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_0 = register("mega_fungyss_0", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(ModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(ModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(ModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 0)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
+    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(ModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)), new SimpleStateProvider(ModBlocks.FUNGYSS_STEM.get().defaultBlockState()), new SimpleStateProvider(ModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState()), 1)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
 
     private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), configuredFeature);
@@ -85,28 +84,28 @@ public class ModConfiguredFeatures {
     }
 
     public static final class FillerBlockTypes {
-        private static final RuleTest DARKSTONE = new BlockMatchTest(NewModBlocks.DARKSTONE.get());
+        private static final RuleTest DARKSTONE = new BlockMatchTest(ModBlocks.DARKSTONE.get());
     }
 
     public static final class States {
         private static final BlockState GRASS_BLOCK = Blocks.GRASS_BLOCK.defaultBlockState();
         private static final BlockState STONE = Blocks.STONE.defaultBlockState();
-        private static final BlockState ARCANE_CRYSTAL_ORE = NewModBlocks.ARCANE_CRYSTAL_ORE.get().defaultBlockState();
-        private static final BlockState RUNIC_STONE = NewModBlocks.RUNIC_STONE.get().defaultBlockState();
-        private static final BlockState RUNIC_DARKSTONE = NewModBlocks.RUNIC_DARKSTONE.get().defaultBlockState();
-        private static final BlockState DARKSTONE = NewModBlocks.DARKSTONE.get().defaultBlockState();
-        private static final BlockState ARCANE_GILDED_DARKSTONE = NewModBlocks.ARCANE_GILDED_DARKSTONE.get().defaultBlockState();
-        private static final BlockState STELLA_ARCANUM = NewModBlocks.STELLA_ARCANUM.get().defaultBlockState();
-        private static final BlockState XPETRIFIED_ORE = NewModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
-        private static final BlockState CHERRYWOOD_LOG = NewModBlocks.CHERRYWOOD_LOG.get().defaultBlockState();
-        private static final BlockState CHERRYWOOD_LEAVES = NewModBlocks.CHERRYWOOD_LEAVES.get().defaultBlockState();
-        private static final BlockState CHERRYWOOD_SAPLING = NewModBlocks.CHERRYWOOD_SAPLING.get().defaultBlockState();
-        private static final BlockState MYSTERYWOOD_LOG = NewModBlocks.MYSTERYWOOD_LOG.get().defaultBlockState();
-        private static final BlockState MYSTERYWOOD_LEAVES = NewModBlocks.MYSTERYWOOD_LEAVES.get().defaultBlockState();
-        private static final BlockState NUGGETY_MYSTERYWOOD_LEAVES = NewModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get().defaultBlockState();
-        private static final BlockState MYSTERYWOOD_SAPLING = NewModBlocks.MYSTERYWOOD_SAPLING.get().defaultBlockState();
-        private static final BlockState YELLOW_ORCHID = NewModBlocks.YELLOW_ORCHID.get().defaultBlockState();
-        private static final BlockState EDELWOOD_LOG = NewModBlocks.EDELWOOD_LOG.get().defaultBlockState();
-        private static final BlockState PETRIFIED_ROOT = NewModBlocks.PETRIFIED_ROOT.get().defaultBlockState();
+        private static final BlockState ARCANE_CRYSTAL_ORE = ModBlocks.ARCANE_CRYSTAL_ORE.get().defaultBlockState();
+        private static final BlockState RUNIC_STONE = ModBlocks.RUNIC_STONE.get().defaultBlockState();
+        private static final BlockState RUNIC_DARKSTONE = ModBlocks.RUNIC_DARKSTONE.get().defaultBlockState();
+        private static final BlockState DARKSTONE = ModBlocks.DARKSTONE.get().defaultBlockState();
+        private static final BlockState ARCANE_GILDED_DARKSTONE = ModBlocks.ARCANE_GILDED_DARKSTONE.get().defaultBlockState();
+        private static final BlockState STELLA_ARCANUM = ModBlocks.STELLA_ARCANUM.get().defaultBlockState();
+        private static final BlockState XPETRIFIED_ORE = ModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
+        private static final BlockState CHERRYWOOD_LOG = ModBlocks.CHERRYWOOD_LOG.get().defaultBlockState();
+        private static final BlockState CHERRYWOOD_LEAVES = ModBlocks.CHERRYWOOD_LEAVES.get().defaultBlockState();
+        private static final BlockState CHERRYWOOD_SAPLING = ModBlocks.CHERRYWOOD_SAPLING.get().defaultBlockState();
+        private static final BlockState MYSTERYWOOD_LOG = ModBlocks.MYSTERYWOOD_LOG.get().defaultBlockState();
+        private static final BlockState MYSTERYWOOD_LEAVES = ModBlocks.MYSTERYWOOD_LEAVES.get().defaultBlockState();
+        private static final BlockState NUGGETY_MYSTERYWOOD_LEAVES = ModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get().defaultBlockState();
+        private static final BlockState MYSTERYWOOD_SAPLING = ModBlocks.MYSTERYWOOD_SAPLING.get().defaultBlockState();
+        private static final BlockState YELLOW_ORCHID = ModBlocks.YELLOW_ORCHID.get().defaultBlockState();
+        private static final BlockState EDELWOOD_LOG = ModBlocks.EDELWOOD_LOG.get().defaultBlockState();
+        private static final BlockState PETRIFIED_ROOT = ModBlocks.PETRIFIED_ROOT.get().defaultBlockState();
     }
 }

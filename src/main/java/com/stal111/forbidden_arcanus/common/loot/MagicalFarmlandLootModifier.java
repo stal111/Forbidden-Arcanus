@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.gson.JsonObject;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.CropBlock;
@@ -52,7 +52,7 @@ public class MagicalFarmlandLootModifier extends LootModifier {
             return generatedLoot;
         }
 
-        if (world.getBlockState(new BlockPos(pos).below()).getBlock() == NewModBlocks.MAGICAL_FARMLAND.get()) {
+        if (world.getBlockState(new BlockPos(pos).below()).getBlock() == ModBlocks.MAGICAL_FARMLAND.get()) {
             if (state.getBlock() instanceof CropBlock && !((CropBlock) state.getBlock()).isMaxAge(state)) {
                 return generatedLoot;
             }

@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -38,56 +38,56 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        getRemainingBlocks().removeAll(Arrays.asList(NewModBlocks.OBSIDIAN_SKULL, NewModBlocks.OBSIDIAN_WALL_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_SKULL, NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
+        getRemainingBlocks().removeAll(Arrays.asList(ModBlocks.OBSIDIAN_SKULL, ModBlocks.OBSIDIAN_WALL_SKULL, ModBlocks.ETERNAL_OBSIDIAN_SKULL, ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
         getRemainingBlocks().removeIf(registryObject -> registryObject.get() instanceof WallSignBlock);
 
-        take(block -> cubeAllCutout(block, modLoc("block/arcane_crystal_ore/" + getName(block)), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), NewModBlocks.ARCANE_CRYSTAL_ORE, NewModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
-        take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer"), mcLoc("block/stone")), NewModBlocks.RUNIC_STONE, NewModBlocks.RUNIC_DEEPSLATE, NewModBlocks.RUNIC_DARKSTONE);
-        take(block -> cubeAllCutout(block, modLoc("block/" + getName(block)), modLoc("block/xpetrified_ore_layer"), modLoc("block/" + getName(block))), NewModBlocks.XPETRIFIED_ORE);
+        take(block -> cubeAllCutout(block, modLoc("block/arcane_crystal_ore/" + getName(block)), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), ModBlocks.ARCANE_CRYSTAL_ORE, ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
+        take(block -> cubeAllCutout(block, modLoc("block/runic_stone/" + getName(block)), modLoc("block/runic_stone/rune_layer"), mcLoc("block/stone")), ModBlocks.RUNIC_STONE, ModBlocks.RUNIC_DEEPSLATE, ModBlocks.RUNIC_DARKSTONE);
+        take(block -> cubeAllCutout(block, modLoc("block/" + getName(block)), modLoc("block/xpetrified_ore_layer"), modLoc("block/" + getName(block))), ModBlocks.XPETRIFIED_ORE);
 
-        take(block -> cubeColumn(block, modLoc("block/cut_soulless_sandstone_side"), modLoc("block/cut_soulless_sandstone")), NewModBlocks.CUT_SOULLESS_SANDSTONE);
+        take(block -> cubeColumn(block, modLoc("block/cut_soulless_sandstone_side"), modLoc("block/cut_soulless_sandstone")), ModBlocks.CUT_SOULLESS_SANDSTONE);
 
         take(this::withExistingModel,
-                NewModBlocks.UTREM_JAR,
-                NewModBlocks.NIPA,
-                NewModBlocks.ARCANE_POLISHED_DARKSTONE_ROD,
-                NewModBlocks.PETRIFIED_ROOT,
-                NewModBlocks.HEPHAESTUS_FORGE,
-                NewModBlocks.ARCANE_DRAGON_EGG,
-                NewModBlocks.DARKSTONE_PEDESTAL,
-                NewModBlocks.ARCANE_DARKSTONE_PEDESTAL
+                ModBlocks.UTREM_JAR,
+                ModBlocks.NIPA,
+                ModBlocks.ARCANE_POLISHED_DARKSTONE_ROD,
+                ModBlocks.PETRIFIED_ROOT,
+                ModBlocks.HEPHAESTUS_FORGE,
+                ModBlocks.ARCANE_DRAGON_EGG,
+                ModBlocks.DARKSTONE_PEDESTAL,
+                ModBlocks.ARCANE_DARKSTONE_PEDESTAL
         );
-        take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), NewModBlocks.YELLOW_ORCHID);
-        take(block -> pixieUtremJarBlock(block, false), NewModBlocks.PIXIE_UTREM_JAR);
-        take(block -> pixieUtremJarBlock(block, true), NewModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
-        take(block -> simpleBlock(block, models().cross(Objects.requireNonNull(block.getRegistryName()).getPath(), modLoc("block/fungyss"))), NewModBlocks.FUNGYSS);
-        take(this::mushroomBlock, NewModBlocks.FUNGYSS_BLOCK);
-        take(block -> logBlock((RotatedPillarBlock) block), NewModBlocks.FUNGYSS_STEM, NewModBlocks.CHERRYWOOD_LOG, NewModBlocks.MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_MYSTERYWOOD_LOG, NewModBlocks.STRIPPED_CHERRYWOOD_LOG);
-        take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), NewModBlocks.FUNGYSS_HYPHAE);
-        take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), NewModBlocks.CHERRYWOOD, NewModBlocks.MYSTERYWOOD, NewModBlocks.STRIPPED_CHERRYWOOD, NewModBlocks.STRIPPED_MYSTERYWOOD);
-        take(block -> crossCropBlock((CropBlock) block), NewModBlocks.GOLDEN_ORCHID, NewModBlocks.STRANGE_ROOT);
-        take(this::magicalFarmlandBlock, NewModBlocks.MAGICAL_FARMLAND);
+        take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.YELLOW_ORCHID);
+        take(block -> pixieUtremJarBlock(block, false), ModBlocks.PIXIE_UTREM_JAR);
+        take(block -> pixieUtremJarBlock(block, true), ModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
+        take(block -> simpleBlock(block, models().cross(Objects.requireNonNull(block.getRegistryName()).getPath(), modLoc("block/fungyss"))), ModBlocks.FUNGYSS);
+        take(this::mushroomBlock, ModBlocks.FUNGYSS_BLOCK);
+        take(block -> logBlock((RotatedPillarBlock) block), ModBlocks.FUNGYSS_STEM, ModBlocks.CHERRYWOOD_LOG, ModBlocks.MYSTERYWOOD_LOG, ModBlocks.STRIPPED_MYSTERYWOOD_LOG, ModBlocks.STRIPPED_CHERRYWOOD_LOG);
+        take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), ModBlocks.FUNGYSS_HYPHAE);
+        take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), ModBlocks.CHERRYWOOD, ModBlocks.MYSTERYWOOD, ModBlocks.STRIPPED_CHERRYWOOD, ModBlocks.STRIPPED_MYSTERYWOOD);
+        take(block -> crossCropBlock((CropBlock) block), ModBlocks.GOLDEN_ORCHID, ModBlocks.STRANGE_ROOT);
+        take(this::magicalFarmlandBlock, ModBlocks.MAGICAL_FARMLAND);
 
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
-        take(block -> pressurePlateBlock(block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
-        take(block -> buttonBlock((ButtonBlock) block, polishedDarkstone), NewModBlocks.POLISHED_DARKSTONE_BUTTON);
-        take(this::runicChiseledPolishedDarkstone, NewModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE);
-        take(this::arcanePolishedDarkstonePillar, NewModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
+        take(block -> pressurePlateBlock(block, polishedDarkstone), ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
+        take(block -> buttonBlock((ButtonBlock) block, polishedDarkstone), ModBlocks.POLISHED_DARKSTONE_BUTTON);
+        take(this::runicChiseledPolishedDarkstone, ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE);
+        take(this::arcanePolishedDarkstonePillar, ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
 
-        take(this::arcaneCrystalObelisk, NewModBlocks.ARCANE_CRYSTAL_OBELISK);
+        take(this::arcaneCrystalObelisk, ModBlocks.ARCANE_CRYSTAL_OBELISK);
 
-        take(this::edelwoodLogBlock, NewModBlocks.EDELWOOD_LOG);
-        take(this::carvedEdelwoodLogBlock, NewModBlocks.CARVED_EDELWOOD_LOG);
+        take(this::edelwoodLogBlock, ModBlocks.EDELWOOD_LOG);
+        take(this::carvedEdelwoodLogBlock, ModBlocks.CARVED_EDELWOOD_LOG);
 
-        take(block -> horizontalBlock(block, models().getExistingFile(modLoc("block/edelwood_ladder"))), NewModBlocks.EDELWOOD_LADDER);
-        take(block -> pressurePlateBlock(block, modLoc("block/arcane_gold_block")), NewModBlocks.ARCANE_GOLD_PRESSURE_PLATE);
+        take(block -> horizontalBlock(block, models().getExistingFile(modLoc("block/edelwood_ladder"))), ModBlocks.EDELWOOD_LADDER);
+        take(block -> pressurePlateBlock(block, modLoc("block/arcane_gold_block")), ModBlocks.ARCANE_GOLD_PRESSURE_PLATE);
 
-        take(block -> signBlock(NewModBlocks.FUNGYSS_SIGN.getFirst().get(), NewModBlocks.FUNGYSS_SIGN.getSecond().get()), NewModBlocks.FUNGYSS_SIGN.getFirst());
-        take(block -> signBlock(NewModBlocks.CHERRYWOOD_SIGN.getFirst().get(), NewModBlocks.CHERRYWOOD_SIGN.getSecond().get()), NewModBlocks.CHERRYWOOD_SIGN.getFirst());
-        take(block -> signBlock(NewModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), NewModBlocks.MYSTERYWOOD_SIGN.getSecond().get()), NewModBlocks.MYSTERYWOOD_SIGN.getFirst());
-        take(block -> signBlock(NewModBlocks.EDELWOOD_SIGN.getFirst().get(), NewModBlocks.EDELWOOD_SIGN.getSecond().get()), NewModBlocks.EDELWOOD_SIGN.getFirst());
+        take(block -> signBlock(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.FUNGYSS_SIGN.getSecond().get()), ModBlocks.FUNGYSS_SIGN.getFirst());
+        take(block -> signBlock(ModBlocks.CHERRYWOOD_SIGN.getFirst().get(), ModBlocks.CHERRYWOOD_SIGN.getSecond().get()), ModBlocks.CHERRYWOOD_SIGN.getFirst());
+        take(block -> signBlock(ModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), ModBlocks.MYSTERYWOOD_SIGN.getSecond().get()), ModBlocks.MYSTERYWOOD_SIGN.getFirst());
+        take(block -> signBlock(ModBlocks.EDELWOOD_SIGN.getFirst().get(), ModBlocks.EDELWOOD_SIGN.getSecond().get()), ModBlocks.EDELWOOD_SIGN.getFirst());
 
-        take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), NewModBlocks.ARCANE_GOLDEN_CHAIN);
+        take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), ModBlocks.ARCANE_GOLDEN_CHAIN);
 
         forEach(block -> block instanceof FenceBlock, block -> {
             ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));

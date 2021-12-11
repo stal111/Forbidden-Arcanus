@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.mixin;
 
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,7 +22,7 @@ public class BubbleColumnBlockMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "getColumnState", cancellable = true)
     private static void forbiddenArcanus_getColumnState(BlockState state, CallbackInfoReturnable<BlockState> cir) {
-        if (state.is(NewModBlocks.SOULLESS_SAND.get())) {
+        if (state.is(ModBlocks.SOULLESS_SAND.get())) {
             cir.setReturnValue(Blocks.BUBBLE_COLUMN.defaultBlockState().setValue(BubbleColumnBlock.DRAG_DOWN, false));
         }
     }

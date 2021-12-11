@@ -6,15 +6,12 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.block.ObsidianWallSkullBlock;
 import com.stal111.forbidden_arcanus.block.tileentity.ObsidianSkullTileEntity;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.model.SkullModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
@@ -49,7 +46,7 @@ public class ObsidianSkullTileEntityRenderer implements BlockEntityRenderer<Obsi
         Direction direction = flag ? state.getValue(ObsidianWallSkullBlock.FACING) : null;
         float rotation = flag ? (float) (2 + direction.get2DDataValue()) * 4 : state.getValue(ObsidianSkullBlock.ROTATION);
 
-        render(direction, 22.5F * rotation, 0.0F, matrixStack, buffer, combinedLight, state.getBlock() == NewModBlocks.ETERNAL_OBSIDIAN_SKULL.get() || state.getBlock() == NewModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get());
+        render(direction, 22.5F * rotation, 0.0F, matrixStack, buffer, combinedLight, state.getBlock() == ModBlocks.ETERNAL_OBSIDIAN_SKULL.get() || state.getBlock() == ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get());
     }
 
     public static void render(@Nullable Direction direction, float rotation, float animationProgress, PoseStack matrixStack, MultiBufferSource buffer, int combinedLight, boolean eternal) {

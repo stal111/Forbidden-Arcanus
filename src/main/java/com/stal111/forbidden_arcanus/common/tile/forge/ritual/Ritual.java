@@ -1,14 +1,13 @@
 package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.init.NewModBlocks;
+import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Ritual
@@ -124,8 +123,8 @@ public class Ritual {
     }
 
     public enum PedestalType {
-        DARKSTONE_PEDESTAL(NewModBlocks.DARKSTONE_PEDESTAL.get()),
-        ARCANE_DARKSTONE_PEDESTAL(NewModBlocks.ARCANE_DARKSTONE_PEDESTAL.get());
+        DARKSTONE_PEDESTAL(ModBlocks.DARKSTONE_PEDESTAL.get()),
+        ARCANE_DARKSTONE_PEDESTAL(ModBlocks.ARCANE_DARKSTONE_PEDESTAL.get());
 
         private final Block block;
 

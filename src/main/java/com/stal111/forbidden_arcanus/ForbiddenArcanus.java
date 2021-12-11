@@ -1,11 +1,11 @@
 package com.stal111.forbidden_arcanus;
 
-
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.item.group.ModItemGroup;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.config.Config;
 import com.stal111.forbidden_arcanus.init.*;
@@ -13,20 +13,15 @@ import com.stal111.forbidden_arcanus.init.other.*;
 import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
-import com.stal111.forbidden_arcanus.common.item.group.ModItemGroup;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.recipe.AwkwardPotionBrewingRecipe;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -130,28 +125,6 @@ public class ForbiddenArcanus {
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 	public static class RegistryEvents {
-
-		@SubscribeEvent
-		public static void registerBlocks(RegistryEvent.Register<Block> event) {
-			for (ModBlocks block : ModBlocks.values()) {
-				event.getRegistry().register(block.getBlock());
-			}
-		}
-
-		@SubscribeEvent
-		public static void registerItems(RegistryEvent.Register<Item> event) {
-			for (ModBlocks block : ModBlocks.values()) {
-				if (block.hasItem()) {
-					if (block.hasSpecialItem()) {
-						event.getRegistry().register(block.getItem());
-					} else {
-						BlockItem item = new BlockItem(block.getBlock(), ModItems.properties());
-						item.setRegistryName(ModUtils.location(block.getName()));
-						event.getRegistry().register(item);
-					}
-				}
-			}
-		}
 
 		@SubscribeEvent
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
