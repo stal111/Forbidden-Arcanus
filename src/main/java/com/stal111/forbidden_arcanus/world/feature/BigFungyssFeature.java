@@ -2,25 +2,24 @@ package com.stal111.forbidden_arcanus.world.feature;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.world.feature.config.BigFungyssFeatureConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.PipeBlock;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
- * Big Fungyss Feature
+ * Big Fungyss Feature <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.world.feature.BigFungyssFeature
  *
  * @author stal111
@@ -76,6 +75,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
 
         this.placeCap(level, rand, pos, height, mutable, context.config());
         this.placeStem(level, rand, pos, height, mutable, context.config());
+
         return true;
     }
 
@@ -83,7 +83,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         for (int i = 0; i < height; i++) {
             mutable.set(pos).move(Direction.UP, i);
 
-            if (world.getBlockState(mutable).isSolidRender(world, mutable)) {
+            if (!world.getBlockState(mutable).isSolidRender(world, mutable)) {
                 this.setBlock(world, mutable, config.stemProvider.getState(random, pos));
             }
         }

@@ -80,21 +80,19 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
 
     private void placeStem(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = 0; i < height; i++) {
-
-            //TODO
-           // if (world.getBlockState(mutable).canBeReplaced(world, mutable)) {
-                this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 0, i, 0);
-                this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 1, i, 0);
-                this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 1, i, 1);
-                this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 0, i, 1);
-           // }
+            this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 0, i, 0);
+            this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 1, i, 0);
+            this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 1, i, 1);
+            this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 0, i, 1);
         }
     }
 
     private void placeStemBlock(LevelAccessor world, BlockState state, BlockPos.MutableBlockPos mutable, BlockPos pos, int xOffset, int yOffset, int zOffset) {
-        mutable.set(pos);
-        mutable.move(xOffset, yOffset, zOffset);
-        this.setBlock(world, mutable, state);
+        mutable.set(pos).move(xOffset, yOffset, zOffset);
+
+        if (!world.getBlockState(mutable).isSolidRender(world, mutable)) {
+            this.setBlock(world, mutable, state);
+        }
     }
 
     private void placeCap(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
