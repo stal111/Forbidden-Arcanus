@@ -24,7 +24,7 @@ public class NipaRenderer implements BlockEntityRenderer<NipaBlockEntity> {
     public NipaRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
-    public void render(@Nonnull NipaBlockEntity blockEntity, float partialTick, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(@Nonnull NipaBlockEntity blockEntity, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         if (blockEntity.getBlockState().getValue(ModBlockStateProperties.SPECK)) {
             poseStack.pushPose();
 

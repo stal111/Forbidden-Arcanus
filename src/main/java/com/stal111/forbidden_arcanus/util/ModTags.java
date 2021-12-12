@@ -79,6 +79,7 @@ public class ModTags {
 
     public static class EntityTypes {
         public static final Tag.Named<EntityType<?>> QUANTUM_CATCHER_BLACKLISTED = modTag("quantum_catcher_blacklisted");
+        public static final Tag.Named<EntityType<?>> BLACK_HOLE_AFFECTED = modTag("black_hole_affected");
 
         private static Tag.Named<EntityType<?>> modTag(String name) {
             return EntityTypeTags.bind(ForbiddenArcanus.MOD_ID + ":" + name);

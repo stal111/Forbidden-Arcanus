@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.client.event;
 
+import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.block.NipaRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.block.PedestalRenderer;
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
@@ -23,5 +24,12 @@ public class EntityRendererEvents {
     public static void onRegisterRenders(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ModBlockEntities.NIPA.get(), NipaRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL.get(), PedestalRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE.get(), BlackHoleRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(BlackHoleRenderer.BLACK_HOLE_LAYER, BlackHoleRenderer::createHoleLayer);
+        event.registerLayerDefinition(BlackHoleRenderer.BLACK_HOLE_AURA_LAYER, BlackHoleRenderer::createAuraLayer);
     }
 }

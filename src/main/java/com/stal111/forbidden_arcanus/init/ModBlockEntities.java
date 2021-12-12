@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.NipaBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.tile.BlackHoleTileEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fmllegacy.RegistryObject;
@@ -26,7 +26,7 @@ public class ModBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ForbiddenArcanus.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<BlackHoleTileEntity>> BLACK_HOLE = register("black_hole", () -> BlockEntityType.Builder.of(BlackHoleTileEntity::new, ModBlocks.BLACK_HOLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<BlackHoleBlockEntity>> BLACK_HOLE = register("black_hole", () -> BlockEntityType.Builder.of(BlackHoleBlockEntity::new, ModBlocks.BLACK_HOLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ObsidianSkullTileEntity>> OBSIDIAN_SKULL = register("obsidian_skull", () -> BlockEntityType.Builder.of(ObsidianSkullTileEntity::new, ModBlocks.OBSIDIAN_SKULL.get(), ModBlocks.OBSIDIAN_WALL_SKULL.get(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.get(), ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get()).build(null));
     public static final RegistryObject<BlockEntityType<UtremJarTileEntity>> UTREM_JAR = register("utrem_jar", () -> BlockEntityType.Builder.of(UtremJarTileEntity::new, ModBlocks.UTREM_JAR.get()).build(null));
     public static final RegistryObject<BlockEntityType<NipaBlockEntity>> NIPA = register("nipa", () -> BlockEntityType.Builder.of(NipaBlockEntity::new, ModBlocks.NIPA.get()).build(null));
