@@ -50,7 +50,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::withExistingModel,
                 ModBlocks.UTREM_JAR,
                 ModBlocks.NIPA,
-                ModBlocks.ARCANE_POLISHED_DARKSTONE_ROD,
                 ModBlocks.PETRIFIED_ROOT,
                 ModBlocks.HEPHAESTUS_FORGE,
                 ModBlocks.ARCANE_DRAGON_EGG,
@@ -72,7 +71,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> pressurePlateBlock(block, polishedDarkstone), ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
         take(block -> buttonBlock((ButtonBlock) block, polishedDarkstone), ModBlocks.POLISHED_DARKSTONE_BUTTON);
         take(this::runicChiseledPolishedDarkstone, ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE);
-        take(this::arcanePolishedDarkstonePillar, ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
+        take(this::pillarBlock, ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR, ModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
 
         take(this::arcaneCrystalObelisk, ModBlocks.ARCANE_CRYSTAL_OBELISK);
 
@@ -213,13 +212,13 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .partialState().with(ModBlockStateProperties.ACTIVATED, true).modelForState().modelFile(models().withExistingParent(getName(block) + "_activated", modLoc("block/cube_column_side_layer")).texture("end", modLoc("block/chiseled_polished_darkstone")).texture("side", modLoc("block/runic_chiseled_polished_darkstone_activated")).texture("layer", modLoc("block/runic_chiseled_polished_darkstone_layer"))).addModel();
     }
 
-    private void arcanePolishedDarkstonePillar(Block block) {
+    private void pillarBlock(Block block) {
         getVariantBuilder(block).forAllStatesExcept(state -> {
             PillarType type = state.getValue(ModBlockStateProperties.PILLAR_TYPE);
             Direction.Axis axis = state.getValue(RotatedPillarBlock.AXIS);
 
             return ConfiguredModel.builder()
-                    .modelFile(getExistingModel(modLoc(getName(block) + "_" + type.getSerializedName())))
+                    .modelFile(getExistingModel(modLoc(getName(block) + (type == PillarType.SINGLE ? "" :  "_" + type.getSerializedName()))))
                     .rotationX(axis != Direction.Axis.Y ? 90 : 0)
                     .rotationY(axis == Direction.Axis.X ? 90 : axis == Direction.Axis.Z ? 180 : 0)
                     .build();

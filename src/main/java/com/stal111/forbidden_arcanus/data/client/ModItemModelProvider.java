@@ -54,7 +54,6 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.POLISHED_DARKSTONE_BUTTON
         );
         takeBlockItem(this::utremJarModel, ModBlocks.UTREM_JAR);
-        takeBlockItem(item -> withParent(item, "arcane_polished_darkstone_pillar_single"), ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR);
 
         forEachBlockItem(item -> item.getBlock() instanceof DoorBlock, this::simpleModel);
         forEachBlockItem(item -> item.getBlock() instanceof TrapDoorBlock, item -> withParent(item, getName(item) + "_bottom"));
