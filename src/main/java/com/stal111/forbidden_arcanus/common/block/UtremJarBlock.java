@@ -1,9 +1,8 @@
-package com.stal111.forbidden_arcanus.block;
+package com.stal111.forbidden_arcanus.common.block;
 
-import com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.UtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.item.PixieItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +14,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,17 +34,18 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Utrem Jar Block
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.block.UtremJarBlock
+ * Utrem Jar Block <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.UtremJarBlock
  *
  * @author stal111
  * @version 16.2.0
  * @since 2021-02-18
  */
-public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
+public class UtremJarBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -58,66 +59,77 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
+    @Nullable
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+        return new UtremJarBlockEntity(pos, state);
+    }
+
+    @Nonnull
+    @Override
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
         return SHAPE;
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-        boolean flag = fluidstate.getType() == Fluids.WATER;
-        return super.getStateForPlacement(context).setValue(WATERLOGGED, flag);
+        boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        return this.defaultBlockState().setValue(WATERLOGGED, flag);
     }
 
+    @Nonnull
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(@Nonnull BlockState state, Level level, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
-        UtremJarTileEntity tileEntity = (UtremJarTileEntity) world.getBlockEntity(pos);
 
-        if (!player.isShiftKeyDown()) {
-            IFluidHandler fluidHandler = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).resolve().get();
-            if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
-                player.getInventory().setChanged();
-                return InteractionResult.sidedSuccess(world.isClientSide());
-            } else if (fluidHandler.getFluidInTank(0).isEmpty()) {
-                BlockState newState = null;
+        if (!(level.getBlockEntity(pos) instanceof UtremJarBlockEntity blockEntity) || player.isShiftKeyDown()) {
+            return super.use(state, level, pos, player, hand, hit);
+        }
 
-                if (stack.getItem() instanceof PixieItem) {
-                    newState = ModBlocks.PIXIE_UTREM_JAR.get().defaultBlockState();
-                } else if (stack.getItem() == ModItems.CORRUPTED_PIXIE.get()) {
-                    newState = ModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().defaultBlockState();
-                }
+        IFluidHandler fluidHandler = blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).resolve().get();
 
-                if (newState != null) {
-                    ItemStackUtils.shrinkStack(player, stack);
+        if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
+            player.getInventory().setChanged();
 
-                    world.setBlock(pos, newState.setValue(WATERLOGGED, state.getValue(WATERLOGGED)), 3);
-                    return InteractionResult.sidedSuccess(world.isClientSide());
-                }
+            return InteractionResult.sidedSuccess(level.isClientSide());
+        } else if (fluidHandler.getFluidInTank(0).isEmpty()) {
+            BlockState newState = null;
+
+            if (stack.is(ModItems.PIXIE.get())) {
+                newState = ModBlocks.PIXIE_UTREM_JAR.get().defaultBlockState();
+            } else if (stack.is(ModItems.CORRUPTED_PIXIE.get())) {
+                newState = ModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().defaultBlockState();
+            }
+
+            if (newState != null) {
+                ItemStackUtils.shrinkStack(player, stack);
+
+                level.setBlockAndUpdate(pos, newState.setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
+                return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
 
-        return super.use(state, world, pos, player, hand, hit);
+        return super.use(state, level, pos, player, hand, hit);
     }
 
     @Override
     public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-        BlockEntity tileEntity = world.getBlockEntity(pos);
-        if (tileEntity instanceof UtremJarTileEntity) {
-            FluidStack fluid = ((UtremJarTileEntity) tileEntity).getTank().getFluid();
+        if (world.getBlockEntity(pos) instanceof UtremJarBlockEntity blockEntity) {
+            FluidStack fluid = blockEntity.getTank().getFluid();
+
             return fluid.getFluid().getAttributes().getLuminosity(fluid);
         }
         return super.getLightEmission(state, world, pos);
     }
 
+    @Nonnull
     @Override
-    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, @Nonnull Direction direction, @Nonnull BlockState neighborState, @Nonnull LevelAccessor level, @Nonnull BlockPos currentPos, @Nonnull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
-            world.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, facing, facingState, world, currentPos, facingPos);
+        return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
     @Override
@@ -126,10 +138,11 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull PathComputationType type) {
         return false;
     }
 
+    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);

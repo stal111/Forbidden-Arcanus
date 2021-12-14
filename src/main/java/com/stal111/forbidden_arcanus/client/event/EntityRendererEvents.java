@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.event;
 import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.block.NipaRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.block.PedestalRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.block.UtremJarRenderer;
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -25,6 +26,7 @@ public class EntityRendererEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.NIPA.get(), NipaRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL.get(), PedestalRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE.get(), BlackHoleRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.UTREM_JAR.get(), UtremJarRenderer::new);
     }
 
     @SubscribeEvent

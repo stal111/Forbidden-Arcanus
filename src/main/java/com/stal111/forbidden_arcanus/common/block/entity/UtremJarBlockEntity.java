@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.block.tileentity;
+package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.util.FluidTankTile;
@@ -19,20 +19,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Utrem Jar Tile Entity
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.block.tileentity.UtremJarTileEntity
+ * Utrem Jar Block Entity <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.UtremJarBlockEntity
  *
  * @author stal111
- * @version 16.2.0
+ * @version 2.0.0
  * @since 2021-02-19
  */
-public class UtremJarTileEntity extends BlockEntity {
+public class UtremJarBlockEntity extends BlockEntity {
 
-    protected FluidTank tank = new FluidTankTile(FluidAttributes.BUCKET_VOLUME, this);
-
+    private final FluidTank tank = new FluidTankTile(FluidAttributes.BUCKET_VOLUME, this);
     private final LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
 
-    public UtremJarTileEntity(BlockPos pos, BlockState state) {
+    public UtremJarBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.UTREM_JAR.get(), pos, state);
     }
 
@@ -41,7 +40,7 @@ public class UtremJarTileEntity extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    public void load(@Nonnull CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Fluid")) {
             this.tank.readFromNBT(tag.getCompound("Fluid"));
@@ -52,8 +51,9 @@ public class UtremJarTileEntity extends BlockEntity {
         }
     }
 
+    @Nonnull
     @Override
-    public CompoundTag save(CompoundTag tag) {
+    public CompoundTag save(@Nonnull CompoundTag tag) {
         tag = super.save(tag);
 
         if (!this.tank.getFluid().isEmpty()) {
@@ -70,6 +70,7 @@ public class UtremJarTileEntity extends BlockEntity {
         return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
     }
 
+    @Nonnull
     @Override
     public CompoundTag getUpdateTag() {
         return this.save(new CompoundTag());

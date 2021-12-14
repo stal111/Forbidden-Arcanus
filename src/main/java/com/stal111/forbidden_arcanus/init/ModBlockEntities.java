@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.tileentity.*;
 import com.stal111.forbidden_arcanus.common.block.entity.NipaBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.UtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.tile.ArcaneCrystalObeliskTileEntity;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
@@ -28,7 +29,7 @@ public class ModBlockEntities {
 
     public static final RegistryObject<BlockEntityType<BlackHoleBlockEntity>> BLACK_HOLE = register("black_hole", () -> BlockEntityType.Builder.of(BlackHoleBlockEntity::new, ModBlocks.BLACK_HOLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ObsidianSkullTileEntity>> OBSIDIAN_SKULL = register("obsidian_skull", () -> BlockEntityType.Builder.of(ObsidianSkullTileEntity::new, ModBlocks.OBSIDIAN_SKULL.get(), ModBlocks.OBSIDIAN_WALL_SKULL.get(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.get(), ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get()).build(null));
-    public static final RegistryObject<BlockEntityType<UtremJarTileEntity>> UTREM_JAR = register("utrem_jar", () -> BlockEntityType.Builder.of(UtremJarTileEntity::new, ModBlocks.UTREM_JAR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<UtremJarBlockEntity>> UTREM_JAR = register("utrem_jar", () -> BlockEntityType.Builder.of(UtremJarBlockEntity::new, ModBlocks.UTREM_JAR.get()).build(null));
     public static final RegistryObject<BlockEntityType<NipaBlockEntity>> NIPA = register("nipa", () -> BlockEntityType.Builder.of(NipaBlockEntity::new, ModBlocks.NIPA.get()).build(null));
     public static final RegistryObject<BlockEntityType<HephaestusForgeTileEntity>> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> BlockEntityType.Builder.of(HephaestusForgeTileEntity::new, ModBlocks.HEPHAESTUS_FORGE.get()).build(null));
     public static final RegistryObject<BlockEntityType<PedestalBlockEntity>> PEDESTAL = register("pedestal", () -> BlockEntityType.Builder.of(PedestalBlockEntity::new, ModBlocks.DARKSTONE_PEDESTAL.get(), ModBlocks.ARCANE_DARKSTONE_PEDESTAL.get()).build(null));
