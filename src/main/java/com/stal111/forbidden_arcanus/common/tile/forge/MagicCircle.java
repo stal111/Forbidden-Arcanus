@@ -1,15 +1,12 @@
 package com.stal111.forbidden_arcanus.common.tile.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.util.CustomRenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
-import com.mojang.math.Vector3f;
 import net.minecraft.world.level.Level;
 
 import java.util.Objects;
