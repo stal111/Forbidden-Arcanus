@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.aureal.capability;
 
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
-import com.stal111.forbidden_arcanus.util.ISavedData;
+import com.stal111.forbidden_arcanus.util.SavedData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.ListTag;
@@ -50,10 +50,10 @@ public class AurealProvider implements ICapabilityProvider, ICapabilitySerializa
             ListTag consequences = new ListTag();
 
             for (IConsequence consequence : instance.getActiveConsequences()){
-                if (consequence instanceof ISavedData) {
+                if (consequence instanceof SavedData) {
                     CompoundTag nbt = new CompoundTag();
                     nbt.putString("type", consequence.getName().toString());
-                    consequences.add(((ISavedData) consequence).write(nbt));
+                    consequences.add(((SavedData) consequence).save(nbt));
                 }
             }
 
@@ -79,8 +79,8 @@ public class AurealProvider implements ICapabilityProvider, ICapabilitySerializa
                     ResourceLocation name = new ResourceLocation(compoundNBT.getString("type"));
                     IConsequence consequence = Objects.requireNonNull(Consequences.getByName(name)).createConsequence();
 
-                    if (consequence instanceof ISavedData) {
-                        ((ISavedData) consequence).read(compoundNBT);
+                    if (consequence instanceof SavedData) {
+                        ((SavedData) consequence).load(compoundNBT);
                     }
 
                     instance.addActiveConsequence(consequence);

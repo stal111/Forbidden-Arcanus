@@ -48,7 +48,7 @@ public class AurealHelper {
                 IConsequence consequence = Consequences.getRandomConsequence(player.getRandom()).createConsequence();
                 consequence.tick(player);
 
-                if (consequence instanceof ISavedData) {
+                if (consequence instanceof SavedData) {
                     aureal.addActiveConsequence(consequence);
                 }
             }

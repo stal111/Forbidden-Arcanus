@@ -228,8 +228,8 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
         compound.putString("Level", this.getForgeLevel().getName());
         ContainerHelper.saveAllItems(compound, this.inventoryContents);
 
-        compound.put("Ritual", this.getRitualManager().write(new CompoundTag()));
-        compound.put("Essences", this.getEssenceManager().write(new CompoundTag()));
+        compound.put("Ritual", this.getRitualManager().save(new CompoundTag()));
+        compound.put("Essences", this.getEssenceManager().save(new CompoundTag()));
 
         return compound;
     }
@@ -242,8 +242,8 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
         this.inventoryContents.clear();
         ContainerHelper.loadAllItems(compound, this.inventoryContents);
 
-        this.getRitualManager().read(compound.getCompound("Ritual"));
-        this.getEssenceManager().read(compound.getCompound("Essences"));
+        this.getRitualManager().load(compound.getCompound("Ritual"));
+        this.getEssenceManager().load(compound.getCompound("Essences"));
     }
 
     @Nullable

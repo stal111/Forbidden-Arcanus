@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.util.ISavedData;
+import com.stal111.forbidden_arcanus.util.SavedData;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.nbt.CompoundTag;
 
@@ -17,7 +17,7 @@ import java.util.Map;
  * @version 2.0.0
  * @since 2021-07-10
  */
-public class EssenceManager implements ISavedData {
+public class EssenceManager implements SavedData {
 
     private final HephaestusForgeTileEntity tileEntity;
 
@@ -142,23 +142,23 @@ public class EssenceManager implements ISavedData {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.putInt("Aureal", this.getAureal());
-        compound.putInt("Corruption", this.getCorruption());
-        compound.putInt("Souls", this.getSouls());
-        compound.putInt("Blood", this.getBlood());
-        compound.putInt("Experience", this.getExperience());
+    public CompoundTag save(CompoundTag tag) {
+        tag.putInt("Aureal", this.getAureal());
+        tag.putInt("Corruption", this.getCorruption());
+        tag.putInt("Souls", this.getSouls());
+        tag.putInt("Blood", this.getBlood());
+        tag.putInt("Experience", this.getExperience());
 
-        return compound;
+        return tag;
     }
 
     @Override
-    public void read(CompoundTag compound) {
-        this.setAureal(compound.getInt("Aureal"));
-        this.setCorruption(compound.getInt("Corruption"));
-        this.setSouls(compound.getInt("Souls"));
-        this.setBlood(compound.getInt("Blood"));
-        this.setExperience(compound.getInt("Experience"));
+    public void load(CompoundTag tag) {
+        this.setAureal(tag.getInt("Aureal"));
+        this.setCorruption(tag.getInt("Corruption"));
+        this.setSouls(tag.getInt("Souls"));
+        this.setBlood(tag.getInt("Blood"));
+        this.setExperience(tag.getInt("Experience"));
     }
 
     public void tick() {

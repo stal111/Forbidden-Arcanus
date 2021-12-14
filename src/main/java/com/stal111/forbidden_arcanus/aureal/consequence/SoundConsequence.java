@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.aureal.consequence;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
-import com.stal111.forbidden_arcanus.util.ISavedData;
+import com.stal111.forbidden_arcanus.util.SavedData;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +23,7 @@ import java.util.List;
  * @version 16.2.0
  * @since 2021-02-06
  */
-public class SoundConsequence implements IConsequence, ISavedData {
+public class SoundConsequence implements IConsequence, SavedData {
 
     private final List<SoundEvent> sounds = new ArrayList<>();
 
@@ -77,17 +77,17 @@ public class SoundConsequence implements IConsequence, ISavedData {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.putInt("ticksUntilNextSound", this.ticksUntilNextSound);
-        compound.putInt("timer", this.timer);
+    public CompoundTag save(CompoundTag tag) {
+        tag.putInt("ticksUntilNextSound", this.ticksUntilNextSound);
+        tag.putInt("timer", this.timer);
 
-        return compound;
+        return tag;
     }
 
     @Override
-    public void read(CompoundTag compound) {
-        this.ticksUntilNextSound = compound.getInt("ticksUntilNextSound");
-        this.timer = compound.getInt("timer");
+    public void load(CompoundTag tag) {
+        this.ticksUntilNextSound = tag.getInt("ticksUntilNextSound");
+        this.timer = tag.getInt("timer");
     }
 
     public static class Type implements IConsequenceType {

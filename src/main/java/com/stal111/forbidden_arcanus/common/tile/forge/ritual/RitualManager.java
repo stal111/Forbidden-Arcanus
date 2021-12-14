@@ -11,7 +11,7 @@ import com.stal111.forbidden_arcanus.item.IRitualStarterItem;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
-import com.stal111.forbidden_arcanus.util.ISavedData;
+import com.stal111.forbidden_arcanus.util.SavedData;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -38,7 +38,7 @@ import java.util.function.Predicate;
  * @version 2.0.0
  * @since 2021-07-09
  */
-public class RitualManager implements ISavedData {
+public class RitualManager implements SavedData {
 
     private final HephaestusForgeTileEntity tileEntity;
 
@@ -237,31 +237,31 @@ public class RitualManager implements ISavedData {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundTag save(CompoundTag tag) {
         if (this.isRitualActive()) {
-            compound.putString("ActiveRitual", this.getActiveRitual().getName().toString());
-            compound.putInt("Counter", this.counter);
+            tag.putString("ActiveRitual", this.getActiveRitual().getName().toString());
+            tag.putInt("Counter", this.counter);
 
             if (this.lightningCounter != 0) {
-                compound.putInt("LightningCounter", this.lightningCounter);
+                tag.putInt("LightningCounter", this.lightningCounter);
             }
         }
 
-        return compound;
+        return tag;
     }
 
     @Override
-    public void read(CompoundTag compound) {
-        if (compound.contains("ActiveRitual")) {
-            this.setActiveRitual(RitualLoader.getRitual(new ResourceLocation(compound.getString("ActiveRitual"))));
-            this.counter = compound.getInt("Counter");
+    public void load(CompoundTag tag) {
+        if (tag.contains("ActiveRitual")) {
+            this.setActiveRitual(RitualLoader.getRitual(new ResourceLocation(tag.getString("ActiveRitual"))));
+            this.counter = tag.getInt("Counter");
 
             if (this.counter != 0) {
                 this.tileEntity.getMagicCircle().setRotation(this.counter);
             }
 
-            if (compound.contains("LightningCounter")) {
-                this.lightningCounter = compound.getInt("LightningCounter");
+            if (tag.contains("LightningCounter")) {
+                this.lightningCounter = tag.getInt("LightningCounter");
             }
         }
     }
