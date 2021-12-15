@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
+import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
 import com.stal111.forbidden_arcanus.init.ModBlocks;

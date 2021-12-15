@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
-import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
+import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
+import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
@@ -45,7 +45,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModItems.ARCANE_GOLD_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(NewModItems.ARCANE_GOLDEN_PICKAXE.get()))).otherwise(LootItem.lootTableItem(block)))), ModBlocks.ARCANE_GILDED_DARKSTONE);
         take(block -> add(block, LootTable.lootTable()), ModBlocks.BLACK_HOLE);
         take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModBlocks.FUNGYSS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0))).apply(ApplyExplosionDecay.explosionDecay()))), ModBlocks.FUNGYSS_BLOCK);
-        take(block -> add(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER)), ModBlocks.ARCANE_CRYSTAL_OBELISK);
+        take(block -> add(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER)), ModBlocks.ARCANE_CRYSTAL_OBELISK);
         take(block -> add(block, createSingleItemTableWithSilkTouch(block, NewModItems.STELLARITE_PIECE.get())), ModBlocks.STELLA_ARCANUM);
         take(block -> add(block, createOreDrop(block, ModItems.XPETRIFIED_ORB.get())), ModBlocks.XPETRIFIED_ORE);
         take(block -> add(block, createOreDrop(block, ModItems.ARCANE_CRYSTAL.get())), ModBlocks.ARCANE_CRYSTAL_ORE, ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);

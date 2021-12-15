@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.block.ArcaneCrystalObeliskBlock;
-import com.stal111.forbidden_arcanus.block.properties.ArcaneCrystalObeliskPart;
+import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
+import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
@@ -125,9 +125,9 @@ public class MundabiturDustItem extends Item {
 
             BlockState state = ModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
 
-            world.setBlock(patternHelper.getFrontTopLeft().below(2), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.LOWER), 2);
-            world.setBlock(patternHelper.getFrontTopLeft().below(1), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.MIDDLE), 2);
-            world.setBlock(patternHelper.getFrontTopLeft(), state.setValue(ArcaneCrystalObeliskBlock.PART, ArcaneCrystalObeliskPart.UPPER), 2);
+            world.setBlock(patternHelper.getFrontTopLeft().below(2), state.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER), 2);
+            world.setBlock(patternHelper.getFrontTopLeft().below(1), state.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.MIDDLE), 2);
+            world.setBlock(patternHelper.getFrontTopLeft(), state.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.UPPER), 2);
 
             return true;
         }

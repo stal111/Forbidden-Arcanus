@@ -22,4 +22,5 @@ public class ModBlockStateProperties {
     public static final IntegerProperty AGE_6 = IntegerProperty.create("age", 0, 6);
 
     public static final EnumProperty<PillarType> PILLAR_TYPE = EnumProperty.create("type", PillarType.class);
+    public static final EnumProperty<ObeliskPart> OBELISK_PART =  EnumProperty.create("part", ObeliskPart.class);
 }
