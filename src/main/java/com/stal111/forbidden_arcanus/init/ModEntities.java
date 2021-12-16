@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow;
 import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
-import com.stal111.forbidden_arcanus.entity.projectile.EnergyBallEntity;
+import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
 import com.stal111.forbidden_arcanus.entity.projectile.SeedBulletEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -28,7 +28,7 @@ public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<EntityType<SeedBulletEntity>> SEED_BULLET = register("seed_bullet", EntityType.Builder.<SeedBulletEntity>of(SeedBulletEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
-    public static final RegistryObject<EntityType<EnergyBallEntity>> ENERGY_BALL = register("energy_ball", EntityType.Builder.<EnergyBallEntity>of(EnergyBallEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
+    public static final RegistryObject<EntityType<EnergyBall>> ENERGY_BALL = register("energy_ball", EntityType.Builder.<EnergyBall>of(EnergyBall::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
     public static final RegistryObject<EntityType<BoomArrow>> BOOM_ARROW = register("boom_arrow", EntityType.Builder.<BoomArrow>of(BoomArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<DracoArcanusArrow>> DRACO_ARCANUS_ARROW = register("draco_arcanus_arrow", EntityType.Builder.<DracoArcanusArrow>of(DracoArcanusArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<CrimsonLightningBoltEntity>> CRIMSON_LIGHTNING_BOLT = register("crimson_lightning_bolt", EntityType.Builder.of(CrimsonLightningBoltEntity::new, MobCategory.MISC).sized(0.0F, 0.0F).setTrackingRange(16).updateInterval(Integer.MAX_VALUE));

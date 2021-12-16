@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.client.renderer.block.PedestalRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.block.UtremJarRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.entity.BoomArrowRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.entity.DracoArcanusArrowRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.entity.EnergyBallRenderer;
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,6 +36,7 @@ public class EntityRendererEvents {
         // Entities
         event.registerEntityRenderer(ModEntities.BOOM_ARROW.get(), BoomArrowRenderer::new);
         event.registerEntityRenderer(ModEntities.DRACO_ARCANUS_ARROW.get(), DracoArcanusArrowRenderer::new);
+        event.registerEntityRenderer(ModEntities.ENERGY_BALL.get(), EnergyBallRenderer::new);
     }
 
     @SubscribeEvent
