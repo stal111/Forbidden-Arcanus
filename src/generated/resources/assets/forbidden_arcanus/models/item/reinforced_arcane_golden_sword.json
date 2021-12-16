@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "forbidden_arcanus:item/tool/reinforced_arcane_golden_sword"
   }

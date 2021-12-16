@@ -79,7 +79,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
     public <T extends Item> void toolItem(T item) {
         String name = Objects.requireNonNull(item.getRegistryName()).getPath();
-        this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/generated"))).texture("layer0", "item/tool/" + name);
+        this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/handheld"))).texture("layer0", "item/tool/" + name);
     }
 
     public <T extends Item> void armorItem(T item) {
