@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -26,7 +27,7 @@ public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags() {
-        this.tag(ModTags.EntityTypes.BLACK_HOLE_AFFECTED).add(EntityType.ITEM, EntityType.EXPERIENCE_ORB, EntityType.ARROW, EntityType.SPECTRAL_ARROW);
+        this.tag(ModTags.EntityTypes.BLACK_HOLE_AFFECTED).add(EntityType.ITEM, EntityType.EXPERIENCE_ORB, EntityType.ARROW, EntityType.SPECTRAL_ARROW, ModEntities.BOOM_ARROW.get(), ModEntities.DRACO_ARCANUS_ARROW.get());
         this.tag(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED).add(EntityType.WITHER, EntityType.ENDER_DRAGON, EntityType.ELDER_GUARDIAN);
     }
 

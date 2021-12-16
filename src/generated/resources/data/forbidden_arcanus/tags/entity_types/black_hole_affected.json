@@ -4,6 +4,8 @@
     "minecraft:item",
     "minecraft:experience_orb",
     "minecraft:arrow",
-    "minecraft:spectral_arrow"
+    "minecraft:spectral_arrow",
+    "forbidden_arcanus:boom_arrow",
+    "forbidden_arcanus:draco_arcanus_arrow"
   ]
 }

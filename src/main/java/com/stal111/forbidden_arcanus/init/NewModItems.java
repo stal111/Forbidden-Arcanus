@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodMilkBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodSuspiciousStewBucketItem;
+import com.stal111.forbidden_arcanus.common.item.ModArrowItem;
 import com.stal111.forbidden_arcanus.item.*;
 import com.stal111.forbidden_arcanus.item.block.EternalObsidianSkullItem;
 import com.stal111.forbidden_arcanus.item.block.ObsidianSkullItem;
@@ -82,6 +83,8 @@ public class NewModItems {
     public static final RegistryObject<EdelwoodSuspiciousStewBucketItem> EDELWOOD_SUSPICIOUS_STEW_BUCKET = HELPER.register("edelwood_suspicious_stew_bucket", () -> new EdelwoodSuspiciousStewBucketItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(Foods.SUSPICIOUS_STEW)));
     public static final RegistryObject<EdelwoodSoupBucketItem> EDELWOOD_BEETROOT_SOUP_BUCKET = HELPER.register("edelwood_beetroot_soup_bucket", () -> new EdelwoodSoupBucketItem(() -> Items.BEETROOT_SOUP, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(Foods.BEETROOT_SOUP)));
     public static final RegistryObject<EdelwoodSoupBucketItem> EDELWOOD_BAT_SOUP_BUCKET = HELPER.register("edelwood_bat_soup_bucket", () -> new EdelwoodSoupBucketItem(ModItems.BAT_SOUP, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(new FoodProperties.Builder().nutrition(7).saturationMod (0.7F).effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F).build())));
+    public static final RegistryObject<ModArrowItem> BOOM_ARROW = HELPER.register("boom_arrow", () -> new ModArrowItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
+    public static final RegistryObject<ModArrowItem> DRACO_ARCANUS_ARROW = HELPER.register("draco_arcanus_arrow", () -> new ModArrowItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
 
     public static final RegistryObject<Item> SLIMEC_PICKAXE = HELPER.register("slimec_pickaxe", () -> new SlimecPickaxeItem(ModItemTier.SLIMEC, 1, -2.5F, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
