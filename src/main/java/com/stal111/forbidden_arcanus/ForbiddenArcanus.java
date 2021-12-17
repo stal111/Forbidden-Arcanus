@@ -103,7 +103,7 @@ public class ForbiddenArcanus {
 	private void setup(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			ModFlammables.registerFlammables();
-			ModDispenseBehaviors.registerDispenseBehaviours();
+			ModDispenseBehaviors.registerDispenseBehaviors();
 			ModConfiguredFeatures.load();
 			ModStructures.setupStructures();
 		});

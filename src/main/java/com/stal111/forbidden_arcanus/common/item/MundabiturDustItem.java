@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.item;
+package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
@@ -34,8 +34,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Mundabitur Dust Item
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.MundabiturDustItem
+ * Mundabitur Dust Item <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.MundabiturDustItem
  *
  * @author stal111
  * @version 2.0.0
@@ -58,16 +58,15 @@ public class MundabiturDustItem extends Item {
     @Nonnull
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        Level world = context.getLevel();
+        Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        BlockState state = world.getBlockState(pos);
-        Block block = state.getBlock();
+        BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
 
-        if (this.tryTransformBlock(block, world, pos, player)) {
+        if (this.tryTransformBlock(state, level, pos, player)) {
             ItemStackUtils.shrinkStack(player, context.getItemInHand());
 
-            return InteractionResult.sidedSuccess(world.isClientSide());
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
         return super.useOn(context);
@@ -90,26 +89,26 @@ public class MundabiturDustItem extends Item {
         return InteractionResult.PASS;
     }
 
-    private boolean tryTransformBlock(Block block, Level world, BlockPos pos, Player player) {
-        if (block == Blocks.SMITHING_TABLE) {
-            BlockPattern.BlockPatternMatch patternHelper = getHephaestusPattern().find(world, pos);
+    private boolean tryTransformBlock(BlockState state, Level level, BlockPos pos, Player player) {
+        if (state.is(Blocks.SMITHING_TABLE)) {
+            BlockPattern.BlockPatternMatch patternHelper = getHephaestusPattern().find(level, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
             }
 
-            world.levelEvent(player, 2001, pos, Block.getId(world.getBlockState(pos)));
-            world.setBlockAndUpdate(pos, ModBlocks.HEPHAESTUS_FORGE.get().defaultBlockState().setValue(ModBlockStateProperties.ACTIVATED, true));
+            level.levelEvent(player, 2001, pos, Block.getId(level.getBlockState(pos)));
+            level.setBlockAndUpdate(pos, ModBlocks.HEPHAESTUS_FORGE.get().defaultBlockState().setValue(ModBlockStateProperties.ACTIVATED, true));
 
-            CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), world);
+            CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), level);
             entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
             entity.setVisualOnly(true);
 
-            world.addFreshEntity(entity);
+            level.addFreshEntity(entity);
 
             return true;
-        } else if (block == ModBlocks.ARCANE_CRYSTAL_BLOCK.get() || block == ModBlocks.ARCANE_POLISHED_DARKSTONE.get()) {
-            BlockPattern.BlockPatternMatch patternHelper = getArcaneCrystalObeliskPattern().find(world, pos);
+        } else if (state.is(ModBlocks.ARCANE_CRYSTAL_BLOCK.get()) || state.is(ModBlocks.ARCANE_POLISHED_DARKSTONE.get())) {
+            BlockPattern.BlockPatternMatch patternHelper = getArcaneCrystalObeliskPattern().find(level, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
@@ -118,16 +117,16 @@ public class MundabiturDustItem extends Item {
             for(int i = 0; i < getArcaneCrystalObeliskPattern().getWidth(); i++) {
                 for(int j = 0; j < getArcaneCrystalObeliskPattern().getHeight(); j++) {
                     BlockInWorld cachedBlockInfo = patternHelper.getBlock(i, j, 0);
-                    world.setBlock(cachedBlockInfo.getPos(), Blocks.AIR.defaultBlockState(), 2);
-                    world.levelEvent(2001, cachedBlockInfo.getPos(), Block.getId(cachedBlockInfo.getState()));
+                    level.setBlock(cachedBlockInfo.getPos(), Blocks.AIR.defaultBlockState(), 2);
+                    level.levelEvent(2001, cachedBlockInfo.getPos(), Block.getId(cachedBlockInfo.getState()));
                 }
             }
 
-            BlockState state = ModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
+            BlockState obelisk = ModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
 
-            world.setBlock(patternHelper.getFrontTopLeft().below(2), state.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER), 2);
-            world.setBlock(patternHelper.getFrontTopLeft().below(1), state.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.MIDDLE), 2);
-            world.setBlock(patternHelper.getFrontTopLeft(), state.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.UPPER), 2);
+            level.setBlock(patternHelper.getFrontTopLeft().below(2), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER), 2);
+            level.setBlock(patternHelper.getFrontTopLeft().below(1), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.MIDDLE), 2);
+            level.setBlock(patternHelper.getFrontTopLeft(), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.UPPER), 2);
 
             return true;
         }

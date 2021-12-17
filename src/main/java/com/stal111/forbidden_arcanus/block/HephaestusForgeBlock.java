@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.block;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
 import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
-import com.stal111.forbidden_arcanus.item.MundabiturDustItem;
+import com.stal111.forbidden_arcanus.common.item.MundabiturDustItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;

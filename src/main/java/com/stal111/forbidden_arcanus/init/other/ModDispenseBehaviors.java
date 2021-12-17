@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.init.other;
 
 import com.stal111.forbidden_arcanus.common.block.dispenser.SoulDispenseBehavior;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.block.DispenserBlock;
 
 /**
@@ -14,7 +15,8 @@ import net.minecraft.world.level.block.DispenserBlock;
  */
 public class ModDispenseBehaviors {
 
-    public static void registerDispenseBehaviours() {
+    public static void registerDispenseBehaviors() {
         DispenserBlock.registerBehavior(ModItems.SOUL.get(), new SoulDispenseBehavior());
+        DispenserBlock.registerBehavior(ModItems.OBSIDIAN_SKULL_SHIELD.get(), ArmorItem.DISPENSE_ITEM_BEHAVIOR);
     }
 }
