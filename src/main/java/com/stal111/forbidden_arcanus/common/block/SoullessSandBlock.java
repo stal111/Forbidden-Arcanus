@@ -36,7 +36,7 @@ public class SoullessSandBlock extends SoulSandBlock {
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.getItem() == ModItems.SOUL.get() && level.mayInteract(player, pos)) {
+        if (stack.is(ModItems.SOUL.get()) && level.mayInteract(player, pos)) {
             ItemStackUtils.shrinkStack(player, stack);
 
             level.setBlockAndUpdate(pos, Blocks.SOUL_SAND.defaultBlockState());

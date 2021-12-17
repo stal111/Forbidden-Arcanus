@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.common.container.input;
 
 import com.stal111.forbidden_arcanus.common.container.InputType;
 import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.init.NewModItems;
-import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
+import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Random;
@@ -20,7 +20,7 @@ public class BloodTestTubeInput implements IHephaestusForgeInput {
 
     @Override
     public boolean canInput(InputType inputType, ItemStack stack) {
-        return inputType == InputType.BLOOD && stack.getItem() == NewModItems.BLOOD_TEST_TUBE.get();
+        return inputType == InputType.BLOOD && stack.getItem() == ModItems.BLOOD_TEST_TUBE.get();
     }
 
     @Override

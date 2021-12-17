@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.common.block.entity.NipaBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -33,7 +33,7 @@ public class NipaRenderer implements BlockEntityRenderer<NipaBlockEntity> {
 
             poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(NewModItems.Stacks.ARCANE_CRYSTAL_DUST_SPECK, ItemTransforms.TransformType.FIXED, packedLight, packedOverlay, poseStack, bufferSource, 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(ModItems.Stacks.ARCANE_CRYSTAL_DUST_SPECK, ItemTransforms.TransformType.FIXED, packedLight, packedOverlay, poseStack, bufferSource, 0);
 
             poseStack.popPose();
         }

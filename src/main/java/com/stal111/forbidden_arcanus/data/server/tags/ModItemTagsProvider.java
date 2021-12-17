@@ -2,14 +2,13 @@ package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.init.NewModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.world.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -31,18 +30,18 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(NewModItems.OBSIDIAN_SKULL.get(), NewModItems.ETERNAL_OBSIDIAN_SKULL.get());
+        this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(ModItems.OBSIDIAN_SKULL.get(), ModItems.ETERNAL_OBSIDIAN_SKULL.get());
         this.tag(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
         this.tag(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
         this.tag(ModTags.Items.BLACKSMITH_GAVEL).add(
-                NewModItems.WOODEN_BLACKSMITH_GAVEL.get(),
-                NewModItems.STONE_BLACKSMITH_GAVEL.get(),
-                NewModItems.GOLDEN_BLACKSMITH_GAVEL.get(),
-                NewModItems.IRON_BLACKSMITH_GAVEL.get(),
-                NewModItems.DIAMOND_BLACKSMITH_GAVEL.get(),
-                NewModItems.NETHERITE_BLACKSMITH_GAVEL.get(),
-                NewModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(),
-                NewModItems.REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL.get()
+                ModItems.WOODEN_BLACKSMITH_GAVEL.get(),
+                ModItems.STONE_BLACKSMITH_GAVEL.get(),
+                ModItems.GOLDEN_BLACKSMITH_GAVEL.get(),
+                ModItems.IRON_BLACKSMITH_GAVEL.get(),
+                ModItems.DIAMOND_BLACKSMITH_GAVEL.get(),
+                ModItems.NETHERITE_BLACKSMITH_GAVEL.get(),
+                ModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(),
+                ModItems.REINFORCED_ARCANE_GOLDEN_BLACKSMITH_GAVEL.get()
         );
         this.tag(ModTags.Items.ARCANE_GOLD_INGOTS).add(ModItems.ARCANE_GOLD_INGOT.get());
         this.tag(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());

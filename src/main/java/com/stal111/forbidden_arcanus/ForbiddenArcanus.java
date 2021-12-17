@@ -72,7 +72,6 @@ public class ForbiddenArcanus {
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientSetup::new);
 
 		ModEntities.ENTITY_TYPES.register(modEventBus);
-		ModItems.ITEMS.register(modEventBus);
 		ModBlockEntities.TILE_ENTITIES.register(modEventBus);
 		ModParticles.PARTICLE_TYPES.register(modEventBus);
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);

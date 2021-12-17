@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 
-import net.minecraft.world.item.Item.Properties;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
 import net.valhelsia.valhelsia_core.common.capability.counter.ICounterCapability;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
@@ -44,7 +43,7 @@ public class WetPurifyingSoapItem extends Item implements ITimerItem {
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
         if (entity.getCommandSenderWorld().dimensionType().ultraWarm()) {
-            entity.setItem(new ItemStack(NewModItems.PURIFYING_SOAP.get()));
+            entity.setItem(new ItemStack(ModItems.PURIFYING_SOAP.get()));
         } else {
             stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
                 SimpleCounter counter = getTimer(counterCapability);
@@ -55,7 +54,7 @@ public class WetPurifyingSoapItem extends Item implements ITimerItem {
                     counter.increase();
 
                     if (counter.getValue() >= 3600) {
-                        entity.setItem(new ItemStack(NewModItems.PURIFYING_SOAP.get()));
+                        entity.setItem(new ItemStack(ModItems.PURIFYING_SOAP.get()));
                     }
                 }
             });
@@ -70,7 +69,7 @@ public class WetPurifyingSoapItem extends Item implements ITimerItem {
 
             if (entity.getCommandSenderWorld().dimensionType().ultraWarm()) {
                 stack.shrink(1);
-                player.getInventory().setItem(itemSlot, new ItemStack(NewModItems.PURIFYING_SOAP.get()));
+                player.getInventory().setItem(itemSlot, new ItemStack(ModItems.PURIFYING_SOAP.get()));
             }
             stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
                 SimpleCounter timer = getTimer(counterCapability);
@@ -82,7 +81,7 @@ public class WetPurifyingSoapItem extends Item implements ITimerItem {
 
                     if (timer.getValue() >= 3600) {
                         stack.shrink(1);
-                        player.getInventory().setItem(itemSlot, new ItemStack(NewModItems.PURIFYING_SOAP.get()));
+                        player.getInventory().setItem(itemSlot, new ItemStack(ModItems.PURIFYING_SOAP.get()));
                     }
                 }
             });

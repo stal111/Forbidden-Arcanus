@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.common.block.entity.NipaBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -89,7 +89,7 @@ public class NipaBlock extends BushBlock implements EntityBlock {
         if (!state.is(newState.getBlock()) && state.getValue(SPECK)) {
             NipaBlockEntity blockEntity = (NipaBlockEntity) level.getBlockEntity(pos);
             if (blockEntity != null) {
-                level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + blockEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
+                level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + blockEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
             }
         }
         super.onRemove(state, level, pos, newState, isMoving);
@@ -113,7 +113,7 @@ public class NipaBlock extends BushBlock implements EntityBlock {
 
     @Override
     public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        if (Objects.requireNonNull(Minecraft.getInstance().player).getInventory().contains(NewModItems.Stacks.LENS_OF_VERITATIS)) {
+        if (Objects.requireNonNull(Minecraft.getInstance().player).getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
             double j = 0.4D * rand.nextFloat();
             double k = 0.4D * rand.nextFloat();
             double posX = pos.getX() + 0.5D + (rand.nextBoolean() ? j : -j);
@@ -142,7 +142,7 @@ public class NipaBlock extends BushBlock implements EntityBlock {
     }
 
     private void harvestSpeck(BlockState state, Level world, BlockPos pos, NipaBlockEntity blockEntity) {
-        world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + blockEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(NewModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
+        world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + blockEntity.getSpeckHeight(), pos.getZ() + 0.5, new ItemStack(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get())));
         world.setBlockAndUpdate(pos, state.setValue(SPECK, false));
 
         blockEntity.setSpeckHeight(10);

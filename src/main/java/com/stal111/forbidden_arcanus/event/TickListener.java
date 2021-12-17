@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -69,7 +69,7 @@ public class TickListener {
                 MobEffectInstance instance = player.getEffect(MobEffects.FIRE_RESISTANCE);
                 int duration = Objects.requireNonNull(instance).getDuration();
 
-                if (duration == 32767 && !player.getInventory().contains(new ItemStack(NewModItems.ETERNAL_OBSIDIAN_SKULL.get()))) {
+                if (duration == 32767 && !player.getInventory().contains(new ItemStack(ModItems.ETERNAL_OBSIDIAN_SKULL.get()))) {
                     player.removeEffectNoUpdate(instance.getEffect());
                 }
             }

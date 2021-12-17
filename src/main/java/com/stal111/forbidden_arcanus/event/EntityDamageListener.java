@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.init.NewModItems;
-import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
+import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,16 +19,16 @@ public class EntityDamageListener {
         if (source.msgId.equals("player")) {
             Player player = (Player) event.getSource().getEntity();
 
-            if (player != null && player.getItemInHand(player.getUsedItemHand()).getItem() == NewModItems.MYSTICAL_DAGGER.get()) {
+            if (player != null && player.getItemInHand(player.getUsedItemHand()).getItem() == ModItems.MYSTICAL_DAGGER.get()) {
                 int blood = (int) (20 * event.getAmount());
 
                 ItemStack stack = null;
 
                 for (ItemStack inventoryStack : player.getInventory().items) {
-                    if (inventoryStack.getItem() == NewModItems.TEST_TUBE.get() && stack == null) {
+                    if (inventoryStack.getItem() == ModItems.TEST_TUBE.get() && stack == null) {
                         stack = inventoryStack;
 
-                    } else if (inventoryStack.getItem() == NewModItems.BLOOD_TEST_TUBE.get() && BloodTestTubeItem.getBlood(inventoryStack) != BloodTestTubeItem.MAX_BLOOD) {
+                    } else if (inventoryStack.getItem() == ModItems.BLOOD_TEST_TUBE.get() && BloodTestTubeItem.getBlood(inventoryStack) != BloodTestTubeItem.MAX_BLOOD) {
                         BloodTestTubeItem.addBlood(inventoryStack, blood);
                         stack = null;
 
@@ -37,7 +37,7 @@ public class EntityDamageListener {
                 }
 
                 if (stack != null) {
-                    ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(NewModItems.BLOOD_TEST_TUBE.get()), blood);
+                    ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(ModItems.BLOOD_TEST_TUBE.get()), blood);
                     int slot = player.getInventory().findSlotMatchingItem(stack);
 
                     stack.shrink(1);

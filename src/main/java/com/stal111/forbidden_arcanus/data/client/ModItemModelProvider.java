@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.data.client;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.*;
 import net.minecraft.resources.ResourceLocation;
@@ -41,7 +41,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.ARCANE_CRYSTAL_OBELISK,
                 ModBlocks.ARCANE_GOLDEN_CHAIN,
                 ModBlocks.ARCANE_DRAGON_EGG,
-                NewModItems.EDELWOOD_POWDER_SNOW_BUCKET
+                ModItems.EDELWOOD_POWDER_SNOW_BUCKET
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 ModBlocks.FUNGYSS,
@@ -67,10 +67,10 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         forEachBlockItem(this::withParent);
 
         //Items
-        getRemainingItems().removeAll(Arrays.asList(NewModItems.LENS_OF_VERITATIS, NewModItems.OBSIDIAN_SKULL_SHIELD, NewModItems.ZOMBIE_ARM, NewModItems.SHINY_ZOMBIE_ARM));
+        getRemainingItems().removeAll(Arrays.asList(ModItems.LENS_OF_VERITATIS, ModItems.OBSIDIAN_SKULL_SHIELD, ModItems.ZOMBIE_ARM, ModItems.SHINY_ZOMBIE_ARM));
 
-        takeItem(this::bloodTestTubeModel, NewModItems.BLOOD_TEST_TUBE);
-        takeItem(this::toolItem, NewModItems.DRACO_ARCANUS_STAFF, NewModItems.DRACO_ARCANUS_SCEPTER);
+        takeItem(this::bloodTestTubeModel, ModItems.BLOOD_TEST_TUBE);
+        takeItem(this::toolItem, ModItems.DRACO_ARCANUS_STAFF, ModItems.DRACO_ARCANUS_SCEPTER);
 
         forEachItem(item -> item instanceof DiggerItem || item instanceof SwordItem, this::toolItem);
         forEachItem(item -> item instanceof ArmorItem, this::armorItem);

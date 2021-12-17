@@ -4,15 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.item.CapacityBucket;
-import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
-import com.stal111.forbidden_arcanus.common.item.EdelwoodMobBucketItem;
-import com.stal111.forbidden_arcanus.common.item.EdelwoodSuspiciousStewBucketItem;
+import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
-import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import com.stal111.forbidden_arcanus.init.NewModItems;
-import com.stal111.forbidden_arcanus.item.QuantumCatcherItem;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -101,10 +96,10 @@ public class PlayerEvents {
         SoundEvent soundEvent = SoundEvents.COW_MILK;
 
         if (cow instanceof MushroomCow mushroomCow) {
-            if (stack.is(NewModItems.EDELWOOD_BUCKET.get())) {
+            if (stack.is(ModItems.EDELWOOD_BUCKET.get())) {
                 boolean flag = mushroomCow.effect != null;
 
-                result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(flag ? NewModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.get() : NewModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())));
+                result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(flag ? ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.get() : ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())));
 
                 if (flag) {
                     soundEvent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
@@ -115,17 +110,17 @@ public class PlayerEvents {
                 } else {
                     soundEvent = SoundEvents.MOOSHROOM_MILK;
                 }
-            } else if (stack.is(NewModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())) {
+            } else if (stack.is(ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())) {
                 Pair<Boolean, ItemStack> pair = capacityBucket.tryFill(stack);
 
                 if (pair.getFirst()) {
                     result = pair.getSecond();
                 }
             }
-        } else if (stack.is(NewModItems.EDELWOOD_MILK_BUCKET.get()) && !capacityBucket.isFull(stack)) {
+        } else if (stack.is(ModItems.EDELWOOD_MILK_BUCKET.get()) && !capacityBucket.isFull(stack)) {
             result = capacityBucket.tryFill(ItemUtils.createFilledResult(copy, player, stack)).getSecond();
         } else if (stack.is(capacityBucket.getEmptyBucket().getItem())) {
-            result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(NewModItems.EDELWOOD_MILK_BUCKET.get())));
+            result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(ModItems.EDELWOOD_MILK_BUCKET.get())));
         }
 
         if (result != null) {

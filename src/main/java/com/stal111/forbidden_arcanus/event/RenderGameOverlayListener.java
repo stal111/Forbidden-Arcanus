@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.config.RenderingConfig;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -46,7 +46,7 @@ public class RenderGameOverlayListener {
               //  minecraft.getTextureManager().bind(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
                 GuiComponent.blit(matrixStack, posX, posY, 0, 0, 0, 57, 25, 25, 57);
 
-                minecraft.getItemRenderer().renderAndDecorateItem(NewModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
+                minecraft.getItemRenderer().renderAndDecorateItem(ModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
 
                 ChatFormatting color = counter.getValue() / 20 <= 20 ? ChatFormatting.RED : ChatFormatting.WHITE;
                 int i = counter.getValue() < 12000 ? 27 : (int) 25.5F;
@@ -56,7 +56,7 @@ public class RenderGameOverlayListener {
         });
 
         player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
-            if (player.getInventory().contains(NewModItems.Stacks.SANITY_METER)) {
+            if (player.getInventory().contains(ModItems.Stacks.SANITY_METER)) {
                 //minecraft.getTextureManager().bind(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png"));
                 GuiComponent.blit(matrixStack, window.getGuiScaledWidth() / 2 - 9, window.getGuiScaledHeight() - 39 - 13, 24, 18, 18, 19, 256, 256);
 

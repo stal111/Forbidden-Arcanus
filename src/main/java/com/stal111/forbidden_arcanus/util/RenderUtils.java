@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.util;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -165,7 +165,7 @@ public class RenderUtils {
 
         for(int j = 0; j < world.players().size(); ++j) {
             ServerPlayer player = world.players().get(j);
-            if (player.getInventory().contains(NewModItems.Stacks.LENS_OF_VERITATIS)) {
+            if (player.getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
                 world.sendParticles(player, false, posX, posY, posZ, sspawnparticlepacket);
             }
         }

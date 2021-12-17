@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.item;
+package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModEffects;
@@ -18,8 +18,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
- * Mystical Dagger Item
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.MysticalDaggerItem
+ * Mystical Dagger Item <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.MysticalDaggerItem
  *
  * @author stal111
  * @version 2.0.0

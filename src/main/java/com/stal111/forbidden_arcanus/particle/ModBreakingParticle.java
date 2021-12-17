@@ -1,10 +1,8 @@
 package com.stal111.forbidden_arcanus.particle;
 
 import com.stal111.forbidden_arcanus.init.ModItems;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;

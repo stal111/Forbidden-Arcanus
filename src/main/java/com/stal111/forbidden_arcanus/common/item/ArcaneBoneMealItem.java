@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.item;
+package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Arcane Bone Meal Item <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.ArcaneBoneMealItem
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.ArcaneBoneMealItem
  *
  * @author stal111
  * @version 2.0.0
@@ -35,34 +35,35 @@ public class ArcaneBoneMealItem extends BoneMealItem {
     @Nonnull
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
-        Level world = context.getLevel();
+        Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockPos offsetPos = pos.relative(context.getClickedFace());
-        BlockState state = world.getBlockState(pos);
+        BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
+        ItemStack stack = context.getItemInHand();
 
-        if (state.getBlock() == Blocks.FARMLAND) {
-            world.setBlockAndUpdate(pos, ModBlocks.MAGICAL_FARMLAND.get().defaultBlockState().setValue(BlockStateProperties.MOISTURE, state.getValue(BlockStateProperties.MOISTURE)));
-            world.levelEvent(player, 2001, pos, Block.getId(state));
+        if (state.is(Blocks.FARMLAND)) {
+            level.setBlockAndUpdate(pos, ModBlocks.MAGICAL_FARMLAND.get().defaultBlockState().setValue(BlockStateProperties.MOISTURE, state.getValue(BlockStateProperties.MOISTURE)));
+            level.levelEvent(player, 2001, pos, Block.getId(state));
 
-            ItemStackUtils.shrinkStack(player, context.getItemInHand());
+            ItemStackUtils.shrinkStack(player, stack);
 
-            return InteractionResult.sidedSuccess(world.isClientSide);
-        } else if (ArcaneBoneMealItem.applyBoneMeal(context.getItemInHand(), world, pos, player)) {
-            if (!world.isClientSide) {
-                world.levelEvent(2005, pos, 0);
+            return InteractionResult.sidedSuccess(level.isClientSide());
+        } else if (ArcaneBoneMealItem.applyBoneMeal(stack, level, pos, player)) {
+            if (!level.isClientSide()) {
+                level.levelEvent(2005, pos, 0);
             }
 
-            return InteractionResult.sidedSuccess(world.isClientSide);
+            return InteractionResult.sidedSuccess(level.isClientSide());
         } else {
-            boolean flag = state.isFaceSturdy(world, pos, context.getClickedFace());
+            boolean flag = state.isFaceSturdy(level, pos, context.getClickedFace());
 
-            if (flag && growWaterPlant(context.getItemInHand(), world, offsetPos, context.getClickedFace())) {
-                if (!world.isClientSide) {
-                    world.levelEvent(2005, offsetPos, 0);
+            if (flag && growWaterPlant(stack, level, offsetPos, context.getClickedFace())) {
+                if (!level.isClientSide()) {
+                    level.levelEvent(2005, offsetPos, 0);
                 }
 
-                return InteractionResult.sidedSuccess(world.isClientSide);
+                return InteractionResult.sidedSuccess(level.isClientSide());
             } else {
                 return InteractionResult.PASS;
             }

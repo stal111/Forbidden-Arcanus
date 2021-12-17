@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.tooltip;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class ClientEdelwoodBucketTooltip implements ClientTooltipComponent {
 
-    private final ItemStack emptyBucket = new ItemStack(NewModItems.EDELWOOD_BUCKET.get());
+    private final ItemStack emptyBucket = new ItemStack(ModItems.EDELWOOD_BUCKET.get());
     private final ItemStack filledBucket;
 
     private final int fullness;

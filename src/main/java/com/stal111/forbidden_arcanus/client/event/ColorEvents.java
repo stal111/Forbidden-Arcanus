@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.client.event;
 
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,6 +23,6 @@ public class ColorEvents {
     public static void onRenderTooltipColor(ColorHandlerEvent.Item event) {
         ItemColors colors = event.getItemColors();
 
-        colors.register((stack, tintIndex) -> tintIndex > 0 ? -1 : ((DyeableLeatherItem)stack.getItem()).getColor(stack), NewModItems.MORTEM_HELMET.get(), NewModItems.MORTEM_CHESTPLATE.get(), NewModItems.MORTEM_LEGGINGS.get(), NewModItems.MORTEM_BOOTS.get());
+        colors.register((stack, tintIndex) -> tintIndex > 0 ? -1 : ((DyeableLeatherItem)stack.getItem()).getColor(stack), ModItems.MORTEM_HELMET.get(), ModItems.MORTEM_CHESTPLATE.get(), ModItems.MORTEM_LEGGINGS.get(), ModItems.MORTEM_BOOTS.get());
     }
 }

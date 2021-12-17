@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.item;
+package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Orb of Temporary Flight Item
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.OrbOfTemporaryFlightItem
+ * Orb of Temporary Flight Item <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.OrbOfTemporaryFlightItem
  *
  * @author stal111
  * @version 2.0.0
@@ -38,7 +38,7 @@ public class OrbOfTemporaryFlightItem extends Item {
 
 	@Nonnull
 	@Override
-	public InteractionResultHolder<ItemStack> use(@Nonnull Level world, Player player, @Nonnull InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(@Nonnull Level level, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 
 		ItemStackUtils.shrinkStack(player, stack);
@@ -52,12 +52,12 @@ public class OrbOfTemporaryFlightItem extends Item {
 
 		player.awardStat(Stats.ITEM_USED.get(this));
 
-		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 
 	@Override
-	public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-		super.appendHoverText(stack, world, tooltip, flag);
+	public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+		super.appendHoverText(stack, level, tooltip, flag);
 		tooltip.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".duration").withStyle(ChatFormatting.GRAY).append(": " + StringUtil.formatTickDuration(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
 	}
 }

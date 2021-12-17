@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.google.common.collect.ImmutableMap;
 import com.stal111.forbidden_arcanus.init.ModEnchantments;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,10 +42,10 @@ import java.util.function.Supplier;
 public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
 
     public static final Map<Item, Supplier<? extends Item>> ITEM_TO_BUCKET = new ImmutableMap.Builder<Item, Supplier<? extends Item>>()
-            .put(Items.WATER_BUCKET, NewModItems.EDELWOOD_WATER_BUCKET)
-            .put(Items.LAVA_BUCKET, NewModItems.EDELWOOD_LAVA_BUCKET)
-            .put(Items.MILK_BUCKET, NewModItems.EDELWOOD_MILK_BUCKET)
-            .put(Items.POWDER_SNOW_BUCKET, NewModItems.EDELWOOD_POWDER_SNOW_BUCKET)
+            .put(Items.WATER_BUCKET, ModItems.EDELWOOD_WATER_BUCKET)
+            .put(Items.LAVA_BUCKET, ModItems.EDELWOOD_LAVA_BUCKET)
+            .put(Items.MILK_BUCKET, ModItems.EDELWOOD_MILK_BUCKET)
+            .put(Items.POWDER_SNOW_BUCKET, ModItems.EDELWOOD_POWDER_SNOW_BUCKET)
             .build();
     private static final double BURN_CHANCE = 0.005;
 
@@ -196,16 +196,16 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
 
     @Override
     public ItemStack getEmptyBucket() {
-        return new ItemStack(NewModItems.EDELWOOD_BUCKET.get());
+        return new ItemStack(ModItems.EDELWOOD_BUCKET.get());
     }
 
     @Override
     public boolean hasContainerItem(ItemStack stack) {
-        return !stack.is(NewModItems.EDELWOOD_BUCKET.get());
+        return !stack.is(ModItems.EDELWOOD_BUCKET.get());
     }
 
     @Override
     public ItemStack getContainerItem(ItemStack stack) {
-        return ItemStackUtils.transferEnchantments(stack, new ItemStack(NewModItems.EDELWOOD_BUCKET.get()));
+        return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
     }
 }

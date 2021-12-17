@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.entity.projectile;
 
 import com.stal111.forbidden_arcanus.init.ModEntities;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -43,7 +43,7 @@ public class DracoArcanusArrow extends AbstractArrow {
     @Nonnull
     @Override
     protected ItemStack getPickupItem() {
-        return new ItemStack(NewModItems.DRACO_ARCANUS_ARROW.get());
+        return new ItemStack(ModItems.DRACO_ARCANUS_ARROW.get());
     }
 
     @Override

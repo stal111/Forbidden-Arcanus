@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
-import com.stal111.forbidden_arcanus.item.IRitualStarterItem;
+import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
@@ -68,7 +68,7 @@ public class RitualManager implements SavedData {
     }
 
     public void tryStartRitual(ItemStack stack) {
-        IRitualStarterItem ritualStarterItem = (IRitualStarterItem) stack.getItem();
+        RitualStarterItem ritualStarterItem = (RitualStarterItem) stack.getItem();
         List<ItemStack> list = new ArrayList<>();
 
         if (ritualStarterItem.getRemainingUses(stack) <= 0) {

@@ -29,7 +29,7 @@ public class RunicChiseledPolishedDarkstone extends Block {
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.getItem() == ModItems.ARCANE_CRYSTAL.get() && !state.getValue(ACTIVATED)) {
+        if (stack.is(ModItems.ARCANE_CRYSTAL.get()) && !state.getValue(ACTIVATED)) {
             if (world.isClientSide()) {
                 for (int i = 0; i < 15; i++) {
                     int j = world.getRandom().nextInt(2) * 2 - 1;

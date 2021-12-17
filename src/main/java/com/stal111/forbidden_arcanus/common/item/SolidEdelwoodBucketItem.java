@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -74,7 +74,7 @@ public class SolidEdelwoodBucketItem extends SolidBucketItem implements Capacity
 
     @Override
     public ItemStack getEmptyBucket() {
-        return new ItemStack(NewModItems.EDELWOOD_BUCKET.get());
+        return new ItemStack(ModItems.EDELWOOD_BUCKET.get());
     }
 
     @Override
@@ -84,6 +84,6 @@ public class SolidEdelwoodBucketItem extends SolidBucketItem implements Capacity
 
     @Override
     public ItemStack getContainerItem(ItemStack stack) {
-        return ItemStackUtils.transferEnchantments(stack, new ItemStack(NewModItems.EDELWOOD_BUCKET.get()));
+        return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
     }
 }

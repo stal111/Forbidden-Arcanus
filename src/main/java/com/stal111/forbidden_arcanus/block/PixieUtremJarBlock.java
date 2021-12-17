@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.block;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -115,7 +115,7 @@ public class PixieUtremJarBlock extends Block implements SimpleWaterloggedBlock 
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
         if (state.getBlock() == ModBlocks.PIXIE_UTREM_JAR.get()) {
-            if (Objects.requireNonNull(Minecraft.getInstance().player).getInventory().contains(new ItemStack(NewModItems.LENS_OF_VERITATIS.get()))) {
+            if (Objects.requireNonNull(Minecraft.getInstance().player).getInventory().contains(new ItemStack(ModItems.LENS_OF_VERITATIS.get()))) {
                 double j = 0.4D * rand.nextFloat();
                 double k = 0.4D * rand.nextFloat();
                 double posX = pos.getX() + 0.5D + (rand.nextBoolean() ? j : -j);

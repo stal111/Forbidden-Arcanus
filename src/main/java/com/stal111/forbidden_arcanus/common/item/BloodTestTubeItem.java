@@ -1,7 +1,7 @@
-package com.stal111.forbidden_arcanus.item;
+package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,11 +15,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.world.item.Item.Properties;
-
 /**
- * Blood Test Tube Item
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.BloodTestTubeItem
+ * Blood Test Tube Item <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem
  *
  * @author stal111
  * @version 2.0.0
@@ -36,7 +34,7 @@ public class BloodTestTubeItem extends Item {
     @Nonnull
     @Override
     public String getDescriptionId(@Nonnull ItemStack stack) {
-        return NewModItems.TEST_TUBE.get().getDescriptionId();
+        return ModItems.TEST_TUBE.get().getDescriptionId();
     }
 
     public static int getBlood(ItemStack stack) {
@@ -58,7 +56,7 @@ public class BloodTestTubeItem extends Item {
         setBlood(stack, Math.max(getBlood(stack) - blood, 0));
 
         if (getBlood(stack) == 0) {
-            stack = new ItemStack(NewModItems.TEST_TUBE.get());
+            stack = new ItemStack(ModItems.TEST_TUBE.get());
         }
         return stack;
     }

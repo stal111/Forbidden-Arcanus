@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -149,9 +149,9 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
 
     public ItemStack getFluidBucket() {
         if (this.getFluid() == Fluids.WATER) {
-            return new ItemStack(NewModItems.EDELWOOD_WATER_BUCKET.get());
+            return new ItemStack(ModItems.EDELWOOD_WATER_BUCKET.get());
         } else {
-            return new ItemStack(NewModItems.EDELWOOD_LAVA_BUCKET.get());
+            return new ItemStack(ModItems.EDELWOOD_LAVA_BUCKET.get());
         }
     }
 }

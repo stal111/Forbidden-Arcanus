@@ -23,8 +23,6 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.world.item.Item.Properties;
-
 /**
  * Obsidian Skull Shield Item
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.item.ObsidianSkullShieldItem
@@ -76,7 +74,7 @@ public class ObsidianSkullShieldItem extends Item {
 
     @Override
     public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == ModItems.OBSIDIAN_INGOT.get() || super.isValidRepairItem(toRepair, repair);
+        return repair.is(ModItems.OBSIDIAN_INGOT.get()) || super.isValidRepairItem(toRepair, repair);
     }
 
     @Override

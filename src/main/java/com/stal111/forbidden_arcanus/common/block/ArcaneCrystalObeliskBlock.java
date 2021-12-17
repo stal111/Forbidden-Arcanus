@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.NewModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -170,7 +170,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     @Override
     public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
         if (Minecraft.getInstance().player != null && state.getValue(PART) != ObeliskPart.LOWER) {
-            if (!Minecraft.getInstance().player.getInventory().contains(NewModItems.Stacks.LENS_OF_VERITATIS)) {
+            if (!Minecraft.getInstance().player.getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
                 return;
             }
 

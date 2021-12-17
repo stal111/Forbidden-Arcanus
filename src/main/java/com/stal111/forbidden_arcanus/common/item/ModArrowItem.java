@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow;
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -29,9 +29,9 @@ public class ModArrowItem extends ArrowItem {
     @Nonnull
     @Override
     public AbstractArrow createArrow(@Nonnull Level level, @Nonnull ItemStack stack, @Nonnull LivingEntity shooter) {
-        if (this == NewModItems.BOOM_ARROW.get()) {
-            return  new BoomArrow(level, shooter);
-        } else if (this == NewModItems.DRACO_ARCANUS_ARROW.get()) {
+        if (this == ModItems.BOOM_ARROW.get()) {
+            return new BoomArrow(level, shooter);
+        } else if (this == ModItems.DRACO_ARCANUS_ARROW.get()) {
             return new DracoArcanusArrow(level, shooter);
         }
         return new Arrow(level, shooter);

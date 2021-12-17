@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,7 +29,7 @@ public class EdelwoodSuspiciousStewBucketItem extends SuspiciousStewItem {
     public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull LivingEntity livingEntity) {
         super.finishUsingItem(stack, level, livingEntity);
 
-        return livingEntity instanceof Player player && player.getAbilities().instabuild ? stack : ItemStackUtils.transferEnchantments(stack, new ItemStack(NewModItems.EDELWOOD_BUCKET.get()));
+        return livingEntity instanceof Player player && player.getAbilities().instabuild ? stack : ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
     }
 
     @Override
@@ -39,6 +39,6 @@ public class EdelwoodSuspiciousStewBucketItem extends SuspiciousStewItem {
 
     @Override
     public ItemStack getContainerItem(ItemStack stack) {
-        return ItemStackUtils.transferEnchantments(stack, new ItemStack(NewModItems.EDELWOOD_BUCKET.get()));
+        return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
     }
 }

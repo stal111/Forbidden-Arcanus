@@ -1,14 +1,12 @@
 package com.stal111.forbidden_arcanus.item;
 
-import com.stal111.forbidden_arcanus.init.NewModItems;
+import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import net.minecraft.world.item.Item.Properties;
 
 /**
  * Purifying Soap Item
@@ -27,7 +25,7 @@ public class PurifyingSoapItem extends Item {
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
         if (entity.isInWaterRainOrBubble()) {
-            entity.setItem(new ItemStack(NewModItems.WET_PURIFYING_SOAP.get()));
+            entity.setItem(new ItemStack(ModItems.WET_PURIFYING_SOAP.get()));
         }
         return false;
     }
@@ -37,7 +35,7 @@ public class PurifyingSoapItem extends Item {
         if (entity.isInWaterRainOrBubble() && entity instanceof Player) {
             Player player = (Player) entity;
             stack.shrink(1);
-            player.getInventory().setItem(itemSlot, new ItemStack(NewModItems.WET_PURIFYING_SOAP.get()));
+            player.getInventory().setItem(itemSlot, new ItemStack(ModItems.WET_PURIFYING_SOAP.get()));
         }
         super.inventoryTick(stack, world, entity, itemSlot, isSelected);
     }
