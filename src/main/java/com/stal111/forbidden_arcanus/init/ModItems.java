@@ -121,7 +121,7 @@ public class ModItems {
     public static final RegistryObject<EdelwoodOilItem> EDELWOOD_OIL = HELPER.register("edelwood_oil", () -> new EdelwoodOilItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(16)));
     public static final RegistryObject<ItemNameBlockItem> GOLDEN_ORCHID_SEEDS = HELPER.register("golden_orchid_seeds", () -> new ItemNameBlockItem(ModBlocks.GOLDEN_ORCHID.get(), new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
 
-    public static final RegistryObject<Item> SOUL_EXTRACTOR = HELPER.register("soul_extractor", () -> new SoulExtractorItem(new Item.Properties().durability(128)));
+    public static final RegistryObject<Item> SOUL_EXTRACTOR = HELPER.register("soul_extractor", () -> new SoulExtractorItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).durability(128)));
     public static final RegistryObject<Item> SLIMEC_PICKAXE = HELPER.register("slimec_pickaxe", () -> new SlimecPickaxeItem(ModTiers.SLIMEC, 1, -2.5F, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(ModTiers.DRACO_ARCANUS, 4, -2.2F, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
