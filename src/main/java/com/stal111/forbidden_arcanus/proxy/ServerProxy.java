@@ -22,9 +22,4 @@ public class ServerProxy implements IProxy {
     public Player getClientPlayer() {
         throw new IllegalStateException("Only run on the client");
     }
-
-    @Override
-    public void displayForbiddenmiconScreen(ItemStack stack) {
-
-    }
 }

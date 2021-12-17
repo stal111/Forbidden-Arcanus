@@ -9,6 +9,4 @@ public interface IProxy {
     void init();
     Level getClientWorld();
     Player getClientPlayer();
-
-    void displayForbiddenmiconScreen(ItemStack stack);
 }
