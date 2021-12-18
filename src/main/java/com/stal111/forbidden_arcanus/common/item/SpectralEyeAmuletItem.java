@@ -35,7 +35,7 @@ public class SpectralEyeAmuletItem extends Item {
 	
 	@Override
 	public void inventoryTick(@Nonnull ItemStack stack, Level level, @Nonnull Entity entity, int itemSlot, boolean isSelected) {
-		if (level.isClientSide() && !this.isDeactivated(stack) && entity instanceof LivingEntity livingEntity) {
+		if (!level.isClientSide() && !this.isDeactivated(stack) && entity instanceof LivingEntity livingEntity) {
 			livingEntity.addEffect(new MobEffectInstance(ModEffects.SPECTRAL_VISION.get(), 40, 0, false, false, true));
 		}
 		super.inventoryTick(stack, level, entity, itemSlot, isSelected);
