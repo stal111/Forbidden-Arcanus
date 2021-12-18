@@ -58,7 +58,6 @@ public class ModItems {
     public static final RegistryObject<Item> AQUATIC_DRAGON_SCALE = HELPER.register("aquatic_dragon_scale", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> ROTTEN_LEATHER = HELPER.register("rotten_leather", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> SPECTRAL_EYE_AMULET = HELPER.register("spectral_eye_amulet", () -> new SpectralEyeAmuletItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).rarity(Rarity.RARE).stacksTo(1)));
-    public static final RegistryObject<Item> SEED_BULLET = HELPER.register("seed_bullet", () -> new SeedBulletItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(16)));
     public static final RegistryObject<Item> BAT_WING = HELPER.register("bat_wing", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).food(ModFoods.BAT_WING)));
     public static final RegistryObject<Item> BAT_SOUP = HELPER.register("bat_soup", () -> new BowlFoodItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).food(ModFoods.BAT_SOUP)));
     public static final RegistryObject<Item> TENTACLE = HELPER.register("tentacle", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).food(ModFoods.TENTACLE)));
