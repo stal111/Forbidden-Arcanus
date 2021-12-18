@@ -17,14 +17,12 @@ import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.proxy.ClientProxy;
 import com.stal111.forbidden_arcanus.proxy.IProxy;
 import com.stal111.forbidden_arcanus.proxy.ServerProxy;
-import com.stal111.forbidden_arcanus.recipe.AwkwardPotionBrewingRecipe;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -111,8 +109,6 @@ public class ForbiddenArcanus {
 		proxy.init();
 
 		NetworkHandler.init();
-
-		BrewingRecipeRegistry.addRecipe(new AwkwardPotionBrewingRecipe());
 
 		CapabilityManager.INSTANCE.register(IAureal.class);
 
