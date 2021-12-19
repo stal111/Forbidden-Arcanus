@@ -2,8 +2,6 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.*;
-import com.stal111.forbidden_arcanus.item.block.StrangeRootItem;
-import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
