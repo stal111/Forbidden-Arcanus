@@ -2,9 +2,6 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.*;
-import com.stal111.forbidden_arcanus.item.*;
-import com.stal111.forbidden_arcanus.item.block.EternalObsidianSkullItem;
-import com.stal111.forbidden_arcanus.item.block.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.item.block.StrangeRootItem;
 import com.stal111.forbidden_arcanus.item.block.UtremJarItem;
 import net.minecraft.sounds.SoundEvents;
@@ -73,9 +70,9 @@ public class ModItems {
     public static final RegistryObject<Item> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<Item> PURIFYING_SOAP = HELPER.register("purifying_soap", () -> new PurifyingSoapItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<Item> WET_PURIFYING_SOAP = HELPER.register("wet_purifying_soap", () -> new WetPurifyingSoapItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
-    public static final RegistryObject<ObsidianSkullItem> OBSIDIAN_SKULL = HELPER.register("obsidian_skull", () -> new ObsidianSkullItem(ModBlocks.OBSIDIAN_SKULL.get(), ModBlocks.OBSIDIAN_WALL_SKULL.get(), new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final RegistryObject<ObsidianSkullItem> OBSIDIAN_SKULL = HELPER.register("obsidian_skull", () -> new ObsidianSkullItem(ModBlocks.OBSIDIAN_SKULL.get(), ModBlocks.OBSIDIAN_WALL_SKULL.get(), false, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant()));
     public static final RegistryObject<ObsidianSkullShieldItem> OBSIDIAN_SKULL_SHIELD = HELPER.register("obsidian_skull_shield", () -> new ObsidianSkullShieldItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).durability(1008).rarity(Rarity.UNCOMMON).fireResistant()));
-    public static final RegistryObject<EternalObsidianSkullItem> ETERNAL_OBSIDIAN_SKULL = HELPER.register("eternal_obsidian_skull", () -> new EternalObsidianSkullItem(ModBlocks.ETERNAL_OBSIDIAN_SKULL.get(), ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get(), new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).rarity(Rarity.RARE).fireResistant()));
+    public static final RegistryObject<ObsidianSkullItem> ETERNAL_OBSIDIAN_SKULL = HELPER.register("eternal_obsidian_skull", () -> new ObsidianSkullItem(ModBlocks.ETERNAL_OBSIDIAN_SKULL.get(), ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get(), true, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<UtremJarItem> UTREM_JAR = HELPER.register("utrem_jar", () -> new UtremJarItem(ModBlocks.UTREM_JAR.get(), new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<AurealBottleItem> AUREAL_BOTTLE = HELPER.register("aureal_bottle", () -> new AurealBottleItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(16)));
     public static final RegistryObject<Item> ARCANE_CRYSTAL_DUST_SPECK = HELPER.register("arcane_crystal_dust_speck", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
@@ -162,5 +159,8 @@ public class ModItems {
         public static final ItemStack ORB_OF_TEMPORARY_FLIGHT = new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get());
         public static final ItemStack SANITY_METER = new ItemStack(ModItems.SANITY_METER.get());
         public static final ItemStack ARCANE_CRYSTAL_DUST_SPECK = new ItemStack(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get());
+        public static final ItemStack OBSIDIAN_SKULL = new ItemStack(ModItems.OBSIDIAN_SKULL.get());
+        public static final ItemStack ETERNAL_OBSIDIAN_SKULL = new ItemStack(ModItems.ETERNAL_OBSIDIAN_SKULL.get());
+        public static final ItemStack OBSIDIAN_SKULL_SHIELD = new ItemStack(ModItems.OBSIDIAN_SKULL_SHIELD.get());
     }
 }

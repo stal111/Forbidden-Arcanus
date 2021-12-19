@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.block.ObsidianSkullBlock;
+import com.stal111.forbidden_arcanus.common.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import net.minecraft.data.DataGenerator;

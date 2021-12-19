@@ -1,9 +1,6 @@
 package com.stal111.forbidden_arcanus.client.event;
 
-import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer;
-import com.stal111.forbidden_arcanus.client.renderer.block.NipaRenderer;
-import com.stal111.forbidden_arcanus.client.renderer.block.PedestalRenderer;
-import com.stal111.forbidden_arcanus.client.renderer.block.UtremJarRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.BoomArrowRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.entity.DracoArcanusArrowRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.entity.EnergyBallRenderer;
@@ -32,6 +29,7 @@ public class EntityRendererEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL.get(), PedestalRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE.get(), BlackHoleRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.UTREM_JAR.get(), UtremJarRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.OBSIDIAN_SKULL.get(), ObsidianSkullRenderer::new);
 
         // Entities
         event.registerEntityRenderer(ModEntities.BOOM_ARROW.get(), BoomArrowRenderer::new);
@@ -43,5 +41,7 @@ public class EntityRendererEvents {
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(BlackHoleRenderer.BLACK_HOLE_LAYER, BlackHoleRenderer::createHoleLayer);
         event.registerLayerDefinition(BlackHoleRenderer.BLACK_HOLE_AURA_LAYER, BlackHoleRenderer::createAuraLayer);
+        event.registerLayerDefinition(ObsidianSkullRenderer.OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createObsidianSkullLayer);
+        event.registerLayerDefinition(ObsidianSkullRenderer.ETERNAL_OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createEternalObsidianSkullLayer);
     }
 }

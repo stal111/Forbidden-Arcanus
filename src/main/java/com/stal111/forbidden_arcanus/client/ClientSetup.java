@@ -82,10 +82,6 @@ public class ClientSetup {
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_top_layer")
         ));
 
-//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.UTREM_JAR.get(), UtremJarTileEntityRenderer::new);
-//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.NIPA.get(), NipaTileEntityRenderer::new);
-//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL.get(), PedestalTileEntityRenderer::new);
-//        ClientRegistry.bindTileEntityRenderer(ModTileEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeTileEntityRenderer::new);
 //
 //        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof UtremJarTileEntity);
 //        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof NipaTileEntity);

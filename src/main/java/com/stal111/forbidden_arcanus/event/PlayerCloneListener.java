@@ -3,12 +3,11 @@ package com.stal111.forbidden_arcanus.event;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
+import com.stal111.forbidden_arcanus.util.AurealHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.capability.counter.ICounterCapability;
 
 @Mod.EventBusSubscriber
 public class PlayerCloneListener {
@@ -18,7 +17,7 @@ public class PlayerCloneListener {
         if (event.isWasDeath()) {
             Player player = event.getPlayer();
 
-            IAureal capability = event.getOriginal().getCapability(AurealProvider.CAPABILITY).resolve().get();
+            IAureal capability = AurealHelper.getCapability(event.getOriginal());
 
             player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
                 aureal.setAureal(capability.getAureal());
@@ -29,9 +28,7 @@ public class PlayerCloneListener {
                 }
             });
 
-            ICounterCapability counterCapability = event.getOriginal().getCapability(CounterProvider.CAPABILITY).resolve().get();
-
-            player.getCapability(CounterProvider.CAPABILITY).ifPresent(iCounterCapability -> iCounterCapability.setCounters(counterCapability.getCounters()));
+           //player.getCapability(CounterProvider.CAPABILITY).ifPresent(iCounterCapability -> iCounterCapability.setCounters(counterCapability.getCounters()));
         }
     }
 }

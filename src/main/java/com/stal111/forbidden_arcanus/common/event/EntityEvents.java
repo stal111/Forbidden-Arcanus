@@ -1,8 +1,12 @@
-package com.stal111.forbidden_arcanus.event;
+package com.stal111.forbidden_arcanus.common.event;
 
+import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
+import com.stal111.forbidden_arcanus.common.item.ObsidianSkullShieldItem;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -10,11 +14,21 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
-public class EntityDamageListener {
+public class EntityEvents {
 
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
         DamageSource source = event.getSource();
+        LivingEntity entity = event.getEntityLiving();
+
+        if (entity instanceof Player player) {
+            Inventory inventory = player.getInventory();
+
+            if (ObsidianSkullItem.shouldProtectFromDamage(source, inventory) || ObsidianSkullShieldItem.shouldProtectFromDamage(source, inventory)) {
+                event.setCanceled(true);
+                return;
+            }
+        }
 
         if (source.msgId.equals("player")) {
             Player player = (Player) event.getSource().getEntity();
