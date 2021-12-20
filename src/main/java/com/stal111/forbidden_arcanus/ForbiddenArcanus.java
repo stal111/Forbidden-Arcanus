@@ -14,9 +14,6 @@ import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.init.world.ModStructures;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.proxy.ClientProxy;
-import com.stal111.forbidden_arcanus.proxy.IProxy;
-import com.stal111.forbidden_arcanus.proxy.ServerProxy;
 import com.stal111.forbidden_arcanus.sound.ModSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -51,8 +48,6 @@ public class ForbiddenArcanus {
 	public static final String MOD_ID = "forbidden_arcanus";
 	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
 	public static final CreativeModeTab FORBIDDEN_ARCANUS = new ModItemGroup(ForbiddenArcanus.MOD_ID);
-
-	public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().addHelpers(new LootModifierRegistryHelper()).build();
 
@@ -105,8 +100,6 @@ public class ForbiddenArcanus {
 			ModConfiguredFeatures.load();
 			ModStructures.setupStructures();
 		});
-
-		proxy.init();
 
 		NetworkHandler.init();
 

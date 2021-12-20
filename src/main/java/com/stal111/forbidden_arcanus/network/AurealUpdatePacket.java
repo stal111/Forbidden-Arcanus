@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.network;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -52,7 +53,7 @@ public class AurealUpdatePacket {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            Level world = ForbiddenArcanus.proxy.getClientWorld();
+            Level world = Minecraft.getInstance().level;
             Player player = world.getPlayerByUUID(packet.uuid);
             if (player != null) {
                 player.getCapability(AurealProvider.CAPABILITY).ifPresent((aureal) -> {
