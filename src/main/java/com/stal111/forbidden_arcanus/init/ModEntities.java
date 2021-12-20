@@ -1,16 +1,14 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow;
-import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,11 +32,5 @@ public class ModEntities {
     public static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder) {
         ResourceLocation location = new ResourceLocation(ForbiddenArcanus.MOD_ID, name);
         return ENTITY_TYPES.register(name, () -> builder.build(location.toString()));
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void initModels() {
-        //TODO
-//        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), CrimsonLightningBoltRenderer::new);
     }
 }

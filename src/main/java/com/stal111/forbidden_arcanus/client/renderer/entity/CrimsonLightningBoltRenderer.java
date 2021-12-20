@@ -1,12 +1,11 @@
-package com.stal111.forbidden_arcanus.client.renderer;
+package com.stal111.forbidden_arcanus.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
@@ -16,11 +15,11 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
- * Crimson Lightning Bolt Renderer
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.CrimsonLightningBoltRenderer
+ * Crimson Lightning Bolt Renderer <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.entity.CrimsonLightningBoltRenderer
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-06-12
  */
 public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightningBoltEntity> {
@@ -30,7 +29,7 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
     }
 
     @Override
-    public void render(CrimsonLightningBoltEntity entity, float entityYaw, float partialTicks, @Nonnull PoseStack matrixStack, @Nonnull MultiBufferSource buffer, int packedLight) {
+    public void render(CrimsonLightningBoltEntity entity, float entityYaw, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int packedLight) {
         float[] afloat = new float[8];
         float[] afloat1 = new float[8];
         float f = 0.0F;
@@ -45,7 +44,7 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
         }
 
         VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.lightning());
-        Matrix4f matrix4f = matrixStack.last().pose();
+        Matrix4f matrix4f = poseStack.last().pose();
 
         for(int j = 0; j < 4; ++j) {
             Random random1 = new Random(entity.seed);
@@ -85,21 +84,20 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
                         f11 *= (float)(j1 - 1) * 0.1F + 1.0F;
                     }
 
-                    renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, false, false, true, false);
-                    renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, true, false, true, true);
-                    renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, true, true, false, true);
-                    renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, false, true, false, false);
+                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, false, false, true, false);
+                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, true, false, true, true);
+                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, true, true, false, true);
+                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, false, true, false, false);
                 }
             }
         }
-
     }
 
-    private static void renderBolt(Matrix4f matrix4f, VertexConsumer vertexBuilder, float p_229116_2_, float p_229116_3_, int p_229116_4_, float p_229116_5_, float p_229116_6_, float p_229116_10_, float p_229116_11_, boolean p_229116_12_, boolean p_229116_13_, boolean p_229116_14_, boolean p_229116_15_) {
-        vertexBuilder.vertex(matrix4f, p_229116_2_ + (p_229116_12_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_13_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
-        vertexBuilder.vertex(matrix4f, p_229116_5_ + (p_229116_12_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_13_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
-        vertexBuilder.vertex(matrix4f, p_229116_5_ + (p_229116_14_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_15_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
-        vertexBuilder.vertex(matrix4f, p_229116_2_ + (p_229116_14_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_15_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+    private void renderBolt(Matrix4f matrix4f, VertexConsumer vertexConsumer, float p_229116_2_, float p_229116_3_, int p_229116_4_, float p_229116_5_, float p_229116_6_, float p_229116_10_, float p_229116_11_, boolean p_229116_12_, boolean p_229116_13_, boolean p_229116_14_, boolean p_229116_15_) {
+        vertexConsumer.vertex(matrix4f, p_229116_2_ + (p_229116_12_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_13_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+        vertexConsumer.vertex(matrix4f, p_229116_5_ + (p_229116_12_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_13_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+        vertexConsumer.vertex(matrix4f, p_229116_5_ + (p_229116_14_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_15_ ? p_229116_10_ : -p_229116_10_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
+        vertexConsumer.vertex(matrix4f, p_229116_2_ + (p_229116_14_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_15_ ? p_229116_11_ : -p_229116_11_)).color(0.3F, 0.0F, 0.1F, 0.3F).endVertex();
     }
 
     @Nonnull

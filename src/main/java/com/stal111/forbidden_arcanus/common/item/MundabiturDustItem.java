@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.config.ItemConfig;
-import com.stal111.forbidden_arcanus.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import net.minecraft.world.level.block.Block;

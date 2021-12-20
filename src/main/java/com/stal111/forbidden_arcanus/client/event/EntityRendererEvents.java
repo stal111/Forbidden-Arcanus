@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.event;
 
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.BoomArrowRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.entity.CrimsonLightningBoltRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.entity.DracoArcanusArrowRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.entity.EnergyBallRenderer;
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
@@ -35,6 +36,7 @@ public class EntityRendererEvents {
         event.registerEntityRenderer(ModEntities.BOOM_ARROW.get(), BoomArrowRenderer::new);
         event.registerEntityRenderer(ModEntities.DRACO_ARCANUS_ARROW.get(), DracoArcanusArrowRenderer::new);
         event.registerEntityRenderer(ModEntities.ENERGY_BALL.get(), EnergyBallRenderer::new);
+        event.registerEntityRenderer(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), CrimsonLightningBoltRenderer::new);
     }
 
     @SubscribeEvent
