@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.common.loader;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
-import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualEssences;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualEssences;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
- * Ritual Loader
+ * Ritual Loader <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loader.RitualLoader
  *
  * @author stal111
@@ -32,8 +32,7 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    private static final Map<ResourceLocation, Ritual> RITUALS = new HashMap<>();
-
+    public static Map<ResourceLocation, Ritual> rituals = new HashMap<>();
 
     public RitualLoader() {
         super(GSON, "hephaestus_forge/rituals");
@@ -41,7 +40,7 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(@Nonnull Map<ResourceLocation, JsonElement> object, @Nonnull ResourceManager resourceManager, @Nonnull ProfilerFiller profiler) {
-        RITUALS.clear();
+        rituals.clear();
 
         for(Map.Entry<ResourceLocation, JsonElement> entry : object.entrySet()) {
             ResourceLocation resourceLocation = entry.getKey();
@@ -51,9 +50,9 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
             }
 
             try {
-                Ritual ritual = deserializeRitual(resourceLocation, entry.getValue().getAsJsonObject());
+                Ritual ritual = this.deserializeRitual(resourceLocation, entry.getValue().getAsJsonObject());
                 if (ritual != null) {
-                    RITUALS.put(resourceLocation, ritual);
+                    rituals.put(resourceLocation, ritual);
                 }
             } catch (IllegalArgumentException | JsonParseException jsonParseException) {
                 ForbiddenArcanus.LOGGER.error("Parsing error loading hephaestus forge input {}", resourceLocation, jsonParseException);
@@ -62,29 +61,33 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
     }
 
     public static Ritual getRitual(ResourceLocation resourceLocation) {
-        return RITUALS.get(resourceLocation);
+        return rituals.get(resourceLocation);
     }
 
     public static List<Ritual> getRituals() {
         List<Ritual> rituals = new ArrayList<>();
-        for (Map.Entry<ResourceLocation, Ritual> entry : RITUALS.entrySet()) {
+        for (Map.Entry<ResourceLocation, Ritual> entry : RitualLoader.rituals.entrySet()) {
             rituals.add(entry.getValue());
         }
         return rituals;
     }
 
-    private static Ritual deserializeRitual(ResourceLocation name, JsonObject jsonObject) {
+    public static void setRituals(Map<ResourceLocation, Ritual> rituals) {
+        RitualLoader.rituals = rituals;
+    }
+
+    private Ritual deserializeRitual(ResourceLocation name, JsonObject jsonObject) {
         ItemStack hephaestusForgeInput = ItemStack.EMPTY;
 
         if (jsonObject.has("hephaestus_forge_item")) {
-            hephaestusForgeInput = new ItemStack(deserializeItem(new ResourceLocation(GsonHelper.getAsString(jsonObject, "hephaestus_forge_item"))));
+            hephaestusForgeInput = new ItemStack(this.deserializeItem(new ResourceLocation(GsonHelper.getAsString(jsonObject, "hephaestus_forge_item"))));
         }
 
         try {
             System.out.println(TagParser.parseTag(GSON.toJson(jsonObject.get("result"))));
             ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(jsonObject, "result"), true);
 
-            return new Ritual(name, deserializeInputs(jsonObject), hephaestusForgeInput, result, deserializeEssences(jsonObject), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"), 1200);
+            return new Ritual(name, this.deserializeInputs(jsonObject), hephaestusForgeInput, result, this.deserializeEssences(jsonObject), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"), 1200);
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
@@ -92,7 +95,7 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
         return null;
     }
 
-    private static Map<Integer, Ingredient> deserializeInputs(JsonObject jsonObject) {
+    private Map<Integer, Ingredient> deserializeInputs(JsonObject jsonObject) {
         Map<Integer, Ingredient> inputs = new HashMap<>();
         JsonArray jsonArray = jsonObject.getAsJsonArray("inputs");
 
@@ -111,7 +114,7 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
         return inputs;
     }
 
-    private static Item deserializeItem(ResourceLocation name) {
+    private Item deserializeItem(ResourceLocation name) {
         Item item = ForgeRegistries.ITEMS.getValue(name);
 
         if (item == null) {
@@ -121,7 +124,7 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
         return item;
     }
 
-    private static RitualEssences deserializeEssences(JsonObject jsonObject) {
+    private RitualEssences deserializeEssences(JsonObject jsonObject) {
         JsonObject essences = jsonObject.get("essences").getAsJsonObject();
 
         int aureal = GsonHelper.getAsInt(essences, "aureal", 0);

@@ -21,6 +21,7 @@ import java.util.function.Function;
 public class FARenderTypes extends RenderType {
 
     public static final ShaderStateShard RENDERTYPE_ENTITY_FULLBRIGHT_CUTOUT_SHADER = new RenderStateShard.ShaderStateShard(FAShaders::getRendertypeEntityFullbrightCutout);
+    public static final ShaderStateShard RENDERTYPE_ENTITY_FULLBRIGHT_TRANSLUCENT_SHADER = new RenderStateShard.ShaderStateShard(FAShaders::getRendertypeEntityFullbrightCutout);
 
     public FARenderTypes(String p_173178_, VertexFormat p_173179_, VertexFormat.Mode p_173180_, int p_173181_, boolean p_173182_, boolean p_173183_, Runnable p_173184_, Runnable p_173185_) {
         super(p_173178_, p_173179_, p_173180_, p_173181_, p_173182_, p_173183_, p_173184_, p_173185_);
@@ -31,7 +32,16 @@ public class FARenderTypes extends RenderType {
         return create(ForbiddenArcanus.MOD_ID + ":entity_fullbright_cutout", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_FULLBRIGHT_CUTOUT_SHADER).setTextureState(textureStateShard).setTransparencyState(NO_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
     });
 
+    private static final Function<ResourceLocation, RenderType> ENTITY_FULLBRIGHT_TRANSLUCENT = Util.memoize(resourceLocation -> {
+        RenderStateShard.TextureStateShard textureStateShard = new RenderStateShard.TextureStateShard(resourceLocation, false, false);
+        return create(ForbiddenArcanus.MOD_ID + ":entity_fullbright_translucent", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_FULLBRIGHT_TRANSLUCENT_SHADER).setTextureState(textureStateShard).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+    });
+
     public static RenderType entityFullbrightCutout(ResourceLocation resourceLocation) {
         return ENTITY_FULLBRIGHT_CUTOUT.apply(resourceLocation);
+    }
+
+    public static RenderType entityFullbrightTranslucent(ResourceLocation resourceLocation) {
+        return ENTITY_FULLBRIGHT_TRANSLUCENT.apply(resourceLocation);
     }
 }

@@ -1,16 +1,19 @@
-package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
+package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Ritual
+ * Ritual <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual
  *
  * @author stal111
@@ -46,14 +49,14 @@ public class Ritual {
         this.time = time;
     }
 
-    public boolean canStart(List<ItemStack> inputs, HephaestusForgeTileEntity tileEntity) {
-        if (!this.getEssences().checkEssences(tileEntity)) {
+    public boolean canStart(List<ItemStack> inputs, HephaestusForgeBlockEntity blockEntity) {
+        if (!this.getEssences().checkEssences(blockEntity)) {
             return false;
         }
-        return this.checkIngredients(inputs, tileEntity);
+        return this.checkIngredients(inputs, blockEntity);
     }
 
-    public boolean checkIngredients(List<ItemStack> list, HephaestusForgeTileEntity tileEntity) {
+    public boolean checkIngredients(List<ItemStack> list, HephaestusForgeBlockEntity blockEntity) {
         List<ItemStack> ingredients = new ArrayList<>(list);
 
         for (Ingredient ingredient : this.getInputs()) {
@@ -73,7 +76,7 @@ public class Ritual {
             }
         }
 
-        ItemStack stack = tileEntity.getItem(4);
+        ItemStack stack = blockEntity.getItem(4);
 
         if (!ingredients.isEmpty()) {
             return false;
@@ -120,6 +123,30 @@ public class Ritual {
 
     public int getTime() {
         return this.time;
+    }
+
+    public void serializeToNetwork(FriendlyByteBuf buffer) {
+        buffer.writeResourceLocation(this.name);
+        buffer.writeMap(this.inputs, FriendlyByteBuf::writeVarInt, (friendlyByteBuf, ingredient) -> ingredient.toNetwork(friendlyByteBuf));
+        buffer.writeItem(this.hephaestusForgeItem);
+        buffer.writeItem(this.result);
+        this.essences.serializeToNetwork(buffer);
+        buffer.writeResourceLocation(this.outerTexture);
+        buffer.writeResourceLocation(this.innerTexture);
+        buffer.writeVarInt(this.time);
+    }
+
+    public static Ritual fromNetwork(FriendlyByteBuf buffer) {
+        ResourceLocation name = buffer.readResourceLocation();
+        Map<Integer, Ingredient> inputs = buffer.readMap(FriendlyByteBuf::readVarInt, Ingredient::fromNetwork);
+        ItemStack hephaestusForgeItem = buffer.readItem();
+        ItemStack result = buffer.readItem();
+        RitualEssences essences = RitualEssences.fromNetwork(buffer);
+        ResourceLocation outerTexture = buffer.readResourceLocation();
+        ResourceLocation innerTexture = buffer.readResourceLocation();
+        int time = buffer.readVarInt();
+
+        return new Ritual(name, inputs, hephaestusForgeItem, result, essences, outerTexture, innerTexture, time);
     }
 
     public enum PedestalType {

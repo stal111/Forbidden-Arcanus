@@ -1,33 +1,34 @@
-package com.stal111.forbidden_arcanus.common.tile.forge;
+package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
-import com.stal111.forbidden_arcanus.block.HephaestusForgeBlock;
-import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
-import com.stal111.forbidden_arcanus.common.container.InputType;
-import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
-import com.stal111.forbidden_arcanus.common.container.input.IHephaestusForgeInput;
-import com.stal111.forbidden_arcanus.common.tile.forge.ritual.EssenceManager;
-import com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager;
+import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceManager;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
+import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
+import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.network.UpdateItemInSlotPacket;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,58 +37,54 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Hephaestus Forge Tile Entity
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity
+ * Hephaestus Forge Block Entity <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-06-18
  */
-public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implements Container {
-
-    private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
+public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
 
     private final NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
     private final ContainerData hephaestusForgeData;
-
     private final RitualManager ritualManager = new RitualManager(this);
     private final EssenceManager essenceManager = new EssenceManager(this);
-
     private final MagicCircle magicCircle = new MagicCircle(this.ritualManager);
-
+    private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
     private List<LivingEntity> entities = new ArrayList<>();
 
     private int displayCounter;
 
-    public HephaestusForgeTileEntity(BlockPos pos, BlockState state) {
+    public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state);
         this.hephaestusForgeData = new ContainerData() {
             @Override
             public int get(int index) {
-                EssenceManager manager = HephaestusForgeTileEntity.this.getEssenceManager();
+                EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
 
-                switch (index) {
-                    case 0: return manager.getLevel().getIndex();
-                    case 1: return manager.getAureal();
-                    case 2: return manager.getCorruption();
-                    case 3: return manager.getSouls();
-                    case 4: return manager.getBlood();
-                    case 5: return manager.getExperience();
-                    default: return 0;
-                }
+                return switch (index) {
+                    case 0 -> manager.getLevel().getIndex();
+                    case 1 -> manager.getAureal();
+                    case 2 -> manager.getCorruption();
+                    case 3 -> manager.getSouls();
+                    case 4 -> manager.getBlood();
+                    case 5 -> manager.getExperience();
+                    default -> 0;
+                };
             }
 
             @Override
             public void set(int index, int value) {
-                EssenceManager manager = HephaestusForgeTileEntity.this.getEssenceManager();
+                EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
 
                 switch (index) {
-                    case 0: HephaestusForgeTileEntity.this.setLevel(HephaestusForgeLevel.getFromIndex(value)); break;
-                    case 1: manager.setAureal(value); break;
-                    case 2: manager.setCorruption(value); break;
-                    case 3: manager.setSouls(value); break;
-                    case 4: manager.setBlood(value); break;
-                    case 5: manager.setExperience(value); break;
+                    case 0 -> HephaestusForgeBlockEntity.this.setLevel(HephaestusForgeLevel.getFromIndex(value));
+                    case 1 -> manager.setAureal(value);
+                    case 2 -> manager.setCorruption(value);
+                    case 3 -> manager.setSouls(value);
+                    case 4 -> manager.setBlood(value);
+                    case 5 -> manager.setExperience(value);
                 }
             }
 
@@ -98,62 +95,59 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
         };
     }
 
-   // @Override
-    public void tick() {
-        if (this.level == null) {
-            return;
-        }
+    public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
+        blockEntity.magicCircle.tick();
+        blockEntity.displayCounter++;
+    }
 
+    public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         for (int i = 5; i <= 8; i++) {
-            ItemStack stack = this.inventoryContents.get(i);
+            ItemStack stack = blockEntity.inventoryContents.get(i);
 
-            if (!stack.isEmpty()) {
-                InputType inputType = this.getInputTypeFromSlot(i);
+            if (stack.isEmpty()) {
+                continue;
+            }
 
-                if (inputType == null) {
-                    return;
-                }
+            InputType inputType = blockEntity.getInputTypeFromSlot(i);
 
-                IHephaestusForgeInput input = this.getInput(stack, inputType);
+            if (inputType == null) {
+                continue;
+            }
 
-                if (input != null) {
-                    this.fillWith(inputType, stack, input, i);
+            HephaestusForgeInput input = blockEntity.getInput(stack, inputType);
 
-                    this.setChanged();
-                }
+            if (input != null) {
+                blockEntity.fillWith(inputType, stack, input, i);
+
+                blockEntity.setChanged();
             }
         }
 
-        if (this.level.getGameTime() % 80 == 0) {
-            ((HephaestusForgeBlock) this.getBlockState().getBlock()).updateState(this.getBlockState(), this.level, this.worldPosition);
+        if (level.getGameTime() % 80 == 0) {
+            ((HephaestusForgeBlock) state.getBlock()).updateState(state, level, pos);
         }
 
-        if (this.level.getGameTime() % 20 == 0) {
-            this.entities = this.level.getEntitiesOfClass(LivingEntity.class, new AABB(this.worldPosition).inflate(5, 5, 5));
+        if (level.getGameTime() % 20 == 0) {
+            blockEntity.entities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(5, 5, 5));
 
-            this.essenceManager.tick();
+            blockEntity.essenceManager.tick();
         }
 
-        if (!this.level.isClientSide()) {
-            this.ritualManager.tick();
-        }
-        this.magicCircle.tick();
-
-        this.displayCounter++;
+        blockEntity.ritualManager.tick((ServerLevel) level, pos);
     }
 
     private InputType getInputTypeFromSlot(int slot) {
-        switch (slot) {
-            case 5: return InputType.AUREAL;
-            case 6: return InputType.SOULS;
-            case 7: return InputType.BLOOD;
-            case 8: return InputType.EXPERIENCE;
-            default: return null;
-        }
+        return switch (slot) {
+            case 5 -> InputType.AUREAL;
+            case 6 -> InputType.SOULS;
+            case 7 -> InputType.BLOOD;
+            case 8 -> InputType.EXPERIENCE;
+            default -> null;
+        };
     }
 
     @Nullable
-    private IHephaestusForgeInput getInput(ItemStack stack, InputType inputType) {
+    private HephaestusForgeInput getInput(ItemStack stack, InputType inputType) {
         if (this.isTypeFull(inputType)) {
             return null;
         }
@@ -165,13 +159,12 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
         HephaestusForgeLevel level = this.getForgeLevel();
         EssenceManager manager = this.getEssenceManager();
 
-        switch (inputType) {
-            case AUREAL: return manager.getAureal() >= level.getMaxAureal();
-            case SOULS: return manager.getSouls() >= level.getMaxSouls();
-            case BLOOD: return manager.getBlood() >= level.getMaxBlood();
-            case EXPERIENCE: return manager.getExperience() >= level.getMaxExperience();
-            default: return true;
-        }
+        return switch (inputType) {
+            case AUREAL -> manager.getAureal() >= level.getMaxAureal();
+            case SOULS -> manager.getSouls() >= level.getMaxSouls();
+            case BLOOD -> manager.getBlood() >= level.getMaxBlood();
+            case EXPERIENCE -> manager.getExperience() >= level.getMaxExperience();
+        };
     }
 
     public HephaestusForgeLevel getForgeLevel() {
@@ -198,15 +191,15 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
         return entities;
     }
 
-    public void fillWith(InputType inputType, ItemStack stack, IHephaestusForgeInput input, int slot) {
+    public void fillWith(InputType inputType, ItemStack stack, HephaestusForgeInput input, int slot) {
         int value = input.getInputValue(inputType, stack, Objects.requireNonNull(this.getLevel()).getRandom());
         EssenceManager manager = this.getEssenceManager();
 
         switch (inputType) {
-            case AUREAL: manager.increaseAureal(value); break;
-            case SOULS: manager.increaseSouls(value); break;
-            case BLOOD: manager.increaseBlood(value); break;
-            case EXPERIENCE: manager.increaseExperience(value); break;
+            case AUREAL -> manager.increaseAureal(value);
+            case SOULS -> manager.increaseSouls(value);
+            case BLOOD -> manager.increaseBlood(value);
+            case EXPERIENCE -> manager.increaseExperience(value);
         }
 
         input.finishInput(inputType, stack, this, slot, value);
@@ -222,28 +215,28 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
 
     @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag compound) {
-        super.save(compound);
+    public CompoundTag save(@Nonnull CompoundTag tag) {
+        super.save(tag);
 
-        compound.putString("Level", this.getForgeLevel().getName());
-        ContainerHelper.saveAllItems(compound, this.inventoryContents);
+        tag.putString("Level", this.getForgeLevel().getName());
+        ContainerHelper.saveAllItems(tag, this.inventoryContents);
 
-        compound.put("Ritual", this.getRitualManager().save(new CompoundTag()));
-        compound.put("Essences", this.getEssenceManager().save(new CompoundTag()));
+        tag.put("Ritual", this.getRitualManager().save(new CompoundTag()));
+        tag.put("Essences", this.getEssenceManager().save(new CompoundTag()));
 
-        return compound;
+        return tag;
     }
 
     @Override
-    public void load(@Nonnull CompoundTag compound) {
-        super.load(compound);
-        this.setLevel(HephaestusForgeLevel.getFromName(compound.getString("Level")));
+    public void load(@Nonnull CompoundTag tag) {
+        super.load(tag);
+        this.setLevel(HephaestusForgeLevel.getFromName(tag.getString("Level")));
 
         this.inventoryContents.clear();
-        ContainerHelper.loadAllItems(compound, this.inventoryContents);
+        ContainerHelper.loadAllItems(tag, this.inventoryContents);
 
-        this.getRitualManager().load(compound.getCompound("Ritual"));
-        this.getEssenceManager().load(compound.getCompound("Essences"));
+        this.getRitualManager().load(tag.getCompound("Ritual"));
+        this.getEssenceManager().load(tag.getCompound("Essences"));
     }
 
     @Nullable
@@ -283,8 +276,8 @@ public class HephaestusForgeTileEntity extends BaseContainerBlockEntity implemen
 
     @Nonnull
     @Override
-    protected AbstractContainerMenu createMenu(int id, @Nonnull Inventory player) {
-        return new HephaestusForgeContainer(id, player, this);
+    protected AbstractContainerMenu createMenu(int containerId, @Nonnull Inventory inventory) {
+        return new HephaestusForgeMenu(containerId, this, this.getHephaestusForgeData(), inventory);
     }
 
     @Override

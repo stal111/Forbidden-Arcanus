@@ -24,11 +24,13 @@ import javax.annotation.Nullable;
  */
 public class PedestalBlockEntity extends BlockEntity {
 
+    private static final int DEFAULT_ITEM_HEIGHT = 120;
+
     private ItemStack stack = ItemStack.EMPTY;
 
     private final float hoverStart;
     private int ticksExisted;
-    private int itemHeight = 110;
+    private int itemHeight = DEFAULT_ITEM_HEIGHT;
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL.get(), pos, state);
@@ -53,7 +55,7 @@ public class PedestalBlockEntity extends BlockEntity {
 
     public void clearStack() {
         this.stack = ItemStack.EMPTY;
-        this.setItemHeight(110);
+        this.setItemHeight(DEFAULT_ITEM_HEIGHT);
     }
 
     public float getItemHover(float partialTicks) {

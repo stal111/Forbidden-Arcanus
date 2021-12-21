@@ -27,11 +27,15 @@ public class FAShaders {
     @Nullable
     private static ShaderInstance rendertypeEntityFullbrightCutout;
 
+    @Nullable
+    private static ShaderInstance rendertypeEntityFullbrightTranslucent;
+
     @SubscribeEvent
     public static void registerShaders(RegisterShadersEvent event) {
         try {
             ResourceManager resourceManager = event.getResourceManager();
             event.registerShader(new ShaderInstance(resourceManager, new ResourceLocation(ForbiddenArcanus.MOD_ID, "rendertype_entity_fullbright_cutout"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> rendertypeEntityFullbrightCutout = shaderInstance);
+            event.registerShader(new ShaderInstance(resourceManager, new ResourceLocation(ForbiddenArcanus.MOD_ID, "rendertype_entity_fullbright_translucent"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> rendertypeEntityFullbrightTranslucent = shaderInstance);
         } catch (IOException e) {
             throw new RuntimeException("Could not reload F&A's shaders!", e);
         }
@@ -39,6 +43,11 @@ public class FAShaders {
 
     @Nullable
     public static ShaderInstance getRendertypeEntityFullbrightCutout() {
+        return rendertypeEntityFullbrightCutout;
+    }
+
+    @Nullable
+    public static ShaderInstance getRendertypeEntityFullbrightTranslucent() {
         return rendertypeEntityFullbrightCutout;
     }
 }

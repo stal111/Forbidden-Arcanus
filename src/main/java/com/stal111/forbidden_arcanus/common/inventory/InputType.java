@@ -1,8 +1,8 @@
-package com.stal111.forbidden_arcanus.common.container;
+package com.stal111.forbidden_arcanus.common.inventory;
 
 /**
  * Input Type
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.container.InputType
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.InputType
  *
  * @author stal111
  * @version 2.0.0

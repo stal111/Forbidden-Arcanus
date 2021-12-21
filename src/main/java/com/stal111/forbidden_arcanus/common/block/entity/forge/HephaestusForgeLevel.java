@@ -1,8 +1,8 @@
-package com.stal111.forbidden_arcanus.common.tile.forge;
+package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 /**
  * Hephaestus Forge Level
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel
  *
  * @author stal111
  * @version 2.0.0
@@ -80,22 +80,22 @@ public enum HephaestusForgeLevel {
     }
 
     public static HephaestusForgeLevel getFromName(String name) {
-        switch (name) {
-            case "2":   return HephaestusForgeLevel.TWO;
-            case "3":   return HephaestusForgeLevel.THREE;
-            case "4":   return HephaestusForgeLevel.FOUR;
-            case "x":   return HephaestusForgeLevel.X;
-            default:    return HephaestusForgeLevel.ONE;
-        }
+        return switch (name) {
+            case "2" -> HephaestusForgeLevel.TWO;
+            case "3" -> HephaestusForgeLevel.THREE;
+            case "4" -> HephaestusForgeLevel.FOUR;
+            case "x" -> HephaestusForgeLevel.X;
+            default -> HephaestusForgeLevel.ONE;
+        };
     }
 
     public static HephaestusForgeLevel getFromIndex(int index) {
-        switch (index) {
-            case 1:   return HephaestusForgeLevel.TWO;
-            case 2:   return HephaestusForgeLevel.THREE;
-            case 3:   return HephaestusForgeLevel.FOUR;
-            case 4:   return HephaestusForgeLevel.X;
-            default:    return HephaestusForgeLevel.ONE;
-        }
+        return switch (index) {
+            case 1 -> HephaestusForgeLevel.TWO;
+            case 2 -> HephaestusForgeLevel.THREE;
+            case 3 -> HephaestusForgeLevel.FOUR;
+            case 4 -> HephaestusForgeLevel.X;
+            default -> HephaestusForgeLevel.ONE;
+        };
     }
 }

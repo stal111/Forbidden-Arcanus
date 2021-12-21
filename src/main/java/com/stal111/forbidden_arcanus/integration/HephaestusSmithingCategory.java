@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.integration;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -23,11 +23,11 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
- * Hephaestus Smithing Category
+ * Hephaestus Smithing Category <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.integration.HephaestusSmithingCategory
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-09-14
  */
 public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
@@ -137,55 +137,24 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
     }
 
     @Override
-    public void draw(@Nonnull Ritual recipe, @Nonnull PoseStack matrixStack, double mouseX, double mouseY) {
-        this.essences.forEach(essenceInfo -> essenceInfo.getDrawable().draw(matrixStack, essenceInfo.getPosX(), essenceInfo.getPosY()));
+    public void draw(@Nonnull Ritual recipe, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
+        this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(poseStack, essenceInfo.posX(), essenceInfo.posY()));
     }
 
     @Nonnull
     @Override
     public List<Component> getTooltipStrings(@Nonnull Ritual recipe, double mouseX, double mouseY) {
         for (EssenceInfo essenceInfo : this.essences) {
-            int posX = essenceInfo.getPosX();
-            int posY = essenceInfo.getPosY();
+            int posX = essenceInfo.posX();
+            int posY = essenceInfo.posY();
 
             if (mouseX >= posX && mouseY >= posY && mouseX <= posX + 10 && mouseY <= posY + 10) {
-                return Collections.singletonList(new TranslatableComponent("jei.forbidden_arcanus.hephaestusSmithing.required" + essenceInfo.getName()).append(": " + recipe.getEssences().getFromName(essenceInfo.getName())));
+                return Collections.singletonList(new TranslatableComponent("jei.forbidden_arcanus.hephaestusSmithing.required" + essenceInfo.name()).append(": " + recipe.getEssences().getFromName(essenceInfo.name())));
             }
         }
 
         return Collections.emptyList();
     }
 
-    private static class EssenceInfo {
-
-        private final IDrawableStatic drawable;
-
-        private final String name;
-
-        private final int posX;
-        private final int posY;
-
-        public EssenceInfo(IDrawableStatic drawable, String name, int posX, int posY) {
-            this.drawable = drawable;
-            this.name = name;
-            this.posX = posX;
-            this.posY = posY;
-        }
-
-        public IDrawableStatic getDrawable() {
-            return drawable;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getPosX() {
-            return posX;
-        }
-
-        public int getPosY() {
-            return posY;
-        }
-    }
+    private record EssenceInfo(IDrawableStatic drawable, String name, int posX, int posY) {}
 }

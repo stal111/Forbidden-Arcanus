@@ -1,7 +1,7 @@
-package com.stal111.forbidden_arcanus.common.container.input;
+package com.stal111.forbidden_arcanus.common.inventory.input;
 
-import com.stal111.forbidden_arcanus.common.container.InputType;
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import net.minecraft.world.item.ItemStack;
@@ -9,18 +9,18 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Random;
 
 /**
- * Blood Test Tube Input
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.container.input.BloodTestTubeInput
+ * Blood Test Tube Input <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.input.BloodTestTubeInput
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-07-08
  */
-public class BloodTestTubeInput implements IHephaestusForgeInput {
+public class BloodTestTubeInput implements HephaestusForgeInput {
 
     @Override
     public boolean canInput(InputType inputType, ItemStack stack) {
-        return inputType == InputType.BLOOD && stack.getItem() == ModItems.BLOOD_TEST_TUBE.get();
+        return inputType == InputType.BLOOD && stack.is(ModItems.BLOOD_TEST_TUBE.get());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class BloodTestTubeInput implements IHephaestusForgeInput {
     }
 
     @Override
-    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeTileEntity tileEntity, int slot, int inputValue) {
+    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
         if (inputValue != 0) {
             ItemStack newStack = BloodTestTubeItem.removeBlood(stack, inputValue);
 

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
+import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.fmllegacy.RegistryObject;
@@ -20,7 +20,7 @@ public class ModContainers {
 
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, ForbiddenArcanus.MOD_ID);
 
-    public static final RegistryObject<MenuType<HephaestusForgeContainer>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeContainer::new);
+    public static final RegistryObject<MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String name, MenuType.MenuSupplier<T> factory) {
         return CONTAINERS.register(name, () -> new MenuType<>(factory));

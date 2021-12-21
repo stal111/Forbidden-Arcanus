@@ -44,7 +44,6 @@ public class ModTags {
     }
 
     public static class Items {
-        public static final Tag.Named<Item> SEEDS = vanillaTag("seeds");
         public static final Tag.Named<Item> BLACK_HOLE_UNAFFECTED = modTag("black_hole_unaffected");
         public static final Tag.Named<Item> OBSIDIAN_SKULLS = modTag("obsidian_skulls");
         public static final Tag.Named<Item> INDESTRUCTIBLE_BLACKLISTED = modTag("indestructible_blacklisted");
@@ -70,10 +69,6 @@ public class ModTags {
 
         private static Tag.Named<Item> modTag(String name) {
             return ItemTags.bind(new ResourceLocation(ForbiddenArcanus.MOD_ID, name).toString());
-        }
-
-        private static Tag.Named<Item> vanillaTag(String name) {
-            return ItemTags.bind(new ResourceLocation(name).toString());
         }
     }
 

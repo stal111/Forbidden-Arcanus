@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
-import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.item.group.ModItemGroup;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.config.Config;

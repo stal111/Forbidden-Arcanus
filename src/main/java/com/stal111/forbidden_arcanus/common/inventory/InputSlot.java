@@ -1,6 +1,6 @@
-package com.stal111.forbidden_arcanus.common.container;
+package com.stal111.forbidden_arcanus.common.inventory;
 
-import com.stal111.forbidden_arcanus.common.container.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Input Slot
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.container.InputSlot
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.InputSlot
  *
  * @author stal111
  * @version 2.0.0

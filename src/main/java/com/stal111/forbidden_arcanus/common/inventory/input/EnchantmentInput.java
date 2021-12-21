@@ -1,7 +1,7 @@
-package com.stal111.forbidden_arcanus.common.container.input;
+package com.stal111.forbidden_arcanus.common.inventory.input;
 
-import com.stal111.forbidden_arcanus.common.container.InputType;
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import com.stal111.forbidden_arcanus.common.inventory.InputType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.ItemStack;
@@ -12,13 +12,13 @@ import java.util.Random;
 
 /**
  * Enchantment Input
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.container.input.EnchantmentInput
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.input.EnchantmentInput
  *
  * @author stal111
  * @version 2.0.0
  * @since 2021-07-07
  */
-public class EnchantmentInput implements IHephaestusForgeInput {
+public class EnchantmentInput implements HephaestusForgeInput {
 
     @Override
     public boolean canInput(InputType inputType, ItemStack stack) {
@@ -38,7 +38,7 @@ public class EnchantmentInput implements IHephaestusForgeInput {
     }
 
     @Override
-    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeTileEntity tileEntity, int slot, int inputValue) {
+    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
         if (inputValue != 0) {
             tileEntity.setItem(slot, ItemStackUtils.removeEnchantments(stack));
         }

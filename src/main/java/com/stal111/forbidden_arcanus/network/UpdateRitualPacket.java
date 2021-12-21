@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.network;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -48,11 +48,11 @@ public class UpdateRitualPacket {
 
             Level world = Minecraft.getInstance().level;
 
-            if (world == null || !(world.getBlockEntity(packet.pos) instanceof HephaestusForgeTileEntity)) {
+            if (world == null || !(world.getBlockEntity(packet.pos) instanceof HephaestusForgeBlockEntity)) {
                 return;
             }
 
-            HephaestusForgeTileEntity tileEntity = (HephaestusForgeTileEntity) world.getBlockEntity(packet.pos);
+            HephaestusForgeBlockEntity tileEntity = (HephaestusForgeBlockEntity) world.getBlockEntity(packet.pos);
 
             if (tileEntity != null) {
                 tileEntity.getRitualManager().setActiveRitual(packet.ritual);

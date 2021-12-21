@@ -28,6 +28,7 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), ItemParticlePacket.class, ItemParticlePacket::encode, ItemParticlePacket::decode, ItemParticlePacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateRitualPacket.class, UpdateRitualPacket::encode, UpdateRitualPacket::decode, UpdateRitualPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateItemInSlotPacket.class, UpdateItemInSlotPacket::encode, UpdateItemInSlotPacket::decode, UpdateItemInSlotPacket::consume);
+        INSTANCE.registerMessage(nextID(), ClientboundUpdateRitualsPacket.class, ClientboundUpdateRitualsPacket::encode, ClientboundUpdateRitualsPacket::decode, ClientboundUpdateRitualsPacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

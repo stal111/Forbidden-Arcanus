@@ -1,11 +1,11 @@
-package com.stal111.forbidden_arcanus.common.container;
+package com.stal111.forbidden_arcanus.common.inventory;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 
 /**
  * Main Slot
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.container.MainSlot
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.MainSlot
  *
  * @author stal111
  * @version 2.0.0

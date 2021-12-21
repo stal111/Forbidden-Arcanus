@@ -1,11 +1,13 @@
-package com.stal111.forbidden_arcanus.block;
+package com.stal111.forbidden_arcanus.common.block;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.common.item.MundabiturDustItem;
+import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
+import com.stal111.forbidden_arcanus.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -14,10 +16,13 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
@@ -37,12 +42,12 @@ import javax.annotation.Nullable;
 
 /**
  * Hephaestus Forge Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.block.HephaestusForgeBlock
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock
  *
  * @author stal111
  * @version 2.0.0
  */
-public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock {
+public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -66,15 +71,16 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVATED, false).setValue(WATERLOGGED, false));
     }
 
-    @Nonnull
+    @Nullable
     @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return SHAPE;
+    public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+        return new HephaestusForgeBlockEntity(pos, state);
     }
 
+    @Nonnull
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+        return SHAPE;
     }
 
     @Nullable
@@ -85,49 +91,56 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Nonnull
     @Override
-    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor world, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
+    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor level, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
         if (state.getValue(WATERLOGGED)) {
-            world.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, facing, facingState, world, currentPos, facingPos);
+        return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 
     @Nonnull
     @Override
-    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-        this.updateState(state, world, pos);
+    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
+        this.updateState(state, level, pos);
 
         if (state.getValue(ACTIVATED)) {
-            if (world.isClientSide()) {
+            if (level.isClientSide()) {
                 return InteractionResult.SUCCESS;
             }
-            BlockEntity tileEntity = world.getBlockEntity(pos);
-
-            if (tileEntity instanceof HephaestusForgeTileEntity) {
+            if (level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
                 ItemStack stack = player.getItemInHand(hand);
 
                 if (stack.getItem() instanceof RitualStarterItem) {
-                    ((HephaestusForgeTileEntity) tileEntity).getRitualManager().tryStartRitual(stack);
+                    blockEntity.getRitualManager().tryStartRitual((ServerLevel) level, stack, player);
                 } else {
-                    player.openMenu((HephaestusForgeTileEntity) tileEntity);
+                    player.openMenu(blockEntity);
                 }
                 return InteractionResult.CONSUME;
             }
         }
 
-        return super.use(state, world, pos, player, hand, hit);
+        return super.use(state, level, pos, player, hand, hit);
     }
 
-    public void updateState(BlockState state, Level world, BlockPos pos) {
-        BlockPattern.BlockPatternMatch patternHelper = MundabiturDustItem.getBaseHephaestusPattern().find(world, pos.below());
+    public void updateState(BlockState state, Level level, BlockPos pos) {
+        BlockPattern.BlockPatternMatch patternHelper = MundabiturDustItem.getBaseHephaestusPattern().find(level, pos.below());
 
         if (patternHelper == null || patternHelper.getUp() != Direction.DOWN) {
             if (state.getValue(ACTIVATED)) {
-                world.setBlock(pos, state.setValue(ACTIVATED, false), 3);
+                level.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
             }
         } else if (!state.getValue(ACTIVATED)) {
-            world.setBlock(pos, state.setValue(ACTIVATED, true), 3);
+            level.setBlockAndUpdate(pos, state.setValue(ACTIVATED, true));
         }
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@Nonnull Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> blockEntityType) {
+        if (level.isClientSide()) {
+            return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeBlockEntity::clientTick);
+        }
+        return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeBlockEntity::serverTick);
     }
 
     @Nonnull

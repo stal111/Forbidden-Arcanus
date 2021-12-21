@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.client.gui.screen;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.container.EnhancerSlot;
-import com.stal111.forbidden_arcanus.common.container.HephaestusForgeContainer;
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
+import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.ContainerData;
@@ -27,11 +28,11 @@ import java.util.List;
  * @version 2.0.0
  * @since 2021-06-28
  */
-public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusForgeContainer> {
+public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusForgeMenu> {
 
     private static final ResourceLocation TEXTURES = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/hephaestus_forge.png");
 
-    public HephaestusForgeScreen(HephaestusForgeContainer container, Inventory inventory, Component title) {
+    public HephaestusForgeScreen(HephaestusForgeMenu container, Inventory inventory, Component title) {
         super(container, inventory, title);
         this.imageWidth += 52;
         this.titleLabelX += 26;
@@ -41,8 +42,8 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    public void render(@Nonnull PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
+    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(poseStack, mouseX, mouseY, partialTicks);
 
         for(int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
@@ -57,45 +58,44 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
             }
         }
 
-        this.renderTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(poseStack, mouseX, mouseY);
     }
 
     @Override
-    protected void renderLabels(@Nonnull PoseStack matrixStack, int x, int y) {
-        this.font.draw(matrixStack, this.title, (float) this.titleLabelX, (float) this.titleLabelY, 4210752);
-        this.font.draw(matrixStack, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
+    protected void renderLabels(@Nonnull PoseStack poseStack, int x, int y) {
+        this.font.draw(poseStack, this.title, (float) this.titleLabelX, (float) this.titleLabelY, 4210752);
+        this.font.draw(poseStack, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
     }
 
     @Override
-    protected void renderBg(@Nonnull PoseStack matrixStack, float partialTicks, int x, int y) {
-        this.renderBackground(matrixStack);
+    protected void renderBg(@Nonnull PoseStack poseStack, float partialTicks, int x, int y) {
+        this.renderBackground(poseStack);
 
-        //TODO
-       // RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-       // this.getMinecraft().getTextureManager().bind(TEXTURES);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, TEXTURES);
 
-        this.blit(matrixStack, this.getGuiLeft() + 26, this.getGuiTop(), 0, 0, this.getXSize() - 52, this.getYSize());
+        this.blit(poseStack, this.getGuiLeft() + 26, this.getGuiTop(), 0, 0, this.getXSize() - 52, this.getYSize());
 
-        this.blit(matrixStack, this.getGuiLeft(), this.getGuiTop() + 16, 176, 61, 29, 51);
-        this.blit(matrixStack, this.getGuiLeft() + 26 + 172, this.getGuiTop() + 16, 206, 61, 29, 51);
-
+        this.blit(poseStack, this.getGuiLeft(), this.getGuiTop() + 16, 176, 61, 29, 51);
+        this.blit(poseStack, this.getGuiLeft() + 26 + 172, this.getGuiTop() + 16, 206, 61, 29, 51);
 
         for (int i = 0; i <= 3; i++) {
             if (!((EnhancerSlot) this.menu.getSlot(i)).isUnlocked()) {
-                this.blit(matrixStack, this.getGuiLeft() + (i < 2 ? 30 : 126) + 26, this.getGuiTop() + (i == 0 || i == 3 ? 22 : 44), 196, 40, 20, 20);
+                this.blit(poseStack, this.getGuiLeft() + (i < 2 ? 30 : 126) + 26, this.getGuiTop() + (i == 0 || i == 3 ? 22 : 44), 196, 40, 20, 20);
             }
         }
 
         HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(this.menu.getHephaestusForgeData().get(0));
 
-        this.renderBar(matrixStack, 1, level.getMaxAureal(), 8, 177);
-        this.renderBar(matrixStack, 2, level.getMaxCorruption(), 8, 183);
-        this.renderBar(matrixStack, 3, level.getMaxSouls(), 20, 189);
-        this.renderBar(matrixStack, 4, level.getMaxBlood(), 151, 195);
-        this.renderBar(matrixStack, 5, level.getMaxExperience(), 163, 201);
+        this.renderBar(poseStack, 1, level.getMaxAureal(), 8, 177);
+        this.renderBar(poseStack, 2, level.getMaxCorruption(), 8, 183);
+        this.renderBar(poseStack, 3, level.getMaxSouls(), 20, 189);
+        this.renderBar(poseStack, 4, level.getMaxBlood(), 151, 195);
+        this.renderBar(poseStack, 5, level.getMaxExperience(), 163, 201);
 
-        int ySize = Math.toIntExact(Math.round(32.0F * menu.getHephaestusForgeData().get(0) / menu.getTileEntity().getForgeLevel().getMaxAureal()));
-        this.blit(matrixStack, this.getGuiLeft() + 26 + 8, this.getGuiTop() + 22 + 32 - ySize, 177, 3 + 32 - ySize, 4, ySize);
+        int ySize = Math.toIntExact(Math.round(32.0F * menu.getHephaestusForgeData().get(0) / HephaestusForgeLevel.getFromIndex(menu.getHephaestusForgeData().get(0)).getMaxAureal()));
+        this.blit(poseStack, this.getGuiLeft() + 26 + 8, this.getGuiTop() + 22 + 32 - ySize, 177, 3 + 32 - ySize, 4, ySize);
     }
 
     @Override

@@ -1,25 +1,25 @@
-package com.stal111.forbidden_arcanus.common.tile.forge.ritual;
+package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeLevel;
-import com.stal111.forbidden_arcanus.common.tile.forge.HephaestusForgeTileEntity;
-import com.stal111.forbidden_arcanus.util.SavedData;
-import net.minecraft.world.entity.LivingEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
+import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Essence Manager
+ * Essence Manager <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.EssenceManager
  *
  * @author stal111
  * @version 2.0.0
  * @since 2021-07-10
  */
-public class EssenceManager implements SavedData {
+public class EssenceManager implements NeedsStoring {
 
-    private final HephaestusForgeTileEntity tileEntity;
+    private final HephaestusForgeBlockEntity blockEntity;
 
     private int aureal = 0;
     private int corruption = 0;
@@ -29,16 +29,16 @@ public class EssenceManager implements SavedData {
 
     private final Map<LivingEntity, Float> cachedHealth = new HashMap<>();
 
-    public EssenceManager(HephaestusForgeTileEntity tileEntity) {
-        this.tileEntity = tileEntity;
+    public EssenceManager(HephaestusForgeBlockEntity blockEntity) {
+        this.blockEntity = blockEntity;
     }
 
-    public HephaestusForgeTileEntity getTileEntity() {
-        return this.tileEntity;
+    public HephaestusForgeBlockEntity getBlockEntity() {
+        return this.blockEntity;
     }
 
     public HephaestusForgeLevel getLevel() {
-        return this.getTileEntity().getForgeLevel();
+        return this.getBlockEntity().getForgeLevel();
     }
 
     public int getAureal() {
@@ -162,12 +162,7 @@ public class EssenceManager implements SavedData {
     }
 
     public void tick() {
-        HephaestusForgeTileEntity tileEntity = this.getTileEntity();
-        if (tileEntity.getLevel() == null) {
-            return;
-        }
-
-        for (LivingEntity entity : tileEntity.getEntities()) {
+        for (LivingEntity entity : this.blockEntity.getEntities()) {
             if (this.cachedHealth.containsKey(entity)) {
                 float healthDifference = this.cachedHealth.get(entity) - entity.getHealth();
 
@@ -178,7 +173,7 @@ public class EssenceManager implements SavedData {
         }
 
         this.cachedHealth.clear();
-        for (LivingEntity entity : tileEntity.getEntities()) {
+        for (LivingEntity entity : this.blockEntity.getEntities()) {
             this.cachedHealth.put(entity, entity.getHealth());
         }
     }
