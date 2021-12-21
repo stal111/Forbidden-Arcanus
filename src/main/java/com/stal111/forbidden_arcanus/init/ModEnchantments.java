@@ -1,22 +1,27 @@
 package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.enchantment.PermafrostEnchantment;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
-import com.stal111.forbidden_arcanus.enchantment.ModEnchantment;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.function.Predicate;
-
+/**
+ * Mod Enchantments <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModEnchantments
+ *
+ * @author stal111
+ * @version 1.17.1 - 2.0.0
+ */
 public class ModEnchantments {
 
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ForbiddenArcanus.MOD_ID);
 
-    public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new EnchantmentBuilder(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.EDELWOOD_BUCKET, EquipmentSlot.MAINHAND).isTreasure().build());
+    public static final RegistryObject<Enchantment> PERMAFROST = register("permafrost", new PermafrostEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.EDELWOOD_BUCKET, EquipmentSlot.MAINHAND));
 
     private static <T extends Enchantment> RegistryObject<T> register(String name, T enchantment) {
         return ENCHANTMENTS.register(name, () -> enchantment);
@@ -24,49 +29,5 @@ public class ModEnchantments {
 
     public static class EnchantmentCategories {
         public static final EnchantmentCategory EDELWOOD_BUCKET = EnchantmentCategory.create("EDELWOOD_BUCKET", item -> item instanceof EdelwoodBucketItem);
-    }
-
-    public static class EnchantmentBuilder {
-
-        private final ModEnchantment enchantment;
-
-        public EnchantmentBuilder(Enchantment.Rarity rarity, EnchantmentCategory enchantmentType, EquipmentSlot... equipmentSlotTypes) {
-            this.enchantment = new ModEnchantment(rarity, enchantmentType, equipmentSlotTypes);
-        }
-
-        public EnchantmentBuilder maxLevel(int maxLevel) {
-            this.enchantment.maxLevel = maxLevel;
-            return this;
-        }
-
-        public EnchantmentBuilder minAndMaxEnchantability(int minEnchantability, int maxEnchantability) {
-            this.enchantment.minEnchantability = minEnchantability;
-            this.enchantment.maxEnchantability = maxEnchantability;
-            return this;
-        }
-
-        public EnchantmentBuilder isTreasure() {
-            enchantment.isTreasure = true;
-            return this;
-        }
-
-        public EnchantmentBuilder canApplyTogether(Predicate<Enchantment> predicate) {
-            enchantment.canApplyTogether = predicate;
-            return this;
-        }
-
-        public EnchantmentBuilder canBeVillagerTrade(boolean canBeTrade) {
-            enchantment.canBeVillagerTrade = canBeTrade;
-            return this;
-        }
-
-        public EnchantmentBuilder canGenerateInLoot(boolean canGenerate) {
-            enchantment.canGenerateInLoot = canGenerate;
-            return this;
-        }
-
-        public ModEnchantment build() {
-            return this.enchantment;
-        }
     }
 }

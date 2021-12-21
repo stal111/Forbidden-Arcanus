@@ -15,10 +15,10 @@ import net.valhelsia.valhelsia_core.core.registry.ItemRegistryHelper;
 
 /**
  * Mod Items <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.NewModItems
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModItems
  *
  * @author Valhelsia Team
- * @version 16.2.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-01-26
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

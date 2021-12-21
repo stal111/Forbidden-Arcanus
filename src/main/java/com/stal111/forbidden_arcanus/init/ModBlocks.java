@@ -31,11 +31,11 @@ import net.valhelsia.valhelsia_core.core.registry.block.BlockRegistryHelper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 /**
- * Newer Mod Blocks <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.NewerModBlocks
+ * Mod Blocks <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModBlocks
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBlocks {
