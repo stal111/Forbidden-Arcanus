@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
-import com.stal111.forbidden_arcanus.particle.AurealMoteParticle;
-import com.stal111.forbidden_arcanus.particle.SoulParticle;
+import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
+import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.core.particles.ParticleType;

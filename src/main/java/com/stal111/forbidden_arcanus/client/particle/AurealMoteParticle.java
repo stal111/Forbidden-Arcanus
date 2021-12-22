@@ -1,31 +1,29 @@
-package com.stal111.forbidden_arcanus.particle;
+package com.stal111.forbidden_arcanus.client.particle;
 
-import net.minecraft.client.particle.*;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 
 /**
- * Aureal Mote Particle
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.particle.AurealMoteParticle
+ * Aureal Mote Particle <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-01-28
  */
 public class AurealMoteParticle extends TextureSheetParticle {
 
     private float alpha = 0.0F;
 
-    private AurealMoteParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ) {
-        super(world, x, y, z, motionX, motionY, motionZ);
+    private AurealMoteParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        super(level, x, y, z, xSpeed, ySpeed, zSpeed);
         this.x = x;
         this.y = y;
         this.z = z;
-        this.yd = motionY;
+        this.yd = ySpeed;
         this.quadSize = 0.1F * (this.random.nextFloat() * 0.3F + 0.8F);
         this.lifetime = 60 + this.random.nextInt(12);
         this.setAlpha(alpha);
@@ -71,17 +69,12 @@ public class AurealMoteParticle extends TextureSheetParticle {
         return 0xF000F0;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static class Factory implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet spriteSet;
+    public record Factory(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 
-        public Factory(SpriteSet spriteSet) {
-            this.spriteSet = spriteSet;
-        }
-
-        public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            AurealMoteParticle particle = new AurealMoteParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.pickSprite(spriteSet);
+        @Override
+        public Particle createParticle(@Nonnull SimpleParticleType type, @Nonnull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            AurealMoteParticle particle = new AurealMoteParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
+            particle.pickSprite(this.spriteSet);
             return particle;
         }
     }

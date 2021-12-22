@@ -10,11 +10,11 @@ import net.minecraft.core.particles.SimpleParticleType;
 import javax.annotation.Nonnull;
 
 /**
- * Magic Smoke Particle
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.particle.MagicSmokeParticle
+ * Huge Magic Explosion Particle <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-08-01
  */
 public class HugeMagicExplosionParticle extends NoRenderParticle {
@@ -40,8 +40,8 @@ public class HugeMagicExplosionParticle extends NoRenderParticle {
     }
 
     public static class Factory implements ParticleProvider<SimpleParticleType> {
-        public Particle createParticle(@Nonnull SimpleParticleType type, @Nonnull ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new HugeMagicExplosionParticle(world, x, y, z);
+        public Particle createParticle(@Nonnull SimpleParticleType type, @Nonnull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new HugeMagicExplosionParticle(level, x, y, z);
         }
     }
 }
