@@ -43,8 +43,7 @@ import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.Random;
 
 /**
@@ -64,28 +63,32 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty OILY = ModBlockStateProperties.OILY;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    protected static final Map<Direction.Axis, VoxelShape> SHAPES = new HashMap<>();
+    private static final VoxelShape BASE_SHAPE = Shapes.join(Shapes.block(), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D), BooleanOp.ONLY_FIRST);
+
+    protected final EnumMap<Direction.Axis, VoxelShape> shapesCache;
 
     public EdelwoodLogBlock(Properties properties) {
         super(properties);
         if (this.getStateDefinition().getProperties().contains(AXIS)) {
             this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, Direction.Axis.Y).setValue(OILY, false).setValue(WATERLOGGED,false));
         }
-        this.buildShapes();
+        this.shapesCache = this.buildShapes();
     }
 
-    private void buildShapes() {
-        VoxelShape shape = Shapes.join(Shapes.block(), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D), BooleanOp.ONLY_FIRST);
+    private EnumMap<Direction.Axis, VoxelShape> buildShapes() {
+        EnumMap<Direction.Axis, VoxelShape> map = new EnumMap<>(Direction.Axis.class);
 
-        SHAPES.put(Direction.Axis.Y, shape);
-        SHAPES.put(Direction.Axis.X, VoxelShapeHelper.rotate(shape, Direction.Axis.X));
-        SHAPES.put(Direction.Axis.Z, VoxelShapeHelper.rotate(shape, Direction.Axis.Z));
+        map.put(Direction.Axis.Y, BASE_SHAPE);
+        map.put(Direction.Axis.X, VoxelShapeHelper.rotate(BASE_SHAPE, Direction.Axis.X));
+        map.put(Direction.Axis.Z, VoxelShapeHelper.rotate(BASE_SHAPE, Direction.Axis.Z));
+
+        return map;
     }
 
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return context.isHoldingItem(ModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(ModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : SHAPES.get(state.getValue(AXIS));
+        return context.isHoldingItem(ModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(ModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : this.shapesCache.get(state.getValue(AXIS));
     }
 
     @Override

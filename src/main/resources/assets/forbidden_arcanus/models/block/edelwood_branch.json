@@ -1,0 +1,125 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"5": "forbidden_arcanus:block/edelwood_branch",
+		"particle": "forbidden_arcanus:block/edelwood_log"
+	},
+	"gui_light": "front",
+	"elements": [
+		{
+			"name": "l_0",
+			"from": [0.0, 6.5, 6],
+			"to": [2.5, 10.5, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 9, 8]},
+			"faces": {
+				"north": {"uv": [2, 7, 0, 10], "texture": "#5", "cullface": "east"},
+				"east": {"uv": [6, 7, 9, 10], "texture": "#5", "cullface": "east"},
+				"south": {"uv": [0, 7, 2, 10], "texture": "#5", "cullface": "east"},
+				"west": {"uv": [6, 7, 9, 10], "texture": "#5", "cullface": "east"},
+				"up": {"uv": [9, 14, 6, 16], "rotation": 90, "texture": "#5", "cullface": "east"},
+				"down": {"uv": [9, 14, 6, 16], "rotation": 90, "texture": "#5", "cullface": "east"}
+			}
+		}, 
+		{
+			"name": "l_1",
+			"from": [2, 8, 6.5],
+			"to": [7, 11, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 9, 8]},
+			"faces": {
+				"north": {"uv": [6, 7, 1, 10], "texture": "#5", "cullface": "east"},
+				"east": {"uv": [6, 7, 9, 10], "texture": "#5", "cullface": "east"},
+				"south": {"uv": [6, 7, 1, 10], "texture": "#5", "cullface": "east"},
+				"west": {"uv": [6, 7, 9, 10], "texture": "#5", "cullface": "east"},
+				"up": {"uv": [9, 10, 6, 15], "rotation": 90, "texture": "#5", "cullface": "east"},
+				"down": {"uv": [9, 10, 6, 15], "rotation": 90, "texture": "#5", "cullface": "east"}
+			}
+		}, 
+		{
+			"name": "l_2",
+			"from": [0.9, 17.9, 6.9],
+			"to": [5.1, 20.1, 9.1],
+			"rotation": {"angle": -45, "axis": "z", "origin": [-8, 8, 8]},
+			"faces": {
+				"north": {"uv": [13, 8, 9, 10], "texture": "#5", "cullface": "east"},
+				"east": {"uv": [13, 8, 15, 10], "texture": "#5", "cullface": "east"},
+				"south": {"uv": [9, 8, 13, 10], "texture": "#5", "cullface": "east"},
+				"west": {"uv": [13, 8, 15, 10], "texture": "#5", "cullface": "east"},
+				"up": {"uv": [15, 10, 13, 14], "rotation": 90, "texture": "#5", "cullface": "east"},
+				"down": {"uv": [15, 10, 13, 14], "rotation": 90, "texture": "#5", "cullface": "east"}
+			}
+		}, 
+		{
+			"name": "l_3",
+			"from": [3.25, 15.75, 7.25],
+			"to": [4.75, 18.25, 8.75],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [-8, 9, 8]},
+			"faces": {
+				"north": {"uv": [3, 4, 5, 7], "texture": "#5", "cullface": "east"},
+				"east": {"uv": [3, 2, 0, 4], "rotation": 90, "texture": "#5", "cullface": "east"},
+				"south": {"uv": [5, 4, 3, 7], "texture": "#5", "cullface": "east"},
+				"west": {"uv": [3, 2, 0, 4], "rotation": 90, "texture": "#5", "cullface": "east"},
+				"up": {"uv": [5, 2, 3, 4], "texture": "#5", "cullface": "east"},
+				"down": {"uv": [5, 2, 3, 4], "texture": "#5", "cullface": "east"}
+			}
+		}, 
+		{
+			"name": "l_4",
+			"from": [2, 4.5, 8],
+			"to": [6, 8.5, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 9, 8]},
+			"faces": {
+				"north": {"uv": [13, 10, 9, 14], "texture": "#5", "cullface": "east"},
+				"south": {"uv": [9, 10, 13, 14], "texture": "#5", "cullface": "east"}
+			}
+		}, 
+		{
+			"name": "l_5",
+			"from": [7, 12.5, 8],
+			"to": [11, 16.5, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 9, 8]},
+			"faces": {
+				"north": {"uv": [9, 3, 5, 7], "texture": "#5", "cullface": "east"},
+				"south": {"uv": [5, 3, 9, 7], "texture": "#5", "cullface": "east"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [13, 90, 45],
+			"translation": [0, 6, -3.75]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-37, -90, -96],
+			"translation": [0, 6, -3.75]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 100, 0],
+			"translation": [0, 0.75, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -90, 0],
+			"translation": [0, 0.75, 0]
+		},
+		"ground": {
+			"translation": [2.5, 0, 1.75],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [-10, 10, 0],
+			"translation": [3.75, -3, 0],
+			"scale": [1.25, 1.25, 1.25]
+		},
+		"fixed": {
+			"translation": [2.25, -1.75, -0.25]
+		}
+	},
+	"groups": [
+		{
+			"name": "branch_x",
+			"origin": [8, 9, 5],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5]
+		}
+	]
+}

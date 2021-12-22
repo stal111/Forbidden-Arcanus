@@ -77,6 +77,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(this::edelwoodLogBlock, ModBlocks.EDELWOOD_LOG);
         take(this::carvedEdelwoodLogBlock, ModBlocks.CARVED_EDELWOOD_LOG);
+        take(block -> horizontalBlock(block, getExistingModel(modLoc("edelwood_branch")), 90), ModBlocks.EDELWOOD_BRANCH);
 
         take(block -> horizontalBlock(block, models().getExistingFile(modLoc("block/edelwood_ladder"))), ModBlocks.EDELWOOD_LADDER);
         take(block -> pressurePlateBlock(block, modLoc("block/arcane_gold_block")), ModBlocks.ARCANE_GOLD_PRESSURE_PLATE);

@@ -64,6 +64,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
             LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3));
             add(block, createSingleItemTable(ModItems.STRANGE_ROOT.get()).withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(ModItems.STRANGE_ROOT.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3)))));
         }, ModBlocks.STRANGE_ROOT);
+        take(block -> add(block, createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ModItems.EDELWOOD_STICK.get())))), ModBlocks.EDELWOOD_BRANCH);
 
         forEach(block -> block instanceof IronBarsBlock, this::dropWhenSilkTouch);
         forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);

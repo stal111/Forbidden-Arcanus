@@ -23,8 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.Objects;
 
 /**
@@ -48,34 +47,38 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
             Block.box(1, 2, 1, 15, 3, 15)
     };
 
-    private static final Map<PillarType, Map<Direction.Axis, VoxelShape>> SHAPES = new HashMap<>();
+    private final EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> shapes;
 
     public PillarBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(TYPE, PillarType.SINGLE).setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
-        this.buildShapes();
+        this.shapes = this.buildShapes();
     }
 
-    private void buildShapes() {
-        this.addShapeWithRotations(SHAPE_PARTS[2], PillarType.MIDDLE);
-        this.addShapeWithRotations(VoxelShapeHelper.combineAll(SHAPE_PARTS[0], SHAPE_PARTS[1], SHAPE_PARTS[2]), PillarType.TOP);
-        this.addShapeWithRotations(VoxelShapeHelper.combineAll(SHAPE_PARTS[3], SHAPE_PARTS[4], SHAPE_PARTS[2]), PillarType.BOTTOM);
-        this.addShapeWithRotations(VoxelShapeHelper.combineAll(SHAPE_PARTS), PillarType.SINGLE);
+    private EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> buildShapes() {
+        EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> map = new EnumMap<>(PillarType.class);
+
+        map.put(PillarType.MIDDLE, this.addShapeWithRotations(SHAPE_PARTS[2]));
+        map.put(PillarType.TOP, this.addShapeWithRotations(VoxelShapeHelper.combineAll(SHAPE_PARTS[0], SHAPE_PARTS[1], SHAPE_PARTS[2])));
+        map.put(PillarType.BOTTOM, this.addShapeWithRotations(VoxelShapeHelper.combineAll(SHAPE_PARTS[3], SHAPE_PARTS[4], SHAPE_PARTS[2])));
+        map.put(PillarType.SINGLE, this.addShapeWithRotations(VoxelShapeHelper.combineAll(SHAPE_PARTS)));
+
+        return map;
     }
 
-    private void addShapeWithRotations(VoxelShape shape, PillarType pillarType) {
-        Map<Direction.Axis, VoxelShape> rotatedShapes = new HashMap<>();
+    private EnumMap<Direction.Axis, VoxelShape> addShapeWithRotations(VoxelShape shape) {
+        EnumMap<Direction.Axis, VoxelShape> rotatedShapes = new EnumMap<>(Direction.Axis.class);
         rotatedShapes.put(Direction.Axis.Y, shape);
         rotatedShapes.put(Direction.Axis.X, VoxelShapeHelper.rotate(shape, Direction.Axis.X));
         rotatedShapes.put(Direction.Axis.Z, VoxelShapeHelper.rotate(shape, Direction.Axis.Z));
 
-        SHAPES.put(pillarType, rotatedShapes);
+        return rotatedShapes;
     }
 
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return SHAPES.get(state.getValue(TYPE)).get(state.getValue(AXIS));
+        return this.shapes.get(state.getValue(TYPE)).get(state.getValue(AXIS));
     }
 
     @Override

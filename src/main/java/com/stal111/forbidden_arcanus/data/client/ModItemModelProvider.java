@@ -41,7 +41,9 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.ARCANE_CRYSTAL_OBELISK,
                 ModBlocks.ARCANE_GOLDEN_CHAIN,
                 ModBlocks.ARCANE_DRAGON_EGG,
-                ModItems.EDELWOOD_POWDER_SNOW_BUCKET
+                ModItems.EDELWOOD_POWDER_SNOW_BUCKET,
+                ModItems.STRANGE_ROOT,
+                ModItems.GOLDEN_ORCHID_SEEDS
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 ModBlocks.FUNGYSS,
@@ -67,7 +69,15 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         forEachBlockItem(this::withParent);
 
         //Items
-        getRemainingItems().removeAll(Arrays.asList(ModItems.LENS_OF_VERITATIS, ModItems.OBSIDIAN_SKULL_SHIELD, ModItems.ZOMBIE_ARM, ModItems.SHINY_ZOMBIE_ARM));
+        Arrays.asList(
+                ModItems.LENS_OF_VERITATIS,
+                ModItems.OBSIDIAN_SKULL_SHIELD,
+                ModItems.QUANTUM_CATCHER,
+                ModItems.ZOMBIE_ARM,
+                ModItems.SHINY_ZOMBIE_ARM,
+                ModItems.SPECTRAL_EYE_AMULET,
+                ModItems.SOUL_EXTRACTOR
+        ).forEach(getRemainingItems()::remove);
 
         takeItem(this::bloodTestTubeModel, ModItems.BLOOD_TEST_TUBE);
         takeItem(this::toolItem, ModItems.DRACO_ARCANUS_STAFF, ModItems.DRACO_ARCANUS_SCEPTER);
