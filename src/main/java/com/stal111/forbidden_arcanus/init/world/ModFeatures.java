@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.init.world;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.world.feature.EdelwoodFeature;
 import com.stal111.forbidden_arcanus.world.feature.BigFungyssFeature;
 import com.stal111.forbidden_arcanus.world.feature.MegaFungyssFeature;
 import com.stal111.forbidden_arcanus.world.feature.RootFeature;
@@ -26,6 +27,7 @@ public class ModFeatures {
     public static final RegistryObject<Feature<BlockStateConfiguration>> PETRIFIED_ROOT = register("petrified_root", () -> new RootFeature(BlockStateConfiguration.CODEC));
     public static final RegistryObject<Feature<BigFungyssFeatureConfig>> BIG_FUNGYSS = register("big_fungyss", () -> new BigFungyssFeature(BigFungyssFeatureConfig.CODEC));
     public static final RegistryObject<Feature<BigFungyssFeatureConfig>> MEGA_FUNGYSS = register("mega_fungyss", () -> new MegaFungyssFeature(BigFungyssFeatureConfig.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> EDELWOOD = register("edelwood", () -> new EdelwoodFeature(NoneFeatureConfiguration.CODEC));
 
     public static final RegistryObject<DimensionPlacement> DIMENSION_PLACEMENT = PLACEMENTS.register("dimension_placement", () -> new DimensionPlacement(DimensionConfig.CODEC));
 

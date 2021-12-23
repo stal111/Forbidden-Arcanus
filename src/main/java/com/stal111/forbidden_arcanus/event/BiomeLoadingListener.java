@@ -59,7 +59,7 @@ public class BiomeLoadingListener {
 
         if (Objects.equals(name, new ResourceLocation("dark_forest")) || Objects.equals(name, new ResourceLocation("dark_forest_hills"))) {
             if (WorldGenConfig.EDELWOOD_TREE_GENERATE.get()) {
-                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.EDELWOOD_LOG);
+                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.EDELWOOD_TREES);
             }
         }
 
