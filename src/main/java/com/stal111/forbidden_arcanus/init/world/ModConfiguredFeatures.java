@@ -80,7 +80,7 @@ public class ModConfiguredFeatures {
 
     public static final class Configs {
         public static final RandomPatchConfiguration YELLOW_ORCHID = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.YELLOW_ORCHID), SimpleBlockPlacer.INSTANCE)).tries(10).build();
-        public static final RandomPatchConfiguration EDELWOOD_LOG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.EDELWOOD_LOG), new ColumnPlacer(ConstantInt.of(3)))).tries(3).whitelist(ImmutableSet.of(States.GRASS_BLOCK.getBlock())).xspread(0).yspread(0).zspread(0).build();
+        public static final RandomPatchConfiguration EDELWOOD_LOG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.EDELWOOD_LOG), new ColumnPlacer(ConstantInt.of(3)))).tries(3).whitelist(ImmutableSet.of(States.GRASS_BLOCK.getBlock())).xspread(0).yspread(0).zspread(0).noProjection().build();
     }
 
     public static final class FillerBlockTypes {

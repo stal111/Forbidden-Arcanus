@@ -59,7 +59,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.YELLOW_ORCHID);
         take(block -> pixieUtremJarBlock(block, false), ModBlocks.PIXIE_UTREM_JAR);
         take(block -> pixieUtremJarBlock(block, true), ModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
-        take(block -> simpleBlock(block, models().cross(Objects.requireNonNull(block.getRegistryName()).getPath(), modLoc("block/fungyss"))), ModBlocks.FUNGYSS);
         take(this::mushroomBlock, ModBlocks.FUNGYSS_BLOCK);
         take(block -> logBlock((RotatedPillarBlock) block), ModBlocks.FUNGYSS_STEM, ModBlocks.CHERRYWOOD_LOG, ModBlocks.MYSTERYWOOD_LOG, ModBlocks.STRIPPED_MYSTERYWOOD_LOG, ModBlocks.STRIPPED_CHERRYWOOD_LOG);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), ModBlocks.FUNGYSS_HYPHAE);
@@ -74,6 +73,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::pillarBlock, ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR, ModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
 
         take(this::arcaneCrystalObelisk, ModBlocks.ARCANE_CRYSTAL_OBELISK);
+
+        take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.FUNGYSS, ModBlocks.GROWING_EDELWOOD);
 
         take(this::edelwoodLogBlock, ModBlocks.EDELWOOD_LOG);
         take(this::carvedEdelwoodLogBlock, ModBlocks.CARVED_EDELWOOD_LOG);
