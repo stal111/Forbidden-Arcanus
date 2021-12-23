@@ -62,7 +62,7 @@ public class ForbiddenArcanus {
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientSetup::new);
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientSetup::new);
 
 		ModEntities.ENTITY_TYPES.register(modEventBus);
 		ModBlockEntities.TILE_ENTITIES.register(modEventBus);
