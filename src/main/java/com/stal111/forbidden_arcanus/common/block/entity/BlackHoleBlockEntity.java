@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
-import com.stal111.forbidden_arcanus.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.core.BlockPos;

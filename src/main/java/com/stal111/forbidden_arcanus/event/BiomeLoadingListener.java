@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.config.WorldGenConfig;
-import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
-import com.stal111.forbidden_arcanus.init.world.ModStructureFeatures;
+import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
+import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
+import com.stal111.forbidden_arcanus.core.init.world.ModStructureFeatures;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;

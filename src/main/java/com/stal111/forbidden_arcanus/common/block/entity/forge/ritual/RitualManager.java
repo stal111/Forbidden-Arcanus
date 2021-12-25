@@ -5,9 +5,9 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBl
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
-import com.stal111.forbidden_arcanus.init.ModEntities;
-import com.stal111.forbidden_arcanus.init.ModParticles;
-import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;

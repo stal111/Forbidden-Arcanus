@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.block.StellaArcanumBlock;
-import com.stal111.forbidden_arcanus.config.BlockConfig;
+import com.stal111.forbidden_arcanus.common.block.StellaArcanumBlock;
+import com.stal111.forbidden_arcanus.core.config.BlockConfig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;

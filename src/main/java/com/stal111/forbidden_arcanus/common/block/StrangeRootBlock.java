@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
-import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;

@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.event;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.config.WorldGenConfig;
-import com.stal111.forbidden_arcanus.init.world.ModStructures;
+import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
+import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;

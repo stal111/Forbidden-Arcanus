@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.tooltip;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;

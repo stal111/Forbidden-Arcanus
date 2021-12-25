@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.entity.projectile;
 
-import com.stal111.forbidden_arcanus.init.ModEntities;
-import com.stal111.forbidden_arcanus.sound.ModSounds;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

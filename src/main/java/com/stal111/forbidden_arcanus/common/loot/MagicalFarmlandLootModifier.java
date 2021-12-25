@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.gson.JsonObject;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.CropBlock;

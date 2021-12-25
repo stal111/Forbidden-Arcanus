@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.entity.projectile;
 
-import com.stal111.forbidden_arcanus.config.ItemConfig;
-import com.stal111.forbidden_arcanus.init.ModEntities;
-import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.core.config.ItemConfig;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

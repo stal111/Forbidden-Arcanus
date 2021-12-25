@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.google.common.collect.ImmutableMap;
-import com.stal111.forbidden_arcanus.init.ModEnchantments;
-import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModEnchantments;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

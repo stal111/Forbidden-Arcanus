@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.renderer.item.ObsidianSkullShieldItemRenderer;
 import com.stal111.forbidden_arcanus.common.item.counter.ObsidianSkullCounter;
-import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;

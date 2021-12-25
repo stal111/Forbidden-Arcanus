@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_16",
-  "package": "com.stal111.forbidden_arcanus.mixin",
+  "package": "com.stal111.forbidden_arcanus.core.mixin",
   "refmap": "forbidden_arcanus.refmap.json",
   "mixins": [
     "AccessorFireBlock",

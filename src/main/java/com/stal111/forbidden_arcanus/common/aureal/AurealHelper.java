@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
-import com.stal111.forbidden_arcanus.config.AurealConfig;
+import com.stal111.forbidden_arcanus.core.config.AurealConfig;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateAurealPacket;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import net.minecraft.nbt.CompoundTag;

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
-import com.stal111.forbidden_arcanus.sound.ModSounds;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;

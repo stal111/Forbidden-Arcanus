@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.event.entity;
 
-import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.BasicTrade;
 import net.minecraftforge.event.village.WandererTradesEvent;

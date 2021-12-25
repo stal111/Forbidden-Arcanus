@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.recipe;
 import com.stal111.forbidden_arcanus.common.item.CapacityBucket;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodSoupBucketItem;
-import com.stal111.forbidden_arcanus.init.ModRecipeSerializers;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;

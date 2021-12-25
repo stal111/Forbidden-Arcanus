@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.common.block.ObsidianWallSkullBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.ObsidianSkullBlockEntity;
-import com.stal111.forbidden_arcanus.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;

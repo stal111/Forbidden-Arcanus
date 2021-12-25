@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.client.particle;
 
-import com.stal111.forbidden_arcanus.init.ModParticles;
+import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;

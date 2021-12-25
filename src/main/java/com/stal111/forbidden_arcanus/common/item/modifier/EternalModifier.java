@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
 import com.mojang.datafixers.util.Pair;
-import com.stal111.forbidden_arcanus.config.EnchantmentConfig;
+import com.stal111.forbidden_arcanus.core.config.EnchantmentConfig;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

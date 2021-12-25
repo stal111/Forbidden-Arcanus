@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.grower;
 
-import com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures;
+import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;

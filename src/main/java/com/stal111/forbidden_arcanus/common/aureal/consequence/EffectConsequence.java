@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.aureal.consequence;
 
 import com.mojang.datafixers.util.Pair;
-import com.stal111.forbidden_arcanus.init.ModEffects;
+import com.stal111.forbidden_arcanus.core.init.ModEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
