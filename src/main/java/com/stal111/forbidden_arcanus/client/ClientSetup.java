@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
+import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
+import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
@@ -22,6 +24,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -68,6 +71,8 @@ public class ClientSetup {
             Sheets.addWoodType(ModWoodTypes.MYSTERYWOOD);
             Sheets.addWoodType(ModWoodTypes.EDELWOOD);
         });
+
+        MinecraftForgeClient.registerTooltipComponentFactory(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
 
         this.registerModelOverride(ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE, StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.ACTIVATED, true).build(), base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
         this.registerModelOverride(ModBlocks.XPETRIFIED_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));

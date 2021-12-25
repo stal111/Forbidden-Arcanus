@@ -1,6 +1,7 @@
-package com.stal111.forbidden_arcanus.network;
+package com.stal111.forbidden_arcanus.common.network;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -22,13 +23,13 @@ public class NetworkHandler {
     public static void init() {
         INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(ForbiddenArcanus.MOD_ID, "channel"), () -> "1.0", s -> true, s -> true);
 
-        INSTANCE.registerMessage(nextID(), ClientboundUpdateAurealPacket.class, ClientboundUpdateAurealPacket::encode, ClientboundUpdateAurealPacket::decode, ClientboundUpdateAurealPacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdateAurealPacket.class, UpdateAurealPacket::encode, UpdateAurealPacket::decode, UpdateAurealPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateCounterPacket.class, UpdateCounterPacket::encode, UpdateCounterPacket::decode, UpdateCounterPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdatePedestalPacket.class, UpdatePedestalPacket::encode, UpdatePedestalPacket::decode, UpdatePedestalPacket::consume);
-        INSTANCE.registerMessage(nextID(), ItemParticlePacket.class, ItemParticlePacket::encode, ItemParticlePacket::decode, ItemParticlePacket::consume);
-        INSTANCE.registerMessage(nextID(), UpdateRitualPacket.class, UpdateRitualPacket::encode, UpdateRitualPacket::decode, UpdateRitualPacket::consume);
+        INSTANCE.registerMessage(nextID(), AddItemParticlePacket.class, AddItemParticlePacket::encode, AddItemParticlePacket::decode, AddItemParticlePacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdateForgeRitualPacket.class, UpdateForgeRitualPacket::encode, UpdateForgeRitualPacket::decode, UpdateForgeRitualPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateItemInSlotPacket.class, UpdateItemInSlotPacket::encode, UpdateItemInSlotPacket::decode, UpdateItemInSlotPacket::consume);
-        INSTANCE.registerMessage(nextID(), ClientboundUpdateRitualsPacket.class, ClientboundUpdateRitualsPacket::encode, ClientboundUpdateRitualsPacket::decode, ClientboundUpdateRitualsPacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdateRitualsPacket.class, UpdateRitualsPacket::encode, UpdateRitualsPacket::decode, UpdateRitualsPacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

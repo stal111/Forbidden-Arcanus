@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
 import com.stal111.forbidden_arcanus.config.AurealConfig;
-import com.stal111.forbidden_arcanus.network.ClientboundUpdateAurealPacket;
-import com.stal111.forbidden_arcanus.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateAurealPacket;
+import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -92,13 +92,13 @@ public class AurealHelper {
     }
 
     /**
-     * Sends an {@link ClientboundUpdateAurealPacket} to the given player.
+     * Sends an {@link UpdateAurealPacket} to the given player.
      * This method should only be called server-side.
      *
      * @param player the player the packet gets sent to.
      */
     public static void sendAurealUpdatePacket(Player player) {
-        NetworkHandler.sendTo(player, new ClientboundUpdateAurealPacket(player));
+        NetworkHandler.sendTo(player, new UpdateAurealPacket(player));
     }
 
     public static CompoundTag save(CompoundTag tag, IAureal aureal) {

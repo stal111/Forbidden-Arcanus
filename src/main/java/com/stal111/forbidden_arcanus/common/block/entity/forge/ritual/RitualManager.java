@@ -8,9 +8,9 @@ import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.init.ModEntities;
 import com.stal111.forbidden_arcanus.init.ModParticles;
 import com.stal111.forbidden_arcanus.init.other.ModPOITypes;
-import com.stal111.forbidden_arcanus.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.network.UpdatePedestalPacket;
-import com.stal111.forbidden_arcanus.network.UpdateRitualPacket;
+import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -119,7 +119,7 @@ public class RitualManager implements NeedsStoring {
                 if (!this.getActiveRitual().checkIngredients(list, this.blockEntity)) {
                     this.failRitual(level);
 
-                    NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdateRitualPacket(pos, this.activeRitual));
+                    NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
                     return;
                 }
 
@@ -170,7 +170,7 @@ public class RitualManager implements NeedsStoring {
             }
         }
 
-        NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdateRitualPacket(pos, this.activeRitual));
+        NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
     }
 
     public void finishRitual(ServerLevel level) {

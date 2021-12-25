@@ -1,36 +1,23 @@
-package com.stal111.forbidden_arcanus.network;
+package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
+import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fmllegacy.network.NetworkDirection;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * Update Item In Slot Packet
+ * Update Item In Slot Packet <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.network.UpdateItemInSlotPacket
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-07-24
  */
-public class UpdateItemInSlotPacket {
-
-    private final BlockPos pos;
-    private final ItemStack stack;
-    private final int slot;
-
-    public UpdateItemInSlotPacket(BlockPos pos, ItemStack stack, int slot) {
-        this.pos = pos;
-        this.stack = stack;
-        this.slot = slot;
-    }
+public record UpdateItemInSlotPacket(BlockPos pos, ItemStack stack, int slot) {
 
     public static void encode(UpdateItemInSlotPacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
@@ -46,13 +33,7 @@ public class UpdateItemInSlotPacket {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            Level world = Minecraft.getInstance().level;
-
-            if (world != null && world.getBlockEntity(packet.pos) instanceof Container) {
-                Container tileEntity = (Container) Objects.requireNonNull(world.getBlockEntity(packet.pos));
-
-                tileEntity.setItem(packet.slot, packet.stack);
-            }
+            ClientPacketHandler.handleUpdateItemInSlot(packet);
         });
         ctx.get().setPacketHandled(true);
     }

@@ -1,20 +1,17 @@
 package com.stal111.forbidden_arcanus.common;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
-import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
 import com.stal111.forbidden_arcanus.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 /**
@@ -44,8 +41,6 @@ public class CommonSetup {
         ModUtils.addStrippable(ModBlocks.CHERRYWOOD.get(), ModBlocks.STRIPPED_CHERRYWOOD.get());
         ModUtils.addStrippable(ModBlocks.MYSTERYWOOD_LOG.get(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
         ModUtils.addStrippable(ModBlocks.MYSTERYWOOD.get(), ModBlocks.STRIPPED_MYSTERYWOOD.get());
-
-        MinecraftForgeClient.registerTooltipComponentFactory(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
 
         PotionBrewing.addMix(Potions.WATER, ModItems.STRANGE_ROOT.get(), Potions.AWKWARD);
     }
