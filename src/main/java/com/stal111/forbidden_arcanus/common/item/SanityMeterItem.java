@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
-import com.stal111.forbidden_arcanus.util.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

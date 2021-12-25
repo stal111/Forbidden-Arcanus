@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.util.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;

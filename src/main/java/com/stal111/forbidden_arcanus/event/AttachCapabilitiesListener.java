@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.aureal.capability.AurealProvider;
+import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.resources.ResourceLocation;

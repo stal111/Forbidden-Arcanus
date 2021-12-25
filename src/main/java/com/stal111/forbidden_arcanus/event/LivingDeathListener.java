@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.config.AurealConfig;
-import com.stal111.forbidden_arcanus.util.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -39,8 +39,6 @@ public class LivingDeathListener {
 
                 if (entity.getRandom().nextDouble() <= chance) {
                     AurealHelper.increaseCorruption(player, amount);
-
-                    AurealHelper.sendAurealUpdatePacket(player);
                 }
             }
         }

@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus;
 
-import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
-import com.stal111.forbidden_arcanus.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
+import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.item.group.ModItemGroup;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
@@ -20,7 +19,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -102,8 +100,6 @@ public class ForbiddenArcanus {
 		});
 
 		NetworkHandler.init();
-
-		CapabilityManager.INSTANCE.register(IAureal.class);
 
 		CounterHelper.addCounter(new SimpleCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"), 0, false));
 

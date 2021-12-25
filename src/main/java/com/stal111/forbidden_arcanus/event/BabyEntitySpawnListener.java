@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.aureal.capability.IAureal;
+import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.config.AurealConfig;
-import com.stal111.forbidden_arcanus.util.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

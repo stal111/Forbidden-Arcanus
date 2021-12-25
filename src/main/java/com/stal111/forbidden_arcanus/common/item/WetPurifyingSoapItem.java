@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.init.ModItems;
-import com.stal111.forbidden_arcanus.util.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;

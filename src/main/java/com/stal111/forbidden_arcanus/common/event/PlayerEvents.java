@@ -4,10 +4,14 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
+import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
+import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
 import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.config.BlockConfig;
 import com.stal111.forbidden_arcanus.init.ModBlocks;
 import com.stal111.forbidden_arcanus.init.ModItems;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,6 +32,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -88,6 +93,28 @@ public class PlayerEvents {
         }
 
         tryPickupMob(player, hand, livingEntity);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerClone(PlayerEvent.Clone event) {
+        if (event.isWasDeath()) {
+            Player player = event.getPlayer();
+            Player original = event.getOriginal();
+
+            original.reviveCaps();
+
+            IAureal capability = AurealHelper.getCapability(original);
+
+            player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
+                aureal.setAureal(capability.getAureal());
+                aureal.setCorruption(capability.getCorruption());
+                aureal.setCorruptionTimer(capability.getCorruptionTimer());
+
+                for (Consequence consequence : capability.getActiveConsequences()) {
+                    aureal.addActiveConsequence(consequence);
+                }
+            });
+        }
     }
 
     private static boolean milkCow(Cow cow, ItemStack stack, CapacityBucket capacityBucket, Player player, InteractionHand hand) {

@@ -1,17 +1,17 @@
-package com.stal111.forbidden_arcanus.aureal.capability;
+package com.stal111.forbidden_arcanus.common.aureal.capability;
 
-import com.stal111.forbidden_arcanus.aureal.consequence.IConsequence;
+import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Aureal Impl
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.aureal.capability.AurealImpl
+ * Aureal Impl <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.aureal.capability.AurealImpl
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-01-26
  */
 public class AurealImpl implements IAureal {
@@ -20,7 +20,7 @@ public class AurealImpl implements IAureal {
     private int corruptionTimer = 0;
     private int aureal = 0;
 
-    private final List<IConsequence> activeConsequences = new ArrayList<>();
+    private final List<Consequence> activeConsequences = new ArrayList<>();
 
     @Override
     public int getCorruption() {
@@ -89,8 +89,8 @@ public class AurealImpl implements IAureal {
     }
 
     @Override
-    public void addActiveConsequence(IConsequence consequence) {
-        for (IConsequence activeConsequence : this.activeConsequences) {
+    public void addActiveConsequence(Consequence consequence) {
+        for (Consequence activeConsequence : this.activeConsequences) {
             if (activeConsequence.getType() == consequence.getType()) {
                 return;
             }
@@ -99,21 +99,19 @@ public class AurealImpl implements IAureal {
     }
 
     @Override
-    public void removeActiveConsequence(IConsequence consequence) {
+    public void removeActiveConsequence(Consequence consequence) {
         this.activeConsequences.remove(consequence);
     }
 
     @Override
-    public void updateActiveConsequences(Player player) {
-        if (!getActiveConsequences().isEmpty()) {
-            for (int i = 0; i < getActiveConsequences().size(); i++) {
-                getActiveConsequences().get(i).tick(player);
-            }
+    public void tickActiveConsequences(Player player) {
+        for (Consequence consequence : this.getActiveConsequences()) {
+            consequence.tick(player);
         }
     }
 
     @Override
-    public List<IConsequence> getActiveConsequences() {
+    public List<Consequence> getActiveConsequences() {
         return this.activeConsequences;
     }
 }
