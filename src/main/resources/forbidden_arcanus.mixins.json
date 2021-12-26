@@ -11,7 +11,7 @@
     "ItemStackMixin"
   ],
   "client": [
-    "HeadLayerMixin",
+    "CustomHeadLayerMixin",
     "ScreenMixin"
   ],
   "injectors": {

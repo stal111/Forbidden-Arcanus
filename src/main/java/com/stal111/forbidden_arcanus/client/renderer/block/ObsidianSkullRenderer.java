@@ -13,14 +13,15 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,16 +75,18 @@ public class ObsidianSkullRenderer implements BlockEntityRenderer<ObsidianSkullB
         BlockState state = blockEntity.getBlockState();
 
         boolean flag = state.getBlock() instanceof ObsidianWallSkullBlock;
-        boolean eternal = state.getBlock() == ModBlocks.ETERNAL_OBSIDIAN_SKULL.get() || state.getBlock() == ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get();
 
         Direction direction = flag ? state.getValue(ObsidianWallSkullBlock.FACING) : null;
         float rotation = flag ? (float) (2 + direction.get2DDataValue()) * 4 : state.getValue(ObsidianSkullBlock.ROTATION);
 
-        render(direction, 22.5F * rotation, poseStack, buffer, combinedLight, eternal ? models.getSecond() : models.getFirst(), eternal);
+        render(direction, 22.5F * rotation, poseStack, buffer, combinedLight, models, state.getBlock());
     }
 
-    public static void render(@Nullable Direction direction, float rotation, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, SkullModel model, boolean eternal) {
+    public static void render(@Nullable Direction direction, float rotation, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, Pair<SkullModel, SkullModel> models, Block block) {
         poseStack.pushPose();
+
+        boolean eternal = block == ModBlocks.ETERNAL_OBSIDIAN_SKULL.get() || block == ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get();
+        SkullModel model = eternal ? models.getSecond() : models.getFirst();
 
         if (direction == null) {
             poseStack.translate(0.5D, 0.0D, 0.5D);
