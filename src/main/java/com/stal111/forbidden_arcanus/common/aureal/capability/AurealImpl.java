@@ -105,8 +105,8 @@ public class AurealImpl implements IAureal {
 
     @Override
     public void tickActiveConsequences(Player player) {
-        for (Consequence consequence : this.getActiveConsequences()) {
-            consequence.tick(player);
+        for (int i = 0; i < this.activeConsequences.size(); i++) {
+            this.activeConsequences.get(i).tick(player);
         }
     }
 
