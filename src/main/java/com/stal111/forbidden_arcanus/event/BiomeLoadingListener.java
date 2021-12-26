@@ -25,17 +25,14 @@ public class BiomeLoadingListener {
         if (WorldGenConfig.ARCANE_CRYSTAL_ORE_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.ARCANE_CRYSTAL_ORE);
         }
-        if (WorldGenConfig.RUNESTONE_GENERATE.get()) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.RUNESTONE);
+        if (WorldGenConfig.RUNIC_STONE_GENERATE.get()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.RUNIC_STONE);
         }
         if (WorldGenConfig.DARKSTONE_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.DARKSTONE);
         }
         if (WorldGenConfig.ARCANE_GILDED_DARKSTONE_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.ARCANE_GILDED_DARKSTONE);
-        }
-        if (WorldGenConfig.DARK_RUNESTONE_GENERATE.get()) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.DARK_RUNESTONE);
         }
         if (WorldGenConfig.STELLA_ARCANUM_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModConfiguredFeatures.STELLA_ARCANUM);

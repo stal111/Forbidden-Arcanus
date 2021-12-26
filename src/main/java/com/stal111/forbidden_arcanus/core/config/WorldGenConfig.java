@@ -8,7 +8,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import java.util.Collections;
@@ -25,10 +24,10 @@ public class WorldGenConfig {
 	private static ForgeConfigSpec.ConfigValue<List<? extends String>> ORE_BLACKLIST;
 	private static ForgeConfigSpec.ConfigValue<List<? extends String>> ORE_WHITELIST;
 
-	public static ForgeConfigSpec.BooleanValue RUNESTONE_GENERATE;
-	public static ForgeConfigSpec.IntValue RUNESTONE_MAX_VEIN_SIZE;
-	public static ForgeConfigSpec.IntValue RUNESTONE_COUNT;
-	public static ForgeConfigSpec.IntValue RUNESTONE_MAX_HEIGHT;
+	public static ForgeConfigSpec.BooleanValue RUNIC_STONE_GENERATE;
+	public static ForgeConfigSpec.IntValue RUNIC_STONE_MAX_VEIN_SIZE;
+	public static ForgeConfigSpec.IntValue RUNIC_STONE_COUNT;
+	public static ForgeConfigSpec.IntValue RUNIC_STONE_MAX_HEIGHT;
 
 	public static ForgeConfigSpec.BooleanValue DARKSTONE_GENERATE;
 	public static ForgeConfigSpec.IntValue DARKSTONE_MAX_VEIN_SIZE;
@@ -39,11 +38,6 @@ public class WorldGenConfig {
 	public static ForgeConfigSpec.IntValue ARCANE_GILDED_DARKSTONE_MAX_VEIN_SIZE;
 	public static ForgeConfigSpec.IntValue ARCANE_GILDED_DARKSTONE_COUNT;
 	public static ForgeConfigSpec.IntValue ARCANE_GILDED_DARKSTONE_MAX_HEIGHT;
-
-	public static ForgeConfigSpec.BooleanValue DARK_RUNESTONE_GENERATE;
-	public static ForgeConfigSpec.IntValue DARK_RUNESTONE_MAX_VEIN_SIZE;
-	public static ForgeConfigSpec.IntValue DARK_RUNESTONE_COUNT;
-	public static ForgeConfigSpec.IntValue DARK_RUNESTONE_MAX_HEIGHT;
 
 	public static ForgeConfigSpec.BooleanValue XPETRIFIED_ORE_GENERATE;
 
@@ -81,10 +75,10 @@ public class WorldGenConfig {
 		ARCANE_CRYSTAL_ORE_COUNT = builder.comment("Maximum Arcane Crystal Ore veins per chunk [default: 3]").defineInRange("arcane_crystal.count", 3, 1, 100);
 		ARCANE_CRYSTAL_ORE_MAX_HEIGHT = builder.comment("Maximum height for Arcane Crystal Ore to generate [default: 25]").defineInRange("arcane_crystal.max_height", 25, 1, 256);
 
-		RUNESTONE_GENERATE = builder.comment("Generate Runestone? [default: true]").define("runestone.generate", true);
-		RUNESTONE_MAX_VEIN_SIZE = builder.comment("Maximum size of Runestone veins [default: 3]").defineInRange("runestone.max_vein_size", 3, 0, 100);
-		RUNESTONE_COUNT = builder.comment("Maximum Runestone veins per chunk [default: 2]").defineInRange("runestone.count", 2, 1, 100);
-		RUNESTONE_MAX_HEIGHT = builder.comment("Maximum height for the Runestone to generate [default: 20]").defineInRange("runestone.max_height", 20, 1, 256);
+		RUNIC_STONE_GENERATE = builder.comment("Generate Runestone? [default: true]").define("runestone.generate", true);
+		RUNIC_STONE_MAX_VEIN_SIZE = builder.comment("Maximum size of Runestone veins [default: 3]").defineInRange("runestone.max_vein_size", 3, 0, 100);
+		RUNIC_STONE_COUNT = builder.comment("Maximum Runestone veins per chunk [default: 2]").defineInRange("runestone.count", 2, 1, 100);
+		RUNIC_STONE_MAX_HEIGHT = builder.comment("Maximum height for the Runestone to generate [default: 20]").defineInRange("runestone.max_height", 20, 1, 256);
 
 		DARKSTONE_GENERATE = builder.comment("Generate Darkstone? [default: true]").define("darkstone.generate", true);
 		DARKSTONE_MAX_VEIN_SIZE = builder.comment("Maximum size of Darkstone veins [default: 20]").defineInRange("darkstone.max_vein_size", 20, 0, 100);
@@ -95,11 +89,6 @@ public class WorldGenConfig {
 		ARCANE_GILDED_DARKSTONE_MAX_VEIN_SIZE = builder.comment("Maximum size of Arcane Gilded Darkstone veins [default: 4]").defineInRange("arcane_gilded_darkstone.max_vein_size", 4, 0, 100);
 		ARCANE_GILDED_DARKSTONE_COUNT = builder.comment("Maximum Arcane Gilded Darkstone veins per chunk [default: 4]").defineInRange("arcane_gilded_darkstone.count", 4, 1, 100);
 		ARCANE_GILDED_DARKSTONE_MAX_HEIGHT = builder.comment("Maximum height for Arcane Gilded Darkstone to generate [default: 8]").defineInRange("arcane_gilded_darkstone.max_height", 8, 1, 256);
-
-		DARK_RUNESTONE_GENERATE = builder.comment("Generate Dark Runestone? [default: true]").define("dark_runestone.generate", true);
-		DARK_RUNESTONE_MAX_VEIN_SIZE = builder.comment("Maximum size of Dark Runestone veins [default: 3]").defineInRange("dark_runestone.max_vein_size", 3, 0, 100);
-		DARK_RUNESTONE_COUNT = builder.comment("Maximum Dark Runestone veins per chunk [default: 2]").defineInRange("dark_runestone.count", 2, 1, 100);
-		DARK_RUNESTONE_MAX_HEIGHT = builder.comment("Maximum height for Dark Runestone to generate [default: 8]").defineInRange("dark_runestone.max_height", 8, 1, 256);
 
 		XPETRIFIED_ORE_GENERATE = builder.comment("Generate Xpetrified Ore? [default: true]").define("xpetrified_ore.generate", true);
 

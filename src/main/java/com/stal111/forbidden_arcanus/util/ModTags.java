@@ -16,10 +16,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModTags {
 
     public static class Blocks {
-        public static final Tag.Named<Block> CANDELABRAS = modTag("candelabras");
-        public static final Tag.Named<Block> STANDING_CANDELABRAS = modTag("standing_candelabras");
-        public static final Tag.Named<Block> WALL_CANDELABRAS = modTag("wall_candelabras");
-        public static final Tag.Named<Block> HANGING_CANDELABRAS = modTag("hanging_candelabras");
         public static final Tag.Named<Block> FUNGYSS_STEMS = modTag("fungyss_stems");
         public static final Tag.Named<Block> CHERRYWOOD_LOGS = modTag("cherrywood_logs");
         public static final Tag.Named<Block> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
@@ -29,6 +25,7 @@ public class ModTags {
         public static final Tag.Named<Block> RUNIC_STONES = modTag("runic_stones");
         public static final Tag.Named<Block> RUNE_BLOCKS = modTag("rune_blocks");
         public static final Tag.Named<Block> ARCANE_CRYSTAL_ORES = modTag("arcane_crystal_ores");
+        public static final Tag.Named<Block> DARKSTONE_ORE_REPLACEABLES = modTag("darkstone_ore_replaceables");
 
         private static Tag.Named<Block> forgeTag(String name) {
             return BlockTags.bind(new ResourceLocation("forge", name).toString());

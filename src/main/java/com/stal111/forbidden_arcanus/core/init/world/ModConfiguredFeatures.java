@@ -1,17 +1,20 @@
 package com.stal111.forbidden_arcanus.core.init.world;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import com.stal111.forbidden_arcanus.common.world.placement.DimensionConfig;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,25 +35,32 @@ import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.OptionalInt;
 
 /**
- * Mod Configured Features
+ * Mod Configured Features <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  */
 public class ModConfiguredFeatures {
 
-    public static final ConfiguredFeature<?, ?> ARCANE_CRYSTAL_ORE = register("ore_arcane_crystal", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, States.ARCANE_CRYSTAL_ORE, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.ARCANE_CRYSTAL_ORE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
-    public static final ConfiguredFeature<?, ?> RUNESTONE = register("ore_rune", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, States.RUNIC_STONE, WorldGenConfig.RUNESTONE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.RUNESTONE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.RUNESTONE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
-    public static final ConfiguredFeature<?, ?> DARKSTONE = register("ore_darkstone", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, States.DARKSTONE, WorldGenConfig.DARKSTONE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.DARKSTONE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.DARKSTONE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
+    private static final RuleTest DARKSTONE_ORE_REPLACEABLES = new TagMatchTest(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES);
+
+    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_ARCANE_CRYSTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreConfiguration.Predicates.STONE_ORE_REPLACEABLES, States.ARCANE_CRYSTAL_ORE), OreConfiguration.target(OreConfiguration.Predicates.DEEPSLATE_ORE_REPLACEABLES, States.DEEPSLATE_ARCANE_CRYSTAL_ORE));
+    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_RUNIC_STONE_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreConfiguration.Predicates.STONE_ORE_REPLACEABLES, States.RUNIC_STONE), OreConfiguration.target(OreConfiguration.Predicates.DEEPSLATE_ORE_REPLACEABLES, States.RUNIC_DEEPSLATE), OreConfiguration.target(DARKSTONE_ORE_REPLACEABLES, States.RUNIC_DARKSTONE));
+    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_DARKSTONE_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreConfiguration.Predicates.STONE_ORE_REPLACEABLES, States.DARKSTONE), OreConfiguration.target(OreConfiguration.Predicates.DEEPSLATE_ORE_REPLACEABLES, States.DARKSTONE));
+    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STELLA_ARCANUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreConfiguration.Predicates.STONE_ORE_REPLACEABLES, States.STELLA_ARCANUM), OreConfiguration.target(OreConfiguration.Predicates.DEEPSLATE_ORE_REPLACEABLES, States.STELLA_ARCANUM));
+
+    public static final ConfiguredFeature<?, ?> ARCANE_CRYSTAL_ORE = register("ore_arcane_crystal", Feature.ORE.configured(new OreConfiguration(ORE_ARCANE_CRYSTAL_TARGET_LIST, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.ARCANE_CRYSTAL_ORE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
+    public static final ConfiguredFeature<?, ?> RUNIC_STONE = register("ore_rune", Feature.ORE.configured(new OreConfiguration(ORE_RUNIC_STONE_TARGET_LIST, WorldGenConfig.RUNIC_STONE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.RUNIC_STONE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.RUNIC_STONE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
+    public static final ConfiguredFeature<?, ?> DARKSTONE = register("ore_darkstone", Feature.ORE.configured(new OreConfiguration(ORE_DARKSTONE_TARGET_LIST, WorldGenConfig.DARKSTONE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.DARKSTONE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.DARKSTONE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
     public static final ConfiguredFeature<?, ?> ARCANE_GILDED_DARKSTONE = register("ore_arcane_gilded_darkstone", Feature.ORE.configured(new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.ARCANE_GILDED_DARKSTONE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.ARCANE_GILDED_DARKSTONE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
-    public static final ConfiguredFeature<?, ?> DARK_RUNESTONE = register("ore_dark_rune", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, States.RUNIC_DARKSTONE, WorldGenConfig.DARK_RUNESTONE_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.DARK_RUNESTONE_MAX_HEIGHT.get())).squared().count(WorldGenConfig.DARK_RUNESTONE_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
-    public static final ConfiguredFeature<?, ?> STELLA_ARCANUM = register("ore_stella_arcanum", Feature.ORE.configured(new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, States.STELLA_ARCANUM, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.STELLA_ARCANUM_MAX_HEIGHT.get())).squared().count(WorldGenConfig.STELLA_ARCANUM_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
-    public static final ConfiguredFeature<?, ?> XPETRIFIED_ORE = register("ore_xpetrified", Feature.REPLACE_SINGLE_BLOCK.configured(new ReplaceBlockConfiguration(States.STONE, States.XPETRIFIED_ORE)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
+    public static final ConfiguredFeature<?, ?> STELLA_ARCANUM = register("ore_stella_arcanum", Feature.ORE.configured(new OreConfiguration(ORE_STELLA_ARCANUM_TARGET_LIST, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get())).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(WorldGenConfig.STELLA_ARCANUM_MAX_HEIGHT.get())).squared().count(WorldGenConfig.STELLA_ARCANUM_COUNT.get()).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
+    public static final ConfiguredFeature<?, ?> XPETRIFIED_ORE = register("ore_xpetrified", Feature.REPLACE_SINGLE_BLOCK.configured(new ReplaceBlockConfiguration(States.STONE, States.XPETRIFIED_ORE)).rangeUniform(VerticalAnchor.absolute(WorldGenConfig.DARKSTONE_MAX_HEIGHT.get()), VerticalAnchor.absolute(35)).squared().count(UniformInt.of(3, 8)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
     public static final ConfiguredFeature<TreeConfiguration, ?> CHERRYWOOD = register("cherrywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(new SimpleStateProvider(States.CHERRYWOOD_LOG), new ForkingTrunkPlacer(5, 2, 2), new SimpleStateProvider(States.CHERRYWOOD_LEAVES), new SimpleStateProvider(States.CHERRYWOOD_SAPLING), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()));
     public static final ConfiguredFeature<TreeConfiguration, ?> MYSTERYWOOD = register("mysterywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(new SimpleStateProvider(States.MYSTERYWOOD_LOG), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES, 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES, 1)), new SimpleStateProvider(States.MYSTERYWOOD_SAPLING), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().build()));
 
@@ -92,7 +102,9 @@ public class ModConfiguredFeatures {
         private static final BlockState GRASS_BLOCK = Blocks.GRASS_BLOCK.defaultBlockState();
         private static final BlockState STONE = Blocks.STONE.defaultBlockState();
         private static final BlockState ARCANE_CRYSTAL_ORE = ModBlocks.ARCANE_CRYSTAL_ORE.get().defaultBlockState();
+        private static final BlockState DEEPSLATE_ARCANE_CRYSTAL_ORE = ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get().defaultBlockState();
         private static final BlockState RUNIC_STONE = ModBlocks.RUNIC_STONE.get().defaultBlockState();
+        private static final BlockState RUNIC_DEEPSLATE = ModBlocks.RUNIC_DEEPSLATE.get().defaultBlockState();
         private static final BlockState RUNIC_DARKSTONE = ModBlocks.RUNIC_DARKSTONE.get().defaultBlockState();
         private static final BlockState DARKSTONE = ModBlocks.DARKSTONE.get().defaultBlockState();
         private static final BlockState ARCANE_GILDED_DARKSTONE = ModBlocks.ARCANE_GILDED_DARKSTONE.get().defaultBlockState();
