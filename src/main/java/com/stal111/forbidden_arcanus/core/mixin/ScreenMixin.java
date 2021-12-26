@@ -32,7 +32,7 @@ import java.util.List;
 @Mixin(Screen.class)
 public class ScreenMixin {
 
-    @Shadow private ItemStack tooltipStack;
+    @Shadow(remap = false) private ItemStack tooltipStack;
 
     @Shadow public int width;
 
