@@ -8,8 +8,7 @@
     "AccessorFireBlock",
     "BubbleColumnBlockMixin",
     "ItemMixin",
-    "ItemStackMixin",
-    "WorldEntitySpawnerMixin"
+    "ItemStackMixin"
   ],
   "client": [
     "HeadLayerMixin",

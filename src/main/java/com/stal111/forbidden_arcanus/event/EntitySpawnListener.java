@@ -1,18 +1,13 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.stal111.forbidden_arcanus.core.config.AurealConfig;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber
+//@Mod.EventBusSubscriber
 public class EntitySpawnListener {
 
-    @SubscribeEvent
+  //  @SubscribeEvent
     public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
         Entity entity = event.getEntity();
         Level world = event.getEntity().getCommandSenderWorld();
@@ -32,16 +27,5 @@ public class EntitySpawnListener {
 //                }
 //            });
 //        });
-    }
-
-    @SubscribeEvent
-    public static void onSpecialSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        LivingEntity entity = event.getEntityLiving();
-
-        if (entity.getType().getCategory() == MobCategory.AMBIENT || entity.getType().getCategory() == MobCategory.CREATURE) {
-            if (entity.getCommandSenderWorld().getRandom().nextDouble() <= AurealConfig.AUREAL_ENTITY_SPAWN_CHANCE.get()) {
-                entity.getPersistentData().putBoolean("aureal", true);
-            }
-        }
     }
 }
