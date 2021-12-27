@@ -1,5 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
+import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -19,7 +21,7 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.17.1 - 2.0.0
  * @since 2021-06-25
  */
 public class PedestalBlockEntity extends BlockEntity {
@@ -45,6 +47,14 @@ public class PedestalBlockEntity extends BlockEntity {
         this.stack = stack;
     }
 
+    public void setStackAndSync(ItemStack stack, Level level, BlockPos pos) {
+        this.stack = stack;
+
+        if (!level.isClientSide()) {
+            NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdatePedestalPacket(pos, stack, this.itemHeight));
+        }
+    }
+
     public ItemStack getStack() {
         return this.stack;
     }
@@ -53,9 +63,10 @@ public class PedestalBlockEntity extends BlockEntity {
         return !this.stack.isEmpty();
     }
 
-    public void clearStack() {
-        this.stack = ItemStack.EMPTY;
+    public void clearStack(Level level, BlockPos pos) {
         this.setItemHeight(DEFAULT_ITEM_HEIGHT);
+
+        this.setStackAndSync(ItemStack.EMPTY, level, pos);
     }
 
     public float getItemHover(float partialTicks) {

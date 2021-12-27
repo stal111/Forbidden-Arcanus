@@ -117,10 +117,10 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
                 player.drop(pedestalStack, false);
             }
 
-            blockEntity.clearStack();
+            blockEntity.clearStack(level, pos);
 
         } else if (!stack.isEmpty() && !blockEntity.hasStack()) {
-            blockEntity.setStack(stack.copy().split(1));
+            blockEntity.setStackAndSync(stack.copy().split(1), level, pos);
 
             ItemStackUtils.shrinkStack(player, stack);
             

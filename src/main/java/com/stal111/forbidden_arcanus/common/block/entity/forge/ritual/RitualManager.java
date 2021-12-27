@@ -155,9 +155,7 @@ public class RitualManager implements NeedsStoring {
                     BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
                     level.addFreshEntity(new ItemEntity(level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
-                    pedestalBlockEntity.clearStack();
-
-                    NetworkHandler.sentToTrackingChunk(level.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, ItemStack.EMPTY, 110));
+                    pedestalBlockEntity.clearStack(level, pos);
                 }
             });
         }
@@ -178,9 +176,7 @@ public class RitualManager implements NeedsStoring {
         this.reset();
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
-            pedestalBlockEntity.clearStack();
-
-            NetworkHandler.sentToTrackingChunk(level.getChunkAt(this.blockEntity.getBlockPos()), new UpdatePedestalPacket(pedestalBlockEntity.getBlockPos(), ItemStack.EMPTY, 110));
+            pedestalBlockEntity.clearStack(level, pedestalBlockEntity.getBlockPos());
         });
     }
 
@@ -197,10 +193,8 @@ public class RitualManager implements NeedsStoring {
         }
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
-            pedestalBlockEntity.clearStack();
+            pedestalBlockEntity.clearStack(level, pedestalBlockEntity.getBlockPos());
             this.blockEntity.getEssenceManager().increaseCorruption(2);
-
-            NetworkHandler.sentToTrackingChunk(level.getChunkAt(this.blockEntity.getBlockPos()), new UpdatePedestalPacket(pedestalBlockEntity.getBlockPos(), ItemStack.EMPTY, 110));
         });
 
         level.sendParticles(ModParticles.HUGE_MAGIC_EXPLOSION.get(), pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0, 1.0D, 0.0D, 0.0D, 0.0D);
