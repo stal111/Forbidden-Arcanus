@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.common.loader;
 
-import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    private static final Map<InputType, Map<Item, InputData>> INPUTS = Maps.newHashMap();
+    public static EnumMap<InputType, Map<Item, InputData>> inputs = new EnumMap<>(InputType.class);
 
     public HephaestusForgeInputLoader() {
         super(GSON, "hephaestus_forge/inputs");
@@ -38,7 +39,7 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
 
     @Override
     protected void apply(@Nonnull Map<ResourceLocation, JsonElement> object, @Nonnull ResourceManager resourceManager, @Nonnull ProfilerFiller profiler) {
-        INPUTS.clear();
+        inputs.clear();
 
         for(Map.Entry<ResourceLocation, JsonElement> entry : object.entrySet()) {
             ResourceLocation resourceLocation = entry.getKey();
@@ -51,8 +52,8 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
                 InputType type = InputType.valueOf(GsonHelper.getAsString(entry.getValue().getAsJsonObject(), "type").toUpperCase(Locale.ROOT));
                 InputData data = this.deserializeInput(resourceLocation, entry.getValue().getAsJsonObject());
 
-                INPUTS.computeIfAbsent(type, (inputType) -> new HashMap<>());
-                INPUTS.get(type).put(data.stack().getItem(), data);
+                inputs.computeIfAbsent(type, (inputType) -> new HashMap<>());
+                inputs.get(type).put(data.stack().getItem(), data);
             } catch (IllegalArgumentException | JsonParseException jsonParseException) {
                 ForbiddenArcanus.LOGGER.error("Parsing error loading hephaestus forge input {}", resourceLocation, jsonParseException);
             }
@@ -60,7 +61,7 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
     }
 
     private static Map<InputType, Map<Item, InputData>> getInputs() {
-        return INPUTS;
+        return inputs;
     }
 
     private InputData deserializeInput(ResourceLocation input, JsonObject jsonObject) {
@@ -85,5 +86,19 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
         return getInputs().get(inputType).get(stack.getItem());
     }
 
-    public record InputData(ItemStack stack, int value) {}
+    public static void setInputs(EnumMap<InputType, Map<Item, InputData>> inputTypeMapMap) {
+        HephaestusForgeInputLoader.inputs = inputTypeMapMap;
+    }
+
+    public record InputData(ItemStack stack, int value) {
+
+        public void serializeToNetwork(FriendlyByteBuf buffer) {
+            buffer.writeItem(this.stack);
+            buffer.writeVarInt(this.value);
+        }
+
+        public static InputData fromNetwork(FriendlyByteBuf buffer) {
+            return new InputData(buffer.readItem(), buffer.readVarInt());
+        }
+    }
 }

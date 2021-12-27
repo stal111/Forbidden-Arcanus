@@ -30,6 +30,7 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), UpdateForgeRitualPacket.class, UpdateForgeRitualPacket::encode, UpdateForgeRitualPacket::decode, UpdateForgeRitualPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateItemInSlotPacket.class, UpdateItemInSlotPacket::encode, UpdateItemInSlotPacket::decode, UpdateItemInSlotPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateRitualsPacket.class, UpdateRitualsPacket::encode, UpdateRitualsPacket::decode, UpdateRitualsPacket::consume);
+        INSTANCE.registerMessage(nextID(), UpdateForgeInputsPacket.class, UpdateForgeInputsPacket::encode, UpdateForgeInputsPacket::decode, UpdateForgeInputsPacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {
