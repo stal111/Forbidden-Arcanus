@@ -9,6 +9,7 @@ import net.minecraftforge.fmllegacy.network.NetworkDirection;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.EnumMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -27,7 +28,7 @@ public record UpdateForgeInputsPacket(Map<InputType, Map<Item, HephaestusForgeIn
     }
 
     public static UpdateForgeInputsPacket decode(FriendlyByteBuf buffer) {
-        return new UpdateForgeInputsPacket(buffer.readMap(byteBuf -> InputType.valueOf(byteBuf.readUtf()), byteBuf -> byteBuf.readMap(friendlyByteBuf -> friendlyByteBuf.readItem().getItem(), HephaestusForgeInputLoader.InputData::fromNetwork)));
+        return new UpdateForgeInputsPacket(buffer.readMap(byteBuf -> InputType.valueOf(byteBuf.readUtf().toUpperCase(Locale.ROOT)), byteBuf -> byteBuf.readMap(friendlyByteBuf -> friendlyByteBuf.readItem().getItem(), HephaestusForgeInputLoader.InputData::fromNetwork)));
     }
 
     public static void consume(UpdateForgeInputsPacket packet, Supplier<NetworkEvent.Context> ctx) {
