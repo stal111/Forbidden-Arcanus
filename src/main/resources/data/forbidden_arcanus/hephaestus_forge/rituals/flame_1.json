@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:flint",
+            "item": "minecraft:blaze_powder",
             "slot": 2
         },
         {
-            "item": "minecraft:prismarine_shard",
+            "item": "minecraft:magma_cream",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:arrow",
             "slot": 4
         },
         {
@@ -34,7 +38,7 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:aqua_affinity",
+                    "id": "minecraft:flame",
                     "lvl": 1
                 }
             ]

@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:flint",
+            "item": "minecraft:fishing_rod",
             "slot": 2
         },
         {
-            "item": "minecraft:prismarine_shard",
+            "item": "minecraft:gold_nugget",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:redstone",
             "slot": 4
         },
         {
@@ -34,8 +38,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:aqua_affinity",
-                    "lvl": 1
+                    "id": "minecraft:looting",
+                    "lvl": 3
                 }
             ]
         }

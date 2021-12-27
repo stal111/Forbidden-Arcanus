@@ -9,11 +9,15 @@
             "slot": 1
         },
         {
-            "item": "minecraft:flint",
+            "item": "minecraft:gold_nugget",
             "slot": 2
         },
         {
-            "item": "minecraft:prismarine_shard",
+            "item": "forbidden_arcanus:mundabitur_dust",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:arrow",
             "slot": 4
         },
         {
@@ -34,7 +38,7 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:aqua_affinity",
+                    "id": "minecraft:infinity",
                     "lvl": 1
                 }
             ]

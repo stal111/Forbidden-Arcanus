@@ -9,8 +9,12 @@
             "slot": 1
         },
         {
-            "item": "minecraft:flint",
+            "item": "minecraft:ender_pearl",
             "slot": 2
+        },
+        {
+            "item": "forbidden_arcanus:mundabitur_dust",
+            "slot": 3
         },
         {
             "item": "minecraft:prismarine_shard",
@@ -34,8 +38,8 @@
         "nbt": {
             "StoredEnchantments": [
                 {
-                    "id": "minecraft:aqua_affinity",
-                    "lvl": 1
+                    "id": "minecraft:riptide",
+                    "lvl": 3
                 }
             ]
         }
