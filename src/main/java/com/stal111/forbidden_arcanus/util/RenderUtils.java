@@ -23,14 +23,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class RenderUtils {
 
     public static void renderFluid(IFluidTank fluidTank, FluidStack fluidStack, MultiBufferSource buffer, Matrix4f matrix, Matrix3f normal, AABB boundingBox, int color, int combinedLight, int combinedOverlay) {
@@ -161,12 +158,12 @@ public class RenderUtils {
     }
 
     public static <T extends ParticleOptions> void spawnAurealMoteParticle(T type, ServerLevel world, double posX, double posY, double posZ, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
-        ClientboundLevelParticlesPacket sspawnparticlepacket = new ClientboundLevelParticlesPacket(type, false, posX, posY, posZ, (float)xOffset, (float)yOffset, (float)zOffset, (float)speed, particleCount);
+        ClientboundLevelParticlesPacket packet = new ClientboundLevelParticlesPacket(type, false, posX, posY, posZ, (float)xOffset, (float)yOffset, (float)zOffset, (float)speed, particleCount);
 
         for(int j = 0; j < world.players().size(); ++j) {
             ServerPlayer player = world.players().get(j);
             if (player.getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
-                world.sendParticles(player, false, posX, posY, posZ, sspawnparticlepacket);
+                world.sendParticles(player, false, posX, posY, posZ, packet);
             }
         }
     }
