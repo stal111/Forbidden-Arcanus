@@ -108,11 +108,11 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                     slot.onQuickCraft(stack, result);
                 } else {
                     if (!this.moveItemStackTo(stack, 0, 4, false)) {
-                        if (index < 32) {
-                            if (!this.moveItemStackTo(stack, 32, 41, false)) {
+                        if (index < 36) {
+                            if (!this.moveItemStackTo(stack, 36, 45, false)) {
                                 return ItemStack.EMPTY;
                             }
-                        } else if (index < 41 && !this.moveItemStackTo(stack, 5, 32, false)) {
+                        } else if (this.moveItemStackTo(stack, 5, 36, false)) {
                             return ItemStack.EMPTY;
                         }
                     }
