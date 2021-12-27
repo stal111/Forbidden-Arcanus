@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
@@ -11,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,6 +24,9 @@ import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class RenderGameOverlayListener {
+
+    private static final ResourceLocation FLIGHT_OVERLAY_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png");
+    private static final ResourceLocation HUD_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
 
     @SubscribeEvent
     public static void onRenderGameOverlay(RenderGameOverlayEvent event) {
@@ -43,7 +48,9 @@ public class RenderGameOverlayListener {
                 int posX = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_X_POSITION.get();
                 int posY = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_Y_POSITION.get();
 
-              //  minecraft.getTextureManager().bind(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png"));
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, FLIGHT_OVERLAY_TEXTURE);
+
                 GuiComponent.blit(matrixStack, posX, posY, 0, 0, 0, 57, 25, 25, 57);
 
                 minecraft.getItemRenderer().renderAndDecorateItem(ModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
@@ -57,7 +64,10 @@ public class RenderGameOverlayListener {
 
         player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
             if (player.getInventory().contains(ModItems.Stacks.SANITY_METER)) {
-                //minecraft.getTextureManager().bind(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png"));
+
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, HUD_TEXTURE);
+
                 GuiComponent.blit(matrixStack, window.getGuiScaledWidth() / 2 - 9, window.getGuiScaledHeight() - 39 - 13, 24, 18, 18, 19, 256, 256);
 
                 renderOverlay(matrixStack, window, aureal, false);
