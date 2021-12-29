@@ -18,7 +18,7 @@ public class ModStructurePieces {
 
     public static final StructurePieceType NIPA = register("nipa", NipaPieces.Piece::new);
 
-    static StructurePieceType register(String name, StructurePieceType type) {
+    static StructurePieceType register(String name, StructurePieceType.StructureTemplateType type) {
         return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), type);
     }
 }

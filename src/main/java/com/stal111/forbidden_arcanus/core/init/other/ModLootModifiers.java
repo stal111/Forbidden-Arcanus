@@ -5,8 +5,8 @@ import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import net.valhelsia.valhelsia_core.core.registry.LootModifierRegistryHelper;
 
 /**

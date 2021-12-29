@@ -24,7 +24,7 @@ public class TooltipEvents {
 
     @SubscribeEvent
     public static void onRenderTooltipColor(RenderTooltipEvent.Color event) {
-        ItemStack stack = event.getStack();
+        ItemStack stack = event.getItemStack();
         ItemModifier modifier = ModifierHelper.getModifier(stack);
 
         if (modifier != null) {
@@ -35,7 +35,7 @@ public class TooltipEvents {
 
     @SubscribeEvent
     public static void onGatherComponents(RenderTooltipEvent.GatherComponents event) {
-        ItemStack stack = event.getStack();
+        ItemStack stack = event.getItemStack();
 
         if (stack.getItem() instanceof CapacityBucket capacityBucket && capacityBucket.getCapacity() != 0) {
             event.getTooltipElements().add(1, Either.right(new EdelwoodBucketTooltip(stack, capacityBucket.getFullness(stack), capacityBucket.getCapacity())));

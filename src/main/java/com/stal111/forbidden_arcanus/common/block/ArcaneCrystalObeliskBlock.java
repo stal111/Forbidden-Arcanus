@@ -96,7 +96,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     @Override
     public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
         if (state.getValue(WATERLOGGED)) {
-            level.getLiquidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
         ObeliskPart part = state.getValue(PART);

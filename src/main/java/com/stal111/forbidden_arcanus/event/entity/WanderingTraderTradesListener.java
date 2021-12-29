@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.event.entity;
 
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.BasicTrade;
+import net.minecraftforge.common.BasicItemListing;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -22,10 +22,10 @@ public class WanderingTraderTradesListener {
     @SubscribeEvent
     public static void onWanderingTraderTradesEvent(WandererTradesEvent event) {
         TradeHelper.addWanderingTraderTrades(event,
-                new BasicTrade(3, new ItemStack(ModBlocks.FUNGYSS.get()), 5, 1),
-                new BasicTrade(5, new ItemStack(ModBlocks.CHERRYWOOD_SAPLING.get()), 8, 1),
-                new BasicTrade(5, new ItemStack(ModBlocks.MYSTERYWOOD_SAPLING.get()), 8, 1),
-                new BasicTrade(2, new ItemStack(ModBlocks.YELLOW_ORCHID.get()), 6, 1)
+                new BasicItemListing(3, new ItemStack(ModBlocks.FUNGYSS.get()), 5, 1),
+                new BasicItemListing(5, new ItemStack(ModBlocks.CHERRYWOOD_SAPLING.get()), 8, 1),
+                new BasicItemListing(5, new ItemStack(ModBlocks.MYSTERYWOOD_SAPLING.get()), 8, 1),
+                new BasicItemListing(2, new ItemStack(ModBlocks.YELLOW_ORCHID.get()), 6, 1)
         );
     }
 }

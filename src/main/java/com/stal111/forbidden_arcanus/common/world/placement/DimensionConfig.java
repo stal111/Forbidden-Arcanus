@@ -3,16 +3,16 @@ package com.stal111.forbidden_arcanus.common.world.placement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.feature.configurations.DecoratorConfiguration;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class DimensionConfig implements DecoratorConfiguration {
+//TODO
+public class DimensionConfig  {
 	public static final Codec<DimensionConfig> CODEC = RecordCodecBuilder.create((codec) -> codec.group(
 					ResourceLocation.CODEC.listOf().fieldOf("whitelist").forGetter(o -> o.whitelist.stream().map(ResourceKey::location).collect(Collectors.toList())),
 					ResourceLocation.CODEC.listOf().fieldOf("blacklist").forGetter(o -> o.blacklist.stream().map(ResourceKey::location).collect(Collectors.toList())

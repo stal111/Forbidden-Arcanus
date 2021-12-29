@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.core.init.world.ModStructurePieces;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureFeatureManager;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -45,8 +45,8 @@ public class NipaPieces {
             this.floating = floating;
         }
 
-        public Piece(ServerLevel level, CompoundTag tag) {
-            super(ModStructurePieces.NIPA, tag, level, (resourceLocation) -> {
+        public Piece(StructureManager manager, CompoundTag tag) {
+            super(ModStructurePieces.NIPA, tag, manager, (resourceLocation) -> {
                 return makeSettings(Rotation.valueOf(tag.getString("Rot")));
             });
             this.floating = tag.getBoolean("Floating");
@@ -57,8 +57,8 @@ public class NipaPieces {
         }
 
         @Override
-        protected void addAdditionalSaveData(@Nonnull ServerLevel level, @Nonnull CompoundTag tag) {
-            super.addAdditionalSaveData(level, tag);
+        protected void addAdditionalSaveData(@Nonnull StructurePieceSerializationContext context, @Nonnull CompoundTag tag) {
+            super.addAdditionalSaveData(context, tag);
             tag.putString("Rot", this.placeSettings.getRotation().name());
             tag.putBoolean("Floating", this.floating);
         }
@@ -68,11 +68,11 @@ public class NipaPieces {
         }
 
         @Override
-        public boolean postProcess(WorldGenLevel level, @Nonnull StructureFeatureManager structureManager, @Nonnull ChunkGenerator generator, @Nonnull Random random, @Nonnull BoundingBox boundingBox, @Nonnull ChunkPos chunkPos, BlockPos pos) {
+        public void postProcess(WorldGenLevel level, @Nonnull StructureFeatureManager structureManager, @Nonnull ChunkGenerator generator, @Nonnull Random random, @Nonnull BoundingBox boundingBox, @Nonnull ChunkPos chunkPos, BlockPos pos) {
             int i = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, pos.getX(), pos.getZ());
             this.templatePosition = new BlockPos(this.templatePosition.getX(), this.floating ? i + 60 : i - 3, this.templatePosition.getZ());
 
-            return super.postProcess(level, structureManager, generator, random, boundingBox, chunkPos, pos);
+            super.postProcess(level, structureManager, generator, random, boundingBox, chunkPos, pos);
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
+import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.HugeExplosionParticle;
@@ -13,9 +13,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModParticles {

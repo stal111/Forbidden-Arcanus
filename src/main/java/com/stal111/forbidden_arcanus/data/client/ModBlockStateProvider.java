@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.core.data.client;
+package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;

@@ -8,8 +8,8 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 /**
  * Mod Item Modifiers <br>

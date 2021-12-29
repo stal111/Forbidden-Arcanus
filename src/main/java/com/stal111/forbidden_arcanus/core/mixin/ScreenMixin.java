@@ -47,7 +47,7 @@ public class ScreenMixin {
             int height = components.size() == 1 ? -2 : 0;
 
             for(ClientTooltipComponent clienttooltipcomponent : components) {
-                int k = clienttooltipcomponent.getWidth(event.getFontRenderer());
+                int k = clienttooltipcomponent.getWidth(event.getFont());
                 if (k > width) {
                     width = k;
                 }

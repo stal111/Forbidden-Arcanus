@@ -1,15 +1,15 @@
-package com.stal111.forbidden_arcanus.core.data;
+package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.core.data.client.ModBlockStateProvider;
-import com.stal111.forbidden_arcanus.core.data.client.ModItemModelProvider;
-import com.stal111.forbidden_arcanus.core.data.server.loot.ModLootModifierProvider;
-import com.stal111.forbidden_arcanus.core.data.server.tags.ModBlockTagsProvider;
-import com.stal111.forbidden_arcanus.core.data.server.tags.ModEnchantmentTagsProvider;
-import com.stal111.forbidden_arcanus.core.data.server.tags.ModEntityTypeTagsProvider;
-import com.stal111.forbidden_arcanus.core.data.server.tags.ModItemTagsProvider;
-import com.stal111.forbidden_arcanus.core.data.server.loot.ModLootTableProvider;
-import com.stal111.forbidden_arcanus.core.data.server.ModRecipeProvider;
+import com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider;
+import com.stal111.forbidden_arcanus.data.client.ModItemModelProvider;
+import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModEnchantmentTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModEntityTypeTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.loot.ModLootTableProvider;
+import com.stal111.forbidden_arcanus.data.server.ModRecipeProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

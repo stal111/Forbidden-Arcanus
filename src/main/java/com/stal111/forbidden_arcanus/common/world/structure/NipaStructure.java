@@ -29,8 +29,12 @@ import javax.annotation.Nonnull;
  */
 public class NipaStructure extends SimpleValhelsiaStructure<NipaConfig> {
 
+    //TODO
+
     public NipaStructure(Codec<NipaConfig> codec) {
-        super(codec, "nipa");
+        super(codec, p_197348_ -> {
+            return null;
+        }, "nipa");
     }
 
     @Nonnull
@@ -39,31 +43,31 @@ public class NipaStructure extends SimpleValhelsiaStructure<NipaConfig> {
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
-    @Nonnull
-    @Override
-    public StructureStartFactory<NipaConfig> getStartFactory() {
-        return NipaStructure.Start::new;
-    }
+//    @Nonnull
+//    @Override
+//    public StructureStartFactory<NipaConfig> getStartFactory() {
+//        return NipaStructure.Start::new;
+//    }
 
     @Override
     public StructureFeatureConfiguration getFeatureConfiguration() {
         return ModStructures.SeparationSettings.NIPA;
     }
 
-    public static class Start extends StructureStart<NipaConfig> {
-
-        public Start(StructureFeature<NipaConfig> p_163595_, ChunkPos p_163596_, int p_163597_, long p_163598_) {
-            super(p_163595_, p_163596_, p_163597_, p_163598_);
-        }
-
-        @Override
-        public void generatePieces(RegistryAccess registryAccess, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, NipaConfig config, LevelHeightAccessor level) {
-            BlockPos pos = new BlockPos(chunkPos.getWorldPosition().getX(), 90, chunkPos.getWorldPosition().getZ());
-
-            boolean floating = random.nextFloat() <= config.getFloatingProbability();
-            this.pieces.add(new NipaPieces.Piece(structureManager, floating ? NipaPieces.NIPA_FLOATING : NipaPieces.NIPA, pos, Rotation.getRandom(this.random), floating));
-
-            this.getBoundingBox();
-        }
-    }
+//    public static class Start extends StructureStart<NipaConfig> {
+//
+//        public Start(StructureFeature<NipaConfig> p_163595_, ChunkPos p_163596_, int p_163597_, long p_163598_) {
+//            super(p_163595_, p_163596_, p_163597_, p_163598_);
+//        }
+//
+//        @Override
+//        public void generatePieces(RegistryAccess registryAccess, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, NipaConfig config, LevelHeightAccessor level) {
+//            BlockPos pos = new BlockPos(chunkPos.getWorldPosition().getX(), 90, chunkPos.getWorldPosition().getZ());
+//
+//            boolean floating = random.nextFloat() <= config.getFloatingProbability();
+//            this.pieces.add(new NipaPieces.Piece(structureManager, floating ? NipaPieces.NIPA_FLOATING : NipaPieces.NIPA, pos, Rotation.getRandom(this.random), floating));
+//
+//            this.getBoundingBox();
+//        }
+//    }
 }

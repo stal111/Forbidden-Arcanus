@@ -4,13 +4,12 @@ import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nonnull;
@@ -107,20 +106,13 @@ public class PedestalBlockEntity extends BlockEntity {
     @Nullable
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Nonnull
     @Override
     public CompoundTag getUpdateTag() {
         return this.save(new CompoundTag());
-    }
-
-    @Override
-    public void onDataPacket(Connection networkManager, ClientboundBlockEntityDataPacket packet) {
-        if (this.level != null) {
-            this.load(packet.getTag());
-        }
     }
 
     @Override

@@ -7,8 +7,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.world.item.ItemStack;
+
+import javax.annotation.Nonnull;
 
 /**
  * Client Edelwood Bucket Tooltip <br>
@@ -38,12 +39,12 @@ public class ClientEdelwoodBucketTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public int getWidth(Font font) {
+    public int getWidth(@Nonnull Font font) {
         return 2 + 18 * this.capacity;
     }
 
     @Override
-    public void renderImage(Font font, int mouseX, int mouseY, PoseStack poseStack, ItemRenderer itemRenderer, int blitOffset, TextureManager textureManager) {
+    public void renderImage(@Nonnull Font font, int mouseX, int mouseY, PoseStack poseStack, @Nonnull ItemRenderer itemRenderer, int blitOffset) {
         poseStack.pushPose();
 
         poseStack.translate(0, 0, 300);

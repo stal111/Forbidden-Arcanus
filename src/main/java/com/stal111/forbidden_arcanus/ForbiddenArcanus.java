@@ -67,7 +67,7 @@ public class ForbiddenArcanus {
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);
 		ModEffects.EFFECTS.register(modEventBus);
 		ModFeatures.FEATURES.register(modEventBus);
-		ModFeatures.PLACEMENTS.register(modEventBus);
+		//ModFeatures.PLACEMENTS.register(modEventBus);
 		ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
 		ModStructures.STRUCTURES.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);

@@ -5,15 +5,14 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceMan
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.InputType;
-import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput;
-import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
+import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -242,20 +241,13 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
     @Nullable
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return new ClientboundBlockEntityDataPacket(this.worldPosition, 0, this.getUpdateTag());
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Nonnull
     @Override
     public CompoundTag getUpdateTag() {
         return this.save(new CompoundTag());
-    }
-
-    @Override
-    public void onDataPacket(Connection networkManager, ClientboundBlockEntityDataPacket packet) {
-        if (this.level != null) {
-            this.load(packet.getTag());
-        }
     }
 
     @Override

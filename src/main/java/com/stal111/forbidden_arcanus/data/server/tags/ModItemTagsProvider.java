@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.core.data.server.tags;
+package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;

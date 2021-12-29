@@ -50,7 +50,7 @@ public class WorldLoadListener {
 			// hence the choice to use the method handle.
 			try {
 				if(GETCODEC_METHOD == null) GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
-				ResourceLocation resourceLocation = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverLevel.getChunkSource().generator));
+				ResourceLocation resourceLocation = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverLevel.getChunkSource().getGenerator()));
 				if(resourceLocation != null && resourceLocation.getNamespace().equals("terraforged")) {
 					return;
 				}
@@ -59,7 +59,7 @@ public class WorldLoadListener {
 				ForbiddenArcanus.LOGGER.error("Was unable to check if " + serverLevel.dimension().location() + " is using Terraforged's ChunkGenerator.");
 			}
 
-			Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverLevel.getChunkSource().generator.getSettings().structureConfig());
+			Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverLevel.getChunkSource().getGenerator().getSettings().structureConfig());
 
 			// Converted to a specific structure-specific thing to allow for
 			// broader application of structure whitelist/blacklists. Config
@@ -67,7 +67,7 @@ public class WorldLoadListener {
 			// IValhelsiaStructure.
 			handleStructureBlocking(tempMap, serverLevel.dimension(), ModStructures.NIPA.get(), WorldGenConfig.nipaList);
 
-			serverLevel.getChunkSource().generator.getSettings().structureConfig = tempMap;
+			serverLevel.getChunkSource().getGenerator().getSettings().structureConfig = tempMap;
 		}
 	}
 

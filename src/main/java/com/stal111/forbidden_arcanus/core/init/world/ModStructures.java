@@ -3,16 +3,16 @@ package com.stal111.forbidden_arcanus.core.init.world;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.common.world.structure.NipaStructure;
 import com.stal111.forbidden_arcanus.common.world.structure.config.NipaConfig;
+import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import net.valhelsia.valhelsia_core.common.world.IValhelsiaStructure;
 import net.valhelsia.valhelsia_core.common.world.SimpleValhelsiaStructure;
 

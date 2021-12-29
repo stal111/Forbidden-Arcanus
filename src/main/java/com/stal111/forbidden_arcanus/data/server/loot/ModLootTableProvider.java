@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.core.data.server.loot;
+package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;

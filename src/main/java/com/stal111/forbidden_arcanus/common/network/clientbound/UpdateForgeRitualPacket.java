@@ -1,13 +1,13 @@
 package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
+import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
-import net.minecraftforge.fmllegacy.network.NetworkDirection;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkEvent;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;

@@ -31,7 +31,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.ArrayList;
@@ -119,7 +119,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Pre event) {
-        ResourceLocation textureLocation = event.getMap().location();
+        ResourceLocation textureLocation = event.getAtlas().location();
 
         if (textureLocation.equals(TextureAtlas.LOCATION_BLOCKS)) {
             event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/obsidian_skull_shield"));

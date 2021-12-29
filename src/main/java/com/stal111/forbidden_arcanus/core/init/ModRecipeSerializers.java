@@ -5,9 +5,9 @@ import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.common.recipe.IncreaseEdelwoodBucketFullnessRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ModRecipeSerializers {
 
