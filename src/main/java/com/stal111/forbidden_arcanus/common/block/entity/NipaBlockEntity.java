@@ -92,10 +92,9 @@ public class NipaBlockEntity extends BlockEntity {
         });
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag tag) {
-        super.save(tag);
+    public void saveAdditional(@Nonnull CompoundTag tag) {
+        super.saveAdditional(tag);
         tag.putInt("LastSpeck", this.lastSpeck);
 
         ListTag players = new ListTag();
@@ -108,8 +107,6 @@ public class NipaBlockEntity extends BlockEntity {
             players.add(player);
         });
         tag.put("Players", players);
-
-        return tag;
     }
 
     public double getSpeckHeight() {

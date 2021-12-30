@@ -102,8 +102,6 @@ public class BlackHoleBlockEntity extends BlockEntity {
         ItemEntity item = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
         Player nearestPlayer = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), PLAYER_SEARCH_DISTANCE, false);
 
-        System.out.println(nearestPlayer);
-
         if (nearestPlayer == null) {
             this.setRandomVelocity(item, level.getRandom());
         } else {
@@ -130,15 +128,12 @@ public class BlackHoleBlockEntity extends BlockEntity {
     @Override
     public void load(@Nonnull CompoundTag tag) {
         super.load(tag);
-        this.stored_xp = tag.getDouble("stored_xp");
+        this.stored_xp = tag.getDouble("StoredXP");
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag tag) {
-        super.save(tag);
-        tag.putDouble("stored_xp", this.stored_xp);
-
-        return tag;
+    public void saveAdditional(@Nonnull CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.putDouble("StoredXP", this.stored_xp);
     }
 }

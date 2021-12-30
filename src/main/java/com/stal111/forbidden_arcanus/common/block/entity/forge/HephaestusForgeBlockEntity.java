@@ -212,18 +212,15 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
         return displayCounter;
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag tag) {
-        super.save(tag);
+    public void saveAdditional(@Nonnull CompoundTag tag) {
+        super.saveAdditional(tag);
 
         tag.putString("Level", this.getForgeLevel().getName());
         ContainerHelper.saveAllItems(tag, this.inventoryContents);
 
         tag.put("Ritual", this.getRitualManager().save(new CompoundTag()));
         tag.put("Essences", this.getEssenceManager().save(new CompoundTag()));
-
-        return tag;
     }
 
     @Override
@@ -247,7 +244,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
     @Nonnull
     @Override
     public CompoundTag getUpdateTag() {
-        return this.save(new CompoundTag());
+        return this.saveWithoutMetadata();
     }
 
     @Override

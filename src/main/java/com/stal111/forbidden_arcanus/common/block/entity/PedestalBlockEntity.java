@@ -90,17 +90,14 @@ public class PedestalBlockEntity extends BlockEntity {
         }
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag compound) {
-        super.save(compound);
+    public void saveAdditional(@Nonnull CompoundTag compound) {
+        super.saveAdditional(compound);
 
         if (this.stack != ItemStack.EMPTY) {
             compound.put("Stack", this.stack.save(new CompoundTag()));
             compound.putInt("ItemHeight", this.itemHeight);
         }
-
-        return compound;
     }
 
     @Nullable
@@ -112,7 +109,7 @@ public class PedestalBlockEntity extends BlockEntity {
     @Nonnull
     @Override
     public CompoundTag getUpdateTag() {
-        return this.save(new CompoundTag());
+        return this.saveWithoutMetadata();
     }
 
     @Override

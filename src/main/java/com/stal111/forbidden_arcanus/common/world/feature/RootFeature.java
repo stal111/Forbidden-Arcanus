@@ -33,7 +33,7 @@ public class RootFeature extends Feature<BlockStateConfiguration> {
         BlockState state = context.config().state;
         BlockPos.MutableBlockPos pos = context.origin().mutable();
         Random rand = context.random();
-        
+
         level.setBlock(pos, state, 2);
 
         for (int i = 1; i < 6; i++) {

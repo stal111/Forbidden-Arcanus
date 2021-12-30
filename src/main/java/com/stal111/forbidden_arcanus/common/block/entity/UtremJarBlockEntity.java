@@ -51,17 +51,13 @@ public class UtremJarBlockEntity extends BlockEntity {
         }
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag tag) {
-        tag = super.save(tag);
+    public void saveAdditional(@Nonnull CompoundTag tag) {
+        super.saveAdditional(tag);
 
         if (!this.tank.getFluid().isEmpty()) {
-            CompoundTag fluid = this.tank.writeToNBT(new CompoundTag());
-            tag.put("Fluid", fluid);
+            tag.put("Fluid", this.tank.writeToNBT(new CompoundTag()));
         }
-
-        return tag;
     }
 
     @Nullable
@@ -73,7 +69,7 @@ public class UtremJarBlockEntity extends BlockEntity {
     @Nonnull
     @Override
     public CompoundTag getUpdateTag() {
-        return this.save(new CompoundTag());
+        return this.saveWithoutMetadata();
     }
 
     @Override
