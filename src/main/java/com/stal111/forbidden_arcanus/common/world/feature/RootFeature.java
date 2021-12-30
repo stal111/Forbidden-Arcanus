@@ -8,19 +8,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
- * Root Feature
+ * Root Feature <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.RootFeature
  *
  * @author stal111
- * @version 1.17.1-2.0.0
+ * @version 1.18.1 - 2.0.0
  */
 public class RootFeature extends Feature<BlockStateConfiguration> {
+
+    private static final double DIRECTION_CHANGE_CHANCE = 0.25D;
 
     public RootFeature(Codec<BlockStateConfiguration> codec) {
         super(codec);
@@ -32,15 +33,11 @@ public class RootFeature extends Feature<BlockStateConfiguration> {
         BlockState state = context.config().state;
         BlockPos.MutableBlockPos pos = context.origin().mutable();
         Random rand = context.random();
-
-        if (!level.isEmptyBlock(pos) || !Tags.Blocks.STONE.contains(level.getBlockState(pos.above()).getBlock()) || !level.isEmptyBlock(pos.below())) {
-            return false;
-        }
-
+        
         level.setBlock(pos, state, 2);
 
         for (int i = 1; i < 6; i++) {
-            pos = this.tryChangeDirection(level, pos.move(Direction.DOWN), rand, 0.25);
+            pos = this.tryChangeDirection(level, pos.move(Direction.DOWN), rand, DIRECTION_CHANGE_CHANCE);
 
             if (level.isEmptyBlock(pos)) {
                 level.setBlock(pos, state, 2);

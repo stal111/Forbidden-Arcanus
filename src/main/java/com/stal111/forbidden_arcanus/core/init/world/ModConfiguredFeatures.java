@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.core.init.world;
 
 import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
@@ -16,13 +17,12 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
@@ -37,7 +37,7 @@ import java.util.OptionalInt;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.18.1 - 2.0.0
  */
 public class ModConfiguredFeatures {
 
@@ -55,22 +55,23 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> ARCANE_GILDED_DARKSTONE = register("ore_arcane_gilded_darkstone", Feature.ORE.configured(new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())));
     public static final ConfiguredFeature<?, ?> STELLA_ARCANUM = register("ore_stella_arcanum", Feature.ORE.configured(new OreConfiguration(ORE_STELLA_ARCANUM_TARGET_LIST, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get())));
     public static final ConfiguredFeature<?, ?> XPETRIFIED_ORE = register("ore_xpetrified", Feature.ORE.configured(new OreConfiguration(ORE_XPETRIFIED_TARGET_LIST, 3)));
-    //.rangeUniform(VerticalAnchor.absolute(WorldGenConfig.DARKSTONE_MAX_HEIGHT.get()), VerticalAnchor.absolute(35)).squared().count(UniformInt.of(3, 8)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.oreList))));
+
     public static final ConfiguredFeature<TreeConfiguration, ?> CHERRYWOOD = register("cherrywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LOG.get()), new ForkingTrunkPlacer(5, 2, 2), BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAVES.get()), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()));
     public static final ConfiguredFeature<TreeConfiguration, ?> MYSTERYWOOD = register("mysterywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.MYSTERYWOOD_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES, 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES, 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().build()));
 
-  //  public static final ConfiguredFeature<?, ?> YELLOW_ORCHID = register("flower_yellow_orchid", Feature.FLOWER.configured(Configs.YELLOW_ORCHID).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(14)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList)));
-  //  public static final ConfiguredFeature<?, ?> EDELWOOD = register("edelwood", ModFeatures.EDELWOOD.get().configured(NoneFeatureConfiguration.INSTANCE));
-  //  public static final ConfiguredFeature<?, ?> PETRIFIED_ROOT = register("petrified_root", ModFeatures.PETRIFIED_ROOT.get().configured(new BlockStateConfiguration(States.PETRIFIED_ROOT)).rangeUniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(50)).squared().count(50).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
+    public static final ConfiguredFeature<?, ?> YELLOW_ORCHID = register("flower_yellow_orchid", Feature.FLOWER.configured(new RandomPatchConfiguration(64, 6, 2, () -> {
+        return Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))).onlyWhenEmpty();
+    })));
+    public static final ConfiguredFeature<?, ?> EDELWOOD = register("edelwood", ModFeatures.EDELWOOD.get().configured(NoneFeatureConfiguration.INSTANCE));
+    public static final ConfiguredFeature<?, ?> PETRIFIED_ROOT = register("petrified_root", ModFeatures.PETRIFIED_ROOT.get().configured(new BlockStateConfiguration(States.PETRIFIED_ROOT)));
 
    // public static final ConfiguredFeature<?, ?> CHERRYWOOD_TREES = register("trees_cherrywood", CHERRYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
    // public static final ConfiguredFeature<?, ?> MYSTERYWOOD_TREES = register("trees_mysterywood", MYSTERYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-   // public static final ConfiguredFeature<?, ?> EDELWOOD_TREES = register("trees_edelwood", EDELWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(7, 0.3F, 2))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
 
-//    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_0 = register("big_fungyss_0", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(States.FUNGYSS_BLOCK), new SimpleStateProvider(States.FUNGYSS_STEM), new SimpleStateProvider(States.FUNGYSS_HYPHAE), 0)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-//    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_1 = register("big_fungyss_1", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(States.FUNGYSS_BLOCK), new SimpleStateProvider(States.FUNGYSS_STEM), new SimpleStateProvider(States.FUNGYSS_HYPHAE), 1)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-//    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_0 = register("mega_fungyss_0", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(States.FUNGYSS_BLOCK), new SimpleStateProvider(States.FUNGYSS_STEM), new SimpleStateProvider(States.FUNGYSS_HYPHAE), 0)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
-//    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(new SimpleStateProvider(States.FUNGYSS_BLOCK), new SimpleStateProvider(States.FUNGYSS_STEM), new SimpleStateProvider(States.FUNGYSS_HYPHAE), 1)).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
+    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_0 = register("big_fungyss_0", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 0)));
+    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_1 = register("big_fungyss_1", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 1)));
+    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_0 = register("mega_fungyss_0", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 0)));
+    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 1)));
 
     private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
         return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), configuredFeature);
@@ -82,11 +83,6 @@ public class ModConfiguredFeatures {
 
     private static SimpleWeightedRandomList.Builder<BlockState> weightedBlockStateBuilder() {
         return SimpleWeightedRandomList.builder();
-    }
-
-    public static final class Configs {
-       // public static final RandomPatchConfiguration YELLOW_ORCHID = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.YELLOW_ORCHID), SimpleBlockPlacer.INSTANCE)).tries(10).build();
-       // public static final RandomPatchConfiguration EDELWOOD_LOG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.EDELWOOD_LOG), new ColumnPlacer(ConstantInt.of(3)))).tries(3).whitelist(ImmutableSet.of(States.GRASS_BLOCK.getBlock())).xspread(0).yspread(0).zspread(0).noProjection().build();
     }
 
     public static final class FillerBlockTypes {

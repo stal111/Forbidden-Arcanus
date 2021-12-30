@@ -68,12 +68,11 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         }
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        //TODO
-//        ConfiguredFeature<?, ?> configuredFeature = level.random.nextBoolean() ? ModConfiguredFeatures.BIG_FUNGYSS_0 : ModConfiguredFeatures.BIG_FUNGYSS_1;
-//
-//        if (!configuredFeature.place(level, level.getChunkSource().getGenerator(), rand, pos)) {
-//            level.setBlock(pos, state, 4);
-//        }
+        ConfiguredFeature<?, ?> configuredFeature = level.random.nextBoolean() ? ModConfiguredFeatures.BIG_FUNGYSS_0 : ModConfiguredFeatures.BIG_FUNGYSS_1;
+
+        if (!configuredFeature.place(level, level.getChunkSource().getGenerator(), rand, pos)) {
+            level.setBlock(pos, state, 4);
+        }
     }
 
     private void growMegaFungyss(ServerLevel level, BlockPos pos, BlockState state, Random rand, int xOffset, int zOffset) {
@@ -82,15 +81,14 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         level.setBlock(pos.offset(xOffset + 1, 0, zOffset + 1), Blocks.AIR.defaultBlockState(), 4);
         level.setBlock(pos.offset(xOffset, 0, zOffset + 1), Blocks.AIR.defaultBlockState(), 4);
 
-        //TODO
-//        ConfiguredFeature<?, ?> configuredFeature = rand.nextBoolean() ? ModConfiguredFeatures.MEGA_FUNGYSS_0 : ModConfiguredFeatures.MEGA_FUNGYSS_1;
-//
-//        if (!configuredFeature.place(level, level.getChunkSource().getGenerator(), rand, pos.offset(xOffset, 0, zOffset))) {
-//            level.setBlock(pos.offset(xOffset, 0, zOffset), state, 4);
-//            level.setBlock(pos.offset(xOffset + 1, 0, zOffset), state, 4);
-//            level.setBlock(pos.offset(xOffset + 1, 0, zOffset + 1), state, 4);
-//            level.setBlock(pos.offset(xOffset, 0, zOffset + 1), state, 4);
-//        }
+        ConfiguredFeature<?, ?> configuredFeature = rand.nextBoolean() ? ModConfiguredFeatures.MEGA_FUNGYSS_0 : ModConfiguredFeatures.MEGA_FUNGYSS_1;
+
+        if (!configuredFeature.place(level, level.getChunkSource().getGenerator(), rand, pos.offset(xOffset, 0, zOffset))) {
+            level.setBlock(pos.offset(xOffset, 0, zOffset), state, 4);
+            level.setBlock(pos.offset(xOffset + 1, 0, zOffset), state, 4);
+            level.setBlock(pos.offset(xOffset + 1, 0, zOffset + 1), state, 4);
+            level.setBlock(pos.offset(xOffset, 0, zOffset + 1), state, 4);
+        }
     }
 
     private boolean canMegaFungyssSpawnAt(BlockState state, BlockGetter level, BlockPos pos, int xOffset, int zOffset) {

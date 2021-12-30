@@ -1,7 +1,10 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModCavePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModVegetationPlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -9,6 +12,8 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Objects;
 
 @Mod.EventBusSubscriber
 public class BiomeLoadingListener {
@@ -42,24 +47,26 @@ public class BiomeLoadingListener {
 //            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.CHERRYWOOD_TREES);
 //        }
 //
-//        if (Objects.equals(event.getName(), new ResourceLocation("flower_forest"))) {
+        if (Objects.equals(event.getName(), new ResourceLocation("flower_forest"))) {
 //            if (WorldGenConfig.MYSTERYWOOD_TREE_GENERATE.get()) {
 //                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.MYSTERYWOOD_TREES);
 //            }
-//            if (WorldGenConfig.YELLOW_ORCHID_GENERATE.get()) {
-//                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.YELLOW_ORCHID);
-//            }
-//        }
-//
-//        if (Objects.equals(name, new ResourceLocation("dark_forest")) || Objects.equals(name, new ResourceLocation("dark_forest_hills"))) {
-//            if (WorldGenConfig.EDELWOOD_TREE_GENERATE.get()) {
-//                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.EDELWOOD_TREES);
-//            }
-//        }
-//
-//        if (WorldGenConfig.PETRIFIED_ROOT_GENERATE.get()) {
-//            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, ModConfiguredFeatures.PETRIFIED_ROOT);
-//        }
+            if (WorldGenConfig.YELLOW_ORCHID_GENERATE.get()) {
+                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModVegetationPlacements.YELLOW_ORCHID);
+            }
+        }
+
+        if (Objects.equals(name, new ResourceLocation("dark_forest")) || Objects.equals(name, new ResourceLocation("dark_forest_hills"))) {
+            if (WorldGenConfig.EDELWOOD_TREE_GENERATE.get()) {
+                System.out.println(name);
+
+                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModTreePlacements.EDELWOOD_TREES);
+            }
+        }
+
+        if (WorldGenConfig.PETRIFIED_ROOT_GENERATE.get()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModCavePlacements.PETRIFIED_ROOT);
+        }
 //
 //        if (WorldGenConfig.NIPA_GENERATE.get()) {
 //            if (climate.downfall != 0.0F && climate.temperature < 2.0F && category != Biome.BiomeCategory.BEACH && category != Biome.BiomeCategory.OCEAN && category != Biome.BiomeCategory.MUSHROOM) {
