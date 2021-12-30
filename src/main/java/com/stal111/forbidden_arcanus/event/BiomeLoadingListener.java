@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModVegetationPlacements;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -21,8 +20,6 @@ public class BiomeLoadingListener {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         ResourceLocation name = event.getName();
-        Biome.BiomeCategory category = event.getCategory();
-        Biome.ClimateSettings climate = event.getClimate();
 
         if (WorldGenConfig.ARCANE_CRYSTAL_ORE_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModOrePlacements.ARCANE_CRYSTAL_ORE);
@@ -58,8 +55,6 @@ public class BiomeLoadingListener {
 
         if (Objects.equals(name, new ResourceLocation("dark_forest")) || Objects.equals(name, new ResourceLocation("dark_forest_hills"))) {
             if (WorldGenConfig.EDELWOOD_TREE_GENERATE.get()) {
-                System.out.println(name);
-
                 event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModTreePlacements.EDELWOOD_TREES);
             }
         }
@@ -67,13 +62,5 @@ public class BiomeLoadingListener {
         if (WorldGenConfig.PETRIFIED_ROOT_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModCavePlacements.PETRIFIED_ROOT);
         }
-//
-//        if (WorldGenConfig.NIPA_GENERATE.get()) {
-//            if (climate.downfall != 0.0F && climate.temperature < 2.0F && category != Biome.BiomeCategory.BEACH && category != Biome.BiomeCategory.OCEAN && category != Biome.BiomeCategory.MUSHROOM) {
-//                event.getGeneration().addStructureStart(ModStructureFeatures.NIPA);
-//            } else if (category != Biome.BiomeCategory.THEEND && category != Biome.BiomeCategory.NETHER) {
-//                event.getGeneration().addStructureStart(ModStructureFeatures.NIPA_ALWAYS_FLOATING);
-//            }
-//        }
     }
 }

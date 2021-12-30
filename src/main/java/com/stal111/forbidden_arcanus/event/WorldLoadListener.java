@@ -1,26 +1,30 @@
 package com.stal111.forbidden_arcanus.event;
 
-import com.mojang.serialization.Codec;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
+import com.stal111.forbidden_arcanus.core.init.world.ModStructureFeatures;
 import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.valhelsia.valhelsia_core.common.world.IValhelsiaStructure;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,39 +39,75 @@ import java.util.Map;
 @Mod.EventBusSubscriber
 public class WorldLoadListener {
 
-
-	private static Method GETCODEC_METHOD = null;
-
 	@SubscribeEvent
 	public static void onWorldLoad(WorldEvent.Load event) {
-		if (event.getWorld() instanceof ServerLevel serverLevel) {
-			if (serverLevel.getChunkSource().getGenerator() instanceof FlatLevelSource && serverLevel.dimension().equals(Level.OVERWORLD)) {
-				return;
+		if (!(event.getWorld() instanceof ServerLevel level)) {
+			return;
+		}
+
+		ChunkGenerator generator = level.getChunkSource().getGenerator();
+
+		if (generator instanceof FlatLevelSource && level.dimension().equals(Level.OVERWORLD)) {
+			return;
+		}
+
+		StructureSettings structureSettings = generator.getSettings();
+
+		HashMap<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> structureToMultiMap = new HashMap<>();
+
+		for (Map.Entry<ResourceKey<Biome>, Biome> biomeEntry : level.registryAccess().ownedRegistryOrThrow(Registry.BIOME_REGISTRY).entrySet()) {
+			Biome biome = biomeEntry.getValue();
+			Biome.BiomeCategory category = biome.getBiomeCategory();
+			ResourceLocation name = biome.getRegistryName();
+
+			if (name == null) {
+				continue;
 			}
 
-			// Shenanigans to make structures properly cope with Terraforged.
-			// Using TG's accessor mixin sometimes fails, for whatever reason,
-			// hence the choice to use the method handle.
-			try {
-				if(GETCODEC_METHOD == null) GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
-				ResourceLocation resourceLocation = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverLevel.getChunkSource().getGenerator()));
-				if(resourceLocation != null && resourceLocation.getNamespace().equals("terraforged")) {
-					return;
+			// Check Blacklist
+			//TODO
+
+			// Add Structures
+			if (WorldGenConfig.NIPA_GENERATE.get()) {
+				if (biome.getDownfall() != 0.0F && biome.getBaseTemperature() < 2.0F && category != Biome.BiomeCategory.BEACH && category != Biome.BiomeCategory.OCEAN && category != Biome.BiomeCategory.MUSHROOM) {
+					associateBiomeToConfiguredStructure(structureToMultiMap, ModStructureFeatures.NIPA, biomeEntry.getKey());
+				} else if (category != Biome.BiomeCategory.THEEND && category != Biome.BiomeCategory.NETHER) {
+					associateBiomeToConfiguredStructure(structureToMultiMap, ModStructureFeatures.NIPA_ALWAYS_FLOATING, biomeEntry.getKey());
 				}
 			}
-			catch(Exception e){
-				ForbiddenArcanus.LOGGER.error("Was unable to check if " + serverLevel.dimension().location() + " is using Terraforged's ChunkGenerator.");
-			}
 
-			Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverLevel.getChunkSource().getGenerator().getSettings().structureConfig());
+			ImmutableMap.Builder<StructureFeature<?>, ImmutableMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> tempStructureToMultiMap = ImmutableMap.builder();
+			structureSettings.configuredStructures.entrySet().stream().filter(entry -> !structureToMultiMap.containsKey(entry.getKey())).forEach(tempStructureToMultiMap::put);
 
-			// Converted to a specific structure-specific thing to allow for
-			// broader application of structure whitelist/blacklists. Config
-			// for whitelist/blacklists could potentially be merged into the
-			// IValhelsiaStructure.
-			handleStructureBlocking(tempMap, serverLevel.dimension(), ModStructures.NIPA.get(), WorldGenConfig.nipaList);
+			structureToMultiMap.forEach((key, value) -> tempStructureToMultiMap.put(key, ImmutableMultimap.copyOf(value)));
 
-			serverLevel.getChunkSource().getGenerator().getSettings().structureConfig = tempMap;
+			structureSettings.configuredStructures = tempStructureToMultiMap.build();
+
+			Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(structureSettings.structureConfig());
+			tempMap.putIfAbsent(ModStructures.NIPA.get(), StructureSettings.DEFAULTS.get(ModStructures.NIPA.get()));
+
+			structureSettings.structureConfig = tempMap;
+		}
+	}
+
+	private static void associateBiomeToConfiguredStructure(Map<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> structureToMultiMap, ConfiguredStructureFeature<?, ?> configuredStructureFeature, ResourceKey<Biome> biomeRegistryKey) {
+		structureToMultiMap.putIfAbsent(configuredStructureFeature.feature, HashMultimap.create());
+
+		HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>> configuredStructureToBiomeMultiMap = structureToMultiMap.get(configuredStructureFeature.feature);
+
+		if (configuredStructureToBiomeMultiMap.containsValue(biomeRegistryKey)) {
+			ForbiddenArcanus.LOGGER.error("""
+							    Detected 2 ConfiguredStructureFeatures that share the same base StructureFeature trying to be added to same biome. One will be prevented from spawning.
+							    This issue happens with vanilla too and is why a Snowy Village and Plains Village cannot spawn in the same biome because they both use the Village base structure.
+							    The two conflicting ConfiguredStructures are: {}, {}
+							    The biome that is attempting to be shared: {}
+							""",
+					BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(configuredStructureFeature),
+					BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(configuredStructureToBiomeMultiMap.entries().stream().filter(e -> e.getValue() == biomeRegistryKey).findFirst().get().getKey()),
+					biomeRegistryKey
+			);
+		} else {
+			configuredStructureToBiomeMultiMap.put(configuredStructureFeature, biomeRegistryKey);
 		}
 	}
 

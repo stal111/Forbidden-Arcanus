@@ -1,40 +1,41 @@
 package com.stal111.forbidden_arcanus.common.world.structure;
 
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
 import com.stal111.forbidden_arcanus.common.world.structure.config.NipaConfig;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.LevelHeightAccessor;
-import net.minecraft.world.level.block.Rotation;
+import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.structure.StructureStart;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
+import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.valhelsia.valhelsia_core.common.world.SimpleValhelsiaStructure;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 /**
- * Nipa Structure
+ * Nipa Structure <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.world.structure.NipaStructure
  *
  * @author stal111
- * @version 1.0
+ * @version 1.18.1 - 2.0.0
  * @since 2021-04-07
  */
 public class NipaStructure extends SimpleValhelsiaStructure<NipaConfig> {
 
-    //TODO
-
     public NipaStructure(Codec<NipaConfig> codec) {
-        super(codec, p_197348_ -> {
-            return null;
-        }, "nipa");
+        super(codec, PieceGeneratorSupplier.simple(PieceGeneratorSupplier.checkForBiomeOnTop(Heightmap.Types.WORLD_SURFACE_WG), NipaStructure::generatePieces), "nipa");
+    }
+
+    private static void generatePieces(StructurePiecesBuilder piecesBuilder, PieceGenerator.Context<NipaConfig> context) {
+        BlockPos pos = new BlockPos(context.chunkPos().getWorldPosition().getX(), 90, context.chunkPos().getWorldPosition().getZ());
+        Random random = context.random();
+        boolean floating = random.nextFloat() <= context.config().getFloatingProbability();
+
+        piecesBuilder.addPiece(new NipaPieces.Piece(context.structureManager(), floating ? NipaPieces.NIPA_FLOATING : NipaPieces.NIPA, pos, Rotation.getRandom(random), floating));
     }
 
     @Nonnull
@@ -42,12 +43,6 @@ public class NipaStructure extends SimpleValhelsiaStructure<NipaConfig> {
     public GenerationStep.Decoration step() {
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
-
-//    @Nonnull
-//    @Override
-//    public StructureStartFactory<NipaConfig> getStartFactory() {
-//        return NipaStructure.Start::new;
-//    }
 
     @Override
     public StructureFeatureConfiguration getFeatureConfiguration() {
