@@ -56,6 +56,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 ModBlocks.DARKSTONE_PEDESTAL,
                 ModBlocks.ARCANE_DARKSTONE_PEDESTAL
         );
+        take(this::randomRotation, ModBlocks.DARKSTONE);
         take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.YELLOW_ORCHID);
         take(block -> pixieUtremJarBlock(block, false), ModBlocks.PIXIE_UTREM_JAR);
         take(block -> pixieUtremJarBlock(block, true), ModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
@@ -168,6 +169,21 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
     private void cubeColumn(Block block, ResourceLocation side, ResourceLocation end) {
         simpleBlock(block, models().cubeColumn(getName(block), side, end));
+    }
+
+    private void randomRotation(Block block) {
+        ModelFile model = models().cubeAll(getName(block), modLoc("block/" + getName(block)));
+        ModelFile mirroredModel = models().withExistingParent(getName(block) + "_mirrored", mcLoc("block/cube_mirrored_all"))
+                .texture("all", modLoc("block/" + getName(block)));
+
+        getVariantBuilder(block).partialState().addModels(
+                ConfiguredModel.builder()
+                        .modelFile(model).nextModel()
+                        .modelFile(mirroredModel).nextModel()
+                        .modelFile(model).rotationY(180).nextModel()
+                        .modelFile(mirroredModel).rotationY(180)
+                        .build()
+        );
     }
 
     private void pixieUtremJarBlock(Block block, boolean corrupted) {
