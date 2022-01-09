@@ -1,0 +1,110 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "axis": "x"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_horizontal",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "axis": "y"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log"
+      }
+    },
+    {
+      "when": {
+        "axis": "z"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_horizontal"
+      }
+    },
+    {
+      "when": {
+        "north": "true",
+        "axis": "y|x"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side"
+      }
+    },
+    {
+      "when": {
+        "north": "true",
+        "axis": "z"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true",
+        "axis": "y|z"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "east": "true",
+        "axis": "x"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "south": "true",
+        "axis": "y|x"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "south": "true",
+        "axis": "z"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true",
+        "axis": "y|z"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "west": "true",
+        "axis": "x"
+      },
+      "apply": {
+        "model": "forbidden_arcanus:block/thin_cherrywood_log_side",
+        "x": 90,
+        "y": 180
+      }
+    }
+  ]
+}

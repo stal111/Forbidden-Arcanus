@@ -109,6 +109,7 @@ public class ModBlocks {
 
     public static final RegistryObject<RotatedPillarBlock> FUNGYSS_STEM = HELPER.register("fungyss_stem", new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F).sound(SoundType.STEM)));
     public static final RegistryObject<RotatedPillarBlock> CHERRYWOOD_LOG = HELPER.register("cherrywood_log", new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+    public static final RegistryObject<ThinLogBlock> THIN_CHERRYWOOD_LOG = HELPER.register("thin_cherrywood_log", new ThinLogBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
     public static final RegistryObject<MysterywoodLogBlock> MYSTERYWOOD_LOG = HELPER.register("mysterywood_log", new MysterywoodLogBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<EdelwoodLogBlock> EDELWOOD_LOG = HELPER.register("edelwood_log", new EdelwoodLogBlock(Block.Properties.copy(Blocks.OAK_LOG).color(MaterialColor.COLOR_BROWN).randomTicks()), ValhelsiaRenderType.CUTOUT);
     public static final RegistryObject<CarvedEdelwoodLogBlock> CARVED_EDELWOOD_LOG = HELPER.register("carved_edelwood_log", new CarvedEdelwoodLogBlock(Block.Properties.copy(Blocks.OAK_LOG).color(MaterialColor.COLOR_BROWN).randomTicks()), ValhelsiaRenderType.CUTOUT);

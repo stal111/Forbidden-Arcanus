@@ -63,32 +63,21 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty OILY = ModBlockStateProperties.OILY;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final VoxelShape BASE_SHAPE = Shapes.join(Shapes.block(), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D), BooleanOp.ONLY_FIRST);
-
-    protected final EnumMap<Direction.Axis, VoxelShape> shapesCache;
+    protected static final EnumMap<Direction.Axis, VoxelShape> SHAPES = VoxelShapeHelper.rotateAxis(
+            Shapes.join(Shapes.block(), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D), BooleanOp.ONLY_FIRST)
+    );
 
     public EdelwoodLogBlock(Properties properties) {
         super(properties);
         if (this.getStateDefinition().getProperties().contains(AXIS)) {
             this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, Direction.Axis.Y).setValue(OILY, false).setValue(WATERLOGGED,false));
         }
-        this.shapesCache = this.buildShapes();
-    }
-
-    private EnumMap<Direction.Axis, VoxelShape> buildShapes() {
-        EnumMap<Direction.Axis, VoxelShape> map = new EnumMap<>(Direction.Axis.class);
-
-        map.put(Direction.Axis.Y, BASE_SHAPE);
-        map.put(Direction.Axis.X, VoxelShapeHelper.rotate(BASE_SHAPE, Direction.Axis.X));
-        map.put(Direction.Axis.Z, VoxelShapeHelper.rotate(BASE_SHAPE, Direction.Axis.Z));
-
-        return map;
     }
 
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return context.isHoldingItem(ModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(ModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : this.shapesCache.get(state.getValue(AXIS));
+        return context.isHoldingItem(ModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(ModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : SHAPES.get(state.getValue(AXIS));
     }
 
     @Override

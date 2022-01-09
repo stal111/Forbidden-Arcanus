@@ -38,7 +38,14 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        getRemainingBlocks().removeAll(Arrays.asList(ModBlocks.OBSIDIAN_SKULL, ModBlocks.OBSIDIAN_WALL_SKULL, ModBlocks.ETERNAL_OBSIDIAN_SKULL, ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL));
+        Arrays.asList(
+                ModBlocks.OBSIDIAN_SKULL,
+                ModBlocks.OBSIDIAN_WALL_SKULL,
+                ModBlocks.ETERNAL_OBSIDIAN_SKULL,
+                ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL,
+                ModBlocks.THIN_CHERRYWOOD_LOG
+        ).forEach(getRemainingBlocks()::remove);
+
         getRemainingBlocks().removeIf(registryObject -> registryObject.get() instanceof WallSignBlock);
 
         take(block -> cubeAllCutout(block, modLoc("block/arcane_crystal_ore/" + getName(block)), modLoc("block/arcane_crystal_ore/arcane_crystal_ore_layer"), mcLoc("block/stone")), ModBlocks.ARCANE_CRYSTAL_ORE, ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);

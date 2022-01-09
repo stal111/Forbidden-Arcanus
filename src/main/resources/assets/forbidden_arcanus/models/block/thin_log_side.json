@@ -1,0 +1,19 @@
+{
+	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
+	"parent": "minecraft:block/cube_all",
+	"elements": [
+		{
+			"name": "0",
+			"from": [2, 2, 0],
+			"to": [14, 14, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [2, 2, 14, 14], "rotation": 180, "texture": "#0"},
+				"east": {"uv": [2, 0, 14, 2], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [2, 0, 14, 2], "rotation": 270, "texture": "#1"},
+				"up": {"uv": [2, 0, 14, 2], "texture": "#1"},
+				"down": {"uv": [2, 0, 14, 2], "rotation": 180, "texture": "#1"}
+			}
+		}
+	]
+}
