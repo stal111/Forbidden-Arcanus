@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:cherrywood_planks"
+      "forbidden_arcanus:thin_cherrywood_log"
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_log": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "forbidden_arcanus:thin_cherrywood_log"
+              "forbidden_arcanus:cherrywood_log"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "forbidden_arcanus:cherrywood_planks"
+        "recipe": "forbidden_arcanus:thin_cherrywood_log"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_log",
       "has_the_recipe"
     ]
   ]

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:thin_cherrywood_log"
+    }
+  ],
+  "result": {
+    "item": "forbidden_arcanus:cherrywood_planks",
+    "count": 2
+  }
+}

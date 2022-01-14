@@ -132,6 +132,9 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addPressurePlateRecipe(ModBlocks.MYSTERYWOOD_PRESSURE_PLATE.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
         this.addPressurePlateRecipe(ModBlocks.EDELWOOD_PRESSURE_PLATE.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
+        ShapedRecipeBuilder.shaped(ModBlocks.THIN_CHERRYWOOD_LOG.get(), 4).pattern("#").pattern("#").define('#', ModBlocks.CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.CHERRYWOOD_LOG.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.CHERRYWOOD_LOG.get(), 2).pattern("##").define('#', ModBlocks.THIN_CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.THIN_CHERRYWOOD_LOG.get())).save(consumer);
+
         //Shapeless Recipes
         ShapelessRecipeBuilder.shapeless(ModItems.PURIFYING_SOAP.get()).requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.TEST_TUBE.get()).requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE.get()).unlockedBy("has_item", has(ModItems.RUNE.get())).save(consumer);
@@ -141,6 +144,8 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addPlanksRecipe(ModBlocks.CHERRYWOOD_PLANKS.get(), ModTags.Items.CHERRYWOOD_LOGS, 4, consumer);
         this.addPlanksRecipe(ModBlocks.MYSTERYWOOD_PLANKS.get(), ModTags.Items.MYSTERYWOOD_LOGS, 4, consumer);
         this.addPlanksRecipe(ModBlocks.EDELWOOD_PLANKS.get(), ModTags.Items.EDELWOOD_LOGS, 2, consumer);
+
+        ShapelessRecipeBuilder.shapeless(ModBlocks.CHERRYWOOD_PLANKS.get(), 2).requires(ModBlocks.THIN_CHERRYWOOD_LOG.get()).unlockedBy("has_item", has(ModBlocks.THIN_CHERRYWOOD_LOG.get())).save(consumer, "forbidden_arcanus:cherrywood_planks_from_thin_cherrywood_log");
 
         this.addButtonRecipe(ModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addButtonRecipe(ModBlocks.CHERRYWOOD_BUTTON.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);

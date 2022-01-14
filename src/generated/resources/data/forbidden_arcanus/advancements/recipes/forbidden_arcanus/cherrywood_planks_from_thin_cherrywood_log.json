@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:cherrywood_planks"
+      "forbidden_arcanus:cherrywood_planks_from_thin_cherrywood_log"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "forbidden_arcanus:cherrywood_planks"
+        "recipe": "forbidden_arcanus:cherrywood_planks_from_thin_cherrywood_log"
       }
     }
   },
