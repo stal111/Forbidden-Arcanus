@@ -23,6 +23,10 @@ public class ModifierHelper {
             return null;
         }
 
+        if (ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get() == null) {
+            return null;
+        }
+
         return ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getValue(new ResourceLocation(Objects.requireNonNull(stack.getTag()).getString("Modifier")));
     }
 
