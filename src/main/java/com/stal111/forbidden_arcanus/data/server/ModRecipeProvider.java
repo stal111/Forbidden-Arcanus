@@ -134,6 +134,8 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ShapedRecipeBuilder.shaped(ModBlocks.THIN_CHERRYWOOD_LOG.get(), 4).pattern("#").pattern("#").define('#', ModBlocks.CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.CHERRYWOOD_LOG.get())).save(consumer);
         ShapedRecipeBuilder.shaped(ModBlocks.CHERRYWOOD_LOG.get(), 2).pattern("##").define('#', ModBlocks.THIN_CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.THIN_CHERRYWOOD_LOG.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.EDELWOOD_LADDER.get(), 3).pattern("# #").pattern("#X#").pattern("# #").define('#', Tags.Items.RODS_WOODEN).define('X', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN)).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModItems.EDELWOOD_BUCKET.get()).pattern("# #").pattern("# #").pattern(" # ").define('#', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())).save(consumer);
 
         //Shapeless Recipes
         ShapelessRecipeBuilder.shapeless(ModItems.PURIFYING_SOAP.get()).requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())).save(consumer);
