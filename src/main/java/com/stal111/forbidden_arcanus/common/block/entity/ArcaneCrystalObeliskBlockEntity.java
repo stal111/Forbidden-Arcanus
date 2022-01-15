@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.ArcaneCrystalObeliskBlockEntity
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.1
  * @since 2021-08-03
  */
 public class ArcaneCrystalObeliskBlockEntity extends BlockEntity {
@@ -34,7 +34,7 @@ public class ArcaneCrystalObeliskBlockEntity extends BlockEntity {
 
         BlockPos forgePos = manager.getInRange(poiType -> poiType == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst().orElse(null);
 
-        if (forgePos != null && level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity forgeBlockEntity) {
+        if (forgePos != null && level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity forgeBlockEntity) {
             forgeBlockEntity.getEssenceManager().increaseAureal(1);
         }
     }

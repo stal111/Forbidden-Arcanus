@@ -114,10 +114,11 @@ public class MundabiturDustItem extends Item {
             }
 
             BlockState obelisk = ModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
+            BlockPos topPos = patternHelper.getFrontTopLeft();
 
-            level.setBlock(patternHelper.getFrontTopLeft().below(2), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER), 2);
-            level.setBlock(patternHelper.getFrontTopLeft().below(1), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.MIDDLE), 2);
-            level.setBlock(patternHelper.getFrontTopLeft(), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.UPPER), 2);
+            level.setBlock(topPos.below(2), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER).setValue(ModBlockStateProperties.RITUAL, ((ArcaneCrystalObeliskBlock) obelisk.getBlock()).isArcaneChiseledPolishedDarkstoneBelow(level, topPos.below(2))), 2);
+            level.setBlock(topPos.below(1), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.MIDDLE), 2);
+            level.setBlock(topPos, obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.UPPER), 2);
 
             return true;
         }

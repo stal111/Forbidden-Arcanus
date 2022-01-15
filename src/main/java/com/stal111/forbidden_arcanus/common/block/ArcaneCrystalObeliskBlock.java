@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block;
 
-import com.google.common.collect.ImmutableMap;
 import com.stal111.forbidden_arcanus.common.block.entity.ArcaneCrystalObeliskBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
@@ -8,7 +7,9 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,11 +34,12 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -46,7 +48,7 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.1
  */
 public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
@@ -54,11 +56,11 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     public static final BooleanProperty RITUAL = ModBlockStateProperties.RITUAL;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final Map<ObeliskPart, VoxelShape> SHAPES = ImmutableMap.<ObeliskPart, VoxelShape>builder()
-            .put(ObeliskPart.LOWER, VoxelShapeHelper.combineAll(Block.box(0, 0, 0, 16, 8, 16), Block.box(1, 8, 1, 15, 16, 15)))
-            .put(ObeliskPart.MIDDLE, Block.box(2, 0, 2, 14, 16, 14))
-            .put(ObeliskPart.UPPER, Block.box(3, 0, 3, 13, 14, 13))
-            .build();
+    private static final Map<ObeliskPart, VoxelShape> SHAPES = Util.make(new EnumMap<>(ObeliskPart.class), map -> {
+        map.put(ObeliskPart.LOWER, Shapes.or(Block.box(0, 0, 0, 16, 8, 16), Block.box(1, 8, 1, 15, 16, 15)));
+        map.put(ObeliskPart.MIDDLE, Block.box(2, 0, 2, 14, 16, 14));
+        map.put(ObeliskPart.UPPER, Block.box(3, 0, 3, 13, 14, 13));
+    });
 
     public ArcaneCrystalObeliskBlock(Properties properties) {
         super(properties);
@@ -68,7 +70,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-        return new ArcaneCrystalObeliskBlockEntity(pos, state);
+        return state.getValue(RITUAL) && state.getValue(PART) == ObeliskPart.LOWER ? new ArcaneCrystalObeliskBlockEntity(pos, state) : null;
     }
 
     @Nonnull
@@ -88,7 +90,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
         }
 
         return this.defaultBlockState()
-                .setValue(RITUAL, level.getBlockState(pos.below()).getBlock() == ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())
+                .setValue(RITUAL, this.isArcaneChiseledPolishedDarkstoneBelow(level, pos))
                 .setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER);
     }
 
@@ -120,7 +122,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
             return;
         }
 
-        BlockState newState = state.setValue(RITUAL, level.getBlockState(fromPos).getBlock() == ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
+        BlockState newState = state.setValue(RITUAL, this.isArcaneChiseledPolishedDarkstoneBelow(level, pos));
 
         if (state != newState) {
             level.setBlockAndUpdate(pos, newState);
@@ -169,8 +171,10 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
 
     @Override
     public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        if (Minecraft.getInstance().player != null && state.getValue(PART) != ObeliskPart.LOWER) {
-            if (!Minecraft.getInstance().player.getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
+        LocalPlayer player = Minecraft.getInstance().player;
+
+        if (player != null && state.getValue(PART) != ObeliskPart.LOWER) {
+            if (!player.getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
                 return;
             }
 
@@ -180,6 +184,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
             double posY = (float) pos.getY() + 0.1D + rand.nextFloat() / 2;
             double posZ = pos.getZ() + 0.5D + (rand.nextBoolean() ? k : -k);
             double ySpeed = ((double) rand.nextFloat() - 0.4D) * 0.1D;
+
             level.addParticle(ModParticles.AUREAL_MOTE.get(), posX, posY, posZ, 0, ySpeed, 0);
         }
     }
@@ -191,6 +196,10 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
             return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.ARCANE_CRYSTAL_OBELISK.get(), ArcaneCrystalObeliskBlockEntity::serverTick);
         }
         return null;
+    }
+
+    public boolean isArcaneChiseledPolishedDarkstoneBelow(Level level, BlockPos pos) {
+        return level.getBlockState(pos.below()).is(ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
     }
 
     @Override
