@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.1
  * @since 2021-12-16
  */
 public class DracoArcanusArrow extends AbstractArrow {
@@ -30,6 +30,10 @@ public class DracoArcanusArrow extends AbstractArrow {
 
     public DracoArcanusArrow(Level level, LivingEntity shooter) {
         super(ModEntities.DRACO_ARCANUS_ARROW.get(), shooter, level);
+    }
+
+    public DracoArcanusArrow(Level level, double x, double y, double z) {
+        super(ModEntities.DRACO_ARCANUS_ARROW.get(), x, y, z, level);
     }
 
     @Override

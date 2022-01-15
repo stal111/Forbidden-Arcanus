@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.1
  * @since 2021-12-16
  */
 public class BoomArrow extends AbstractArrow {
@@ -29,6 +29,10 @@ public class BoomArrow extends AbstractArrow {
 
     public BoomArrow(Level level, LivingEntity shooter) {
         super(ModEntities.BOOM_ARROW.get(), shooter, level);
+    }
+
+    public BoomArrow(Level level, double x, double y, double z) {
+        super(ModEntities.BOOM_ARROW.get(), x, y, z, level);
     }
 
     @Override
