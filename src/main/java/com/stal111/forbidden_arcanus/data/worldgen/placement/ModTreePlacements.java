@@ -20,7 +20,7 @@ public class ModTreePlacements {
 
     public static final PlacementModifier TREE_THRESHOLD = SurfaceWaterDepthFilter.forMaxDepth(0);
 
-    public static final PlacedFeature EDELWOOD_TREES = register("edelwood_trees", ModConfiguredFeatures.EDELWOOD.placed(InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, PlacementUtils.countExtra(13, 0.25F, 2), BiomeFilter.biome()));
+    public static final PlacedFeature EDELWOOD_TREES = register("edelwood_trees", ModConfiguredFeatures.EDELWOOD.placed(InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_WORLD_SURFACE, PlacementUtils.countExtra(18, 0.25F, 3), BiomeFilter.biome()));
 
     private static PlacedFeature register(String name, PlacedFeature placedFeature) {
         return Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), placedFeature);
