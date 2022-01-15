@@ -20,7 +20,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
-import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -36,7 +35,7 @@ public class EdelwoodBranchBlock extends Block implements SimpleWaterloggedBlock
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final Map<Direction, VoxelShape> SHAPES = new EnumMap<>(VoxelShapeHelper.getRotatedShapes(Block.box(0.0D, 5.0D, 6.0D, 11.0D, 16.0D, 10.0D)));
+    private static final Map<Direction, VoxelShape> SHAPES = VoxelShapeHelper.getHorizontalRotatedShapes(Block.box(6.0D, 5.0D, 5.0D, 10.0D, 16.0D, 16.0D));
 
     public EdelwoodBranchBlock(Properties properties) {
         super(properties);
