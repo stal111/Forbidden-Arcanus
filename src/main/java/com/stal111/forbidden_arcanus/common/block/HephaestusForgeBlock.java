@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.item.MundabiturDustItem;
 import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -123,7 +122,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     }
 
     public void updateState(BlockState state, Level level, BlockPos pos) {
-        BlockPattern.BlockPatternMatch patternHelper = MundabiturDustItem.getBaseHephaestusPattern().find(level, pos.below());
+        BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.BASE_HEPHAESTUS_PATTERN.find(level, pos.below());
 
         if (patternHelper == null || patternHelper.getUp() != Direction.DOWN) {
             if (state.getValue(ACTIVATED)) {
