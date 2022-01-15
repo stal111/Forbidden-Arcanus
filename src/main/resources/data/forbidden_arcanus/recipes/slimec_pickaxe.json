@@ -27,11 +27,16 @@
         {
             "item": "forbidden_arcanus:edelwood_stick"
         }
-        
     },
-    
-    "result":
-    {
-        "item": "forbidden_arcanus:slimec_pickaxe"
+    "result": {
+        "item": "forbidden_arcanus:slimec_pickaxe",
+        "nbt": {
+            "Enchantments": [
+                {
+                    "id": "minecraft:silk_touch",
+                    "lvl": 1
+                }
+            ]
+        }
     }
 }
