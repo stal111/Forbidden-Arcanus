@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
@@ -36,7 +37,7 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.1
  * @since 2021-12-02
  */
 public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
@@ -66,14 +67,20 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
             if (entity instanceof Player player) {
                 player.getInventory().setItem(slot, new ItemStack(Items.CHARCOAL));
             }
-            level.setBlockAndUpdate(entity.blockPosition(), this.getFluid().defaultFluidState().createLegacyBlock());
+            BlockPos pos = entity.blockPosition();
+
+            if (stack.is(ModItems.EDELWOOD_LAVA_BUCKET.get())) {
+                level.setBlockAndUpdate(pos, this.getFluid().defaultFluidState().createLegacyBlock());
+            } else if (stack.getItem() instanceof EdelwoodMobBucketItem mobBucket) {
+                mobBucket.spawn((ServerLevel) level, stack, pos);
+            }
         }
 
         super.inventoryTick(stack, level, entity, slot, isSelected);
     }
 
     private boolean shouldBurn(ItemStack stack, Level level, Entity entity) {
-        if (level.isClientSide() || !FluidTags.LAVA.contains(this.getFluid()) || EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PERMAFROST.get(), stack) != 0) {
+        if (level.isClientSide() || !this.canBurn(stack) || EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PERMAFROST.get(), stack) != 0) {
             return false;
         }
 
@@ -82,6 +89,10 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
         }
 
         return level.getRandom().nextDouble() < BURN_CHANCE;
+    }
+
+    protected boolean canBurn(ItemStack stack) {
+        return FluidTags.LAVA.contains(this.getFluid());
     }
 
     @Nonnull
@@ -95,9 +106,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
             return ret;
         }
 
-        if (hitResult.getType() == HitResult.Type.MISS) {
-            return InteractionResultHolder.pass(stack);
-        } else if (hitResult.getType() != HitResult.Type.BLOCK) {
+        if (hitResult.getType() != HitResult.Type.BLOCK) {
             return InteractionResultHolder.pass(stack);
         }
 
@@ -121,8 +130,8 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
                 pos = relativePos;
             }
 
-            if (state.getBlock() instanceof BucketPickup bucketpickup) {
-                ItemStack filledBucket = bucketpickup.pickupBlock(level, pos, state);
+            if (state.getBlock() instanceof BucketPickup bucketPickup) {
+                ItemStack filledBucket = bucketPickup.pickupBlock(level, pos, state);
 
                 if (filledBucket.isEmpty() || !ITEM_TO_BUCKET.containsKey(filledBucket.getItem())) {
                     return this.cancelFluidPickup(pos, state, level, stack);
@@ -139,7 +148,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
                 filledBucket = ItemUtils.createFilledResult(stack, player, filledBucket);
 
                 player.awardStat(Stats.ITEM_USED.get(this));
-                bucketpickup.getPickupSound().ifPresent((event) -> player.playSound(event, 1.0F, 1.0F));
+                bucketPickup.getPickupSound().ifPresent((event) -> player.playSound(event, 1.0F, 1.0F));
                 level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
 
                 if (!level.isClientSide()) {
@@ -186,7 +195,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
     }
 
     private boolean canBlockContainFluid(Level level, BlockPos pos, BlockState state) {
-        return state.getBlock() instanceof LiquidBlockContainer && ((LiquidBlockContainer) state.getBlock()).canPlaceLiquid(level, pos, state, this.getFluid());
+        return state.getBlock() instanceof LiquidBlockContainer liquidBlockContainer && liquidBlockContainer.canPlaceLiquid(level, pos, state, this.getFluid());
     }
 
     @Override

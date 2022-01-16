@@ -25,6 +25,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -92,7 +93,9 @@ public class PlayerEvents {
             }
         }
 
-        tryPickupMob(player, hand, livingEntity);
+        if (tryPickupMob(player, hand, livingEntity)) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
@@ -169,6 +172,10 @@ public class PlayerEvents {
         }
 
         if (!(stack.getItem() instanceof EdelwoodBucketItem edelwoodBucketItem) || edelwoodBucketItem instanceof EdelwoodMobBucketItem || !FLUID_TO_ENTITY.getOrDefault(edelwoodBucketItem.getFluid(), new ArrayList<>()).contains(entity.getType()) || !entity.isAlive()) {
+            return false;
+        }
+
+        if (entity instanceof Slime slime && slime.getSize() > 1) {
             return false;
         }
 

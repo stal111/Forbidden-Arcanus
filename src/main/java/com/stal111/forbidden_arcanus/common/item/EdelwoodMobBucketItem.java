@@ -29,6 +29,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,13 +41,13 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.EdelwoodMobBucketItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.1
  * @since 2021-12-07
  */
 public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
 
-    private final java.util.function.Supplier<? extends EntityType<?>> entityType;
-    private final java.util.function.Supplier<? extends SoundEvent> emptySound;
+    private final Supplier<? extends EntityType<?>> entityType;
+    private final Supplier<? extends SoundEvent> emptySound;
 
     public EdelwoodMobBucketItem(Supplier<EntityType<?>> entityType, Supplier<Fluid> fluid, Properties properties) {
         this(entityType, fluid, null, properties);
@@ -63,15 +64,13 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         BlockHitResult hitResult = getPlayerPOVHitResult(level, player, this.getFluid() == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
-        InteractionResultHolder<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(player, level, stack, hitResult);
+        InteractionResultHolder<ItemStack> ret = ForgeEventFactory.onBucketUse(player, level, stack, hitResult);
 
         if (ret != null) {
             return ret;
         }
 
-        if (hitResult.getType() == HitResult.Type.MISS) {
-            return InteractionResultHolder.pass(stack);
-        } else if (hitResult.getType() != HitResult.Type.BLOCK) {
+        if (hitResult.getType() != HitResult.Type.BLOCK) {
             return InteractionResultHolder.pass(stack);
         }
 
@@ -81,7 +80,6 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
 
         if (!level.mayInteract(player, pos) || !player.mayUseItemAt(relativePos, direction, stack)) {
             return InteractionResultHolder.fail(stack);
-
         }
 
         if (this.getFluid() == Fluids.EMPTY) {
@@ -108,7 +106,7 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
         }
     }
 
-    private void spawn(ServerLevel level, ItemStack stack, BlockPos pos) {
+    protected void spawn(ServerLevel level, ItemStack stack, BlockPos pos) {
         Entity entity = this.entityType.get().spawn(level, stack, null, pos, MobSpawnType.BUCKET, true, false);
 
         if (entity instanceof Bucketable bucketable) {
@@ -153,5 +151,10 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
         } else {
             return new ItemStack(ModItems.EDELWOOD_LAVA_BUCKET.get());
         }
+    }
+
+    @Override
+    protected boolean canBurn(ItemStack stack) {
+        return stack.is(ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.get());
     }
 }
