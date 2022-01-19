@@ -17,13 +17,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCapability;
+import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collections;
 
 /**
  * Wet Purifying Soap Item <br>
@@ -35,6 +35,8 @@ import java.util.Collections;
  */
 public class WetPurifyingSoapItem extends Item {
 
+    private static final ResourceLocation COUNTER = new ResourceLocation(ForbiddenArcanus.MOD_ID, "dry_timer");
+
     public WetPurifyingSoapItem(Properties properties) {
         super(properties);
     }
@@ -45,7 +47,7 @@ public class WetPurifyingSoapItem extends Item {
             entity.setItem(new ItemStack(ModItems.PURIFYING_SOAP.get()));
         } else {
             stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
-                SimpleCounter counter = getTimer(counterCapability);
+                SimpleCounter counter = getCounter(counterCapability);
 
                 if (entity.isInWaterRainOrBubble()) {
                     counter.resetTimer();
@@ -68,7 +70,7 @@ public class WetPurifyingSoapItem extends Item {
                 player.getInventory().setItem(itemSlot, new ItemStack(ModItems.PURIFYING_SOAP.get()));
             }
             stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
-                SimpleCounter timer = this.getTimer(counterCapability);
+                SimpleCounter timer = this.getCounter(counterCapability);
 
                 if (player.isInWaterRainOrBubble()) {
                     timer.resetTimer();
@@ -114,10 +116,10 @@ public class WetPurifyingSoapItem extends Item {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag tag) {
-        return new CounterProvider(Collections.singletonList(new SimpleCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "dry_timer"))));
+        return new CounterProvider(CounterCreator.of(SimpleCounter::new, COUNTER));
     }
 
-    private SimpleCounter getTimer(CounterCapability counterCapability) {
-        return counterCapability.getCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "dry_timer"));
+    private SimpleCounter getCounter(CounterCapability counterCapability) {
+        return counterCapability.getCounter(COUNTER);
     }
 }

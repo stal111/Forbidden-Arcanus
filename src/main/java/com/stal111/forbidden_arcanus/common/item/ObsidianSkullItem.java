@@ -29,14 +29,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.NonNullLazy;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterCapability;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterImpl;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.common.capability.counter.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -144,7 +140,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag tag) {
         if (!this.eternal) {
-            return new CounterProvider(Collections.singletonList(new ObsidianSkullCounter(COUNTER)));
+            return new CounterProvider(CounterCreator.of(ObsidianSkullCounter::new, COUNTER));
         }
         return null;
     }
