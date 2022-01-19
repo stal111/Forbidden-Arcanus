@@ -27,22 +27,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.core.mixin.CustomHeadLayerMixin
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.18.1 - 2.0.2
  * @since 2021-02-11
  */
 @Mixin(CustomHeadLayer.class)
 public class CustomHeadLayerMixin<T extends LivingEntity, M extends EntityModel<T> & HeadedModel> {
 
+    private EntityModelSet modelSet;
     private Pair<SkullModel, SkullModel> models;
 
     @Inject(at = @At(value = "TAIL"), method = "<init>(Lnet/minecraft/client/renderer/entity/RenderLayerParent;Lnet/minecraft/client/model/geom/EntityModelSet;FFF)V")
     private void forbiddenArcanus_init(RenderLayerParent<T, M> renderLayerParent, EntityModelSet modelSet, float scaleX, float scaleY, float scaleZ, CallbackInfo ci) {
-        this.models = ObsidianSkullRenderer.createModels(modelSet);
+        this.modelSet = modelSet;
     }
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/CustomHeadLayer;translateToHead(Lcom/mojang/blaze3d/vertex/PoseStack;Z)V", shift = At.Shift.BEFORE), method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFFFFF)V", cancellable = true)
     private void forbiddenArcanus_renderHeads(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
         ItemStack stack = entity.getItemBySlot(EquipmentSlot.HEAD);
+
+        if (this.models == null) {
+            this.models = ObsidianSkullRenderer.createModels(modelSet);
+        }
 
         if (stack.getItem() instanceof BlockItem blockItem && ModTags.Items.OBSIDIAN_SKULLS.contains(stack.getItem())) {
             poseStack.scale(1.1875F, -1.1875F, -1.1875F);
