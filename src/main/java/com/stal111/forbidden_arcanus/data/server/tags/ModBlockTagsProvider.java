@@ -33,6 +33,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(ModBlocks.MYSTERYWOOD_LOG.get(), ModBlocks.MYSTERYWOOD.get(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.get(), ModBlocks.STRIPPED_MYSTERYWOOD.get());
         this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(ModBlocks.EDELWOOD_LOG.get(), ModBlocks.CARVED_EDELWOOD_LOG.get());
         this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS);
+        this.tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.CHERRYWOOD_LOGS).addTag(ModTags.Blocks.MYSTERYWOOD_LOGS).addTag(ModTags.Blocks.EDELWOOD_LOGS);
         this.tag(BlockTags.PLANKS).add(ModBlocks.FUNGYSS_PLANKS.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), ModBlocks.CARVED_CHERRYWOOD_PLANKS.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), ModBlocks.EDELWOOD_PLANKS.get(), ModBlocks.ARCANE_EDELWOOD_PLANKS.get());
         this.tag(BlockTags.WOODEN_SLABS).add(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.CHERRYWOOD_SLAB.get(), ModBlocks.MYSTERYWOOD_SLAB.get(), ModBlocks.EDELWOOD_SLAB.get());
         this.tag(BlockTags.WOODEN_STAIRS).add(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.CHERRYWOOD_STAIRS.get(), ModBlocks.MYSTERYWOOD_STAIRS.get(), ModBlocks.EDELWOOD_STAIRS.get());
