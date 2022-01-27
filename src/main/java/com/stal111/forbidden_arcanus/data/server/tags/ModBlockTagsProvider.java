@@ -51,7 +51,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.TRAPDOORS).add(ModBlocks.ARCANE_GOLD_TRAPDOOR.get());
         this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.get());
         this.tag(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), ModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), ModBlocks.POTTED_YELLOW_ORCHID.get());
-        this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED).add(Blocks.IRON_ORE, Blocks.GOLD_ORE);
+        this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED);
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
         this.tag(ModTags.Blocks.RUNIC_STONES).add(ModBlocks.RUNIC_STONE.get(), ModBlocks.RUNIC_DEEPSLATE.get(), ModBlocks.RUNIC_DARKSTONE.get());
         this.tag(ModTags.Blocks.RUNE_BLOCKS).add(ModBlocks.RUNE_BLOCK.get(), ModBlocks.DARK_RUNE_BLOCK.get());
@@ -63,6 +63,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.LEAVES).add(ModBlocks.CHERRYWOOD_LEAVES.get(), ModBlocks.MYSTERYWOOD_LEAVES.get(), ModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.get());
         this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.get());
+        this.tag(BlockTags.CROPS).add(ModBlocks.GOLDEN_ORCHID.get(), ModBlocks.STRANGE_ROOT.get());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.ARCANE_GOLDEN_CHAIN.get(), ModBlocks.PETRIFIED_ROOT.get(), ModBlocks.DARK_NETHER_STAR_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), ModBlocks.ARCANE_GOLD_BLOCK.get(), ModBlocks.STELLARITE_BLOCK.get(), ModBlocks.XPETRIFIED_ORE.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), ModBlocks.SOULLESS_SANDSTONE.get(), ModBlocks.CUT_SOULLESS_SANDSTONE.get(), ModBlocks.POLISHED_SOULLESS_SANDSTONE.get(), ModBlocks.SOULLESS_SANDSTONE_SLAB.get(), ModBlocks.CUT_SOULLESS_SANDSTONE_SLAB.get(), ModBlocks.POLISHED_SOULLESS_SANDSTONE_SLAB.get(), ModBlocks.SOULLESS_SANDSTONE_STAIRS.get(), ModBlocks.POLISHED_SOULLESS_SANDSTONE_STAIRS.get(), ModBlocks.HEPHAESTUS_FORGE.get(), ModBlocks.ARCANE_GOLD_DOOR.get(), ModBlocks.ARCANE_GOLD_PRESSURE_PLATE.get(), ModBlocks.DARKSTONE.get(), ModBlocks.ARCANE_CHISELED_DARKSTONE.get(), ModBlocks.DARKSTONE_SLAB.get(), ModBlocks.DARKSTONE_STAIRS.get(), ModBlocks.ARCANE_GILDED_DARKSTONE.get(), ModBlocks.POLISHED_DARKSTONE.get(), ModBlocks.POLISHED_DARKSTONE_SLAB.get(), ModBlocks.POLISHED_DARKSTONE_STAIRS.get(), ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.get(), ModBlocks.POLISHED_DARKSTONE_BUTTON.get(), ModBlocks.CHISELED_POLISHED_DARKSTONE.get(), ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE.get(), ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get(), ModBlocks.POLISHED_DARKSTONE_BRICKS.get(), ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.get(), ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.get(), ModBlocks.CRACKED_POLISHED_DARKSTONE_BRICKS.get(), ModBlocks.ARCANE_POLISHED_DARKSTONE.get(), ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get(), ModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS.get(), ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get(), ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get(), ModBlocks.ARCANE_POLISHED_DARKSTONE_ROD.get(), ModBlocks.DARKSTONE_PEDESTAL.get(), ModBlocks.ARCANE_DARKSTONE_PEDESTAL.get())
