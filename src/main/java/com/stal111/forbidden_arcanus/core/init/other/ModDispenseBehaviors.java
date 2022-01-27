@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
+import com.stal111.forbidden_arcanus.common.block.dispenser.ArcaneBoneMealDispenseBehavior;
 import com.stal111.forbidden_arcanus.common.block.dispenser.SoulDispenseBehavior;
 import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow;
@@ -49,5 +50,6 @@ public class ModDispenseBehaviors {
                 return arrow;
             }
         });
+        DispenserBlock.registerBehavior(ModItems.ARCANE_BONE_MEAL.get(), new ArcaneBoneMealDispenseBehavior());
     }
 }
