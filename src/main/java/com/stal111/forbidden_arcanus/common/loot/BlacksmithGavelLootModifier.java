@@ -21,7 +21,7 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.3
  * @since 2021-09-24
  */
 public class BlacksmithGavelLootModifier extends LootModifier {
@@ -45,7 +45,7 @@ public class BlacksmithGavelLootModifier extends LootModifier {
             return generatedLoot;
         }
 
-        if (ModTags.Items.BLACKSMITH_GAVEL.contains(stack.getItem()) && Tags.Blocks.ORES.contains(state.getBlock()) && !ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED.contains(state.getBlock())) {
+        if (stack.is(ModTags.Items.BLACKSMITH_GAVEL) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
             generatedLoot.addAll(new ArrayList<>(generatedLoot));
         }
         return generatedLoot;
