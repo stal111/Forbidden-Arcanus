@@ -1,10 +1,12 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,16 +23,15 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.GoldenOrchidBlock
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.3
  * @since 2021-12-10
  */
 public class GoldenOrchidBlock extends CropBlock {
 
+    public static final IntegerProperty AGE = ModBlockStateProperties.AGE_6;
     private static final int MAX_AGE = 6;
 
-    public static final IntegerProperty AGE = ModBlockStateProperties.AGE_6;
-
-    private static final VoxelShape[] SHAPES = new VoxelShape[]{
+    private static final VoxelShape[] SHAPES = new VoxelShape[] {
             Block.box(5.0D, 0.0D, 5.0D, 11.0D, 4.0D, 11.0D),
             Block.box(5.0D, 0.0D, 5.0D, 13.0D, 6.0D, 13.0D),
             Block.box(4.0D, 0.0D, 4.0D, 14.0D, 7.0D, 14.0D),
@@ -67,6 +68,17 @@ public class GoldenOrchidBlock extends CropBlock {
     @Override
     protected ItemLike getBaseSeedId() {
         return ModItems.GOLDEN_ORCHID_SEEDS.get();
+    }
+
+    @Override
+    protected boolean mayPlaceOn(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos) {
+        return state.is(ModBlocks.MAGICAL_FARMLAND.get());
+    }
+
+    @Override
+    public boolean canSurvive(@Nonnull BlockState state, @Nonnull LevelReader level, @Nonnull BlockPos pos) {
+        BlockPos below = pos.below();
+        return (level.getRawBrightness(pos, 0) >= 8 || level.canSeeSky(pos)) && this.mayPlaceOn(level.getBlockState(below), level, below);
     }
 
     @Override
