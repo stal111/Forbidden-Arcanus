@@ -1,13 +1,12 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -30,12 +29,14 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.WetPurifyingSoapItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.3
  * @since 2021-01-31
  */
 public class WetPurifyingSoapItem extends Item {
 
     private static final ResourceLocation COUNTER = new ResourceLocation(ForbiddenArcanus.MOD_ID, "dry_timer");
+
+    private static final double CONSUME_CHANCE = 0.65D;
 
     public WetPurifyingSoapItem(Properties properties) {
         super(properties);
@@ -47,7 +48,7 @@ public class WetPurifyingSoapItem extends Item {
             entity.setItem(new ItemStack(ModItems.PURIFYING_SOAP.get()));
         } else {
             stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
-                SimpleCounter counter = getCounter(counterCapability);
+                SimpleCounter counter = this.getCounter(counterCapability);
 
                 if (entity.isInWaterRainOrBubble()) {
                     counter.resetTimer();
@@ -98,19 +99,19 @@ public class WetPurifyingSoapItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        AurealHelper.getCapability(player).decreaseAureal(20);
+        AurealHelper.getCapability(player).decreaseCorruption(20);
 
         if (!level.isClientSide()) {
             player.removeAllEffects();
 
-            if (level.getRandom().nextDouble() <= 0.65) {
+            if (level.getRandom().nextDouble() < CONSUME_CHANCE) {
                 ItemStackUtils.shrinkStack(player, stack);
             }
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
 
-        return new InteractionResultHolder<>(InteractionResult.sidedSuccess(level.isClientSide()), stack);
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 
     @Nullable
