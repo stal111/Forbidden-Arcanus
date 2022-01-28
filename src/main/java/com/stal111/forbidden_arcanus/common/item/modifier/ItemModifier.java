@@ -12,14 +12,13 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * Item Modifier <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.3
  * @since 2021-11-24
  */
 public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
@@ -31,7 +30,6 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
 
     private final Pair<Integer, Integer> tooltipColors;
 
-    //TODO clear cached items on datapack reload
     private List<ItemStack> cachedValidItems;
 
     public ItemModifier(Predicate<ItemStack> predicate, Tag.Named<Item> incompatibleItems, Tag.Named<Enchantment> incompatibleEnchantments, Pair<Integer, Integer> tooltipColors) {
@@ -61,19 +59,23 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
     }
 
     public boolean canItemContainModifier(ItemStack stack) {
-        if (this.getIncompatibleItems().contains(stack.getItem()) || !this.predicate.test(stack)) {
+        if (stack.is(this.getIncompatibleItems()) || !this.predicate.test(stack)) {
             return false;
         }
 
         return EnchantmentHelper.getEnchantments(stack).keySet().stream()
-                .noneMatch(enchantment -> this.getIncompatibleEnchantments().contains(enchantment));
+                .noneMatch(enchantment -> enchantment.is(this.getIncompatibleEnchantments()));
     }
 
     public List<ItemStack> getValidItems() {
         if (this.cachedValidItems == null) {
-            this.cachedValidItems = ForgeRegistries.ITEMS.getValues().stream().map(ItemStack::new).filter(this::canItemContainModifier).collect(Collectors.toList());
+            this.cachedValidItems = ForgeRegistries.ITEMS.getValues().stream().map(ItemStack::new).filter(this::canItemContainModifier).toList();
         }
         return this.cachedValidItems;
+    }
+
+    public void clearCachedValidItems() {
+        this.cachedValidItems = null;
     }
 
     public Pair<Integer, Integer> getTooltipColors() {

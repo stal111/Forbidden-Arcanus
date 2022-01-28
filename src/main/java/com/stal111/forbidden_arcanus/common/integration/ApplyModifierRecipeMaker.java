@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -27,12 +28,14 @@ import java.util.Objects;
 public class ApplyModifierRecipeMaker {
 
     public static List<UpgradeRecipe> getRecipes() {
-        if (Minecraft.getInstance().level == null) {
+        ClientLevel level = Minecraft.getInstance().level;
+
+        if (level == null) {
             return Collections.emptyList();
         }
         List<UpgradeRecipe> recipes = new ArrayList<>();
 
-        Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream()
+        level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream()
                 .filter(upgradeRecipe -> upgradeRecipe.getSerializer() == ModRecipeSerializers.APPLY_MODIFIER.get())
                 .map(upgradeRecipe -> (ApplyModifierRecipe) upgradeRecipe)
                 .forEach(applyModifierRecipe -> {
