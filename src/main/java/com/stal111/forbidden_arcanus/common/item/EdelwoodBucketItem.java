@@ -138,7 +138,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
                 }
 
                 ItemStack bucket = new ItemStack(ITEM_TO_BUCKET.get(filledBucket.getItem()).get());
-                filledBucket = stack.is(bucket.getItem()) ? stack.copy() : bucket;
+                filledBucket = stack.is(bucket.getItem()) ? stack.copy() : ItemStackUtils.transferEnchantments(stack, bucket);
 
 
                 if (!isEmptyFluid && !this.tryFill(filledBucket).getFirst()) {
