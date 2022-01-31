@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.OreFeatures;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.OptionalInt;
 
@@ -41,10 +39,8 @@ import java.util.OptionalInt;
  */
 public class ModConfiguredFeatures {
 
-    private static final RuleTest DARKSTONE_ORE_REPLACEABLES = new TagMatchTest(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES);
-
     public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_ARCANE_CRYSTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.ARCANE_CRYSTAL_ORE), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.DEEPSLATE_ARCANE_CRYSTAL_ORE));
-    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_RUNIC_STONE_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.RUNIC_STONE), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.RUNIC_DEEPSLATE), OreConfiguration.target(DARKSTONE_ORE_REPLACEABLES, States.RUNIC_DARKSTONE));
+    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_RUNIC_STONE_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.RUNIC_STONE), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.RUNIC_DEEPSLATE), OreConfiguration.target(new BlockMatchTest(ModBlocks.DARKSTONE.get()), States.RUNIC_DARKSTONE));
     public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_DARKSTONE_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.DARKSTONE), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.DARKSTONE));
     public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STELLA_ARCANUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.STELLA_ARCANUM), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.STELLA_ARCANUM));
     public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_XPETRIFIED_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.XPETRIFIED_ORE), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.XPETRIFIED_ORE));
