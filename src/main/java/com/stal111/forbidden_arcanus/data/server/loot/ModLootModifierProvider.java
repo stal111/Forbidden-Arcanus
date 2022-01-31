@@ -13,10 +13,7 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
 import net.valhelsia.valhelsia_core.common.loot.modifiers.AppendLootTableModifier;
@@ -27,7 +24,7 @@ import net.valhelsia.valhelsia_core.core.init.ValhelsiaLootModifiers;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.1 - 2.0.3
  * @since 2021-04-10
  */
 public class ModLootModifierProvider extends GlobalLootModifierProvider {
@@ -41,13 +38,13 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
         // Entities
         this.add("zombie_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new LootItemCondition[] {
-                        LootItemRandomChanceCondition.randomChance(0.002F).build(),
+                        LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.002F, 0.001F).build(),
                         LootTableIdCondition.builder(new ResourceLocation("entities/zombie")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/zombie_additions"))
         );
         this.add("drowned_additions", ValhelsiaLootModifiers.APPEND_LOOT_MODIFIER.get(),
                 new AppendLootTableModifier(new LootItemCondition[] {
-                        LootItemRandomChanceCondition.randomChance(0.002F).build(),
+                        LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.002F, 0.001F).build(),
                         LootTableIdCondition.builder(new ResourceLocation("entities/drowned")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/drowned_additions"))
         );
