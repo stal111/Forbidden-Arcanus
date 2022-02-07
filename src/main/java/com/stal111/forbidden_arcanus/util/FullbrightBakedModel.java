@@ -17,23 +17,23 @@ import java.util.*;
 
 public class FullbrightBakedModel extends DelegateBakedModel {
 
-    private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
+    private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<>() {
+        @Nonnull
         @Override
         public List<BakedQuad> load(@Nonnull CacheKey key) {
-            return transformQuads(key.base.getQuads(key.state, key.side, key.random, EmptyModelData.INSTANCE), key.textures);
+            return transformQuads(key.base().getQuads(key.state(), key.side(), key.random(), EmptyModelData.INSTANCE), key.textures());
         }
     });
-
-    public static void invalidateCache() {
-        CACHE.invalidateAll();
-    }
 
     private final Set<ResourceLocation> textures;
     private final boolean doCaching;
 
+    public FullbrightBakedModel(BakedModel base, ResourceLocation... textures) {
+        this(base, true, textures);
+    }
+
     public FullbrightBakedModel(BakedModel base, boolean doCaching, ResourceLocation... textures) {
         super(base);
-
         this.textures = new HashSet<>(Arrays.asList(textures));
         this.doCaching = doCaching;
     }
@@ -41,21 +41,23 @@ public class FullbrightBakedModel extends DelegateBakedModel {
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
+        BakedModel base = this.getBase();
+
         if (state == null) {
             return base.getQuads(null, side, rand, data);
         }
 
-        if (!doCaching) {
-            return transformQuads(base.getQuads(state, side, rand, data), textures);
+        if (!this.doCaching) {
+            return transformQuads(base.getQuads(state, side, rand, data), this.textures);
         }
 
-        return CACHE.getUnchecked(new CacheKey(base, textures, rand, state, side));
+        return CACHE.getUnchecked(new CacheKey(base, this.textures, rand, state, side));
     }
 
     private static List<BakedQuad> transformQuads(List<BakedQuad> oldQuads, Set<ResourceLocation> textures) {
         List<BakedQuad> quads = new ArrayList<>(oldQuads);
 
-        for (int i = 0; i < quads.size(); ++i) {
+        for (int i = 0; i < quads.size(); i++) {
             BakedQuad quad = quads.get(i);
 
             if (textures.contains(quad.getSprite().getName())) {
@@ -76,29 +78,14 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         vertexData[6 + 2 * step] = 0x00F000F0;
         vertexData[6 + 3 * step] = 0x00F000F0;
 
-        return new BakedQuad(
-                vertexData,
-                quad.getTintIndex(),
-                quad.getDirection(),
-                quad.getSprite(),
-                quad.isShade()
-        );
+        return new BakedQuad(vertexData, quad.getTintIndex(), quad.getDirection(), quad.getSprite(), quad.isShade());
     }
 
-    private static class CacheKey {
-        private final BakedModel base;
-        private final Set<ResourceLocation> textures;
-        private final Random random;
-        private final BlockState state;
-        private final Direction side;
+    public static void invalidateCache() {
+        CACHE.invalidateAll();
+    }
 
-        public CacheKey(BakedModel base, Set<ResourceLocation> textures, Random random, BlockState state, Direction side) {
-            this.base = base;
-            this.textures = textures;
-            this.random = random;
-            this.state = state;
-            this.side = side;
-        }
+    private record CacheKey(BakedModel base, Set<ResourceLocation> textures, Random random, BlockState state, Direction side) {
 
         @Override
         public boolean equals(Object o) {

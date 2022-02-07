@@ -74,21 +74,21 @@ public class ClientSetup {
 
         MinecraftForgeClient.registerTooltipComponentFactory(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
 
-        this.registerModelOverride(ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE, StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.ACTIVATED, true).build(), base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
-        this.registerModelOverride(ModBlocks.XPETRIFIED_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
-        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
-        this.registerModelOverride(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
-        this.registerModelOverride(ModBlocks.RUNIC_STONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
-        this.registerModelOverride(ModBlocks.RUNIC_DEEPSLATE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
-        this.registerModelOverride(ModBlocks.RUNIC_DARKSTONE, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
-        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_BLOCK, base -> new FullbrightBakedModel(base, true, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_block")));
-        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_OBELISK, base -> new FullbrightBakedModel(base, true,
+        this.registerModelOverride(ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE, StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.ACTIVATED, true).build(), base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
+        this.registerModelOverride(ModBlocks.XPETRIFIED_ORE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
+        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
+        this.registerModelOverride(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
+        this.registerModelOverride(ModBlocks.RUNIC_STONE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
+        this.registerModelOverride(ModBlocks.RUNIC_DEEPSLATE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
+        this.registerModelOverride(ModBlocks.RUNIC_DARKSTONE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
+        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_BLOCK, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_block")));
+        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_OBELISK, base -> new FullbrightBakedModel(base,
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_lower_layer"),
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_middle"),
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_upper"),
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_top")
         ));
-        this.registerModelOverride(ModBlocks.HEPHAESTUS_FORGE, base -> new FullbrightBakedModel(base, true,
+        this.registerModelOverride(ModBlocks.HEPHAESTUS_FORGE, base -> new FullbrightBakedModel(base,
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_side_layer"),
                 new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_top_layer")
         ));

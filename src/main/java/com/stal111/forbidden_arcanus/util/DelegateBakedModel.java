@@ -8,65 +8,65 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
+import net.minecraftforge.client.model.data.EmptyModelData;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
 public class DelegateBakedModel implements BakedModel {
 
-    protected final BakedModel base;
+    private final BakedModel base;
 
     public DelegateBakedModel(BakedModel base) {
         this.base = base;
     }
 
+    @Nonnull
     @Override
-    @SuppressWarnings("deprecation")
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand) {
-        return base.getQuads(state, side, rand);
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) {
+        return this.base.getQuads(state, side, rand, EmptyModelData.INSTANCE);
     }
 
     @Override
     public boolean useAmbientOcclusion() {
-        return base.useAmbientOcclusion();
+        return this.base.useAmbientOcclusion();
     }
 
     @Override
     public boolean isGui3d() {
-        return base.isGui3d();
+        return this.base.isGui3d();
     }
 
     @Override
     public boolean usesBlockLight() {
-        return base.usesBlockLight();
+        return this.base.usesBlockLight();
     }
 
     @Override
     public boolean isCustomRenderer() {
-        return base.isCustomRenderer();
+        return this.base.isCustomRenderer();
     }
 
+    @Nonnull
     @Override
-    @SuppressWarnings("deprecation")
     public TextureAtlasSprite getParticleIcon() {
-        return base.getParticleIcon();
+        return this.base.getParticleIcon();
     }
 
+    @Nonnull
     @Override
     public ItemOverrides getOverrides() {
-        return base.getOverrides();
+        return this.base.getOverrides();
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public ItemTransforms getTransforms() {
-        return base.getTransforms();
+    public BakedModel handlePerspective(ItemTransforms.TransformType cameraTransformType, PoseStack poseStack) {
+        return this.base.handlePerspective(cameraTransformType, poseStack);
     }
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public BakedModel handlePerspective(ItemTransforms.TransformType cameraTransformType, PoseStack matrixStack) {
-        return base.handlePerspective(cameraTransformType, matrixStack);
+    public BakedModel getBase() {
+        return this.base;
     }
 }

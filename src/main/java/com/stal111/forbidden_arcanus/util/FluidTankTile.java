@@ -11,27 +11,29 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.util.FluidTankTile
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.18.1 - 2.1.0
  * @since 2021-02-19
  */
 public class FluidTankTile extends FluidTank {
 
-    private final BlockEntity tileEntity;
+    private final BlockEntity blockEntity;
 
-    public FluidTankTile(int capacity, BlockEntity tileEntity) {
+    public FluidTankTile(int capacity, BlockEntity blockEntity) {
         super(capacity);
-        this.tileEntity = tileEntity;
+        this.blockEntity = blockEntity;
     }
 
     @Override
     protected void onContentsChanged() {
-        BlockState state = tileEntity.getBlockState();
-        Level world = tileEntity.getLevel();
-        BlockPos pos = tileEntity.getBlockPos();
+        BlockState state = this.blockEntity.getBlockState();
+        Level level = this.blockEntity.getLevel();
+        BlockPos pos = this.blockEntity.getBlockPos();
 
-        world.sendBlockUpdated(pos, state, state, 8);
-        world.getLightEngine().checkBlock(pos);
+        if (level != null) {
+            level.sendBlockUpdated(pos, state, state, 8);
+            level.getLightEngine().checkBlock(pos);
+        }
 
-        tileEntity.setChanged();
+        this.blockEntity.setChanged();
     }
 }
