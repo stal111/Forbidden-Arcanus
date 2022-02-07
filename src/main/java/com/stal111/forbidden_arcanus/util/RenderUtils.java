@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.util;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
@@ -12,12 +11,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -141,29 +137,17 @@ public class RenderUtils {
         return new AABB(tankBounds.minX, y1, tankBounds.minZ, tankBounds.maxX, y2, tankBounds.maxZ);
     }
 
-    public static void addItemParticles(Level world, ItemStack stack, BlockPos pos, int count) {
-        Random random = world.getRandom();
+    public static void addItemParticles(Level level, ItemStack stack, BlockPos pos, int count) {
+        Random random = level.getRandom();
 
         for(int i = 0; i < count; i++) {
-            Vec3 offset = new Vec3(((double) random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-            Vec3 vector = new Vec3(((double) random.nextFloat() - 0.5D) * 0.3D, -random.nextFloat() * 0.6D - 0.3D, 0.6D);
-            vector = vector.add(pos.getX(), pos.getY(), pos.getZ());
+            Vec3 offset = new Vec3((random.nextFloat() - 0.5D) * 0.1D, random.nextFloat() * 0.1D + 0.1D, 0.0D);
+            Vec3 vector = new Vec3((random.nextFloat() - 0.5D) * 0.3D, -random.nextFloat() * 0.6D - 0.3D, 0.6D).add(ModUtils.blockPosToVector(pos));
 
-            if (world instanceof ServerLevel) {
-                ((ServerLevel) world).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, 1, offset.x, offset.y + 0.05D, offset.z, 0.0D);
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, 1, offset.x, offset.y + 0.05D, offset.z, 0.0D);
             } else {
-                world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, offset.x, offset.y + 0.05D, offset.z);
-            }
-        }
-    }
-
-    public static <T extends ParticleOptions> void spawnAurealMoteParticle(T type, ServerLevel world, double posX, double posY, double posZ, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
-        ClientboundLevelParticlesPacket packet = new ClientboundLevelParticlesPacket(type, false, posX, posY, posZ, (float)xOffset, (float)yOffset, (float)zOffset, (float)speed, particleCount);
-
-        for(int j = 0; j < world.players().size(); ++j) {
-            ServerPlayer player = world.players().get(j);
-            if (player.getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
-                world.sendParticles(player, false, posX, posY, posZ, packet);
+                level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), vector.x, vector.y, vector.z, offset.x, offset.y + 0.05D, offset.z);
             }
         }
     }
