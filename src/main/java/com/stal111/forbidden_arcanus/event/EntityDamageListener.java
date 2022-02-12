@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.item.BloodTestTubeItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
@@ -56,7 +57,7 @@ public class EntityDamageListener {
 
                 if (stack != null) {
                     ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(NewModItems.BLOOD_TEST_TUBE.get()), blood);
-                    int slot = player.inventory.getSlotFor(stack);
+                    int slot = getSlotFor(player.inventory, stack);
 
                     stack.shrink(1);
 
@@ -119,5 +120,23 @@ public class EntityDamageListener {
                 }
             }
         }
+    }
+
+    private static int getSlotFor(PlayerInventory inventory, ItemStack stack) {
+        if (inventory.getCurrentItem() == stack)
+            return inventory.currentItem;
+
+        for (int i = 0; i < inventory.mainInventory.size(); ++i) {
+            if (!inventory.mainInventory.get(i).isEmpty() && stackEqualExact(stack, inventory.mainInventory.get(i))) {
+                return i;
+            }
+        }
+
+        // Couldn't find the exact instance, can not ensure we have the right slot.
+        return -1;
+    }
+
+    private static boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
+        return stack1.getItem() == stack2.getItem() && ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 }
