@@ -21,8 +21,9 @@ public class EntitySpawnListener {
 
     @SubscribeEvent
     public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
-        Entity entity = event.getEntity();
+        LivingEntity entity = event.getEntityLiving();
         World world = event.getEntity().getEntityWorld();
+        EntityClassification category = entity.getType().getClassification();
 
         world.getCapability(EntitySpawningBlockingCapability.ENTITY_SPAWNING_BLOCKING_BLOCKS_CAPABILITY).ifPresent(iEntitySpawningBlockingBlocks -> {
             iEntitySpawningBlockingBlocks.getSpawningBlockingBlocks().forEach(compoundNBT -> {
@@ -39,14 +40,9 @@ public class EntitySpawnListener {
                 }
             });
         });
-    }
 
-    @SubscribeEvent
-    public static void onSpecialSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        LivingEntity entity = event.getEntityLiving();
-
-        if (entity.getType().getClassification() == EntityClassification.AMBIENT || entity.getType().getClassification() == EntityClassification.CREATURE) {
-            if (entity.getEntityWorld().getRandom().nextDouble() <= AurealConfig.AUREAL_ENTITY_SPAWN_CHANCE.get()) {
+        if (category == EntityClassification.AMBIENT || category == EntityClassification.CREATURE) {
+            if (world.getRandom().nextDouble() <= AurealConfig.AUREAL_ENTITY_SPAWN_CHANCE.get()) {
                 entity.getPersistentData().putBoolean("aureal", true);
             }
         }
