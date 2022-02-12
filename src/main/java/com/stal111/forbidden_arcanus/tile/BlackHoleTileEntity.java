@@ -15,24 +15,24 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class BlackHoleTileEntity extends TileEntity implements ITickableTileEntity {
 
-    Map<ItemEntity, Vector3d> ITEM_POSITION_MAP = new HashMap<>();
-    private static final List<ItemEntity> BLACK_HOLE_OUT = new ArrayList<>();
+    private final List<ItemEntity> thrownOutItems = new ArrayList<>();
 
     private double stored_xp;
-    public int blackHoleRotation;
+    public int blackHoleRotation = 0;
     public int tickCounter;
     public int auraTexture = 0;
 
     public BlackHoleTileEntity() {
         super(ModTileEntities.BLACK_HOLE.get());
-        this.blackHoleRotation = new Random().nextInt(100000);
     }
 
     @Override
@@ -47,23 +47,21 @@ public class BlackHoleTileEntity extends TileEntity implements ITickableTileEnti
             auraTexture = 0;
         }
 
-        List<Entity> entities = Objects.requireNonNull(getWorld()).getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(getPos().getX() + 0.5 - 5, getPos().getY() + 0.5 - 5, getPos().getZ() + 0.5 - 5, getPos().getX() + 0.5 + 5, getPos().getY() + 0.5 + 5, getPos().getZ() + 0.5 + 5));
+        if (this.getWorld() == null || this.getWorld().isRemote) {
+            return;
+        }
+
+        List<Entity> entities = this.getWorld().getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(getPos().getX() + 0.5 - 5, getPos().getY() + 0.5 - 5, getPos().getZ() + 0.5 - 5, getPos().getX() + 0.5 + 5, getPos().getY() + 0.5 + 5, getPos().getZ() + 0.5 + 5));
 
         for (Entity entity : entities) {
             if (entity instanceof ItemEntity || entity instanceof ExperienceOrbEntity) {
-                double distance = entity.getPositionVec().distanceTo(ModUtils.blockPosToVector(pos, 0.5));
+                double distance = entity.getPositionVec().distanceTo(ModUtils.blockPosToVector(this.pos, 0.5));
 
-                if (entity instanceof ItemEntity) {
-                    if (!ITEM_POSITION_MAP.containsKey(entity) && distance <= 1.25 && !BLACK_HOLE_OUT.contains(entity)) {
-                        ITEM_POSITION_MAP.put((ItemEntity) entity, entity.getPositionVec());
-                    }
-                }
-
-                if ((entity instanceof ItemEntity && !ModTags.Items.BLACK_HOLE_UNAFFECTED.contains(((ItemEntity) entity).getItem().getItem()) && !BLACK_HOLE_OUT.contains(entity)) || entity instanceof ExperienceOrbEntity) {
+                if ((entity instanceof ItemEntity && !ModTags.Items.BLACK_HOLE_UNAFFECTED.contains(((ItemEntity) entity).getItem().getItem()) && !this.thrownOutItems.contains(entity)) || entity instanceof ExperienceOrbEntity) {
                     entity.addVelocity((getPos().getX() + 0.5 - entity.getPosX()) * getMovementFactor(distance), (getPos().getY() + 0.5 - entity.getPosY() + 1.25) * getMovementFactor(distance), (getPos().getZ() + 0.5 - entity.getPosZ()) * getMovementFactor(distance));
                 }
 
-                if (distance <= 0.5 && ((entity instanceof ItemEntity && !BLACK_HOLE_OUT.contains(entity)) || entity instanceof ExperienceOrbEntity)) {
+                if (distance <= 0.5 && ((entity instanceof ItemEntity && !this.thrownOutItems.contains(entity)) || entity instanceof ExperienceOrbEntity)) {
                     entity.remove();
 
                     if (entity instanceof ExperienceOrbEntity) {
@@ -71,20 +69,20 @@ public class BlackHoleTileEntity extends TileEntity implements ITickableTileEnti
                     }
 
                     if (this.stored_xp >= 60) {
-                        throwOutItemStack(getWorld(), new ItemStack(ModItems.XPETRIFIED_ORB.get()), getPos());
+                        this.throwOutItemStack(this.getWorld(), new ItemStack(ModItems.XPETRIFIED_ORB.get()), getPos());
                         this.stored_xp = 0;
                     }
                 }
             }
         }
 
-        BLACK_HOLE_OUT.removeIf(itemEntity -> !itemEntity.isAlive());
+        this.thrownOutItems.removeIf(itemEntity -> !itemEntity.isAlive());
     }
 
     private void throwOutItemStack(World world, ItemStack stack, BlockPos pos) {
         ItemEntity output = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
 
-        List<PlayerEntity> players = Objects.requireNonNull(getWorld()).getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPos().getX() + 0.5 - 5, getPos().getY() + 0.5 - 5, getPos().getZ() + 0.5 - 5, getPos().getX() + 0.5 + 5, getPos().getY() + 0.5 + 5, getPos().getZ() + 0.5 + 5));
+        List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getPos().getX() + 0.5 - 5, getPos().getY() + 0.5 - 5, getPos().getZ() + 0.5 - 5, getPos().getX() + 0.5 + 5, getPos().getY() + 0.5 + 5, getPos().getZ() + 0.5 + 5));
 
         PlayerEntity nearestPlayer = null;
 
@@ -97,10 +95,10 @@ public class BlackHoleTileEntity extends TileEntity implements ITickableTileEnti
         if (nearestPlayer != null) {
             output.addVelocity((nearestPlayer.getPosX() - output.getPosX()) * 0.09, (nearestPlayer.getPosY() - output.getPosY() + 1.25) * 0.09, (nearestPlayer.getPosZ() - output.getPosZ()) * 0.09);
         } else {
-            setRandomVelocity(output, getWorld().getRandom());
+            setRandomVelocity(output, world.getRandom());
         }
 
-        BLACK_HOLE_OUT.add(output);
+        this.thrownOutItems.add(output);
 
         world.addEntity(output);
     }
@@ -118,16 +116,17 @@ public class BlackHoleTileEntity extends TileEntity implements ITickableTileEnti
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compoundNBT) {
-        super.read(state, compoundNBT);
-        this.stored_xp = compoundNBT.getDouble("stored_xp");
+    public void read(@Nonnull BlockState state, @Nonnull CompoundNBT compound) {
+        super.read(state, compound);
+        this.stored_xp = compound.getDouble("stored_xp");
     }
 
+    @Nonnull
     @Override
-    public CompoundNBT write(CompoundNBT compoundNBT) {
-        super.write(compoundNBT);
-        compoundNBT.putDouble("stored_xp", stored_xp);
+    public CompoundNBT write(@Nonnull CompoundNBT compound) {
+        super.write(compound);
+        compound.putDouble("stored_xp", stored_xp);
 
-        return compoundNBT;
+        return compound;
     }
 }
