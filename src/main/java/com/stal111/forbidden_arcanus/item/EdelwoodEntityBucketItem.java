@@ -39,10 +39,12 @@ public class EdelwoodEntityBucketItem extends Item {
                 if (entity instanceof PlayerEntity) {
                     PlayerEntity player = (PlayerEntity) entity;
                     BlockPos pos = new BlockPos(player.getPosX(), player.getPosY(), player.getPosZ());
+
                     if (!player.abilities.isCreativeMode) {
-                        if (new Random().nextDouble() < 0.008) {
-                            this.placeEntity((ServerWorld) world, stack, pos);
+                        if (player.getRNG().nextDouble() < 0.008) {
                             if (!world.isRemote()) {
+                                this.placeEntity((ServerWorld) world, stack, pos);
+
                                 player.inventory.removeStackFromSlot(slot);
                                 player.inventory.add(slot, new ItemStack(Items.CHARCOAL));
                                 player.setFire(3);
