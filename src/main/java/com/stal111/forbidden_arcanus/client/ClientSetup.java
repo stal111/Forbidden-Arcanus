@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
+import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
@@ -104,6 +105,7 @@ public class ClientSetup {
         ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, world, entity, seed) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
 
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Flight Timer", new FlightTimerOverlay());
+        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Sanity Meter", new SanityMeterOverlay());
     }
 
     @SubscribeEvent
