@@ -6,26 +6,20 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
-import com.stal111.forbidden_arcanus.core.config.RenderingConfig;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.StringUtil;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class RenderGameOverlayListener {
 
-    private static final ResourceLocation FLIGHT_OVERLAY_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/orb_of_temporary_flight_time.png");
     private static final ResourceLocation HUD_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
 
     @SubscribeEvent
@@ -40,27 +34,6 @@ public class RenderGameOverlayListener {
         }
 
         //TODO
-
-        player.getCapability(CounterProvider.CAPABILITY).ifPresent(iCounter -> {
-            SimpleCounter counter = iCounter.getCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"));
-
-            if (counter.isActive() && counter.getValue() >= 0 && RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_RENDER.get()) {
-                int posX = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_X_POSITION.get();
-                int posY = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_Y_POSITION.get();
-
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, FLIGHT_OVERLAY_TEXTURE);
-
-                GuiComponent.blit(matrixStack, posX, posY, 0, 0, 0, 57, 25, 25, 57);
-
-                minecraft.getItemRenderer().renderAndDecorateItem(ModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
-
-                ChatFormatting color = counter.getValue() / 20 <= 20 ? ChatFormatting.RED : ChatFormatting.WHITE;
-                int i = counter.getValue() < 12000 ? 27 : (int) 25.5F;
-
-                minecraft.font.draw(matrixStack, StringUtil.formatTickDuration(counter.getValue()), posX + i, posY + 9, color.getColor());
-            }
-        });
 
         player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
             if (player.getInventory().contains(ModItems.Stacks.SANITY_METER)) {

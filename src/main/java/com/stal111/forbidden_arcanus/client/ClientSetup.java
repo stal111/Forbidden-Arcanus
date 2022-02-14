@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
@@ -27,6 +28,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -100,8 +103,7 @@ public class ClientSetup {
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, world, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, world, entity, seed) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
 
-//        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof UtremJarTileEntity);
-//        ClientHelper.registerTileEntityUpdatePacket(tileEntity -> tileEntity instanceof NipaTileEntity);
+        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Flight Timer", new FlightTimerOverlay());
     }
 
     @SubscribeEvent
