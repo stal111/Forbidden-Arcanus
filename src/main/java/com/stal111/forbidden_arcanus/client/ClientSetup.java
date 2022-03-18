@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
+import com.stal111.forbidden_arcanus.client.gui.overlay.ObsidianSkullOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
@@ -106,6 +107,7 @@ public class ClientSetup {
 
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Flight Timer", new FlightTimerOverlay());
         OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Sanity Meter", new SanityMeterOverlay());
+        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Obsidian Skull", new ObsidianSkullOverlay());
     }
 
     @SubscribeEvent

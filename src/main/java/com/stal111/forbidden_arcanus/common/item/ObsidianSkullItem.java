@@ -9,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.nbt.CompoundTag;
@@ -101,21 +102,33 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
             return true;
         }
 
-        int slot = -1;
+        ItemStack stack = getSkullWithLowestCounter(inventory);
 
-        for(int i = 0; i < inventory.items.size(); ++i) {
-            if (!inventory.items.get(i).isEmpty() && ItemStack.isSame(ModItems.Stacks.OBSIDIAN_SKULL, inventory.items.get(i))) {
-                slot = i;
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        return getCounterValue(stack) < OBSIDIAN_SKULL_PROTECTION_TIME;
+    }
+
+    public static ItemStack getSkullWithLowestCounter(Inventory inventory) {
+        ItemStack skull = ItemStack.EMPTY;
+
+        for (NonNullList<ItemStack> nonNullList : inventory.compartments) {
+            for (ItemStack stack : nonNullList) {
+                if (!stack.isEmpty() && stack.is(ModItems.OBSIDIAN_SKULL.get())) {
+                    if (skull.isEmpty() || getCounterValue(skull) > getCounterValue(stack)) {
+                        skull = stack;
+                    }
+                }
             }
         }
 
-        if (slot != -1) {
-            CounterCapability counterCapability = inventory.getItem(slot).getCapability(CounterProvider.CAPABILITY).orElse(new CounterImpl());
+        return skull;
+    }
 
-            return counterCapability.getCounter(COUNTER).getValue() < OBSIDIAN_SKULL_PROTECTION_TIME;
-        }
-
-        return false;
+    public static int getCounterValue(ItemStack stack) {
+        return stack.getCapability(CounterProvider.CAPABILITY).orElse(new CounterImpl()).getCounter(COUNTER).getValue();
     }
 
     @Override
@@ -131,7 +144,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
 
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
-                return renderer.get();
+                return this.renderer.get();
             }
         });
     }
