@@ -82,7 +82,7 @@ public class ModRecipeProvider extends RecipeProvider {
         //Smithing Recipes
         SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(Items.SHIELD), Ingredient.fromItems(NewModItems.OBSIDIAN_SKULL.get()), NewModItems.OBSIDIAN_SKULL_SHIELD.get()).addCriterion("has_item", hasItem(NewModItems.OBSIDIAN_SKULL.get())).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_skull_shield"));
         SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(NewModItems.OBSIDIAN_SKULL.get()), Ingredient.fromItems(ModItems.ETERNAL_STELLA.get()), NewModItems.ETERNAL_OBSIDIAN_SKULL.get()).addCriterion("has_item", hasItem(NewModItems.OBSIDIAN_SKULL.get())).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
-        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(NewModItems.NETHERITE_BLACKSMITH_GAVEL.get()), Ingredient.fromItems(Items.NETHERITE_INGOT), NewModItems.DIAMOND_BLACKSMITH_GAVEL.get()).addCriterion("has_item", hasItem(Items.NETHERITE_INGOT)).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/obsidian_blacksmith_gavel"));
+        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(NewModItems.DIAMOND_BLACKSMITH_GAVEL.get()), Ingredient.fromItems(Items.NETHERITE_INGOT), NewModItems.NETHERITE_BLACKSMITH_GAVEL.get()).addCriterion("has_item", hasItem(Items.NETHERITE_INGOT)).build(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/netherite_blacksmith_gavel"));
     }
 
     private void addBlacksmithGavelRecipe(Item gavel, ITag.INamedTag<Item> material, @Nonnull Consumer<IFinishedRecipe> consumer) {
