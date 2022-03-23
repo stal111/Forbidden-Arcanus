@@ -37,7 +37,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.0.0
  */
 public class QuantumCatcherItem extends Item {
 
@@ -83,7 +83,7 @@ public class QuantumCatcherItem extends Item {
     public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         Level level = player.getCommandSenderWorld();
 
-        if (target instanceof Player || ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED.contains(target.getType())) {
+        if (target instanceof Player || target.getType().is(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED)) {
             return InteractionResult.PASS;
         }
 

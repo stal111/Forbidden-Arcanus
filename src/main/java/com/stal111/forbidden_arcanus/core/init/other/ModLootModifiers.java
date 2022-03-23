@@ -14,13 +14,13 @@ import net.valhelsia.valhelsia_core.core.registry.LootModifierRegistryHelper;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.other.ModLootModifiers
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-09-24
  */
 @Mod.EventBusSubscriber
 public class ModLootModifiers {
 
-    public static final LootModifierRegistryHelper HELPER = (LootModifierRegistryHelper) ForbiddenArcanus.REGISTRY_MANAGER.getHelper(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS);
+    public static final LootModifierRegistryHelper HELPER = (LootModifierRegistryHelper) ForbiddenArcanus.REGISTRY_MANAGER.getHelper(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS);
 
     public static final RegistryObject<BlacksmithGavelLootModifier.Serializer> BLACKSMITH_GAVEL = HELPER.register("blacksmith_gavel", BlacksmithGavelLootModifier.Serializer::new);
     public static final RegistryObject<FieryLootModifier.Serializer> FIERY = HELPER.register("fiery", FieryLootModifier.Serializer::new);

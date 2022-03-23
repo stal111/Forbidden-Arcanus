@@ -24,7 +24,7 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.StrangeRootBlock
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-12-11
  */
 public class StrangeRootBlock extends CropBlock {
@@ -78,7 +78,7 @@ public class StrangeRootBlock extends CropBlock {
 
     @Override
     protected boolean mayPlaceOn(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos) {
-        return BlockTags.BASE_STONE_OVERWORLD.contains(state.getBlock());
+        return state.is(BlockTags.BASE_STONE_OVERWORLD);
     }
 
     @Nonnull

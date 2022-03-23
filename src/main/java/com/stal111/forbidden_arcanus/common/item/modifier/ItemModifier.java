@@ -2,13 +2,14 @@ package com.stal111.forbidden_arcanus.common.item.modifier;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.registries.tags.ITagManager;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -18,21 +19,21 @@ import java.util.function.Predicate;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
  *
  * @author stal111
- * @version 1.18.1 - 2.0.3
+ * @version 1.18.2 - 2.0.0
  * @since 2021-11-24
  */
 public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
 
     private final Predicate<ItemStack> predicate;
 
-    private final Tag.Named<Item> incompatibleItems;
-    private final Tag.Named<Enchantment> incompatibleEnchantments;
+    private final TagKey<Item> incompatibleItems;
+    private final TagKey<Enchantment> incompatibleEnchantments;
 
     private final Pair<Integer, Integer> tooltipColors;
 
     private List<ItemStack> cachedValidItems;
 
-    public ItemModifier(Predicate<ItemStack> predicate, Tag.Named<Item> incompatibleItems, Tag.Named<Enchantment> incompatibleEnchantments, Pair<Integer, Integer> tooltipColors) {
+    public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, Pair<Integer, Integer> tooltipColors) {
         this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
         this.incompatibleEnchantments = incompatibleEnchantments;
@@ -50,11 +51,11 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
         return new TranslatableComponent("modifier." + this.getRegistryName().getNamespace() + "." + this.getRegistryName().getPath());
     }
 
-    public Tag.Named<Item> getIncompatibleItems() {
+    public TagKey<Item> getIncompatibleItems() {
         return this.incompatibleItems;
     }
 
-    public Tag.Named<Enchantment> getIncompatibleEnchantments() {
+    public TagKey<Enchantment> getIncompatibleEnchantments() {
         return this.incompatibleEnchantments;
     }
 
@@ -63,8 +64,14 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
             return false;
         }
 
+        ITagManager<Enchantment> tagManager = ForgeRegistries.ENCHANTMENTS.tags();
+
+        if (tagManager == null) {
+            return false;
+        }
+
         return EnchantmentHelper.getEnchantments(stack).keySet().stream()
-                .noneMatch(enchantment -> enchantment.is(this.getIncompatibleEnchantments()));
+                .noneMatch(enchantment -> tagManager.getTag(this.getIncompatibleEnchantments()).contains(enchantment));
     }
 
     public List<ItemStack> getValidItems() {

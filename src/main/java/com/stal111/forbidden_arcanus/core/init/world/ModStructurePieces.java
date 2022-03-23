@@ -4,14 +4,14 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.structure.NipaPieces;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;
-import net.minecraft.world.level.levelgen.feature.StructurePieceType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 
 /**
  * Mod Structure Pieces
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModStructurePieces
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-04-12
  */
 public class ModStructurePieces {

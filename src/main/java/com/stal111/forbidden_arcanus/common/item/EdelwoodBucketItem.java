@@ -37,7 +37,7 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem
  *
  * @author stal111
- * @version 1.18.1 - 2.0.1
+ * @version 1.18.2 - 2.0.0
  * @since 2021-12-02
  */
 public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
@@ -92,7 +92,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
     }
 
     protected boolean canBurn(ItemStack stack) {
-        return FluidTags.LAVA.contains(this.getFluid());
+        return this.getFluid().is(FluidTags.LAVA);
     }
 
     @Nonnull

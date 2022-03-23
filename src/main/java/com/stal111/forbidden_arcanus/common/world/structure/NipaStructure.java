@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
@@ -44,10 +43,10 @@ public class NipaStructure extends SimpleValhelsiaStructure<NipaConfig> {
         return GenerationStep.Decoration.SURFACE_STRUCTURES;
     }
 
-    @Override
-    public StructureFeatureConfiguration getFeatureConfiguration() {
-        return ModStructures.SeparationSettings.NIPA;
-    }
+//    @Override
+//    public StructureFeatureConfiguration getFeatureConfiguration() {
+//        return ModStructures.SeparationSettings.NIPA;
+//    }
 
 //    public static class Start extends StructureStart<NipaConfig> {
 //

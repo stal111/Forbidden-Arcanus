@@ -27,7 +27,7 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.18.2 - 2.0.0
  */
 public class BlackHoleBlockEntity extends BlockEntity {
 
@@ -61,7 +61,7 @@ public class BlackHoleBlockEntity extends BlockEntity {
         List<Entity> entities = level.getEntities(null, new AABB(pos.getX() + 0.5 - 5, pos.getY() + 0.5 - 5, pos.getZ() + 0.5 - 5, pos.getX() + 0.5 + 5, pos.getY() + 0.5 + 5, pos.getZ() + 0.5 + 5));
 
         for (Entity entity : entities) {
-            if (!ModTags.EntityTypes.BLACK_HOLE_AFFECTED.contains(entity.getType())) {
+            if (!entity.getType().is(ModTags.EntityTypes.BLACK_HOLE_AFFECTED)) {
                 continue;
             }
 
@@ -93,7 +93,7 @@ public class BlackHoleBlockEntity extends BlockEntity {
     }
 
     public boolean isAffectedItem(ItemEntity entity) {
-        return !this.thrownOutItems.contains(entity) && !ModTags.Items.BLACK_HOLE_UNAFFECTED.contains(entity.getItem().getItem());
+        return !this.thrownOutItems.contains(entity) && !entity.getItem().is(ModTags.Items.BLACK_HOLE_UNAFFECTED);
     }
 
     private void throwOutItemStack(Level level, ItemStack stack, BlockPos pos) {

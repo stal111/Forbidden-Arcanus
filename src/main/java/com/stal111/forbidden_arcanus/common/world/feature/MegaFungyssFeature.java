@@ -2,10 +2,13 @@ package com.stal111.forbidden_arcanus.common.world.feature;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -14,17 +17,12 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HugeMushroomBlock;
-import net.minecraft.world.level.block.PipeBlock;
-import net.minecraft.world.level.block.state.BlockState;
-
 /**
  * Mega Fungyss Feature
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.MegaFungyssFeature
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-04-13
  */
 public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
@@ -41,9 +39,8 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         if (pos.getY() < 1 || pos.getY() + height + 1 >= generator.getGenDepth()) {
             return false;
         }
-        Block block = world.getBlockState(pos.below()).getBlock();
 
-        if (!Tags.Blocks.STONE.contains(block)) {
+        if (!world.getBlockState(pos.below()).is(Tags.Blocks.STONE)) {
             return false;
         }
 

@@ -21,7 +21,7 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.EdelwoodFeature
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-12-23
  */
 public class EdelwoodFeature extends Feature<NoneFeatureConfiguration> {
@@ -44,7 +44,7 @@ public class EdelwoodFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos.MutableBlockPos mutable = pos.mutable();
         Random random = context.random();
 
-        if (!level.isEmptyBlock(pos.above()) || !BlockTags.DIRT.contains(level.getBlockState(pos.below()).getBlock())) {
+        if (!level.isEmptyBlock(pos.above()) || !level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
             return false;
         }
 

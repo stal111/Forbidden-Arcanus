@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.core.mixin.CustomHeadLayerMixin
  *
  * @author stal111
- * @version 1.18.1 - 2.0.2
+ * @version 1.18.2 - 2.0.0
  * @since 2021-02-11
  */
 @Mixin(CustomHeadLayer.class)
@@ -49,7 +49,7 @@ public class CustomHeadLayerMixin<T extends LivingEntity, M extends EntityModel<
             this.models = ObsidianSkullRenderer.createModels(modelSet);
         }
 
-        if (stack.getItem() instanceof BlockItem blockItem && ModTags.Items.OBSIDIAN_SKULLS.contains(stack.getItem())) {
+        if (stack.getItem() instanceof BlockItem blockItem && stack.is(ModTags.Items.OBSIDIAN_SKULLS)) {
             poseStack.scale(1.1875F, -1.1875F, -1.1875F);
 
             if (entity instanceof Villager || entity instanceof ZombieVillager) {

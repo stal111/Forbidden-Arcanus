@@ -22,7 +22,7 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.GrowingEdelwoodBlock
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-12-23
  */
 public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock {
@@ -59,7 +59,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
 
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        if (!ModConfiguredFeatures.EDELWOOD.place(level, level.getChunkSource().getGenerator(), random, pos)) {
+        if (!ModConfiguredFeatures.EDELWOOD.value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
             level.setBlock(pos, state, 4);
         }
     }

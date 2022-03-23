@@ -5,9 +5,10 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -35,7 +36,7 @@ import java.util.OptionalInt;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModConfiguredFeatures
  *
  * @author stal111
- * @version 1.18.1 - 2.0.0
+ * @version 1.18.2 - 2.0.0
  */
 public class ModConfiguredFeatures {
 
@@ -45,32 +46,31 @@ public class ModConfiguredFeatures {
     public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STELLA_ARCANUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.STELLA_ARCANUM), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.STELLA_ARCANUM));
     public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_XPETRIFIED_TARGET_LIST = ImmutableList.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, States.XPETRIFIED_ORE), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, States.XPETRIFIED_ORE));
 
-    public static final ConfiguredFeature<?, ?> ARCANE_CRYSTAL_ORE = register("ore_arcane_crystal", Feature.ORE.configured(new OreConfiguration(ORE_ARCANE_CRYSTAL_TARGET_LIST, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())));
-    public static final ConfiguredFeature<?, ?> RUNIC_STONE = register("ore_rune", Feature.ORE.configured(new OreConfiguration(ORE_RUNIC_STONE_TARGET_LIST, WorldGenConfig.RUNIC_STONE_MAX_VEIN_SIZE.get())));
-    public static final ConfiguredFeature<?, ?> DARKSTONE = register("ore_darkstone", Feature.ORE.configured(new OreConfiguration(ORE_DARKSTONE_TARGET_LIST, WorldGenConfig.DARKSTONE_MAX_VEIN_SIZE.get())));
-    public static final ConfiguredFeature<?, ?> ARCANE_GILDED_DARKSTONE = register("ore_arcane_gilded_darkstone", Feature.ORE.configured(new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())));
-    public static final ConfiguredFeature<?, ?> STELLA_ARCANUM = register("ore_stella_arcanum", Feature.ORE.configured(new OreConfiguration(ORE_STELLA_ARCANUM_TARGET_LIST, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get())));
-    public static final ConfiguredFeature<?, ?> XPETRIFIED_ORE = register("ore_xpetrified", Feature.ORE.configured(new OreConfiguration(ORE_XPETRIFIED_TARGET_LIST, 3)));
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ARCANE_CRYSTAL_ORE = register("ore_arcane_crystal", Feature.ORE, new OreConfiguration(ORE_ARCANE_CRYSTAL_TARGET_LIST, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get()));
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> RUNIC_STONE = register("ore_rune", Feature.ORE, new OreConfiguration(ORE_RUNIC_STONE_TARGET_LIST, WorldGenConfig.RUNIC_STONE_MAX_VEIN_SIZE.get()));
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> DARKSTONE = register("ore_darkstone", Feature.ORE, new OreConfiguration(ORE_DARKSTONE_TARGET_LIST, WorldGenConfig.DARKSTONE_MAX_VEIN_SIZE.get()));
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ARCANE_GILDED_DARKSTONE = register("ore_arcane_gilded_darkstone", Feature.ORE, new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get()));
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> STELLA_ARCANUM = register("ore_stella_arcanum", Feature.ORE, new OreConfiguration(ORE_STELLA_ARCANUM_TARGET_LIST, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get()));
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> XPETRIFIED_ORE = register("ore_xpetrified", Feature.ORE, new OreConfiguration(ORE_XPETRIFIED_TARGET_LIST, 3));
 
-    public static final ConfiguredFeature<TreeConfiguration, ?> CHERRYWOOD = register("cherrywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LOG.get()), new ForkingTrunkPlacer(5, 2, 2), BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAVES.get()), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().build()));
-    public static final ConfiguredFeature<TreeConfiguration, ?> MYSTERYWOOD = register("mysterywood", Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.MYSTERYWOOD_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES, 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES, 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().build()));
+    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> CHERRYWOOD = register("cherrywood", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LOG.get()), new ForkingTrunkPlacer(5, 2, 2), BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAVES.get()), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2)).ignoreVines().build());
+    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> MYSTERYWOOD = register("mysterywood", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.MYSTERYWOOD_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES, 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES, 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build());
 
-    public static final ConfiguredFeature<?, ?> YELLOW_ORCHID = register("flower_yellow_orchid", Feature.FLOWER.configured(new RandomPatchConfiguration(64, 6, 2, () -> {
-        return Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))).onlyWhenEmpty();
-    })));
-    public static final ConfiguredFeature<?, ?> EDELWOOD = register("edelwood", ModFeatures.EDELWOOD.get().configured(NoneFeatureConfiguration.INSTANCE));
-    public static final ConfiguredFeature<?, ?> PETRIFIED_ROOT = register("petrified_root", ModFeatures.PETRIFIED_ROOT.get().configured(new BlockStateConfiguration(States.PETRIFIED_ROOT)));
+    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> YELLOW_ORCHID = register("flower_yellow_orchid", Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get())))));
+    public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> EDELWOOD = register("edelwood", ModFeatures.EDELWOOD.get(), NoneFeatureConfiguration.INSTANCE);
+    public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> PETRIFIED_ROOT = register("petrified_root", ModFeatures.PETRIFIED_ROOT.get(), new BlockStateConfiguration(States.PETRIFIED_ROOT));
 
    // public static final ConfiguredFeature<?, ?> CHERRYWOOD_TREES = register("trees_cherrywood", CHERRYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
    // public static final ConfiguredFeature<?, ?> MYSTERYWOOD_TREES = register("trees_mysterywood", MYSTERYWOOD.decorated(Features.Decorators.HEIGHTMAP_SQUARE).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))).decorated(ModFeatures.DIMENSION_PLACEMENT.get().configured(new DimensionConfig(WorldGenConfig.treeList))));
 
-    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_0 = register("big_fungyss_0", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 0)));
-    public static final ConfiguredFeature<?, ?> BIG_FUNGYSS_1 = register("big_fungyss_1", ModFeatures.BIG_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 1)));
-    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_0 = register("mega_fungyss_0", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 0)));
-    public static final ConfiguredFeature<?, ?> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get().configured(new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 1)));
+    public static final Holder<ConfiguredFeature<BigFungyssFeatureConfig, ?>> BIG_FUNGYSS_0 = register("big_fungyss_0", ModFeatures.BIG_FUNGYSS.get(), new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 0));
+    public static final Holder<ConfiguredFeature<BigFungyssFeatureConfig, ?>> BIG_FUNGYSS_1 = register("big_fungyss_1", ModFeatures.BIG_FUNGYSS.get(), new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 1));
+    public static final Holder<ConfiguredFeature<BigFungyssFeatureConfig, ?>> MEGA_FUNGYSS_0 = register("mega_fungyss_0", ModFeatures.MEGA_FUNGYSS.get(), new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 0));
+    public static final Holder<ConfiguredFeature<BigFungyssFeatureConfig, ?>> MEGA_FUNGYSS_1 = register("mega_fungyss_1", ModFeatures.MEGA_FUNGYSS.get(), new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK), SimpleStateProvider.simple(States.FUNGYSS_STEM), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE), 1));
 
-    private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), configuredFeature);
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(String name, F feature, FC configuration) {
+        return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name).toString(), new ConfiguredFeature<>(feature, configuration));
+
     }
 
     public static void load() {

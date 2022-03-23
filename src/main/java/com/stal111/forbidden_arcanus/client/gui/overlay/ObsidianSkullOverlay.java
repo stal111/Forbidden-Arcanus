@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
+import com.stal111.forbidden_arcanus.common.item.ObsidianSkullShieldItem;
 import com.stal111.forbidden_arcanus.core.config.RenderingConfig;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.ChatFormatting;
@@ -45,6 +46,11 @@ public class ObsidianSkullOverlay extends GuiComponent implements IIngameOverlay
         }
 
         ItemStack stack = ObsidianSkullItem.getSkullWithLowestCounter(player.getInventory());
+
+        if (stack.isEmpty()) {
+            stack = ObsidianSkullShieldItem.getSkullWithLowestCounter(player.getInventory());
+        }
+
         int value = ObsidianSkullItem.getCounterValue(stack);
 
         ChatFormatting color = value / 20 >= 25 ? ChatFormatting.RED : ChatFormatting.WHITE;

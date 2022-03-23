@@ -5,14 +5,14 @@ import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +29,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(ApplyModifierRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.SMITHING);
+        registration.addRecipes(RecipeTypes.SMITHING, ApplyModifierRecipeMaker.getRecipes());
         registration.addRecipes(RitualLoader.getRituals(), this.hephaestusSmithing.getUid());
     }
 

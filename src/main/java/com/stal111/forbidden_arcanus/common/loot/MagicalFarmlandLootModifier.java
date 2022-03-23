@@ -25,7 +25,7 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
  *
  * @author stal111
- * @version 1.18.1 - 2.0.3
+ * @version 1.18.2 - 2.0.0
  * @since 2021-09-25
  */
 public class MagicalFarmlandLootModifier extends LootModifier {
@@ -46,7 +46,7 @@ public class MagicalFarmlandLootModifier extends LootModifier {
         Vec3 pos = context.getParamOrNull(LootContextParams.ORIGIN);
         Level level = context.getLevel();
 
-        if (state == null || pos == null || !BlockTags.CROPS.contains(state.getBlock()) || ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED.contains(state.getBlock())) {
+        if (state == null || pos == null || !state.is(BlockTags.CROPS) || state.is(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED)) {
             return generatedLoot;
         }
 

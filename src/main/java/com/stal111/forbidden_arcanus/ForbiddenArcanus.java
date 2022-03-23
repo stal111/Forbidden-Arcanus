@@ -49,7 +49,7 @@ public class ForbiddenArcanus {
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().addHelpers(new LootModifierRegistryHelper()).build();
 
-	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry("item_modifiers", () ->
+	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry(ItemModifier.class, () ->
 			new RegistryBuilder<ItemModifier>().setMaxID(Integer.MAX_VALUE - 1).onAdd((owner, stage, id, obj, old) -> {}
 			).setDefaultKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "null")));
 
@@ -96,7 +96,6 @@ public class ForbiddenArcanus {
 			ModFlammables.registerFlammables();
 			ModDispenseBehaviors.registerDispenseBehaviors();
 			ModConfiguredFeatures.load();
-			ModStructures.setupStructures();
 		});
 
 		NetworkHandler.init();

@@ -8,7 +8,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.ModRecipeProvider
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-01-28
  */
 public class ModRecipeProvider extends RecipeProvider {
@@ -172,7 +172,7 @@ public class ModRecipeProvider extends RecipeProvider {
         //TODO add recipe provider for apply modifier recipes
     }
 
-    private void addBlacksmithGavelRecipe(Item gavel, Tag.Named<Item> material, @Nonnull Consumer<FinishedRecipe> consumer) {
+    private void addBlacksmithGavelRecipe(Item gavel, TagKey<Item> material, @Nonnull Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(gavel).pattern("#X#").pattern("#S#").pattern(" S ").define('#', material).define('X', ModItems.BLACKSMITH_GAVEL_HEAD.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy("has_item", has(material)).save(consumer);
     }
 
@@ -193,7 +193,7 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(result, amount).pattern("###").pattern("#X#").pattern("###").define('#', outside).define('X', middle).unlockedBy(getHasName(middle), has(middle)).unlockedBy(getHasName(outside), has(outside)).save(consumer);
     }
 
-    private void addSurroundingItemRecipe(ItemLike result, Tag<Item> middle, ItemLike outside, int amount, @Nonnull Consumer<FinishedRecipe> consumer) {
+    private void addSurroundingItemRecipe(ItemLike result, TagKey<Item> middle, ItemLike outside, int amount, @Nonnull Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(result, amount).pattern("###").pattern("#X#").pattern("###").define('#', outside).define('X', middle).unlockedBy("has_" + middle, has(middle)).unlockedBy(getHasName(outside), has(outside)).save(consumer);
     }
 
@@ -201,7 +201,7 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(result, 3).pattern("##").pattern("##").define('#', log).unlockedBy("has_log", has(log)).save(consumer);
     }
 
-    private void addPlanksRecipe(ItemLike result, Tag<Item> log, int count, @Nonnull Consumer<FinishedRecipe> consumer) {
+    private void addPlanksRecipe(ItemLike result, TagKey<Item> log, int count, @Nonnull Consumer<FinishedRecipe> consumer) {
         ShapelessRecipeBuilder.shapeless(result, count).requires(log).unlockedBy("has_log", has(log)).save(consumer);
     }
 

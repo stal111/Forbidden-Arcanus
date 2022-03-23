@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,7 +22,7 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.BigFungyssFeature
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-04-13
  */
 public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
@@ -44,9 +43,8 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         if (pos.getY() < 1 || pos.getY() + height + 1 >= generator.getGenDepth()) {
             return false;
         }
-        Block block = world.getBlockState(pos.below()).getBlock();
 
-        if (!Tags.Blocks.STONE.contains(block)) {
+        if (!world.getBlockState(pos.below()).is(Tags.Blocks.STONE)) {
             return false;
         }
 
