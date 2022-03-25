@@ -18,7 +18,7 @@ import net.valhelsia.valhelsia_core.core.registry.ItemRegistryHelper;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModItems
  *
  * @author Valhelsia Team
- * @version 1.17.1 - 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-01-26
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -102,6 +102,7 @@ public class ModItems {
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_TROPICAL_FISH_BUCKET = HELPER.register("edelwood_tropical_fish_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.TROPICAL_FISH, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_BAT_BUCKET = HELPER.register("edelwood_bat_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.BAT, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_SQUID_BUCKET = HELPER.register("edelwood_squid_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.SQUID, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_GLOW_SQUID_BUCKET = HELPER.register("edelwood_glow_squid_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.GLOW_SQUID, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_MAGMA_CUBE_BUCKET = HELPER.register("edelwood_magma_cube_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.MAGMA_CUBE, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_SLIME_BUCKET = HELPER.register("edelwood_slime_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.SLIME, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<EdelwoodMobBucketItem> EDELWOOD_CHICKEN_BUCKET = HELPER.register("edelwood_chicken_bucket", () -> new EdelwoodMobBucketItem(() -> EntityType.CHICKEN, () -> Fluids.EMPTY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));

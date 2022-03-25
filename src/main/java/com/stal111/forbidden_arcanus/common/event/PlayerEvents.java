@@ -50,7 +50,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.event.PlayerEvents
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.0.0
  * @since 2021-11-28
  */
 @Mod.EventBusSubscriber
@@ -58,7 +58,7 @@ public class PlayerEvents {
 
     private static final Map<Fluid, List<EntityType<?>>> FLUID_TO_ENTITY = ImmutableMap.of(
             Fluids.EMPTY, ImmutableList.of(EntityType.BAT, EntityType.SLIME, EntityType.MAGMA_CUBE, EntityType.CHICKEN),
-            Fluids.WATER, ImmutableList.of(EntityType.PUFFERFISH, EntityType.SALMON, EntityType.COD, EntityType.TROPICAL_FISH, EntityType.SQUID, EntityType.AXOLOTL)
+            Fluids.WATER, ImmutableList.of(EntityType.PUFFERFISH, EntityType.SALMON, EntityType.COD, EntityType.TROPICAL_FISH, EntityType.SQUID, EntityType.GLOW_SQUID, EntityType.AXOLOTL)
     );
 
     @SubscribeEvent
