@@ -1088,6 +1088,8 @@ a669146706325096442305e02dbbd57ed71717c5 data/forbidden_arcanus/tags/items/myste
 af2e0faf0b07e21dd9d19989ae1b85856ef7d86f data/forbidden_arcanus/tags/items/obsidian_skulls.json
 889b4e17ebe71d761a0b6994c7e3116eaeb9b048 data/forbidden_arcanus/tags/items/rune_blocks.json
 3afa60e90e00c8fd20bd245835f8f1442afbf5fc data/forbidden_arcanus/tags/items/runic_stones.json
+8de770ac27d912355117cde27211509ba7e94cf6 data/forbidden_arcanus/tags/worldgen/biome/has_structure/nipa.json
+6b3855359b8d9ef8610cfd518e691bb486834b87 data/forbidden_arcanus/tags/worldgen/biome/has_structure/nipa_always_floating.json
 dd21281e7bfcbebdd89cc6f07026da43361ddfba data/forge/loot_modifiers/global_loot_modifiers.json
 9519807962c92491aabf29e7a7aaf9ac326d67e0 data/forge/tags/blocks/fence_gates/wooden.json
 afed0530685d3f3fb80ed5aaeb1670d308408eb6 data/forge/tags/blocks/fences/wooden.json
@@ -1096,6 +1098,8 @@ afed0530685d3f3fb80ed5aaeb1670d308408eb6 data/forge/tags/items/fences/wooden.jso
 e3f3faf824b8a5f26fc233c656ff20c093244952 data/forge/tags/items/heads.json
 8178490f48703d9422234b13a840ce0bf8dd6500 data/forge/tags/items/ingots/arcane_gold.json
 cc8f368faa8581f6efad42396f8a15ec3ca112c4 data/forge/tags/items/ingots/obsidian.json
+2d7bb792b86a5ab3c8d226bd3cbb7e515e7f515d data/forge/tags/worldgen/biome/is_desert.json
+862f0878a20e5e314e541666b6acf0eb0e1c8292 data/forge/tags/worldgen/biome/is_plains.json
 6f2ce90d1fcd03298e75aedcb0300d595369657a data/minecraft/tags/blocks/buttons.json
 d6af0858dbc116bcfcc4a7044bf1b45bea94ea2c data/minecraft/tags/blocks/climbable.json
 071c09f27d34db1e9de18ff7d5da99e1fa551e1e data/minecraft/tags/blocks/crops.json

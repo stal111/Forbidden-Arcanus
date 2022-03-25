@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class ModTags {
@@ -82,6 +83,22 @@ public class ModTags {
 
         private static TagKey<Enchantment> modTag(String name) {
             return TagKey.create(Registry.ENCHANTMENT_REGISTRY, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+        }
+    }
+
+    public static class Biomes {
+        public static final TagKey<Biome> IS_PLAINS = forgeTag("is_plains");
+        public static final TagKey<Biome> IS_DESERT = forgeTag("is_desert");
+
+        public static final TagKey<Biome> HAS_NIPA = modTag("has_structure/nipa");
+        public static final TagKey<Biome> HAS_NIPA_ALWAYS_FLOATING = modTag("has_structure/nipa_always_floating");
+
+        private static TagKey<Biome> forgeTag(String name) {
+            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("forge", name));
+        }
+
+        private static TagKey<Biome> modTag(String name) {
+            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
         }
     }
 }

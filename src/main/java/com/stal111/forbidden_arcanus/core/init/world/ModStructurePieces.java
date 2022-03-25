@@ -21,4 +21,8 @@ public class ModStructurePieces {
     static StructurePieceType register(String name, StructurePieceType.StructureTemplateType type) {
         return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), type);
     }
+
+    public static void load() {
+
+    }
 }
