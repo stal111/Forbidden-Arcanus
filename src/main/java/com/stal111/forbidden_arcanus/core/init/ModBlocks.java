@@ -29,7 +29,7 @@ import net.valhelsia.valhelsia_core.core.registry.block.BlockRegistryHelper;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModBlocks
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.18.2 - 2.0.0
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBlocks {
@@ -56,6 +56,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> POLISHED_DARKSTONE_BRICK_STAIRS = HELPER.register("polished_darkstone_brick_stairs", () -> new StairBlock(() -> POLISHED_DARKSTONE_BRICKS.get().defaultBlockState(), Block.Properties.copy(Blocks.STONE_STAIRS).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> POLISHED_DARKSTONE_BRICK_WALL = HELPER.register("polished_darkstone_brick_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> CRACKED_POLISHED_DARKSTONE_BRICKS = HELPER.register("cracked_polished_darkstone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<Block> TILED_POLISHED_DARKSTONE_BRICKS = HELPER.register("tiled_polished_darkstone_bricks", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE = HELPER.register("arcane_polished_darkstone", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_SLAB = HELPER.register("arcane_polished_darkstone_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_SLAB).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> ARCANE_POLISHED_DARKSTONE_STAIRS = HELPER.register("arcane_polished_darkstone_stairs", () -> new StairBlock(() -> ARCANE_POLISHED_DARKSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.STONE_STAIRS).strength(4.5F, 8.0F)));

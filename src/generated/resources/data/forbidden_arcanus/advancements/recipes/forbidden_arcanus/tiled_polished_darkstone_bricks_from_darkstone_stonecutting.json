@@ -2,20 +2,10 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:arcane_chiseled_darkstone"
+      "forbidden_arcanus:tiled_polished_darkstone_bricks_from_darkstone_stonecutting"
     ]
   },
   "criteria": {
-    "has_TagKey[minecraft:item / forge:ingots/arcane_gold]": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:ingots/arcane_gold"
-          }
-        ]
-      }
-    },
     "has_darkstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -31,13 +21,12 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "forbidden_arcanus:arcane_chiseled_darkstone"
+        "recipe": "forbidden_arcanus:tiled_polished_darkstone_bricks_from_darkstone_stonecutting"
       }
     }
   },
   "requirements": [
     [
-      "has_TagKey[minecraft:item / forge:ingots/arcane_gold]",
       "has_darkstone",
       "has_the_recipe"
     ]
