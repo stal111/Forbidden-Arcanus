@@ -13,6 +13,7 @@ public class ModFlammables {
         registerLeaves(ModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
 
         registerLog(ModBlocks.CHERRYWOOD_LOG.get());
+        registerLog(ModBlocks.THIN_CHERRYWOOD_LOG.get());
         registerLog(ModBlocks.MYSTERYWOOD_LOG.get());
         registerLog(ModBlocks.EDELWOOD_LOG.get());
         registerLog(ModBlocks.CARVED_EDELWOOD_LOG.get());

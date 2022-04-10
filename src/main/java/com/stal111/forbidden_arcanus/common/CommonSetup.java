@@ -5,8 +5,10 @@ import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
+import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
 import com.stal111.forbidden_arcanus.core.init.world.ModStructurePieces;
 import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
+import com.stal111.forbidden_arcanus.core.init.world.ModTrunkPlacers;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.resources.ResourceLocation;
@@ -32,6 +34,8 @@ public class CommonSetup {
 
             ModStructures.setupStructures();
             ModStructurePieces.load();
+            ModTrunkPlacers.load();
+            ModFoliagePlacers.load();
 
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 

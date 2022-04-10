@@ -70,7 +70,7 @@ public class ThinLogBlock extends RotatedPillarBlock implements SimpleWaterlogge
                 continue;
             }
 
-            if (state.getValue(PROPERTY_BY_DIRECTION.get(this.getRotatedDirection(direction, axis)))) {
+            if (state.getValue(PROPERTY_BY_DIRECTION.get(getRotatedDirection(direction, axis)))) {
                 connectedSides.add(VoxelShapeHelper.rotateShape(CONNECT_SHAPE, direction));
             }
         }
@@ -96,7 +96,7 @@ public class ThinLogBlock extends RotatedPillarBlock implements SimpleWaterlogge
                 continue;
             }
 
-            state = state.setValue(PROPERTY_BY_DIRECTION.get(this.getRotatedDirection(direction, axis)), this.shouldConnect(state, context.getLevel().getBlockState(context.getClickedPos().relative(direction))));
+            state = state.setValue(PROPERTY_BY_DIRECTION.get(getRotatedDirection(direction, axis)), this.shouldConnect(state, context.getLevel().getBlockState(context.getClickedPos().relative(direction))));
         }
         return state.setValue(WATERLOGGED, flag);
     }
@@ -114,14 +114,14 @@ public class ThinLogBlock extends RotatedPillarBlock implements SimpleWaterlogge
             return state;
         }
 
-        return state.setValue(PROPERTY_BY_DIRECTION.get(this.getRotatedDirection(direction, axis)), this.shouldConnect(state, neighborState));
+        return state.setValue(PROPERTY_BY_DIRECTION.get(getRotatedDirection(direction, axis)), this.shouldConnect(state, neighborState));
     }
 
     private boolean shouldConnect(BlockState state, BlockState neighborState) {
         return neighborState.getBlock() instanceof ThinLogBlock && state.getValue(AXIS) != neighborState.getValue(AXIS);
     }
 
-    private Direction getRotatedDirection(Direction direction, Direction.Axis axis) {
+    public static Direction getRotatedDirection(Direction direction, Direction.Axis axis) {
         if (axis == Direction.Axis.X) {
             return switch (direction) {
                 case UP -> Direction.EAST;

@@ -29,7 +29,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags() {
         this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(ModBlocks.FUNGYSS_STEM.get(), ModBlocks.FUNGYSS_HYPHAE.get());
-        this.tag(ModTags.Blocks.CHERRYWOOD_LOGS).add(ModBlocks.CHERRYWOOD_LOG.get(), ModBlocks.CHERRYWOOD.get(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.get(), ModBlocks.STRIPPED_CHERRYWOOD.get());
+        this.tag(ModTags.Blocks.CHERRYWOOD_LOGS).add(ModBlocks.CHERRYWOOD_LOG.get(), ModBlocks.CHERRYWOOD.get(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.get(), ModBlocks.STRIPPED_CHERRYWOOD.get(), ModBlocks.THIN_CHERRYWOOD_LOG.get());
         this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(ModBlocks.MYSTERYWOOD_LOG.get(), ModBlocks.MYSTERYWOOD.get(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.get(), ModBlocks.STRIPPED_MYSTERYWOOD.get());
         this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(ModBlocks.EDELWOOD_LOG.get(), ModBlocks.CARVED_EDELWOOD_LOG.get());
         this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS);

@@ -12,6 +12,7 @@ import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
+import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
 import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -74,6 +75,7 @@ public class ForbiddenArcanus {
 		ModContainers.CONTAINERS.register(modEventBus);
 		ModPOITypes.POI_TYPES.register(modEventBus);
 		ModItemModifiers.MODIFIERS.register(modEventBus);
+		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
 
 		REGISTRY_MANAGER.getBlockHelper().setDefaultGroup(FORBIDDEN_ARCANUS);
 

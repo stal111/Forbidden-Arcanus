@@ -15,7 +15,7 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.grower.CherrywoodTreeGrower
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.18.2 - 2.1.0
  * @since 2021-11-23
  */
 public class CherrywoodTreeGrower extends AbstractTreeGrower {
@@ -23,6 +23,6 @@ public class CherrywoodTreeGrower extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<ConfiguredFeature<TreeConfiguration, ?> > getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
-        return ModConfiguredFeatures.CHERRYWOOD;
+        return random.nextDouble() < 0.3D ? ModConfiguredFeatures.LARGE_CHERRYWOOD : ModConfiguredFeatures.SMALL_CHERRYWOOD;
     }
 }

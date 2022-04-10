@@ -3,6 +3,9 @@ package com.stal111.forbidden_arcanus.core.init.world;
 import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
+import com.stal111.forbidden_arcanus.common.world.feature.config.CherryTreeConfiguration;
+import com.stal111.forbidden_arcanus.common.world.feature.foliageplacers.CherryFoliagePlacer;
+import com.stal111.forbidden_arcanus.common.world.feature.trunkplacers.CherryTrunkPlacer;
 import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.Holder;
@@ -53,7 +56,9 @@ public class ModConfiguredFeatures {
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> STELLA_ARCANUM = register("ore_stella_arcanum", Feature.ORE, new OreConfiguration(ORE_STELLA_ARCANUM_TARGET_LIST, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get()));
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> XPETRIFIED_ORE = register("ore_xpetrified", Feature.ORE, new OreConfiguration(ORE_XPETRIFIED_TARGET_LIST, 3));
 
-    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> CHERRYWOOD = register("cherrywood", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LOG.get()), new ForkingTrunkPlacer(5, 2, 2), BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAVES.get()), new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2)).ignoreVines().build());
+    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SMALL_CHERRYWOOD = register("small_cherrywood", Feature.TREE, new CherryTreeConfiguration(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LOG.get()), BlockStateProvider.simple(ModBlocks.THIN_CHERRYWOOD_LOG.get()), new CherryTrunkPlacer(3, 1, 1), BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAVES.get()), new CherryFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2)));
+    public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> LARGE_CHERRYWOOD = register("large_cherrywood", Feature.TREE, new CherryTreeConfiguration(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LOG.get()), BlockStateProvider.simple(ModBlocks.THIN_CHERRYWOOD_LOG.get()), new CherryTrunkPlacer(4, 2, 2), BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAVES.get()), new CherryFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2)));
+
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> MYSTERYWOOD = register("mysterywood", Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.MYSTERYWOOD_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES, 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES, 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build());
 
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> YELLOW_ORCHID = register("flower_yellow_orchid", Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get())))));
