@@ -134,7 +134,7 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addPressurePlateRecipe(ModBlocks.EDELWOOD_PRESSURE_PLATE.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.THIN_CHERRYWOOD_LOG.get(), 4).pattern("#").pattern("#").define('#', ModBlocks.CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.CHERRYWOOD_LOG.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRYWOOD_LOG.get(), 2).pattern("##").define('#', ModBlocks.THIN_CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.THIN_CHERRYWOOD_LOG.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.CHERRYWOOD_LOG.get()).pattern("##").define('#', ModBlocks.THIN_CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.THIN_CHERRYWOOD_LOG.get())).save(consumer);
         ShapedRecipeBuilder.shaped(ModBlocks.EDELWOOD_LADDER.get(), 3).pattern("# #").pattern("#X#").pattern("# #").define('#', Tags.Items.RODS_WOODEN).define('X', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN)).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(ModItems.EDELWOOD_BUCKET.get()).pattern("# #").pattern("# #").pattern(" # ").define('#', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())).save(consumer);
 
@@ -154,6 +154,8 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addButtonRecipe(ModBlocks.CHERRYWOOD_BUTTON.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
         this.addButtonRecipe(ModBlocks.MYSTERYWOOD_BUTTON.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
         this.addButtonRecipe(ModBlocks.EDELWOOD_BUTTON.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
+
+        this.addCarpetRecipe(ModBlocks.CHERRYWOOD_LEAF_CARPET.get(), ModBlocks.CHERRYWOOD_LEAVES.get(), consumer);
 
         //Smelting Recipes
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 150).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())).save(consumer, "forbidden_arcanus:smelting/arcane_crystal_dust_from_smelting");
@@ -246,6 +248,10 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private void addPressurePlateRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(result).pattern("##").define('#', planks).unlockedBy("has_planks", has(planks)).save(consumer);
+    }
+
+    private void addCarpetRecipe(ItemLike result, ItemLike material, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result, 3).pattern("##").define('#', material).unlockedBy("has_material", has(material)).save(consumer);
     }
 
     private void addStonecutterRecipe(Consumer<FinishedRecipe> consumer, ItemLike result, ItemLike material) {

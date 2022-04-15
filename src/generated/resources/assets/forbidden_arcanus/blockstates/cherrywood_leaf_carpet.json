@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "forbidden_arcanus:block/cherrywood_leaf_carpet",
+        "x": 90
+      },
+      {
+        "model": "forbidden_arcanus:block/cherrywood_leaf_carpet",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "forbidden_arcanus:block/cherrywood_leaf_carpet",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "forbidden_arcanus:block/cherrywood_leaf_carpet",
+        "x": 90,
+        "y": 270
+      }
+    ]
+  }
+}

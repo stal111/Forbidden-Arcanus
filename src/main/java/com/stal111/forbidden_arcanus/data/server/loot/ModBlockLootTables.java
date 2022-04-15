@@ -11,6 +11,7 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
@@ -65,6 +66,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
             add(block, createSingleItemTable(ModItems.STRANGE_ROOT.get()).withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(ModItems.STRANGE_ROOT.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3)))));
         }, ModBlocks.STRANGE_ROOT);
         take(block -> add(block, createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ModItems.EDELWOOD_STICK.get())))), ModBlocks.EDELWOOD_BRANCH);
+        take(block -> add(block, ModBlockLootTables::createSilkTouchOrShearsOnlyTable), ModBlocks.CHERRYWOOD_LEAF_CARPET);
 
         forEach(block -> block instanceof IronBarsBlock, this::dropWhenSilkTouch);
         forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);
@@ -72,5 +74,9 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         forEach(block -> block instanceof DoorBlock, block -> add(block, BlockLoot::createDoorTable));
 
         forEach(this::registerDropSelfLootTable);
+    }
+
+    protected static LootTable.Builder createSilkTouchOrShearsOnlyTable(ItemLike pItem) {
+        return LootTable.lootTable().withPool(LootPool.lootPool().when(HAS_SHEARS_OR_SILK_TOUCH).setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(pItem)));
     }
 }

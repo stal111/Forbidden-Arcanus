@@ -54,7 +54,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         takeBlockItem(this::withParentInventory,
                 ModBlocks.FUNGYSS_BLOCK,
                 ModBlocks.FUNGYSS_BUTTON,
-                ModBlocks.POLISHED_DARKSTONE_BUTTON
+                ModBlocks.POLISHED_DARKSTONE_BUTTON,
+                ModBlocks.CHERRYWOOD_LEAF_CARPET
         );
         takeBlockItem(this::utremJarModel, ModBlocks.UTREM_JAR);
 

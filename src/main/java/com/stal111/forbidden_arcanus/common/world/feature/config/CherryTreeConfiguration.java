@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.common.world.feature.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.world.feature.treedecorators.LeafCarpetDecorator;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.FeatureSize;
@@ -49,7 +51,7 @@ public class CherryTreeConfiguration extends TreeConfiguration {
     public final BlockStateProvider thinTrunkProvider;
 
     public CherryTreeConfiguration(BlockStateProvider trunkProvider, BlockStateProvider thinTrunkProvider, TrunkPlacer trunkPlacer, BlockStateProvider foliageProvider, FoliagePlacer foliagePlacer, FeatureSize featureSize) {
-        this(trunkProvider, thinTrunkProvider, trunkPlacer, foliageProvider, foliagePlacer, BlockStateProvider.simple(Blocks.DIRT), featureSize, List.of(), true, false);
+        this(trunkProvider, thinTrunkProvider, trunkPlacer, foliageProvider, foliagePlacer, BlockStateProvider.simple(Blocks.DIRT), featureSize, List.of(new LeafCarpetDecorator(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAF_CARPET.get()))), true, false);
     }
 
     public CherryTreeConfiguration(BlockStateProvider trunkProvider, BlockStateProvider thinTrunkProvider, TrunkPlacer trunkPlacer, BlockStateProvider foliageProvider, FoliagePlacer foliagePlacer, BlockStateProvider dirtProvider, FeatureSize featureSize, List<TreeDecorator> decorators, boolean ignoreVines, boolean forceDirt) {

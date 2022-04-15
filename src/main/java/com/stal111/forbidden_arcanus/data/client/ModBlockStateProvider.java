@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
+import com.stal111.forbidden_arcanus.common.block.LeafCarpetBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -27,7 +28,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.1.0
  * @since 2021-02-18
  */
 public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
@@ -73,6 +74,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), ModBlocks.CHERRYWOOD, ModBlocks.MYSTERYWOOD, ModBlocks.STRIPPED_CHERRYWOOD, ModBlocks.STRIPPED_MYSTERYWOOD);
         take(block -> crossCropBlock((CropBlock) block), ModBlocks.GOLDEN_ORCHID, ModBlocks.STRANGE_ROOT);
         take(this::magicalFarmlandBlock, ModBlocks.MAGICAL_FARMLAND);
+        take(this::leafCarpetBlock, ModBlocks.CHERRYWOOD_LEAF_CARPET);
 
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
         take(block -> pressurePlateBlock(block, polishedDarkstone), ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
@@ -319,5 +321,19 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                         .modelFile(state.getValue(FarmBlock.MOISTURE) == 7 ? modelMoist : model)
                         .build()
         );
+    }
+
+    private void leafCarpetBlock(Block block) {
+        String name = this.getName(block);
+        ModelFile model = models().getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/generated")).texture("layer0", modLoc("block/" + name));
+
+        getVariantBuilder(block).partialState().modelForState()
+                .modelFile(model).rotationX(90).nextModel()
+                .modelFile(model).rotationX(90).rotationY(90).nextModel()
+                .modelFile(model).rotationX(90).rotationY(180).nextModel()
+                .modelFile(model).rotationX(90).rotationY(270)
+                .addModel();
+
+        this.models().withExistingParent(name + "_inventory", this.mcLoc("block/pressure_plate_up")).texture("texture", modLoc("block/" + name));
     }
 }

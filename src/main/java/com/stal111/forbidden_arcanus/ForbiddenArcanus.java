@@ -10,10 +10,7 @@ import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
-import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
-import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
-import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
-import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
+import com.stal111.forbidden_arcanus.core.init.world.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTab;
@@ -76,6 +73,7 @@ public class ForbiddenArcanus {
 		ModPOITypes.POI_TYPES.register(modEventBus);
 		ModItemModifiers.MODIFIERS.register(modEventBus);
 		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
+		ModTreeDecorators.TREE_DECORATORS.register(modEventBus);
 
 		REGISTRY_MANAGER.getBlockHelper().setDefaultGroup(FORBIDDEN_ARCANUS);
 
