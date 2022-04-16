@@ -50,7 +50,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.DOORS).add(ModBlocks.ARCANE_GOLD_DOOR.get());
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.CHERRYWOOD_TRAPDOOR.get(), ModBlocks.MYSTERYWOOD_TRAPDOOR.get(), ModBlocks.EDELWOOD_TRAPDOOR.get());
         this.tag(BlockTags.TRAPDOORS).add(ModBlocks.ARCANE_GOLD_TRAPDOOR.get());
-        this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.get());
+        this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.CHERRY_FLOWER_VINES.get(), ModBlocks.CHERRY_FLOWER_VINES_PLANT.get());
         this.tag(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), ModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), ModBlocks.POTTED_YELLOW_ORCHID.get());
         this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED);
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
@@ -63,6 +63,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.SAPLINGS).add(ModBlocks.CHERRYWOOD_SAPLING.get(), ModBlocks.MYSTERYWOOD_SAPLING.get());
         this.tag(BlockTags.LEAVES).add(ModBlocks.CHERRYWOOD_LEAVES.get(), ModBlocks.MYSTERYWOOD_LEAVES.get(), ModBlocks.NUGGETY_MYSTERYWOOD_LEAVES.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.get());
+        this.tag(BlockTags.FLOWERS).add(ModBlocks.CHERRY_FLOWER_VINES.get(), ModBlocks.CHERRY_FLOWER_VINES_PLANT.get());
         this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.get());
         this.tag(BlockTags.CROPS).add(ModBlocks.GOLDEN_ORCHID.get(), ModBlocks.STRANGE_ROOT.get());
         this.tag(ValhelsiaTags.Blocks.OFFSET_RENDERING).add(ModBlocks.CHERRYWOOD_LEAF_CARPET.get());

@@ -106,6 +106,9 @@ public class ModBlocks {
     public static final RegistryObject<HugeMushroomBlock> FUNGYSS_BLOCK = HELPER.register("fungyss_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.COLOR_BLUE).strength(0.2F).sound(SoundType.WOOD)));
     public static final RegistryObject<LeavesBlock> CHERRYWOOD_LEAVES = HELPER.register("cherrywood_leaves", () -> new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)), ValhelsiaRenderType.CUTOUT_MIPPED);
     public static final RegistryObject<LeafCarpetBlock> CHERRYWOOD_LEAF_CARPET = HELPER.register("cherrywood_leaf_carpet", () -> new LeafCarpetBlock(CHERRYWOOD_LEAVES, Block.Properties.copy(Blocks.OAK_LEAVES)), ValhelsiaRenderType.CUTOUT_MIPPED);
+    public static final RegistryObject<CherryFlowerVinesBlock> CHERRY_FLOWER_VINES = HELPER.register("cherry_flower_vines", () -> new CherryFlowerVinesBlock(Block.Properties.of(Material.PLANT).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES)), ValhelsiaRenderType.CUTOUT);
+    public static final RegistryObject<CherryFlowerVinesPlantBlock> CHERRY_FLOWER_VINES_PLANT = HELPER.registerNoItem("cherry_flower_vines_plant", () -> new CherryFlowerVinesPlantBlock(Block.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.CAVE_VINES)), ValhelsiaRenderType.CUTOUT);
+
     public static final RegistryObject<LeavesBlock> MYSTERYWOOD_LEAVES = HELPER.register("mysterywood_leaves", () -> new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)), ValhelsiaRenderType.CUTOUT_MIPPED);
     public static final RegistryObject<LeavesBlock> NUGGETY_MYSTERYWOOD_LEAVES = HELPER.register("nuggety_mysterywood_leaves", () -> new LeavesBlock(Block.Properties.copy(Blocks.OAK_LEAVES)), ValhelsiaRenderType.CUTOUT_MIPPED);
 

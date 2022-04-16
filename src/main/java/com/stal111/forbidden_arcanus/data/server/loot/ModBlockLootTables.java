@@ -66,7 +66,11 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
             add(block, createSingleItemTable(ModItems.STRANGE_ROOT.get()).withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(ModItems.STRANGE_ROOT.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3)))));
         }, ModBlocks.STRANGE_ROOT);
         take(block -> add(block, createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ModItems.EDELWOOD_STICK.get())))), ModBlocks.EDELWOOD_BRANCH);
-        take(block -> add(block, ModBlockLootTables::createSilkTouchOrShearsOnlyTable), ModBlocks.CHERRYWOOD_LEAF_CARPET);
+        take(block -> add(block, ModBlockLootTables::createSilkTouchOrShearsOnlyTable),
+                ModBlocks.CHERRYWOOD_LEAF_CARPET,
+                ModBlocks.CHERRY_FLOWER_VINES,
+                ModBlocks.CHERRY_FLOWER_VINES_PLANT
+        );
 
         forEach(block -> block instanceof IronBarsBlock, this::dropWhenSilkTouch);
         forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);

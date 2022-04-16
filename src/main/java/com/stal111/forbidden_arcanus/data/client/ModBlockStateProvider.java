@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
-import com.stal111.forbidden_arcanus.common.block.LeafCarpetBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -97,6 +96,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> signBlock(ModBlocks.CHERRYWOOD_SIGN.getFirst().get(), ModBlocks.CHERRYWOOD_SIGN.getSecond().get()), ModBlocks.CHERRYWOOD_SIGN.getFirst());
         take(block -> signBlock(ModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), ModBlocks.MYSTERYWOOD_SIGN.getSecond().get()), ModBlocks.MYSTERYWOOD_SIGN.getFirst());
         take(block -> signBlock(ModBlocks.EDELWOOD_SIGN.getFirst().get(), ModBlocks.EDELWOOD_SIGN.getSecond().get()), ModBlocks.EDELWOOD_SIGN.getFirst());
+
+        take(this::cherryFlowerVinesBlock, ModBlocks.CHERRY_FLOWER_VINES);
+        take(this::cherryFlowerVinesPlantBlock, ModBlocks.CHERRY_FLOWER_VINES_PLANT);
 
         take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), ModBlocks.ARCANE_GOLDEN_CHAIN);
 
@@ -335,5 +337,23 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .addModel();
 
         this.models().withExistingParent(name + "_inventory", this.mcLoc("block/pressure_plate_up")).texture("texture", modLoc("block/" + name));
+    }
+
+    private void cherryFlowerVinesBlock(Block block) {
+        String name = this.getName(block);
+        ModelFile model = models().cross(name, modLoc("block/" + name));
+
+        getVariantBuilder(block).partialState().modelForState().modelFile(model).addModel();
+    }
+
+    private void cherryFlowerVinesPlantBlock(Block block) {
+        String name = this.getName(block);
+        ModelFile model0 = models().cross(name + "0", modLoc("block/" + name + "0"));
+        ModelFile model1 = models().cross(name + "1", modLoc("block/" + name + "1"));
+
+        getVariantBuilder(block).partialState().modelForState()
+                .modelFile(model0).nextModel()
+                .modelFile(model1)
+                .addModel();
     }
 }

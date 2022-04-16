@@ -49,7 +49,8 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.FUNGYSS,
                 ModBlocks.GROWING_EDELWOOD,
                 ModBlocks.EDELWOOD_LADDER,
-                ModBlocks.YELLOW_ORCHID
+                ModBlocks.YELLOW_ORCHID,
+                ModBlocks.CHERRY_FLOWER_VINES
         );
         takeBlockItem(this::withParentInventory,
                 ModBlocks.FUNGYSS_BLOCK,
