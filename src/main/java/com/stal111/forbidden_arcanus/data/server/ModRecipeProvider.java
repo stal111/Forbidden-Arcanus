@@ -265,8 +265,4 @@ public class ModRecipeProvider extends RecipeProvider {
     private String getName(ItemLike item) {
         return Objects.requireNonNull(item.asItem().getRegistryName()).getPath();
     }
-
-    private String getHasName(ItemLike item) {
-        return "has_" + getName(item);
-    }
 }

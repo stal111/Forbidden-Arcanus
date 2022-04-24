@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModVegetationPlacements;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -20,6 +21,7 @@ public class BiomeLoadingListener {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onBiomeLoad(BiomeLoadingEvent event) {
         ResourceLocation name = event.getName();
+        Biome.BiomeCategory category = event.getCategory();
 
         if (WorldGenConfig.ARCANE_CRYSTAL_ORE_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModOrePlacements.ARCANE_CRYSTAL_ORE);
@@ -39,11 +41,11 @@ public class BiomeLoadingListener {
         if (WorldGenConfig.XPETRIFIED_ORE_GENERATE.get()) {
             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ModOrePlacements.XPETRIFIED_ORE);
         }
-//
-//        if (category == Biome.BiomeCategory.PLAINS && WorldGenConfig.CHERRYWOOD_TREE_GENERATE.get()) {
-//            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.CHERRYWOOD_TREES);
-//        }
-//
+
+        if (category == Biome.BiomeCategory.PLAINS && WorldGenConfig.CHERRYWOOD_TREE_GENERATE.get()) {
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModVegetationPlacements.CHERRY_TREES_PLAINS);
+        }
+
         if (Objects.equals(event.getName(), new ResourceLocation("flower_forest"))) {
 //            if (WorldGenConfig.MYSTERYWOOD_TREE_GENERATE.get()) {
 //                event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.MYSTERYWOOD_TREES);
