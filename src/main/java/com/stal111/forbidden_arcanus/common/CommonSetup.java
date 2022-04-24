@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.other.CompostableRegistry;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
 import com.stal111.forbidden_arcanus.core.init.world.ModStructurePieces;
@@ -36,6 +37,8 @@ public class CommonSetup {
             ModStructurePieces.load();
             ModTrunkPlacers.load();
             ModFoliagePlacers.load();
+
+            CompostableRegistry.register();
 
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 
