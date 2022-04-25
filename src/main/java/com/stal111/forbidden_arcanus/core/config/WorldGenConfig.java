@@ -77,7 +77,7 @@ public class WorldGenConfig {
 
 		RUNIC_STONE_GENERATE = builder.comment("Generate Runestone? [default: true]").define("runestone.generate", true);
 		RUNIC_STONE_MAX_VEIN_SIZE = builder.comment("Maximum size of Runestone veins [default: 3]").defineInRange("runestone.max_vein_size", 3, 0, 100);
-		RUNIC_STONE_COUNT = builder.comment("Maximum Runestone veins per chunk [default: 2]").defineInRange("runestone.count", 2, 1, 100);
+		RUNIC_STONE_COUNT = builder.comment("Maximum Runestone veins per chunk [default: 3]").defineInRange("runestone.count", 3, 1, 100);
 		RUNIC_STONE_MAX_HEIGHT = builder.comment("Maximum height for the Runestone to generate [default: 20]").defineInRange("runestone.max_height", 20, 1, 256);
 
 		DARKSTONE_GENERATE = builder.comment("Generate Darkstone? [default: true]").define("darkstone.generate", true);
