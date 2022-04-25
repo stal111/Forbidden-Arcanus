@@ -2,6 +2,10 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +24,7 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.1.0
  * @since 2021-07-08
  */
 public class BloodTestTubeItem extends Item {
@@ -35,6 +39,47 @@ public class BloodTestTubeItem extends Item {
     @Override
     public String getDescriptionId(@Nonnull ItemStack stack) {
         return ModItems.TEST_TUBE.get().getDescriptionId();
+    }
+
+    public static void collectBlood(Player player, float damage) {
+        Inventory inventory = player.getInventory();
+        int blood = (int) (20 * damage);
+
+        ItemStack stack = null;
+
+        outer: for (NonNullList<ItemStack> nonNullList : inventory.compartments) {
+            for (ItemStack inventoryStack : nonNullList) {
+                if (inventoryStack.is(ModItems.TEST_TUBE.get()) && stack == null) {
+                    stack = inventoryStack;
+
+                } else if (inventoryStack.is(ModItems.BLOOD_TEST_TUBE.get()) && BloodTestTubeItem.getBlood(inventoryStack) != BloodTestTubeItem.MAX_BLOOD) {
+                    BloodTestTubeItem.addBlood(inventoryStack, blood);
+                    stack = null;
+
+                    break outer;
+                }
+            }
+        }
+
+        if (stack != null) {
+            ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(ModItems.BLOOD_TEST_TUBE.get()), blood);
+            int slot = inventory.findSlotMatchingItem(stack);
+
+            stack.shrink(1);
+
+            if (!stack.isEmpty()) {
+                if (!player.addItem(newStack)) {
+                    player.drop(newStack, false);
+                }
+                return;
+            }
+
+            if (slot == -1 && player.getItemInHand(InteractionHand.OFF_HAND).isEmpty()) {
+                player.setItemInHand(InteractionHand.OFF_HAND, newStack);
+            } else {
+                inventory.setItem(slot, newStack);
+            }
+        }
     }
 
     public static int getBlood(ItemStack stack) {
