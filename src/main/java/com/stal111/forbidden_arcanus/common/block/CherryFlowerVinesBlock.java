@@ -26,7 +26,7 @@ public class CherryFlowerVinesBlock extends GrowingPlantHeadBlock implements Che
 
     private static final double GROWTH_PROBABILITY = 0.1D;
 
-    protected static final VoxelShape SHAPE = Block.box(4.0D, 9.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+    public static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
     public CherryFlowerVinesBlock(Properties properties) {
         super(properties, Direction.DOWN, SHAPE, false, GROWTH_PROBABILITY);
