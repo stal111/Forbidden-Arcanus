@@ -76,7 +76,7 @@ public enum HephaestusForgeLevel {
                 return level;
             }
         }
-        return null;
+        return HephaestusForgeLevel.ONE;
     }
 
     public static HephaestusForgeLevel getFromName(String name) {

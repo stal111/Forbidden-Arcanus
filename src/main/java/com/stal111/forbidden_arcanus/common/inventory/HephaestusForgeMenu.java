@@ -39,13 +39,11 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         checkContainerDataCount(this.hephaestusForgeData, 5);
         this.addDataSlots(this.hephaestusForgeData);
 
-        int x = 26;
-
         // Hephaestus Forge Slots
-        this.addSlot(new EnhancerSlot(container, 0, 32 + x, 24, HephaestusForgeLevel.getRequiredLevelForSlot(1)));
-        this.addSlot(new EnhancerSlot(container, 1, 32 + x, 46, HephaestusForgeLevel.getRequiredLevelForSlot(2)));
-        this.addSlot(new EnhancerSlot(container, 2, 128 + x, 24, HephaestusForgeLevel.getRequiredLevelForSlot(3)));
-        this.addSlot(new EnhancerSlot(container, 3, 128 + x, 46, HephaestusForgeLevel.getRequiredLevelForSlot(4)));
+        this.addSlot(new EnhancerSlot(container, 0, 32, 24, HephaestusForgeLevel.getRequiredLevelForSlot(1).getName()));
+        this.addSlot(new EnhancerSlot(container, 1, 32, 46, HephaestusForgeLevel.getRequiredLevelForSlot(2).getName()));
+        this.addSlot(new EnhancerSlot(container, 2, 128, 24, HephaestusForgeLevel.getRequiredLevelForSlot(3).getName()));
+        this.addSlot(new EnhancerSlot(container, 3, 128, 46, HephaestusForgeLevel.getRequiredLevelForSlot(4).getName()));
 
         HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(this.hephaestusForgeData.get(0));
 
@@ -62,24 +60,24 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         }
 
         // Main Slot
-        this.addSlot(new MainSlot(container, 4, 80 + x, 24));
+        this.addSlot(new MainSlot(container, 4, 80, 24));
 
         // Input Slots
-        this.addSlot(new InputSlot(container, 5, 8, 25, InputType.AUREAL));
-        this.addSlot(new InputSlot(container, 6, 8, 43, InputType.SOULS));
-        this.addSlot(new InputSlot(container, 7, x + 176 + 2, 25, InputType.BLOOD));
-        this.addSlot(new InputSlot(container, 8, x + 176 + 2, 43, InputType.EXPERIENCE));
+        this.addSlot(new InputSlot(container, 5, 8 - 26, 25, InputType.AUREAL));
+        this.addSlot(new InputSlot(container, 6, 8 - 26, 43, InputType.SOULS));
+        this.addSlot(new InputSlot(container, 7, 176 + 2, 25, InputType.BLOOD));
+        this.addSlot(new InputSlot(container, 8, 176 + 2, 43, InputType.EXPERIENCE));
 
         // Inventory Slots
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(player, j + i * 9 + 9, 8 + j * 18 + x, 84 + i * 18));
+                this.addSlot(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Hotbar Slots
         for(int k = 0; k < 9; ++k) {
-            this.addSlot(new Slot(player, k, 8 + k * 18 + x, 142));
+            this.addSlot(new Slot(player, k, 8 + k * 18, 142));
         }
     }
 
