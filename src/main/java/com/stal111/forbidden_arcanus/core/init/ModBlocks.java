@@ -29,7 +29,7 @@ import net.valhelsia.valhelsia_core.core.registry.block.BlockRegistryHelper;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModBlocks
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.18.2 - 2.1.0
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBlocks {
@@ -66,6 +66,12 @@ public class ModBlocks {
     public static final RegistryObject<RodBlock> ARCANE_POLISHED_DARKSTONE_ROD = HELPER.register("arcane_polished_darkstone_rod", () -> new RodBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", () -> new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));
     public static final RegistryObject<Block> ARCANE_DARKSTONE_PEDESTAL = HELPER.register("arcane_darkstone_pedestal", () -> new PedestalBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion()));
+    public static final RegistryObject<ClibanoCoreBlock> CLIBANO_CORE = HELPER.register("clibano_core", () -> new ClibanoCoreBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<ClibanoHorizontalSideBlock> CLIBANO_SIDE_HORIZONTAL = HELPER.registerNoItem("clibano_side_horizontal", () -> new ClibanoHorizontalSideBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<ClibanoVerticalSideBlock> CLIBANO_SIDE_VERTICAL = HELPER.registerNoItem("clibano_side_vertical", () -> new ClibanoVerticalSideBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<ClibanoMainPartBlock> CLIBANO_MAIN_PART = HELPER.registerNoItem("clibano_main_part", () -> new ClibanoMainPartBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<ClibanoCornerBlock> CLIBANO_CORNER = HELPER.registerNoItem("clibano_corner", () -> new ClibanoCornerBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final RegistryObject<ClibanoCenterBlock> CLIBANO_CENTER = HELPER.registerNoItem("clibano_center", () -> new ClibanoCenterBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
 
     public static final RegistryObject<StellaArcanumBlock> STELLA_ARCANUM = HELPER.register("stella_arcanum", () -> new StellaArcanumBlock(Block.Properties.copy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F)));
     public static final RegistryObject<OreBlock> XPETRIFIED_ORE = HELPER.register("xpetrified_ore", () -> new OreBlock(Block.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F)), ValhelsiaRenderType.CUTOUT);

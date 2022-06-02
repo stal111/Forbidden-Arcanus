@@ -43,7 +43,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 ModBlocks.OBSIDIAN_WALL_SKULL,
                 ModBlocks.ETERNAL_OBSIDIAN_SKULL,
                 ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL,
-                ModBlocks.THIN_CHERRYWOOD_LOG
+                ModBlocks.THIN_CHERRYWOOD_LOG,
+                ModBlocks.CLIBANO_MAIN_PART
         ).forEach(getRemainingBlocks()::remove);
 
         getRemainingBlocks().removeIf(registryObject -> registryObject.get() instanceof WallSignBlock);
@@ -99,6 +100,61 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(this::cherryFlowerVinesBlock, ModBlocks.CHERRY_FLOWER_VINES);
         take(this::cherryFlowerVinesPlantBlock, ModBlocks.CHERRY_FLOWER_VINES_PLANT);
+
+        take(block -> {
+            ResourceLocation front = modLoc("block/clibano_combustion/clibano_center_front_off");
+            ResourceLocation side = modLoc("block/clibano_combustion/clibano_center_side");
+            ResourceLocation top = modLoc("block/clibano_combustion/clibano_center_top");
+
+            horizontalBlock(block, models().cube(getName(block), side, top, front, side, side, side).texture("particle", side));
+        }, ModBlocks.CLIBANO_CORE);
+        take(block -> {
+            ModelFile bottom = getExistingModel(modLoc("clibano_corner_bottom"));
+            ModelFile top = getExistingModel(modLoc("clibano_corner_top"));
+
+            horizontalBlock(block, state -> state.getValue(BlockStateProperties.BOTTOM) ? bottom : top, 90);
+        }, ModBlocks.CLIBANO_CORNER);
+        take(block -> {
+            ModelFile side = models().withExistingParent(getName(block) + "_side", modLoc("block/clibano_center")).texture("texture", modLoc("block/clibano_combustion/clibano_center_side"));
+            ModelFile top = models().withExistingParent(getName(block) + "_top", modLoc("block/clibano_center")).texture("texture", modLoc("block/clibano_combustion/clibano_center_top"));
+            ModelFile frontOff = models().withExistingParent(getName(block) + "_front_off", modLoc("block/clibano_center")).texture("texture", modLoc("block/clibano_combustion/clibano_center_front_off"));
+            ModelFile frontBlueFire = models().withExistingParent(getName(block) + "_front_blue_fire", modLoc("block/clibano_center")).texture("texture", modLoc("block/clibano_combustion/clibano_center_front_blue_fire"));
+
+            directionalBlock(block, state -> switch (state.getValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE)) {
+                case SIDE -> side;
+                case TOP -> top;
+                case FRONT_OFF -> frontOff;
+                case FRONT_BLUE_FIRE -> frontBlueFire;
+            });
+        }, ModBlocks.CLIBANO_CENTER);
+        take(block -> {
+            ResourceLocation off = modLoc("block/clibano_combustion/clibano_side_off");
+            ResourceLocation blueFire = modLoc("block/clibano_combustion/clibano_side_blue_fire");
+
+            models().withExistingParent(getName(block) + "_off", modLoc("block/clibano_side_horizontal")).texture("right", off).texture("left", off);
+            models().withExistingParent(getName(block) + "_off_mirrored", modLoc("block/clibano_side_horizontal")).texture("right", off).texture("left", off);
+            models().withExistingParent(getName(block) + "_blue_fire", modLoc("block/clibano_side_horizontal")).texture("right", blueFire).texture("left", off);
+            models().withExistingParent(getName(block) + "_blue_fire_mirrored", modLoc("block/clibano_side_horizontal")).texture("right", off).texture("left", blueFire);
+
+            horizontalBlock(block, state -> getExistingModel(modLoc(getName(block) + "_"
+                    + state.getValue(ModBlockStateProperties.CLIBANO_SIDE_TYPE).getSerializedName()
+                    + (state.getValue(ModBlockStateProperties.MIRRORED) ? "_mirrored" : ""))));
+        }, ModBlocks.CLIBANO_SIDE_HORIZONTAL);
+        take(block -> {
+            ResourceLocation off = modLoc("block/clibano_combustion/clibano_side_off");
+            ResourceLocation blueFire = modLoc("block/clibano_combustion/clibano_side_blue_fire");
+
+            models().withExistingParent(getName(block) + "_bottom_off", modLoc("block/clibano_side_vertical_bottom")).texture("side", off).texture("bottom", off);
+            models().withExistingParent(getName(block) + "_bottom_blue_fire", modLoc("block/clibano_side_vertical_bottom")).texture("side", blueFire).texture("bottom", off);
+
+            models().withExistingParent(getName(block) + "_top_off", modLoc("block/clibano_side_vertical_top")).texture("side", off).texture("top", off);
+            models().withExistingParent(getName(block) + "_top_blue_fire", modLoc("block/clibano_side_vertical_top")).texture("side", blueFire).texture("top", off);
+
+            horizontalBlock(block, state -> getExistingModel(modLoc(getName(block) + "_"
+                    + (state.getValue(BlockStateProperties.BOTTOM) ? "bottom" : "top") + "_"
+                    + state.getValue(ModBlockStateProperties.CLIBANO_SIDE_TYPE).getSerializedName()
+            )));
+        }, ModBlocks.CLIBANO_SIDE_VERTICAL);
 
         take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), ModBlocks.ARCANE_GOLDEN_CHAIN);
 

@@ -1,6 +1,10 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
+import com.stal111.forbidden_arcanus.common.block.ClibanoPart;
+import com.stal111.forbidden_arcanus.common.block.ModBlockPatterns;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
@@ -21,15 +25,14 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
-
-import static com.stal111.forbidden_arcanus.common.block.ModBlockPatterns.ARCANE_CRYSTAL_OBELISK_PATTERN;
-import static com.stal111.forbidden_arcanus.common.block.ModBlockPatterns.HEPHAESTUS_PATTERN;
 
 
 /**
@@ -37,10 +40,9 @@ import static com.stal111.forbidden_arcanus.common.block.ModBlockPatterns.HEPHAE
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.MundabiturDustItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.1.0
  */
 public class MundabiturDustItem extends Item {
-
 
     public MundabiturDustItem(Properties properties) {
         super(properties);
@@ -54,7 +56,7 @@ public class MundabiturDustItem extends Item {
         BlockState state = level.getBlockState(pos);
         Player player = context.getPlayer();
 
-        if (this.tryTransformBlock(state, level, pos, player)) {
+        if (this.tryTransformBlock(state, level, pos, player, context.getClickedFace())) {
             ItemStackUtils.shrinkStack(player, context.getItemInHand());
 
             return InteractionResult.sidedSuccess(level.isClientSide());
@@ -80,9 +82,9 @@ public class MundabiturDustItem extends Item {
         return InteractionResult.PASS;
     }
 
-    private boolean tryTransformBlock(BlockState state, Level level, BlockPos pos, Player player) {
+    private boolean tryTransformBlock(BlockState state, Level level, BlockPos pos, Player player, Direction clickedFace) {
         if (state.is(Blocks.SMITHING_TABLE)) {
-            BlockPattern.BlockPatternMatch patternHelper = HEPHAESTUS_PATTERN.find(level, pos);
+            BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.HEPHAESTUS_PATTERN.find(level, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
@@ -99,14 +101,14 @@ public class MundabiturDustItem extends Item {
 
             return true;
         } else if (state.is(ModBlocks.ARCANE_CRYSTAL_BLOCK.get()) || state.is(ModBlocks.ARCANE_POLISHED_DARKSTONE.get())) {
-            BlockPattern.BlockPatternMatch patternHelper = ARCANE_CRYSTAL_OBELISK_PATTERN.find(level, pos);
+            BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.ARCANE_CRYSTAL_OBELISK_PATTERN.find(level, pos);
 
             if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
                 return false;
             }
 
-            for (int i = 0; i < ARCANE_CRYSTAL_OBELISK_PATTERN.getWidth(); i++) {
-                for (int j = 0; j < ARCANE_CRYSTAL_OBELISK_PATTERN.getHeight(); j++) {
+            for (int i = 0; i < patternHelper.getWidth(); i++) {
+                for (int j = 0; j < patternHelper.getHeight(); j++) {
                     BlockInWorld cachedBlockInfo = patternHelper.getBlock(i, j, 0);
                     level.setBlock(cachedBlockInfo.getPos(), Blocks.AIR.defaultBlockState(), 2);
                     level.levelEvent(2001, cachedBlockInfo.getPos(), Block.getId(cachedBlockInfo.getState()));
@@ -121,8 +123,74 @@ public class MundabiturDustItem extends Item {
             level.setBlock(topPos, obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.UPPER), 2);
 
             return true;
+        } else if (state.is(ModBlocks.CLIBANO_CORE.get())) {
+           if (clickedFace.getAxis() == Direction.Axis.Y) {
+               return false;
+           }
+
+            BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.CLIBANO_COMBUSTION_BASE.find(level, pos.below());
+
+            if (patternHelper == null) {
+                return false;
+            }
+
+            // Corner blocks
+
+            BlockPos bottomPos = pos.below().relative(clickedFace.getClockWise());
+            BlockState cornerState = ModBlocks.CLIBANO_CORNER.get().defaultBlockState();
+
+            this.placeClibanoBlock(level, bottomPos, cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace));
+            this.placeClibanoBlock(level, bottomPos.relative(clickedFace.getOpposite(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getClockWise()));
+            this.placeClibanoBlock(level, bottomPos.relative(clickedFace.getOpposite(), 2).relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getOpposite()));
+            this.placeClibanoBlock(level, bottomPos.relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getCounterClockWise()));
+
+            BlockPos topPos = pos.above().relative(clickedFace.getClockWise());
+            cornerState = cornerState.setValue(BlockStateProperties.BOTTOM, false);
+
+            this.placeClibanoBlock(level, topPos, cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace));
+            this.placeClibanoBlock(level, topPos.relative(clickedFace.getOpposite(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getClockWise()));
+            this.placeClibanoBlock(level, topPos.relative(clickedFace.getOpposite(), 2).relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getOpposite()));
+            this.placeClibanoBlock(level, topPos.relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getCounterClockWise()));
+
+            // Center blocks
+
+            BlockPos centerPos = pos.relative(clickedFace.getOpposite());
+            BlockState centerState = ModBlocks.CLIBANO_CENTER.get().defaultBlockState();
+            BlockState horizontalSideState = ModBlocks.CLIBANO_SIDE_HORIZONTAL.get().defaultBlockState();
+            BlockState verticalSideState = ModBlocks.CLIBANO_SIDE_VERTICAL.get().defaultBlockState();
+
+            for (Direction direction : Direction.values()) {
+                this.placeClibanoBlock(level, centerPos.relative(direction), centerState
+                                .setValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE, ClibanoCenterType.getFromDirection(direction, clickedFace))
+                                .setValue(BlockStateProperties.FACING, direction));
+
+                if (direction.getAxis() != Direction.Axis.Y) {
+                    this.placeClibanoBlock(level, centerPos.relative(direction).relative(direction.getClockWise()), horizontalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
+
+                    this.placeClibanoBlock(level, centerPos.relative(direction).relative(Direction.UP), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(BlockStateProperties.BOTTOM, false));
+                    this.placeClibanoBlock(level, centerPos.relative(direction).relative(Direction.DOWN), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
+
+                }
+            }
+
+            // Main block
+
+            level.setBlock(centerPos, ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState(), 2);
+
+            return true;
         }
 
         return false;
+    }
+
+    private void placeClibanoBlock(Level level, BlockPos pos, BlockState state) {
+        BlockState oldState = level.getBlockState(pos);
+
+        level.setBlock(pos, state, 2);
+
+        if (state.getBlock() instanceof ClibanoPart && level.getBlockEntity(pos) instanceof ClibanoBlockEntity blockEntity) {
+            blockEntity.setState(oldState);
+            level.levelEvent(2001, pos, Block.getId(oldState));
+        }
     }
 }
