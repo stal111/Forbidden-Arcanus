@@ -174,7 +174,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             blockEntity.cookingProgressFirst++;
 
             if (blockEntity.cookingProgressFirst == blockEntity.cookingDurationFirst) {
-                blockEntity.finishRecipe(firstRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
+                blockEntity.finishRecipe(firstRecipe, ClibanoMenu.INPUT_SLOTS.getFirst());
             }
 
             blockEntity.setChanged();
@@ -188,7 +188,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             blockEntity.cookingProgressSecond++;
 
             if (blockEntity.cookingProgressSecond == blockEntity.cookingDurationSecond) {
-                blockEntity.finishRecipe(secondRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
+                blockEntity.finishRecipe(secondRecipe, ClibanoMenu.INPUT_SLOTS.getSecond());
             }
 
             blockEntity.setChanged();
@@ -197,6 +197,15 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
+    /**
+     * Checks if the given recipe can be used at the moment.
+     * To be considered usable one of the result slots must be empty or the result of the recipe must fit into one of the existing stacks.
+     *
+     * @param recipe the recipe to check
+     * @param maxCount the maximum stack size of the result
+     * @param slot the input slot to check
+     * @return true if the recipe can be used
+     */
     private boolean canBurn(ClibanoRecipe recipe, int maxCount, int slot) {
         NonNullList<ItemStack> items = this.inventoryContents;
 
@@ -210,21 +219,30 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             return false;
         }
 
-        //TODO: add support for second result slot
         ItemStack resultStack = items.get(ClibanoMenu.RESULT_SLOTS.getFirst());
+        ItemStack secondResultStack = items.get(ClibanoMenu.RESULT_SLOTS.getSecond());
 
-        if (resultStack.isEmpty()) {
+        if (resultStack.isEmpty() || secondResultStack.isEmpty()) {
             return true;
-        } else if (!resultStack.sameItem(stack)) {
+        } else if (!resultStack.sameItem(stack) && !secondResultStack.sameItem(stack)) {
             return false;
         } else if (resultStack.getCount() + stack.getCount() <= maxCount && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
             return true;
+        } else if (secondResultStack.getCount() + stack.getCount() <= maxCount && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+            return true;
         }
 
-        return resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize();
+        return resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize() || secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize();
     }
 
-    private void finishRecipe(ClibanoRecipe recipe, int maxCount, int slot) {
+    /**
+     * Finishes the given recipe.
+     * The result is added to one of the result slots and the input slot is cleared. The cooking progress is reset.
+     *
+     * @param recipe the recipe to finish
+     * @param slot the slot where the recipe input was placed in
+     */
+    private void finishRecipe(ClibanoRecipe recipe, int slot) {
         NonNullList<ItemStack> items = this.inventoryContents;
         ItemStack stack = recipe.getResultItem();
 
@@ -241,11 +259,16 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         }
 
         ItemStack resultStack = items.get(ClibanoMenu.RESULT_SLOTS.getFirst());
+        ItemStack secondResultStack = items.get(ClibanoMenu.RESULT_SLOTS.getSecond());
 
-        if (resultStack.isEmpty()) {
-            items.set(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
-        } else if (resultStack.sameItem(stack)) {
+        if (resultStack.sameItem(stack)) {
             resultStack.grow(stack.getCount());
+        } else if (secondResultStack.sameItem(stack)) {
+            secondResultStack.grow(stack.getCount());
+        } else if (resultStack.isEmpty()) {
+            items.set(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
+        } else if (secondResultStack.isEmpty()) {
+            items.set(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
         }
     }
 
