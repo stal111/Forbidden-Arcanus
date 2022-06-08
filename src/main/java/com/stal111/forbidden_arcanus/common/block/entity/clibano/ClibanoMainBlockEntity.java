@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -24,6 +25,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Clibano Main Block Entity <br>
@@ -44,8 +48,18 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
     public static final int DATA_COOKING_PROGRESS_SECOND = 4;
     public static final int DATA_COOKING_DURATION_FIRST = 5;
     public static final int DATA_COOKING_DURATION_SECOND = 6;
+    public static final int DATA_FIRE_TYPE = 7;
 
-    public static final int DATA_COUNT = 7;
+    public static final int DATA_COUNT = 8;
+
+    public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipes.CLIBANO_COMBUSTION.get();
+
+    public static final Function<ItemStack, Optional<ClibanoFireType>> ITEM_TO_FIRE_TYPE = stack -> {
+        if (stack.is(ModItems.SOUL.get()) || stack.is(ModItems.DARK_SOUL.get())) {
+            return Optional.of(ClibanoFireType.BLUE_FIRE);
+        }
+        return Optional.empty();
+    };
 
     private final NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
 
@@ -57,7 +71,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
     private int cookingDurationFirst;
     private int cookingDurationSecond;
 
-    private final RecipeType<ClibanoRecipe> recipeType = ModRecipes.CLIBANO_COMBUSTION.get();
+    private ClibanoFireType fireType = ClibanoFireType.FIRE;
 
     private final ContainerData containerData = new ContainerData() {
         @Override
@@ -70,6 +84,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
                 case DATA_COOKING_PROGRESS_SECOND -> ClibanoMainBlockEntity.this.cookingProgressSecond;
                 case DATA_COOKING_DURATION_FIRST -> ClibanoMainBlockEntity.this.cookingDurationFirst;
                 case DATA_COOKING_DURATION_SECOND -> ClibanoMainBlockEntity.this.cookingDurationSecond;
+                case DATA_FIRE_TYPE -> ClibanoMainBlockEntity.this.fireType.ordinal();
                 default -> throw new IllegalStateException("Unexpected value: " + index);
             };
         }
@@ -84,6 +99,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
                 case DATA_COOKING_PROGRESS_SECOND -> ClibanoMainBlockEntity.this.cookingProgressSecond = value;
                 case DATA_COOKING_DURATION_FIRST -> ClibanoMainBlockEntity.this.cookingDurationFirst = value;
                 case DATA_COOKING_DURATION_SECOND -> ClibanoMainBlockEntity.this.cookingDurationSecond = value;
+                case DATA_FIRE_TYPE -> ClibanoMainBlockEntity.this.fireType = ClibanoFireType.values()[value];
             }
         }
 
@@ -98,18 +114,30 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
+        Container firstSlot = new SimpleContainer(blockEntity.inventoryContents.get(ClibanoMenu.INPUT_SLOTS.getFirst()));
+        Container secondSlot = new SimpleContainer(blockEntity.inventoryContents.get(ClibanoMenu.INPUT_SLOTS.getSecond()));
+
+        ClibanoRecipe firstRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, firstSlot, level).orElse(null);
+        ClibanoRecipe secondRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, secondSlot, level).orElse(null);
+
+        boolean canSmelt = blockEntity.burnTime > 0;
+
         if (blockEntity.soulTime == 0) {
             ItemStack soul = blockEntity.getItem(ClibanoMenu.SOUL_SLOT);
 
             if (!soul.isEmpty()) {
-                soul.shrink(1);
-
                 blockEntity.soulTime = SOUL_DURATION;
 
-                blockEntity.setChanged();
+                blockEntity.changeFireType(ITEM_TO_FIRE_TYPE.apply(soul).orElse(ClibanoFireType.FIRE), firstRecipe, secondRecipe);
+
+                soul.shrink(1);
             }
         } else {
             blockEntity.soulTime--;
+
+            if (blockEntity.soulTime == 0) {
+                blockEntity.changeFireType(ClibanoFireType.FIRE, firstRecipe, secondRecipe);
+            }
         }
 
         if (blockEntity.burnTime == 0) {
@@ -129,38 +157,49 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             blockEntity.burnTime--;
         }
 
-        Container firstSlot = new SimpleContainer(blockEntity.inventoryContents.get(ClibanoMenu.INPUT_SLOTS.getFirst()));
-        Container secondSlot = new SimpleContainer(blockEntity.inventoryContents.get(ClibanoMenu.INPUT_SLOTS.getSecond()));
+        if (!canSmelt) {
+            if (blockEntity.cookingProgressFirst != 0 || blockEntity.cookingProgressSecond != 0) {
+                blockEntity.cookingProgressFirst = Math.max(0, blockEntity.cookingProgressFirst - 2);
+                blockEntity.cookingProgressSecond = Math.max(0, blockEntity.cookingProgressSecond - 2);
 
-        ClibanoRecipe firstRecipe = level.getRecipeManager().getRecipeFor(blockEntity.recipeType, firstSlot, level).orElse(null);
-        ClibanoRecipe secondRecipe = level.getRecipeManager().getRecipeFor(blockEntity.recipeType, secondSlot, level).orElse(null);
+                blockEntity.setChanged();
+            }
 
+            return;
+        }
 
-        System.out.println(firstRecipe);
-        System.out.println(secondRecipe);
-
-        if (firstRecipe != null && blockEntity.canBurn(firstRecipe, blockEntity.inventoryContents, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst())) {
-            blockEntity.cookingDurationFirst = firstRecipe.getCookingTime();
+        if (firstRecipe != null && blockEntity.canBurn(firstRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst())) {
+            blockEntity.cookingDurationFirst = firstRecipe.getCookingTime(blockEntity.fireType);
 
             blockEntity.cookingProgressFirst++;
 
             if (blockEntity.cookingProgressFirst == blockEntity.cookingDurationFirst) {
-                blockEntity.cookingProgressFirst = 0;
+                blockEntity.finishRecipe(firstRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
             }
+
+            blockEntity.setChanged();
+        } else {
+            blockEntity.cookingProgressFirst = 0;
         }
 
-        if (secondRecipe != null && blockEntity.canBurn(secondRecipe, blockEntity.inventoryContents, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond())) {
-            blockEntity.cookingDurationSecond = secondRecipe.getCookingTime();
+        if (secondRecipe != null && blockEntity.canBurn(secondRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond())) {
+            blockEntity.cookingDurationSecond = secondRecipe.getCookingTime(blockEntity.fireType);
 
             blockEntity.cookingProgressSecond++;
 
             if (blockEntity.cookingProgressSecond == blockEntity.cookingDurationSecond) {
-                blockEntity.cookingProgressSecond = 0;
+                blockEntity.finishRecipe(secondRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
             }
+
+            blockEntity.setChanged();
+        } else {
+            blockEntity.cookingProgressSecond = 0;
         }
     }
 
-    private boolean canBurn(ClibanoRecipe recipe, NonNullList<ItemStack> items, int maxCount, int slot) {
+    private boolean canBurn(ClibanoRecipe recipe, int maxCount, int slot) {
+        NonNullList<ItemStack> items = this.inventoryContents;
+
         if (items.get(slot).isEmpty()) {
             return false;
         }
@@ -183,6 +222,58 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         }
 
         return resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize();
+    }
+
+    private void finishRecipe(ClibanoRecipe recipe, int maxCount, int slot) {
+        NonNullList<ItemStack> items = this.inventoryContents;
+        ItemStack stack = recipe.getResultItem();
+
+        items.get(slot).shrink(1);
+
+        if (slot == ClibanoMenu.INPUT_SLOTS.getFirst()) {
+            this.cookingProgressFirst = 0;
+        } else {
+            this.cookingProgressSecond = 0;
+        }
+
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        ItemStack resultStack = items.get(ClibanoMenu.RESULT_SLOTS.getFirst());
+
+        if (resultStack.isEmpty()) {
+            items.set(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
+        } else if (resultStack.sameItem(stack)) {
+            resultStack.grow(stack.getCount());
+        }
+    }
+
+    /**
+     * Changes the current {@link ClibanoFireType} of the clibano and updates the cooking durations accordingly.
+     *
+     * @param fireType the new ClibanoFireType
+     * @param firstRecipe the recipe for the first input slot
+     * @param secondRecipe the recipe for the second input slot
+     */
+    private void changeFireType(ClibanoFireType fireType, @Nullable ClibanoRecipe firstRecipe, @Nullable ClibanoRecipe secondRecipe) {
+        this.fireType = fireType;
+
+        if (firstRecipe != null) {
+            int oldDuration = this.cookingDurationFirst;
+
+            this.cookingDurationFirst = firstRecipe.getCookingTime(fireType);
+            this.cookingProgressFirst = (int) (((float) this.cookingProgressFirst / oldDuration) * this.cookingDurationFirst);
+        }
+
+        if (secondRecipe != null) {
+            int oldDuration = this.cookingDurationSecond;
+
+            this.cookingDurationSecond = secondRecipe.getCookingTime(fireType);
+            this.cookingProgressSecond = (int) (((float) this.cookingProgressSecond / oldDuration) * this.cookingDurationSecond);
+        }
+
+        this.setChanged();
     }
 
     @Nonnull
@@ -209,6 +300,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         tag.putInt("CookingProgressSecond", this.cookingProgressSecond);
         tag.putInt("CookingDurationFirst", this.cookingDurationFirst);
         tag.putInt("CookingDurationSecond", this.cookingDurationSecond);
+
+        tag.putString("FireType", this.fireType.getSerializedName());
     }
 
     @Override
@@ -225,6 +318,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         this.cookingProgressSecond = tag.getInt("CookingProgressSecond");
         this.cookingDurationFirst = tag.getInt("CookingDurationFirst");
         this.cookingDurationSecond = tag.getInt("CookingDurationSecond");
+
+        this.fireType = ClibanoFireType.byName(tag.getString("FireType")).orElse(ClibanoFireType.FIRE);
     }
 
     public void setSoulTime(int duration) {
@@ -241,7 +336,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             return 0;
         }
 
-        return ForgeHooks.getBurnTime(fuel, this.recipeType);
+        return ForgeHooks.getBurnTime(fuel, RECIPE_TYPE);
     }
 
     @Override

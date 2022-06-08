@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.gui.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -69,10 +70,13 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
             this.blit(poseStack, this.getGuiLeft() + 52, this.getGuiTop() + 38 + 18 - ySize, 233, 18 - ySize, 18, ySize);
         }
 
+        // Flame
         if (this.menu.getBurnDuration() != 0) {
             int ySize = Math.toIntExact(Math.round(15.0F * this.menu.getBurnTime() / this.menu.getBurnDuration()));
 
-            this.blit(poseStack, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, 179, 1 + 15 - ySize, 12, ySize);
+            int uOffset = 179 + 19 * this.menu.getFireType();
+
+            this.blit(poseStack, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, uOffset, 1 + 15 - ySize, 12, ySize);
         }
     }
 }

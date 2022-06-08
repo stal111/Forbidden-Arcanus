@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -31,13 +32,35 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
     public static final int DEFAULT_COOKING_TIME = 100;
 
+    public static final int BLUE_FIRE_SPEED_MULTIPLIER = 2;
+    public static final int PURPLE_FIRE_SPEED_MULTIPLIER = 3;
+
+    private final int blueFireCookingTime;
+    private final int purpleFireCookingTime;
+
     public ClibanoRecipe(ResourceLocation id, String group, Ingredient ingredient, ItemStack result, float experience, int cookingTime) {
         super(ModRecipes.CLIBANO_COMBUSTION.get(), id, group, ingredient, result, experience, cookingTime);
+        this.blueFireCookingTime = cookingTime / BLUE_FIRE_SPEED_MULTIPLIER;
+        this.purpleFireCookingTime = cookingTime / PURPLE_FIRE_SPEED_MULTIPLIER;
     }
 
     @Override
     public boolean matches(@Nonnull Container inv, @Nonnull Level level) {
         return this.ingredient.test(inv.getItem(0));
+    }
+
+    /**
+     * Gets the cooking time for the given fire type.
+     *
+     * @param fireType the ClibanoFireType currently in use
+     * @return the correct cookingTime for the given fire type
+     */
+    public int getCookingTime(ClibanoFireType fireType) {
+        return switch (fireType) {
+            case BLUE_FIRE -> this.blueFireCookingTime;
+            case PURPLE_FIRE -> this.purpleFireCookingTime;
+            default -> this.getCookingTime();
+        };
     }
 
     @Nonnull

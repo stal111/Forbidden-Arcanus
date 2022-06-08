@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.inventory.clibano;
 
 import com.mojang.datafixers.util.Pair;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
@@ -108,5 +109,9 @@ public class ClibanoMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(@Nonnull Player player) {
         return this.container.stillValid(player);
+    }
+
+    public int getFireType() {
+        return this.containerData.get(ClibanoMainBlockEntity.DATA_FIRE_TYPE);
     }
 }
