@@ -78,6 +78,32 @@
       "x": 90,
       "y": 90
     },
+    "facing=down,type=front_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_fire",
+      "x": 180
+    },
+    "facing=up,type=front_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_fire"
+    },
+    "facing=north,type=front_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_fire",
+      "x": 90
+    },
+    "facing=south,type=front_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_fire",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,type=front_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_fire",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east,type=front_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_fire",
+      "x": 90,
+      "y": 90
+    },
     "facing=down,type=front_blue_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_blue_fire",
       "x": 180

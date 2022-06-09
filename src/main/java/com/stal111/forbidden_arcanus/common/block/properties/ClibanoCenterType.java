@@ -17,6 +17,7 @@ public enum ClibanoCenterType implements StringRepresentable {
     SIDE("side"),
     TOP("top"),
     FRONT_OFF("front_off"),
+    FRONT_FIRE("front_fire"),
     FRONT_BLUE_FIRE("front_blue_fire");;
 
     private final String name;

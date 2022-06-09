@@ -1,11 +1,15 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
+import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
+import com.stal111.forbidden_arcanus.common.block.properties.ClibanoSideType;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -73,6 +77,10 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
 
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
 
+    private Direction frontDirection = Direction.NORTH;
+
+    private boolean wasLit = false;
+
     private final ContainerData containerData = new ContainerData() {
         @Override
         public int get(int index) {
@@ -128,7 +136,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             if (!soul.isEmpty()) {
                 blockEntity.soulTime = SOUL_DURATION;
 
-                blockEntity.changeFireType(ITEM_TO_FIRE_TYPE.apply(soul).orElse(ClibanoFireType.FIRE), firstRecipe, secondRecipe);
+                blockEntity.changeFireType(level, ITEM_TO_FIRE_TYPE.apply(soul).orElse(ClibanoFireType.FIRE), firstRecipe, secondRecipe);
 
                 soul.shrink(1);
             }
@@ -136,7 +144,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             blockEntity.soulTime--;
 
             if (blockEntity.soulTime == 0) {
-                blockEntity.changeFireType(ClibanoFireType.FIRE, firstRecipe, secondRecipe);
+                blockEntity.changeFireType(level, ClibanoFireType.FIRE, firstRecipe, secondRecipe);
             }
         }
 
@@ -151,6 +159,10 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
 
                 fuel.shrink(1);
 
+                if (!blockEntity.wasLit) {
+                    blockEntity.updateAppearance(level);
+                }
+
                 blockEntity.setChanged();
             }
         } else {
@@ -164,6 +176,12 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
 
                 blockEntity.setChanged();
             }
+
+            if (blockEntity.wasLit) {
+                blockEntity.updateAppearance(level);
+            }
+
+            blockEntity.wasLit = false;
 
             return;
         }
@@ -195,6 +213,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         } else {
             blockEntity.cookingProgressSecond = 0;
         }
+
+        blockEntity.wasLit = true;
     }
 
     /**
@@ -275,11 +295,12 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
     /**
      * Changes the current {@link ClibanoFireType} of the clibano and updates the cooking durations accordingly.
      *
+     * @param level the level the clibano is in
      * @param fireType the new ClibanoFireType
      * @param firstRecipe the recipe for the first input slot
      * @param secondRecipe the recipe for the second input slot
      */
-    private void changeFireType(ClibanoFireType fireType, @Nullable ClibanoRecipe firstRecipe, @Nullable ClibanoRecipe secondRecipe) {
+    private void changeFireType(Level level, ClibanoFireType fireType, @Nullable ClibanoRecipe firstRecipe, @Nullable ClibanoRecipe secondRecipe) {
         this.fireType = fireType;
 
         if (firstRecipe != null) {
@@ -296,7 +317,48 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             this.cookingProgressSecond = (int) (((float) this.cookingProgressSecond / oldDuration) * this.cookingDurationSecond);
         }
 
+        this.updateAppearance(level);
+
         this.setChanged();
+    }
+
+    /**
+     * Updates the clibano's appearance to resemble the current fire type.
+     *
+     * @param level the level the clibano is in
+     */
+    private void updateAppearance(Level level) {
+        ClibanoCenterType centerType = ClibanoCenterType.FRONT_OFF;
+        ClibanoSideType sideType = ClibanoSideType.OFF;
+
+        if (this.burnTime > 0) {
+            if (this.fireType == ClibanoFireType.FIRE) {
+                centerType = ClibanoCenterType.FRONT_FIRE;
+                sideType = ClibanoSideType.FIRE;
+            } else if (this.fireType == ClibanoFireType.BLUE_FIRE) {
+                centerType = ClibanoCenterType.FRONT_BLUE_FIRE;
+                sideType = ClibanoSideType.BLUE_FIRE;
+            }
+        }
+
+        BlockPos frontCenterPos = this.worldPosition.relative(this.frontDirection);
+        BlockState center = level.getBlockState(frontCenterPos).setValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE, centerType);
+
+        level.setBlockAndUpdate(frontCenterPos, center);
+
+        for (Direction direction : Direction.values()) {
+            if (direction.getAxis() == this.frontDirection.getAxis()) {
+                continue;
+            }
+
+            BlockState side = level.getBlockState(frontCenterPos.relative(direction)).setValue(ModBlockStateProperties.CLIBANO_SIDE_TYPE, sideType);
+
+            level.setBlockAndUpdate(frontCenterPos.relative(direction), side);
+        }
+    }
+
+    public void setFrontDirection(Direction direction) {
+        this.frontDirection = direction;
     }
 
     @Nonnull
@@ -325,6 +387,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         tag.putInt("CookingDurationSecond", this.cookingDurationSecond);
 
         tag.putString("FireType", this.fireType.getSerializedName());
+
+        tag.putString("FrontDirection", this.frontDirection.getName());
     }
 
     @Override
@@ -343,6 +407,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         this.cookingDurationSecond = tag.getInt("CookingDurationSecond");
 
         this.fireType = ClibanoFireType.byName(tag.getString("FireType")).orElse(ClibanoFireType.FIRE);
+
+        this.frontDirection = Direction.byName(tag.getString("FrontDirection"));
     }
 
     public void setSoulTime(int duration) {

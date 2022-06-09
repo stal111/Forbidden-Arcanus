@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock;
 import com.stal111.forbidden_arcanus.common.block.ClibanoPart;
 import com.stal111.forbidden_arcanus.common.block.ModBlockPatterns;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
@@ -14,6 +15,7 @@ import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -152,7 +154,7 @@ public class MundabiturDustItem extends Item {
             this.placeClibanoBlock(level, topPos.relative(clickedFace.getOpposite(), 2).relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getOpposite()));
             this.placeClibanoBlock(level, topPos.relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getCounterClockWise()));
 
-            // Center blocks
+            // Center blocks & sides
 
             BlockPos centerPos = pos.relative(clickedFace.getOpposite());
             BlockState centerState = ModBlocks.CLIBANO_CENTER.get().defaultBlockState();
@@ -160,22 +162,29 @@ public class MundabiturDustItem extends Item {
             BlockState verticalSideState = ModBlocks.CLIBANO_SIDE_VERTICAL.get().defaultBlockState();
 
             for (Direction direction : Direction.values()) {
-                this.placeClibanoBlock(level, centerPos.relative(direction), centerState
+                BlockPos relativePos = centerPos.relative(direction);
+
+                this.placeClibanoBlock(level, relativePos, centerState
                                 .setValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE, ClibanoCenterType.getFromDirection(direction, clickedFace))
                                 .setValue(BlockStateProperties.FACING, direction));
 
                 if (direction.getAxis() != Direction.Axis.Y) {
-                    this.placeClibanoBlock(level, centerPos.relative(direction).relative(direction.getClockWise()), horizontalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
+                    this.placeClibanoBlock(level, relativePos.relative(direction.getClockWise()), horizontalSideState
+                            .setValue(BlockStateProperties.HORIZONTAL_FACING, direction)
+                            .setValue(ModBlockStateProperties.MIRRORED, direction == clickedFace.getCounterClockWise()));
 
-                    this.placeClibanoBlock(level, centerPos.relative(direction).relative(Direction.UP), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(BlockStateProperties.BOTTOM, false));
-                    this.placeClibanoBlock(level, centerPos.relative(direction).relative(Direction.DOWN), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
+                    this.placeClibanoBlock(level, relativePos.relative(Direction.UP), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(BlockStateProperties.BOTTOM, false));
+                    this.placeClibanoBlock(level, relativePos.relative(Direction.DOWN), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
 
                 }
             }
 
             // Main block
-
             level.setBlock(centerPos, ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState(), 2);
+
+            if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(centerPos) instanceof ClibanoMainBlockEntity blockEntity) {
+                blockEntity.setFrontDirection(clickedFace);
+            }
 
             return true;
         }

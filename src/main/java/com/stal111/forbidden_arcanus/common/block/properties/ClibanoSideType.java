@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
  */
 public enum ClibanoSideType implements StringRepresentable {
     OFF("off"),
+    FIRE("fire"),
     BLUE_FIRE("blue_fire");;
 
     private final String name;

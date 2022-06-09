@@ -30,6 +30,36 @@
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_off",
       "y": 90
     },
+    "bottom=false,facing=north,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_fire"
+    },
+    "bottom=true,facing=north,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_fire"
+    },
+    "bottom=false,facing=south,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_fire",
+      "y": 180
+    },
+    "bottom=true,facing=south,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_fire",
+      "y": 180
+    },
+    "bottom=false,facing=west,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_fire",
+      "y": 270
+    },
+    "bottom=true,facing=west,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_fire",
+      "y": 270
+    },
+    "bottom=false,facing=east,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_fire",
+      "y": 90
+    },
+    "bottom=true,facing=east,type=fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_fire",
+      "y": 90
+    },
     "bottom=false,facing=north,type=blue_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_blue_fire"
     },
