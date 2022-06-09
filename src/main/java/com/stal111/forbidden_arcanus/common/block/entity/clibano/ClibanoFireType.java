@@ -14,20 +14,26 @@ import java.util.Optional;
  * @since 2022-06-02
  */
 public enum ClibanoFireType implements StringRepresentable {
-    FIRE("fire"),
-    BLUE_FIRE("blue_fire"),
-    PURPLE_FIRE("purple_fire");
+    FIRE("fire", 1.0D),
+    BLUE_FIRE("blue_fire", 1.5D),
+    PURPLE_FIRE("purple_fire", 2.5D);
 
     private final String name;
+    private final double cookingSpeedMultiplier;
 
-    ClibanoFireType(String name) {
+    ClibanoFireType(String name, double cookingSpeedMultiplier) {
         this.name = name;
+        this.cookingSpeedMultiplier = cookingSpeedMultiplier;
     }
 
     @Override
     @Nonnull
     public String getSerializedName() {
         return this.name;
+    }
+
+    public double getCookingSpeedMultiplier() {
+        return this.cookingSpeedMultiplier;
     }
 
     public static Optional<ClibanoFireType> byName(String name) {

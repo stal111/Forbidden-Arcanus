@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.client.gui.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
