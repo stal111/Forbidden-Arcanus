@@ -128,9 +128,18 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         ClibanoRecipe firstRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, firstSlot, level).orElse(null);
         ClibanoRecipe secondRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, secondSlot, level).orElse(null);
 
-        boolean canSmelt = blockEntity.burnTime > 0;
+        boolean isLit = blockEntity.burnTime > 0;
 
-        if (blockEntity.soulTime == 0) {
+        boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(firstRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
+        boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(secondRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
+
+        if (blockEntity.soulTime != 0) {
+            blockEntity.soulTime--;
+
+            if (blockEntity.soulTime == 0) {
+                blockEntity.changeFireType(level, ClibanoFireType.FIRE, firstRecipe, secondRecipe);
+            }
+        } else if (canSmeltFirst || canSmeltSecond) {
             ItemStack soul = blockEntity.getItem(ClibanoMenu.SOUL_SLOT);
 
             if (!soul.isEmpty()) {
@@ -140,36 +149,30 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
 
                 soul.shrink(1);
             }
-        } else {
-            blockEntity.soulTime--;
-
-            if (blockEntity.soulTime == 0) {
-                blockEntity.changeFireType(level, ClibanoFireType.FIRE, firstRecipe, secondRecipe);
-            }
         }
 
-        if (blockEntity.burnTime == 0) {
-            ItemStack fuel = blockEntity.getItem(ClibanoMenu.FUEL_SLOT);
-
-            blockEntity.burnDuration = 0;
-
-            if (!fuel.isEmpty()) {
-                blockEntity.burnTime = blockEntity.getBurnDuration(fuel);
-                blockEntity.burnDuration = blockEntity.burnTime;
-
-                fuel.shrink(1);
-
-                if (!blockEntity.wasLit) {
-                    blockEntity.updateAppearance(level);
-                }
-
-                blockEntity.setChanged();
-            }
-        } else {
+        if (isLit) {
             blockEntity.burnTime--;
-        }
+        } else {
+            if (canSmeltFirst || canSmeltSecond) {
+                ItemStack fuel = blockEntity.getItem(ClibanoMenu.FUEL_SLOT);
 
-        if (!canSmelt) {
+                blockEntity.burnDuration = 0;
+
+                if (!fuel.isEmpty()) {
+                    blockEntity.burnTime = blockEntity.getBurnDuration(fuel);
+                    blockEntity.burnDuration = blockEntity.burnTime;
+
+                    fuel.shrink(1);
+
+                    if (!blockEntity.wasLit) {
+                        blockEntity.updateAppearance(level);
+                    }
+
+                    blockEntity.setChanged();
+                }
+            }
+
             if (blockEntity.cookingProgressFirst != 0 || blockEntity.cookingProgressSecond != 0) {
                 blockEntity.cookingProgressFirst = Math.max(0, blockEntity.cookingProgressFirst - 2);
                 blockEntity.cookingProgressSecond = Math.max(0, blockEntity.cookingProgressSecond - 2);
@@ -186,7 +189,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             return;
         }
 
-        if (firstRecipe != null && blockEntity.canBurn(firstRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst())) {
+        if (canSmeltFirst) {
             blockEntity.cookingDurationFirst = firstRecipe.getCookingTime(blockEntity.fireType);
 
             blockEntity.cookingProgressFirst++;
@@ -200,7 +203,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
             blockEntity.cookingProgressFirst = 0;
         }
 
-        if (secondRecipe != null && blockEntity.canBurn(secondRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond())) {
+        if (canSmeltSecond) {
             blockEntity.cookingDurationSecond = secondRecipe.getCookingTime(blockEntity.fireType);
 
             blockEntity.cookingProgressSecond++;
@@ -221,9 +224,9 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
      * Checks if the given recipe can be used at the moment.
      * To be considered usable one of the result slots must be empty or the result of the recipe must fit into one of the existing stacks.
      *
-     * @param recipe the recipe to check
+     * @param recipe   the recipe to check
      * @param maxCount the maximum stack size of the result
-     * @param slot the input slot to check
+     * @param slot     the input slot to check
      * @return true if the recipe can be used
      */
     private boolean canBurn(ClibanoRecipe recipe, int maxCount, int slot) {
@@ -260,7 +263,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
      * The result is added to one of the result slots and the input slot is cleared. The cooking progress is reset.
      *
      * @param recipe the recipe to finish
-     * @param slot the slot where the recipe input was placed in
+     * @param slot   the slot where the recipe input was placed in
      */
     private void finishRecipe(ClibanoRecipe recipe, int slot) {
         NonNullList<ItemStack> items = this.inventoryContents;
@@ -281,9 +284,9 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
         ItemStack resultStack = items.get(ClibanoMenu.RESULT_SLOTS.getFirst());
         ItemStack secondResultStack = items.get(ClibanoMenu.RESULT_SLOTS.getSecond());
 
-        if (resultStack.sameItem(stack)) {
+        if (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
             resultStack.grow(stack.getCount());
-        } else if (secondResultStack.sameItem(stack)) {
+        } else if (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
             secondResultStack.grow(stack.getCount());
         } else if (resultStack.isEmpty()) {
             items.set(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
@@ -295,9 +298,9 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity {
     /**
      * Changes the current {@link ClibanoFireType} of the clibano and updates the cooking durations accordingly.
      *
-     * @param level the level the clibano is in
-     * @param fireType the new ClibanoFireType
-     * @param firstRecipe the recipe for the first input slot
+     * @param level        the level the clibano is in
+     * @param fireType     the new ClibanoFireType
+     * @param firstRecipe  the recipe for the first input slot
      * @param secondRecipe the recipe for the second input slot
      */
     private void changeFireType(Level level, ClibanoFireType fireType, @Nullable ClibanoRecipe firstRecipe, @Nullable ClibanoRecipe secondRecipe) {
