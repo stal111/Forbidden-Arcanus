@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory.clibano;
 
 import com.mojang.datafixers.util.Pair;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
@@ -9,9 +8,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
@@ -67,8 +68,8 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(container, INPUT_SLOTS.getSecond(), 62, 20));
 
         // Result Slot
-        this.addSlot(new FurnaceResultSlot(inventory.player, container, RESULT_SLOTS.getFirst(), 116, 32));
-        this.addSlot(new FurnaceResultSlot(inventory.player, container, RESULT_SLOTS.getSecond(), 142, 28));
+        this.addSlot(new ClibanoResultSlot(inventory.player, container, RESULT_SLOTS.getFirst(), 116, 32));
+        this.addSlot(new ClibanoResultSlot(inventory.player, container, RESULT_SLOTS.getSecond(), 142, 28));
 
         // Inventory Slots
         for(int i = 0; i < 3; ++i) {
