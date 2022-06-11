@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
@@ -31,10 +32,18 @@ public interface ClibanoPart extends EntityBlock {
         }
 
         this.findMainPos(level, pos).ifPresent(blockPos -> {
+            var positions = BlockPos.betweenClosedStream(blockPos.relative(Direction.DOWN).relative(Direction.NORTH).relative(Direction.WEST), blockPos.relative(Direction.UP).relative(Direction.SOUTH).relative(Direction.EAST));
+
+            if (positions.noneMatch(pos1 -> pos1.equals(pos))) {
+                return;
+            }
+
             level.removeBlock(blockPos, false);
 
             level.destroyBlock(pos, true);
         });
+
+        level.removeBlockEntity(pos);
     }
 
     default InteractionResult openScreen(@Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player) {

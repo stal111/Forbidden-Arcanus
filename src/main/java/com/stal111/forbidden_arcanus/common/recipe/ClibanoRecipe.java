@@ -19,6 +19,8 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Clibano Recipe <br>
@@ -32,16 +34,14 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
     public static final int DEFAULT_COOKING_TIME = 100;
 
-    public static final int BLUE_FIRE_SPEED_MULTIPLIER = 2;
-    public static final int PURPLE_FIRE_SPEED_MULTIPLIER = 3;
-
-    private final int blueFireCookingTime;
-    private final int purpleFireCookingTime;
+    private final Map<ClibanoFireType, Integer> cookingTimes = new EnumMap<>(ClibanoFireType.class);
 
     public ClibanoRecipe(ResourceLocation id, String group, Ingredient ingredient, ItemStack result, float experience, int cookingTime) {
         super(ModRecipes.CLIBANO_COMBUSTION.get(), id, group, ingredient, result, experience, cookingTime);
-        this.blueFireCookingTime = cookingTime / BLUE_FIRE_SPEED_MULTIPLIER;
-        this.purpleFireCookingTime = cookingTime / PURPLE_FIRE_SPEED_MULTIPLIER;
+
+        for (ClibanoFireType fireType : ClibanoFireType.values()) {
+            this.cookingTimes.put(fireType, (int) (cookingTime / fireType.getCookingSpeedMultiplier()));
+        }
     }
 
     @Override
@@ -56,11 +56,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
      * @return the correct cookingTime for the given fire type
      */
     public int getCookingTime(ClibanoFireType fireType) {
-        return switch (fireType) {
-            case BLUE_FIRE -> this.blueFireCookingTime;
-            case PURPLE_FIRE -> this.purpleFireCookingTime;
-            default -> this.getCookingTime();
-        };
+        return this.cookingTimes.get(fireType);
     }
 
     @Nonnull

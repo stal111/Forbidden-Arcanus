@@ -116,6 +116,8 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                     }
                 }
             }
+
+            slot.onTake(player, stack);
         }
 
         return result;
