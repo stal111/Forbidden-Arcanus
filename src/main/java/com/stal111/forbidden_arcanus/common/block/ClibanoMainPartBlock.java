@@ -2,10 +2,11 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -47,7 +48,13 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
 
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-        super.onRemove(state, level, pos, newState, isMoving);
+        if (!state.is(newState.getBlock())) {
+            if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(pos) instanceof ClibanoMainBlockEntity blockEntity) {
+                Containers.dropContents(level, pos, blockEntity);
+            }
+
+            super.onRemove(state, level, pos, newState, isMoving);
+        }
 
         pos = pos.relative(Direction.DOWN).relative(Direction.NORTH).relative(Direction.WEST);
 
