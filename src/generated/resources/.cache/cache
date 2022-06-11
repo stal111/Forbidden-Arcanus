@@ -1156,7 +1156,7 @@ bb634a545c6da073999b513576548cc18ad162f6 data/minecraft/tags/blocks/impermeable.
 f19cf0b74daad67348925faaaa34cab8b71e1381 data/minecraft/tags/blocks/leaves.json
 4608a1525bfcf3b60417bc63284f84b9de95d51d data/minecraft/tags/blocks/logs.json
 3b72de069d9fa3f4fa95eb04bff2b689186f7cda data/minecraft/tags/blocks/logs_that_burn.json
-ef7fa0d4dd01146b21c551253d96ddd23cd3f567 data/minecraft/tags/blocks/mineable/pickaxe.json
+5a1eaf4f30c15405b67a1bc2c913168f2fc81210 data/minecraft/tags/blocks/mineable/pickaxe.json
 05de964a67487d42787487f4729bf1c07620efd3 data/minecraft/tags/blocks/mineable/shovel.json
 ed05b83182d633b43b3f1458306ee06869875921 data/minecraft/tags/blocks/needs_diamond_tool.json
 e35bc20adbcc8e1f37fb2c64f63b0e892da388fa data/minecraft/tags/blocks/needs_iron_tool.json
