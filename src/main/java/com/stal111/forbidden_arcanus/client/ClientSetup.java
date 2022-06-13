@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.ObsidianSkullOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
+import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
@@ -70,6 +71,7 @@ public class ClientSetup {
     public void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
+            MenuScreens.register(ModContainers.CLIBANO.get(), ClibanoScreen::new);
 
             Sheets.addWoodType(ModWoodTypes.FUNGYSS);
             Sheets.addWoodType(ModWoodTypes.CHERRYWOOD);

@@ -1,28 +1,33 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Enhancer Slot
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.1.0
  * @since 2021-06-30
  */
 public class EnhancerSlot extends Slot {
 
     private boolean unlocked = true;
-    private final HephaestusForgeLevel requiredLevel;
+    @Nullable
+    private final String additionalData;
 
-    public EnhancerSlot(Container inventory, int index, int xPosition, int yPosition, HephaestusForgeLevel requiredLevel) {
+    public EnhancerSlot(Container inventory, int index, int xPosition, int yPosition) {
+        this(inventory, index, xPosition, yPosition, null);
+    }
+
+    public EnhancerSlot(Container inventory, int index, int xPosition, int yPosition, @Nullable String additionalData) {
         super(inventory, index, xPosition, yPosition);
-        this.requiredLevel = requiredLevel;
+        this.additionalData = additionalData;
     }
 
     @Override
@@ -41,14 +46,15 @@ public class EnhancerSlot extends Slot {
     }
 
     public boolean isUnlocked() {
-        return unlocked;
+        return this.unlocked;
     }
 
     public void setUnlocked(boolean unlocked) {
         this.unlocked = unlocked;
     }
 
-    public HephaestusForgeLevel getRequiredLevel() {
-        return requiredLevel;
+    @Nullable
+    public String getAdditionalData() {
+        return this.additionalData;
     }
 }

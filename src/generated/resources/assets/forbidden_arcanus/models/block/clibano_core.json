@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "forbidden_arcanus:block/clibano_combustion/clibano_center_side",
+    "up": "forbidden_arcanus:block/clibano_combustion/clibano_center_top",
+    "north": "forbidden_arcanus:block/clibano_combustion/clibano_center_front_off",
+    "south": "forbidden_arcanus:block/clibano_combustion/clibano_center_side",
+    "east": "forbidden_arcanus:block/clibano_combustion/clibano_center_side",
+    "west": "forbidden_arcanus:block/clibano_combustion/clibano_center_side",
+    "particle": "forbidden_arcanus:block/clibano_combustion/clibano_center_side"
+  }
+}

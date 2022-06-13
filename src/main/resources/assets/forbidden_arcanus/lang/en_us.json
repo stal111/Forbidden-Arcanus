@@ -36,6 +36,11 @@
     "block.forbidden_arcanus.arcane_polished_darkstone_pillar": "Arcane Polished Darkstone Pillar",
     "block.forbidden_arcanus.arcane_polished_darkstone_rod": "Arcane Polished Darkstone Rod",
 
+    "block.forbidden_arcanus.darkstone_pedestal": "Darkstone Pedestal",
+    "block.forbidden_arcanus.arcane_darkstone_pedestal": "Arcane Darkstone Pedestal",
+    "block.forbidden_arcanus.clibano_core": "Clibano Core",
+    "block.forbidden_arcanus.clibano_multiblock": "Clibano Multiblock",
+
     "block.forbidden_arcanus.stella_arcanum": "Stella Arcanum",
     "block.forbidden_arcanus.xpetrified_ore": "Xpetrified Ore",
     "block.forbidden_arcanus.arcane_crystal_ore": "Arcane Crystal Ore",
@@ -149,8 +154,6 @@
     "block.forbidden_arcanus.black_hole": "Black Hole",
     "block.forbidden_arcanus.arcane_golden_chain": "Arcane Golden Chain",
 
-    "block.forbidden_arcanus.darkstone_pedestal": "Darkstone Pedestal",
-    "block.forbidden_arcanus.arcane_darkstone_pedestal": "Arcane Darkstone Pedestal",
     "block.forbidden_arcanus.obsidian_skull": "Obsidian Skull",
     "block.forbidden_arcanus.eternal_obsidian_skull": "Eternal Obsidian Skull",
     "block.forbidden_arcanus.utrem_jar": "Utrem Jar",
@@ -306,6 +309,7 @@
     "containers": "Containers",
     "container.dark_beacon": "Dark Beacon",
     "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
+    "container.forbidden_arcanus.clibano": "Clibano",
 
     "enchantments": "Enchantments",
     "enchantment.forbidden_arcanus.permafrost": "Permafrost",

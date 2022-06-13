@@ -22,7 +22,7 @@ mixin {
     add sourceSets.main, "forbidden_arcanus.refmap.json"
 }
 
-version = '1.18.2-2.1.0-beta1'
+version = '1.18.2-2.1.0-beta2'
 group = 'com.stal111.forbidden_arcanus' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'forbidden_arcanus'
 
@@ -139,8 +139,6 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"

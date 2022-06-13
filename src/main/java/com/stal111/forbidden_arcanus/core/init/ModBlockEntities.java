@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.*;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -16,7 +18,7 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModBlockEntities
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.18.2 - 2.1.0
  */
 public class ModBlockEntities {
 
@@ -29,6 +31,8 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<HephaestusForgeBlockEntity>> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> BlockEntityType.Builder.of(HephaestusForgeBlockEntity::new, ModBlocks.HEPHAESTUS_FORGE.get()).build(null));
     public static final RegistryObject<BlockEntityType<PedestalBlockEntity>> PEDESTAL = register("pedestal", () -> BlockEntityType.Builder.of(PedestalBlockEntity::new, ModBlocks.DARKSTONE_PEDESTAL.get(), ModBlocks.ARCANE_DARKSTONE_PEDESTAL.get()).build(null));
     public static final RegistryObject<BlockEntityType<ArcaneCrystalObeliskBlockEntity>> ARCANE_CRYSTAL_OBELISK = register("arcane_crystal_obelisk", () -> BlockEntityType.Builder.of(ArcaneCrystalObeliskBlockEntity::new, ModBlocks.ARCANE_CRYSTAL_OBELISK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ClibanoMainBlockEntity>> CLIBANO_MAIN = register("clibano_main", () -> BlockEntityType.Builder.of(ClibanoMainBlockEntity::new, ModBlocks.CLIBANO_MAIN_PART.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ClibanoBlockEntity>> CLIBANO = register("clibano", () -> BlockEntityType.Builder.of(ClibanoBlockEntity::new, ModBlocks.CLIBANO_CORNER.get(), ModBlocks.CLIBANO_CENTER.get(), ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(), ModBlocks.CLIBANO_SIDE_VERTICAL.get()).build(null));
 
     private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, Supplier<BlockEntityType<T>> tileEntityType) {
         return TILE_ENTITIES.register(name, tileEntityType);

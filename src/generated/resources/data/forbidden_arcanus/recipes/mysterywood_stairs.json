@@ -1,6 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "#  ",
+    "## ",
     "###"
   ],
   "key": {
@@ -10,6 +12,6 @@
   },
   "result": {
     "item": "forbidden_arcanus:mysterywood_stairs",
-    "count": 6
+    "count": 4
   }
 }

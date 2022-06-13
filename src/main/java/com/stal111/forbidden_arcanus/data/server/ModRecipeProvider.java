@@ -15,7 +15,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -95,10 +94,10 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addSlabRecipe(ModBlocks.MYSTERYWOOD_SLAB.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
         this.addSlabRecipe(ModBlocks.EDELWOOD_SLAB.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
-        this.addSlabRecipe(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addSlabRecipe(ModBlocks.CHERRYWOOD_STAIRS.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addSlabRecipe(ModBlocks.MYSTERYWOOD_STAIRS.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
-        this.addSlabRecipe(ModBlocks.EDELWOOD_STAIRS.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
+        this.addStairsRecipe(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
+        this.addStairsRecipe(ModBlocks.CHERRYWOOD_STAIRS.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
+        this.addStairsRecipe(ModBlocks.MYSTERYWOOD_STAIRS.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addStairsRecipe(ModBlocks.EDELWOOD_STAIRS.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         this.addDoorRecipe(ModBlocks.ARCANE_GOLD_DOOR.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
         this.addDoorRecipe(ModBlocks.FUNGYSS_DOOR.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);

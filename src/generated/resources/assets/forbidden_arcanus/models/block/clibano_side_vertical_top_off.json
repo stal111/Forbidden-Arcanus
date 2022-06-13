@@ -1,0 +1,7 @@
+{
+  "parent": "forbidden_arcanus:block/clibano_side_vertical_top",
+  "textures": {
+    "side": "forbidden_arcanus:block/clibano_combustion/clibano_side_off",
+    "top": "forbidden_arcanus:block/clibano_combustion/clibano_side_off"
+  }
+}
