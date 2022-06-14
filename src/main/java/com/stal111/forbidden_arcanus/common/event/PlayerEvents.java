@@ -179,7 +179,7 @@ public class PlayerEvents {
             return false;
         }
 
-        ResourceLocation resourceLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + Objects.requireNonNull(entity.getType().getRegistryName()).getPath() + "_bucket");
+        ResourceLocation resourceLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + Objects.requireNonNull(ForgeRegistries.ENTITIES.getKey(entity.getType())).getPath() + "_bucket");
         if (ForgeRegistries.ITEMS.containsKey(resourceLocation)) {
             ItemStack entityBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(resourceLocation)));
 

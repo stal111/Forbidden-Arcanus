@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#X#",
-    "#X#"
-  ],
   "key": {
     "#": {
       "item": "forbidden_arcanus:edelwood_planks"
@@ -12,8 +8,12 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "#X#",
+    "#X#"
+  ],
   "result": {
-    "item": "forbidden_arcanus:edelwood_fence",
-    "count": 3
+    "count": 3,
+    "item": "forbidden_arcanus:edelwood_fence"
   }
 }

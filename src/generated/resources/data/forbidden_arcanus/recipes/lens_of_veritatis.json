@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:spawner_scrap"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": {
+      "item": "forbidden_arcanus:arcane_crystal"
+    }
+  },
   "pattern": [
     " # ",
     "#X#",
     "S# "
   ],
-  "key": {
-    "#": {
-      "item": "forbidden_arcanus:spawner_scrap"
-    },
-    "X": {
-      "item": "forbidden_arcanus:arcane_crystal"
-    },
-    "S": {
-      "tag": "forge:rods/wooden"
-    }
-  },
   "result": {
     "item": "forbidden_arcanus:lens_of_veritatis"
   }

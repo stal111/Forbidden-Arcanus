@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -24,7 +23,7 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2021-07-08
  */
 public class BloodTestTubeItem extends Item {
@@ -109,6 +108,6 @@ public class BloodTestTubeItem extends Item {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, worldIn, tooltip, flag);
-        tooltip.add(new TranslatableComponent(ForbiddenArcanus.MOD_ID + ".blood").append(": " + getBlood(stack) + "/" + MAX_BLOOD).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable(ForbiddenArcanus.MOD_ID + ".blood").append(": " + getBlood(stack) + "/" + MAX_BLOOD).withStyle(ChatFormatting.GRAY));
     }
 }

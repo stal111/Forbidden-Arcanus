@@ -21,7 +21,7 @@ import java.util.Optional;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ClibanoPart
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-05-24
  */
 public interface ClibanoPart extends EntityBlock {
@@ -59,7 +59,7 @@ public interface ClibanoPart extends EntityBlock {
 
     default Optional<BlockPos> findMainPos(@Nonnull Level level, @Nonnull BlockPos pos) {
         if (level instanceof ServerLevel serverLevel) {
-            return serverLevel.getPoiManager().find(poiType -> poiType == ModPOITypes.CLIBANO_MAIN_PART.get(), blockPos -> !level.getBlockState(blockPos).isAir(), pos, 2, PoiManager.Occupancy.ANY);
+            return serverLevel.getPoiManager().find(poiType -> poiType.get() == ModPOITypes.CLIBANO_MAIN_PART.get(), blockPos -> !level.getBlockState(blockPos).isAir(), pos, 2, PoiManager.Occupancy.ANY);
         }
         return Optional.empty();
     }

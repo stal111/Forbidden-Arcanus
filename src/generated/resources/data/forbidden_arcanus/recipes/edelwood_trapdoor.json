@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "###"
-  ],
   "key": {
     "#": {
       "item": "forbidden_arcanus:edelwood_planks"
     }
   },
+  "pattern": [
+    "###",
+    "###"
+  ],
   "result": {
-    "item": "forbidden_arcanus:edelwood_trapdoor",
-    "count": 2
+    "count": 2,
+    "item": "forbidden_arcanus:edelwood_trapdoor"
   }
 }

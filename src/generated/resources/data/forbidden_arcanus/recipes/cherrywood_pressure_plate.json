@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##"
-  ],
   "key": {
     "#": {
       "item": "forbidden_arcanus:cherrywood_planks"
     }
   },
+  "pattern": [
+    "##"
+  ],
   "result": {
     "item": "forbidden_arcanus:cherrywood_pressure_plate"
   }

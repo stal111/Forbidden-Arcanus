@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -17,14 +18,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Strange Root Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.StrangeRootBlock
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-12-11
  */
 public class StrangeRootBlock extends CropBlock {
@@ -63,7 +63,7 @@ public class StrangeRootBlock extends CropBlock {
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         if (!level.isAreaLoaded(pos, 1) || level.getRawBrightness(pos, 0) >= 5) {
             return;
         }

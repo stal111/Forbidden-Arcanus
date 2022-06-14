@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.SanityMeterItem
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.19 - 2.1.0
  * @since 2021-01-26
  */
 public class SanityMeterItem extends Item {
@@ -35,7 +35,7 @@ public class SanityMeterItem extends Item {
         if (level.isClientSide()) {
             IAureal aureal = AurealHelper.getCapability(player);
 
-            player.displayClientMessage(new TranslatableComponent("forbidden_arcanus.aureal").append(": " + aureal.getAureal() + "/200 - ").append(new TranslatableComponent("forbidden_arcanus.corruption").append(": " + aureal.getCorruption() + "/100")), true);
+            player.displayClientMessage(Component.translatable("forbidden_arcanus.aureal").append(": " + aureal.getAureal() + "/200 - ").append(Component.translatable("forbidden_arcanus.corruption").append(": " + aureal.getCorruption() + "/100")), true);
         }
 
         return new InteractionResultHolder<>(InteractionResult.sidedSuccess(level.isClientSide()), stack);

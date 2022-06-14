@@ -12,7 +12,7 @@
     }
   ],
   "result": {
-    "item": "forbidden_arcanus:dark_rune",
-    "count": 2
+    "count": 2,
+    "item": "forbidden_arcanus:dark_rune"
   }
 }

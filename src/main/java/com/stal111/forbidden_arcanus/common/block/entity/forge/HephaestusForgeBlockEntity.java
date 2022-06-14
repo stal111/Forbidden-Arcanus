@@ -14,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
@@ -40,7 +39,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-06-18
  */
 public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
@@ -260,7 +259,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
     @Nonnull
     @Override
     protected Component getDefaultName() {
-        return new TranslatableComponent("container.forbidden_arcanus.hephaestus_forge");
+        return Component.translatable("container.forbidden_arcanus.hephaestus_forge");
     }
 
     @Nonnull

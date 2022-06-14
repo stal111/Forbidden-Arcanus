@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": {
+      "item": "forbidden_arcanus:cherrywood_planks"
+    }
+  },
   "pattern": [
     "#X#",
     "#X#"
   ],
-  "key": {
-    "X": {
-      "item": "forbidden_arcanus:cherrywood_planks"
-    },
-    "#": {
-      "tag": "forge:rods/wooden"
-    }
-  },
   "result": {
     "item": "forbidden_arcanus:cherrywood_fence_gate"
   }

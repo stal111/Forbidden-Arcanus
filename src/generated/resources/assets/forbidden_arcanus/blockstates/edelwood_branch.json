@@ -1,6 +1,16 @@
 {
   "variants": {
+    "facing=east,waterlogged=false": {
+      "model": "forbidden_arcanus:block/edelwood_branch"
+    },
+    "facing=east,waterlogged=true": {
+      "model": "forbidden_arcanus:block/edelwood_branch"
+    },
     "facing=north,waterlogged=false": {
+      "model": "forbidden_arcanus:block/edelwood_branch",
+      "y": 270
+    },
+    "facing=north,waterlogged=true": {
       "model": "forbidden_arcanus:block/edelwood_branch",
       "y": 270
     },
@@ -8,27 +18,17 @@
       "model": "forbidden_arcanus:block/edelwood_branch",
       "y": 90
     },
-    "facing=west,waterlogged=false": {
-      "model": "forbidden_arcanus:block/edelwood_branch",
-      "y": 180
-    },
-    "facing=east,waterlogged=false": {
-      "model": "forbidden_arcanus:block/edelwood_branch"
-    },
-    "facing=north,waterlogged=true": {
-      "model": "forbidden_arcanus:block/edelwood_branch",
-      "y": 270
-    },
     "facing=south,waterlogged=true": {
       "model": "forbidden_arcanus:block/edelwood_branch",
       "y": 90
     },
-    "facing=west,waterlogged=true": {
+    "facing=west,waterlogged=false": {
       "model": "forbidden_arcanus:block/edelwood_branch",
       "y": 180
     },
-    "facing=east,waterlogged=true": {
-      "model": "forbidden_arcanus:block/edelwood_branch"
+    "facing=west,waterlogged=true": {
+      "model": "forbidden_arcanus:block/edelwood_branch",
+      "y": 180
     }
   }
 }

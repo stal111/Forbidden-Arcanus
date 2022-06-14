@@ -6,24 +6,20 @@ import com.stal111.forbidden_arcanus.core.init.world.ModTreeDecorators;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
-import java.util.function.BiConsumer;
 
 /**
  * Cherry Vines Decorator <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.treedecorators.CherryVinesDecorator
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-04-23
  */
 public class CherryVinesDecorator extends TreeDecorator {
@@ -43,17 +39,20 @@ public class CherryVinesDecorator extends TreeDecorator {
     }
 
     @Override
-    public void place(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, @Nonnull List<BlockPos> logPositions, @Nonnull List<BlockPos> leafPositions) {
-        leafPositions.stream()
+    public void place(@Nonnull Context context) {
+        RandomSource random = context.random();
+        LevelSimulatedReader level = context.level();
+
+        context.leaves().stream()
                 .map(BlockPos::below)
-                .filter(pos -> Feature.isAir(level, pos) && random.nextDouble() < VINES_CHANCE)
+                .filter(pos -> context.isAir(pos) && random.nextDouble() < VINES_CHANCE)
                 .forEach(pos -> {
                     for (Direction direction : Direction.Plane.HORIZONTAL) {
                         if (level.isStateAtPosition(pos.relative(direction), state -> state.is(ModBlocks.CHERRY_FLOWER_VINES.get()))) {
                             return;
                         }
                     }
-                    blockSetter.accept(pos, ModBlocks.CHERRY_FLOWER_VINES.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(random, 21, 25)));
+                    context.setBlock(pos, ModBlocks.CHERRY_FLOWER_VINES.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(random, 21, 25)));
                 });
     }
 }

@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "entries": [
     "forbidden_arcanus:bat_additions",
     "forbidden_arcanus:simple_dungeon_additions",
@@ -14,5 +13,6 @@
     "forbidden_arcanus:abandoned_mineshaft_additions",
     "forbidden_arcanus:blacksmith_gavel_ore_doubling",
     "forbidden_arcanus:ender_dragon_additions"
-  ]
+  ],
+  "replace": false
 }

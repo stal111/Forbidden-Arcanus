@@ -1,14 +1,14 @@
 {
+  "type": "valhelsia_core:append_loot",
   "add_loot": "forbidden_arcanus:entities/additions/squid_additions",
   "conditions": [
     {
-      "condition": "minecraft:random_chance",
-      "chance": 0.7
+      "chance": 0.7,
+      "condition": "minecraft:random_chance"
     },
     {
       "condition": "forge:loot_table_id",
       "loot_table_id": "minecraft:entities/squid"
     }
-  ],
-  "type": "valhelsia_core:append_loot"
+  ]
 }

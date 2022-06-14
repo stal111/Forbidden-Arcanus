@@ -8,6 +8,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
@@ -27,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.core.mixin.CustomHeadLayerMixin
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-02-11
  */
 @Mixin(CustomHeadLayer.class)
@@ -36,8 +37,8 @@ public class CustomHeadLayerMixin<T extends LivingEntity, M extends EntityModel<
     private EntityModelSet modelSet;
     private Pair<SkullModel, SkullModel> models;
 
-    @Inject(at = @At(value = "TAIL"), method = "<init>(Lnet/minecraft/client/renderer/entity/RenderLayerParent;Lnet/minecraft/client/model/geom/EntityModelSet;FFF)V")
-    private void forbiddenArcanus_init(RenderLayerParent<T, M> renderLayerParent, EntityModelSet modelSet, float scaleX, float scaleY, float scaleZ, CallbackInfo ci) {
+    @Inject(at = @At(value = "TAIL"), method = "<init>(Lnet/minecraft/client/renderer/entity/RenderLayerParent;Lnet/minecraft/client/model/geom/EntityModelSet;FFFLnet/minecraft/client/renderer/ItemInHandRenderer;)V")
+    private void forbiddenArcanus_init(RenderLayerParent<T, M> renderLayerParent, EntityModelSet modelSet, float scaleX, float scaleY, float scaleZ, ItemInHandRenderer renderer, CallbackInfo ci) {
         this.modelSet = modelSet;
     }
 

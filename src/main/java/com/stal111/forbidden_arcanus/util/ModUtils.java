@@ -6,7 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.AxeItem;
@@ -43,7 +43,7 @@ public class ModUtils {
             return scoreboard.getPlayerTeam(name);
         } else {
             PlayerTeam team = scoreboard.addPlayerTeam(name);
-            team.setDisplayName(new TextComponent(name));
+            team.setDisplayName(Component.literal(name));
             team.setColor(color);
             return team;
         }

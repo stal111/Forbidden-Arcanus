@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.UpgradeRecipe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Apply Modifier Recipe Maker <br>
@@ -40,7 +39,7 @@ public class ApplyModifierRecipeMaker {
                 .map(upgradeRecipe -> (ApplyModifierRecipe) upgradeRecipe)
                 .forEach(applyModifierRecipe -> {
                     ItemModifier modifier = applyModifierRecipe.getModifier();
-                    ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_" + Objects.requireNonNull(modifier.getRegistryName()).getPath() + "_modifier");
+                    ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_" + modifier.getRegistryName().getPath() + "_modifier");
 
                     modifier.getValidItems().forEach(stack -> {
                         ModifierHelper.setModifier(stack, modifier);

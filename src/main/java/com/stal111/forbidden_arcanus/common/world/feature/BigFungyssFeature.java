@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -15,14 +16,13 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Big Fungyss Feature <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.BigFungyssFeature
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-04-13
  */
 public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
@@ -31,7 +31,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         super(codec);
     }
 
-    private int getRandomHeight(Random random, int variant) {
+    private int getRandomHeight(RandomSource random, int variant) {
         if (variant == 0) {
             return random.nextInt(3) + 4;
         } else {
@@ -62,22 +62,22 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
     public boolean place(@Nonnull FeaturePlaceContext<BigFungyssFeatureConfig> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
-        Random rand = context.random();
+        RandomSource random = context.random();
 
-        int height = this.getRandomHeight(rand, context.config().variant);
+        int height = this.getRandomHeight(random, context.config().variant);
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
         if (!this.canGenerate(level, context.chunkGenerator(), pos, height, mutable)) {
             return false;
         }
 
-        this.placeCap(level, rand, pos, height, mutable, context.config());
-        this.placeStem(level, rand, pos, height, mutable, context.config());
+        this.placeCap(level, random, pos, height, mutable, context.config());
+        this.placeStem(level, random, pos, height, mutable, context.config());
 
         return true;
     }
 
-    private void placeStem(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeStem(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = 0; i < height; i++) {
             mutable.set(pos).move(Direction.UP, i);
 
@@ -87,7 +87,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private void placeCap(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeCap(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         if (config.variant == 0) {
             int distanceToStem = 1;
             for (int i = height - 2; i <= height; i++) {

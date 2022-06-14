@@ -5,20 +5,20 @@
       "x": 90,
       "y": 90
     },
-    "axis=y,oily=false": {
-      "model": "forbidden_arcanus:block/edelwood_log"
-    },
-    "axis=z,oily=false": {
-      "model": "forbidden_arcanus:block/edelwood_log",
-      "x": 90
-    },
     "axis=x,oily=true": {
       "model": "forbidden_arcanus:block/edelwood_log_oily",
       "x": 90,
       "y": 90
     },
+    "axis=y,oily=false": {
+      "model": "forbidden_arcanus:block/edelwood_log"
+    },
     "axis=y,oily=true": {
       "model": "forbidden_arcanus:block/edelwood_log_oily"
+    },
+    "axis=z,oily=false": {
+      "model": "forbidden_arcanus:block/edelwood_log",
+      "x": 90
     },
     "axis=z,oily=true": {
       "model": "forbidden_arcanus:block/edelwood_log_oily",

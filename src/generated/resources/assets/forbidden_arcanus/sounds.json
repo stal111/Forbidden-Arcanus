@@ -1,0 +1,12 @@
+{
+  "entity.energy_ball.hit": {
+    "sounds": [
+      "forbidden_arcanus:energy_ball_hit"
+    ]
+  },
+  "entity.energy_ball.launch": {
+    "sounds": [
+      "forbidden_arcanus:energy_ball_launch"
+    ]
+  }
+}

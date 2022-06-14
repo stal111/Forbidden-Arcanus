@@ -1,8 +1,12 @@
 {
   "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -38,28 +42,11 @@
             }
           ]
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:apply_bonus",
-              "enchantment": "minecraft:fortune",
-              "formula": "minecraft:binomial_with_bonus_count",
-              "parameters": {
-                "extra": 3,
-                "probability": 0.5714286
-              }
-            }
-          ],
-          "name": "forbidden_arcanus:arcane_gold_nugget"
-        }
-      ],
       "conditions": [
         {
           "condition": "minecraft:inverted",
@@ -78,18 +65,31 @@
           }
         },
         {
-          "condition": "minecraft:block_state_property",
           "block": "forbidden_arcanus:golden_orchid",
+          "condition": "minecraft:block_state_property",
           "properties": {
             "age": "6"
           }
         }
-      ]
-    }
-  ],
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:binomial_with_bonus_count",
+              "function": "minecraft:apply_bonus",
+              "parameters": {
+                "extra": 3,
+                "probability": 0.5714286
+              }
+            }
+          ],
+          "name": "forbidden_arcanus:arcane_gold_nugget"
+        }
+      ],
+      "rolls": 1.0
     }
   ]
 }

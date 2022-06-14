@@ -8,8 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -37,7 +35,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class QuantumCatcherItem extends Item {
 
@@ -114,17 +112,21 @@ public class QuantumCatcherItem extends Item {
         if (level != null && getEntity(stack, level) != null)  {
             Entity entity = this.getEntity(stack, level);
 
-            if (entity != null) {
-                MutableComponent textComponent = new TranslatableComponent("tooltip.forbidden_arcanus.entity").append(": ").append(new TextComponent(Objects.requireNonNull(entity.getType().getRegistryName()).toString()));
-
-                if (this.getEntityName(stack) != null)  {
-                    textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
-                }
-
-                textComponent.withStyle(ChatFormatting.GRAY);
-
-                tooltip.add(textComponent);
+            if (entity == null) {
+                return;
             }
+
+            MutableComponent textComponent = Component.translatable("tooltip.forbidden_arcanus.entity")
+                    .append(": ")
+                    .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITIES.getKey(entity.getType())).toString()));
+
+            if (this.getEntityName(stack) != null)  {
+                textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
+            }
+
+            textComponent.withStyle(ChatFormatting.GRAY);
+
+            tooltip.add(textComponent);
         }
     }
 
@@ -133,10 +135,13 @@ public class QuantumCatcherItem extends Item {
         entity.ejectPassengers();
 
         CompoundTag entityTag = new CompoundTag();
+        ResourceLocation name = ForgeRegistries.ENTITIES.getKey(entity.getType());
 
-        if (entity.getType().getRegistryName() == null) return;
+        if (name == null) {
+            return;
+        }
 
-        entityTag.putString("entity", entity.getType().getRegistryName().toString());
+        entityTag.putString("entity", name.toString());
         if (entity.hasCustomName()) {
             entityTag.putString("name", Objects.requireNonNull(entity.getCustomName()).getString());
         }
@@ -149,12 +154,16 @@ public class QuantumCatcherItem extends Item {
     private Entity getEntity(ItemStack stack, Level level) {
         CompoundTag itemTag = stack.getTag();
 
-        if (itemTag == null) return null;
+        if (itemTag == null) {
+            return null;
+        }
 
         CompoundTag entityTag = itemTag.getCompound("entity");
         EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityTag.getString("entity")));
 
-        if (entityType == null) return null;
+        if (entityType == null) {
+            return null;
+        }
 
         Entity entity = entityType.create(level);
 
@@ -168,13 +177,15 @@ public class QuantumCatcherItem extends Item {
     private Component getEntityName(ItemStack stack) {
         CompoundTag itemTag = stack.getTag();
 
-        if (itemTag == null) return null;
+        if (itemTag == null) {
+            return null;
+        }
 
         if (itemTag.contains("entity")) {
             CompoundTag entityTag = itemTag.getCompound("entity");
 
             if (entityTag.contains("name")) {
-                return new TextComponent(entityTag.getString("name"));
+                return Component.literal(entityTag.getString("name"));
             }
         }
         return null;

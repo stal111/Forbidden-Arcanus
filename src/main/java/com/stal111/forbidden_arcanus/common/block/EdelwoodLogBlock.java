@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -44,14 +45,13 @@ import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import java.util.EnumMap;
-import java.util.Random;
 
 /**
  * Edelwood Log Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.EdelwoodLogBlock
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-27
  */
 public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
@@ -97,7 +97,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         if (random.nextDouble() < OILY_CHANCE && level.isAreaLoaded(pos, 4)) {
             level.setBlock(pos, state.setValue(OILY, true), 2);
         }

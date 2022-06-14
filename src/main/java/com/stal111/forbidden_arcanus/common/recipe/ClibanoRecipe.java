@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +26,7 @@ import java.util.Map;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-05-28
  */
 public class ClibanoRecipe extends AbstractCookingRecipe {
@@ -65,7 +64,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         return ModRecipes.CLIBANO_SERIALIZER.get();
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ClibanoRecipe> {
+    public static class Serializer implements RecipeSerializer<ClibanoRecipe> {
 
         @Nonnull
         @Override

@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
+  "cookingtime": 75,
+  "experience": 0.4,
   "ingredient": {
     "item": "forbidden_arcanus:arcane_crystal"
   },
-  "result": "forbidden_arcanus:arcane_crystal_dust",
-  "experience": 0.4,
-  "cookingtime": 75
+  "result": "forbidden_arcanus:arcane_crystal_dust"
 }

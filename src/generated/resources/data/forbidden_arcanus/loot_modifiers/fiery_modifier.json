@@ -1,4 +1,5 @@
 {
+  "type": "forbidden_arcanus:fiery",
   "conditions": [
     {
       "condition": "minecraft:match_tool",
@@ -7,6 +8,5 @@
         "modifier": "forbidden_arcanus:fiery"
       }
     }
-  ],
-  "type": "forbidden_arcanus:fiery"
+  ]
 }

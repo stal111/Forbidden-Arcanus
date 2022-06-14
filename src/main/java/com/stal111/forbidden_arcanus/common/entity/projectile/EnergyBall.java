@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class EnergyBall extends Projectile {
 
@@ -115,7 +115,7 @@ public class EnergyBall extends Projectile {
 
             this.level.addFreshEntity(lightningBolt);
         } else if (result.getType() == HitResult.Type.BLOCK) {
-            this.level.playSound(null, new BlockPos(result.getLocation()), ModSounds.dark_bolt_hit, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            this.level.playSound(null, new BlockPos(result.getLocation()), ModSounds.ENERGY_BALL_HIT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
 
         this.discard();
@@ -185,7 +185,7 @@ public class EnergyBall extends Projectile {
     }
 
     @Override
-    public float getBrightness() {
+    public float getLightLevelDependentMagicValue() {
         return 1.0F;
     }
 }

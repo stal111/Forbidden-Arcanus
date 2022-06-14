@@ -5,12 +5,12 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBl
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
+import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
-import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +28,6 @@ import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -101,7 +101,7 @@ public class RitualManager implements NeedsStoring {
             return;
         }
 
-        Random random = level.getRandom();
+        RandomSource random = level.getRandom();
 
         int time = this.getActiveRitual().getTime();
 
@@ -260,7 +260,7 @@ public class RitualManager implements NeedsStoring {
         PoiManager manager = level.getPoiManager();
 
         this.cachedPedestals.clear();
-        manager.getInRange(poiType -> poiType == ModPOITypes.PEDESTAL.get(), this.blockEntity.getBlockPos(), 4, PoiManager.Occupancy.ANY).forEach(pointOfInterest -> this.cachedPedestals.add(pointOfInterest.getPos()));
+        manager.getInRange(poiType -> poiType.get() == ModPOITypes.PEDESTAL.get(), this.blockEntity.getBlockPos(), 4, PoiManager.Occupancy.ANY).forEach(pointOfInterest -> this.cachedPedestals.add(pointOfInterest.getPos()));
     }
 
     public void forEachPedestal(ServerLevel level, Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {

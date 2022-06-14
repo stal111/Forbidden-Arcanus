@@ -18,6 +18,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.common.util.ValhelsiaNBTIngredient;
 
 import javax.annotation.Nonnull;
@@ -262,6 +263,6 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private String getName(ItemLike item) {
-        return Objects.requireNonNull(item.asItem().getRegistryName()).getPath();
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.asItem())).getPath();
     }
 }

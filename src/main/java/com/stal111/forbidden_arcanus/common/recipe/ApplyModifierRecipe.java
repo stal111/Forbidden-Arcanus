@@ -24,7 +24,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-29
  */
 public class ApplyModifierRecipe extends UpgradeRecipe {
@@ -81,7 +81,7 @@ public class ApplyModifierRecipe extends UpgradeRecipe {
         return true;
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ApplyModifierRecipe> {
+    public static class Serializer implements RecipeSerializer<ApplyModifierRecipe> {
         @Nonnull
         @Override
         public ApplyModifierRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
@@ -106,7 +106,7 @@ public class ApplyModifierRecipe extends UpgradeRecipe {
         @Override
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, ApplyModifierRecipe recipe) {
             recipe.addition.toNetwork(buffer);
-            buffer.writeResourceLocation(Objects.requireNonNull(recipe.modifier.getRegistryName()));
+            buffer.writeResourceLocation(Objects.requireNonNull(ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getKey(recipe.modifier)));
         }
     }
 }

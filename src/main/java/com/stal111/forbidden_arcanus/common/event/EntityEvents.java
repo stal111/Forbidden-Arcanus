@@ -49,7 +49,7 @@ public class EntityEvents {
         MobCategory category = entity.getType().getCategory();
 
         if (category == MobCategory.AMBIENT || category == MobCategory.CREATURE) {
-            if (entity.getCommandSenderWorld().getRandom().nextDouble() <= AurealConfig.AUREAL_ENTITY_SPAWN_CHANCE.get()) {
+            if (entity.getRandom().nextDouble() <= AurealConfig.AUREAL_ENTITY_SPAWN_CHANCE.get()) {
                 entity.getPersistentData().putBoolean("aureal", true);
             }
         }

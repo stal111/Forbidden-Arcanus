@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.world.feature;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -10,14 +11,13 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Root Feature <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.RootFeature
  *
  * @author stal111
- * @version 1.18.1 - 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class RootFeature extends Feature<BlockStateConfiguration> {
 
@@ -32,7 +32,7 @@ public class RootFeature extends Feature<BlockStateConfiguration> {
         WorldGenLevel level = context.level();
         BlockState state = context.config().state;
         BlockPos.MutableBlockPos pos = context.origin().mutable();
-        Random rand = context.random();
+        RandomSource rand = context.random();
 
         level.setBlock(pos, state, 2);
 
@@ -49,7 +49,7 @@ public class RootFeature extends Feature<BlockStateConfiguration> {
         return true;
     }
 
-    private BlockPos.MutableBlockPos tryChangeDirection(WorldGenLevel level, BlockPos.MutableBlockPos pos, Random random, double chance) {
+    private BlockPos.MutableBlockPos tryChangeDirection(WorldGenLevel level, BlockPos.MutableBlockPos pos, RandomSource random, double chance) {
         if (random.nextFloat() >= chance) {
             return pos;
         }
@@ -59,7 +59,7 @@ public class RootFeature extends Feature<BlockStateConfiguration> {
         return !level.getBlockState(relativePos).isSolidRender(level, relativePos) ? relativePos : pos;
     }
 
-    private Direction getRandomDirection(Random random) {
+    private Direction getRandomDirection(RandomSource random) {
         return Direction.from2DDataValue(random.nextInt(4));
     }
 }

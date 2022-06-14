@@ -5,7 +5,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,7 +27,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.UtremJarItem
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-02-24
  */
 public class UtremJarItem extends BlockItem {
@@ -48,7 +47,7 @@ public class UtremJarItem extends BlockItem {
         ItemStack stack = new ItemStack(this);
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("FluidName", Objects.requireNonNull(fluid.getRegistryName()).toString());
+        tag.putString("FluidName", Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluid)).toString());
         tag.putInt("Amount", 1000);
 
         stack.getOrCreateTagElement("BlockEntityTag").put("Fluid", tag);
@@ -75,7 +74,7 @@ public class UtremJarItem extends BlockItem {
         Fluid fluid = this.getFluid(stack);
 
         if (fluid != Fluids.EMPTY) {
-            tooltip.add(new TranslatableComponent(fluid.getAttributes().getTranslationKey()).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(fluid.getAttributes().getTranslationKey()).withStyle(ChatFormatting.GRAY));
         }
     }
 }

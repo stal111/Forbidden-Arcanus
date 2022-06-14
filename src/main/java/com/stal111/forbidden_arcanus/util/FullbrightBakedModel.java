@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
@@ -40,7 +41,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
 
     @Nonnull
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource rand, @Nonnull IModelData data) {
         BakedModel base = this.getBase();
 
         if (state == null) {
@@ -85,7 +86,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         CACHE.invalidateAll();
     }
 
-    private record CacheKey(BakedModel base, Set<ResourceLocation> textures, Random random, BlockState state, Direction side) {
+    private record CacheKey(BakedModel base, Set<ResourceLocation> textures, RandomSource random, BlockState state, Direction side) {
 
         @Override
         public boolean equals(Object o) {

@@ -12,7 +12,7 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-24
  */
 public class ModifierHelper {
@@ -31,7 +31,7 @@ public class ModifierHelper {
     }
 
     public static void setModifier(ItemStack stack, ItemModifier modifier) {
-        stack.getOrCreateTag().putString("Modifier", Objects.requireNonNull(modifier.getRegistryName()).toString());
+        stack.getOrCreateTag().putString("Modifier", modifier.getRegistryName().toString());
 
         modifier.onApplied(stack);
     }

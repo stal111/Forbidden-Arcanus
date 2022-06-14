@@ -11,20 +11,21 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
-import net.valhelsia.valhelsia_core.core.registry.ItemRegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.core.registry.RegistryHelper;
 
 /**
  * Mod Items <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModItems
  *
  * @author Valhelsia Team
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-01-26
  */
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModItems {
+public class ModItems implements RegistryClass {
 
-    public static final ItemRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getItemHelper();
+    public static final RegistryHelper<Item> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getItemHelper();
 
     public static final RegistryObject<Item> ARCANE_CRYSTAL = HELPER.register("arcane_crystal", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> ARCANE_CRYSTAL_DUST = HELPER.register("arcane_crystal_dust", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));

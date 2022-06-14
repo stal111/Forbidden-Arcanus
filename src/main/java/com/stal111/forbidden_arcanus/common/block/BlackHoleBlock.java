@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -19,14 +20,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 /**
  * Black Hole Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.BlackHoleBlock
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class BlackHoleBlock extends Block implements EntityBlock {
 
@@ -64,15 +64,15 @@ public class BlackHoleBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         for (int i = 0; i < 3; i++) {
-            int j = rand.nextInt(2) * 2 - 1;
-            int k = rand.nextInt(2) * 2 - 1;
+            int j = random.nextInt(2) * 2 - 1;
+            int k = random.nextInt(2) * 2 - 1;
             double x = pos.getX() + 0.5D + 0.25D * j;
             double y = pos.getY() + 0.5D;
             double z = pos.getZ() + 0.5D + 0.25D * k;
 
-            level.addParticle(ParticleTypes.PORTAL, x, y, z, rand.nextFloat() * j, (rand.nextFloat() - 0.5D) * 0.125D, rand.nextFloat() * k);
+            level.addParticle(ParticleTypes.PORTAL, x, y, z, random.nextFloat() * j, (random.nextFloat() - 0.5D) * 0.125D, random.nextFloat() * k);
         }
     }
 }

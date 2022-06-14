@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -15,14 +16,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Growing Edelwood Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.GrowingEdelwoodBlock
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-12-23
  */
 public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock {
@@ -43,7 +43,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         if (level.getMaxLocalRawBrightness(pos.above()) >= REQUIRED_BRIGHTNESS && random.nextInt(7) == 0) {
             if (!level.isAreaLoaded(pos, 1)) {
                 return;
@@ -52,7 +52,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
         }
     }
 
-    public void growEdelwood(ServerLevel level, BlockPos pos, BlockState state, Random random) {
+    public void growEdelwood(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         if (!ForgeEventFactory.saplingGrowTree(level, random, pos)) {
             return;
         }
@@ -70,12 +70,12 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isBonemealSuccess(Level level, @Nonnull RandomSource random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return level.random.nextFloat() < BONEMEAL_CHANCE;
     }
 
     @Override
-    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull RandomSource random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         this.growEdelwood(level, pos, state, random);
     }
 }

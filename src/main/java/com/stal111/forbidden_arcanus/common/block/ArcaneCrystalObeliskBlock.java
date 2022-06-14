@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -41,14 +42,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Arcane Crystal Obelisk Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock
  *
  * @author stal111
- * @version 1.18.1 - 2.0.1
+ * @version 1.19 - 2.1.0
  */
 public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
@@ -170,7 +170,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         LocalPlayer player = Minecraft.getInstance().player;
 
         if (player != null && state.getValue(PART) != ObeliskPart.LOWER) {
@@ -178,12 +178,12 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
                 return;
             }
 
-            double j = 0.6D * rand.nextFloat();
-            double k = 0.6D * rand.nextFloat();
-            double posX = pos.getX() + 0.5D + (rand.nextBoolean() ? j : -j);
-            double posY = (float) pos.getY() + 0.1D + rand.nextFloat() / 2;
-            double posZ = pos.getZ() + 0.5D + (rand.nextBoolean() ? k : -k);
-            double ySpeed = ((double) rand.nextFloat() - 0.4D) * 0.1D;
+            double j = 0.6D * random.nextFloat();
+            double k = 0.6D * random.nextFloat();
+            double posX = pos.getX() + 0.5D + (random.nextBoolean() ? j : -j);
+            double posY = (float) pos.getY() + 0.1D + random.nextFloat() / 2;
+            double posZ = pos.getZ() + 0.5D + (random.nextBoolean() ? k : -k);
+            double ySpeed = ((double) random.nextFloat() - 0.4D) * 0.1D;
 
             level.addParticle(ModParticles.AUREAL_MOTE.get(), posX, posY, posZ, 0, ySpeed, 0);
         }

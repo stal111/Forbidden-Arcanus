@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
@@ -28,7 +27,7 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.OrbOfTemporaryFlightItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class OrbOfTemporaryFlightItem extends Item {
 
@@ -58,6 +57,6 @@ public class OrbOfTemporaryFlightItem extends Item {
 	@Override
 	public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
 		super.appendHoverText(stack, level, tooltip, flag);
-		tooltip.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".duration").withStyle(ChatFormatting.GRAY).append(": " + StringUtil.formatTickDuration(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
+		tooltip.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".duration").withStyle(ChatFormatting.GRAY).append(": " + StringUtil.formatTickDuration(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get())));
 	}
 }

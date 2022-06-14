@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaItemModelProvider;
 
 import java.util.Arrays;
@@ -91,12 +92,12 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
     }
 
     public <T extends Item> void toolItem(T item) {
-        String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+        String name = this.getName(item);
         this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/handheld"))).texture("layer0", "item/tool/" + name);
     }
 
     public <T extends Item> void armorItem(T item) {
-        String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+        String name = this.getName(item);
 
         if (item instanceof DyeableArmorItem) {
             this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/generated"))).texture("layer0", "item/armor/" + name).texture("layer1", "item/armor/" + name + "_overlay");
@@ -106,7 +107,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
     }
 
     public <T extends Item> void utremJarModel(T item) {
-        String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+        String name = this.getName(item);
         ModelFile waterModel = this.getBuilder("utrem_jar_water").parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", "item/utrem_jar_water");
         ModelFile lavaModel = this.getBuilder("utrem_jar_lava").parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", "item/utrem_jar_lava");
 
@@ -116,7 +117,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
     }
 
     public <T extends Item> void bloodTestTubeModel(T item) {
-        String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+        String name = this.getName(item);
 
         ModelFile model0 = this.getBuilder("blood_test_tube_0").parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", "item/blood_test_tube_0");
         ModelFile model1 = this.getBuilder("blood_test_tube_1").parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", "item/blood_test_tube_1");
@@ -135,6 +136,6 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
     }
 
     private String getName(Item item) {
-        return Objects.requireNonNull(item.getRegistryName()).getPath();
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
     }
 }

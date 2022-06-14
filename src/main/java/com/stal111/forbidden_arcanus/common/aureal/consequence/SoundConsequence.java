@@ -5,18 +5,18 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Sound Consequence <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.aureal.common.consequence.SoundConsequence
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-02-06
  */
 public class SoundConsequence extends Consequence implements NeedsStoring {
@@ -39,7 +39,7 @@ public class SoundConsequence extends Consequence implements NeedsStoring {
     @Override
     public void tick(Player player) {
         if (!player.getCommandSenderWorld().isClientSide()) {
-            Random random = player.getRandom();
+            RandomSource random = player.getRandom();
 
             if (this.ticksUntilNextSound <= 0) {
                 player.playNotifySound(SOUNDS.get(random.nextInt(SOUNDS.size())), SoundSource.PLAYERS, 1.0F, 1.0F);

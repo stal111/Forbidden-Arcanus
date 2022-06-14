@@ -1,54 +1,54 @@
 {
   "variants": {
-    "axis=x,type=single": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar",
+    "axis=x,type=bottom": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_bottom",
       "x": 90,
       "y": 90
-    },
-    "axis=y,type=single": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar"
-    },
-    "axis=z,type=single": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar",
-      "x": 90,
-      "y": 180
-    },
-    "axis=x,type=top": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,type=top": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top"
-    },
-    "axis=z,type=top": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top",
-      "x": 90,
-      "y": 180
     },
     "axis=x,type=middle": {
       "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_middle",
       "x": 90,
       "y": 90
     },
-    "axis=y,type=middle": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_middle"
-    },
-    "axis=z,type=middle": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_middle",
+    "axis=x,type=single": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar",
       "x": 90,
-      "y": 180
+      "y": 90
     },
-    "axis=x,type=bottom": {
-      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_bottom",
+    "axis=x,type=top": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top",
       "x": 90,
       "y": 90
     },
     "axis=y,type=bottom": {
       "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_bottom"
     },
+    "axis=y,type=middle": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_middle"
+    },
+    "axis=y,type=single": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar"
+    },
+    "axis=y,type=top": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top"
+    },
     "axis=z,type=bottom": {
       "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_bottom",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,type=middle": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_middle",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,type=single": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,type=top": {
+      "model": "forbidden_arcanus:block/arcane_polished_darkstone_pillar_top",
       "x": 90,
       "y": 180
     }

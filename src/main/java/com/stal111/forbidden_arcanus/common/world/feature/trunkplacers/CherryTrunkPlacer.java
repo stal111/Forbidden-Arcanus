@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.world.feature.config.CherryTreeConfi
 import com.stal111.forbidden_arcanus.core.init.world.ModTrunkPlacers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -29,7 +29,7 @@ import java.util.function.Function;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.trunkplacers.CherryTrunkPlacer
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-03-26
  */
 public class CherryTrunkPlacer extends TrunkPlacer {
@@ -49,7 +49,7 @@ public class CherryTrunkPlacer extends TrunkPlacer {
 
     @Nonnull
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, int freeTreeHeight, @Nonnull BlockPos pos, @Nonnull TreeConfiguration config) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, int freeTreeHeight, @Nonnull BlockPos pos, @Nonnull TreeConfiguration config) {
         List<FoliagePlacer.FoliageAttachment> list = new ArrayList<>();
         List<Direction> branchDirections = new ArrayList<>();
         BlockPos.MutableBlockPos mutable = pos.mutable();
@@ -97,7 +97,7 @@ public class CherryTrunkPlacer extends TrunkPlacer {
         return list;
     }
 
-    private FoliagePlacer.FoliageAttachment placeBranch(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, int freeTreeHeight, @Nonnull BlockPos pos, Direction direction, @Nonnull TreeConfiguration config) {
+    private FoliagePlacer.FoliageAttachment placeBranch(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, int freeTreeHeight, @Nonnull BlockPos pos, Direction direction, @Nonnull TreeConfiguration config) {
         BlockPos.MutableBlockPos mutable = pos.mutable();
 
         int length = 1 + random.nextInt(2);
@@ -126,11 +126,11 @@ public class CherryTrunkPlacer extends TrunkPlacer {
         return new FoliagePlacer.FoliageAttachment(mutable.move(Direction.UP), 0, false);
     }
 
-    protected boolean placeThinLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, Random random, BlockPos pos, TreeConfiguration config) {
+    protected boolean placeThinLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config) {
         return placeThinLog(level, blockSetter, random, pos, config, Function.identity());
     }
 
-    protected boolean placeThinLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, Random random, BlockPos pos, TreeConfiguration config, Function<BlockState, BlockState> propertySetter) {
+    protected boolean placeThinLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Function<BlockState, BlockState> propertySetter) {
         if (TreeFeature.validTreePos(level, pos)) {
             if (config instanceof CherryTreeConfiguration cherryTreeConfiguration) {
                 blockSetter.accept(pos, propertySetter.apply(cherryTreeConfiguration.thinTrunkProvider.getState(random, pos)));

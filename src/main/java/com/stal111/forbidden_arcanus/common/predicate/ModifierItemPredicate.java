@@ -13,14 +13,13 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 /**
  * Modifier Item Predicate <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-25
  */
 public class ModifierItemPredicate extends ItemPredicate {
@@ -57,7 +56,7 @@ public class ModifierItemPredicate extends ItemPredicate {
         JsonObject json = new JsonObject();
 
         json.addProperty("type", new ResourceLocation(ForbiddenArcanus.MOD_ID, "modifier").toString());
-        json.addProperty("modifier", Objects.requireNonNull(ModItemModifiers.FIERY.get().getRegistryName()).toString());
+        json.addProperty("modifier", ModItemModifiers.FIERY.get().getRegistryName().toString());
 
         return json;
     }

@@ -11,14 +11,12 @@ import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -26,13 +24,15 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
-import net.valhelsia.valhelsia_core.core.registry.LootModifierRegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.RegistryHelper;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
+import net.valhelsia.valhelsia_core.core.registry.block.BlockRegistryHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,10 +45,19 @@ public class ForbiddenArcanus {
 	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
 	public static final CreativeModeTab FORBIDDEN_ARCANUS = new ModItemGroup(ForbiddenArcanus.MOD_ID);
 
-	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager.Builder(MOD_ID).addDefaultHelpers().addHelpers(new LootModifierRegistryHelper()).build();
+	public static final RegistryManager REGISTRY_MANAGER = RegistryManager.builder(MOD_ID)
+			.addHelper(ForgeRegistries.Keys.BLOCKS, new BlockRegistryHelper(FORBIDDEN_ARCANUS, ModBlocks::new))
+			.addHelper(ForgeRegistries.Keys.ITEMS, new RegistryHelper<>(ModItems::new))
+			.addHelper(Registry.STRUCTURE_TYPE_REGISTRY, new RegistryHelper<>(ModStructureTypes::new))
+			.addHelper(Registry.STRUCTURE_REGISTRY, new RegistryHelper<>(ModStructures::new))
+			.addHelper(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, new RegistryHelper<>(ModLootModifiers::new))
+			.addHelper(Registry.STRUCTURE_PIECE_REGISTRY, new RegistryHelper<>(ModStructurePieces::new))
+			.addHelper(Registry.STRUCTURE_SET_REGISTRY, new RegistryHelper<>(ModStructureSets::new))
+			.addHelper(ForgeRegistries.Keys.SOUND_EVENTS, new RegistryHelper<>(ModSounds::new))
+			.create();
 
-	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry(ItemModifier.class, () ->
-			new RegistryBuilder<ItemModifier>().setMaxID(Integer.MAX_VALUE - 1).onAdd((owner, stage, id, obj, old) -> {}
+	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry(() ->
+			new RegistryBuilder<ItemModifier>().setMaxID(Integer.MAX_VALUE - 1).onAdd((owner, stage, id, key, obj, old) -> {}
 			).setDefaultKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "null")));
 
 	public static ForbiddenArcanus instance;
@@ -69,16 +78,11 @@ public class ForbiddenArcanus {
 		//ModFeatures.PLACEMENTS.register(modEventBus);
 		ModRecipes.RECIPE_TYPES.register(modEventBus);
 		ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
-		ModStructures.STRUCTURES.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);
 		ModPOITypes.POI_TYPES.register(modEventBus);
 		ModItemModifiers.MODIFIERS.register(modEventBus);
 		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
 		ModTreeDecorators.TREE_DECORATORS.register(modEventBus);
-
-		REGISTRY_MANAGER.getBlockHelper().setDefaultGroup(FORBIDDEN_ARCANUS);
-
-		REGISTRY_MANAGER.register(modEventBus);
 
 		modEventBus.addListener(this::setup);
 		modEventBus.addListener(CommonSetup::setup);
@@ -88,6 +92,8 @@ public class ForbiddenArcanus {
 
 		Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-client.toml").toString());
 		Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-common.toml").toString());
+
+		REGISTRY_MANAGER.register(modEventBus);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -105,14 +111,5 @@ public class ForbiddenArcanus {
 
 		Consequences.registerConsequences();
 		HephaestusForgeInputs.registerInputs();
-	}
-
-	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-	public static class RegistryEvents {
-
-		@SubscribeEvent
-		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
-			ModSounds.register(event);
-		}
 	}
 }

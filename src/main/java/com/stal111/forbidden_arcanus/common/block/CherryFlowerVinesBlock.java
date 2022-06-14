@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -12,14 +13,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Cherry Flower Vines Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.CherryFlowerVinesBlock
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-04-15
  */
 public class CherryFlowerVinesBlock extends GrowingPlantHeadBlock implements CherryFlowerVines {
@@ -33,7 +33,7 @@ public class CherryFlowerVinesBlock extends GrowingPlantHeadBlock implements Che
     }
 
     @Override
-    protected int getBlocksToGrowWhenBonemealed(@Nonnull Random random) {
+    protected int getBlocksToGrowWhenBonemealed(@Nonnull RandomSource random) {
         return random.nextInt(1) + 1;
     }
 

@@ -2,19 +2,19 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Mysterywood Log Block <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.MysterywoodLogBlock
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-28
  */
 public class MysterywoodLogBlock extends RotatedPillarBlock {
@@ -26,7 +26,7 @@ public class MysterywoodLogBlock extends RotatedPillarBlock {
     }
 
     @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         double xSpeed = (random.nextFloat() - 0.5) * PARTICLE_SPEED_MODIFIER;
         double ySpeed = (random.nextFloat() - 0.5) * PARTICLE_SPEED_MODIFIER;
         double zSpeed = (random.nextFloat() - 0.5) * PARTICLE_SPEED_MODIFIER;

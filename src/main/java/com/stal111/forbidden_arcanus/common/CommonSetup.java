@@ -7,8 +7,6 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.CompostableRegistry;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
-import com.stal111.forbidden_arcanus.core.init.world.ModStructurePieces;
-import com.stal111.forbidden_arcanus.core.init.world.ModStructures;
 import com.stal111.forbidden_arcanus.core.init.world.ModTrunkPlacers;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -33,8 +31,6 @@ public class CommonSetup {
         event.enqueueWork(() -> {
             ModWoodTypes.registerWoodTypes();
 
-            ModStructures.setupStructures();
-            ModStructurePieces.load();
             ModTrunkPlacers.load();
             ModFoliagePlacers.load();
 

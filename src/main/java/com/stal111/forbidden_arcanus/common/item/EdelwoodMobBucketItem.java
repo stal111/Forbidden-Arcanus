@@ -7,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -41,7 +40,7 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.EdelwoodMobBucketItem
  *
  * @author stal111
- * @version 1.18.1 - 2.0.1
+ * @version 1.19 - 2.1.0
  * @since 2021-12-07
  */
 public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
@@ -128,15 +127,15 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
 
                 for(int j = 0; j < TropicalFish.COMMON_VARIANTS.length; ++j) {
                     if (i == TropicalFish.COMMON_VARIANTS[j]) {
-                        components.add((new TranslatableComponent(TropicalFish.getPredefinedName(j))).withStyle(chatFormatting));
+                        components.add(Component.translatable(TropicalFish.getPredefinedName(j)).withStyle(chatFormatting));
                         return;
                     }
                 }
 
-                components.add((new TranslatableComponent(TropicalFish.getFishTypeName(i))).withStyle(chatFormatting));
-                MutableComponent component = new TranslatableComponent(s);
+                components.add((Component.translatable(TropicalFish.getFishTypeName(i))).withStyle(chatFormatting));
+                MutableComponent component = Component.translatable(s);
                 if (!s.equals(s1)) {
-                    component.append(", ").append(new TranslatableComponent(s1));
+                    component.append(", ").append(Component.translatable(s1));
                 }
 
                 component.withStyle(chatFormatting);

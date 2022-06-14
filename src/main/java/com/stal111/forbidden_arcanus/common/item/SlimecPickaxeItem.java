@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.SlimecPickaxeItem
  *
  * @author stal111
- * @version 1.18.1 - 2.0.1
+ * @version 1.19 - 2.0.1
  */
 public class SlimecPickaxeItem extends PickaxeItem {
 
@@ -21,7 +21,7 @@ public class SlimecPickaxeItem extends PickaxeItem {
 
 	@Override
 	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> items) {
-		if (this.allowdedIn(tab)) {
+		if (this.allowedIn(tab)) {
 			ItemStack stack = new ItemStack(this);
 
 			stack.enchant(Enchantments.SILK_TOUCH, 1);

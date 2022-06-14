@@ -1,13 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
-  "rewards": {
-    "recipes": [
-      "forbidden_arcanus:tiled_polished_darkstone_bricks_from_polished_darkstone_bricks_stonecutting"
-    ]
-  },
   "criteria": {
     "has_polished_darkstone_bricks": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -16,13 +10,14 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "forbidden_arcanus:tiled_polished_darkstone_bricks_from_polished_darkstone_bricks_stonecutting"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
@@ -30,5 +25,10 @@
       "has_polished_darkstone_bricks",
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:tiled_polished_darkstone_bricks_from_polished_darkstone_bricks_stonecutting"
+    ]
+  }
 }

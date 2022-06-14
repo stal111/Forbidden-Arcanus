@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": {
+      "item": "forbidden_arcanus:blacksmith_gavel_head"
+    }
+  },
   "pattern": [
     "#X#",
     "#S#",
     " S "
   ],
-  "key": {
-    "#": {
-      "tag": "minecraft:stone_tool_materials"
-    },
-    "X": {
-      "item": "forbidden_arcanus:blacksmith_gavel_head"
-    },
-    "S": {
-      "tag": "forge:rods/wooden"
-    }
-  },
   "result": {
     "item": "forbidden_arcanus:stone_blacksmith_gavel"
   }

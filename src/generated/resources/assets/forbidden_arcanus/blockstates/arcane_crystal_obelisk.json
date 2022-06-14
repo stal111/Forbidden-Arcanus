@@ -1,13 +1,13 @@
 {
   "variants": {
-    "part=upper": {
-      "model": "forbidden_arcanus:block/arcane_crystal_obelisk_upper"
+    "part=lower": {
+      "model": "forbidden_arcanus:block/arcane_crystal_obelisk_lower"
     },
     "part=middle": {
       "model": "forbidden_arcanus:block/arcane_crystal_obelisk_middle"
     },
-    "part=lower": {
-      "model": "forbidden_arcanus:block/arcane_crystal_obelisk_lower"
+    "part=upper": {
+      "model": "forbidden_arcanus:block/arcane_crystal_obelisk_upper"
     }
   }
 }

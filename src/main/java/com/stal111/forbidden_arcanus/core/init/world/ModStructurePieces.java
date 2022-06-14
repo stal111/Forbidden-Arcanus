@@ -2,27 +2,24 @@ package com.stal111.forbidden_arcanus.core.init.world;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.structure.NipaPieces;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
+import net.minecraftforge.registries.RegistryObject;
+import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.core.registry.RegistryHelper;
 
 /**
  * Mod Structure Pieces
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModStructurePieces
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-04-12
  */
-public class ModStructurePieces {
+public class ModStructurePieces implements RegistryClass {
 
-    public static final StructurePieceType NIPA = register("nipa", NipaPieces.Piece::new);
+    public static final RegistryHelper<StructurePieceType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registry.STRUCTURE_PIECE_REGISTRY);
 
-    static StructurePieceType register(String name, StructurePieceType.StructureTemplateType type) {
-        return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), type);
-    }
 
-    public static void load() {
-
-    }
+    public static final RegistryObject<StructurePieceType> NIPA = HELPER.register("nipa", () -> NipaPieces.Piece::new);
 }

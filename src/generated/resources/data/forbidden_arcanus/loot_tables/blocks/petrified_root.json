@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -39,13 +38,13 @@
                   ],
                   "functions": [
                     {
-                      "function": "minecraft:set_count",
+                      "add": false,
                       "count": {
                         "type": "minecraft:uniform",
-                        "min": 1.0,
-                        "max": 2.0
+                        "max": 2.0,
+                        "min": 1.0
                       },
-                      "add": false
+                      "function": "minecraft:set_count"
                     }
                   ],
                   "name": "minecraft:stick"
@@ -57,8 +56,8 @@
                       "condition": "minecraft:survives_explosion"
                     },
                     {
-                      "condition": "minecraft:random_chance",
-                      "chance": 0.1
+                      "chance": 0.1,
+                      "condition": "minecraft:random_chance"
                     }
                   ],
                   "name": "forbidden_arcanus:strange_root"
@@ -67,7 +66,8 @@
             }
           ]
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

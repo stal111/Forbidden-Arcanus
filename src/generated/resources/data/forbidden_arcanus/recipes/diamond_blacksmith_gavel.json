@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:gems/diamond"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": {
+      "item": "forbidden_arcanus:blacksmith_gavel_head"
+    }
+  },
   "pattern": [
     "#X#",
     "#S#",
     " S "
   ],
-  "key": {
-    "#": {
-      "tag": "forge:gems/diamond"
-    },
-    "X": {
-      "item": "forbidden_arcanus:blacksmith_gavel_head"
-    },
-    "S": {
-      "tag": "forge:rods/wooden"
-    }
-  },
   "result": {
     "item": "forbidden_arcanus:diamond_blacksmith_gavel"
   }

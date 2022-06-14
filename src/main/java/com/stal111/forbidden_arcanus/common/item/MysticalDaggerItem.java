@@ -11,7 +11,6 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -22,7 +21,7 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.MysticalDaggerItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class MysticalDaggerItem extends SwordItem {
 
@@ -53,6 +52,6 @@ public class MysticalDaggerItem extends SwordItem {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, worldIn, tooltip, flag);
-        tooltip.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".mystical_dagger").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".mystical_dagger").withStyle(ChatFormatting.GRAY));
     }
 }

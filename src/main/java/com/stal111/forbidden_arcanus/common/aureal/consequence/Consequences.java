@@ -1,17 +1,17 @@
 package com.stal111.forbidden_arcanus.common.aureal.consequence;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Consequences <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-02-04
  */
 public class Consequences {
@@ -23,6 +23,7 @@ public class Consequences {
     public static final ConsequenceType<SoundConsequence> SOUND = new ConsequenceType<>("sound", SoundConsequence::new);
 
     public static void registerConsequences() {
+        //TODO: turn into a proper registry
         register(CHANGE_WEATHER);
         register(EFFECT);
         register(SOUND);
@@ -36,7 +37,7 @@ public class Consequences {
         return CONSEQUENCES;
     }
 
-    public static ConsequenceType<?> getRandomConsequence(Random random) {
+    public static ConsequenceType<?> getRandomConsequence(RandomSource random) {
         return getConsequences().get(random.nextInt(getConsequences().size()));
     }
 

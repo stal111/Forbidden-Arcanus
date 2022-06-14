@@ -36,7 +36,7 @@ public class DracoArcanusScepterItem extends Item {
 	public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull LivingEntity livingEntity) {
 		if (livingEntity instanceof Player player) {
 			if (!level.isClientSide()) {
-				level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dark_bolt_launch, SoundSource.NEUTRAL, 1.0f, 1.0f);
+				level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ENERGY_BALL_LAUNCH.get(), SoundSource.NEUTRAL, 1.0f, 1.0f);
 
 				EnergyBall energyBall = new EnergyBall(level, player, player.getLookAngle().x * 1, player.getLookAngle().y * 1, player.getLookAngle().z * 1);
 				energyBall.setPos(energyBall.getX(), player.getY() + player.getEyeHeight(), energyBall.getZ());

@@ -7,8 +7,8 @@ import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,14 +28,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Soul Extractor Item <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.SoulExtractorItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class SoulExtractorItem extends Item {
 
@@ -78,7 +77,7 @@ public class SoulExtractorItem extends Item {
             return stack;
         }
 
-        Random random = player.getRandom();
+        RandomSource random = player.getRandom();
 
         stack.hurtAndBreak(1, player, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         player.awardStat(Stats.ITEM_USED.get(this));
@@ -136,7 +135,7 @@ public class SoulExtractorItem extends Item {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, List<Component> list, @Nonnull TooltipFlag flag) {
-        list.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").withStyle(ChatFormatting.GRAY));
+        list.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").withStyle(ChatFormatting.GRAY));
         super.appendHoverText(stack, level, list, flag);
     }
 }

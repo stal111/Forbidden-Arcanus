@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.core.config.ItemConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +22,7 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.EternalStellaItem
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class EternalStellaItem extends Item {
 
@@ -62,7 +61,7 @@ public class EternalStellaItem extends Item {
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, world, tooltip, flag);
 
-        tooltip.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + ".remaining_uses").append(": " + this.getRemainingUses(stack)).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".remaining_uses").append(": " + this.getRemainingUses(stack)).withStyle(ChatFormatting.GRAY));
     }
 
     private int getRemainingUses(ItemStack stack) {

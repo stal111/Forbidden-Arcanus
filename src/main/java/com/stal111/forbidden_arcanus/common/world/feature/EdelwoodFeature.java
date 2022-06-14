@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -14,14 +15,13 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Edelwood Feature <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.EdelwoodFeature
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-12-23
  */
 public class EdelwoodFeature extends Feature<NoneFeatureConfiguration> {
@@ -42,7 +42,7 @@ public class EdelwoodFeature extends Feature<NoneFeatureConfiguration> {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
         BlockPos.MutableBlockPos mutable = pos.mutable();
-        Random random = context.random();
+        RandomSource random = context.random();
 
         if (!level.isEmptyBlock(pos.above()) || !level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
             return false;

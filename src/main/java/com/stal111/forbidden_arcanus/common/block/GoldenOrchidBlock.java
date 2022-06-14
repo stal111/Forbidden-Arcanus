@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.GoldenOrchidBlock
  *
  * @author stal111
- * @version 1.18.1 - 2.0.3
+ * @version 1.19 - 2.1.0
  * @since 2021-12-10
  */
 public class GoldenOrchidBlock extends CropBlock {
@@ -84,11 +84,5 @@ public class GoldenOrchidBlock extends CropBlock {
     @Override
     protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AGE);
-    }
-
-    @Nonnull
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
     }
 }

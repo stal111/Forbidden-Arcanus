@@ -1,9 +1,9 @@
 {
+  "type": "forbidden_arcanus:blacksmith_gavel",
   "conditions": [
     {
-      "condition": "minecraft:random_chance",
-      "chance": 0.3
+      "chance": 0.3,
+      "condition": "minecraft:random_chance"
     }
-  ],
-  "type": "forbidden_arcanus:blacksmith_gavel"
+  ]
 }

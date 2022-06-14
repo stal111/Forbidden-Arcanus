@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.PipeBlock;
@@ -15,14 +16,13 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Mega Fungyss Feature
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.MegaFungyssFeature
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-04-13
  */
 public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
@@ -31,7 +31,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         super(codec);
     }
 
-    private int getRandomHeight(Random random) {
+    private int getRandomHeight(RandomSource random) {
         return random.nextInt(4) + 11;
     }
 
@@ -58,7 +58,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
     public boolean place(@Nonnull FeaturePlaceContext<BigFungyssFeatureConfig> context) {
         LevelAccessor level = context.level();
         BlockPos pos = context.origin();
-        Random rand = context.random();
+        RandomSource rand = context.random();
 
         int height = this.getRandomHeight(context.random());
 
@@ -74,7 +74,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
     }
 
 
-    private void placeStem(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeStem(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = 0; i < height; i++) {
             this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 0, i, 0);
             this.placeStemBlock(world, config.stemProvider.getState(random, pos), mutable, pos, 1, i, 0);
@@ -91,7 +91,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private void placeCap(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeCap(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = height - 3; i <= height; i++) {
             int distanceToStem = 2;
 
@@ -139,7 +139,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private void placeSmallCap(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, BigFungyssFeatureConfig config) {
+    private void placeSmallCap(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, BigFungyssFeatureConfig config) {
         Direction direction = getDirectionFromOffset(xOffset, zOffset);
 
         mutable.setWithOffset(pos, xOffset, height - 8, zOffset);
@@ -155,7 +155,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private void placeSmallFungyss(LevelAccessor world, Random random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, BigFungyssFeatureConfig config) {
+    private void placeSmallFungyss(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, BigFungyssFeatureConfig config) {
         Direction direction = getDirectionFromOffset(xOffset, zOffset);
         int stemHeight = world.getRandom().nextInt(2) + 2;
 

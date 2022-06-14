@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,14 +33,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Nipa Block
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.NipaBlock
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.19 - 2.1.0
  * @since 2021-03-13
  */
 public class NipaBlock extends BushBlock implements EntityBlock {
@@ -112,14 +112,14 @@ public class NipaBlock extends BushBlock implements EntityBlock {
     }
 
     @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         if (Objects.requireNonNull(Minecraft.getInstance().player).getInventory().contains(ModItems.Stacks.LENS_OF_VERITATIS)) {
-            double j = 0.4D * rand.nextFloat();
-            double k = 0.4D * rand.nextFloat();
-            double posX = pos.getX() + 0.5D + (rand.nextBoolean() ? j : -j);
-            double posY = (float) pos.getY() + 0.1D + rand.nextFloat() / 2.5;
-            double posZ = pos.getZ() + 0.5D + (rand.nextBoolean() ? k : -k);
-            double ySpeed = ((double) rand.nextFloat() - 0.4D) * 0.1D;
+            double j = 0.4D * random.nextFloat();
+            double k = 0.4D * random.nextFloat();
+            double posX = pos.getX() + 0.5D + (random.nextBoolean() ? j : -j);
+            double posY = (float) pos.getY() + 0.1D + random.nextFloat() / 2.5;
+            double posZ = pos.getZ() + 0.5D + (random.nextBoolean() ? k : -k);
+            double ySpeed = ((double) random.nextFloat() - 0.4D) * 0.1D;
 
             level.addParticle(ModParticles.AUREAL_MOTE.get(), posX, posY, posZ, 0, ySpeed, 0);
         }

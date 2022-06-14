@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/gold"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "X": {
+      "item": "forbidden_arcanus:blacksmith_gavel_head"
+    }
+  },
   "pattern": [
     "#X#",
     "#S#",
     " S "
   ],
-  "key": {
-    "#": {
-      "tag": "forge:ingots/gold"
-    },
-    "X": {
-      "item": "forbidden_arcanus:blacksmith_gavel_head"
-    },
-    "S": {
-      "tag": "forge:rods/wooden"
-    }
-  },
   "result": {
     "item": "forbidden_arcanus:golden_blacksmith_gavel"
   }

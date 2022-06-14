@@ -10,17 +10,17 @@ import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Magic Circle <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.MagicCircle
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-07-16
  */
 public class MagicCircle {
@@ -71,11 +71,11 @@ public class MagicCircle {
             if (ticks > ritual.getTime() * 0.9F) {
                 Level level = Objects.requireNonNull(this.ritualManager.getBlockEntity().getLevel());
                 BlockPos pos = this.ritualManager.getBlockEntity().getBlockPos();
-                Random rand = level.getRandom();
+                RandomSource random = level.getRandom();
 
-                double posX = pos.getX() + 0.25D + rand.nextFloat() + rand.nextInt(4);
-                double posZ = pos.getZ() + 0.25D + rand.nextFloat() + rand.nextInt(4);
-                double ySpeed = ((double) rand.nextFloat() - 0.4D) * 0.125D;
+                double posX = pos.getX() + 0.25D + random.nextFloat() + random.nextInt(4);
+                double posZ = pos.getZ() + 0.25D + random.nextFloat() + random.nextInt(4);
+                double ySpeed = ((double) random.nextFloat() - 0.4D) * 0.125D;
 
                 level.addParticle(ModParticles.AUREAL_MOTE.get(), posX - 2.0D, pos.getY() + 0.1F, posZ - 2.0D, 0, ySpeed, 0);
             }

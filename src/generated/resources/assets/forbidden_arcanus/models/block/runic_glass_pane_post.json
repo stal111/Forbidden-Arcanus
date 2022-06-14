@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_glass_pane_post",
   "textures": {
-    "pane": "forbidden_arcanus:block/runic_glass",
-    "edge": "forbidden_arcanus:block/runic_glass_pane_top"
+    "edge": "forbidden_arcanus:block/runic_glass_pane_top",
+    "pane": "forbidden_arcanus:block/runic_glass"
   }
 }

@@ -14,7 +14,6 @@ import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -42,7 +41,7 @@ import java.util.function.Consumer;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.19 - 2.1.0
  * @since 2021-02-11
  */
 public class ObsidianSkullItem extends StandingAndWallBlockItem {
@@ -134,7 +133,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
-        tooltip.add(new TranslatableComponent("tooltip." + ForbiddenArcanus.MOD_ID + (eternal ? ".eternal_" : ".") + "obsidian_skull").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + (eternal ? ".eternal_" : ".") + "obsidian_skull").withStyle(ChatFormatting.GRAY));
     }
 
     @Override

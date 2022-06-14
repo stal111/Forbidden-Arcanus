@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.world.feature.config.CherryTreeConfi
 import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 /**
@@ -28,7 +28,7 @@ import java.util.function.BiConsumer;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.foliageplacers.CherryFoliagePlacer
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-04-07
  */
 public class CherryFoliagePlacer extends FoliagePlacer {
@@ -51,7 +51,7 @@ public class CherryFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, @Nonnull TreeConfiguration config, int maxFreeTreeHeight, @Nonnull FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+    protected void createFoliage(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, int maxFreeTreeHeight, @Nonnull FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         BlockPos pos = attachment.pos();
         List<Direction> directions = new ArrayList<>();
         BlockStateProvider trunkProvider = this.getTrunkProvider(config);
@@ -120,7 +120,7 @@ public class CherryFoliagePlacer extends FoliagePlacer {
         }
     }
 
-    private void placeFromLayout(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, @Nonnull TreeConfiguration config, List<Pair<Integer, Integer>> layout, BlockPos pos, Direction direction) {
+    private void placeFromLayout(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, List<Pair<Integer, Integer>> layout, BlockPos pos, Direction direction) {
         BlockPos.MutableBlockPos mutable = pos.mutable();
 
         mutable.move(direction.getClockWise(), (layout.size() - 1) / 2);
@@ -152,12 +152,12 @@ public class CherryFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    public int foliageHeight(@Nonnull Random random, int pHeight, @Nonnull TreeConfiguration config) {
+    public int foliageHeight(@Nonnull RandomSource random, int pHeight, @Nonnull TreeConfiguration config) {
         return 0;
     }
 
     @Override
-    protected boolean shouldSkipLocation(@Nonnull Random random, int pLocalX, int pLocalY, int pLocalZ, int pRange, boolean pLarge) {
+    protected boolean shouldSkipLocation(@Nonnull RandomSource random, int pLocalX, int pLocalY, int pLocalZ, int pRange, boolean pLarge) {
         return false;
     }
 }

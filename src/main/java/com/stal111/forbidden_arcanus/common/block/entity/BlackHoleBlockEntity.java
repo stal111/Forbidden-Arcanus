@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -20,14 +21,13 @@ import net.minecraft.world.phys.AABB;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Black Hole Block Entity <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class BlackHoleBlockEntity extends BlockEntity {
 
@@ -117,7 +117,7 @@ public class BlackHoleBlockEntity extends BlockEntity {
         return distance <= 3 ? 0.035 : 0.02;
     }
 
-    private void setRandomVelocity(ItemEntity itemEntity, Random random) {
+    private void setRandomVelocity(ItemEntity itemEntity, RandomSource random) {
         double x = random.nextDouble();
         double y = random.nextDouble();
         double z = random.nextDouble();

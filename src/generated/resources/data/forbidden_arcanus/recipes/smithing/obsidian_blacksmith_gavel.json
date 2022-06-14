@@ -1,10 +1,10 @@
 {
   "type": "minecraft:smithing",
-  "base": {
-    "item": "forbidden_arcanus:diamond_blacksmith_gavel"
-  },
   "addition": {
     "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "forbidden_arcanus:diamond_blacksmith_gavel"
   },
   "result": {
     "item": "forbidden_arcanus:netherite_blacksmith_gavel"

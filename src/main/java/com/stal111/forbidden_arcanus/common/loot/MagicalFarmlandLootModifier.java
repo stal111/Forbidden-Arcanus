@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.loot;
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -18,14 +19,13 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Magical Farmland Loot Modifier <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-09-25
  */
 public class MagicalFarmlandLootModifier extends LootModifier {
@@ -41,7 +41,7 @@ public class MagicalFarmlandLootModifier extends LootModifier {
 
     @Nonnull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
         Vec3 pos = context.getParamOrNull(LootContextParams.ORIGIN);
         Level level = context.getLevel();

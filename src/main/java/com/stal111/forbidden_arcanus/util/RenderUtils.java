@@ -14,6 +14,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -21,8 +22,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
-
-import java.util.Random;
 
 public class RenderUtils {
 
@@ -138,7 +137,7 @@ public class RenderUtils {
     }
 
     public static void addItemParticles(Level level, ItemStack stack, BlockPos pos, int count) {
-        Random random = level.getRandom();
+        RandomSource random = level.getRandom();
 
         for(int i = 0; i < count; i++) {
             Vec3 offset = new Vec3((random.nextFloat() - 0.5D) * 0.1D, random.nextFloat() * 0.1D + 0.1D, 0.0D);

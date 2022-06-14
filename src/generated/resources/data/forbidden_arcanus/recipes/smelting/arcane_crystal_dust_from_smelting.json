@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 150,
+  "experience": 0.4,
   "ingredient": {
     "item": "forbidden_arcanus:arcane_crystal"
   },
-  "result": "forbidden_arcanus:arcane_crystal_dust",
-  "experience": 0.4,
-  "cookingtime": 150
+  "result": "forbidden_arcanus:arcane_crystal_dust"
 }

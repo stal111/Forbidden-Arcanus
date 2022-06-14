@@ -1,10 +1,10 @@
 {
+  "type": "valhelsia_core:append_loot",
   "add_loot": "forbidden_arcanus:chests/additions/abandoned_mineshaft_additions",
   "conditions": [
     {
       "condition": "forge:loot_table_id",
       "loot_table_id": "minecraft:chests/abandoned_mineshaft"
     }
-  ],
-  "type": "valhelsia_core:append_loot"
+  ]
 }

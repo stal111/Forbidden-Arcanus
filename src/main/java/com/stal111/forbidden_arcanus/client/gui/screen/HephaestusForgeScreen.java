@@ -14,7 +14,6 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -107,7 +106,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         Slot slot = getSlotUnderMouse();
 
         if (slot instanceof EnhancerSlot enhancerSlot && !enhancerSlot.isUnlocked()) {
-            this.renderTooltip(matrixStack, new TranslatableComponent("gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level").append(": " + enhancerSlot.getAdditionalData()), x, y);
+            this.renderTooltip(matrixStack, Component.translatable("gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level").append(": " + enhancerSlot.getAdditionalData()), x, y);
         }
     }
 
@@ -121,16 +120,16 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
         if (x >= 6 && x <= 13) {
             List<Component> textComponents = new ArrayList<>();
-            textComponents.add(new TranslatableComponent("forbidden_arcanus.aureal").append(": " + data.get(1) + "/" + level.getMaxAureal()));
-            textComponents.add(new TranslatableComponent("forbidden_arcanus.corruption").append(": " + data.get(2) + "/" + level.getMaxCorruption()));
+            textComponents.add(Component.translatable("forbidden_arcanus.aureal").append(": " + data.get(1) + "/" + level.getMaxAureal()));
+            textComponents.add(Component.translatable("forbidden_arcanus.corruption").append(": " + data.get(2) + "/" + level.getMaxCorruption()));
 
             this.renderTooltip(matrixStack, Lists.transform(textComponents, Component::getVisualOrderText), screenX, screenY);
         } else if (x >= 18 && x <= 25) {
-            this.renderTooltip(matrixStack, new TranslatableComponent("forbidden_arcanus.souls").append(": " + data.get(3) + "/" + level.getMaxSouls()), screenX, screenY);
+            this.renderTooltip(matrixStack, Component.translatable("forbidden_arcanus.souls").append(": " + data.get(3) + "/" + level.getMaxSouls()), screenX, screenY);
         } else if (x >= 149 && x <= 156) {
-            this.renderTooltip(matrixStack, new TranslatableComponent("forbidden_arcanus.blood").append(": " + data.get(4) + "/" + level.getMaxBlood()), screenX, screenY);
+            this.renderTooltip(matrixStack, Component.translatable("forbidden_arcanus.blood").append(": " + data.get(4) + "/" + level.getMaxBlood()), screenX, screenY);
         } else if (x >= 161 && x <= 168) {
-            this.renderTooltip(matrixStack, new TranslatableComponent("forbidden_arcanus.experience").append(": " + data.get(5) + "/" + level.getMaxExperience()), screenX, screenY);
+            this.renderTooltip(matrixStack, Component.translatable("forbidden_arcanus.experience").append(": " + data.get(5) + "/" + level.getMaxExperience()), screenX, screenY);
         }
     }
 

@@ -3,27 +3,27 @@ package com.stal111.forbidden_arcanus.common.aureal;
 import com.stal111.forbidden_arcanus.common.aureal.capability.AurealImpl;
 import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
-import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
-import com.stal111.forbidden_arcanus.core.config.AurealConfig;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateAurealPacket;
+import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateAurealPacket;
+import com.stal111.forbidden_arcanus.core.config.AurealConfig;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Aureal Helper <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.aureal.AurealHelper
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-01-27
  */
 public class AurealHelper {
@@ -44,7 +44,7 @@ public class AurealHelper {
 
     public static void increaseCorruption(Player player, int amount) {
         IAureal aureal = getCapability(player);
-        Random random = player.getRandom();
+        RandomSource random = player.getRandom();
 
         for (int i = 0; i < amount; i++) {
             aureal.increaseCorruption(1);

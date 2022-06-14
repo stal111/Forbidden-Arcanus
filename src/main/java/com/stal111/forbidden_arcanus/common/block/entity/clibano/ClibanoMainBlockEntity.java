@@ -15,7 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,7 +29,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -52,7 +50,7 @@ import java.util.function.Function;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-05-22
  */
 public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements RecipeHolder {
@@ -385,7 +383,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     @Nonnull
     @Override
     protected Component getDefaultName() {
-        return new TranslatableComponent("container.forbidden_arcanus.clibano");
+        return Component.translatable("container.forbidden_arcanus.clibano");
     }
 
     @Nonnull

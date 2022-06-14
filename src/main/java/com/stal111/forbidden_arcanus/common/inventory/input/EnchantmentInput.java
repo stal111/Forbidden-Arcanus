@@ -2,20 +2,20 @@ package com.stal111.forbidden_arcanus.common.inventory.input;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Enchantment Input
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.input.EnchantmentInput
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-07-07
  */
 public class EnchantmentInput implements HephaestusForgeInput {
@@ -26,7 +26,7 @@ public class EnchantmentInput implements HephaestusForgeInput {
     }
 
     @Override
-    public int getInputValue(InputType inputType, ItemStack stack, Random random) {
+    public int getInputValue(InputType inputType, ItemStack stack, RandomSource random) {
         int xp = this.getEnchantmentXp(stack);
 
         if (xp <= 0) {

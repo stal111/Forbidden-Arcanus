@@ -10,11 +10,15 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockStateProvider;
 
 import java.util.ArrayList;
@@ -208,7 +212,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         });
 
         forEach(block -> block instanceof FlowerPotBlock, block -> {
-            ResourceLocation name = Objects.requireNonNull(((FlowerPotBlock) block).getContent().getRegistryName());
+            ResourceLocation name = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(((FlowerPotBlock) block).getContent()));
             simpleFlowerPotBlock(block, new ResourceLocation(name.getNamespace(), "block/" + name.getPath()));
         });
 
@@ -419,5 +423,85 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .modelFile(model0).nextModel()
                 .modelFile(model1)
                 .addModel();
+    }
+
+
+    //TODO: remove when forge fixes their door provider
+
+    public void doorBlock(DoorBlock block, ResourceLocation bottom, ResourceLocation top) {
+        doorBlockInternal(block, ForgeRegistries.BLOCKS.getKey(block).toString(), bottom, top);
+    }
+
+    private void doorBlockInternal(DoorBlock block, String baseName, ResourceLocation bottom, ResourceLocation top) {
+        ModelFile bottomLeft = doorBottomLeft(baseName + "_bottom_left", bottom, top);
+        ModelFile bottomLeftOpen = doorBottomLeftOpen(baseName + "_bottom_left_open", bottom, top);
+        ModelFile bottomRight = doorBottomRight(baseName + "_bottom_right", bottom, top);
+        ModelFile bottomRightOpen = doorBottomRightOpen(baseName + "_bottom_right_open", bottom, top);
+        ModelFile topLeft = doorTopLeft(baseName + "_top_left", bottom, top);
+        ModelFile topLeftOpen = doorTopLeftOpen(baseName + "_top_left_open", bottom, top);
+        ModelFile topRight = doorTopRight(baseName + "_top_right", bottom, top);
+        ModelFile topRightOpen = doorTopRightOpen(baseName + "_top_right_open", bottom, top);
+        doorBlock(block, bottomLeft, bottomLeftOpen, bottomRight, bottomRightOpen, topLeft, topLeftOpen, topRight, topRightOpen);
+
+    }
+
+    public void doorBlock(DoorBlock block, ModelFile bottomLeft, ModelFile bottomLeftOpen , ModelFile bottomRight, ModelFile bottomRightOpen, ModelFile topLeft, ModelFile topLeftOpen, ModelFile topRight, ModelFile topRightOpen) {
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            int yRot = ((int) state.getValue(DoorBlock.FACING).toYRot()) + 90;
+            boolean right = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
+            boolean open = state.getValue(DoorBlock.OPEN);
+
+            if (open) {
+                yRot += 90;
+            }
+
+            if (right && open) {
+                yRot += 180;
+            }
+
+            yRot %= 360;
+            return ConfiguredModel.builder().modelFile(state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER ? (right ? ( open ? bottomRightOpen : bottomRight ) : ( open ? bottomLeftOpen : bottomLeft )) : (right ? ( open ? topRightOpen : topRight) : ( open ? topLeftOpen : topLeft)))
+                    .rotationY(yRot)
+                    .build();
+            }, DoorBlock.POWERED);
+
+    }
+
+    public BlockModelBuilder doorBottomLeft(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_bottom_left", bottom, top);
+    }
+
+    public BlockModelBuilder doorBottomLeftOpen(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_bottom_left_open", bottom, top);
+    }
+
+    public BlockModelBuilder doorBottomRight(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_bottom_right", bottom, top);
+    }
+
+    public BlockModelBuilder doorBottomRightOpen(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_bottom_right_open", bottom, top);
+    }
+
+    public BlockModelBuilder doorTopLeft(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_top_left", bottom, top);
+    }
+
+    public BlockModelBuilder doorTopLeftOpen(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_top_left_open", bottom, top);
+    }
+
+    public BlockModelBuilder doorTopRight(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_top_right", bottom, top);
+    }
+
+    public BlockModelBuilder doorTopRightOpen(String name, ResourceLocation bottom, ResourceLocation top) {
+        return door(name, "door_top_right_open", bottom, top);
+    }
+
+    private BlockModelBuilder door(String name, String model, ResourceLocation bottom, ResourceLocation top) {
+        return models().withExistingParent(name, "block/" + model)
+                .texture("bottom", bottom)
+                .texture("top", top);
     }
 }

@@ -1,14 +1,16 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.network.chat.TranslatableComponent;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.tags.ITagManager;
 
 import java.util.List;
@@ -19,10 +21,10 @@ import java.util.function.Predicate;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-24
  */
-public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
+public class ItemModifier {
 
     private final Predicate<ItemStack> predicate;
 
@@ -44,11 +46,17 @@ public class ItemModifier extends ForgeRegistryEntry<ItemModifier> {
 
     }
 
-    public TranslatableComponent getComponent() {
-        if (this.getRegistryName() == null) {
-            return new TranslatableComponent("");
+    public MutableComponent getComponent() {
+        ResourceLocation name = this.getRegistryName();
+
+        if (name == null) {
+            return Component.literal("");
         }
-        return new TranslatableComponent("modifier." + this.getRegistryName().getNamespace() + "." + this.getRegistryName().getPath());
+        return Component.translatable("modifier." + name.getNamespace() + "." + name.getPath());
+    }
+
+    public ResourceLocation getRegistryName() {
+        return ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getKey(this);
     }
 
     public TagKey<Item> getIncompatibleItems() {

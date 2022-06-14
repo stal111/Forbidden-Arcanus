@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -14,14 +15,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Lens Of Veritatis Item <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.LensOfVeritatisItem
  *
  * @author stal111
- * @version 1.18.1 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-02-06
  */
 public class LensOfVeritatisItem extends Item {
@@ -45,7 +45,7 @@ public class LensOfVeritatisItem extends Item {
                 return;
             }
 
-            Random random = level.getRandom();
+            RandomSource random = level.getRandom();
 
             level.getEntitiesOfClass(LivingEntity.class, new AABB(player.blockPosition()).inflate(PARTICLE_RANGE)).stream()
                     .filter(livingEntity -> livingEntity.getPersistentData().getBoolean("aureal"))
