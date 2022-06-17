@@ -23,6 +23,6 @@ public class MysterywoodTreeGrower extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<ConfiguredFeature<TreeConfiguration, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
-        return ModConfiguredFeatures.MYSTERYWOOD;
+        return ModConfiguredFeatures.MYSTERYWOOD.getHolder().get();
     }
 }

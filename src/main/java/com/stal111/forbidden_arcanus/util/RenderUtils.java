@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.RenderProperties;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
@@ -30,7 +31,7 @@ public class RenderUtils {
 
         VertexConsumer builder = buffer.getBuffer(Sheets.translucentCullBlockSheet());
 
-        ResourceLocation resourceLocation = fluid.getAttributes().getStillTexture();
+        ResourceLocation resourceLocation = RenderProperties.get(fluid).getStillTexture();
         TextureAtlasSprite texture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(resourceLocation);
 
         int light1 = combinedLight & 0xFFFF;
@@ -129,7 +130,7 @@ public class RenderUtils {
 
         double tankHeight = tankBounds.maxY - tankBounds.minY;
         double y1 = tankBounds.minY, y2 = (tankBounds.minY + (tankHeight * percent));
-        if (tank.getFluid().getFluid().getAttributes().isLighterThanAir()) {
+        if (tank.getFluid().getFluid().getFluidType().isLighterThanAir()) {
             double yOff = tankBounds.maxY - y2;  // lighter than air fluids move to the top of the tank
             y1 += yOff; y2 += yOff;
         }

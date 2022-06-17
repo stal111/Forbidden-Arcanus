@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.client.RenderProperties;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
@@ -18,7 +19,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.block.UtremJarRenderer
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  */
 public class UtremJarRenderer implements BlockEntityRenderer<UtremJarBlockEntity> {
 
@@ -33,7 +34,7 @@ public class UtremJarRenderer implements BlockEntityRenderer<UtremJarBlockEntity
             Matrix4f matrix = poseStack.last().pose();
             Matrix3f normal = poseStack.last().normal();
 
-            RenderUtils.renderFluid(blockEntity.getTank(), fluidStack, bufferSource, matrix, normal, new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F), fluidStack.getFluid().getAttributes().getColor(blockEntity.getLevel(), blockEntity.getBlockPos()), packedLight, packedOverlay);
+            RenderUtils.renderFluid(blockEntity.getTank(), fluidStack, bufferSource, matrix, normal, new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F), RenderProperties.get(fluidStack.getFluid()).getColorTint(fluidStack.getFluid().defaultFluidState(), blockEntity.getLevel(), blockEntity.getBlockPos()), packedLight, packedOverlay);
         }
     }
 }

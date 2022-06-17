@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.world.feature.trunkplacers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.ThinLogBlock;
-import com.stal111.forbidden_arcanus.common.world.feature.config.CherryTreeConfiguration;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.world.ModTrunkPlacers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -132,11 +132,8 @@ public class CherryTrunkPlacer extends TrunkPlacer {
 
     protected boolean placeThinLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Function<BlockState, BlockState> propertySetter) {
         if (TreeFeature.validTreePos(level, pos)) {
-            if (config instanceof CherryTreeConfiguration cherryTreeConfiguration) {
-                blockSetter.accept(pos, propertySetter.apply(cherryTreeConfiguration.thinTrunkProvider.getState(random, pos)));
-            } else {
-                blockSetter.accept(pos, propertySetter.apply(config.trunkProvider.getState(random, pos)));
-            }
+
+            blockSetter.accept(pos, propertySetter.apply(ModBlocks.THIN_CHERRYWOOD_LOG.get().defaultBlockState()));
 
             return true;
         }

@@ -5,18 +5,18 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.ThinLogBlock;
-import com.stal111.forbidden_arcanus.common.world.feature.config.CherryTreeConfiguration;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -54,16 +54,16 @@ public class CherryFoliagePlacer extends FoliagePlacer {
     protected void createFoliage(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, int maxFreeTreeHeight, @Nonnull FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         BlockPos pos = attachment.pos();
         List<Direction> directions = new ArrayList<>();
-        BlockStateProvider trunkProvider = this.getTrunkProvider(config);
+        Block trunk = ModBlocks.THIN_CHERRYWOOD_LOG.get();
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
 
-            if (level.isStateAtPosition(pos.below().relative(direction), state -> state.is(trunkProvider.getState(random, pos).getBlock()))) {
+            if (level.isStateAtPosition(pos.below().relative(direction), state -> state.is(trunk))) {
                 directions.add(direction);
             }
         }
 
-        if (directions.size() == 1 && level.isStateAtPosition(pos.below(2), state -> state.is(trunkProvider.getState(random, pos).getBlock()) && state.getValue(ThinLogBlock.AXIS) == Direction.Axis.Y)) {
+        if (directions.size() == 1 && level.isStateAtPosition(pos.below(2), state -> state.is(trunk) && state.getValue(ThinLogBlock.AXIS) == Direction.Axis.Y)) {
             BlockPos.MutableBlockPos mutable = pos.mutable();
             Direction direction = directions.get(0).getOpposite();
 
@@ -90,7 +90,7 @@ public class CherryFoliagePlacer extends FoliagePlacer {
             Direction direction = null;
             Direction.Axis axis;
 
-            if (level.isStateAtPosition(mutable.move(Direction.DOWN, 2), state -> state.is(trunkProvider.getState(random, pos).getBlock()) && state.getValue(ThinLogBlock.AXIS) == Direction.Axis.X)) {
+            if (level.isStateAtPosition(mutable.move(Direction.DOWN, 2), state -> state.is(trunk) && state.getValue(ThinLogBlock.AXIS) == Direction.Axis.X)) {
                 axis = Direction.Axis.X;
             } else {
                 axis = Direction.Axis.Z;
@@ -99,7 +99,7 @@ public class CherryFoliagePlacer extends FoliagePlacer {
             for (Direction.AxisDirection axisDirection : Direction.AxisDirection.values()) {
                 Direction offsetDirection = Direction.fromAxisAndDirection(axis, axisDirection);
 
-                if (level.isStateAtPosition(mutable.move(offsetDirection), state -> state.is(trunkProvider.getState(random, pos).getBlock()))) {
+                if (level.isStateAtPosition(mutable.move(offsetDirection), state -> state.is(trunk))) {
                     direction = offsetDirection.getOpposite();
                     break;
                 }
@@ -141,14 +141,6 @@ public class CherryFoliagePlacer extends FoliagePlacer {
 
     private boolean isMiddleRow(List<Pair<Integer, Integer>> layout, int i) {
         return layout.size() / 2 == i;
-    }
-
-    private BlockStateProvider getTrunkProvider(TreeConfiguration configuration) {
-        if (configuration instanceof CherryTreeConfiguration cherryTreeConfiguration) {
-            return cherryTreeConfiguration.thinTrunkProvider;
-        }
-
-        return configuration.trunkProvider;
     }
 
     @Override

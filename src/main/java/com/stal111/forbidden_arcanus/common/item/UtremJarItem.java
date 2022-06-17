@@ -74,7 +74,7 @@ public class UtremJarItem extends BlockItem {
         Fluid fluid = this.getFluid(stack);
 
         if (fluid != Fluids.EMPTY) {
-            tooltip.add(Component.translatable(fluid.getAttributes().getTranslationKey()).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(fluid.getFluidType().getDescriptionId()).withStyle(ChatFormatting.GRAY));
         }
     }
 }

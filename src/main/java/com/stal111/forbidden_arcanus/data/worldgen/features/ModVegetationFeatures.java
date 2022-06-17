@@ -18,12 +18,12 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
+ * @version 1.19 - 2.1.0
  * @since 2022-04-24
  */
 public class ModVegetationFeatures {
 
-    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRY_TREES_PLAINS = register("cherry_trees_plains", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(ModTreePlacements.SMALL_CHERRY_CHECKED, 0.2F)), ModTreePlacements.LARGE_CHERRY_CHECKED));
+    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRY_TREES_PLAINS = register("cherry_trees_plains", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(ModTreePlacements.SMALL_CHERRY_CHECKED.getHolder().get(), 0.2F)), ModTreePlacements.LARGE_CHERRY_CHECKED.getHolder().get()));
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(String name, F feature, FC configuration) {
         return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name).toString(), new ConfiguredFeature<>(feature, configuration));

@@ -11,6 +11,10 @@ import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModCavePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModVegetationPlacements;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -54,6 +58,8 @@ public class ForbiddenArcanus {
 			.addHelper(Registry.STRUCTURE_PIECE_REGISTRY, new RegistryHelper<>(ModStructurePieces::new))
 			.addHelper(Registry.STRUCTURE_SET_REGISTRY, new RegistryHelper<>(ModStructureSets::new))
 			.addHelper(ForgeRegistries.Keys.SOUND_EVENTS, new RegistryHelper<>(ModSounds::new))
+			.addHelper(Registry.CONFIGURED_FEATURE_REGISTRY, new RegistryHelper<>(ModConfiguredFeatures::new))
+			.addHelper(Registry.PLACED_FEATURE_REGISTRY, new RegistryHelper<>(ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new, ModCavePlacements::new))
 			.create();
 
 	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry(() ->

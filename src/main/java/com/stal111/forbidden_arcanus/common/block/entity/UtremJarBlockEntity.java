@@ -3,14 +3,14 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.util.FluidTankTile;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -23,12 +23,12 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.UtremJarBlockEntity
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-02-19
  */
 public class UtremJarBlockEntity extends BlockEntity {
 
-    private final FluidTank tank = new FluidTankTile(FluidAttributes.BUCKET_VOLUME, this);
+    private final FluidTank tank = new FluidTankTile(FluidType.BUCKET_VOLUME, this);
     private final LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
 
     public UtremJarBlockEntity(BlockPos pos, BlockState state) {

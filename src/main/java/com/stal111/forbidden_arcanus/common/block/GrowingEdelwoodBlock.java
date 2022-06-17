@@ -59,7 +59,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
 
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        if (!ModConfiguredFeatures.EDELWOOD.value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
+        if (!ModConfiguredFeatures.EDELWOOD.get().place(level, level.getChunkSource().getGenerator(), random, pos)) {
             level.setBlock(pos, state, 4);
         }
     }

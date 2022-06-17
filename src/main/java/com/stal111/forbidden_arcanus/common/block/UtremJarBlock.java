@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.UtremJarBlock
  *
  * @author stal111
- * @version 16.2.0
+ * @version 1.19 - 2.1.0
  * @since 2021-02-18
  */
 public class UtremJarBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
@@ -118,7 +118,7 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock, Enti
         if (world.getBlockEntity(pos) instanceof UtremJarBlockEntity blockEntity) {
             FluidStack fluid = blockEntity.getTank().getFluid();
 
-            return fluid.getFluid().getAttributes().getLuminosity(fluid);
+            return fluid.getFluid().getFluidType().getLightLevel(fluid);
         }
         return super.getLightEmission(state, world, pos);
     }
