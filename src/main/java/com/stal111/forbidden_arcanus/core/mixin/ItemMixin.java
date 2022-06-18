@@ -10,8 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
 /**
  * Item Mixin <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.mixin.ItemMixin
@@ -29,7 +27,11 @@ public class ItemMixin {
             return;
         }
 
-        CompoundTag compound = Objects.requireNonNull(stack.getTag());
+        CompoundTag compound = stack.getTag();
+        
+        if (compound == null) {
+            return;
+        }
 
         if (compound.getBoolean("Repair")) {
             stack.setDamageValue(stack.getDamageValue() - 1);
