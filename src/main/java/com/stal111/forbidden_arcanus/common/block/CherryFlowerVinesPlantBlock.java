@@ -40,7 +40,7 @@ public class CherryFlowerVinesPlantBlock extends GrowingPlantBodyBlock implement
     public boolean canSurvive(@Nonnull BlockState state, @Nonnull LevelReader level, @Nonnull BlockPos pos) {
         BlockState relativeState = level.getBlockState(pos.relative(this.growthDirection.getOpposite()));
 
-        return relativeState.is(this.getHeadBlock()) || relativeState.is(this.getBodyBlock()) || relativeState.is(ModBlocks.CHERRYWOOD_LEAVES.get());    }
+        return relativeState.is(this.getHeadBlock()) || relativeState.is(this.getBodyBlock()) || relativeState.is(ModBlocks.CHERRY_LEAVES.get());    }
 
     @Override
     public void entityInside(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Entity entity) {

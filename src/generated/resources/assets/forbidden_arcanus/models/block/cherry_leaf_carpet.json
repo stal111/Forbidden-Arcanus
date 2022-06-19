@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:builtin/generated",
+  "textures": {
+    "layer0": "forbidden_arcanus:block/cherry_leaf_carpet"
+  }
+}

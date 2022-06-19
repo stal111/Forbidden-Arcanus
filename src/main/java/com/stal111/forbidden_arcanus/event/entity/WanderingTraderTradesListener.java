@@ -23,8 +23,8 @@ public class WanderingTraderTradesListener {
     public static void onWanderingTraderTradesEvent(WandererTradesEvent event) {
         TradeHelper.addWanderingTraderTrades(event,
                 new BasicItemListing(3, new ItemStack(ModBlocks.FUNGYSS.get()), 5, 1),
-                new BasicItemListing(5, new ItemStack(ModBlocks.CHERRYWOOD_SAPLING.get()), 8, 1),
-                new BasicItemListing(5, new ItemStack(ModBlocks.MYSTERYWOOD_SAPLING.get()), 8, 1),
+                new BasicItemListing(5, new ItemStack(ModBlocks.CHERRY_SAPLING.get()), 8, 1),
+                new BasicItemListing(5, new ItemStack(ModBlocks.AURUM_SAPLING.get()), 8, 1),
                 new BasicItemListing(2, new ItemStack(ModBlocks.YELLOW_ORCHID.get()), 6, 1)
         );
     }

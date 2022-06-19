@@ -56,7 +56,7 @@ public class CherryTreeConfiguration extends TreeConfiguration {
     public final BlockStateProvider thinTrunkProvider;
 
     public CherryTreeConfiguration(BlockStateProvider trunkProvider, BlockStateProvider thinTrunkProvider, TrunkPlacer trunkPlacer, BlockStateProvider foliageProvider, FoliagePlacer foliagePlacer, FeatureSize featureSize) {
-        this(trunkProvider, thinTrunkProvider, trunkPlacer, foliageProvider, foliagePlacer, Optional.empty(), BlockStateProvider.simple(Blocks.DIRT), featureSize, List.of(new LeafCarpetDecorator(BlockStateProvider.simple(ModBlocks.CHERRYWOOD_LEAF_CARPET.get())), CherryVinesDecorator.INSTANCE), true, false);
+        this(trunkProvider, thinTrunkProvider, trunkPlacer, foliageProvider, foliagePlacer, Optional.empty(), BlockStateProvider.simple(Blocks.DIRT), featureSize, List.of(new LeafCarpetDecorator(BlockStateProvider.simple(ModBlocks.CHERRY_LEAF_CARPET.get())), CherryVinesDecorator.INSTANCE), true, false);
     }
 
     public CherryTreeConfiguration(BlockStateProvider trunkProvider, BlockStateProvider thinTrunkProvider, TrunkPlacer trunkPlacer, BlockStateProvider foliageProvider, FoliagePlacer foliagePlacer, Optional<RootPlacer> rootPlacer, BlockStateProvider dirtProvider, FeatureSize featureSize, List<TreeDecorator> decorators, boolean ignoreVines, boolean forceDirt) {

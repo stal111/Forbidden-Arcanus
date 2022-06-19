@@ -74,8 +74,8 @@ public class ClientSetup {
             MenuScreens.register(ModContainers.CLIBANO.get(), ClibanoScreen::new);
 
             Sheets.addWoodType(ModWoodTypes.FUNGYSS);
-            Sheets.addWoodType(ModWoodTypes.CHERRYWOOD);
-            Sheets.addWoodType(ModWoodTypes.MYSTERYWOOD);
+            Sheets.addWoodType(ModWoodTypes.CHERRY);
+            Sheets.addWoodType(ModWoodTypes.AURUM);
             Sheets.addWoodType(ModWoodTypes.EDELWOOD);
         });
 

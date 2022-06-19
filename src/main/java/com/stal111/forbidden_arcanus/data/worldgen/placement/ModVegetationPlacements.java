@@ -33,7 +33,7 @@ public class ModVegetationPlacements implements RegistryClass {
     public static final PlacementModifier TREE_THRESHOLD = SurfaceWaterDepthFilter.forMaxDepth(0);
 
     public static final RegistryObject<PlacedFeature> YELLOW_ORCHID = register("yellow_orchid", ModConfiguredFeatures.YELLOW_ORCHID.getHolder().get(), () -> List.of(RarityFilter.onAverageOnceEvery(12), PlacementUtils.HEIGHTMAP, InSquarePlacement.spread(), BiomeFilter.biome()));
-    public static final RegistryObject<PlacedFeature> CHERRY_TREES_PLAINS = register("cherry_trees_plains", ModVegetationFeatures.CHERRY_TREES_PLAINS, () -> List.of(PlacementUtils.countExtra(0, 0.05F, 1), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.CHERRYWOOD_SAPLING.get().defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()));
+    public static final RegistryObject<PlacedFeature> CHERRY_TREES_PLAINS = register("cherry_trees_plains", ModVegetationFeatures.CHERRY_TREES_PLAINS, () -> List.of(PlacementUtils.countExtra(0, 0.05F, 1), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.CHERRY_SAPLING.get().defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome()));
 
     private static RegistryObject<PlacedFeature> register(String name, Holder<? extends ConfiguredFeature<?, ?>> feature, Supplier<List<PlacementModifier>> modifiers) {
         return HELPER.register(name, () -> new PlacedFeature(Holder.hackyErase(feature), modifiers.get()));

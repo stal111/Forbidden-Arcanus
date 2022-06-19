@@ -15,14 +15,14 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 public class ModWoodTypes {
 
     public static final WoodType FUNGYSS = WoodType.create(new ResourceLocation(ForbiddenArcanus.MOD_ID, "fungyss").toString());
-    public static final WoodType CHERRYWOOD = WoodType.create(new ResourceLocation(ForbiddenArcanus.MOD_ID, "cherrywood").toString());
-    public static final WoodType MYSTERYWOOD = WoodType.create(new ResourceLocation(ForbiddenArcanus.MOD_ID, "mysterywood").toString());
+    public static final WoodType CHERRY = WoodType.create(new ResourceLocation(ForbiddenArcanus.MOD_ID, "cherry").toString());
+    public static final WoodType AURUM = WoodType.create(new ResourceLocation(ForbiddenArcanus.MOD_ID, "aurum").toString());
     public static final WoodType EDELWOOD = WoodType.create(new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood").toString());
 
     public static void registerWoodTypes() {
         WoodType.register(FUNGYSS);
-        WoodType.register(CHERRYWOOD);
-        WoodType.register(MYSTERYWOOD);
+        WoodType.register(CHERRY);
+        WoodType.register(AURUM);
         WoodType.register(EDELWOOD);
     }
 }

@@ -54,9 +54,9 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         take(block -> add(block, createOreDrop(block, ModItems.ARCANE_CRYSTAL.get())), ModBlocks.ARCANE_CRYSTAL_ORE, ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
         take(block -> add(block, createSingleItemTableWithSilkTouch(block, ModItems.RUNE.get())), ModBlocks.RUNIC_STONE, ModBlocks.RUNIC_DEEPSLATE, ModBlocks.RUNIC_DARKSTONE);
         take(block -> add(block, createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).append(applyExplosionCondition(block, LootItem.lootTableItem(ModItems.STRANGE_ROOT.get())).when(LootItemRandomChanceCondition.randomChance(0.1F))))), ModBlocks.PETRIFIED_ROOT);
-        take(block -> add(block, createLeavesDrops(block, ModBlocks.CHERRYWOOD_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(ModItems.CHERRY_PEACH.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))))), ModBlocks.CHERRYWOOD_LEAVES);
-        take(block -> add(block, createLeavesDrops(block, ModBlocks.MYSTERYWOOD_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F)), ModBlocks.MYSTERYWOOD_LEAVES);
-        take(block -> add(block, createLeavesDrops(block, ModBlocks.MYSTERYWOOD_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(Items.GOLD_NUGGET)).when(LootItemRandomChanceCondition.randomChance(0.1F))))), ModBlocks.NUGGETY_MYSTERYWOOD_LEAVES);
+        take(block -> add(block, createLeavesDrops(block, ModBlocks.CHERRY_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(ModItems.CHERRY_PEACH.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))))), ModBlocks.CHERRY_LEAVES);
+        take(block -> add(block, createLeavesDrops(block, ModBlocks.AURUM_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F)), ModBlocks.AURUM_LEAVES);
+        take(block -> add(block, createLeavesDrops(block, ModBlocks.AURUM_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(Items.GOLD_NUGGET)).when(LootItemRandomChanceCondition.randomChance(0.1F))))), ModBlocks.NUGGETY_AURUM_LEAVES);
         take(block -> {
             LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.AGE_6, 6));
             add(block, applyExplosionDecay(block, createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(ModItems.GOLDEN_ORCHID_SEEDS.get()))).withPool(LootPool.lootPool().when(HAS_NO_SILK_TOUCH).when(builder).add(LootItem.lootTableItem(ModItems.ARCANE_GOLD_NUGGET.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
@@ -67,7 +67,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         }, ModBlocks.STRANGE_ROOT);
         take(block -> add(block, createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ModItems.EDELWOOD_STICK.get())))), ModBlocks.EDELWOOD_BRANCH);
         take(block -> add(block, ModBlockLootTables::createSilkTouchOrShearsOnlyTable),
-                ModBlocks.CHERRYWOOD_LEAF_CARPET,
+                ModBlocks.CHERRY_LEAF_CARPET,
                 ModBlocks.CHERRY_FLOWER_VINES,
                 ModBlocks.CHERRY_FLOWER_VINES_PLANT
         );

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:thin_cherry_log"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "item": "forbidden_arcanus:cherry_log"
+  }
+}

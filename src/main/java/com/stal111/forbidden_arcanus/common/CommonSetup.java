@@ -45,10 +45,10 @@ public class CommonSetup {
 
         ItemPredicate.register(new ResourceLocation(ForbiddenArcanus.MOD_ID, "modifier"), ModifierItemPredicate::fromJson);
 
-        ModUtils.addStrippable(ModBlocks.CHERRYWOOD_LOG.get(), ModBlocks.STRIPPED_CHERRYWOOD_LOG.get());
-        ModUtils.addStrippable(ModBlocks.CHERRYWOOD.get(), ModBlocks.STRIPPED_CHERRYWOOD.get());
-        ModUtils.addStrippable(ModBlocks.MYSTERYWOOD_LOG.get(), ModBlocks.STRIPPED_MYSTERYWOOD_LOG.get());
-        ModUtils.addStrippable(ModBlocks.MYSTERYWOOD.get(), ModBlocks.STRIPPED_MYSTERYWOOD.get());
+        ModUtils.addStrippable(ModBlocks.CHERRY_LOG.get(), ModBlocks.STRIPPED_CHERRY_LOG.get());
+        ModUtils.addStrippable(ModBlocks.CHERRY_WOOD.get(), ModBlocks.STRIPPED_CHERRY_WOOD.get());
+        ModUtils.addStrippable(ModBlocks.AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_LOG.get());
+        ModUtils.addStrippable(ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());
 
         PotionBrewing.addMix(Potions.WATER, ModItems.STRANGE_ROOT.get(), Potions.AWKWARD);
     }

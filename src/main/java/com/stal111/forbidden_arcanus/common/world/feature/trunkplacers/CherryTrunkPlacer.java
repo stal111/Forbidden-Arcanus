@@ -133,7 +133,7 @@ public class CherryTrunkPlacer extends TrunkPlacer {
     protected boolean placeThinLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Function<BlockState, BlockState> propertySetter) {
         if (TreeFeature.validTreePos(level, pos)) {
 
-            blockSetter.accept(pos, propertySetter.apply(ModBlocks.THIN_CHERRYWOOD_LOG.get().defaultBlockState()));
+            blockSetter.accept(pos, propertySetter.apply(ModBlocks.THIN_CHERRY_LOG.get().defaultBlockState()));
 
             return true;
         }

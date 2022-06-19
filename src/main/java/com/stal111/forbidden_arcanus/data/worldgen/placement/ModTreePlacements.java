@@ -30,8 +30,8 @@ public class ModTreePlacements implements RegistryClass {
     public static final PlacementModifier TREE_THRESHOLD = SurfaceWaterDepthFilter.forMaxDepth(0);
 
     public static final RegistryObject<PlacedFeature> EDELWOOD_TREES = register("edelwood_trees", ModConfiguredFeatures.EDELWOOD.getHolder().get(), () -> List.of(InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_WORLD_SURFACE, PlacementUtils.countExtra(18, 0.25F, 3), BiomeFilter.biome()));
-    public static final RegistryObject<PlacedFeature> SMALL_CHERRY_CHECKED = register("small_cherry_checked", ModConfiguredFeatures.SMALL_CHERRYWOOD.getHolder().get(), () -> List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.CHERRYWOOD_SAPLING.get())));
-    public static final RegistryObject<PlacedFeature> LARGE_CHERRY_CHECKED = register("large_cherry_checked", ModConfiguredFeatures.LARGE_CHERRYWOOD.getHolder().get(), () -> List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.CHERRYWOOD_SAPLING.get())));
+    public static final RegistryObject<PlacedFeature> SMALL_CHERRY_CHECKED = register("small_cherry_checked", ModConfiguredFeatures.SMALL_CHERRYWOOD.getHolder().get(), () -> List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.CHERRY_SAPLING.get())));
+    public static final RegistryObject<PlacedFeature> LARGE_CHERRY_CHECKED = register("large_cherry_checked", ModConfiguredFeatures.LARGE_CHERRYWOOD.getHolder().get(), () -> List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.CHERRY_SAPLING.get())));
 
     private static RegistryObject<PlacedFeature> register(String name, Holder<? extends ConfiguredFeature<?, ?>> feature, Supplier<List<PlacementModifier>> modifiers) {
         return HELPER.register(name, () -> new PlacedFeature(Holder.hackyErase(feature), modifiers.get()));

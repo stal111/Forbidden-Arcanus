@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:aurum_planks"
+    }
+  ],
+  "result": {
+    "item": "forbidden_arcanus:aurum_button"
+  }
+}

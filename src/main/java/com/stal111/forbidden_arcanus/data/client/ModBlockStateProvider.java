@@ -47,7 +47,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 ModBlocks.OBSIDIAN_WALL_SKULL,
                 ModBlocks.ETERNAL_OBSIDIAN_SKULL,
                 ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL,
-                ModBlocks.THIN_CHERRYWOOD_LOG,
+                ModBlocks.THIN_CHERRY_LOG,
                 ModBlocks.CLIBANO_MAIN_PART
         ).forEach(getRemainingBlocks()::remove);
 
@@ -73,12 +73,15 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> pixieUtremJarBlock(block, false), ModBlocks.PIXIE_UTREM_JAR);
         take(block -> pixieUtremJarBlock(block, true), ModBlocks.CORRUPTED_PIXIE_UTREM_JAR);
         take(this::mushroomBlock, ModBlocks.FUNGYSS_BLOCK);
-        take(block -> logBlock((RotatedPillarBlock) block), ModBlocks.FUNGYSS_STEM, ModBlocks.CHERRYWOOD_LOG, ModBlocks.MYSTERYWOOD_LOG, ModBlocks.STRIPPED_MYSTERYWOOD_LOG, ModBlocks.STRIPPED_CHERRYWOOD_LOG);
+        take(block -> logBlock((RotatedPillarBlock) block), ModBlocks.FUNGYSS_STEM, ModBlocks.CHERRY_LOG, ModBlocks.AURUM_LOG, ModBlocks.STRIPPED_AURUM_LOG, ModBlocks.STRIPPED_CHERRY_LOG);
         take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/fungyss_stem"), modLoc("block/fungyss_stem")), ModBlocks.FUNGYSS_HYPHAE);
-        take(block -> axisBlock((RotatedPillarBlock) block, modLoc("block/" + getName(block) + "_log"), modLoc("block/" + getName(block) + "_log")), ModBlocks.CHERRYWOOD, ModBlocks.MYSTERYWOOD, ModBlocks.STRIPPED_CHERRYWOOD, ModBlocks.STRIPPED_MYSTERYWOOD);
+        take(block -> {
+            String name = getName(block).substring(0, getName(block).length() - 5);
+            axisBlock((RotatedPillarBlock) block, modLoc("block/" + name + "_log"), modLoc("block/" + name + "_log"));
+        }, ModBlocks.CHERRY_WOOD, ModBlocks.AURUM_WOOD, ModBlocks.STRIPPED_CHERRY_WOOD, ModBlocks.STRIPPED_AURUM_WOOD);
         take(block -> crossCropBlock((CropBlock) block), ModBlocks.GOLDEN_ORCHID, ModBlocks.STRANGE_ROOT);
         take(this::magicalFarmlandBlock, ModBlocks.MAGICAL_FARMLAND);
-        take(this::leafCarpetBlock, ModBlocks.CHERRYWOOD_LEAF_CARPET);
+        take(this::leafCarpetBlock, ModBlocks.CHERRY_LEAF_CARPET);
 
         ResourceLocation polishedDarkstone = modLoc("block/polished_darkstone");
         take(block -> pressurePlateBlock(block, polishedDarkstone), ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE);
@@ -98,8 +101,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(block -> pressurePlateBlock(block, modLoc("block/arcane_gold_block")), ModBlocks.ARCANE_GOLD_PRESSURE_PLATE);
 
         take(block -> signBlock(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.FUNGYSS_SIGN.getSecond().get()), ModBlocks.FUNGYSS_SIGN.getFirst());
-        take(block -> signBlock(ModBlocks.CHERRYWOOD_SIGN.getFirst().get(), ModBlocks.CHERRYWOOD_SIGN.getSecond().get()), ModBlocks.CHERRYWOOD_SIGN.getFirst());
-        take(block -> signBlock(ModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), ModBlocks.MYSTERYWOOD_SIGN.getSecond().get()), ModBlocks.MYSTERYWOOD_SIGN.getFirst());
+        take(block -> signBlock(ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.CHERRY_SIGN.getSecond().get()), ModBlocks.CHERRY_SIGN.getFirst());
+        take(block -> signBlock(ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.AURUM_SIGN.getSecond().get()), ModBlocks.AURUM_SIGN.getFirst());
         take(block -> signBlock(ModBlocks.EDELWOOD_SIGN.getFirst().get(), ModBlocks.EDELWOOD_SIGN.getSecond().get()), ModBlocks.EDELWOOD_SIGN.getFirst());
 
         take(this::cherryFlowerVinesBlock, ModBlocks.CHERRY_FLOWER_VINES);

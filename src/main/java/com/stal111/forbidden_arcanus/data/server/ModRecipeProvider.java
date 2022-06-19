@@ -84,57 +84,60 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(ModBlocks.ARCANE_GOLDEN_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
 
         this.addWoodRecipe(ModBlocks.FUNGYSS_HYPHAE.get(), ModBlocks.FUNGYSS_STEM.get(), consumer);
-        this.addWoodRecipe(ModBlocks.CHERRYWOOD.get(), ModBlocks.CHERRYWOOD_LOG.get(), consumer);
-        this.addWoodRecipe(ModBlocks.MYSTERYWOOD.get(), ModBlocks.MYSTERYWOOD_LOG.get(), consumer);
+        this.addWoodRecipe(ModBlocks.CHERRY_WOOD.get(), ModBlocks.CHERRY_LOG.get(), consumer);
+        this.addWoodRecipe(ModBlocks.AURUM_WOOD.get(), ModBlocks.AURUM_LOG.get(), consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.CARVED_CHERRYWOOD_PLANKS.get(), 4).pattern(" # ").pattern("# #").pattern(" # ").define('#', ModBlocks.CHERRYWOOD_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.CHERRYWOOD_PLANKS.get())).save(consumer);
+        this.addWoodRecipe(ModBlocks.STRIPPED_CHERRY_WOOD.get(), ModBlocks.STRIPPED_CHERRY_LOG.get(), consumer);
+        this.addWoodRecipe(ModBlocks.STRIPPED_AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_LOG.get(), consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.CARVED_CHERRY_PLANKS.get(), 4).pattern(" # ").pattern("# #").pattern(" # ").define('#', ModBlocks.CHERRY_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.CHERRY_PLANKS.get())).save(consumer);
         this.addSurroundingItemRecipe(ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), ModItems.ARCANE_GOLD_INGOT.get(), ModBlocks.EDELWOOD_PLANKS.get(), 8, consumer);
 
-        this.addSlabRecipe(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addSlabRecipe(ModBlocks.CHERRYWOOD_SLAB.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addSlabRecipe(ModBlocks.MYSTERYWOOD_SLAB.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
-        this.addSlabRecipe(ModBlocks.EDELWOOD_SLAB.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
+        this.addWoodenSlabRecipe(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
+        this.addWoodenSlabRecipe(ModBlocks.CHERRY_SLAB.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addWoodenSlabRecipe(ModBlocks.AURUM_SLAB.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
+        this.addWoodenSlabRecipe(ModBlocks.EDELWOOD_SLAB.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
-        this.addStairsRecipe(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addStairsRecipe(ModBlocks.CHERRYWOOD_STAIRS.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addStairsRecipe(ModBlocks.MYSTERYWOOD_STAIRS.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
-        this.addStairsRecipe(ModBlocks.EDELWOOD_STAIRS.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
+        this.addWoodenStairsRecipe(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
+        this.addWoodenStairsRecipe(ModBlocks.CHERRY_STAIRS.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addWoodenStairsRecipe(ModBlocks.AURUM_STAIRS.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
+        this.addWoodenStairsRecipe(ModBlocks.EDELWOOD_STAIRS.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         this.addDoorRecipe(ModBlocks.ARCANE_GOLD_DOOR.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
         this.addDoorRecipe(ModBlocks.FUNGYSS_DOOR.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addDoorRecipe(ModBlocks.CHERRYWOOD_DOOR.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addDoorRecipe(ModBlocks.MYSTERYWOOD_DOOR.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addDoorRecipe(ModBlocks.CHERRY_DOOR.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addDoorRecipe(ModBlocks.AURUM_DOOR.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addDoorRecipe(ModBlocks.EDELWOOD_DOOR.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         this.addTrapdoorRecipe(ModBlocks.ARCANE_GOLD_TRAPDOOR.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
         this.addTrapdoorRecipe(ModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addTrapdoorRecipe(ModBlocks.CHERRYWOOD_TRAPDOOR.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addTrapdoorRecipe(ModBlocks.MYSTERYWOOD_TRAPDOOR.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addTrapdoorRecipe(ModBlocks.CHERRY_TRAPDOOR.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addTrapdoorRecipe(ModBlocks.AURUM_TRAPDOOR.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addTrapdoorRecipe(ModBlocks.EDELWOOD_TRAPDOOR.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         this.addFenceRecipe(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addFenceRecipe(ModBlocks.CHERRYWOOD_FENCE.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addFenceRecipe(ModBlocks.MYSTERYWOOD_FENCE.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addFenceRecipe(ModBlocks.CHERRY_FENCE.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addFenceRecipe(ModBlocks.AURUM_FENCE.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addFenceRecipe(ModBlocks.EDELWOOD_FENCE.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         this.addFenceGateRecipe(ModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addFenceGateRecipe(ModBlocks.CHERRYWOOD_FENCE_GATE.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addFenceGateRecipe(ModBlocks.MYSTERYWOOD_FENCE_GATE.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addFenceGateRecipe(ModBlocks.CHERRY_FENCE_GATE.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addFenceGateRecipe(ModBlocks.AURUM_FENCE_GATE.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addFenceGateRecipe(ModBlocks.EDELWOOD_FENCE_GATE.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         this.addSignRecipe(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addSignRecipe(ModBlocks.CHERRYWOOD_SIGN.getFirst().get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addSignRecipe(ModBlocks.MYSTERYWOOD_SIGN.getFirst().get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addSignRecipe(ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addSignRecipe(ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addSignRecipe(ModBlocks.EDELWOOD_SIGN.getFirst().get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
         this.addPressurePlateRecipe(ModBlocks.ARCANE_GOLD_PRESSURE_PLATE.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
         this.addPressurePlateRecipe(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addPressurePlateRecipe(ModBlocks.CHERRYWOOD_PRESSURE_PLATE.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addPressurePlateRecipe(ModBlocks.MYSTERYWOOD_PRESSURE_PLATE.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addPressurePlateRecipe(ModBlocks.CHERRY_PRESSURE_PLATE.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addPressurePlateRecipe(ModBlocks.AURUM_PRESSURE_PLATE.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addPressurePlateRecipe(ModBlocks.EDELWOOD_PRESSURE_PLATE.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.THIN_CHERRYWOOD_LOG.get(), 4).pattern("#").pattern("#").define('#', ModBlocks.CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.CHERRYWOOD_LOG.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(ModBlocks.CHERRYWOOD_LOG.get()).pattern("##").define('#', ModBlocks.THIN_CHERRYWOOD_LOG.get()).unlockedBy("has_log", has(ModBlocks.THIN_CHERRYWOOD_LOG.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.THIN_CHERRY_LOG.get(), 4).pattern("#").pattern("#").define('#', ModBlocks.CHERRY_LOG.get()).unlockedBy("has_log", has(ModBlocks.CHERRY_LOG.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.CHERRY_LOG.get()).pattern("##").define('#', ModBlocks.THIN_CHERRY_LOG.get()).unlockedBy("has_log", has(ModBlocks.THIN_CHERRY_LOG.get())).save(consumer);
         ShapedRecipeBuilder.shaped(ModBlocks.EDELWOOD_LADDER.get(), 3).pattern("# #").pattern("#X#").pattern("# #").define('#', Tags.Items.RODS_WOODEN).define('X', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_stick", has(Tags.Items.RODS_WOODEN)).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(ModItems.EDELWOOD_BUCKET.get()).pattern("# #").pattern("# #").pattern(" # ").define('#', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())).save(consumer);
 
@@ -144,18 +147,18 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(ModItems.DARK_RUNE.get(), 2).requires(ModItems.RUNE.get()).requires(ModItems.RUNE.get()).requires(ModItems.CORRUPTI_DUST.get()).unlockedBy("has_rune", has(ModItems.RUNE.get())).unlockedBy("has_dust", has(ModItems.CORRUPTI_DUST.get())).save(consumer);
 
         this.addPlanksRecipe(ModBlocks.FUNGYSS_PLANKS.get(), ModTags.Items.FUNGYSS_STEMS, 4, consumer);
-        this.addPlanksRecipe(ModBlocks.CHERRYWOOD_PLANKS.get(), ModTags.Items.CHERRYWOOD_LOGS, 4, consumer);
-        this.addPlanksRecipe(ModBlocks.MYSTERYWOOD_PLANKS.get(), ModTags.Items.MYSTERYWOOD_LOGS, 4, consumer);
+        this.addPlanksRecipe(ModBlocks.CHERRY_PLANKS.get(), ModTags.Items.CHERRYWOOD_LOGS, 4, consumer);
+        this.addPlanksRecipe(ModBlocks.AURUM_PLANKS.get(), ModTags.Items.MYSTERYWOOD_LOGS, 4, consumer);
         this.addPlanksRecipe(ModBlocks.EDELWOOD_PLANKS.get(), ModTags.Items.EDELWOOD_LOGS, 2, consumer);
 
-        ShapelessRecipeBuilder.shapeless(ModBlocks.CHERRYWOOD_PLANKS.get(), 2).requires(ModBlocks.THIN_CHERRYWOOD_LOG.get()).unlockedBy("has_item", has(ModBlocks.THIN_CHERRYWOOD_LOG.get())).save(consumer, "forbidden_arcanus:cherrywood_planks_from_thin_cherrywood_log");
+        ShapelessRecipeBuilder.shapeless(ModBlocks.CHERRY_PLANKS.get(), 2).requires(ModBlocks.THIN_CHERRY_LOG.get()).unlockedBy("has_item", has(ModBlocks.THIN_CHERRY_LOG.get())).save(consumer, "forbidden_arcanus:cherrywood_planks_from_thin_cherrywood_log");
 
         this.addButtonRecipe(ModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
-        this.addButtonRecipe(ModBlocks.CHERRYWOOD_BUTTON.get(), ModBlocks.CHERRYWOOD_PLANKS.get(), consumer);
-        this.addButtonRecipe(ModBlocks.MYSTERYWOOD_BUTTON.get(), ModBlocks.MYSTERYWOOD_PLANKS.get(), consumer);
+        this.addButtonRecipe(ModBlocks.CHERRY_BUTTON.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.addButtonRecipe(ModBlocks.AURUM_BUTTON.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addButtonRecipe(ModBlocks.EDELWOOD_BUTTON.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
-        this.addCarpetRecipe(ModBlocks.CHERRYWOOD_LEAF_CARPET.get(), ModBlocks.CHERRYWOOD_LEAVES.get(), consumer);
+        this.addCarpetRecipe(ModBlocks.CHERRY_LEAF_CARPET.get(), ModBlocks.CHERRY_LEAVES.get(), consumer);
 
         //Smelting Recipes
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 150).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())).save(consumer, "forbidden_arcanus:smelting/arcane_crystal_dust_from_smelting");
@@ -206,7 +209,7 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private void addWoodRecipe(ItemLike result, ItemLike log, @Nonnull Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(result, 3).pattern("##").pattern("##").define('#', log).unlockedBy("has_log", has(log)).save(consumer);
+        ShapedRecipeBuilder.shaped(result, 3).group("bark").pattern("##").pattern("##").define('#', log).unlockedBy("has_log", has(log)).save(consumer);
     }
 
     private void addPlanksRecipe(ItemLike result, TagKey<Item> log, int count, @Nonnull Consumer<FinishedRecipe> consumer) {
@@ -217,9 +220,16 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(result, 6).pattern("###").define('#', planks).unlockedBy("has_planks", has(planks)).save(consumer);
     }
 
+    private void addWoodenSlabRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result, 6).group("wooden_slab").pattern("###").define('#', planks).unlockedBy("has_planks", has(planks)).save(consumer);
+    }
+
     private void addStairsRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(result, 4).pattern("#  ").pattern("## ").pattern("###").define('#', planks).unlockedBy("has_planks", has(planks)).save(consumer);
+    }
 
+    private void addWoodenStairsRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result, 4).group("wooden_stairs").pattern("#  ").pattern("## ").pattern("###").define('#', planks).unlockedBy("has_planks", has(planks)).save(consumer);
     }
 
     private void addSignRecipe(ItemLike result, ItemLike planks, @Nonnull Consumer<FinishedRecipe> consumer) {

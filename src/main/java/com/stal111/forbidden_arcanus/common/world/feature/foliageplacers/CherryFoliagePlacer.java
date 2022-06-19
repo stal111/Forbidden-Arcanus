@@ -54,7 +54,7 @@ public class CherryFoliagePlacer extends FoliagePlacer {
     protected void createFoliage(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, int maxFreeTreeHeight, @Nonnull FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         BlockPos pos = attachment.pos();
         List<Direction> directions = new ArrayList<>();
-        Block trunk = ModBlocks.THIN_CHERRYWOOD_LOG.get();
+        Block trunk = ModBlocks.THIN_CHERRY_LOG.get();
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
 
