@@ -15,7 +15,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
 
@@ -65,7 +64,7 @@ public class ModBiomeModifiers {
                         GenerationStep.Decoration.UNDERGROUND_ORES),
 
                 new ResourceLocation("add_cherrywood_trees"), new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                        new HolderSet.Named<>(biomeRegistry, Tags.Biomes.IS_PLAINS),
+                        HolderSet.direct(biomeRegistry.getHolder(Biomes.PLAINS).get(), biomeRegistry.getHolder(Biomes.SUNFLOWER_PLAINS).get()),
                         HolderSet.direct(registry.getOrCreateHolderOrThrow(ModVegetationPlacements.CHERRY_TREES_PLAINS.getKey())),
                         GenerationStep.Decoration.VEGETAL_DECORATION),
                 new ResourceLocation("add_edelwood_trees"), new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
