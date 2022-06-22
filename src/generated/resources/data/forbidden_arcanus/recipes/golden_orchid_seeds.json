@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:yellow_orchid"
+    },
+    {
+      "item": "forbidden_arcanus:deorum_ingot"
+    }
+  ],
+  "result": {
+    "item": "forbidden_arcanus:golden_orchid_seeds"
+  }
+}

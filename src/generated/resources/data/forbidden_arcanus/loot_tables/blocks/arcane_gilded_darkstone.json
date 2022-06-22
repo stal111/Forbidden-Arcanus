@@ -36,7 +36,7 @@
                       "condition": "minecraft:match_tool",
                       "predicate": {
                         "items": [
-                          "forbidden_arcanus:arcane_golden_pickaxe"
+                          "forbidden_arcanus:deorum_pickaxe"
                         ]
                       }
                     }
@@ -52,7 +52,7 @@
                       "function": "minecraft:set_count"
                     }
                   ],
-                  "name": "forbidden_arcanus:arcane_gold_nugget"
+                  "name": "forbidden_arcanus:deorum_nugget"
                 },
                 {
                   "type": "minecraft:item",

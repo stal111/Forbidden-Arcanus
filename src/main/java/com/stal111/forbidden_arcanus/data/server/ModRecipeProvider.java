@@ -59,29 +59,29 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addBlacksmithGavelRecipe(ModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD, consumer);
         this.addBlacksmithGavelRecipe(ModItems.IRON_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_IRON, consumer);
         this.addBlacksmithGavelRecipe(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND, consumer);
-        this.addBlacksmithGavelRecipe(ModItems.ARCANE_GOLDEN_BLACKSMITH_GAVEL.get(), ModTags.Items.ARCANE_GOLD_INGOTS, consumer);
+        this.addBlacksmithGavelRecipe(ModItems.DEORUM_BLACKSMITH_GAVEL.get(), ModTags.Items.ARCANE_GOLD_INGOTS, consumer);
         ShapedRecipeBuilder.shaped(ModBlocks.DARKSTONE_PEDESTAL.get()).pattern("###").pattern(" * ").pattern("XXX").define('#', ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get()).define('*', ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get()).define('X', ModBlocks.POLISHED_DARKSTONE.get()).unlockedBy("has_item", has(ModBlocks.POLISHED_DARKSTONE.get())).save(consumer);
 
         ShapedRecipeBuilder.shaped(ModItems.DARK_NETHER_STAR.get()).pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy("has_obsidian_ingot", has(ModItems.OBSIDIAN_INGOT.get())).unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(consumer);
-        ShapedRecipeBuilder.shaped(ModItems.ARCANE_GOLD_INGOT.get()).pattern("#*#").pattern("MXM").pattern("#*#").define('#', Items.CHARCOAL).define('X', Items.GOLD_INGOT).define('M', ModItems.MUNDABITUR_DUST.get()).define('*', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT)).unlockedBy("has_arcane_crystal_dust", has(ModItems.ARCANE_CRYSTAL_DUST.get())).unlockedBy("has_mundabitur_dust", has(ModItems.MUNDABITUR_DUST.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(ModItems.DEORUM_INGOT.get()).pattern("#*#").pattern("MXM").pattern("#*#").define('#', Items.CHARCOAL).define('X', Items.GOLD_INGOT).define('M', ModItems.MUNDABITUR_DUST.get()).define('*', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT)).unlockedBy("has_arcane_crystal_dust", has(ModItems.ARCANE_CRYSTAL_DUST.get())).unlockedBy("has_mundabitur_dust", has(ModItems.MUNDABITUR_DUST.get())).save(consumer);
 
         this.addStorageRecipe(ModItems.DARK_NETHER_STAR.get(), ModBlocks.DARK_NETHER_STAR_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.OBSIDIAN_INGOT.get(), ModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), "obsidian_ingot", null, consumer);
-        this.addStorageRecipe(ModItems.ARCANE_GOLD_INGOT.get(), ModBlocks.ARCANE_GOLD_BLOCK.get(), "arcane_gold_ingot", null, consumer);
-        this.addStorageRecipe(ModItems.ARCANE_GOLD_NUGGET.get(), ModItems.ARCANE_GOLD_INGOT.get(), null, "arcane_gold_ingot", consumer);
+        this.addStorageRecipe(ModItems.DEORUM_INGOT.get(), ModBlocks.DEORUM_BLOCK.get(), "arcane_gold_ingot", null, consumer);
+        this.addStorageRecipe(ModItems.DEORUM_NUGGET.get(), ModItems.DEORUM_INGOT.get(), null, "arcane_gold_ingot", consumer);
         this.addStorageRecipe(ModItems.STELLARITE_PIECE.get(), ModBlocks.STELLARITE_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.ARCANE_CRYSTAL.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.RUNE.get(), ModBlocks.RUNE_BLOCK.get(), consumer);
         this.addStorageRecipe(ModItems.DARK_RUNE.get(), ModBlocks.DARK_RUNE_BLOCK.get(), consumer);
 
-        this.addSurroundingItemRecipe(ModBlocks.ARCANE_GOLDEN_GLASS.get(), ModItems.ARCANE_GOLD_INGOT.get(), Blocks.GLASS, 8, consumer);
-        this.addGlassPaneRecipe(ModBlocks.ARCANE_GOLDEN_GLASS.get(), ModBlocks.ARCANE_GOLDEN_GLASS_PANE.get(), consumer);
+        this.addSurroundingItemRecipe(ModBlocks.DEORUM_GLASS.get(), ModItems.DEORUM_INGOT.get(), Blocks.GLASS, 8, consumer);
+        this.addGlassPaneRecipe(ModBlocks.DEORUM_GLASS.get(), ModBlocks.DEORUM_GLASS_PANE.get(), consumer);
         this.addSurroundingItemRecipe(ModBlocks.RUNIC_GLASS.get(), ModItems.RUNE.get(), Blocks.GLASS, 8, consumer);
         this.addGlassPaneRecipe(ModBlocks.RUNIC_GLASS.get(), ModBlocks.RUNIC_GLASS_PANE.get(), consumer);
         this.addSurroundingItemRecipe(ModBlocks.DARK_RUNIC_GLASS.get(), ModItems.DARK_RUNE.get(), Blocks.GLASS, 8, consumer);
         this.addGlassPaneRecipe(ModBlocks.DARK_RUNIC_GLASS.get(), ModBlocks.DARK_RUNIC_GLASS_PANE.get(), consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.ARCANE_GOLDEN_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.DEORUM_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
 
         this.addWoodRecipe(ModBlocks.FUNGYSS_HYPHAE.get(), ModBlocks.FUNGYSS_STEM.get(), consumer);
         this.addWoodRecipe(ModBlocks.CHERRY_WOOD.get(), ModBlocks.CHERRY_LOG.get(), consumer);
@@ -91,7 +91,7 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addWoodRecipe(ModBlocks.STRIPPED_AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_LOG.get(), consumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.CARVED_CHERRY_PLANKS.get(), 4).pattern(" # ").pattern("# #").pattern(" # ").define('#', ModBlocks.CHERRY_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.CHERRY_PLANKS.get())).save(consumer);
-        this.addSurroundingItemRecipe(ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), ModItems.ARCANE_GOLD_INGOT.get(), ModBlocks.EDELWOOD_PLANKS.get(), 8, consumer);
+        this.addSurroundingItemRecipe(ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), ModItems.DEORUM_INGOT.get(), ModBlocks.EDELWOOD_PLANKS.get(), 8, consumer);
 
         this.addWoodenSlabRecipe(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addWoodenSlabRecipe(ModBlocks.CHERRY_SLAB.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
@@ -103,17 +103,19 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addWoodenStairsRecipe(ModBlocks.AURUM_STAIRS.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addWoodenStairsRecipe(ModBlocks.EDELWOOD_STAIRS.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
-        this.addDoorRecipe(ModBlocks.ARCANE_GOLD_DOOR.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
+        this.addDoorRecipe(ModBlocks.DEORUM_DOOR.get(), ModItems.DEORUM_INGOT.get(), consumer);
         this.addDoorRecipe(ModBlocks.FUNGYSS_DOOR.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addDoorRecipe(ModBlocks.CHERRY_DOOR.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
         this.addDoorRecipe(ModBlocks.AURUM_DOOR.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addDoorRecipe(ModBlocks.EDELWOOD_DOOR.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
+        this.addDoorRecipe(ModBlocks.ARCANE_EDELWOOD_DOOR.get(), ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), consumer);
 
-        this.addTrapdoorRecipe(ModBlocks.ARCANE_GOLD_TRAPDOOR.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
+        this.addTrapdoorRecipe(ModBlocks.DEORUM_TRAPDOOR.get(), ModItems.DEORUM_INGOT.get(), consumer);
         this.addTrapdoorRecipe(ModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addTrapdoorRecipe(ModBlocks.CHERRY_TRAPDOOR.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
         this.addTrapdoorRecipe(ModBlocks.AURUM_TRAPDOOR.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addTrapdoorRecipe(ModBlocks.EDELWOOD_TRAPDOOR.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
+        this.addTrapdoorRecipe(ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get(), ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), consumer);
 
         this.addFenceRecipe(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addFenceRecipe(ModBlocks.CHERRY_FENCE.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
@@ -130,7 +132,7 @@ public class ModRecipeProvider extends RecipeProvider {
         this.addSignRecipe(ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.AURUM_PLANKS.get(), consumer);
         this.addSignRecipe(ModBlocks.EDELWOOD_SIGN.getFirst().get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
 
-        this.addPressurePlateRecipe(ModBlocks.ARCANE_GOLD_PRESSURE_PLATE.get(), ModItems.ARCANE_GOLD_INGOT.get(), consumer);
+        this.addPressurePlateRecipe(ModBlocks.DEORUM_PRESSURE_PLATE.get(), ModItems.DEORUM_INGOT.get(), consumer);
         this.addPressurePlateRecipe(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.FUNGYSS_PLANKS.get(), consumer);
         this.addPressurePlateRecipe(ModBlocks.CHERRY_PRESSURE_PLATE.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
         this.addPressurePlateRecipe(ModBlocks.AURUM_PRESSURE_PLATE.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
@@ -145,6 +147,7 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(ModItems.PURIFYING_SOAP.get()).requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.TEST_TUBE.get()).requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE.get()).unlockedBy("has_item", has(ModItems.RUNE.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.DARK_RUNE.get(), 2).requires(ModItems.RUNE.get()).requires(ModItems.RUNE.get()).requires(ModItems.CORRUPTI_DUST.get()).unlockedBy("has_rune", has(ModItems.RUNE.get())).unlockedBy("has_dust", has(ModItems.CORRUPTI_DUST.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(ModItems.GOLDEN_ORCHID_SEEDS.get()).requires(ModBlocks.YELLOW_ORCHID.get()).requires(ModItems.DEORUM_INGOT.get()).unlockedBy("has_yellow_orchid", has(ModBlocks.YELLOW_ORCHID.get())).unlockedBy("has_deorum_ingot", has(ModItems.DEORUM_INGOT.get())).save(consumer);
 
         this.addPlanksRecipe(ModBlocks.FUNGYSS_PLANKS.get(), ModTags.Items.FUNGYSS_STEMS, 4, consumer);
         this.addPlanksRecipe(ModBlocks.CHERRY_PLANKS.get(), ModTags.Items.CHERRYWOOD_LOGS, 4, consumer);

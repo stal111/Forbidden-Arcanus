@@ -3,10 +3,12 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SolidBucketItem;
 import net.minecraft.world.item.context.UseOnContext;
@@ -65,6 +67,13 @@ public class SolidEdelwoodBucketItem extends SolidBucketItem implements Capacity
         }
 
         return result;
+    }
+
+    @Override
+    public void fillItemCategory(@Nonnull CreativeModeTab creativeModeTab, @Nonnull NonNullList<ItemStack> items) {
+        if (this.allowedIn(creativeModeTab)) {
+            items.add(new ItemStack(this));
+        }
     }
 
     @Override

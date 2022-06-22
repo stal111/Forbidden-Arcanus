@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/chain",
+  "textures": {
+    "all": "forbidden_arcanus:block/deorum_chain",
+    "particle": "forbidden_arcanus:block/deorum_chain"
+  }
+}

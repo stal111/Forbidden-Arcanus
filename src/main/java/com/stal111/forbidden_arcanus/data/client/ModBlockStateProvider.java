@@ -95,10 +95,10 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(this::edelwoodLogBlock, ModBlocks.EDELWOOD_LOG);
         take(this::carvedEdelwoodLogBlock, ModBlocks.CARVED_EDELWOOD_LOG);
-        take(block -> horizontalBlock(block, getExistingModel(modLoc("edelwood_branch")), 90), ModBlocks.EDELWOOD_BRANCH);
+        take(block -> horizontalBlock(block, getExistingModel(modLoc("edelwood_branch"))), ModBlocks.EDELWOOD_BRANCH);
 
         take(block -> horizontalBlock(block, models().getExistingFile(modLoc("block/edelwood_ladder"))), ModBlocks.EDELWOOD_LADDER);
-        take(block -> pressurePlateBlock(block, modLoc("block/arcane_gold_block")), ModBlocks.ARCANE_GOLD_PRESSURE_PLATE);
+        take(block -> pressurePlateBlock(block, modLoc("block/deorum_block")), ModBlocks.DEORUM_PRESSURE_PLATE);
 
         take(block -> signBlock(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.FUNGYSS_SIGN.getSecond().get()), ModBlocks.FUNGYSS_SIGN.getFirst());
         take(block -> signBlock(ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.CHERRY_SIGN.getSecond().get()), ModBlocks.CHERRY_SIGN.getFirst());
@@ -171,7 +171,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
             )));
         }, ModBlocks.CLIBANO_SIDE_VERTICAL);
 
-        take(block -> chainBlock(block, modLoc("block/arcane_golden_chain")), ModBlocks.ARCANE_GOLDEN_CHAIN);
+        take(block -> chainBlock(block, modLoc("block/deorum_chain")), ModBlocks.DEORUM_CHAIN);
 
         forEach(block -> block instanceof FenceBlock, block -> {
             ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
@@ -351,14 +351,24 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     }
 
     private void edelwoodLogBlock(Block block) {
+        ModelFile model = this.getEdelwoodLogModel(getName(block));
+        ModelFile modelOily = this.getEdelwoodLogModel(getName(block) + "_oily");
+
         getVariantBuilder(block).forAllStatesExcept(
                 state -> ConfiguredModel.builder()
-                        .modelFile(models().getExistingFile(modLoc("block/" + getName(block) + (state.getValue(ModBlockStateProperties.OILY) ? "_oily" : ""))))
+                        .modelFile(state.getValue(ModBlockStateProperties.OILY) ? modelOily : model)
                         .rotationX(state.getValue(BlockStateProperties.AXIS) != Direction.Axis.Y ? 90 : 0)
                         .rotationY(state.getValue(BlockStateProperties.AXIS) == Direction.Axis.X ? 90 : 0)
                         .build(),
                 BlockStateProperties.WATERLOGGED
         );
+    }
+
+    private ModelFile getEdelwoodLogModel(String name) {
+        return models().withExistingParent(name, modLoc("block/hollow_log"))
+                .texture("log", modLoc("block/" + name))
+                .texture("top", modLoc("block/edelwood_log_top"))
+                .texture("inner", modLoc("block/stripped_edelwood_log"));
     }
 
     private void carvedEdelwoodLogBlock(Block block) {

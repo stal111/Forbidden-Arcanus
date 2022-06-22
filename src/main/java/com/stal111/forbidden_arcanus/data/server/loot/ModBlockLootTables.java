@@ -45,7 +45,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
     @Override
     public void addTables() {
         take(block -> add(block, droppingWithFunction(block, builder -> builder.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fluid", "BlockEntityTag.Fluid")))), ModBlocks.UTREM_JAR);
-        take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModItems.ARCANE_GOLD_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModItems.ARCANE_GOLDEN_PICKAXE.get()))).otherwise(LootItem.lootTableItem(block)))), ModBlocks.ARCANE_GILDED_DARKSTONE);
+        take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModItems.DEORUM_NUGGET.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModItems.DEORUM_PICKAXE.get()))).otherwise(LootItem.lootTableItem(block)))), ModBlocks.ARCANE_GILDED_DARKSTONE);
         take(block -> add(block, LootTable.lootTable()), ModBlocks.BLACK_HOLE);
         take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModBlocks.FUNGYSS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0))).apply(ApplyExplosionDecay.explosionDecay()))), ModBlocks.FUNGYSS_BLOCK);
         take(block -> add(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER)), ModBlocks.ARCANE_CRYSTAL_OBELISK);
@@ -59,7 +59,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         take(block -> add(block, createLeavesDrops(block, ModBlocks.AURUM_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(Items.GOLD_NUGGET)).when(LootItemRandomChanceCondition.randomChance(0.1F))))), ModBlocks.NUGGETY_AURUM_LEAVES);
         take(block -> {
             LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.AGE_6, 6));
-            add(block, applyExplosionDecay(block, createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(ModItems.GOLDEN_ORCHID_SEEDS.get()))).withPool(LootPool.lootPool().when(HAS_NO_SILK_TOUCH).when(builder).add(LootItem.lootTableItem(ModItems.ARCANE_GOLD_NUGGET.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
+            add(block, applyExplosionDecay(block, createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(ModItems.GOLDEN_ORCHID_SEEDS.get()))).withPool(LootPool.lootPool().when(HAS_NO_SILK_TOUCH).when(builder).add(LootItem.lootTableItem(ModItems.DEORUM_NUGGET.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
         }, ModBlocks.GOLDEN_ORCHID);
         take(block -> {
             LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3));

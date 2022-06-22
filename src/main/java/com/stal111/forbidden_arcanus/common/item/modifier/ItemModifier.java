@@ -34,7 +34,6 @@ public class ItemModifier {
     private final Pair<Integer, Integer> tooltipColors;
 
     private List<ItemStack> cachedValidItems;
-
     public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, Pair<Integer, Integer> tooltipColors) {
         this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
@@ -57,6 +56,10 @@ public class ItemModifier {
 
     public ResourceLocation getRegistryName() {
         return ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getKey(this);
+    }
+
+    public ResourceLocation getTooltipTexture() {
+        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/tooltip/" + this.getRegistryName().getPath() + ".png");
     }
 
     public TagKey<Item> getIncompatibleItems() {

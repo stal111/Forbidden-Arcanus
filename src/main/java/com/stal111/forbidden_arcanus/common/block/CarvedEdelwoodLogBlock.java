@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.CarvedEdelwoodLogBlock
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-27
  */
 public class CarvedEdelwoodLogBlock extends EdelwoodLogBlock {

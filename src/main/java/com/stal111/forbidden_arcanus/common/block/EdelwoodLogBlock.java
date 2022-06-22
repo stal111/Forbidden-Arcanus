@@ -56,21 +56,19 @@ import java.util.EnumMap;
  */
 public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
 
-    private static final float RAIN_FILL_CHANCE = 0.15F;
-    private static final float OILY_CHANCE = 0.025F;
-
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
     public static final BooleanProperty OILY = ModBlockStateProperties.OILY;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
     protected static final EnumMap<Direction.Axis, VoxelShape> SHAPES = VoxelShapeHelper.rotateAxis(
             Shapes.join(Shapes.block(), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D), BooleanOp.ONLY_FIRST)
     );
+    private static final float RAIN_FILL_CHANCE = 0.15F;
+    private static final float OILY_CHANCE = 0.025F;
 
     public EdelwoodLogBlock(Properties properties) {
         super(properties);
         if (this.getStateDefinition().getProperties().contains(AXIS)) {
-            this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, Direction.Axis.Y).setValue(OILY, false).setValue(WATERLOGGED,false));
+            this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, Direction.Axis.Y).setValue(OILY, false).setValue(WATERLOGGED, false));
         }
     }
 

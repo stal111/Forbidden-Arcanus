@@ -154,6 +154,6 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
 
     @Override
     protected boolean canBurn(ItemStack stack) {
-        return stack.is(ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.get());
+        return stack.is(ModItems.EDELWOOD_MAGMA_CUBE_BUCKET.get()) || stack.is(ModItems.EDELWOOD_STRIDER_BUCKET.get());
     }
 }

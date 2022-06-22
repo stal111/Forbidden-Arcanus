@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:deorum_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "forbidden_arcanus:deorum_nugget"
+  }
+}

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_arcane_gold_ingot": {
+    "has_deorum_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "forbidden_arcanus:arcane_gold_ingot"
+              "forbidden_arcanus:deorum_ingot"
             ]
           }
         ]
@@ -34,7 +34,7 @@
   },
   "requirements": [
     [
-      "has_arcane_gold_ingot",
+      "has_deorum_ingot",
       "has_edelwood_planks",
       "has_the_recipe"
     ]

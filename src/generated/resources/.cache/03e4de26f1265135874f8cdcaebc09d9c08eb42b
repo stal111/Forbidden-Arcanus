@@ -1,6 +1,6 @@
-// 1.19	2022-06-18T11:06:31.7128471	Tags for minecraft:item
+// 1.19	2022-06-22T15:33:34.7070844	Tags for minecraft:item
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
-3819ec536c8a87cc2e2b005ae7786d0b259b4cf8 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
+05cafb192eccf079a0b6da731f2401809793a197 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/items/cherrywood_logs.json
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/items/edelwood_logs.json
 26ca19a64b7305b1587e6eab631becb52fb1ed25 data/forbidden_arcanus/tags/items/fungyss_stems.json
@@ -15,21 +15,21 @@ a5e30235f64ca727e45ad31a505dbf74f45d0173 data/forbidden_arcanus/tags/items/magic
 dede7185ec43aded455e35dd42747c108df55709 data/forge/tags/items/fences/wooden.json
 ed2b92ec859a4cf09abd750ec7709cd90649352f data/forge/tags/items/fence_gates/wooden.json
 dc8fa4f00124b07aa7c7d1400f8dc2652d9a8f51 data/forge/tags/items/heads.json
-41952b889ac170df5d904b53b6f5f58f77aae6ca data/forge/tags/items/ingots/arcane_gold.json
+238635bd5dd1c15728e03bd1774ab8343944a8b5 data/forge/tags/items/ingots/arcane_gold.json
 9ed069c6891656a213b43d990cc2cd64c086538d data/forge/tags/items/ingots/obsidian.json
 4447fb4f3ca90f441c2430ab8f246986ca58fc1e data/minecraft/tags/items/buttons.json
-b3e88a62e72d0e09e589dad93e5ba2111ceba66d data/minecraft/tags/items/doors.json
+ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/items/doors.json
 2573ed5fa40458e79d5a51f0321c3cedd6bf5dd3 data/minecraft/tags/items/leaves.json
 21ceee370fb7ad0bb83b405e7f92b1ed504c29cf data/minecraft/tags/items/logs.json
 369674d5826e2cb2f27e403624001d2f9202639a data/minecraft/tags/items/planks.json
 2ae2823ba754386a4370da044ed59d77c03c6b32 data/minecraft/tags/items/saplings.json
 17aacb83834d35cca378c25ef6c6a5f0530932ac data/minecraft/tags/items/signs.json
 9e9500e769cd5c0703ef99e4a2a0df188529f697 data/minecraft/tags/items/small_flowers.json
-0971827bbaf34297bb2b6a1f1facdf4a578fe4ed data/minecraft/tags/items/trapdoors.json
+8444fa480fdb1b147e132ca4416af4e96e7bcc0b data/minecraft/tags/items/trapdoors.json
 49f286573356a106c8d69a8e9336a70fd96d25bd data/minecraft/tags/items/wooden_buttons.json
-9642fe0de52d3da5e74b780b14def8cd2212f21e data/minecraft/tags/items/wooden_doors.json
+889241b9c64d118817439095a2c9caf0388b4f2f data/minecraft/tags/items/wooden_doors.json
 dede7185ec43aded455e35dd42747c108df55709 data/minecraft/tags/items/wooden_fences.json
 132f1d703abdde61df329406b9483c3e15730b64 data/minecraft/tags/items/wooden_pressure_plates.json
 1a56222f6e6d67a7bad358c97f95061860c0b2e5 data/minecraft/tags/items/wooden_slabs.json
 38b12cc77338fe19f50f64a0890e09452412c995 data/minecraft/tags/items/wooden_stairs.json
-7e7f9ccfb34bd2d725a572bf60fe85ad8d231533 data/minecraft/tags/items/wooden_trapdoors.json
+249d3f1b178b535dff1d90265311b61f84700ccc data/minecraft/tags/items/wooden_trapdoors.json

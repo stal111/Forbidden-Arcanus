@@ -98,20 +98,20 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<DropExperienceBlock> RUNIC_DARKSTONE = HELPER.register("runic_darkstone", () -> new DropExperienceBlock(Block.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(6.0F, 4.0F), UniformInt.of(4, 8)));
     public static final RegistryObject<Block> DARK_NETHER_STAR_BLOCK = HELPER.register("dark_nether_star_block", () -> new Block(Block.Properties.of(Materials.DARK_NETHER_STAR).requiresCorrectToolForDrops().strength(10.0F, 1200.0F)));
     public static final RegistryObject<Block> PROCESSED_OBSIDIAN_BLOCK = HELPER.register("processed_obsidian_block", () -> new Block(Block.Properties.copy(Blocks.OBSIDIAN)));
-    public static final RegistryObject<Block> ARCANE_GOLD_BLOCK = HELPER.register("arcane_gold_block", () -> new Block(Block.Properties.copy(Blocks.GOLD_BLOCK)));
+    public static final RegistryObject<Block> DEORUM_BLOCK = HELPER.register("deorum_block", () -> new Block(Block.Properties.copy(Blocks.GOLD_BLOCK)));
     public static final RegistryObject<Block> STELLARITE_BLOCK = HELPER.register("stellarite_block", () -> new Block(Block.Properties.copy(Blocks.OBSIDIAN)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<Block> ARCANE_CRYSTAL_BLOCK = HELPER.register("arcane_crystal_block", () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(1.0F, 3.0F).noOcclusion()));
     public static final RegistryObject<Block> RUNE_BLOCK = HELPER.register("rune_block", () -> new Block(Block.Properties.of(Materials.RUNE).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
     public static final RegistryObject<Block> DARK_RUNE_BLOCK = HELPER.register("dark_rune_block", () -> new Block(Block.Properties.of(Materials.RUNE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final RegistryObject<Block> ARCANE_GOLDEN_GLASS = HELPER.register("arcane_golden_glass", () -> new GlassBlock(Block.Properties.copy(Blocks.GLASS)));
+    public static final RegistryObject<Block> DEORUM_GLASS = HELPER.register("deorum_glass", () -> new GlassBlock(Block.Properties.copy(Blocks.GLASS)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<Block> RUNIC_GLASS = HELPER.register("runic_glass", () -> new GlassBlock(Block.Properties.copy(Blocks.GLASS)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<Block> DARK_RUNIC_GLASS = HELPER.register("dark_runic_glass", () -> new GlassBlock(Block.Properties.copy(Blocks.GLASS)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final RegistryObject<Block> ARCANE_GOLDEN_GLASS_PANE = HELPER.register("arcane_golden_glass_pane", () -> new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)));
+    public static final RegistryObject<Block> DEORUM_GLASS_PANE = HELPER.register("deorum_glass_pane", () -> new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<Block> RUNIC_GLASS_PANE = HELPER.register("runic_glass_pane", () -> new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
@@ -153,7 +153,7 @@ public class ModBlocks implements RegistryClass {
 
     public static final RegistryObject<RotatedPillarBlock> FUNGYSS_STEM = HELPER.register("fungyss_stem", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F).sound(SoundType.STEM)));
     public static final RegistryObject<RotatedPillarBlock> CHERRY_LOG = HELPER.register("cherry_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
-    public static final RegistryObject<ThinLogBlock> THIN_CHERRY_LOG = HELPER.register("thin_cherry_log", () -> new ThinLogBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final RegistryObject<ThinLogBlock> THIN_CHERRY_LOG = HELPER.register("thin_cherry_log", () -> new ThinLogBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     public static final RegistryObject<MysterywoodLogBlock> AURUM_LOG = HELPER.register("aurum_log", () -> new MysterywoodLogBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<EdelwoodLogBlock> EDELWOOD_LOG = HELPER.register("edelwood_log", () -> new EdelwoodLogBlock(Block.Properties.copy(Blocks.OAK_LOG).color(MaterialColor.COLOR_BROWN).randomTicks()));
@@ -184,7 +184,7 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<StairBlock> EDELWOOD_STAIRS = HELPER.register("edelwood_stairs", () -> new StairBlock(() -> ModBlocks.EDELWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS)));
 
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final RegistryObject<DoorBlock> ARCANE_GOLD_DOOR = HELPER.register("arcane_gold_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<DoorBlock> DEORUM_DOOR = HELPER.register("deorum_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion()));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<DoorBlock> FUNGYSS_DOOR = HELPER.register("fungyss_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
     @RenderType(ValhelsiaRenderType.CUTOUT)
@@ -194,7 +194,9 @@ public class ModBlocks implements RegistryClass {
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<DoorBlock> EDELWOOD_DOOR = HELPER.register("edelwood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final RegistryObject<TrapDoorBlock> ARCANE_GOLD_TRAPDOOR = HELPER.register("arcane_gold_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion().isValidSpawn(ModBlocks::never)));
+    public static final RegistryObject<DoorBlock> ARCANE_EDELWOOD_DOOR = HELPER.register("arcane_edelwood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
+    @RenderType(ValhelsiaRenderType.CUTOUT)
+    public static final RegistryObject<TrapDoorBlock> DEORUM_TRAPDOOR = HELPER.register("deorum_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion().isValidSpawn(ModBlocks::never)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<TrapDoorBlock> FUNGYSS_TRAPDOOR = HELPER.register("fungyss_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
@@ -203,6 +205,8 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<TrapDoorBlock> AURUM_TRAPDOOR = HELPER.register("aurum_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<TrapDoorBlock> EDELWOOD_TRAPDOOR = HELPER.register("edelwood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never)));
+    @RenderType(ValhelsiaRenderType.CUTOUT)
+    public static final RegistryObject<TrapDoorBlock> ARCANE_EDELWOOD_TRAPDOOR = HELPER.register("arcane_edelwood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final RegistryObject<FenceBlock> FUNGYSS_FENCE = HELPER.register("fungyss_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<FenceBlock> CHERRY_FENCE = HELPER.register("cherry_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
     public static final RegistryObject<FenceBlock> AURUM_FENCE = HELPER.register("aurum_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
@@ -221,7 +225,7 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<WoodButtonBlock> CHERRY_BUTTON = HELPER.register("cherry_button", () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
     public static final RegistryObject<WoodButtonBlock> AURUM_BUTTON = HELPER.register("aurum_button", () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
     public static final RegistryObject<WoodButtonBlock> EDELWOOD_BUTTON = HELPER.register("edelwood_button", () -> new WoodButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON)));
-    public static final RegistryObject<PressurePlateBlock> ARCANE_GOLD_PRESSURE_PLATE = HELPER.register("arcane_gold_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE)));
+    public static final RegistryObject<PressurePlateBlock> DEORUM_PRESSURE_PLATE = HELPER.register("deorum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE)));
     public static final RegistryObject<PressurePlateBlock> FUNGYSS_PRESSURE_PLATE = HELPER.register("fungyss_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
     public static final RegistryObject<PressurePlateBlock> CHERRY_PRESSURE_PLATE = HELPER.register("cherry_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
     public static final RegistryObject<PressurePlateBlock> AURUM_PRESSURE_PLATE = HELPER.register("aurum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE)));
@@ -250,7 +254,7 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<NoFluidOverlayBlock> PETRIFIED_ROOT = HELPER.register("petrified_root", () -> new NoFluidOverlayBlock(Block.Properties.copy(Blocks.STONE).noOcclusion()));
     public static final RegistryObject<Block> BLACK_HOLE = HELPER.registerNoItem("black_hole", () -> new BlackHoleBlock(Block.Properties.copy(Blocks.STONE).strength(2.0F, 8.0F).noOcclusion()));
     @RenderType(ValhelsiaRenderType.CUTOUT_MIPPED)
-    public static final RegistryObject<ChainBlock> ARCANE_GOLDEN_CHAIN = HELPER.register("arcane_golden_chain", () -> new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)));
+    public static final RegistryObject<ChainBlock> DEORUM_CHAIN = HELPER.register("deorum_chain", () -> new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<FlowerBlock> YELLOW_ORCHID = HELPER.register("yellow_orchid", () -> new FlowerBlock(MobEffects.GLOWING, 10, BlockBehaviour.Properties.copy(Blocks.BLUE_ORCHID)));
     @RenderType(ValhelsiaRenderType.CUTOUT)

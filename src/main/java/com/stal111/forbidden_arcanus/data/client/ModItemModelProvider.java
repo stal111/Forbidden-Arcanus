@@ -40,7 +40,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
                 ModBlocks.NIPA,
                 ModBlocks.ARCANE_CRYSTAL_OBELISK,
-                ModBlocks.ARCANE_GOLDEN_CHAIN,
+                ModBlocks.DEORUM_CHAIN,
                 ModBlocks.ARCANE_DRAGON_EGG,
                 ModItems.EDELWOOD_POWDER_SNOW_BUCKET,
                 ModItems.STRANGE_ROOT,
