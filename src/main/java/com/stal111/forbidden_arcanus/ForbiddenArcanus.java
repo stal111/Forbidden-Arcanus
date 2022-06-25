@@ -34,9 +34,10 @@ import net.minecraftforge.registries.RegistryBuilder;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
-import net.valhelsia.valhelsia_core.core.registry.RegistryHelper;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
-import net.valhelsia.valhelsia_core.core.registry.block.BlockRegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.EntityRegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.block.BlockRegistryHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,6 +53,7 @@ public class ForbiddenArcanus {
 	public static final RegistryManager REGISTRY_MANAGER = RegistryManager.builder(MOD_ID)
 			.addHelper(ForgeRegistries.Keys.BLOCKS, new BlockRegistryHelper(FORBIDDEN_ARCANUS, ModBlocks::new))
 			.addHelper(ForgeRegistries.Keys.ITEMS, new RegistryHelper<>(ModItems::new))
+			.addHelper(ForgeRegistries.Keys.ENTITY_TYPES, new EntityRegistryHelper(ModEntities::new))
 			.addHelper(Registry.STRUCTURE_TYPE_REGISTRY, new RegistryHelper<>(ModStructureTypes::new))
 			.addHelper(Registry.STRUCTURE_REGISTRY, new RegistryHelper<>(ModStructures::new))
 			.addHelper(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, new RegistryHelper<>(ModLootModifiers::new))
@@ -75,7 +77,6 @@ public class ForbiddenArcanus {
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientSetup::new);
 
-		ModEntities.ENTITY_TYPES.register(modEventBus);
 		ModBlockEntities.TILE_ENTITIES.register(modEventBus);
 		ModParticles.PARTICLE_TYPES.register(modEventBus);
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);

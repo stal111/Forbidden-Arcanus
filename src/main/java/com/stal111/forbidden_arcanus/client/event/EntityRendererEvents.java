@@ -1,13 +1,15 @@
 package com.stal111.forbidden_arcanus.client.event;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
-import com.stal111.forbidden_arcanus.client.renderer.entity.BoomArrowRenderer;
-import com.stal111.forbidden_arcanus.client.renderer.entity.CrimsonLightningBoltRenderer;
-import com.stal111.forbidden_arcanus.client.renderer.entity.DracoArcanusArrowRenderer;
-import com.stal111.forbidden_arcanus.client.renderer.entity.EnergyBallRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.entity.*;
+import com.stal111.forbidden_arcanus.common.entity.ModBoat;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,7 +20,7 @@ import net.minecraftforge.fml.common.Mod;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.event.EntityRendererEvents
  *
  * @author stal111
- * @version 2.0.0
+ * @version 1.19 - 2.1.0
  * @since 2021-11-28
  */
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -39,6 +41,8 @@ public class EntityRendererEvents {
         event.registerEntityRenderer(ModEntities.DRACO_ARCANUS_ARROW.get(), DracoArcanusArrowRenderer::new);
         event.registerEntityRenderer(ModEntities.ENERGY_BALL.get(), EnergyBallRenderer::new);
         event.registerEntityRenderer(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), CrimsonLightningBoltRenderer::new);
+        event.registerEntityRenderer(ModEntities.BOAT.get(), context -> new ModBoatRenderer(context, false));
+        event.registerEntityRenderer(ModEntities.CHEST_BOAT.get(), context -> new ModBoatRenderer(context, true));
     }
 
     @SubscribeEvent
@@ -49,5 +53,10 @@ public class EntityRendererEvents {
         event.registerLayerDefinition(ObsidianSkullRenderer.ETERNAL_OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createEternalObsidianSkullLayer);
         event.registerLayerDefinition(MagicCircleModel.OUTER_RING_LAYER, MagicCircleModel::createLayer);
         event.registerLayerDefinition(MagicCircleModel.INNER_RING_LAYER, MagicCircleModel::createLayer);
+
+        for (ModBoat.Type type : ModBoat.Type.values()) {
+            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
+            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getChestModelLocation()), "main"), () -> BoatModel.createBodyModel(true));
+        }
     }
 }

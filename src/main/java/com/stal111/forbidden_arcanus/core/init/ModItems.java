@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.entity.ModBoat;
 import com.stal111.forbidden_arcanus.common.item.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.RegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
 
 /**
  * Mod Items <br>
@@ -119,6 +120,15 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<ModArrowItem> DRACO_ARCANUS_ARROW = HELPER.register("draco_arcanus_arrow", () -> new ModArrowItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<EdelwoodOilItem> EDELWOOD_OIL = HELPER.register("edelwood_oil", () -> new EdelwoodOilItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(16)));
     public static final RegistryObject<ItemNameBlockItem> GOLDEN_ORCHID_SEEDS = HELPER.register("golden_orchid_seeds", () -> new ItemNameBlockItem(ModBlocks.GOLDEN_ORCHID.get(), new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
+
+    public static final RegistryObject<BoatItem> CHERRY_BOAT = HELPER.register("cherry_boat", () -> new ModBoatItem(false, ModBoat.Type.CHERRY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<BoatItem> AURUM_BOAT = HELPER.register("aurum_boat", () -> new ModBoatItem(false, ModBoat.Type.AURUM, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<BoatItem> EDELWOOD_BOAT = HELPER.register("edelwood_boat", () -> new ModBoatItem(false, ModBoat.Type.EDELWOOD, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    //public static final RegistryObject<BoatItem> FUNGYSS_BOAT = HELPER.register("fungyss_boat", () -> new ModBoatItem(false, ModBoat.Type.FUNGYSS, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<BoatItem> CHERRY_CHEST_BOAT = HELPER.register("cherry_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.CHERRY, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<BoatItem> AURUM_CHEST_BOAT = HELPER.register("aurum_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.AURUM, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    public static final RegistryObject<BoatItem> EDELWOOD_CHEST_BOAT = HELPER.register("edelwood_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.EDELWOOD, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
+    //public static final RegistryObject<BoatItem> FUNGYSS_CHEST_BOAT = HELPER.register("fungyss_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.FUNGYSS, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
 
     public static final RegistryObject<Item> SOUL_EXTRACTOR = HELPER.register("soul_extractor", () -> new SoulExtractorItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).durability(128)));
     public static final RegistryObject<Item> SLIMEC_PICKAXE = HELPER.register("slimec_pickaxe", () -> new SlimecPickaxeItem(ModTiers.SLIMEC, 1, -2.5F, new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));

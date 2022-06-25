@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.valhelsia.valhelsia_core.common.world.IValhelsiaStructure;
 import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.RegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
 
 import java.util.ArrayList;
 import java.util.List;

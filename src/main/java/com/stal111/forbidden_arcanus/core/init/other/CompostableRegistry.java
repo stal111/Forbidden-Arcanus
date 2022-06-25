@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.core.init.other;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.valhelsia.valhelsia_core.core.registry.block.CompostableHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.block.CompostableHelper;
 
 /**
  * Compostable Registry <br>
