@@ -1,0 +1,9 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "cooking_time": 80,
+  "experience": 0.4,
+  "ingredient": {
+    "item": "forbidden_arcanus:arcane_crystal"
+  },
+  "result": "forbidden_arcanus:arcane_crystal_dust"
+}
