@@ -5,5 +5,9 @@
   "ingredient": {
     "item": "forbidden_arcanus:arcane_crystal"
   },
+  "residue": {
+    "chance": 0.1,
+    "name": "iron"
+  },
   "result": "forbidden_arcanus:arcane_crystal_dust"
 }

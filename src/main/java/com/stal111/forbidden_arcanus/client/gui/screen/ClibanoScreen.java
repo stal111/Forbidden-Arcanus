@@ -4,7 +4,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import net.minecraft.Util;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -12,6 +14,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Clibano Screen <br>
@@ -76,6 +81,41 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
             int uOffset = 179 + 19 * this.menu.getFireType();
 
             this.blit(poseStack, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, uOffset, 1 + 15 - ySize, 12, ySize);
+        }
+
+        // Residue Bar
+        if (this.menu.getResidueFullness() != 0) {
+            int xSize = Math.toIntExact(Math.round(26.0F * this.menu.getResidueFullness() / ResiduesStorage.MAX_AMOUNT));
+
+            this.blit(poseStack, this.getGuiLeft() + 111, this.getGuiTop() + 58, 179, 21, xSize, 7);
+        }
+    }
+
+    @Override
+    protected void renderTooltip(@Nonnull PoseStack poseStack, int x, int y) {
+        super.renderTooltip(poseStack, x, y);
+
+        int posX = x - this.getGuiLeft();
+        int posY = y - this.getGuiTop();
+
+        if (posY >= 58 && posY <= 64 && posX >= 111 && posX <= 136) {
+            List<Component> textComponents = Util.make(new ArrayList<>(), list -> {
+                list.add(Component.translatable("gui.forbidden_arcanus.clibano.residue_fullness").append(": " + this.menu.getResidueFullness() + "/" + ResiduesStorage.MAX_AMOUNT));
+                list.add(Component.empty());
+            });
+
+            this.menu.getResidueData().forEach((residueType, integer) -> {
+                if (integer == 0) {
+                    return;
+                }
+                textComponents.add(residueType.getComponent().append(": " + integer));
+            });
+
+            if (textComponents.size() == 2) {
+                textComponents.remove(1);
+            }
+
+            this.renderTooltip(poseStack, textComponents, Optional.empty(), x, y);
         }
     }
 }

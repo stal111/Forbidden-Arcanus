@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
@@ -65,8 +66,10 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     public static final int DATA_COOKING_DURATION_FIRST = 5;
     public static final int DATA_COOKING_DURATION_SECOND = 6;
     public static final int DATA_FIRE_TYPE = 7;
+    public static final int DATA_RESIDUE_FULLNESS = 8;
 
-    public static final int DATA_COUNT = 8;
+    public static final int BASE_DATA_COUNT = 9;
+    public static final int FULL_DATA_COUNT = BASE_DATA_COUNT + ResiduesStorage.RESIDUE_TYPES.size();
 
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipes.CLIBANO_COMBUSTION.get();
 
@@ -79,6 +82,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
     private final NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
 
+    private final ResiduesStorage residuesStorage = new ResiduesStorage();
+    private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
     private int soulTime;
     private int burnTime;
     private int burnDuration;
@@ -86,50 +91,57 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     private int cookingProgressSecond;
     private int cookingDurationFirst;
     private int cookingDurationSecond;
-
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
-
-    private Direction frontDirection = Direction.NORTH;
-
-    private boolean wasLit = false;
-
     private final ContainerData containerData = new ContainerData() {
         @Override
         public int get(int index) {
+            ClibanoMainBlockEntity blockEntity = ClibanoMainBlockEntity.this;
+
             return switch (index) {
-                case DATA_SOUL_TIME -> ClibanoMainBlockEntity.this.soulTime;
-                case DATA_BURN_TIME -> ClibanoMainBlockEntity.this.burnTime;
-                case DATA_BURN_DURATION -> ClibanoMainBlockEntity.this.burnDuration;
-                case DATA_COOKING_PROGRESS_FIRST -> ClibanoMainBlockEntity.this.cookingProgressFirst;
-                case DATA_COOKING_PROGRESS_SECOND -> ClibanoMainBlockEntity.this.cookingProgressSecond;
-                case DATA_COOKING_DURATION_FIRST -> ClibanoMainBlockEntity.this.cookingDurationFirst;
-                case DATA_COOKING_DURATION_SECOND -> ClibanoMainBlockEntity.this.cookingDurationSecond;
-                case DATA_FIRE_TYPE -> ClibanoMainBlockEntity.this.fireType.ordinal();
-                default -> throw new IllegalStateException("Unexpected value: " + index);
+                case DATA_SOUL_TIME -> blockEntity.soulTime;
+                case DATA_BURN_TIME -> blockEntity.burnTime;
+                case DATA_BURN_DURATION -> blockEntity.burnDuration;
+                case DATA_COOKING_PROGRESS_FIRST -> blockEntity.cookingProgressFirst;
+                case DATA_COOKING_PROGRESS_SECOND -> blockEntity.cookingProgressSecond;
+                case DATA_COOKING_DURATION_FIRST -> blockEntity.cookingDurationFirst;
+                case DATA_COOKING_DURATION_SECOND -> blockEntity.cookingDurationSecond;
+                case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
+                case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.getTotalAmount();
+                default -> {
+                    ResidueType type = ResiduesStorage.RESIDUE_TYPES.get(index - BASE_DATA_COUNT);
+
+                    yield blockEntity.residuesStorage.getResidueTypeAmountMap().getOrDefault(type, 0);
+                }
             };
         }
 
         @Override
         public void set(int index, int value) {
+            ClibanoMainBlockEntity blockEntity = ClibanoMainBlockEntity.this;
+
             switch (index) {
-                case DATA_SOUL_TIME -> ClibanoMainBlockEntity.this.setSoulTime(value);
-                case DATA_BURN_TIME -> ClibanoMainBlockEntity.this.burnTime = value;
-                case DATA_BURN_DURATION -> ClibanoMainBlockEntity.this.burnDuration = value;
-                case DATA_COOKING_PROGRESS_FIRST -> ClibanoMainBlockEntity.this.cookingProgressFirst = value;
-                case DATA_COOKING_PROGRESS_SECOND -> ClibanoMainBlockEntity.this.cookingProgressSecond = value;
-                case DATA_COOKING_DURATION_FIRST -> ClibanoMainBlockEntity.this.cookingDurationFirst = value;
-                case DATA_COOKING_DURATION_SECOND -> ClibanoMainBlockEntity.this.cookingDurationSecond = value;
-                case DATA_FIRE_TYPE -> ClibanoMainBlockEntity.this.fireType = ClibanoFireType.values()[value];
+                case DATA_SOUL_TIME -> blockEntity.setSoulTime(value);
+                case DATA_BURN_TIME -> blockEntity.burnTime = value;
+                case DATA_BURN_DURATION -> blockEntity.burnDuration = value;
+                case DATA_COOKING_PROGRESS_FIRST -> blockEntity.cookingProgressFirst = value;
+                case DATA_COOKING_PROGRESS_SECOND -> blockEntity.cookingProgressSecond = value;
+                case DATA_COOKING_DURATION_FIRST -> blockEntity.cookingDurationFirst = value;
+                case DATA_COOKING_DURATION_SECOND -> blockEntity.cookingDurationSecond = value;
+                case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
+                case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.setTotalAmount(value);
+                default -> {
+                    blockEntity.residuesStorage.getResidueTypeAmountMap().put(ResiduesStorage.RESIDUE_TYPES.get(index - BASE_DATA_COUNT), value);
+                }
             }
         }
 
         @Override
         public int getCount() {
-            return DATA_COUNT;
+            return FULL_DATA_COUNT;
         }
     };
-
-    private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
+    private Direction frontDirection = Direction.NORTH;
+    private boolean wasLit = false;
 
     public ClibanoMainBlockEntity(BlockPos worldPosition, BlockState blockState) {
         super(ModBlockEntities.CLIBANO_MAIN.get(), worldPosition, blockState);
@@ -146,6 +158,10 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
         boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(firstRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
         boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(secondRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
+
+        RandomSource random = level.getRandom();
+
+        blockEntity.residuesStorage.tick(level, blockEntity);
 
         if (blockEntity.soulTime != 0) {
             blockEntity.soulTime--;
@@ -209,7 +225,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             blockEntity.cookingProgressFirst++;
 
             if (blockEntity.cookingProgressFirst == blockEntity.cookingDurationFirst) {
-                blockEntity.finishRecipe(firstRecipe, ClibanoMenu.INPUT_SLOTS.getFirst());
+                blockEntity.finishRecipe(firstRecipe, random, ClibanoMenu.INPUT_SLOTS.getFirst());
             }
 
             blockEntity.setChanged();
@@ -223,7 +239,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             blockEntity.cookingProgressSecond++;
 
             if (blockEntity.cookingProgressSecond == blockEntity.cookingDurationSecond) {
-                blockEntity.finishRecipe(secondRecipe, ClibanoMenu.INPUT_SLOTS.getSecond());
+                blockEntity.finishRecipe(secondRecipe, random, ClibanoMenu.INPUT_SLOTS.getSecond());
             }
 
             blockEntity.setChanged();
@@ -232,6 +248,17 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         }
 
         blockEntity.wasLit = true;
+    }
+
+    private static void createExperience(ServerLevel level, Vec3 position, int count, float experience) {
+        int i = Mth.floor(count * experience);
+        float f = Mth.frac(count * experience);
+
+        if (f != 0.0F && Math.random() < f) {
+            i++;
+        }
+
+        ExperienceOrb.award(level, position, i);
     }
 
     /**
@@ -263,13 +290,13 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             return true;
         } else if (!resultStack.sameItem(stack) && !secondResultStack.sameItem(stack)) {
             return false;
-        } else if (resultStack.getCount() + stack.getCount() <= maxCount && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
+        } else if (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= maxCount && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
             return true;
-        } else if (secondResultStack.getCount() + stack.getCount() <= maxCount && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+        } else if (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= maxCount && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
             return true;
         }
 
-        return resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize() || secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize();
+        return (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize()) || (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize());
     }
 
     /**
@@ -277,9 +304,10 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
      * The result is added to one of the result slots and the input slot is cleared. The cooking progress is reset.
      *
      * @param recipe the recipe to finish
+     * @param random the random instance
      * @param slot   the slot where the recipe input was placed in
      */
-    private void finishRecipe(ClibanoRecipe recipe, int slot) {
+    private void finishRecipe(ClibanoRecipe recipe, RandomSource random, int slot) {
         NonNullList<ItemStack> items = this.inventoryContents;
         ItemStack stack = recipe.getResultItem();
 
@@ -308,7 +336,28 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             items.set(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
         }
 
+        this.addResidue(recipe, random);
+
         this.setRecipeUsed(recipe);
+    }
+
+    /**
+     * Adds residues to the {@link ResiduesStorage} of the clibano if the recipe can generate residues.
+     *
+     * @param recipe the current recipe
+     */
+    private void addResidue(ClibanoRecipe recipe, RandomSource random) {
+        ClibanoRecipe.ResidueInfo residueInfo = recipe.getResidueInfo();
+
+        double d = random.nextDouble();
+
+        if (residueInfo == ClibanoRecipe.ResidueInfo.NONE) {
+            return;
+        }
+
+        if (d < residueInfo.chance()) {
+            this.residuesStorage.increaseType(residueInfo.getType(), 1);
+        }
     }
 
     /**
@@ -409,9 +458,17 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
         tag.putString("FrontDirection", this.frontDirection.getName());
 
+        CompoundTag recipesUsed = new CompoundTag();
+
         this.recipesUsed.forEach((resourceLocation, integer) -> {
-            tag.putInt(resourceLocation.toString(), integer);
+            recipesUsed.putInt(resourceLocation.toString(), integer);
         });
+
+        tag.put("RecipesUsed", recipesUsed);
+
+        if (this.residuesStorage.shouldBeSaved()) {
+            this.residuesStorage.save(tag);
+        }
     }
 
     @Override
@@ -433,9 +490,13 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
         this.frontDirection = Direction.byName(tag.getString("FrontDirection"));
 
-        for(String recipe : tag.getAllKeys()) {
+        CompoundTag recipesUsed = tag.getCompound("RecipesUsed");
+
+        for (String recipe : recipesUsed.getAllKeys()) {
             this.recipesUsed.put(new ResourceLocation(recipe), tag.getInt(recipe));
         }
+
+        this.residuesStorage.load(tag);
     }
 
     public void setSoulTime(int duration) {
@@ -456,18 +517,18 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     @Override
+    @Nullable
+    public Recipe<?> getRecipeUsed() {
+        return null;
+    }
+
+    @Override
     public void setRecipeUsed(@Nullable Recipe<?> recipe) {
         if (recipe == null) {
             return;
         }
 
         this.recipesUsed.addTo(recipe.getId(), 1);
-    }
-
-    @Override
-    @Nullable
-    public Recipe<?> getRecipeUsed() {
-        return null;
     }
 
     @Override
@@ -483,7 +544,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     public Collection<Recipe<?>> getRecipesToAwardAndPopExperience(ServerLevel level, Vec3 position) {
         List<Recipe<?>> list = new ArrayList<>();
 
-        for(Object2IntMap.Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
+        for (Object2IntMap.Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
             level.getRecipeManager().byKey(entry.getKey()).ifPresent((recipe) -> {
                 list.add(recipe);
                 ClibanoMainBlockEntity.createExperience(level, position, entry.getIntValue(), ((ClibanoRecipe) recipe).getExperience());
@@ -491,17 +552,6 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         }
 
         return list;
-    }
-
-    private static void createExperience(ServerLevel level, Vec3 position, int count, float experience) {
-        int i = Mth.floor(count * experience);
-        float f = Mth.frac(count * experience);
-
-        if (f != 0.0F && Math.random() < f) {
-            i++;
-        }
-
-        ExperienceOrb.award(level, position, i);
     }
 
     @Override
@@ -540,8 +590,6 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         if (stack.getCount() > this.getMaxStackSize()) {
             stack.setCount(this.getMaxStackSize());
         }
-
-        this.setChanged();
     }
 
     @Override

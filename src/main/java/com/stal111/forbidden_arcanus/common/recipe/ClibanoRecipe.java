@@ -3,8 +3,9 @@ package com.stal111.forbidden_arcanus.common.recipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResidueType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,9 +36,11 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     public static final int DEFAULT_COOKING_TIME = 100;
 
     private final Map<ClibanoFireType, Integer> cookingTimes = new EnumMap<>(ClibanoFireType.class);
+    private final ResidueInfo residueInfo;
 
-    public ClibanoRecipe(ResourceLocation id, String group, Ingredient ingredient, ItemStack result, float experience, int cookingTime) {
+    public ClibanoRecipe(ResourceLocation id, String group, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo) {
         super(ModRecipes.CLIBANO_COMBUSTION.get(), id, group, ingredient, result, experience, cookingTime);
+        this.residueInfo = residueInfo;
 
         for (ClibanoFireType fireType : ClibanoFireType.values()) {
             this.cookingTimes.put(fireType, (int) (cookingTime / fireType.getCookingSpeedMultiplier()));
@@ -58,6 +62,10 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         return this.cookingTimes.get(fireType);
     }
 
+    public ResidueInfo getResidueInfo() {
+        return this.residueInfo;
+    }
+
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {
@@ -69,23 +77,34 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         @Nonnull
         @Override
         public ClibanoRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject jsonObject) {
-            String s = GsonHelper.getAsString(jsonObject, "group", "");
-            JsonElement jsonelement = (JsonElement)(GsonHelper.isArrayNode(jsonObject, "ingredient") ? GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient"));
-            Ingredient ingredient = Ingredient.fromJson(jsonelement);
-            //Forge: Check if primitive string to keep vanilla or a object which can contain a count field.
-            if (!jsonObject.has("result")) throw new com.google.gson.JsonSyntaxException("Missing result, expected to find a string or object");
-            ItemStack itemstack;
-            if (jsonObject.get("result").isJsonObject()) itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
-            else {
-                String s1 = GsonHelper.getAsString(jsonObject, "result");
-                ResourceLocation resourcelocation = new ResourceLocation(s1);
-                itemstack = new ItemStack(Registry.ITEM.getOptional(resourcelocation).orElseThrow(() -> {
-                    return new IllegalStateException("Item: " + s1 + " does not exist");
-                }));
+            String group = GsonHelper.getAsString(jsonObject, "group", "");
+            JsonElement jsonElement = GsonHelper.isArrayNode(jsonObject, "ingredient") ? GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient");
+            Ingredient ingredient = Ingredient.fromJson(jsonElement);
+
+            if (!jsonObject.has("result")) {
+                throw new com.google.gson.JsonSyntaxException("Missing result, expected to find a string or object");
             }
-            float f = GsonHelper.getAsFloat(jsonObject, "experience", 0.0F);
-            int i = GsonHelper.getAsInt(jsonObject, "cooking_time", ClibanoRecipe.DEFAULT_COOKING_TIME);
-            return new ClibanoRecipe(recipeId, s, ingredient, itemstack, f, i);
+
+            ItemStack stack;
+
+            if (jsonObject.get("result").isJsonObject()) {
+                stack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
+            } else {
+                String result = GsonHelper.getAsString(jsonObject, "result");
+                stack = new ItemStack(ForgeRegistries.ITEMS.getDelegateOrThrow(new ResourceLocation(result)).get());
+            }
+
+            float experience = GsonHelper.getAsFloat(jsonObject, "experience", 0.0F);
+            int cookingTime = GsonHelper.getAsInt(jsonObject, "cooking_time", ClibanoRecipe.DEFAULT_COOKING_TIME);
+
+            ResidueInfo residueInfo = ResidueInfo.fromJson(jsonObject);
+            ResidueType residueType = new ResidueType(residueInfo.name);
+
+            if (!ResiduesStorage.RESIDUE_TYPES.contains(residueType) && residueInfo != ResidueInfo.NONE) {
+                ResiduesStorage.RESIDUE_TYPES.add(residueType);
+            }
+
+            return new ClibanoRecipe(recipeId, group, ingredient, stack, experience, cookingTime, residueInfo);
         }
 
         @Nullable
@@ -96,7 +115,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             ItemStack itemstack = buffer.readItem();
             float f = buffer.readFloat();
             int i = buffer.readVarInt();
-            return new ClibanoRecipe(recipeId, s, ingredient, itemstack, f, i);
+
+            return new ClibanoRecipe(recipeId, s, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer));
         }
 
         @Override
@@ -106,6 +126,51 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             buffer.writeItem(recipe.result);
             buffer.writeFloat(recipe.experience);
             buffer.writeVarInt(recipe.cookingTime);
+
+            recipe.residueInfo.toNetwork(buffer);
+        }
+    }
+
+    public record ResidueInfo(String name, double chance) {
+
+        public static final ResidueInfo NONE = new ResidueInfo("none", 0.0D);
+
+        public static ResidueInfo fromNetwork(@Nonnull FriendlyByteBuf buffer) {
+            return new ResidueInfo(buffer.readUtf(), buffer.readDouble());
+        }
+
+        public void toNetwork(@Nonnull FriendlyByteBuf buffer) {
+            buffer.writeUtf(this.name);
+            buffer.writeDouble(this.chance);
+        }
+
+        public ResidueType getType() {
+            return ResiduesStorage.RESIDUE_TYPES.stream().filter(residueType -> residueType.name().equals(this.name)).findFirst().orElseThrow(() -> {
+                return new IllegalStateException("No ResidueType found");
+            });
+        }
+
+        public static ResidueInfo fromJson(@Nonnull JsonObject jsonObject) {
+            if (jsonObject.has("residue")) {
+                JsonObject residue = jsonObject.getAsJsonObject("residue");
+
+                return new ResidueInfo(GsonHelper.getAsString(residue, "name"), GsonHelper.getAsDouble(residue, "chance"));
+            }
+
+            return NONE;
+        }
+
+        public void toJson(@Nonnull JsonObject jsonObject) {
+            JsonObject residue = new JsonObject();
+
+            if (this == ResidueInfo.NONE) {
+                return;
+            }
+
+            residue.addProperty("name", this.name.toString());
+            residue.addProperty("chance", this.chance);
+
+            jsonObject.add("residue", residue);
         }
     }
 }

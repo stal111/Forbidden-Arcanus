@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.common.inventory.clibano;
 
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
 import net.minecraft.world.Container;
@@ -18,6 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Clibano Menu <br>
@@ -30,8 +34,7 @@ import javax.annotation.Nonnull;
 public class ClibanoMenu extends AbstractContainerMenu {
 
     public static final int SLOT_COUNT = 7;
-    public static final int DATA_COUNT = ClibanoMainBlockEntity.DATA_COUNT;
-
+    public static final int BASE_DATA_COUNT = ClibanoMainBlockEntity.BASE_DATA_COUNT;
     public static final int ENHANCER_SLOT = 0;
     public static final int SOUL_SLOT = 1;
     public static final int FUEL_SLOT = 2;
@@ -45,7 +48,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final Level level;
 
     public ClibanoMenu(int id, Inventory inventory) {
-        this(id, new SimpleContainer(SLOT_COUNT), inventory, new SimpleContainerData(DATA_COUNT));
+        this(id, new SimpleContainer(SLOT_COUNT), inventory, new SimpleContainerData(ClibanoMainBlockEntity.FULL_DATA_COUNT));
     }
 
     public ClibanoMenu(int containerId, Container container, Inventory inventory, ContainerData containerData) {
@@ -57,7 +60,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.addDataSlots(this.containerData);
 
         checkContainerSize(container, SLOT_COUNT);
-        checkContainerDataCount(containerData, DATA_COUNT);
+        checkContainerDataCount(containerData, BASE_DATA_COUNT);
 
         this.addSlot(new EnhancerSlot(container, ENHANCER_SLOT, 18, 20));
         this.addSlot(new ClibanoSoulSlot(container, SOUL_SLOT, 18, 56));
@@ -187,5 +190,19 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     public int getFireType() {
         return this.containerData.get(ClibanoMainBlockEntity.DATA_FIRE_TYPE);
+    }
+
+    public int getResidueFullness() {
+        return this.containerData.get(ClibanoMainBlockEntity.DATA_RESIDUE_FULLNESS);
+    }
+
+    public Map<ResidueType, Integer> getResidueData() {
+        Map<ResidueType, Integer> map = new HashMap<>();
+
+        for (int i = BASE_DATA_COUNT; i < this.containerData.getCount(); i++) {
+            map.put(ResiduesStorage.RESIDUE_TYPES.get(i - BASE_DATA_COUNT), this.containerData.get(i));
+        }
+
+        return map;
     }
 }

@@ -3,11 +3,11 @@
   "cooking_time": 100,
   "experience": 0.5,
   "ingredient": {
-    "tag": "forbidden_arcanus:runic_stones"
+    "tag": "minecraft:diamond_ores"
   },
   "residue": {
     "chance": 0.1,
-    "name": "rune"
+    "name": "diamond"
   },
-  "result": "forbidden_arcanus:rune"
+  "result": "minecraft:diamond"
 }

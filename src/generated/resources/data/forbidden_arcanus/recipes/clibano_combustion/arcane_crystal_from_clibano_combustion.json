@@ -5,5 +5,9 @@
   "ingredient": {
     "tag": "forbidden_arcanus:arcane_crystal_ores"
   },
+  "residue": {
+    "chance": 0.33,
+    "name": "arcane_crystal"
+  },
   "result": "forbidden_arcanus:arcane_crystal"
 }

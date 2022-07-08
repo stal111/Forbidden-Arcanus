@@ -347,6 +347,9 @@
 
     "guis_comment": "Guis",
     "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Unlocked at level",
+    "gui.forbidden_arcanus.clibano.residue_fullness": "Residue fullness",
+    "gui.forbidden_arcanus.clibano.residue.gold": "Gold",
+    "gui.forbidden_arcanus.clibano.residue.iron": "Iron",
 
     "jei.forbidden_arcanus.category.hephaestusSmithing": "Hephaestus Smithing",
     "jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal": "Required pedestal",
