@@ -36,6 +36,11 @@
     "block.forbidden_arcanus.arcane_polished_darkstone_pillar": "神秘磨制暗黑石柱",
     "block.forbidden_arcanus.arcane_polished_darkstone_rod": "神秘磨制暗黑石烛",
 
+    "block.forbidden_arcanus.darkstone_pedestal": "暗黑石基座",
+    "block.forbidden_arcanus.arcane_darkstone_pedestal": "神秘暗黑石基座",
+    "block.forbidden_arcanus.clibano_core": "炽炉核心",
+    "block.forbidden_arcanus.clibano_multiblock": "炽炉多方块结构",
+
     "block.forbidden_arcanus.stella_arcanum": "奥术陨石",
     "block.forbidden_arcanus.xpetrified_ore": "石化经验矿石",
     "block.forbidden_arcanus.arcane_crystal_ore": "神秘水晶矿石",
@@ -140,7 +145,7 @@
 
     "block.forbidden_arcanus.arcane_dark_stone": "神秘暗黑石",
     "block.forbidden_arcanus.arcane_crystal_obelisk": "神秘水晶方尖碑",
-    "block.forbidden_arcanus.hephaestus_forge": "赫菲斯托斯锻炉",
+    "block.forbidden_arcanus.hephaestus_forge": "赫菲斯托斯锻台",
     "block.forbidden_arcanus.petrified_root": "石化根",
     "block.forbidden_arcanus.arcane_dragon_egg": "神秘龙蛋",
     "block.forbidden_arcanus.yellow_orchid": "黄兰花",
@@ -149,8 +154,6 @@
     "block.forbidden_arcanus.black_hole": "黑洞",
     "block.forbidden_arcanus.arcane_golden_chain": "神秘金链",
 
-    "block.forbidden_arcanus.darkstone_pedestal": "暗黑石基座",
-    "block.forbidden_arcanus.arcane_darkstone_pedestal": "神秘暗黑石基座",
     "block.forbidden_arcanus.obsidian_skull": "黑曜石头骨",
     "block.forbidden_arcanus.eternal_obsidian_skull": "永恒黑曜石头骨",
     "block.forbidden_arcanus.utrem_jar": "瓶罐",
@@ -305,7 +308,8 @@
 
     "containers": "容器",
     "container.dark_beacon": "暗黑信标",
-    "container.forbidden_arcanus.hephaestus_forge": "赫菲斯托斯锻炉",
+    "container.forbidden_arcanus.hephaestus_forge": "赫菲斯托斯锻台",
+    "container.forbidden_arcanus.clibano": "炽炉",
 
     "enchantments": "附魔",
     "enchantment.forbidden_arcanus.permafrost": "永冻",
