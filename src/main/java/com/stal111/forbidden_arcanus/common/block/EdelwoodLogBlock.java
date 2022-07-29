@@ -157,10 +157,13 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public void handlePrecipitation(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Biome.Precipitation precipitation) {
-        if (shouldHandlePrecipitation(state, level, precipitation)) {
+        if (this.shouldHandlePrecipitation(state, level, precipitation)) {
             int i = 0;
-            while (level.getBlockState(pos.below(i + 1)).is(ModTags.Blocks.EDELWOOD_LOGS) && level.getBlockState(pos.below(i + 1)).getValue(AXIS) == Direction.Axis.Y && !level.getBlockState(pos.below(i + 1)).getValue(WATERLOGGED)) {
+            BlockState belowState = level.getBlockState(pos.below(i + 1));
+
+            while (belowState.is(ModTags.Blocks.EDELWOOD_LOGS) && (!belowState.hasProperty(AXIS) || belowState.getValue(AXIS) == Direction.Axis.Y) && !belowState.getValue(WATERLOGGED)) {
                 i++;
+                belowState = level.getBlockState(pos.below(i + 1));
             }
             level.setBlockAndUpdate(pos.below(i), level.getBlockState(pos.below(i)).setValue(WATERLOGGED, true));
             level.gameEvent(null, GameEvent.FLUID_PLACE, pos.below(i));
