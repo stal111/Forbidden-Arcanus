@@ -24,21 +24,22 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.core.mixin.SlimeMixin
  *
  * @author stal111
- * @version 1.18.1 - 2.0.1
  * @since 2022-01-16
  */
 @Mixin(Slime.class)
 public abstract class SlimeMixin extends Mob implements Bucketable {
-
-    @Shadow public abstract int getSize();
-
-    @Shadow protected abstract void setSize(int pSize, boolean pResetHealth);
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Slime.class, EntityDataSerializers.BOOLEAN);
 
     protected SlimeMixin(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
     }
+
+    @Shadow
+    public abstract int getSize();
+
+    @Shadow
+    public abstract void setSize(int pSize, boolean pResetHealth);
 
     @Inject(at = @At(value = "RETURN"), method = "defineSynchedData")
     private void forbiddenArcanus_defineSynchedData(CallbackInfo ci) {
