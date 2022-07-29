@@ -63,7 +63,6 @@ public class WorldGenConfig {
 	public static ForgeConfigSpec.ConfigValue<List<? extends String>> TREE_WHITELIST;
 	public static ForgeConfigSpec.ConfigValue<List<? extends String>> TREE_BLACKLIST;
 
-	public static ForgeConfigSpec.BooleanValue NIPA_GENERATE;
 	public static ForgeConfigSpec.IntValue NIPA_SPACING;
 	public static ForgeConfigSpec.IntValue NIPA_SEPARATION;
 	public static ForgeConfigSpec.ConfigValue<List<? extends String>> NIPA_WHITELIST;
@@ -123,7 +122,6 @@ public class WorldGenConfig {
 		TREE_WHITELIST = builder.comment("Which dimensions trees should spawn in? [example: [\"minecraft:the_end\"], default empty allows all dimensions]").defineList("tree_whitelist", Collections.emptyList(), o -> o instanceof String && ((String) o).contains(":"));
 		TREE_BLACKLIST = builder.comment("Which dimensions trees shouldn't spawn in? [example: [\"minecraft:the_end\"], empty allows all dimensions]").defineList("tree_blacklist", Collections.singletonList("minecraft:the_end"), o -> o instanceof String && ((String) o).contains(":"));
 
-		NIPA_GENERATE = builder.comment("Generate Nipas? [default: true]").define("nipa.generate", true);
 		NIPA_SPACING = builder.comment("Nipa Structure Spacing [default: 35]").defineInRange("nipa.spacing", 35, 0, Integer.MAX_VALUE);
 		NIPA_SEPARATION = builder.comment("Nipa Structure Separation [default: 8]").defineInRange("nipa.separation", 8, 0, Integer.MAX_VALUE);
 		NIPA_WHITELIST = builder.comment("Which dimensions nipa structures should spawn in? [example: [\"minecraft:the_end\"], default empty allows all dimensions]").defineList("nipa_whitelist", Collections.emptyList(), o -> o instanceof String && ((String) o).contains(":"));
