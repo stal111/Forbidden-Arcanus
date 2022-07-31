@@ -28,11 +28,11 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -46,11 +46,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Client Setup
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.ClientSetup
- *
  * @author stal111
- * @version 2.0.0
  * @since 2021-02-13
  */
 public class ClientSetup {
@@ -65,6 +61,8 @@ public class ClientSetup {
         modEventBus.addListener(this::onClientSetup);
         modEventBus.addListener(this::onModelBake);
         modEventBus.addListener(this::onTextureStitch);
+        modEventBus.addListener(this::onRegisterGuiOverlays);
+        modEventBus.addListener(this::onRegisterTooltipComponents);
     }
 
     @SubscribeEvent
@@ -78,8 +76,6 @@ public class ClientSetup {
             Sheets.addWoodType(ModWoodTypes.AURUM);
             Sheets.addWoodType(ModWoodTypes.EDELWOOD);
         });
-
-        MinecraftForgeClient.registerTooltipComponentFactory(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
 
         this.registerModelOverride(ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE, StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.ACTIVATED, true).build(), base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
         this.registerModelOverride(ModBlocks.XPETRIFIED_ORE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
@@ -106,15 +102,11 @@ public class ClientSetup {
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, world, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, world, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, world, entity, seed) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
-
-        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Flight Timer", new FlightTimerOverlay());
-        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Sanity Meter", new SanityMeterOverlay());
-        OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Obsidian Skull", new ObsidianSkullOverlay());
     }
 
     @SubscribeEvent
-    public void onModelBake(ModelBakeEvent event) {
-        Map<ResourceLocation, BakedModel> modelRegistry = event.getModelRegistry();
+    public void onModelBake(ModelEvent.BakingCompleted event) {
+        Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
 
         FullbrightBakedModel.invalidateCache();
 
@@ -123,6 +115,18 @@ public class ClientSetup {
                 modelRegistry.put(modelResourceLocation, triple.getRight().apply(modelRegistry.get(modelResourceLocation)));
             });
         }
+    }
+
+    @SubscribeEvent
+    public void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "flight_timer", new FlightTimerOverlay());
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "sanity_meter", new SanityMeterOverlay());
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "obsidian_skull", new ObsidianSkullOverlay());
+    }
+
+    @SubscribeEvent
+    public void onRegisterTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
     }
 
     @SubscribeEvent

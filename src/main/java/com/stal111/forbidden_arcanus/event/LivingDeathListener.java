@@ -23,7 +23,7 @@ public class LivingDeathListener {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
         if (entity.getType().getCategory() == MobCategory.AMBIENT || entity.getType().getCategory() == MobCategory.CREATURE) {
             if (event.getSource().getMsgId().equals("player")) {
                 Player player = (Player) event.getSource().getEntity();

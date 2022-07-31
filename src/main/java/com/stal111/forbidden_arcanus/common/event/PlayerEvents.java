@@ -29,10 +29,12 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -79,7 +81,7 @@ public class PlayerEvents {
 
     @SubscribeEvent
     public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack stack = event.getItemStack();
         Entity entity = event.getTarget();
         InteractionHand hand = event.getHand();
@@ -102,7 +104,7 @@ public class PlayerEvents {
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
-            Player player = event.getPlayer();
+            Player player = event.getEntity();
             Player original = event.getOriginal();
 
             original.reviveCaps();
@@ -118,6 +120,16 @@ public class PlayerEvents {
                     aureal.addActiveConsequence(consequence);
                 }
             });
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
+        Entity entity = event.getEntity();
+        Level level = event.getLevel();
+
+        if (entity instanceof Player player && !level.isClientSide()) {
+            AurealHelper.sendAurealUpdatePacket(player);
         }
     }
 
@@ -180,7 +192,7 @@ public class PlayerEvents {
             return false;
         }
 
-        ResourceLocation resourceLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + Objects.requireNonNull(ForgeRegistries.ENTITIES.getKey(entity.getType())).getPath() + "_bucket");
+        ResourceLocation resourceLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "edelwood_" + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType())).getPath() + "_bucket");
         if (ForgeRegistries.ITEMS.containsKey(resourceLocation)) {
             ItemStack entityBucket = ItemStackUtils.transferEnchantments(stack, new ItemStack(ForgeRegistries.ITEMS.getValue(resourceLocation)));
 

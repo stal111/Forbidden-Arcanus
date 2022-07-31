@@ -1,30 +1,30 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
-import com.google.gson.JsonObject;
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 /**
- * Blacksmith Gavel Loot Modifier <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier
- *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-09-24
  */
 public class BlacksmithGavelLootModifier extends LootModifier {
+
+    public static final Supplier<Codec<BlacksmithGavelLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(instance -> codecStart(instance).apply(instance, BlacksmithGavelLootModifier::new)));
 
     /**
      * Constructs a LootModifier.
@@ -51,16 +51,8 @@ public class BlacksmithGavelLootModifier extends LootModifier {
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<BlacksmithGavelLootModifier> {
-
-        @Override
-        public BlacksmithGavelLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
-            return new BlacksmithGavelLootModifier(conditions);
-        }
-
-        @Override
-        public JsonObject write(BlacksmithGavelLootModifier instance) {
-            return super.makeConditions(instance.conditions);
-        }
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
     }
 }

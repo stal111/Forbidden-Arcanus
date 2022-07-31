@@ -7,27 +7,23 @@ import com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider;
 import com.stal111.forbidden_arcanus.data.client.ModItemModelProvider;
 import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ClibanoRecipeProvider;
-import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
-import com.stal111.forbidden_arcanus.data.server.tags.*;
-import com.stal111.forbidden_arcanus.data.server.loot.ModLootTableProvider;
 import com.stal111.forbidden_arcanus.data.server.ModRecipeProvider;
+import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
+import com.stal111.forbidden_arcanus.data.server.loot.ModLootTableProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.*;
 import com.stal111.forbidden_arcanus.data.worldgen.modifier.ModBiomeModifiers;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.RegistryOps;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.JsonCodecProvider;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * Data Generators
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.DataGenerators
- *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-01-26
  */
 @Mod.EventBusSubscriber(modid = ForbiddenArcanus.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)

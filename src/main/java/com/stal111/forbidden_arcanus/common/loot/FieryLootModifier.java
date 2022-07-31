@@ -1,8 +1,9 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
-import com.google.gson.JsonObject;
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -10,11 +11,12 @@ import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * Fiery Loot Modifier <br>
@@ -24,6 +26,8 @@ import javax.annotation.Nonnull;
  * @version 1.19 - 2.1.0
  */
 public class FieryLootModifier extends LootModifier {
+
+    public static final Supplier<Codec<FieryLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(instance -> codecStart(instance).apply(instance, FieryLootModifier::new)));
 
     /**
      * Constructs a LootModifier.
@@ -52,16 +56,8 @@ public class FieryLootModifier extends LootModifier {
                 .orElse(stack);
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<FieryLootModifier> {
-
-        @Override
-        public FieryLootModifier read(ResourceLocation name, JsonObject json, LootItemCondition[] conditions) {
-            return new FieryLootModifier(conditions);
-        }
-
-        @Override
-        public JsonObject write(FieryLootModifier instance) {
-            return super.makeConditions(instance.conditions);
-        }
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
     }
 }

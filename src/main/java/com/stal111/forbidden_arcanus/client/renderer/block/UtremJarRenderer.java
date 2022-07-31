@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.client.RenderProperties;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
@@ -34,7 +34,7 @@ public class UtremJarRenderer implements BlockEntityRenderer<UtremJarBlockEntity
             Matrix4f matrix = poseStack.last().pose();
             Matrix3f normal = poseStack.last().normal();
 
-            RenderUtils.renderFluid(blockEntity.getTank(), fluidStack, bufferSource, matrix, normal, new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F), RenderProperties.get(fluidStack.getFluid()).getColorTint(fluidStack.getFluid().defaultFluidState(), blockEntity.getLevel(), blockEntity.getBlockPos()), packedLight, packedOverlay);
+            RenderUtils.renderFluid(blockEntity.getTank(), fluidStack, bufferSource, matrix, normal, new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F), IClientFluidTypeExtensions.of(fluidStack.getFluid()).getTintColor(fluidStack.getFluid().defaultFluidState(), blockEntity.getLevel(), blockEntity.getBlockPos()), packedLight, packedOverlay);
         }
     }
 }

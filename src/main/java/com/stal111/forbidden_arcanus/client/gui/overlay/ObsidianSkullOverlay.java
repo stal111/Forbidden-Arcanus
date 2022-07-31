@@ -17,27 +17,23 @@ import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.IIngameOverlay;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.Set;
 
 /**
- * Obsidian Skull Overlay <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.gui.overlay.ObsidianSkullOverlay
- *
  * @author stal111
- * @version 1.18.1 - 2.1.0
  * @since 2022-02-14
  */
-public class ObsidianSkullOverlay extends GuiComponent implements IIngameOverlay {
+public class ObsidianSkullOverlay extends GuiComponent implements IGuiOverlay {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/obsidian_skull_overlay.png");
 
     private static final Set<Item> ITEMS = ImmutableSet.of(ModItems.OBSIDIAN_SKULL.get(), ModItems.OBSIDIAN_SKULL_SHIELD.get());
 
     @Override
-    public void render(ForgeIngameGui gui, PoseStack poseStack, float partialTicks, int width, int height) {
+    public void render(ForgeGui gui, PoseStack poseStack, float partialTicks, int width, int height) {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
 

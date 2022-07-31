@@ -12,25 +12,21 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.IIngameOverlay;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.Collections;
 
 /**
- * Sanity Meter Overlay <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay
- *
  * @author stal111
- * @version 1.18.1 - 2.1.0
  * @since 2022-02-14
  */
-public class SanityMeterOverlay extends GuiComponent implements IIngameOverlay {
+public class SanityMeterOverlay extends GuiComponent implements IGuiOverlay {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
 
     @Override
-    public void render(ForgeIngameGui gui, PoseStack poseStack, float partialTicks, int width, int height) {
+    public void render(ForgeGui gui, PoseStack poseStack, float partialTicks, int width, int height) {
         Minecraft minecraft = Minecraft.getInstance();
         Window window = minecraft.getWindow();
         Player player = minecraft.player;

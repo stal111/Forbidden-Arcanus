@@ -118,8 +118,8 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
         for (int i = 0; i < list.size(); ++i) {
             ItemStack stack = container.getItem(i);
 
-            if (stack.hasContainerItem()) {
-                list.set(i, stack.getContainerItem());
+            if (stack.hasCraftingRemainingItem()) {
+                list.set(i, stack.getCraftingRemainingItem());
             } else if (stack.getItem() instanceof BowlFoodItem) {
                 list.set(i, new ItemStack(Items.BOWL));
             }

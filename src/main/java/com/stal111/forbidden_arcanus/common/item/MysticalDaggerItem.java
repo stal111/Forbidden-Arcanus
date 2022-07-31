@@ -30,12 +30,12 @@ public class MysticalDaggerItem extends SwordItem {
     }
 
     @Override
-    public boolean hasContainerItem(ItemStack stack) {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return true;
     }
 
     @Override
-    public ItemStack getContainerItem(ItemStack stack) {
+    public ItemStack getCraftingRemainingItem(ItemStack stack) {
         ItemStack copy = stack.copy();
         copy.setDamageValue(stack.getDamageValue() + 10);
         return copy;

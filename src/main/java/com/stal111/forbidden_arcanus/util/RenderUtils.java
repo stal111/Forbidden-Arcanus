@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.RenderProperties;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
@@ -31,7 +31,7 @@ public class RenderUtils {
 
         VertexConsumer builder = buffer.getBuffer(Sheets.translucentCullBlockSheet());
 
-        ResourceLocation resourceLocation = RenderProperties.get(fluid).getStillTexture();
+        ResourceLocation resourceLocation = IClientFluidTypeExtensions.of(fluid).getStillTexture();
         TextureAtlasSprite texture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(resourceLocation);
 
         int light1 = combinedLight & 0xFFFF;

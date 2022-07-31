@@ -9,7 +9,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.EmptyModelData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +25,7 @@ public class DelegateBakedModel implements BakedModel {
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource rand) {
-        return this.base.getQuads(state, side, rand, EmptyModelData.INSTANCE);
+        return this.base.getQuads(state, side, rand);
     }
 
     @Override
@@ -61,9 +60,10 @@ public class DelegateBakedModel implements BakedModel {
         return this.base.getOverrides();
     }
 
+    @Nonnull
     @Override
-    public BakedModel handlePerspective(ItemTransforms.TransformType cameraTransformType, PoseStack poseStack) {
-        return this.base.handlePerspective(cameraTransformType, poseStack);
+    public BakedModel applyTransform(@Nonnull ItemTransforms.TransformType transformType, @Nonnull PoseStack poseStack, boolean applyLeftHandTransform) {
+        return this.base.applyTransform(transformType, poseStack, applyLeftHandTransform);
     }
 
     public BakedModel getBase() {

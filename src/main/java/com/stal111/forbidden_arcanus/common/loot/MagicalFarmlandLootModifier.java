@@ -1,11 +1,12 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
-import com.google.gson.JsonObject;
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -15,20 +16,19 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
- * Magical Farmland Loot Modifier <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
- *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-09-25
  */
 public class MagicalFarmlandLootModifier extends LootModifier {
+
+    public static final Supplier<Codec<MagicalFarmlandLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(instance -> codecStart(instance).apply(instance, MagicalFarmlandLootModifier::new)));
 
     /**
      * Constructs a LootModifier.
@@ -59,16 +59,8 @@ public class MagicalFarmlandLootModifier extends LootModifier {
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<MagicalFarmlandLootModifier> {
-
-        @Override
-        public MagicalFarmlandLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
-            return new MagicalFarmlandLootModifier(conditions);
-        }
-
-        @Override
-        public JsonObject write(MagicalFarmlandLootModifier instance) {
-            return super.makeConditions(instance.conditions);
-        }
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
     }
 }

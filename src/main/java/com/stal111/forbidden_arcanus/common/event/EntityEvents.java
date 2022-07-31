@@ -21,7 +21,7 @@ public class EntityEvents {
     @SubscribeEvent
     public static void onEntityDamage(LivingDamageEvent event) {
         DamageSource source = event.getSource();
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
 
         //On Player damaged
         if (entity instanceof Player player) {
@@ -45,7 +45,7 @@ public class EntityEvents {
 
     @SubscribeEvent
     public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
         MobCategory category = entity.getType().getCategory();
 
         if (category == MobCategory.AMBIENT || category == MobCategory.CREATURE) {

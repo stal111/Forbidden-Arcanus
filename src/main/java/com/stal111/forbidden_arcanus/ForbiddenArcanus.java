@@ -56,7 +56,7 @@ public class ForbiddenArcanus {
 			.addHelper(ForgeRegistries.Keys.ENTITY_TYPES, new EntityRegistryHelper(ModEntities::new))
 			.addHelper(Registry.STRUCTURE_TYPE_REGISTRY, new RegistryHelper<>(ModStructureTypes::new))
 			.addHelper(Registry.STRUCTURE_REGISTRY, new RegistryHelper<>(ModStructures::new))
-			.addHelper(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, new RegistryHelper<>(ModLootModifiers::new))
+			.addHelper(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, new RegistryHelper<>(ModLootModifiers::new))
 			.addHelper(Registry.STRUCTURE_PIECE_REGISTRY, new RegistryHelper<>(ModStructurePieces::new))
 			.addHelper(Registry.STRUCTURE_SET_REGISTRY, new RegistryHelper<>(ModStructureSets::new))
 			.addHelper(ForgeRegistries.Keys.SOUND_EVENTS, new RegistryHelper<>(ModSounds::new))

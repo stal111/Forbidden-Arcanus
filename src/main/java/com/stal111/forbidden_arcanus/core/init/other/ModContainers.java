@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class ModContainers {
 
-    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, ForbiddenArcanus.MOD_ID);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
     public static final RegistryObject<MenuType<ClibanoMenu>> CLIBANO = register("clibano", ClibanoMenu::new);

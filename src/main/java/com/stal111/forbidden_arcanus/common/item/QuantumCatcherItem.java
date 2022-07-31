@@ -118,7 +118,7 @@ public class QuantumCatcherItem extends Item {
 
             MutableComponent textComponent = Component.translatable("tooltip.forbidden_arcanus.entity")
                     .append(": ")
-                    .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITIES.getKey(entity.getType())).toString()));
+                    .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType())).toString()));
 
             if (this.getEntityName(stack) != null)  {
                 textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
@@ -135,7 +135,7 @@ public class QuantumCatcherItem extends Item {
         entity.ejectPassengers();
 
         CompoundTag entityTag = new CompoundTag();
-        ResourceLocation name = ForgeRegistries.ENTITIES.getKey(entity.getType());
+        ResourceLocation name = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
 
         if (name == null) {
             return;
@@ -159,7 +159,7 @@ public class QuantumCatcherItem extends Item {
         }
 
         CompoundTag entityTag = itemTag.getCompound("entity");
-        EntityType<?> entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityTag.getString("entity")));
+        EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(entityTag.getString("entity")));
 
         if (entityType == null) {
             return null;

@@ -4,13 +4,10 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -31,12 +28,11 @@ public class ModParticles {
         return PARTICLE_TYPES.register(name, () -> particleType);
     }
 
-    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void registerParticleTypes(ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particleEngine.register(ModParticles.SOUL.get(), SoulParticle.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ModParticles.AUREAL_MOTE.get(), AurealMoteParticle.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
+    public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
+        event.register(ModParticles.SOUL.get(), SoulParticle.Factory::new);
+        event.register(ModParticles.AUREAL_MOTE.get(), AurealMoteParticle.Factory::new);
+        event.register(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
+        event.register(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
     }
 }
