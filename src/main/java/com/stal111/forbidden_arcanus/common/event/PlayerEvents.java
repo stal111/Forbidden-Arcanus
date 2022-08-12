@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
@@ -11,7 +12,6 @@ import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.core.config.BlockConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -70,11 +70,13 @@ public class PlayerEvents {
             Player player = event.player;
 
             if (player.onClimbable() && !player.isCrouching() && player.getFeetBlockState().is(ModBlocks.EDELWOOD_LADDER.get())) {
-                if (player.zza > 0.0f) {
-                    player.move(MoverType.SELF, new Vec3(0.0, BlockConfig.EDELWOOD_LADDER_SPEED.get(), 0.0));
-                } else {
-                    player.move(MoverType.SELF, new Vec3(0.0, -BlockConfig.EDELWOOD_LADDER_SPEED.get(), 0.0));
+                double multiplier = BlockConfig.EDELWOOD_LADDER_SPEED.get();
+
+                if (!player.horizontalCollision) {
+                    multiplier *= 0.3F;
                 }
+
+                player.move(MoverType.SELF, new Vec3(0.0D, player.getDeltaMovement().y * multiplier, 0.0D));
             }
         }
     }

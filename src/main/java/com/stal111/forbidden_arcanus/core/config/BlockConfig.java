@@ -22,7 +22,7 @@ public class BlockConfig {
         RUNIC_CHISELED_POLISHED_DARKSTONE_RADIUS = builder.comment("Radius the Activated Runic Chiseled Polished Darkstone prevents Entities from spawning in (in Blocks) [default: 25]").defineInRange("runic_chiseled_polished_darkstone.entity_spawn_blocking_radius", 25, 1, 100);
 
 
-        EDELWOOD_LADDER_SPEED = builder.comment("How much speed is added to the player when using an Edelwood Ladder [default: 0.07").defineInRange("edelwood_ladder.speed", 0.07, 0, 10);
+        EDELWOOD_LADDER_SPEED = builder.comment("The speed multiplier that gets added to the players y movement when on the ladder [default: 2.0").defineInRange("edelwood_ladder.speed", 2.0, 0, 10);
 
         builder.pop();
     }
