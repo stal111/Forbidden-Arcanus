@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[40,)" #mandatory
+loaderVersion="[43,)" #mandatory
 license="All Rights Reserved"
 [[mods]] #mandatory
 modId="forbidden_arcanus" #mandatory
@@ -14,6 +14,6 @@ description=''' '''
 [[dependencies.forbidden_arcanus]]
 modId="valhelsia_core"
 mandatory=true
-versionRange="[1.18.2-0.3.0,)"
+versionRange="[1.19.2-0.4.0,)"
 ordering="AFTER"
 side="BOTH"
