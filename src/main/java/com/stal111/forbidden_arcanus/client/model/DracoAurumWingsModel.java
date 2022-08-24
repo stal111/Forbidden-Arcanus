@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.animation.DrakoDeorumWingsAnimation;
+import com.stal111.forbidden_arcanus.client.animation.DracoAurumWingsAnimation;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -95,10 +95,10 @@ public class DracoAurumWingsModel<T extends Player> extends HierarchicalModel<T>
 
     @Override
     public void setupAnim(@Nonnull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.animate(DrakoDeorumWingsAnimation.WALK.getAnimationState(entity.getUUID()), DrakoDeorumWingsAnimation.WALK.getDefinition(), ageInTicks);
-        this.animate(DrakoDeorumWingsAnimation.RUN.getAnimationState(entity.getUUID()), DrakoDeorumWingsAnimation.RUN.getDefinition(), ageInTicks);
-        this.animate(DrakoDeorumWingsAnimation.FLY.getAnimationState(entity.getUUID()), DrakoDeorumWingsAnimation.FLY.getDefinition(), ageInTicks, 0.5F);
-        this.animate(DrakoDeorumWingsAnimation.SNEAK.getAnimationState(entity.getUUID()), DrakoDeorumWingsAnimation.SNEAK.getDefinition(), ageInTicks);
+        this.animate(DracoAurumWingsAnimation.WALK.getAnimationState(entity.getUUID()), DracoAurumWingsAnimation.WALK.getDefinition(), ageInTicks);
+        this.animate(DracoAurumWingsAnimation.RUN.getAnimationState(entity.getUUID()), DracoAurumWingsAnimation.RUN.getDefinition(), ageInTicks);
+        this.animate(DracoAurumWingsAnimation.FLY.getAnimationState(entity.getUUID()), DracoAurumWingsAnimation.FLY.getDefinition(), ageInTicks, 0.5F);
+        this.animate(DracoAurumWingsAnimation.SNEAK.getAnimationState(entity.getUUID()), DracoAurumWingsAnimation.SNEAK.getDefinition(), ageInTicks);
     }
 
     @Override

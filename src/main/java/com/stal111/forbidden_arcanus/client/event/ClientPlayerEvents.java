@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.client.event;
 
-import com.stal111.forbidden_arcanus.client.animation.DrakoDeorumWingsAnimation;
+import com.stal111.forbidden_arcanus.client.animation.DracoAurumWingsAnimation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,18 +35,18 @@ public class ClientPlayerEvents {
         }
 
         if (player.isFallFlying()) {
-            startAnimation(player, DrakoDeorumWingsAnimation.FLY);
+            startAnimation(player, DracoAurumWingsAnimation.FLY);
         } else if (player.isSprinting() && !player.isCrouching()) {
-            startAnimation(player, DrakoDeorumWingsAnimation.RUN);
+            startAnimation(player, DracoAurumWingsAnimation.RUN);
         } else if (player.isCrouching()) {
-                startAnimation(player, DrakoDeorumWingsAnimation.SNEAK);
+                startAnimation(player, DracoAurumWingsAnimation.SNEAK);
         } else if (!player.isFallFlying()) {
-            startAnimation(player, DrakoDeorumWingsAnimation.WALK);
+            startAnimation(player, DracoAurumWingsAnimation.WALK);
         }
     }
 
-    private static void startAnimation(Player player, DrakoDeorumWingsAnimation animation) {
-        for (DrakoDeorumWingsAnimation otherAnimation : DrakoDeorumWingsAnimation.values()) {
+    private static void startAnimation(Player player, DracoAurumWingsAnimation animation) {
+        for (DracoAurumWingsAnimation otherAnimation : DracoAurumWingsAnimation.values()) {
             if (otherAnimation == animation) {
                 continue;
             }
