@@ -71,6 +71,7 @@ public class ClientSetup {
         modEventBus.addListener(this::onTextureStitch);
         modEventBus.addListener(this::onRegisterGuiOverlays);
         modEventBus.addListener(this::onRegisterTooltipComponents);
+        modEventBus.addListener(this::onRegisterParticleProviders);
 
         var source = new FACosmeticsSource(ForbiddenArcanus.MOD_ID);
 
@@ -157,7 +158,7 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
-    public static void registerParticleTypes(RegisterParticleProvidersEvent event) {
+    public void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         event.register(ModParticles.SOUL.get(), SoulParticle.Factory::new);
         event.register(ModParticles.AUREAL_MOTE.get(), AurealMoteParticle.Factory::new);
         event.register(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
