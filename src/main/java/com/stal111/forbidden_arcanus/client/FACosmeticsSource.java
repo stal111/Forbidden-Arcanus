@@ -73,9 +73,12 @@ public class FACosmeticsSource extends CosmeticsSource {
 
     private enum PatreonLevel implements StringRepresentable {
         SILVER_BLACKSMITH("silver_blacksmith"),
-        GOLDEN_FIGHTER("golden_fighter"),
-        ARCANE_SORCERER("arcane_sorcerer"),
-        NEBULA_CLUB("nebula_club");
+        GOLDEN_FIGHTER("golden_fighter", PatreonLevel.DRACO_AURUM_HEAD),
+        ARCANE_SORCERER("arcane_sorcerer", PatreonLevel.DRACO_AURUM_HEAD, PatreonLevel.DRACO_AURUM_WINGS),
+        NEBULA_CLUB("nebula_club", PatreonLevel.DRACO_AURUM_HEAD, PatreonLevel.DRACO_AURUM_WINGS);
+
+        private static final String DRACO_AURUM_HEAD = "draco_aurum_head";
+        private static final String DRACO_AURUM_WINGS = "draco_aurum_wings";
 
         private final String name;
         private final List<String> cosmetics;
