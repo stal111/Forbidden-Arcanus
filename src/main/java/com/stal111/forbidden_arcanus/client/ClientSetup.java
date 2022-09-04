@@ -72,20 +72,12 @@ public class ClientSetup {
         modEventBus.addListener(this::onRegisterGuiOverlays);
         modEventBus.addListener(this::onRegisterTooltipComponents);
         modEventBus.addListener(this::onRegisterParticleProviders);
-
-        var source = new FACosmeticsSource(ForbiddenArcanus.MOD_ID);
-
-        CosmeticsRegistry.addSource(source);
-
-        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.BACK, DracoAurumWingsModel::new)
-                .exactName("draco_aurum_wings")
-                .elytraModifier(CancelRenderingModifier.INSTANCE));
-        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.HAT, DracoAurumHeadModel::new)
-                .exactName("draco_aurum_head"));
     }
 
     @SubscribeEvent
     public void onClientSetup(FMLClientSetupEvent event) {
+        this.registerCosmetics();
+
         event.enqueueWork(() -> {
             MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
             MenuScreens.register(ModContainers.CLIBANO.get(), ClibanoScreen::new);
@@ -121,6 +113,18 @@ public class ClientSetup {
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, world, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, world, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, world, entity, seed) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
+    }
+
+    private void registerCosmetics() {
+        var source = new FACosmeticsSource(ForbiddenArcanus.MOD_ID);
+
+        CosmeticsRegistry.addSource(source);
+
+        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.BACK, DracoAurumWingsModel::new)
+                .exactName("draco_aurum_wings")
+                .elytraModifier(CancelRenderingModifier.INSTANCE));
+        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.HAT, DracoAurumHeadModel::new)
+                .exactName("draco_aurum_head"));
     }
 
     @SubscribeEvent

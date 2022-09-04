@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:darkstone"
+    },
+    "X": {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "item": "forbidden_arcanus:clibano_core"
+  }
+}
