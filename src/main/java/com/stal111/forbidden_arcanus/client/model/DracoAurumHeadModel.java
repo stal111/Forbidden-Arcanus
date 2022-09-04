@@ -89,6 +89,6 @@ public class DracoAurumHeadModel<T extends Player> extends ListModel<T> implemen
 
     @Override
     public void setPosition(PoseStack stack) {
-        stack.translate(0.D, -1.5D, 0.3D);
+        stack.translate(0.D, -1.6D, 0.3D);
     }
 }
