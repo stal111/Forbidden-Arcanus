@@ -28,6 +28,12 @@
     "forbidden_arcanus:arcane_polished_darkstone_pillar",
     "forbidden_arcanus:arcane_polished_darkstone_rod",
     "forbidden_arcanus:darkstone_pedestal",
-    "forbidden_arcanus:arcane_darkstone_pedestal"
+    "forbidden_arcanus:arcane_darkstone_pedestal",
+    "forbidden_arcanus:clibano_core",
+    "forbidden_arcanus:clibano_side_horizontal",
+    "forbidden_arcanus:clibano_side_vertical",
+    "forbidden_arcanus:clibano_corner",
+    "forbidden_arcanus:clibano_center",
+    "forbidden_arcanus:clibano_main_part"
   ]
 }

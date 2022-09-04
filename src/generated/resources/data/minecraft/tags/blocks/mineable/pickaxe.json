@@ -46,6 +46,12 @@
     "forbidden_arcanus:darkstone_pedestal",
     "forbidden_arcanus:arcane_darkstone_pedestal",
     "forbidden_arcanus:tiled_polished_darkstone_bricks",
+    "forbidden_arcanus:clibano_core",
+    "forbidden_arcanus:clibano_side_horizontal",
+    "forbidden_arcanus:clibano_side_vertical",
+    "forbidden_arcanus:clibano_corner",
+    "forbidden_arcanus:clibano_center",
+    "forbidden_arcanus:clibano_main_part",
     "#forbidden_arcanus:runic_stones",
     "#forbidden_arcanus:rune_blocks",
     "#forbidden_arcanus:arcane_crystal_ores"
