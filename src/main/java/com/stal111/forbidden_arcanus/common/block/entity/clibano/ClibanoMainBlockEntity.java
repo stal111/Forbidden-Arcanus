@@ -342,20 +342,23 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     /**
-     * Adds residues to the {@link ResiduesStorage} of the clibano if the recipe can generate residues.
+     * Adds residues to the {@link ResiduesStorage} of the clibano if the recipe can generate residues. <br>
+     * Residues only get generated if the fire type is not the default one.
      *
      * @param recipe the current recipe
      */
     private void addResidue(ClibanoRecipe recipe, RandomSource random) {
-        ClibanoRecipe.ResidueInfo residueInfo = recipe.getResidueInfo();
+        if (this.fireType == ClibanoFireType.FIRE) {
+            return;
+        }
 
-        double d = random.nextDouble();
+        ClibanoRecipe.ResidueInfo residueInfo = recipe.getResidueInfo();
 
         if (residueInfo == ClibanoRecipe.ResidueInfo.NONE) {
             return;
         }
 
-        if (d < residueInfo.chance()) {
+        if (random.nextDouble() < residueInfo.chance()) {
             this.residuesStorage.increaseType(residueInfo.getType(), 1);
         }
     }
