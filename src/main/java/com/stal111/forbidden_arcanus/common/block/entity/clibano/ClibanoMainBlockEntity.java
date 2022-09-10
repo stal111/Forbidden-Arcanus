@@ -12,7 +12,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -21,29 +20,26 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
+import net.valhelsia.valhelsia_core.common.block.entity.ValhelsiaContainerBlockEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -54,7 +50,7 @@ import java.util.function.Function;
  * @version 1.19 - 2.1.0
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements RecipeHolder {
+public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implements RecipeHolder {
 
     public static final int SOUL_DURATION = 2700;
 
@@ -79,8 +75,6 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         }
         return Optional.empty();
     };
-
-    private final NonNullList<ItemStack> inventoryContents = NonNullList.withSize(9, ItemStack.EMPTY);
 
     private final ResiduesStorage residuesStorage = new ResiduesStorage();
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
@@ -143,13 +137,13 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     private Direction frontDirection = Direction.NORTH;
     private boolean wasLit = false;
 
-    public ClibanoMainBlockEntity(BlockPos worldPosition, BlockState blockState) {
-        super(ModBlockEntities.CLIBANO_MAIN.get(), worldPosition, blockState);
+    public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, 9);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
-        Container firstSlot = new SimpleContainer(blockEntity.inventoryContents.get(ClibanoMenu.INPUT_SLOTS.getFirst()));
-        Container secondSlot = new SimpleContainer(blockEntity.inventoryContents.get(ClibanoMenu.INPUT_SLOTS.getSecond()));
+        Container firstSlot = new SimpleContainer(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getFirst()));
+        Container secondSlot = new SimpleContainer(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getSecond()));
 
         ClibanoRecipe firstRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, firstSlot, level).orElse(null);
         ClibanoRecipe secondRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, secondSlot, level).orElse(null);
@@ -170,7 +164,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
                 blockEntity.changeFireType(level, ClibanoFireType.FIRE, firstRecipe, secondRecipe);
             }
         } else if (canSmeltFirst || canSmeltSecond) {
-            ItemStack soul = blockEntity.getItem(ClibanoMenu.SOUL_SLOT);
+            ItemStack soul = blockEntity.getStack(ClibanoMenu.SOUL_SLOT);
 
             if (!soul.isEmpty()) {
                 blockEntity.soulTime = SOUL_DURATION;
@@ -185,7 +179,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             blockEntity.burnTime--;
         } else {
             if (canSmeltFirst || canSmeltSecond) {
-                ItemStack fuel = blockEntity.getItem(ClibanoMenu.FUEL_SLOT);
+                ItemStack fuel = blockEntity.getStack(ClibanoMenu.FUEL_SLOT);
 
                 blockEntity.burnDuration = 0;
 
@@ -271,9 +265,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
      * @return true if the recipe can be used
      */
     private boolean canBurn(ClibanoRecipe recipe, int maxCount, int slot) {
-        NonNullList<ItemStack> items = this.inventoryContents;
-
-        if (items.get(slot).isEmpty()) {
+        if (this.getStack(slot).isEmpty()) {
             return false;
         }
 
@@ -283,8 +275,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             return false;
         }
 
-        ItemStack resultStack = items.get(ClibanoMenu.RESULT_SLOTS.getFirst());
-        ItemStack secondResultStack = items.get(ClibanoMenu.RESULT_SLOTS.getSecond());
+        ItemStack resultStack = this.getStack(ClibanoMenu.RESULT_SLOTS.getFirst());
+        ItemStack secondResultStack = this.getStack(ClibanoMenu.RESULT_SLOTS.getSecond());
 
         if (resultStack.isEmpty() || secondResultStack.isEmpty()) {
             return true;
@@ -308,10 +300,9 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
      * @param slot   the slot where the recipe input was placed in
      */
     private void finishRecipe(ClibanoRecipe recipe, RandomSource random, int slot) {
-        NonNullList<ItemStack> items = this.inventoryContents;
         ItemStack stack = recipe.getResultItem();
 
-        items.get(slot).shrink(1);
+        this.getStack(slot).shrink(1);
 
         if (slot == ClibanoMenu.INPUT_SLOTS.getFirst()) {
             this.cookingProgressFirst = 0;
@@ -323,17 +314,17 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             return;
         }
 
-        ItemStack resultStack = items.get(ClibanoMenu.RESULT_SLOTS.getFirst());
-        ItemStack secondResultStack = items.get(ClibanoMenu.RESULT_SLOTS.getSecond());
+        ItemStack resultStack = this.getStack(ClibanoMenu.RESULT_SLOTS.getFirst());
+        ItemStack secondResultStack = this.getStack(ClibanoMenu.RESULT_SLOTS.getSecond());
 
         if (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
             resultStack.grow(stack.getCount());
         } else if (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
             secondResultStack.grow(stack.getCount());
         } else if (resultStack.isEmpty()) {
-            items.set(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
+            this.setStack(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
         } else if (secondResultStack.isEmpty()) {
-            items.set(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
+            this.setStack(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
         }
 
         this.addResidue(recipe, random);
@@ -441,14 +432,14 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     @Nonnull
     @Override
     protected AbstractContainerMenu createMenu(int containerId, @Nonnull Inventory inventory) {
-        return new ClibanoMenu(containerId, this, inventory, this.containerData);
+        return new ClibanoMenu(containerId, this.getItemStackHandler(), inventory, this.containerData, ContainerLevelAccess.create(Objects.requireNonNull(this.level), this.worldPosition));
     }
 
     @Override
     protected void saveAdditional(@Nonnull CompoundTag tag) {
         super.saveAdditional(tag);
 
-        ContainerHelper.saveAllItems(tag, this.inventoryContents);
+        this.saveInventory(tag);
 
         tag.putInt("SoulTime", this.soulTime);
         tag.putInt("BurnTime", this.burnTime);
@@ -478,12 +469,11 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     public void load(@Nonnull CompoundTag tag) {
         super.load(tag);
 
-        this.inventoryContents.clear();
-        ContainerHelper.loadAllItems(tag, this.inventoryContents);
+        this.loadInventory(tag);
 
         this.soulTime = tag.getInt("SoulTime");
         this.burnTime = tag.getInt("BurnTime");
-        this.burnDuration = this.getBurnDuration(this.inventoryContents.get(ClibanoMenu.FUEL_SLOT));
+        this.burnDuration = this.getBurnDuration(this.getStack(ClibanoMenu.FUEL_SLOT));
         this.cookingProgressFirst = tag.getInt("CookingProgressFirst");
         this.cookingProgressSecond = tag.getInt("CookingProgressSecond");
         this.cookingDurationFirst = tag.getInt("CookingDurationFirst");
@@ -504,11 +494,6 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
     public void setSoulTime(int duration) {
         this.soulTime = duration;
-    }
-
-    @Override
-    public int getContainerSize() {
-        return this.inventoryContents.size();
     }
 
     protected int getBurnDuration(ItemStack fuel) {
@@ -555,57 +540,5 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         }
 
         return list;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return this.inventoryContents.stream().allMatch(ItemStack::isEmpty);
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack getItem(int index) {
-        return this.inventoryContents.get(index);
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack removeItem(int index, int count) {
-        ItemStack stack = ContainerHelper.removeItem(this.inventoryContents, index, count);
-
-        if (!stack.isEmpty()) {
-            this.setChanged();
-        }
-
-        return stack;
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack removeItemNoUpdate(int index) {
-        return ContainerHelper.takeItem(this.inventoryContents, index);
-    }
-
-    @Override
-    public void setItem(int index, @Nonnull ItemStack stack) {
-        this.inventoryContents.set(index, stack);
-
-        if (stack.getCount() > this.getMaxStackSize()) {
-            stack.setCount(this.getMaxStackSize());
-        }
-    }
-
-    @Override
-    public boolean stillValid(@Nonnull Player player) {
-        if (this.getLevel() == null || this.getLevel().getBlockEntity(this.worldPosition) != this) {
-            return false;
-        }
-
-        return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
-    }
-
-    @Override
-    public void clearContent() {
-        this.inventoryContents.clear();
     }
 }

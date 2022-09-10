@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.common.inventory.clibano;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
@@ -17,13 +17,13 @@ import javax.annotation.Nonnull;
  * @version 1.18.2 - 2.1.0
  * @since 2022-06-10
  */
-public class ClibanoResultSlot extends Slot {
+public class ClibanoResultSlot extends SlotItemHandler {
 
     private final Player player;
     private int removeCount;
 
-    public ClibanoResultSlot(Player player, Container container, int index, int x, int y) {
-        super(container, index, x, y);
+    public ClibanoResultSlot(Player player, IItemHandler itemHandler, int index, int x, int y) {
+        super(itemHandler, index, x, y);
         this.player = player;
     }
 

@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ClibanoMainPartBlock
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2022-05-22
  */
 public class ClibanoMainPartBlock extends Block implements EntityBlock {
@@ -49,9 +48,11 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
-            if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(pos) instanceof ClibanoMainBlockEntity blockEntity) {
-                Containers.dropContents(level, pos, blockEntity);
-            }
+            return;
+        }
+
+        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(pos) instanceof ClibanoMainBlockEntity blockEntity) {
+            Containers.dropContents(level, pos, blockEntity.getStacks());
 
             super.onRemove(state, level, pos, newState, isMoving);
         }

@@ -33,8 +33,8 @@ public class ResiduesStorage implements NeedsStoring {
             ResidueType type = new ResidueType(recipe.getResidue());
 
             if (this.residueTypeAmountMap.getOrDefault(type, 0) >= recipe.getResidueAmount()) {
-                ItemStack resultStack = blockEntity.getItem(ClibanoMenu.RESULT_SLOTS.getFirst());
-                ItemStack secondResultStack = blockEntity.getItem(ClibanoMenu.RESULT_SLOTS.getSecond());
+                ItemStack resultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getFirst());
+                ItemStack secondResultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getSecond());
 
                 ItemStack stack = recipe.getResultItem();
                 boolean flag = true;
@@ -44,9 +44,9 @@ public class ResiduesStorage implements NeedsStoring {
                 } else if (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
                     secondResultStack.grow(stack.getCount());
                 } else if (resultStack.isEmpty()) {
-                    blockEntity.setItem(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
+                    blockEntity.setStack(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
                 } else if (secondResultStack.isEmpty()) {
-                    blockEntity.setItem(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
+                    blockEntity.setStack(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
                 } else {
                     flag = false;
                 }

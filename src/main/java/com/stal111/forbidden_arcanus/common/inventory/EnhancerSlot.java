@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,17 +15,17 @@ import javax.annotation.Nullable;
  * @version 1.18.2 - 2.1.0
  * @since 2021-06-30
  */
-public class EnhancerSlot extends Slot {
+public class EnhancerSlot extends SlotItemHandler {
 
     private boolean unlocked = true;
     @Nullable
     private final String additionalData;
 
-    public EnhancerSlot(Container inventory, int index, int xPosition, int yPosition) {
-        this(inventory, index, xPosition, yPosition, null);
+    public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+        this(itemHandler, index, xPosition, yPosition, null);
     }
 
-    public EnhancerSlot(Container inventory, int index, int xPosition, int yPosition, @Nullable String additionalData) {
+    public EnhancerSlot(IItemHandler inventory, int index, int xPosition, int yPosition, @Nullable String additionalData) {
         super(inventory, index, xPosition, yPosition);
         this.additionalData = additionalData;
     }
