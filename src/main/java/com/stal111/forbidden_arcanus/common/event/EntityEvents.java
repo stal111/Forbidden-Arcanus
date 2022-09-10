@@ -33,11 +33,8 @@ public class EntityEvents {
             }
         }
 
-
-        if (source.msgId.equals("player")) {
-            Player player = (Player) source.getEntity();
-
-            if (player != null && player.getItemInHand(player.getUsedItemHand()).is(ModItems.MYSTICAL_DAGGER.get())) {
+        if (source.msgId.equals("player") && source.getEntity() instanceof Player player) {
+            if (player.getItemInHand(player.getUsedItemHand()).is(ModItems.MYSTICAL_DAGGER.get())) {
                 BloodTestTubeItem.collectBlood(player, event.getAmount());
             }
         }
