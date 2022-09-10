@@ -108,6 +108,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::cherryFlowerVinesBlock, ModBlocks.CHERRY_FLOWER_VINES);
         take(this::cherryFlowerVinesPlantBlock, ModBlocks.CHERRY_FLOWER_VINES_PLANT);
 
+        take(block -> particleOnly(block, modLoc("block/black_hole")), ModBlocks.BLACK_HOLE);
+        take(this::empty, ModBlocks.CLIBANO_MAIN_PART);
+
         take(block -> {
             ResourceLocation front = modLoc("block/clibano_combustion/clibano_center_front_off");
             ResourceLocation side = modLoc("block/clibano_combustion/clibano_center_side");
@@ -232,6 +235,14 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
             }
             slabBlock((SlabBlock) block, resourceLocation, resourceLocation);
         });
+    }
+
+    private void empty(Block block) {
+        simpleBlock(block, models().getBuilder(getName(block)));
+    }
+
+    private void particleOnly(Block block, ResourceLocation particle) {
+        simpleBlock(block, models().getBuilder(getName(block)).texture("particle", particle));
     }
 
     private void cubeAllCutout(Block block, ResourceLocation texture, ResourceLocation emissiveTexture) {
