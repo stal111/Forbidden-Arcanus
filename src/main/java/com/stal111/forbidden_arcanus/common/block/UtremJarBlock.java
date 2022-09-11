@@ -27,9 +27,9 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
@@ -87,7 +87,7 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock, Enti
             return super.use(state, level, pos, player, hand, hit);
         }
 
-        IFluidHandler fluidHandler = blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).resolve().get();
+        IFluidHandler fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().get();
 
         if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
             player.getInventory().setChanged();
