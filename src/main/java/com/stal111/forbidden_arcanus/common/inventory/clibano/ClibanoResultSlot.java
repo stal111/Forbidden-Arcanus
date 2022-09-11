@@ -14,17 +14,18 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoResultSlot
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2022-06-10
  */
 public class ClibanoResultSlot extends SlotItemHandler {
 
     private final Player player;
+    private final ClibanoMainBlockEntity blockEntity;
     private int removeCount;
 
-    public ClibanoResultSlot(Player player, IItemHandler itemHandler, int index, int x, int y) {
+    public ClibanoResultSlot(Player player, IItemHandler itemHandler, ClibanoMainBlockEntity blockEntity, int index, int x, int y) {
         super(itemHandler, index, x, y);
         this.player = player;
+        this.blockEntity = blockEntity;
     }
 
     @Override
@@ -58,8 +59,8 @@ public class ClibanoResultSlot extends SlotItemHandler {
     protected void checkTakeAchievements(@Nonnull ItemStack stack) {
         stack.onCraftedBy(this.player.level, this.player, this.removeCount);
 
-        if (this.player instanceof ServerPlayer serverPlayer && this.container instanceof ClibanoMainBlockEntity blockEntity) {
-            blockEntity.awardUsedRecipesAndPopExperience(serverPlayer);
+        if (this.player instanceof ServerPlayer serverPlayer) {
+            this.blockEntity.awardUsedRecipesAndPopExperience(serverPlayer);
         }
 
         this.removeCount = 0;

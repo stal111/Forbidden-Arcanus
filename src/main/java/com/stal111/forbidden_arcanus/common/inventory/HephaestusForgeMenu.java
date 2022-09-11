@@ -41,10 +41,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addDataSlots(this.hephaestusForgeData);
 
         // Hephaestus Forge Slots
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(3), 0, 32, 24, HephaestusForgeLevel.getRequiredLevelForSlot(1).getName()));
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(3), 1, 32, 46, HephaestusForgeLevel.getRequiredLevelForSlot(2).getName()));
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(3), 2, 128, 24, HephaestusForgeLevel.getRequiredLevelForSlot(3).getName()));
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(3), 3, 128, 46, HephaestusForgeLevel.getRequiredLevelForSlot(4).getName()));
+        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 0, 32, 24, HephaestusForgeLevel.getRequiredLevelForSlot(1).getName()));
+        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 1, 32, 46, HephaestusForgeLevel.getRequiredLevelForSlot(2).getName()));
+        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 2, 128, 24, HephaestusForgeLevel.getRequiredLevelForSlot(3).getName()));
+        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 3, 128, 46, HephaestusForgeLevel.getRequiredLevelForSlot(4).getName()));
 
         HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(this.hephaestusForgeData.get(0));
 

@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -47,14 +49,19 @@ public interface ClibanoPart extends EntityBlock {
     }
 
     default InteractionResult openScreen(@Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player) {
+        if (!(player instanceof ServerPlayer serverPlayer)) {
+            return InteractionResult.SUCCESS;
+        }
+
         this.findMainPos(level, pos).ifPresent(blockPos -> {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
 
-            if (blockEntity instanceof ClibanoMainBlockEntity clibanoMainBlockEntity)
-                player.openMenu(clibanoMainBlockEntity);
+            if (blockEntity instanceof ClibanoMainBlockEntity clibanoMainBlockEntity) {
+                NetworkHooks.openScreen(serverPlayer, clibanoMainBlockEntity, blockPos);
+            }
         });
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.CONSUME;
     }
 
     default Optional<BlockPos> findMainPos(@Nonnull Level level, @Nonnull BlockPos pos) {

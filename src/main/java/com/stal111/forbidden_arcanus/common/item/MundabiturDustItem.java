@@ -27,7 +27,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
@@ -184,6 +183,12 @@ public class MundabiturDustItem extends Item {
 
             if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(centerPos) instanceof ClibanoMainBlockEntity blockEntity) {
                 blockEntity.setFrontDirection(clickedFace);
+
+                for (Direction direction : Direction.values()) {
+                    if (serverLevel.getBlockEntity(centerPos.relative(direction)) instanceof ClibanoBlockEntity clibanoBlockEntity) {
+                        clibanoBlockEntity.setMainDirection(direction.getOpposite());
+                    }
+                }
             }
 
             return true;
@@ -198,7 +203,7 @@ public class MundabiturDustItem extends Item {
         level.setBlock(pos, state, 2);
 
         if (state.getBlock() instanceof ClibanoPart && level.getBlockEntity(pos) instanceof ClibanoBlockEntity blockEntity) {
-            blockEntity.setState(oldState);
+            blockEntity.setReplaceState(oldState);
             level.levelEvent(2001, pos, Block.getId(oldState));
         }
     }

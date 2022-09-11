@@ -1,14 +1,10 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
-import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;

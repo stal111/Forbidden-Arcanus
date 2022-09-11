@@ -22,11 +22,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.FurnaceFuelSlot;
 import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -35,11 +34,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
 import net.valhelsia.valhelsia_core.common.block.entity.ValhelsiaContainerBlockEntity;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -47,7 +55,6 @@ import java.util.function.Function;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2022-05-22
  */
 public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implements RecipeHolder {
@@ -137,8 +144,20 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
     private Direction frontDirection = Direction.NORTH;
     private boolean wasLit = false;
 
+    private final LazyOptional<IItemHandler> topInputHandler = LazyOptional.of(() -> new ClibanoItemHandler(this.getItemStackHandler(), Direction.UP));;
+    private final LazyOptional<IItemHandler> sideInputHandler = LazyOptional.of(() -> new ClibanoItemHandler(this.getItemStackHandler(), Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST));
+    private final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> new ClibanoItemHandler(this.getItemStackHandler(), Direction.DOWN));
+
     public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, 9);
+        super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, 9, (slot, stack) -> {
+            if (slot == ClibanoMenu.SOUL_SLOT) {
+                return ITEM_TO_FIRE_TYPE.apply(stack).isPresent();
+            } else if (slot == ClibanoMenu.FUEL_SLOT) {
+                return ForgeHooks.getBurnTime(stack, RecipeType.BLASTING) > 0 || FurnaceFuelSlot.isBucket(stack);
+            }
+
+            return !slot.equals(ClibanoMenu.RESULT_SLOTS.getFirst()) && !slot.equals(ClibanoMenu.RESULT_SLOTS.getSecond());
+        });
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
@@ -429,10 +448,9 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         return Component.translatable("container.forbidden_arcanus.clibano");
     }
 
-    @Nonnull
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, @Nonnull Inventory inventory) {
-        return new ClibanoMenu(containerId, this.getItemStackHandler(), inventory, this.containerData, ContainerLevelAccess.create(Objects.requireNonNull(this.level), this.worldPosition));
+    protected AbstractContainerMenu createMenu(int containerId, @Nonnull MenuCreationContext context) {
+        return new ClibanoMenu(containerId, this.getItemStackHandler(), this.containerData, context);
     }
 
     @Override
@@ -540,5 +558,24 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         }
 
         return list;
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @org.jetbrains.annotations.Nullable Direction side) {
+        if (this.remove || this.level == null) {
+            return super.getCapability(cap, side);
+        }
+
+        if (cap.equals(ForgeCapabilities.ITEM_HANDLER) && side != null) {
+            if (side == Direction.DOWN) {
+                return this.outputHandler.cast();
+            } else if (side == Direction.UP) {
+                return this.topInputHandler.cast();
+            } else {
+                return this.sideInputHandler.cast();
+            }
+        }
+
+        return super.getCapability(cap, side);
     }
 }

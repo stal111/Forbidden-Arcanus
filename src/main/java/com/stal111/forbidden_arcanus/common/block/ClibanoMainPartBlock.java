@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,12 +48,14 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
 
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
+        if (state.is(newState.getBlock())) {
             return;
         }
 
         if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(pos) instanceof ClibanoMainBlockEntity blockEntity) {
             Containers.dropContents(level, pos, blockEntity.getStacks());
+
+            blockEntity.getRecipesToAwardAndPopExperience(serverLevel, Vec3.atCenterOf(pos));
 
             super.onRemove(state, level, pos, newState, isMoving);
         }
@@ -67,7 +70,7 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
                     if (level.getBlockEntity(offsetPos) instanceof ClibanoBlockEntity blockEntity) {
                         level.levelEvent(2001, offsetPos, Block.getId(level.getBlockState(offsetPos)));
 
-                        level.setBlock(offsetPos, blockEntity.getState(), 2);
+                        level.setBlock(offsetPos, blockEntity.getReplaceState(), 2);
                     }
                 }
             }

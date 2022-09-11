@@ -7,16 +7,21 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -42,18 +47,16 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     private final ContainerData containerData;
 
-    private final Level level;
-    private final ContainerLevelAccess levelAccess;
+    private final MenuCreationContext<ClibanoMainBlockEntity> context;
 
-    public ClibanoMenu(int id, Inventory inventory) {
-        this(id, new ItemStackHandler(SLOT_COUNT), inventory, new SimpleContainerData(ClibanoMainBlockEntity.FULL_DATA_COUNT), ContainerLevelAccess.NULL);
+    public ClibanoMenu(int id, Inventory inventory, BlockPos pos) {
+        this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.FULL_DATA_COUNT), MenuCreationContext.of(inventory, pos));
     }
 
-    public ClibanoMenu(int containerId, ItemStackHandler handler, Inventory inventory, ContainerData containerData, ContainerLevelAccess levelAccess) {
+    public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<ClibanoMainBlockEntity> context) {
         super(ModContainers.CLIBANO.get(), containerId);
         this.containerData = containerData;
-        this.level = inventory.player.getLevel();
-        this.levelAccess = levelAccess;
+        this.context = context;
 
         this.addDataSlots(this.containerData);
 
@@ -67,20 +70,22 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.addSlot(new SlotItemHandler(handler, INPUT_SLOTS.getFirst(), 44, 20));
         this.addSlot(new SlotItemHandler(handler, INPUT_SLOTS.getSecond(), 62, 20));
 
+        ClibanoMainBlockEntity blockEntity = context.getBlockEntity();
+
         // Result Slot
-        this.addSlot(new ClibanoResultSlot(inventory.player, handler, RESULT_SLOTS.getFirst(), 116, 32));
-        this.addSlot(new ClibanoResultSlot(inventory.player, handler, RESULT_SLOTS.getSecond(), 142, 28));
+        this.addSlot(new ClibanoResultSlot(context.player(), handler, blockEntity, RESULT_SLOTS.getFirst(), 116, 32));
+        this.addSlot(new ClibanoResultSlot(context.player(), handler, blockEntity, RESULT_SLOTS.getSecond(), 142, 28));
 
         // Inventory Slots
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(inventory, j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
+                this.addSlot(new SlotItemHandler(context.playerInventory(), j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
             }
         }
 
         // Hotbar Slots
         for(int k = 0; k < 9; ++k) {
-            this.addSlot(new Slot(inventory, k, 8 + k * 18, 149));
+            this.addSlot(new SlotItemHandler(context.playerInventory(), k, 8 + k * 18, 149));
         }
     }
 
@@ -145,7 +150,9 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     protected boolean canSmelt(ItemStack stack) {
-        return this.level.getRecipeManager().getRecipeFor(ClibanoMainBlockEntity.RECIPE_TYPE, new SimpleContainer(stack), this.level).isPresent();
+        Level level = this.context.level();
+
+        return level.getRecipeManager().getRecipeFor(ClibanoMainBlockEntity.RECIPE_TYPE, new SimpleContainer(stack), level).isPresent();
     }
 
     protected boolean isFuel(ItemStack stack) {
@@ -182,7 +189,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@Nonnull Player player) {
-        return stillValid(this.levelAccess, player, ModBlocks.CLIBANO_MAIN_PART.get());
+        return stillValid(this.context.levelAccess(), player, ModBlocks.CLIBANO_MAIN_PART.get());
     }
 
     public int getFireType() {
