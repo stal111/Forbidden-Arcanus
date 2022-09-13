@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -79,7 +80,7 @@ public class CombineResiduesRecipe extends CustomRecipe {
         public CombineResiduesRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
             String residueName = GsonHelper.getAsString(json, "residue_name");
             short residueAmount = GsonHelper.getAsShort(json, "residue_amount");
-            ItemStack result = new ItemStack(GsonHelper.getAsItem(json.getAsJsonObject("result"), "item"));
+            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 
             return new CombineResiduesRecipe(recipeId, residueName, residueAmount, result);
         }

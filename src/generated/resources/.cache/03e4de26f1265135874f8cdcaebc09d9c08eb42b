@@ -1,7 +1,8 @@
-// 1.19.2	2022-09-04T20:56:18.0447296	Tags for minecraft:item
+// 1.19.2	2022-09-13T21:27:20.7652668	Tags for minecraft:item
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 05cafb192eccf079a0b6da731f2401809793a197 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/items/cherrywood_logs.json
+18fab079fe95b1f263d4b023cea937c36a0c3ec1 data/forbidden_arcanus/tags/items/clibano/creates_blue_fire.json
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/items/edelwood_logs.json
 26ca19a64b7305b1587e6eab631becb52fb1ed25 data/forbidden_arcanus/tags/items/fungyss_stems.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/items/indestructible_blacklisted.json

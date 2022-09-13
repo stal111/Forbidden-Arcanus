@@ -22,10 +22,14 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 2022-07-05
  */
-public record CombineResiduesRecipeBuilder(String residueName, int residueAmount, Item result) implements RecipeBuilder {
+public record CombineResiduesRecipeBuilder(String residueName, int residueAmount, Item result, int count) implements RecipeBuilder {
 
     public static CombineResiduesRecipeBuilder of(String residueName, int residueAmount, ItemLike result) {
-        return new CombineResiduesRecipeBuilder(residueName, residueAmount, result.asItem());
+        return new CombineResiduesRecipeBuilder(residueName, residueAmount, result.asItem(), 1);
+    }
+
+    public static CombineResiduesRecipeBuilder of(String residueName, int residueAmount, ItemLike result, int count) {
+        return new CombineResiduesRecipeBuilder(residueName, residueAmount, result.asItem(), count);
     }
 
     @Nonnull
@@ -54,7 +58,7 @@ public record CombineResiduesRecipeBuilder(String residueName, int residueAmount
 
     @Override
     public void save(@Nonnull Consumer<FinishedRecipe> finishedRecipeConsumer, @Nonnull ResourceLocation recipeId) {
-        finishedRecipeConsumer.accept(new CombineResiduesRecipeBuilder.Result(recipeId, this.residueName, this.residueAmount, this.result, ModRecipes.COMBINE_RESIDUES_SERIALIZER.get()));
+        finishedRecipeConsumer.accept(new CombineResiduesRecipeBuilder.Result(recipeId, this.residueName, this.residueAmount, this.result, this.count, ModRecipes.COMBINE_RESIDUES_SERIALIZER.get()));
     }
 
     public static class Result implements FinishedRecipe {
@@ -63,13 +67,15 @@ public record CombineResiduesRecipeBuilder(String residueName, int residueAmount
         private final String residueName;
         private final int residueAmount;
         private final Item result;
+        private final int count;
         private final RecipeSerializer<CombineResiduesRecipe> serializer;
 
-        public Result(ResourceLocation recipeId, String residueName, int residueAmount, Item result, RecipeSerializer<CombineResiduesRecipe> serializer) {
+        public Result(ResourceLocation recipeId, String residueName, int residueAmount, Item result, int count, RecipeSerializer<CombineResiduesRecipe> serializer) {
             this.recipeId = recipeId;
             this.residueName = residueName;
             this.residueAmount = residueAmount;
             this.result = result;
+            this.count = count;
             this.serializer = serializer;
         }
 
@@ -80,6 +86,10 @@ public record CombineResiduesRecipeBuilder(String residueName, int residueAmount
 
             JsonObject result = new JsonObject();
             result.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result)).toString());
+
+            if (this.count > 1) {
+                result.addProperty("count", this.count);
+            }
 
             json.add("result", result);
         }

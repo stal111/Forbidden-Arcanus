@@ -1,0 +1,9 @@
+{
+  "type": "forbidden_arcanus:combine_residues",
+  "residue_amount": 1,
+  "residue_name": "deorum",
+  "result": {
+    "count": 2,
+    "item": "forbidden_arcanus:deorum_nugget"
+  }
+}

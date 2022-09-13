@@ -50,6 +50,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE);
         this.tag(ModTags.Items.FIERY_INCOMPATIBLE);
 
+        this.tag(ModTags.Items.CLIBANO_CREATES_BLUE_FIRE).add(ModItems.SOUL.get(), ModItems.DARK_SOUL.get());
+
         this.copy(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Items.FUNGYSS_STEMS);
         this.copy(ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Items.CHERRYWOOD_LOGS);
         this.copy(ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Items.MYSTERYWOOD_LOGS);

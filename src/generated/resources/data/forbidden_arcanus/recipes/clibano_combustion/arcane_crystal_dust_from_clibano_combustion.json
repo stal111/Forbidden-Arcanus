@@ -7,7 +7,7 @@
   },
   "residue": {
     "chance": 0.1,
-    "name": "iron"
+    "name": "arcane_crystal"
   },
   "result": "forbidden_arcanus:arcane_crystal_dust"
 }

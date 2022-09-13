@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -77,7 +77,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipes.CLIBANO_COMBUSTION.get();
 
     public static final Function<ItemStack, Optional<ClibanoFireType>> ITEM_TO_FIRE_TYPE = stack -> {
-        if (stack.is(ModItems.SOUL.get()) || stack.is(ModItems.DARK_SOUL.get())) {
+        if (stack.is(ModTags.Items.CLIBANO_CREATES_BLUE_FIRE)) {
             return Optional.of(ClibanoFireType.BLUE_FIRE);
         }
         return Optional.empty();
@@ -169,8 +169,11 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
 
         boolean isLit = blockEntity.burnTime > 0;
 
-        boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(firstRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
-        boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(secondRecipe, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
+        ClibanoFireType newFireType = blockEntity.getFireTypeFromInput();
+        ClibanoFireType currentHighestType = newFireType.ordinal() > blockEntity.fireType.ordinal() ? newFireType : blockEntity.fireType;
+
+        boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(firstRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
+        boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(secondRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
 
         RandomSource random = level.getRandom();
 
@@ -182,16 +185,11 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
             if (blockEntity.soulTime == 0) {
                 blockEntity.changeFireType(level, ClibanoFireType.FIRE, firstRecipe, secondRecipe);
             }
-        } else if (canSmeltFirst || canSmeltSecond) {
-            ItemStack soul = blockEntity.getStack(ClibanoMenu.SOUL_SLOT);
+        } else if ((canSmeltFirst || canSmeltSecond) && newFireType != ClibanoFireType.FIRE) {
+            blockEntity.soulTime = SOUL_DURATION;
 
-            if (!soul.isEmpty()) {
-                blockEntity.soulTime = SOUL_DURATION;
-
-                blockEntity.changeFireType(level, ITEM_TO_FIRE_TYPE.apply(soul).orElse(ClibanoFireType.FIRE), firstRecipe, secondRecipe);
-
-                soul.shrink(1);
-            }
+            blockEntity.changeFireType(level, newFireType, firstRecipe, secondRecipe);
+            blockEntity.getStack(ClibanoMenu.SOUL_SLOT).shrink(1);
         }
 
         if (isLit) {
@@ -263,6 +261,19 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         blockEntity.wasLit = true;
     }
 
+    /**
+     * @return The fire type that matches the item inputted in the {@link ClibanoMenu#SOUL_SLOT}.
+     */
+    private ClibanoFireType getFireTypeFromInput() {
+        ItemStack soul = this.getStack(ClibanoMenu.SOUL_SLOT);
+
+        if (!soul.isEmpty()) {
+            return ITEM_TO_FIRE_TYPE.apply(soul).orElse(ClibanoFireType.FIRE);
+        }
+
+        return ClibanoFireType.FIRE;
+    }
+
     private static void createExperience(ServerLevel level, Vec3 position, int count, float experience) {
         int i = Mth.floor(count * experience);
         float f = Mth.frac(count * experience);
@@ -279,18 +290,19 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
      * To be considered usable one of the result slots must be empty or the result of the recipe must fit into one of the existing stacks.
      *
      * @param recipe   the recipe to check
+     * @param fireType the {@link ClibanoFireType} that will be active when the recipe gets started
      * @param maxCount the maximum stack size of the result
      * @param slot     the input slot to check
      * @return true if the recipe can be used
      */
-    private boolean canBurn(ClibanoRecipe recipe, int maxCount, int slot) {
+    private boolean canBurn(ClibanoRecipe recipe, ClibanoFireType fireType, int maxCount, int slot) {
         if (this.getStack(slot).isEmpty()) {
             return false;
         }
 
         ItemStack stack = recipe.getResultItem();
 
-        if (stack.isEmpty()) {
+        if (stack.isEmpty() || fireType.ordinal() < recipe.getRequiredFireType().ordinal()) {
             return false;
         }
 

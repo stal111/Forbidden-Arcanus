@@ -57,6 +57,9 @@ public class ModTags {
         public static final TagKey<Item> ETERNAL_INCOMPATIBLE = modTag("modifier/eternal_incompatible");
         public static final TagKey<Item> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
 
+        public static final TagKey<Item> CLIBANO_CREATES_BLUE_FIRE = modTag("clibano/creates_blue_fire");
+
+
         private static TagKey<Item> forgeTag(String name) {
             return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("forge", name));
         }

@@ -5,8 +5,10 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -22,12 +24,13 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
 import java.util.List;
 
-import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
-import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
+import static mezz.jei.api.recipe.RecipeIngredientRole.*;
 
 /**
  * @author stal111
@@ -41,7 +44,11 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     private final IDrawable icon;
 
     protected final IDrawableStatic staticFlame;
-    protected final IDrawableAnimated animatedFlame;
+    protected final IDrawableStatic staticBlueFlame;
+    protected final IDrawableStatic staticPurpleFlame;
+
+    private final HashMap<ClibanoFireType, IDrawableAnimated> animatedFlames = new HashMap<>();
+
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
 
 
@@ -50,7 +57,14 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CLIBANO_CORE.get()));
 
         this.staticFlame = guiHelper.createDrawable(TEXTURE, 151, 1, 12, 15);
-        this.animatedFlame = guiHelper.createAnimatedDrawable(this.staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
+        this.animatedFlames.put(ClibanoFireType.FIRE, guiHelper.createAnimatedDrawable(this.staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+
+        this.staticBlueFlame = guiHelper.createDrawable(TEXTURE, 170, 1, 12, 15);
+        this.animatedFlames.put(ClibanoFireType.BLUE_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+
+        this.staticPurpleFlame = guiHelper.createDrawable(TEXTURE, 189, 1, 12, 15);
+        this.animatedFlames.put(ClibanoFireType.PURPLE_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
@@ -92,6 +106,11 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         builder.addSlot(INPUT, 55, 24)
                 .addIngredients(recipe.getIngredients().get(0));
 
+        if (recipe.getRequiredFireType() == ClibanoFireType.BLUE_FIRE) {
+            builder.addSlot(RENDER_ONLY, 12, 60)
+                    .addIngredients(Ingredient.of(ModTags.Items.CLIBANO_CREATES_BLUE_FIRE));
+        }
+
         builder.addSlot(OUTPUT, 97, 35)
                 .addItemStack(recipe.getResultItem());
     }
@@ -106,7 +125,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
 
     @Override
     public void draw(@Nonnull ClibanoRecipe recipe, @Nonnull IRecipeSlotsView recipeSlotsView, @Nonnull PoseStack stack, double mouseX, double mouseY) {
-        this.animatedFlame.draw(stack, 48, 43);
+        this.animatedFlames.get(recipe.getRequiredFireType()).draw(stack, 48, 43);
 
         IDrawableAnimated arrow = this.getArrow(recipe);
         arrow.draw(stack, 74, 43);

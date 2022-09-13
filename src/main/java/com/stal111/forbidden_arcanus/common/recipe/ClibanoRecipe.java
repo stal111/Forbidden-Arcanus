@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Clibano Recipe <br>
@@ -38,9 +39,15 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     private final Map<ClibanoFireType, Integer> cookingTimes = new EnumMap<>(ClibanoFireType.class);
     private final ResidueInfo residueInfo;
 
-    public ClibanoRecipe(ResourceLocation id, String group, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo) {
+    /**
+     * The minimum fire type that needs to be present to start this recipe.
+     */
+    private final ClibanoFireType requiredFireType;
+
+    public ClibanoRecipe(ResourceLocation id, String group, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
         super(ModRecipes.CLIBANO_COMBUSTION.get(), id, group, ingredient, result, experience, cookingTime);
         this.residueInfo = residueInfo;
+        this.requiredFireType = requiredFireType;
 
         for (ClibanoFireType fireType : ClibanoFireType.values()) {
             this.cookingTimes.put(fireType, (int) (cookingTime / fireType.getCookingSpeedMultiplier()));
@@ -64,6 +71,10 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
     public ResidueInfo getResidueInfo() {
         return this.residueInfo;
+    }
+
+    public ClibanoFireType getRequiredFireType() {
+        return this.requiredFireType;
     }
 
     @Nonnull
@@ -104,7 +115,9 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
                 ResiduesStorage.RESIDUE_TYPES.add(residueType);
             }
 
-            return new ClibanoRecipe(recipeId, group, ingredient, stack, experience, cookingTime, residueInfo);
+            Optional<ClibanoFireType> fireType = ClibanoFireType.byName(GsonHelper.getAsString(jsonObject, "fire_type", "fire"));
+
+            return new ClibanoRecipe(recipeId, group, ingredient, stack, experience, cookingTime, residueInfo, fireType.orElse(ClibanoFireType.FIRE));
         }
 
         @Nullable
@@ -116,7 +129,9 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             float f = buffer.readFloat();
             int i = buffer.readVarInt();
 
-            return new ClibanoRecipe(recipeId, s, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer));
+            Optional<ClibanoFireType> fireType = ClibanoFireType.byName(buffer.readUtf());
+
+            return new ClibanoRecipe(recipeId, s, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType.orElse(ClibanoFireType.FIRE));
         }
 
         @Override
@@ -126,6 +141,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             buffer.writeItem(recipe.result);
             buffer.writeFloat(recipe.experience);
             buffer.writeVarInt(recipe.cookingTime);
+
+            buffer.writeUtf(recipe.requiredFireType.getSerializedName());
 
             recipe.residueInfo.toNetwork(buffer);
         }
@@ -167,7 +184,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
                 return;
             }
 
-            residue.addProperty("name", this.name.toString());
+            residue.addProperty("name", this.name);
             residue.addProperty("chance", this.chance);
 
             jsonObject.add("residue", residue);
