@@ -53,7 +53,7 @@ public class FACosmeticsSource extends CosmeticsSource {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // Either player is offline or hasn't bought any cosmetics.
         }
     }
 
