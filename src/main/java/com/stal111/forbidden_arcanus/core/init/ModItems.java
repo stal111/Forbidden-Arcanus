@@ -41,7 +41,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<Item> OBSIDIAN_WITH_IRON = HELPER.register("obsidian_with_iron", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> OBSIDIAN_INGOT = HELPER.register("obsidian_ingot", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> SOUL = HELPER.register("soul", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
-    public static final RegistryObject<DarkSoulItem> DARK_SOUL = HELPER.register("dark_soul", () -> new DarkSoulItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
+    public static final RegistryObject<DarkSoulItem> CORRUPT_SOUL = HELPER.register("corrupt_soul", () -> new DarkSoulItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> PIXIE = HELPER.register("pixie", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<Item> CORRUPTED_PIXIE = HELPER.register("corrupted_pixie", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS).stacksTo(1)));
     public static final RegistryObject<Item> RUNE = HELPER.register("rune", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));

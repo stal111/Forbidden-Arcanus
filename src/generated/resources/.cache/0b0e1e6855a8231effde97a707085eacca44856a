@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-14T17:58:09.8559533	Item Models: forbidden_arcanus
+// 1.19.2	2022-09-14T18:16:47.5549109	Item Models: forbidden_arcanus
 ec32963c36c92245dedb808f3147fe81dd495883 assets/forbidden_arcanus/models/item/aquatic_dragon_scale.json
 a362c1701734ea16f61260dddb1bcfbfe0cad6d4 assets/forbidden_arcanus/models/item/arcane_bone_meal.json
 5fb2e610741f59f928db167b1a5f5963d58d75c6 assets/forbidden_arcanus/models/item/arcane_chiseled_darkstone.json
@@ -77,6 +77,7 @@ dd891b73a1de3896e0c833fc0b43fc0260e5a475 assets/forbidden_arcanus/models/item/ch
 8c4b37b422e18c85a7ab95859695b0896469e4f7 assets/forbidden_arcanus/models/item/corrupted_pixie.json
 2eb861797c6abca36d818358080d2cfaed24444b assets/forbidden_arcanus/models/item/corrupted_pixie_utrem_jar.json
 e4d251231673335a3801dc3e811ef1b5f414c0bf assets/forbidden_arcanus/models/item/corrupti_dust.json
+0e673dca6d81c441a97ede8fd2c0ef473cef36bf assets/forbidden_arcanus/models/item/corrupt_soul.json
 48ad085f234221cfef44bb5b0bad16f89ca662e5 assets/forbidden_arcanus/models/item/cracked_polished_darkstone_bricks.json
 466eb7e66faa0523669cf73ead6ad3a64bf3db32 assets/forbidden_arcanus/models/item/cut_soulless_sandstone.json
 b8c2c83823040521840e2a8a939678f54fce0bf8 assets/forbidden_arcanus/models/item/cut_soulless_sandstone_slab.json
@@ -92,7 +93,6 @@ d494e091b7d528491b82976af38a67ad4be10ab5 assets/forbidden_arcanus/models/item/da
 862a434295a093fe7ac85cb47d25ab70fc2760df assets/forbidden_arcanus/models/item/dark_rune_block.json
 a284dd13754ed0472191e2b41347be974942dad3 assets/forbidden_arcanus/models/item/dark_runic_glass.json
 fd4f5b7141b29aefcebeaa55f6202aced3c99633 assets/forbidden_arcanus/models/item/dark_runic_glass_pane.json
-ada91b2e7d34b36d6b8199e03dbe47a073084b3a assets/forbidden_arcanus/models/item/dark_soul.json
 5ebcc396478e878951aa7c61c3dae808456ab832 assets/forbidden_arcanus/models/item/deepslate_arcane_crystal_ore.json
 8bd84a2946d15e7005b61e9f1e4647bd5bd8ce11 assets/forbidden_arcanus/models/item/deorum_axe.json
 c2354e429fd3a0a17376f7f7daa26cc9d304f2fa assets/forbidden_arcanus/models/item/deorum_blacksmith_gavel.json
