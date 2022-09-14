@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "forbidden_arcanus:arcane_gilded_darkstone"
+          "name": "forbidden_arcanus:gilded_darkstone"
         }
       ],
       "rolls": 1.0

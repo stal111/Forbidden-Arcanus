@@ -45,7 +45,7 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<Block> DARKSTONE_SLAB = HELPER.register("darkstone_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_STAIRS = HELPER.register("darkstone_stairs", () -> new StairBlock(() -> DARKSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> DARKSTONE_WALL = HELPER.register("darkstone_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
-    public static final RegistryObject<Block> ARCANE_GILDED_DARKSTONE = HELPER.register("arcane_gilded_darkstone", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).sound(SoundType.GILDED_BLACKSTONE)));
+    public static final RegistryObject<Block> GILDED_DARKSTONE = HELPER.register("gilded_darkstone", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).sound(SoundType.GILDED_BLACKSTONE)));
     public static final RegistryObject<Block> POLISHED_DARKSTONE = HELPER.register("polished_darkstone", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> POLISHED_DARKSTONE_SLAB = HELPER.register("polished_darkstone_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_SLAB).strength(4.5F, 8.0F)));
     public static final RegistryObject<Block> POLISHED_DARKSTONE_STAIRS = HELPER.register("polished_darkstone_stairs", () -> new StairBlock(() -> POLISHED_DARKSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.STONE_STAIRS).strength(4.5F, 8.0F)));

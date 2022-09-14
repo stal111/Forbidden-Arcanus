@@ -104,7 +104,7 @@ public class ModConfiguredFeatures implements RegistryClass {
         private static final Supplier<BlockState> RUNIC_DEEPSLATE = () -> ModBlocks.RUNIC_DEEPSLATE.get().defaultBlockState();
         private static final Supplier<BlockState> RUNIC_DARKSTONE = () -> ModBlocks.RUNIC_DARKSTONE.get().defaultBlockState();
         private static final Supplier<BlockState> DARKSTONE = () -> ModBlocks.DARKSTONE.get().defaultBlockState();
-        private static final Supplier<BlockState> ARCANE_GILDED_DARKSTONE = () -> ModBlocks.ARCANE_GILDED_DARKSTONE.get().defaultBlockState();
+        private static final Supplier<BlockState> ARCANE_GILDED_DARKSTONE = () -> ModBlocks.GILDED_DARKSTONE.get().defaultBlockState();
         private static final Supplier<BlockState> STELLA_ARCANUM = () -> ModBlocks.STELLA_ARCANUM.get().defaultBlockState();
         private static final Supplier<BlockState> XPETRIFIED_ORE = () -> ModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
         private static final Supplier<BlockState> CHERRYWOOD_LOG = () -> ModBlocks.CHERRY_LOG.get().defaultBlockState();

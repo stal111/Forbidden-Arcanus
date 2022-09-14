@@ -46,7 +46,7 @@ public class ClibanoRecipeProvider extends RecipeProvider {
         ClibanoRecipeBuilder.of(Items.EMERALD, Ingredient.of(ItemTags.EMERALD_ORES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("emerald", CHANCE_10)).unlockedBy("has_item", has(ItemTags.EMERALD_ORES)).save(consumer);
         ClibanoRecipeBuilder.of(Items.NETHERITE_SCRAP, Ingredient.of(Blocks.ANCIENT_DEBRIS), 1.0F, 100, new ClibanoRecipe.ResidueInfo("netherite", CHANCE_05)).unlockedBy("has_item", has(Blocks.ANCIENT_DEBRIS)).save(consumer);
 
-        ClibanoRecipeBuilder.of(ModItems.DEORUM_NUGGET.get(), Ingredient.of(ModBlocks.ARCANE_GILDED_DARKSTONE.get()), 1.0F, 150, new ClibanoRecipe.ResidueInfo("deorum", CHANCE_65), ClibanoFireType.BLUE_FIRE).unlockedBy("has_item", has(ModBlocks.ARCANE_GILDED_DARKSTONE.get())).save(consumer);
+        ClibanoRecipeBuilder.of(ModItems.DEORUM_NUGGET.get(), Ingredient.of(ModBlocks.GILDED_DARKSTONE.get()), 1.0F, 150, new ClibanoRecipe.ResidueInfo("deorum", CHANCE_65), ClibanoFireType.BLUE_FIRE).unlockedBy("has_item", has(ModBlocks.GILDED_DARKSTONE.get())).save(consumer);
 
         CombineResiduesRecipeBuilder.of("arcane_crystal", 9, ModBlocks.ARCANE_CRYSTAL_BLOCK.get()).save(consumer);
         CombineResiduesRecipeBuilder.of("rune", 9, ModBlocks.RUNE_BLOCK.get()).save(consumer);

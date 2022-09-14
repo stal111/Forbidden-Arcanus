@@ -4,7 +4,7 @@
   "experience": 1.0,
   "fire_type": "blue_fire",
   "ingredient": {
-    "item": "forbidden_arcanus:arcane_gilded_darkstone"
+    "item": "forbidden_arcanus:gilded_darkstone"
   },
   "residue": {
     "chance": 0.65,
