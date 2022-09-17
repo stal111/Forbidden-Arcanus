@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.common;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.CompostableRegistry;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
@@ -15,6 +17,10 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 /**
@@ -22,10 +28,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.CommonSetup
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-08-07
  */
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonSetup {
+
+    public static final BlockPathTypes DANGER_SOUL_FIRE = BlockPathTypes.create("danger_soul_fire", 8.0F);
+    public static final BlockPathTypes DAMAGE_SOUL_FIRE = BlockPathTypes.create("damage_soul_fire", 16.0F);
 
     public static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
@@ -51,5 +60,12 @@ public class CommonSetup {
         ModUtils.addStrippable(ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());
 
         PotionBrewing.addMix(Potions.WATER, ModItems.STRANGE_ROOT.get(), Potions.AWKWARD);
+
+
+    }
+
+    @SubscribeEvent
+    public static void onAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.LOST_SOUL.get(), LostSoul.createAttributes().build());
     }
 }

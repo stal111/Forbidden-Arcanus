@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.entity.ModBoat;
 import com.stal111.forbidden_arcanus.common.entity.ModChestBoat;
 import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
@@ -31,5 +32,6 @@ public class ModEntities implements RegistryClass {
     public static final RegistryObject<EntityType<CrimsonLightningBoltEntity>> CRIMSON_LIGHTNING_BOLT = HELPER.register("crimson_lightning_bolt", EntityType.Builder.of(CrimsonLightningBoltEntity::new, MobCategory.MISC).sized(0.0F, 0.0F).setTrackingRange(16).updateInterval(Integer.MAX_VALUE));
     public static final RegistryObject<EntityType<ModBoat>> BOAT = HELPER.register("boat", EntityType.Builder.<ModBoat>of(ModBoat::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10));
     public static final RegistryObject<EntityType<ModChestBoat>> CHEST_BOAT = HELPER.register("chest_boat", EntityType.Builder.<ModChestBoat>of(ModChestBoat::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10));
+    public static final RegistryObject<EntityType<LostSoul>> LOST_SOUL = HELPER.register("lost_soul", EntityType.Builder.<LostSoul>of(LostSoul::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));
 
 }

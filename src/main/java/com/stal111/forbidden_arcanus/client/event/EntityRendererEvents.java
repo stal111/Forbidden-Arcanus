@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.event;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.DracoAurumHeadModel;
 import com.stal111.forbidden_arcanus.client.model.DracoAurumWingsModel;
+import com.stal111.forbidden_arcanus.client.model.LostSoulModel;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
@@ -45,6 +46,7 @@ public class EntityRendererEvents {
         event.registerEntityRenderer(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), CrimsonLightningBoltRenderer::new);
         event.registerEntityRenderer(ModEntities.BOAT.get(), context -> new ModBoatRenderer(context, false));
         event.registerEntityRenderer(ModEntities.CHEST_BOAT.get(), context -> new ModBoatRenderer(context, true));
+        event.registerEntityRenderer(ModEntities.LOST_SOUL.get(), LostSoulRenderer::new);
     }
 
     @SubscribeEvent
@@ -58,6 +60,8 @@ public class EntityRendererEvents {
 
         event.registerLayerDefinition(DracoAurumWingsModel.LAYER_LOCATION, DracoAurumWingsModel::createBodyLayer);
         event.registerLayerDefinition(DracoAurumHeadModel.LAYER_LOCATION, DracoAurumHeadModel::createBodyLayer);
+
+        event.registerLayerDefinition(LostSoulModel.LAYER_LOCATION, LostSoulModel::createBodyLayer);
 
         for (ModBoat.Type type : ModBoat.Type.values()) {
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getModelLocation()), "main"), () -> BoatModel.createBodyModel(false));
