@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.common.entity.lostsoul;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.math.Vector3f;
 import com.mojang.serialization.Dynamic;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModMemoryModules;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,6 +40,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -66,7 +69,7 @@ public class LostSoul extends PathfinderMob {
         this.setPathfindingMalus(BlockPathTypes.BLOCKED, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
-        this.moveControl = new FlyingMoveControl(this, 20, true);
+        this.moveControl = new FlyingMoveControl(this, 15, true);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -177,6 +180,10 @@ public class LostSoul extends PathfinderMob {
 //            if (!isScared && this.isScared()) {
 //                this.entityData.set(DATA_SCARED, false);
 //            }
+        } else if (this.level.getGameTime() % 10 == 0) {
+            Vec3 viewVector = this.calculateViewVector(this.getXRot(), this.getYRot());
+
+            this.level.addParticle(new DustParticleOptions(this.getVariant().getTrailColor(), 1.0F), this.getX() - viewVector.x * 0.5D, this.getY() + 0.2D, this.getZ() - viewVector.z * 0.5D, 0.0F, 0.0F, 0.0F);
         }
 
         this.noPhysics = true;
@@ -268,9 +275,9 @@ public class LostSoul extends PathfinderMob {
     }
 
     public enum Variant {
-        LOST_SOUL(0, "lost_soul"),
-        CORRUPT_LOST_SOUL(1, "corrupt_lost_soul"),
-        ENCHANTED_LOST_SOUL(2, "enchanted_lost_soul");
+        LOST_SOUL(0, "lost_soul", 228 << 16 | 231 << 8 | 248),
+        CORRUPT_LOST_SOUL(1, "corrupt_lost_soul", 68 << 16 | 83 << 8 | 149),
+        ENCHANTED_LOST_SOUL(2, "enchanted_lost_soul", 253 << 16 | 225 << 8 | 238);
 
         public static final Function<Integer, Variant> FROM_ID = integer -> {
             return Arrays.stream(Variant.values()).filter(variant -> variant.id == integer).findFirst().orElse(LOST_SOUL);
@@ -278,10 +285,12 @@ public class LostSoul extends PathfinderMob {
 
         private final int id;
         private final String name;
+        private final Vector3f trailColor;
 
-        Variant(int id, String name) {
+        Variant(int id, String name, int trailColor) {
             this.id = id;
             this.name = name;
+            this.trailColor = new Vector3f(Vec3.fromRGB24(trailColor));
         }
 
         public int getId() {
@@ -290,6 +299,10 @@ public class LostSoul extends PathfinderMob {
 
         public String getName() {
             return this.name;
+        }
+
+        public Vector3f getTrailColor() {
+            return this.trailColor;
         }
 
         public ResourceLocation getTexture() {
