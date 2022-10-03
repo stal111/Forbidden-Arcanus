@@ -36,8 +36,8 @@
     "block.forbidden_arcanus.arcane_polished_darkstone_pillar": "Мистический полированный столб из тёмного камня",
     "block.forbidden_arcanus.arcane_polished_darkstone_rod": "Мистический полированный стержень из тёмного камня",
 
-    "block.forbidden_arcanus.darkstone_pedestal": "Цоколь из тёмного камня",
-    "block.forbidden_arcanus.arcane_darkstone_pedestal": "Цоколь из мистического тёмного камня",
+    "block.forbidden_arcanus.darkstone_pedestal": "Пьедестал из тёмного камня",
+    "block.forbidden_arcanus.arcane_darkstone_pedestal": "Пьедестал из мистического тёмного камня",
     "block.forbidden_arcanus.clibano_core": "Ядро клибанос",
     "block.forbidden_arcanus.clibano_multiblock": "Мультиблок клибанос",
 
@@ -154,8 +154,6 @@
     "block.forbidden_arcanus.black_hole": "Чёрная дыра",
     "block.forbidden_arcanus.arcane_golden_chain": "Цепь из мистического золота",
 	
-    "block.forbidden_arcanus.darkstone_pedestal": "Пьедестал из тёмного камня",
-    "block.forbidden_arcanus.arcane_darkstone_pedestal": "Мистический пьедестал из тёмного камня",
     "block.forbidden_arcanus.obsidian_skull": "Обсидиановый череп",
     "block.forbidden_arcanus.eternal_obsidian_skull": "Вечный обсидиановый череп",
     "block.forbidden_arcanus.utrem_jar": "Банка из Утрима",
@@ -311,6 +309,7 @@
     "containers": "Контейнеры",
     "container.dark_beacon": "Тёмный маяк",
     "container.forbidden_arcanus.hephaestus_forge": "Кузница Гефеста",
+    "container.forbidden_arcanus.clibano": "Клибанос",
 
     "enchantments": "Зачарования",
     "enchantment.forbidden_arcanus.permafrost": "Вечная мерзлота",
