@@ -27,6 +27,7 @@
     "block.forbidden_arcanus.polished_darkstone_brick_stairs": "Полированные кирпичные ступеньки из тёмного камня",
     "block.forbidden_arcanus.polished_darkstone_brick_wall": "Полированная кирпичная ограда из тёмного камня",
     "block.forbidden_arcanus.cracked_polished_darkstone_bricks": "Потрескавшиеся полированные кирпичи из тёмного камня",
+    "block.forbidden_arcanus.tiled_polished_darkstone_bricks": "Кафельные полированные кирпичи из тёмного камня",
     "block.forbidden_arcanus.arcane_polished_darkstone": "Мистический полированный тёмный камень",
     "block.forbidden_arcanus.arcane_polished_darkstone_slab": "Мистическая полированная плита из тёмного камня",
     "block.forbidden_arcanus.arcane_polished_darkstone_stairs": "Мистические полированные ступеньки из тёмного камня",
@@ -34,6 +35,11 @@
     "block.forbidden_arcanus.chiseled_arcane_polished_darkstone": "Резной мистический полированный тёмный камень",
     "block.forbidden_arcanus.arcane_polished_darkstone_pillar": "Мистический полированный столб из тёмного камня",
     "block.forbidden_arcanus.arcane_polished_darkstone_rod": "Мистический полированный стержень из тёмного камня",
+
+    "block.forbidden_arcanus.darkstone_pedestal": "Пьедестал из тёмного камня",
+    "block.forbidden_arcanus.arcane_darkstone_pedestal": "Пьедестал из мистического тёмного камня",
+    "block.forbidden_arcanus.clibano_core": "Ядро клибанос",
+    "block.forbidden_arcanus.clibano_multiblock": "Мультиблок клибанос",
 
     "block.forbidden_arcanus.stella_arcanum": "Арканум стелла",
     "block.forbidden_arcanus.xpetrified_ore": "Эксокаменевшая руда",
@@ -70,6 +76,8 @@
     "block.forbidden_arcanus.mysterywood_sapling": "Саженец загадочной древесины",
     "block.forbidden_arcanus.growing_edelwood": "Растущее эдельдрево",
     "block.forbidden_arcanus.cherrywood_leaves": "Вишнёвые листья",
+    "block.forbidden_arcanus.cherrywood_leaf_carpet": "Ковёр вишнёвых листьев",
+    "block.forbidden_arcanus.cherry_flower_vines": "Лоза из вишнёвого цвета",
     "block.forbidden_arcanus.mysterywood_leaves": "Листья загадочной древесины",
     "block.forbidden_arcanus.nuggety_mysterywood_leaves": "Самородковые листья загадочной древесины",
 	
@@ -146,8 +154,6 @@
     "block.forbidden_arcanus.black_hole": "Чёрная дыра",
     "block.forbidden_arcanus.arcane_golden_chain": "Цепь из мистического золота",
 	
-    "block.forbidden_arcanus.darkstone_pedestal": "Пьедестал из тёмного камня",
-    "block.forbidden_arcanus.arcane_darkstone_pedestal": "Мистический пьедестал из тёмного камня",
     "block.forbidden_arcanus.obsidian_skull": "Обсидиановый череп",
     "block.forbidden_arcanus.eternal_obsidian_skull": "Вечный обсидиановый череп",
     "block.forbidden_arcanus.utrem_jar": "Банка из Утрима",
@@ -215,6 +221,7 @@
     "item.forbidden_arcanus.edelwood_bat_soup_bucket": "Суп из летучей мыши в ведре из эдельдревесины",
     "item.forbidden_arcanus.edelwood_bat_bucket": "Летучая мышь в ведре из эдельдревесины",
     "item.forbidden_arcanus.edelwood_magma_cube_bucket": "Магма куб в ведре из эдельдревесины",
+    "item.forbidden_arcanus.edelwood_glow_squid_bucket": "Светящийся спрут в ведре из эдельдревесины",
     "item.forbidden_arcanus.edelwood_squid_bucket": "Спрут в ведре из эдельдревесины",
     "item.forbidden_arcanus.edelwood_slime_bucket": "Слизень в ведре из эдельдревесины",
     "item.forbidden_arcanus.edelwood_chicken_bucket": "Курица в ведре из эдельдревесины",
@@ -302,6 +309,7 @@
     "containers": "Контейнеры",
     "container.dark_beacon": "Тёмный маяк",
     "container.forbidden_arcanus.hephaestus_forge": "Кузница Гефеста",
+    "container.forbidden_arcanus.clibano": "Клибанос",
 
     "enchantments": "Зачарования",
     "enchantment.forbidden_arcanus.permafrost": "Вечная мерзлота",
