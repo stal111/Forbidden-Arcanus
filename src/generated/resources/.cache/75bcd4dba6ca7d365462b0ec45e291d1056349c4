@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-14T17:58:09.8629994	Tags for minecraft:block
+// 1.19.2	2022-10-15T15:02:41.9303032	Tags for minecraft:block
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/blocks/arcane_crystal_ores.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/blocks/blacksmith_gavel_unaffected.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/blocks/cherrywood_logs.json
@@ -17,7 +17,7 @@ ed2b92ec859a4cf09abd750ec7709cd90649352f data/forge/tags/blocks/fence_gates/wood
 ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/blocks/doors.json
 ed2b92ec859a4cf09abd750ec7709cd90649352f data/minecraft/tags/blocks/fence_gates.json
 d14a1e2575f01e66304d20d4466cfcec5fdcc3e4 data/minecraft/tags/blocks/flowers.json
-6dff619ea496041df456c6e94582b754d6af7a89 data/minecraft/tags/blocks/flower_pots.json
+4391c284e8caa52b1790ecf82719e7787e622f5c data/minecraft/tags/blocks/flower_pots.json
 01c455512d9c89565acce86e65c46455af725111 data/minecraft/tags/blocks/impermeable.json
 2573ed5fa40458e79d5a51f0321c3cedd6bf5dd3 data/minecraft/tags/blocks/leaves.json
 21ceee370fb7ad0bb83b405e7f92b1ed504c29cf data/minecraft/tags/blocks/logs.json

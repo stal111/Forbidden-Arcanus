@@ -164,8 +164,9 @@
     "block.forbidden_arcanus.fungyss": "Fungyss",
     "block.forbidden_arcanus.fungyss_block": "Fungyss Block",
 
-    "block.forbidden_arcanus.potted_cherrywood_sapling": "Potted Cherry Sapling",
-    "block.forbidden_arcanus.potted_mysterywood_sapling": "Potted Aurum Sapling",
+    "block.forbidden_arcanus.potted_cherry_sapling": "Potted Cherry Sapling",
+    "block.forbidden_arcanus.potted_aurum_sapling": "Potted Aurum Sapling",
+    "block.forbidden_arcanus.potted_growing_edelwood": "Potted Growing Edelwood",
     "block.forbidden_arcanus.potted_yellow_orchid": "Potted Yellow Orchid",
 
     "____comment": "Items",
@@ -179,6 +180,7 @@
     "item.forbidden_arcanus.spectral_eye_amulet": "Spectral Eye Amulet",
     "item.forbidden_arcanus.soul": "Soul",
     "item.forbidden_arcanus.corrupt_soul": "Corrupt Soul",
+    "item.forbidden_arcanus.enchanted_soul": "Enchanted Soul",
     "item.forbidden_arcanus.pixie": "Pixie",
     "item.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
     "item.forbidden_arcanus.arcane_crystal": "Arcane Crystal",

@@ -47,8 +47,10 @@ public class CommonSetup {
 
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "cherrywood_sapling"), ModBlocks.POTTED_CHERRYWOOD_SAPLING);
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "mysterywood_sapling"), ModBlocks.POTTED_MYSTERYWOOD_SAPLING);
+            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "fungyss"), ModBlocks.POTTED_FUNGYSS);
+            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "cherry_sapling"), ModBlocks.POTTED_CHERRY_SAPLING);
+            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "aurum_sapling"), ModBlocks.POTTED_AURUM_SAPLING);
+            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "growing_edelwood"), ModBlocks.POTTED_GROWING_EDELWOOD);
             flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
         });
 
