@@ -64,6 +64,7 @@ public class ForbiddenArcanus {
 			.addHelper(Registry.PLACED_FEATURE_REGISTRY, new RegistryHelper<>(ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new, ModCavePlacements::new))
 			.addHelper(ForgeRegistries.Keys.PARTICLE_TYPES, new RegistryHelper<>(ModParticles::new))
 			.addHelper(ForgeRegistries.Keys.MEMORY_MODULE_TYPES, new RegistryHelper<>(ModMemoryModules::new))
+			.addHelper(ForgeRegistries.Keys.ACTIVITIES, new RegistryHelper<>(ModActivities::new))
 			.create();
 
 	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry(() ->

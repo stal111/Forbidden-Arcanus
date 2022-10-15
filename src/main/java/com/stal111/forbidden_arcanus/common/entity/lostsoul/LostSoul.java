@@ -6,6 +6,8 @@ import com.mojang.serialization.Dynamic;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModMemoryModules;
+import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
+import com.stal111.forbidden_arcanus.core.init.other.ModDamageSources;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +16,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,15 +31,16 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
@@ -51,7 +53,7 @@ import java.util.function.Function;
  * @author stal111
  * @since 2022-09-14
  */
-public class LostSoul extends PathfinderMob {
+public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.IS_IN_WATER, MemoryModuleType.IS_PANICKING, ModMemoryModules.SCARED_TIME.get());
     protected static final ImmutableList<SensorType<? extends Sensor<? super LostSoul>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.IS_IN_WATER);
@@ -59,7 +61,12 @@ public class LostSoul extends PathfinderMob {
     private static final EntityDataAccessor<Integer> DATA_VARIANT = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> DATA_SCARED = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.BOOLEAN);
 
-    private static final UniformInt SCARED_TIME = UniformInt.of(200, 500);
+    public static final double CORRUPT_CHANCE = 0.1;
+
+    private static final int EXTRACT_STUNNED_TIME = 30;
+    private static final float EXTRACT_DAMAGE = 1.0F;
+
+    private int extractCounter = 0;
 
     public final AnimationState stillAnimationState = new AnimationState();
     public final AnimationState fearAnimationState = new AnimationState();
@@ -70,6 +77,8 @@ public class LostSoul extends PathfinderMob {
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
         this.moveControl = new FlyingMoveControl(this, 15, true);
+
+        this.noPhysics = true;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -78,10 +87,13 @@ public class LostSoul extends PathfinderMob {
 
     @Override
     protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
-        if (source == DamageSource.IN_FIRE) {
-            return;
+        if (source.getMsgId().equals(ModDamageSources.ID_EXTRACT_SOUL)) {
+            super.actuallyHurt(source, amount);
         }
-        super.actuallyHurt(source, amount);
+    }
+
+    @Override
+    public void knockback(double strength, double x, double z) {
     }
 
     @Nonnull
@@ -111,10 +123,7 @@ public class LostSoul extends PathfinderMob {
 
     @Override
     public float getWalkTargetValue(@Nonnull BlockPos pos, @Nonnull LevelReader level) {
-        int height = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ());
-        BlockState state = level.getBlockState(pos);
-
-        return pos.getY() >= height + 10 || pos.getY() + 1 <= height ? -25.0F : state.isAir() ? 10.0F : 0.0F;
+        return level.getBlockState(pos).isAir() ? 35.0F : 0.0F;
     }
 
     @Nonnull
@@ -157,6 +166,10 @@ public class LostSoul extends PathfinderMob {
 //                }
 //            }
 
+            if (this.extractCounter != 0) {
+                this.extractCounter--;
+            }
+
             if (this.getBrain().hasMemoryValue(MemoryModuleType.HURT_BY_ENTITY) && !this.isScared()) {
                 this.entityData.set(DATA_SCARED, true);
 
@@ -186,9 +199,12 @@ public class LostSoul extends PathfinderMob {
             this.level.addParticle(new DustParticleOptions(this.getVariant().getTrailColor(), 1.0F), this.getX() - viewVector.x * 0.5D, this.getY() + 0.2D, this.getZ() - viewVector.z * 0.5D, 0.0F, 0.0F, 0.0F);
         }
 
-        this.noPhysics = true;
         super.tick();
-        this.noPhysics = false;
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
     }
 
     @Override
@@ -274,10 +290,36 @@ public class LostSoul extends PathfinderMob {
         return this.entityData.get(DATA_SCARED);
     }
 
+    @Override
+    public ItemStack getSoulItem() {
+        return new ItemStack(this.getVariant().getSoulItem());
+    }
+
+    @Override
+    public void setExtracting() {
+        if (!this.getBrain().getActiveActivities().contains(ModActivities.SOUL_EXTRACTING.get())) {
+            this.getBrain().setActiveActivityIfPossible(ModActivities.SOUL_EXTRACTING.get());
+        }
+    }
+
+    @Override
+    public void extractTick(Player player) {
+        this.extractCounter = EXTRACT_STUNNED_TIME;
+
+        this.hurt(ModDamageSources.extractSoul(player), EXTRACT_DAMAGE);
+
+        if (this.isDeadOrDying()) {
+            this.level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY(), this.getZ(), this.getSoulItem()));
+        }
+    }
+
+    public boolean isExtracting() {
+        return this.extractCounter > 0;
+    }
     public enum Variant {
-        LOST_SOUL(0, "lost_soul", 228 << 16 | 231 << 8 | 248),
-        CORRUPT_LOST_SOUL(1, "corrupt_lost_soul", 68 << 16 | 83 << 8 | 149),
-        ENCHANTED_LOST_SOUL(2, "enchanted_lost_soul", 253 << 16 | 225 << 8 | 238);
+        LOST_SOUL(0, "lost_soul", ModItems.SOUL.get(), 228 << 16 | 231 << 8 | 248),
+        CORRUPT_LOST_SOUL(1, "corrupt_lost_soul", ModItems.CORRUPT_SOUL.get(), 68 << 16 | 83 << 8 | 149),
+        ENCHANTED_LOST_SOUL(2, "enchanted_lost_soul", ModItems.ENCHANTED_SOUL.get(), 253 << 16 | 225 << 8 | 238);
 
         public static final Function<Integer, Variant> FROM_ID = integer -> {
             return Arrays.stream(Variant.values()).filter(variant -> variant.id == integer).findFirst().orElse(LOST_SOUL);
@@ -285,11 +327,13 @@ public class LostSoul extends PathfinderMob {
 
         private final int id;
         private final String name;
+        private final Item soulItem;
         private final Vector3f trailColor;
 
-        Variant(int id, String name, int trailColor) {
+        Variant(int id, String name, Item soulItem, int trailColor) {
             this.id = id;
             this.name = name;
+            this.soulItem = soulItem;
             this.trailColor = new Vector3f(Vec3.fromRGB24(trailColor));
         }
 
@@ -299,6 +343,10 @@ public class LostSoul extends PathfinderMob {
 
         public String getName() {
             return this.name;
+        }
+
+        public Item getSoulItem() {
+            return this.soulItem;
         }
 
         public Vector3f getTrailColor() {

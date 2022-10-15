@@ -1,14 +1,17 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.entity.lostsoul.SoulExtractable;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import com.stal111.forbidden_arcanus.core.init.other.ModDamageSources;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,6 +42,8 @@ import java.util.List;
 public class SoulExtractorItem extends Item {
 
     private static final int USE_DURATION = 35;
+
+    private static final String KEY_EXTRACTING_FROM_ENTITY = "ExtractingFromEntity";
 
     public SoulExtractorItem(Item.Properties properties) {
         super(properties);
@@ -109,12 +114,43 @@ public class SoulExtractorItem extends Item {
             return;
         }
 
-        Level level = player.getCommandSenderWorld();
+        Level level = player.getLevel();
         BlockPos pos = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY).getBlockPos();
 
         if (this.isValidBlock(level, pos, player) && player.getRandom().nextInt(6) == 1) {
             level.levelEvent(player, 2001, pos, Block.getId(level.getBlockState(pos)));
+
+            return;
         }
+    }
+
+    @Nonnull
+    @Override
+    public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity entity, @Nonnull InteractionHand usedHand) {
+        Level level = player.getLevel();
+
+        if (entity instanceof SoulExtractable soulExtractable && !level.isClientSide() && level.getGameTime() % 3 == 0) {
+            soulExtractable.setExtracting();
+
+            if (!player.isUsingItem()) {
+                soulExtractable.extractTick(player, entity);
+            }
+
+            if (!player.isUsingItem() && !this.isUsingOnEntity(stack)) {
+                return InteractionResult.PASS;
+            }
+
+            if (this.isUsingOnEntity(stack)) {
+                entity.hurt(ModDamageSources.extractSoul(player), 1.0F);
+
+                if (entity.isDeadOrDying()) {
+                    level.addFreshEntity(new ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), soulExtractable.getSoulItem()));
+
+                    this.endUsingOnEntity(stack);
+                }
+            }
+        }
+        return super.interactLivingEntity(stack, player, entity, usedHand);
     }
 
     @Override
@@ -137,5 +173,17 @@ public class SoulExtractorItem extends Item {
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, List<Component> list, @Nonnull TooltipFlag flag) {
         list.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").withStyle(ChatFormatting.GRAY));
         super.appendHoverText(stack, level, list, flag);
+    }
+
+    private void startUsingOnEntity(ItemStack stack) {
+        stack.getOrCreateTag().putBoolean(KEY_EXTRACTING_FROM_ENTITY, true);
+    }
+
+    private boolean isUsingOnEntity(ItemStack stack) {
+        return stack.getOrCreateTag().getBoolean(KEY_EXTRACTING_FROM_ENTITY);
+    }
+
+    private void endUsingOnEntity(ItemStack stack) {
+        stack.getOrCreateTag().remove(KEY_EXTRACTING_FROM_ENTITY);
     }
 }

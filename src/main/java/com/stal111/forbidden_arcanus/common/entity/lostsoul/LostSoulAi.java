@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.core.init.ModMemoryModules;
+import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
@@ -21,6 +22,7 @@ public class LostSoulAi {
         initCoreActivity(brain);
         initIdleActivity(brain);
         initPanicActivity(brain);
+        initExtractingActivity(brain);
 
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
@@ -39,5 +41,9 @@ public class LostSoulAi {
 
     private static void initPanicActivity(Brain<LostSoul> brain) {
         brain.addActivityWithConditions(Activity.PANIC, ImmutableList.of(Pair.of(0, new LostSoulCalmDown()), Pair.of(1, SetWalkTargetAwayFrom.entity(MemoryModuleType.HURT_BY_ENTITY, 1.75F, 15, false)), Pair.of(2, new FlyingRandomStroll(1.0F))), ImmutableSet.of());
+    }
+
+    private static void initExtractingActivity(Brain<LostSoul> brain) {
+        brain.addActivityWithConditions(ModActivities.SOUL_EXTRACTING.get(), ImmutableList.of(Pair.of(0, new LostSoulEndExtracting())), ImmutableSet.of());
     }
 }
