@@ -50,7 +50,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.CHERRY_TRAPDOOR.get(), ModBlocks.AURUM_TRAPDOOR.get(), ModBlocks.EDELWOOD_TRAPDOOR.get(), ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get());
         this.tag(BlockTags.TRAPDOORS).add(ModBlocks.DEORUM_TRAPDOOR.get());
         this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.CHERRY_FLOWER_VINES.get(), ModBlocks.CHERRY_FLOWER_VINES_PLANT.get());
-        this.tag(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_CHERRYWOOD_SAPLING.get(), ModBlocks.POTTED_MYSTERYWOOD_SAPLING.get(), ModBlocks.POTTED_YELLOW_ORCHID.get());
+        this.tag(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_FUNGYSS.get(), ModBlocks.POTTED_CHERRY_SAPLING.get(), ModBlocks.POTTED_AURUM_SAPLING.get(), ModBlocks.POTTED_GROWING_EDELWOOD.get(), ModBlocks.POTTED_YELLOW_ORCHID.get());
         this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED);
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
         this.tag(ModTags.Blocks.RUNIC_STONES).add(ModBlocks.RUNIC_STONE.get(), ModBlocks.RUNIC_DEEPSLATE.get(), ModBlocks.RUNIC_DARKSTONE.get());

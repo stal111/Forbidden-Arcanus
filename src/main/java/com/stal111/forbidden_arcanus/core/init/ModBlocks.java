@@ -264,9 +264,13 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<StrangeRootBlock> STRANGE_ROOT = HELPER.registerNoItem("strange_root", () -> new StrangeRootBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
 
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final RegistryObject<FlowerPotBlock> POTTED_CHERRYWOOD_SAPLING = HELPER.registerNoItem("potted_cherrywood_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHERRY_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
+    public static final RegistryObject<FlowerPotBlock> POTTED_FUNGYSS = HELPER.registerNoItem("potted_fungyss", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, FUNGYSS, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final RegistryObject<FlowerPotBlock> POTTED_MYSTERYWOOD_SAPLING = HELPER.registerNoItem("potted_mysterywood_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, AURUM_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
+    public static final RegistryObject<FlowerPotBlock> POTTED_CHERRY_SAPLING = HELPER.registerNoItem("potted_cherry_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CHERRY_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
+    @RenderType(ValhelsiaRenderType.CUTOUT)
+    public static final RegistryObject<FlowerPotBlock> POTTED_AURUM_SAPLING = HELPER.registerNoItem("potted_aurum_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, AURUM_SAPLING, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
+    @RenderType(ValhelsiaRenderType.CUTOUT)
+    public static final RegistryObject<FlowerPotBlock> POTTED_GROWING_EDELWOOD = HELPER.registerNoItem("potted_growing_edelwood", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, GROWING_EDELWOOD, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<FlowerPotBlock> POTTED_YELLOW_ORCHID = HELPER.registerNoItem("potted_yellow_orchid", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, ModBlocks.YELLOW_ORCHID, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
 
