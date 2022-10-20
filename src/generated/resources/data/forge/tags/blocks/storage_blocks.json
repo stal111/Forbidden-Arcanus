@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#forge:storage_blocks/deorum",
+    "#forge:storage_blocks/arcane_crystal",
+    "#forge:storage_blocks/dark_nether_star",
+    "#forge:storage_blocks/stellarite",
+    "#forge:storage_blocks/obsidian"
+  ]
+}
