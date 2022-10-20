@@ -145,6 +145,16 @@ public class ModRecipeProvider extends RecipeProvider {
 
         this.addSurroundingItemRecipe(ModBlocks.CLIBANO_CORE.get(), Blocks.BLAST_FURNACE, ModBlocks.DARKSTONE.get(), 1, consumer);
 
+        this.sword(ModItems.DEORUM_SWORD.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.shovel(ModItems.DEORUM_SHOVEL.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.pickaxe(ModItems.DEORUM_PICKAXE.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.axe(ModItems.DEORUM_AXE.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.hoe(ModItems.DEORUM_HOE.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.helmet(ModItems.DEORUM_HELMET.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.chestplate(ModItems.DEORUM_CHESTPLATE.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.leggings(ModItems.DEORUM_LEGGINGS.get(), ModItems.DEORUM_INGOT.get(), consumer);
+        this.boots(ModItems.DEORUM_BOOTS.get(), ModItems.DEORUM_INGOT.get(), consumer);
+
         //Shapeless Recipes
         ShapelessRecipeBuilder.shapeless(ModItems.PURIFYING_SOAP.get()).requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.TEST_TUBE.get()).requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE.get()).unlockedBy("has_item", has(ModItems.RUNE.get())).save(consumer);
@@ -275,6 +285,42 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private void addStonecutterRecipe(Consumer<FinishedRecipe> consumer, ItemLike result, ItemLike material, int count) {
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(material), result, count).unlockedBy("has_" + this.getName(material), has(material)).save(consumer, new ResourceLocation(ForbiddenArcanus.MOD_ID,  this.getName(result) + "_from_" + this.getName(material) + "_stonecutting"));
+    }
+
+    public void sword(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("#").pattern("#").pattern("X").define('#', material).define('X', Tags.Items.RODS_WOODEN).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void shovel(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("#").pattern("X").pattern("X").define('#', material).define('X', Tags.Items.RODS_WOODEN).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void pickaxe(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("###").pattern(" X ").pattern(" X ").define('#', material).define('X', Tags.Items.RODS_WOODEN).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void axe(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("##").pattern("#X").pattern(" X").define('#', material).define('X', Tags.Items.RODS_WOODEN).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void hoe(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("##").pattern(" X").pattern(" X").define('#', material).define('X', Tags.Items.RODS_WOODEN).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void helmet(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("###").pattern("# #").define('#', material).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void chestplate(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("# #").pattern("###").pattern("###").define('#', material).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void leggings(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("###").pattern("# #").pattern("# #").define('#', material).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void boots(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("# #").pattern("# #").define('#', material).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
     }
 
     private String getName(ItemLike item) {
