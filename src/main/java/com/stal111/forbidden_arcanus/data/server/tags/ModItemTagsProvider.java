@@ -77,5 +77,11 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
+        this.copy(ModTags.Blocks.DEORUM_STORAGE_BLOCKS, ModTags.Items.DEORUM_STORAGE_BLOCKS);
+        this.copy(ModTags.Blocks.ARCANE_CRYSTAL_STORAGE_BLOCKS, ModTags.Items.ARCANE_CRYSTAL_STORAGE_BLOCKS);
+        this.copy(ModTags.Blocks.DARK_NETHER_STAR_STORAGE_BLOCKS, ModTags.Items.DARK_NETHER_STAR_STORAGE_BLOCKS);
+        this.copy(ModTags.Blocks.STELLARITE_STORAGE_BLOCKS, ModTags.Items.STELLARITE_STORAGE_BLOCKS);
+        this.copy(ModTags.Blocks.OBSIDIAN_STORAGE_BLOCKS, ModTags.Items.OBSIDIAN_STORAGE_BLOCKS);
+        this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
     }
 }

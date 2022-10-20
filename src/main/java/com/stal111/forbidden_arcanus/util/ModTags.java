@@ -23,6 +23,11 @@ public class ModTags {
         public static final TagKey<Block> RUNE_BLOCKS = modTag("rune_blocks");
         public static final TagKey<Block> ARCANE_CRYSTAL_ORES = modTag("arcane_crystal_ores");
         public static final TagKey<Block> DARKSTONE_ORE_REPLACEABLES = modTag("darkstone_ore_replaceables");
+        public static final TagKey<Block> DEORUM_STORAGE_BLOCKS = forgeTag("storage_blocks/deorum");
+        public static final TagKey<Block> ARCANE_CRYSTAL_STORAGE_BLOCKS = forgeTag("storage_blocks/arcane_crystal");
+        public static final TagKey<Block> DARK_NETHER_STAR_STORAGE_BLOCKS = forgeTag("storage_blocks/dark_nether_star");
+        public static final TagKey<Block> STELLARITE_STORAGE_BLOCKS = forgeTag("storage_blocks/stellarite");
+        public static final TagKey<Block> OBSIDIAN_STORAGE_BLOCKS = forgeTag("storage_blocks/obsidian");
 
         private static TagKey<Block> forgeTag(String name) {
             return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", name));
@@ -58,6 +63,12 @@ public class ModTags {
         public static final TagKey<Item> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
 
         public static final TagKey<Item> CLIBANO_CREATES_BLUE_FIRE = modTag("clibano/creates_blue_fire");
+
+        public static final TagKey<Item> DEORUM_STORAGE_BLOCKS = forgeTag("storage_blocks/deorum");
+        public static final TagKey<Item> ARCANE_CRYSTAL_STORAGE_BLOCKS = forgeTag("storage_blocks/arcane_crystal");
+        public static final TagKey<Item> DARK_NETHER_STAR_STORAGE_BLOCKS = forgeTag("storage_blocks/dark_nether_star");
+        public static final TagKey<Item> STELLARITE_STORAGE_BLOCKS = forgeTag("storage_blocks/stellarite");
+        public static final TagKey<Item> OBSIDIAN_STORAGE_BLOCKS = forgeTag("storage_blocks/obsidian");
 
 
         private static TagKey<Item> forgeTag(String name) {
