@@ -155,6 +155,14 @@ public class ModRecipeProvider extends RecipeProvider {
         this.leggings(ModItems.DEORUM_LEGGINGS.get(), ModItems.DEORUM_INGOT.get(), consumer);
         this.boots(ModItems.DEORUM_BOOTS.get(), ModItems.DEORUM_INGOT.get(), consumer);
 
+        this.boat(ModItems.CHERRY_BOAT.get(), ModBlocks.CHERRY_PLANKS.get(), consumer);
+        this.boat(ModItems.AURUM_BOAT.get(), ModBlocks.AURUM_PLANKS.get(), consumer);
+        this.boat(ModItems.EDELWOOD_BOAT.get(), ModBlocks.EDELWOOD_PLANKS.get(), consumer);
+
+        this.chestBoat(ModItems.CHERRY_CHEST_BOAT.get(), ModItems.CHERRY_BOAT.get(), consumer);
+        this.chestBoat(ModItems.AURUM_CHEST_BOAT.get(), ModItems.AURUM_BOAT.get(), consumer);
+        this.chestBoat(ModItems.EDELWOOD_CHEST_BOAT.get(), ModItems.EDELWOOD_BOAT.get(), consumer);
+
         //Shapeless Recipes
         ShapelessRecipeBuilder.shapeless(ModItems.PURIFYING_SOAP.get()).requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.TEST_TUBE.get()).requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE.get()).unlockedBy("has_item", has(ModItems.RUNE.get())).save(consumer);
@@ -321,6 +329,14 @@ public class ModRecipeProvider extends RecipeProvider {
 
     public void boots(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(result).pattern("# #").pattern("# #").define('#', material).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void boat(ItemLike result, ItemLike material, Consumer<FinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(result).pattern("# #").pattern("###").define('#', material).unlockedBy("has_" + this.getName(material), has(material)).save(consumer);
+    }
+
+    public void chestBoat(ItemLike result, ItemLike boat, Consumer<FinishedRecipe> consumer) {
+        ShapelessRecipeBuilder.shapeless(result).requires(boat).requires(Tags.Items.CHESTS_WOODEN).unlockedBy("has_" + this.getName(boat), has(boat)).unlockedBy("has_chest", has(Tags.Items.CHESTS_WOODEN)).save(consumer);
     }
 
     private String getName(ItemLike item) {
