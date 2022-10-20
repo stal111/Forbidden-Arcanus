@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
 import com.mojang.datafixers.util.Pair;
-import com.stal111.forbidden_arcanus.core.config.EnchantmentConfig;
+import com.stal111.forbidden_arcanus.core.config.ModifierConfig;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +25,7 @@ public class EternalModifier extends ItemModifier {
 
     @Override
     public void onApplied(ItemStack stack) {
-        if (EnchantmentConfig.INDESTRUCTIBLE_REPAIR_ITEM.get()) {
+        if (ModifierConfig.ETERNAL_REPAIR_ITEM.get()) {
             stack.getOrCreateTag().putBoolean("Repair", true);
         }
     }
