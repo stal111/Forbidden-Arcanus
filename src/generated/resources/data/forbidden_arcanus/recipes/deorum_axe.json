@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:deorum_ingot"
+    },
+    "X": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "##",
+    "#X",
+    " X"
+  ],
+  "result": {
+    "item": "forbidden_arcanus:deorum_axe"
+  }
+}
