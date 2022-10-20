@@ -9,6 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -16,15 +17,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nonnull;
 
 /**
- * Zombie Arm Item <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.ZombieArmItem
- *
  * @author stal111
- * @version 16.2.0
  * @since 2021-03-24
  */
 public class ZombieArmItem extends Item {
@@ -54,29 +52,34 @@ public class ZombieArmItem extends Item {
 
     @Override
     public boolean hurtEnemy(@Nonnull ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
-        if (target.getHealth() != 0.0F) {
+        if (!target.isDeadOrDying() || !(attacker.getLevel() instanceof ServerLevel level)) {
             return true;
         }
 
-        Level level = attacker.getCommandSenderWorld();
-        Mob entity = null;
-
         if (target.getType() == EntityType.HORSE) {
-            entity = ((Mob) target).convertTo(EntityType.ZOMBIE_HORSE, false);
-
-        } else if (target instanceof Villager villager) {
-            entity = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false);
+            Mob entity = ((Mob) target).convertTo(EntityType.ZOMBIE_HORSE, false);
 
             if (entity != null) {
-                ((ZombieVillager) entity).setVillagerData(villager.getVillagerData());
-                ((ZombieVillager) entity).setGossips(villager.getGossips().store(NbtOps.INSTANCE).getValue());
-                ((ZombieVillager) entity).setTradeOffers(villager.getOffers().createTag());
-                ((ZombieVillager) entity).setVillagerXp(villager.getVillagerXp());
+                entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.CONVERSION, null, null);
+
+                ForgeEventFactory.onLivingConvert(target, entity);
             }
+
+            return true;
         }
 
-        if (level instanceof ServerLevel serverLevel && entity != null) {
-            entity.finalizeSpawn(serverLevel, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.CONVERSION, null, null);
+        if (target instanceof Villager villager) {
+            ZombieVillager entity = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false);
+
+            if (entity != null) {
+                entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), null);
+                entity.setVillagerData(villager.getVillagerData());
+                entity.setGossips(villager.getGossips().store(NbtOps.INSTANCE).getValue());
+                entity.setTradeOffers(villager.getOffers().createTag());
+                entity.setVillagerXp(villager.getVillagerXp());
+
+                ForgeEventFactory.onLivingConvert(villager, entity);
+            }
         }
 
         return true;
