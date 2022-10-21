@@ -1,0 +1,7 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": {
+    "item": "forbidden_arcanus:smelter_prism"
+  },
+  "modifier": "forbidden_arcanus:fiery"
+}

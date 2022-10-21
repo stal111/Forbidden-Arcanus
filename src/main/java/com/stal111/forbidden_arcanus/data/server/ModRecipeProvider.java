@@ -96,8 +96,6 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
         this.addStonecutterRecipe(consumer, ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get(), ModBlocks.DARKSTONE.get());
         this.addStonecutterRecipe(consumer, ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get(), ModBlocks.POLISHED_DARKSTONE.get());
         this.addStonecutterRecipe(consumer, ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get(), ModBlocks.POLISHED_DARKSTONE_BRICKS.get());
-
-        //TODO add recipe provider for apply modifier recipes
     }
 
     @Override

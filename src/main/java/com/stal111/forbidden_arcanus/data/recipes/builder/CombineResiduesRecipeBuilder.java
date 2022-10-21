@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.data.recipes;
+package com.stal111.forbidden_arcanus.data.recipes.builder;
 
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
@@ -61,61 +61,50 @@ public record CombineResiduesRecipeBuilder(String residueName, int residueAmount
         finishedRecipeConsumer.accept(new CombineResiduesRecipeBuilder.Result(recipeId, this.residueName, this.residueAmount, this.result, this.count, ModRecipes.COMBINE_RESIDUES_SERIALIZER.get()));
     }
 
-    public static class Result implements FinishedRecipe {
-
-        private final ResourceLocation recipeId;
-        private final String residueName;
-        private final int residueAmount;
-        private final Item result;
-        private final int count;
-        private final RecipeSerializer<CombineResiduesRecipe> serializer;
-
-        public Result(ResourceLocation recipeId, String residueName, int residueAmount, Item result, int count, RecipeSerializer<CombineResiduesRecipe> serializer) {
-            this.recipeId = recipeId;
-            this.residueName = residueName;
-            this.residueAmount = residueAmount;
-            this.result = result;
-            this.count = count;
-            this.serializer = serializer;
-        }
+    private record Result(ResourceLocation recipeId,
+                          String residueName,
+                          int residueAmount,
+                          Item result,
+                          int count,
+                          RecipeSerializer<CombineResiduesRecipe> serializer) implements FinishedRecipe {
 
         @Override
-        public void serializeRecipeData(@Nonnull JsonObject json) {
-            json.addProperty("residue_name", this.residueName);
-            json.addProperty("residue_amount", this.residueAmount);
+            public void serializeRecipeData(@Nonnull JsonObject json) {
+                json.addProperty("residue_name", this.residueName);
+                json.addProperty("residue_amount", this.residueAmount);
 
-            JsonObject result = new JsonObject();
-            result.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result)).toString());
+                JsonObject result = new JsonObject();
+                result.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result)).toString());
 
-            if (this.count > 1) {
-                result.addProperty("count", this.count);
+                if (this.count > 1) {
+                    result.addProperty("count", this.count);
+                }
+
+                json.add("result", result);
             }
 
-            json.add("result", result);
-        }
+            @Nonnull
+            @Override
+            public ResourceLocation getId() {
+                return this.recipeId;
+            }
 
-        @Nonnull
-        @Override
-        public ResourceLocation getId() {
-            return this.recipeId;
-        }
+            @Nonnull
+            @Override
+            public RecipeSerializer<?> getType() {
+                return this.serializer;
+            }
 
-        @Nonnull
-        @Override
-        public RecipeSerializer<?> getType() {
-            return this.serializer;
-        }
+            @Nullable
+            @Override
+            public JsonObject serializeAdvancement() {
+                return null;
+            }
 
-        @Nullable
-        @Override
-        public JsonObject serializeAdvancement() {
-            return null;
+            @Nullable
+            @Override
+            public ResourceLocation getAdvancementId() {
+                return null;
+            }
         }
-
-        @Nullable
-        @Override
-        public ResourceLocation getAdvancementId() {
-            return null;
-        }
-    }
 }

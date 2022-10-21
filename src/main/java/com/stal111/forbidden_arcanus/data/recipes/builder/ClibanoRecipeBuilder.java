@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.data.recipes;
+package com.stal111.forbidden_arcanus.data.recipes.builder;
 
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
@@ -75,7 +75,7 @@ public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float exp
 
          ResourceLocation advancementId = new ResourceLocation(recipeId.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + recipeId.getPath());
 
-        finishedRecipeConsumer.accept(new Result(recipeId, this.ingredient, this.result, this.experience, this.cookingTime, this.advancement, advancementId, this.residueInfo, this.requiredFireType, ModRecipes.CLIBANO_SERIALIZER.get()));
+        finishedRecipeConsumer.accept(new Result(recipeId, this.ingredient, this.result, this.experience, this.cookingTime, this.advancement, advancementId, this.residueInfo, this.requiredFireType));
     }
 
     private void ensureValid(ResourceLocation recipeId) {
@@ -84,7 +84,7 @@ public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float exp
         }
     }
 
-    public static class Result implements FinishedRecipe {
+    private static class Result implements FinishedRecipe {
         private final ResourceLocation recipeId;
         private final Ingredient ingredient;
         private final Item result;
@@ -94,9 +94,8 @@ public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float exp
         private final ResourceLocation advancementId;
         private final ClibanoRecipe.ResidueInfo residueInfo;
         private final ClibanoFireType fireType;
-        private final RecipeSerializer<ClibanoRecipe> serializer;
 
-        public Result(ResourceLocation recipeId, Ingredient ingredient, Item result, float experience, int cookingTime, Advancement.Builder advancement, ResourceLocation advancementId, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType fireType, RecipeSerializer<ClibanoRecipe> serializer) {
+        public Result(ResourceLocation recipeId, Ingredient ingredient, Item result, float experience, int cookingTime, Advancement.Builder advancement, ResourceLocation advancementId, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType fireType) {
             this.recipeId = recipeId;
             this.ingredient = ingredient;
             this.result = result;
@@ -106,9 +105,9 @@ public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float exp
             this.advancementId = advancementId;
             this.residueInfo = residueInfo;
             this.fireType = fireType;
-            this.serializer = serializer;
         }
 
+        @Override
         public void serializeRecipeData(JsonObject json) {
             json.add("ingredient", this.ingredient.toJson());
             json.addProperty("result", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result)).toString());
@@ -124,7 +123,7 @@ public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float exp
 
         @Nonnull
         public RecipeSerializer<?> getType() {
-            return this.serializer;
+            return ModRecipes.CLIBANO_SERIALIZER.get();
         }
 
         /**

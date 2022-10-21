@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider;
 import com.stal111.forbidden_arcanus.data.client.ModItemModelProvider;
 import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
+import com.stal111.forbidden_arcanus.data.recipes.ApplyModifierRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ClibanoRecipeProvider;
 import com.stal111.forbidden_arcanus.data.server.ModRecipeProvider;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
@@ -53,8 +54,11 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(generator, existingFileHelper));
 
         generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
+
         generator.addProvider(event.includeServer(), new ModRecipeProvider(info));
-        generator.addProvider(event.includeServer(), new ClibanoRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new ClibanoRecipeProvider(info));
+        generator.addProvider(event.includeServer(), new ApplyModifierRecipeProvider(info));
+
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(generator));
 
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
