@@ -21,6 +21,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 
 /**
  * @author stal111
@@ -33,7 +34,9 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-         RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.builtinCopy());
+        RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.builtinCopy());
+
+        DataProviderInfo info = DataProviderInfo.of(generator, existingFileHelper, ForbiddenArcanus.REGISTRY_MANAGER);
 
         // Client Providers
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(generator, existingFileHelper));
@@ -50,7 +53,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(generator, existingFileHelper));
 
         generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
-        generator.addProvider(event.includeServer(), new ModRecipeProvider(generator));
+        generator.addProvider(event.includeServer(), new ModRecipeProvider(info));
         generator.addProvider(event.includeServer(), new ClibanoRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(generator));
 
