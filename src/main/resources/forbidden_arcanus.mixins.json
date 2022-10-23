@@ -9,6 +9,7 @@
     "BubbleColumnBlockMixin",
     "ItemMixin",
     "ItemStackMixin",
+    "LevelRendererAccessor",
     "SlimeMixin"
   ],
   "client": [

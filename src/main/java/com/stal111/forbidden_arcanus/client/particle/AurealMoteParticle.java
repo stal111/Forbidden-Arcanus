@@ -3,18 +3,17 @@ package com.stal111.forbidden_arcanus.client.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.valueproviders.UniformInt;
 
 import javax.annotation.Nonnull;
 
 /**
- * Aureal Mote Particle <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle
- *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-01-28
  */
 public class AurealMoteParticle extends TextureSheetParticle {
+
+    private static final UniformInt DEFAULT_LIFE_TIME = UniformInt.of(60, 72);
 
     private float alpha = 0.0F;
 
@@ -24,8 +23,17 @@ public class AurealMoteParticle extends TextureSheetParticle {
         this.y = y;
         this.z = z;
         this.yd = ySpeed;
+
+        if (xSpeed == 0.0D) {
+            this.xd = 0.0D;
+        }
+
+        if (zSpeed == 0.0D) {
+            this.zd = 0.0D;
+        }
+
         this.quadSize = 0.1F * (this.random.nextFloat() * 0.3F + 0.8F);
-        this.lifetime = 60 + this.random.nextInt(12);
+        this.lifetime = DEFAULT_LIFE_TIME.sample(this.random);
         this.setAlpha(alpha);
     }
 
@@ -59,7 +67,7 @@ public class AurealMoteParticle extends TextureSheetParticle {
         if (this.age++ >= this.lifetime) {
             this.remove();
         } else {
-            this.move(0, this.yd, 0);
+            this.move(this.xd, this.yd, this.zd);
             this.yd *= 0.91;
         }
     }

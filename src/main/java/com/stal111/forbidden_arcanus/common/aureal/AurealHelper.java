@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
 import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
+import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateAurealPacket;
 import com.stal111.forbidden_arcanus.core.config.AurealConfig;
@@ -13,6 +14,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
@@ -147,5 +150,15 @@ public class AurealHelper {
         }
 
         return aureal;
+    }
+
+    public static boolean canEntityBeAureal(LivingEntity livingEntity) {
+        MobCategory category = livingEntity.getType().getCategory();
+
+        if (livingEntity instanceof LostSoul) {
+            return false;
+        }
+
+        return category == MobCategory.AMBIENT || category == MobCategory.CREATURE;
     }
 }

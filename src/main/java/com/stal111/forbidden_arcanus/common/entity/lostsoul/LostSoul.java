@@ -282,7 +282,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
         return Variant.FROM_ID.apply(this.entityData.get(DATA_VARIANT));
     }
 
-    private void setVariant(LostSoul.Variant variant) {
+    public void setVariant(LostSoul.Variant variant) {
         this.entityData.set(DATA_VARIANT, variant.getId());
     }
 

@@ -12,6 +12,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -47,6 +48,7 @@ public class EntityRendererEvents {
         event.registerEntityRenderer(ModEntities.BOAT.get(), context -> new ModBoatRenderer(context, false));
         event.registerEntityRenderer(ModEntities.CHEST_BOAT.get(), context -> new ModBoatRenderer(context, true));
         event.registerEntityRenderer(ModEntities.LOST_SOUL.get(), LostSoulRenderer::new);
+        event.registerEntityRenderer(ModEntities.AUREAL_BOTTLE.get(), ThrownItemRenderer::new);
     }
 
     @SubscribeEvent
