@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "forbidden_arcanus:deorum_ingot"
+      "tag": "forge:ingots/deorum"
     },
     "X": {
       "tag": "forge:rods/wooden"

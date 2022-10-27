@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_gems/diamond": {
       "conditions": {
         "items": [
           {
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_item",
+      "has_gems/diamond",
       "has_the_recipe"
     ]
   ],

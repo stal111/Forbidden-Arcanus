@@ -49,13 +49,6 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
         ShapedRecipeBuilder.shaped(ModItems.ARCANE_BONE_MEAL.get(), 4).pattern(" # ").pattern("#X#").pattern(" # ").define('#', Items.BONE_MEAL).define('X', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL_DUST.get())).save(consumer);
         ShapedRecipeBuilder.shaped(ModItems.AUREAL_BOTTLE.get()).pattern("###").pattern("#X#").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST.get()).define('X', new ValhelsiaNBTIngredient(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.STRONG_REGENERATION))).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL_DUST.get())).save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModItems.BLACKSMITH_GAVEL_HEAD.get()).pattern("###").pattern("# #").pattern(" # ").define('#', Items.CLAY_BALL).unlockedBy("has_item", has(Items.CLAY_BALL)).save(consumer);
-        this.addBlacksmithGavelRecipe(ModItems.WOODEN_BLACKSMITH_GAVEL.get(), ItemTags.PLANKS, consumer);
-        this.addBlacksmithGavelRecipe(ModItems.STONE_BLACKSMITH_GAVEL.get(), ItemTags.STONE_TOOL_MATERIALS, consumer);
-        this.addBlacksmithGavelRecipe(ModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD, consumer);
-        this.addBlacksmithGavelRecipe(ModItems.IRON_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_IRON, consumer);
-        this.addBlacksmithGavelRecipe(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND, consumer);
-        this.addBlacksmithGavelRecipe(ModItems.DEORUM_BLACKSMITH_GAVEL.get(), ModTags.Items.DEORUM_INGOTS, consumer);
         ShapedRecipeBuilder.shaped(ModBlocks.DARKSTONE_PEDESTAL.get()).pattern("###").pattern(" * ").pattern("XXX").define('#', ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get()).define('*', ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get()).define('X', ModBlocks.POLISHED_DARKSTONE.get()).unlockedBy("has_item", has(ModBlocks.POLISHED_DARKSTONE.get())).save(consumer);
 
         ShapedRecipeBuilder.shaped(ModItems.DARK_NETHER_STAR.get()).pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy("has_obsidian_ingot", has(ModItems.OBSIDIAN_INGOT.get())).unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(consumer);
@@ -74,7 +67,6 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
         ShapelessRecipeBuilder.shapeless(ModItems.PURIFYING_SOAP.get()).requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.TEST_TUBE.get()).requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE.get()).unlockedBy("has_item", has(ModItems.RUNE.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(ModItems.DARK_RUNE.get(), 2).requires(ModItems.RUNE.get()).requires(ModItems.RUNE.get()).requires(ModItems.CORRUPTI_DUST.get()).unlockedBy("has_rune", has(ModItems.RUNE.get())).unlockedBy("has_dust", has(ModItems.CORRUPTI_DUST.get())).save(consumer);
-        ShapelessRecipeBuilder.shapeless(ModItems.GOLDEN_ORCHID_SEEDS.get()).requires(ModBlocks.YELLOW_ORCHID.get()).requires(ModItems.DEORUM_INGOT.get()).unlockedBy("has_yellow_orchid", has(ModBlocks.YELLOW_ORCHID.get())).unlockedBy("has_deorum_ingot", has(ModItems.DEORUM_INGOT.get())).save(consumer);
 
         ShapelessRecipeBuilder.shapeless(ModBlocks.CHERRY_PLANKS.get(), 2).requires(ModBlocks.THIN_CHERRY_LOG.get()).unlockedBy("has_item", has(ModBlocks.THIN_CHERRY_LOG.get())).save(consumer, "forbidden_arcanus:cherrywood_planks_from_thin_cherrywood_log");
 
@@ -105,115 +97,125 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
 
         this.storageRecipe(ModItems.DARK_NETHER_STAR.get(), ModBlocks.DARK_NETHER_STAR_BLOCK.get());
         this.storageRecipe(ModItems.OBSIDIAN_INGOT.get(), ModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), "obsidian_ingot", null);
-        this.storageRecipe(ModItems.DEORUM_INGOT.get(), ModBlocks.DEORUM_BLOCK.get(), "arcane_gold_ingot", null);
-        this.storageRecipe(ModItems.DEORUM_NUGGET.get(), ModItems.DEORUM_INGOT.get(), null, "arcane_gold_ingot");
+        this.storageRecipe(ModItems.DEORUM_INGOT.get(), ModBlocks.DEORUM_BLOCK.get(), "deorum_ingot", null);
+        this.storageRecipe(ModItems.DEORUM_NUGGET.get(), ModItems.DEORUM_INGOT.get(), null, "deorum_ingot");
         this.storageRecipe(ModItems.STELLARITE_PIECE.get(), ModBlocks.STELLARITE_BLOCK.get());
         this.storageRecipe(ModItems.ARCANE_CRYSTAL.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
         this.storageRecipe(ModItems.RUNE.get(), ModBlocks.RUNE_BLOCK.get());
         this.storageRecipe(ModItems.DARK_RUNE.get(), ModBlocks.DARK_RUNE_BLOCK.get());
 
-        this.surroundingItem(ModBlocks.DEORUM_GLASS.get(), RecipePart.of(ModItems.DEORUM_INGOT.get()), RecipePart.of(Blocks.GLASS), 8);
-        this.glassPane(ModBlocks.DEORUM_GLASS_PANE.get(), ModBlocks.DEORUM_GLASS.get());
+        this.surroundingItem(ModBlocks.DEORUM_GLASS.get(), this.tag(ModTags.Items.DEORUM_INGOTS), RecipePart.of(Blocks.GLASS), 8);
+        this.glassPane(ModBlocks.DEORUM_GLASS_PANE.get(), this.item(ModBlocks.DEORUM_GLASS.get()));
         this.surroundingItem(ModBlocks.RUNIC_GLASS.get(), RecipePart.of(ModItems.RUNE.get()), RecipePart.of(Blocks.GLASS), 8);
-        this.glassPane(ModBlocks.RUNIC_GLASS_PANE.get(), ModBlocks.RUNIC_GLASS.get());
+        this.glassPane(ModBlocks.RUNIC_GLASS_PANE.get(), this.item(ModBlocks.RUNIC_GLASS.get()));
         this.surroundingItem(ModBlocks.DARK_RUNIC_GLASS.get(), RecipePart.of(ModItems.DARK_RUNE.get()), RecipePart.of(Blocks.GLASS), 8);
-        this.glassPane(ModBlocks.DARK_RUNIC_GLASS_PANE.get(), ModBlocks.DARK_RUNIC_GLASS.get());
+        this.glassPane(ModBlocks.DARK_RUNIC_GLASS_PANE.get(), this.item(ModBlocks.DARK_RUNIC_GLASS.get()));
 
-        this.wood(ModBlocks.FUNGYSS_HYPHAE.get(), ModBlocks.FUNGYSS_STEM.get());
-        this.wood(ModBlocks.CHERRY_WOOD.get(), ModBlocks.CHERRY_LOG.get());
-        this.wood(ModBlocks.AURUM_WOOD.get(), ModBlocks.AURUM_LOG.get());
+        this.wood(ModBlocks.FUNGYSS_HYPHAE.get(), this.item(ModBlocks.FUNGYSS_STEM.get()));
+        this.wood(ModBlocks.CHERRY_WOOD.get(), this.item(ModBlocks.CHERRY_LOG.get()));
+        this.wood(ModBlocks.AURUM_WOOD.get(), this.item(ModBlocks.AURUM_LOG.get()));
 
-        this.wood(ModBlocks.STRIPPED_CHERRY_WOOD.get(), ModBlocks.STRIPPED_CHERRY_LOG.get());
-        this.wood(ModBlocks.STRIPPED_AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_LOG.get());
+        this.wood(ModBlocks.STRIPPED_CHERRY_WOOD.get(), this.item(ModBlocks.STRIPPED_CHERRY_LOG.get()));
+        this.wood(ModBlocks.STRIPPED_AURUM_WOOD.get(), this.item(ModBlocks.STRIPPED_AURUM_LOG.get()));
 
         this.planks(ModBlocks.FUNGYSS_PLANKS.get(), ModTags.Items.FUNGYSS_STEMS, 4);
         this.planks(ModBlocks.CHERRY_PLANKS.get(), ModTags.Items.CHERRYWOOD_LOGS, 4);
         this.planks(ModBlocks.AURUM_PLANKS.get(), ModTags.Items.MYSTERYWOOD_LOGS, 4);
         this.planks(ModBlocks.EDELWOOD_PLANKS.get(), ModTags.Items.EDELWOOD_LOGS, 2);
 
-        this.surroundingItem(ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), RecipePart.of(ModItems.DEORUM_INGOT.get()), RecipePart.of(ModBlocks.EDELWOOD_PLANKS.get()), 8);
+        this.surroundingItem(ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), this.tag(ModTags.Items.DEORUM_INGOTS), this.item(ModBlocks.EDELWOOD_PLANKS.get()), 8);
 
-        this.woodenSlab(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.woodenSlab(ModBlocks.CHERRY_SLAB.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.woodenSlab(ModBlocks.AURUM_SLAB.get(), ModBlocks.AURUM_PLANKS.get());
-        this.woodenSlab(ModBlocks.EDELWOOD_SLAB.get(), ModBlocks.EDELWOOD_PLANKS.get());
+        this.woodenSlab(ModBlocks.FUNGYSS_SLAB.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.woodenSlab(ModBlocks.CHERRY_SLAB.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.woodenSlab(ModBlocks.AURUM_SLAB.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.woodenSlab(ModBlocks.EDELWOOD_SLAB.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
-        this.woodenStairs(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.woodenStairs(ModBlocks.CHERRY_STAIRS.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.woodenStairs(ModBlocks.AURUM_STAIRS.get(), ModBlocks.AURUM_PLANKS.get());
-        this.woodenStairs(ModBlocks.EDELWOOD_STAIRS.get(), ModBlocks.EDELWOOD_PLANKS.get());
+        this.woodenStairs(ModBlocks.FUNGYSS_STAIRS.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.woodenStairs(ModBlocks.CHERRY_STAIRS.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.woodenStairs(ModBlocks.AURUM_STAIRS.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.woodenStairs(ModBlocks.EDELWOOD_STAIRS.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
-        this.door(ModBlocks.DEORUM_DOOR.get(), ModItems.DEORUM_INGOT.get());
-        this.door(ModBlocks.FUNGYSS_DOOR.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.door(ModBlocks.CHERRY_DOOR.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.door(ModBlocks.AURUM_DOOR.get(), ModBlocks.AURUM_PLANKS.get());
-        this.door(ModBlocks.EDELWOOD_DOOR.get(), ModBlocks.EDELWOOD_PLANKS.get());
-        this.door(ModBlocks.ARCANE_EDELWOOD_DOOR.get(), ModBlocks.ARCANE_EDELWOOD_PLANKS.get());
+        this.door(ModBlocks.DEORUM_DOOR.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.door(ModBlocks.FUNGYSS_DOOR.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.door(ModBlocks.CHERRY_DOOR.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.door(ModBlocks.AURUM_DOOR.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.door(ModBlocks.EDELWOOD_DOOR.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
+        this.door(ModBlocks.ARCANE_EDELWOOD_DOOR.get(), this.item(ModBlocks.ARCANE_EDELWOOD_PLANKS.get()));
 
-        this.trapdoor(ModBlocks.DEORUM_TRAPDOOR.get(), ModItems.DEORUM_INGOT.get());
-        this.trapdoor(ModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.trapdoor(ModBlocks.CHERRY_TRAPDOOR.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.trapdoor(ModBlocks.AURUM_TRAPDOOR.get(), ModBlocks.AURUM_PLANKS.get());
-        this.trapdoor(ModBlocks.EDELWOOD_TRAPDOOR.get(), ModBlocks.EDELWOOD_PLANKS.get());
-        this.trapdoor(ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get(), ModBlocks.ARCANE_EDELWOOD_PLANKS.get());
+        this.trapdoor(ModBlocks.DEORUM_TRAPDOOR.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.trapdoor(ModBlocks.FUNGYSS_TRAPDOOR.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.trapdoor(ModBlocks.CHERRY_TRAPDOOR.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.trapdoor(ModBlocks.AURUM_TRAPDOOR.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.trapdoor(ModBlocks.EDELWOOD_TRAPDOOR.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
+        this.trapdoor(ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get(), this.item(ModBlocks.ARCANE_EDELWOOD_PLANKS.get()));
 
-        this.fence(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.fence(ModBlocks.CHERRY_FENCE.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.fence(ModBlocks.AURUM_FENCE.get(), ModBlocks.AURUM_PLANKS.get());
-        this.fence(ModBlocks.EDELWOOD_FENCE.get(), ModBlocks.EDELWOOD_PLANKS.get());
+        this.fence(ModBlocks.FUNGYSS_FENCE.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.fence(ModBlocks.CHERRY_FENCE.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.fence(ModBlocks.AURUM_FENCE.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.fence(ModBlocks.EDELWOOD_FENCE.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
-        this.fenceGate(ModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.fenceGate(ModBlocks.CHERRY_FENCE_GATE.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.fenceGate(ModBlocks.AURUM_FENCE_GATE.get(), ModBlocks.AURUM_PLANKS.get());
-        this.fenceGate(ModBlocks.EDELWOOD_FENCE_GATE.get(), ModBlocks.EDELWOOD_PLANKS.get());
+        this.fenceGate(ModBlocks.FUNGYSS_FENCE_GATE.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.fenceGate(ModBlocks.CHERRY_FENCE_GATE.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.fenceGate(ModBlocks.AURUM_FENCE_GATE.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.fenceGate(ModBlocks.EDELWOOD_FENCE_GATE.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
-        this.sign(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.sign(ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.CHERRY_PLANKS.get());
-        this.sign(ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.AURUM_PLANKS.get());
-        this.sign(ModBlocks.EDELWOOD_SIGN.getFirst().get(), ModBlocks.EDELWOOD_PLANKS.get());
+        this.sign(ModBlocks.FUNGYSS_SIGN.getFirst().get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.sign(ModBlocks.CHERRY_SIGN.getFirst().get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.sign(ModBlocks.AURUM_SIGN.getFirst().get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.sign(ModBlocks.EDELWOOD_SIGN.getFirst().get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
-        this.pressurePlate(ModBlocks.DEORUM_PRESSURE_PLATE.get(), ModItems.DEORUM_INGOT.get());
-        this.pressurePlate(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.pressurePlate(ModBlocks.CHERRY_PRESSURE_PLATE.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.pressurePlate(ModBlocks.AURUM_PRESSURE_PLATE.get(), ModBlocks.AURUM_PLANKS.get());
-        this.pressurePlate(ModBlocks.EDELWOOD_PRESSURE_PLATE.get(), ModBlocks.EDELWOOD_PLANKS.get());
+        this.pressurePlate(ModBlocks.DEORUM_PRESSURE_PLATE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.pressurePlate(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+        this.pressurePlate(ModBlocks.CHERRY_PRESSURE_PLATE.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.pressurePlate(ModBlocks.AURUM_PRESSURE_PLATE.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.pressurePlate(ModBlocks.EDELWOOD_PRESSURE_PLATE.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
         this.button(ModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.FUNGYSS_PLANKS.get());
         this.button(ModBlocks.CHERRY_BUTTON.get(), ModBlocks.CHERRY_PLANKS.get());
         this.button(ModBlocks.AURUM_BUTTON.get(), ModBlocks.AURUM_PLANKS.get());
         this.button(ModBlocks.EDELWOOD_BUTTON.get(), ModBlocks.EDELWOOD_PLANKS.get());
 
-        this.sword(ModItems.DEORUM_SWORD.get(), ModItems.DEORUM_INGOT.get());
-        this.shovel(ModItems.DEORUM_SHOVEL.get(), ModItems.DEORUM_INGOT.get());
-        this.pickaxe(ModItems.DEORUM_PICKAXE.get(), ModItems.DEORUM_INGOT.get());
-        this.axe(ModItems.DEORUM_AXE.get(), ModItems.DEORUM_INGOT.get());
-        this.hoe(ModItems.DEORUM_HOE.get(), ModItems.DEORUM_INGOT.get());
-        this.helmet(ModItems.DEORUM_HELMET.get(), ModItems.DEORUM_INGOT.get());
-        this.chestplate(ModItems.DEORUM_CHESTPLATE.get(), ModItems.DEORUM_INGOT.get());
-        this.leggings(ModItems.DEORUM_LEGGINGS.get(), ModItems.DEORUM_INGOT.get());
-        this.boots(ModItems.DEORUM_BOOTS.get(), ModItems.DEORUM_INGOT.get());
+        this.sword(ModItems.DEORUM_SWORD.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.shovel(ModItems.DEORUM_SHOVEL.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.pickaxe(ModItems.DEORUM_PICKAXE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.axe(ModItems.DEORUM_AXE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.hoe(ModItems.DEORUM_HOE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.helmet(ModItems.DEORUM_HELMET.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.chestplate(ModItems.DEORUM_CHESTPLATE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.leggings(ModItems.DEORUM_LEGGINGS.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
+        this.boots(ModItems.DEORUM_BOOTS.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
 
-        this.boat(ModItems.CHERRY_BOAT.get(), ModBlocks.CHERRY_PLANKS.get());
-        this.boat(ModItems.AURUM_BOAT.get(), ModBlocks.AURUM_PLANKS.get());
-        this.boat(ModItems.EDELWOOD_BOAT.get(), ModBlocks.EDELWOOD_PLANKS.get());
+        this.boat(ModItems.CHERRY_BOAT.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+        this.boat(ModItems.AURUM_BOAT.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+        this.boat(ModItems.EDELWOOD_BOAT.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
         this.chestBoat(ModItems.CHERRY_CHEST_BOAT.get(), ModItems.CHERRY_BOAT.get());
         this.chestBoat(ModItems.AURUM_CHEST_BOAT.get(), ModItems.AURUM_BOAT.get());
         this.chestBoat(ModItems.EDELWOOD_CHEST_BOAT.get(), ModItems.EDELWOOD_BOAT.get());
 
         this.surroundingItem(ModBlocks.CLIBANO_CORE.get(), RecipePart.of(Blocks.BLAST_FURNACE), RecipePart.of(ModBlocks.DARKSTONE.get()), 1);
-        this.carpet(ModBlocks.CHERRY_LEAF_CARPET.get(), ModBlocks.CHERRY_LEAVES.get());
+        this.carpet(ModBlocks.CHERRY_LEAF_CARPET.get(), this.item(ModBlocks.CHERRY_LEAVES.get()));
 
         this.lantern(ModBlocks.DEORUM_LANTERN.get(), Blocks.TORCH, RecipePart.of(ModTags.Items.DEORUM_NUGGETS));
         this.lantern(ModBlocks.DEORUM_SOUL_LANTERN.get(), Blocks.SOUL_TORCH, RecipePart.of(ModTags.Items.DEORUM_NUGGETS));
+
+        this.shapeless(ModItems.GOLDEN_ORCHID_SEEDS.get(), builder -> builder.requires(ModBlocks.YELLOW_ORCHID.get()).requires(ModTags.Items.DEORUM_INGOTS).unlockedBy("has_yellow_orchid", has(ModBlocks.YELLOW_ORCHID.get())).unlockedBy("has_deorum_ingot", has(ModTags.Items.DEORUM_INGOTS)));
+
+        this.shaped(ModItems.BLACKSMITH_GAVEL_HEAD.get(), builder -> builder.pattern("###").pattern("# #").pattern(" # ").define('#', Items.CLAY_BALL).unlockedBy(this, Items.CLAY_BALL));
+        this.blacksmithGavel(ModItems.WOODEN_BLACKSMITH_GAVEL.get(), ItemTags.PLANKS);
+        this.blacksmithGavel(ModItems.STONE_BLACKSMITH_GAVEL.get(), ItemTags.STONE_TOOL_MATERIALS);
+        this.blacksmithGavel(ModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD);
+        this.blacksmithGavel(ModItems.IRON_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_IRON);
+        this.blacksmithGavel(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND);
+        this.blacksmithGavel(ModItems.DEORUM_BLACKSMITH_GAVEL.get(), ModTags.Items.DEORUM_INGOTS);
     }
 
     private void lantern(ItemLike result, ItemLike torch, RecipePart<?> material) {
         this.shaped(result, builder -> builder.pattern("XXX").pattern("X#X").pattern("XXX").define('X', material).define('#', torch).unlockedBy(this, material).unlockedBy(this, torch));
     }
 
-    private void addBlacksmithGavelRecipe(Item gavel, TagKey<Item> material, @Nonnull Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(gavel).pattern("#X#").pattern("#S#").pattern(" S ").define('#', material).define('X', ModItems.BLACKSMITH_GAVEL_HEAD.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy("has_item", has(material)).save(consumer);
+    private void blacksmithGavel(ItemLike gavel, TagKey<Item> material) {
+        this.shaped(gavel, builder -> builder.pattern("#X#").pattern("#S#").pattern(" S ").define('#', material).define('X', ModItems.BLACKSMITH_GAVEL_HEAD.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy(this, RecipePart.of(material)));
     }
 
     private void addStonecutterRecipe(Consumer<FinishedRecipe> consumer, ItemLike result, ItemLike material) {

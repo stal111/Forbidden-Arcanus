@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_deorum_ingot": {
+    "has_ingots/deorum": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:deorum_ingot"
-            ]
+            "tag": "forge:ingots/deorum"
           }
         ]
       },
@@ -22,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_deorum_ingot",
+      "has_ingots/deorum",
       "has_the_recipe"
     ]
   ],

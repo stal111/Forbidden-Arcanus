@@ -5,7 +5,7 @@
       "item": "forbidden_arcanus:edelwood_planks"
     },
     "X": {
-      "item": "forbidden_arcanus:deorum_ingot"
+      "tag": "forge:ingots/deorum"
     }
   },
   "pattern": [

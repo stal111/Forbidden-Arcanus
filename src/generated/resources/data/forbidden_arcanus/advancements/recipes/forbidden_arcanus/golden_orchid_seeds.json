@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:deorum_ingot"
-            ]
+            "tag": "forge:ingots/deorum"
           }
         ]
       },

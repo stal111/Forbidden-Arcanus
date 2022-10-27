@@ -1,18 +1,6 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_deorum_ingot": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "forbidden_arcanus:deorum_ingot"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_edelwood_planks": {
       "conditions": {
         "items": [
@@ -20,6 +8,16 @@
             "items": [
               "forbidden_arcanus:edelwood_planks"
             ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_ingots/deorum": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/deorum"
           }
         ]
       },
@@ -34,7 +32,7 @@
   },
   "requirements": [
     [
-      "has_deorum_ingot",
+      "has_ingots/deorum",
       "has_edelwood_planks",
       "has_the_recipe"
     ]
