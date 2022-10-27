@@ -1,5 +1,0 @@
-{
-    "topic": { "item": "forbidden_arcanus:spectral_eye_amulet" },
-    "category": "ITEMS",
-    "description": "A Spectral Eye Amulet will grant you the Spectral Vision Effect while it is in your inventory. That Effect applies a glowing outline to all entities near you, the color of the outline varies depending on the type of the entity, so friendly entities will receive a green outline, hostile ones a red one and water entities a blue one."
-}
