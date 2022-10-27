@@ -43,7 +43,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ModItems.DEORUM_BLACKSMITH_GAVEL.get(),
                 ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL.get()
         );
-        this.tag(ModTags.Items.ARCANE_GOLD_INGOTS).add(ModItems.DEORUM_INGOT.get());
+        this.tag(ModTags.Items.DEORUM_INGOTS).add(ModItems.DEORUM_INGOT.get());
+        this.tag(ModTags.Items.DEORUM_NUGGETS).add(ModItems.DEORUM_NUGGET.get());
         this.tag(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());
         this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED).add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, ModItems.GOLDEN_ORCHID_SEEDS.get());
 

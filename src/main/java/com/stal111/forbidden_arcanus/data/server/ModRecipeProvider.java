@@ -19,7 +19,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.valhelsia.valhelsia_core.common.util.ValhelsiaNBTIngredient;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.data.ValhelsiaRecipeProvider;
+import net.valhelsia.valhelsia_core.data.recipes.RecipePart;
+import net.valhelsia.valhelsia_core.data.recipes.ValhelsiaRecipeProvider;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -54,13 +55,13 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
         this.addBlacksmithGavelRecipe(ModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD, consumer);
         this.addBlacksmithGavelRecipe(ModItems.IRON_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_IRON, consumer);
         this.addBlacksmithGavelRecipe(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND, consumer);
-        this.addBlacksmithGavelRecipe(ModItems.DEORUM_BLACKSMITH_GAVEL.get(), ModTags.Items.ARCANE_GOLD_INGOTS, consumer);
+        this.addBlacksmithGavelRecipe(ModItems.DEORUM_BLACKSMITH_GAVEL.get(), ModTags.Items.DEORUM_INGOTS, consumer);
         ShapedRecipeBuilder.shaped(ModBlocks.DARKSTONE_PEDESTAL.get()).pattern("###").pattern(" * ").pattern("XXX").define('#', ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get()).define('*', ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get()).define('X', ModBlocks.POLISHED_DARKSTONE.get()).unlockedBy("has_item", has(ModBlocks.POLISHED_DARKSTONE.get())).save(consumer);
 
         ShapedRecipeBuilder.shaped(ModItems.DARK_NETHER_STAR.get()).pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy("has_obsidian_ingot", has(ModItems.OBSIDIAN_INGOT.get())).unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(consumer);
         ShapedRecipeBuilder.shaped(ModItems.DEORUM_INGOT.get()).pattern("#*#").pattern("MXM").pattern("#*#").define('#', Items.CHARCOAL).define('X', Items.GOLD_INGOT).define('M', ModItems.MUNDABITUR_DUST.get()).define('*', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT)).unlockedBy("has_arcane_crystal_dust", has(ModItems.ARCANE_CRYSTAL_DUST.get())).unlockedBy("has_mundabitur_dust", has(ModItems.MUNDABITUR_DUST.get())).save(consumer);
 
-        ShapedRecipeBuilder.shaped(ModBlocks.DEORUM_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.ARCANE_GOLD_NUGGETS).define('X', ModTags.Items.ARCANE_GOLD_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.ARCANE_GOLD_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.ARCANE_GOLD_NUGGETS)).save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.DEORUM_CHAIN.get()).pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.DEORUM_NUGGETS).define('X', ModTags.Items.DEORUM_INGOTS).unlockedBy("has_ingot", has(ModTags.Items.DEORUM_INGOTS)).unlockedBy("has_nugget", has(ModTags.Items.DEORUM_NUGGETS)).save(consumer);
 
         ShapedRecipeBuilder.shaped(ModBlocks.CARVED_CHERRY_PLANKS.get(), 4).pattern(" # ").pattern("# #").pattern(" # ").define('#', ModBlocks.CHERRY_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.CHERRY_PLANKS.get())).save(consumer);
 
@@ -100,7 +101,7 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
 
     @Override
     public void registerRecipes() {
-        this.surroundingItem(ModBlocks.ARCANE_CHISELED_DARKSTONE.get(), ModTags.Items.ARCANE_GOLD_INGOTS, ModBlocks.DARKSTONE.get(), 8);
+        this.surroundingItem(ModBlocks.ARCANE_CHISELED_DARKSTONE.get(), RecipePart.of(ModTags.Items.DEORUM_INGOTS), RecipePart.of(ModBlocks.DARKSTONE.get()), 8);
 
         this.storageRecipe(ModItems.DARK_NETHER_STAR.get(), ModBlocks.DARK_NETHER_STAR_BLOCK.get());
         this.storageRecipe(ModItems.OBSIDIAN_INGOT.get(), ModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), "obsidian_ingot", null);
@@ -111,11 +112,11 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
         this.storageRecipe(ModItems.RUNE.get(), ModBlocks.RUNE_BLOCK.get());
         this.storageRecipe(ModItems.DARK_RUNE.get(), ModBlocks.DARK_RUNE_BLOCK.get());
 
-        this.surroundingItem(ModBlocks.DEORUM_GLASS.get(), ModItems.DEORUM_INGOT.get(), Blocks.GLASS, 8);
+        this.surroundingItem(ModBlocks.DEORUM_GLASS.get(), RecipePart.of(ModItems.DEORUM_INGOT.get()), RecipePart.of(Blocks.GLASS), 8);
         this.glassPane(ModBlocks.DEORUM_GLASS_PANE.get(), ModBlocks.DEORUM_GLASS.get());
-        this.surroundingItem(ModBlocks.RUNIC_GLASS.get(), ModItems.RUNE.get(), Blocks.GLASS, 8);
+        this.surroundingItem(ModBlocks.RUNIC_GLASS.get(), RecipePart.of(ModItems.RUNE.get()), RecipePart.of(Blocks.GLASS), 8);
         this.glassPane(ModBlocks.RUNIC_GLASS_PANE.get(), ModBlocks.RUNIC_GLASS.get());
-        this.surroundingItem(ModBlocks.DARK_RUNIC_GLASS.get(), ModItems.DARK_RUNE.get(), Blocks.GLASS, 8);
+        this.surroundingItem(ModBlocks.DARK_RUNIC_GLASS.get(), RecipePart.of(ModItems.DARK_RUNE.get()), RecipePart.of(Blocks.GLASS), 8);
         this.glassPane(ModBlocks.DARK_RUNIC_GLASS_PANE.get(), ModBlocks.DARK_RUNIC_GLASS.get());
 
         this.wood(ModBlocks.FUNGYSS_HYPHAE.get(), ModBlocks.FUNGYSS_STEM.get());
@@ -130,7 +131,7 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
         this.planks(ModBlocks.AURUM_PLANKS.get(), ModTags.Items.MYSTERYWOOD_LOGS, 4);
         this.planks(ModBlocks.EDELWOOD_PLANKS.get(), ModTags.Items.EDELWOOD_LOGS, 2);
 
-        this.surroundingItem(ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), ModItems.DEORUM_INGOT.get(), ModBlocks.EDELWOOD_PLANKS.get(), 8);
+        this.surroundingItem(ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), RecipePart.of(ModItems.DEORUM_INGOT.get()), RecipePart.of(ModBlocks.EDELWOOD_PLANKS.get()), 8);
 
         this.woodenSlab(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.FUNGYSS_PLANKS.get());
         this.woodenSlab(ModBlocks.CHERRY_SLAB.get(), ModBlocks.CHERRY_PLANKS.get());
@@ -200,8 +201,15 @@ public final class ModRecipeProvider extends ValhelsiaRecipeProvider {
         this.chestBoat(ModItems.AURUM_CHEST_BOAT.get(), ModItems.AURUM_BOAT.get());
         this.chestBoat(ModItems.EDELWOOD_CHEST_BOAT.get(), ModItems.EDELWOOD_BOAT.get());
 
-        this.surroundingItem(ModBlocks.CLIBANO_CORE.get(), Blocks.BLAST_FURNACE, ModBlocks.DARKSTONE.get(), 1);
+        this.surroundingItem(ModBlocks.CLIBANO_CORE.get(), RecipePart.of(Blocks.BLAST_FURNACE), RecipePart.of(ModBlocks.DARKSTONE.get()), 1);
         this.carpet(ModBlocks.CHERRY_LEAF_CARPET.get(), ModBlocks.CHERRY_LEAVES.get());
+
+        this.lantern(ModBlocks.DEORUM_LANTERN.get(), Blocks.TORCH, RecipePart.of(ModTags.Items.DEORUM_NUGGETS));
+        this.lantern(ModBlocks.DEORUM_SOUL_LANTERN.get(), Blocks.SOUL_TORCH, RecipePart.of(ModTags.Items.DEORUM_NUGGETS));
+    }
+
+    private void lantern(ItemLike result, ItemLike torch, RecipePart<?> material) {
+        this.shaped(result, builder -> builder.pattern("XXX").pattern("X#X").pattern("XXX").define('X', material).define('#', torch).unlockedBy(this, material).unlockedBy(this, torch));
     }
 
     private void addBlacksmithGavelRecipe(Item gavel, TagKey<Item> material, @Nonnull Consumer<FinishedRecipe> consumer) {

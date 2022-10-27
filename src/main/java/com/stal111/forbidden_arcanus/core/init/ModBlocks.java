@@ -116,6 +116,10 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<Block> RUNIC_GLASS_PANE = HELPER.register("runic_glass_pane", () -> new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)));
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final RegistryObject<Block> DARK_RUNIC_GLASS_PANE = HELPER.register("dark_runic_glass_pane", () -> new IronBarsBlock(Block.Properties.copy(Blocks.GLASS_PANE)));
+    @RenderType(ValhelsiaRenderType.CUTOUT)
+    public static final RegistryObject<LanternBlock> DEORUM_LANTERN = HELPER.register("deorum_lantern", () -> new LanternBlock(Block.Properties.copy(Blocks.LANTERN)));
+    @RenderType(ValhelsiaRenderType.CUTOUT)
+    public static final RegistryObject<LanternBlock> DEORUM_SOUL_LANTERN = HELPER.register("deorum_soul_lantern", () -> new LanternBlock(Block.Properties.copy(Blocks.SOUL_LANTERN)));
 
     public static final RegistryObject<SoullessSandBlock> SOULLESS_SAND = HELPER.register("soulless_sand", () -> new SoullessSandBlock(Block.Properties.copy(Blocks.SOUL_SAND).speedFactor(1.0F)));
     public static final RegistryObject<Block> SOULLESS_SANDSTONE = HELPER.register("soulless_sandstone", () -> new Block(Block.Properties.copy(Blocks.SANDSTONE)));

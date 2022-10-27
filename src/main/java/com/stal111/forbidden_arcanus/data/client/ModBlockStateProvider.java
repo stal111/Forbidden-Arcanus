@@ -108,6 +108,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::cherryFlowerVinesBlock, ModBlocks.CHERRY_FLOWER_VINES);
         take(this::cherryFlowerVinesPlantBlock, ModBlocks.CHERRY_FLOWER_VINES_PLANT);
 
+        take(this::lanternBlock, ModBlocks.DEORUM_LANTERN, ModBlocks.DEORUM_SOUL_LANTERN);
+
         take(block -> particleOnly(block, modLoc("block/black_hole")), ModBlocks.BLACK_HOLE);
         take(this::empty, ModBlocks.CLIBANO_MAIN_PART);
 
@@ -527,5 +529,14 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         return models().withExistingParent(name, "block/" + model)
                 .texture("bottom", bottom)
                 .texture("top", top);
+    }
+
+    private void lanternBlock(Block block) {
+        ModelFile model = models().withExistingParent(getName(block), mcLoc("template_lantern")).texture("lantern", modLoc("block/" + this.getName(block)));
+        ModelFile hangingModel = models().withExistingParent(getName(block) + "_hanging", mcLoc("template_hanging_lantern")).texture("lantern", modLoc("block/" + this.getName(block)));
+
+        getVariantBuilder(block)
+                .partialState().with(BlockStateProperties.HANGING, false).modelForState().modelFile(model).addModel()
+                .partialState().with(BlockStateProperties.HANGING, true).modelForState().modelFile(hangingModel).addModel();
     }
 }

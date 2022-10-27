@@ -44,7 +44,9 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.ARCANE_DRAGON_EGG,
                 ModItems.EDELWOOD_POWDER_SNOW_BUCKET,
                 ModItems.STRANGE_ROOT,
-                ModItems.GOLDEN_ORCHID_SEEDS
+                ModItems.GOLDEN_ORCHID_SEEDS,
+                ModBlocks.DEORUM_LANTERN,
+                ModBlocks.DEORUM_SOUL_LANTERN
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 ModBlocks.FUNGYSS,

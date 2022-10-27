@@ -1,16 +1,6 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_TagKey[minecraft:item / forge:ingots/arcane_gold]": {
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:ingots/arcane_gold"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_darkstone": {
       "conditions": {
         "items": [
@@ -18,6 +8,16 @@
             "items": [
               "forbidden_arcanus:darkstone"
             ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_ingots/deorum": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/deorum"
           }
         ]
       },
@@ -32,7 +32,7 @@
   },
   "requirements": [
     [
-      "has_TagKey[minecraft:item / forge:ingots/arcane_gold]",
+      "has_ingots/deorum",
       "has_darkstone",
       "has_the_recipe"
     ]

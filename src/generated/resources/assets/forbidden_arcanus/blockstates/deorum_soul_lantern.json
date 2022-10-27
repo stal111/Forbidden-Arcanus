@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "forbidden_arcanus:block/deorum_soul_lantern"
+    },
+    "hanging=true": {
+      "model": "forbidden_arcanus:block/deorum_soul_lantern_hanging"
+    }
+  }
+}

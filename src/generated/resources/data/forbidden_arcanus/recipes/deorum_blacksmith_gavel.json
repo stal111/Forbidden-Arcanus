@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "tag": "forge:ingots/arcane_gold"
+      "tag": "forge:ingots/deorum"
     },
     "S": {
       "tag": "forge:rods/wooden"

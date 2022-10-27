@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.data.ValhelsiaRecipeProvider;
+import net.valhelsia.valhelsia_core.data.recipes.ValhelsiaRecipeProvider;
 
 /**
  * @author stal111

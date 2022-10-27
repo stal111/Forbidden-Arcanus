@@ -51,8 +51,8 @@ public class ModTags {
         public static final TagKey<Item> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
         public static final TagKey<Item> EDELWOOD_LOGS = modTag("edelwood_logs");
         public static final TagKey<Item> BLACKSMITH_GAVEL = modTag("blacksmith_gavel");
-        public static final TagKey<Item> ARCANE_GOLD_INGOTS = forgeTag("ingots/arcane_gold");
-        public static final TagKey<Item> ARCANE_GOLD_NUGGETS = forgeTag("nuggets/arcane_gold");
+        public static final TagKey<Item> DEORUM_INGOTS = forgeTag("ingots/deorum");
+        public static final TagKey<Item> DEORUM_NUGGETS = forgeTag("nuggets/deorum");
         public static final TagKey<Item> OBSIDIAN_INGOTS = forgeTag("ingots/obsidian");
         public static final TagKey<Item> MAGICAL_FARMLAND_BLACKLISTED = modTag("magical_farmland_blacklisted");
         public static final TagKey<Item> RUNIC_STONES = modTag("runic_stones");
