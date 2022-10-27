@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.block.RodBlock;
 import com.stal111.forbidden_arcanus.common.block.*;
 import com.stal111.forbidden_arcanus.common.block.grower.CherrywoodTreeGrower;
 import com.stal111.forbidden_arcanus.common.block.grower.MysterywoodTreeGrower;
-import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.core.BlockPos;
@@ -76,12 +75,7 @@ public class ModBlocks implements RegistryClass {
     public static final RegistryObject<ClibanoVerticalSideBlock> CLIBANO_SIDE_VERTICAL = HELPER.registerNoItem("clibano_side_vertical", () -> new ClibanoVerticalSideBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<ClibanoMainPartBlock> CLIBANO_MAIN_PART = HELPER.registerNoItem("clibano_main_part", () -> new ClibanoMainPartBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final RegistryObject<ClibanoCornerBlock> CLIBANO_CORNER = HELPER.registerNoItem("clibano_corner", () -> new ClibanoCornerBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F)));
-    public static final RegistryObject<ClibanoCenterBlock> CLIBANO_CENTER = HELPER.registerNoItem("clibano_center", () -> new ClibanoCenterBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).lightLevel(state -> {
-        if (state.getValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE) == ClibanoCenterType.FRONT_FIRE || state.getValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE) == ClibanoCenterType.FRONT_BLUE_FIRE) {
-            return 13;
-        }
-        return 0;
-    })));
+    public static final RegistryObject<ClibanoCenterBlock> CLIBANO_CENTER = HELPER.registerNoItem("clibano_center", () -> new ClibanoCenterBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F).lightLevel(state -> state.getValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE).getLightLevel())));
 
     public static final RegistryObject<StellaArcanumBlock> STELLA_ARCANUM = HELPER.register("stella_arcanum", () -> new StellaArcanumBlock(Block.Properties.copy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F)));
     @RenderType(ValhelsiaRenderType.CUTOUT)

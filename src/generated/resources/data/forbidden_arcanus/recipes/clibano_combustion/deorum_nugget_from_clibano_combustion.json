@@ -2,7 +2,7 @@
   "type": "forbidden_arcanus:clibano_combustion",
   "cooking_time": 150,
   "experience": 1.0,
-  "fire_type": "blue_fire",
+  "fire_type": "soul_fire",
   "ingredient": {
     "item": "forbidden_arcanus:gilded_darkstone"
   },

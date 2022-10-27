@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory.clibano;
 
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -22,6 +22,6 @@ public class ClibanoSoulSlot extends SlotItemHandler {
     }
 
     public boolean mayPlace(@Nonnull ItemStack stack) {
-        return ClibanoMainBlockEntity.ITEM_TO_FIRE_TYPE.apply(stack).isPresent();
+        return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
     }
 }

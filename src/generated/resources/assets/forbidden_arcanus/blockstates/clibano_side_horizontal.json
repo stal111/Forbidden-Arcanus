@@ -1,7 +1,7 @@
 {
   "variants": {
-    "facing=east,mirrored=false,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire",
+    "facing=east,mirrored=false,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire",
       "y": 90
     },
     "facing=east,mirrored=false,type=fire": {
@@ -12,8 +12,12 @@
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off",
       "y": 90
     },
-    "facing=east,mirrored=true,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire_mirrored",
+    "facing=east,mirrored=false,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire",
+      "y": 90
+    },
+    "facing=east,mirrored=true,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire_mirrored",
       "y": 90
     },
     "facing=east,mirrored=true,type=fire": {
@@ -24,8 +28,12 @@
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off_mirrored",
       "y": 90
     },
-    "facing=north,mirrored=false,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire"
+    "facing=east,mirrored=true,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire_mirrored",
+      "y": 90
+    },
+    "facing=north,mirrored=false,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire"
     },
     "facing=north,mirrored=false,type=fire": {
       "model": "forbidden_arcanus:block/clibano_side_horizontal_fire"
@@ -33,8 +41,11 @@
     "facing=north,mirrored=false,type=off": {
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off"
     },
-    "facing=north,mirrored=true,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire_mirrored"
+    "facing=north,mirrored=false,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire"
+    },
+    "facing=north,mirrored=true,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire_mirrored"
     },
     "facing=north,mirrored=true,type=fire": {
       "model": "forbidden_arcanus:block/clibano_side_horizontal_fire_mirrored"
@@ -42,8 +53,11 @@
     "facing=north,mirrored=true,type=off": {
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off_mirrored"
     },
-    "facing=south,mirrored=false,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire",
+    "facing=north,mirrored=true,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire_mirrored"
+    },
+    "facing=south,mirrored=false,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire",
       "y": 180
     },
     "facing=south,mirrored=false,type=fire": {
@@ -54,8 +68,12 @@
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off",
       "y": 180
     },
-    "facing=south,mirrored=true,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire_mirrored",
+    "facing=south,mirrored=false,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire",
+      "y": 180
+    },
+    "facing=south,mirrored=true,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire_mirrored",
       "y": 180
     },
     "facing=south,mirrored=true,type=fire": {
@@ -66,8 +84,12 @@
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off_mirrored",
       "y": 180
     },
-    "facing=west,mirrored=false,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire",
+    "facing=south,mirrored=true,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire_mirrored",
+      "y": 180
+    },
+    "facing=west,mirrored=false,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire",
       "y": 270
     },
     "facing=west,mirrored=false,type=fire": {
@@ -78,8 +100,12 @@
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off",
       "y": 270
     },
-    "facing=west,mirrored=true,type=blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_side_horizontal_blue_fire_mirrored",
+    "facing=west,mirrored=false,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire",
+      "y": 270
+    },
+    "facing=west,mirrored=true,type=enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_enchanted_fire_mirrored",
       "y": 270
     },
     "facing=west,mirrored=true,type=fire": {
@@ -88,6 +114,10 @@
     },
     "facing=west,mirrored=true,type=off": {
       "model": "forbidden_arcanus:block/clibano_side_horizontal_off_mirrored",
+      "y": 270
+    },
+    "facing=west,mirrored=true,type=soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_horizontal_soul_fire_mirrored",
       "y": 270
     }
   }

@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
-import com.stal111.forbidden_arcanus.util.ModTags;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -47,8 +46,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * Clibano Main Block Entity <br>
@@ -75,13 +72,6 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
     public static final int FULL_DATA_COUNT = BASE_DATA_COUNT + ResiduesStorage.RESIDUE_TYPES.size();
 
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipes.CLIBANO_COMBUSTION.get();
-
-    public static final Function<ItemStack, Optional<ClibanoFireType>> ITEM_TO_FIRE_TYPE = stack -> {
-        if (stack.is(ModTags.Items.CLIBANO_CREATES_BLUE_FIRE)) {
-            return Optional.of(ClibanoFireType.BLUE_FIRE);
-        }
-        return Optional.empty();
-    };
 
     private final ResiduesStorage residuesStorage = new ResiduesStorage();
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
@@ -151,7 +141,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
     public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, 9, (slot, stack) -> {
             if (slot == ClibanoMenu.SOUL_SLOT) {
-                return ITEM_TO_FIRE_TYPE.apply(stack).isPresent();
+                return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
             } else if (slot == ClibanoMenu.FUEL_SLOT) {
                 return ForgeHooks.getBurnTime(stack, RecipeType.BLASTING) > 0 || FurnaceFuelSlot.isBucket(stack);
             }
@@ -268,7 +258,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         ItemStack soul = this.getStack(ClibanoMenu.SOUL_SLOT);
 
         if (!soul.isEmpty()) {
-            return ITEM_TO_FIRE_TYPE.apply(soul).orElse(ClibanoFireType.FIRE);
+            return ClibanoFireType.fromItem(soul);
         }
 
         return ClibanoFireType.FIRE;
@@ -425,13 +415,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         ClibanoSideType sideType = ClibanoSideType.OFF;
 
         if (this.burnTime > 0) {
-            if (this.fireType == ClibanoFireType.FIRE) {
-                centerType = ClibanoCenterType.FRONT_FIRE;
-                sideType = ClibanoSideType.FIRE;
-            } else if (this.fireType == ClibanoFireType.BLUE_FIRE) {
-                centerType = ClibanoCenterType.FRONT_BLUE_FIRE;
-                sideType = ClibanoSideType.BLUE_FIRE;
-            }
+            centerType = this.fireType.getCenterType();
+            sideType = this.fireType.getSideType();
         }
 
         BlockPos frontCenterPos = this.worldPosition.relative(this.frontDirection);

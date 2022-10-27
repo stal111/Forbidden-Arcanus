@@ -2,6 +2,6 @@
   "parent": "forbidden_arcanus:block/clibano_side_horizontal",
   "textures": {
     "left": "forbidden_arcanus:block/clibano_combustion/clibano_side_off",
-    "right": "forbidden_arcanus:block/clibano_combustion/clibano_side_blue_fire"
+    "right": "forbidden_arcanus:block/clibano_combustion/soul_fire/clibano_side"
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
-    "facing=down,type=front_blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_center_front_blue_fire",
+    "facing=down,type=front_enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
       "x": 180
     },
     "facing=down,type=front_fire": {
@@ -12,6 +12,10 @@
       "model": "forbidden_arcanus:block/clibano_center_front_off",
       "x": 180
     },
+    "facing=down,type=front_soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_soul_fire",
+      "x": 180
+    },
     "facing=down,type=side": {
       "model": "forbidden_arcanus:block/clibano_center_side",
       "x": 180
@@ -20,8 +24,8 @@
       "model": "forbidden_arcanus:block/clibano_center_top",
       "x": 180
     },
-    "facing=east,type=front_blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_center_front_blue_fire",
+    "facing=east,type=front_enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
       "x": 90,
       "y": 90
     },
@@ -35,6 +39,11 @@
       "x": 90,
       "y": 90
     },
+    "facing=east,type=front_soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_soul_fire",
+      "x": 90,
+      "y": 90
+    },
     "facing=east,type=side": {
       "model": "forbidden_arcanus:block/clibano_center_side",
       "x": 90,
@@ -45,8 +54,8 @@
       "x": 90,
       "y": 90
     },
-    "facing=north,type=front_blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_center_front_blue_fire",
+    "facing=north,type=front_enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
       "x": 90
     },
     "facing=north,type=front_fire": {
@@ -57,6 +66,10 @@
       "model": "forbidden_arcanus:block/clibano_center_front_off",
       "x": 90
     },
+    "facing=north,type=front_soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_soul_fire",
+      "x": 90
+    },
     "facing=north,type=side": {
       "model": "forbidden_arcanus:block/clibano_center_side",
       "x": 90
@@ -65,8 +78,8 @@
       "model": "forbidden_arcanus:block/clibano_center_top",
       "x": 90
     },
-    "facing=south,type=front_blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_center_front_blue_fire",
+    "facing=south,type=front_enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
       "x": 90,
       "y": 180
     },
@@ -80,6 +93,11 @@
       "x": 90,
       "y": 180
     },
+    "facing=south,type=front_soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_soul_fire",
+      "x": 90,
+      "y": 180
+    },
     "facing=south,type=side": {
       "model": "forbidden_arcanus:block/clibano_center_side",
       "x": 90,
@@ -90,8 +108,8 @@
       "x": 90,
       "y": 180
     },
-    "facing=up,type=front_blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_center_front_blue_fire"
+    "facing=up,type=front_enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire"
     },
     "facing=up,type=front_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_fire"
@@ -99,14 +117,17 @@
     "facing=up,type=front_off": {
       "model": "forbidden_arcanus:block/clibano_center_front_off"
     },
+    "facing=up,type=front_soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_soul_fire"
+    },
     "facing=up,type=side": {
       "model": "forbidden_arcanus:block/clibano_center_side"
     },
     "facing=up,type=top": {
       "model": "forbidden_arcanus:block/clibano_center_top"
     },
-    "facing=west,type=front_blue_fire": {
-      "model": "forbidden_arcanus:block/clibano_center_front_blue_fire",
+    "facing=west,type=front_enchanted_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
       "x": 90,
       "y": 270
     },
@@ -117,6 +138,11 @@
     },
     "facing=west,type=front_off": {
       "model": "forbidden_arcanus:block/clibano_center_front_off",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,type=front_soul_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_soul_fire",
       "x": 90,
       "y": 270
     },

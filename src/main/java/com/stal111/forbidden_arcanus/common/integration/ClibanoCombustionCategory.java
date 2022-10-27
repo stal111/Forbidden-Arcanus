@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.util.ModTags;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -23,6 +22,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -60,10 +61,10 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         this.animatedFlames.put(ClibanoFireType.FIRE, guiHelper.createAnimatedDrawable(this.staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
 
         this.staticBlueFlame = guiHelper.createDrawable(TEXTURE, 170, 1, 12, 15);
-        this.animatedFlames.put(ClibanoFireType.BLUE_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+        this.animatedFlames.put(ClibanoFireType.SOUL_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
 
         this.staticPurpleFlame = guiHelper.createDrawable(TEXTURE, 189, 1, 12, 15);
-        this.animatedFlames.put(ClibanoFireType.PURPLE_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+        this.animatedFlames.put(ClibanoFireType.ENCHANTED_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
 
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(25)
@@ -106,9 +107,10 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         builder.addSlot(INPUT, 55, 24)
                 .addIngredients(recipe.getIngredients().get(0));
 
-        if (recipe.getRequiredFireType() == ClibanoFireType.BLUE_FIRE) {
-            builder.addSlot(RENDER_ONLY, 12, 60)
-                    .addIngredients(Ingredient.of(ModTags.Items.CLIBANO_CREATES_BLUE_FIRE));
+        TagKey<Item> tagKey = recipe.getRequiredFireType().getTagKey();
+
+        if (tagKey != null) {
+            builder.addSlot(RENDER_ONLY, 12, 60).addIngredients(Ingredient.of(tagKey));
         }
 
         builder.addSlot(OUTPUT, 97, 35)
