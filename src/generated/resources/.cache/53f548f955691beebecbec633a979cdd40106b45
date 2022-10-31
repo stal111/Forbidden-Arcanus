@@ -1,7 +1,8 @@
-// 1.19.2	2022-10-23T21:23:08.6104849	forge/biome_modifier generator for forbidden_arcanus
+// 1.19.2	2022-10-31T21:49:01.5778336	forge/biome_modifier generator for forbidden_arcanus
 568cd55687e2907fa3954f82c156753b59a41bcb data/forbidden_arcanus/forge/biome_modifier/add_arcane_crystal_ore.json
 17a2247042583ff535a92be33861a7a1759c8fa6 data/forbidden_arcanus/forge/biome_modifier/add_arcane_gilded_darkstone.json
-62e91d773bad1c1de2248f1b288ef8073b170d3e data/forbidden_arcanus/forge/biome_modifier/add_cherrywood_trees.json
+af0b187225cd009d2cbf5ff55f325771cbbf2768 data/forbidden_arcanus/forge/biome_modifier/add_aurum_trees.json
+62e91d773bad1c1de2248f1b288ef8073b170d3e data/forbidden_arcanus/forge/biome_modifier/add_cherry_trees.json
 de21d935314082c4f4a66db0c48105ac64792e72 data/forbidden_arcanus/forge/biome_modifier/add_darkstone.json
 bf34a9d244901cbfc1c58d139d3e18c8717743cc data/forbidden_arcanus/forge/biome_modifier/add_edelwood_trees.json
 c50ff20c7915136b906eb19592b42e3a5e6b726a data/forbidden_arcanus/forge/biome_modifier/add_lost_soul.json

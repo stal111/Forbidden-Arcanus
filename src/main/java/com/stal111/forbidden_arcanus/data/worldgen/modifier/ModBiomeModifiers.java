@@ -66,13 +66,17 @@ public class ModBiomeModifiers {
                         overworldTag,
                         HolderSet.direct(registry.getOrCreateHolderOrThrow(ModCavePlacements.PETRIFIED_ROOT.getKey())),
                         GenerationStep.Decoration.UNDERGROUND_ORES))
-                .put(location("add_cherrywood_trees"), new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                .put(location("add_cherry_trees"), new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                         HolderSet.direct(biomeRegistry.getHolder(Biomes.PLAINS).get(), biomeRegistry.getHolder(Biomes.SUNFLOWER_PLAINS).get()),
                         HolderSet.direct(registry.getOrCreateHolderOrThrow(ModVegetationPlacements.CHERRY_TREES_PLAINS.getKey())),
                         GenerationStep.Decoration.VEGETAL_DECORATION))
                 .put(location("add_edelwood_trees"), new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                         HolderSet.direct(biomeRegistry.getHolder(Biomes.DARK_FOREST).get()),
                         HolderSet.direct(registry.getOrCreateHolderOrThrow(ModTreePlacements.EDELWOOD_TREES.getKey())),
+                        GenerationStep.Decoration.VEGETAL_DECORATION))
+                .put(location("add_aurum_trees"), new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                        HolderSet.direct(biomeRegistry.getHolder(Biomes.FLOWER_FOREST).get()),
+                        HolderSet.direct(registry.getOrCreateHolderOrThrow(ModTreePlacements.AURUM_TREES.getKey())),
                         GenerationStep.Decoration.VEGETAL_DECORATION))
                 .put(location("add_yellow_orchids"), new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                         HolderSet.direct(biomeRegistry.getHolder(Biomes.FLOWER_FOREST).get()),

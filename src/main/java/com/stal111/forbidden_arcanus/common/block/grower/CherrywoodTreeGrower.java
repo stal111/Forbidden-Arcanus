@@ -23,6 +23,6 @@ public class CherrywoodTreeGrower extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<ConfiguredFeature<TreeConfiguration, ?> > getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
-        return random.nextDouble() < 0.3D ? ModConfiguredFeatures.LARGE_CHERRYWOOD.getHolder().get() : ModConfiguredFeatures.SMALL_CHERRYWOOD.getHolder().get();
+        return random.nextDouble() < 0.3D ? ModConfiguredFeatures.LARGE_CHERRY.getHolder().get() : ModConfiguredFeatures.SMALL_CHERRY.getHolder().get();
     }
 }
