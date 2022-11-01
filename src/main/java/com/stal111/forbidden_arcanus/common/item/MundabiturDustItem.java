@@ -87,7 +87,7 @@ public class MundabiturDustItem extends Item {
         if (state.is(Blocks.SMITHING_TABLE)) {
             BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.HEPHAESTUS_PATTERN.find(level, pos);
 
-            if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
+            if (patternHelper == null) {
                 return false;
             }
 
@@ -104,7 +104,7 @@ public class MundabiturDustItem extends Item {
         } else if (state.is(ModBlocks.ARCANE_CRYSTAL_BLOCK.get()) || state.is(ModBlocks.ARCANE_POLISHED_DARKSTONE.get())) {
             BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.ARCANE_CRYSTAL_OBELISK_PATTERN.find(level, pos);
 
-            if (patternHelper == null || patternHelper.getUp() != Direction.UP) {
+            if (patternHelper == null) {
                 return false;
             }
 

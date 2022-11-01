@@ -124,7 +124,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     public void updateState(BlockState state, Level level, BlockPos pos) {
         BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.BASE_HEPHAESTUS_PATTERN.find(level, pos.below());
 
-        if (patternHelper == null || patternHelper.getUp() != Direction.DOWN) {
+        if (patternHelper == null) {
             if (state.getValue(ACTIVATED)) {
                 level.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
             }

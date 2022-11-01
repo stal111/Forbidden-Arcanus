@@ -16,12 +16,11 @@ import net.minecraft.world.level.material.Material;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ModBlockPatterns
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2022-01-15
  */
 public class ModBlockPatterns {
 
-    public static final BlockPattern HEPHAESTUS_PATTERN = BlockPatternBuilder.start()
+    public static final BlockPattern HEPHAESTUS_PATTERN = UpwardsBlockPattern.of(BlockPatternBuilder.start()
             .aisle("***~~~***", "***PPP***")
             .aisle("*~~~~~~~*", "*PPPAPPP*")
             .aisle("*~~~~~~~*", "*PAPPPAP*")
@@ -37,9 +36,9 @@ public class ModBlockPatterns {
             .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
             .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
             .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
-            .build();
+    );
 
-    public static final BlockPattern BASE_HEPHAESTUS_PATTERN = BlockPatternBuilder.start()
+    public static final BlockPattern BASE_HEPHAESTUS_PATTERN = UpwardsBlockPattern.of(BlockPatternBuilder.start()
             .aisle("***PPP***")
             .aisle("*PPPAPPP*")
             .aisle("*PAPPPAP*")
@@ -54,13 +53,13 @@ public class ModBlockPatterns {
             .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
             .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
             .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
-            .build();
+    );
 
-    public static final BlockPattern ARCANE_CRYSTAL_OBELISK_PATTERN = BlockPatternBuilder.start()
+    public static final BlockPattern ARCANE_CRYSTAL_OBELISK_PATTERN = UpwardsBlockPattern.of(BlockPatternBuilder.start()
             .aisle("#", "#", "X")
             .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())))
             .where('X', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
-            .build();
+    );
 
     public static final BlockPattern CLIBANO_COMBUSTION_BASE = UpwardsBlockPattern.of(BlockPatternBuilder.start()
             .aisle("PBP", "BBB", "PBP")
