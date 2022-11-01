@@ -32,5 +32,6 @@ public class ModBiomeTagsProvider extends BiomeTagsProvider {
         this.tag(ModTags.Biomes.HAS_NIPA).addTag(ModTags.Biomes.IS_PLAINS).addTag(BiomeTags.IS_FOREST).addTag(BiomeTags.IS_TAIGA);
         this.tag(ModTags.Biomes.HAS_NIPA_ALWAYS_FLOATING).addTag(ModTags.Biomes.HAS_NIPA).addTag(BiomeTags.IS_OCEAN).addTag(ModTags.Biomes.IS_DESERT);
 
+        this.tag(ModTags.Biomes.SPAWNS_CORRUPT_LOST_SOUL).add(Biomes.SOUL_SAND_VALLEY);
     }
 }

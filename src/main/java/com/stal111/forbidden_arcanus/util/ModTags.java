@@ -108,6 +108,8 @@ public class ModTags {
         public static final TagKey<Biome> HAS_NIPA = modTag("has_structure/nipa");
         public static final TagKey<Biome> HAS_NIPA_ALWAYS_FLOATING = modTag("has_structure/nipa_always_floating");
 
+        public static final TagKey<Biome> SPAWNS_CORRUPT_LOST_SOUL = forgeTag("spawns_corrupt_lost_soul");
+
         private static TagKey<Biome> forgeTag(String name) {
             return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("forge", name));
         }

@@ -62,6 +62,6 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(generator));
 
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(
-                generator, existingFileHelper, ForbiddenArcanus.MOD_ID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers.getBiomeModifiers(ops)));
+                generator, existingFileHelper, ForbiddenArcanus.MOD_ID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, new ModBiomeModifiers(info, ops).getModifiers()));
     }
 }

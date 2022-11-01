@@ -3,8 +3,8 @@
   "biomes": "#minecraft:is_overworld",
   "spawners": {
     "type": "forbidden_arcanus:lost_soul",
-    "maxCount": 1,
+    "maxCount": 3,
     "minCount": 1,
-    "weight": 50
+    "weight": 35
   }
 }

@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModMemoryModules;
 import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
 import com.stal111.forbidden_arcanus.core.init.other.ModDamageSources;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -38,7 +39,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -60,7 +64,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     private static final EntityDataAccessor<Integer> DATA_VARIANT = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> DATA_SCARED = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.BOOLEAN);
 
-    public static final double CORRUPT_CHANCE = 0.1;
+    public static final double ENCHANTED_CHANCE = 0.04D;
 
     private static final int EXTRACT_STUNNED_TIME = 30;
     private static final float EXTRACT_DAMAGE = 1.0F;
@@ -119,7 +123,13 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(@Nonnull ServerLevelAccessor level, @Nonnull DifficultyInstance difficulty, @Nonnull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        //this.setVariant(Variant.values()[level.getRandom().nextInt(Variant.values().length)]);
+        boolean enchanted = random.nextDouble() < ENCHANTED_CHANCE;
+
+        if (enchanted) {
+            this.setVariant(Variant.ENCHANTED_LOST_SOUL);
+        } else if (level.getBiome(this.blockPosition()).is(ModTags.Biomes.SPAWNS_CORRUPT_LOST_SOUL)) {
+            this.setVariant(Variant.CORRUPT_LOST_SOUL);
+        }
 
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
@@ -319,6 +329,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     public boolean isExtracting() {
         return this.extractCounter > 0;
     }
+
     public enum Variant {
         LOST_SOUL(0, "lost_soul", ModItems.SOUL.get(), 228 << 16 | 231 << 8 | 248),
         CORRUPT_LOST_SOUL(1, "corrupt_lost_soul", ModItems.CORRUPT_SOUL.get(), 68 << 16 | 83 << 8 | 149),
