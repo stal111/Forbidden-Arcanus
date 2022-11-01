@@ -13,7 +13,6 @@ import java.util.function.Predicate;
 
 /**
  * Upwards Block Pattern <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.pattern.UpwardsBlockPattern
  *
  * <p>
  * A special implementation of Block Pattern that only checks for the pattern in the UP {@link Direction}.
@@ -21,7 +20,6 @@ import java.util.function.Predicate;
  * </p>
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2022-05-22
  */
 public class UpwardsBlockPattern extends BlockPattern {
@@ -40,15 +38,11 @@ public class UpwardsBlockPattern extends BlockPattern {
         int i = Math.max(this.getWidth(), this.getDepth());
 
         for(BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-i + 1, 0, -i + 1), pos.offset(i - 1, this.getHeight(), i - 1))) {
-            for(Direction direction : Direction.values()) {
-                Direction direction1 = Direction.UP;
+            for(Direction direction : Direction.Plane.HORIZONTAL) {
+                BlockPatternMatch patternMatch = this.matches(level, blockPos, direction, Direction.UP);
 
-                if (direction1 != direction && direction1 != direction.getOpposite()) {
-                    BlockPatternMatch patternMatch = this.matches(level, blockPos, direction, direction1);
-
-                    if (patternMatch != null) {
-                        return patternMatch;
-                    }
+                if (patternMatch != null) {
+                    return patternMatch;
                 }
             }
         }
