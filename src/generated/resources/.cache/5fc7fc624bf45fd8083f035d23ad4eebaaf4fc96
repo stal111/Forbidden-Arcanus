@@ -1,3 +1,5 @@
-// 1.19.2	2022-09-04T20:56:18.0507124	forbidden_arcanus: Entity Type Tags
+// 1.19.2	2022-11-02T11:49:31.1778146	forbidden_arcanus: Entity Type Tags
 4ba50af514fed477cd925c409fc052dc16e91a03 data/forbidden_arcanus/tags/entity_types/black_hole_affected.json
 6a41c3e5283b5bf9b0e64f6e256b766962943e08 data/forbidden_arcanus/tags/entity_types/quantum_catcher_blacklisted.json
+e5787dc002d5587c28c644a7079e27deebf026c8 data/forbidden_arcanus/tags/entity_types/spawns_corrupt_lost_soul_chance.json
+4644ac1aa99a39914985eaeff21120a1b614c9c7 data/forbidden_arcanus/tags/entity_types/spawns_lost_soul_chance.json

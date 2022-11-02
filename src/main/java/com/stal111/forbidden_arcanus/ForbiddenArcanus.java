@@ -19,21 +19,18 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
 import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
+import net.valhelsia.valhelsia_core.core.ValhelsiaMod;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
 import net.valhelsia.valhelsia_core.core.registry.helper.EntityRegistryHelper;
 import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
@@ -44,7 +41,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.function.Supplier;
 
 @Mod(ForbiddenArcanus.MOD_ID)
-public class ForbiddenArcanus {
+public final class ForbiddenArcanus extends ValhelsiaMod {
 
 	public static final String MOD_ID = "forbidden_arcanus";
 	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
@@ -74,6 +71,7 @@ public class ForbiddenArcanus {
 	public static ForbiddenArcanus instance;
 
 	public ForbiddenArcanus() {
+		super(MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 		instance = this;
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -93,21 +91,27 @@ public class ForbiddenArcanus {
 		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
 		ModTreeDecorators.TREE_DECORATORS.register(modEventBus);
 
-		modEventBus.addListener(this::setup);
 		modEventBus.addListener(CommonSetup::setup);
-
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
-
-		Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-client.toml").toString());
-		Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-common.toml").toString());
-
-		REGISTRY_MANAGER.register(modEventBus);
-
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
-	private void setup(final FMLCommonSetupEvent event) {
+	@Override
+	public RegistryManager getRegistryManager() {
+		return REGISTRY_MANAGER;
+	}
+
+	@Override
+	public EventHandler buildEventHandler() {
+		return new ModEventHandler();
+	}
+
+	@Override
+	protected void registerConfigs() {
+		this.registerClientConfig(Config.CLIENT_CONFIG);
+		this.registerCommonConfig(Config.COMMON_CONFIG);
+	}
+
+	@Override
+	protected void setup(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			ModFlammables.registerFlammables();
 			ModDispenseBehaviors.registerDispenseBehaviors();

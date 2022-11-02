@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.math.Vector3f;
 import com.mojang.serialization.Dynamic;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModMemoryModules;
 import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
@@ -65,6 +66,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     public static final EntityDataAccessor<Boolean> DATA_SCARED = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.BOOLEAN);
 
     public static final double ENCHANTED_CHANCE = 0.04D;
+    public static final double ENTITY_DEATH_SPAWN_CHANCE = 0.05D;
 
     private static final int EXTRACT_STUNNED_TIME = 30;
     private static final float EXTRACT_DAMAGE = 1.0F;
@@ -73,6 +75,11 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     public final AnimationState stillAnimationState = new AnimationState();
     public final AnimationState fearAnimationState = new AnimationState();
+
+    public LostSoul(Level level, double x, double y, double z) {
+        this(ModEntities.LOST_SOUL.get(), level);
+        this.setPos(x, y, z);
+    }
 
     public LostSoul(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);

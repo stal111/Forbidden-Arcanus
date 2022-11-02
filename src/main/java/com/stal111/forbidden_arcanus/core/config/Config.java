@@ -1,11 +1,7 @@
 package com.stal111.forbidden_arcanus.core.config;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
-
-import java.io.File;
 
 /**
  * Config
@@ -33,11 +29,5 @@ public class Config {
 
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();
-	}
-
-	public static void loadConfig(ForgeConfigSpec config, String path) {
-		final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).preserveInsertionOrder().sync().autosave().writingMode(WritingMode.REPLACE).build();
-		file.load();
-		config.setConfig(file);
 	}
 }
