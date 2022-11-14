@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "minecraft:diamond_ores"
+            "tag": "forbidden_arcanus:arcane_crystal_ores"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/diamond_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano_combustion/arcane_crystal_from_clibano_combusting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/diamond_from_clibano_combustion"
+      "forbidden_arcanus:clibano_combustion/arcane_crystal_from_clibano_combusting"
     ]
   }
 }

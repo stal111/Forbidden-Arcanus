@@ -366,6 +366,12 @@
     "gui.forbidden_arcanus.clibano.residue_fullness": "Residue fullness",
     "gui.forbidden_arcanus.clibano.residue.gold": "Gold",
     "gui.forbidden_arcanus.clibano.residue.iron": "Iron",
+    "gui.forbidden_arcanus.clibano.residue.copper": "Copper",
+    "gui.forbidden_arcanus.clibano.residue.lapis_lazuli": "Lapis Lazuli",
+    "gui.forbidden_arcanus.clibano.residue.diamond": "Diamond",
+    "gui.forbidden_arcanus.clibano.residue.emerald": "Emerald",
+    "gui.forbidden_arcanus.clibano.residue.netherite": "Netherite",
+    "gui.forbidden_arcanus.clibano.residue.deorum": "Deorum",
 
     "jei.forbidden_arcanus.category.hephaestusSmithing": "Hephaestus Smithing",
     "jei.forbidden_arcanus.category.clibanoCombustion": "Clibano Combustion",

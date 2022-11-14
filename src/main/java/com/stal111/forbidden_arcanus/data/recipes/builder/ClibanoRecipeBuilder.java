@@ -65,7 +65,8 @@ public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float exp
     @Override
     public void save(@Nonnull Consumer<FinishedRecipe> finishedRecipeConsumer) {
         ResourceLocation recipeId = RecipeBuilder.getDefaultRecipeId(this.getResult());
-        this.save(finishedRecipeConsumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "clibano_combustion/" + recipeId.getPath() + "_from_clibano_combustion"));
+
+        this.save(finishedRecipeConsumer, new ResourceLocation(ForbiddenArcanus.MOD_ID, "clibano_combustion/" + recipeId.getPath() + "_from_clibano_combusting"));
     }
 
     @Override

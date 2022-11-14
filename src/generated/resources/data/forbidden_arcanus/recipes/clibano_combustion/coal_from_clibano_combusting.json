@@ -1,0 +1,13 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "cooking_time": 100,
+  "experience": 0.05,
+  "ingredient": {
+    "tag": "minecraft:coal_ores"
+  },
+  "residue": {
+    "chance": 0.33,
+    "name": "coal"
+  },
+  "result": "minecraft:coal"
+}

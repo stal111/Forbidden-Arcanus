@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/deorum_nugget_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano_combustion/deorum_nugget_from_clibano_combusting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/deorum_nugget_from_clibano_combustion"
+      "forbidden_arcanus:clibano_combustion/deorum_nugget_from_clibano_combusting"
     ]
   }
 }
