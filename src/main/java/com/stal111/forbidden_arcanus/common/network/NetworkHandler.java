@@ -32,6 +32,7 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), UpdateRitualsPacket.class, UpdateRitualsPacket::encode, UpdateRitualsPacket::decode, UpdateRitualsPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateForgeInputsPacket.class, UpdateForgeInputsPacket::encode, UpdateForgeInputsPacket::decode, UpdateForgeInputsPacket::consume);
         INSTANCE.registerMessage(nextID(), AddThrownAurealBottleParticle.class, AddThrownAurealBottleParticle::encode, AddThrownAurealBottleParticle::decode, AddThrownAurealBottleParticle::consume);
+        INSTANCE.registerMessage(nextID(), UpdateResidueTypesPacket.class, UpdateResidueTypesPacket::encode, UpdateResidueTypesPacket::decode, UpdateResidueTypesPacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.loader.HephaestusForgeInputLoader;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeInputsPacket;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateResidueTypesPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateRitualsPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -43,6 +45,7 @@ public class DatapackEvents {
     private static void syncData(ServerPlayer player) {
         NetworkHandler.sendTo(player, new UpdateRitualsPacket(RitualLoader.rituals));
         NetworkHandler.sendTo(player, new UpdateForgeInputsPacket(HephaestusForgeInputLoader.inputs));
+        NetworkHandler.sendTo(player, new UpdateResidueTypesPacket(ResiduesStorage.RESIDUE_TYPES));
     }
 
     @SubscribeEvent
