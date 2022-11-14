@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.entity.lostsoul.SoulExtractable;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
-import com.stal111.forbidden_arcanus.core.init.other.ModDamageSources;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -135,20 +134,6 @@ public class SoulExtractorItem extends Item {
             if (!player.isUsingItem()) {
                 soulExtractable.extractTick(player, entity);
             }
-
-            if (!player.isUsingItem() && !this.isUsingOnEntity(stack)) {
-                return InteractionResult.PASS;
-            }
-
-            if (this.isUsingOnEntity(stack)) {
-                entity.hurt(ModDamageSources.extractSoul(player), 1.0F);
-
-                if (entity.isDeadOrDying()) {
-                    level.addFreshEntity(new ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), soulExtractable.getSoulItem()));
-
-                    this.endUsingOnEntity(stack);
-                }
-            }
         }
         return super.interactLivingEntity(stack, player, entity, usedHand);
     }
@@ -173,17 +158,5 @@ public class SoulExtractorItem extends Item {
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, List<Component> list, @Nonnull TooltipFlag flag) {
         list.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").withStyle(ChatFormatting.GRAY));
         super.appendHoverText(stack, level, list, flag);
-    }
-
-    private void startUsingOnEntity(ItemStack stack) {
-        stack.getOrCreateTag().putBoolean(KEY_EXTRACTING_FROM_ENTITY, true);
-    }
-
-    private boolean isUsingOnEntity(ItemStack stack) {
-        return stack.getOrCreateTag().getBoolean(KEY_EXTRACTING_FROM_ENTITY);
-    }
-
-    private void endUsingOnEntity(ItemStack stack) {
-        stack.getOrCreateTag().remove(KEY_EXTRACTING_FROM_ENTITY);
     }
 }

@@ -69,7 +69,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     public static final double ENTITY_DEATH_SPAWN_CHANCE = 0.05D;
 
     private static final int EXTRACT_STUNNED_TIME = 30;
-    private static final float EXTRACT_DAMAGE = 1.0F;
+    private static final float EXTRACT_DAMAGE = 2.0F;
 
     private int extractCounter = 0;
 
