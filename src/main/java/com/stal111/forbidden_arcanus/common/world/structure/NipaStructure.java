@@ -11,7 +11,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.valhelsia.valhelsia_core.common.world.SimpleValhelsiaStructure;
+import net.valhelsia.valhelsia_core.common.world.structure.SimpleValhelsiaStructure;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
