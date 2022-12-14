@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.level.SaplingGrowTreeEvent;
+import net.minecraftforge.eventbus.api.Event;
 
 import javax.annotation.Nonnull;
 
@@ -53,13 +55,15 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
     }
 
     public void growEdelwood(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        if (!ForgeEventFactory.saplingGrowTree(level, random, pos)) {
+        SaplingGrowTreeEvent event = ForgeEventFactory.blockGrowFeature(level, random, pos, ModConfiguredFeatures.EDELWOOD.getHolder().orElseThrow());
+
+        if (event.getResult().equals(Event.Result.DENY) || event.getFeature() == null) {
             return;
         }
 
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        if (!ModConfiguredFeatures.EDELWOOD.get().place(level, level.getChunkSource().getGenerator(), random, pos)) {
+        if (!event.getFeature().get().place(level, level.getChunkSource().getGenerator(), random, pos)) {
             level.setBlock(pos, state, 4);
         }
     }
@@ -71,7 +75,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
 
     @Override
     public boolean isBonemealSuccess(Level level, @Nonnull RandomSource random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
-        return level.random.nextFloat() < BONEMEAL_CHANCE;
+        return level.getRandom().nextFloat() < BONEMEAL_CHANCE;
     }
 
     @Override
