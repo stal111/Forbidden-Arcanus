@@ -55,7 +55,7 @@ public class BlacksmithGavelLootModifier extends LootModifier {
     }
 
     private boolean isValidGavel(ItemStack stack) {
-        return stack.is(ModTags.Items.BLACKSMITH_GAVEL) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.AQUA_AFFINITY, stack) == 0;
+        return stack.is(ModTags.Items.BLACKSMITH_GAVEL) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0;
     }
 
     public static class Serializer extends GlobalLootModifierSerializer<BlacksmithGavelLootModifier> {
