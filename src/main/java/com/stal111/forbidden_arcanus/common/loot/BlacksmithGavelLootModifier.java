@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -15,7 +16,6 @@ import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.function.Supplier;
 
 /**
@@ -45,10 +45,14 @@ public class BlacksmithGavelLootModifier extends LootModifier {
             return generatedLoot;
         }
 
-        if (stack.is(ModTags.Items.BLACKSMITH_GAVEL) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
-            generatedLoot.addAll(new ArrayList<>(generatedLoot));
+        if (this.isValidGavel(stack) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
+            generatedLoot.addAll(generatedLoot.clone());
         }
         return generatedLoot;
+    }
+
+    private boolean isValidGavel(ItemStack stack) {
+        return stack.is(ModTags.Items.BLACKSMITH_GAVEL) && stack.getEnchantmentLevel(Enchantments.SILK_TOUCH) == 0;
     }
 
     @Override
