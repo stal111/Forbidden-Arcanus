@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.util.ModTags;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -45,10 +47,15 @@ public class BlacksmithGavelLootModifier extends LootModifier {
             return generatedLoot;
         }
 
-        if (stack.is(ModTags.Items.BLACKSMITH_GAVEL) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
+        if (this.isValidGavel(stack) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
             generatedLoot.addAll(new ArrayList<>(generatedLoot));
         }
+
         return generatedLoot;
+    }
+
+    private boolean isValidGavel(ItemStack stack) {
+        return stack.is(ModTags.Items.BLACKSMITH_GAVEL) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.AQUA_AFFINITY, stack) == 0;
     }
 
     public static class Serializer extends GlobalLootModifierSerializer<BlacksmithGavelLootModifier> {
