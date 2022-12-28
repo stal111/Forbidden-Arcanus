@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -19,8 +18,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockStateProvider;
 
 import java.util.ArrayList;
@@ -33,13 +32,12 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2021-02-18
  */
 public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
-    public ModBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, ForbiddenArcanus.REGISTRY_MANAGER, exFileHelper);
+    public ModBlockStateProvider(DataProviderInfo info) {
+        super(info.output(), ForbiddenArcanus.REGISTRY_MANAGER, info.fileHelper());
     }
 
     @Override

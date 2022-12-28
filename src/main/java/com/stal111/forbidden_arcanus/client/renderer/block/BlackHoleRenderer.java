@@ -2,8 +2,7 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
@@ -18,6 +17,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Quaternionf;
 
 import javax.annotation.Nonnull;
 
@@ -78,10 +78,10 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
         VertexConsumer vertexconsumer = bufferSource.getBuffer(RENDER_TYPE);
 
         float rotation = ((float) blockEntity.rotation + partialTicks) * 3.0F;
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation));
+        poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
 
         poseStack.pushPose();
-        poseStack.mulPose(new Quaternion(new Vector3f(SIN_45, 0.0F, SIN_45), 60.0F, true));
+        poseStack.mulPose(new Quaternionf().setAngleAxis(SIN_45, 0.0F, SIN_45, 60.0F));
 
         this.hole.render(poseStack, vertexconsumer, packedLight, packedOverlay);
         poseStack.popPose();

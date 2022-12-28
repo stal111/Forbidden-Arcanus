@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -30,6 +31,8 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockLootTables;
 
+import java.util.Set;
+
 /**
  * Mod Block Loot Tables <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables
@@ -41,11 +44,11 @@ import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockLootTables;
 public class ModBlockLootTables extends ValhelsiaBlockLootTables {
 
     public ModBlockLootTables() {
-        super(ForbiddenArcanus.REGISTRY_MANAGER);
+        super(Set.of(), FeatureFlags.DEFAULT_FLAGS, ForbiddenArcanus.REGISTRY_MANAGER);
     }
 
     @Override
-    public void addTables() {
+    protected void generate() {
         take(block -> add(block, droppingWithFunction(block, builder -> builder.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fluid", "BlockEntityTag.Fluid")))), ModBlocks.UTREM_JAR);
         take(block -> add(block, LootTable.lootTable()), ModBlocks.BLACK_HOLE, ModBlocks.CLIBANO_SIDE_HORIZONTAL, ModBlocks.CLIBANO_SIDE_VERTICAL, ModBlocks.CLIBANO_CORNER, ModBlocks.CLIBANO_CENTER, ModBlocks.CLIBANO_MAIN_PART);
         take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModBlocks.FUNGYSS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0))).apply(ApplyExplosionDecay.explosionDecay()))), ModBlocks.FUNGYSS_BLOCK);
@@ -76,7 +79,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         forEach(block -> block instanceof IronBarsBlock, this::dropWhenSilkTouch);
         forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);
         forEach(block -> block instanceof SlabBlock, block -> add(block, ValhelsiaBlockLootTables::droppingSlab));
-        forEach(block -> block instanceof DoorBlock, block -> add(block, BlockLoot::createDoorTable));
+        forEach(block -> block instanceof DoorBlock, block -> add(block, block1 -> this.createSinglePropConditionTable(block1, DoorBlock.HALF, DoubleBlockHalf.LOWER)));
 
         forEach(this::registerDropSelfLootTable);
     }

@@ -74,7 +74,7 @@ public class ZombieArmItem extends Item {
             if (entity != null) {
                 entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.CONVERSION, new Zombie.ZombieGroupData(false, true), null);
                 entity.setVillagerData(villager.getVillagerData());
-                entity.setGossips(villager.getGossips().store(NbtOps.INSTANCE).getValue());
+                entity.setGossips(villager.getGossips().store(NbtOps.INSTANCE));
                 entity.setTradeOffers(villager.getOffers().createTag());
                 entity.setVillagerXp(villager.getVillagerXp());
 

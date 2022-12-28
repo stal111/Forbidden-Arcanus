@@ -6,11 +6,11 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
 
 public class ModParticles implements RegistryClass {
 
-    public static final RegistryHelper<ParticleType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(ForgeRegistries.Keys.PARTICLE_TYPES);
+    public static final MappedRegistryHelper<ParticleType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(ForgeRegistries.Keys.PARTICLE_TYPES);
 
     public static final RegistryObject<SimpleParticleType> SOUL = HELPER.register("soul", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> AUREAL_MOTE = HELPER.register("aureal_mote", () -> new SimpleParticleType(false));

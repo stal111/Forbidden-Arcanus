@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -8,7 +9,6 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.world.item.ItemStack;
-import com.mojang.math.Vector3f;
 
 import javax.annotation.Nonnull;
 
@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.block.PedestalRenderer
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-06-25
  */
 public class PedestalRenderer implements BlockEntityRenderer<PedestalBlockEntity> {
@@ -32,7 +31,7 @@ public class PedestalRenderer implements BlockEntityRenderer<PedestalBlockEntity
             poseStack.pushPose();
 
             poseStack.translate(0.5D, blockEntity.getItemHeight() / 100.0F, 0.5D);
-            poseStack.mulPose(Vector3f.YP.rotation(blockEntity.getItemHover(partialTicks)));
+            poseStack.mulPose(Axis.YP.rotation(blockEntity.getItemHover(partialTicks)));
 
             poseStack.scale(0.5F, 0.5F, 0.5F);
 

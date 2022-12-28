@@ -1,15 +1,15 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
-import com.mojang.math.Vector3f;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +18,6 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.block.HephaestusForgeRenderer
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-07-16
  */
 public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusForgeBlockEntity> {
@@ -39,7 +38,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
             poseStack.pushPose();
 
             poseStack.translate(0.5D, 1.3D, 0.5D);
-            poseStack.mulPose(Vector3f.YP.rotation((blockEntity.getDisplayCounter() + partialTicks) / 20));
+            poseStack.mulPose(Axis.YP.rotation((blockEntity.getDisplayCounter() + partialTicks) / 20));
 
             poseStack.scale(0.5F, 0.5F, 0.5F);
 

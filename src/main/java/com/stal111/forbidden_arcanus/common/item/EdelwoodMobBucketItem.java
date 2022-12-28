@@ -117,22 +117,21 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> components, @Nonnull TooltipFlag isAdvanced) {
         if (this.entityType.get() == EntityType.TROPICAL_FISH) {
-            CompoundTag tag = stack.getTag();
-
-            if (tag != null && tag.contains("BucketVariantTag", 3)) {
-                int i = tag.getInt("BucketVariantTag");
+            CompoundTag compoundtag = stack.getTag();
+            if (compoundtag != null && compoundtag.contains("BucketVariantTag", 3)) {
+                int i = compoundtag.getInt("BucketVariantTag");
                 ChatFormatting[] chatFormatting = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
                 String s = "color.minecraft." + TropicalFish.getBaseColor(i);
                 String s1 = "color.minecraft." + TropicalFish.getPatternColor(i);
 
-                for(int j = 0; j < TropicalFish.COMMON_VARIANTS.length; ++j) {
-                    if (i == TropicalFish.COMMON_VARIANTS[j]) {
+                for(int j = 0; j < TropicalFish.COMMON_VARIANTS.size(); ++j) {
+                    if (i == TropicalFish.COMMON_VARIANTS.get(j).getPackedId()) {
                         components.add(Component.translatable(TropicalFish.getPredefinedName(j)).withStyle(chatFormatting));
                         return;
                     }
                 }
 
-                components.add((Component.translatable(TropicalFish.getFishTypeName(i))).withStyle(chatFormatting));
+                components.add(TropicalFish.getPattern(i).displayName().plainCopy().withStyle(chatFormatting));
                 MutableComponent component = Component.translatable(s);
                 if (!s.equals(s1)) {
                     component.append(", ").append(Component.translatable(s1));

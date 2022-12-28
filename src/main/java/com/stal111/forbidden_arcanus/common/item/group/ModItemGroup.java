@@ -1,11 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item.group;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 
 import javax.annotation.Nonnull;
 
@@ -20,28 +17,22 @@ public class ModItemGroup extends CreativeModeTab {
 
 	private static final String PATH = "textures/gui/container/creative_inventory/";
 
-	public ModItemGroup(String label) {
-		super(label);
-		this.setBackgroundImage(new ResourceLocation(ForbiddenArcanus.MOD_ID, PATH + "tab_forbidden_arcanus.png"));
-		this.hideTitle();
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack makeIcon() {
-		return new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get());
+	public ModItemGroup(CreativeModeTab.Builder builder) {
+		super(builder);
+		//this.setBackgroundImage(new ResourceLocation(ForbiddenArcanus.MOD_ID, PATH + "tab_forbidden_arcanus.png"));
+		//this.hideTitle();
 	}
 	
 	@Override
 	public boolean hasSearchBar() {
 		return true;
 	}
-	
+
 	@Override
-	public int getSearchbarWidth() {
+	public int getSearchBarWidth() {
 		return 88;
 	}
-	
+
 	@Nonnull
 	@Override
 	public ResourceLocation getTabsImage() {

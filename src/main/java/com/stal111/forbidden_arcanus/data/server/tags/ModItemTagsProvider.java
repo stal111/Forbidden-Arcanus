@@ -3,33 +3,31 @@ package com.stal111.forbidden_arcanus.data.server.tags;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
-
-import javax.annotation.Nullable;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.valhelsia.valhelsia_core.core.data.tags.ValhelsiaBlockTagsProvider;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Mod Item Tags Provider <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-02-11
  */
 public class ModItemTagsProvider extends ItemTagsProvider {
 
-    public ModItemTagsProvider(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(dataGenerator, blockTagProvider, ForbiddenArcanus.MOD_ID, existingFileHelper);
+    public ModItemTagsProvider(DataProviderInfo info, ValhelsiaBlockTagsProvider blockTagsProvider) {
+        super(info.output(), info.lookupProvider(), blockTagsProvider, ForbiddenArcanus.MOD_ID, info.fileHelper());
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(@NotNull HolderLookup.Provider provider) {
         this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(ModItems.OBSIDIAN_SKULL.get(), ModItems.ETERNAL_OBSIDIAN_SKULL.get());
         this.tag(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
         this.tag(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);

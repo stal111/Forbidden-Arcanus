@@ -11,6 +11,7 @@ import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -23,7 +24,6 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.recipe.IncreaseEdelwoodBucketFullnessRecipe
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-12-09
  */
 public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
@@ -31,8 +31,8 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
     private int bucketSlot = 0;
     private int increasement = 0;
 
-    public IncreaseEdelwoodBucketFullnessRecipe(ResourceLocation resourceLocation) {
-        super(resourceLocation);
+    public IncreaseEdelwoodBucketFullnessRecipe(ResourceLocation resourceLocation, CraftingBookCategory category) {
+        super(resourceLocation, category);
     }
 
     @Override

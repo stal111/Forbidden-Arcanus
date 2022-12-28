@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ModVegetationFeatures {
 
-    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> CHERRY_TREES_PLAINS = register("cherry_trees_plains", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(ModTreePlacements.SMALL_CHERRY_CHECKED.getHolder().get(), 0.2F)), ModTreePlacements.LARGE_CHERRY_CHECKED.getHolder().get()));
+    public static final Holder<ConfiguredFeature<?, ?>> CHERRY_TREES_PLAINS = register("cherry_trees_plains", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(ModTreePlacements.SMALL_CHERRY_CHECKED.getHolder().get(), 0.2F)), ModTreePlacements.LARGE_CHERRY_CHECKED.getHolder().get()));
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(String name, F feature, FC configuration) {
         return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name).toString(), new ConfiguredFeature<>(feature, configuration));

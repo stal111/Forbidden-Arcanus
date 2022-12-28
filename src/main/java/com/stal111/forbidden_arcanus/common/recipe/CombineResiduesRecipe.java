@@ -7,10 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -25,8 +22,8 @@ public class CombineResiduesRecipe extends CustomRecipe {
     private final short residueAmount;
     private final ItemStack result;
 
-    public CombineResiduesRecipe(ResourceLocation id, String residue, short residueAmount, ItemStack result) {
-        super(id);
+    public CombineResiduesRecipe(ResourceLocation id, CraftingBookCategory category, String residue, short residueAmount, ItemStack result) {
+        super(id, category);
         this.residue = residue;
         this.residueAmount = residueAmount;
         this.result = result;
@@ -78,21 +75,24 @@ public class CombineResiduesRecipe extends CustomRecipe {
         @Nonnull
         @Override
         public CombineResiduesRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+            CraftingBookCategory category = CraftingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null), CraftingBookCategory.MISC);
+
             String residueName = GsonHelper.getAsString(json, "residue_name");
             short residueAmount = GsonHelper.getAsShort(json, "residue_amount");
             ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 
-            return new CombineResiduesRecipe(recipeId, residueName, residueAmount, result);
+            return new CombineResiduesRecipe(recipeId, category, residueName, residueAmount, result);
         }
 
         @Override
         public CombineResiduesRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
-            return new CombineResiduesRecipe(recipeId, buffer.readUtf(), buffer.readShort(), buffer.readItem());
+            return new CombineResiduesRecipe(recipeId, buffer.readEnum(CraftingBookCategory.class), buffer.readUtf(), buffer.readShort(), buffer.readItem());
         }
 
         @Override
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, CombineResiduesRecipe recipe) {
             buffer.writeUtf(recipe.residue);
+            buffer.writeEnum(recipe.category());
             buffer.writeShort(recipe.residueAmount);
             buffer.writeItem(recipe.result);
         }

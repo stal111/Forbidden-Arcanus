@@ -4,13 +4,12 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaItemModelProvider;
 
 import java.util.Arrays;
@@ -21,13 +20,12 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.client.ModItemModelProvider
  *
  * @author stal111
- * @version 16.2.0
  * @since 2021-01-26
  */
 public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
-    public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, ForbiddenArcanus.REGISTRY_MANAGER, existingFileHelper);
+    public ModItemModelProvider(DataProviderInfo info) {
+        super(info.output(), ForbiddenArcanus.REGISTRY_MANAGER, info.fileHelper());
     }
 
     @Override
@@ -42,11 +40,13 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.ARCANE_CRYSTAL_OBELISK,
                 ModBlocks.DEORUM_CHAIN,
                 ModBlocks.ARCANE_DRAGON_EGG,
-                ModItems.EDELWOOD_POWDER_SNOW_BUCKET,
-                ModItems.STRANGE_ROOT,
-                ModItems.GOLDEN_ORCHID_SEEDS,
                 ModBlocks.DEORUM_LANTERN,
                 ModBlocks.DEORUM_SOUL_LANTERN
+        );
+        takeBlockItem(this::simpleModel,
+                ModItems.EDELWOOD_POWDER_SNOW_BUCKET,
+                ModItems.STRANGE_ROOT,
+                ModItems.GOLDEN_ORCHID_SEEDS
         );
         takeBlockItem(this::simpleModelBlockTexture,
                 ModBlocks.FUNGYSS,

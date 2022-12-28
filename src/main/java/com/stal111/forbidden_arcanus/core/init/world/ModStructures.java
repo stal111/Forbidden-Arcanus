@@ -3,24 +3,21 @@ package com.stal111.forbidden_arcanus.core.init.world;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.structure.NipaStructure;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
-import net.valhelsia.valhelsia_core.common.world.structure.IValhelsiaStructure;
-import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,35 +25,37 @@ import java.util.Map;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.world.ModStructures
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-04-07
  */
-public class ModStructures implements RegistryClass {
+public class ModStructures extends DatapackRegistryClass<Structure> {
 
-    public static final List<IValhelsiaStructure> MOD_STRUCTURES = new ArrayList<>();
 
-    public static final RegistryHelper<Structure> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registry.STRUCTURE_REGISTRY);
+    public static final DatapackRegistryHelper<Structure> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.STRUCTURE);
 
-    public static final Holder<? extends Structure> NIPA = HELPER.register("nipa", () -> new NipaStructure(structure(ModTags.Biomes.HAS_NIPA, TerrainAdjustment.NONE), false)).getHolder().get();
-    public static final Holder<? extends Structure> NIPA_FLOATING = HELPER.register("nipa_floating", () -> new NipaStructure(structure(ModTags.Biomes.HAS_NIPA, TerrainAdjustment.NONE), true)).getHolder().get();
+    public static final ResourceKey<Structure> NIPA = HELPER.createKey("nipa");
+    public static final ResourceKey<Structure> NIPA_FLOATING = HELPER.createKey("nipa_floating");
 
-    private static Structure.StructureSettings structure(TagKey<Biome> tagKey, Map<MobCategory, StructureSpawnOverride> spawnOverrideMap, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
-        return new Structure.StructureSettings(biomes(tagKey), spawnOverrideMap, decoration, terrainAdjustment);
+    public ModStructures(DataProviderInfo info, BootstapContext<Structure> context) {
+        super(info, context);
     }
 
-    private static Structure.StructureSettings structure(TagKey<Biome> tagKey, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
+    @Override
+    public void bootstrap(BootstapContext<Structure> context) {
+        HolderGetter<Biome> biomeRegistry = context.lookup(Registries.BIOME);
+
+        context.register(NIPA, new NipaStructure(structure(biomeRegistry.getOrThrow(ModTags.Biomes.HAS_NIPA), TerrainAdjustment.NONE), false));
+        context.register(NIPA_FLOATING, new NipaStructure(structure(biomeRegistry.getOrThrow(ModTags.Biomes.HAS_NIPA), TerrainAdjustment.NONE), true));
+    }
+
+    private static Structure.StructureSettings structure(HolderSet<Biome> tagKey, Map<MobCategory, StructureSpawnOverride> spawnOverrideMap, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
+        return new Structure.StructureSettings(tagKey, spawnOverrideMap, decoration, terrainAdjustment);
+    }
+
+    private static Structure.StructureSettings structure(HolderSet<Biome> tagKey, GenerationStep.Decoration decoration, TerrainAdjustment terrainAdjustment) {
         return structure(tagKey, Map.of(), decoration, terrainAdjustment);
     }
 
-    private static Structure.StructureSettings structure(TagKey<Biome> tagKey, TerrainAdjustment terrainAdjustment) {
+    private static Structure.StructureSettings structure(HolderSet<Biome> tagKey, TerrainAdjustment terrainAdjustment) {
         return structure(tagKey, Map.of(), GenerationStep.Decoration.SURFACE_STRUCTURES, terrainAdjustment);
-    }
-
-    private static Holder<Structure> register(ResourceKey<Structure> resourceKey, Structure structure) {
-        return BuiltinRegistries.register(BuiltinRegistries.STRUCTURES, resourceKey, structure);
-    }
-
-    private static HolderSet<Biome> biomes(TagKey<Biome> tagKey) {
-        return BuiltinRegistries.BIOME.getOrCreateTag(tagKey);
     }
 }

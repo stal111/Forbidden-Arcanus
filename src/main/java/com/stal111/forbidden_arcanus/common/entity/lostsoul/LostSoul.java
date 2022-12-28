@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.entity.lostsoul;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.math.Vector3f;
 import com.mojang.serialization.Dynamic;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
@@ -47,6 +46,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -355,7 +355,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
             this.id = id;
             this.name = name;
             this.soulItem = soulItem;
-            this.trailColor = new Vector3f(Vec3.fromRGB24(trailColor));
+            this.trailColor = Vec3.fromRGB24(trailColor).toVector3f();
         }
 
         public int getId() {

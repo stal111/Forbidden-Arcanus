@@ -11,10 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -44,8 +41,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
      */
     private final ClibanoFireType requiredFireType;
 
-    public ClibanoRecipe(ResourceLocation id, String group, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
-        super(ModRecipes.CLIBANO_COMBUSTION.get(), id, group, ingredient, result, experience, cookingTime);
+    public ClibanoRecipe(ResourceLocation id, String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
+        super(ModRecipes.CLIBANO_COMBUSTION.get(), id, group, category, ingredient, result, experience, cookingTime);
         this.residueInfo = residueInfo;
         this.requiredFireType = requiredFireType;
 
@@ -92,6 +89,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             JsonElement jsonElement = GsonHelper.isArrayNode(jsonObject, "ingredient") ? GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient");
             Ingredient ingredient = Ingredient.fromJson(jsonElement);
 
+            CookingBookCategory category = CookingBookCategory.CODEC.byName(GsonHelper.getAsString(jsonObject, "category", null), CookingBookCategory.MISC);
+
             if (!jsonObject.has("result")) {
                 throw new com.google.gson.JsonSyntaxException("Missing result, expected to find a string or object");
             }
@@ -117,13 +116,14 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
             Optional<ClibanoFireType> fireType = ClibanoFireType.byName(GsonHelper.getAsString(jsonObject, "fire_type", "fire"));
 
-            return new ClibanoRecipe(recipeId, group, ingredient, stack, experience, cookingTime, residueInfo, fireType.orElse(ClibanoFireType.FIRE));
+            return new ClibanoRecipe(recipeId, group, category, ingredient, stack, experience, cookingTime, residueInfo, fireType.orElse(ClibanoFireType.FIRE));
         }
 
         @Nullable
         @Override
         public ClibanoRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
             String s = buffer.readUtf();
+            CookingBookCategory category = buffer.readEnum(CookingBookCategory.class);
             Ingredient ingredient = Ingredient.fromNetwork(buffer);
             ItemStack itemstack = buffer.readItem();
             float f = buffer.readFloat();
@@ -131,12 +131,13 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
             Optional<ClibanoFireType> fireType = ClibanoFireType.byName(buffer.readUtf());
 
-            return new ClibanoRecipe(recipeId, s, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType.orElse(ClibanoFireType.FIRE));
+            return new ClibanoRecipe(recipeId, s, category, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType.orElse(ClibanoFireType.FIRE));
         }
 
         @Override
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull ClibanoRecipe recipe) {
             buffer.writeUtf(recipe.group);
+            buffer.writeEnum(recipe.category());
             recipe.ingredient.toNetwork(buffer);
             buffer.writeItem(recipe.result);
             buffer.writeFloat(recipe.experience);

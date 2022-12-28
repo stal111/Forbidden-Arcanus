@@ -9,7 +9,7 @@ import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.predicates.*;
@@ -23,8 +23,8 @@ import net.valhelsia.valhelsia_core.common.loot.modifiers.AppendLootTableModifie
  */
 public class ModLootModifierProvider extends GlobalLootModifierProvider {
 
-    public ModLootModifierProvider(DataGenerator gen) {
-        super(gen, ForbiddenArcanus.MOD_ID);
+    public ModLootModifierProvider(PackOutput output) {
+        super(output, ForbiddenArcanus.MOD_ID);
     }
 
     @Override

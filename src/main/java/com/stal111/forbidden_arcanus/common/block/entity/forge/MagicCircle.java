@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
@@ -20,7 +20,6 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.MagicCircle
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-07-16
  */
 public class MagicCircle {
@@ -60,10 +59,10 @@ public class MagicCircle {
 
             float alpha = ticks > ritual.getTime() * 0.9F ? Math.max((ritual.getTime() - ticks), 0) / (ritual.getTime() * 0.1F) : 1.0F;
 
-            poseStack.mulPose(Vector3f.YN.rotationDegrees(ticks));
+            poseStack.mulPose(Axis.YN.rotationDegrees(ticks));
             model.getOuterRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(ritual.getOuterTexture())), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
-            poseStack.mulPose(Vector3f.YN.rotationDegrees(-ticks * 2));
+            poseStack.mulPose(Axis.YN.rotationDegrees(-ticks * 2));
             model.getInnerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(ritual.getInnerTexture())), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
             poseStack.popPose();

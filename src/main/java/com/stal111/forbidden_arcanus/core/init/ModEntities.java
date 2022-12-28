@@ -25,7 +25,7 @@ import net.valhelsia.valhelsia_core.core.registry.helper.EntityRegistryHelper;
  */
 public class ModEntities implements RegistryClass {
 
-    public static final EntityRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(ForgeRegistries.Keys.ENTITY_TYPES);
+    public static final EntityRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(ForgeRegistries.Keys.ENTITY_TYPES);
 
     public static final RegistryObject<EntityType<EnergyBall>> ENERGY_BALL = HELPER.register("energy_ball", EntityType.Builder.<EnergyBall>of(EnergyBall::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
     public static final RegistryObject<EntityType<BoomArrow>> BOOM_ARROW = HELPER.register("boom_arrow", EntityType.Builder.<BoomArrow>of(BoomArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));

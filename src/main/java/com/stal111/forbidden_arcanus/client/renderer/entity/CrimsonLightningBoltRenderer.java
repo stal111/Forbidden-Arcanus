@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
-import com.mojang.math.Matrix4f;
+import org.joml.Matrix4f;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -19,7 +19,6 @@ import java.util.Random;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.entity.CrimsonLightningBoltRenderer
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-06-12
  */
 public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightningBoltEntity> {

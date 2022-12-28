@@ -30,22 +30,24 @@ import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegistryObject;
 import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticType;
 import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticsCategory;
 import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticsRegistry;
 import net.valhelsia.valhelsia_core.client.cosmetics.elytra.CancelRenderingModifier;
+import net.valhelsia.valhelsia_core.core.registry.helper.block.BlockRegistryObject;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class ClientSetup {
 
         modEventBus.addListener(this::onClientSetup);
         modEventBus.addListener(this::onModelBake);
-        modEventBus.addListener(this::onTextureStitch);
+        //modEventBus.addListener(this::onTextureStitch);
         modEventBus.addListener(this::onRegisterGuiOverlays);
         modEventBus.addListener(this::onRegisterTooltipComponents);
         modEventBus.addListener(this::onRegisterParticleProviders);
@@ -152,14 +154,15 @@ public class ClientSetup {
         event.register(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
     }
 
-    @SubscribeEvent
-    public void onTextureStitch(TextureStitchEvent.Pre event) {
-        ResourceLocation textureLocation = event.getAtlas().location();
-
-        if (textureLocation.equals(TextureAtlas.LOCATION_BLOCKS)) {
-            event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/obsidian_skull_shield"));
-        }
-    }
+    //TODO
+//    @SubscribeEvent
+//    public void onTextureStitch(TextureStitchEvent.Pre event) {
+//        ResourceLocation textureLocation = event.getAtlas().location();
+//
+//        if (textureLocation.equals(TextureAtlas.LOCATION_BLOCKS)) {
+//            event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/obsidian_skull_shield"));
+//        }
+//    }
 
     @SubscribeEvent
     public void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
@@ -172,14 +175,14 @@ public class ClientSetup {
     /**
      * Registers a model override under the mods MOD_ID. All states of the Block will be overridden.
      */
-    private<T extends Block> void registerModelOverride(RegistryObject<T> block, Function<BakedModel, BakedModel> function) {
+    private<T extends Block> void registerModelOverride(BlockRegistryObject<T> block, Function<BakedModel, BakedModel> function) {
         this.registerModelOverride(block, StatePropertiesPredicate.ANY, function);
     }
 
     /**
      * Registers a model override under the mods MOD_ID.
      */
-    private<T extends Block> void registerModelOverride(RegistryObject<T> block, StatePropertiesPredicate predicate, Function<BakedModel, BakedModel> function) {
+    private<T extends Block> void registerModelOverride(BlockRegistryObject<T> block, StatePropertiesPredicate predicate, Function<BakedModel, BakedModel> function) {
         this.bakedModelOverrideRegistry.add(Triple.of(block.get(), predicate, function));
     }
 }

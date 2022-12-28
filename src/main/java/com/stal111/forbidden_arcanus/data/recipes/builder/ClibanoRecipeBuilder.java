@@ -12,6 +12,7 @@ import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,18 +29,18 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 2022-06-26
  */
-public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float experience, int cookingTime, Advancement.Builder advancement, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType requiredFireType) implements RecipeBuilder {
+public record ClibanoRecipeBuilder(RecipeCategory category, Item result, Ingredient ingredient, float experience, int cookingTime, Advancement.Builder advancement, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType requiredFireType) implements RecipeBuilder {
 
-    public static ClibanoRecipeBuilder of(ItemLike result, Ingredient ingredient, float experience, int cookingTime) {
-        return ClibanoRecipeBuilder.of(result, ingredient, experience, cookingTime, ClibanoRecipe.ResidueInfo.NONE);
+    public static ClibanoRecipeBuilder of(RecipeCategory category, ItemLike result, Ingredient ingredient, float experience, int cookingTime) {
+        return ClibanoRecipeBuilder.of(category, result, ingredient, experience, cookingTime, ClibanoRecipe.ResidueInfo.NONE);
     }
 
-    public static ClibanoRecipeBuilder of(ItemLike result, Ingredient ingredient, float experience, int cookingTime, ClibanoRecipe.ResidueInfo residueInfo) {
-        return new ClibanoRecipeBuilder(result.asItem(), ingredient, experience, cookingTime, Advancement.Builder.advancement(), residueInfo, ClibanoFireType.FIRE);
+    public static ClibanoRecipeBuilder of(RecipeCategory category, ItemLike result, Ingredient ingredient, float experience, int cookingTime, ClibanoRecipe.ResidueInfo residueInfo) {
+        return new ClibanoRecipeBuilder(category, result.asItem(), ingredient, experience, cookingTime, Advancement.Builder.advancement(), residueInfo, ClibanoFireType.FIRE);
     }
 
-    public static ClibanoRecipeBuilder of(ItemLike result, Ingredient ingredient, float experience, int cookingTime, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
-        return new ClibanoRecipeBuilder(result.asItem(), ingredient, experience, cookingTime, Advancement.Builder.advancement(), residueInfo, requiredFireType);
+    public static ClibanoRecipeBuilder of(RecipeCategory category, ItemLike result, Ingredient ingredient, float experience, int cookingTime, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
+        return new ClibanoRecipeBuilder(category, result.asItem(), ingredient, experience, cookingTime, Advancement.Builder.advancement(), residueInfo, requiredFireType);
     }
 
     @Nonnull
@@ -74,7 +75,7 @@ public record ClibanoRecipeBuilder(Item result, Ingredient ingredient, float exp
         this.ensureValid(recipeId);
         this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).requirements(RequirementsStrategy.OR);
 
-         ResourceLocation advancementId = new ResourceLocation(recipeId.getNamespace(), "recipes/" + this.result.getItemCategory().getRecipeFolderName() + "/" + recipeId.getPath());
+         ResourceLocation advancementId = new ResourceLocation(recipeId.getNamespace(), "recipes/" + this.category.getFolderName() + "/" + recipeId.getPath());
 
         finishedRecipeConsumer.accept(new Result(recipeId, this.ingredient, this.result, this.experience, this.cookingTime, this.advancement, advancementId, this.residueInfo, this.requiredFireType));
     }

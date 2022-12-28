@@ -115,7 +115,6 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 		event.enqueueWork(() -> {
 			ModFlammables.registerFlammables();
 			ModDispenseBehaviors.registerDispenseBehaviors();
-			ModConfiguredFeatures.load();
 		});
 
 		NetworkHandler.init();

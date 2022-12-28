@@ -1,16 +1,14 @@
 package com.stal111.forbidden_arcanus.data.server.tags;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.valhelsia.valhelsia_core.core.data.tags.ValhelsiaBlockTagsProvider;
 import net.valhelsia.valhelsia_core.core.init.ValhelsiaTags;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Mod Block Tags Provider <br>
@@ -20,14 +18,16 @@ import javax.annotation.Nullable;
  * @version 1.19 - 2.1.0
  * @since 2021-02-11
  */
-public class ModBlockTagsProvider extends BlockTagsProvider {
+public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
 
-    public ModBlockTagsProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, ForbiddenArcanus.MOD_ID, existingFileHelper);
+    public ModBlockTagsProvider(DataProviderInfo info) {
+        super(info);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(@NotNull HolderLookup.Provider provider) {
+        super.addTags(provider);
+
         this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(ModBlocks.FUNGYSS_STEM.get(), ModBlocks.FUNGYSS_HYPHAE.get());
         this.tag(ModTags.Blocks.CHERRYWOOD_LOGS).add(ModBlocks.CHERRY_LOG.get(), ModBlocks.CHERRY_WOOD.get(), ModBlocks.STRIPPED_CHERRY_LOG.get(), ModBlocks.STRIPPED_CHERRY_WOOD.get(), ModBlocks.THIN_CHERRY_LOG.get());
         this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(ModBlocks.AURUM_LOG.get(), ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());

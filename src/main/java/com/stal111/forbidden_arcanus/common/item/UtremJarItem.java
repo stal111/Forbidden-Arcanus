@@ -1,13 +1,10 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -15,7 +12,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.common.item.filler.TargetItemGroupFiller;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,20 +23,12 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.UtremJarItem
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-02-24
  */
 public class UtremJarItem extends BlockItem {
 
     public UtremJarItem(Block block, Properties builder) {
         super(block, builder);
-    }
-
-    @Override
-    public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> items) {
-        new TargetItemGroupFiller(() -> ModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(new ItemStack(this), tab, items);
-        new TargetItemGroupFiller(() -> ModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(this.withFluid(Fluids.WATER), tab, items);
-        new TargetItemGroupFiller(() -> ModBlocks.PIXIE_UTREM_JAR.get().asItem(), true).fill(this.withFluid(Fluids.LAVA), tab, items);
     }
 
     private ItemStack withFluid(Fluid fluid) {

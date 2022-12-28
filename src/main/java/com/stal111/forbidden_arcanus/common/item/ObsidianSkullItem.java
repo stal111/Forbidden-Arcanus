@@ -9,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
@@ -51,7 +52,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
     private final boolean eternal;
 
     public ObsidianSkullItem(Block floorBlock, Block wallBlock, boolean eternal, Properties properties) {
-        super(floorBlock, wallBlock, properties);
+        super(floorBlock, wallBlock, properties, Direction.DOWN);
         this.eternal = eternal;
     }
 

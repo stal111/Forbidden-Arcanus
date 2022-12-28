@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
+import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
 
 /**
  * @author stal111
@@ -14,9 +14,9 @@ import net.valhelsia.valhelsia_core.core.registry.helper.RegistryHelper;
  */
 public class ModSounds implements RegistryClass {
 
-    public static final RegistryHelper<SoundEvent> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(ForgeRegistries.Keys.SOUND_EVENTS);
+    public static final MappedRegistryHelper<SoundEvent> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(ForgeRegistries.Keys.SOUND_EVENTS);
 
-    public static final RegistryObject<SoundEvent> ENERGY_BALL_LAUNCH = HELPER.register("energy_ball_launch", () -> new SoundEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity.energy_ball.launch")));
-    public static final RegistryObject<SoundEvent> ENERGY_BALL_HIT = HELPER.register("energy_ball_hit", () -> new SoundEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity.energy_ball.hit")));
+    public static final RegistryObject<SoundEvent> ENERGY_BALL_LAUNCH = HELPER.register("energy_ball_launch", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity.energy_ball.launch")));
+    public static final RegistryObject<SoundEvent> ENERGY_BALL_HIT = HELPER.register("energy_ball_hit", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity.energy_ball.hit")));
 
 }

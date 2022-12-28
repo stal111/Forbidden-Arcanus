@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -65,8 +66,8 @@ public class ClibanoBlockEntity extends BlockEntity {
     public void load(@Nonnull CompoundTag tag) {
         super.load(tag);
 
-        if (tag.contains("State")) {
-            this.replaceState = NbtUtils.readBlockState(tag.getCompound("State"));
+        if (tag.contains("State") && this.level != null) {
+            this.replaceState = NbtUtils.readBlockState(this.level.holderLookup(Registries.BLOCK), tag.getCompound("State"));
         }
 
         if (tag.contains("MainDirection")) {
