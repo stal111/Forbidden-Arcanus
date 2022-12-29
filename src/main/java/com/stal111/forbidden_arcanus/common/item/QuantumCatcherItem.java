@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -10,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -24,9 +26,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +37,6 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  */
 public class QuantumCatcherItem extends Item {
 
@@ -43,12 +44,13 @@ public class QuantumCatcherItem extends Item {
         super(properties);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItemInHand();
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
+        Player player = context.getPlayer();
 
         if (this.getEntity(stack, level) != null) {
             Entity entity = this.getEntity(stack, level);
@@ -70,7 +72,7 @@ public class QuantumCatcherItem extends Item {
                 level.addFreshEntity(entity);
             }
 
-            this.clearEntity(stack);
+            this.clearEntity(level, player, player == null ? pos : player.blockPosition(), stack);
 
             return InteractionResult.sidedSuccess(level.isClientSide());
         }
@@ -90,13 +92,13 @@ public class QuantumCatcherItem extends Item {
                 ItemStackUtils.shrinkStack(player, stack);
 
                 ItemStack newStack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
-                this.setEntity(target, newStack);
+                this.setEntity(level, player, target, newStack);
 
                 if (!player.addItem(newStack)) {
                     player.drop(newStack, false);
                 }
             } else {
-                this.setEntity(target, stack);
+                this.setEntity(level, player, target, stack);
             }
 
             target.discard();
@@ -108,7 +110,7 @@ public class QuantumCatcherItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         if (level != null && getEntity(stack, level) != null)  {
             Entity entity = this.getEntity(stack, level);
 
@@ -130,7 +132,7 @@ public class QuantumCatcherItem extends Item {
         }
     }
 
-    private void setEntity(Entity entity, ItemStack stack) {
+    private void setEntity(Level level, Player player, Entity entity, ItemStack stack) {
         entity.stopRiding();
         entity.ejectPassengers();
 
@@ -149,6 +151,8 @@ public class QuantumCatcherItem extends Item {
 
         CompoundTag itemNBT = stack.getOrCreateTag();
         itemNBT.put("entity", entityTag);
+
+        level.playSound(player, player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_PICK_UP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 
     private Entity getEntity(ItemStack stack, Level level) {
@@ -191,7 +195,9 @@ public class QuantumCatcherItem extends Item {
         return null;
     }
 
-    private void clearEntity(ItemStack stack) {
+    private void clearEntity(Level level, @Nullable Player player, BlockPos pos, ItemStack stack) {
+        level.playSound(player, player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_RELEASE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+
         stack.setTag(null);
     }
 }

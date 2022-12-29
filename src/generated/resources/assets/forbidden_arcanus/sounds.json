@@ -8,5 +8,15 @@
     "sounds": [
       "forbidden_arcanus:energy_ball_launch"
     ]
+  },
+  "item.quantum_catcher.pick_up": {
+    "sounds": [
+      "forbidden_arcanus:quantum_catcher_pick_up"
+    ]
+  },
+  "item.quantum_catcher.release": {
+    "sounds": [
+      "forbidden_arcanus:quantum_catcher_release"
+    ]
   }
 }

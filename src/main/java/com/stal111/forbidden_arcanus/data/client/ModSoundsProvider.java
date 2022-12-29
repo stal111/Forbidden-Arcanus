@@ -23,5 +23,7 @@ public class ModSoundsProvider extends SoundDefinitionsProvider {
     public void registerSounds() {
         this.add(ModSounds.ENERGY_BALL_LAUNCH, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "energy_ball_launch"), SoundDefinition.SoundType.SOUND)));
         this.add(ModSounds.ENERGY_BALL_HIT, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "energy_ball_hit"), SoundDefinition.SoundType.SOUND)));
+        this.add(ModSounds.QUANTUM_CATCHER_PICK_UP, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "quantum_catcher_pick_up"), SoundDefinition.SoundType.SOUND)));
+        this.add(ModSounds.QUANTUM_CATCHER_RELEASE, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "quantum_catcher_release"), SoundDefinition.SoundType.SOUND)));
     }
 }
