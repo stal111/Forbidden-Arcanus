@@ -66,9 +66,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 ModBlocks.NIPA,
                 ModBlocks.PETRIFIED_ROOT,
                 ModBlocks.HEPHAESTUS_FORGE,
-                ModBlocks.ARCANE_DRAGON_EGG,
-                ModBlocks.DARKSTONE_PEDESTAL,
-                ModBlocks.ARCANE_DARKSTONE_PEDESTAL
+                ModBlocks.ARCANE_DRAGON_EGG
         );
         take(this::randomRotation, ModBlocks.DARKSTONE);
         take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.YELLOW_ORCHID);
@@ -169,6 +167,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         }, ModBlocks.CLIBANO_SIDE_VERTICAL);
 
         take(block -> chainBlock(block, modLoc("block/deorum_chain")), ModBlocks.DEORUM_CHAIN);
+        take(this::pedestalBlock, ModBlocks.DARKSTONE_PEDESTAL, ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL);
 
         forEach(block -> block instanceof FenceBlock, block -> {
             ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
@@ -530,5 +529,14 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         getVariantBuilder(block)
                 .partialState().with(BlockStateProperties.HANGING, false).modelForState().modelFile(model).addModel()
                 .partialState().with(BlockStateProperties.HANGING, true).modelForState().modelFile(hangingModel).addModel();
+    }
+
+    private void pedestalBlock(Block block) {
+        String name = this.getName(block);
+        ModelFile model = models().withExistingParent(name, modLoc("template_pedestal"))
+                .texture("top", modLoc("block/" + name + "_top"))
+                .texture("side", modLoc("block/" + name));
+
+        this.getVariantBuilder(block).partialState().modelForState().modelFile(model).addModel();
     }
 }

@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "forbidden_arcanus:arcane_darkstone_pedestal"
+          "name": "forbidden_arcanus:magnetized_darkstone_pedestal"
         }
       ],
       "rolls": 1.0

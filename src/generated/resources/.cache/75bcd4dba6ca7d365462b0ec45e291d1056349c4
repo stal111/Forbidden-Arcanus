@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-26T21:23:35.1006384	Tags for minecraft:block
+// 1.19.3	2022-12-29T17:42:19.9967263	Tags for minecraft:block mod id forbidden_arcanus
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/blocks/arcane_crystal_ores.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/blocks/blacksmith_gavel_unaffected.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/blocks/cherrywood_logs.json
@@ -28,11 +28,11 @@ d14a1e2575f01e66304d20d4466cfcec5fdcc3e4 data/minecraft/tags/blocks/flowers.json
 2573ed5fa40458e79d5a51f0321c3cedd6bf5dd3 data/minecraft/tags/blocks/leaves.json
 21ceee370fb7ad0bb83b405e7f92b1ed504c29cf data/minecraft/tags/blocks/logs.json
 0d7e4670de4d27a3d0461c336e79407e4c6cf469 data/minecraft/tags/blocks/logs_that_burn.json
-f49fa0927783335c029c917dd0aba9253454ba22 data/minecraft/tags/blocks/mineable/pickaxe.json
+ede42c3062e0bdcc782364e962610fb590a9874a data/minecraft/tags/blocks/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/blocks/mineable/shovel.json
 9efc59ecb59a8a83cb542bcb9f769b713ec4c193 data/minecraft/tags/blocks/needs_diamond_tool.json
 14f1f2ba04c59a5725bccbe0610204d4fcf88081 data/minecraft/tags/blocks/needs_iron_tool.json
-bb5228741327537addb609706f6f8761af7b85ca data/minecraft/tags/blocks/needs_stone_tool.json
+ca9f8a00095b035961fefdad101f72d44e15defb data/minecraft/tags/blocks/needs_stone_tool.json
 369674d5826e2cb2f27e403624001d2f9202639a data/minecraft/tags/blocks/planks.json
 3c465edf3943f5cfd498d3a7d90becf5a6f249b2 data/minecraft/tags/blocks/pressure_plates.json
 2ae2823ba754386a4370da044ed59d77c03c6b32 data/minecraft/tags/blocks/saplings.json
