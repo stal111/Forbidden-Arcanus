@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "minecraft:dark_forest",
-  "features": "forbidden_arcanus:edelwood_trees",
-  "step": "vegetal_decoration"
-}

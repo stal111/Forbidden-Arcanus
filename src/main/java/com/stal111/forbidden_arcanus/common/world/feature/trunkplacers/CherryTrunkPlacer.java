@@ -29,7 +29,6 @@ import java.util.function.Function;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.trunkplacers.CherryTrunkPlacer
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2022-03-26
  */
 public class CherryTrunkPlacer extends TrunkPlacer {
@@ -44,7 +43,7 @@ public class CherryTrunkPlacer extends TrunkPlacer {
     @Nonnull
     @Override
     protected TrunkPlacerType<?> type() {
-        return ModTrunkPlacers.CHERRY_TRUNK_PLACER;
+        return ModTrunkPlacers.CHERRY_TRUNK_PLACER.get();
     }
 
     @Nonnull

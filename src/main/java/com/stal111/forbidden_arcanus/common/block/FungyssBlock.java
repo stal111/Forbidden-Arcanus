@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.common.block;
 
-import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -69,9 +71,10 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         }
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        ConfiguredFeature<BigFungyssFeatureConfig, ?> configuredFeature = level.random.nextBoolean() ? ModConfiguredFeatures.BIG_FUNGYSS_0.get() : ModConfiguredFeatures.BIG_FUNGYSS_1.get();
+        ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.random.nextBoolean() ? ModConfiguredFeatures.BIG_FUNGYSS_0 : ModConfiguredFeatures.BIG_FUNGYSS_1;
+        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(featureKey).orElse(null);
 
-        if (!configuredFeature.place(level, level.getChunkSource().getGenerator(), random, pos)) {
+        if (holder != null && !holder.value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
             level.setBlock(pos, state, 4);
         }
     }
@@ -82,9 +85,10 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         level.setBlock(pos.offset(xOffset + 1, 0, zOffset + 1), Blocks.AIR.defaultBlockState(), 4);
         level.setBlock(pos.offset(xOffset, 0, zOffset + 1), Blocks.AIR.defaultBlockState(), 4);
 
-        ConfiguredFeature<BigFungyssFeatureConfig, ?> configuredFeature = random.nextBoolean() ? ModConfiguredFeatures.MEGA_FUNGYSS_0.get() : ModConfiguredFeatures.MEGA_FUNGYSS_1.get();
+        ResourceKey<ConfiguredFeature<?, ?>> featureKey = random.nextBoolean() ? ModConfiguredFeatures.MEGA_FUNGYSS_0 : ModConfiguredFeatures.MEGA_FUNGYSS_1;
+        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(featureKey).orElse(null);
 
-        if (!configuredFeature.place(level, level.getChunkSource().getGenerator(), random, pos.offset(xOffset, 0, zOffset))) {
+        if (holder != null && !holder.value().place(level, level.getChunkSource().getGenerator(), random, pos.offset(xOffset, 0, zOffset))) {
             level.setBlock(pos.offset(xOffset, 0, zOffset), state, 4);
             level.setBlock(pos.offset(xOffset + 1, 0, zOffset), state, 4);
             level.setBlock(pos.offset(xOffset + 1, 0, zOffset + 1), state, 4);

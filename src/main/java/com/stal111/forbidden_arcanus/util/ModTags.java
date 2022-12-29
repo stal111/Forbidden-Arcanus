@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.util;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -30,15 +30,15 @@ public class ModTags {
         public static final TagKey<Block> OBSIDIAN_STORAGE_BLOCKS = forgeTag("storage_blocks/obsidian");
 
         private static TagKey<Block> forgeTag(String name) {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
         }
 
         private static TagKey<Block> modTag(String name) {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
         }
 
         private static TagKey<Block> vanillaTag(String name) {
-            return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(name));
+            return TagKey.create(Registries.BLOCK, new ResourceLocation(name));
         }
     }
 
@@ -73,11 +73,11 @@ public class ModTags {
 
 
         private static TagKey<Item> forgeTag(String name) {
-            return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.ITEM, new ResourceLocation("forge", name));
         }
 
         private static TagKey<Item> modTag(String name) {
-            return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.ITEM, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
         }
     }
 
@@ -88,7 +88,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SPAWNS_CORRUPT_LOST_SOUL_CHANCE = modTag("spawns_corrupt_lost_soul_chance");
 
         private static TagKey<EntityType<?>> modTag(String name) {
-            return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
         }
     }
 
@@ -99,7 +99,7 @@ public class ModTags {
         public static final TagKey<Enchantment> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
 
         private static TagKey<Enchantment> modTag(String name) {
-            return TagKey.create(Registry.ENCHANTMENT_REGISTRY, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.ENCHANTMENT, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
         }
     }
 
@@ -113,11 +113,11 @@ public class ModTags {
         public static final TagKey<Biome> SPAWNS_CORRUPT_LOST_SOUL = forgeTag("spawns_corrupt_lost_soul");
 
         private static TagKey<Biome> forgeTag(String name) {
-            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.BIOME, new ResourceLocation("forge", name));
         }
 
         private static TagKey<Biome> modTag(String name) {
-            return TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.BIOME, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
         }
     }
 }

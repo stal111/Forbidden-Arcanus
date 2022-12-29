@@ -36,11 +36,11 @@ public class LostSoulAi {
     }
 
     private static void initIdleActivity(Brain<LostSoul> brain) {
-        brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, new RunSometimes<>(new SetEntityLookTarget(EntityType.PLAYER, 6.0F), UniformInt.of(30, 60))), Pair.of(1, new RunOne<>(ImmutableList.of(Pair.of(new FlyingRandomStroll(1.0F), 2), Pair.of(new SetWalkTargetFromLookTarget(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1))))), ImmutableSet.of());
+        brain.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))), Pair.of(1, new RunOne<>(ImmutableList.of(Pair.of(RandomStroll.fly(1.0F), 2), Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 2), Pair.of(new DoNothing(30, 60), 1))))), ImmutableSet.of());
     }
 
     private static void initPanicActivity(Brain<LostSoul> brain) {
-        brain.addActivityWithConditions(Activity.PANIC, ImmutableList.of(Pair.of(0, new LostSoulCalmDown()), Pair.of(1, SetWalkTargetAwayFrom.entity(MemoryModuleType.HURT_BY_ENTITY, 1.75F, 15, false)), Pair.of(2, new FlyingRandomStroll(1.0F))), ImmutableSet.of());
+        brain.addActivityWithConditions(Activity.PANIC, ImmutableList.of(Pair.of(0, new LostSoulCalmDown()), Pair.of(1, SetWalkTargetAwayFrom.entity(MemoryModuleType.HURT_BY_ENTITY, 1.75F, 15, false)), Pair.of(2, RandomStroll.fly(1.0F))), ImmutableSet.of());
     }
 
     private static void initExtractingActivity(Brain<LostSoul> brain) {

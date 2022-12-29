@@ -61,7 +61,7 @@ public class FullbrightBakedModel extends DelegateBakedModel {
         for (int i = 0; i < quads.size(); i++) {
             BakedQuad quad = quads.get(i);
 
-            if (textures.contains(quad.getSprite().getName())) {
+            if (textures.contains(quad.getSprite().atlasLocation())) {
                 quads.set(i, transformQuad(quad));
             }
         }

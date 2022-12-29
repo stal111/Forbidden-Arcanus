@@ -1,6 +1,0 @@
-// 1.19.2	2022-11-01T13:01:21.9298757	Tags for minecraft:worldgen/biome
-488ca197e91dc180f4a4d81232ae9fda2d083c49 data/forbidden_arcanus/tags/worldgen/biome/has_structure/nipa.json
-06b9467ddc594da827d3c5e8157f45d67cf80802 data/forbidden_arcanus/tags/worldgen/biome/has_structure/nipa_always_floating.json
-f3ef2895c49e29111297e950661e5bc71a79989e data/forge/tags/worldgen/biome/is_desert.json
-50625c35926cbad9442439f8a7d1745418e77a3d data/forge/tags/worldgen/biome/is_plains.json
-15343ca7e7931ca3b093f52c77b5d7fae920fed9 data/forge/tags/worldgen/biome/spawns_corrupt_lost_soul.json

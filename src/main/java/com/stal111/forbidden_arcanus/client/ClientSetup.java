@@ -130,7 +130,7 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
-    public void onModelBake(ModelEvent.BakingCompleted event) {
+    public void onModelBake(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
 
         FullbrightBakedModel.invalidateCache();

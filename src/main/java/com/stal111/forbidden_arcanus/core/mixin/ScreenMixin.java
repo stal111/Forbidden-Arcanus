@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderTooltipEvent;
@@ -24,7 +25,6 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.mixin.ScreenMixin
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-12-01
  */
 @Mixin(Screen.class)
@@ -37,7 +37,7 @@ public class ScreenMixin {
     @Shadow public int height;
 
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"), method = "renderTooltipInternal", locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-    private void forbiddenArcanus_renderTooltipInternal(PoseStack poseStack, List<ClientTooltipComponent> components, int x, int y, CallbackInfo ci, RenderTooltipEvent.Pre event) {
+    private void forbiddenArcanus_renderTooltipInternal(PoseStack poseStack, List<ClientTooltipComponent> components, int x, int y, ClientTooltipPositioner positioner, CallbackInfo ci, RenderTooltipEvent.Pre event) {
         ItemModifier modifier = ModifierHelper.getModifier(this.tooltipStack);
 
         if (modifier != null) {

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
   "ingredients": [
     {
       "item": "forbidden_arcanus:aurum_planks"

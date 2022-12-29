@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "forbidden_arcanus:petrified_root",
-  "step": "underground_ores"
-}

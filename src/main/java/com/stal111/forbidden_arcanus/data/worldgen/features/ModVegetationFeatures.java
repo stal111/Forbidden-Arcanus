@@ -2,14 +2,19 @@ package com.stal111.forbidden_arcanus.data.worldgen.features;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
-import net.minecraft.core.Holder;
-import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
 
 import java.util.List;
 
@@ -18,15 +23,23 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2022-04-24
  */
-public class ModVegetationFeatures {
+public class ModVegetationFeatures extends DatapackRegistryClass<ConfiguredFeature<?, ?>> {
 
-    public static final Holder<ConfiguredFeature<?, ?>> CHERRY_TREES_PLAINS = register("cherry_trees_plains", Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(ModTreePlacements.SMALL_CHERRY_CHECKED.getHolder().get(), 0.2F)), ModTreePlacements.LARGE_CHERRY_CHECKED.getHolder().get()));
+    public static final DatapackRegistryHelper<ConfiguredFeature<?, ?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.CONFIGURED_FEATURE);
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, ?>> register(String name, F feature, FC configuration) {
-        return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name).toString(), new ConfiguredFeature<>(feature, configuration));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CHERRY_TREES_PLAINS = HELPER.createKey("cherry_trees_plains");
 
+
+    public ModVegetationFeatures(DataProviderInfo info, BootstapContext<ConfiguredFeature<?, ?>> context) {
+        super(info, context);
+    }
+
+    @Override
+    public void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        HolderGetter<PlacedFeature> placedFeatureRegistry = context.lookup(Registries.PLACED_FEATURE);
+
+        FeatureUtils.register(context, CHERRY_TREES_PLAINS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(placedFeatureRegistry.getOrThrow(ModTreePlacements.SMALL_CHERRY_CHECKED), 0.2F)), placedFeatureRegistry.getOrThrow(ModTreePlacements.LARGE_CHERRY_CHECKED)));
     }
 }

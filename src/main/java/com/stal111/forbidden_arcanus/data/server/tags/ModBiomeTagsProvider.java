@@ -2,30 +2,28 @@ package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraftforge.common.data.ExistingFileHelper;
-
-import javax.annotation.Nullable;
+import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Mod Biome Tags Provider
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.data.server.tags.ModBiomeTagsProvider
  *
  * @author stal111
- * @version 1.18.2 - 2.0.0
  * @since 2021-02-27
  */
 public class ModBiomeTagsProvider extends BiomeTagsProvider {
 
-    public ModBiomeTagsProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, ForbiddenArcanus.MOD_ID, existingFileHelper);
+    public ModBiomeTagsProvider(DataProviderInfo info) {
+        super(info.output(), info.lookupProvider(), ForbiddenArcanus.MOD_ID, info.fileHelper());
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(@NotNull HolderLookup.Provider provider) {
         this.tag(ModTags.Biomes.IS_PLAINS).add(Biomes.PLAINS, Biomes.SNOWY_PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW);
         this.tag(ModTags.Biomes.IS_DESERT).add(Biomes.DESERT);
 

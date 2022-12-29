@@ -1,32 +1,24 @@
 package com.stal111.forbidden_arcanus.core.init.world;
 
-import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.feature.trunkplacers.CherryTrunkPlacer;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraftforge.registries.RegistryObject;
+import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
 
 /**
  * Mod Trunk Placers <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.core.init.world.ModTrunkPlacers
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2022-03-26
  */
-public class ModTrunkPlacers {
+public class ModTrunkPlacers implements RegistryClass {
 
-    public static final TrunkPlacerType<CherryTrunkPlacer> CHERRY_TRUNK_PLACER = register("cherry_trunk_placer", CherryTrunkPlacer.CODEC);
+    public static final MappedRegistryHelper<TrunkPlacerType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(Registries.TRUNK_PLACER_TYPE);
 
-    //TODO
-    private static <P extends TrunkPlacer> TrunkPlacerType<P> register(String name, Codec<P> codec) {
-        return Registry.register(Registries.TRUNK_PLACER_TYPE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name), new TrunkPlacerType<>(codec));
-    }
+    public static final RegistryObject<TrunkPlacerType<CherryTrunkPlacer>> CHERRY_TRUNK_PLACER = HELPER.register("cherry_trunk_placer", () -> new TrunkPlacerType<>(CherryTrunkPlacer.CODEC));
 
-    public static void load() {
-
-    }
 }

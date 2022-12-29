@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.data.recipes.builder.ClibanoRecipeBuilder;
 import com.stal111.forbidden_arcanus.data.recipes.builder.CombineResiduesRecipeBuilder;
 import com.stal111.forbidden_arcanus.util.ModTags;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -34,24 +35,24 @@ public class ClibanoRecipeProvider extends ValhelsiaRecipeProvider {
 
     @Override
     protected void registerRecipes() {
-        this.add(ClibanoRecipeBuilder.of(ModItems.ARCANE_CRYSTAL.get(), Ingredient.of(ModTags.Items.ARCANE_CRYSTAL_ORES), 1.0F, 100, new ClibanoRecipe.ResidueInfo("arcane_crystal", CHANCE_33)).unlockedBy("has_item", has(ModTags.Items.ARCANE_CRYSTAL_ORES)));
-        this.add(ClibanoRecipeBuilder.of(ModItems.ARCANE_CRYSTAL_DUST.get(), Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 0.4F, 80, new ClibanoRecipe.ResidueInfo("arcane_crystal", CHANCE_10)).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())));
-        this.add(ClibanoRecipeBuilder.of(ModItems.RUNE.get(), Ingredient.of(ModTags.Items.RUNIC_STONES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("rune", CHANCE_10)).unlockedBy("has_item", has(ModTags.Items.RUNIC_STONES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL.get(), Ingredient.of(ModTags.Items.ARCANE_CRYSTAL_ORES), 1.0F, 100, new ClibanoRecipe.ResidueInfo("arcane_crystal", CHANCE_33)).unlockedBy("has_item", has(ModTags.Items.ARCANE_CRYSTAL_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL_DUST.get(), Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 0.4F, 80, new ClibanoRecipe.ResidueInfo("arcane_crystal", CHANCE_10)).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, ModItems.RUNE.get(), Ingredient.of(ModTags.Items.RUNIC_STONES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("rune", CHANCE_10)).unlockedBy("has_item", has(ModTags.Items.RUNIC_STONES)));
 
-        this.add(ClibanoRecipeBuilder.of(Items.COAL, Ingredient.of(ItemTags.COAL_ORES), 0.05F, 100, new ClibanoRecipe.ResidueInfo("coal", CHANCE_33)).unlockedBy("has_item", has(ItemTags.COAL_ORES)));
-        this.add(ClibanoRecipeBuilder.of(Items.IRON_INGOT, Ingredient.of(ItemTags.IRON_ORES), 0.35F, 100, new ClibanoRecipe.ResidueInfo("iron", CHANCE_33)).unlockedBy("has_item", has(ItemTags.IRON_ORES)));
-        this.add(ClibanoRecipeBuilder.of(Items.GOLD_INGOT, Ingredient.of(ItemTags.GOLD_ORES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("gold", CHANCE_20)).unlockedBy("has_item", has(ItemTags.GOLD_ORES)));
-        this.add(ClibanoRecipeBuilder.of(Items.COPPER_INGOT, Ingredient.of(ItemTags.COPPER_ORES), 0.35F, 100, new ClibanoRecipe.ResidueInfo("copper", CHANCE_33)).unlockedBy("has_item", has(ItemTags.COPPER_ORES)));
-        this.add(ClibanoRecipeBuilder.of(Items.LAPIS_LAZULI, Ingredient.of(ItemTags.LAPIS_ORES), 0.1F, 100, new ClibanoRecipe.ResidueInfo("lapis_lazuli", CHANCE_20)).unlockedBy("has_item", has(ItemTags.LAPIS_ORES)));
-        this.add(ClibanoRecipeBuilder.of(Items.DIAMOND, Ingredient.of(ItemTags.DIAMOND_ORES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("diamond", CHANCE_10)).unlockedBy("has_item", has(ItemTags.DIAMOND_ORES)));
-        this.add(ClibanoRecipeBuilder.of(Items.EMERALD, Ingredient.of(ItemTags.EMERALD_ORES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("emerald", CHANCE_10)).unlockedBy("has_item", has(ItemTags.EMERALD_ORES)));
-        this.add(ClibanoRecipeBuilder.of(Items.NETHERITE_SCRAP, Ingredient.of(Blocks.ANCIENT_DEBRIS), 1.0F, 100, new ClibanoRecipe.ResidueInfo("netherite", CHANCE_05)).unlockedBy("has_item", has(Blocks.ANCIENT_DEBRIS)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.COAL, Ingredient.of(ItemTags.COAL_ORES), 0.05F, 100, new ClibanoRecipe.ResidueInfo("coal", CHANCE_33)).unlockedBy("has_item", has(ItemTags.COAL_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.IRON_INGOT, Ingredient.of(ItemTags.IRON_ORES), 0.35F, 100, new ClibanoRecipe.ResidueInfo("iron", CHANCE_33)).unlockedBy("has_item", has(ItemTags.IRON_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.GOLD_INGOT, Ingredient.of(ItemTags.GOLD_ORES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("gold", CHANCE_20)).unlockedBy("has_item", has(ItemTags.GOLD_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.COPPER_INGOT, Ingredient.of(ItemTags.COPPER_ORES), 0.35F, 100, new ClibanoRecipe.ResidueInfo("copper", CHANCE_33)).unlockedBy("has_item", has(ItemTags.COPPER_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.LAPIS_LAZULI, Ingredient.of(ItemTags.LAPIS_ORES), 0.1F, 100, new ClibanoRecipe.ResidueInfo("lapis_lazuli", CHANCE_20)).unlockedBy("has_item", has(ItemTags.LAPIS_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.DIAMOND, Ingredient.of(ItemTags.DIAMOND_ORES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("diamond", CHANCE_10)).unlockedBy("has_item", has(ItemTags.DIAMOND_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.EMERALD, Ingredient.of(ItemTags.EMERALD_ORES), 0.5F, 100, new ClibanoRecipe.ResidueInfo("emerald", CHANCE_10)).unlockedBy("has_item", has(ItemTags.EMERALD_ORES)));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.NETHERITE_SCRAP, Ingredient.of(Blocks.ANCIENT_DEBRIS), 1.0F, 100, new ClibanoRecipe.ResidueInfo("netherite", CHANCE_05)).unlockedBy("has_item", has(Blocks.ANCIENT_DEBRIS)));
 
-        this.add(ClibanoRecipeBuilder.of(ModItems.DEORUM_NUGGET.get(), Ingredient.of(ModBlocks.GILDED_DARKSTONE.get()), 1.0F, 150, new ClibanoRecipe.ResidueInfo("deorum", CHANCE_65), ClibanoFireType.SOUL_FIRE).unlockedBy("has_item", has(ModBlocks.GILDED_DARKSTONE.get())));
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, ModItems.DEORUM_NUGGET.get(), Ingredient.of(ModBlocks.GILDED_DARKSTONE.get()), 1.0F, 150, new ClibanoRecipe.ResidueInfo("deorum", CHANCE_65), ClibanoFireType.SOUL_FIRE).unlockedBy("has_item", has(ModBlocks.GILDED_DARKSTONE.get())));
 
-        this.add(ClibanoRecipeBuilder.of(Items.IRON_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), 0.35F, 100, new ClibanoRecipe.ResidueInfo("iron", CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_IRON)), "clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron");
-        this.add(ClibanoRecipeBuilder.of(Items.GOLD_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD), 0.5F, 100, new ClibanoRecipe.ResidueInfo("gold", CHANCE_20)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_GOLD)), "clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold");
-        this.add(ClibanoRecipeBuilder.of(Items.COPPER_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER), 0.35F, 100, new ClibanoRecipe.ResidueInfo("copper", CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_COPPER)), "clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper");
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.IRON_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), 0.35F, 100, new ClibanoRecipe.ResidueInfo("iron", CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_IRON)), "clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron");
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.GOLD_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD), 0.5F, 100, new ClibanoRecipe.ResidueInfo("gold", CHANCE_20)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_GOLD)), "clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold");
+        this.add(ClibanoRecipeBuilder.of(RecipeCategory.MISC, Items.COPPER_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER), 0.35F, 100, new ClibanoRecipe.ResidueInfo("copper", CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_COPPER)), "clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper");
 
         this.combineResidue("arcane_crystal", 9, ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
         this.combineResidue("rune", 9, ModBlocks.RUNE_BLOCK.get());
