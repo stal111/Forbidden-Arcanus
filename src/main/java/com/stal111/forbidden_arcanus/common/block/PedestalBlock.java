@@ -42,7 +42,6 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.PedestalBlock
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-06-25
  */
 public class PedestalBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
@@ -117,10 +116,10 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
                 player.drop(pedestalStack, false);
             }
 
-            blockEntity.clearStack(level, pos);
+            blockEntity.clearStack(level);
 
         } else if (!stack.isEmpty() && !blockEntity.hasStack()) {
-            blockEntity.setStackAndSync(stack.copy().split(1), level, pos);
+            blockEntity.setStackAndSync(stack.copy().split(1), level);
 
             ItemStackUtils.shrinkStack(player, stack);
             

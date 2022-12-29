@@ -46,11 +46,11 @@ public class PedestalBlockEntity extends BlockEntity {
         this.stack = stack;
     }
 
-    public void setStackAndSync(ItemStack stack, Level level, BlockPos pos) {
+    public void setStackAndSync(ItemStack stack, Level level) {
         this.stack = stack;
 
         if (!level.isClientSide()) {
-            NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdatePedestalPacket(pos, stack, this.itemHeight));
+            NetworkHandler.sentToTrackingChunk(level.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
         }
     }
 
@@ -62,10 +62,10 @@ public class PedestalBlockEntity extends BlockEntity {
         return !this.stack.isEmpty();
     }
 
-    public void clearStack(Level level, BlockPos pos) {
+    public void clearStack(Level level) {
         this.setItemHeight(DEFAULT_ITEM_HEIGHT);
 
-        this.setStackAndSync(ItemStack.EMPTY, level, pos);
+        this.setStackAndSync(ItemStack.EMPTY, level);
     }
 
     public float getItemHover(float partialTicks) {
