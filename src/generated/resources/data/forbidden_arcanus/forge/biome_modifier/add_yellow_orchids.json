@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:flower_forest",
+  "features": "forbidden_arcanus:yellow_orchid",
+  "step": "vegetal_decoration"
+}

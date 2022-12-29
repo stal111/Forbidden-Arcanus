@@ -1,15 +1,16 @@
 package com.stal111.forbidden_arcanus;
 
-import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
 import com.stal111.forbidden_arcanus.core.init.other.ModLootModifiers;
 import com.stal111.forbidden_arcanus.core.init.world.*;
+import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
+import com.stal111.forbidden_arcanus.data.worldgen.modifier.ModBiomeModifiers;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModCavePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
+import com.stal111.forbidden_arcanus.data.worldgen.placement.ModVegetationPlacements;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.core.registry.RegistryCollector;
 import net.valhelsia.valhelsia_core.core.registry.helper.EntityRegistryHelper;
@@ -38,8 +39,11 @@ public class ModRegistries extends RegistryCollector {
         this.addMappedHelper(Registries.ACTIVITY, ModActivities::new);
         this.addMappedHelper(Registries.TRUNK_PLACER_TYPE, ModTrunkPlacers::new);
 
-        this.addDatapackHelper(Registries.STRUCTURE, (dataProviderInfo, bootstapContext) -> ImmutableList.of(new ModStructures(dataProviderInfo, (BootstapContext<Structure>) bootstapContext)));
-        this.addDatapackHelper(Registries.STRUCTURE_SET, (dataProviderInfo, bootstapContext) -> ImmutableList.of(new ModStructureSets(dataProviderInfo, (BootstapContext<StructureSet>) bootstapContext)));
-        this.addDatapackHelper(Registries.CONFIGURED_FEATURE, (dataProviderInfo, bootstapContext) -> ImmutableList.of(new ModConfiguredFeatures(dataProviderInfo, (BootstapContext<ConfiguredFeature<?, ?>>) bootstapContext)));
+        this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
+        this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);
+        this.addDatapackHelper(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::new, ModVegetationFeatures::new);
+        this.addDatapackHelper(Registries.PLACED_FEATURE, ModCavePlacements::new, ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new);
+        this.addDatapackHelper(ForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::new);
+
     }
 }

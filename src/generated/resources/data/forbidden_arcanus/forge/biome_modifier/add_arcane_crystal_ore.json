@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "forbidden_arcanus:arcane_crystal_ore",
+  "step": "underground_ores"
+}
