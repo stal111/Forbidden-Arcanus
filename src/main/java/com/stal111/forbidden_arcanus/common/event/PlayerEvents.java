@@ -182,8 +182,8 @@ public class PlayerEvents {
     private static boolean tryPickupMob(Player player, InteractionHand hand, LivingEntity entity) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (stack.is(ModItems.QUANTUM_CATCHER.get())) {
-            return ((QuantumCatcherItem) stack.getItem()).onEntityInteract(stack, player, entity, hand).consumesAction();
+        if (stack.getItem() instanceof QuantumCatcherItem item) {
+            return item.onEntityInteract(stack, player, entity, hand).consumesAction();
         }
 
         if (!(stack.getItem() instanceof EdelwoodBucketItem edelwoodBucketItem) || edelwoodBucketItem instanceof EdelwoodMobBucketItem || !FLUID_TO_ENTITY.getOrDefault(edelwoodBucketItem.getFluid(), new ArrayList<>()).contains(entity.getType()) || !entity.isAlive()) {

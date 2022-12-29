@@ -103,6 +103,8 @@ public class QuantumCatcherItem extends Item {
 
             target.discard();
 
+            player.swing(hand);
+
             return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
@@ -130,6 +132,11 @@ public class QuantumCatcherItem extends Item {
 
             tooltip.add(textComponent);
         }
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
     }
 
     private void setEntity(Level level, Player player, Entity entity, ItemStack stack) {
