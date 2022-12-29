@@ -14,7 +14,6 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.network.UpdatePedestalPacket
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-07-10
  */
 public record UpdatePedestalPacket(BlockPos pos, ItemStack stack, int itemHeight) {

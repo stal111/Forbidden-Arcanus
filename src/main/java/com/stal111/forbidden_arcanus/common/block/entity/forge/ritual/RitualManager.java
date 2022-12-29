@@ -155,7 +155,7 @@ public class RitualManager implements NeedsStoring {
                     BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
                     level.addFreshEntity(new ItemEntity(level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
-                    pedestalBlockEntity.clearStack(level, pos);
+                    pedestalBlockEntity.clearStack(level);
                 }
             });
         }
@@ -176,7 +176,7 @@ public class RitualManager implements NeedsStoring {
         this.reset();
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
-            pedestalBlockEntity.clearStack(level, pedestalBlockEntity.getBlockPos());
+            pedestalBlockEntity.clearStack(level);
         });
     }
 
@@ -193,7 +193,7 @@ public class RitualManager implements NeedsStoring {
         }
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
-            pedestalBlockEntity.clearStack(level, pedestalBlockEntity.getBlockPos());
+            pedestalBlockEntity.clearStack(level);
             this.blockEntity.getEssenceManager().increaseCorruption(2);
         });
 
