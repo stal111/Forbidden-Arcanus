@@ -21,13 +21,12 @@ import java.util.Optional;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.world.structure.NipaStructure
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-04-07
  */
 public class NipaStructure extends SimpleValhelsiaStructure {
 
     public static final Codec<NipaStructure> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(settingsCodec(instance), Codec.BOOL.fieldOf("floating_probability").forGetter((structure) -> {
+        return instance.group(settingsCodec(instance), Codec.BOOL.fieldOf("floating").forGetter((structure) -> {
             return structure.floating;
         })).apply(instance, NipaStructure::new);
     });
@@ -36,7 +35,6 @@ public class NipaStructure extends SimpleValhelsiaStructure {
     public NipaStructure(Structure.StructureSettings settings, boolean floating) {
         super(settings, "nipa");
         this.floating = floating;
-        // super(codec, PieceGeneratorSupplier.simple(PieceGeneratorSupplier.checkForBiomeOnTop(Heightmap.Types.WORLD_SURFACE_WG), NipaStructure::generatePieces), "nipa");
     }
 
     private void generatePieces(StructurePiecesBuilder piecesBuilder, Structure.GenerationContext context) {
