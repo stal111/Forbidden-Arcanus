@@ -151,7 +151,7 @@ public class Ritual {
 
     public enum PedestalType {
         DARKSTONE_PEDESTAL(ModBlocks.DARKSTONE_PEDESTAL.get()),
-        ARCANE_DARKSTONE_PEDESTAL(ModBlocks.ARCANE_DARKSTONE_PEDESTAL.get());
+        MAGNETIZED_DARKSTONE_PEDESTAL(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
 
         private final Block block;
 
