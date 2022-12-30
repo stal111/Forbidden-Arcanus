@@ -159,7 +159,7 @@ public class QuantumCatcherItem extends Item {
         CompoundTag itemNBT = stack.getOrCreateTag();
         itemNBT.put("entity", entityTag);
 
-        level.playSound(player, player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_PICK_UP.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        level.playSound(player, player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_PICK_UP.get(), SoundSource.PLAYERS, 0.75F, level.getRandom().nextFloat() * 0.15F + 0.9F);
     }
 
     private Entity getEntity(ItemStack stack, Level level) {
@@ -203,7 +203,7 @@ public class QuantumCatcherItem extends Item {
     }
 
     private void clearEntity(Level level, @Nullable Player player, BlockPos pos, ItemStack stack) {
-        level.playSound(player, player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_RELEASE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        level.playSound(player, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_RELEASE.get(), SoundSource.PLAYERS, 0.75F, level.getRandom().nextFloat() * 0.15F + 0.9F);
 
         stack.setTag(null);
     }

@@ -1,4 +1,4 @@
-// 1.19.3	2022-12-29T17:42:20.0086936	Item Models: forbidden_arcanus
+// 1.19.2	2023-04-29T11:03:39.8860095	Item Models: forbidden_arcanus
 ec32963c36c92245dedb808f3147fe81dd495883 assets/forbidden_arcanus/models/item/aquatic_dragon_scale.json
 a362c1701734ea16f61260dddb1bcfbfe0cad6d4 assets/forbidden_arcanus/models/item/arcane_bone_meal.json
 5fb2e610741f59f928db167b1a5f5963d58d75c6 assets/forbidden_arcanus/models/item/arcane_chiseled_darkstone.json
@@ -74,6 +74,7 @@ dd891b73a1de3896e0c833fc0b43fc0260e5a475 assets/forbidden_arcanus/models/item/ch
 6a68a4950fa6f69f0e2bd8cd0b9b0633e4bd5cf8 assets/forbidden_arcanus/models/item/cloth.json
 4a062a07b2c648f8e2d21cde08a2506e2c431c89 assets/forbidden_arcanus/models/item/cooked_tentacle.json
 8c4b37b422e18c85a7ab95859695b0896469e4f7 assets/forbidden_arcanus/models/item/corrupted_pixie.json
+2eb861797c6abca36d818358080d2cfaed24444b assets/forbidden_arcanus/models/item/corrupted_pixie_utrem_jar.json
 e4d251231673335a3801dc3e811ef1b5f414c0bf assets/forbidden_arcanus/models/item/corrupti_dust.json
 0e673dca6d81c441a97ede8fd2c0ef473cef36bf assets/forbidden_arcanus/models/item/corrupt_soul.json
 48ad085f234221cfef44bb5b0bad16f89ca662e5 assets/forbidden_arcanus/models/item/cracked_polished_darkstone_bricks.json
@@ -208,6 +209,7 @@ d19a453c003492397cc9101eca9431b8a416db5d assets/forbidden_arcanus/models/item/nu
 6121997994aba332a2a55595aec1553adfb663ba assets/forbidden_arcanus/models/item/orb_of_temporary_flight.json
 e5776c0acf5cc07a4cf7d64349c2b8bf222b207f assets/forbidden_arcanus/models/item/petrified_root.json
 79a6c8d055ebe7794b1ff19dca3f9ae86e46933c assets/forbidden_arcanus/models/item/pixie.json
+1b9df1eb6cb34f126947aa6b4512f049f64a705a assets/forbidden_arcanus/models/item/pixie_utrem_jar.json
 5e910ed196c9d91bb024d4486e07d98a9a797ef8 assets/forbidden_arcanus/models/item/polished_darkstone.json
 0afd5fcf95bfc59fa576473939897a6a0dec8584 assets/forbidden_arcanus/models/item/polished_darkstone_bricks.json
 7e8adf87809f08accbb287728f2c3444c0d498fc assets/forbidden_arcanus/models/item/polished_darkstone_brick_slab.json
