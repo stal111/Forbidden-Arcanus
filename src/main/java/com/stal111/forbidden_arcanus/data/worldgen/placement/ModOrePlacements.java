@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.data.worldgen.placement;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -51,11 +50,11 @@ public class ModOrePlacements extends DatapackRegistryClass<PlacedFeature> {
     public void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
 
-        PlacementUtils.register(context, ARCANE_CRYSTAL_ORE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.ARCANE_CRYSTAL_ORE), this.commonOrePlacement(WorldGenConfig.ARCANE_CRYSTAL_ORE_COUNT.get(), HeightRangePlacement.triangle(VerticalAnchor.absolute(WorldGenConfig.ARCANE_CRYSTAL_ORE_MIN_HEIGHT.get()), VerticalAnchor.absolute(WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_HEIGHT.get()))));
-        PlacementUtils.register(context, RUNIC_STONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.RUNIC_STONE), this.commonOrePlacement(WorldGenConfig.RUNIC_STONE_COUNT.get(), HeightRangePlacement.uniform(VerticalAnchor.absolute(WorldGenConfig.RUNIC_STONE_MIN_HEIGHT.get()), VerticalAnchor.absolute(WorldGenConfig.RUNIC_STONE_MAX_HEIGHT.get()))));
-        PlacementUtils.register(context, DARKSTONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.DARKSTONE), this.commonOrePlacement(WorldGenConfig.DARKSTONE_COUNT.get(), HeightRangePlacement.uniform(VerticalAnchor.absolute(WorldGenConfig.DARKSTONE_MIN_HEIGHT.get()), VerticalAnchor.absolute(WorldGenConfig.DARKSTONE_MAX_HEIGHT.get()))));
-        PlacementUtils.register(context, ARCANE_GILDED_DARKSTONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.ARCANE_GILDED_DARKSTONE), this.commonOrePlacement(WorldGenConfig.ARCANE_GILDED_DARKSTONE_COUNT.get(), HeightRangePlacement.uniform(VerticalAnchor.absolute(WorldGenConfig.ARCANE_GILDED_DARKSTONE_MIN_HEIGHT.get()), VerticalAnchor.absolute(WorldGenConfig.ARCANE_GILDED_DARKSTONE_MAX_HEIGHT.get()))));
-        PlacementUtils.register(context, STELLA_ARCANUM, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.STELLA_ARCANUM), this.commonOrePlacement(WorldGenConfig.STELLA_ARCANUM_COUNT.get(), HeightRangePlacement.uniform(VerticalAnchor.absolute(WorldGenConfig.STELLA_ARCANUM_MIN_HEIGHT.get()), VerticalAnchor.absolute(WorldGenConfig.STELLA_ARCANUM_MAX_HEIGHT.get()))));
-        PlacementUtils.register(context, XPETRIFIED_ORE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.XPETRIFIED_ORE), this.commonOrePlacement(WorldGenConfig.XPETRIFIED_ORE_COUNT.get(), HeightRangePlacement.uniform(VerticalAnchor.absolute(WorldGenConfig.XPETRIFIED_ORE_MIN_HEIGHT.get()), VerticalAnchor.absolute(WorldGenConfig.XPETRIFIED_ORE_MAX_HEIGHT.get()))));
+        PlacementUtils.register(context, ARCANE_CRYSTAL_ORE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.ARCANE_CRYSTAL_ORE), this.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(14))));
+        PlacementUtils.register(context, RUNIC_STONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.RUNIC_STONE), this.commonOrePlacement(3, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(2))));
+        PlacementUtils.register(context, DARKSTONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.DARKSTONE), this.commonOrePlacement(28, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(13))));
+        PlacementUtils.register(context, ARCANE_GILDED_DARKSTONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.ARCANE_GILDED_DARKSTONE), this.commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(13))));
+        PlacementUtils.register(context, STELLA_ARCANUM, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.STELLA_ARCANUM), this.commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-44), VerticalAnchor.absolute(42))));
+        PlacementUtils.register(context, XPETRIFIED_ORE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.XPETRIFIED_ORE), this.commonOrePlacement(18, HeightRangePlacement.uniform(VerticalAnchor.absolute(-6), VerticalAnchor.absolute(35))));
     }
 }

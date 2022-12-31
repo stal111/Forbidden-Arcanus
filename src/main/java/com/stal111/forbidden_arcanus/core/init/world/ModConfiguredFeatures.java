@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatu
 import com.stal111.forbidden_arcanus.common.world.feature.config.CherryTreeConfiguration;
 import com.stal111.forbidden_arcanus.common.world.feature.foliageplacers.CherryFoliagePlacer;
 import com.stal111.forbidden_arcanus.common.world.feature.trunkplacers.CherryTrunkPlacer;
-import com.stal111.forbidden_arcanus.core.config.WorldGenConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -88,12 +87,12 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         List<OreConfiguration.TargetBlockState> stellaArcanumTargetList = List.of(OreConfiguration.target(stoneOreReplaceables, States.STELLA_ARCANUM.get()), OreConfiguration.target(deepslateOreReplaceables, States.STELLA_ARCANUM.get()));
         List<OreConfiguration.TargetBlockState> xpetrifiedTargetList = List.of(OreConfiguration.target(stoneOreReplaceables, States.XPETRIFIED_ORE.get()), OreConfiguration.target(deepslateOreReplaceables, States.XPETRIFIED_ORE.get()));
 
-        context.register(ARCANE_CRYSTAL_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(arcaneCrystalTargetList, WorldGenConfig.ARCANE_CRYSTAL_ORE_MAX_VEIN_SIZE.get())));
-        context.register(RUNIC_STONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(runicStoneTargetList, WorldGenConfig.RUNIC_STONE_MAX_VEIN_SIZE.get())));
-        context.register(DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(darkstoneTargetList, WorldGenConfig.DARKSTONE_MAX_VEIN_SIZE.get())));
-        context.register(ARCANE_GILDED_DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE.get(), WorldGenConfig.ARCANE_GILDED_DARKSTONE_MAX_VEIN_SIZE.get())));
-        context.register(STELLA_ARCANUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(stellaArcanumTargetList, WorldGenConfig.STELLA_ARCANUM_MAX_VEIN_SIZE.get())));
-        context.register(XPETRIFIED_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(xpetrifiedTargetList, WorldGenConfig.XPETRIFIED_ORE_MAX_VEIN_SIZE.get())));
+        context.register(ARCANE_CRYSTAL_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(arcaneCrystalTargetList, 5)));
+        context.register(RUNIC_STONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(runicStoneTargetList, 3)));
+        context.register(DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(darkstoneTargetList, 20)));
+        context.register(ARCANE_GILDED_DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE.get(), 4)));
+        context.register(STELLA_ARCANUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(stellaArcanumTargetList, 3)));
+        context.register(XPETRIFIED_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(xpetrifiedTargetList, 3)));
         context.register(SMALL_CHERRY, new ConfiguredFeature<>(Feature.TREE, new CherryTreeConfiguration(BlockStateProvider.simple(ModBlocks.CHERRY_LOG.get()), BlockStateProvider.simple(ModBlocks.THIN_CHERRY_LOG.get()), new CherryTrunkPlacer(3, 1, 1), BlockStateProvider.simple(ModBlocks.CHERRY_LEAVES.get()), new CherryFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))));
         context.register(LARGE_CHERRY, new ConfiguredFeature<>(Feature.TREE, new CherryTreeConfiguration(BlockStateProvider.simple(ModBlocks.CHERRY_LOG.get()), BlockStateProvider.simple(ModBlocks.THIN_CHERRY_LOG.get()), new CherryTrunkPlacer(4, 2, 2), BlockStateProvider.simple(ModBlocks.CHERRY_LEAVES.get()), new CherryFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))));
         context.register(AURUM, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.AURUM_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES.get(), 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES.get(), 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build()));

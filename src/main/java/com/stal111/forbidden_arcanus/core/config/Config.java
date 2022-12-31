@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.Mod;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.core.config.Config
  *
  * @author Valhelsia Team
- * @version 16.2.0
  */
 @Mod.EventBusSubscriber
 public class Config {
@@ -20,7 +19,6 @@ public class Config {
 	public static final ForgeConfigSpec CLIENT_CONFIG;
 
 	static {
-		WorldGenConfig.init(COMMON_BUILDER);
 		ItemConfig.init(COMMON_BUILDER);
 		BlockConfig.init(COMMON_BUILDER);
 		RenderingConfig.init(CLIENT_BUILDER);
