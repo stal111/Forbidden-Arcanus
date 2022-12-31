@@ -343,6 +343,8 @@
     "modifier.forbidden_arcanus.eternal": "Eternal",
     "modifier.forbidden_arcanus.fiery": "Fiery",
 
+    "entity.forbidden_arcanus.lost_soul": "Lost Soul",
+
     "forbiddenmicon": "Forbiddenmicon",
     "forbiddenmicon.category.main": "Main",
     "forbiddenmicon.category.items": "Items",
