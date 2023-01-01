@@ -1,3 +1,29 @@
 {
-  "parent": "forbidden_arcanus:block/hephaestus_forge"
+  "parent": "forbidden_arcanus:block/hephaestus_forge_tier_1",
+  "overrides": [
+    {
+      "model": "forbidden_arcanus:item/hephaestus_forge_tier_2",
+      "predicate": {
+        "minecraft:tier": 0.4
+      }
+    },
+    {
+      "model": "forbidden_arcanus:item/hephaestus_forge_tier_3",
+      "predicate": {
+        "minecraft:tier": 0.6
+      }
+    },
+    {
+      "model": "forbidden_arcanus:item/hephaestus_forge_tier_4",
+      "predicate": {
+        "minecraft:tier": 0.8
+      }
+    },
+    {
+      "model": "forbidden_arcanus:item/hephaestus_forge_tier_5",
+      "predicate": {
+        "minecraft:tier": 1.0
+      }
+    }
+  ]
 }

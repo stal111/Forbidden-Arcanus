@@ -22,10 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaBlockStateProvider;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Mod Block State Provider <br>
@@ -63,7 +60,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 ModBlocks.UTREM_JAR,
                 ModBlocks.NIPA,
                 ModBlocks.PETRIFIED_ROOT,
-                ModBlocks.HEPHAESTUS_FORGE,
                 ModBlocks.ARCANE_DRAGON_EGG
         );
         take(this::randomRotation, ModBlocks.DARKSTONE);
@@ -166,6 +162,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
         take(block -> chainBlock(block, modLoc("block/deorum_chain")), ModBlocks.DEORUM_CHAIN);
         take(this::pedestalBlock, ModBlocks.DARKSTONE_PEDESTAL, ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL);
+        take(this::hephaestusForgeBlock, ModBlocks.HEPHAESTUS_FORGE);
 
         forEach(block -> block instanceof FenceBlock, block -> {
             ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
@@ -536,5 +533,31 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 .texture("side", modLoc("block/" + name));
 
         this.getVariantBuilder(block).partialState().modelForState().modelFile(model).addModel();
+    }
+
+    private void hephaestusForgeBlock(Block block) {
+        String name = this.getName(block);
+
+        Map<Integer, ResourceLocation> blockLocation = Map.of(
+                1, mcLoc("block/smithing_table_bottom"),
+                2, modLoc("block/edelwood_planks"),
+                3, modLoc("block/chiseled_polished_darkstone"),
+                4, modLoc("block/chiseled_polished_darkstone"),
+                5, modLoc("block/stellarite_block")
+        );
+
+        this.getVariantBuilder(block).forAllStatesExcept(state -> {
+            int tier = state.getValue(ModBlockStateProperties.TIER);
+            ModelFile model = models().withExistingParent(name + "_tier_" + tier, modLoc("template_hephaestus_forge"))
+                    .texture("top", modLoc("block/" + name + "/tier_" + tier + "/" + "top"))
+                    .texture("top_layer", modLoc("block/" + name + "/tier_" + tier + "/" + "top_layer"))
+                    .texture("side", modLoc("block/" + name + "/tier_" + tier + "/" + "side"))
+                    .texture("side_layer", modLoc("block/" + name + "/tier_" + tier + "/" + "side_layer"))
+                    .texture("cloth_side", modLoc("block/" + name + "/tier_" + tier + "/" + "cloth_side"))
+                    .texture("bottom", modLoc("block/" + name + "/tier_" + tier + "/" + "bottom"))
+                    .texture("block", blockLocation.get(tier));
+
+            return ConfiguredModel.builder().modelFile(model).build();
+        }, ModBlockStateProperties.ACTIVATED, BlockStateProperties.WATERLOGGED);
     }
 }

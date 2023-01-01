@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,9 +28,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -44,11 +47,12 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock
  *
  * @author stal111
- * @version 2.0.0
  */
 public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
+    public static final IntegerProperty TIER = ModBlockStateProperties.TIER;
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE = Shapes.join(
@@ -67,7 +71,11 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     public HephaestusForgeBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(ACTIVATED, false).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any()
+                .setValue(ACTIVATED, false)
+                .setValue(TIER, 1)
+                .setValue(WATERLOGGED, false)
+        );
     }
 
     @Nullable
@@ -142,6 +150,22 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeBlockEntity::serverTick);
     }
 
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+        ItemStack stack = super.getCloneItemStack(state, target, level, pos, player);
+        int tier = state.getValue(TIER);
+
+        if (tier != 1) {
+            CompoundTag tag = new CompoundTag();
+
+            tag.putString(TIER.getName(), String.valueOf(tier));
+
+            stack.addTagElement("BlockStateTag", tag);
+        }
+
+        return stack;
+    }
+
     @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
@@ -150,6 +174,6 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVATED, WATERLOGGED);
+        builder.add(ACTIVATED, TIER, WATERLOGGED);
     }
 }

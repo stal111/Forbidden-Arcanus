@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
@@ -62,6 +63,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.CHERRY_LEAF_CARPET
         );
         takeBlockItem(this::utremJarModel, ModBlocks.UTREM_JAR);
+        takeBlockItem(this::hephaestusForgeItem, ModBlocks.HEPHAESTUS_FORGE);
 
         forEachBlockItem(item -> item.getBlock() instanceof DoorBlock, this::simpleModel);
         forEachBlockItem(item -> item.getBlock() instanceof TrapDoorBlock, item -> withParent(item, getName(item) + "_bottom"));
@@ -135,6 +137,16 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 .override().predicate(new ResourceLocation("amount"), 0.75F).model(model3).end()
                 .override().predicate(new ResourceLocation("amount"), 0.9F).model(model4).end()
                 .override().predicate(new ResourceLocation("amount"), 1.0F).model(model5).end();
+    }
+
+    public <T extends Item> void hephaestusForgeItem(T item) {
+        String name = this.getName(item);
+
+        ItemModelBuilder builder = this.withExistingParent(name, modLoc("block/hephaestus_forge_tier_1"));
+
+        for (int i = 2; i <= 5; i++) {
+            builder.override().predicate(new ResourceLocation("tier"), i / 5.0F).model(this.getBuilder("hephaestus_forge_tier_" + i).parent(this.getExistingFile(modLoc("block/hephaestus_forge_tier_" + i))));
+        }
     }
 
     private String getName(Item item) {
