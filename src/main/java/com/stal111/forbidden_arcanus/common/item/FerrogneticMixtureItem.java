@@ -16,9 +16,9 @@ import org.jetbrains.annotations.NotNull;
  * @author stal111
  * @since 2022-12-30
  */
-public class MagneticPasteItem extends Item {
+public class FerrogneticMixtureItem extends Item {
 
-    public MagneticPasteItem(Properties properties) {
+    public FerrogneticMixtureItem(Properties properties) {
         super(properties);
     }
 
