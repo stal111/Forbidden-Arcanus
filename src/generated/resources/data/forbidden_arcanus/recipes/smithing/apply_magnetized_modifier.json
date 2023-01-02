@@ -1,0 +1,7 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": {
+    "item": "forbidden_arcanus:magnetic_paste"
+  },
+  "modifier": "forbidden_arcanus:magnetized"
+}
