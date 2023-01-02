@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
-import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -31,14 +30,16 @@ public class ItemModifier {
     private final TagKey<Item> incompatibleItems;
     private final TagKey<Enchantment> incompatibleEnchantments;
 
-    private final Pair<Integer, Integer> tooltipColors;
+    private final int startTooltipColor;
+    private final int endTooltipColor;
 
     private List<ItemStack> cachedValidItems;
-    public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, Pair<Integer, Integer> tooltipColors) {
+    public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
         this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
         this.incompatibleEnchantments = incompatibleEnchantments;
-        this.tooltipColors = tooltipColors;
+        this.startTooltipColor = startTooltipColor;
+        this.endTooltipColor = endTooltipColor;
     }
 
     public void onApplied(ItemStack stack) {
@@ -96,7 +97,11 @@ public class ItemModifier {
         this.cachedValidItems = null;
     }
 
-    public Pair<Integer, Integer> getTooltipColors() {
-        return this.tooltipColors;
+    public int getStartTooltipColor() {
+        return this.startTooltipColor;
+    }
+
+    public int getEndTooltipColor() {
+        return this.endTooltipColor;
     }
 }

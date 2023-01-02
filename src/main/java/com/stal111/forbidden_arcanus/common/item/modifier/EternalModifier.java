@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
-import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.core.config.ModifierConfig;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -19,8 +18,8 @@ import java.util.function.Predicate;
  */
 public class EternalModifier extends ItemModifier {
 
-    public EternalModifier(Predicate<ItemStack> predicate, TagKey<Item> blacklistedItems, TagKey<Enchantment> blacklistedEnchantments, Pair<Integer, Integer> tooltipColors) {
-        super(predicate, blacklistedItems, blacklistedEnchantments, tooltipColors);
+    public EternalModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
+        super(predicate, incompatibleItems, incompatibleEnchantments, startTooltipColor, endTooltipColor);
     }
 
     @Override
