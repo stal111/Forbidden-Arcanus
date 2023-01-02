@@ -10,6 +10,7 @@
     "ItemMixin",
     "ItemStackMixin",
     "LevelRendererAccessor",
+    "PlayerMixin",
     "SlimeMixin"
   ],
   "client": [
