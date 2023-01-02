@@ -64,7 +64,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<Item> GOLDEN_FEATHER = HELPER.register("golden_feather", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> EDELWOOD_STICK = HELPER.register("edelwood_stick", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> WAX = HELPER.register("wax", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
-     public static final RegistryObject<FerrogneticMixtureItem> FERROGNETIC_MIXTURE = HELPER.register("ferrognetic_mixture", () -> new FerrogneticMixtureItem(new Item.Properties()));
+     public static final RegistryObject<FerrogneticMixtureItem> FERROGNETIC_MIXTURE = HELPER.register("ferrognetic_mixture", () -> new FerrogneticMixtureItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS));
     public static final RegistryObject<Item> SPAWNER_SCRAP = HELPER.register("spawner_scrap", () -> new Item(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
     public static final RegistryObject<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", () -> new QuantumCatcherItem(new Item.Properties().tab(ForbiddenArcanus.FORBIDDEN_ARCANUS)));
 

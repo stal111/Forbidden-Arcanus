@@ -1,4 +1,4 @@
-// 1.19.2	2023-04-29T11:03:39.8860095	Item Models: forbidden_arcanus
+// 1.19.2	2023-04-29T11:34:37.9760229	Item Models: forbidden_arcanus
 ec32963c36c92245dedb808f3147fe81dd495883 assets/forbidden_arcanus/models/item/aquatic_dragon_scale.json
 a362c1701734ea16f61260dddb1bcfbfe0cad6d4 assets/forbidden_arcanus/models/item/arcane_bone_meal.json
 5fb2e610741f59f928db167b1a5f5963d58d75c6 assets/forbidden_arcanus/models/item/arcane_chiseled_darkstone.json
@@ -171,6 +171,7 @@ ff7e42d3e1334e68c633ddee3d92758d30f5a095 assets/forbidden_arcanus/models/item/ed
 8e4038a9a8ea0f021be4baf46b281a4384eb2b4b assets/forbidden_arcanus/models/item/enchanted_soul.json
 254d52013d18781786d4a1590dcf9b46d0632bf8 assets/forbidden_arcanus/models/item/ender_pearl_fragment.json
 69d8acc5e96b3bb7f0b27ef7d774419e2b1cec00 assets/forbidden_arcanus/models/item/eternal_stella.json
+ead805d94f7242f32a4380e342e70e1c28fca2cc assets/forbidden_arcanus/models/item/ferrognetic_mixture.json
 980987c35c80f4cff9059e4b10e4a8d63d20b228 assets/forbidden_arcanus/models/item/fungyss.json
 70d7d78bf8c33f17c8d53f917b5d9873d98d096e assets/forbidden_arcanus/models/item/fungyss_block.json
 1d0857545ca159d6849b2e36c7296753196b3063 assets/forbidden_arcanus/models/item/fungyss_button.json
