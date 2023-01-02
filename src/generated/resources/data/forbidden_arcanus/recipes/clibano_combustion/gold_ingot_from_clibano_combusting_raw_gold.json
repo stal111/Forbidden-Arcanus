@@ -1,0 +1,13 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "cooking_time": 100,
+  "experience": 0.5,
+  "ingredient": {
+    "tag": "forge:raw_materials/gold"
+  },
+  "residue": {
+    "chance": 0.2,
+    "name": "gold"
+  },
+  "result": "minecraft:gold_ingot"
+}

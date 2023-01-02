@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:netherite_ingot"
-            ]
+            "tag": "forge:raw_materials/copper"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:smithing/obsidian_blacksmith_gavel"
+        "recipe": "forbidden_arcanus:clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:smithing/obsidian_blacksmith_gavel"
+      "forbidden_arcanus:clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper"
     ]
   }
 }

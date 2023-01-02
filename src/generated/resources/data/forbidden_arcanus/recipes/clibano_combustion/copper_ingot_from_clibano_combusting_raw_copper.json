@@ -1,0 +1,13 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "cooking_time": 100,
+  "experience": 0.35,
+  "ingredient": {
+    "tag": "forge:raw_materials/copper"
+  },
+  "residue": {
+    "chance": 0.33,
+    "name": "copper"
+  },
+  "result": "minecraft:copper_ingot"
+}

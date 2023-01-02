@@ -1,0 +1,13 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "cooking_time": 100,
+  "experience": 0.5,
+  "ingredient": {
+    "tag": "minecraft:emerald_ores"
+  },
+  "residue": {
+    "chance": 0.1,
+    "name": "emerald"
+  },
+  "result": "minecraft:emerald"
+}

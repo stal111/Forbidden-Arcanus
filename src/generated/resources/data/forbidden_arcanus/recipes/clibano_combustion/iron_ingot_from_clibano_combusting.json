@@ -1,0 +1,13 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "cooking_time": 100,
+  "experience": 0.35,
+  "ingredient": {
+    "tag": "minecraft:iron_ores"
+  },
+  "residue": {
+    "chance": 0.33,
+    "name": "iron"
+  },
+  "result": "minecraft:iron_ingot"
+}

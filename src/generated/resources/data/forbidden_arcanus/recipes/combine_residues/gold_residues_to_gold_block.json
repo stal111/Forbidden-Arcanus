@@ -1,0 +1,8 @@
+{
+  "type": "forbidden_arcanus:combine_residues",
+  "residue_amount": 9,
+  "residue_name": "gold",
+  "result": {
+    "item": "minecraft:gold_block"
+  }
+}

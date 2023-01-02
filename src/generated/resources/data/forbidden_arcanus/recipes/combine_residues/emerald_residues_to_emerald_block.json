@@ -1,0 +1,8 @@
+{
+  "type": "forbidden_arcanus:combine_residues",
+  "residue_amount": 9,
+  "residue_name": "emerald",
+  "result": {
+    "item": "minecraft:emerald_block"
+  }
+}

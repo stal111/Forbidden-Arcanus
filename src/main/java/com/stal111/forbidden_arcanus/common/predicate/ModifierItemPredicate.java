@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -19,7 +18,6 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-11-25
  */
 public class ModifierItemPredicate extends ItemPredicate {
@@ -56,7 +54,7 @@ public class ModifierItemPredicate extends ItemPredicate {
         JsonObject json = new JsonObject();
 
         json.addProperty("type", new ResourceLocation(ForbiddenArcanus.MOD_ID, "modifier").toString());
-        json.addProperty("modifier", ModItemModifiers.FIERY.get().getRegistryName().toString());
+        json.addProperty("modifier", this.modifier.getRegistryName().toString());
 
         return json;
     }

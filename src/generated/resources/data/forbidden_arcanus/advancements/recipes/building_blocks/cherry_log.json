@@ -1,7 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_log": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:cherry_log"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_thin_cherry_log": {
       "conditions": {
         "items": [
           {
@@ -12,17 +18,11 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "forbidden_arcanus:cherry_log"
-      },
-      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_log",
+      "has_thin_cherry_log",
       "has_the_recipe"
     ]
   ],

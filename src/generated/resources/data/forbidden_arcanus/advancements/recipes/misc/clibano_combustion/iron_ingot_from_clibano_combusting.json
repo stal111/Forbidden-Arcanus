@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:obsidian_skull"
-            ]
+            "tag": "minecraft:iron_ores"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:smithing/obsidian_skull_shield"
+        "recipe": "forbidden_arcanus:clibano_combustion/iron_ingot_from_clibano_combusting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:smithing/obsidian_skull_shield"
+      "forbidden_arcanus:clibano_combustion/iron_ingot_from_clibano_combusting"
     ]
   }
 }

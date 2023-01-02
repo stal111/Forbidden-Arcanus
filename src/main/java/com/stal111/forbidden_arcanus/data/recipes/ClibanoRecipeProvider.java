@@ -14,14 +14,14 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.valhelsia.valhelsia_core.data.recipes.RecipeSubProvider;
 import net.valhelsia.valhelsia_core.data.recipes.ValhelsiaRecipeProvider;
 
 /**
  * @author stal111
  * @since 2022-06-26
  */
-public class ClibanoRecipeProvider extends ValhelsiaRecipeProvider {
+public class ClibanoRecipeProvider extends RecipeSubProvider {
 
     public static final double CHANCE_65 = 0.65D;
     public static final double CHANCE_33 = 0.33D;
@@ -29,8 +29,8 @@ public class ClibanoRecipeProvider extends ValhelsiaRecipeProvider {
     public static final double CHANCE_10 = 0.1D;
     public static final double CHANCE_05 = 0.05D;
 
-    public ClibanoRecipeProvider(DataProviderInfo info) {
-        super(info);
+    public ClibanoRecipeProvider(ValhelsiaRecipeProvider provider) {
+        super(provider);
     }
 
     @Override

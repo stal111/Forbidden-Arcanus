@@ -1,0 +1,13 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "cooking_time": 100,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "minecraft:ancient_debris"
+  },
+  "residue": {
+    "chance": 0.05,
+    "name": "netherite"
+  },
+  "result": "minecraft:netherite_scrap"
+}

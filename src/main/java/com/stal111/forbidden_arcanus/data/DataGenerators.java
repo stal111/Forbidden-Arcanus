@@ -4,7 +4,9 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider;
 import com.stal111.forbidden_arcanus.data.client.ModItemModelProvider;
 import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
-import com.stal111.forbidden_arcanus.data.recipes.ModRecipeProvider;
+import com.stal111.forbidden_arcanus.data.recipes.ApplyModifierRecipeProvider;
+import com.stal111.forbidden_arcanus.data.recipes.ClibanoRecipeProvider;
+import com.stal111.forbidden_arcanus.data.recipes.CraftingRecipeProvider;
 import com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.*;
@@ -14,11 +16,11 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.valhelsia.valhelsia_core.data.recipes.ValhelsiaRecipeProvider;
 
 import java.util.List;
 import java.util.Set;
@@ -35,7 +37,6 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         DataProviderInfo info = DataProviderInfo.of(event, ForbiddenArcanus.REGISTRY_MANAGER);
@@ -56,9 +57,7 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
 
-        generator.addProvider(event.includeServer(), new ModRecipeProvider(info));
-        //generator.addProvider(event.includeServer(), new ClibanoRecipeProvider(info));
-        //generator.addProvider(event.includeServer(), new ApplyModifierRecipeProvider(info));
+        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(info, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new));
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(output));
 

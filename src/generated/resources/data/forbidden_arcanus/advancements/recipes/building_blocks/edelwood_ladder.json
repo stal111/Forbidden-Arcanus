@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_planks": {
+    "has_edelwood_planks": {
       "conditions": {
         "items": [
           {
@@ -13,7 +13,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_stick": {
+    "has_rods/wooden": {
       "conditions": {
         "items": [
           {
@@ -32,8 +32,8 @@
   },
   "requirements": [
     [
-      "has_stick",
-      "has_planks",
+      "has_rods/wooden",
+      "has_edelwood_planks",
       "has_the_recipe"
     ]
   ],

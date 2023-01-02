@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ingot": {
+    "has_ingots/deorum": {
       "conditions": {
         "items": [
           {
@@ -11,7 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_nugget": {
+    "has_nuggets/deorum": {
       "conditions": {
         "items": [
           {
@@ -30,8 +30,8 @@
   },
   "requirements": [
     [
-      "has_ingot",
-      "has_nugget",
+      "has_ingots/deorum",
+      "has_nuggets/deorum",
       "has_the_recipe"
     ]
   ],
