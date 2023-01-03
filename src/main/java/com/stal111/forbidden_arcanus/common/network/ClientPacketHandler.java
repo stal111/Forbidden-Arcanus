@@ -16,7 +16,9 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -44,6 +46,10 @@ public class ClientPacketHandler {
             blockEntity.setStack(packet.stack());
             blockEntity.setItemHeight(packet.itemHeight());
         }
+    }
+
+    public static void handleTransformPedestal(TransformPedestalPacket packet) {
+        ParticleUtils.spawnParticlesOnBlockFaces(getLevel(), packet.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
     }
 
     public static void handleAddItemParticle(AddItemParticlePacket packet) {

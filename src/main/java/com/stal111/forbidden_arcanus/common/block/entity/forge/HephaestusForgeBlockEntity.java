@@ -311,7 +311,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
         if (index == 4 && this.getLevel() != null && !this.getLevel().isClientSide()) {
             BlockPos pos = this.getBlockPos();
 
-            NetworkHandler.sentToTrackingChunk(this.getLevel().getChunkAt(pos), new UpdateItemInSlotPacket(pos, stack, 4));
+            NetworkHandler.sendToTrackingChunk(this.getLevel().getChunkAt(pos), new UpdateItemInSlotPacket(pos, stack, 4));
         }
 
         this.setChanged();

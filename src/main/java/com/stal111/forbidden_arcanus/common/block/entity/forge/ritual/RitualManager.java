@@ -119,7 +119,7 @@ public class RitualManager implements NeedsStoring {
                 if (!this.getActiveRitual().checkIngredients(list, this.blockEntity)) {
                     this.failRitual(level);
 
-                    NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
+                    NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
                     return;
                 }
 
@@ -134,7 +134,7 @@ public class RitualManager implements NeedsStoring {
                 int height = pedestalBlockEntity.getItemHeight() + 1;
                 pedestalBlockEntity.setItemHeight(height);
 
-                NetworkHandler.sentToTrackingChunk(level.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, pedestalBlockEntity.getStack(), height));
+                NetworkHandler.sendToTrackingChunk(level.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, pedestalBlockEntity.getStack(), height));
             }
 
             this.addItemParticles(level, pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());
@@ -168,7 +168,7 @@ public class RitualManager implements NeedsStoring {
             }
         }
 
-        NetworkHandler.sentToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
+        NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
     }
 
     public void finishRitual(ServerLevel level) {

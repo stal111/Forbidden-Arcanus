@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.client.model.DracoAurumHeadModel;
 import com.stal111.forbidden_arcanus.client.model.DracoAurumWingsModel;
 import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
+import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
 import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
@@ -167,6 +168,7 @@ public class ClientSetup {
         event.register(ModParticles.AUREAL_MOTE.get(), AurealMoteParticle.Factory::new);
         event.register(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.register(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
+        event.register(ModParticles.MAGNETIC_GLOW.get(), MagneticGlowProvider::new);
     }
 
     /**

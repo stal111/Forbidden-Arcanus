@@ -1,26 +1,31 @@
 package com.stal111.forbidden_arcanus.data.particle;
 
 import com.google.gson.JsonElement;
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import cpw.mods.modlauncher.api.LamdbaExceptionUtils;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaDataProvider;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
+import java.util.function.BiConsumer;
 
 /**
  * @author stal111
@@ -28,13 +33,15 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ParticleDataProvider implements DataProvider, ValhelsiaDataProvider {
 
-    private final PackOutput.PathProvider particlePathProvider;
+    private static final Logger LOGGER = LogUtils.getLogger();
+
+    private final DataGenerator.PathProvider particlePathProvider;
     private final RegistryManager registryManager;
 
     private final Map<ResourceLocation, ParticleDefinition> builders = new HashMap<>();
 
     public ParticleDataProvider(DataProviderInfo info) {
-        this.particlePathProvider = info.output().createPathProvider(PackOutput.Target.RESOURCE_PACK, "particles");
+        this.particlePathProvider = info.generator().createPathProvider(DataGenerator.Target.RESOURCE_PACK, "particles");
         this.registryManager = info.registryManager();
     }
 
@@ -43,21 +50,30 @@ public class ParticleDataProvider implements DataProvider, ValhelsiaDataProvider
         this.register(ModParticles.AUREAL_MOTE.get(), this.modLoc("aureal_mote"));
         this.register(ModParticles.MAGIC_EXPLOSION.get(), this.modLoc("magic_explosion_0"), this.modLoc("magic_explosion_1"), this.modLoc("magic_explosion_2"), this.modLoc("magic_explosion_3"), this.modLoc("magic_explosion_4"));
         this.register(ModParticles.HUGE_MAGIC_EXPLOSION.get());
+        this.register(ModParticles.MAGNETIC_GLOW.get(), this.modLoc("magnetic_glow"));
     }
 
     private void register(ParticleType<?> particleType, ResourceLocation... textures) {
         this.builders.put(ForgeRegistries.PARTICLE_TYPES.getKey(particleType), new ParticleDefinition(List.of(textures)));
     }
 
+    private void register(ParticleType<?> particleType) {
+        this.builders.put(ForgeRegistries.PARTICLE_TYPES.getKey(particleType), new ParticleDefinition(null));
+    }
+
     @Override
-    public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
+    public void run(@NotNull CachedOutput output) {
         this.registerParticles();
 
-        return CompletableFuture.allOf(this.builders.entrySet().stream().map(entry -> {
-            JsonElement element = ParticleDefinition.CODEC.encodeStart(JsonOps.INSTANCE, entry.getValue()).getOrThrow(false, LOGGER::error);
+        this.gather(LamdbaExceptionUtils.rethrowBiConsumer((id, value) -> {
+            JsonElement element = ParticleDefinition.CODEC.encodeStart(JsonOps.INSTANCE, value).getOrThrow(false, LOGGER::error);
 
-            return DataProvider.saveStable(output, element, this.particlePathProvider.json(entry.getKey()));
-        }).toArray(CompletableFuture[]::new));
+            DataProvider.saveStable(output, element, this.particlePathProvider.json(id));
+        }));
+    }
+
+    protected void gather(BiConsumer<ResourceLocation, ParticleDefinition> consumer) {
+        this.builders.forEach(consumer);
     }
 
     private ResourceLocation modLoc(String path) {
@@ -74,9 +90,13 @@ public class ParticleDataProvider implements DataProvider, ValhelsiaDataProvider
         return this.registryManager.modId();
     }
 
-    public record ParticleDefinition(List<ResourceLocation> textures) {
+    public record ParticleDefinition(@Nullable List<ResourceLocation> textures) {
         public static final Codec<ParticleDefinition> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(ResourceLocation.CODEC.listOf().fieldOf("textures").forGetter(ParticleDefinition::textures)).apply(instance, ParticleDefinition::new);
+            return instance.group(ResourceLocation.CODEC.listOf().optionalFieldOf("textures").forGetter(particleDefinition -> {
+                return Optional.ofNullable(particleDefinition.textures);
+            })).apply(instance, resourceLocations -> {
+                return new ParticleDefinition(resourceLocations.orElse(null));
+            });
         });
     }
 }

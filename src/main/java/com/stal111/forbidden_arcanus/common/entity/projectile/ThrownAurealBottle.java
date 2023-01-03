@@ -50,7 +50,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
         if (!this.level.isClientSide()) {
             this.applySplash();
 
-            NetworkHandler.sentToTrackingChunk(this.level.getChunkAt(this.blockPosition()), new AddThrownAurealBottleParticle(this.getX(), this.getY(), this.getZ()));
+            NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.blockPosition()), new AddThrownAurealBottleParticle(this.getX(), this.getY(), this.getZ()));
 
             this.discard();
         }
