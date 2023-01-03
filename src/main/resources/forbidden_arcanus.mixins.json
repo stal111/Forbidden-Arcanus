@@ -16,6 +16,8 @@
   ],
   "client": [
     "CustomHeadLayerMixin",
+    "ItemRendererMixin",
+    "ModelBakeryMixin",
     "ScreenMixin"
   ],
   "injectors": {
