@@ -40,7 +40,7 @@ public class EnchantmentInput implements HephaestusForgeInput {
     @Override
     public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
         if (inputValue != 0) {
-            tileEntity.setItem(slot, ItemStackUtils.removeEnchantments(stack));
+            tileEntity.setStack(slot, ItemStackUtils.removeEnchantments(stack));
         }
     }
 

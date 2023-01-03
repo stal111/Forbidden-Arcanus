@@ -76,7 +76,7 @@ public class Ritual {
             }
         }
 
-        ItemStack stack = blockEntity.getItem(4);
+        ItemStack stack = blockEntity.getStack(4);
 
         if (!ingredients.isEmpty()) {
             return false;

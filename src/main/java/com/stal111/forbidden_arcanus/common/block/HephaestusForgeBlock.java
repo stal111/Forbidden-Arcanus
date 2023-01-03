@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +38,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
@@ -111,7 +113,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         this.updateState(state, level, pos);
 
         if (state.getValue(ACTIVATED)) {
-            if (level.isClientSide()) {
+            if (!(player instanceof ServerPlayer serverPlayer)) {
                 return InteractionResult.SUCCESS;
             }
             if (level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
@@ -120,7 +122,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
                 if (stack.getItem() instanceof RitualStarterItem) {
                     blockEntity.getRitualManager().tryStartRitual((ServerLevel) level, stack, player);
                 } else {
-                    player.openMenu(blockEntity);
+                    NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
                 }
                 return InteractionResult.CONSUME;
             }

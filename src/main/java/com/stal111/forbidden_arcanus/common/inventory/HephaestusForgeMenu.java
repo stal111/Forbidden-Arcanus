@@ -1,17 +1,17 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
+import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
 
 import javax.annotation.Nonnull;
 
@@ -20,21 +20,20 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-06-28
  */
 public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     private final ContainerData hephaestusForgeData;
-    private final Container container;
+    private final ContainerLevelAccess levelAccess;
 
-    public HephaestusForgeMenu(int id, Inventory player) {
-        this(id, new SimpleContainer(9), new SimpleContainerData(6), player);
+    public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
+        this(id, new ItemStackHandler(9), new SimpleContainerData(6), MenuCreationContext.of(inventory, buffer.readBlockPos()));
     }
 
-    public HephaestusForgeMenu(int id, Container container, ContainerData containerData, Inventory player) {
+    public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity> creationContext) {
         super(ModContainers.HEPHAESTUS_FORGE.get(), id);
-        this.container = container;
+        this.levelAccess = creationContext.levelAccess();
         this.hephaestusForgeData = containerData;
 
         checkContainerDataCount(this.hephaestusForgeData, 5);
@@ -61,24 +60,24 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         }
 
         // Main Slot
-        this.addSlot(new MainSlot(container, 4, 80, 24));
+        this.addSlot(new MainSlot(handler, 4, 80, 24));
 
         // Input Slots
-        this.addSlot(new InputSlot(container, 5, 8 - 26, 25, InputType.AUREAL));
-        this.addSlot(new InputSlot(container, 6, 8 - 26, 43, InputType.SOULS));
-        this.addSlot(new InputSlot(container, 7, 176 + 2, 25, InputType.BLOOD));
-        this.addSlot(new InputSlot(container, 8, 176 + 2, 43, InputType.EXPERIENCE));
+        this.addSlot(new InputSlot(handler, 5, 8 - 26, 25, InputType.AUREAL));
+        this.addSlot(new InputSlot(handler, 6, 8 - 26, 43, InputType.SOULS));
+        this.addSlot(new InputSlot(handler, 7, 176 + 2, 25, InputType.BLOOD));
+        this.addSlot(new InputSlot(handler, 8, 176 + 2, 43, InputType.EXPERIENCE));
 
         // Inventory Slots
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new SlotItemHandler(creationContext.playerInventory(), j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Hotbar Slots
         for(int k = 0; k < 9; ++k) {
-            this.addSlot(new Slot(player, k, 8 + k * 18, 142));
+            this.addSlot(new SlotItemHandler(creationContext.playerInventory(), k, 8 + k * 18, 142));
         }
     }
 
@@ -126,7 +125,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@Nonnull Player player) {
-        return this.container.stillValid(player);
+        return stillValid(this.levelAccess, player, ModBlocks.HEPHAESTUS_FORGE.get());
     }
 
     public ContainerData getHephaestusForgeData() {

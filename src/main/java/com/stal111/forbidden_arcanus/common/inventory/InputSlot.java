@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
@@ -12,15 +12,14 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.InputSlot
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-07-02
  */
-public class InputSlot extends Slot {
+public class InputSlot extends SlotItemHandler {
 
     private final InputType inputType;
 
-    public InputSlot(Container inventory, int index, int xPosition, int yPosition, InputType inputType) {
-        super(inventory, index, xPosition, yPosition);
+    public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, InputType inputType) {
+        super(itemHandler, index, xPosition, yPosition);
         this.inputType = inputType;
     }
 

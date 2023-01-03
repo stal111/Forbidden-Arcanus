@@ -139,7 +139,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
     private final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> new ClibanoItemHandler(this.getItemStackHandler(), Direction.DOWN));
 
     public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, 9, (slot, stack) -> {
+        super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, ClibanoMenu.SLOT_COUNT, (slot, stack) -> {
             if (slot == ClibanoMenu.SOUL_SLOT) {
                 return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
             } else if (slot == ClibanoMenu.FUEL_SLOT) {

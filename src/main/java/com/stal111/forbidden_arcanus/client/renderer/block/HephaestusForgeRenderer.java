@@ -32,7 +32,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     public void render(@Nonnull HephaestusForgeBlockEntity blockEntity, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         blockEntity.getMagicCircle().render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel);
 
-        ItemStack stack = blockEntity.getItem(4);
+        ItemStack stack = blockEntity.getStack(4);
 
         if (!stack.isEmpty()) {
             poseStack.pushPose();

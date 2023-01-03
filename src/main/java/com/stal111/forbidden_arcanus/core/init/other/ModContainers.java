@@ -23,11 +23,7 @@ public class ModContainers {
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, ForbiddenArcanus.MOD_ID);
 
     public static final RegistryObject<MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
-    public static final RegistryObject<MenuType<ClibanoMenu>> CLIBANO = register("clibano", (windowId, inv, data) -> new ClibanoMenu(windowId, inv, data.readBlockPos()));
-
-    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String name, MenuType.MenuSupplier<T> factory) {
-        return CONTAINERS.register(name, () -> new MenuType<>(factory));
-    }
+    public static final RegistryObject<MenuType<ClibanoMenu>> CLIBANO = register("clibano", ClibanoMenu::new);
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String name, IContainerFactory<T> factory) {
         return CONTAINERS.register(name, () -> IForgeMenuType.create(factory));

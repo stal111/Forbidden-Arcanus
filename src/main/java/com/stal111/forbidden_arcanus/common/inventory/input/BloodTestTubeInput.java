@@ -35,7 +35,7 @@ public class BloodTestTubeInput implements HephaestusForgeInput {
             ItemStack newStack = BloodTestTubeItem.removeBlood(stack, inputValue);
 
             if (!stack.sameItem(newStack)) {
-                tileEntity.setItem(slot, newStack);
+                tileEntity.setStack(slot, newStack);
             }
         }
     }

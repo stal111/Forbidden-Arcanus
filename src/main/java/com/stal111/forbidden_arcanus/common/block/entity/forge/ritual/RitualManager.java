@@ -172,7 +172,7 @@ public class RitualManager implements NeedsStoring {
     }
 
     public void finishRitual(ServerLevel level) {
-        this.blockEntity.setItem(4, this.getActiveRitual().getResult());
+        this.blockEntity.setStack(4, this.getActiveRitual().getResult());
         this.reset();
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
@@ -181,7 +181,7 @@ public class RitualManager implements NeedsStoring {
     }
 
     public void failRitual(ServerLevel level) {
-        ItemStack stack = this.blockEntity.getItem(4);
+        ItemStack stack = this.blockEntity.getStack(4);
         BlockPos pos = this.blockEntity.getBlockPos();
 
         this.reset();
@@ -189,7 +189,7 @@ public class RitualManager implements NeedsStoring {
         if (!stack.isEmpty()) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
 
-            this.blockEntity.setItem(4, ItemStack.EMPTY);
+            this.blockEntity.setStack(4, ItemStack.EMPTY);
         }
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
