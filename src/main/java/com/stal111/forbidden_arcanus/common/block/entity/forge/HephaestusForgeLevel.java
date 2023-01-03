@@ -7,17 +7,14 @@ import java.util.function.IntSupplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-06-29
  */
 public enum HephaestusForgeLevel implements IntSupplier {
-    ONE("1", 1, 200, 200, 1, 5000, 200, 1),
-    TWO("2", 2, 500, 500, 5, 10000, 300, 2),
-    THREE("3", 3, 800, 800, 10, 30000, 400, 3),
-    FOUR("4", 4, 1000, 1000, 100, 50000, 1000, 4),
-    X("X", 5, 3000, 3000, 666, 100000, 2000, 4);
-
-    private final String name;
+    ONE(1, 200, 200, 1, 5000, 200, 1),
+    TWO(2, 500, 500, 5, 10000, 300, 2),
+    THREE(3, 800, 800, 10, 30000, 400, 3),
+    FOUR(4, 1000, 1000, 100, 50000, 1000, 4),
+    X(5, 3000, 3000, 666, 100000, 2000, 4);
 
     private final int index;
 
@@ -29,8 +26,7 @@ public enum HephaestusForgeLevel implements IntSupplier {
 
     private final int enhancerSlots;
 
-    HephaestusForgeLevel(String name, int index, int maxAureal, int maxCorruption, int maxSouls, int maxBlood, int maxExperience, int enhancerSlots) {
-        this.name = name;
+    HephaestusForgeLevel(int index, int maxAureal, int maxCorruption, int maxSouls, int maxBlood, int maxExperience, int enhancerSlots) {
         this.index = index;
         this.maxAureal = maxAureal;
         this.maxCorruption = maxCorruption;
@@ -38,10 +34,6 @@ public enum HephaestusForgeLevel implements IntSupplier {
         this.maxBlood = maxBlood;
         this.maxExperience = maxExperience;
         this.enhancerSlots = enhancerSlots;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getIndex() {

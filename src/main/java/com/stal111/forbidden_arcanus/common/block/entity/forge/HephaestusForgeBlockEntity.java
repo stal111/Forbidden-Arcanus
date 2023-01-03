@@ -77,7 +77,6 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
                 EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
 
                 switch (index) {
-                    case 0 -> HephaestusForgeBlockEntity.this.setLevel(HephaestusForgeLevel.getFromIndex(value));
                     case 1 -> manager.setAureal(value);
                     case 2 -> manager.setCorruption(value);
                     case 3 -> manager.setSouls(value);
@@ -166,11 +165,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
     }
 
     public HephaestusForgeLevel getForgeLevel() {
-        return this.forgeLevel;
-    }
-
-    public void setLevel(HephaestusForgeLevel level) {
-        this.forgeLevel = level;
+        return HephaestusForgeLevel.getFromIndex(this.getBlockState().getValue(HephaestusForgeBlock.TIER));
     }
 
     public ContainerData getHephaestusForgeData() {
@@ -215,7 +210,6 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
     public void saveAdditional(@Nonnull CompoundTag tag) {
         super.saveAdditional(tag);
 
-        tag.putString("Level", this.getForgeLevel().getName());
         ContainerHelper.saveAllItems(tag, this.inventoryContents);
 
         tag.put("Ritual", this.getRitualManager().save(new CompoundTag()));
@@ -225,7 +219,6 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity {
     @Override
     public void load(@Nonnull CompoundTag tag) {
         super.load(tag);
-        this.setLevel(HephaestusForgeLevel.getFromName(tag.getString("Level")));
 
         this.inventoryContents.clear();
         ContainerHelper.loadAllItems(tag, this.inventoryContents);

@@ -18,16 +18,15 @@ import javax.annotation.Nullable;
 public class EnhancerSlot extends SlotItemHandler {
 
     private boolean unlocked = true;
-    @Nullable
-    private final String additionalData;
+    private final int requiredLevel;
 
     public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-        this(itemHandler, index, xPosition, yPosition, null);
+        this(itemHandler, index, xPosition, yPosition, 1);
     }
 
-    public EnhancerSlot(IItemHandler inventory, int index, int xPosition, int yPosition, @Nullable String additionalData) {
+    public EnhancerSlot(IItemHandler inventory, int index, int xPosition, int yPosition, int requiredLevel) {
         super(inventory, index, xPosition, yPosition);
-        this.additionalData = additionalData;
+        this.requiredLevel = requiredLevel;
     }
 
     @Override
@@ -55,6 +54,6 @@ public class EnhancerSlot extends SlotItemHandler {
 
     @Nullable
     public String getAdditionalData() {
-        return this.additionalData;
+        return this.requiredLevel == 1 ? null : String.valueOf(this.requiredLevel);
     }
 }
