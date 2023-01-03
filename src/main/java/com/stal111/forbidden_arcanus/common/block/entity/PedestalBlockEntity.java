@@ -50,7 +50,7 @@ public class PedestalBlockEntity extends BlockEntity {
         this.stack = stack;
 
         if (!level.isClientSide()) {
-            NetworkHandler.sentToTrackingChunk(level.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
+            NetworkHandler.sendToTrackingChunk(level.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
         }
     }
 

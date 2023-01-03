@@ -33,6 +33,7 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), UpdateForgeInputsPacket.class, UpdateForgeInputsPacket::encode, UpdateForgeInputsPacket::decode, UpdateForgeInputsPacket::consume);
         INSTANCE.registerMessage(nextID(), AddThrownAurealBottleParticle.class, AddThrownAurealBottleParticle::encode, AddThrownAurealBottleParticle::decode, AddThrownAurealBottleParticle::consume);
         INSTANCE.registerMessage(nextID(), UpdateResidueTypesPacket.class, UpdateResidueTypesPacket::encode, UpdateResidueTypesPacket::decode, UpdateResidueTypesPacket::consume);
+        INSTANCE.registerMessage(nextID(), TransformPedestalPacket.class, TransformPedestalPacket::encode, TransformPedestalPacket::decode, TransformPedestalPacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {
@@ -43,7 +44,7 @@ public class NetworkHandler {
         NetworkHandler.INSTANCE.sendToServer(msg);
     }
 
-    public static <MSG> void sentToTrackingChunk(LevelChunk chunk, MSG msg) {
+    public static <MSG> void sendToTrackingChunk(LevelChunk chunk, MSG msg) {
         NetworkHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), msg);
     }
 }

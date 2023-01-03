@@ -16,10 +16,12 @@ import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaDataProvider;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -43,10 +45,15 @@ public class ParticleDataProvider implements DataProvider, ValhelsiaDataProvider
         this.register(ModParticles.AUREAL_MOTE.get(), this.modLoc("aureal_mote"));
         this.register(ModParticles.MAGIC_EXPLOSION.get(), this.modLoc("magic_explosion_0"), this.modLoc("magic_explosion_1"), this.modLoc("magic_explosion_2"), this.modLoc("magic_explosion_3"), this.modLoc("magic_explosion_4"));
         this.register(ModParticles.HUGE_MAGIC_EXPLOSION.get());
+        this.register(ModParticles.MAGNETIC_GLOW.get(), this.modLoc("magnetic_glow"));
     }
 
     private void register(ParticleType<?> particleType, ResourceLocation... textures) {
         this.builders.put(ForgeRegistries.PARTICLE_TYPES.getKey(particleType), new ParticleDefinition(List.of(textures)));
+    }
+
+    private void register(ParticleType<?> particleType) {
+        this.builders.put(ForgeRegistries.PARTICLE_TYPES.getKey(particleType), new ParticleDefinition(null));
     }
 
     @Override
@@ -74,9 +81,13 @@ public class ParticleDataProvider implements DataProvider, ValhelsiaDataProvider
         return this.registryManager.modId();
     }
 
-    public record ParticleDefinition(List<ResourceLocation> textures) {
+    public record ParticleDefinition(@Nullable List<ResourceLocation> textures) {
         public static final Codec<ParticleDefinition> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(ResourceLocation.CODEC.listOf().fieldOf("textures").forGetter(ParticleDefinition::textures)).apply(instance, ParticleDefinition::new);
+            return instance.group(ResourceLocation.CODEC.listOf().optionalFieldOf("textures").forGetter(particleDefinition -> {
+                return Optional.ofNullable(particleDefinition.textures);
+            })).apply(instance, resourceLocations -> {
+                return new ParticleDefinition(resourceLocations.orElse(null));
+            });
         });
     }
 }
