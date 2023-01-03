@@ -1,5 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
+import java.util.function.IntSupplier;
+
 /**
  * Hephaestus Forge Level
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel
@@ -8,12 +10,12 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
  * @version 2.0.0
  * @since 2021-06-29
  */
-public enum HephaestusForgeLevel {
-    ONE("1", 0, 200, 200, 1, 5000, 200, 1),
-    TWO("2", 1, 500, 500, 5, 10000, 300, 2),
-    THREE("3", 2, 800, 800, 10, 30000, 400, 3),
-    FOUR("4", 3, 1000, 1000, 100, 50000, 1000, 4),
-    X("X", 4, 3000, 3000, 666, 100000, 2000, 4);
+public enum HephaestusForgeLevel implements IntSupplier {
+    ONE("1", 1, 200, 200, 1, 5000, 200, 1),
+    TWO("2", 2, 500, 500, 5, 10000, 300, 2),
+    THREE("3", 3, 800, 800, 10, 30000, 400, 3),
+    FOUR("4", 4, 1000, 1000, 100, 50000, 1000, 4),
+    X("X", 5, 3000, 3000, 666, 100000, 2000, 4);
 
     private final String name;
 
@@ -97,5 +99,10 @@ public enum HephaestusForgeLevel {
             case 4 -> HephaestusForgeLevel.X;
             default -> HephaestusForgeLevel.ONE;
         };
+    }
+
+    @Override
+    public int getAsInt() {
+        return this.index;
     }
 }

@@ -152,18 +152,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        ItemStack stack = super.getCloneItemStack(state, target, level, pos, player);
-        int tier = state.getValue(TIER);
-
-        if (tier != 1) {
-            CompoundTag tag = new CompoundTag();
-
-            tag.putString(TIER.getName(), String.valueOf(tier));
-
-            stack.addTagElement("BlockStateTag", tag);
-        }
-
-        return stack;
+        return HephaestusForgeBlock.setTierOnStack(super.getCloneItemStack(state, target, level, pos, player), state.getValue(TIER));
     }
 
     @Nonnull
@@ -175,5 +164,15 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ACTIVATED, TIER, WATERLOGGED);
+    }
+
+    public static ItemStack setTierOnStack(ItemStack stack, int tier) {
+        if (tier != 1) {
+            CompoundTag tag = new CompoundTag();
+            tag.putString(TIER.getName(), String.valueOf(tier));
+            stack.addTagElement("BlockStateTag", tag);
+        }
+
+        return stack;
     }
 }
