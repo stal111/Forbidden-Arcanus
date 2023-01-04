@@ -194,7 +194,7 @@ public class RitualManager implements NeedsStoring {
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
             pedestalBlockEntity.clearStack(level);
-            this.blockEntity.getEssenceManager().increaseCorruption(2);
+           // this.blockEntity.getEssenceManager().increaseCorruption(2);
         });
 
         level.sendParticles(ModParticles.HUGE_MAGIC_EXPLOSION.get(), pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0, 1.0D, 0.0D, 0.0D, 0.0D);
@@ -223,7 +223,9 @@ public class RitualManager implements NeedsStoring {
     }
 
     public double getFailureChance() {
-        return ((this.getBlockEntity().getEssenceManager().getCorruption() + 5) / (float) this.getBlockEntity().getForgeLevel().getMaxCorruption()) / 2;
+        //TODO
+        return 0.0D;
+        //return ((this.getBlockEntity().getEssenceManager().getCorruption() + 5) / (float) this.getBlockEntity().getForgeLevel().getMaxCorruption()) / 2;
     }
 
     @Override

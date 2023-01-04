@@ -69,14 +69,6 @@ public class EssenceManager implements NeedsStoring {
         this.corruption = corruption;
     }
 
-    public void increaseCorruption(int corruption) {
-        if (this.getCorruption() + corruption >= this.getLevel().getMaxCorruption()) {
-            this.setCorruption(this.getLevel().getMaxCorruption());
-            return;
-        }
-        this.setCorruption(this.getCorruption() + corruption);
-    }
-
     public void decreaseCorruption(int corruption) {
         this.setCorruption(Math.max(this.getCorruption() - corruption, 0));
     }

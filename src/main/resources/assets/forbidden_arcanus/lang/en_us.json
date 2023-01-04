@@ -359,11 +359,10 @@
     "forbiddenmicon.recipe.smelting.smoker": "Smoker",
     "forbiddenmicon.recipe.smelting.blast_furnace": "Blast Furnace",
 
-    "forbidden_arcanus.aureal": "Aureal",
-    "forbidden_arcanus.corruption": "Corruption",
-    "forbidden_arcanus.souls": "Souls",
-    "forbidden_arcanus.blood": "Blood",
-    "forbidden_arcanus.experience": "Experience",
+    "forbidden_arcanus.essence.aureal": "Aureal",
+    "forbidden_arcanus.essence.souls": "Souls",
+    "forbidden_arcanus.essence.blood": "Blood",
+    "forbidden_arcanus.essence.experience": "Experience",
 
     "guis_comment": "Guis",
     "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Unlocked at level",

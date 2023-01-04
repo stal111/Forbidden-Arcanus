@@ -33,7 +33,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final int[] lockedSlots = new int[4];
 
     public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(9), new SimpleContainerData(6), MenuCreationContext.of(inventory, buffer.readBlockPos()));
+        this(id, new ItemStackHandler(9), new SimpleContainerData(4), MenuCreationContext.of(inventory, buffer.readBlockPos()));
     }
 
     public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity> creationContext) {
@@ -41,7 +41,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.levelAccess = creationContext.levelAccess();
         this.hephaestusForgeData = containerData;
 
-        checkContainerDataCount(this.hephaestusForgeData, 5);
+        checkContainerDataCount(this.hephaestusForgeData, 4);
         this.addDataSlots(this.hephaestusForgeData);
         this.addDataSlot(this.hephaestusForgeLevel);
         this.addDataSlot(DataSlot.shared(this.lockedSlots, 0));

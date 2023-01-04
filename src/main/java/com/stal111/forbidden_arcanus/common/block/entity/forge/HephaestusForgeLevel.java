@@ -1,5 +1,9 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
+import net.minecraft.Util;
+
+import java.util.EnumMap;
 import java.util.function.IntSupplier;
 
 /**
@@ -10,51 +14,47 @@ import java.util.function.IntSupplier;
  * @since 2021-06-29
  */
 public enum HephaestusForgeLevel implements IntSupplier {
-    ONE(1, 200, 200, 1, 5000, 200),
-    TWO(2, 500, 500, 5, 10000, 300),
-    THREE(3, 800, 800, 10, 30000, 400),
-    FOUR(4, 1000, 1000, 100, 50000, 1000),
-    X(5, 3000, 3000, 666, 100000, 2000);
+    ONE(1, 200, 1, 5000, 200),
+    TWO(2, 500, 5, 10000, 300),
+    THREE(3, 800, 10, 30000, 400),
+    FOUR(4, 1000, 100, 50000, 1000),
+    X(5, 3000, 666, 100000, 2000);
 
     private final int index;
+    private final EnumMap<EssenceType, Integer> maxEssences;
 
-    private final int maxAureal;
-    private final int maxCorruption;
-    private final int maxSouls;
-    private final int maxBlood;
-    private final int maxExperience;
-
-    HephaestusForgeLevel(int index, int maxAureal, int maxCorruption, int maxSouls, int maxBlood, int maxExperience) {
+    HephaestusForgeLevel(int index, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
         this.index = index;
-        this.maxAureal = maxAureal;
-        this.maxCorruption = maxCorruption;
-        this.maxSouls = maxSouls;
-        this.maxBlood = maxBlood;
-        this.maxExperience = maxExperience;
+        this.maxEssences = Util.make(new EnumMap<>(EssenceType.class), map -> {
+           map.put(EssenceType.AUREAL, maxAureal);
+           map.put(EssenceType.SOULS, maxSouls);
+           map.put(EssenceType.BLOOD, maxBlood);
+           map.put(EssenceType.EXPERIENCE, maxExperience);
+        });
     }
 
     public int getIndex() {
         return index;
     }
 
-    public int getMaxAureal() {
-        return maxAureal;
+    public int getMaxAmount(EssenceType type) {
+        return this.maxEssences.get(type);
     }
 
-    public int getMaxCorruption() {
-        return maxCorruption;
+    public int getMaxAureal() {
+        return this.maxEssences.get(EssenceType.AUREAL);
     }
 
     public int getMaxSouls() {
-        return maxSouls;
+        return this.maxEssences.get(EssenceType.SOULS);
     }
 
     public int getMaxBlood() {
-        return maxBlood;
+        return this.maxEssences.get(EssenceType.BLOOD);
     }
 
     public int getMaxExperience() {
-        return maxExperience;
+        return this.maxEssences.get(EssenceType.EXPERIENCE);
     }
 
     public static HephaestusForgeLevel getFromIndex(int index) {

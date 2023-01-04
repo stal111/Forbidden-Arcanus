@@ -57,12 +57,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
                 EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
 
                 return switch (index) {
-                    case 0 -> manager.getLevel().getIndex();
-                    case 1 -> manager.getAureal();
-                    case 2 -> manager.getCorruption();
-                    case 3 -> manager.getSouls();
-                    case 4 -> manager.getBlood();
-                    case 5 -> manager.getExperience();
+                    case 0 -> manager.getAureal();
+                    case 1 -> manager.getSouls();
+                    case 2 -> manager.getBlood();
+                    case 3 -> manager.getExperience();
                     default -> 0;
                 };
             }
@@ -72,17 +70,16 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
                 EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
 
                 switch (index) {
-                    case 1 -> manager.setAureal(value);
-                    case 2 -> manager.setCorruption(value);
-                    case 3 -> manager.setSouls(value);
-                    case 4 -> manager.setBlood(value);
-                    case 5 -> manager.setExperience(value);
+                    case 0 -> manager.setAureal(value);
+                    case 1 -> manager.setSouls(value);
+                    case 2 -> manager.setBlood(value);
+                    case 3 -> manager.setExperience(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 4;
             }
         };
     }
