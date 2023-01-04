@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -12,31 +13,36 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2021-06-30
  */
 public class EnhancerSlot extends SlotItemHandler {
 
-    private boolean unlocked = true;
+    private boolean locked = true;
     private final int requiredLevel;
 
     public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-        this(itemHandler, index, xPosition, yPosition, 1);
+        this(itemHandler, index, xPosition, yPosition, HephaestusForgeLevel.ONE);
     }
 
-    public EnhancerSlot(IItemHandler inventory, int index, int xPosition, int yPosition, int requiredLevel) {
+    public EnhancerSlot(IItemHandler inventory, int index, int xPosition, int yPosition, HephaestusForgeLevel requiredLevel) {
         super(inventory, index, xPosition, yPosition);
-        this.requiredLevel = requiredLevel;
+        this.requiredLevel = requiredLevel.getAsInt();
+    }
+
+    public EnhancerSlot updateLocked(HephaestusForgeLevel level) {
+        this.locked = level.getAsInt() < this.requiredLevel;
+
+        return this;
     }
 
     @Override
     public boolean mayPlace(@Nonnull ItemStack stack) {
-        return this.unlocked;
+        return !this.isLocked();
     }
 
     @Override
     public boolean isActive() {
-        return this.unlocked;
+        return !this.isLocked();
     }
 
     @Override
@@ -44,12 +50,12 @@ public class EnhancerSlot extends SlotItemHandler {
         return 1;
     }
 
-    public boolean isUnlocked() {
-        return this.unlocked;
+    public boolean isLocked() {
+        return this.locked;
     }
 
-    public void setUnlocked(boolean unlocked) {
-        this.unlocked = unlocked;
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     @Nullable

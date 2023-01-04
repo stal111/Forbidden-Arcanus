@@ -39,25 +39,13 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         checkContainerDataCount(this.hephaestusForgeData, 5);
         this.addDataSlots(this.hephaestusForgeData);
 
-        // Hephaestus Forge Slots
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 0, 32, 24, HephaestusForgeLevel.getRequiredLevelForSlot(1).getAsInt()));
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 1, 32, 46, HephaestusForgeLevel.getRequiredLevelForSlot(2).getAsInt()));
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 2, 128, 24, HephaestusForgeLevel.getRequiredLevelForSlot(3).getAsInt()));
-        this.addSlot(new EnhancerSlot(new ItemStackHandler(4), 3, 128, 46, HephaestusForgeLevel.getRequiredLevelForSlot(4).getAsInt()));
-
         HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(this.hephaestusForgeData.get(0));
 
-        if (level.getEnhancerSlots() < 4) {
-            ((EnhancerSlot) this.getSlot(3)).setUnlocked(false);
-
-            if (level.getEnhancerSlots() < 3) {
-                ((EnhancerSlot) this.getSlot(2)).setUnlocked(false);
-
-                if (level.getEnhancerSlots() < 2) {
-                    ((EnhancerSlot) this.getSlot(1)).setUnlocked(false);
-                }
-            }
-        }
+        // Hephaestus Forge Slots
+        this.addEnhancerSlot(handler, 0, 36, 24, HephaestusForgeLevel.ONE, level);
+        this.addEnhancerSlot(handler, 1, 36, 46, HephaestusForgeLevel.TWO, level);
+        this.addEnhancerSlot(handler, 2, 124, 24, HephaestusForgeLevel.THREE, level);
+        this.addEnhancerSlot(handler, 3, 124, 46, HephaestusForgeLevel.FOUR, level);
 
         // Main Slot
         this.addSlot(new MainSlot(handler, 4, 80, 24));
@@ -79,6 +67,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         for(int k = 0; k < 9; ++k) {
             this.addSlot(new SlotItemHandler(creationContext.playerInventory(), k, 8 + k * 18, 142));
         }
+    }
+
+    private void addEnhancerSlot(ItemStackHandler handler, int index, int x, int y, HephaestusForgeLevel requiredLevel, HephaestusForgeLevel currentLevel) {
+        this.addSlot(new EnhancerSlot(handler, index, x, y, requiredLevel).updateLocked(currentLevel));
     }
 
     @Nonnull
