@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
@@ -35,7 +36,7 @@ public class ArcaneCrystalObeliskBlockEntity extends BlockEntity {
         BlockPos forgePos = manager.getInRange(poiType -> poiType.get() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst().orElse(null);
 
         if (forgePos != null && level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity forgeBlockEntity) {
-            forgeBlockEntity.getEssenceManager().increaseAureal(1);
+            forgeBlockEntity.getEssenceManager().increaseEssence(EssenceType.AUREAL, 1);
         }
     }
 }

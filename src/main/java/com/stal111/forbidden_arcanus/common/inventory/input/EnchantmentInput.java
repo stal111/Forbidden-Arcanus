@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.inventory.input;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -21,12 +21,12 @@ import java.util.Map;
 public class EnchantmentInput implements HephaestusForgeInput {
 
     @Override
-    public boolean canInput(InputType inputType, ItemStack stack) {
-        return inputType == InputType.EXPERIENCE && stack.isEnchanted();
+    public boolean canInput(EssenceType inputType, ItemStack stack) {
+        return inputType == EssenceType.EXPERIENCE && stack.isEnchanted();
     }
 
     @Override
-    public int getInputValue(InputType inputType, ItemStack stack, RandomSource random) {
+    public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
         int xp = this.getEnchantmentXp(stack);
 
         if (xp <= 0) {
@@ -38,7 +38,7 @@ public class EnchantmentInput implements HephaestusForgeInput {
     }
 
     @Override
-    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
+    public void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
         if (inputValue != 0) {
             tileEntity.setStack(slot, ItemStackUtils.removeEnchantments(stack));
         }

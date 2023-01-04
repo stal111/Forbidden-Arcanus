@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceManager;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
-import com.stal111.forbidden_arcanus.common.inventory.InputType;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -97,7 +97,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
                 continue;
             }
 
-            InputType inputType = blockEntity.getInputTypeFromSlot(i);
+            EssenceType inputType = blockEntity.getInputTypeFromSlot(i);
 
             if (inputType == null) {
                 continue;
@@ -125,18 +125,18 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         blockEntity.ritualManager.tick((ServerLevel) level, pos);
     }
 
-    private InputType getInputTypeFromSlot(int slot) {
+    private EssenceType getInputTypeFromSlot(int slot) {
         return switch (slot) {
-            case 5 -> InputType.AUREAL;
-            case 6 -> InputType.SOULS;
-            case 7 -> InputType.BLOOD;
-            case 8 -> InputType.EXPERIENCE;
+            case 5 -> EssenceType.AUREAL;
+            case 6 -> EssenceType.SOULS;
+            case 7 -> EssenceType.BLOOD;
+            case 8 -> EssenceType.EXPERIENCE;
             default -> null;
         };
     }
 
     @Nullable
-    private HephaestusForgeInput getInput(ItemStack stack, InputType inputType) {
+    private HephaestusForgeInput getInput(ItemStack stack, EssenceType inputType) {
         if (this.isTypeFull(inputType)) {
             return null;
         }
@@ -144,7 +144,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         return HephaestusForgeInputs.getInputs().stream().filter(input -> input.canInput(inputType, stack)).findFirst().orElse(null);
     }
 
-    private boolean isTypeFull(InputType inputType) {
+    private boolean isTypeFull(EssenceType inputType) {
         HephaestusForgeLevel level = this.getForgeLevel();
         EssenceManager manager = this.getEssenceManager();
 
@@ -176,18 +176,12 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         return entities;
     }
 
-    public void fillWith(InputType inputType, ItemStack stack, HephaestusForgeInput input, int slot) {
-        int value = input.getInputValue(inputType, stack, Objects.requireNonNull(this.getLevel()).getRandom());
-        EssenceManager manager = this.getEssenceManager();
+    public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
+        int value = input.getInputValue(essenceType, stack, Objects.requireNonNull(this.getLevel()).getRandom());
 
-        switch (inputType) {
-            case AUREAL -> manager.increaseAureal(value);
-            case SOULS -> manager.increaseSouls(value);
-            case BLOOD -> manager.increaseBlood(value);
-            case EXPERIENCE -> manager.increaseExperience(value);
-        }
+        this.getEssenceManager().increaseEssence(essenceType, value);
 
-        input.finishInput(inputType, stack, this, slot, value);
+        input.finishInput(essenceType, stack, this, slot, value);
     }
 
     public RitualManager getRitualManager() {

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.inventory.input;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.util.RandomSource;
@@ -18,19 +18,19 @@ import net.minecraft.world.item.ItemStack;
 public class BloodTestTubeInput implements HephaestusForgeInput {
 
     @Override
-    public boolean canInput(InputType inputType, ItemStack stack) {
-        return inputType == InputType.BLOOD && stack.is(ModItems.BLOOD_TEST_TUBE.get());
+    public boolean canInput(EssenceType inputType, ItemStack stack) {
+        return inputType == EssenceType.BLOOD && stack.is(ModItems.BLOOD_TEST_TUBE.get());
     }
 
     @Override
-    public int getInputValue(InputType inputType, ItemStack stack, RandomSource random) {
+    public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
         int value = BloodTestTubeItem.getBlood(stack);
 
         return value == 0 ? 0 : Math.min(value, 10);
     }
 
     @Override
-    public void finishInput(InputType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
+    public void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
         if (inputValue != 0) {
             ItemStack newStack = BloodTestTubeItem.removeBlood(stack, inputValue);
 

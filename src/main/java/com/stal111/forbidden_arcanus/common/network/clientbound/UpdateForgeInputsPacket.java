@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.loader.HephaestusForgeInputLoader;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Item;
@@ -21,14 +21,14 @@ import java.util.function.Supplier;
  * @version 1.17.1 - 2.0.0
  * @since 2021-12-27
  */
-public record UpdateForgeInputsPacket(Map<InputType, Map<Item, HephaestusForgeInputLoader.InputData>> inputs) {
+public record UpdateForgeInputsPacket(Map<EssenceType, Map<Item, HephaestusForgeInputLoader.InputData>> inputs) {
 
     public static void encode(UpdateForgeInputsPacket packet, FriendlyByteBuf buffer) {
         buffer.writeMap(packet.inputs, (byteBuf, inputType) -> byteBuf.writeUtf(inputType.getSerializedName()), (byteBuf, itemInputDataMap) -> byteBuf.writeMap(itemInputDataMap, (friendlyByteBuf, item) -> friendlyByteBuf.writeItem(new ItemStack(item)), (friendlyByteBuf, inputData) -> inputData.serializeToNetwork(friendlyByteBuf)));
     }
 
     public static UpdateForgeInputsPacket decode(FriendlyByteBuf buffer) {
-        return new UpdateForgeInputsPacket(buffer.readMap(byteBuf -> InputType.valueOf(byteBuf.readUtf().toUpperCase(Locale.ROOT)), byteBuf -> byteBuf.readMap(friendlyByteBuf -> friendlyByteBuf.readItem().getItem(), HephaestusForgeInputLoader.InputData::fromNetwork)));
+        return new UpdateForgeInputsPacket(buffer.readMap(byteBuf -> EssenceType.valueOf(byteBuf.readUtf().toUpperCase(Locale.ROOT)), byteBuf -> byteBuf.readMap(friendlyByteBuf -> friendlyByteBuf.readItem().getItem(), HephaestusForgeInputLoader.InputData::fromNetwork)));
     }
 
     public static void consume(UpdateForgeInputsPacket packet, Supplier<NetworkEvent.Context> ctx) {

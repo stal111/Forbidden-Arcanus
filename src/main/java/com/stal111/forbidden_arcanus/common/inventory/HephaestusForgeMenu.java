@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
@@ -63,10 +64,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addSlot(new MainSlot(handler, 4, 80, 24));
 
         // Input Slots
-        this.addSlot(new InputSlot(handler, 5, 8 - 26, 25, InputType.AUREAL));
-        this.addSlot(new InputSlot(handler, 6, 8 - 26, 43, InputType.SOULS));
-        this.addSlot(new InputSlot(handler, 7, 176 + 2, 25, InputType.BLOOD));
-        this.addSlot(new InputSlot(handler, 8, 176 + 2, 43, InputType.EXPERIENCE));
+        this.addSlot(new InputSlot(handler, 5, 8 - 26, 25, EssenceType.AUREAL));
+        this.addSlot(new InputSlot(handler, 6, 8 - 26, 43, EssenceType.SOULS));
+        this.addSlot(new InputSlot(handler, 7, 176 + 2, 25, EssenceType.BLOOD));
+        this.addSlot(new InputSlot(handler, 8, 176 + 2, 43, EssenceType.EXPERIENCE));
 
         // Inventory Slots
         for(int i = 0; i < 3; ++i) {

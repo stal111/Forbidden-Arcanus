@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.inventory.input;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface HephaestusForgeInput {
 
-    boolean canInput(InputType inputType, ItemStack stack);
-    int getInputValue(InputType inputType, ItemStack stack, RandomSource random);
-    void finishInput(InputType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue);
+    boolean canInput(EssenceType inputType, ItemStack stack);
+    int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random);
+    void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue);
 }

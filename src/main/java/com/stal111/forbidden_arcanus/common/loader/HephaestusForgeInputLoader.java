@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.loader;
 
 import com.google.gson.*;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.inventory.InputType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -31,7 +31,7 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    public static EnumMap<InputType, Map<Item, InputData>> inputs = new EnumMap<>(InputType.class);
+    public static EnumMap<EssenceType, Map<Item, InputData>> inputs = new EnumMap<>(EssenceType.class);
 
     public HephaestusForgeInputLoader() {
         super(GSON, "hephaestus_forge/inputs");
@@ -49,7 +49,7 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
             }
 
             try {
-                InputType type = InputType.valueOf(GsonHelper.getAsString(entry.getValue().getAsJsonObject(), "type").toUpperCase(Locale.ROOT));
+                EssenceType type = EssenceType.valueOf(GsonHelper.getAsString(entry.getValue().getAsJsonObject(), "type").toUpperCase(Locale.ROOT));
                 InputData data = this.deserializeInput(resourceLocation, entry.getValue().getAsJsonObject());
 
                 inputs.computeIfAbsent(type, (inputType) -> new HashMap<>());
@@ -60,7 +60,7 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
         }
     }
 
-    private static Map<InputType, Map<Item, InputData>> getInputs() {
+    private static Map<EssenceType, Map<Item, InputData>> getInputs() {
         return inputs;
     }
 
@@ -78,15 +78,15 @@ public class HephaestusForgeInputLoader extends SimpleJsonResourceReloadListener
         return new InputData(new ItemStack(item), value);
     }
 
-    public static boolean isValidInput(InputType inputType, ItemStack stack) {
+    public static boolean isValidInput(EssenceType inputType, ItemStack stack) {
         return getInputs().containsKey(inputType) && HephaestusForgeInputLoader.getInputs().get(inputType).containsKey(stack.getItem());
     }
 
-    public static InputData getInputData(InputType inputType, ItemStack stack) {
+    public static InputData getInputData(EssenceType inputType, ItemStack stack) {
         return getInputs().get(inputType).get(stack.getItem());
     }
 
-    public static void setInputs(EnumMap<InputType, Map<Item, InputData>> inputTypeMapMap) {
+    public static void setInputs(EnumMap<EssenceType, Map<Item, InputData>> inputTypeMapMap) {
         HephaestusForgeInputLoader.inputs = inputTypeMapMap;
     }
 

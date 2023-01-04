@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
@@ -16,9 +17,9 @@ import javax.annotation.Nonnull;
  */
 public class InputSlot extends SlotItemHandler {
 
-    private final InputType inputType;
+    private final EssenceType inputType;
 
-    public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, InputType inputType) {
+    public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, EssenceType inputType) {
         super(itemHandler, index, xPosition, yPosition);
         this.inputType = inputType;
     }
@@ -28,7 +29,7 @@ public class InputSlot extends SlotItemHandler {
         return HephaestusForgeInputs.getInputs().stream().anyMatch(input -> input.canInput(inputType, stack));
     }
 
-    public InputType getInputType() {
+    public EssenceType getInputType() {
         return inputType;
     }
 }

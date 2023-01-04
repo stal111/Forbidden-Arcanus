@@ -56,10 +56,6 @@ public class EssenceManager implements NeedsStoring {
         this.setEssence(EssenceType.AUREAL, aureal);
     }
 
-    public void increaseAureal(int amount) {
-        this.increaseEssence(EssenceType.AUREAL, amount);
-    }
-
     public void decreaseAureal(int aureal) {
         this.setAureal(Math.max(this.getAureal() - aureal, 0));
     }
@@ -70,10 +66,6 @@ public class EssenceManager implements NeedsStoring {
 
     public void setSouls(int souls) {
         this.setEssence(EssenceType.SOULS, souls);
-    }
-
-    public void increaseSouls(int amount) {
-        this.increaseEssence(EssenceType.SOULS, amount);
     }
 
     public void decreaseSouls(int souls) {
@@ -88,10 +80,6 @@ public class EssenceManager implements NeedsStoring {
         this.setEssence(EssenceType.BLOOD, blood);
     }
 
-    public void increaseBlood(int amount) {
-        this.increaseEssence(EssenceType.BLOOD, amount);
-    }
-
     public void decreaseBlood(int blood) {
         this.setBlood(Math.max(this.getBlood() - blood, 0));
     }
@@ -102,10 +90,6 @@ public class EssenceManager implements NeedsStoring {
 
     public void setExperience(int experience) {
         this.setEssence(EssenceType.EXPERIENCE, experience);
-    }
-
-    public void increaseExperience(int amount) {
-        this.increaseEssence(EssenceType.EXPERIENCE, amount);
     }
 
     public void decreaseExperience(int experience) {
@@ -134,7 +118,7 @@ public class EssenceManager implements NeedsStoring {
                 float healthDifference = this.cachedHealth.getFloat(entity) - entity.getHealth();
 
                 if (healthDifference > 0) {
-                    this.increaseBlood((int) healthDifference * 20);
+                    this.increaseEssence(EssenceType.BLOOD, (int) healthDifference * 20);
                 }
             }
         }
