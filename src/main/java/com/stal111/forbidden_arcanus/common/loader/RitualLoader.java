@@ -128,11 +128,10 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
         JsonObject essences = jsonObject.get("essences").getAsJsonObject();
 
         int aureal = GsonHelper.getAsInt(essences, "aureal", 0);
-        int corruption = GsonHelper.getAsInt(essences, "corruption", 0);
         int souls = GsonHelper.getAsInt(essences, "souls", 0);
         int blood = GsonHelper.getAsInt(essences, "blood", 0);
         int experience = GsonHelper.getAsInt(essences, "experience", 0);
 
-        return new RitualEssences(aureal, corruption, souls, blood, experience);
+        return new RitualEssences(aureal, souls, blood, experience);
     }
 }
