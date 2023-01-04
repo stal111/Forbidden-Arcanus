@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -19,18 +20,20 @@ public class EnhancerSlot extends SlotItemHandler {
 
     private boolean locked = true;
     private final int requiredLevel;
+    private final BooleanConsumer updateLocked;
 
     public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-        this(itemHandler, index, xPosition, yPosition, HephaestusForgeLevel.ONE);
+        this(itemHandler, index, xPosition, yPosition, HephaestusForgeLevel.ONE, locked -> {});
     }
 
-    public EnhancerSlot(IItemHandler inventory, int index, int xPosition, int yPosition, HephaestusForgeLevel requiredLevel) {
+    public EnhancerSlot(IItemHandler inventory, int index, int xPosition, int yPosition, HephaestusForgeLevel requiredLevel, BooleanConsumer updateLocked) {
         super(inventory, index, xPosition, yPosition);
         this.requiredLevel = requiredLevel.getAsInt();
+        this.updateLocked = updateLocked;
     }
 
     public EnhancerSlot updateLocked(HephaestusForgeLevel level) {
-        this.locked = level.getAsInt() < this.requiredLevel;
+        this.setLocked(level.getAsInt() < this.requiredLevel);
 
         return this;
     }
@@ -56,6 +59,8 @@ public class EnhancerSlot extends SlotItemHandler {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+
+        this.updateLocked.accept(this.locked);
     }
 
     @Nullable

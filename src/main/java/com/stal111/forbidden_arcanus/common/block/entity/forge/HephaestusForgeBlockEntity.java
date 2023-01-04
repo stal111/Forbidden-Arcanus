@@ -164,7 +164,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     }
 
     public ContainerData getHephaestusForgeData() {
-        return hephaestusForgeData;
+        return this.hephaestusForgeData;
     }
 
     public EssenceManager getEssenceManager() {

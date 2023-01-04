@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
+import org.apache.commons.lang3.BooleanUtils;
 
 import javax.annotation.Nonnull;
 
@@ -27,6 +29,9 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final ContainerData hephaestusForgeData;
     private final ContainerLevelAccess levelAccess;
 
+    private final DataSlot hephaestusForgeLevel = DataSlot.standalone();
+    private final int[] lockedSlots = new int[4];
+
     public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
         this(id, new ItemStackHandler(9), new SimpleContainerData(6), MenuCreationContext.of(inventory, buffer.readBlockPos()));
     }
@@ -38,8 +43,15 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
         checkContainerDataCount(this.hephaestusForgeData, 5);
         this.addDataSlots(this.hephaestusForgeData);
+        this.addDataSlot(this.hephaestusForgeLevel);
+        this.addDataSlot(DataSlot.shared(this.lockedSlots, 0));
+        this.addDataSlot(DataSlot.shared(this.lockedSlots, 1));
+        this.addDataSlot(DataSlot.shared(this.lockedSlots, 2));
+        this.addDataSlot(DataSlot.shared(this.lockedSlots, 3));
 
-        HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(this.hephaestusForgeData.get(0));
+        HephaestusForgeLevel level = this.updateLevel();
+
+        this.hephaestusForgeLevel.set(level.getAsInt());
 
         // Hephaestus Forge Slots
         this.addEnhancerSlot(handler, 0, 36, 24, HephaestusForgeLevel.ONE, level);
@@ -70,7 +82,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     private void addEnhancerSlot(ItemStackHandler handler, int index, int x, int y, HephaestusForgeLevel requiredLevel, HephaestusForgeLevel currentLevel) {
-        this.addSlot(new EnhancerSlot(handler, index, x, y, requiredLevel).updateLocked(currentLevel));
+        this.addSlot(new EnhancerSlot(handler, index, x, y, requiredLevel, locked -> this.lockedSlots[index] = BooleanUtils.toInteger(locked)).updateLocked(currentLevel));
     }
 
     @Nonnull
@@ -121,6 +133,20 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     public ContainerData getHephaestusForgeData() {
-        return hephaestusForgeData;
+        return this.hephaestusForgeData;
+    }
+
+    private HephaestusForgeLevel updateLevel() {
+        return this.levelAccess.evaluate((level, pos) -> {
+            return HephaestusForgeLevel.getFromIndex(level.getBlockState(pos).getValue(ModBlockStateProperties.TIER));
+        }, HephaestusForgeLevel.ONE);
+    }
+
+    public HephaestusForgeLevel getLevel() {
+        return HephaestusForgeLevel.getFromIndex(this.hephaestusForgeLevel.get());
+    }
+
+    public boolean isSlotLocked(EnhancerSlot slot) {
+        return this.lockedSlots[slot.getSlotIndex()] == 1;
     }
 }

@@ -57,23 +57,13 @@ public enum HephaestusForgeLevel implements IntSupplier {
         return maxExperience;
     }
 
-    public static HephaestusForgeLevel getFromName(String name) {
-        return switch (name) {
-            case "2" -> HephaestusForgeLevel.TWO;
-            case "3" -> HephaestusForgeLevel.THREE;
-            case "4" -> HephaestusForgeLevel.FOUR;
-            case "x" -> HephaestusForgeLevel.X;
-            default -> HephaestusForgeLevel.ONE;
-        };
-    }
-
     public static HephaestusForgeLevel getFromIndex(int index) {
         return switch (index) {
-            case 1 -> HephaestusForgeLevel.TWO;
-            case 2 -> HephaestusForgeLevel.THREE;
-            case 3 -> HephaestusForgeLevel.FOUR;
-            case 4 -> HephaestusForgeLevel.X;
-            default -> HephaestusForgeLevel.ONE;
+            case 1 -> HephaestusForgeLevel.ONE;
+            case 2 -> HephaestusForgeLevel.TWO;
+            case 3 -> HephaestusForgeLevel.THREE;
+            case 4 -> HephaestusForgeLevel.FOUR;
+            default -> HephaestusForgeLevel.X;
         };
     }
 

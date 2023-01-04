@@ -37,10 +37,23 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
+    protected void containerTick() {
+        super.containerTick();
+
+        for (int i = 0; i < this.menu.slots.size(); i++) {
+            Slot slot = this.menu.slots.get(i);
+
+            if (slot instanceof EnhancerSlot enhancerSlot) {
+                enhancerSlot.updateLocked(this.menu.getLevel());
+            }
+        }
+    }
+
+    @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         super.render(poseStack, mouseX, mouseY, partialTicks);
 
-        for(int i = 0; i < this.menu.slots.size(); i++) {
+        for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
 
             if (slot instanceof EnhancerSlot) {
@@ -81,16 +94,13 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
             }
         }
 
-        HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(this.menu.getHephaestusForgeData().get(0));
+        HephaestusForgeLevel level = this.menu.getLevel();
 
         this.renderBar(poseStack, 1, level.getMaxAureal(), 8, 177);
         this.renderBar(poseStack, 2, level.getMaxCorruption(), 8, 183);
         this.renderBar(poseStack, 3, level.getMaxSouls(), 20, 189);
         this.renderBar(poseStack, 4, level.getMaxBlood(), 151, 195);
         this.renderBar(poseStack, 5, level.getMaxExperience(), 163, 201);
-
-        int ySize = Math.toIntExact(Math.round(32.0F * menu.getHephaestusForgeData().get(0) / HephaestusForgeLevel.getFromIndex(menu.getHephaestusForgeData().get(0)).getMaxAureal()));
-        this.blit(poseStack, this.getGuiLeft() + 8, this.getGuiTop() + 22 + 32 - ySize, 177, 3 + 32 - ySize, 4, ySize);
     }
 
     @Override
@@ -102,9 +112,9 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
         this.renderBarsTooltip(matrixStack, posX, posY, x, y);
 
-        Slot slot = getSlotUnderMouse();
+        Slot slot = this.getSlotUnderMouse();
 
-        if (slot instanceof EnhancerSlot enhancerSlot && enhancerSlot.isLocked()) {
+        if (slot instanceof EnhancerSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot)) {
             this.renderTooltip(matrixStack, Component.translatable("gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level").append(": " + enhancerSlot.getAdditionalData()), x, y);
         }
     }
@@ -115,7 +125,8 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         }
 
         ContainerData data = this.menu.getHephaestusForgeData();
-        HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(data.get(0));
+        HephaestusForgeLevel level = this.menu.getLevel();
+
 
         if (x >= 6 && x <= 13) {
             List<Component> textComponents = new ArrayList<>();
@@ -138,7 +149,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     public void renderEnhancerSlot(EnhancerSlot slot, PoseStack poseStack, int guiLeft, int guiTop) {
-        if (slot.isLocked()) {
+        if (this.menu.isSlotLocked(slot)) {
             this.blit(poseStack, guiLeft + slot.x - 2, guiTop + slot.y - 2, 176, 40, 20, 20);
         }
     }
