@@ -78,12 +78,6 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    protected void renderLabels(@Nonnull PoseStack poseStack, int x, int y) {
-        this.font.draw(poseStack, this.title, (float) this.titleLabelX, (float) this.titleLabelY, 4210752);
-        this.font.draw(poseStack, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
-    }
-
-    @Override
     protected void renderBg(@Nonnull PoseStack poseStack, float partialTicks, int x, int y) {
         this.renderBackground(poseStack);
 
@@ -158,7 +152,6 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         }
 
         public MutableComponent buildComponent(ContainerData data, HephaestusForgeLevel level) {
-            System.out.println(data.get(this.dataKey));
             return this.type.getComponent().copy().append(": " + data.get(this.dataKey) + "/" + this.getMaxAmount(level));
         }
     }
