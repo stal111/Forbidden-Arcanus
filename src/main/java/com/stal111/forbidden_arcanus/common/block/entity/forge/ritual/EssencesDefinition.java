@@ -30,7 +30,7 @@ public class EssencesDefinition {
 
     public void serializeToNetwork(FriendlyByteBuf buffer) {
         for (EssenceType type : EssenceType.values()) {
-            buffer.writeInt(this.get(type));
+            buffer.writeVarInt(this.get(type));
         }
     }
 
