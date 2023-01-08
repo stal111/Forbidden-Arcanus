@@ -3,22 +3,25 @@ package com.stal111.forbidden_arcanus.common.loader;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualEssences;
+import net.minecraft.nbt.TagParser;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.nbt.TagParser;
-import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Ritual Loader <br>
@@ -124,7 +127,7 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
         return item;
     }
 
-    private RitualEssences deserializeEssences(JsonObject jsonObject) {
+    private EssencesDefinition deserializeEssences(JsonObject jsonObject) {
         JsonObject essences = jsonObject.get("essences").getAsJsonObject();
 
         int aureal = GsonHelper.getAsInt(essences, "aureal", 0);
@@ -132,6 +135,6 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
         int blood = GsonHelper.getAsInt(essences, "blood", 0);
         int experience = GsonHelper.getAsInt(essences, "experience", 0);
 
-        return new RitualEssences(aureal, souls, blood, experience);
+        return new EssencesDefinition(aureal, souls, blood, experience);
     }
 }

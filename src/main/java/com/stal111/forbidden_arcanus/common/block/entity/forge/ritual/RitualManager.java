@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
-import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
@@ -11,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPa
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
+import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,7 +22,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
@@ -68,32 +67,29 @@ public class RitualManager implements NeedsStoring {
         return this.activeRitual != null;
     }
 
-    public void tryStartRitual(ServerLevel level, ItemStack stack, Player player) {
-        RitualStarterItem ritualStarterItem = (RitualStarterItem) stack.getItem();
+    public void tryStartRitual(ServerLevel level, EssencesStorage storage, BooleanConsumer started) {
         List<ItemStack> list = new ArrayList<>();
-
-        if (ritualStarterItem.getRemainingUses(stack) <= 0) {
-            return;
-        }
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()), true);
 
         for (Ritual ritual : RitualLoader.getRituals()) {
-            if (ritual.canStart(list, this.blockEntity)) {
-                if (!player.getAbilities().instabuild) {
-                    ritualStarterItem.setRemainingUses(stack, ritualStarterItem.getRemainingUses(stack) - 1);
-                }
+            if (storage.hasMoreThan(ritual.getEssences()) && ritual.checkIngredients(list, this.blockEntity.getStack(4))) {
 
-                this.startRitual(ritual);
+                this.startRitual(storage, ritual);
+
+                started.accept(true);
+
                 return;
             }
         }
+
+        started.accept(false);
     }
 
-    public void startRitual(Ritual ritual) {
+    public void startRitual(EssencesStorage storage, Ritual ritual) {
         this.setActiveRitual(ritual);
 
-        ritual.getEssences().reduceEssences(this.blockEntity);
+        storage.reduce(ritual.getEssences());
     }
 
     public void tick(ServerLevel level, BlockPos pos) {
@@ -116,7 +112,7 @@ public class RitualManager implements NeedsStoring {
 
                 this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
-                if (!this.getActiveRitual().checkIngredients(list, this.blockEntity)) {
+                if (!this.getActiveRitual().checkIngredients(list, this.blockEntity.getStack(4))) {
                     this.failRitual(level);
 
                     NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));

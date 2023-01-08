@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +27,7 @@ public class Ritual {
     private final ItemStack hephaestusForgeItem;
     private final ItemStack result;
 
-    private final RitualEssences essences;
+    private final EssencesDefinition essences;
 
     private final ResourceLocation outerTexture;
     private final ResourceLocation innerTexture;
@@ -37,7 +36,7 @@ public class Ritual {
 
     private final int time;
 
-    public Ritual(ResourceLocation name, Map<Integer, Ingredient> inputs, ItemStack hephaestusForgeItem, ItemStack result, RitualEssences essences, ResourceLocation outerTexture, ResourceLocation innerTexture, int time) {
+    public Ritual(ResourceLocation name, Map<Integer, Ingredient> inputs, ItemStack hephaestusForgeItem, ItemStack result, EssencesDefinition essences, ResourceLocation outerTexture, ResourceLocation innerTexture, int time) {
         this.name = name;
         this.inputs = inputs;
         this.hephaestusForgeItem = hephaestusForgeItem;
@@ -49,14 +48,7 @@ public class Ritual {
         this.time = time;
     }
 
-    public boolean canStart(List<ItemStack> inputs, HephaestusForgeBlockEntity blockEntity) {
-        if (!this.getEssences().checkEssences(blockEntity)) {
-            return false;
-        }
-        return this.checkIngredients(inputs, blockEntity);
-    }
-
-    public boolean checkIngredients(List<ItemStack> list, HephaestusForgeBlockEntity blockEntity) {
+    public boolean checkIngredients(List<ItemStack> list, ItemStack mainSlotStack) {
         List<ItemStack> ingredients = new ArrayList<>(list);
 
         for (Ingredient ingredient : this.getInputs()) {
@@ -76,13 +68,11 @@ public class Ritual {
             }
         }
 
-        ItemStack stack = blockEntity.getStack(4);
-
         if (!ingredients.isEmpty()) {
             return false;
         }
 
-        return this.getHephaestusForgeItem().isEmpty() ? stack.isEmpty() : this.getHephaestusForgeItem().equals(stack, false);
+        return this.getHephaestusForgeItem().isEmpty() ? mainSlotStack.isEmpty() : this.getHephaestusForgeItem().equals(mainSlotStack, false);
     }
 
     public ResourceLocation getName() {
@@ -105,7 +95,7 @@ public class Ritual {
         return this.result.copy();
     }
 
-    public RitualEssences getEssences() {
+    public EssencesDefinition getEssences() {
         return this.essences;
     }
 
@@ -141,7 +131,7 @@ public class Ritual {
         Map<Integer, Ingredient> inputs = buffer.readMap(FriendlyByteBuf::readVarInt, Ingredient::fromNetwork);
         ItemStack hephaestusForgeItem = buffer.readItem();
         ItemStack result = buffer.readItem();
-        RitualEssences essences = RitualEssences.fromNetwork(buffer);
+        EssencesDefinition essences = EssencesDefinition.fromNetwork(buffer);
         ResourceLocation outerTexture = buffer.readResourceLocation();
         ResourceLocation innerTexture = buffer.readResourceLocation();
         int time = buffer.readVarInt();

@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
-import net.minecraft.Util;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesDefinition;
 
-import java.util.EnumMap;
 import java.util.function.IntSupplier;
 
 /**
@@ -21,16 +20,11 @@ public enum HephaestusForgeLevel implements IntSupplier {
     X(5, 3000, 666, 100000, 2000);
 
     private final int index;
-    private final EnumMap<EssenceType, Integer> maxEssences;
+    private final EssencesDefinition maxEssences;
 
     HephaestusForgeLevel(int index, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
         this.index = index;
-        this.maxEssences = Util.make(new EnumMap<>(EssenceType.class), map -> {
-           map.put(EssenceType.AUREAL, maxAureal);
-           map.put(EssenceType.SOULS, maxSouls);
-           map.put(EssenceType.BLOOD, maxBlood);
-           map.put(EssenceType.EXPERIENCE, maxExperience);
-        });
+        this.maxEssences = new EssencesDefinition(maxAureal, maxSouls, maxBlood, maxExperience);
     }
 
     public int getIndex() {

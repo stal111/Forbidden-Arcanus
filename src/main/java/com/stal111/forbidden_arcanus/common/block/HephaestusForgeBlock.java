@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -119,8 +118,8 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
             if (level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
                 ItemStack stack = player.getItemInHand(hand);
 
-                if (stack.getItem() instanceof RitualStarterItem) {
-                    blockEntity.getRitualManager().tryStartRitual((ServerLevel) level, stack, player);
+                if (stack.getItem() instanceof RitualStarterItem ritualStarterItem) {
+                    ritualStarterItem.tryStartRitual(blockEntity, level, stack, player);
                 } else {
                     NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
                 }

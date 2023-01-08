@@ -7,8 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
-import java.util.EnumMap;
-
 /**
  * Essence Manager <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.EssenceManager
@@ -20,7 +18,7 @@ public class EssenceManager implements NeedsStoring {
 
     private final HephaestusForgeBlockEntity blockEntity;
 
-    private final EnumMap<EssenceType, Integer> essences = new EnumMap<>(EssenceType.class);
+    private final EssencesStorage essences = new EssencesStorage();
 
     private final Object2FloatArrayMap<LivingEntity> cachedHealth = new Object2FloatArrayMap<>();
 
@@ -34,6 +32,10 @@ public class EssenceManager implements NeedsStoring {
 
     public HephaestusForgeLevel getLevel() {
         return this.getBlockEntity().getForgeLevel();
+    }
+
+    public EssencesStorage getEssences() {
+        return this.essences;
     }
 
     public int getEssence(EssenceType type) {
@@ -56,20 +58,12 @@ public class EssenceManager implements NeedsStoring {
         this.setEssence(EssenceType.AUREAL, aureal);
     }
 
-    public void decreaseAureal(int aureal) {
-        this.setAureal(Math.max(this.getAureal() - aureal, 0));
-    }
-
     public int getSouls() {
         return this.getEssence(EssenceType.SOULS);
     }
 
     public void setSouls(int souls) {
         this.setEssence(EssenceType.SOULS, souls);
-    }
-
-    public void decreaseSouls(int souls) {
-        this.setSouls(Math.max(this.getSouls() - souls, 0));
     }
 
     public int getBlood() {
@@ -80,20 +74,12 @@ public class EssenceManager implements NeedsStoring {
         this.setEssence(EssenceType.BLOOD, blood);
     }
 
-    public void decreaseBlood(int blood) {
-        this.setBlood(Math.max(this.getBlood() - blood, 0));
-    }
-
     public int getExperience() {
         return this.getEssence(EssenceType.EXPERIENCE);
     }
 
     public void setExperience(int experience) {
         this.setEssence(EssenceType.EXPERIENCE, experience);
-    }
-
-    public void decreaseExperience(int experience) {
-        this.setExperience(Math.max(this.getExperience() - experience, 0));
     }
 
     @Override
