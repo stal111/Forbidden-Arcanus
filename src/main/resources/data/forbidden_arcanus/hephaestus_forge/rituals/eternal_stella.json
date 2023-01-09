@@ -2,19 +2,10 @@
     "inputs": [
         {
             "item": "forbidden_arcanus:xpetrified_orb",
-            "slot": 0
+            "amount": 3
         },
         {
-            "item": "forbidden_arcanus:xpetrified_orb",
-            "slot": 1
-        },
-        {
-            "item": "forbidden_arcanus:xpetrified_orb",
-            "slot": 4
-        },
-        {
-            "item": "forbidden_arcanus:stellarite_piece",
-            "slot": 5
+            "item": "forbidden_arcanus:stellarite_piece"
         }
     ],
     "hephaestus_forge_item": "minecraft:diamond",

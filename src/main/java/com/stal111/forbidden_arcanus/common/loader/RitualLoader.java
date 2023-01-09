@@ -1,10 +1,12 @@
 package com.stal111.forbidden_arcanus.common.loader;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.*;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -98,23 +100,18 @@ public class RitualLoader extends SimpleJsonResourceReloadListener {
         return null;
     }
 
-    private Map<Integer, Ingredient> deserializeInputs(JsonObject jsonObject) {
-        Map<Integer, Ingredient> inputs = new HashMap<>();
+    private List<RitualInput> deserializeInputs(JsonObject jsonObject) {
+        ImmutableList.Builder<RitualInput> builder = new ImmutableList.Builder<>();
         JsonArray jsonArray = jsonObject.getAsJsonArray("inputs");
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject input = jsonArray.get(i).getAsJsonObject();
-            ItemStack stack = CraftingHelper.getItemStack(input, true);
-            int slot = input.get("slot").getAsInt();
+            short amount = GsonHelper.getAsShort(input, "amount", (short) 1);
 
-            if (inputs.containsKey(slot)) {
-                throw new IllegalStateException("Slot " + slot + " was already assigned.");
-            } else {
-                inputs.put(slot, Ingredient.of(stack));
-            }
+            builder.add(new RitualInput(Ingredient.fromJson(input), amount));
         }
 
-        return inputs;
+        return builder.build();
     }
 
     private Item deserializeItem(ResourceLocation name) {

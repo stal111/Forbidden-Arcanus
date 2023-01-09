@@ -4,26 +4,24 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Ritual <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.Ritual
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-07-09
  */
 public class Ritual {
 
     private final ResourceLocation name;
 
-    private final Map<Integer, Ingredient> inputs;
+    private final List<RitualInput> inputs;
     private final ItemStack hephaestusForgeItem;
     private final ItemStack result;
 
@@ -36,7 +34,7 @@ public class Ritual {
 
     private final int time;
 
-    public Ritual(ResourceLocation name, Map<Integer, Ingredient> inputs, ItemStack hephaestusForgeItem, ItemStack result, EssencesDefinition essences, ResourceLocation outerTexture, ResourceLocation innerTexture, int time) {
+    public Ritual(ResourceLocation name, List<RitualInput> inputs, ItemStack hephaestusForgeItem, ItemStack result, EssencesDefinition essences, ResourceLocation outerTexture, ResourceLocation innerTexture, int time) {
         this.name = name;
         this.inputs = inputs;
         this.hephaestusForgeItem = hephaestusForgeItem;
@@ -48,43 +46,55 @@ public class Ritual {
         this.time = time;
     }
 
+    public static Ritual fromNetwork(FriendlyByteBuf buffer) {
+        ResourceLocation name = buffer.readResourceLocation();
+        List<RitualInput> inputs = buffer.readList(RitualInput::fromNetwork);
+        ItemStack hephaestusForgeItem = buffer.readItem();
+        ItemStack result = buffer.readItem();
+        EssencesDefinition essences = EssencesDefinition.fromNetwork(buffer);
+        ResourceLocation outerTexture = buffer.readResourceLocation();
+        ResourceLocation innerTexture = buffer.readResourceLocation();
+        int time = buffer.readVarInt();
+
+        return new Ritual(name, inputs, hephaestusForgeItem, result, essences, outerTexture, innerTexture, time);
+    }
+
     public boolean checkIngredients(List<ItemStack> list, ItemStack mainSlotStack) {
-        List<ItemStack> ingredients = new ArrayList<>(list);
-
-        for (Ingredient ingredient : this.getInputs()) {
-            boolean foundStack = false;
-
-            for (ItemStack input : ingredients) {
-                if (ingredient.test(input)) {
-                    ingredients.remove(input);
-
-                    foundStack = true;
-                    break;
-                }
-            }
-
-            if (!foundStack) {
-                return false;
-            }
-        }
-
-        if (!ingredients.isEmpty()) {
+        if (!this.getHephaestusForgeItem().equals(mainSlotStack, false)) {
             return false;
         }
 
-        return this.getHephaestusForgeItem().isEmpty() ? mainSlotStack.isEmpty() : this.getHephaestusForgeItem().equals(mainSlotStack, false);
+        List<ItemStack> ingredients = new ArrayList<>(list);
+
+        outer: for (RitualInput input : this.getInputs()) {
+            int amount = 0;
+
+            Iterator<ItemStack> iterator = ingredients.iterator();
+
+            while (iterator.hasNext()) {
+                if (input.ingredient().test(iterator.next())) {
+                    iterator.remove();
+
+                    amount++;
+
+                    if (amount == input.amount()) {
+                        continue outer;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        return ingredients.isEmpty();
     }
 
     public ResourceLocation getName() {
         return this.name;
     }
 
-    public Ingredient getInput(int slot) {
-        return this.inputs.get(slot);
-    }
-
-    public List<Ingredient> getInputs() {
-        return new ArrayList<>(this.inputs.values());
+    public List<RitualInput> getInputs() {
+        return this.inputs;
     }
 
     public ItemStack getHephaestusForgeItem() {
@@ -117,26 +127,13 @@ public class Ritual {
 
     public void serializeToNetwork(FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(this.name);
-        buffer.writeMap(this.inputs, FriendlyByteBuf::writeVarInt, (friendlyByteBuf, ingredient) -> ingredient.toNetwork(friendlyByteBuf));
+        buffer.writeCollection(this.inputs, (buf, input) -> input.toNetwork(buf));
         buffer.writeItem(this.hephaestusForgeItem);
         buffer.writeItem(this.result);
         this.essences.serializeToNetwork(buffer);
         buffer.writeResourceLocation(this.outerTexture);
         buffer.writeResourceLocation(this.innerTexture);
         buffer.writeVarInt(this.time);
-    }
-
-    public static Ritual fromNetwork(FriendlyByteBuf buffer) {
-        ResourceLocation name = buffer.readResourceLocation();
-        Map<Integer, Ingredient> inputs = buffer.readMap(FriendlyByteBuf::readVarInt, Ingredient::fromNetwork);
-        ItemStack hephaestusForgeItem = buffer.readItem();
-        ItemStack result = buffer.readItem();
-        EssencesDefinition essences = EssencesDefinition.fromNetwork(buffer);
-        ResourceLocation outerTexture = buffer.readResourceLocation();
-        ResourceLocation innerTexture = buffer.readResourceLocation();
-        int time = buffer.readVarInt();
-
-        return new Ritual(name, inputs, hephaestusForgeItem, result, essences, outerTexture, innerTexture, time);
     }
 
     public enum PedestalType {
