@@ -7,6 +7,8 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualMana
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -38,6 +40,8 @@ import java.util.Objects;
  * @since 2021-06-18
  */
 public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
+
+    public static final int MAIN_SLOT = 4;
 
     private final ContainerData hephaestusForgeData;
     private final RitualManager ritualManager = new RitualManager(this);
@@ -123,6 +127,13 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         }
 
         blockEntity.ritualManager.tick((ServerLevel) level, pos);
+    }
+
+    @Override
+    protected void onSlotChanged(int slot) {
+        if (slot == MAIN_SLOT && this.level != null) {
+            NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.worldPosition), new UpdateItemInSlotPacket(this.worldPosition, this.getStack(slot), slot));
+        }
     }
 
     private EssenceType getInputTypeFromSlot(int slot) {

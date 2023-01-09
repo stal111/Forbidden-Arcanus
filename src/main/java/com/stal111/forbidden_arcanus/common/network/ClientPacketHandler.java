@@ -19,11 +19,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.valhelsia.valhelsia_core.common.block.entity.ValhelsiaContainerBlockEntity;
 
 /**
  * @author stal111
@@ -73,8 +73,8 @@ public class ClientPacketHandler {
     public static void handleUpdateItemInSlot(UpdateItemInSlotPacket packet) {
         Level level = getLevel();
 
-        if (level != null && level.getBlockEntity(packet.pos()) instanceof Container container) {
-            container.setItem(packet.slot(), packet.stack());
+        if (level != null && level.getBlockEntity(packet.pos()) instanceof ValhelsiaContainerBlockEntity blockEntity) {
+            blockEntity.setStack(packet.slot(), packet.stack());
         }
     }
 
