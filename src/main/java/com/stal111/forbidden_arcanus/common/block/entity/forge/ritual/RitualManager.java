@@ -35,10 +35,11 @@ import java.util.function.Predicate;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.tile.forge.ritual.RitualManager
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-07-09
  */
 public class RitualManager implements NeedsStoring {
+
+    public static final float DEFAULT_RITUAL_TIME = 500.0F;
 
     private final HephaestusForgeBlockEntity blockEntity;
 
@@ -98,8 +99,7 @@ public class RitualManager implements NeedsStoring {
         }
 
         RandomSource random = level.getRandom();
-
-        int time = this.getActiveRitual().getTime();
+        float progress = RitualManager.getRitualProgress(this.counter);
 
         this.counter++;
         this.updateCachedPedestals(level);
@@ -136,7 +136,7 @@ public class RitualManager implements NeedsStoring {
             this.addItemParticles(level, pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());
         });
 
-        if (this.counter == time / 2.0F && random.nextDouble() <= this.getFailureChance() * 2) {
+        if (progress == 0.5F && random.nextDouble() <= this.getFailureChance() * 2) {
             CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), level);
             entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
             entity.setVisualOnly(true);
@@ -156,7 +156,7 @@ public class RitualManager implements NeedsStoring {
             });
         }
 
-        if (this.counter == time) {
+        if (progress == 1.0F) {
             if (random.nextDouble() > this.getFailureChance()) {
                 this.finishRitual(level);
             } else {
@@ -224,6 +224,13 @@ public class RitualManager implements NeedsStoring {
         //return ((this.getBlockEntity().getEssenceManager().getCorruption() + 5) / (float) this.getBlockEntity().getForgeLevel().getMaxCorruption()) / 2;
     }
 
+    /**
+     * @return the progress of the currently active ritual. Between {@code 0.0F} and {@code 1.0F} if the ritual is finished.
+     */
+    public static float getRitualProgress(float counter) {
+        return counter / DEFAULT_RITUAL_TIME;
+    }
+
     @Override
     public CompoundTag save(CompoundTag tag) {
         if (this.isRitualActive()) {
@@ -245,7 +252,7 @@ public class RitualManager implements NeedsStoring {
             this.counter = tag.getInt("Counter");
 
             if (this.counter != 0) {
-                this.blockEntity.getMagicCircle().setRotation(this.counter);
+                this.blockEntity.getMagicCircle().setCounter(this.counter);
             }
 
             if (tag.contains("LightningCounter")) {

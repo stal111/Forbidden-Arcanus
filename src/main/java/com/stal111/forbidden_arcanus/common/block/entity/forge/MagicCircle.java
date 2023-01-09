@@ -26,7 +26,7 @@ public class MagicCircle {
 
     private final RitualManager ritualManager;
 
-    private int rotation;
+    private int counter;
 
     public MagicCircle(RitualManager ritualManager) {
         this.ritualManager = ritualManager;
@@ -34,40 +34,40 @@ public class MagicCircle {
 
     public void tick() {
         if (this.ritualManager.isRitualActive()) {
-            this.rotation++;
-        } else if (this.rotation != 0) {
-            this.rotation = 0;
+            this.counter++;
+        } else if (this.counter != 0) {
+            this.counter = 0;
         }
     }
 
-    public void setRotation(int rotation) {
-        this.rotation = rotation;
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 
     public void render(PoseStack poseStack, float partialTicks, MultiBufferSource buffer, int packedLight, MagicCircleModel model) {
         if (this.ritualManager.isRitualActive()) {
             Ritual ritual = this.ritualManager.getActiveRitual();
+            float rotation = this.counter + partialTicks;
+            float ritualProgress = RitualManager.getRitualProgress(rotation);
 
             poseStack.pushPose();
 
-            float ticks = this.rotation + partialTicks;
-
             poseStack.translate(0.5D, 0.0D, 0.5D);
 
-            float size = 1 + Math.min(ticks, 100) / 100.0F * 7.5F;
+            float size = this.easeSineOut(Math.min(ritualProgress, 0.25D), 1.25D, 7.25D, 0.25D);
             poseStack.scale(size, 1.0F, size);
 
-            float alpha = ticks > ritual.getTime() * 0.9F ? Math.max((ritual.getTime() - ticks), 0) / (ritual.getTime() * 0.1F) : 1.0F;
+            float alpha = ritualProgress > 0.9F ? this.easeSineOut(ritualProgress - 0.9F, 1.0D, -1.0D, 0.1D) : 1.0F;
 
-            poseStack.mulPose(Axis.YN.rotationDegrees(ticks));
+            poseStack.mulPose(Axis.YN.rotationDegrees(rotation));
             model.getOuterRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(ritual.getOuterTexture())), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
-            poseStack.mulPose(Axis.YN.rotationDegrees(-ticks * 2));
+            poseStack.mulPose(Axis.YN.rotationDegrees(-rotation * 2));
             model.getInnerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(ritual.getInnerTexture())), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
             poseStack.popPose();
 
-            if (ticks > ritual.getTime() * 0.9F) {
+            if (ritualProgress > 0.9F) {
                 Level level = Objects.requireNonNull(this.ritualManager.getBlockEntity().getLevel());
                 BlockPos pos = this.ritualManager.getBlockEntity().getBlockPos();
                 RandomSource random = level.getRandom();
@@ -79,5 +79,13 @@ public class MagicCircle {
                 level.addParticle(ModParticles.AUREAL_MOTE.get(), posX - 2.0D, pos.getY() + 0.1F, posZ - 2.0D, 0, ySpeed, 0);
             }
         }
+    }
+
+    public float easeSineIn(double progress, double start, double change, double duration) {
+        return (float) (-change * Math.cos(progress / duration * (Math.PI / 2)) + change + start);
+    }
+
+    public float easeSineOut(double progress, double start, double change, double duration) {
+        return (float) (change * Math.sin(progress / duration * (Math.PI / 2)) + start);
     }
 }

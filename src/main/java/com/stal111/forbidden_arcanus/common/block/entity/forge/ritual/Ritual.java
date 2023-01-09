@@ -32,9 +32,7 @@ public class Ritual {
 
     private final PedestalType pedestalType;
 
-    private final int time;
-
-    public Ritual(ResourceLocation name, List<RitualInput> inputs, ItemStack hephaestusForgeItem, ItemStack result, EssencesDefinition essences, ResourceLocation outerTexture, ResourceLocation innerTexture, int time) {
+    public Ritual(ResourceLocation name, List<RitualInput> inputs, ItemStack hephaestusForgeItem, ItemStack result, EssencesDefinition essences, ResourceLocation outerTexture, ResourceLocation innerTexture) {
         this.name = name;
         this.inputs = inputs;
         this.hephaestusForgeItem = hephaestusForgeItem;
@@ -43,8 +41,7 @@ public class Ritual {
         this.outerTexture = outerTexture;
         this.innerTexture = innerTexture;
         this.pedestalType = PedestalType.DARKSTONE_PEDESTAL;
-        this.time = time;
-    }
+     }
 
     public static Ritual fromNetwork(FriendlyByteBuf buffer) {
         ResourceLocation name = buffer.readResourceLocation();
@@ -54,9 +51,8 @@ public class Ritual {
         EssencesDefinition essences = EssencesDefinition.fromNetwork(buffer);
         ResourceLocation outerTexture = buffer.readResourceLocation();
         ResourceLocation innerTexture = buffer.readResourceLocation();
-        int time = buffer.readVarInt();
 
-        return new Ritual(name, inputs, hephaestusForgeItem, result, essences, outerTexture, innerTexture, time);
+        return new Ritual(name, inputs, hephaestusForgeItem, result, essences, outerTexture, innerTexture);
     }
 
     public boolean checkIngredients(List<ItemStack> list, ItemStack mainSlotStack) {
@@ -121,10 +117,6 @@ public class Ritual {
         return this.pedestalType;
     }
 
-    public int getTime() {
-        return this.time;
-    }
-
     public void serializeToNetwork(FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(this.name);
         buffer.writeCollection(this.inputs, (buf, input) -> input.toNetwork(buf));
@@ -133,7 +125,6 @@ public class Ritual {
         this.essences.serializeToNetwork(buffer);
         buffer.writeResourceLocation(this.outerTexture);
         buffer.writeResourceLocation(this.innerTexture);
-        buffer.writeVarInt(this.time);
     }
 
     public enum PedestalType {
