@@ -51,6 +51,10 @@ public enum HephaestusForgeLevel implements IntSupplier {
         return this.maxEssences.get(EssenceType.EXPERIENCE);
     }
 
+    public EssencesDefinition getMaxEssences() {
+        return this.maxEssences;
+    }
+
     public static HephaestusForgeLevel getFromIndex(int index) {
         return switch (index) {
             case 1 -> HephaestusForgeLevel.ONE;

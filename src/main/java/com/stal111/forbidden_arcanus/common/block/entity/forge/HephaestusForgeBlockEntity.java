@@ -45,7 +45,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
 
     private final ContainerData hephaestusForgeData;
     private final RitualManager ritualManager = new RitualManager(this);
-    private final EssenceManager essenceManager = new EssenceManager(this);
+    private final EssenceManager essenceManager;
     private final MagicCircle magicCircle = new MagicCircle(this.ritualManager);
     private List<LivingEntity> entities = new ArrayList<>();
 
@@ -86,6 +86,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
                 return 4;
             }
         };
+
+        this.essenceManager = new EssenceManager(this.getForgeLevel().getMaxEssences());
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
@@ -121,9 +123,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         }
 
         if (level.getGameTime() % 20 == 0) {
-            blockEntity.entities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(5, 5, 5));
 
-            blockEntity.essenceManager.tick();
+            blockEntity.essenceManager.tick(level, pos);
         }
 
         blockEntity.ritualManager.tick((ServerLevel) level, pos);
@@ -148,23 +149,11 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
 
     @Nullable
     private HephaestusForgeInput getInput(ItemStack stack, EssenceType inputType) {
-        if (this.isTypeFull(inputType)) {
+        if (this.essenceManager.isEssenceFull(inputType)) {
             return null;
         }
 
         return HephaestusForgeInputs.getInputs().stream().filter(input -> input.canInput(inputType, stack)).findFirst().orElse(null);
-    }
-
-    private boolean isTypeFull(EssenceType inputType) {
-        HephaestusForgeLevel level = this.getForgeLevel();
-        EssenceManager manager = this.getEssenceManager();
-
-        return switch (inputType) {
-            case AUREAL -> manager.getAureal() >= level.getMaxAureal();
-            case SOULS -> manager.getSouls() >= level.getMaxSouls();
-            case BLOOD -> manager.getBlood() >= level.getMaxBlood();
-            case EXPERIENCE -> manager.getExperience() >= level.getMaxExperience();
-        };
     }
 
     public HephaestusForgeLevel getForgeLevel() {

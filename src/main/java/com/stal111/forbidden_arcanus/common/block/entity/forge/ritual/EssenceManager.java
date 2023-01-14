@@ -1,11 +1,14 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
+
+import java.util.List;
 
 /**
  * Essence Manager <br>
@@ -16,22 +19,14 @@ import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
  */
 public class EssenceManager implements NeedsStoring {
 
-    private final HephaestusForgeBlockEntity blockEntity;
+    private static final int ENTITY_CHECK_RADIUS = 5;
 
     private final EssencesStorage essences = new EssencesStorage();
-
     private final Object2FloatArrayMap<LivingEntity> cachedHealth = new Object2FloatArrayMap<>();
+    private final EssencesDefinition maxEssences;
 
-    public EssenceManager(HephaestusForgeBlockEntity blockEntity) {
-        this.blockEntity = blockEntity;
-    }
-
-    public HephaestusForgeBlockEntity getBlockEntity() {
-        return this.blockEntity;
-    }
-
-    public HephaestusForgeLevel getLevel() {
-        return this.getBlockEntity().getForgeLevel();
+    public EssenceManager(EssencesDefinition maxEssences) {
+        this.maxEssences = maxEssences;
     }
 
     public EssencesStorage getEssences() {
@@ -47,7 +42,7 @@ public class EssenceManager implements NeedsStoring {
     }
 
     public void increaseEssence(EssenceType type, int amount) {
-        this.setEssence(type, Math.min(this.getLevel().getMaxAmount(type), this.getEssence(type) + amount));
+        this.setEssence(type, Math.min(this.maxEssences.get(type), this.getEssence(type) + amount));
     }
 
     public int getAureal() {
@@ -82,6 +77,10 @@ public class EssenceManager implements NeedsStoring {
         this.setEssence(EssenceType.EXPERIENCE, experience);
     }
 
+    public boolean isEssenceFull(EssenceType type) {
+        return this.getEssence(type) >= this.maxEssences.get(type);
+    }
+
     @Override
     public CompoundTag save(CompoundTag tag) {
         for (EssenceType type : EssenceType.values()) {
@@ -98,8 +97,10 @@ public class EssenceManager implements NeedsStoring {
         }
     }
 
-    public void tick() {
-        for (LivingEntity entity : this.blockEntity.getEntities()) {
+    public void tick(Level level, BlockPos pos) {
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(ENTITY_CHECK_RADIUS));
+
+        for (LivingEntity entity : entities) {
             if (this.cachedHealth.containsKey(entity)) {
                 float healthDifference = this.cachedHealth.getFloat(entity) - entity.getHealth();
 
@@ -111,7 +112,7 @@ public class EssenceManager implements NeedsStoring {
 
         this.cachedHealth.clear();
 
-        for (LivingEntity entity : this.blockEntity.getEntities()) {
+        for (LivingEntity entity : entities) {
             this.cachedHealth.put(entity, entity.getHealth());
         }
     }
