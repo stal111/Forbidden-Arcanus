@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.Level;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.RitualStarterItem
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-09-18
  */
 public interface RitualStarterItem {
@@ -23,9 +23,9 @@ public interface RitualStarterItem {
         return this.getRemainingUses(stack) >= 1;
     }
 
-    default void tryStartRitual(HephaestusForgeBlockEntity blockEntity, Level level, ItemStack stack, Player player) {
+    default void tryStartRitual(HephaestusForgeBlockEntity blockEntity, Level level, BlockPos pos, ItemStack stack, Player player) {
         if (this.canStartRitual(stack) && level instanceof ServerLevel serverLevel) {
-            blockEntity.getRitualManager().tryStartRitual(serverLevel, blockEntity.getEssenceManager().getEssences(), started -> {
+            blockEntity.getRitualManager().tryStartRitual(serverLevel, pos, blockEntity.getEssenceManager().getEssences(), started -> {
                 if (started && !player.getAbilities().instabuild) {
                     this.setRemainingUses(stack, this.getRemainingUses(stack) - 1);
                 }

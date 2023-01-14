@@ -15,7 +15,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
@@ -28,8 +27,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -47,7 +44,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     private final RitualManager ritualManager = new RitualManager(this);
     private final EssenceManager essenceManager;
     private final MagicCircle magicCircle = new MagicCircle(this.ritualManager);
-    private List<LivingEntity> entities = new ArrayList<>();
 
     private int displayCounter;
 
@@ -123,7 +119,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         }
 
         if (level.getGameTime() % 20 == 0) {
-
             blockEntity.essenceManager.tick(level, pos);
         }
 
@@ -170,10 +165,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
 
     public MagicCircle getMagicCircle() {
         return magicCircle;
-    }
-
-    public List<LivingEntity> getEntities() {
-        return entities;
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {

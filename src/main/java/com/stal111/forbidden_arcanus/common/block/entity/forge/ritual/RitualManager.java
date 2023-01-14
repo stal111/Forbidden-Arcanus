@@ -9,9 +9,10 @@ import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitua
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
-import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
@@ -41,9 +41,20 @@ public class RitualManager implements NeedsStoring {
 
     public static final float DEFAULT_RITUAL_TIME = 500.0F;
 
+    public static final Vec3i[] PEDESTAL_OFFSETS = {
+            new Vec3i(-3, 0, 0),
+            new Vec3i(-2, 0, -2),
+            new Vec3i(0, 0, -3),
+            new Vec3i(2, 0, -2),
+            new Vec3i(3, 0, 0),
+            new Vec3i(2, 0, 2),
+            new Vec3i(0, 0, 3),
+            new Vec3i(-2, 0, 2)
+    };
+
     private final HephaestusForgeBlockEntity blockEntity;
 
-    private final List<BlockPos> cachedPedestals = new ArrayList<>();
+    private final ObjectArrayList<PedestalBlockEntity> cachedPedestals = new ObjectArrayList<>();
     private Ritual activeRitual;
     private int counter;
     private int lightningCounter;
@@ -68,10 +79,10 @@ public class RitualManager implements NeedsStoring {
         return this.activeRitual != null;
     }
 
-    public void tryStartRitual(ServerLevel level, EssencesStorage storage, BooleanConsumer started) {
+    public void tryStartRitual(ServerLevel level, BlockPos pos, EssencesStorage storage, BooleanConsumer started) {
         List<ItemStack> list = new ArrayList<>();
 
-        this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()), true);
+        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()), true);
 
         for (Ritual ritual : RitualLoader.getRituals()) {
             if (storage.hasMoreThan(ritual.getEssences()) && ritual.checkIngredients(list, this.blockEntity.getStack(4))) {
@@ -102,7 +113,7 @@ public class RitualManager implements NeedsStoring {
         float progress = RitualManager.getRitualProgress(this.counter);
 
         this.counter++;
-        this.updateCachedPedestals(level);
+        this.updateCachedPedestals(level, pos);
 
         if (this.lightningCounter != 0) {
             this.lightningCounter++;
@@ -110,10 +121,10 @@ public class RitualManager implements NeedsStoring {
             if (this.lightningCounter == 300) {
                 List<ItemStack> list = new ArrayList<>();
 
-                this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
+                this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
                 if (!this.getActiveRitual().checkIngredients(list, this.blockEntity.getStack(4))) {
-                    this.failRitual(level);
+                    this.failRitual(level, pos);
 
                     NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
                     return;
@@ -123,7 +134,7 @@ public class RitualManager implements NeedsStoring {
             }
         }
 
-        this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
+        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
             BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
             if (pedestalBlockEntity.getItemHeight() != 140) {
@@ -133,7 +144,7 @@ public class RitualManager implements NeedsStoring {
                 NetworkHandler.sendToTrackingChunk(level.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, pedestalBlockEntity.getStack(), height));
             }
 
-            this.addItemParticles(level, pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());
+            this.addItemParticles(level, pos, pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());
         });
 
         if (progress == 0.5F && random.nextDouble() <= this.getFailureChance() * 2) {
@@ -145,7 +156,7 @@ public class RitualManager implements NeedsStoring {
 
             this.lightningCounter++;
 
-            this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
+            this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
                 if (random.nextBoolean()) {
                     ItemStack stack = pedestalBlockEntity.getStack().copy();
                     BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
@@ -158,27 +169,26 @@ public class RitualManager implements NeedsStoring {
 
         if (progress == 1.0F) {
             if (random.nextDouble() > this.getFailureChance()) {
-                this.finishRitual(level);
+                this.finishRitual(level, pos);
             } else {
-                this.failRitual(level);
+                this.failRitual(level, pos);
             }
         }
 
         NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
     }
 
-    public void finishRitual(ServerLevel level) {
+    public void finishRitual(ServerLevel level, BlockPos pos) {
         this.blockEntity.setStack(4, this.getActiveRitual().getResult());
         this.reset();
 
-        this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
+        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
             pedestalBlockEntity.clearStack(level);
         });
     }
 
-    public void failRitual(ServerLevel level) {
+    public void failRitual(ServerLevel level, BlockPos pos) {
         ItemStack stack = this.blockEntity.getStack(4);
-        BlockPos pos = this.blockEntity.getBlockPos();
 
         this.reset();
 
@@ -188,7 +198,7 @@ public class RitualManager implements NeedsStoring {
             this.blockEntity.setStack(4, ItemStack.EMPTY);
         }
 
-        this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
+        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
             pedestalBlockEntity.clearStack(level);
            // this.blockEntity.getEssenceManager().increaseCorruption(2);
         });
@@ -197,9 +207,7 @@ public class RitualManager implements NeedsStoring {
         level.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F) * 0.7F);
     }
 
-    private void addItemParticles(ServerLevel level, BlockPos pedestalPos, int itemHeight, ItemStack stack) {
-        BlockPos pos = this.blockEntity.getBlockPos();
-
+    private void addItemParticles(ServerLevel level, BlockPos pos, BlockPos pedestalPos, int itemHeight, ItemStack stack) {
         double posX = pedestalPos.getX() + 0.5D;
         double posY = pedestalPos.getY() + 0.1D + itemHeight / 100.0F;
         double posZ = pedestalPos.getZ() + 0.5D;
@@ -261,21 +269,26 @@ public class RitualManager implements NeedsStoring {
         }
     }
 
-    public void updateCachedPedestals(ServerLevel level) {
-        PoiManager manager = level.getPoiManager();
-
+    public void updateCachedPedestals(ServerLevel level, BlockPos pos) {
         this.cachedPedestals.clear();
-        manager.getInRange(poiType -> poiType.get() == ModPOITypes.PEDESTAL.get(), this.blockEntity.getBlockPos(), 4, PoiManager.Occupancy.ANY).forEach(pointOfInterest -> this.cachedPedestals.add(pointOfInterest.getPos()));
-    }
 
-    public void forEachPedestal(ServerLevel level, Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
-        this.forEachPedestal(level, predicate, consumer, false);
-    }
+        for (Vec3i vec3i : PEDESTAL_OFFSETS) {
+            BlockPos offsetPos = pos.offset(vec3i);
 
-    public void forEachPedestal(ServerLevel level, Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer, boolean updatePedestals) {
-        if (updatePedestals) {
-            this.updateCachedPedestals(level);
+            if (level.getBlockEntity(offsetPos) instanceof PedestalBlockEntity blockEntity) {
+                this.cachedPedestals.add(blockEntity);
+            }
         }
-        this.cachedPedestals.stream().map(pos -> (PedestalBlockEntity) level.getBlockEntity(pos)).filter(predicate).forEach(consumer);
+    }
+
+    public void forEachPedestal(ServerLevel level, BlockPos pos, Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
+        this.forEachPedestal(level, pos, predicate, consumer, false);
+    }
+
+    public void forEachPedestal(ServerLevel level, BlockPos pos, Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer, boolean updatePedestals) {
+        if (updatePedestals) {
+            this.updateCachedPedestals(level, pos);
+        }
+        this.cachedPedestals.stream().filter(predicate).forEach(consumer);
     }
 }
