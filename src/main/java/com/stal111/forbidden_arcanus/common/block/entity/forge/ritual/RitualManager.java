@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
@@ -23,6 +22,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
 import java.util.ArrayList;
@@ -52,19 +52,15 @@ public class RitualManager implements NeedsStoring {
             new Vec3i(-2, 0, 2)
     };
 
-    private final HephaestusForgeBlockEntity blockEntity;
+    private final MainIngredientAccessor mainIngredientAccessor;
 
     private final ObjectArrayList<PedestalBlockEntity> cachedPedestals = new ObjectArrayList<>();
     private Ritual activeRitual;
     private int counter;
     private int lightningCounter;
 
-    public RitualManager(HephaestusForgeBlockEntity blockEntity) {
-        this.blockEntity = blockEntity;
-    }
-
-    public HephaestusForgeBlockEntity getBlockEntity() {
-        return blockEntity;
+    public RitualManager(MainIngredientAccessor accessor) {
+        this.mainIngredientAccessor = accessor;
     }
 
     public Ritual getActiveRitual() {
@@ -85,9 +81,9 @@ public class RitualManager implements NeedsStoring {
         this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()), true);
 
         for (Ritual ritual : RitualLoader.getRituals()) {
-            if (storage.hasMoreThan(ritual.getEssences()) && ritual.checkIngredients(list, this.blockEntity.getStack(4))) {
+            if (storage.hasMoreThan(ritual.getEssences()) && ritual.checkIngredients(list, this.mainIngredientAccessor)) {
 
-                this.startRitual(storage, ritual);
+                this.startRitual(level, pos, storage, ritual);
 
                 started.accept(true);
 
@@ -98,8 +94,10 @@ public class RitualManager implements NeedsStoring {
         started.accept(false);
     }
 
-    public void startRitual(EssencesStorage storage, Ritual ritual) {
+    public void startRitual(ServerLevel level, BlockPos pos, EssencesStorage storage, Ritual ritual) {
         this.setActiveRitual(ritual);
+
+        ritual.createMagicCircle(level, pos, 0);
 
         storage.reduce(ritual.getEssences());
     }
@@ -123,7 +121,7 @@ public class RitualManager implements NeedsStoring {
 
                 this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
-                if (!this.getActiveRitual().checkIngredients(list, this.blockEntity.getStack(4))) {
+                if (!this.getActiveRitual().checkIngredients(list, this.mainIngredientAccessor)) {
                     this.failRitual(level, pos);
 
                     NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
@@ -179,23 +177,29 @@ public class RitualManager implements NeedsStoring {
     }
 
     public void finishRitual(ServerLevel level, BlockPos pos) {
-        this.blockEntity.setStack(4, this.getActiveRitual().getResult());
+        this.mainIngredientAccessor.set(this.getActiveRitual().getResult());
+
+        this.activeRitual.removeMagicCircle(level, pos);
+
         this.reset();
 
         this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
             pedestalBlockEntity.clearStack(level);
         });
+
     }
 
     public void failRitual(ServerLevel level, BlockPos pos) {
-        ItemStack stack = this.blockEntity.getStack(4);
+        ItemStack stack = this.mainIngredientAccessor.get();
+
+        this.activeRitual.removeMagicCircle(level, pos);
 
         this.reset();
 
         if (!stack.isEmpty()) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
 
-            this.blockEntity.setStack(4, ItemStack.EMPTY);
+            this.mainIngredientAccessor.set(ItemStack.EMPTY);
         }
 
         this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
@@ -259,10 +263,6 @@ public class RitualManager implements NeedsStoring {
             this.setActiveRitual(RitualLoader.getRitual(new ResourceLocation(tag.getString("ActiveRitual"))));
             this.counter = tag.getInt("Counter");
 
-            if (this.counter != 0) {
-                this.blockEntity.getMagicCircle().setCounter(this.counter);
-            }
-
             if (tag.contains("LightningCounter")) {
                 this.lightningCounter = tag.getInt("LightningCounter");
             }
@@ -290,5 +290,15 @@ public class RitualManager implements NeedsStoring {
             this.updateCachedPedestals(level, pos);
         }
         this.cachedPedestals.stream().filter(predicate).forEach(consumer);
+    }
+
+    public interface MainIngredientAccessor {
+        ItemStack get();
+        void set(ItemStack stack);
+    }
+
+    @FunctionalInterface
+    public interface RitualManagerCallback {
+        void execute(Level level, BlockPos pos, Ritual ritual);
     }
 }

@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.network;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
@@ -50,6 +51,26 @@ public class ClientPacketHandler {
 
     public static void handleTransformPedestal(TransformPedestalPacket packet) {
         ParticleUtils.spawnParticlesOnBlockFaces(getLevel(), packet.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
+    }
+
+    public static void handleCreateMagicCircle(CreateMagicCirclePacket packet) {
+        Level level = getLevel();
+
+        if (level == null || !(level.getBlockEntity(packet.pos()) instanceof HephaestusForgeBlockEntity blockEntity)) {
+            return;
+        }
+
+        blockEntity.setMagicCircle(new MagicCircle(level, packet.pos(), packet.innerTexture(), packet.outerTexture()));
+    }
+
+    public static void handleRemoveMagicCircle(RemoveMagicCirclePacket packet) {
+        Level level = getLevel();
+
+        if (level == null || !(level.getBlockEntity(packet.pos()) instanceof HephaestusForgeBlockEntity blockEntity)) {
+            return;
+        }
+
+        blockEntity.setMagicCircle(null);
     }
 
     public static void handleAddItemParticle(AddItemParticlePacket packet) {

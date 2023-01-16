@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author stal111
  * @since 2021-07-09
  */
-public class Ritual {
+public class Ritual implements MagicCircle.TextureProvider {
 
     private final ResourceLocation name;
 
@@ -55,8 +56,8 @@ public class Ritual {
         return new Ritual(name, inputs, hephaestusForgeItem, result, essences, outerTexture, innerTexture);
     }
 
-    public boolean checkIngredients(List<ItemStack> list, ItemStack mainSlotStack) {
-        if (!this.getHephaestusForgeItem().equals(mainSlotStack, false)) {
+    public boolean checkIngredients(List<ItemStack> list, RitualManager.MainIngredientAccessor accessor) {
+        if (!this.getHephaestusForgeItem().equals(accessor.get(), false)) {
             return false;
         }
 
@@ -105,12 +106,14 @@ public class Ritual {
         return this.essences;
     }
 
-    public ResourceLocation getOuterTexture() {
-        return this.outerTexture;
-    }
-
+    @Override
     public ResourceLocation getInnerTexture() {
         return this.innerTexture;
+    }
+
+    @Override
+    public ResourceLocation getOuterTexture() {
+        return this.outerTexture;
     }
 
     public PedestalType getPedestalType() {

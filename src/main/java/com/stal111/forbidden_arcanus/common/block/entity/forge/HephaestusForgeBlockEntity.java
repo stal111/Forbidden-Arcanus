@@ -24,9 +24,8 @@ import net.minecraft.world.phys.AABB;
 import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
 import net.valhelsia.valhelsia_core.common.block.entity.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -41,10 +40,9 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     public static final int MAIN_SLOT = 4;
 
     private final ContainerData hephaestusForgeData;
-    private final RitualManager ritualManager = new RitualManager(this);
     private final EssenceManager essenceManager;
-    private final MagicCircle magicCircle = new MagicCircle(this.ritualManager);
-
+    private final RitualManager ritualManager = new RitualManager(new MainSlotAccessor(this));
+    private MagicCircle magicCircle;
     private int displayCounter;
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
@@ -87,7 +85,9 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        blockEntity.magicCircle.tick();
+        if (blockEntity.hasMagicCircle()) {
+            blockEntity.magicCircle.tick();
+        }
         blockEntity.displayCounter++;
     }
 
@@ -160,11 +160,19 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     }
 
     public EssenceManager getEssenceManager() {
-        return essenceManager;
+        return this.essenceManager;
+    }
+
+    public boolean hasMagicCircle() {
+        return this.magicCircle != null;
     }
 
     public MagicCircle getMagicCircle() {
-        return magicCircle;
+        return this.magicCircle;
+    }
+
+    public void setMagicCircle(@Nullable MagicCircle magicCircle) {
+        this.magicCircle = magicCircle;
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
@@ -184,7 +192,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     }
 
     @Override
-    public void saveAdditional(@Nonnull CompoundTag tag) {
+    public void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
 
         this.saveInventory(tag);
@@ -194,7 +202,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     }
 
     @Override
-    public void load(@Nonnull CompoundTag tag) {
+    public void load(@NotNull CompoundTag tag) {
         super.load(tag);
 
         this.loadInventory(tag);
@@ -209,7 +217,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
@@ -225,7 +233,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         return boundingBox;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected Component getDefaultName() {
         return Component.translatable("container.forbidden_arcanus.hephaestus_forge");
@@ -234,5 +242,18 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     @Override
     protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext creationContext) {
         return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext);
+    }
+
+    private record MainSlotAccessor(HephaestusForgeBlockEntity blockEntity) implements RitualManager.MainIngredientAccessor {
+
+        @Override
+        public ItemStack get() {
+            return blockEntity.getStack(MAIN_SLOT);
+        }
+
+        @Override
+        public void set(ItemStack stack) {
+            blockEntity.setStack(MAIN_SLOT, stack);
+        }
     }
 }

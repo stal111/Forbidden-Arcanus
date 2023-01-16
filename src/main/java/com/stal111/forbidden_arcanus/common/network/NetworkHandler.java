@@ -34,6 +34,8 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), AddThrownAurealBottleParticle.class, AddThrownAurealBottleParticle::encode, AddThrownAurealBottleParticle::decode, AddThrownAurealBottleParticle::consume);
         INSTANCE.registerMessage(nextID(), UpdateResidueTypesPacket.class, UpdateResidueTypesPacket::encode, UpdateResidueTypesPacket::decode, UpdateResidueTypesPacket::consume);
         INSTANCE.registerMessage(nextID(), TransformPedestalPacket.class, TransformPedestalPacket::encode, TransformPedestalPacket::decode, TransformPedestalPacket::consume);
+        INSTANCE.registerMessage(nextID(), CreateMagicCirclePacket.class, CreateMagicCirclePacket::encode, CreateMagicCirclePacket::decode, CreateMagicCirclePacket::consume);
+        INSTANCE.registerMessage(nextID(), RemoveMagicCirclePacket.class, RemoveMagicCirclePacket::encode, RemoveMagicCirclePacket::decode, RemoveMagicCirclePacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {
