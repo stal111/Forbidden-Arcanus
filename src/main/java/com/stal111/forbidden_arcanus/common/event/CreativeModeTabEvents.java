@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.event;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.network.chat.Component;
@@ -37,6 +38,10 @@ public class CreativeModeTabEvents {
                     for (HephaestusForgeLevel level : HephaestusForgeLevel.values()) {
                         output.accept(HephaestusForgeBlock.setTierOnStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), level.getAsInt()));
                     }
+                    output.accept(ModItems.AUREAL_BOTTLE.get());
+                    output.accept(ModItems.SPLASH_AUREAL_BOTTLE.get());
+                    output.accept(ModItems.TEST_TUBE.get());
+                    output.accept(BloodTestTubeItem.setBlood(new ItemStack(ModItems.BLOOD_TEST_TUBE.get()), BloodTestTubeItem.MAX_BLOOD));
                 })
         );
     }
