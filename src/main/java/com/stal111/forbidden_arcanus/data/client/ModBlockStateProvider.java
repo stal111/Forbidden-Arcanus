@@ -325,10 +325,18 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     }
 
     private void arcaneCrystalObelisk(Block block) {
+        ResourceLocation topTexture = modLoc("block/" + getName(block) + "_top");
+
         getVariantBuilder(block).forAllStatesExcept(
-                state -> ConfiguredModel.builder()
-                        .modelFile(getExistingModel(modLoc(getName(block) + "_" + state.getValue(ArcaneCrystalObeliskBlock.PART).getSerializedName())))
-                        .build(),
+                state -> {
+                    String part = state.getValue(ArcaneCrystalObeliskBlock.PART).getSerializedName();
+                    BlockModelBuilder model = this.models().withExistingParent(getName(block) + "_" + part, modLoc("obelisk_" + part))
+                            .texture("0", topTexture);
+
+                    return ConfiguredModel.builder()
+                            .modelFile(model.texture(part, modLoc("block/" + getName(block) + "_" + part)))
+                            .build();
+                },
                 BlockStateProperties.WATERLOGGED,
                 ModBlockStateProperties.RITUAL
         );

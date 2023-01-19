@@ -42,6 +42,14 @@ public class CreativeModeTabEvents {
                     output.accept(ModItems.SPLASH_AUREAL_BOTTLE.get());
                     output.accept(ModItems.TEST_TUBE.get());
                     output.accept(BloodTestTubeItem.setBlood(new ItemStack(ModItems.BLOOD_TEST_TUBE.get()), BloodTestTubeItem.MAX_BLOOD));
+                    output.accept(ModBlocks.ARCANE_CRYSTAL_ORE.get());
+                    output.accept(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get());
+                    output.accept(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
+                    output.accept(ModBlocks.ARCANE_CRYSTAL_OBELISK.get());
+                    output.accept(ModItems.ARCANE_CRYSTAL.get());
+                    output.accept(ModItems.ARCANE_CRYSTAL_DUST.get());
+                    output.accept(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get());
+                    output.accept(ModItems.ARCANE_BONE_MEAL.get());
                 })
         );
     }

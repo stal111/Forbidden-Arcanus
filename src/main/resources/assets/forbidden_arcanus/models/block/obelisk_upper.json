@@ -1,0 +1,27 @@
+{
+	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#0"
+	},
+	"elements": [
+		{
+			"name": "0",
+			"from": [3, 0, 3],
+			"to": [13, 14, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [3, 2, 13, 16], "texture": "#upper"},
+				"east": {"uv": [3, 2, 13, 16], "texture": "#upper"},
+				"south": {"uv": [3, 2, 13, 16], "texture": "#upper"},
+				"west": {"uv": [3, 2, 13, 16], "texture": "#upper"},
+				"up": {"uv": [3, 3, 13, 13], "texture": "#0"},
+				"down": {"uv": [3, 3, 13, 13], "texture": "#0", "cullface": "down"}
+			},
+			"forge_data": {
+				"block_light": 15,
+				"sky_light": 15
+			}
+		}
+	]
+}
