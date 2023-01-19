@@ -1,0 +1,62 @@
+{
+	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"1": "forbidden_arcanus:block/obelisk_lower",
+		"2": "forbidden_arcanus:block/obelisk_base",
+		"particle": "#0"
+	},
+	"elements": [
+		{
+			"name": "0",
+			"from": [0, 0, 0],
+			"to": [16, 8, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 8, 16, 16], "texture": "#1", "cullface": "north"},
+				"east": {"uv": [0, 8, 16, 16], "texture": "#1", "cullface": "east"},
+				"south": {"uv": [0, 8, 16, 16], "texture": "#1", "cullface": "south"},
+				"west": {"uv": [0, 8, 16, 16], "texture": "#1", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#2"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface": "down"}
+			}
+		},
+		{
+			"name": "1_layer",
+			"from": [1, 8, 1],
+			"to": [15, 16, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [1, 0, 15, 8], "texture": "#lower"},
+				"east": {"uv": [1, 0, 15, 8], "texture": "#lower"},
+				"south": {"uv": [1, 0, 15, 8], "texture": "#lower"},
+				"west": {"uv": [1, 0, 15, 8], "texture": "#lower"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#0", "cullface": "up"}
+			},
+			"forge_data": {
+				"block_light": 15,
+				"sky_light": 15
+			}
+		},
+		{
+			"name": "1",
+			"from": [1, 8, 1],
+			"to": [15, 16, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [1, 0, 15, 8], "texture": "#1"},
+				"east": {"uv": [1, 0, 15, 8], "texture": "#1"},
+				"south": {"uv": [1, 0, 15, 8], "texture": "#1"},
+				"west": {"uv": [1, 0, 15, 8], "texture": "#1"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "obelisk_lower",
+			"origin": [8, 0, 8],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}
