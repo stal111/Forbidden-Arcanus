@@ -22,6 +22,10 @@
                 "south": { "texture": "#layer", "cullface": "south" },
                 "west":  { "texture": "#layer", "cullface": "west" },
                 "east":  { "texture": "#layer", "cullface": "east" }
+            },
+            "forge_data": {
+                "block_light": 15,
+                "sky_light": 15
             }
         }
     ]

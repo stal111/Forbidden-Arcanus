@@ -24,6 +24,10 @@
                 "south": { "texture": "#cutout", "cullface": "south" },
                 "west":  { "texture": "#cutout", "cullface": "west" },
                 "east":  { "texture": "#cutout", "cullface": "east" }
+            },
+            "forge_data": {
+                "block_light": 15,
+                "sky_light": 15
             }
         }
     ]
