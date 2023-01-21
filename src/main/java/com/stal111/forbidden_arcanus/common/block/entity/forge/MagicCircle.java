@@ -62,10 +62,10 @@ public class MagicCircle {
         float alpha = ritualProgress > 0.9F ? this.easeSineOut(ritualProgress - 0.9F, 1.0D, -1.0D, 0.1D) : 1.0F;
 
         poseStack.mulPose(Axis.YN.rotationDegrees(rotation));
-        model.getOuterRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(this.outerTexture)), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
+        model.outerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(this.outerTexture)), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
         poseStack.mulPose(Axis.YN.rotationDegrees(-rotation * 2));
-        model.getInnerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(this.innerTexture)), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
+        model.innerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(this.innerTexture)), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
 
         poseStack.popPose();
 

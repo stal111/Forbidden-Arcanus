@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
@@ -43,6 +44,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     private final EssenceManager essenceManager;
     private final RitualManager ritualManager = new RitualManager(new MainSlotAccessor(this));
     private MagicCircle magicCircle;
+    private ValidRitualIndicator validRitualIndicator;
     private int displayCounter;
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
@@ -81,12 +83,24 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
             }
         };
 
-        this.essenceManager = new EssenceManager(this.getForgeLevel().getMaxEssences());
+        this.essenceManager = new EssenceManager(this.getForgeLevel().getMaxEssences(), this.ritualManager::tryFindValidRitual);
+    }
+
+    @Override
+    public void setLevel(@NotNull Level level) {
+        super.setLevel(level);
+
+        if (level instanceof ServerLevel serverLevel) {
+            this.ritualManager.setup(serverLevel, this.getBlockPos(), this.essenceManager.getEssences());
+        }
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         if (blockEntity.hasMagicCircle()) {
             blockEntity.magicCircle.tick();
+        }
+        if (blockEntity.hasValidRitualIndicator()) {
+            blockEntity.validRitualIndicator.tick();
         }
         blockEntity.displayCounter++;
     }
@@ -122,12 +136,14 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
             blockEntity.essenceManager.tick(level, pos);
         }
 
-        blockEntity.ritualManager.tick((ServerLevel) level, pos);
+        blockEntity.ritualManager.tick(blockEntity.essenceManager.getEssences());
     }
 
     @Override
     protected void onSlotChanged(int slot) {
         if (slot == MAIN_SLOT && this.level != null) {
+            this.getRitualManager().tryFindValidRitual(this.essenceManager.getEssences());
+
             NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.worldPosition), new UpdateItemInSlotPacket(this.worldPosition, this.getStack(slot), slot));
         }
     }
@@ -171,8 +187,29 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         return this.magicCircle;
     }
 
-    public void setMagicCircle(@Nullable MagicCircle magicCircle) {
+    public void setMagicCircle(@NotNull MagicCircle magicCircle) {
         this.magicCircle = magicCircle;
+    }
+
+    public void removeMagicCircle() {
+        this.magicCircle = null;
+        this.validRitualIndicator = null;
+    }
+
+    public boolean hasValidRitualIndicator() {
+        return this.validRitualIndicator != null;
+    }
+
+    public ValidRitualIndicator getValidRitualIndicator() {
+        return this.validRitualIndicator;
+    }
+
+    public void createValidRitualIndicator(boolean playAnimation) {
+        this.validRitualIndicator = new ValidRitualIndicator(playAnimation);
+    }
+
+    public void removeValidRitualIndicator() {
+        this.validRitualIndicator = null;
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
@@ -184,11 +221,11 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     }
 
     public RitualManager getRitualManager() {
-        return ritualManager;
+        return this.ritualManager;
     }
 
     public int getDisplayCounter() {
-        return displayCounter;
+        return this.displayCounter;
     }
 
     @Override
@@ -227,10 +264,14 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     public AABB getRenderBoundingBox() {
         AABB boundingBox = new AABB(this.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
 
-        if (this.getRitualManager().isRitualActive()) {
+        if (this.useExpandedRenderBoundingBox()) {
             boundingBox = boundingBox.inflate(2.5F, 0.0F, 2.5D);
         }
         return boundingBox;
+    }
+
+    public boolean useExpandedRenderBoundingBox() {
+        return this.getRitualManager().isRitualActive() || this.hasValidRitualIndicator();
     }
 
     @NotNull
@@ -248,12 +289,12 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
 
         @Override
         public ItemStack get() {
-            return blockEntity.getStack(MAIN_SLOT);
+            return this.blockEntity.getStack(MAIN_SLOT);
         }
 
         @Override
         public void set(ItemStack stack) {
-            blockEntity.setStack(MAIN_SLOT, stack);
+            this.blockEntity.setStack(MAIN_SLOT, stack);
         }
     }
 }

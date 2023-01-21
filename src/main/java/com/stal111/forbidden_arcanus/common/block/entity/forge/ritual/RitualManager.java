@@ -4,12 +4,13 @@ import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.clientbound.CreateValidRitualIndicatorPacket;
+import com.stal111.forbidden_arcanus.common.network.clientbound.RemoveValidRitualIndicatorPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -22,10 +23,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -52,9 +53,14 @@ public class RitualManager implements NeedsStoring {
             new Vec3i(-2, 0, 2)
     };
 
+    private ServerLevel level;
+    private BlockPos pos;
     private final MainIngredientAccessor mainIngredientAccessor;
 
-    private final ObjectArrayList<PedestalBlockEntity> cachedPedestals = new ObjectArrayList<>();
+    private boolean loaded = false;
+
+    private final HashMap<PedestalBlockEntity, ItemStack> cachedIngredients = new HashMap<>();
+    private Ritual validRitual;
     private Ritual activeRitual;
     private int counter;
     private int lightningCounter;
@@ -63,8 +69,17 @@ public class RitualManager implements NeedsStoring {
         this.mainIngredientAccessor = accessor;
     }
 
+    public void setup(ServerLevel level, BlockPos pos, EssencesStorage storage) {
+        this.level = level;
+        this.pos = pos;
+    }
+
+    private boolean canStart() {
+        return this.validRitual != null;
+    }
+
     public Ritual getActiveRitual() {
-        return activeRitual;
+        return this.activeRitual;
     }
 
     public void setActiveRitual(Ritual ritual) {
@@ -75,43 +90,85 @@ public class RitualManager implements NeedsStoring {
         return this.activeRitual != null;
     }
 
-    public void tryStartRitual(ServerLevel level, BlockPos pos, EssencesStorage storage, BooleanConsumer started) {
-        List<ItemStack> list = new ArrayList<>();
+    public void tryStartRitual(EssencesStorage storage, BooleanConsumer started) {
+        if (this.canStart()) {
+            this.startRitual(storage, this.validRitual);
 
-        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()), true);
+            started.accept(true);
 
-        for (Ritual ritual : RitualLoader.getRituals()) {
-            if (storage.hasMoreThan(ritual.getEssences()) && ritual.checkIngredients(list, this.mainIngredientAccessor)) {
-
-                this.startRitual(level, pos, storage, ritual);
-
-                started.accept(true);
-
-                return;
-            }
+            return;
         }
 
         started.accept(false);
     }
 
-    public void startRitual(ServerLevel level, BlockPos pos, EssencesStorage storage, Ritual ritual) {
+    public void updateIngredient(PedestalBlockEntity pedestal, ItemStack stack, EssencesStorage storage) {
+        if (stack.isEmpty()) {
+            this.cachedIngredients.remove(pedestal);
+        } else {
+            this.cachedIngredients.put(pedestal, stack);
+        }
+
+        this.validRitual = this.tryFindValidRitual(storage);
+    }
+
+    public Ritual tryFindValidRitual(EssencesStorage storage) {
+        boolean oldValue = this.validRitual != null;
+
+        for (Ritual ritual : RitualLoader.getRituals()) {
+            if (this.canStartRitual(ritual, storage)) {
+                this.validRitual = ritual;
+
+                if (!oldValue) {
+                    NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.pos), new CreateValidRitualIndicatorPacket(this.pos));
+                }
+
+                return ritual;
+            }
+        }
+
+        this.validRitual = null;
+
+        if (oldValue && !this.isRitualActive()) {
+            NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.pos), new RemoveValidRitualIndicatorPacket(this.pos));
+        }
+
+        return null;
+    }
+
+    public boolean canStartRitual(Ritual ritual, EssencesStorage storage) {
+        return storage.hasMoreThan(ritual.getEssences()) && ritual.checkIngredients(this.cachedIngredients.values(), this.mainIngredientAccessor);
+    }
+
+    public void startRitual(EssencesStorage storage, Ritual ritual) {
         this.setActiveRitual(ritual);
 
-        ritual.createMagicCircle(level, pos, 0);
+        ritual.createMagicCircle(this.level, this.pos, 0);
 
         storage.reduce(ritual.getEssences());
     }
 
-    public void tick(ServerLevel level, BlockPos pos) {
+    public void tick(EssencesStorage storage) {
+        if (!this.loaded && this.level != null) {
+            for (Vec3i vec3i : PEDESTAL_OFFSETS) {
+                BlockPos offsetPos = pos.offset(vec3i);
+
+                if (level.getBlockEntity(offsetPos) instanceof PedestalBlockEntity blockEntity && !blockEntity.getStack().isEmpty()) {
+                    this.updateIngredient(blockEntity, blockEntity.getStack(), storage);
+                }
+            }
+
+            this.loaded = true;
+        }
+
         if (!this.isRitualActive()) {
             return;
         }
 
-        RandomSource random = level.getRandom();
+        RandomSource random = this.level.getRandom();
         float progress = RitualManager.getRitualProgress(this.counter);
 
         this.counter++;
-        this.updateCachedPedestals(level, pos);
 
         if (this.lightningCounter != 0) {
             this.lightningCounter++;
@@ -119,12 +176,12 @@ public class RitualManager implements NeedsStoring {
             if (this.lightningCounter == 300) {
                 List<ItemStack> list = new ArrayList<>();
 
-                this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
+                this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
                 if (!this.getActiveRitual().checkIngredients(list, this.mainIngredientAccessor)) {
-                    this.failRitual(level, pos);
+                    this.failRitual();
 
-                    NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
+                    NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
                     return;
                 }
 
@@ -132,95 +189,97 @@ public class RitualManager implements NeedsStoring {
             }
         }
 
-        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
+        this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
             BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
             if (pedestalBlockEntity.getItemHeight() != 140) {
                 int height = pedestalBlockEntity.getItemHeight() + 1;
                 pedestalBlockEntity.setItemHeight(height);
 
-                NetworkHandler.sendToTrackingChunk(level.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, pedestalBlockEntity.getStack(), height));
+                NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, pedestalBlockEntity.getStack(), height));
             }
 
-            this.addItemParticles(level, pos, pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());
+            this.addItemParticles(pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());
         });
 
         if (progress == 0.5F && random.nextDouble() <= this.getFailureChance() * 2) {
-            CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), level);
+            CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), this.level);
             entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
             entity.setVisualOnly(true);
 
-            level.addFreshEntity(entity);
+            this.level.addFreshEntity(entity);
 
             this.lightningCounter++;
 
-            this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
+            this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
                 if (random.nextBoolean()) {
                     ItemStack stack = pedestalBlockEntity.getStack().copy();
                     BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
-                    level.addFreshEntity(new ItemEntity(level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
-                    pedestalBlockEntity.clearStack(level);
+                    this.level.addFreshEntity(new ItemEntity(this.level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
+                    pedestalBlockEntity.clearStack(this.level);
                 }
             });
         }
 
         if (progress == 1.0F) {
             if (random.nextDouble() > this.getFailureChance()) {
-                this.finishRitual(level, pos);
+                this.finishRitual();
             } else {
-                this.failRitual(level, pos);
+                this.failRitual();
             }
         }
 
-        NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
+        NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
     }
 
-    public void finishRitual(ServerLevel level, BlockPos pos) {
+    public void finishRitual() {
         this.mainIngredientAccessor.set(this.getActiveRitual().getResult());
 
-        this.activeRitual.removeMagicCircle(level, pos);
+        this.activeRitual.removeMagicCircle(this.level, this.pos);
 
         this.reset();
 
-        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
-            pedestalBlockEntity.clearStack(level);
-        });
-
+        this.clearPedestals();
     }
 
-    public void failRitual(ServerLevel level, BlockPos pos) {
+    public void failRitual() {
         ItemStack stack = this.mainIngredientAccessor.get();
 
-        this.activeRitual.removeMagicCircle(level, pos);
+        this.activeRitual.removeMagicCircle(this.level, this.pos);
 
         this.reset();
 
         if (!stack.isEmpty()) {
-            level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
+            this.level.addFreshEntity(new ItemEntity(this.level, this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5, stack));
 
             this.mainIngredientAccessor.set(ItemStack.EMPTY);
         }
 
-        this.forEachPedestal(level, pos, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
-            pedestalBlockEntity.clearStack(level);
-           // this.blockEntity.getEssenceManager().increaseCorruption(2);
-        });
+        this.clearPedestals();
 
-        level.sendParticles(ModParticles.HUGE_MAGIC_EXPLOSION.get(), pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0, 1.0D, 0.0D, 0.0D, 0.0D);
-        level.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F) * 0.7F);
+        this.level.sendParticles(ModParticles.HUGE_MAGIC_EXPLOSION.get(), this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D, 0, 1.0D, 0.0D, 0.0D, 0.0D);
+        this.level.playSound(null, this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F) * 0.7F);
     }
 
-    private void addItemParticles(ServerLevel level, BlockPos pos, BlockPos pedestalPos, int itemHeight, ItemStack stack) {
+    private void clearPedestals() {
+        List<PedestalBlockEntity> pedestals = new ArrayList<>(this.cachedIngredients.keySet());
+
+        pedestals.forEach(blockEntity -> {
+            blockEntity.clearStack(this.level);
+        });
+    }
+
+    private void addItemParticles(BlockPos pedestalPos, int itemHeight, ItemStack stack) {
         double posX = pedestalPos.getX() + 0.5D;
         double posY = pedestalPos.getY() + 0.1D + itemHeight / 100.0F;
         double posZ = pedestalPos.getZ() + 0.5D;
-        double xSpeed = 0.1D * (pos.getX() - pedestalPos.getX());
+        double xSpeed = 0.1D * (this.pos.getX() - pedestalPos.getX());
         double ySpeed = 0.22D;
-        double zSpeed = 0.1D * (pos.getZ() - pedestalPos.getZ());
+        double zSpeed = 0.1D * (this.pos.getZ() - pedestalPos.getZ());
 
-        if (level.getRandom().nextDouble() < 0.6D) {
-            level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), posX, posY, posZ, 0, xSpeed, ySpeed, zSpeed, 0.9D);
+        if (this.level.getRandom().nextDouble() < 0.6D) {
+            this.level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), posX, posY, posZ, 0, xSpeed, ySpeed, zSpeed, 0.9D);
         }
     }
 
@@ -269,36 +328,16 @@ public class RitualManager implements NeedsStoring {
         }
     }
 
-    public void updateCachedPedestals(ServerLevel level, BlockPos pos) {
-        this.cachedPedestals.clear();
-
-        for (Vec3i vec3i : PEDESTAL_OFFSETS) {
-            BlockPos offsetPos = pos.offset(vec3i);
-
-            if (level.getBlockEntity(offsetPos) instanceof PedestalBlockEntity blockEntity) {
-                this.cachedPedestals.add(blockEntity);
+    public void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
+        for (PedestalBlockEntity blockEntity : this.cachedIngredients.keySet()) {
+            if (predicate.test(blockEntity)) {
+                consumer.accept(blockEntity);
             }
         }
-    }
-
-    public void forEachPedestal(ServerLevel level, BlockPos pos, Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
-        this.forEachPedestal(level, pos, predicate, consumer, false);
-    }
-
-    public void forEachPedestal(ServerLevel level, BlockPos pos, Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer, boolean updatePedestals) {
-        if (updatePedestals) {
-            this.updateCachedPedestals(level, pos);
-        }
-        this.cachedPedestals.stream().filter(predicate).forEach(consumer);
     }
 
     public interface MainIngredientAccessor {
         ItemStack get();
         void set(ItemStack stack);
-    }
-
-    @FunctionalInterface
-    public interface RitualManagerCallback {
-        void execute(Level level, BlockPos pos, Ritual ritual);
     }
 }

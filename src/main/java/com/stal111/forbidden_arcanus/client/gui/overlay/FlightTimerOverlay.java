@@ -14,7 +14,7 @@ import net.minecraft.util.StringUtil;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.common.util.counter.SimpleCounter;
 
 /**
  * @author stal111

@@ -31,6 +31,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.NonNullLazy;
 import net.valhelsia.valhelsia_core.common.capability.counter.*;
+import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -154,7 +155,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
         return null;
     }
 
-    private SimpleCounter getCounter(CounterCapability counterCapability) {
+    private SerializableCounter getCounter(CounterCapability counterCapability) {
         return counterCapability.getCounter(COUNTER);
     }
 }

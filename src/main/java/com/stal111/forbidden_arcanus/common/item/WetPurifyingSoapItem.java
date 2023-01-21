@@ -18,8 +18,9 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCapability;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
+import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.common.util.counter.SimpleCounter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,7 +52,7 @@ public class WetPurifyingSoapItem extends Item {
                 SimpleCounter counter = this.getCounter(counterCapability);
 
                 if (entity.isInWaterRainOrBubble()) {
-                    counter.resetTimer();
+                    counter.reset();
                 } else {
                     counter.increase();
 
@@ -74,7 +75,7 @@ public class WetPurifyingSoapItem extends Item {
                 SimpleCounter timer = this.getCounter(counterCapability);
 
                 if (player.isInWaterRainOrBubble()) {
-                    timer.resetTimer();
+                    timer.reset();
                 } else {
                     timer.increase();
 
@@ -117,7 +118,7 @@ public class WetPurifyingSoapItem extends Item {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag tag) {
-        return new CounterProvider(CounterCreator.of(SimpleCounter::new, COUNTER));
+        return new CounterProvider(CounterCreator.of(SerializableCounter::new, COUNTER));
     }
 
     private SimpleCounter getCounter(CounterCapability counterCapability) {

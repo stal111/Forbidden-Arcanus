@@ -15,33 +15,22 @@ import net.minecraft.resources.ResourceLocation;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.model.MagicCircleModel
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-12-21
  */
-public class MagicCircleModel {
+public record MagicCircleModel(ModelPart outerRing, ModelPart innerRing, ModelPart validRitualIndicator) {
 
     public static final ModelLayerLocation OUTER_RING_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "magic_circle"), "outer_ring");
     public static final ModelLayerLocation INNER_RING_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "magic_circle"), "inner_ring");
+    public static final ModelLayerLocation VALID_RITUAL_INDICATOR = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "magic_circle"), "valid_ritual_indicator");
 
-    private final ModelPart outerRing;
-    private final ModelPart innerRing;
 
     public MagicCircleModel(BlockEntityRendererProvider.Context context) {
-        this.outerRing = context.bakeLayer(OUTER_RING_LAYER);
-        this.innerRing = context.bakeLayer(INNER_RING_LAYER);
+        this(context.bakeLayer(OUTER_RING_LAYER), context.bakeLayer(INNER_RING_LAYER), context.bakeLayer(VALID_RITUAL_INDICATOR));
     }
 
     public static LayerDefinition createLayer() {
         MeshDefinition meshDefinition = new MeshDefinition();
         meshDefinition.getRoot().addOrReplaceChild("outer_ring", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F), PartPose.ZERO);
         return LayerDefinition.create(meshDefinition, 10, 10);
-    }
-
-    public ModelPart getOuterRing() {
-        return outerRing;
-    }
-
-    public ModelPart getInnerRing() {
-        return innerRing;
     }
 }

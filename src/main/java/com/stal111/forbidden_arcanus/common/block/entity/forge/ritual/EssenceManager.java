@@ -9,6 +9,7 @@ import net.minecraft.world.phys.AABB;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Essence Manager <br>
@@ -25,8 +26,11 @@ public class EssenceManager implements NeedsStoring {
     private final Object2FloatArrayMap<LivingEntity> cachedHealth = new Object2FloatArrayMap<>();
     private final EssencesDefinition maxEssences;
 
-    public EssenceManager(EssencesDefinition maxEssences) {
+    private final Consumer<EssencesStorage> onChanged;
+
+    public EssenceManager(EssencesDefinition maxEssences, Consumer<EssencesStorage> onChanged) {
         this.maxEssences = maxEssences;
+        this.onChanged = onChanged;
     }
 
     public EssencesStorage getEssences() {
@@ -38,7 +42,15 @@ public class EssenceManager implements NeedsStoring {
     }
 
     public void setEssence(EssenceType type, int value) {
+        this.setEssence(type, value, true);
+    }
+
+    public void setEssence(EssenceType type, int value, boolean changed) {
         this.essences.put(type, value);
+
+        if (changed) {
+            this.onChanged.accept(this.essences);
+        }
     }
 
     public void increaseEssence(EssenceType type, int amount) {
@@ -93,7 +105,7 @@ public class EssenceManager implements NeedsStoring {
     @Override
     public void load(CompoundTag tag) {
         for (EssenceType type : EssenceType.values()) {
-            this.setEssence(type, tag.getInt(type.getSerializedName()));
+            this.setEssence(type, tag.getInt(type.getSerializedName()), false);
         }
     }
 

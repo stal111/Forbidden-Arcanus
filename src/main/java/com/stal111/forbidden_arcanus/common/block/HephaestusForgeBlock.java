@@ -119,7 +119,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
                 ItemStack stack = player.getItemInHand(hand);
 
                 if (stack.getItem() instanceof RitualStarterItem ritualStarterItem) {
-                    ritualStarterItem.tryStartRitual(blockEntity, level, pos, stack, player);
+                    ritualStarterItem.tryStartRitual(blockEntity, level, stack, player);
                 } else {
                     NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
                 }

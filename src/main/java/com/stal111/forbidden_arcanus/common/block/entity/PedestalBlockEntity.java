@@ -1,11 +1,16 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -14,6 +19,7 @@ import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * Pedestal Block Entity <br>
@@ -33,6 +39,14 @@ public class PedestalBlockEntity extends BlockEntity {
     private int ticksExisted;
     private int itemHeight = DEFAULT_ITEM_HEIGHT;
 
+    private final ChangedCallback onChanged = (level, stack) -> {
+        this.findHephaestusForge(level, this.getBlockPos()).ifPresent(forgePos -> {
+            if (level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity blockEntity) {
+                blockEntity.getRitualManager().updateIngredient(this, stack, blockEntity.getEssenceManager().getEssences());
+            }
+        });
+    };
+
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL.get(), pos, state);
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
@@ -44,14 +58,20 @@ public class PedestalBlockEntity extends BlockEntity {
 
     public void setStack(ItemStack stack) {
         this.stack = stack;
+
+        this.setChanged();
     }
 
     public void setStackAndSync(ItemStack stack, Level level) {
         this.stack = stack;
 
-        if (!level.isClientSide()) {
+        if (level instanceof ServerLevel serverLevel) {
             NetworkHandler.sendToTrackingChunk(level.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
+
+            this.onChanged.run(serverLevel, stack);
         }
+
+        this.setChanged();
     }
 
     public ItemStack getStack() {
@@ -78,6 +98,10 @@ public class PedestalBlockEntity extends BlockEntity {
 
     public void setItemHeight(int itemHeight) {
         this.itemHeight = itemHeight;
+    }
+
+    private Optional<BlockPos> findHephaestusForge(ServerLevel level, BlockPos pos) {
+        return level.getPoiManager().getInRange(poiTypeHolder -> poiTypeHolder.get() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst();
     }
 
     @Override
@@ -115,5 +139,10 @@ public class PedestalBlockEntity extends BlockEntity {
     @Override
     public AABB getRenderBoundingBox() {
         return new AABB(this.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
+    }
+
+    @FunctionalInterface
+    private interface ChangedCallback {
+        void run(ServerLevel level, ItemStack stack);
     }
 }

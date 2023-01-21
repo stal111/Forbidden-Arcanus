@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
+import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -10,8 +10,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.network.UpdateCounterPacket;
+import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
 
 /**
  * Tick Listener <br>
@@ -33,7 +33,7 @@ public class TickListener {
                 AurealHelper.playerTick(player);
 
                 player.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
-                    SimpleCounter counter = counterCapability.getCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"));
+                    SerializableCounter counter = counterCapability.getCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"));
 
                     if (counter.isActive()) {
                         counter.decrease();

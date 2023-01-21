@@ -14,7 +14,7 @@ public class EssencesStorage extends EnumMap<EssenceType, Integer> {
 
     public boolean hasMoreThan(EssencesDefinition definition) {
         for (EssenceType type : EssenceType.values()) {
-            if (this.get(type) < definition.get(type)) {
+            if (this.getOrDefault(type, 0) < definition.get(type)) {
                 return false;
             }
         }
@@ -23,7 +23,7 @@ public class EssencesStorage extends EnumMap<EssenceType, Integer> {
 
     public void reduce(EssencesDefinition definition) {
         definition.forEach((type, integer) -> {
-            this.put(type, this.get(type) - integer);
+            this.put(type, this.getOrDefault(type, 0) - integer);
         });
     }
 

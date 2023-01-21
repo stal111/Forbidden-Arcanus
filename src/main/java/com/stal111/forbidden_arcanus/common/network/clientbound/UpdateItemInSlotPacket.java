@@ -14,7 +14,6 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.network.UpdateItemInSlotPacket
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-07-24
  */
 public record UpdateItemInSlotPacket(BlockPos pos, ItemStack stack, int slot) {

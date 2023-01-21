@@ -34,6 +34,10 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
             blockEntity.getMagicCircle().render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel);
         }
 
+        if (blockEntity.hasValidRitualIndicator()) {
+            blockEntity.getValidRitualIndicator().render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel.validRitualIndicator());
+        }
+
         ItemStack stack = blockEntity.getStack(4);
 
         if (!stack.isEmpty()) {
@@ -52,6 +56,6 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 
     @Override
     public boolean shouldRenderOffScreen(@Nonnull HephaestusForgeBlockEntity blockEntity) {
-        return blockEntity.getRitualManager().isRitualActive();
+        return blockEntity.useExpandedRenderBoundingBox();
     }
 }

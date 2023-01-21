@@ -36,6 +36,8 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), TransformPedestalPacket.class, TransformPedestalPacket::encode, TransformPedestalPacket::decode, TransformPedestalPacket::consume);
         INSTANCE.registerMessage(nextID(), CreateMagicCirclePacket.class, CreateMagicCirclePacket::encode, CreateMagicCirclePacket::decode, CreateMagicCirclePacket::consume);
         INSTANCE.registerMessage(nextID(), RemoveMagicCirclePacket.class, RemoveMagicCirclePacket::encode, RemoveMagicCirclePacket::decode, RemoveMagicCirclePacket::consume);
+        INSTANCE.registerMessage(nextID(), CreateValidRitualIndicatorPacket.class, CreateValidRitualIndicatorPacket::encode, CreateValidRitualIndicatorPacket::decode, CreateValidRitualIndicatorPacket::consume);
+        INSTANCE.registerMessage(nextID(), RemoveValidRitualIndicatorPacket.class, RemoveValidRitualIndicatorPacket::encode, RemoveValidRitualIndicatorPacket::decode, RemoveValidRitualIndicatorPacket::consume);
     }
 
     public static <MSG> void sendTo(Player player, MSG msg) {

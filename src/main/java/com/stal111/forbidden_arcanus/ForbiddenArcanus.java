@@ -25,8 +25,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
-import net.valhelsia.valhelsia_core.common.capability.counter.SimpleCounter;
 import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
+import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
 import net.valhelsia.valhelsia_core.core.ValhelsiaMod;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
 import org.apache.logging.log4j.LogManager;
@@ -97,7 +97,7 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 
 		NetworkHandler.init();
 
-		CounterHelper.addCounter(CounterCreator.of(resourceLocation -> new SimpleCounter(resourceLocation, 0, false), new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer")));
+		CounterHelper.addCounter(CounterCreator.of(resourceLocation -> new SerializableCounter(resourceLocation, 0, false), new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer")));
 
 		Consequences.registerConsequences();
 		HephaestusForgeInputs.registerInputs();

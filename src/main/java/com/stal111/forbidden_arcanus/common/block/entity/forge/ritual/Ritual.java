@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Ritual implements MagicCircle.TextureProvider {
         return new Ritual(name, inputs, hephaestusForgeItem, result, essences, outerTexture, innerTexture);
     }
 
-    public boolean checkIngredients(List<ItemStack> list, RitualManager.MainIngredientAccessor accessor) {
+    public boolean checkIngredients(Collection<ItemStack> list, RitualManager.MainIngredientAccessor accessor) {
         if (!this.getHephaestusForgeItem().equals(accessor.get(), false)) {
             return false;
         }
