@@ -83,6 +83,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::runicChiseledPolishedDarkstone, ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE);
         take(this::pillarBlock, ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR, ModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
 
+        take(block -> this.emissiveBlock(block, modLoc("block/arcane_crystal_block")), ModBlocks.ARCANE_CRYSTAL_BLOCK);
         take(this::arcaneCrystalObelisk, ModBlocks.ARCANE_CRYSTAL_OBELISK);
 
         take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.FUNGYSS, ModBlocks.GROWING_EDELWOOD);
@@ -340,6 +341,10 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 BlockStateProperties.WATERLOGGED,
                 ModBlockStateProperties.RITUAL
         );
+    }
+
+    private void emissiveBlock(Block block, ResourceLocation texture) {
+        getVariantBuilder(block).partialState().modelForState().modelFile(this.models().singleTexture(getName(block), modLoc("block/cube_all_emissive"), "all", texture)).addModel();
     }
 
     private void chainBlock(Block block, ResourceLocation resourceLocation) {
