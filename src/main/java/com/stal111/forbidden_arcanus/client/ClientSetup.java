@@ -23,21 +23,15 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
-import com.stal111.forbidden_arcanus.util.FullbrightBakedModel;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -50,13 +44,6 @@ import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticType;
 import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticsCategory;
 import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticsRegistry;
 import net.valhelsia.valhelsia_core.client.cosmetics.elytra.CancelRenderingModifier;
-import net.valhelsia.valhelsia_core.core.registry.helper.block.BlockRegistryObject;
-import org.apache.commons.lang3.tuple.Triple;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
  * @author stal111
@@ -64,15 +51,12 @@ import java.util.function.Function;
  */
 public class ClientSetup {
 
-    private final List<Triple<Block, StatePropertiesPredicate, Function<BakedModel, BakedModel>>> bakedModelOverrideRegistry = new ArrayList<>();
-
     public ClientSetup() {
         Minecraft minecraft = Minecraft.getInstance();
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::onClientSetup);
-        modEventBus.addListener(this::onModelBake);
         //modEventBus.addListener(this::onTextureStitch);
         modEventBus.addListener(this::onRegisterGuiOverlays);
         modEventBus.addListener(this::onRegisterTooltipComponents);
@@ -92,25 +76,6 @@ public class ClientSetup {
             Sheets.addWoodType(ModWoodTypes.AURUM);
             Sheets.addWoodType(ModWoodTypes.EDELWOOD);
         });
-
-        this.registerModelOverride(ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE, StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.ACTIVATED, true).build(), base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_chiseled_polished_darkstone_layer")));
-        this.registerModelOverride(ModBlocks.XPETRIFIED_ORE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/xpetrified_ore_layer")));
-        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
-        this.registerModelOverride(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_ore/arcane_crystal_ore_layer")));
-        this.registerModelOverride(ModBlocks.RUNIC_STONE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
-        this.registerModelOverride(ModBlocks.RUNIC_DEEPSLATE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
-        this.registerModelOverride(ModBlocks.RUNIC_DARKSTONE, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/runic_stone/rune_layer")));
-        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_BLOCK, base -> new FullbrightBakedModel(base, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_block")));
-        this.registerModelOverride(ModBlocks.ARCANE_CRYSTAL_OBELISK, base -> new FullbrightBakedModel(base,
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_lower_layer"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_middle"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_upper"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_crystal_obelisk_top")
-        ));
-        this.registerModelOverride(ModBlocks.HEPHAESTUS_FORGE, base -> new FullbrightBakedModel(base,
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_side_layer"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/hephaestus_forge_top_layer")
-        ));
 
         //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, level, entity, seed) -> entity != null && stack.getItem() instanceof SpectralEyeAmuletItem item && item.isDeactivated(stack) ? 1.0F : 0.0F);
@@ -146,19 +111,6 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
-    public void onModelBake(ModelEvent.ModifyBakingResult event) {
-        Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
-
-        FullbrightBakedModel.invalidateCache();
-
-        for (Triple<Block, StatePropertiesPredicate, Function<BakedModel, BakedModel>> triple : this.bakedModelOverrideRegistry) {
-            triple.getLeft().getStateDefinition().getPossibleStates().stream().filter(state -> triple.getMiddle().matches(state)).map(BlockModelShaper::stateToModelLocation).forEach(modelResourceLocation -> {
-                modelRegistry.put(modelResourceLocation, triple.getRight().apply(modelRegistry.get(modelResourceLocation)));
-            });
-        }
-    }
-
-    @SubscribeEvent
     public void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "flight_timer", new FlightTimerOverlay());
         event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "sanity_meter", new SanityMeterOverlay());
@@ -187,19 +139,5 @@ public class ClientSetup {
         event.register(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.register(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
         event.register(ModParticles.MAGNETIC_GLOW.get(), MagneticGlowProvider::new);
-    }
-
-    /**
-     * Registers a model override under the mods MOD_ID. All states of the Block will be overridden.
-     */
-    private<T extends Block> void registerModelOverride(BlockRegistryObject<T> block, Function<BakedModel, BakedModel> function) {
-        this.registerModelOverride(block, StatePropertiesPredicate.ANY, function);
-    }
-
-    /**
-     * Registers a model override under the mods MOD_ID.
-     */
-    private<T extends Block> void registerModelOverride(BlockRegistryObject<T> block, StatePropertiesPredicate predicate, Function<BakedModel, BakedModel> function) {
-        this.bakedModelOverrideRegistry.add(Triple.of(block.get(), predicate, function));
     }
 }
