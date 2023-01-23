@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBl
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
 import net.minecraft.network.FriendlyByteBuf;
@@ -70,14 +71,14 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addSlot(new InputSlot(handler, 8, 176 + 2, 43, EssenceType.EXPERIENCE));
 
         // Inventory Slots
-        for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < 9; ++j) {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
                 this.addSlot(new SlotItemHandler(creationContext.playerInventory(), j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Hotbar Slots
-        for(int k = 0; k < 9; ++k) {
+        for (int k = 0; k < 9; ++k) {
             this.addSlot(new SlotItemHandler(creationContext.playerInventory(), k, 8 + k * 18, 142));
         }
     }
@@ -92,40 +93,60 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
-        if (slot.hasItem()) {
-            ItemStack stack = slot.getItem();
-            result = stack.copy();
-
-            if (index <= 4) {
-                if (!this.moveItemStackTo(stack, 5, 41, true)) {
-                    return ItemStack.EMPTY;
-                }
-
-                slot.onQuickCraft(stack, result);
-            } else {
-                if (!this.slots.get(4).hasItem()) {
-                    if (!this.moveItemStackTo(stack, 4, 5, false)) {
-                        return ItemStack.EMPTY;
-                    }
-
-                    slot.onQuickCraft(stack, result);
-                } else {
-                    if (!this.moveItemStackTo(stack, 0, 4, false)) {
-                        if (index < 36) {
-                            if (!this.moveItemStackTo(stack, 36, 45, false)) {
-                                return ItemStack.EMPTY;
-                            }
-                        } else if (this.moveItemStackTo(stack, 5, 36, false)) {
-                            return ItemStack.EMPTY;
-                        }
-                    }
-                }
-            }
-
-            slot.onTake(player, stack);
+        if (!slot.hasItem()) {
+            return result;
         }
 
+        ItemStack stack = slot.getItem();
+        result = stack.copy();
+
+        if (index <= 4) {
+            if (!this.moveItemStackTo(stack, 5, 41, true)) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onQuickCraft(stack, result);
+        } else if (index <= 8) {
+            if (!this.moveItemStackTo(stack, 9, 41, true)) {
+                return ItemStack.EMPTY;
+            }
+        } else {
+            if (this.canInput(EssenceType.AUREAL, stack)) {
+                if (!this.moveItemStackTo(stack, 5, 6, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (this.canInput(EssenceType.SOULS, stack)) {
+                if (!this.moveItemStackTo(stack, 6, 7, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (this.canInput(EssenceType.BLOOD, stack)) {
+                if (!this.moveItemStackTo(stack, 7, 8, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (this.canInput(EssenceType.EXPERIENCE, stack)) {
+                if (!this.moveItemStackTo(stack, 8, 9, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.getSlot(4).hasItem()) {
+                if (!this.moveItemStackTo(stack, 4, 5, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (index < 36) {
+                if (!this.moveItemStackTo(stack, 36, 45, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (index < 45 && !this.moveItemStackTo(stack, 9, 36, false)) {
+                return ItemStack.EMPTY;
+            }
+        }
+
+        slot.onTake(player, stack);
+
         return result;
+    }
+
+    public boolean canInput(EssenceType type, ItemStack stack) {
+        return !HephaestusForgeInputs.getInputs().stream().filter(hephaestusForgeInput -> hephaestusForgeInput.canInput(type, stack)).toList().isEmpty();
     }
 
     @Override

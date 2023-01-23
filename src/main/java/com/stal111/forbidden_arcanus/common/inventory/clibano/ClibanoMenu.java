@@ -126,7 +126,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, SOUL_SLOT, SOUL_SLOT + 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            }  else if (index < 34) {
+            } else if (index < 34) {
                 if (!this.moveItemStackTo(stack, 34, 43, false)) {
                     return ItemStack.EMPTY;
                 }
