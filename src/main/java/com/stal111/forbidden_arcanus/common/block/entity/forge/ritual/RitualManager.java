@@ -286,6 +286,7 @@ public class RitualManager implements NeedsStoring {
     private void reset() {
         this.counter = 0;
         this.lightningCounter = 0;
+        this.validRitual = null;
         this.setActiveRitual(null);
     }
 

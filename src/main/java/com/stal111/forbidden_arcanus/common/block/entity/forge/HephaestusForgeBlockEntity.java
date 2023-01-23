@@ -142,7 +142,11 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
     @Override
     protected void onSlotChanged(int slot) {
         if (slot == MAIN_SLOT && this.level != null) {
-            this.getRitualManager().tryFindValidRitual(this.essenceManager.getEssences());
+            if (this.getStack(slot).isEmpty() && this.getRitualManager().isRitualActive()) {
+                this.getRitualManager().failRitual();
+            } else {
+                this.getRitualManager().tryFindValidRitual(this.essenceManager.getEssences());
+            }
 
             NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.worldPosition), new UpdateItemInSlotPacket(this.worldPosition, this.getStack(slot), slot));
         }
