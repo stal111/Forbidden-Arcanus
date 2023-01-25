@@ -168,12 +168,6 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.button(ModBlocks.AURUM_BUTTON.get(), ModBlocks.AURUM_PLANKS.get());
         this.button(ModBlocks.EDELWOOD_BUTTON.get(), ModBlocks.EDELWOOD_PLANKS.get());
 
-        this.sword(ModItems.DEORUM_SWORD.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.shovel(ModItems.DEORUM_SHOVEL.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.pickaxe(ModItems.DEORUM_PICKAXE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.axe(ModItems.DEORUM_AXE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.hoe(ModItems.DEORUM_HOE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-
         this.boat(ModItems.CHERRY_BOAT.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
         this.boat(ModItems.AURUM_BOAT.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
         this.boat(ModItems.EDELWOOD_BOAT.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
@@ -196,7 +190,6 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.blacksmithGavel(ModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD);
         this.blacksmithGavel(ModItems.IRON_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_IRON);
         this.blacksmithGavel(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND);
-        this.blacksmithGavel(ModItems.DEORUM_BLACKSMITH_GAVEL.get(), ModTags.Items.DEORUM_INGOTS);
     }
 
     private void lantern(ItemLike result, ItemLike torch, RecipePart<?> material) {

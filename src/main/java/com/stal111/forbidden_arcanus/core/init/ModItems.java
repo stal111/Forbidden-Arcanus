@@ -91,7 +91,6 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<BlacksmithGavelItem> IRON_BLACKSMITH_GAVEL = HELPER.register("iron_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.IRON, 7, -3.25F, 10, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<BlacksmithGavelItem> DIAMOND_BLACKSMITH_GAVEL = HELPER.register("diamond_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.DIAMOND, 7, -3.25F, 30, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<BlacksmithGavelItem> NETHERITE_BLACKSMITH_GAVEL = HELPER.register("netherite_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.NETHERITE, 7, -3.25F, 60, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<BlacksmithGavelItem> DEORUM_BLACKSMITH_GAVEL = HELPER.register("deorum_blacksmith_gavel", () -> new BlacksmithGavelItem(ModTiers.DEORUM, 7, -3.25F, 15, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<BlacksmithGavelItem> REINFORCED_DEORUM_BLACKSMITH_GAVEL = HELPER.register("reinforced_deorum_blacksmith_gavel", () -> new BlacksmithGavelItem(ModTiers.REINFORCED_DEORUM, 7, -3.25F, 80, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> STELLARITE_PIECE = HELPER.register("stellarite_piece", () -> new Item(new Item.Properties()));
     public static final RegistryObject<SimpleFoiledItem> DARK_NETHER_STAR = HELPER.register("dark_nether_star", () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.RARE)));
@@ -142,11 +141,6 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<Item> DRACO_ARCANUS_AXE = HELPER.register("draco_arcanus_axe", () -> new AxeItem(ModTiers.DRACO_ARCANUS, 6, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_HOE = HELPER.register("draco_arcanus_hoe", () -> new HoeItem(ModTiers.DRACO_ARCANUS, -4, 1, new Item.Properties()));
     public static final RegistryObject<Item> DRACO_ARCANUS_SCEPTER = HELPER.register("draco_arcanus_scepter", () -> new DracoArcanusScepterItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> DEORUM_SWORD = HELPER.register("deorum_sword", () -> new SwordItem(ModTiers.DEORUM, 3, -2.4F, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_SHOVEL = HELPER.register("deorum_shovel", () -> new ShovelItem(ModTiers.DEORUM, 1.5F, -3.0F, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_PICKAXE = HELPER.register("deorum_pickaxe", () -> new PickaxeItem(ModTiers.DEORUM, 1, -2.8F, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_AXE = HELPER.register("deorum_axe", () -> new AxeItem(ModTiers.DEORUM, 5, -3.0F, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_HOE = HELPER.register("deorum_hoe", () -> new HoeItem(ModTiers.DEORUM, -3, 0, new Item.Properties()));
     public static final RegistryObject<Item> REINFORCED_DEORUM_SWORD = HELPER.register("reinforced_deorum_sword", () -> new SwordItem(ModTiers.REINFORCED_DEORUM, 3, -2.4F, new Item.Properties()));
     public static final RegistryObject<Item> REINFORCED_DEORUM_SHOVEL = HELPER.register("reinforced_deorum_shovel", () -> new ShovelItem(ModTiers.REINFORCED_DEORUM, 1.5F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> REINFORCED_DEORUM_PICKAXE = HELPER.register("reinforced_deorum_pickaxe", () -> new PickaxeItem(ModTiers.REINFORCED_DEORUM, 1, -2.8F, new Item.Properties()));

@@ -38,7 +38,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ModItems.IRON_BLACKSMITH_GAVEL.get(),
                 ModItems.DIAMOND_BLACKSMITH_GAVEL.get(),
                 ModItems.NETHERITE_BLACKSMITH_GAVEL.get(),
-                ModItems.DEORUM_BLACKSMITH_GAVEL.get(),
                 ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL.get()
         );
         this.tag(ModTags.Items.DEORUM_INGOTS).add(ModItems.DEORUM_INGOT.get());

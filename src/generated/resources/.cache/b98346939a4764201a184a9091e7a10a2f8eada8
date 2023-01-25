@@ -1,6 +1,6 @@
-// 1.19.3	2022-12-29T12:27:18.6986357	Tags for minecraft:item mod id forbidden_arcanus
+// 1.19.3	2023-01-25T18:49:25.1849253	Tags for minecraft:item mod id forbidden_arcanus
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
-05cafb192eccf079a0b6da731f2401809793a197 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
+0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/items/cherrywood_logs.json
 eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/items/clibano/creates_enchanted_fire.json
 248044db5d2fb658e1cc0140c81427a0718726e4 data/forbidden_arcanus/tags/items/clibano/creates_soul_fire.json

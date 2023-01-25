@@ -13,12 +13,10 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.ModTiers
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-12-17
  */
 public enum ModTiers implements Tier {
     DRACO_ARCANUS(4, 2661, 12.0F, 7.0F, 20, () -> Ingredient.of(ModItems.DRAGON_SCALE.get())),
-    DEORUM(3, 1861, 9.0F, 3.5F, 26, () ->  Ingredient.of(ModItems.DEORUM_INGOT.get())),
     REINFORCED_DEORUM(3, 2561, 9.0F, 3.5F, 26, () ->  Ingredient.of(ModItems.STELLARITE_PIECE.get())),
     BONE(1, 131, 4.0F, 1.0F, 5, () ->  Ingredient.of(Items.BONE)),
     SLIMEC(3, 2061, 13.0F, 2.5F, 20, () ->  Ingredient.of(ModItems.DEORUM_INGOT.get())),
