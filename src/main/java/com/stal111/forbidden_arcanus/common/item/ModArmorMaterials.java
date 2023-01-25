@@ -22,8 +22,7 @@ import java.util.function.Supplier;
 public enum ModArmorMaterials implements ArmorMaterial {
     DRACO_ARCANUS("draco_arcanus", 40, new int[]{6, 8, 10, 6}, 15, SoundEvents.ARMOR_EQUIP_GENERIC, 3.0F, 0.1F, () -> Ingredient.of(ModItems.DRAGON_SCALE.get())),
     TYR("tyr", 50, new int[]{8, 10, 12, 7}, 15, SoundEvents.ARMOR_EQUIP_GENERIC, 4.0F, 0.2F, () -> Ingredient.of(ModItems.GOLDEN_DRAGON_SCALE.get(), ModItems.AQUATIC_DRAGON_SCALE.get())),
-    MORTEM("mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 0.0F, () -> Ingredient.of(ModItems.CLOTH.get())),
-    DEORUM("deorum", 38, new int[]{4, 6, 8, 4}, 25, SoundEvents.ARMOR_EQUIP_GOLD, 1.5F, 0.0F, () -> Ingredient.of(ModItems.DEORUM_INGOT.get()));
+    MORTEM("mortem", 40, new int[]{1, 4, 5, 1}, 6, SoundEvents.ARMOR_EQUIP_GENERIC, 1.0F, 0.0F, () -> Ingredient.of(ModItems.CLOTH.get()));
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final ResourceLocation name;

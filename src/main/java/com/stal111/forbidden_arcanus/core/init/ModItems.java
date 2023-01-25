@@ -165,11 +165,6 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<Item> MORTEM_CHESTPLATE = HELPER.register("mortem_chestplate", () -> new MortemArmorItem(ModArmorMaterials.MORTEM, EquipmentSlot.CHEST, new Item.Properties()));
     public static final RegistryObject<Item> MORTEM_LEGGINGS = HELPER.register("mortem_leggings", () -> new MortemArmorItem(ModArmorMaterials.MORTEM, EquipmentSlot.LEGS, new Item.Properties()));
     public static final RegistryObject<Item> MORTEM_BOOTS = HELPER.register("mortem_boots", () -> new MortemArmorItem(ModArmorMaterials.MORTEM, EquipmentSlot.FEET, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_HELMET = HELPER.register("deorum_helmet", () -> new ArmorItem(ModArmorMaterials.DEORUM, EquipmentSlot.HEAD, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_CHESTPLATE = HELPER.register("deorum_chestplate", () -> new ArmorItem(ModArmorMaterials.DEORUM, EquipmentSlot.CHEST, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_LEGGINGS = HELPER.register("deorum_leggings", () -> new ArmorItem(ModArmorMaterials.DEORUM, EquipmentSlot.LEGS, new Item.Properties()));
-    public static final RegistryObject<Item> DEORUM_BOOTS = HELPER.register("deorum_boots", () -> new ArmorItem(ModArmorMaterials.DEORUM, EquipmentSlot.FEET, new Item.Properties()
-    ));
 
     public static class Stacks {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(ModItems.LENS_OF_VERITATIS.get());

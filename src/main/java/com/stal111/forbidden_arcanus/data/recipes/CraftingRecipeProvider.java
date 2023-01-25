@@ -173,10 +173,6 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.pickaxe(ModItems.DEORUM_PICKAXE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
         this.axe(ModItems.DEORUM_AXE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
         this.hoe(ModItems.DEORUM_HOE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.helmet(ModItems.DEORUM_HELMET.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.chestplate(ModItems.DEORUM_CHESTPLATE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.leggings(ModItems.DEORUM_LEGGINGS.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.boots(ModItems.DEORUM_BOOTS.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
 
         this.boat(ModItems.CHERRY_BOAT.get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
         this.boat(ModItems.AURUM_BOAT.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
