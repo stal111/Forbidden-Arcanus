@@ -53,6 +53,7 @@
     "block.forbidden_arcanus.deorum_block": "Deorum Block",
     "block.forbidden_arcanus.stellarite_block": "Stellarite Block",
     "block.forbidden_arcanus.arcane_crystal_block": "Arcane Crystal Block",
+    "block.forbidden_arcanus.corrupted_arcane_crystal_block": "Corrupted Arcane Crystal Block",
     "block.forbidden_arcanus.rune_block": "Rune Block",
     "block.forbidden_arcanus.dark_rune_block": "Dark Rune Block",
     "block.forbidden_arcanus.deorum_glass": "Deorum Glass",
@@ -148,6 +149,7 @@
 
     "block.forbidden_arcanus.arcane_dark_stone": "Arcane Dark Stone",
     "block.forbidden_arcanus.arcane_crystal_obelisk": "Arcane Crystal Obelisk",
+    "block.forbidden_arcanus.corrupted_arcane_crystal_obelisk": "Corrupted Arcane Crystal Obelisk",
     "block.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
     "block.forbidden_arcanus.petrified_root": "Petrified Root",
     "block.forbidden_arcanus.arcane_dragon_egg": "Arcane Dragon Egg",
@@ -187,6 +189,7 @@
     "item.forbidden_arcanus.pixie": "Pixie",
     "item.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
     "item.forbidden_arcanus.arcane_crystal": "Arcane Crystal",
+    "item.forbidden_arcanus.corrupted_arcane_crystal": "Corrupted Arcane Crystal",
     "item.forbidden_arcanus.arcane_crystal_dust": "Arcane Crystal Dust",
     "item.forbidden_arcanus.mundabitur_dust": "Mundabitur Dust",
     "item.forbidden_arcanus.corrupti_dust": "Corrupti Dust",

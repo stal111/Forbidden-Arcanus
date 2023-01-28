@@ -39,6 +39,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
                 ModBlocks.CORRUPTED_PIXIE_UTREM_JAR,
                 ModBlocks.NIPA,
                 ModBlocks.ARCANE_CRYSTAL_OBELISK,
+                ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK,
                 ModBlocks.DEORUM_CHAIN,
                 ModBlocks.ARCANE_DRAGON_EGG,
                 ModBlocks.DEORUM_LANTERN,

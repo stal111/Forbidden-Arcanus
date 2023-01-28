@@ -6,6 +6,7 @@
 		"2": "forbidden_arcanus:block/obelisk_base",
 		"particle": "#0"
 	},
+	"render_type": "cutout",
 	"elements": [
 		{
 			"name": "0",

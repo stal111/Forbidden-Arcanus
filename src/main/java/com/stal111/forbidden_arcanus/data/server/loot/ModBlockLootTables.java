@@ -52,7 +52,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         take(block -> add(block, droppingWithFunction(block, builder -> builder.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fluid", "BlockEntityTag.Fluid")))), ModBlocks.UTREM_JAR);
         take(block -> add(block, LootTable.lootTable()), ModBlocks.BLACK_HOLE, ModBlocks.CLIBANO_SIDE_HORIZONTAL, ModBlocks.CLIBANO_SIDE_VERTICAL, ModBlocks.CLIBANO_CORNER, ModBlocks.CLIBANO_CENTER, ModBlocks.CLIBANO_MAIN_PART);
         take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModBlocks.FUNGYSS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0))).apply(ApplyExplosionDecay.explosionDecay()))), ModBlocks.FUNGYSS_BLOCK);
-        take(block -> add(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER)), ModBlocks.ARCANE_CRYSTAL_OBELISK);
+        take(block -> add(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER)), ModBlocks.ARCANE_CRYSTAL_OBELISK, ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK);
         take(block -> add(block, createSingleItemTableWithSilkTouch(block, ModItems.STELLARITE_PIECE.get())), ModBlocks.STELLA_ARCANUM);
         take(block -> add(block, createOreDrop(block, ModItems.XPETRIFIED_ORB.get())), ModBlocks.XPETRIFIED_ORE);
         take(block -> add(block, createOreDrop(block, ModItems.ARCANE_CRYSTAL.get())), ModBlocks.ARCANE_CRYSTAL_ORE, ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);

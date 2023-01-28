@@ -84,7 +84,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         take(this::pillarBlock, ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR, ModBlocks.ARCANE_POLISHED_DARKSTONE_ROD);
 
         take(block -> this.emissiveBlock(block, modLoc("block/arcane_crystal_block")), ModBlocks.ARCANE_CRYSTAL_BLOCK);
-        take(this::arcaneCrystalObelisk, ModBlocks.ARCANE_CRYSTAL_OBELISK);
+        take(block -> this.emissiveBlock(block, modLoc("block/corrupted_arcane_crystal_block")), ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK);
+
+        take(this::arcaneCrystalObelisk, ModBlocks.ARCANE_CRYSTAL_OBELISK, ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK);
 
         take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.FUNGYSS, ModBlocks.GROWING_EDELWOOD);
 

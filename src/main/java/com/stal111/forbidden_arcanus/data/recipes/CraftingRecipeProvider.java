@@ -94,6 +94,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.storageRecipe(ModItems.DEORUM_NUGGET.get(), ModItems.DEORUM_INGOT.get(), null, "deorum_ingot");
         this.storageRecipe(ModItems.STELLARITE_PIECE.get(), ModBlocks.STELLARITE_BLOCK.get());
         this.storageRecipe(ModItems.ARCANE_CRYSTAL.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
+        this.storageRecipe(ModItems.CORRUPTED_ARCANE_CRYSTAL.get(), ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
         this.storageRecipe(ModItems.RUNE.get(), ModBlocks.RUNE_BLOCK.get());
         this.storageRecipe(ModItems.DARK_RUNE.get(), ModBlocks.DARK_RUNE_BLOCK.get());
 

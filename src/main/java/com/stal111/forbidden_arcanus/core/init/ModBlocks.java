@@ -23,9 +23,7 @@ import net.valhelsia.valhelsia_core.client.util.ValhelsiaRenderType;
 import net.valhelsia.valhelsia_core.common.block.ValhelsiaStandingSignBlock;
 import net.valhelsia.valhelsia_core.common.block.ValhelsiaWallSignBlock;
 import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.block.BlockRegistryHelper;
-import net.valhelsia.valhelsia_core.core.registry.helper.block.BlockRegistryObject;
-import net.valhelsia.valhelsia_core.core.registry.helper.block.RenderType;
+import net.valhelsia.valhelsia_core.core.registry.helper.block.*;
 
 /**
  * Mod Blocks <br>
@@ -93,7 +91,8 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryObject<Block> DEORUM_BLOCK = HELPER.create("deorum_block", () -> new Block(Block.Properties.copy(Blocks.GOLD_BLOCK))).withItem();
     public static final BlockRegistryObject<Block> STELLARITE_BLOCK = HELPER.create("stellarite_block", () -> new Block(Block.Properties.copy(Blocks.OBSIDIAN))).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<Block> ARCANE_CRYSTAL_BLOCK = HELPER.create("arcane_crystal_block", () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(1.0F, 3.0F).noOcclusion())).withItem();
+    public static final BlockRegistryObject<Block> ARCANE_CRYSTAL_BLOCK = HELPER.create("arcane_crystal_block", () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(1.0F, 3.0F).noOcclusion())).withItem().toolType(ToolType.PICKAXE).toolTier(ToolTier.IRON);
+    public static final BlockRegistryObject<Block> CORRUPTED_ARCANE_CRYSTAL_BLOCK = HELPER.create("corrupted_arcane_crystal_block", () -> new Block(Block.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(1.0F, 3.0F))).withItem().toolType(ToolType.PICKAXE).toolTier(ToolTier.IRON);
     public static final BlockRegistryObject<Block> RUNE_BLOCK = HELPER.create("rune_block", () -> new Block(Block.Properties.of(Materials.RUNE).requiresCorrectToolForDrops().strength(5.0F, 6.0F))).withItem();
     public static final BlockRegistryObject<Block> DARK_RUNE_BLOCK = HELPER.create("dark_rune_block", () -> new Block(Block.Properties.of(Materials.RUNE, MaterialColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(5.0F, 6.0F))).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
@@ -232,8 +231,9 @@ public class ModBlocks implements RegistryClass {
 
     public static final BlockRegistryObject<ArcaneDragonEggBlock> ARCANE_DRAGON_EGG = HELPER.create("arcane_dragon_egg", () -> new ArcaneDragonEggBlock(Block.Properties.copy(Blocks.DRAGON_EGG).lightLevel(value -> 5))).withItem();
 
-    @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final BlockRegistryObject<ArcaneCrystalObeliskBlock> ARCANE_CRYSTAL_OBELISK = HELPER.create("arcane_crystal_obelisk", () -> new ArcaneCrystalObeliskBlock(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F))).withItem();
+    public static final BlockRegistryObject<ArcaneCrystalObeliskBlock> CORRUPTED_ARCANE_CRYSTAL_OBELISK = HELPER.create("corrupted_arcane_crystal_obelisk", () -> new ArcaneCrystalObeliskBlock(Block.Properties.of(Material.STONE).strength(1.0F, 10.0F))).withItem();
+
     public static final BlockRegistryObject<ObsidianSkullBlock> OBSIDIAN_SKULL = HELPER.create("obsidian_skull", () -> new ObsidianSkullBlock(Block.Properties.copy(Blocks.SKELETON_SKULL)));
     public static final BlockRegistryObject<ObsidianWallSkullBlock> OBSIDIAN_WALL_SKULL = HELPER.create("obsidian_wall_skull", () -> new ObsidianWallSkullBlock(Block.Properties.copy(Blocks.SKELETON_SKULL).lootFrom(OBSIDIAN_SKULL)));
     public static final BlockRegistryObject<ObsidianSkullBlock> ETERNAL_OBSIDIAN_SKULL = HELPER.create("eternal_obsidian_skull", () -> new ObsidianSkullBlock(Block.Properties.copy(Blocks.SKELETON_SKULL)));

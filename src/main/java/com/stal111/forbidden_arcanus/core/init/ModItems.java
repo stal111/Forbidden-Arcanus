@@ -29,6 +29,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getItemHelper();
 
     public static final RegistryObject<Item> ARCANE_CRYSTAL = HELPER.register("arcane_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CORRUPTED_ARCANE_CRYSTAL = HELPER.register("corrupted_arcane_crystal", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ARCANE_CRYSTAL_DUST = HELPER.register("arcane_crystal_dust", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DEORUM_INGOT = HELPER.register("deorum_ingot", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DEORUM_NUGGET = HELPER.register("deorum_nugget", () -> new Item(new Item.Properties()));
