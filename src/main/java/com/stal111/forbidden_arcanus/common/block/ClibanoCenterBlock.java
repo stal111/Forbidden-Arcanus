@@ -3,8 +3,13 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +34,6 @@ import javax.annotation.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ClibanoCornerBlock
  *
  * @author stal111
- * @version 1.18.2 - 2.1.0
  * @since 2022-05-22
  */
 public class ClibanoCenterBlock extends DirectionalBlock implements ClibanoPart {
@@ -77,5 +82,30 @@ public class ClibanoCenterBlock extends DirectionalBlock implements ClibanoPart 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, TYPE);
+    }
+
+    @Override
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (state.getValue(TYPE).getLightLevel() != 0) {
+            double x = pos.getX() + 0.5D;
+            double y = pos.getY();
+            double z = pos.getZ() + 0.5D;
+
+            if (random.nextDouble() < 0.18D) {
+                SoundEvent soundEvent = state.getValue(TYPE) == ClibanoCenterType.FRONT_FIRE ? ModSounds.CLIBANO_FIRE_CRACKLE.get() : ModSounds.CLIBANO_SOUL_FIRE_CRACKLE.get();
+
+                level.playLocalSound(x, y, z, soundEvent, SoundSource.BLOCKS, 0.2F, 1.0F, false);
+            }
+
+            Direction direction = state.getValue(FACING);
+            Direction.Axis axis = direction.getAxis();
+
+            double d4 = random.nextDouble() * 0.6D - 0.3D;
+            double d5 = axis == Direction.Axis.X ? direction.getStepX() * 0.52D : d4;
+            double d6 = random.nextDouble() * 9.0D / 16.0D;
+            double d7 = axis == Direction.Axis.Z ? direction.getStepZ() * 0.52D : d4;
+
+            level.addParticle(ParticleTypes.SMOKE, x + d5, y + d6, z + d7, 0.0D, 0.0D, 0.0D);
+        }
     }
 }

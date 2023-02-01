@@ -1,4 +1,22 @@
 {
+  "block.clibano.fire_crackle": {
+    "sounds": [
+      "forbidden_arcanus:clibano_fire_crackle_1",
+      "forbidden_arcanus:clibano_fire_crackle_2",
+      "forbidden_arcanus:clibano_fire_crackle_3",
+      "forbidden_arcanus:clibano_fire_crackle_4",
+      "forbidden_arcanus:clibano_fire_crackle_5"
+    ]
+  },
+  "block.clibano.soul_fire_crackle": {
+    "sounds": [
+      "forbidden_arcanus:clibano_soul_fire_crackle_1",
+      "forbidden_arcanus:clibano_soul_fire_crackle_2",
+      "forbidden_arcanus:clibano_soul_fire_crackle_3",
+      "forbidden_arcanus:clibano_soul_fire_crackle_4",
+      "forbidden_arcanus:clibano_soul_fire_crackle_5"
+    ]
+  },
   "entity.energy_ball.hit": {
     "sounds": [
       "forbidden_arcanus:energy_ball_hit"

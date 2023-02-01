@@ -21,10 +21,16 @@ public class ModSoundsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        this.add(ModSounds.ENERGY_BALL_LAUNCH, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "energy_ball_launch"), SoundDefinition.SoundType.SOUND)));
-        this.add(ModSounds.ENERGY_BALL_HIT, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "energy_ball_hit"), SoundDefinition.SoundType.SOUND)));
-        this.add(ModSounds.QUANTUM_CATCHER_PICK_UP, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "quantum_catcher_pick_up"), SoundDefinition.SoundType.SOUND)));
-        this.add(ModSounds.QUANTUM_CATCHER_RELEASE, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "quantum_catcher_release"), SoundDefinition.SoundType.SOUND)));
-        this.add(ModSounds.FERROGNETIC_MIXTURE_APPLY, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "ferrognetic_mixture_apply_1"), SoundDefinition.SoundType.SOUND)).with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "ferrognetic_mixture_apply_2"), SoundDefinition.SoundType.SOUND)));
+        this.add(ModSounds.ENERGY_BALL_LAUNCH, SoundDefinition.definition().with(this.simpleSound("energy_ball_launch")));
+        this.add(ModSounds.ENERGY_BALL_HIT, SoundDefinition.definition().with(this.simpleSound("energy_ball_hit")));
+        this.add(ModSounds.QUANTUM_CATCHER_PICK_UP, SoundDefinition.definition().with(this.simpleSound("quantum_catcher_pick_up")));
+        this.add(ModSounds.QUANTUM_CATCHER_RELEASE, SoundDefinition.definition().with(this.simpleSound("quantum_catcher_release")));
+        this.add(ModSounds.FERROGNETIC_MIXTURE_APPLY, SoundDefinition.definition().with(this.simpleSound("ferrognetic_mixture_apply_1")).with(this.simpleSound("ferrognetic_mixture_apply_2")));
+        this.add(ModSounds.CLIBANO_FIRE_CRACKLE, SoundDefinition.definition().with(this.simpleSound("clibano_fire_crackle_1")).with(this.simpleSound("clibano_fire_crackle_2")).with(this.simpleSound("clibano_fire_crackle_3")).with(this.simpleSound("clibano_fire_crackle_4")).with(this.simpleSound("clibano_fire_crackle_5")));
+        this.add(ModSounds.CLIBANO_SOUL_FIRE_CRACKLE, SoundDefinition.definition().with(this.simpleSound("clibano_soul_fire_crackle_1")).with(this.simpleSound("clibano_soul_fire_crackle_2")).with(this.simpleSound("clibano_soul_fire_crackle_3")).with(this.simpleSound("clibano_soul_fire_crackle_4")).with(this.simpleSound("clibano_soul_fire_crackle_5")));
+    }
+
+    private SoundDefinition.Sound simpleSound(String name) {
+        return SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, name), SoundDefinition.SoundType.SOUND);
     }
 }
