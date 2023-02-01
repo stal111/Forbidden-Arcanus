@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBl
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
@@ -51,6 +52,8 @@ public class ClientPacketHandler {
 
     public static void handleTransformPedestal(TransformPedestalPacket packet) {
         ParticleUtils.spawnParticlesOnBlockFaces(getLevel(), packet.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
+
+        getLevel().playLocalSound(packet.pos(), ModSounds.FERROGNETIC_MIXTURE_APPLY.get(), SoundSource.PLAYERS, 0.75F, 0.9F + getLevel().random.nextFloat() * 0.1F, false);
     }
 
     public static void handleCreateMagicCircle(CreateMagicCirclePacket packet) {

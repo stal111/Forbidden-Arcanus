@@ -20,5 +20,6 @@ public class ModSounds implements RegistryClass {
     public static final RegistryObject<SoundEvent> ENERGY_BALL_HIT = HELPER.register("energy_ball_hit", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity.energy_ball.hit")));
     public static final RegistryObject<SoundEvent> QUANTUM_CATCHER_PICK_UP = HELPER.register("quantum_catcher_pick_up", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "item.quantum_catcher.pick_up")));
     public static final RegistryObject<SoundEvent> QUANTUM_CATCHER_RELEASE = HELPER.register("quantum_catcher_release", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "item.quantum_catcher.release")));
+    public static final RegistryObject<SoundEvent> FERROGNETIC_MIXTURE_APPLY = HELPER.register("ferrognetic_mixture_apply", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "item.ferrognetic_mixture.apply")));
 
 }
