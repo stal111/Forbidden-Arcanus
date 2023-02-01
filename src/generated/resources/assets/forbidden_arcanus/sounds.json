@@ -9,6 +9,12 @@
       "forbidden_arcanus:energy_ball_launch"
     ]
   },
+  "item.ferrognetic_mixture.apply": {
+    "sounds": [
+      "forbidden_arcanus:ferrognetic_mixture_apply_1",
+      "forbidden_arcanus:ferrognetic_mixture_apply_2"
+    ]
+  },
   "item.quantum_catcher.pick_up": {
     "sounds": [
       "forbidden_arcanus:quantum_catcher_pick_up"

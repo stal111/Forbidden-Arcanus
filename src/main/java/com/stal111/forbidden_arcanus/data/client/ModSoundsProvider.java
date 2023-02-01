@@ -30,5 +30,6 @@ public class ModSoundsProvider extends SoundDefinitionsProvider {
         this.add(ModSounds.ENERGY_BALL_HIT, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "energy_ball_hit"), SoundDefinition.SoundType.SOUND)));
         this.add(ModSounds.QUANTUM_CATCHER_PICK_UP, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "quantum_catcher_pick_up"), SoundDefinition.SoundType.SOUND)));
         this.add(ModSounds.QUANTUM_CATCHER_RELEASE, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "quantum_catcher_release"), SoundDefinition.SoundType.SOUND)));
+        this.add(ModSounds.FERROGNETIC_MIXTURE_APPLY, SoundDefinition.definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "ferrognetic_mixture_apply_1"), SoundDefinition.SoundType.SOUND)).with(SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, "ferrognetic_mixture_apply_2"), SoundDefinition.SoundType.SOUND)));
     }
 }
