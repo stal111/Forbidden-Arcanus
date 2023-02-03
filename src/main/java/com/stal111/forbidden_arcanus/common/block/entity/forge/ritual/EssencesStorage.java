@@ -12,7 +12,7 @@ public class EssencesStorage extends EnumMap<EssenceType, Integer> {
         super(EssenceType.class);
     }
 
-    public boolean hasMoreThan(EssencesDefinition definition) {
+    public boolean hasEnough(EssencesDefinition definition) {
         for (EssenceType type : EssenceType.values()) {
             if (this.getOrDefault(type, 0) < definition.get(type)) {
                 return false;

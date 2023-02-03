@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.network;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
@@ -111,7 +112,7 @@ public class ClientPacketHandler {
             return;
         }
 
-        blockEntity.getRitualManager().setActiveRitual(packet.ritual());
+        blockEntity.getRitualManager().setActiveRitual(ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.get(packet.ritual()));
     }
 
     public static void handleUpdateItemInSlot(UpdateItemInSlotPacket packet) {

@@ -1,0 +1,29 @@
+{
+  "essences": {
+    "aureal": 82,
+    "blood": 1000,
+    "experience": 0,
+    "souls": 1
+  },
+  "inputs": [
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:coal"
+      }
+    },
+    {
+      "amount": 4,
+      "ingredient": {
+        "item": "minecraft:blaze_powder"
+      }
+    }
+  ],
+  "main_ingredient": {
+    "item": "forbidden_arcanus:arcane_crystal_block"
+  },
+  "result": {
+    "Count": 1,
+    "id": "forbidden_arcanus:smelter_prism"
+  }
+}

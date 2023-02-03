@@ -91,7 +91,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
         super.setLevel(level);
 
         if (level instanceof ServerLevel serverLevel) {
-            this.ritualManager.setup(serverLevel, this.getBlockPos(), this.essenceManager.getEssences());
+            this.ritualManager.setup(serverLevel, this.getBlockPos());
         }
     }
 

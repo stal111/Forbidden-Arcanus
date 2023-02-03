@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
+import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -42,20 +43,19 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistries(ForbiddenArcanus.MOD_ID), null);
 
-//			RegistryManager.builder(MOD_ID)
-//			.addHelper(Registry.CONFIGURED_FEATURE_REGISTRY, new RegistryHelper<>(ModConfiguredFeatures::new))
-//			.addHelper(Registry.PLACED_FEATURE_REGISTRY, new RegistryHelper<>(ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new, ModCavePlacements::new))
-//			.create();
-
 	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry(() ->
 			new RegistryBuilder<ItemModifier>().setMaxID(Integer.MAX_VALUE - 1).onAdd((owner, stage, id, key, obj, old) -> {}
 			).setDefaultKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "null")));
 
-	public static ForbiddenArcanus instance;
+	public static ForbiddenArcanus INSTANCE;
+
+	private final RitualLoader ritualLoader;
 
 	public ForbiddenArcanus() {
 		super(MOD_ID, FMLJavaModLoadingContext.get().getModEventBus(), ForbiddenArcanus.REGISTRY_MANAGER);
-		instance = this;
+		INSTANCE = this;
+
+		this.ritualLoader = new RitualLoader();
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -101,5 +101,9 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 
 		Consequences.registerConsequences();
 		HephaestusForgeInputs.registerInputs();
+	}
+
+	public RitualLoader getRitualLoader() {
+		return this.ritualLoader;
 	}
 }

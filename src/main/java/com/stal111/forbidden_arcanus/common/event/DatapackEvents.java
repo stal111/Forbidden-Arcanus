@@ -43,7 +43,7 @@ public class DatapackEvents {
     }
 
     private static void syncData(ServerPlayer player) {
-        NetworkHandler.sendTo(player, new UpdateRitualsPacket(RitualLoader.rituals));
+        NetworkHandler.sendTo(player, new UpdateRitualsPacket(ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.values()));
         NetworkHandler.sendTo(player, new UpdateForgeInputsPacket(HephaestusForgeInputLoader.inputs));
         NetworkHandler.sendTo(player, new UpdateResidueTypesPacket(ResiduesStorage.RESIDUE_TYPES));
     }

@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
-import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,19 +15,18 @@ import java.util.function.Supplier;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.network.UpdateForgeRitualPacket
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-07-17
  */
-public record UpdateForgeRitualPacket(BlockPos pos, @Nullable Ritual ritual) {
+public record UpdateForgeRitualPacket(BlockPos pos, @Nullable ResourceLocation ritual) {
 
     public static void encode(UpdateForgeRitualPacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
         ResourceLocation empty = new ResourceLocation("", "");
-        buffer.writeResourceLocation(packet.ritual != null ? packet.ritual.getName() : empty);
+        buffer.writeResourceLocation(packet.ritual != null ? packet.ritual : empty);
     }
 
     public static UpdateForgeRitualPacket decode(FriendlyByteBuf buffer) {
-        return new UpdateForgeRitualPacket(buffer.readBlockPos(), RitualLoader.getRitual(buffer.readResourceLocation()));
+        return new UpdateForgeRitualPacket(buffer.readBlockPos(), buffer.readResourceLocation());
     }
 
     public static void consume(UpdateForgeRitualPacket packet, Supplier<NetworkEvent.Context> ctx) {
