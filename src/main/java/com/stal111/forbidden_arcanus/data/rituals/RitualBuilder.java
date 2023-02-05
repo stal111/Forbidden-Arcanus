@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceTyp
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -21,12 +22,12 @@ import java.util.Map;
 public class RitualBuilder {
 
     private final Ingredient mainIngredient;
-    private final ItemStack result;
+    private final RitualResult result;
 
     private final List<RitualInput> inputs = new ArrayList<>();
     private final Map<EssenceType, Integer> essences = new HashMap<>();
 
-    public RitualBuilder(ItemStack mainIngredient, ItemStack result) {
+    public RitualBuilder(ItemStack mainIngredient, RitualResult result) {
         this.mainIngredient = Ingredient.of(mainIngredient);
         this.result = result;
     }

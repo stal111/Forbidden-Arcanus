@@ -234,7 +234,7 @@ public class RitualManager implements NeedsStoring {
     public void finishRitual() {
         Ritual ritual = this.activeRitual.get();
 
-        this.mainIngredientAccessor.set(ritual.getResult());
+        ritual.getResult().apply(this.mainIngredientAccessor);
 
         ritual.removeMagicCircle(this.level, this.pos);
 

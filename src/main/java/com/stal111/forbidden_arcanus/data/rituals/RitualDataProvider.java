@@ -5,6 +5,7 @@ import com.mojang.serialization.JsonOps;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.BuiltinRituals;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.data.CachedOutput;
@@ -47,11 +48,11 @@ public class RitualDataProvider implements DataProvider, ValhelsiaDataProvider {
     }
 
     private void register(ResourceLocation name, ItemLike result, ItemLike mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        this.builders.put(name, builder.apply(new RitualBuilder(new ItemStack(mainIngredient), new ItemStack(result))).build());
+        this.builders.put(name, builder.apply(new RitualBuilder(new ItemStack(mainIngredient), new CreateItemResult(new ItemStack(result)))).build());
     }
 
     private void register(ResourceLocation name, ItemStack result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        this.builders.put(name, builder.apply(new RitualBuilder(mainIngredient, result)).build());
+        this.builders.put(name, builder.apply(new RitualBuilder(mainIngredient, new CreateItemResult(result))).build());
     }
 
     @Override

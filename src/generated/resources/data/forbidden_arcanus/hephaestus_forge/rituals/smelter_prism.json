@@ -23,7 +23,10 @@
     "item": "forbidden_arcanus:arcane_crystal_block"
   },
   "result": {
-    "Count": 1,
-    "id": "forbidden_arcanus:smelter_prism"
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "Count": 1,
+      "id": "forbidden_arcanus:smelter_prism"
+    }
   }
 }
