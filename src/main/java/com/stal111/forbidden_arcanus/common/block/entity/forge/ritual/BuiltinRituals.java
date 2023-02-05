@@ -11,5 +11,6 @@ public class BuiltinRituals {
 
     public static final ResourceLocation ETERNAL_STELLA = new ResourceLocation(ForbiddenArcanus.MOD_ID, "eternal_stella");
     public static final ResourceLocation SMELTER_PRISM = new ResourceLocation(ForbiddenArcanus.MOD_ID, "smelter_prism");
+    public static final ResourceLocation UPGRADE_TIER_2 = new ResourceLocation(ForbiddenArcanus.MOD_ID, "upgrade_tier_2");
 
 }

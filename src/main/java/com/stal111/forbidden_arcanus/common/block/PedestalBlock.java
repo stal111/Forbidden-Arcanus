@@ -123,12 +123,14 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
 
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-        if (state.is(newState.getBlock())) {
+        if (newState.getBlock() instanceof PedestalBlock) {
             return;
         }
 
         if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, blockEntity.getStack()));
+
+            blockEntity.setStackAndSync(ItemStack.EMPTY, level);
         }
 
         super.onRemove(state, level, pos, newState, isMoving);

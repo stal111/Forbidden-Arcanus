@@ -38,7 +38,7 @@ public class ModRegistries extends RegistryCollector {
         this.addMappedHelper(Registries.MEMORY_MODULE_TYPE, ModMemoryModules::new);
         this.addMappedHelper(Registries.ACTIVITY, ModActivities::new);
         this.addMappedHelper(Registries.TRUNK_PLACER_TYPE, ModTrunkPlacers::new);
-        this.addMappedHelper(ForbiddenArcanus.RITUAL_RESULT_TYPE, ModRitualResults::new);
+        this.addMappedHelper(ForbiddenArcanus.RITUAL_RESULT_TYPE, ModRitualResultTypes::new);
 
         this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);

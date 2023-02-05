@@ -83,7 +83,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
             }
         };
 
-        this.essenceManager = new EssenceManager(this.getForgeLevel().getMaxEssences(), this.ritualManager::tryFindValidRitual);
+        this.essenceManager = new EssenceManager(this.getForgeLevel().getMaxEssences(), this.ritualManager::updateValidRitual);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity {
             if (this.getStack(slot).isEmpty() && this.getRitualManager().isRitualActive()) {
                 this.getRitualManager().failRitual();
             } else {
-                this.getRitualManager().tryFindValidRitual(this.essenceManager.getEssences());
+                this.getRitualManager().updateValidRitual(this.essenceManager.getEssences());
             }
 
             NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.worldPosition), new UpdateItemInSlotPacket(this.worldPosition, this.getStack(slot), slot));

@@ -6,6 +6,8 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.BuiltinRituals;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.data.CachedOutput;
@@ -45,6 +47,7 @@ public class RitualDataProvider implements DataProvider, ValhelsiaDataProvider {
     protected void registerRituals() {
         this.register(BuiltinRituals.ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000));
         this.register(BuiltinRituals.SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).aureal(82).souls(1).blood(1000));
+        this.register(BuiltinRituals.UPGRADE_TIER_2, new UpgradeTierResult(1, 2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).aureal(500).souls(10).blood(1000));
     }
 
     private void register(ResourceLocation name, ItemLike result, ItemLike mainIngredient, UnaryOperator<RitualBuilder> builder) {
@@ -53,6 +56,10 @@ public class RitualDataProvider implements DataProvider, ValhelsiaDataProvider {
 
     private void register(ResourceLocation name, ItemStack result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
         this.builders.put(name, builder.apply(new RitualBuilder(mainIngredient, new CreateItemResult(result))).build());
+    }
+
+    private void register(ResourceLocation name, RitualResult result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
+        this.builders.put(name, builder.apply(new RitualBuilder(mainIngredient, result)).build());
     }
 
     @Override

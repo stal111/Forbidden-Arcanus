@@ -28,6 +28,7 @@ import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -84,6 +85,8 @@ public class RitualManager implements NeedsStoring {
 
     public void setActiveRitual(NamedRitual ritual) {
         this.activeRitual = ritual;
+
+        NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, Optional.ofNullable(this.activeRitual).map(NamedRitual::name)));
     }
 
     public boolean isRitualActive() {
@@ -109,10 +112,10 @@ public class RitualManager implements NeedsStoring {
             this.cachedIngredients.put(pedestal, stack);
         }
 
-        this.validRitual = this.tryFindValidRitual(storage);
+        this.updateValidRitual(storage);
     }
 
-    public NamedRitual tryFindValidRitual(EssencesStorage storage) {
+    public void updateValidRitual(EssencesStorage storage) {
         boolean oldValue = this.validRitual != null;
 
         for (NamedRitual ritual : ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.values()) {
@@ -121,7 +124,9 @@ public class RitualManager implements NeedsStoring {
                     NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.pos), new CreateValidRitualIndicatorPacket(this.pos));
                 }
 
-                return ritual;
+                this.validRitual = ritual;
+
+                return;
             }
         }
 
@@ -130,8 +135,6 @@ public class RitualManager implements NeedsStoring {
         if (oldValue && !this.isRitualActive()) {
             NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.pos), new RemoveValidRitualIndicatorPacket(this.pos));
         }
-
-        return null;
     }
 
     public boolean canStartRitual(Ritual ritual, EssencesStorage storage) {
@@ -179,7 +182,7 @@ public class RitualManager implements NeedsStoring {
                 if (!this.getActiveRitual().get().checkIngredients(list, this.mainIngredientAccessor)) {
                     this.failRitual();
 
-                    NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual.name()));
+                    NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, Optional.ofNullable(this.activeRitual).map(NamedRitual::name)));
                     return;
                 }
 
@@ -227,14 +230,12 @@ public class RitualManager implements NeedsStoring {
                 this.failRitual();
             }
         }
-
-        NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual.name()));
     }
 
     public void finishRitual() {
         Ritual ritual = this.activeRitual.get();
 
-        ritual.getResult().apply(this.mainIngredientAccessor);
+        ritual.getResult().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         ritual.removeMagicCircle(this.level, this.pos);
 

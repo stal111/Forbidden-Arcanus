@@ -3,8 +3,10 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
-import com.stal111.forbidden_arcanus.core.init.ModRitualResults;
+import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * @author stal111
@@ -33,12 +35,12 @@ public class CreateItemResult extends RitualResult {
     }
 
     @Override
-    public void apply(RitualManager.MainIngredientAccessor accessor) {
+    public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
         accessor.set(this.result);
     }
 
     @Override
     public RitualResultType<? extends RitualResult> getType() {
-        return ModRitualResults.CREATE_ITEM.get();
+        return ModRitualResultTypes.CREATE_ITEM.get();
     }
 }

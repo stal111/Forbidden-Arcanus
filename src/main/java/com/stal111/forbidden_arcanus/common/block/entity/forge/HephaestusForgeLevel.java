@@ -13,8 +13,8 @@ import java.util.function.IntSupplier;
  * @since 2021-06-29
  */
 public enum HephaestusForgeLevel implements IntSupplier {
-    ONE(1, 200, 1, 5000, 200),
-    TWO(2, 500, 5, 10000, 300),
+    ONE(1, 500, 10, 5000, 200),
+    TWO(2, 500, 10, 10000, 300),
     THREE(3, 800, 10, 30000, 400),
     FOUR(4, 1000, 100, 50000, 1000),
     X(5, 3000, 666, 100000, 2000);

@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
@@ -112,7 +113,13 @@ public class ClientPacketHandler {
             return;
         }
 
-        blockEntity.getRitualManager().setActiveRitual(ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.get(packet.ritual()));
+        RitualManager ritualManager = blockEntity.getRitualManager();
+
+        packet.ritual().ifPresentOrElse(resourceLocation -> {
+            ritualManager.setActiveRitual(ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.get(resourceLocation));
+        }, () -> {
+            ritualManager.setActiveRitual(null);
+        });
     }
 
     public static void handleUpdateItemInSlot(UpdateItemInSlotPacket packet) {

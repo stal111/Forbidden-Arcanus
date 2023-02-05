@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
-import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -17,16 +17,15 @@ import java.util.function.Supplier;
  * @author stal111
  * @since 2021-07-17
  */
-public record UpdateForgeRitualPacket(BlockPos pos, @Nullable ResourceLocation ritual) {
+public record UpdateForgeRitualPacket(BlockPos pos, Optional<ResourceLocation> ritual) {
 
     public static void encode(UpdateForgeRitualPacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
-        ResourceLocation empty = new ResourceLocation("", "");
-        buffer.writeResourceLocation(packet.ritual != null ? packet.ritual : empty);
+        buffer.writeOptional(packet.ritual, (buf, resourceLocation) -> buffer.writeResourceLocation(resourceLocation));
     }
 
     public static UpdateForgeRitualPacket decode(FriendlyByteBuf buffer) {
-        return new UpdateForgeRitualPacket(buffer.readBlockPos(), buffer.readResourceLocation());
+        return new UpdateForgeRitualPacket(buffer.readBlockPos(), buffer.readOptional(FriendlyByteBuf::readResourceLocation));
     }
 
     public static void consume(UpdateForgeRitualPacket packet, Supplier<NetworkEvent.Context> ctx) {
