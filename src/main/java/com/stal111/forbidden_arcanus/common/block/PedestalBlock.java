@@ -110,7 +110,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
             blockEntity.clearStack(level);
 
         } else if (!stack.isEmpty() && !blockEntity.hasStack()) {
-            blockEntity.setStackAndSync(stack.copy().split(1), level);
+            blockEntity.setStackAndSync(stack.copy().split(1));
 
             ItemStackUtils.shrinkStack(player, stack);
             
@@ -130,7 +130,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
         if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, blockEntity.getStack()));
 
-            blockEntity.setStackAndSync(ItemStack.EMPTY, level);
+            blockEntity.setStackAndSync(ItemStack.EMPTY);
         }
 
         super.onRemove(state, level, pos, newState, isMoving);

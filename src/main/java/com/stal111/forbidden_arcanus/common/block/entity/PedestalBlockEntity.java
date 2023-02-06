@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
@@ -44,8 +45,9 @@ public class PedestalBlockEntity extends BlockEntity {
         this.findHephaestusForge(level, this.getBlockPos()).ifPresent(forgePos -> {
             if (level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity blockEntity) {
                 RitualManager ritualManager = blockEntity.getRitualManager();
+                EssencesStorage storage = blockEntity.getEssenceManager().getStorage();
 
-                ritualManager.updateIngredient(this, stack, blockEntity.getEssenceManager().getEssences());
+                ritualManager.updateIngredient(this, stack, storage);
 
                 if (blockEntity.getRitualManager().isRitualActive()) {
                     ritualManager.failRitual();
@@ -69,13 +71,19 @@ public class PedestalBlockEntity extends BlockEntity {
         this.setChanged();
     }
 
-    public void setStackAndSync(ItemStack stack, Level level) {
+    public void setStackAndSync(ItemStack stack) {
+        this.setStackAndSync(stack, true);
+    }
+
+    public void setStackAndSync(ItemStack stack, boolean runOnChanged) {
         this.stack = stack;
 
-        if (level instanceof ServerLevel serverLevel) {
-            NetworkHandler.sendToTrackingChunk(level.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
+        if (this.level instanceof ServerLevel serverLevel) {
+            NetworkHandler.sendToTrackingChunk(serverLevel.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
 
-            this.onChanged.run(serverLevel, stack);
+            if (runOnChanged) {
+                this.onChanged.run(serverLevel, stack);
+            }
         }
 
         this.setChanged();
@@ -90,9 +98,13 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     public void clearStack(Level level) {
+        this.clearStack(level, true);
+    }
+
+    public void clearStack(Level level, boolean runOnChanged) {
         this.setItemHeight(DEFAULT_ITEM_HEIGHT);
 
-        this.setStackAndSync(ItemStack.EMPTY, level);
+        this.setStackAndSync(ItemStack.EMPTY, runOnChanged);
     }
 
     public float getItemHover(float partialTicks) {

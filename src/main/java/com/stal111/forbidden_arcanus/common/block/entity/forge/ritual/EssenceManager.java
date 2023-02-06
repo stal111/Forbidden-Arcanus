@@ -24,7 +24,7 @@ public class EssenceManager implements NeedsStoring {
 
     private final EssencesStorage essences = new EssencesStorage();
     private final Object2FloatArrayMap<LivingEntity> cachedHealth = new Object2FloatArrayMap<>();
-    private final EssencesDefinition maxEssences;
+    private EssencesDefinition maxEssences;
 
     private final Consumer<EssencesStorage> onChanged;
 
@@ -33,8 +33,16 @@ public class EssenceManager implements NeedsStoring {
         this.onChanged = onChanged;
     }
 
-    public EssencesStorage getEssences() {
+    public void setMaxEssences(EssencesDefinition maxEssences) {
+        this.maxEssences = maxEssences;
+    }
+
+    public EssencesStorage getStorage() {
         return this.essences;
+    }
+
+    public EssencesDefinition getCurrentEssences() {
+        return EssencesDefinition.of(this.getStorage());
     }
 
     public int getEssence(EssenceType type) {

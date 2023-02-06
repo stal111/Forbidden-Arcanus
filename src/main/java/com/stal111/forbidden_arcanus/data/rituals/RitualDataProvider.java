@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaDataProvider;
 import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
@@ -47,7 +48,11 @@ public class RitualDataProvider implements DataProvider, ValhelsiaDataProvider {
     protected void registerRituals() {
         this.register(BuiltinRituals.ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000));
         this.register(BuiltinRituals.SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).aureal(82).souls(1).blood(1000));
+
         this.register(BuiltinRituals.UPGRADE_TIER_2, new UpgradeTierResult(1, 2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).aureal(500).souls(10).blood(1000));
+        this.register(BuiltinRituals.UPGRADE_TIER_3, new UpgradeTierResult(2, 3), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).aureal(1000).souls(20).blood(2250));
+        this.register(BuiltinRituals.UPGRADE_TIER_4, new UpgradeTierResult(3, 4), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.STELLARITE_PIECE.get()), 4).input(Ingredient.of(ModItems.RUNE.get()), 4).aureal(2000).souls(50).blood(5000));
+        this.register(BuiltinRituals.UPGRADE_TIER_5, new UpgradeTierResult(4, 5), new ItemStack(ModBlocks.STELLARITE_BLOCK.get()), builder -> builder.input(Ingredient.of(Blocks.SCULK), 4).input(Ingredient.of(ModItems.DARK_NETHER_STAR.get()), 2).input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).aureal(5000).souls(100).blood(10500));
     }
 
     private void register(ResourceLocation name, ItemLike result, ItemLike mainIngredient, UnaryOperator<RitualBuilder> builder) {

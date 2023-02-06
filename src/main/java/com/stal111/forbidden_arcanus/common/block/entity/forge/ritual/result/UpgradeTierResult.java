@@ -3,6 +3,9 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesContainer;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
@@ -48,7 +51,18 @@ public class UpgradeTierResult extends RitualResult {
     public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
 
+        if (!(level.getBlockEntity(pos) instanceof EssencesContainer old)) {
+            return;
+        }
+
+        EssencesDefinition oldEssences = old.getEssences();
+
         level.setBlockAndUpdate(pos, state.setValue(HephaestusForgeBlock.TIER, this.upgradedTier));
+
+        if (level.getBlockEntity(pos) instanceof EssencesContainer essencesContainer) {
+            essencesContainer.setEssencesLimit(HephaestusForgeLevel.getFromIndex(this.upgradedTier).getMaxEssences());
+            essencesContainer.setEssences(oldEssences);
+        }
 
         accessor.set(ItemStack.EMPTY);
 
@@ -57,6 +71,11 @@ public class UpgradeTierResult extends RitualResult {
         entity.setVisualOnly(true);
 
         level.addFreshEntity(entity);
+    }
+
+    @Override
+    public boolean checkConditions(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
+        return level.getBlockState(pos).getValue(HephaestusForgeBlock.TIER) == this.requiredTier;
     }
 
     @Override

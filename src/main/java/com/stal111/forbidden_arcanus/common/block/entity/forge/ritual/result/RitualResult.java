@@ -17,6 +17,25 @@ public abstract class RitualResult {
     public static final Codec<RitualResult> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(() -> ForbiddenArcanus.RITUAL_RESULT_TYPE_REGISTRY.get().getCodec())
             .dispatch(RitualResult::getType, RitualResultType::codec);
 
+    /**
+     * Called before a ritual gets started to see if the result it will have is valid.
+     *
+     * @param accessor the main ingredient inside the Hephaestus Forge
+     * @param level    the level the Forge is in
+     * @param pos      the pos where the Forge is located
+     * @return whether the result can happen
+     */
+    public boolean checkConditions(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
+        return true;
+    }
+
+    /**
+     * Called once the ritual animation finishes. Use this to create the desired result.
+     *
+     * @param accessor the main ingredient inside the Hephaestus Forge
+     * @param level    the level the Forge is in
+     * @param pos      the pos where the Forge is located
+     */
     public abstract void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos);
 
     public void toNetwork(FriendlyByteBuf buffer) {
@@ -24,7 +43,7 @@ public abstract class RitualResult {
     }
 
     /**
-     * @return the codec which serializes and deserializes this structure modifier
+     * @return the type which serializes and deserializes this result
      */
     public abstract RitualResultType<? extends RitualResult> getType();
 }

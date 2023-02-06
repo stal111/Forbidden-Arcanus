@@ -24,7 +24,7 @@ public interface RitualStarterItem {
 
     default void tryStartRitual(HephaestusForgeBlockEntity blockEntity, Level level, ItemStack stack, Player player) {
         if (this.canStartRitual(stack) && level instanceof ServerLevel) {
-            blockEntity.getRitualManager().tryStartRitual(blockEntity.getEssenceManager().getEssences(), started -> {
+            blockEntity.getRitualManager().tryStartRitual(blockEntity.getEssenceManager().getStorage(), started -> {
                 if (started && !player.getAbilities().instabuild) {
                     this.setRemainingUses(stack, this.getRemainingUses(stack) - 1);
                 }

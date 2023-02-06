@@ -1,0 +1,30 @@
+{
+  "essences": {
+    "aureal": 2000,
+    "blood": 5000,
+    "experience": 0,
+    "souls": 50
+  },
+  "inputs": [
+    {
+      "amount": 4,
+      "ingredient": {
+        "item": "forbidden_arcanus:stellarite_piece"
+      }
+    },
+    {
+      "amount": 4,
+      "ingredient": {
+        "item": "forbidden_arcanus:rune"
+      }
+    }
+  ],
+  "main_ingredient": {
+    "item": "forbidden_arcanus:chiseled_polished_darkstone"
+  },
+  "result": {
+    "type": "forbidden_arcanus:upgrade_tier",
+    "required_tier": 3,
+    "upgraded_tier": 4
+  }
+}

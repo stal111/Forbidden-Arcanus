@@ -138,7 +138,7 @@ public class RitualManager implements NeedsStoring {
     }
 
     public boolean canStartRitual(Ritual ritual, EssencesStorage storage) {
-        return storage.hasEnough(ritual.getEssences()) && ritual.checkIngredients(this.cachedIngredients.values(), this.mainIngredientAccessor);
+        return storage.hasEnough(ritual.getEssences()) && ritual.checkIngredients(this.cachedIngredients.values(), this.mainIngredientAccessor) && ritual.getResult().checkConditions(this.mainIngredientAccessor, this.level, this.pos);
     }
 
     public void startRitual(EssencesStorage storage, NamedRitual ritual) {
@@ -235,11 +235,11 @@ public class RitualManager implements NeedsStoring {
     public void finishRitual() {
         Ritual ritual = this.activeRitual.get();
 
-        ritual.getResult().apply(this.mainIngredientAccessor, this.level, this.pos);
+        this.reset();
 
         ritual.removeMagicCircle(this.level, this.pos);
+        ritual.getResult().apply(this.mainIngredientAccessor, this.level, this.pos);
 
-        this.reset();
         this.clearPedestals();
     }
 
@@ -263,11 +263,13 @@ public class RitualManager implements NeedsStoring {
     }
 
     private void clearPedestals() {
-        List<PedestalBlockEntity> pedestals = new ArrayList<>(this.cachedIngredients.keySet());
-
-        pedestals.forEach(blockEntity -> {
-            blockEntity.clearStack(this.level);
+        this.cachedIngredients.keySet().forEach(blockEntity -> {
+            blockEntity.clearStack(this.level, false);
         });
+
+        this.cachedIngredients.clear();
+
+        this.validRitual = null;
     }
 
     private void addItemParticles(BlockPos pedestalPos, int itemHeight, ItemStack stack) {

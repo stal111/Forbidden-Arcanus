@@ -1,0 +1,36 @@
+{
+  "essences": {
+    "aureal": 5000,
+    "blood": 10500,
+    "experience": 0,
+    "souls": 100
+  },
+  "inputs": [
+    {
+      "amount": 4,
+      "ingredient": {
+        "item": "minecraft:sculk"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "forbidden_arcanus:dark_nether_star"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "forbidden_arcanus:dragon_scale"
+      }
+    }
+  ],
+  "main_ingredient": {
+    "item": "forbidden_arcanus:stellarite_block"
+  },
+  "result": {
+    "type": "forbidden_arcanus:upgrade_tier",
+    "required_tier": 4,
+    "upgraded_tier": 5
+  }
+}
