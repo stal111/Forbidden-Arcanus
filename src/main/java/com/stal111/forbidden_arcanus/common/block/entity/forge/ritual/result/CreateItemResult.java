@@ -36,7 +36,7 @@ public class CreateItemResult extends RitualResult {
 
     @Override
     public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
-        accessor.set(this.result);
+        accessor.set(this.result.copy());
     }
 
     @Override
