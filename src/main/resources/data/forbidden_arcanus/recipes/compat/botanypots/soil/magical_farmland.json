@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botanypots"
+    }
+  ],
+  "type":"botanypots:soil",
+  "input":{
+    "item":"forbidden_arcanus:magical_farmland"
+  },
+  "display":
+  {
+    "block":"forbidden_arcanus:magical_farmland"
+  },
+  "categories":
+  [
+    "magical_farmland",
+    "farmland",
+    "dirt"
+  ],
+  "growthModifier":3.00
+}
