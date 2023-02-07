@@ -13,11 +13,11 @@ import java.util.function.IntSupplier;
  * @since 2021-06-29
  */
 public enum HephaestusForgeLevel implements IntSupplier {
-    ONE(1, 500, 10, 5000, 500),
-    TWO(2, 1000, 100, 10000, 1500),
-    THREE(3, 2000, 500, 30000, 5000),
-    FOUR(4, 5000, 1000, 50000, 15000),
-    FIVE(5, 10000, 2500, 100000, 30000);
+    ONE(1, 1000, 10, 10000, 900),
+    TWO(2, 3000, 50, 15000, 1350),
+    THREE(3, 5000, 100, 30000, 2500),
+    FOUR(4, 10000, 500, 50000, 5000),
+    FIVE(5, 20000, 1000, 100000, 7500);
 
     private final int index;
     private final EssencesDefinition maxEssences;

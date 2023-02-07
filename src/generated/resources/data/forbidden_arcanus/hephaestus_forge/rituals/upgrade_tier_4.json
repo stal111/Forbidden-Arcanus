@@ -1,9 +1,9 @@
 {
   "essences": {
     "aureal": 2000,
-    "blood": 5000,
+    "blood": 12000,
     "experience": 0,
-    "souls": 50
+    "souls": 100
   },
   "inputs": [
     {

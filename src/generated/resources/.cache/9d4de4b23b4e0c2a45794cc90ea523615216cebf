@@ -1,7 +1,7 @@
-// 1.19.3	2023-02-06T13:40:20.9813278	forbidden_arcanus - Rituals
+// 1.19.3	2023-02-07T21:30:47.0421904	forbidden_arcanus - Rituals
 6b4d6fc9548338e63bbf68bf16b993aa16ee497e data/forbidden_arcanus/hephaestus_forge/rituals/eternal_stella.json
 845378c20ca8670b89e91bc3c78b617b1da75e75 data/forbidden_arcanus/hephaestus_forge/rituals/smelter_prism.json
-d79438a10d15787e8b90f440578a1df22bf6210e data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_2.json
-77f6acf743c01aaef2be8b22235d33bc60b22c6f data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_3.json
-f0951957898db27832623fb9cdfceba809601768 data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_4.json
-c9679bf02054feae41374cb55054ca6a578a32fe data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_5.json
+7a89c1fb27b1c453843e85d01d051145167f2c6f data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_2.json
+7233626aec25d00cd61feb5606f08b05ed5998f2 data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_3.json
+1dc9d6e7ff0ef3bd2109e73f632d5c0df74bd1ef data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_4.json
+0903c42651013fed66641c259569f9d8565837d6 data/forbidden_arcanus/hephaestus_forge/rituals/upgrade_tier_5.json
