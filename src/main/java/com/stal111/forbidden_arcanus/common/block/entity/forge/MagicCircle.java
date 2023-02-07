@@ -2,6 +2,9 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
@@ -86,6 +89,28 @@ public class MagicCircle {
 
     public float easeSineOut(double progress, double start, double change, double duration) {
         return (float) (change * Math.sin(progress / duration * (Math.PI / 2)) + start);
+    }
+
+    public record Config(ResourceLocation outerTexture, ResourceLocation innerTexture) {
+
+        private static final ResourceLocation DEFAULT_OUTER_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png");
+        private static final ResourceLocation DEFAULT_INNER_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png");
+
+        public static final Config DEFAULT = new Config(DEFAULT_OUTER_TEXTURE, DEFAULT_INNER_TEXTURE);
+
+        public static final Codec<MagicCircle.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+                ResourceLocation.CODEC.fieldOf("outer_texture").forGetter(config -> {
+                    return config.outerTexture;
+                }),
+                ResourceLocation.CODEC.fieldOf("inner_texture").forGetter(config -> {
+                    return config.innerTexture;
+                })
+        ).apply(instance, MagicCircle.Config::new));
+
+        public Config(ResourceLocation outerTexture, ResourceLocation innerTexture) {
+            this.outerTexture = outerTexture;
+            this.innerTexture = innerTexture;
+        }
     }
 
     public interface TextureProvider {

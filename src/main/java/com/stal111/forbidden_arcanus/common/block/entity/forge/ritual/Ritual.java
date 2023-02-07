@@ -2,11 +2,9 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -25,8 +23,7 @@ public record Ritual(List<RitualInput> inputs,
                      Ingredient mainIngredient,
                      RitualResult result,
                      EssencesDefinition essences,
-                     ResourceLocation outerTexture,
-                     ResourceLocation innerTexture) implements MagicCircle.TextureProvider {
+                     MagicCircle.Config magicCircleConfig) implements MagicCircle.TextureProvider {
 
     public static final Codec<Ritual> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
@@ -40,22 +37,13 @@ public record Ritual(List<RitualInput> inputs,
             }),
             EssencesDefinition.CODEC.fieldOf("essences").forGetter(ritual -> {
                 return ritual.essences;
+            }),
+            MagicCircle.Config.CODEC.optionalFieldOf("magic_circle").forGetter(ritual -> {
+                return Optional.ofNullable(ritual.magicCircleConfig.equals(MagicCircle.Config.DEFAULT) ? null : ritual.magicCircleConfig);
             })
-    ).apply(instance, (inputs, mainIngredient, result, essences) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png"));
+    ).apply(instance, (inputs, mainIngredient, result, essences, magicCircleConfig) -> {
+        return new Ritual(inputs, mainIngredient, result, essences, magicCircleConfig.orElse(MagicCircle.Config.DEFAULT));
     }));
-
-    public static Ritual fromNetwork(FriendlyByteBuf buffer) {
-        List<RitualInput> inputs = buffer.readList(RitualInput::fromNetwork);
-        Ingredient mainIngredient = Ingredient.fromNetwork(buffer);
-        ResourceLocation resultType = buffer.readResourceLocation();
-        RitualResult result = Objects.requireNonNull(ForbiddenArcanus.RITUAL_RESULT_TYPE_REGISTRY.get().getValue(resultType)).fromNetwork(buffer);
-        EssencesDefinition essences = EssencesDefinition.fromNetwork(buffer);
-        ResourceLocation outerTexture = buffer.readResourceLocation();
-        ResourceLocation innerTexture = buffer.readResourceLocation();
-
-        return new Ritual(inputs, mainIngredient, result, essences, outerTexture, innerTexture);
-    }
 
     public boolean checkIngredients(Collection<ItemStack> list, RitualManager.MainIngredientAccessor accessor) {
         if (!this.getMainIngredient().test(accessor.get())) {
@@ -106,22 +94,12 @@ public record Ritual(List<RitualInput> inputs,
 
     @Override
     public ResourceLocation getInnerTexture() {
-        return this.innerTexture;
+        return this.magicCircleConfig.innerTexture();
     }
 
     @Override
     public ResourceLocation getOuterTexture() {
-        return this.outerTexture;
-    }
-
-    public void serializeToNetwork(FriendlyByteBuf buffer) {
-        buffer.writeCollection(this.inputs, (buf, input) -> input.toNetwork(buf));
-        this.mainIngredient.toNetwork(buffer);
-        buffer.writeResourceLocation(Objects.requireNonNull(ForbiddenArcanus.RITUAL_RESULT_TYPE_REGISTRY.get().getKey(this.result.getType())));
-        this.result.toNetwork(buffer);
-        this.essences.serializeToNetwork(buffer);
-        buffer.writeResourceLocation(this.outerTexture);
-        buffer.writeResourceLocation(this.innerTexture);
+        return this.magicCircleConfig.outerTexture();
     }
 
     public enum PedestalType {

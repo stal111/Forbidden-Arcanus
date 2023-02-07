@@ -22,12 +22,12 @@ public record UpdateRitualsPacket(Collection<NamedRitual> rituals) {
     public static void encode(UpdateRitualsPacket packet, FriendlyByteBuf buffer) {
         buffer.writeCollection(packet.rituals, (buf, namedRitual) -> {
             buf.writeResourceLocation(namedRitual.name());
-            namedRitual.get().serializeToNetwork(buf);
+            buffer.writeWithCodec(Ritual.CODEC, namedRitual.get());
         });
     }
 
     public static UpdateRitualsPacket decode(FriendlyByteBuf buffer) {
-        return new UpdateRitualsPacket(buffer.readList(buf -> new NamedRitual(buf.readResourceLocation(), Ritual.fromNetwork(buf))));
+        return new UpdateRitualsPacket(buffer.readList(buf -> new NamedRitual(buf.readResourceLocation(), buf.readWithCodec(Ritual.CODEC))));
     }
 
     public static void consume(UpdateRitualsPacket packet, Supplier<NetworkEvent.Context> ctx) {
