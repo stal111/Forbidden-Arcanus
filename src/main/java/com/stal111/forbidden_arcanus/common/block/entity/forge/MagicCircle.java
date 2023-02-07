@@ -91,25 +91,25 @@ public class MagicCircle {
         return (float) (change * Math.sin(progress / duration * (Math.PI / 2)) + start);
     }
 
-    public record Config(ResourceLocation outerTexture, ResourceLocation innerTexture) {
+    public record Config(ResourceLocation innerTexture, ResourceLocation outerTexture) {
 
-        private static final ResourceLocation DEFAULT_OUTER_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/absolute.png");
-        private static final ResourceLocation DEFAULT_INNER_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner_protection.png");
+        private static final ResourceLocation DEFAULT_INNER_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner/union.png");
+        private static final ResourceLocation DEFAULT_OUTER_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/outer/pure.png");
 
-        public static final Config DEFAULT = new Config(DEFAULT_OUTER_TEXTURE, DEFAULT_INNER_TEXTURE);
+        public static final Config DEFAULT = new Config(DEFAULT_INNER_TEXTURE, DEFAULT_OUTER_TEXTURE);
 
         public static final Codec<MagicCircle.Config> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-                ResourceLocation.CODEC.fieldOf("outer_texture").forGetter(config -> {
-                    return config.outerTexture;
-                }),
                 ResourceLocation.CODEC.fieldOf("inner_texture").forGetter(config -> {
                     return config.innerTexture;
+                }),
+                ResourceLocation.CODEC.fieldOf("outer_texture").forGetter(config -> {
+                    return config.outerTexture;
                 })
         ).apply(instance, MagicCircle.Config::new));
 
-        public Config(ResourceLocation outerTexture, ResourceLocation innerTexture) {
-            this.outerTexture = outerTexture;
+        public Config(ResourceLocation innerTexture, ResourceLocation outerTexture) {
             this.innerTexture = innerTexture;
+            this.outerTexture = outerTexture;
         }
     }
 

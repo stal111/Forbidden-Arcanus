@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.data.rituals;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -25,6 +27,7 @@ public class RitualBuilder {
 
     private final List<RitualInput> inputs = new ArrayList<>();
     private final Map<EssenceType, Integer> essences = new HashMap<>();
+    private MagicCircle.Config magicCircleConfig = MagicCircle.Config.DEFAULT;
 
     public RitualBuilder(ItemStack mainIngredient, RitualResult result) {
         this.mainIngredient = Ingredient.of(mainIngredient);
@@ -65,7 +68,13 @@ public class RitualBuilder {
         return this;
     }
 
+    public RitualBuilder magicCircle(String innerTexture, String outerTexture) {
+        this.magicCircleConfig = new MagicCircle.Config(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner/" + innerTexture + ".png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/outer/" + outerTexture + ".png"));
+
+        return this;
+    }
+
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, EssencesDefinition.of(this.essences), MagicCircle.Config.DEFAULT);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, EssencesDefinition.of(this.essences), this.magicCircleConfig);
     }
 }
