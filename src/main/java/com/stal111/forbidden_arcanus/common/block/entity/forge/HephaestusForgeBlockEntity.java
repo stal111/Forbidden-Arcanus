@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.util.ValueNotifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -39,7 +40,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
 
     private final ContainerData hephaestusForgeData;
     private final EssenceManager essenceManager;
-    private final RitualManager ritualManager = new RitualManager(new MainSlotAccessor(this));
+    private final RitualManager ritualManager;
+
+    private final ValueNotifier<HephaestusForgeLevel> forgeLevel;
+
     private MagicCircle magicCircle;
     private ValidRitualIndicator validRitualIndicator;
     private int displayCounter;
@@ -80,7 +84,15 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
             }
         };
 
-        this.essenceManager = new EssenceManager(this.getForgeLevel().getMaxEssences(), this.ritualManager::updateValidRitual);
+        HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(state.getValue(HephaestusForgeBlock.TIER));
+
+        this.ritualManager = new RitualManager(new MainSlotAccessor(this), level.getAsInt());
+        this.essenceManager = new EssenceManager(level.getMaxEssences(), this.ritualManager::updateValidRitual);
+
+        this.forgeLevel = ValueNotifier.of(level, forgeTier -> {
+            this.ritualManager.setForgeTier(forgeTier.getAsInt());
+            this.essenceManager.setMaxEssences(forgeTier.getMaxEssences());
+        });
     }
 
     @Override
@@ -168,8 +180,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
         return HephaestusForgeInputs.getInputs().stream().filter(input -> input.canInput(inputType, stack)).findFirst().orElse(null);
     }
 
-    public HephaestusForgeLevel getForgeLevel() {
-        return HephaestusForgeLevel.getFromIndex(this.getBlockState().getValue(HephaestusForgeBlock.TIER));
+    public void setForgeLevel(HephaestusForgeLevel level) {
+        this.forgeLevel.set(level);
     }
 
     public ContainerData getHephaestusForgeData() {

@@ -27,6 +27,7 @@ public class RitualBuilder {
 
     private final List<RitualInput> inputs = new ArrayList<>();
     private final Map<EssenceType, Integer> essences = new HashMap<>();
+    private int requiredTier = 1;
     private MagicCircle.Config magicCircleConfig = MagicCircle.Config.DEFAULT;
 
     public RitualBuilder(ItemStack mainIngredient, RitualResult result) {
@@ -74,7 +75,13 @@ public class RitualBuilder {
         return this;
     }
 
+    public RitualBuilder requiredTier(int tier) {
+        this.requiredTier = tier;
+
+        return this;
+    }
+
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, EssencesDefinition.of(this.essences), this.magicCircleConfig);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, EssencesDefinition.of(this.essences), this.requiredTier, this.magicCircleConfig);
     }
 }

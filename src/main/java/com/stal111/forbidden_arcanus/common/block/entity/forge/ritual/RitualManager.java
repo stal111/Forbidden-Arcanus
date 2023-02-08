@@ -54,9 +54,11 @@ public class RitualManager implements NeedsStoring {
             new Vec3i(-2, 0, 2)
     };
 
+    private final MainIngredientAccessor mainIngredientAccessor;
+
     private ServerLevel level;
     private BlockPos pos;
-    private final MainIngredientAccessor mainIngredientAccessor;
+    private int forgeTier;
 
     private boolean loaded = false;
 
@@ -66,13 +68,18 @@ public class RitualManager implements NeedsStoring {
     private int counter;
     private int lightningCounter;
 
-    public RitualManager(MainIngredientAccessor accessor) {
+    public RitualManager(MainIngredientAccessor accessor, int forgeTier) {
         this.mainIngredientAccessor = accessor;
+        this.forgeTier = forgeTier;
     }
 
     public void setup(ServerLevel level, BlockPos pos) {
         this.level = level;
         this.pos = pos;
+    }
+
+    public void setForgeTier(int forgeTier) {
+        this.forgeTier = forgeTier;
     }
 
     private boolean canStart() {
@@ -138,7 +145,7 @@ public class RitualManager implements NeedsStoring {
     }
 
     public boolean canStartRitual(Ritual ritual, EssencesStorage storage) {
-        return storage.hasEnough(ritual.getEssences()) && ritual.checkIngredients(this.cachedIngredients.values(), this.mainIngredientAccessor) && ritual.getResult().checkConditions(this.mainIngredientAccessor, this.level, this.pos);
+        return storage.hasEnough(ritual.getEssences()) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
     }
 
     public void startRitual(EssencesStorage storage, NamedRitual ritual) {
