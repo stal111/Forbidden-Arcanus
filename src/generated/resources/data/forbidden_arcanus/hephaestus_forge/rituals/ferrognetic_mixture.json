@@ -1,0 +1,44 @@
+{
+  "essences": {
+    "aureal": 100,
+    "blood": 1250,
+    "experience": 0,
+    "souls": 2
+  },
+  "inputs": [
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:clay_ball"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "forbidden_arcanus:wax"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:slime_ball"
+      }
+    },
+    {
+      "amount": 1,
+      "ingredient": {
+        "item": "minecraft:iron_ingot"
+      }
+    }
+  ],
+  "main_ingredient": {
+    "item": "minecraft:lodestone"
+  },
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "Count": 1,
+      "id": "forbidden_arcanus:ferrognetic_mixture"
+    }
+  }
+}
