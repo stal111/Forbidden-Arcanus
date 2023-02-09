@@ -22,6 +22,7 @@
   "main_ingredient": {
     "item": "minecraft:diamond"
   },
+  "required_tier": 3,
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

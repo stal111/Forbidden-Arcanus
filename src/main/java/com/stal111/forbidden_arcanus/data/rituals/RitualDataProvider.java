@@ -46,7 +46,7 @@ public class RitualDataProvider implements DataProvider, ValhelsiaDataProvider {
     }
 
     protected void registerRituals() {
-        this.register(BuiltinRituals.ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000));
+        this.register(BuiltinRituals.ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000).requiredTier(3));
         this.register(BuiltinRituals.SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).aureal(82).souls(1).blood(1000));
 
         this.register(BuiltinRituals.UPGRADE_TIER_2, new UpgradeTierResult(1, 2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).aureal(500).souls(10).blood(6000).magicCircle("origin", "pure"));
