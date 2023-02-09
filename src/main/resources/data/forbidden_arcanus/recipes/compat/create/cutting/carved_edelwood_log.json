@@ -1,0 +1,21 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:carved_edelwood_log"
+    }
+  ],
+  "results": [
+    {
+      "item": "forbidden_arcanus:edelwood_planks",
+      "count": 3
+    }
+  ],
+  "processingTime": 50
+}

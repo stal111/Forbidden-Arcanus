@@ -117,6 +117,7 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
     }
+    maven { url "https://www.cursemaven.com" }
 }
 
 dependencies {
@@ -127,6 +128,12 @@ dependencies {
 
     implementation fg.deobf(files("libs/valhelsia_core-forge-${valhelsia_core_version}-dev.jar"))
 
+
+    //Pouffy's compat recipe hell
+    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:${project.ie_version}")
+    //runtimeOnly fg.deobf("curse.maven:botanypots-353928:${project.bp_version}")
+    //runtimeOnly fg.deobf("curse.maven:bookshelf-228525:${project.bs_version}")
+
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 
     // compile against the JEI API but do not include it at runtime
@@ -134,7 +141,7 @@ dependencies {
  //   compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     // at runtime, use the full JEI jar
  //   runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-common:${jei_version}")
- //   runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"

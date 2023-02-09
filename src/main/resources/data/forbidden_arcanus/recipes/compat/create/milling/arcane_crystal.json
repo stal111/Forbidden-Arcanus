@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:milling",
+  "group": "minecraft:misc",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:arcane_crystal"
+    }
+  ],
+  "results": [
+    {
+      "item": "forbidden_arcanus:arcane_crystal_dust",
+      "count": 1
+    },
+    {
+      "item": "forbidden_arcanus:arcane_crystal_dust",
+      "count": 2,
+      "chance": 0.5
+    }
+  ],
+  "processingTime": 50
+}

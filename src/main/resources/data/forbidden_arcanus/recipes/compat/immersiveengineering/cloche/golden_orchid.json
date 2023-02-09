@@ -1,0 +1,34 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+"type":
+"immersiveengineering:cloche",
+"results":
+[
+{
+"item":"forbidden_arcanus:deorum_nugget",
+"count":2
+}
+],
+"input":
+{
+"item":
+"forbidden_arcanus:golden_orchid_seeds"
+},
+"soil":
+{
+"item":
+"forbidden_arcanus:magical_farmland"
+},
+"time":1200,
+"render":
+{
+"type":
+"crop",
+"block":"forbidden_arcanus:golden_orchid"
+}
+}

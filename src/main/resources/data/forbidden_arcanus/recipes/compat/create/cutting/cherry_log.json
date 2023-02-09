@@ -1,0 +1,21 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:cherry_log"
+    }
+  ],
+  "results": [
+    {
+      "item": "forbidden_arcanus:stripped_cherry_log",
+      "count": 1
+    }
+  ],
+  "processingTime": 50
+}
