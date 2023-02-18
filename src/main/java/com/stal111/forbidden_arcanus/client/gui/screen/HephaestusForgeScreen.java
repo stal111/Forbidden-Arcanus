@@ -114,7 +114,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         Slot slot = this.getSlotUnderMouse();
 
         if (slot instanceof EnhancerSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot)) {
-            this.renderTooltip(poseStack, Component.translatable("gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level").append(": " + enhancerSlot.getAdditionalData()), x, y);
+            this.renderTooltip(poseStack, Component.translatable("gui.forbidden_arcanus.hephaestus_forge.unlocked_at").append(": " + enhancerSlot.getAdditionalData()), x, y);
         }
     }
 

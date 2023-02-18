@@ -364,7 +364,7 @@
     "forbidden_arcanus.essence.experience": "Experience",
 
     "guis_comment": "Guis",
-    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Unlocked at level",
+    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at": "Unlocked at tier",
     "gui.forbidden_arcanus.clibano.residue_fullness": "Residue fullness",
     "gui.forbidden_arcanus.clibano.residue.gold": "Gold",
     "gui.forbidden_arcanus.clibano.residue.iron": "Iron",
@@ -378,12 +378,11 @@
     "jei.forbidden_arcanus.category.hephaestusSmithing": "Hephaestus Smithing",
     "jei.forbidden_arcanus.category.clibanoCombustion": "Clibano Combustion",
 
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal": "Required pedestal",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredLevel": "Required forge level",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredAureal": "Required aureal",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredSouls": "Required souls",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredBlood": "Required blood",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredExperience": "Required experience",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_tier": "Required forge tier",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_aureal": "Required aureal",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_souls": "Required souls",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_blood": "Required blood",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_experience": "Required experience",
 
     "jei.forbidden_arcanus.clibanoCombustion.residue": "Residue"
 }

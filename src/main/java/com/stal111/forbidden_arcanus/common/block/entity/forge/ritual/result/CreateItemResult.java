@@ -39,6 +39,10 @@ public class CreateItemResult extends RitualResult {
         accessor.set(this.result.copy());
     }
 
+    public ItemStack getResult() {
+        return this.result;
+    }
+
     @Override
     public RitualResultType<? extends RitualResult> getType() {
         return ModRitualResultTypes.CREATE_ITEM.get();
