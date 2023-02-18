@@ -1,7 +1,8 @@
-package com.stal111.forbidden_arcanus;
+package com.stal111.forbidden_arcanus.core.registry;
 
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
+import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import com.stal111.forbidden_arcanus.core.init.other.ModLootModifiers;
 import com.stal111.forbidden_arcanus.core.init.world.*;
 import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
@@ -19,9 +20,9 @@ import net.valhelsia.valhelsia_core.core.registry.helper.EntityRegistryHelper;
  * @author stal111
  * @since 2022-12-29
  */
-public class ModRegistries extends RegistryCollector {
+public class ModRegistryCollector extends RegistryCollector {
 
-    public ModRegistries(String modId) {
+    public ModRegistryCollector(String modId) {
         super(modId);
     }
 
@@ -38,7 +39,8 @@ public class ModRegistries extends RegistryCollector {
         this.addMappedHelper(Registries.MEMORY_MODULE_TYPE, ModMemoryModules::new);
         this.addMappedHelper(Registries.ACTIVITY, ModActivities::new);
         this.addMappedHelper(Registries.TRUNK_PLACER_TYPE, ModTrunkPlacers::new);
-        this.addMappedHelper(ForbiddenArcanus.RITUAL_RESULT_TYPE, ModRitualResultTypes::new);
+        this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes::new);
+        this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers::new);
 
         this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);

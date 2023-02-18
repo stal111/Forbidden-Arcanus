@@ -3,9 +3,7 @@ package com.stal111.forbidden_arcanus;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
-import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.core.config.Config;
@@ -17,8 +15,7 @@ import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
 import com.stal111.forbidden_arcanus.core.init.world.ModTreeDecorators;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
+import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,9 +23,6 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
 import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
 import net.valhelsia.valhelsia_core.common.helper.CounterHelper;
 import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
@@ -37,24 +31,14 @@ import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.function.Supplier;
-
 @Mod(ForbiddenArcanus.MOD_ID)
 public final class ForbiddenArcanus extends ValhelsiaMod {
 
 	public static final String MOD_ID = "forbidden_arcanus";
 	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
 
-	public static final ResourceKey<Registry<RitualResultType<?>>> RITUAL_RESULT_TYPE = ResourceKey.createRegistryKey(new ResourceLocation("ritual_results"));
 
-	public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ModItemModifiers.MODIFIERS.makeRegistry(() ->
-			new RegistryBuilder<ItemModifier>().setMaxID(Integer.MAX_VALUE - 1).onAdd((owner, stage, id, key, obj, old) -> {}
-			).setDefaultKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, "null")));
-
-	private static final DeferredRegister<RitualResultType<?>> RITUAL_RESULT_DEFERRED_REGISTER = DeferredRegister.create(ForbiddenArcanus.RITUAL_RESULT_TYPE, ForbiddenArcanus.MOD_ID);
-	public static final Supplier<IForgeRegistry<RitualResultType<?>>> RITUAL_RESULT_TYPE_REGISTRY = RITUAL_RESULT_DEFERRED_REGISTER.makeRegistry(RegistryBuilder::new);
-
-	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistries(ForbiddenArcanus.MOD_ID), null);
+	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistryCollector(ForbiddenArcanus.MOD_ID), null);
 
 	public static ForbiddenArcanus INSTANCE;
 
@@ -79,12 +63,9 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 		ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);
 		ModPOITypes.POI_TYPES.register(modEventBus);
-		ModItemModifiers.MODIFIERS.register(modEventBus);
 
 		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
 		ModTreeDecorators.TREE_DECORATORS.register(modEventBus);
-
-		RITUAL_RESULT_DEFERRED_REGISTER.register(modEventBus);
 
 		modEventBus.addListener(CommonSetup::setup);
 	}

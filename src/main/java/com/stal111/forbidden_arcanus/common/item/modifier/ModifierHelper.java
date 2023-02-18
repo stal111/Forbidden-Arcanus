@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -23,11 +23,11 @@ public class ModifierHelper {
             return null;
         }
 
-        if (ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get() == null) {
+        if (FARegistries.ITEM_MODIFIER_REGISTRY.get() == null) {
             return null;
         }
 
-        return ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getValue(new ResourceLocation(Objects.requireNonNull(stack.getTag()).getString("Modifier")));
+        return FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(new ResourceLocation(Objects.requireNonNull(stack.getTag()).getString("Modifier")));
     }
 
     public static void setModifier(ItemStack stack, ItemModifier modifier) {

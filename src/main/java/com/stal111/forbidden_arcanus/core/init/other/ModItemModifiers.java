@@ -3,15 +3,16 @@ package com.stal111.forbidden_arcanus.core.init.other;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.modifier.EternalModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
 
 /**
  * Mod Item Modifiers <br>
@@ -20,13 +21,13 @@ import net.minecraftforge.registries.RegistryObject;
  * @author stal111
  * @since 2021-11-24
  */
-public class ModItemModifiers {
+public class ModItemModifiers implements RegistryClass {
 
-    public static final DeferredRegister<ItemModifier> MODIFIERS = DeferredRegister.create(new ResourceLocation(ForbiddenArcanus.MOD_ID, "item_modifiers"), ForbiddenArcanus.MOD_ID);
+    public static final MappedRegistryHelper<ItemModifier> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(FARegistries.ITEM_MODIFIER);
 
-    public static final RegistryObject<EternalModifier> ETERNAL = MODIFIERS.register("eternal", () -> new EternalModifier(ItemStack::isDamageableItem, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56)));
-    public static final RegistryObject<ItemModifier> FIERY = MODIFIERS.register("fiery", () -> new ItemModifier(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG) || stack.canPerformAction(ToolActions.AXE_DIG) || stack.canPerformAction(ToolActions.SHOVEL_DIG) || stack.canPerformAction(ToolActions.HOE_DIG) || stack.canPerformAction(ToolActions.PICKAXE_DIG), ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, FastColor.ARGB32.color(255, 255, 143, 0), FastColor.ARGB32.color(255, 88, 6, 6)));
-    public static final RegistryObject<ItemModifier> MAGNETIZED = MODIFIERS.register("magnetized", () -> new ItemModifier(stack -> {
+    public static final RegistryObject<EternalModifier> ETERNAL = HELPER.register("eternal", () -> new EternalModifier(ItemStack::isDamageableItem, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56)));
+    public static final RegistryObject<ItemModifier> FIERY = HELPER.register("fiery", () -> new ItemModifier(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG) || stack.canPerformAction(ToolActions.AXE_DIG) || stack.canPerformAction(ToolActions.SHOVEL_DIG) || stack.canPerformAction(ToolActions.HOE_DIG) || stack.canPerformAction(ToolActions.PICKAXE_DIG), ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, FastColor.ARGB32.color(255, 255, 143, 0), FastColor.ARGB32.color(255, 88, 6, 6)));
+    public static final RegistryObject<ItemModifier> MAGNETIZED = HELPER.register("magnetized", () -> new ItemModifier(stack -> {
         if (stack.getItem() instanceof ArmorItem armorItem) {
             return armorItem.getSlot() == EquipmentSlot.FEET;
         }

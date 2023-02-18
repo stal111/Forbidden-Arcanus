@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -89,24 +89,24 @@ public class ApplyModifierRecipe extends UpgradeRecipe {
 
             ResourceLocation resourceLocation = ResourceLocation.tryParse(GsonHelper.getAsString(json, "modifier"));
 
-            if (!ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().containsKey(resourceLocation)) {
+            if (!FARegistries.ITEM_MODIFIER_REGISTRY.get().containsKey(resourceLocation)) {
                 throw new JsonSyntaxException("Unknown item modifier '" + resourceLocation + "'");
             }
-            ItemModifier modifier = ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getValue(resourceLocation);
+            ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(resourceLocation);
             return new ApplyModifierRecipe(recipeId, addition, modifier);
         }
 
         @Override
         public ApplyModifierRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
             Ingredient addition = Ingredient.fromNetwork(buffer);
-            ItemModifier modifier = ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getValue(buffer.readResourceLocation());
+            ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(buffer.readResourceLocation());
             return new ApplyModifierRecipe(recipeId, addition, modifier);
         }
 
         @Override
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, ApplyModifierRecipe recipe) {
             recipe.addition.toNetwork(buffer);
-            buffer.writeResourceLocation(Objects.requireNonNull(ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getKey(recipe.modifier)));
+            buffer.writeResourceLocation(Objects.requireNonNull(FARegistries.ITEM_MODIFIER_REGISTRY.get().getKey(recipe.modifier)));
         }
     }
 }

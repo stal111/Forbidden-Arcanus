@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeInputsPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateResidueTypesPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateRitualsPacket;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
@@ -50,6 +51,6 @@ public class DatapackEvents {
 
     @SubscribeEvent
     public static void onTagsUpdate(TagsUpdatedEvent event) {
-        ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getValues().forEach(ItemModifier::clearCachedValidItems);
+        FARegistries.ITEM_MODIFIER_REGISTRY.get().getValues().forEach(ItemModifier::clearCachedValidItems);
     }
 }

@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -39,7 +40,7 @@ public class ModifierItemPredicate extends ItemPredicate {
             return ItemPredicate.ANY;
         }
         ResourceLocation resourceLocation = ResourceLocation.tryParse(GsonHelper.getAsString(json.getAsJsonObject(), "modifier"));
-        ItemModifier modifier = ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getValue(resourceLocation);
+        ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(resourceLocation);
 
         if (modifier != null) {
             return new ModifierItemPredicate(modifier);

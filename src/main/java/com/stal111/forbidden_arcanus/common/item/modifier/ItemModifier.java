@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -56,7 +57,7 @@ public class ItemModifier {
     }
 
     public ResourceLocation getRegistryName() {
-        return ForbiddenArcanus.ITEM_MODIFIER_REGISTRY.get().getKey(this);
+        return FARegistries.ITEM_MODIFIER_REGISTRY.get().getKey(this);
     }
 
     public ResourceLocation getTooltipTexture() {
