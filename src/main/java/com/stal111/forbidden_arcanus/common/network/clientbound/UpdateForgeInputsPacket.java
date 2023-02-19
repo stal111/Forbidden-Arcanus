@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.loader.HephaestusForgeInputLoader;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Item;

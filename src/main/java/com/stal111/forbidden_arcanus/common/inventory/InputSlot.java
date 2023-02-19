@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;

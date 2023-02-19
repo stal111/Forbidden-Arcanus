@@ -3,8 +3,10 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +34,7 @@ public record Ritual(List<RitualInput> inputs,
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
                 return ritual.inputs;
             }),
-            RitualInput.INGREDIENT.fieldOf("main_ingredient").forGetter(ritual -> {
+            AdditionalCodecs.INGREDIENT.fieldOf("main_ingredient").forGetter(ritual -> {
                 return ritual.mainIngredient;
             }),
             RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {

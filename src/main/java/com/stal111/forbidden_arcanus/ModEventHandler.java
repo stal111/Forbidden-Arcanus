@@ -1,8 +1,6 @@
 package com.stal111.forbidden_arcanus;
 
-import com.stal111.forbidden_arcanus.common.event.CreativeModeTabEvents;
-import com.stal111.forbidden_arcanus.common.event.DeathEvents;
-import com.stal111.forbidden_arcanus.common.event.SpawnPlacementEvents;
+import com.stal111.forbidden_arcanus.common.event.*;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.valhelsia.valhelsia_core.core.ValhelsiaMod;
@@ -19,10 +17,12 @@ public final class ModEventHandler extends ValhelsiaMod.EventHandler {
 
         eventBus.register(new SpawnPlacementEvents());
         eventBus.register(new CreativeModeTabEvents());
+        eventBus.register(new DatapackRegistryEvents());
     }
 
     @Override
     public void registerForgeEvents(IEventBus eventBus) {
         eventBus.register(new DeathEvents());
+        eventBus.register(new TooltipEvents());
     }
 }

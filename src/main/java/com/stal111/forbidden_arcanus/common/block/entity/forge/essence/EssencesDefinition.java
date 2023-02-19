@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
+package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

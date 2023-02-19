@@ -1,0 +1,46 @@
+package com.stal111.forbidden_arcanus.common.item.enhancer;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.core.init.other.ModEnhancerEffects;
+
+/**
+ * @author stal111
+ * @since 2023-02-19
+ */
+public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements EssenceModifier {
+
+    public static final Codec<MultiplyRequiredEssenceEffect> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+            EssenceType.CODEC.fieldOf("essence_type").forGetter(effect -> {
+                return effect.essenceType;
+            }),
+            Codec.DOUBLE.fieldOf("multiplier").forGetter(effect -> {
+                return effect.multiplier;
+            })
+    ).apply(instance, MultiplyRequiredEssenceEffect::new));
+
+    private final EssenceType essenceType;
+    private final double multiplier;
+
+    public MultiplyRequiredEssenceEffect(EssenceType essenceType, double multiplier) {
+        this.essenceType = essenceType;
+        this.multiplier = multiplier;
+    }
+
+    @Override
+    public boolean matches(EssenceType essenceType) {
+        return this.essenceType == essenceType;
+    }
+
+    @Override
+    public int getModifiedValue(int originalValue) {
+        return (int) (originalValue * this.multiplier);
+    }
+
+    @Override
+    public EnhancerEffectType<? extends EnhancerEffect> getType() {
+        return ModEnhancerEffects.MULTIPLY_REQUIRED_ESSENCE.get();
+    }
+}

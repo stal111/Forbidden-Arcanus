@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.ObsidianSkullBlock;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.resources.ResourceLocation;
@@ -93,12 +94,20 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
         forEachItem(item -> item instanceof DiggerItem || item instanceof SwordItem, this::toolItem);
         forEachItem(item -> item instanceof ArmorItem, this::armorItem);
+
+        forEachItem(item -> item instanceof EnhancerItem, this::enhancerItem);
+
         forEachItem(this::simpleModel);
     }
 
     public <T extends Item> void toolItem(T item) {
         String name = this.getName(item);
         this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/handheld"))).texture("layer0", "item/tool/" + name);
+    }
+
+    public <T extends Item> void enhancerItem(T item) {
+        String name = this.getName(item);
+        this.getBuilder(name).parent(this.getExistingFile(this.mcLoc("item/handheld"))).texture("layer0", "item/enhancer/" + name);
     }
 
     public <T extends Item> void armorItem(T item) {

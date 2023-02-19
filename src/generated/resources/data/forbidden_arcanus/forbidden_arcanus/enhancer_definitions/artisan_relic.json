@@ -1,0 +1,13 @@
+{
+  "description": {
+    "translate": "tooltip.forbidden_arcanus.artisan_relic"
+  },
+  "effects": [
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "essence_type": "experience",
+      "multiplier": 0.75
+    }
+  ],
+  "item": "forbidden_arcanus:artisan_relic"
+}

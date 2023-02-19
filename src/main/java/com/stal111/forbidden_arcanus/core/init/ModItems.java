@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.core.init;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.entity.ModBoat;
 import com.stal111.forbidden_arcanus.common.item.*;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -68,6 +69,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<FerrogneticMixtureItem> FERROGNETIC_MIXTURE = HELPER.register("ferrognetic_mixture", () -> new FerrogneticMixtureItem(new Item.Properties()));
     public static final RegistryObject<Item> SPAWNER_SCRAP = HELPER.register("spawner_scrap", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", () -> new QuantumCatcherItem(new Item.Properties()));
+    public static final RegistryObject<EnhancerItem> ARTISAN_RELIC = HELPER.register("artisan_relic", () -> new EnhancerItem(new Item.Properties()));
 
     public static final RegistryObject<Item> SANITY_METER = HELPER.register("sanity_meter", () -> new SanityMeterItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<LensOfVeritatisItem> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new LensOfVeritatisItem(new Item.Properties().stacksTo(1)));

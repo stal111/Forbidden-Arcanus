@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.EssencesDefinition;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 
 import java.util.function.IntSupplier;
 

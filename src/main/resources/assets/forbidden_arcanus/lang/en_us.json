@@ -308,6 +308,10 @@
     "item.forbidden_arcanus.netherite_blacksmith_gavel": "Netherite Blacksmith Gavel",
     "item.forbidden_arcanus.deorum_blacksmith_gavel": "Deorum Blacksmith Gavel",
     "item.forbidden_arcanus.reinforced_deorum_blacksmith_gavel": "Reinforced Deorum Blacksmith Gavel",
+    "item.forbidden_arcanus.artisan_relic": "Artisan Relic",
+
+    "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Hephaestus Forge effect:",
+    "item.forbidden_arcanus.enhancer.clibano_effect": "Clibano effect:",
 
     "comment.tooltips": "---Tooltips---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",
@@ -327,6 +331,8 @@
     "tooltip.forbidden_arcanus.entity": "Entity",
     "tooltip.forbidden_arcanus.pixie": "Pixie",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
+    "tooltip.forbidden_arcanus.enhancer": "Enhancer Relic",
+    "tooltip.forbidden_arcanus.artisan_relic": "Saves you a lot of experience.",
 
     "containers": "Containers",
     "container.dark_beacon": "Dark Beacon",

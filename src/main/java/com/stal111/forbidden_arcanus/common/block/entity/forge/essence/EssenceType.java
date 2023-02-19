@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
+package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -14,6 +14,8 @@ public enum EssenceType implements StringRepresentable {
     SOULS("souls"),
     BLOOD("blood"),
     EXPERIENCE("experience");
+
+    public static final StringRepresentable.EnumCodec<EssenceType> CODEC = StringRepresentable.fromEnum(EssenceType::values);
 
     private final String name;
     private final MutableComponent component;

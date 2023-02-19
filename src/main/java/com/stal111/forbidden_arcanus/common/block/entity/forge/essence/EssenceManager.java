@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
+package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.minecraft.core.BlockPos;
