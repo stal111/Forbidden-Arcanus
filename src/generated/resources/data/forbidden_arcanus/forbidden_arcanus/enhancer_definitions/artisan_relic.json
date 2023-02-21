@@ -1,6 +1,11 @@
 {
   "description": {
-    "translate": "tooltip.forbidden_arcanus.artisan_relic"
+    "clibano": {
+      "translate": "item.forbidden_arcanus.enhancer.artisan_relic.clibano"
+    },
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.artisan_relic.hephaestus_forge"
+    }
   },
   "effects": [
     {

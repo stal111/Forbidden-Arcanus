@@ -5,22 +5,24 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author stal111
  * @since 2023-02-19
  */
-public record EnhancerDefinition(Item item, Component description, List<EnhancerEffect> effects) {
+public record EnhancerDefinition(Item item, Map<EnhancerTarget, Component> description, List<EnhancerEffect> effects) {
 
     public static final Codec<EnhancerDefinition> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(definition -> {
                 return definition.item;
             }),
-            AdditionalCodecs.COMPONENT.fieldOf("description").forGetter(definition -> {
+            Codec.simpleMap(EnhancerTarget.CODEC, AdditionalCodecs.COMPONENT, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(definition -> {
                 return definition.description;
             }),
             EnhancerEffect.DIRECT_CODEC.listOf().fieldOf("effects").forGetter(definition -> {
@@ -32,7 +34,7 @@ public record EnhancerDefinition(Item item, Component description, List<Enhancer
             ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(definition -> {
                 return definition.item;
             }),
-            AdditionalCodecs.COMPONENT.fieldOf("description").forGetter(definition -> {
+            Codec.simpleMap(EnhancerTarget.CODEC, AdditionalCodecs.COMPONENT, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(definition -> {
                 return definition.description;
             })
     ).apply(instance, (item, description) -> {

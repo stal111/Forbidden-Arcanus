@@ -312,6 +312,8 @@
 
     "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Hephaestus Forge effect:",
     "item.forbidden_arcanus.enhancer.clibano_effect": "Clibano effect:",
+    "item.forbidden_arcanus.enhancer.artisan_relic.hephaestus_forge": "Saves you a lot of experience.",
+    "item.forbidden_arcanus.enhancer.artisan_relic.clibano": "Allows you to create new alloys.",
 
     "comment.tooltips": "---Tooltips---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",
@@ -332,7 +334,6 @@
     "tooltip.forbidden_arcanus.pixie": "Pixie",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
     "tooltip.forbidden_arcanus.enhancer": "Enhancer Relic",
-    "tooltip.forbidden_arcanus.artisan_relic": "Saves you a lot of experience.",
 
     "containers": "Containers",
     "container.dark_beacon": "Dark Beacon",

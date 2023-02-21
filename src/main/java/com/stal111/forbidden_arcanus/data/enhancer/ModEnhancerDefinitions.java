@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.data.enhancer;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.item.enhancer.MultiplyRequiredEssenceEffect;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -13,7 +14,11 @@ import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
 import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author stal111
@@ -31,6 +36,10 @@ public class ModEnhancerDefinitions extends DatapackRegistryClass<EnhancerDefini
 
     @Override
     public void bootstrap(BootstapContext<EnhancerDefinition> context) {
-        context.register(ARTISAN_RELIC, new EnhancerDefinition(ModItems.ARTISAN_RELIC.get(), Component.translatable("tooltip.forbidden_arcanus.artisan_relic"), List.of(new MultiplyRequiredEssenceEffect(EssenceType.EXPERIENCE, 0.75))));
+        context.register(ARTISAN_RELIC, new EnhancerDefinition(ModItems.ARTISAN_RELIC.get(), this.generateDescription("artisan_relic", EnhancerTarget.HEPHAESTUS_FORGE, EnhancerTarget.CLIBANO), List.of(new MultiplyRequiredEssenceEffect(EssenceType.EXPERIENCE, 0.75))));
+    }
+
+    private Map<EnhancerTarget, Component> generateDescription(String key, EnhancerTarget... targets) {
+        return Arrays.stream(targets).collect(Collectors.toMap(Function.identity(), enhancerTarget -> Component.translatable("item.forbidden_arcanus.enhancer." + key + "." + enhancerTarget.getSerializedName())));
     }
 }

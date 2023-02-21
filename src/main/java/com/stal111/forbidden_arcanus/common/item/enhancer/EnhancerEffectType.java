@@ -7,9 +7,4 @@ import com.mojang.serialization.Codec;
  * @since 2023-02-18
  */
 public record EnhancerEffectType<T extends EnhancerEffect>(Codec<T> codec, EnhancerTarget target) {
-
-    public enum EnhancerTarget {
-        HEPHAESTUS_FORGE,
-        CLIBANO
-    }
 }
