@@ -309,11 +309,17 @@
     "item.forbidden_arcanus.deorum_blacksmith_gavel": "Deorum Blacksmith Gavel",
     "item.forbidden_arcanus.reinforced_deorum_blacksmith_gavel": "Reinforced Deorum Blacksmith Gavel",
     "item.forbidden_arcanus.artisan_relic": "Artisan Relic",
+    "item.forbidden_arcanus.crescent_moon": "Crescent Moon",
+    "item.forbidden_arcanus.crimson_stone": "Crimson Stone",
 
+    "item.forbidden_arcanus.enhancer": "Enhancer Relic",
     "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Hephaestus Forge effect:",
     "item.forbidden_arcanus.enhancer.clibano_effect": "Clibano effect:",
     "item.forbidden_arcanus.enhancer.artisan_relic.hephaestus_forge": "Saves you a lot of experience.",
     "item.forbidden_arcanus.enhancer.artisan_relic.clibano": "Allows you to create new alloys.",
+    "item.forbidden_arcanus.enhancer.crescent_moon.hephaestus_forge": "Reduces the required Aureal depending on the time of the day.",
+    "item.forbidden_arcanus.enhancer.crimson_stone.hephaestus_forge": "Heavily decreases the amount of required souls.",
+    "item.forbidden_arcanus.enhancer.crimson_stone.clibano": "Used souls will last longer.",
 
     "comment.tooltips": "---Tooltips---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",
@@ -333,7 +339,6 @@
     "tooltip.forbidden_arcanus.entity": "Entity",
     "tooltip.forbidden_arcanus.pixie": "Pixie",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
-    "tooltip.forbidden_arcanus.enhancer": "Enhancer Relic",
 
     "containers": "Containers",
     "container.dark_beacon": "Dark Beacon",

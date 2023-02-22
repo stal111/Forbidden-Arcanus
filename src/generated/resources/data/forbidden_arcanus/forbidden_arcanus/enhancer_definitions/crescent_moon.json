@@ -1,0 +1,15 @@
+{
+  "description": {
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.crescent_moon.hephaestus_forge"
+    }
+  },
+  "effects": [
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "essence_type": "aureal",
+      "multiplier": 0.9
+    }
+  ],
+  "item": "forbidden_arcanus:crescent_moon"
+}

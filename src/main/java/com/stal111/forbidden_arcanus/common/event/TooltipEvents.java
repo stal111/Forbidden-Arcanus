@@ -24,6 +24,7 @@ import java.util.Map;
 public class TooltipEvents {
 
     private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
+    private static final Component ENHANCER_COMPONENT = Component.translatable("item.forbidden_arcanus.enhancer").withStyle(ChatFormatting.GOLD);
 
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event) {
@@ -41,14 +42,24 @@ public class TooltipEvents {
         registry.holders().map(Holder::get).forEach(definition -> {
             if (stack.is(definition.item())) {
                 List<Component> tooltip = event.getToolTip();
+                boolean advanced = event.getFlags().isAdvanced();
 
-                tooltip.add(tooltip.size() - 1, CommonComponents.EMPTY);
+                this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);
+                this.expandTooltip(advanced, tooltip, CommonComponents.EMPTY);
 
                 for (Map.Entry<EnhancerTarget, Component> test : definition.description().entrySet()) {
-                    tooltip.add(tooltip.size() - 1, test.getKey().getTitle());
-                    tooltip.add(tooltip.size() - 1, Component.literal(" ").append(test.getValue()).withStyle(DESCRIPTION_FORMAT));
+                    this.expandTooltip(advanced, tooltip, test.getKey().getTitle());
+                    this.expandTooltip(advanced, tooltip, Component.literal(" ").append(test.getValue()).withStyle(DESCRIPTION_FORMAT));
                 }
             }
         });
+    }
+
+    private void expandTooltip(boolean advanced, List<Component> tooltip, Component addition) {
+        if (advanced) {
+            tooltip.add(tooltip.size() - 1, addition);
+        } else {
+            tooltip.add(addition);
+        }
     }
 }

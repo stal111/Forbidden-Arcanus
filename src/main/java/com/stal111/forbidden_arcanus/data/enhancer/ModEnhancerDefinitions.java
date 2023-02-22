@@ -29,6 +29,8 @@ public class ModEnhancerDefinitions extends DatapackRegistryClass<EnhancerDefini
     public static final DatapackRegistryHelper<EnhancerDefinition> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(FARegistries.ENHANCER_DEFINITION);
 
     public static final ResourceKey<EnhancerDefinition> ARTISAN_RELIC = HELPER.createKey("artisan_relic");
+    public static final ResourceKey<EnhancerDefinition> CRESCENT_MOON = HELPER.createKey("crescent_moon");
+    public static final ResourceKey<EnhancerDefinition> CRIMSON_STONE = HELPER.createKey("crimson_stone");
 
     public ModEnhancerDefinitions(DataProviderInfo info, BootstapContext<EnhancerDefinition> context) {
         super(info, context);
@@ -37,6 +39,8 @@ public class ModEnhancerDefinitions extends DatapackRegistryClass<EnhancerDefini
     @Override
     public void bootstrap(BootstapContext<EnhancerDefinition> context) {
         context.register(ARTISAN_RELIC, new EnhancerDefinition(ModItems.ARTISAN_RELIC.get(), this.generateDescription("artisan_relic", EnhancerTarget.HEPHAESTUS_FORGE, EnhancerTarget.CLIBANO), List.of(new MultiplyRequiredEssenceEffect(EssenceType.EXPERIENCE, 0.75))));
+        context.register(CRESCENT_MOON, new EnhancerDefinition(ModItems.CRESCENT_MOON.get(), this.generateDescription("crescent_moon", EnhancerTarget.HEPHAESTUS_FORGE), List.of(new MultiplyRequiredEssenceEffect(EssenceType.AUREAL, 0.9))));
+        context.register(CRIMSON_STONE, new EnhancerDefinition(ModItems.CRIMSON_STONE.get(), this.generateDescription("crimson_stone", EnhancerTarget.HEPHAESTUS_FORGE, EnhancerTarget.CLIBANO), List.of(new MultiplyRequiredEssenceEffect(EssenceType.SOULS, 0.5))));
     }
 
     private Map<EnhancerTarget, Component> generateDescription(String key, EnhancerTarget... targets) {

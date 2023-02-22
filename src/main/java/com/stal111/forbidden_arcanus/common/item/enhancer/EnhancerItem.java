@@ -17,7 +17,6 @@ import java.util.List;
  */
 public class EnhancerItem extends Item {
 
-    public static final Component ENHANCER_COMPONENT = Component.translatable("tooltip.forbidden_arcanus.enhancer").withStyle(ChatFormatting.GOLD);
 
     public EnhancerItem(Properties properties) {
         super(properties);
@@ -25,6 +24,5 @@ public class EnhancerItem extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
-        components.add(ENHANCER_COMPONENT);
     }
 }

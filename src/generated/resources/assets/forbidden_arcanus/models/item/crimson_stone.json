@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "forbidden_arcanus:item/enhancer/crimson_stone"
+  }
+}

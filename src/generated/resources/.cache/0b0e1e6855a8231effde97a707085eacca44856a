@@ -1,4 +1,4 @@
-// 1.19.3	2023-02-18T19:11:41.9294007	Item Models: forbidden_arcanus
+// 1.19.3	2023-02-21T20:34:59.0221708	Item Models: forbidden_arcanus
 ec32963c36c92245dedb808f3147fe81dd495883 assets/forbidden_arcanus/models/item/aquatic_dragon_scale.json
 a362c1701734ea16f61260dddb1bcfbfe0cad6d4 assets/forbidden_arcanus/models/item/arcane_bone_meal.json
 5fb2e610741f59f928db167b1a5f5963d58d75c6 assets/forbidden_arcanus/models/item/arcane_chiseled_darkstone.json
@@ -81,6 +81,8 @@ c95472dd4f025bae1a5409f7e9e9e3124f72d9dc assets/forbidden_arcanus/models/item/co
 e4d251231673335a3801dc3e811ef1b5f414c0bf assets/forbidden_arcanus/models/item/corrupti_dust.json
 0e673dca6d81c441a97ede8fd2c0ef473cef36bf assets/forbidden_arcanus/models/item/corrupt_soul.json
 48ad085f234221cfef44bb5b0bad16f89ca662e5 assets/forbidden_arcanus/models/item/cracked_polished_darkstone_bricks.json
+42e65a32a8ecabc7e057734b6c0206b1ceb15da3 assets/forbidden_arcanus/models/item/crescent_moon.json
+2eaafa7c1ec854f057aaf9405ca4037866316a8c assets/forbidden_arcanus/models/item/crimson_stone.json
 466eb7e66faa0523669cf73ead6ad3a64bf3db32 assets/forbidden_arcanus/models/item/cut_soulless_sandstone.json
 b8c2c83823040521840e2a8a939678f54fce0bf8 assets/forbidden_arcanus/models/item/cut_soulless_sandstone_slab.json
 f6107cdaad07c418505eed15a782ea2150998bb2 assets/forbidden_arcanus/models/item/darkstone.json

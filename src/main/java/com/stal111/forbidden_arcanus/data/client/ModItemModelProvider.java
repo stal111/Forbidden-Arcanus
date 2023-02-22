@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.data.client;
 
+import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.ObsidianSkullBlock;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +15,7 @@ import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
 import net.valhelsia.valhelsia_core.core.data.ValhelsiaItemModelProvider;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,6 +26,8 @@ import java.util.Objects;
  * @since 2021-01-26
  */
 public class ModItemModelProvider extends ValhelsiaItemModelProvider {
+
+    private static final List<Item> ENHANCER_ITEM = ImmutableList.of(ModItems.ARTISAN_RELIC.get(), ModItems.CRESCENT_MOON.get(), ModItems.CRIMSON_STONE.get());
 
     public ModItemModelProvider(DataProviderInfo info) {
         super(info.output(), ForbiddenArcanus.REGISTRY_MANAGER, info.fileHelper());
@@ -95,7 +98,7 @@ public class ModItemModelProvider extends ValhelsiaItemModelProvider {
         forEachItem(item -> item instanceof DiggerItem || item instanceof SwordItem, this::toolItem);
         forEachItem(item -> item instanceof ArmorItem, this::armorItem);
 
-        forEachItem(item -> item instanceof EnhancerItem, this::enhancerItem);
+        forEachItem(item -> ENHANCER_ITEM.contains(item), this::enhancerItem);
 
         forEachItem(this::simpleModel);
     }
