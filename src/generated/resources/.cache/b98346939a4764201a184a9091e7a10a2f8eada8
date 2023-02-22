@@ -1,4 +1,4 @@
-// 1.19.3	2023-01-25T18:49:25.1849253	Tags for minecraft:item mod id forbidden_arcanus
+// 1.19.3	2023-02-22T18:59:07.062525	Tags for minecraft:item mod id forbidden_arcanus
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/items/cherrywood_logs.json
@@ -6,7 +6,6 @@ eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/items/cliba
 248044db5d2fb658e1cc0140c81427a0718726e4 data/forbidden_arcanus/tags/items/clibano/creates_soul_fire.json
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/items/edelwood_logs.json
 26ca19a64b7305b1587e6eab631becb52fb1ed25 data/forbidden_arcanus/tags/items/fungyss_stems.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/items/indestructible_blacklisted.json
 a5e30235f64ca727e45ad31a505dbf74f45d0173 data/forbidden_arcanus/tags/items/magical_farmland_blacklisted.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/items/modifier/eternal_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/items/modifier/fiery_incompatible.json

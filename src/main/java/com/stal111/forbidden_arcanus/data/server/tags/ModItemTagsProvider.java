@@ -30,7 +30,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     protected void addTags(@NotNull HolderLookup.Provider provider) {
         this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(ModItems.OBSIDIAN_SKULL.get(), ModItems.ETERNAL_OBSIDIAN_SKULL.get());
         this.tag(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
-        this.tag(ModTags.Items.INDESTRUCTIBLE_BLACKLISTED);
         this.tag(ModTags.Items.BLACKSMITH_GAVEL).add(
                 ModItems.WOODEN_BLACKSMITH_GAVEL.get(),
                 ModItems.STONE_BLACKSMITH_GAVEL.get(),

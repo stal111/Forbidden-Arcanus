@@ -45,7 +45,6 @@ public class ModTags {
     public static class Items {
         public static final TagKey<Item> BLACK_HOLE_UNAFFECTED = modTag("black_hole_unaffected");
         public static final TagKey<Item> OBSIDIAN_SKULLS = modTag("obsidian_skulls");
-        public static final TagKey<Item> INDESTRUCTIBLE_BLACKLISTED = modTag("indestructible_blacklisted");
         public static final TagKey<Item> FUNGYSS_STEMS = modTag("fungyss_stems");
         public static final TagKey<Item> CHERRYWOOD_LOGS = modTag("cherrywood_logs");
         public static final TagKey<Item> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
