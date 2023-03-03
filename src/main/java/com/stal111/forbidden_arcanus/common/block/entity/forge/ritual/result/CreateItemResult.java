@@ -20,14 +20,6 @@ public class CreateItemResult extends RitualResult {
             })
     ).apply(instance, CreateItemResult::new));
 
-    public static final RitualResultType.NetworkSerializer<CreateItemResult> SERIALIZER = (buffer, result) -> {
-        buffer.writeItemStack(result.result, false);
-    };
-
-    public static final RitualResultType.NetworkDeserializer<CreateItemResult> DESERIALIZER = buffer -> {
-        return new CreateItemResult(buffer.readItem());
-    };
-
     private final ItemStack result;
 
     public CreateItemResult(ItemStack result) {

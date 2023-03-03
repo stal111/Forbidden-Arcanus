@@ -27,15 +27,6 @@ public class UpgradeTierResult extends RitualResult {
             })
     ).apply(instance, UpgradeTierResult::new));
 
-    public static final RitualResultType.NetworkSerializer<UpgradeTierResult> SERIALIZER = (buffer, result) -> {
-        buffer.writeInt(result.requiredTier);
-        buffer.writeInt(result.upgradedTier);
-    };
-
-    public static final RitualResultType.NetworkDeserializer<UpgradeTierResult> DESERIALIZER = buffer -> {
-        return new UpgradeTierResult(buffer.readInt(), buffer.readInt());
-    };
-
     private final int requiredTier;
     private final int upgradedTier;
 

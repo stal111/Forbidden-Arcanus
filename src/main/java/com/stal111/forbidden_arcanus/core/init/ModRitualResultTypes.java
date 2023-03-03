@@ -19,10 +19,10 @@ public class ModRitualResultTypes implements RegistryClass {
 
     public static final MappedRegistryHelper<RitualResultType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(FARegistries.RITUAL_RESULT_TYPE);
 
-    public static final RegistryObject<RitualResultType<CreateItemResult>> CREATE_ITEM = register("create_item", CreateItemResult.SERIALIZER, CreateItemResult.DESERIALIZER, CreateItemResult.CODEC);
-    public static final RegistryObject<RitualResultType<UpgradeTierResult>> UPGRADE_TIER = register("upgrade_tier", UpgradeTierResult.SERIALIZER, UpgradeTierResult.DESERIALIZER, UpgradeTierResult.CODEC);
+    public static final RegistryObject<RitualResultType<CreateItemResult>> CREATE_ITEM = register("create_item", CreateItemResult.CODEC);
+    public static final RegistryObject<RitualResultType<UpgradeTierResult>> UPGRADE_TIER = register("upgrade_tier", UpgradeTierResult.CODEC);
 
-    public static <T extends RitualResult> RegistryObject<RitualResultType<T>> register(String name, RitualResultType.NetworkSerializer<T> toNetwork, RitualResultType.NetworkDeserializer<T> fromNetwork, Codec<T> codec) {
-        return HELPER.register(name, () -> new RitualResultType<>(toNetwork, fromNetwork, codec));
+    public static <T extends RitualResult> RegistryObject<RitualResultType<T>> register(String name, Codec<T> codec) {
+        return HELPER.register(name, () -> new RitualResultType<>(codec));
     }
 }

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.Level;
 
@@ -37,10 +36,6 @@ public abstract class RitualResult {
      * @param pos      the pos where the Forge is located
      */
     public abstract void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos);
-
-    public void toNetwork(FriendlyByteBuf buffer) {
-        this.getType().toNetwork(buffer, this);
-    }
 
     /**
      * @return the type which serializes and deserializes this result
