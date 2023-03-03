@@ -7,11 +7,8 @@
   "mixins": [
     "AccessorFireBlock",
     "BubbleColumnBlockMixin",
-    "GlowParticleAccessor",
-    "GuiComponentAccessor",
     "ItemMixin",
     "ItemStackMixin",
-    "LevelRendererAccessor",
     "PlayerMixin",
     "SlimeMixin"
   ],
@@ -19,7 +16,10 @@
     "CustomHeadLayerMixin",
     "ItemRendererMixin",
     "ModelBakeryMixin",
-    "ScreenMixin"
+    "ScreenMixin",
+    "GuiComponentAccessor",
+    "LevelRendererAccessor",
+    "GlowParticleAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
