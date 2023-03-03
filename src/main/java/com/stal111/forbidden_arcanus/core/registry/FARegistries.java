@@ -30,9 +30,9 @@ public class FARegistries {
     private static final DeferredRegister<ItemModifier> ITEM_MODIFIER_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ITEM_MODIFIER, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<EnhancerEffectType<?>> ENHANCER_EFFECT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ENHANCER_EFFECT, ForbiddenArcanus.MOD_ID);
 
-    public static final Supplier<IForgeRegistry<RitualResultType<?>>> RITUAL_RESULT_TYPE_REGISTRY = RITUAL_RESULT_DEFERRED_REGISTER.makeRegistry(RegistryBuilder::new);
-    public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = ITEM_MODIFIER_DEFERRED_REGISTER.makeRegistry(RegistryBuilder::new);
-    public static final Supplier<IForgeRegistry<EnhancerEffectType<?>>> ENHANCER_EFFECT_REGISTRY = ENHANCER_EFFECT_DEFERRED_REGISTER.makeRegistry(RegistryBuilder::new);
+    public static final Supplier<IForgeRegistry<RitualResultType<?>>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_DEFERRED_REGISTER);
+    public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = FARegistries.makeSyncedRegistry(ITEM_MODIFIER_DEFERRED_REGISTER);
+    public static final Supplier<IForgeRegistry<EnhancerEffectType<?>>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_DEFERRED_REGISTER);
 
     public static void register(IEventBus modEventBus) {
         FARegistries.RITUAL_RESULT_DEFERRED_REGISTER.register(modEventBus);
@@ -42,5 +42,23 @@ public class FARegistries {
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {
         return ResourceKey.createRegistryKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+    }
+
+    /**
+     * Creates a {@link IForgeRegistry} that get synchronised to clients.
+     *
+     * @param <T> the entry of the registry.
+     */
+    private static <T> Supplier<IForgeRegistry<T>> makeSyncedRegistry(DeferredRegister<T> deferredRegister) {
+        return deferredRegister.makeRegistry(() -> (RegistryBuilder<T>) new RegistryBuilder<>().disableSaving());
+    }
+
+    /**
+     * Creates a simple {@link IForgeRegistry} that <B>won't</B> be synced to clients.
+     *
+     * @param <T> the entry of the registry.
+     */
+    private static <T> Supplier<IForgeRegistry<T>> makeRegistry(DeferredRegister<T> deferredRegister) {
+        return deferredRegister.makeRegistry(() -> (RegistryBuilder<T>) new RegistryBuilder<>().disableSaving().disableSync());
     }
 }
