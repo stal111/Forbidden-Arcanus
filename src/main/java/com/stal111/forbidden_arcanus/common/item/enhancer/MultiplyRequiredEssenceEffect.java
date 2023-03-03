@@ -4,7 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.item.enhancer.condition.EffectCondition;
 import com.stal111.forbidden_arcanus.core.init.other.ModEnhancerEffects;
+
+import java.util.List;
 
 /**
  * @author stal111
@@ -13,6 +16,7 @@ import com.stal111.forbidden_arcanus.core.init.other.ModEnhancerEffects;
 public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements EssenceModifier {
 
     public static final Codec<MultiplyRequiredEssenceEffect> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+            EnhancerEffect.conditionsCodec(),
             EssenceType.CODEC.fieldOf("essence_type").forGetter(effect -> {
                 return effect.essenceType;
             }),
@@ -24,7 +28,8 @@ public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements Ess
     private final EssenceType essenceType;
     private final double multiplier;
 
-    public MultiplyRequiredEssenceEffect(EssenceType essenceType, double multiplier) {
+    public MultiplyRequiredEssenceEffect(List<EffectCondition> conditions, EssenceType essenceType, double multiplier) {
+        super(conditions);
         this.essenceType = essenceType;
         this.multiplier = multiplier;
     }

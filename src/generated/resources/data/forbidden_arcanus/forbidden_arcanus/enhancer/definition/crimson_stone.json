@@ -10,6 +10,7 @@
   "effects": [
     {
       "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [],
       "essence_type": "souls",
       "multiplier": 0.5
     }
