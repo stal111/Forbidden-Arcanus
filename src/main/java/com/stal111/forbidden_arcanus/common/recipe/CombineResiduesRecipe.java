@@ -91,8 +91,8 @@ public class CombineResiduesRecipe extends CustomRecipe {
 
         @Override
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, CombineResiduesRecipe recipe) {
-            buffer.writeUtf(recipe.residue);
             buffer.writeEnum(recipe.category());
+            buffer.writeUtf(recipe.residue);
             buffer.writeShort(recipe.residueAmount);
             buffer.writeItem(recipe.result);
         }
