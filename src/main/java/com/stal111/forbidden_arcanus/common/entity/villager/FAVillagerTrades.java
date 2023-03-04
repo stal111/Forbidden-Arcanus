@@ -29,7 +29,7 @@ public final class FAVillagerTrades {
         this.addBasicTrade(5, new ItemStack(ModBlocks.AURUM_SAPLING.get()), 8, 1);
         this.addBasicTrade(6, new ItemStack(ModBlocks.GROWING_EDELWOOD.get()), 8, 1);
         this.addBasicTrade(2, new ItemStack(ModBlocks.YELLOW_ORCHID.get()), 6, 1);
-        this.addBasicTrade(8, new ItemStack(ModItems.ARTISAN_RELIC.get()), 2, 1);
+        this.addBasicTrade(18, new ItemStack(ModItems.ARTISAN_RELIC.get()), 2, 1);
     }
 
     private void addBasicTrade(int emeralds, ItemStack stack, int maxTrades, int experience) {
