@@ -1,10 +1,7 @@
 package com.stal111.forbidden_arcanus.core.registry;
 
 import com.stal111.forbidden_arcanus.core.init.*;
-import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
-import com.stal111.forbidden_arcanus.core.init.other.ModEnhancerEffects;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
-import com.stal111.forbidden_arcanus.core.init.other.ModLootModifiers;
+import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
@@ -44,6 +41,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes::new);
         this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers::new);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects::new);
+        this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions::new);
 
         this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);
