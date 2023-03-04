@@ -43,6 +43,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.tag(ModTags.Items.DEORUM_NUGGETS).add(ModItems.DEORUM_NUGGET.get());
         this.tag(ModTags.Items.OBSIDIAN_INGOTS).add(ModItems.OBSIDIAN_INGOT.get());
         this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED).add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, ModItems.GOLDEN_ORCHID_SEEDS.get());
+        this.tag(Tags.Items.INGOTS).addTags(ModTags.Items.DEORUM_INGOTS, ModTags.Items.OBSIDIAN_INGOTS);
 
         this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE);
         this.tag(ModTags.Items.FIERY_INCOMPATIBLE);

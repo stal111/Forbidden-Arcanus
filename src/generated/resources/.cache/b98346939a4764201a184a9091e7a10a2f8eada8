@@ -1,4 +1,4 @@
-// 1.19.3	2023-02-22T18:59:07.062525	Tags for minecraft:item mod id forbidden_arcanus
+// 1.19.3	2023-03-04T17:26:11.2195461	Tags for minecraft:item mod id forbidden_arcanus
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/items/cherrywood_logs.json
@@ -16,6 +16,7 @@ a5e30235f64ca727e45ad31a505dbf74f45d0173 data/forbidden_arcanus/tags/items/magic
 dede7185ec43aded455e35dd42747c108df55709 data/forge/tags/items/fences/wooden.json
 ed2b92ec859a4cf09abd750ec7709cd90649352f data/forge/tags/items/fence_gates/wooden.json
 dc8fa4f00124b07aa7c7d1400f8dc2652d9a8f51 data/forge/tags/items/heads.json
+4a2636aab0a6ff9f71559b543e92a4ab039254f7 data/forge/tags/items/ingots.json
 238635bd5dd1c15728e03bd1774ab8343944a8b5 data/forge/tags/items/ingots/deorum.json
 9ed069c6891656a213b43d990cc2cd64c086538d data/forge/tags/items/ingots/obsidian.json
 7c2fa587c6bcbc4afb7882a02044ed5435a29f2c data/forge/tags/items/nuggets/deorum.json
