@@ -1,13 +1,12 @@
 {
-  "replace": false,
   "values": [
     "forbidden_arcanus:stellarite_piece",
     "forbidden_arcanus:stellarite_block",
-	"forbidden_arcanus:stella_arcanum",
+    "forbidden_arcanus:stella_arcanum",
     "forbidden_arcanus:eternal_stella",
     "forbidden_arcanus:hephaestus_forge",
-    "forbidden_arcanus:dark_nether_star",
     "forbidden_arcanus:dark_nether_star_block",
+    "forbidden_arcanus:dark_nether_star",
     "minecraft:nether_star",
     "minecraft:bedrock",
     "minecraft:obsidian",
