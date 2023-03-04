@@ -24,5 +24,6 @@ public final class ModEventHandler extends ValhelsiaMod.EventHandler {
     public void registerForgeEvents(IEventBus eventBus) {
         eventBus.register(new DeathEvents());
         eventBus.register(new TooltipEvents());
+        eventBus.register(new TradeEvents());
     }
 }
