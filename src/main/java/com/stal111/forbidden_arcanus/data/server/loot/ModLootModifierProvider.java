@@ -91,6 +91,15 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         LootTableIdCondition.builder(new ResourceLocation("chests/end_city_treasure")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/end_city_treasure_additions"))
         );
+        this.add("artisan_relic_addition",
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        AlternativeLootItemCondition.alternative(
+                                LootTableIdCondition.builder(new ResourceLocation("chests/village/village_armorer")),
+                                LootTableIdCondition.builder(new ResourceLocation("chests/village/village_toolsmith")),
+                                LootTableIdCondition.builder(new ResourceLocation("chests/village/village_weaponsmith"))
+                        ).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/artisan_relic_addition"))
+        );
 
         // Items
         this.add("fiery_modifier",

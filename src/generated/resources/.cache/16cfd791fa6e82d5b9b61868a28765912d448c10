@@ -1,5 +1,6 @@
-// 1.19.3	2022-12-29T12:27:18.7165915	Global Loot Modifiers : forbidden_arcanus
+// 1.19.3	2023-03-04T22:50:46.1348266	Global Loot Modifiers : forbidden_arcanus
 a971f9f508e38b09520f2afc6d5602ace816abc4 data/forbidden_arcanus/loot_modifiers/abandoned_mineshaft_additions.json
+3267ca62dd3cf8fae942fd63f5a4f2bf295bc413 data/forbidden_arcanus/loot_modifiers/artisan_relic_addition.json
 f54b0e80656d0155f5bb5357dd8f657d2f6ec722 data/forbidden_arcanus/loot_modifiers/bat_additions.json
 bbd5cab26da5b8d9d0afc036b1b00fe25f4f09c4 data/forbidden_arcanus/loot_modifiers/blacksmith_gavel_ore_doubling.json
 94c51f5d0586208dd48a9bc85a3fefa2802aa086 data/forbidden_arcanus/loot_modifiers/drowned_additions.json
@@ -12,4 +13,4 @@ da0cabca394f7da60a3004220a6d5acb5c272395 data/forbidden_arcanus/loot_modifiers/f
 bc48e240645fd852b8e5c34a6a282f5ee88a8489 data/forbidden_arcanus/loot_modifiers/spawner_additions.json
 c1a91347be3cd8cd4e93dc28569d2573be0ea75d data/forbidden_arcanus/loot_modifiers/squid_additions.json
 b786420a99f0b2cf0b69ebcace10a62519d77c12 data/forbidden_arcanus/loot_modifiers/zombie_additions.json
-d6d6451116351bbfa764754fb4c44b3f36604db4 data/forge/loot_modifiers/global_loot_modifiers.json
+0505e67deaaf62311e3bb0e283adedc01225a477 data/forge/loot_modifiers/global_loot_modifiers.json
