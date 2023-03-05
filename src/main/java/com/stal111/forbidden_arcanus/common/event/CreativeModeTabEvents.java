@@ -56,6 +56,7 @@ public class CreativeModeTabEvents {
                     output.accept(ModItems.ARTISAN_RELIC.get());
                     output.accept(ModItems.CRESCENT_MOON.get());
                     output.accept(ModItems.CRIMSON_STONE.get());
+                    output.accept(ModItems.ELEMENTARIUM.get());
                 })
         );
     }

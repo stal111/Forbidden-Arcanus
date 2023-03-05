@@ -105,6 +105,16 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         LootTableIdCondition.builder(new ResourceLocation("chests/pillager_outpost")).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/crimson_stone_addition"))
         );
+        this.add("elementarium_addition",
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        AlternativeLootItemCondition.alternative(
+                                LootTableIdCondition.builder(new ResourceLocation("chests/jungle_temple")),
+                                LootTableIdCondition.builder(new ResourceLocation("chests/desert_pyramid")),
+                                LootTableIdCondition.builder(new ResourceLocation("chests/underwater_ruin_small")),
+                                LootTableIdCondition.builder(new ResourceLocation("chests/underwater_ruin_big"))
+                        ).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/elementarium_addition"))
+        );
 
         // Items
         this.add("fiery_modifier",

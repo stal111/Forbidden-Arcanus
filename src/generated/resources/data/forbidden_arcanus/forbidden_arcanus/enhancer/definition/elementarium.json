@@ -1,0 +1,9 @@
+{
+  "description": {
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.elementarium.hephaestus_forge"
+    }
+  },
+  "effects": [],
+  "item": "forbidden_arcanus:elementarium"
+}

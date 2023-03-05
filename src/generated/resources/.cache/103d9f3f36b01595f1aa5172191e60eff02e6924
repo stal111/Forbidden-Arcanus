@@ -1,7 +1,8 @@
-// 1.19.3	2023-03-04T13:36:24.0239596	Registries
+// 1.19.3	2023-03-05T15:45:47.7052722	Registries
 83bed6df1a69d7e25bf74ff51d24403964676ad7 data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/artisan_relic.json
 476802ee0cec24ddaf9ec318039148392726e0c1 data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/crescent_moon.json
 00817ad7ab03b5f8761fce5bb22023bc0d9459fa data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/crimson_stone.json
+cc31a4229f4b336b6e8fd294cc3323e71f75c9fb data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/elementarium.json
 568cd55687e2907fa3954f82c156753b59a41bcb data/forbidden_arcanus/forge/biome_modifier/add_arcane_crystal_ore.json
 17a2247042583ff535a92be33861a7a1759c8fa6 data/forbidden_arcanus/forge/biome_modifier/add_arcane_gilded_darkstone.json
 af0b187225cd009d2cbf5ff55f325771cbbf2768 data/forbidden_arcanus/forge/biome_modifier/add_aurum_trees.json

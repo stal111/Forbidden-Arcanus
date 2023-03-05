@@ -311,6 +311,7 @@
     "item.forbidden_arcanus.artisan_relic": "Artisan Relic",
     "item.forbidden_arcanus.crescent_moon": "Crescent Moon",
     "item.forbidden_arcanus.crimson_stone": "Crimson Stone",
+    "item.forbidden_arcanus.elementarium": "Elementarium",
 
     "item.forbidden_arcanus.enhancer": "Enhancer Relic",
     "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Hephaestus Forge effect:",
@@ -320,6 +321,7 @@
     "item.forbidden_arcanus.enhancer.crescent_moon.hephaestus_forge": "Reduces the required Aureal depending on the time of the day.",
     "item.forbidden_arcanus.enhancer.crimson_stone.hephaestus_forge": "Heavily decreases the amount of required souls.",
     "item.forbidden_arcanus.enhancer.crimson_stone.clibano": "Used souls will last longer.",
+    "item.forbidden_arcanus.enhancer.elementarium.hephaestus_forge": "Allows the creation of elemental items.",
 
     "comment.tooltips": "---Tooltips---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",

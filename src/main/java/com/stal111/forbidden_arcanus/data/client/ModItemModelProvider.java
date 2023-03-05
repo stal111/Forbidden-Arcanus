@@ -27,7 +27,7 @@ import java.util.Objects;
  */
 public class ModItemModelProvider extends ValhelsiaItemModelProvider {
 
-    private static final List<Item> ENHANCER_ITEM = ImmutableList.of(ModItems.ARTISAN_RELIC.get(), ModItems.CRESCENT_MOON.get(), ModItems.CRIMSON_STONE.get());
+    private static final List<Item> ENHANCER_ITEM = ImmutableList.of(ModItems.ARTISAN_RELIC.get(), ModItems.CRESCENT_MOON.get(), ModItems.CRIMSON_STONE.get(), ModItems.ELEMENTARIUM.get());
 
     public ModItemModelProvider(DataProviderInfo info) {
         super(info.output(), ForbiddenArcanus.REGISTRY_MANAGER, info.fileHelper());
