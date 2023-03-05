@@ -100,6 +100,11 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         ).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/artisan_relic_addition"))
         );
+        this.add("crimson_stone_addition",
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("chests/pillager_outpost")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/crimson_stone_addition"))
+        );
 
         // Items
         this.add("fiery_modifier",

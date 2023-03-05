@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:chest",
+	"pools": [
+		{
+			"rolls": 1,
+			"bonus_rolls": 0,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "forbidden_arcanus:crimson_stone",
+					"conditions": [
+						{
+							"condition": "minecraft:random_chance",
+							"chance": 0.18
+						}
+					]
+				}
+			]
+		}
+	]
+}
