@@ -1,4 +1,4 @@
-[![alt text](http://url/to/img.png)](https://i.imgur.com/LoOhG3H.png)
+<img alt="alt_text" src="https://user-images.githubusercontent.com/33981808/223201590-a4bd319f-928c-4bf2-baf0-d325158acad7.png" />
 
 ## ABOUT:
 
@@ -19,3 +19,6 @@ New items and trinkets with unique characteristics.
 Smelt ores in the Clibano and have a chance to double your ingots with the help of souls.
 You can configure most things in the mod with the help of Datapacks or Configs.
 And many other things...
+[<img alt="alt_text" src="https://user-images.githubusercontent.com/33981808/223201558-3a6e29ea-d75c-4ce9-97c1-d4bafd4cbc3e.png" />](https://www.bisecthosting.com)
+
+![image](https://user-images.githubusercontent.com/33981808/223203044-f737da3b-ed03-486b-bf90-156ec1d6d59b.png)
