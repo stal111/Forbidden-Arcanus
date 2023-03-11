@@ -1,0 +1,34 @@
+{
+  "description": {
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.soul_crimson_stone.hephaestus_forge"
+    }
+  },
+  "effects": [
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [],
+      "essence_type": "aureal",
+      "multiplier": 0.0
+    },
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [],
+      "essence_type": "souls",
+      "multiplier": 0.0
+    },
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [],
+      "essence_type": "blood",
+      "multiplier": 0.0
+    },
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [],
+      "essence_type": "experience",
+      "multiplier": 0.0
+    }
+  ],
+  "item": "forbidden_arcanus:soul_crimson_stone"
+}

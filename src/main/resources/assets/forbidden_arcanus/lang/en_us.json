@@ -311,7 +311,10 @@
     "item.forbidden_arcanus.artisan_relic": "Artisan Relic",
     "item.forbidden_arcanus.crescent_moon": "Crescent Moon",
     "item.forbidden_arcanus.crimson_stone": "Crimson Stone",
+    "item.forbidden_arcanus.soul_crimson_stone": "Soul Crimson Stone",
     "item.forbidden_arcanus.elementarium": "Elementarium",
+    "item.forbidden_arcanus.divine_pact": "Divine Pact",
+    "item.forbidden_arcanus.maledictus_pact": "Maledictus Pact",
 
     "item.forbidden_arcanus.enhancer": "Enhancer Relic",
     "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Hephaestus Forge effect:",
@@ -321,7 +324,10 @@
     "item.forbidden_arcanus.enhancer.crescent_moon.hephaestus_forge": "Reduces the required Aureal depending on the time of the day.",
     "item.forbidden_arcanus.enhancer.crimson_stone.hephaestus_forge": "Heavily decreases the amount of required souls.",
     "item.forbidden_arcanus.enhancer.crimson_stone.clibano": "Used souls will last longer.",
+    "item.forbidden_arcanus.enhancer.soul_crimson_stone.hephaestus_forge": "Completely removes the essence requirement for one ritual.",
     "item.forbidden_arcanus.enhancer.elementarium.hephaestus_forge": "Allows the creation of elemental items.",
+    "item.forbidden_arcanus.enhancer.divine_pact.hephaestus_forge": "Allows the creation of celestial items.",
+    "item.forbidden_arcanus.enhancer.maledictus_pact.hephaestus_forge": "Allows the creation of cursed items.",
 
     "comment.tooltips": "---Tooltips---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",

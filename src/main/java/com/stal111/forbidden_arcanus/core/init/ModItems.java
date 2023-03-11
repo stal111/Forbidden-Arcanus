@@ -71,7 +71,10 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<Item> ARTISAN_RELIC = HELPER.register("artisan_relic", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CRESCENT_MOON = HELPER.register("crescent_moon", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CRIMSON_STONE = HELPER.register("crimson_stone", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SOUL_CRIMSON_STONE = HELPER.register("soul_crimson_stone", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ELEMENTARIUM = HELPER.register("elementarium", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DIVINE_PACT = HELPER.register("divine_pact", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> SANITY_METER = HELPER.register("sanity_meter", () -> new SanityMeterItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<LensOfVeritatisItem> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new LensOfVeritatisItem(new Item.Properties().stacksTo(1)));

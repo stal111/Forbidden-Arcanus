@@ -115,6 +115,11 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                         ).build()
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/elementarium_addition"))
         );
+        this.add("maledictus_pact",
+                new AppendLootTableModifier(new LootItemCondition[] {
+                        LootTableIdCondition.builder(new ResourceLocation("chests/bastion_treasure")).build()
+                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/maledictus_pact_addition"))
+        );
 
         // Items
         this.add("fiery_modifier",

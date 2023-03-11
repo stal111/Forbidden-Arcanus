@@ -1,0 +1,9 @@
+{
+  "description": {
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.maledictus_pact.hephaestus_forge"
+    }
+  },
+  "effects": [],
+  "item": "forbidden_arcanus:maledictus_pact"
+}
