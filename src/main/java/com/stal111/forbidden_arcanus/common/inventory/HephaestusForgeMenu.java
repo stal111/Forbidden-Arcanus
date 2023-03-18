@@ -1,10 +1,12 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,6 +20,7 @@ import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * Hephaestus Forge Menu <br>
@@ -27,6 +30,8 @@ import javax.annotation.Nonnull;
  * @since 2021-06-28
  */
 public class HephaestusForgeMenu extends AbstractContainerMenu {
+
+    public static final List<Integer> ENHANCERS_SLOTS = ImmutableList.of(0, 1, 2, 3);
 
     private final ContainerData hephaestusForgeData;
     private final ContainerLevelAccess levelAccess;
@@ -127,7 +132,11 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, 8, 9, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.getSlot(4).hasItem()) {
+            } else if (EnhancerCache.get(stack.getItem()).isPresent()) {
+                if (!this.moveItemStackTo(stack, 0, this.getHighestUnlockedEnhancerSlot() + 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            }  else if (!this.getSlot(4).hasItem()) {
                 if (!this.moveItemStackTo(stack, 4, 5, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -170,5 +179,17 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     public boolean isSlotLocked(EnhancerSlot slot) {
         return this.lockedSlots[slot.getSlotIndex()] == 1;
+    }
+
+    private int getHighestUnlockedEnhancerSlot() {
+        for (int i : ENHANCERS_SLOTS) {
+            Slot slot = this.slots.get(i);
+
+            if (this.lockedSlots[slot.getSlotIndex()] == 1) {
+                return i;
+            }
+        }
+
+        return 3;
     }
 }

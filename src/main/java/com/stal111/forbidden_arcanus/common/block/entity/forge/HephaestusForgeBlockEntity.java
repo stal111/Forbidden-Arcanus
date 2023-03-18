@@ -5,10 +5,12 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceMa
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesContainer;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.*;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -54,6 +56,9 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state, 9, (slot, stack) -> {
+            if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
+                return EnhancerCache.get(stack.getItem()).isPresent();
+            }
             return true;
         });
         this.hephaestusForgeData = new ContainerData() {

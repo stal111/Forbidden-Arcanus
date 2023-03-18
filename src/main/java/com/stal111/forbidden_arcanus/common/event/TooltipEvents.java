@@ -1,16 +1,12 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -35,22 +31,16 @@ public class TooltipEvents {
             return;
         }
 
-        Level level = event.getEntity().getLevel();
+        EnhancerCache.get(stack.getItem()).ifPresent(definition -> {
+            List<Component> tooltip = event.getToolTip();
+            boolean advanced = event.getFlags().isAdvanced();
 
-        Registry<EnhancerDefinition> registry = level.registryAccess().registryOrThrow(FARegistries.ENHANCER_DEFINITION);
+            this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);
+            this.expandTooltip(advanced, tooltip, CommonComponents.EMPTY);
 
-        registry.holders().map(Holder::get).forEach(definition -> {
-            if (stack.is(definition.item())) {
-                List<Component> tooltip = event.getToolTip();
-                boolean advanced = event.getFlags().isAdvanced();
-
-                this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);
-                this.expandTooltip(advanced, tooltip, CommonComponents.EMPTY);
-
-                for (Map.Entry<EnhancerTarget, Component> test : definition.description().entrySet()) {
-                    this.expandTooltip(advanced, tooltip, test.getKey().getTitle());
-                    this.expandTooltip(advanced, tooltip, Component.literal(" ").append(test.getValue()).withStyle(DESCRIPTION_FORMAT));
-                }
+            for (Map.Entry<EnhancerTarget, Component> test : definition.description().entrySet()) {
+                this.expandTooltip(advanced, tooltip, test.getKey().getTitle());
+                this.expandTooltip(advanced, tooltip, Component.literal(" ").append(test.getValue()).withStyle(DESCRIPTION_FORMAT));
             }
         });
     }

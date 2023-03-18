@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.loader.HephaestusForgeInputLoader;
 import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
@@ -52,5 +53,7 @@ public class DatapackEvents {
     @SubscribeEvent
     public static void onTagsUpdate(TagsUpdatedEvent event) {
         FARegistries.ITEM_MODIFIER_REGISTRY.get().getValues().forEach(ItemModifier::clearCachedValidItems);
+
+        EnhancerCache.cacheEnhancers(event.getRegistryAccess());
     }
 }

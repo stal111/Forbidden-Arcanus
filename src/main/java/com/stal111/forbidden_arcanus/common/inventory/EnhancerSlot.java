@@ -40,7 +40,7 @@ public class EnhancerSlot extends SlotItemHandler {
 
     @Override
     public boolean mayPlace(@Nonnull ItemStack stack) {
-        return !this.isLocked();
+        return !this.isLocked() && super.mayPlace(stack);
     }
 
     @Override
