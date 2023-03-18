@@ -54,18 +54,18 @@ public record Ritual(List<RitualInput> inputs,
     }));
 
     public boolean canStart(int forgeTier, Collection<ItemStack> list, RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
-        return forgeTier >= this.requiredTier && this.checkIngredients(list, accessor) && this.getResult().checkConditions(accessor, level, pos);
+        return forgeTier >= this.requiredTier && this.checkIngredients(list, accessor) && this.result().checkConditions(accessor, level, pos);
     }
 
     public boolean checkIngredients(Collection<ItemStack> list, RitualManager.MainIngredientAccessor accessor) {
-        if (!this.getMainIngredient().test(accessor.get())) {
+        if (!this.mainIngredient().test(accessor.get())) {
             return false;
         }
 
         List<ItemStack> ingredients = new ArrayList<>(list);
 
         outer:
-        for (RitualInput input : this.getInputs()) {
+        for (RitualInput input : this.inputs()) {
             int amount = 0;
 
             Iterator<ItemStack> iterator = ingredients.iterator();
@@ -86,22 +86,6 @@ public record Ritual(List<RitualInput> inputs,
         }
 
         return ingredients.isEmpty();
-    }
-
-    public List<RitualInput> getInputs() {
-        return this.inputs;
-    }
-
-    public Ingredient getMainIngredient() {
-        return this.mainIngredient;
-    }
-
-    public RitualResult getResult() {
-        return this.result;
-    }
-
-    public EssencesDefinition getEssences() {
-        return this.essences;
     }
 
     @Override

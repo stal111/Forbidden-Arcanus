@@ -146,7 +146,7 @@ public class RitualManager implements NeedsStoring {
     }
 
     public boolean canStartRitual(Ritual ritual, EssencesStorage storage) {
-        return storage.hasEnough(ritual.getEssences()) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
+        return storage.hasEnough(ritual.essences()) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
     }
 
     public void startRitual(EssencesStorage storage, NamedRitual ritual) {
@@ -154,7 +154,7 @@ public class RitualManager implements NeedsStoring {
 
         ritual.get().createMagicCircle(this.level, this.pos, 0);
 
-        storage.reduce(ritual.get().getEssences());
+        storage.reduce(ritual.get().essences());
     }
 
     public void tick(EssencesStorage storage) {
@@ -246,7 +246,7 @@ public class RitualManager implements NeedsStoring {
         this.reset();
 
         ritual.removeMagicCircle(this.level, this.pos);
-        ritual.getResult().apply(this.mainIngredientAccessor, this.level, this.pos);
+        ritual.result().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         this.clearPedestals();
     }

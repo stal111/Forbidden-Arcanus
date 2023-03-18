@@ -99,7 +99,7 @@ public class HephaestusSmithingCategory implements IRecipeCategory<NamedRitual> 
         Ritual ritual = recipe.get();
 
         builder.addSlot(RecipeIngredientRole.INPUT, FORGE_ITEM_POSITION.getFirst(), FORGE_ITEM_POSITION.getSecond())
-                .addIngredients(ritual.getMainIngredient());
+                .addIngredients(ritual.mainIngredient());
 
         int index = 0;
 

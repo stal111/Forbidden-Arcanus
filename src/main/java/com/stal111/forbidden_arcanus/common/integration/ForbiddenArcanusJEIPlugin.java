@@ -39,7 +39,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(RecipeTypes.SMITHING, ApplyModifierRecipeMaker.getRecipes());
-        registration.addRecipes(HEPHAESTUS_SMITHING, ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.values().stream().filter(namedRitual -> namedRitual.get().getResult() instanceof CreateItemResult).toList());
+        registration.addRecipes(HEPHAESTUS_SMITHING, ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.values().stream().filter(namedRitual -> namedRitual.get().result() instanceof CreateItemResult).toList());
         registration.addRecipes(CLIBANO_COMBUSTION, Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModRecipes.CLIBANO_COMBUSTION.get()));
     }
 
