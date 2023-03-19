@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.data.rituals;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
@@ -12,9 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author stal111
@@ -26,7 +24,7 @@ public class RitualBuilder {
     private final RitualResult result;
 
     private final List<RitualInput> inputs = new ArrayList<>();
-    private final Map<EssenceType, Integer> essences = new HashMap<>();
+    private final EssencesStorage essences = new EssencesStorage();
     private int requiredTier = 1;
     private MagicCircle.Config magicCircleConfig = MagicCircle.Config.DEFAULT;
 
@@ -82,6 +80,6 @@ public class RitualBuilder {
     }
 
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, EssencesDefinition.of(this.essences), this.requiredTier, this.magicCircleConfig);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.requiredTier, this.magicCircleConfig);
     }
 }

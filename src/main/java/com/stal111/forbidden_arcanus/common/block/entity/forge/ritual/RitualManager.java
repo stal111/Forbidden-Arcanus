@@ -2,8 +2,11 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.CreateValidRitualIndicatorPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.RemoveValidRitualIndicatorPacket;
@@ -56,6 +59,7 @@ public class RitualManager implements NeedsStoring {
     };
 
     private final MainIngredientAccessor mainIngredientAccessor;
+    private final EnhancerAccessor enhancerAccessor;
 
     private ServerLevel level;
     private BlockPos pos;
@@ -69,8 +73,9 @@ public class RitualManager implements NeedsStoring {
     private int counter;
     private int lightningCounter;
 
-    public RitualManager(MainIngredientAccessor accessor, int forgeTier) {
+    public RitualManager(MainIngredientAccessor accessor, EnhancerAccessor enhancerAccessor, int forgeTier) {
         this.mainIngredientAccessor = accessor;
+        this.enhancerAccessor = enhancerAccessor;
         this.forgeTier = forgeTier;
     }
 
@@ -146,7 +151,19 @@ public class RitualManager implements NeedsStoring {
     }
 
     public boolean canStartRitual(Ritual ritual, EssencesStorage storage) {
-        return storage.hasEnough(ritual.essences()) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
+        List<EnhancerDefinition> enhancers = this.enhancerAccessor.getEnhancers();
+
+        EssencesStorage updatedEssences = ritual.essences().mutable();
+
+        enhancers.forEach(definition -> {
+            definition.effects().forEach(effect -> {
+                if (effect instanceof EssenceModifier modifier) {
+                    updatedEssences.modify(modifier.getEssenceType(), modifier::getModifiedValue);
+                }
+            });
+        });
+
+        return storage.hasEnough(updatedEssences.immutable()) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
     }
 
     public void startRitual(EssencesStorage storage, NamedRitual ritual) {

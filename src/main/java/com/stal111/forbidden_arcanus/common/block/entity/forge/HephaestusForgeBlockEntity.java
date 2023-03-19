@@ -32,6 +32,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Hephaestus Forge Block Entity <br>
@@ -95,7 +97,11 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
 
         HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(state.getValue(HephaestusForgeBlock.TIER));
 
-        this.ritualManager = new RitualManager(new MainSlotAccessor(this), level.getAsInt());
+        this.ritualManager = new RitualManager(new MainSlotAccessor(this), () -> Stream.of(this.getStack(0), this.getStack(1), this.getStack(2), this.getStack(3))
+                .map(stack -> EnhancerCache.get(stack.getItem()))
+                .filter(Optional::isPresent)
+                .map(Optional::orElseThrow)
+                .toList(), level.getAsInt());
         this.essenceManager = new EssenceManager(level.getMaxEssences(), this.ritualManager::updateValidRitual);
 
         this.forgeLevel = ValueNotifier.of(level, forgeTier -> {

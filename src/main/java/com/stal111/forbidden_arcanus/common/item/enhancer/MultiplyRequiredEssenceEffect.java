@@ -35,8 +35,8 @@ public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements Ess
     }
 
     @Override
-    public boolean matches(EssenceType essenceType) {
-        return this.essenceType == essenceType;
+    public EssenceType getEssenceType() {
+        return this.essenceType;
     }
 
     @Override

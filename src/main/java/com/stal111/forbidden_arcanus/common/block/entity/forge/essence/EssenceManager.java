@@ -42,7 +42,7 @@ public class EssenceManager implements NeedsStoring {
     }
 
     public EssencesDefinition getCurrentEssences() {
-        return EssencesDefinition.of(this.getStorage());
+        return this.getStorage().immutable();
     }
 
     public int getEssence(EssenceType type) {

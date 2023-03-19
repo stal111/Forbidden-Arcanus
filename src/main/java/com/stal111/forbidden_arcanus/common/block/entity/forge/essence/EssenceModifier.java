@@ -5,6 +5,11 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
  * @since 2023-02-19
  */
 public interface EssenceModifier {
-    boolean matches(EssenceType essenceType);
+    EssenceType getEssenceType();
+
+    default boolean matches(EssenceType essenceType) {
+        return essenceType == this.getEssenceType();
+    }
+
     int getModifiedValue(int originalValue);
 }

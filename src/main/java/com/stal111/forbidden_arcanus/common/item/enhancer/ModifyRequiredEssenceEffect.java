@@ -35,8 +35,8 @@ public class ModifyRequiredEssenceEffect extends EnhancerEffect implements Essen
     }
 
     @Override
-    public boolean matches(EssenceType essenceType) {
-        return this.essenceType == essenceType;
+    public EssenceType getEssenceType() {
+        return this.essenceType;
     }
 
     @Override
