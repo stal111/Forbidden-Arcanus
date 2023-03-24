@@ -26,6 +26,8 @@ public class LeafCarpetDecorator extends TreeDecorator {
         return decorator.provider;
     }).codec();
 
+    private static final double CARPET_SPAWN_CHANCE = 0.1D;
+
     private final BlockStateProvider provider;
 
     public LeafCarpetDecorator(BlockStateProvider provider) {
@@ -44,8 +46,12 @@ public class LeafCarpetDecorator extends TreeDecorator {
         LevelSimulatedReader level = context.level();
 
         context.leaves().forEach(pos -> {
-            if (random.nextDouble() < 0.1D) {
+            if (random.nextDouble() < CARPET_SPAWN_CHANCE) {
                 BlockPos groundPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos);
+
+                if (groundPos.getY() >= pos.getY()) {
+                    return;
+                }
 
                 if (level.isStateAtPosition(groundPos, state -> state.getMaterial().isReplaceable())
                         && !level.isStateAtPosition(groundPos.below(), state -> state.is(provider.getState(random, groundPos).getBlock()))
