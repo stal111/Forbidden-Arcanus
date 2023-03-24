@@ -1,9 +1,13 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
@@ -55,5 +59,10 @@ public class BlacksmithGavelItem extends PickaxeItem implements RitualStarterIte
     @Override
     public void setRemainingUses(ItemStack stack, int remainingUses) {
         stack.getOrCreateTag().putInt("RemainingRitualUses", remainingUses);
+    }
+
+    @Override
+    public void playAdditionalEffect(Level level, BlockPos pos, Player player) {
+        level.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, ModSounds.BLACKSMITH_GAVEL_RITUAL_START.get(), SoundSource.PLAYERS, 0.85F, level.getRandom().nextFloat() * 0.15F + 0.9F);
     }
 }

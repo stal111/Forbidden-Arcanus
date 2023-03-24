@@ -27,6 +27,11 @@
       "forbidden_arcanus:energy_ball_launch"
     ]
   },
+  "item.blacksmith_gavel.ritual_start": {
+    "sounds": [
+      "forbidden_arcanus:blacksmith_gavel_ritual_start"
+    ]
+  },
   "item.ferrognetic_mixture.apply": {
     "sounds": [
       "forbidden_arcanus:ferrognetic_mixture_apply_1",

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,5 +31,10 @@ public interface RitualStarterItem {
                 }
             });
         }
+
+        this.playAdditionalEffect(level, blockEntity.getBlockPos(), player);
+    }
+
+    default void playAdditionalEffect(Level level, BlockPos pos, Player player) {
     }
 }

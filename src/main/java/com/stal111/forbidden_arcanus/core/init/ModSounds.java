@@ -23,5 +23,6 @@ public class ModSounds implements RegistryClass {
     public static final RegistryObject<SoundEvent> FERROGNETIC_MIXTURE_APPLY = HELPER.register("ferrognetic_mixture_apply", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "item.ferrognetic_mixture.apply")));
     public static final RegistryObject<SoundEvent> CLIBANO_FIRE_CRACKLE = HELPER.register("clibano_fire_crackle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "block.clibano.fire_crackle")));
     public static final RegistryObject<SoundEvent> CLIBANO_SOUL_FIRE_CRACKLE = HELPER.register("clibano_soul_fire_crackle", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "block.clibano.soul_fire_crackle")));
+    public static final RegistryObject<SoundEvent> BLACKSMITH_GAVEL_RITUAL_START = HELPER.register("blacksmith_gavel_ritual_start", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ForbiddenArcanus.MOD_ID, "item.blacksmith_gavel.ritual_start")));
 
 }
