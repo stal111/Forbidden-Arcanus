@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
@@ -45,9 +44,8 @@ public class PedestalBlockEntity extends BlockEntity {
         this.findHephaestusForge(level, this.getBlockPos()).ifPresent(forgePos -> {
             if (level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity blockEntity) {
                 RitualManager ritualManager = blockEntity.getRitualManager();
-                EssencesStorage storage = blockEntity.getEssenceManager().getStorage();
 
-                ritualManager.updateIngredient(this, stack, storage);
+                ritualManager.updateIngredient(this, stack, blockEntity.getEssences());
 
                 if (blockEntity.getRitualManager().isRitualActive()) {
                     ritualManager.failRitual();

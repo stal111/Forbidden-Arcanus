@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
@@ -29,10 +30,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -118,21 +116,21 @@ public class RitualManager implements NeedsStoring {
         started.accept(false);
     }
 
-    public void updateIngredient(PedestalBlockEntity pedestal, ItemStack stack, EssencesStorage storage) {
+    public void updateIngredient(PedestalBlockEntity pedestal, ItemStack stack, EssencesDefinition definition) {
         if (stack.isEmpty()) {
             this.cachedIngredients.remove(pedestal);
         } else {
             this.cachedIngredients.put(pedestal, stack);
         }
 
-        this.updateValidRitual(storage);
+        this.updateValidRitual(definition);
     }
 
-    public void updateValidRitual(EssencesStorage storage) {
+    public void updateValidRitual(EssencesDefinition definition) {
         boolean oldValue = this.validRitual != null;
 
         for (NamedRitual ritual : ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.values()) {
-            if (this.canStartRitual(ritual.get(), storage)) {
+            if (this.canStartRitual(ritual.get(), definition)) {
                 if (!oldValue) {
                     NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.pos), new CreateValidRitualIndicatorPacket(this.pos));
                 }
@@ -150,20 +148,17 @@ public class RitualManager implements NeedsStoring {
         }
     }
 
-    public boolean canStartRitual(Ritual ritual, EssencesStorage storage) {
-        List<EnhancerDefinition> enhancers = this.enhancerAccessor.getEnhancers();
+    public boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
+        List<EssenceModifier> modifiers = this.enhancerAccessor.getEnhancers().stream()
+                .map(EnhancerDefinition::effects)
+                .flatMap(Collection::stream)
+                .filter(effect -> effect instanceof EssenceModifier)
+                .map(effect -> (EssenceModifier) effect)
+                .toList();
 
-        EssencesStorage updatedEssences = ritual.essences().mutable();
+        EssencesDefinition updatedEssences = ritual.essences().applyModifiers(modifiers);
 
-        enhancers.forEach(definition -> {
-            definition.effects().forEach(effect -> {
-                if (effect instanceof EssenceModifier modifier) {
-                    updatedEssences.modify(modifier.getEssenceType(), modifier::getModifiedValue);
-                }
-            });
-        });
-
-        return storage.hasEnough(updatedEssences.immutable()) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
+        return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
     }
 
     public void startRitual(EssencesStorage storage, NamedRitual ritual) {
@@ -174,13 +169,13 @@ public class RitualManager implements NeedsStoring {
         storage.reduce(ritual.get().essences());
     }
 
-    public void tick(EssencesStorage storage) {
+    public void tick(EssencesDefinition definition) {
         if (!this.loaded && this.level != null) {
             for (Vec3i vec3i : PEDESTAL_OFFSETS) {
                 BlockPos offsetPos = pos.offset(vec3i);
 
                 if (level.getBlockEntity(offsetPos) instanceof PedestalBlockEntity blockEntity && !blockEntity.getStack().isEmpty()) {
-                    this.updateIngredient(blockEntity, blockEntity.getStack(), storage);
+                    this.updateIngredient(blockEntity, blockEntity.getStack(), definition);
                 }
             }
 

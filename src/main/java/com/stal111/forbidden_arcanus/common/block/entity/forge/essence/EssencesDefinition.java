@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 
 /**
@@ -36,7 +37,34 @@ public record EssencesDefinition(int aureal, int souls, int blood, int experienc
         }
     }
 
+    public boolean hasMoreThan(EssencesDefinition definition) {
+        for (EssenceType type : EssenceType.values()) {
+            if (this.get(type) < definition.get(type)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public EssencesDefinition applyModifiers(List<EssenceModifier> modifiers) {
+        EssencesStorage storage = this.mutable();
+
+        storage.applyModifiers(modifiers);
+
+        return storage.immutable();
+    }
+
     public EssencesStorage mutable() {
         return new EssencesStorage(this.aureal, this.souls, this.blood, this.experience);
+    }
+
+    @Override
+    public String toString() {
+        return "EssencesDefinition{" +
+                "aureal=" + this.aureal +
+                ", souls=" + this.souls +
+                ", blood=" + this.blood +
+                ", experience=" + this.experience +
+                '}';
     }
 }

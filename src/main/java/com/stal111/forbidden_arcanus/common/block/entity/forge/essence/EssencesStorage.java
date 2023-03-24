@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 /**
@@ -25,15 +26,6 @@ public class EssencesStorage extends EnumMap<EssenceType, Integer> {
         this.put(EssenceType.EXPERIENCE, experience);
     }
 
-    public boolean hasEnough(EssencesDefinition definition) {
-        for (EssenceType type : EssenceType.values()) {
-            if (this.getOrDefault(type, 0) < definition.get(type)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void reduce(EssencesDefinition definition) {
         definition.forEach((type, integer) -> {
             this.put(type, this.getOrDefault(type, 0) - integer);
@@ -47,6 +39,12 @@ public class EssencesStorage extends EnumMap<EssenceType, Integer> {
 
     public void modify(EssenceType type, UnaryOperator<Integer> modifier) {
         this.put(type, modifier.apply(this.get(type)));
+    }
+
+    public void applyModifiers(List<EssenceModifier> modifiers) {
+        for (EssenceModifier modifier : modifiers) {
+            this.modify(modifier.getEssenceType(), modifier::getModifiedValue);
+        }
     }
 
     public EssencesDefinition immutable() {
