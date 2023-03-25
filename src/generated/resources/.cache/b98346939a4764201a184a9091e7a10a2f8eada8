@@ -1,4 +1,4 @@
-// 1.19.3	2023-03-04T17:44:56.5932297	Tags for minecraft:item mod id forbidden_arcanus
+// 1.19.3	2023-03-24T17:51:29.1740481	Tags for minecraft:item mod id forbidden_arcanus
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 15934456b6a5c4baa26b521dac8e9ec371c2b006 data/forbidden_arcanus/tags/items/black_hole_unaffected.json
@@ -14,6 +14,7 @@ a5e30235f64ca727e45ad31a505dbf74f45d0173 data/forbidden_arcanus/tags/items/magic
 699bb22c9dfbcdb67d25103de6d6a1fdb85bb8ab data/forbidden_arcanus/tags/items/obsidian_skulls.json
 6bad7bf83d77b4ebde060a958a1ff43c76549380 data/forbidden_arcanus/tags/items/rune_blocks.json
 321796da77cb8905e7a9b8b3c8413298f0cb9bfe data/forbidden_arcanus/tags/items/runic_stones.json
+6fb3d7581a6715ccf47a2ad0dc47775e8c306940 data/forge/tags/items/explosion_resistant.json
 be2dcd8e24679f2589dbf401a3c118f053ab6090 data/forge/tags/items/feathers.json
 dede7185ec43aded455e35dd42747c108df55709 data/forge/tags/items/fences/wooden.json
 ed2b92ec859a4cf09abd750ec7709cd90649352f data/forge/tags/items/fence_gates/wooden.json
