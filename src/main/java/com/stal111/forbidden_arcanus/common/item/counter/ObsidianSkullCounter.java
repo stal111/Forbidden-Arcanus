@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item.counter;
 
-import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
@@ -21,12 +20,14 @@ public class ObsidianSkullCounter extends SerializableCounter {
     @Override
     public void tick(CompoundTag tag) {
         String damageSource = tag.getString("DamageSource");
-        boolean flag = ObsidianSkullItem.DAMAGE_SOURCES.stream().anyMatch(source -> source.getMsgId().equals(damageSource));
 
-        if (flag && this.getValue() < ObsidianSkullItem.OBSIDIAN_SKULL_PROTECTION_TIME) {
-            this.increase();
-        } else if (!flag && this.getValue() > 0) {
-            this.decrease();
-        }
+        //TODO
+//        boolean flag = ObsidianSkullItem.DAMAGE_SOURCES.stream().anyMatch(source -> source.getMsgId().equals(damageSource));
+//
+//        if (flag && this.getValue() < ObsidianSkullItem.OBSIDIAN_SKULL_PROTECTION_TIME) {
+//            this.increase();
+//        } else if (!flag && this.getValue() > 0) {
+//            this.decrease();
+//        }
     }
 }

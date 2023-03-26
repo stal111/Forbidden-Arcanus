@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.renderer.item.ObsidianSkullItemRenderer;
 import com.stal111.forbidden_arcanus.common.item.counter.ObsidianSkullCounter;
@@ -16,6 +15,7 @@ import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -30,7 +30,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.NonNullLazy;
-import net.valhelsia.valhelsia_core.common.capability.counter.*;
+import net.valhelsia.valhelsia_core.common.capability.counter.CounterCapability;
+import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
+import net.valhelsia.valhelsia_core.common.capability.counter.CounterImpl;
+import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
 import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
 
 import javax.annotation.Nonnull;
@@ -47,8 +50,6 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
     public static final int OBSIDIAN_SKULL_PROTECTION_TIME = 600;
 
     private static final ResourceLocation COUNTER = new ResourceLocation(ForbiddenArcanus.MOD_ID, "tick_counter");
-
-    public static final List<DamageSource> DAMAGE_SOURCES = ImmutableList.of(DamageSource.LAVA, DamageSource.IN_FIRE, DamageSource.ON_FIRE, DamageSource.HOT_FLOOR);
 
     private final boolean eternal;
 
@@ -91,7 +92,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
     }
 
     public static boolean shouldProtectFromDamage(DamageSource damageSource, Inventory inventory) {
-        if (!DAMAGE_SOURCES.contains(damageSource)) {
+        if (!damageSource.is(DamageTypeTags.IS_FIRE)) {
             return false;
         }
 

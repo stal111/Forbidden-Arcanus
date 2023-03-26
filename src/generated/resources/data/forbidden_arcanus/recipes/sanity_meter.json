@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:sanity_meter"
-  }
+  },
+  "show_notification": true
 }

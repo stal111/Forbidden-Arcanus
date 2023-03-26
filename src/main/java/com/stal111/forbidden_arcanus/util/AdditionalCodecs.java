@@ -21,7 +21,7 @@ public class AdditionalCodecs {
             try {
                 return DataResult.success(Ingredient.fromJson(ops.convertTo(JsonOps.INSTANCE, input)));
             } catch (JsonParseException e) {
-                return DataResult.error("Failed to parse Ingredient: " + e.getMessage());
+                return DataResult.error(() -> "Failed to parse Ingredient: " + e.getMessage());
             }
         }
 
@@ -37,7 +37,7 @@ public class AdditionalCodecs {
             try {
                 return DataResult.success(Component.Serializer.fromJson(ops.convertTo(JsonOps.INSTANCE, input)));
             } catch (JsonParseException e) {
-                return DataResult.error("Failed to parse Component: " + e.getMessage());
+                return DataResult.error(() -> "Failed to parse Component: " + e.getMessage());
             }
         }
 

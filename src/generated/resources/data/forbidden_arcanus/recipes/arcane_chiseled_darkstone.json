@@ -17,5 +17,6 @@
   "result": {
     "count": 8,
     "item": "forbidden_arcanus:arcane_chiseled_darkstone"
-  }
+  },
+  "show_notification": true
 }

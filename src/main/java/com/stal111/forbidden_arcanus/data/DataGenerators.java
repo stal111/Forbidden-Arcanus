@@ -51,12 +51,15 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ParticleDataProvider(info));
 
         // Server Providers
+        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(info), Set.of(ForbiddenArcanus.MOD_ID)));
+
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(info);
         generator.addProvider(event.includeServer(), blockTagsProvider);
-        generator.addProvider(event.includeServer(), new ModItemTagsProvider(info, blockTagsProvider));
+        generator.addProvider(event.includeServer(), new ModItemTagsProvider(info, blockTagsProvider.contentsGetter()));
         generator.addProvider(event.includeServer(), new ModEnchantmentTagsProvider(info));
         generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(info));
         generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(info));
+        generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(info));
 
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
 
@@ -64,7 +67,5 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new RitualDataProvider(info));
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(output));
-
-        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(info), Set.of(ForbiddenArcanus.MOD_ID)));
     }
 }

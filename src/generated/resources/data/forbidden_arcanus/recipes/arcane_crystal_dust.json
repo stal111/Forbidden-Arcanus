@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:arcane_crystal_dust"
-  }
+  },
+  "show_notification": true
 }

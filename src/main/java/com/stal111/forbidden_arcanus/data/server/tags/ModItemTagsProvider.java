@@ -9,10 +9,12 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.data.tags.ValhelsiaBlockTagsProvider;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Mod Item Tags Provider <br>
@@ -23,8 +25,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ModItemTagsProvider extends ItemTagsProvider {
 
-    public ModItemTagsProvider(DataProviderInfo info, ValhelsiaBlockTagsProvider blockTagsProvider) {
-        super(info.output(), info.lookupProvider(), blockTagsProvider, ForbiddenArcanus.MOD_ID, info.fileHelper());
+    public ModItemTagsProvider(DataProviderInfo info, CompletableFuture<TagLookup<Block>> blockTagsLookup) {
+        super(info.output(), info.lookupProvider(), blockTagsLookup, ForbiddenArcanus.MOD_ID, info.fileHelper());
     }
 
     @Override

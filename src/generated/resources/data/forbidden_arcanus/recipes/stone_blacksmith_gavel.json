@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:stone_blacksmith_gavel"
-  }
+  },
+  "show_notification": true
 }

@@ -14,5 +14,6 @@
   "result": {
     "count": 3,
     "item": "forbidden_arcanus:fungyss_hyphae"
-  }
+  },
+  "show_notification": true
 }

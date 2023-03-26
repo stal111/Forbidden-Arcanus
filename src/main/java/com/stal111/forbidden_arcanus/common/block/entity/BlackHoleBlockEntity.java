@@ -3,11 +3,9 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -17,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class BlackHoleBlockEntity extends BlockEntity {
                 continue;
             }
 
-            double distance = entity.position().distanceTo(ModUtils.blockPosToVector(pos, 0.5));
+            double distance = entity.position().distanceTo(pos.getCenter());
             double movementFactor = blockEntity.getMovementFactor(distance);
 
             entity.push((pos.getX() + 0.5 - entity.getX()) * movementFactor, (pos.getY() + 0.5 - entity.getY() + 1.25) * movementFactor, (pos.getZ() + 0.5 - entity.getZ()) * movementFactor);
@@ -79,12 +78,12 @@ public class BlackHoleBlockEntity extends BlockEntity {
                     blockEntity.stored_xp += experienceOrb.getValue();
 
                     if (blockEntity.stored_xp >= 60) {
-                        blockEntity.throwOutItemStack(level, new ItemStack(ModItems.XPETRIFIED_ORB.get()), pos);
+                        blockEntity.throwOutItemStack(level, new ItemStack(ModItems.XPETRIFIED_ORB.get()), pos.getCenter());
                         blockEntity.stored_xp = 0;
                     }
                     experienceOrb.kill();
                 } else {
-                    entity.hurt(DamageSource.MAGIC, 4);
+                    entity.hurt(level.damageSources().magic(), 4);
                 }
             }
         }
@@ -96,11 +95,9 @@ public class BlackHoleBlockEntity extends BlockEntity {
         return !this.thrownOutItems.contains(entity) && !entity.getItem().is(ModTags.Items.BLACK_HOLE_UNAFFECTED);
     }
 
-    private void throwOutItemStack(Level level, ItemStack stack, BlockPos pos) {
-        pos = pos.offset(0.5D, 0.5D, 0.5D);
-
-        ItemEntity item = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
-        Player nearestPlayer = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), PLAYER_SEARCH_DISTANCE, false);
+    private void throwOutItemStack(Level level, ItemStack stack, Vec3 pos) {
+        ItemEntity item = new ItemEntity(level, pos.x(), pos.y(), pos.z(), stack);
+        Player nearestPlayer = level.getNearestPlayer(pos.x(), pos.y(), pos.z(), PLAYER_SEARCH_DISTANCE, false);
 
         if (nearestPlayer == null) {
             this.setRandomVelocity(item, level.getRandom());

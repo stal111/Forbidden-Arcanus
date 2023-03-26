@@ -9,8 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.UpgradeRecipe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,18 +21,17 @@ import java.util.List;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.integration.ApplyModifierRecipeMaker
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-11-30
  */
 public class ApplyModifierRecipeMaker {
 
-    public static List<UpgradeRecipe> getRecipes() {
+    public static List<LegacyUpgradeRecipe> getRecipes() {
         ClientLevel level = Minecraft.getInstance().level;
 
         if (level == null) {
             return Collections.emptyList();
         }
-        List<UpgradeRecipe> recipes = new ArrayList<>();
+        List<LegacyUpgradeRecipe> recipes = new ArrayList<>();
 
         level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream()
                 .filter(upgradeRecipe -> upgradeRecipe.getSerializer() == ModRecipes.APPLY_MODIFIER.get())
@@ -44,7 +43,7 @@ public class ApplyModifierRecipeMaker {
                     modifier.getValidItems().forEach(stack -> {
                         ModifierHelper.setModifier(stack, modifier);
 
-                        recipes.add(new UpgradeRecipe(id, Ingredient.of(stack.getItem()), applyModifierRecipe.getAddition(), stack));
+                        recipes.add(new LegacyUpgradeRecipe(id, Ingredient.of(stack.getItem()), applyModifierRecipe.getAddition(), stack));
                     });
                 });
         return recipes;

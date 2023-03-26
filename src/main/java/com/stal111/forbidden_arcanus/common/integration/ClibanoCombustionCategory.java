@@ -114,7 +114,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         }
 
         builder.addSlot(OUTPUT, 97, 35)
-                .addItemStack(recipe.getResultItem());
+                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     private IDrawableAnimated getArrow(ClibanoRecipe recipe) {

@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:dark_rune_block"
-  }
+  },
+  "show_notification": true
 }

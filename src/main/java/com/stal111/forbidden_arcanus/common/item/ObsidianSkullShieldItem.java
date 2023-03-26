@@ -11,6 +11,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -91,7 +92,7 @@ public class ObsidianSkullShieldItem extends Item {
     }
 
     public static boolean shouldProtectFromDamage(DamageSource damageSource, Inventory inventory) {
-        if (!ObsidianSkullItem.DAMAGE_SOURCES.contains(damageSource)) {
+        if (!damageSource.is(DamageTypeTags.IS_FIRE)) {
             return false;
         }
 

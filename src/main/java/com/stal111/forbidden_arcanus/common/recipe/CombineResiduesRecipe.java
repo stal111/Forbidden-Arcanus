@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -36,7 +37,7 @@ public class CombineResiduesRecipe extends CustomRecipe {
 
     @Nonnull
     @Override
-    public ItemStack assemble(@Nonnull CraftingContainer container) {
+    public ItemStack assemble(@Nonnull CraftingContainer container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -61,7 +62,7 @@ public class CombineResiduesRecipe extends CustomRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return this.result;
     }
 

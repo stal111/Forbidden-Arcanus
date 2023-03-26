@@ -58,7 +58,7 @@ public class ObsidianSkullOverlay extends GuiComponent implements IGuiOverlay {
 
         GuiComponent.blit(poseStack, posX, posY, 0, 0, 0, 57, 25, 64, 32);
 
-        minecraft.getItemRenderer().renderAndDecorateItem(stack, posX + 5, (int) (posY + 5.5F));
+        minecraft.getItemRenderer().renderAndDecorateItem(poseStack, stack, posX + 5, (int) (posY + 5.5F));
 
         minecraft.font.draw(poseStack, StringUtil.formatTickDuration(ObsidianSkullItem.OBSIDIAN_SKULL_PROTECTION_TIME - value), posX + 27.0F, posY + 9, color.getColor());
 

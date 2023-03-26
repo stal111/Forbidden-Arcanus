@@ -45,7 +45,7 @@ public class FlightTimerOverlay extends GuiComponent implements IGuiOverlay {
 
                 GuiComponent.blit(poseStack, posX, posY, 0, 0, 0, 57, 25, 64, 32);
 
-                minecraft.getItemRenderer().renderAndDecorateItem(ModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
+                minecraft.getItemRenderer().renderAndDecorateItem(poseStack, ModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
 
                 float i = counter.getValue() < 12000 ? 27.0F : 25.5F;
 

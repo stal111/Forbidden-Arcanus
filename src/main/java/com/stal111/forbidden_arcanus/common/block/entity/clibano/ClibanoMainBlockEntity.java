@@ -11,6 +11,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -162,8 +163,10 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         ClibanoFireType newFireType = blockEntity.getFireTypeFromInput();
         ClibanoFireType currentHighestType = newFireType.ordinal() > blockEntity.fireType.ordinal() ? newFireType : blockEntity.fireType;
 
-        boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(firstRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
-        boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(secondRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
+        RegistryAccess registryAccess = level.registryAccess();
+
+        boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(registryAccess, firstRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
+        boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(registryAccess, secondRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
 
         RandomSource random = level.getRandom();
 
@@ -226,7 +229,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
             blockEntity.cookingProgressFirst++;
 
             if (blockEntity.cookingProgressFirst == blockEntity.cookingDurationFirst) {
-                blockEntity.finishRecipe(firstRecipe, random, ClibanoMenu.INPUT_SLOTS.getFirst());
+                blockEntity.finishRecipe(registryAccess, firstRecipe, random, ClibanoMenu.INPUT_SLOTS.getFirst());
             }
 
             blockEntity.setChanged();
@@ -240,7 +243,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
             blockEntity.cookingProgressSecond++;
 
             if (blockEntity.cookingProgressSecond == blockEntity.cookingDurationSecond) {
-                blockEntity.finishRecipe(secondRecipe, random, ClibanoMenu.INPUT_SLOTS.getSecond());
+                blockEntity.finishRecipe(registryAccess, secondRecipe, random, ClibanoMenu.INPUT_SLOTS.getSecond());
             }
 
             blockEntity.setChanged();
@@ -285,12 +288,12 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
      * @param slot     the input slot to check
      * @return true if the recipe can be used
      */
-    private boolean canBurn(ClibanoRecipe recipe, ClibanoFireType fireType, int maxCount, int slot) {
+    private boolean canBurn(RegistryAccess registryAccess, ClibanoRecipe recipe, ClibanoFireType fireType, int maxCount, int slot) {
         if (this.getStack(slot).isEmpty()) {
             return false;
         }
 
-        ItemStack stack = recipe.getResultItem();
+        ItemStack stack = recipe.getResultItem(registryAccess);
 
         if (stack.isEmpty() || fireType.ordinal() < recipe.getRequiredFireType().ordinal()) {
             return false;
@@ -320,8 +323,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
      * @param random the random instance
      * @param slot   the slot where the recipe input was placed in
      */
-    private void finishRecipe(ClibanoRecipe recipe, RandomSource random, int slot) {
-        ItemStack stack = recipe.getResultItem();
+    private void finishRecipe(RegistryAccess registryAccess, ClibanoRecipe recipe, RandomSource random, int slot) {
+        ItemStack stack = recipe.getResultItem(registryAccess);
 
         this.getStack(slot).shrink(1);
 

@@ -15,5 +15,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:edelwood_fence_gate"
-  }
+  },
+  "show_notification": true
 }

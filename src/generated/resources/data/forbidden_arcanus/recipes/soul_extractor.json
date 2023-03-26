@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:soul_extractor"
-  }
+  },
+  "show_notification": true
 }

@@ -14,5 +14,6 @@
   "result": {
     "count": 3,
     "item": "forbidden_arcanus:stripped_aurum_wood"
-  }
+  },
+  "show_notification": true
 }

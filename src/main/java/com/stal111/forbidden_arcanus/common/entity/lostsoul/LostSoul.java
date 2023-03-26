@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModMemoryModules;
 import com.stal111.forbidden_arcanus.core.init.other.ModActivities;
-import com.stal111.forbidden_arcanus.core.init.other.ModDamageSources;
+import com.stal111.forbidden_arcanus.data.ModDamageTypes;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -101,7 +101,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     @Override
     protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
-        if (source.getMsgId().equals(ModDamageSources.ID_EXTRACT_SOUL)) {
+        if (source.is(ModDamageTypes.EXTRACT_SOUL)) {
             super.actuallyHurt(source, amount);
         }
     }
@@ -326,10 +326,10 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     public void extractTick(Player player) {
         this.extractCounter = EXTRACT_STUNNED_TIME;
 
-        this.hurt(ModDamageSources.extractSoul(player), EXTRACT_DAMAGE);
+        this.hurt(this.level.damageSources().source(ModDamageTypes.EXTRACT_SOUL), EXTRACT_DAMAGE);
 
         if (this.isDeadOrDying()) {
-            this.level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY(), this.getZ(), this.getSoulItem()));
+            this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getSoulItem()));
         }
     }
 

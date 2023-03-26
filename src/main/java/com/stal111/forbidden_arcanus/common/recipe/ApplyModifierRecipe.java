@@ -6,15 +6,17 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -24,10 +26,9 @@ import java.util.Objects;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-11-29
  */
-public class ApplyModifierRecipe extends UpgradeRecipe {
+public class ApplyModifierRecipe extends LegacyUpgradeRecipe {
 
     private final ItemModifier modifier;
     private final Ingredient addition;
@@ -48,7 +49,7 @@ public class ApplyModifierRecipe extends UpgradeRecipe {
 
     @Nonnull
     @Override
-    public ItemStack assemble(@Nonnull Container inv) {
+    public ItemStack assemble(@Nonnull Container inv, @NotNull RegistryAccess registryAccess) {
         ItemStack stack = inv.getItem(0).copy();
 
         ModifierHelper.setModifier(stack, this.modifier);
@@ -58,7 +59,7 @@ public class ApplyModifierRecipe extends UpgradeRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 

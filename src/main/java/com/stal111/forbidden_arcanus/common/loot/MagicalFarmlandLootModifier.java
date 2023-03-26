@@ -50,7 +50,7 @@ public class MagicalFarmlandLootModifier extends LootModifier {
             return generatedLoot;
         }
 
-        if (level.getBlockState(new BlockPos(pos).below()).is(ModBlocks.MAGICAL_FARMLAND.get())) {
+        if (level.getBlockState(BlockPos.containing(pos).below()).is(ModBlocks.MAGICAL_FARMLAND.get())) {
             if (state.getBlock() instanceof CropBlock crop && !crop.isMaxAge(state)) {
                 return generatedLoot;
             }

@@ -9,7 +9,6 @@ import com.stal111.forbidden_arcanus.common.block.grower.MysterywoodTreeGrower;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -17,6 +16,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.valhelsia.valhelsia_core.client.util.ValhelsiaRenderType;
@@ -45,8 +45,8 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryObject<SlabBlock> POLISHED_DARKSTONE_SLAB = HELPER.create("polished_darkstone_slab", () -> new SlabBlock(Block.Properties.copy(Blocks.STONE_SLAB).strength(4.5F, 8.0F))).withItem();
     public static final BlockRegistryObject<StairBlock> POLISHED_DARKSTONE_STAIRS = HELPER.create("polished_darkstone_stairs", () -> new StairBlock(() -> POLISHED_DARKSTONE.get().defaultBlockState(), Block.Properties.copy(Blocks.STONE_STAIRS).strength(4.5F, 8.0F))).withItem();
     public static final BlockRegistryObject<WallBlock> POLISHED_DARKSTONE_WALL = HELPER.create("polished_darkstone_wall", () -> new WallBlock(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
-    public static final BlockRegistryObject<PressurePlateBlock> POLISHED_DARKSTONE_PRESSURE_PLATE = HELPER.create("polished_darkstone_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_PRESSURE_PLATE).strength(0.5F), SoundEvents.STONE_PRESSURE_PLATE_CLICK_OFF, SoundEvents.STONE_PRESSURE_PLATE_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<ButtonBlock> POLISHED_DARKSTONE_BUTTON = HELPER.create("polished_darkstone_button", () -> new ButtonBlock(Block.Properties.copy(Blocks.STONE_BUTTON).strength(0.5F), 20, false, SoundEvents.STONE_BUTTON_CLICK_OFF, SoundEvents.STONE_BUTTON_CLICK_ON)).withItem();
+    public static final BlockRegistryObject<PressurePlateBlock> POLISHED_DARKSTONE_PRESSURE_PLATE = HELPER.create("polished_darkstone_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, Block.Properties.copy(Blocks.STONE_PRESSURE_PLATE).strength(0.5F), BlockSetType.STONE)).withItem();
+    public static final BlockRegistryObject<ButtonBlock> POLISHED_DARKSTONE_BUTTON = HELPER.create("polished_darkstone_button", () -> new ButtonBlock(Block.Properties.copy(Blocks.STONE_BUTTON).strength(0.5F), BlockSetType.STONE, 20, false)).withItem();
     public static final BlockRegistryObject<Block> CHISELED_POLISHED_DARKSTONE = HELPER.create("chiseled_polished_darkstone", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final BlockRegistryObject<RunicChiseledPolishedDarkstone> RUNIC_CHISELED_POLISHED_DARKSTONE = HELPER.create("runic_chiseled_polished_darkstone", () -> new RunicChiseledPolishedDarkstone(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
@@ -179,52 +179,52 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryObject<StairBlock> EDELWOOD_STAIRS = HELPER.create("edelwood_stairs", () -> new StairBlock(() -> ModBlocks.EDELWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS))).withItem();
 
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<DoorBlock> DEORUM_DOOR = HELPER.create("deorum_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion(), SoundEvents.IRON_DOOR_CLOSE, SoundEvents.IRON_DOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<DoorBlock> DEORUM_DOOR = HELPER.create("deorum_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion(), BlockSetType.GOLD)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<DoorBlock> FUNGYSS_DOOR = HELPER.create("fungyss_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<DoorBlock> FUNGYSS_DOOR = HELPER.create("fungyss_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), BlockSetTypes.FUNGYSS)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<DoorBlock> CHERRY_DOOR = HELPER.create("cherry_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<DoorBlock> CHERRY_DOOR = HELPER.create("cherry_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), BlockSetTypes.CHERRY)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<DoorBlock> AURUM_DOOR = HELPER.create("aurum_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<DoorBlock> AURUM_DOOR = HELPER.create("aurum_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), BlockSetTypes.AURUM)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<DoorBlock> EDELWOOD_DOOR = HELPER.create("edelwood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<DoorBlock> EDELWOOD_DOOR = HELPER.create("edelwood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), BlockSetTypes.EDELWOOD)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<DoorBlock> ARCANE_EDELWOOD_DOOR = HELPER.create("arcane_edelwood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<DoorBlock> ARCANE_EDELWOOD_DOOR = HELPER.create("arcane_edelwood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), BlockSetTypes.EDELWOOD)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<TrapDoorBlock> DEORUM_TRAPDOOR = HELPER.create("deorum_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion().isValidSpawn(ModBlocks::never), SoundEvents.IRON_TRAPDOOR_CLOSE, SoundEvents.IRON_TRAPDOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<TrapDoorBlock> DEORUM_TRAPDOOR = HELPER.create("deorum_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD).requiresCorrectToolForDrops().strength(3.0F).sound(SoundType.METAL).noOcclusion().isValidSpawn(ModBlocks::never), BlockSetType.GOLD)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<TrapDoorBlock> FUNGYSS_TRAPDOOR = HELPER.create("fungyss_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<TrapDoorBlock> FUNGYSS_TRAPDOOR = HELPER.create("fungyss_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), BlockSetTypes.FUNGYSS)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<TrapDoorBlock> CHERRY_TRAPDOOR = HELPER.create("cherry_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<TrapDoorBlock> CHERRY_TRAPDOOR = HELPER.create("cherry_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), BlockSetTypes.CHERRY)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<TrapDoorBlock> AURUM_TRAPDOOR = HELPER.create("aurum_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<TrapDoorBlock> AURUM_TRAPDOOR = HELPER.create("aurum_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), BlockSetTypes.AURUM)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<TrapDoorBlock> EDELWOOD_TRAPDOOR = HELPER.create("edelwood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<TrapDoorBlock> EDELWOOD_TRAPDOOR = HELPER.create("edelwood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), BlockSetTypes.EDELWOOD)).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
-    public static final BlockRegistryObject<TrapDoorBlock> ARCANE_EDELWOOD_TRAPDOOR = HELPER.create("arcane_edelwood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN)).withItem();
+    public static final BlockRegistryObject<TrapDoorBlock> ARCANE_EDELWOOD_TRAPDOOR = HELPER.create("arcane_edelwood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn(ModBlocks::never), BlockSetTypes.EDELWOOD)).withItem();
     public static final BlockRegistryObject<FenceBlock> FUNGYSS_FENCE = HELPER.create("fungyss_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD))).withItem();
     public static final BlockRegistryObject<FenceBlock> CHERRY_FENCE = HELPER.create("cherry_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE))).withItem();
     public static final BlockRegistryObject<FenceBlock> AURUM_FENCE = HELPER.create("aurum_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE))).withItem();
     public static final BlockRegistryObject<FenceBlock> EDELWOOD_FENCE = HELPER.create("edelwood_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE))).withItem();
-    public static final BlockRegistryObject<FenceGateBlock> FUNGYSS_FENCE_GATE = HELPER.create("fungyss_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD), SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN)).withItem();
-    public static final BlockRegistryObject<FenceGateBlock> CHERRY_FENCE_GATE = HELPER.create("cherry_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN)).withItem();
-    public static final BlockRegistryObject<FenceGateBlock> AURUM_FENCE_GATE = HELPER.create("aurum_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN)).withItem();
-    public static final BlockRegistryObject<FenceGateBlock> EDELWOOD_FENCE_GATE = HELPER.create("edelwood_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), SoundEvents.FENCE_GATE_CLOSE, SoundEvents.FENCE_GATE_OPEN)).withItem();
+    public static final BlockRegistryObject<FenceGateBlock> FUNGYSS_FENCE_GATE = HELPER.create("fungyss_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD), ModWoodTypes.FUNGYSS)).withItem();
+    public static final BlockRegistryObject<FenceGateBlock> CHERRY_FENCE_GATE = HELPER.create("cherry_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ModWoodTypes.CHERRY)).withItem();
+    public static final BlockRegistryObject<FenceGateBlock> AURUM_FENCE_GATE = HELPER.create("aurum_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ModWoodTypes.AURUM)).withItem();
+    public static final BlockRegistryObject<FenceGateBlock> EDELWOOD_FENCE_GATE = HELPER.create("edelwood_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ModWoodTypes.EDELWOOD)).withItem();
     public static final Pair<BlockRegistryObject<ValhelsiaStandingSignBlock>, BlockRegistryObject<ValhelsiaWallSignBlock>> FUNGYSS_SIGN  = HELPER.createSignBlock("fungyss", MaterialColor.WOOL, ModWoodTypes.FUNGYSS);
     public static final Pair<BlockRegistryObject<ValhelsiaStandingSignBlock>, BlockRegistryObject<ValhelsiaWallSignBlock>> CHERRY_SIGN = HELPER.createSignBlock("cherry", MaterialColor.COLOR_PINK, ModWoodTypes.CHERRY);
     public static final Pair<BlockRegistryObject<ValhelsiaStandingSignBlock>, BlockRegistryObject<ValhelsiaWallSignBlock>> AURUM_SIGN = HELPER.createSignBlock("aurum", MaterialColor.COLOR_BROWN, ModWoodTypes.AURUM);
     public static final Pair<BlockRegistryObject<ValhelsiaStandingSignBlock>, BlockRegistryObject<ValhelsiaWallSignBlock>> EDELWOOD_SIGN  = HELPER.createSignBlock("edelwood", MaterialColor.COLOR_BROWN, ModWoodTypes.EDELWOOD);
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final BlockRegistryObject<LadderBlock> EDELWOOD_LADDER = HELPER.create("edelwood_ladder", () -> new LadderBlock(BlockBehaviour.Properties.copy(Blocks.LADDER))).withItem();
-    public static final BlockRegistryObject<ButtonBlock> FUNGYSS_BUTTON = HELPER.create("fungyss_button", () -> new ButtonBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD), 30, true, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<ButtonBlock> CHERRY_BUTTON = HELPER.create("cherry_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), 30, true, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<ButtonBlock> AURUM_BUTTON = HELPER.create("aurum_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), 30, true, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<ButtonBlock> EDELWOOD_BUTTON = HELPER.create("edelwood_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), 30, true, SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<PressurePlateBlock> DEORUM_PRESSURE_PLATE = HELPER.create("deorum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<PressurePlateBlock> FUNGYSS_PRESSURE_PLATE = HELPER.create("fungyss_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD), SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<PressurePlateBlock> CHERRY_PRESSURE_PLATE = HELPER.create("cherry_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<PressurePlateBlock> AURUM_PRESSURE_PLATE = HELPER.create("aurum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON)).withItem();
-    public static final BlockRegistryObject<PressurePlateBlock> EDELWOOD_PRESSURE_PLATE = HELPER.create("edelwood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON)).withItem();
+    public static final BlockRegistryObject<ButtonBlock> FUNGYSS_BUTTON = HELPER.create("fungyss_button", () -> new ButtonBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD), BlockSetTypes.FUNGYSS, 30, true)).withItem();
+    public static final BlockRegistryObject<ButtonBlock> CHERRY_BUTTON = HELPER.create("cherry_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), BlockSetTypes.CHERRY, 30, true)).withItem();
+    public static final BlockRegistryObject<ButtonBlock> AURUM_BUTTON = HELPER.create("aurum_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), BlockSetTypes.AURUM, 30, true)).withItem();
+    public static final BlockRegistryObject<ButtonBlock> EDELWOOD_BUTTON = HELPER.create("edelwood_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON), BlockSetTypes.EDELWOOD, 30, true)).withItem();
+    public static final BlockRegistryObject<PressurePlateBlock> DEORUM_PRESSURE_PLATE = HELPER.create("deorum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE), BlockSetType.GOLD)).withItem();
+    public static final BlockRegistryObject<PressurePlateBlock> FUNGYSS_PRESSURE_PLATE = HELPER.create("fungyss_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOL).strength(2.0F, 3.0F).sound(SoundType.WOOD), BlockSetTypes.FUNGYSS)).withItem();
+    public static final BlockRegistryObject<PressurePlateBlock> CHERRY_PRESSURE_PLATE = HELPER.create("cherry_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), BlockSetTypes.CHERRY)).withItem();
+    public static final BlockRegistryObject<PressurePlateBlock> AURUM_PRESSURE_PLATE = HELPER.create("aurum_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), BlockSetTypes.AURUM)).withItem();
+    public static final BlockRegistryObject<PressurePlateBlock> EDELWOOD_PRESSURE_PLATE = HELPER.create("edelwood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE), BlockSetTypes.EDELWOOD)).withItem();
 
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final BlockRegistryObject<HephaestusForgeBlock> HEPHAESTUS_FORGE = HELPER.create("hephaestus_forge", () -> new HephaestusForgeBlock(Block.Properties.copy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion())).withItem();
@@ -277,5 +277,13 @@ public class ModBlocks implements RegistryClass {
     public static class Materials {
         public static final Material DARK_NETHER_STAR = (new Material.Builder(MaterialColor.COLOR_PURPLE)).build();
         public static final Material RUNE = (new Material.Builder(MaterialColor.COLOR_MAGENTA)).build();
+    }
+
+    public static class BlockSetTypes {
+        public static final BlockSetType FUNGYSS = BlockSetType.register(new BlockSetType("fungyss"));
+        public static final BlockSetType CHERRY = BlockSetType.register(new BlockSetType("cherry"));
+        public static final BlockSetType AURUM = BlockSetType.register(new BlockSetType("aurum"));
+        public static final BlockSetType EDELWOOD = BlockSetType.register(new BlockSetType("edelwood"));
+
     }
 }

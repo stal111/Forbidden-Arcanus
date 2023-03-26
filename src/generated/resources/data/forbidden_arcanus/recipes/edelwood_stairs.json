@@ -15,5 +15,6 @@
   "result": {
     "count": 4,
     "item": "forbidden_arcanus:edelwood_stairs"
-  }
+  },
+  "show_notification": true
 }

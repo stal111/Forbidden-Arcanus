@@ -13,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "forbidden_arcanus:aurum_slab"
-  }
+  },
+  "show_notification": true
 }

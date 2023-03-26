@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.core.registry;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
+import com.stal111.forbidden_arcanus.data.ModDamageTypes;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
 import com.stal111.forbidden_arcanus.data.worldgen.modifier.ModBiomeModifiers;
@@ -49,5 +50,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addDatapackHelper(Registries.PLACED_FEATURE, ModCavePlacements::new, ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new);
         this.addDatapackHelper(ForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::new);
         this.addDatapackHelper(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions::new);
+        this.addDatapackHelper(Registries.DAMAGE_TYPE, ModDamageTypes::new);
     }
 }

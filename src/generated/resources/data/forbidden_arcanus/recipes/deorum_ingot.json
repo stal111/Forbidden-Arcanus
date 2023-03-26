@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:deorum_ingot"
-  }
+  },
+  "show_notification": true
 }

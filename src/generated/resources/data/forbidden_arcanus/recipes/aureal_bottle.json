@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:aureal_bottle"
-  }
+  },
+  "show_notification": true
 }

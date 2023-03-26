@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.util.FastColor;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ToolActions;
@@ -29,7 +28,7 @@ public class ModItemModifiers implements RegistryClass {
     public static final RegistryObject<ItemModifier> FIERY = HELPER.register("fiery", () -> new ItemModifier(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG) || stack.canPerformAction(ToolActions.AXE_DIG) || stack.canPerformAction(ToolActions.SHOVEL_DIG) || stack.canPerformAction(ToolActions.HOE_DIG) || stack.canPerformAction(ToolActions.PICKAXE_DIG), ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, FastColor.ARGB32.color(255, 255, 143, 0), FastColor.ARGB32.color(255, 88, 6, 6)));
     public static final RegistryObject<ItemModifier> MAGNETIZED = HELPER.register("magnetized", () -> new ItemModifier(stack -> {
         if (stack.getItem() instanceof ArmorItem armorItem) {
-            return armorItem.getSlot() == EquipmentSlot.FEET;
+            return armorItem.getType() == ArmorItem.Type.BOOTS;
         }
         return false;
     }, ModTags.Items.MAGNETIZED_INCOMPATIBLE, ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE, FastColor.ARGB32.color(255, 200, 201, 215), FastColor.ARGB32.color(255, 87, 105, 99)));

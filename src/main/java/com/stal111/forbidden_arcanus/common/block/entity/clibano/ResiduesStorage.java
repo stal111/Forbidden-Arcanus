@@ -36,7 +36,7 @@ public class ResiduesStorage implements NeedsStoring {
                 ItemStack resultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getFirst());
                 ItemStack secondResultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getSecond());
 
-                ItemStack stack = recipe.getResultItem();
+                ItemStack stack = recipe.getResultItem(level.registryAccess());
                 boolean flag = true;
 
                 if (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {

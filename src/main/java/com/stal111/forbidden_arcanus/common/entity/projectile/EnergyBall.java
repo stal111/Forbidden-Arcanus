@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.entity.projectile;
 
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -108,14 +107,16 @@ public class EnergyBall extends Projectile {
         if (result instanceof EntityHitResult entityHitResult) {
             Entity entity = entityHitResult.getEntity();
 
-            entity.hurt(DamageSource.indirectMagic(this, this.shootingEntity), DAMAGE_AMOUNT);
+            entity.hurt(this.level.damageSources().indirectMagic(this, this.shootingEntity), DAMAGE_AMOUNT);
 
             LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level);
             lightningBolt.setPos(entity.getX(), entity.getY(), entity.getZ());
 
             this.level.addFreshEntity(lightningBolt);
         } else if (result.getType() == HitResult.Type.BLOCK) {
-            this.level.playSound(null, new BlockPos(result.getLocation()), ModSounds.ENERGY_BALL_HIT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+            Vec3 vec3 = result.getLocation();
+
+            this.level.playSound(null, vec3.x(), vec3.y(), vec3.z(), ModSounds.ENERGY_BALL_HIT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
 
         this.discard();

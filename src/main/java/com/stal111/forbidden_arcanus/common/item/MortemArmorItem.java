@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.FastColor;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -14,13 +14,12 @@ import javax.annotation.Nonnull;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.MortemArmorItem
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-12-11
  */
 public class MortemArmorItem extends DyeableArmorItem {
 
-    public MortemArmorItem(ArmorMaterial material, EquipmentSlot equipmentSlot, Properties properties) {
-        super(material, equipmentSlot, properties);
+    public MortemArmorItem(ArmorMaterial material, ArmorItem.Type type, Properties properties) {
+        super(material, type, properties);
     }
 
     @Override

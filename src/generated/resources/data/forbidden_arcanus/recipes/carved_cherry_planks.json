@@ -14,5 +14,6 @@
   "result": {
     "count": 4,
     "item": "forbidden_arcanus:carved_cherry_planks"
-  }
+  },
+  "show_notification": true
 }

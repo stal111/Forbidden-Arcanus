@@ -13,7 +13,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -21,7 +20,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 /**
  * Cherry Foliage Placer <br>
@@ -51,7 +49,7 @@ public class CherryFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, int maxFreeTreeHeight, @Nonnull FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+    protected void createFoliage(@Nonnull LevelSimulatedReader level, @Nonnull FoliageSetter blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, int maxFreeTreeHeight, @Nonnull FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         BlockPos pos = attachment.pos();
         List<Direction> directions = new ArrayList<>();
         Block trunk = ModBlocks.THIN_CHERRY_LOG.get();
@@ -120,7 +118,7 @@ public class CherryFoliagePlacer extends FoliagePlacer {
         }
     }
 
-    private void placeFromLayout(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, List<Pair<Integer, Integer>> layout, BlockPos pos, Direction direction) {
+    private void placeFromLayout(@Nonnull LevelSimulatedReader level, @Nonnull FoliageSetter blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, List<Pair<Integer, Integer>> layout, BlockPos pos, Direction direction) {
         BlockPos.MutableBlockPos mutable = pos.mutable();
 
         mutable.move(direction.getClockWise(), (layout.size() - 1) / 2);

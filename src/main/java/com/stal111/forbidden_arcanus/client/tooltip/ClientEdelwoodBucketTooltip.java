@@ -44,7 +44,7 @@ public class ClientEdelwoodBucketTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(@Nonnull Font font, int mouseX, int mouseY, PoseStack poseStack, @Nonnull ItemRenderer itemRenderer, int blitOffset) {
+    public void renderImage(@Nonnull Font font, int mouseX, int mouseY, PoseStack poseStack, @Nonnull ItemRenderer itemRenderer) {
         poseStack.pushPose();
 
         poseStack.translate(0, 0, 300);
@@ -53,7 +53,7 @@ public class ClientEdelwoodBucketTooltip implements ClientTooltipComponent {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         for (int i = 1; i <= this.capacity; i++) {
-            itemRenderer.renderAndDecorateItem(i <= this.fullness ? this.filledBucket : this.emptyBucket,  (i - 1) * 15 + mouseX, mouseY + 1);
+            itemRenderer.renderAndDecorateItem(poseStack, i <= this.fullness ? this.filledBucket : this.emptyBucket,  (i - 1) * 15 + mouseX, mouseY + 1);
         }
 
         poseStack.popPose();

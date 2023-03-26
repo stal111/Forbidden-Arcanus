@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:aurum_boat"
-  }
+  },
+  "show_notification": true
 }

@@ -15,5 +15,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:cherry_fence_gate"
-  }
+  },
+  "show_notification": true
 }

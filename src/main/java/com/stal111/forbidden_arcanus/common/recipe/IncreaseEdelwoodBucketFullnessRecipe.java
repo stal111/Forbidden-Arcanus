@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodSoupBucketItem;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BowlFoodItem;
@@ -101,7 +102,7 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
 
     @Nonnull
     @Override
-    public ItemStack assemble(@Nonnull CraftingContainer container) {
+    public ItemStack assemble(@Nonnull CraftingContainer container, RegistryAccess registryAccess) {
         ItemStack stack = container.getItem(this.bucketSlot).copy();
 
         if (stack.getItem() instanceof CapacityBucket capacityBucket) {

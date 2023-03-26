@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:deorum_chain"
-  }
+  },
+  "show_notification": true
 }

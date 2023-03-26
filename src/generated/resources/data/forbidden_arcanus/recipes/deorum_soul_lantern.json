@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "forbidden_arcanus:deorum_soul_lantern"
-  }
+  },
+  "show_notification": true
 }

@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +30,7 @@ public class ItemRendererMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "getModel", cancellable = true)
     public void forbiddenArcanus_getModel(ItemStack stack, Level level, LivingEntity livingEntity, int seed, CallbackInfoReturnable<BakedModel> cir) {
-        if (stack.getItem() instanceof ArmorItem item && item.getSlot() == EquipmentSlot.FEET && ModifierHelper.getModifier(stack) == ModItemModifiers.MAGNETIZED.get()) {
+        if (stack.getItem() instanceof ArmorItem item && item.getType() == ArmorItem.Type.BOOTS && ModifierHelper.getModifier(stack) == ModItemModifiers.MAGNETIZED.get()) {
             ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(item);
 
             if (resourceLocation == null) {

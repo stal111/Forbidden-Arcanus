@@ -31,7 +31,7 @@ public class CreativeModeTabEvents {
                 .withSearchBar(88)
                 .withTabsImage(path.apply("forbidden_arcanus_tabs.png"))
                 .withBackgroundLocation(path.apply("tab_forbidden_arcanus.png"))
-                .displayItems((featureFlags, output, hasOp) -> {
+                .displayItems((displayParameters, output) -> {
                     output.accept(ModItems.FERROGNETIC_MIXTURE.get());
                     output.accept(ModBlocks.DARKSTONE_PEDESTAL.get());
                     output.accept(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());

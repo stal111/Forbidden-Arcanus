@@ -6,9 +6,9 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.world.item.ItemDisplayContext;
 
 import javax.annotation.Nonnull;
 
@@ -33,7 +33,7 @@ public class NipaRenderer implements BlockEntityRenderer<NipaBlockEntity> {
 
             poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
 
-            Minecraft.getInstance().getItemRenderer().renderStatic(ModItems.Stacks.ARCANE_CRYSTAL_DUST_SPECK, ItemTransforms.TransformType.FIXED, packedLight, packedOverlay, poseStack, bufferSource, 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(ModItems.Stacks.ARCANE_CRYSTAL_DUST_SPECK, ItemDisplayContext.FIXED, packedLight, packedOverlay, poseStack, bufferSource, blockEntity.getLevel(), 0);
 
             poseStack.popPose();
         }
