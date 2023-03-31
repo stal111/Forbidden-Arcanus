@@ -194,7 +194,8 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
         return stack;
     }
 
-    private boolean canBlockContainFluid(Level level, BlockPos pos, BlockState state) {
+    @Override
+    protected boolean canBlockContainFluid(Level level, BlockPos pos, BlockState state) {
         return state.getBlock() instanceof LiquidBlockContainer liquidBlockContainer && liquidBlockContainer.canPlaceLiquid(level, pos, state, this.getFluid());
     }
 
