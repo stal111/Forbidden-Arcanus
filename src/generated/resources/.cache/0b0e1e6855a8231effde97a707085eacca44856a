@@ -1,4 +1,4 @@
-// 1.19.4	2023-03-26T13:22:35.176352	Item Models: forbidden_arcanus
+// 1.19.4	2023-04-02T20:56:03.4063067	Item Models: forbidden_arcanus
 ec32963c36c92245dedb808f3147fe81dd495883 assets/forbidden_arcanus/models/item/aquatic_dragon_scale.json
 a362c1701734ea16f61260dddb1bcfbfe0cad6d4 assets/forbidden_arcanus/models/item/arcane_bone_meal.json
 5fb2e610741f59f928db167b1a5f5963d58d75c6 assets/forbidden_arcanus/models/item/arcane_chiseled_darkstone.json
@@ -243,6 +243,7 @@ dded47ed8873a57d77d92917ffa4413136ce22da assets/forbidden_arcanus/models/item/re
 2b47b3ba9d03d9f255cbd882a86961f5237d5f97 assets/forbidden_arcanus/models/item/runic_glass_pane.json
 7a0b3ec194169d359a86eba974ea76047419e627 assets/forbidden_arcanus/models/item/runic_stone.json
 61cf897499ef2f79a64e34b84d7766c4243812f1 assets/forbidden_arcanus/models/item/sanity_meter.json
+4c104f7fa4f5580997a218fdfd34983d05fd8ab8 assets/forbidden_arcanus/models/item/sea_prism.json
 aec87092ae2fe7e3dd46fd75e14d02ce5a3ee10f assets/forbidden_arcanus/models/item/silver_dragon_scale.json
 7dcda9d4e4ec527bac0b6d2c32b1f97cf0f1aea3 assets/forbidden_arcanus/models/item/slimec_pickaxe.json
 eae04d975a1d16f72493bdf412a45e4c830b03bd assets/forbidden_arcanus/models/item/smelter_prism.json
@@ -265,6 +266,7 @@ f9c484e11c8b84d97bc9f62bd11d888e5d43fc2d assets/forbidden_arcanus/models/item/st
 298ffc4017db1fe5eeeec51e841c715a7cfc04d7 assets/forbidden_arcanus/models/item/stripped_cherry_log.json
 8561239ee14f9a896bce9c355086530f770ed2bc assets/forbidden_arcanus/models/item/stripped_cherry_wood.json
 c1bcd9ef73d1cfb0ef56ef64ee86dde0c245f182 assets/forbidden_arcanus/models/item/tentacle.json
+c4780b9dca08335e1b966722442ddc6e01621cca assets/forbidden_arcanus/models/item/terrastomp_prism.json
 b667ad7f7ee89f1b7afb875891c033870353229a assets/forbidden_arcanus/models/item/test_tube.json
 4a97a0fb314515bfc5e367843ab6ea393c5c719f assets/forbidden_arcanus/models/item/thin_cherry_log.json
 fb8430c54a50597fbf2112336ed79ce050a9460b assets/forbidden_arcanus/models/item/tiled_polished_darkstone_bricks.json
@@ -277,6 +279,7 @@ f99d0741e3d1a4bf755cd3191e41f85687d608ac assets/forbidden_arcanus/models/item/ut
 6f357975af60e97d82b38da0421bd4da364d86da assets/forbidden_arcanus/models/item/utrem_jar_water.json
 54957868984c18fc724c0ed69c3dcdedb27e24f6 assets/forbidden_arcanus/models/item/wax.json
 b3a2cf2d0e86f5c5da3683a3668d63fea44e1c47 assets/forbidden_arcanus/models/item/wet_purifying_soap.json
+11ed499e672616e0b405c5f3ab56c90125bf617c assets/forbidden_arcanus/models/item/whirlwind_prism.json
 0f649b7afb01b1543ded03897aceb82b3e43fb9b assets/forbidden_arcanus/models/item/wooden_blacksmith_gavel.json
 eab062bc3edc636dee77a4a1e437bc247304a63e assets/forbidden_arcanus/models/item/xpetrified_orb.json
 2e0d6a075dc0392adbe62ad198240845169d9bcb assets/forbidden_arcanus/models/item/xpetrified_ore.json

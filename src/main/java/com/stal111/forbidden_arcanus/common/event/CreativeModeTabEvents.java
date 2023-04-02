@@ -71,6 +71,10 @@ public class CreativeModeTabEvents {
                     output.accept(ModItems.CORRUPTI_DUST.get());
                     output.accept(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get());
                     output.accept(ModItems.ARCANE_BONE_MEAL.get());
+                    output.accept(ModItems.TERRASTOMP_PRISM.get());
+                    output.accept(ModItems.SEA_PRISM.get());
+                    output.accept(ModItems.WHIRLWIND_PRISM.get());
+                    output.accept(ModItems.SMELTER_PRISM.get());
                     output.accept(ModItems.ARTISAN_RELIC.get());
                     output.accept(ModItems.CRESCENT_MOON.get());
                     output.accept(ModItems.CRIMSON_STONE.get());
