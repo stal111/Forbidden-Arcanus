@@ -104,7 +104,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryObject<Item> TERRASTOMP_PRISM = HELPER.register("terrastomp_prism", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SEA_PRISM = HELPER.register("sea_prism", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WHIRLWIND_PRISM = HELPER.register("whirlwind_prism", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> SMELTER_PRISM = HELPER.register("smelter_prism", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<SmelterPrismItem> SMELTER_PRISM = HELPER.register("smelter_prism", () -> new SmelterPrismItem(new Item.Properties().durability(200)));
     public static final RegistryObject<EdelwoodBucketItem> EDELWOOD_BUCKET = HELPER.register("edelwood_bucket", () -> new EdelwoodBucketItem(() -> Fluids.EMPTY, new Item.Properties().stacksTo(16)));
     public static final RegistryObject<EdelwoodBucketItem> EDELWOOD_WATER_BUCKET = HELPER.register("edelwood_water_bucket", () -> new EdelwoodBucketItem(() -> Fluids.WATER, 4, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<EdelwoodBucketItem> EDELWOOD_LAVA_BUCKET = HELPER.register("edelwood_lava_bucket", () -> new EdelwoodBucketItem(() -> Fluids.LAVA, 3, new Item.Properties().stacksTo(1)));
