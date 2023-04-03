@@ -134,10 +134,10 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
-        event.register(ModParticles.SOUL.get(), SoulParticle.Factory::new);
-        event.register(ModParticles.AUREAL_MOTE.get(), AurealMoteParticle.Factory::new);
-        event.register(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
-        event.register(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
-        event.register(ModParticles.MAGNETIC_GLOW.get(), MagneticGlowProvider::new);
+        event.registerSpriteSet(ModParticles.SOUL.get(), SoulParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.AUREAL_MOTE.get(), AurealMoteParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
+        event.registerSpecial(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
+        event.registerSpriteSet(ModParticles.MAGNETIC_GLOW.get(), MagneticGlowProvider::new);
     }
 }
