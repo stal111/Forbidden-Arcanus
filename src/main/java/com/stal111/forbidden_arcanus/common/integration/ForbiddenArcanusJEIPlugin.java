@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -37,7 +38,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        //registration.addRecipes(RecipeTypes.SMITHING, ApplyModifierRecipeMaker.getRecipes());
+        registration.addRecipes(RecipeTypes.SMITHING, ApplyModifierRecipeMaker.getRecipes());
         registration.addRecipes(HEPHAESTUS_SMITHING, ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.values().stream().filter(namedRitual -> namedRitual.get().result() instanceof CreateItemResult).toList());
         registration.addRecipes(CLIBANO_COMBUSTION, Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModRecipes.CLIBANO_COMBUSTION.get()));
     }

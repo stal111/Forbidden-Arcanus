@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmithingRecipe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,13 +26,13 @@ import java.util.List;
  */
 public class ApplyModifierRecipeMaker {
 
-    public static List<LegacyUpgradeRecipe> getRecipes() {
+    public static List<SmithingRecipe> getRecipes() {
         ClientLevel level = Minecraft.getInstance().level;
 
         if (level == null) {
             return Collections.emptyList();
         }
-        List<LegacyUpgradeRecipe> recipes = new ArrayList<>();
+        List<SmithingRecipe> recipes = new ArrayList<>();
 
         level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream()
                 .filter(upgradeRecipe -> upgradeRecipe.getSerializer() == ModRecipes.APPLY_MODIFIER.get())
