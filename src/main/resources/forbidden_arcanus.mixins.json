@@ -7,15 +7,18 @@
   "mixins": [
     "AccessorFireBlock",
     "BubbleColumnBlockMixin",
-    "GlowParticleAccessor",
     "ItemMixin",
     "ItemStackMixin",
     "LevelRendererAccessor",
     "PlayerMixin",
+    "ServerPlayerGameModeMixin",
     "SlimeMixin"
   ],
   "client": [
     "CustomHeadLayerMixin",
+    "GlowParticleAccessor",
+    "LevelRendererAccessor",
+    "MultiPlayerGameModeMixin",
     "ScreenMixin"
   ],
   "injectors": {

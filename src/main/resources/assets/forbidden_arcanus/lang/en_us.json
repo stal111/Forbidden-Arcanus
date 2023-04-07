@@ -298,6 +298,7 @@
     "item.forbidden_arcanus.zombie_arm": "Zombie Arm",
     "item.forbidden_arcanus.shiny_zombie_arm": "Shiny Zombie Arm",
     "item.forbidden_arcanus.test_tube": "Test Tube",
+    "item.forbidden_arcanus.terrastomp_prism": "Terrastomp Prism",
     "item.forbidden_arcanus.smelter_prism": "Smelter Prism",
     "item.forbidden_arcanus.ferrognetic_mixture": "Ferrognetic Mixture",
     "item.forbidden_arcanus.blacksmith_gavel_head": "Blacksmith Gavel Head",
@@ -346,6 +347,7 @@
     "modifier.forbidden_arcanus.eternal": "Eternal",
     "modifier.forbidden_arcanus.fiery": "Fiery",
     "modifier.forbidden_arcanus.magnetized": "Magnetized",
+    "modifier.forbidden_arcanus.demolishing": "Demolishing",
 
     "entity.forbidden_arcanus.lost_soul": "Lost Soul",
 

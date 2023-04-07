@@ -1,4 +1,4 @@
-// 1.19.2	2023-04-29T11:34:37.9760229	Item Models: forbidden_arcanus
+// 1.19.2	2023-04-29T18:26:58.7455106	Item Models: forbidden_arcanus
 ec32963c36c92245dedb808f3147fe81dd495883 assets/forbidden_arcanus/models/item/aquatic_dragon_scale.json
 a362c1701734ea16f61260dddb1bcfbfe0cad6d4 assets/forbidden_arcanus/models/item/arcane_bone_meal.json
 5fb2e610741f59f928db167b1a5f5963d58d75c6 assets/forbidden_arcanus/models/item/arcane_chiseled_darkstone.json
@@ -263,6 +263,7 @@ f9c484e11c8b84d97bc9f62bd11d888e5d43fc2d assets/forbidden_arcanus/models/item/st
 298ffc4017db1fe5eeeec51e841c715a7cfc04d7 assets/forbidden_arcanus/models/item/stripped_cherry_log.json
 8561239ee14f9a896bce9c355086530f770ed2bc assets/forbidden_arcanus/models/item/stripped_cherry_wood.json
 c1bcd9ef73d1cfb0ef56ef64ee86dde0c245f182 assets/forbidden_arcanus/models/item/tentacle.json
+c4780b9dca08335e1b966722442ddc6e01621cca assets/forbidden_arcanus/models/item/terrastomp_prism.json
 b667ad7f7ee89f1b7afb875891c033870353229a assets/forbidden_arcanus/models/item/test_tube.json
 4a97a0fb314515bfc5e367843ab6ea393c5c719f assets/forbidden_arcanus/models/item/thin_cherry_log.json
 fb8430c54a50597fbf2112336ed79ce050a9460b assets/forbidden_arcanus/models/item/tiled_polished_darkstone_bricks.json

@@ -1,0 +1,7 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": {
+    "item": "forbidden_arcanus:terrastomp_prism"
+  },
+  "modifier": "forbidden_arcanus:demolishing"
+}

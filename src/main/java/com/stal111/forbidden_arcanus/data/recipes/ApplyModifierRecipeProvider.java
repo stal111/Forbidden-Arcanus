@@ -23,6 +23,7 @@ public class ApplyModifierRecipeProvider extends ValhelsiaRecipeProvider {
         this.modifier(ModItems.ETERNAL_STELLA.get(), ModItemModifiers.ETERNAL.get());
         this.modifier(ModItems.SMELTER_PRISM.get(), ModItemModifiers.FIERY.get());
         this.modifier(ModItems.FERROGNETIC_MIXTURE.get(), ModItemModifiers.MAGNETIZED.get());
+        this.modifier(ModItems.TERRASTOMP_PRISM.get(), ModItemModifiers.DEMOLISHING.get());
     }
 
     private void modifier(ItemLike addition, ItemModifier modifier) {
