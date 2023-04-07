@@ -26,7 +26,10 @@
     "type": "forbidden_arcanus:create_item",
     "result_item": {
       "Count": 1,
-      "id": "forbidden_arcanus:smelter_prism"
+      "id": "forbidden_arcanus:smelter_prism",
+      "tag": {
+        "Damage": 0
+      }
     }
   }
 }

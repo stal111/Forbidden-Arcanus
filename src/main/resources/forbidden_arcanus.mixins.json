@@ -11,6 +11,7 @@
     "ItemMixin",
     "ItemStackMixin",
     "PlayerMixin",
+    "ServerPlayerGameModeMixin",
     "SlimeMixin"
   ],
   "client": [
@@ -20,6 +21,7 @@
     "ItemRendererMixin",
     "LevelRendererAccessor",
     "ModelBakeryMixin",
+    "MultiPlayerGameModeMixin",
     "ScreenMixin"
   ],
   "injectors": {

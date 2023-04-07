@@ -62,6 +62,7 @@ public class ModTags {
         public static final TagKey<Item> ETERNAL_INCOMPATIBLE = modTag("modifier/eternal_incompatible");
         public static final TagKey<Item> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
         public static final TagKey<Item> MAGNETIZED_INCOMPATIBLE = modTag("modifier/magnetized_incompatible");
+        public static final TagKey<Item> DEMOLISHING_INCOMPATIBLE = modTag("modifier/demolishing_incompatible");
 
         public static final TagKey<Item> CLIBANO_CREATES_SOUL_FIRE = modTag("clibano/creates_soul_fire");
         public static final TagKey<Item> CLIBANO_CREATES_ENCHANTED_FIRE = modTag("clibano/creates_enchanted_fire");
@@ -99,6 +100,7 @@ public class ModTags {
         public static final TagKey<Enchantment> ETERNAL_INCOMPATIBLE = modTag("modifier/eternal_incompatible");
         public static final TagKey<Enchantment> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
         public static final TagKey<Enchantment> MAGNETIZED_INCOMPATIBLE = modTag("modifier/magnetized_incompatible");
+        public static final TagKey<Enchantment> DEMOLISHING_INCOMPATIBLE = modTag("modifier/demolishing_incompatible");
 
         private static TagKey<Enchantment> modTag(String name) {
             return TagKey.create(Registries.ENCHANTMENT, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
