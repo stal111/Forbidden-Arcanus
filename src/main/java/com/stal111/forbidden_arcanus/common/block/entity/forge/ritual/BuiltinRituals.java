@@ -10,6 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 public class BuiltinRituals {
 
     public static final ResourceLocation ETERNAL_STELLA = new ResourceLocation(ForbiddenArcanus.MOD_ID, "eternal_stella");
+    public static final ResourceLocation TERRASTOMP_PRISM = new ResourceLocation(ForbiddenArcanus.MOD_ID, "terrastomp_prism");
+    public static final ResourceLocation SEA_PRISM = new ResourceLocation(ForbiddenArcanus.MOD_ID, "sea_prism");
+    public static final ResourceLocation WHIRLWIND_PRISM = new ResourceLocation(ForbiddenArcanus.MOD_ID, "whirlwind_prism");
     public static final ResourceLocation SMELTER_PRISM = new ResourceLocation(ForbiddenArcanus.MOD_ID, "smelter_prism");
     public static final ResourceLocation FERROGNETIC_MIXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "ferrognetic_mixture");
     public static final ResourceLocation UPGRADE_TIER_2 = new ResourceLocation(ForbiddenArcanus.MOD_ID, "upgrade_tier_2");

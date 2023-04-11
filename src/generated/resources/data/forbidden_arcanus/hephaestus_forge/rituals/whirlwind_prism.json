@@ -1,0 +1,39 @@
+{
+  "essences": {
+    "aureal": 1000,
+    "blood": 2250,
+    "experience": 0,
+    "souls": 3
+  },
+  "inputs": [
+    {
+      "amount": 1,
+      "ingredient": {
+        "item": "forbidden_arcanus:bat_wing"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:feather"
+      }
+    },
+    {
+      "amount": 3,
+      "ingredient": {
+        "item": "minecraft:phantom_membrane"
+      }
+    }
+  ],
+  "main_ingredient": {
+    "item": "minecraft:white_wool"
+  },
+  "required_tier": 3,
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "Count": 1,
+      "id": "forbidden_arcanus:whirlwind_prism"
+    }
+  }
+}

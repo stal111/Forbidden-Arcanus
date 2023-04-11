@@ -1,0 +1,39 @@
+{
+  "essences": {
+    "aureal": 1000,
+    "blood": 2000,
+    "experience": 0,
+    "souls": 8
+  },
+  "inputs": [
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:prismarine_shard"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:scute"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:lapis_lazuli"
+      }
+    }
+  ],
+  "main_ingredient": {
+    "item": "minecraft:heart_of_the_sea"
+  },
+  "required_tier": 3,
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "Count": 1,
+      "id": "forbidden_arcanus:sea_prism"
+    }
+  }
+}
