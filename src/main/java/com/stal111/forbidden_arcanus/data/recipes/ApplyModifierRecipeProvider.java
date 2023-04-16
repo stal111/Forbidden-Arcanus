@@ -25,6 +25,7 @@ public class ApplyModifierRecipeProvider extends RecipeSubProvider {
         this.modifier(ModItems.SMELTER_PRISM.get(), ModItemModifiers.FIERY.get());
         this.modifier(ModItems.FERROGNETIC_MIXTURE.get(), ModItemModifiers.MAGNETIZED.get());
         this.modifier(ModItems.TERRASTOMP_PRISM.get(), ModItemModifiers.DEMOLISHING.get());
+        this.modifier(ModItems.SEA_PRISM.get(), ModItemModifiers.AQUATIC.get());
     }
 
     private void modifier(ItemLike addition, ItemModifier modifier) {
