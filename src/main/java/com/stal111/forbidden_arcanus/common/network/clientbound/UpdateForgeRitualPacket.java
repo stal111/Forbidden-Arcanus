@@ -6,6 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -17,15 +18,15 @@ import java.util.function.Supplier;
  * @author stal111
  * @since 2021-07-17
  */
-public record UpdateForgeRitualPacket(BlockPos pos, Optional<ResourceLocation> ritual) {
+public record UpdateForgeRitualPacket(BlockPos pos, @Nullable ResourceLocation ritual) {
 
     public static void encode(UpdateForgeRitualPacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
-        buffer.writeOptional(packet.ritual, (buf, resourceLocation) -> buffer.writeResourceLocation(resourceLocation));
+        buffer.writeOptional(Optional.ofNullable(packet.ritual), (buf, location) -> buffer.writeResourceLocation(location));
     }
 
     public static UpdateForgeRitualPacket decode(FriendlyByteBuf buffer) {
-        return new UpdateForgeRitualPacket(buffer.readBlockPos(), buffer.readOptional(FriendlyByteBuf::readResourceLocation));
+        return new UpdateForgeRitualPacket(buffer.readBlockPos(), buffer.readOptional(FriendlyByteBuf::readResourceLocation).orElse(null));
     }
 
     public static void consume(UpdateForgeRitualPacket packet, Supplier<NetworkEvent.Context> ctx) {

@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ApplyModifierRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ClibanoRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.CraftingRecipeProvider;
-import com.stal111.forbidden_arcanus.data.rituals.RitualDataProvider;
 import com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.*;
@@ -64,7 +63,6 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
 
         generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(info, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new));
-        generator.addProvider(event.includeServer(), new RitualDataProvider(info));
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(output));
     }

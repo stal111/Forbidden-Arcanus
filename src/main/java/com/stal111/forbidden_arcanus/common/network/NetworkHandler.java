@@ -29,7 +29,6 @@ public class NetworkHandler {
         INSTANCE.registerMessage(nextID(), AddItemParticlePacket.class, AddItemParticlePacket::encode, AddItemParticlePacket::decode, AddItemParticlePacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateForgeRitualPacket.class, UpdateForgeRitualPacket::encode, UpdateForgeRitualPacket::decode, UpdateForgeRitualPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateItemInSlotPacket.class, UpdateItemInSlotPacket::encode, UpdateItemInSlotPacket::decode, UpdateItemInSlotPacket::consume);
-        INSTANCE.registerMessage(nextID(), UpdateRitualsPacket.class, UpdateRitualsPacket::encode, UpdateRitualsPacket::decode, UpdateRitualsPacket::consume);
         INSTANCE.registerMessage(nextID(), UpdateForgeInputsPacket.class, UpdateForgeInputsPacket::encode, UpdateForgeInputsPacket::decode, UpdateForgeInputsPacket::consume);
         INSTANCE.registerMessage(nextID(), AddThrownAurealBottleParticle.class, AddThrownAurealBottleParticle::encode, AddThrownAurealBottleParticle::decode, AddThrownAurealBottleParticle::consume);
         INSTANCE.registerMessage(nextID(), UpdateResidueTypesPacket.class, UpdateResidueTypesPacket::encode, UpdateResidueTypesPacket::decode, UpdateResidueTypesPacket::consume);

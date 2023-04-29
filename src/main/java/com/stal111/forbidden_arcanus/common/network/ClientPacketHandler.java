@@ -1,15 +1,14 @@
 package com.stal111.forbidden_arcanus.common.network;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -113,13 +112,7 @@ public class ClientPacketHandler {
             return;
         }
 
-        RitualManager ritualManager = blockEntity.getRitualManager();
-
-        packet.ritual().ifPresentOrElse(resourceLocation -> {
-            ritualManager.setActiveRitual(ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.get(resourceLocation));
-        }, () -> {
-            ritualManager.setActiveRitual(null);
-        });
+        blockEntity.getRitualManager().setActiveRitual(level.registryAccess().registryOrThrow(FARegistries.RITUAL).get(packet.ritual()));
     }
 
     public static void handleUpdateItemInSlot(UpdateItemInSlotPacket packet) {

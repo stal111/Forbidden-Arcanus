@@ -6,7 +6,6 @@ import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.NamedRitual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
@@ -36,7 +35,7 @@ import java.util.List;
  * @author stal111
  * @since 2021-09-14
  */
-public class HephaestusSmithingCategory implements IRecipeCategory<NamedRitual> {
+public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/hephaestus_forge_jei.png");
 
@@ -72,7 +71,7 @@ public class HephaestusSmithingCategory implements IRecipeCategory<NamedRitual> 
 
     @Nonnull
     @Override
-    public RecipeType<NamedRitual> getRecipeType() {
+    public RecipeType<Ritual> getRecipeType() {
         return ForbiddenArcanusJEIPlugin.HEPHAESTUS_SMITHING;
     }
 
@@ -95,9 +94,7 @@ public class HephaestusSmithingCategory implements IRecipeCategory<NamedRitual> 
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull NamedRitual recipe, @Nonnull IFocusGroup focusGroup) {
-        Ritual ritual = recipe.get();
-
+    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull Ritual ritual, @Nonnull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, FORGE_ITEM_POSITION.getFirst(), FORGE_ITEM_POSITION.getSecond())
                 .addIngredients(ritual.mainIngredient());
 
@@ -126,19 +123,19 @@ public class HephaestusSmithingCategory implements IRecipeCategory<NamedRitual> 
     }
 
     @Override
-    public void draw(@Nonnull NamedRitual recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(@Nonnull Ritual recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
         this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(poseStack, essenceInfo.posX(), essenceInfo.posY()));
     }
 
     @Nonnull
     @Override
-    public List<Component> getTooltipStrings(@Nonnull NamedRitual recipe, @Nonnull IRecipeSlotsView slotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(@Nonnull Ritual recipe, @Nonnull IRecipeSlotsView slotsView, double mouseX, double mouseY) {
         for (EssenceInfo essenceInfo : this.essences) {
             int posX = essenceInfo.posX();
             int posY = essenceInfo.posY();
 
             if (mouseX >= posX && mouseY >= posY && mouseX <= posX + 10 && mouseY <= posY + 10) {
-                return Collections.singletonList(Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_" + essenceInfo.type().getSerializedName()).append(": " + recipe.get().essences().get(essenceInfo.type())));
+                return Collections.singletonList(Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_" + essenceInfo.type().getSerializedName()).append(": " + recipe.essences().get(essenceInfo.type())));
             }
         }
 

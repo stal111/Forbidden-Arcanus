@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
@@ -15,6 +14,7 @@ import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitua
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -29,8 +29,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -66,8 +70,8 @@ public class RitualManager implements NeedsStoring {
     private boolean loaded = false;
 
     private final HashMap<PedestalBlockEntity, ItemStack> cachedIngredients = new HashMap<>();
-    private NamedRitual validRitual;
-    private NamedRitual activeRitual;
+    private @Nullable Ritual validRitual;
+    private @Nullable Ritual activeRitual;
     private int counter;
     private int lightningCounter;
 
@@ -90,14 +94,20 @@ public class RitualManager implements NeedsStoring {
         return this.validRitual != null;
     }
 
-    public NamedRitual getActiveRitual() {
+    public @Nullable Ritual getActiveRitual() {
         return this.activeRitual;
     }
 
-    public void setActiveRitual(NamedRitual ritual) {
+    public void setActiveRitual(@Nullable Ritual ritual) {
         this.activeRitual = ritual;
 
-        NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, Optional.ofNullable(this.activeRitual).map(NamedRitual::name)));
+        ResourceLocation resourceLocation = null;
+
+        if (ritual != null) {
+            resourceLocation = this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).getKey(ritual);
+        }
+
+        NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, resourceLocation));
     }
 
     public boolean isRitualActive() {
@@ -129,8 +139,8 @@ public class RitualManager implements NeedsStoring {
     public void updateValidRitual(EssencesDefinition definition) {
         boolean oldValue = this.validRitual != null;
 
-        for (NamedRitual ritual : ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.values()) {
-            if (this.canStartRitual(ritual.get(), definition)) {
+        for (Ritual ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL)) {
+            if (this.canStartRitual(ritual, definition)) {
                 if (!oldValue) {
                     NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.pos), new CreateValidRitualIndicatorPacket(this.pos));
                 }
@@ -162,12 +172,12 @@ public class RitualManager implements NeedsStoring {
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
     }
 
-    public void startRitual(EssencesStorage storage, NamedRitual ritual) {
+    public void startRitual(EssencesStorage storage, Ritual ritual) {
         this.setActiveRitual(ritual);
 
-        ritual.get().createMagicCircle(this.level, this.pos, 0);
+        ritual.createMagicCircle(this.level, this.pos, 0);
 
-        storage.reduce(ritual.get().essences());
+        storage.reduce(ritual.essences());
     }
 
     public void tick(EssencesDefinition definition) {
@@ -200,10 +210,9 @@ public class RitualManager implements NeedsStoring {
 
                 this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
-                if (!this.getActiveRitual().get().checkIngredients(list, this.mainIngredientAccessor.get())) {
+                if (!this.getActiveRitual().checkIngredients(list, this.mainIngredientAccessor.get())) {
                     this.failRitual();
 
-                    NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, Optional.ofNullable(this.activeRitual).map(NamedRitual::name)));
                     return;
                 }
 
@@ -254,12 +263,10 @@ public class RitualManager implements NeedsStoring {
     }
 
     public void finishRitual() {
-        Ritual ritual = this.activeRitual.get();
+        this.activeRitual.removeMagicCircle(this.level, this.pos);
+        this.activeRitual.result().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         this.reset();
-
-        ritual.removeMagicCircle(this.level, this.pos);
-        ritual.result().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         this.clearPedestals();
     }
@@ -267,7 +274,7 @@ public class RitualManager implements NeedsStoring {
     public void failRitual() {
         ItemStack stack = this.mainIngredientAccessor.get();
 
-        this.activeRitual.get().removeMagicCircle(this.level, this.pos);
+        this.activeRitual.removeMagicCircle(this.level, this.pos);
 
         this.reset();
 
@@ -329,7 +336,7 @@ public class RitualManager implements NeedsStoring {
     @Override
     public CompoundTag save(CompoundTag tag) {
         if (this.isRitualActive()) {
-            tag.putString("ActiveRitual", this.getActiveRitual().name().toString());
+            tag.putString("ActiveRitual", this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).getResourceKey(this.activeRitual).orElseThrow().toString());
             tag.putInt("Counter", this.counter);
 
             if (this.lightningCounter != 0) {
@@ -343,7 +350,7 @@ public class RitualManager implements NeedsStoring {
     @Override
     public void load(CompoundTag tag) {
         if (tag.contains("ActiveRitual")) {
-            this.setActiveRitual(ForbiddenArcanus.INSTANCE.getRitualLoader().rituals.get(new ResourceLocation(tag.getString("ActiveRitual"))));
+            this.setActiveRitual(this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).get(new ResourceLocation(tag.getString("ActiveRitual"))));
             this.counter = tag.getInt("Counter");
 
             if (tag.contains("LightningCounter")) {

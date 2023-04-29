@@ -55,6 +55,26 @@ public record Ritual(List<RitualInput> inputs,
         return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleConfig.orElse(MagicCircle.Config.DEFAULT));
     }));
 
+    public static final Codec<Ritual> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+            RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
+                return ritual.inputs;
+            }),
+            AdditionalCodecs.INGREDIENT.fieldOf("main_ingredient").forGetter(ritual -> {
+                return ritual.mainIngredient;
+            }),
+            RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {
+                return ritual.result;
+            }),
+            EssencesDefinition.CODEC.fieldOf("essences").forGetter(ritual -> {
+                return ritual.essences;
+            }),
+            RitualRequirements.CODEC.optionalFieldOf("additional_requirements").forGetter(ritual -> {
+                return Optional.ofNullable(ritual.requirements);
+            })
+    ).apply(instance, (inputs, mainIngredient, result, essences, requirements) -> {
+        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), null);
+    }));
+
     public boolean canStart(RitualStartContext context) {
         if (this.requirements != null && !this.requirements.checkRequirements(context.forgeTier(), context.enhancers())) {
             return false;

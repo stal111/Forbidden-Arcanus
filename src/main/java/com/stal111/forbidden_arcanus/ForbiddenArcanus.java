@@ -4,14 +4,16 @@ import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
-import com.stal111.forbidden_arcanus.common.loader.RitualLoader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEffects;
 import com.stal111.forbidden_arcanus.core.init.ModEnchantments;
 import com.stal111.forbidden_arcanus.core.init.ModRecipes;
-import com.stal111.forbidden_arcanus.core.init.other.*;
+import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
+import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
+import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
 import com.stal111.forbidden_arcanus.core.init.world.ModTreeDecorators;
@@ -42,13 +44,9 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 
 	public static ForbiddenArcanus INSTANCE;
 
-	private final RitualLoader ritualLoader;
-
 	public ForbiddenArcanus() {
 		super(MOD_ID, FMLJavaModLoadingContext.get().getModEventBus(), ForbiddenArcanus.REGISTRY_MANAGER);
 		INSTANCE = this;
-
-		this.ritualLoader = new RitualLoader();
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -94,9 +92,5 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 
 		Consequences.registerConsequences();
 		HephaestusForgeInputs.registerInputs();
-	}
-
-	public RitualLoader getRitualLoader() {
-		return this.ritualLoader;
 	}
 }
