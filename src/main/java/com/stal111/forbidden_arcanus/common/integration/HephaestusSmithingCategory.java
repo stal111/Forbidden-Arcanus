@@ -115,11 +115,13 @@ public class HephaestusSmithingCategory implements IRecipeCategory<NamedRitual> 
         builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_POSITION.getFirst(), OUTPUT_POSITION.getSecond())
                 .addItemStack(((CreateItemResult) ritual.result()).getResult());
 
+        int requiredTier = ritual.requirements() == null ? 1 : ritual.requirements().tier();
+
         builder.addSlot(RecipeIngredientRole.OUTPUT, PEDESTAL_TYPE_POSITION.getFirst(), PEDESTAL_TYPE_POSITION.getSecond())
-                .addItemStack(HephaestusForgeBlock.setTierOnStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), ritual.requiredTier()))
+                .addItemStack(HephaestusForgeBlock.setTierOnStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), requiredTier))
                 .addTooltipCallback((recipeSlotView, tooltip) -> {
                     tooltip.clear();
-                    tooltip.add(Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_tier").append(": " + ritual.requiredTier()));
+                    tooltip.add(Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_tier").append(": " + requiredTier));
                 });
     }
 

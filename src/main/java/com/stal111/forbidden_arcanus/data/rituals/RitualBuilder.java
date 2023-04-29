@@ -6,7 +6,10 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -25,7 +28,7 @@ public class RitualBuilder {
 
     private final List<RitualInput> inputs = new ArrayList<>();
     private final EssencesStorage essences = new EssencesStorage();
-    private int requiredTier = 1;
+    private RitualRequirements additionalRequirements;
     private MagicCircle.Config magicCircleConfig = MagicCircle.Config.DEFAULT;
 
     public RitualBuilder(ItemStack mainIngredient, RitualResult result) {
@@ -73,13 +76,20 @@ public class RitualBuilder {
         return this;
     }
 
-    public RitualBuilder requiredTier(int tier) {
-        this.requiredTier = tier;
+    public RitualBuilder requirements(int tier) {
+        this.additionalRequirements = new RitualRequirements(tier, List.of());
+
+        return this;
+    }
+
+    @SafeVarargs
+    public final RitualBuilder requirements(int tier, ResourceKey<EnhancerDefinition>... enhancers) {
+        this.additionalRequirements = new RitualRequirements(tier, List.of());
 
         return this;
     }
 
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.requiredTier, this.magicCircleConfig);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.additionalRequirements, this.magicCircleConfig);
     }
 }

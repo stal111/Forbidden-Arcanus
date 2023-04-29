@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.core.BlockPos;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -27,7 +29,7 @@ public record Ritual(List<RitualInput> inputs,
                      Ingredient mainIngredient,
                      RitualResult result,
                      EssencesDefinition essences,
-                     int requiredTier,
+                     @Nullable RitualRequirements requirements,
                      MagicCircle.Config magicCircleConfig) implements MagicCircle.TextureProvider {
 
     public static final Codec<Ritual> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -43,22 +45,28 @@ public record Ritual(List<RitualInput> inputs,
             EssencesDefinition.CODEC.fieldOf("essences").forGetter(ritual -> {
                 return ritual.essences;
             }),
-            Codec.INT.optionalFieldOf("required_tier").forGetter(ritual -> {
-                return Optional.ofNullable(ritual.requiredTier == 1 ? null : ritual.requiredTier);
+            RitualRequirements.CODEC.optionalFieldOf("additional_requirements").forGetter(ritual -> {
+                return Optional.ofNullable(ritual.requirements);
             }),
             MagicCircle.Config.CODEC.optionalFieldOf("magic_circle").forGetter(ritual -> {
                 return Optional.ofNullable(ritual.magicCircleConfig.equals(MagicCircle.Config.DEFAULT) ? null : ritual.magicCircleConfig);
             })
-    ).apply(instance, (inputs, mainIngredient, result, essences, requiredTier, magicCircleConfig) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, requiredTier.orElse(1), magicCircleConfig.orElse(MagicCircle.Config.DEFAULT));
+    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleConfig) -> {
+        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleConfig.orElse(MagicCircle.Config.DEFAULT));
     }));
 
-    public boolean canStart(int forgeTier, Collection<ItemStack> list, RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
-        return forgeTier >= this.requiredTier && this.checkIngredients(list, accessor) && this.result().checkConditions(accessor, level, pos);
+    public boolean canStart(RitualStartContext context) {
+        if (this.requirements != null && !this.requirements.checkRequirements(context.forgeTier(), context.enhancers())) {
+            return false;
+        }
+
+        ItemStack mainIngredient = context.mainIngredient();
+
+        return this.checkIngredients(context.inputs(), mainIngredient) && this.result().checkConditions(mainIngredient, context.level(), context.pos());
     }
 
-    public boolean checkIngredients(Collection<ItemStack> list, RitualManager.MainIngredientAccessor accessor) {
-        if (!this.mainIngredient().test(accessor.get())) {
+    public boolean checkIngredients(Collection<ItemStack> list, ItemStack mainIngredient) {
+        if (!this.mainIngredient().test(mainIngredient)) {
             return false;
         }
 
@@ -110,6 +118,12 @@ public record Ritual(List<RitualInput> inputs,
 
         public Block getBlock() {
             return block;
+        }
+    }
+
+    protected record RitualStartContext(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, List<EnhancerDefinition> enhancers) {
+        public static RitualStartContext of(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, List<EnhancerDefinition> enhancers) {
+            return new RitualStartContext(level, pos, forgeTier, inputs, mainIngredient, enhancers);
         }
     }
 }

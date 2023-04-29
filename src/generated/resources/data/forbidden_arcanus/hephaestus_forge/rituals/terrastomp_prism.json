@@ -1,4 +1,7 @@
 {
+  "additional_requirements": {
+    "forge_tier": 2
+  },
   "essences": {
     "aureal": 300,
     "blood": 1500,
@@ -28,7 +31,6 @@
   "main_ingredient": {
     "item": "minecraft:diamond_block"
   },
-  "required_tier": 2,
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

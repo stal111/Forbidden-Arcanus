@@ -51,7 +51,7 @@ public class UpgradeTierResult extends RitualResult {
     }
 
     @Override
-    public boolean checkConditions(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
+    public boolean checkConditions(ItemStack mainIngredient, Level level, BlockPos pos) {
         return level.getBlockState(pos).getValue(HephaestusForgeBlock.TIER) == this.requiredTier;
     }
 

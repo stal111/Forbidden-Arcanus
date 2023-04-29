@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualMana
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 /**
@@ -19,12 +20,12 @@ public abstract class RitualResult {
     /**
      * Called before a ritual gets started to see if the result it will have is valid.
      *
-     * @param accessor the main ingredient inside the Hephaestus Forge
+     * @param mainIngredient the main ingredient inside the Hephaestus Forge
      * @param level    the level the Forge is in
      * @param pos      the pos where the Forge is located
      * @return whether the result can happen
      */
-    public boolean checkConditions(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
+    public boolean checkConditions(ItemStack mainIngredient, Level level, BlockPos pos) {
         return true;
     }
 

@@ -1,4 +1,7 @@
 {
+  "additional_requirements": {
+    "forge_tier": 3
+  },
   "essences": {
     "aureal": 1000,
     "blood": 2000,
@@ -28,7 +31,6 @@
   "main_ingredient": {
     "item": "minecraft:heart_of_the_sea"
   },
-  "required_tier": 3,
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

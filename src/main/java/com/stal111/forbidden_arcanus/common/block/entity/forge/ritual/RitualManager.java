@@ -157,8 +157,9 @@ public class RitualManager implements NeedsStoring {
                 .toList();
 
         EssencesDefinition updatedEssences = ritual.essences().applyModifiers(modifiers);
+        Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor.get(), this.enhancerAccessor.getEnhancers());
 
-        return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor, this.level, this.pos);
+        return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
     }
 
     public void startRitual(EssencesStorage storage, NamedRitual ritual) {
@@ -199,7 +200,7 @@ public class RitualManager implements NeedsStoring {
 
                 this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
-                if (!this.getActiveRitual().get().checkIngredients(list, this.mainIngredientAccessor)) {
+                if (!this.getActiveRitual().get().checkIngredients(list, this.mainIngredientAccessor.get())) {
                     this.failRitual();
 
                     NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, Optional.ofNullable(this.activeRitual).map(NamedRitual::name)));
