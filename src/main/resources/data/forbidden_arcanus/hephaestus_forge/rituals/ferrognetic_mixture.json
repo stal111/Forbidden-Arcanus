@@ -1,0 +1,38 @@
+{
+    "inputs": [
+        {
+            "item": "minecraft:clay_ball",
+            "slot": 0
+        },
+        {
+            "item": "minecraft:clay_ball",
+            "slot": 1
+        },
+        {
+            "item": "forbidden_arcanus:wax",
+            "slot": 2
+        },
+        {
+            "item": "forbidden_arcanus:wax",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:slime_ball",
+            "slot": 4
+        },
+        {
+            "item": "minecraft:iron_ingot",
+            "slot": 5
+        }
+    ],
+    "hephaestus_forge_item": "minecraft:lodestone",
+    "essences": {
+        "aureal": 100,
+        "blood": 1250,
+        "souls": 1
+    },
+    "result": {
+        "item": "forbidden_arcanus:ferrognetic_mixture",
+        "count": 1
+    }
+}

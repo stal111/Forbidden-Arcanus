@@ -1,0 +1,38 @@
+{
+    "inputs": [
+        {
+            "item": "minecraft:flint",
+            "slot": 0
+        },
+        {
+            "item": "minecraft:flint",
+            "slot": 1
+        },
+        {
+            "item": "minecraft:dripstone_block",
+            "slot": 2
+        },
+        {
+            "item": "minecraft:dripstone_block",
+            "slot": 3
+        },
+        {
+            "item": "minecraft:pointed_dripstone",
+            "slot": 4
+        },
+        {
+            "item": "minecraft:pointed_dripstone",
+            "slot": 5
+        }
+    ],
+    "hephaestus_forge_item": "minecraft:diamond_block",
+    "essences": {
+        "aureal": 82,
+        "blood": 1000,
+        "souls": 1
+    },
+    "result": {
+        "item": "forbidden_arcanus:terrastomp_prism",
+        "count": 1
+    }
+}
