@@ -42,7 +42,7 @@ public abstract class PlayerMixin extends LivingEntity {
                 return;
             }
 
-            AABB aabb = this.getBoundingBox().inflate(2.0D, 1.5D, 2.0D);
+            AABB aabb = this.getBoundingBox().inflate(2.5D, 1.5D, 2.5D);
 
             List<Entity> list = this.level.getEntities(this, aabb);
 
