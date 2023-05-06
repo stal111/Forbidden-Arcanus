@@ -57,7 +57,7 @@ public class FARegistries {
      * @param <T> the entry of the registry.
      */
     private static <T> Supplier<IForgeRegistry<T>> makeSyncedRegistry(DeferredRegister<T> deferredRegister) {
-        return deferredRegister.makeRegistry(() -> (RegistryBuilder<T>) new RegistryBuilder<>().disableSaving());
+        return deferredRegister.makeRegistry(() -> new RegistryBuilder<T>().disableSaving());
     }
 
     /**
@@ -66,6 +66,6 @@ public class FARegistries {
      * @param <T> the entry of the registry.
      */
     private static <T> Supplier<IForgeRegistry<T>> makeRegistry(DeferredRegister<T> deferredRegister) {
-        return deferredRegister.makeRegistry(() -> (RegistryBuilder<T>) new RegistryBuilder<>().disableSaving().disableSync());
+        return deferredRegister.makeRegistry(() -> new RegistryBuilder<T>().disableSaving().disableSync());
     }
 }
