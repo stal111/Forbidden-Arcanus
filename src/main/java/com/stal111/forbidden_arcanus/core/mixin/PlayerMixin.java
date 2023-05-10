@@ -11,11 +11,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -51,6 +53,24 @@ public abstract class PlayerMixin extends LivingEntity {
                     this.touch(entity);
                 }
             }
+        }
+    }
+
+    @Redirect(at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/player/Player;onGround:Z"), method = "getDigSpeed")
+    public boolean forbiddenArcanus_getDigSpeed$seaPrismModifier(Player instance) {
+        boolean onGround = instance.isOnGround();
+
+        if (!onGround && this.isEyeInFluidType(ForgeMod.WATER_TYPE.get()) && ModifierHelper.getModifier(instance.getItemBySlot(EquipmentSlot.HEAD)) == ModItemModifiers.AQUATIC.get()) {
+            return true;
+        }
+
+        return onGround;
+    }
+
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;tick()V"), method = "aiStep")
+    public void forbiddenArcanus_aiStep$seaPrismModifier(CallbackInfo ci) {
+        if (this.getHealth() < this.getMaxHealth() && this.tickCount % 100 == 0 && this.isEyeInFluidType(ForgeMod.WATER_TYPE.get()) && ModifierHelper.getModifier(this.getItemBySlot(EquipmentSlot.HEAD)) == ModItemModifiers.AQUATIC.get()) {
+            this.heal(2.0F);
         }
     }
 }

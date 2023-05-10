@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ToolActions;
@@ -34,6 +35,6 @@ public class ModItemModifiers implements RegistryClass {
         return false;
     }, ModTags.Items.MAGNETIZED_INCOMPATIBLE, ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE, FastColor.ARGB32.color(255, 200, 201, 215), FastColor.ARGB32.color(255, 87, 105, 99)));
     public static final RegistryObject<ItemModifier> DEMOLISHING = HELPER.register("demolishing", () -> new ItemModifier(stack -> stack.canPerformAction(ToolActions.PICKAXE_DIG) || stack.canPerformAction(ToolActions.AXE_DIG) || stack.canPerformAction(ToolActions.SHOVEL_DIG) || stack.canPerformAction(ToolActions.HOE_DIG) || stack.canPerformAction(ToolActions.PICKAXE_DIG), ModTags.Items.DEMOLISHING_INCOMPATIBLE, ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE, FastColor.ARGB32.color(255, 111, 84, 80), FastColor.ARGB32.color(255, 78, 58, 39)));
-    public static final RegistryObject<ItemModifier> AQUATIC = HELPER.register("aquatic", () -> new ItemModifier(stack -> stack.getEquipmentSlot() == EquipmentSlot.HEAD, ModTags.Items.AQUATIC_INCOMPATIBLE, ModTags.Enchantments.AQUATIC_INCOMPATIBLE, FastColor.ARGB32.color(255, 90, 130, 243), FastColor.ARGB32.color(255, 35, 79, 204)));
+    public static final RegistryObject<ItemModifier> AQUATIC = HELPER.register("aquatic", () -> new ItemModifier(stack -> LivingEntity.getEquipmentSlotForItem(stack) == EquipmentSlot.HEAD, ModTags.Items.AQUATIC_INCOMPATIBLE, ModTags.Enchantments.AQUATIC_INCOMPATIBLE, FastColor.ARGB32.color(255, 90, 130, 243), FastColor.ARGB32.color(255, 35, 79, 204)));
 
 }
