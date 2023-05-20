@@ -2,14 +2,15 @@ package com.stal111.forbidden_arcanus.common.integration;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import it.unimi.dsi.fastutil.ints.IntIntPair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,9 +21,11 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -39,20 +42,22 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/hephaestus_forge_jei.png");
 
-    private static final List<Pair<Integer, Integer>> INPUT_POSITIONS = ImmutableList.of(
-            Pair.of(63, 13),
-            Pair.of(82, 16),
-            Pair.of(85, 35),
-            Pair.of(82, 54),
-            Pair.of(63, 57),
-            Pair.of(44, 54),
-            Pair.of(41, 35),
-            Pair.of(44, 16)
+    private static final List<IntIntPair> INPUT_POSITIONS = ImmutableList.of(
+            IntIntPair.of(63, 13),
+            IntIntPair.of(82, 16),
+            IntIntPair.of(85, 35),
+            IntIntPair.of(82, 54),
+            IntIntPair.of(63, 57),
+            IntIntPair.of(44, 54),
+            IntIntPair.of(41, 35),
+            IntIntPair.of(44, 16)
     );
 
-    private static final Pair<Integer, Integer> FORGE_ITEM_POSITION = new Pair<>(63, 35);
-    private static final Pair<Integer, Integer> OUTPUT_POSITION = new Pair<>(121, 36);
-    private static final Pair<Integer, Integer> PEDESTAL_TYPE_POSITION = new Pair<>(123, 85);
+    private static final IntIntPair FORGE_ITEM_POSITION = IntIntPair.of(63, 35);
+    private static final IntIntPair OUTPUT_POSITION = IntIntPair.of(121, 36);
+    private static final IntIntPair FORGE_TIER_POSITION = IntIntPair.of(123, 85);
+    private static final IntIntPair ENHANCER_POSITION = IntIntPair.of(10, 12);
+    private static final int ENHANCER_Y_OFFSET = 21;
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -95,31 +100,48 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull Ritual ritual, @Nonnull IFocusGroup focusGroup) {
-        builder.addSlot(RecipeIngredientRole.INPUT, FORGE_ITEM_POSITION.getFirst(), FORGE_ITEM_POSITION.getSecond())
-                .addIngredients(ritual.mainIngredient());
+        this.addInputs(builder, ritual.inputs(), ritual.mainIngredient());
 
-        int index = 0;
-
-        for (RitualInput input : ritual.inputs()) {
-            for (int j = 0; j < input.amount(); j++) {
-                builder.addSlot(RecipeIngredientRole.INPUT, INPUT_POSITIONS.get(index).getFirst(), INPUT_POSITIONS.get(index).getSecond())
-                        .addIngredients(input.ingredient());
-
-                index++;
-            }
+        if (ritual.requirements() != null) {
+            this.addEnhancers(builder, ritual.requirements().enhancers());
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_POSITION.getFirst(), OUTPUT_POSITION.getSecond())
+        builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_POSITION.firstInt(), OUTPUT_POSITION.secondInt())
                 .addItemStack(((CreateItemResult) ritual.result()).getResult());
 
         int requiredTier = ritual.requirements() == null ? 1 : ritual.requirements().tier();
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, PEDESTAL_TYPE_POSITION.getFirst(), PEDESTAL_TYPE_POSITION.getSecond())
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, FORGE_TIER_POSITION.firstInt(), FORGE_TIER_POSITION.secondInt())
                 .addItemStack(HephaestusForgeBlock.setTierOnStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), requiredTier))
                 .addTooltipCallback((recipeSlotView, tooltip) -> {
                     tooltip.clear();
                     tooltip.add(Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_tier").append(": " + requiredTier));
                 });
+    }
+
+    private void addInputs(@Nonnull IRecipeLayoutBuilder builder, List<RitualInput> inputs, Ingredient mainIngredient) {
+        builder.addSlot(RecipeIngredientRole.INPUT, FORGE_ITEM_POSITION.firstInt(), FORGE_ITEM_POSITION.secondInt())
+                .addIngredients(mainIngredient);
+
+        int index = 0;
+
+        for (RitualInput input : inputs) {
+            for (int j = 0; j < input.amount(); j++) {
+                builder.addSlot(RecipeIngredientRole.INPUT, INPUT_POSITIONS.get(index).firstInt(), INPUT_POSITIONS.get(index).secondInt())
+                        .addIngredients(input.ingredient());
+
+                index++;
+            }
+        }
+    }
+
+    private void addEnhancers(@Nonnull IRecipeLayoutBuilder builder, List<Holder<EnhancerDefinition>> enhancers) {
+        for (int i = 0; i < enhancers.size(); i++) {
+            Holder<EnhancerDefinition> enhancer = enhancers.get(i);
+
+            builder.addSlot(RecipeIngredientRole.CATALYST, ENHANCER_POSITION.firstInt(), ENHANCER_POSITION.secondInt() + i * ENHANCER_Y_OFFSET)
+                    .addItemStack(enhancer.get().item().getDefaultInstance());
+        }
     }
 
     @Override
