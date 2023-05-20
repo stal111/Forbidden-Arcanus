@@ -9,7 +9,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInpu
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -83,8 +83,8 @@ public class RitualBuilder {
     }
 
     @SafeVarargs
-    public final RitualBuilder requirements(int tier, ResourceKey<EnhancerDefinition>... enhancers) {
-        this.additionalRequirements = new RitualRequirements(tier, List.of());
+    public final RitualBuilder requirements(int tier, Holder<EnhancerDefinition>... enhancers) {
+        this.additionalRequirements = new RitualRequirements(tier, List.of(enhancers));
 
         return this;
     }

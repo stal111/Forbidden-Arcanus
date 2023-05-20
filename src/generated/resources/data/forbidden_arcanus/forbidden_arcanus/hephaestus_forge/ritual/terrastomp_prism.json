@@ -1,5 +1,8 @@
 {
   "additional_requirements": {
+    "enhancers": [
+      "forbidden_arcanus:elementarium"
+    ],
     "forge_tier": 2
   },
   "essences": {
