@@ -37,7 +37,7 @@ public class ValidRitualIndicator {
     public void render(PoseStack poseStack, float partialTicks, MultiBufferSource buffer, int packedLight, ModelPart model) {
         poseStack.pushPose();
 
-        poseStack.translate(0.5D, 0.0D, 0.5D);
+        poseStack.translate(0.5D, 0.0002D, 0.5D);
 
         poseStack.scale(8.5F, 1.0F, 8.5F);
 

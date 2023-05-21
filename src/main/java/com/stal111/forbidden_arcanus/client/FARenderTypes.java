@@ -29,12 +29,31 @@ public class FARenderTypes extends RenderType {
 
     private static final Function<ResourceLocation, RenderType> ENTITY_FULLBRIGHT_CUTOUT = Util.memoize(resourceLocation -> {
         RenderStateShard.TextureStateShard textureStateShard = new RenderStateShard.TextureStateShard(resourceLocation, false, false);
-        return create(ForbiddenArcanus.MOD_ID + ":entity_fullbright_cutout", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_FULLBRIGHT_CUTOUT_SHADER).setTextureState(textureStateShard).setTransparencyState(NO_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+
+        var builder = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_ENTITY_FULLBRIGHT_CUTOUT_SHADER)
+                .setTextureState(textureStateShard)
+                .setTransparencyState(NO_TRANSPARENCY)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(false);
+
+        return create(ForbiddenArcanus.MOD_ID + ":entity_fullbright_cutout", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, builder);
     });
 
     private static final Function<ResourceLocation, RenderType> ENTITY_FULLBRIGHT_TRANSLUCENT = Util.memoize(resourceLocation -> {
         RenderStateShard.TextureStateShard textureStateShard = new RenderStateShard.TextureStateShard(resourceLocation, false, false);
-        return create(ForbiddenArcanus.MOD_ID + ":entity_fullbright_translucent", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENTITY_FULLBRIGHT_TRANSLUCENT_SHADER).setTextureState(textureStateShard).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+
+        var builder = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_ENTITY_FULLBRIGHT_TRANSLUCENT_SHADER)
+                .setTextureState(textureStateShard)
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setCullState(NO_CULL)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(false);
+
+        return create(ForbiddenArcanus.MOD_ID + ":entity_fullbright_translucent", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, builder);
     });
 
     public static RenderType entityFullbrightCutout(ResourceLocation resourceLocation) {
