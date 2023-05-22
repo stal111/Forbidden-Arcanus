@@ -64,6 +64,7 @@ public class CreativeModeTabEvents {
                     output.accept(ModItems.DARK_RUNE.get());
                     output.accept(ModItems.STELLARITE_PIECE.get());
                     output.accept(ModItems.XPETRIFIED_ORB.get());
+                    output.accept(ModItems.DEORUM_NUGGET.get());
                     output.accept(ModItems.DEORUM_INGOT.get());
                     output.accept(ModItems.OBSIDIAN_INGOT.get());
                     output.accept(ModItems.ARCANE_CRYSTAL_DUST.get());
@@ -71,6 +72,10 @@ public class CreativeModeTabEvents {
                     output.accept(ModItems.CORRUPTI_DUST.get());
                     output.accept(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get());
                     output.accept(ModItems.ARCANE_BONE_MEAL.get());
+                    output.accept(ModItems.SOUL.get());
+                    output.accept(ModItems.CORRUPT_SOUL.get());
+                    output.accept(ModItems.ENCHANTED_SOUL.get());
+                    output.accept(ModItems.SOUL_EXTRACTOR.get());
                     output.accept(ModItems.TERRASTOMP_PRISM.get());
                     output.accept(ModItems.SEA_PRISM.get());
                     output.accept(ModItems.WHIRLWIND_PRISM.get());
@@ -82,6 +87,14 @@ public class CreativeModeTabEvents {
                     output.accept(ModItems.ELEMENTARIUM.get());
                     output.accept(ModItems.DIVINE_PACT.get());
                     output.accept(ModItems.MALEDICTUS_PACT.get());
+                    output.accept(ModItems.BLACKSMITH_GAVEL_HEAD.get());
+                    output.accept(ModItems.WOODEN_BLACKSMITH_GAVEL.get());
+                    output.accept(ModItems.STONE_BLACKSMITH_GAVEL.get());
+                    output.accept(ModItems.GOLDEN_BLACKSMITH_GAVEL.get());
+                    output.accept(ModItems.IRON_BLACKSMITH_GAVEL.get());
+                    output.accept(ModItems.DIAMOND_BLACKSMITH_GAVEL.get());
+                    output.accept(ModItems.NETHERITE_BLACKSMITH_GAVEL.get());
+                    output.accept(ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL.get());
                 })
         );
     }
