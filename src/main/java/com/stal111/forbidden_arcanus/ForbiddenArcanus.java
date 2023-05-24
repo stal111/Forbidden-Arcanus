@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
-import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -91,6 +90,5 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 		CounterHelper.addCounter(CounterCreator.of(resourceLocation -> new SerializableCounter(resourceLocation, 0, false), new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer")));
 
 		Consequences.registerConsequences();
-		HephaestusForgeInputs.registerInputs();
 	}
 }

@@ -5,15 +5,15 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceMa
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesContainer;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
-import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInput;
-import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.ValueNotifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -198,7 +198,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
             return null;
         }
 
-        return HephaestusForgeInputs.getInputs().stream().filter(input -> input.canInput(inputType, stack)).findFirst().orElse(null);
+        return FARegistries.FORGE_INPUT_TYPE_REGISTRY.get().getValues().stream().filter(input -> input.canInput(inputType, stack)).findFirst().orElse(null);
     }
 
     public void setForgeLevel(HephaestusForgeLevel level) {

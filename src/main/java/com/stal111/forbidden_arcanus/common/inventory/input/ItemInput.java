@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.common.inventory.input;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
 import com.stal111.forbidden_arcanus.common.loader.HephaestusForgeInputLoader;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -29,5 +31,10 @@ public class ItemInput implements HephaestusForgeInput {
     @Override
     public void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
         stack.shrink(1);
+    }
+
+    @Override
+    public HephaestusForgeInputType<?> getType() {
+        return null;
     }
 }

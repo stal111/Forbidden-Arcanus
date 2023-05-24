@@ -5,10 +5,10 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBl
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -155,7 +155,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     public boolean canInput(EssenceType type, ItemStack stack) {
-        return !HephaestusForgeInputs.getInputs().stream().filter(hephaestusForgeInput -> hephaestusForgeInput.canInput(type, stack)).toList().isEmpty();
+        return !FARegistries.FORGE_INPUT_TYPE_REGISTRY.get().getValues().stream().filter(hephaestusForgeInput -> hephaestusForgeInput.canInput(type, stack)).toList().isEmpty();
     }
 
     @Override

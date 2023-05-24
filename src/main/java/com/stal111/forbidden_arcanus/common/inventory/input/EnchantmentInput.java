@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.common.inventory.input;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -42,6 +44,11 @@ public class EnchantmentInput implements HephaestusForgeInput {
         if (inputValue != 0) {
             tileEntity.setStack(slot, ItemStackUtils.removeEnchantments(stack));
         }
+    }
+
+    @Override
+    public HephaestusForgeInputType<?> getType() {
+        return null;
     }
 
     private int getEnchantmentXp(ItemStack stack) {

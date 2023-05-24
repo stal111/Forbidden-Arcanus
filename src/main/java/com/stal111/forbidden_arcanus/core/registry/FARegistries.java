@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.core.registry;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -25,17 +26,20 @@ public class FARegistries {
 
     public static final ResourceKey<Registry<Ritual>> RITUAL = FARegistries.createRegistryKey("hephaestus_forge/ritual");
     public static final ResourceKey<Registry<RitualResultType<?>>> RITUAL_RESULT_TYPE = FARegistries.createRegistryKey("ritual_result");
+    public static final ResourceKey<Registry<HephaestusForgeInput>> FORGE_INPUT_TYPE = FARegistries.createRegistryKey("hephaestus_forge/input_type");
     public static final ResourceKey<Registry<ItemModifier>> ITEM_MODIFIER = FARegistries.createRegistryKey("item_modifier");
     public static final ResourceKey<Registry<EnhancerEffectType<?>>> ENHANCER_EFFECT = FARegistries.createRegistryKey("enhancer/effect");
     public static final ResourceKey<Registry<EffectConditionType<?>>> ENHANCER_EFFECT_CONDITION = FARegistries.createRegistryKey("enhancer/effect_condition");
     public static final ResourceKey<Registry<EnhancerDefinition>> ENHANCER_DEFINITION = FARegistries.createRegistryKey("enhancer/definition");
 
     private static final DeferredRegister<RitualResultType<?>> RITUAL_RESULT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.RITUAL_RESULT_TYPE, ForbiddenArcanus.MOD_ID);
+    private static final DeferredRegister<HephaestusForgeInput> FORGE_INPUT_TYPE_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.FORGE_INPUT_TYPE, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<ItemModifier> ITEM_MODIFIER_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ITEM_MODIFIER, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<EnhancerEffectType<?>> ENHANCER_EFFECT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ENHANCER_EFFECT, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ENHANCER_EFFECT_CONDITION, ForbiddenArcanus.MOD_ID);
 
     public static final Supplier<IForgeRegistry<RitualResultType<?>>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_DEFERRED_REGISTER);
+    public static final Supplier<IForgeRegistry<HephaestusForgeInput>> FORGE_INPUT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT_TYPE_DEFERRED_REGISTER);
     public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = FARegistries.makeSyncedRegistry(ITEM_MODIFIER_DEFERRED_REGISTER);
     public static final Supplier<IForgeRegistry<EnhancerEffectType<?>>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_DEFERRED_REGISTER);
     public static final Supplier<IForgeRegistry<EffectConditionType<?>>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER);
@@ -45,6 +49,7 @@ public class FARegistries {
         FARegistries.ITEM_MODIFIER_DEFERRED_REGISTER.register(modEventBus);
         FARegistries.ENHANCER_EFFECT_DEFERRED_REGISTER.register(modEventBus);
         FARegistries.ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER.register(modEventBus);
+        FARegistries.FORGE_INPUT_TYPE_DEFERRED_REGISTER.register(modEventBus);
     }
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {

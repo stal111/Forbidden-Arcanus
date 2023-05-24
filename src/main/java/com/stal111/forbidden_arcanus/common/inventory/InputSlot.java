@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.inventory.input.HephaestusForgeInputs;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -26,7 +26,7 @@ public class InputSlot extends SlotItemHandler {
 
     @Override
     public boolean mayPlace(@Nonnull ItemStack stack) {
-        return HephaestusForgeInputs.getInputs().stream().anyMatch(input -> input.canInput(inputType, stack));
+        return FARegistries.FORGE_INPUT_TYPE_REGISTRY.get().getValues().stream().anyMatch(input -> input.canInput(inputType, stack));
     }
 
     public EssenceType getInputType() {
