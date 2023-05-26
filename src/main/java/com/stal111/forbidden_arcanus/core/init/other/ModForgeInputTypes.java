@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
-import com.stal111.forbidden_arcanus.common.inventory.input.BloodTestTubeInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
+import com.stal111.forbidden_arcanus.common.inventory.input.BloodInput;
 import com.stal111.forbidden_arcanus.common.inventory.input.EnchantmentInput;
 import com.stal111.forbidden_arcanus.common.inventory.input.ItemInput;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -16,10 +16,10 @@ import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
  */
 public class ModForgeInputTypes implements RegistryClass {
 
-    public static final MappedRegistryHelper<HephaestusForgeInput> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(FARegistries.FORGE_INPUT_TYPE);
+    public static final MappedRegistryHelper<HephaestusForgeInputType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(FARegistries.FORGE_INPUT_TYPE);
 
-    public static final RegistryObject<ItemInput> ITEM = HELPER.register("item", ItemInput::new);
-    public static final RegistryObject<EnchantmentInput> ENCHANTMENT = HELPER.register("enchantment", EnchantmentInput::new);
-    public static final RegistryObject<BloodTestTubeInput> BLOOD = HELPER.register("blood", BloodTestTubeInput::new);
+    public static final RegistryObject<HephaestusForgeInputType<ItemInput>> ITEM = HELPER.register("item", () -> new HephaestusForgeInputType<>(ItemInput.CODEC));
+    public static final RegistryObject<HephaestusForgeInputType<EnchantmentInput>> ENCHANTMENT = HELPER.register("enchantment", () -> new HephaestusForgeInputType<>(EnchantmentInput.CODEC));
+    public static final RegistryObject<HephaestusForgeInputType<BloodInput>> BLOOD = HELPER.register("blood", () -> new HephaestusForgeInputType<>(BloodInput.CODEC));
 
 }

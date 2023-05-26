@@ -1,31 +1,50 @@
 package com.stal111.forbidden_arcanus.common.inventory.input;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
-import com.stal111.forbidden_arcanus.common.loader.HephaestusForgeInputLoader;
+import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
+import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
- * Item Input
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.container.input.ItemInput
- *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-07-07
  */
-public class ItemInput implements HephaestusForgeInput {
+public class ItemInput extends HephaestusForgeInput {
 
-    @Override
-    public boolean canInput(EssenceType inputType, ItemStack stack) {
-        return HephaestusForgeInputLoader.isValidInput(inputType, stack);
+    public static final Codec<ItemInput> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            essenTypeCodec(),
+            AdditionalCodecs.INGREDIENT.fieldOf("ingredient").forGetter(input -> {
+                return input.ingredient;
+            }),
+            Codec.INT.optionalFieldOf("amount").forGetter(input -> {
+                return Optional.of(input.amount);
+            })
+    ).apply(instance, (type, name, amount) -> {
+        return new ItemInput(type, name, amount.orElse(1));
+    }));
+
+    private final Ingredient ingredient;
+    private final int amount;
+
+    public ItemInput(List<EssenceType> essenceTypes, Ingredient ingredient, int amount) {
+        super(essenceTypes);
+        this.ingredient = ingredient;
+        this.amount = amount;
     }
 
     @Override
     public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
-        return HephaestusForgeInputLoader.getInputData(inputType, stack).value();
+        return this.amount;
     }
 
     @Override
@@ -34,7 +53,7 @@ public class ItemInput implements HephaestusForgeInput {
     }
 
     @Override
-    public HephaestusForgeInputType<?> getType() {
-        return null;
+    public HephaestusForgeInputType<?> type() {
+        return ModForgeInputTypes.ITEM.get();
     }
 }

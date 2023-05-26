@@ -9,11 +9,13 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
@@ -97,6 +99,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(@Nonnull Player player, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
+        Level level = player.getLevel();
 
         if (!slot.hasItem()) {
             return result;
@@ -116,19 +119,19 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (this.canInput(EssenceType.AUREAL, stack)) {
+            if (this.canInput(level, EssenceType.AUREAL, stack)) {
                 if (!this.moveItemStackTo(stack, 5, 6, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canInput(EssenceType.SOULS, stack)) {
+            } else if (this.canInput(level, EssenceType.SOULS, stack)) {
                 if (!this.moveItemStackTo(stack, 6, 7, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canInput(EssenceType.BLOOD, stack)) {
+            } else if (this.canInput(level, EssenceType.BLOOD, stack)) {
                 if (!this.moveItemStackTo(stack, 7, 8, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canInput(EssenceType.EXPERIENCE, stack)) {
+            } else if (this.canInput(level, EssenceType.EXPERIENCE, stack)) {
                 if (!this.moveItemStackTo(stack, 8, 9, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -154,8 +157,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         return result;
     }
 
-    public boolean canInput(EssenceType type, ItemStack stack) {
-        return !FARegistries.FORGE_INPUT_TYPE_REGISTRY.get().getValues().stream().filter(hephaestusForgeInput -> hephaestusForgeInput.canInput(type, stack)).toList().isEmpty();
+    public boolean canInput(Level level, EssenceType type, ItemStack stack) {
+        return level.registryAccess().registryOrThrow(FARegistries.FORGE_INPUT).holders()
+                .map(Holder::get)
+                .anyMatch(input -> input.canInput(type, stack));
     }
 
     @Override

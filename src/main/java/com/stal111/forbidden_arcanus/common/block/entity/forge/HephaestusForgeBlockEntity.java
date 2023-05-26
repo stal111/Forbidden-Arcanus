@@ -15,7 +15,9 @@ import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlot
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.ValueNotifier;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -31,6 +33,7 @@ import net.valhelsia.valhelsia_core.common.block.entity.ValhelsiaContainerBlockE
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.EnumMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -45,6 +48,13 @@ import java.util.stream.Stream;
 public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity implements EssencesContainer {
 
     public static final int MAIN_SLOT = 4;
+
+    public static final EnumMap<EssenceType, Integer> SLOT_FROM_ESSENCE_TYPE_MAP = Util.make(new EnumMap<>(EssenceType.class), map -> {
+        map.put(EssenceType.AUREAL, 5);
+        map.put(EssenceType.SOULS, 6);
+        map.put(EssenceType.BLOOD, 7);
+        map.put(EssenceType.EXPERIENCE, 8);
+    });
 
     private final ContainerData hephaestusForgeData;
     private final EssenceManager essenceManager;
@@ -130,26 +140,20 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        for (int i = 5; i <= 8; i++) {
-            ItemStack stack = blockEntity.getStack(i);
+        for (EssenceType type : EssenceType.values()) {
+            int slot = SLOT_FROM_ESSENCE_TYPE_MAP.get(type);
+            ItemStack stack = blockEntity.getStack(slot);
 
             if (stack.isEmpty()) {
                 continue;
             }
 
-            EssenceType inputType = blockEntity.getInputTypeFromSlot(i);
-
-            if (inputType == null) {
-                continue;
-            }
-
-            HephaestusForgeInput input = blockEntity.getInput(stack, inputType);
-
-            if (input != null) {
-                blockEntity.fillWith(inputType, stack, input, i);
+            blockEntity.getInput(level, stack, type).ifPresent(input -> {
+                blockEntity.fillWith(type, stack, input, slot);
 
                 blockEntity.setChanged();
-            }
+            });
+
         }
 
         if (level.getGameTime() % 80 == 0) {
@@ -182,23 +186,15 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity im
         }
     }
 
-    private EssenceType getInputTypeFromSlot(int slot) {
-        return switch (slot) {
-            case 5 -> EssenceType.AUREAL;
-            case 6 -> EssenceType.SOULS;
-            case 7 -> EssenceType.BLOOD;
-            case 8 -> EssenceType.EXPERIENCE;
-            default -> null;
-        };
-    }
-
-    @Nullable
-    private HephaestusForgeInput getInput(ItemStack stack, EssenceType inputType) {
-        if (this.essenceManager.isEssenceFull(inputType)) {
-            return null;
+    private Optional<HephaestusForgeInput> getInput(Level level, ItemStack stack, EssenceType essenceType) {
+        if (this.essenceManager.isEssenceFull(essenceType)) {
+            return Optional.empty();
         }
 
-        return FARegistries.FORGE_INPUT_TYPE_REGISTRY.get().getValues().stream().filter(input -> input.canInput(inputType, stack)).findFirst().orElse(null);
+        return level.registryAccess().registryOrThrow(FARegistries.FORGE_INPUT).holders()
+                .map(Holder::get)
+                .filter(input -> input.canInput(essenceType, stack))
+                .findFirst();
     }
 
     public void setForgeLevel(HephaestusForgeLevel level) {

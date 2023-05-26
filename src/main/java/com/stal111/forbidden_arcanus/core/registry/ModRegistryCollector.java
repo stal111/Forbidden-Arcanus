@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
 import com.stal111.forbidden_arcanus.data.ModDamageTypes;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
+import com.stal111.forbidden_arcanus.data.hephaestus_forge.input.ModForgeInputs;
 import com.stal111.forbidden_arcanus.data.rituals.ModRituals;
 import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
 import com.stal111.forbidden_arcanus.data.worldgen.modifier.ModBiomeModifiers;
@@ -54,5 +55,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addDatapackHelper(FARegistries.RITUAL, ModRituals::new);
         this.addDatapackHelper(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions::new);
         this.addDatapackHelper(Registries.DAMAGE_TYPE, ModDamageTypes::new);
+        this.addDatapackHelper(FARegistries.FORGE_INPUT, ModForgeInputs::new);
     }
 }

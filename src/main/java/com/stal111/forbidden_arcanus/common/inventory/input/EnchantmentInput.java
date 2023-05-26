@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.common.inventory.input;
 
+import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
+import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -13,18 +15,20 @@ import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
 import java.util.Map;
 
 /**
- * Enchantment Input
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.input.EnchantmentInput
- *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-07-07
  */
-public class EnchantmentInput implements HephaestusForgeInput {
+public class EnchantmentInput extends HephaestusForgeInput {
+
+    public static final Codec<EnchantmentInput> CODEC = Codec.unit(EnchantmentInput::new);
+
+    protected EnchantmentInput() {
+        super(EssenceType.EXPERIENCE);
+    }
 
     @Override
-    public boolean canInput(EssenceType inputType, ItemStack stack) {
-        return inputType == EssenceType.EXPERIENCE && stack.isEnchanted();
+    public boolean additionalInputChecks(ItemStack stack) {
+        return stack.isEnchanted();
     }
 
     @Override
@@ -36,6 +40,7 @@ public class EnchantmentInput implements HephaestusForgeInput {
         }
 
         int i = (int) Math.ceil((double) xp / 2.0D);
+
         return i + random.nextInt(i);
     }
 
@@ -47,8 +52,8 @@ public class EnchantmentInput implements HephaestusForgeInput {
     }
 
     @Override
-    public HephaestusForgeInputType<?> getType() {
-        return null;
+    public HephaestusForgeInputType<?> type() {
+        return ModForgeInputTypes.ENCHANTMENT.get();
     }
 
     private int getEnchantmentXp(ItemStack stack) {

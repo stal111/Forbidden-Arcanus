@@ -1,27 +1,31 @@
 package com.stal111.forbidden_arcanus.common.inventory.input;
 
+import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Blood Test Tube Input <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.input.BloodTestTubeInput
- *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-07-08
  */
-public class BloodTestTubeInput implements HephaestusForgeInput {
+public class BloodInput extends HephaestusForgeInput {
+
+    public static final Codec<BloodInput> CODEC = Codec.unit(BloodInput::new);
+
+    protected BloodInput() {
+        super(EssenceType.BLOOD);
+    }
 
     @Override
-    public boolean canInput(EssenceType inputType, ItemStack stack) {
-        return inputType == EssenceType.BLOOD && stack.is(ModItems.BLOOD_TEST_TUBE.get());
+    public boolean additionalInputChecks(ItemStack stack) {
+        return stack.is(ModItems.BLOOD_TEST_TUBE.get());
     }
 
     @Override
@@ -43,7 +47,7 @@ public class BloodTestTubeInput implements HephaestusForgeInput {
     }
 
     @Override
-    public HephaestusForgeInputType<?> getType() {
-        return null;
+    public HephaestusForgeInputType<?> type() {
+        return ModForgeInputTypes.BLOOD.get();
     }
 }
