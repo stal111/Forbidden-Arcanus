@@ -25,7 +25,7 @@ public class ExtractEnchantmentsInput extends HephaestusForgeInput {
     }
 
     @Override
-    public boolean additionalInputChecks(ItemStack stack) {
+    public boolean canInputStack(ItemStack stack) {
         return stack.isEnchanted();
     }
 

@@ -22,7 +22,7 @@ public class BloodInput extends HephaestusForgeInput {
     }
 
     @Override
-    public boolean additionalInputChecks(ItemStack stack) {
+    public boolean canInputStack(ItemStack stack) {
         return stack.is(ModItems.BLOOD_TEST_TUBE.get());
     }
 

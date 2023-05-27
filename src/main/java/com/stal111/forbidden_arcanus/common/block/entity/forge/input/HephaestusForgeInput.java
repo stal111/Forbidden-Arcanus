@@ -37,13 +37,13 @@ public abstract class HephaestusForgeInput {
 
     /**
      * Checks whether this input is valid for the given essence type. <br>
-     * If you want to do additional checks override {@link HephaestusForgeInput#additionalInputChecks(ItemStack)}.
+     * If you want to do additional checks override {@link HephaestusForgeInput#canInputStack(ItemStack)}.
      */
     public final boolean canInput(EssenceType type, ItemStack stack) {
-        return this.essenceTypes.contains(type) && this.additionalInputChecks(stack);
+        return this.essenceTypes.contains(type) && this.canInputStack(stack);
     }
 
-    public boolean additionalInputChecks(ItemStack stack) {
+    public boolean canInputStack(ItemStack stack) {
         return true;
     }
 

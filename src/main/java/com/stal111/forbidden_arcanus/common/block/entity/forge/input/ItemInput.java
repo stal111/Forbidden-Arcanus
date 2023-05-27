@@ -47,6 +47,11 @@ public class ItemInput extends HephaestusForgeInput {
     }
 
     @Override
+    public boolean canInputStack(ItemStack stack) {
+        return this.ingredient.test(stack);
+    }
+
+    @Override
     public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
         return this.amount;
     }
