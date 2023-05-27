@@ -1,0 +1,8 @@
+{
+  "type": "forbidden_arcanus:simple_item",
+  "amount": 30,
+  "essence_type": "aureal",
+  "item": {
+    "item": "forbidden_arcanus:splash_aureal_bottle"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "forbidden_arcanus:simple_item",
+  "amount": 1,
+  "essence_type": "souls",
+  "item": {
+    "item": "forbidden_arcanus:soul"
+  }
+}

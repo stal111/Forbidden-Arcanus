@@ -18,11 +18,11 @@ import java.util.Map;
  * @author stal111
  * @since 2021-07-07
  */
-public class EnchantmentInput extends HephaestusForgeInput {
+public class ExtractEnchantmentsInput extends HephaestusForgeInput {
 
-    public static final Codec<EnchantmentInput> CODEC = Codec.unit(EnchantmentInput::new);
+    public static final Codec<ExtractEnchantmentsInput> CODEC = Codec.unit(ExtractEnchantmentsInput::new);
 
-    protected EnchantmentInput() {
+    public ExtractEnchantmentsInput() {
         super(EssenceType.EXPERIENCE);
     }
 
@@ -53,7 +53,7 @@ public class EnchantmentInput extends HephaestusForgeInput {
 
     @Override
     public HephaestusForgeInputType<?> type() {
-        return ModForgeInputTypes.ENCHANTMENT.get();
+        return ModForgeInputTypes.EXTRACT_ENCHANTMENTS.get();
     }
 
     private int getEnchantmentXp(ItemStack stack) {

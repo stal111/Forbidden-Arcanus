@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.core.init.other;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
 import com.stal111.forbidden_arcanus.common.inventory.input.BloodInput;
-import com.stal111.forbidden_arcanus.common.inventory.input.EnchantmentInput;
+import com.stal111.forbidden_arcanus.common.inventory.input.ExtractEnchantmentsInput;
 import com.stal111.forbidden_arcanus.common.inventory.input.ItemInput;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -18,8 +18,8 @@ public class ModForgeInputTypes implements RegistryClass {
 
     public static final MappedRegistryHelper<HephaestusForgeInputType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(FARegistries.FORGE_INPUT_TYPE);
 
-    public static final RegistryObject<HephaestusForgeInputType<ItemInput>> ITEM = HELPER.register("item", () -> new HephaestusForgeInputType<>(ItemInput.CODEC));
-    public static final RegistryObject<HephaestusForgeInputType<EnchantmentInput>> ENCHANTMENT = HELPER.register("enchantment", () -> new HephaestusForgeInputType<>(EnchantmentInput.CODEC));
+    public static final RegistryObject<HephaestusForgeInputType<ItemInput>> SIMPLE_ITEM = HELPER.register("simple_item", () -> new HephaestusForgeInputType<>(ItemInput.CODEC));
+    public static final RegistryObject<HephaestusForgeInputType<ExtractEnchantmentsInput>> EXTRACT_ENCHANTMENTS = HELPER.register("extract_enchantments", () -> new HephaestusForgeInputType<>(ExtractEnchantmentsInput.CODEC));
     public static final RegistryObject<HephaestusForgeInputType<BloodInput>> BLOOD = HELPER.register("blood", () -> new HephaestusForgeInputType<>(BloodInput.CODEC));
 
 }

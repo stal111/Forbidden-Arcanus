@@ -19,7 +19,7 @@ public class BloodInput extends HephaestusForgeInput {
 
     public static final Codec<BloodInput> CODEC = Codec.unit(BloodInput::new);
 
-    protected BloodInput() {
+    public BloodInput() {
         super(EssenceType.BLOOD);
     }
 

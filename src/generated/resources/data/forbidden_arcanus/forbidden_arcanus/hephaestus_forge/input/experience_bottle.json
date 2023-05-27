@@ -1,0 +1,8 @@
+{
+  "type": "forbidden_arcanus:simple_item",
+  "amount": 15,
+  "essence_type": "experience",
+  "item": {
+    "item": "minecraft:experience_bottle"
+  }
+}

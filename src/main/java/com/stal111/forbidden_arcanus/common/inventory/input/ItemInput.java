@@ -23,7 +23,7 @@ public class ItemInput extends HephaestusForgeInput {
 
     public static final Codec<ItemInput> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             essenTypeCodec(),
-            AdditionalCodecs.INGREDIENT.fieldOf("ingredient").forGetter(input -> {
+            AdditionalCodecs.INGREDIENT.fieldOf("item").forGetter(input -> {
                 return input.ingredient;
             }),
             Codec.INT.optionalFieldOf("amount").forGetter(input -> {
@@ -35,6 +35,12 @@ public class ItemInput extends HephaestusForgeInput {
 
     private final Ingredient ingredient;
     private final int amount;
+
+    public ItemInput(EssenceType essenceType, Ingredient ingredient, int amount) {
+        super(essenceType);
+        this.ingredient = ingredient;
+        this.amount = amount;
+    }
 
     public ItemInput(List<EssenceType> essenceTypes, Ingredient ingredient, int amount) {
         super(essenceTypes);
@@ -54,6 +60,6 @@ public class ItemInput extends HephaestusForgeInput {
 
     @Override
     public HephaestusForgeInputType<?> type() {
-        return ModForgeInputTypes.ITEM.get();
+        return ModForgeInputTypes.SIMPLE_ITEM.get();
     }
 }
