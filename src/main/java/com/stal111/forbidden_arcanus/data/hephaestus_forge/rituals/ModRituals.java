@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.data.rituals;
+package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
