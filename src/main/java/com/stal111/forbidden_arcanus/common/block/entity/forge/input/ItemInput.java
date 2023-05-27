@@ -1,11 +1,9 @@
-package com.stal111.forbidden_arcanus.common.inventory.input;
+package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
 import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
 import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.util.RandomSource;

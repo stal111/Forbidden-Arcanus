@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
-import com.stal111.forbidden_arcanus.common.inventory.input.BloodInput;
-import com.stal111.forbidden_arcanus.common.inventory.input.ExtractEnchantmentsInput;
-import com.stal111.forbidden_arcanus.common.inventory.input.ItemInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.BloodInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ExtractEnchantmentsInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ItemInput;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
