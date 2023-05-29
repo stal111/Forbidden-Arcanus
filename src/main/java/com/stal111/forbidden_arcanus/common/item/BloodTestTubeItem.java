@@ -108,6 +108,6 @@ public class BloodTestTubeItem extends Item {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, worldIn, tooltip, flag);
-        tooltip.add(Component.translatable(ForbiddenArcanus.MOD_ID + ".blood").append(": " + getBlood(stack) + "/" + MAX_BLOOD).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable(ForbiddenArcanus.MOD_ID + ".essence.blood").append(": " + getBlood(stack) + "/" + MAX_BLOOD).withStyle(ChatFormatting.GRAY));
     }
 }
