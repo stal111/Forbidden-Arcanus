@@ -1,4 +1,4 @@
-// 1.19.4	2023-03-26T13:22:35.1703674	Loot Tables
+// 1.19.4	2023-05-29T13:19:31.772095	Loot Tables
 05c266cf1efb292d3d3249030b1ffd363e53f6e3 data/forbidden_arcanus/loot_tables/blocks/arcane_chiseled_darkstone.json
 2632e8ea943baf43e1c62df24e5121e8b8f6586f data/forbidden_arcanus/loot_tables/blocks/arcane_chiseled_polished_darkstone.json
 dc3174bd0b22aa113f03331261ac0e1ce750cf1b data/forbidden_arcanus/loot_tables/blocks/arcane_crystal_block.json
@@ -161,5 +161,6 @@ c7518b115d075ec0193730dec280a56f38256cc7 data/forbidden_arcanus/loot_tables/bloc
 069c790221347ba826806fc38dfa99a1e3754a08 data/forbidden_arcanus/loot_tables/blocks/thin_cherry_log.json
 597b0d7ade0cf965191bf7b457b31e815fa5fbff data/forbidden_arcanus/loot_tables/blocks/tiled_polished_darkstone_bricks.json
 1848fba4104ef073c4e9f59532fed3c41d29febd data/forbidden_arcanus/loot_tables/blocks/utrem_jar.json
+2b2a4bde1a1c86393b28fa3ff9b81ef1ddeed22d data/forbidden_arcanus/loot_tables/blocks/whirlwind.json
 a11c4c0cd589c2ce6a4a1e5955515b42c1ac27d1 data/forbidden_arcanus/loot_tables/blocks/xpetrified_ore.json
 0d41d50fd7676a7ee157864eea61894976b163ac data/forbidden_arcanus/loot_tables/blocks/yellow_orchid.json

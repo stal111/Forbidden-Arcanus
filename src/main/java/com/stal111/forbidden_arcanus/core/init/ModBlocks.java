@@ -258,6 +258,9 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryObject<MagicalFarmlandBlock> MAGICAL_FARMLAND = HELPER.create("magical_farmland", () -> new MagicalFarmlandBlock(BlockBehaviour.Properties.copy(Blocks.FARMLAND).randomTicks())).withItem();
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final BlockRegistryObject<StrangeRootBlock> STRANGE_ROOT = HELPER.create("strange_root", () -> new StrangeRootBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
+    @RenderType(ValhelsiaRenderType.CUTOUT)
+    public static final BlockRegistryObject<WhirlwindBlock> WHIRLWIND = HELPER.create("whirlwind", () -> new WhirlwindBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
+    public static final BlockRegistryObject<UpwindBlock> UPWIND = HELPER.create("upwind", () -> new UpwindBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
 
     @RenderType(ValhelsiaRenderType.CUTOUT)
     public static final BlockRegistryObject<FlowerPotBlock> POTTED_FUNGYSS = HELPER.create("potted_fungyss", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, FUNGYSS, Block.Properties.copy(Blocks.POTTED_OAK_SAPLING)));

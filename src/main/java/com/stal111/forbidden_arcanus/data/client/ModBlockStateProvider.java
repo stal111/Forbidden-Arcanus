@@ -60,7 +60,8 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
                 ModBlocks.UTREM_JAR,
                 ModBlocks.NIPA,
                 ModBlocks.PETRIFIED_ROOT,
-                ModBlocks.ARCANE_DRAGON_EGG
+                ModBlocks.ARCANE_DRAGON_EGG,
+                ModBlocks.WHIRLWIND
         );
         take(this::randomRotation, ModBlocks.DARKSTONE);
         take(block -> simpleBlock(block, models().cross(getName(block), modLoc("block/" + getName(block)))), ModBlocks.YELLOW_ORCHID);

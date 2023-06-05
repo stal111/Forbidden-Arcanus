@@ -1,0 +1,98 @@
+{
+	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"0": "forbidden_arcanus:block/whirlwind_top",
+		"2": "forbidden_arcanus:block/whirlwind_side",
+		"particle": "forbidden_arcanus:block/whirlwind_side"
+	},
+	"elements": [
+		{
+			"from": [0, 16, 0],
+			"to": [16, 16, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface": "up"}
+			}
+		},
+		{
+			"from": [0, 12, 0],
+			"to": [16, 16, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 3], "texture": "#2", "cullface": "north"},
+				"east": {"uv": [0, 4, 16, 7], "texture": "#2", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 3], "texture": "#2", "cullface": "south"},
+				"west": {"uv": [0, 4, 16, 7], "texture": "#2", "cullface": "west"}
+			}
+		},
+		{
+			"from": [16, 16, 16],
+			"to": [0, 12, 0],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 3], "texture": "#2", "cullface": "south"},
+				"east": {"uv": [0, 4, 16, 7], "texture": "#2", "cullface": "west"},
+				"south": {"uv": [0, 0, 16, 3], "texture": "#2", "cullface": "north"},
+				"west": {"uv": [0, 4, 16, 7], "texture": "#2", "cullface": "east"}
+			}
+		},
+		{
+			"from": [3, 8, 3],
+			"to": [13, 11, 13],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 8, 8, 11], "texture": "#2"},
+				"east": {"uv": [8, 8, 16, 11], "texture": "#2"},
+				"south": {"uv": [0, 8, 8, 11], "texture": "#2"},
+				"west": {"uv": [8, 8, 16, 11], "texture": "#2"}
+			}
+		},
+		{
+			"from": [13, 11, 13],
+			"to": [3, 8, 3],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 8, 8, 11], "texture": "#2"},
+				"east": {"uv": [8, 8, 16, 11], "texture": "#2"},
+				"south": {"uv": [0, 8, 8, 11], "texture": "#2"},
+				"west": {"uv": [8, 8, 16, 11], "texture": "#2"}
+			}
+		},
+		{
+			"from": [5.25, 5.25, 5.25],
+			"to": [10.75, 6.75, 10.75],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [8, 12, 16, 15], "texture": "#2"},
+				"east": {"uv": [0, 12, 8, 15], "texture": "#2"},
+				"south": {"uv": [8, 12, 16, 15], "texture": "#2"},
+				"west": {"uv": [0, 12, 8, 15], "texture": "#2"}
+			}
+		},
+		{
+			"from": [10.75, 6.75, 10.75],
+			"to": [5.25, 5.25, 5.25],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [8, 12, 16, 15], "texture": "#2"},
+				"east": {"uv": [0, 12, 8, 15], "texture": "#2"},
+				"south": {"uv": [8, 12, 16, 15], "texture": "#2"},
+				"west": {"uv": [0, 12, 8, 15], "texture": "#2"}
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"scale": [0.925, 0.925, 0.925]
+		}
+	}
+}
