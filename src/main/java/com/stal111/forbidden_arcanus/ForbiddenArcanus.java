@@ -41,12 +41,8 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistryCollector(ForbiddenArcanus.MOD_ID), null);
 
-	public static ForbiddenArcanus INSTANCE;
-
 	public ForbiddenArcanus() {
 		super(MOD_ID, FMLJavaModLoadingContext.get().getModEventBus(), ForbiddenArcanus.REGISTRY_MANAGER);
-		INSTANCE = this;
-
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientSetup::new);
@@ -55,7 +51,6 @@ public final class ForbiddenArcanus extends ValhelsiaMod {
 		ModEnchantments.ENCHANTMENTS.register(modEventBus);
 		ModEffects.EFFECTS.register(modEventBus);
 		ModFeatures.FEATURES.register(modEventBus);
-		//ModFeatures.PLACEMENTS.register(modEventBus);
 		ModRecipes.RECIPE_TYPES.register(modEventBus);
 		ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);
