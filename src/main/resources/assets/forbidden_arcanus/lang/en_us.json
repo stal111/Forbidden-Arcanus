@@ -400,7 +400,8 @@
     "gui.forbidden_arcanus.clibano.residue.netherite": "Netherite",
     "gui.forbidden_arcanus.clibano.residue.deorum": "Deorum",
 
-    "jei.forbidden_arcanus.category.hephaestusSmithing": "Hephaestus Smithing",
+    "jei.forbidden_arcanus.category.hephaestus_smithing": "Hephaestus Smithing",
+    "jei.forbidden_arcanus.category.hephaestus_forge_upgrading": "Hephaestus Forge Upgrading",
     "jei.forbidden_arcanus.category.clibanoCombustion": "Clibano Combustion",
 
     "jei.forbidden_arcanus.hephaestusSmithing.required_tier": "Required forge tier",

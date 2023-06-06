@@ -55,6 +55,14 @@ public class UpgradeTierResult extends RitualResult {
         return level.getBlockState(pos).getValue(HephaestusForgeBlock.TIER) == this.requiredTier;
     }
 
+    public int getRequiredTier() {
+        return this.requiredTier;
+    }
+
+    public int getUpgradedTier() {
+        return this.upgradedTier;
+    }
+
     @Override
     public RitualResultType<? extends RitualResult> getType() {
         return ModRitualResultTypes.UPGRADE_TIER.get();

@@ -1,46 +1,36 @@
-package com.stal111.forbidden_arcanus.common.integration;
+package com.stal111.forbidden_arcanus.common.integration.hephaestus_forge;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Hephaestus Smithing Category <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.integration.HephaestusSmithingCategory
- *
  * @author stal111
- * @since 2021-09-14
+ * @since 2023-06-05
  */
-public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
-
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/hephaestus_forge_jei.png");
+public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual> {
 
     private static final List<IntIntPair> INPUT_POSITIONS = ImmutableList.of(
             IntIntPair.of(63, 13),
@@ -54,47 +44,34 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
     );
 
     private static final IntIntPair FORGE_ITEM_POSITION = IntIntPair.of(63, 35);
-    private static final IntIntPair OUTPUT_POSITION = IntIntPair.of(121, 36);
-    private static final IntIntPair FORGE_TIER_POSITION = IntIntPair.of(123, 85);
     private static final IntIntPair ENHANCER_POSITION = IntIntPair.of(10, 12);
     private static final int ENHANCER_Y_OFFSET = 21;
+
+    private final String name;
 
     private final IDrawable background;
     private final IDrawable icon;
     private final List<EssenceInfo> essences;
 
-    public HephaestusSmithingCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 147, 107);
+    public HephaestusForgeCategory(String name, IGuiHelper guiHelper, ResourceLocation texture, int essencesStartX, int essencesStartY) {
+        this.name = name;
+        this.background = guiHelper.createDrawable(texture, 0, 0, 148, 108);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()));
-        this.essences = ImmutableList.of(
-                new EssenceInfo(guiHelper.createDrawable(TEXTURE, 161, 1, 10, 10), EssenceType.AUREAL, 42, 79),
-                new EssenceInfo(guiHelper.createDrawable(TEXTURE, 173, 1, 10, 10), EssenceType.SOULS, 58, 79),
-                new EssenceInfo(guiHelper.createDrawable(TEXTURE, 185, 1, 10, 10), EssenceType.BLOOD, 74, 79),
-                new EssenceInfo(guiHelper.createDrawable(TEXTURE, 197, 1, 10, 10), EssenceType.EXPERIENCE, 90, 79)
-        );
+        this.essences = EssenceInfo.create(guiHelper, essencesStartX, essencesStartY);
     }
 
-    @Nonnull
     @Override
-    public RecipeType<Ritual> getRecipeType() {
-        return ForbiddenArcanusJEIPlugin.HEPHAESTUS_SMITHING;
+    public @NotNull Component getTitle() {
+        return Component.translatable("jei.forbidden_arcanus.category." + name);
     }
 
-    @Nonnull
     @Override
-    public Component getTitle() {
-        return Component.translatable("jei.forbidden_arcanus.category.hephaestusSmithing");
-    }
-
-    @Nonnull
-    @Override
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
-    @Nonnull
     @Override
-    public IDrawable getIcon() {
+    public @NotNull IDrawable getIcon() {
         return this.icon;
     }
 
@@ -102,21 +79,17 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
     public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull Ritual ritual, @Nonnull IFocusGroup focusGroup) {
         this.addInputs(builder, ritual.inputs(), ritual.mainIngredient());
 
-        if (ritual.requirements() != null) {
+        if (ritual.requirements() != null && this.displayEnhancers()) {
             this.addEnhancers(builder, ritual.requirements().enhancers());
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_POSITION.firstInt(), OUTPUT_POSITION.secondInt())
-                .addItemStack(((CreateItemResult) ritual.result()).getResult());
+        this.buildRecipe(builder, ritual);
+    }
 
-        int requiredTier = ritual.requirements() == null ? 1 : ritual.requirements().tier();
+    protected abstract void buildRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull Ritual ritual);
 
-        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, FORGE_TIER_POSITION.firstInt(), FORGE_TIER_POSITION.secondInt())
-                .addItemStack(HephaestusForgeBlock.setTierOnStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), requiredTier))
-                .addTooltipCallback((recipeSlotView, tooltip) -> {
-                    tooltip.clear();
-                    tooltip.add(Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_tier").append(": " + requiredTier));
-                });
+    protected boolean displayEnhancers() {
+        return true;
     }
 
     private void addInputs(@Nonnull IRecipeLayoutBuilder builder, List<RitualInput> inputs, Ingredient mainIngredient) {
@@ -153,17 +126,11 @@ public class HephaestusSmithingCategory implements IRecipeCategory<Ritual> {
     @Override
     public List<Component> getTooltipStrings(@Nonnull Ritual recipe, @Nonnull IRecipeSlotsView slotsView, double mouseX, double mouseY) {
         for (EssenceInfo essenceInfo : this.essences) {
-            int posX = essenceInfo.posX();
-            int posY = essenceInfo.posY();
-
-            if (mouseX >= posX && mouseY >= posY && mouseX <= posX + 10 && mouseY <= posY + 10) {
-                return Collections.singletonList(Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_" + essenceInfo.type().getSerializedName()).append(": " + recipe.essences().get(essenceInfo.type())));
+            if (essenceInfo.shouldDisplayTooltip(mouseX, mouseY)) {
+                return Collections.singletonList(essenceInfo.getTooltip(recipe.essences()));
             }
         }
 
         return Collections.emptyList();
-    }
-
-    private record EssenceInfo(IDrawableStatic drawable, EssenceType type, int posX, int posY) {
     }
 }
