@@ -81,7 +81,7 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
 
         poseStack.pushPose();
-        poseStack.mulPose(new Quaternionf().setAngleAxis(SIN_45, 0.0F, SIN_45, 60.0F));
+        poseStack.mulPose(new Quaternionf().setAngleAxis(Math.PI / 3F, SIN_45, 0.0F, SIN_45));
 
         this.hole.render(poseStack, vertexconsumer, packedLight, packedOverlay);
         poseStack.popPose();
