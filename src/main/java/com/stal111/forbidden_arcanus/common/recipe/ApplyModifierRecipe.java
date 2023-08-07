@@ -13,8 +13,8 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,14 +28,17 @@ import java.util.Objects;
  * @author stal111
  * @since 2021-11-29
  */
-public class ApplyModifierRecipe extends LegacyUpgradeRecipe {
+public class ApplyModifierRecipe extends SmithingTransformRecipe {
 
-    private final ItemModifier modifier;
+    private final Ingredient template;
     private final Ingredient addition;
 
-    public ApplyModifierRecipe(ResourceLocation id, Ingredient addition, ItemModifier modifier) {
-        super(id, Ingredient.EMPTY, addition, ItemStack.EMPTY);
+    private final ItemModifier modifier;
+
+    public ApplyModifierRecipe(ResourceLocation id, Ingredient template, Ingredient addition, ItemModifier modifier) {
+        super(id, template, Ingredient.EMPTY, addition, ItemStack.EMPTY);
         this.addition = addition;
+        this.template = template;
         this.modifier = modifier;
     }
 
@@ -86,6 +89,7 @@ public class ApplyModifierRecipe extends LegacyUpgradeRecipe {
         @Nonnull
         @Override
         public ApplyModifierRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+            Ingredient template = Ingredient.fromJson(GsonHelper.getNonNull(json, "template"));
             Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
 
             ResourceLocation resourceLocation = ResourceLocation.tryParse(GsonHelper.getAsString(json, "modifier"));
@@ -94,18 +98,20 @@ public class ApplyModifierRecipe extends LegacyUpgradeRecipe {
                 throw new JsonSyntaxException("Unknown item modifier '" + resourceLocation + "'");
             }
             ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(resourceLocation);
-            return new ApplyModifierRecipe(recipeId, addition, modifier);
+            return new ApplyModifierRecipe(recipeId, template, addition, modifier);
         }
 
         @Override
         public ApplyModifierRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+            Ingredient template = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
             ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(buffer.readResourceLocation());
-            return new ApplyModifierRecipe(recipeId, addition, modifier);
+            return new ApplyModifierRecipe(recipeId, template, addition, modifier);
         }
 
         @Override
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, ApplyModifierRecipe recipe) {
+            recipe.template.toNetwork(buffer);
             recipe.addition.toNetwork(buffer);
             buffer.writeResourceLocation(Objects.requireNonNull(FARegistries.ITEM_MODIFIER_REGISTRY.get().getKey(recipe.modifier)));
         }

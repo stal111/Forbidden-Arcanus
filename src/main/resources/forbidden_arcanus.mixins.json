@@ -17,7 +17,6 @@
   "client": [
     "CustomHeadLayerMixin",
     "GlowParticleAccessor",
-    "GuiComponentAccessor",
     "ItemRendererMixin",
     "LevelRendererAccessor",
     "ModelBakeryMixin",

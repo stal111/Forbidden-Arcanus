@@ -6,10 +6,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
-import net.minecraft.world.level.block.state.predicate.BlockMaterialPredicate;
 import net.minecraft.world.level.block.state.predicate.BlockPredicate;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
-import net.minecraft.world.level.material.Material;
 
 /**
  * Mod Block Patterns <br>
@@ -34,7 +32,7 @@ public class ModBlockPatterns {
             .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
             .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
             .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
-            .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
+            .where('~', blockInWorld -> blockInWorld.getState().isAir())
             .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
     );
 
@@ -51,7 +49,6 @@ public class ModBlockPatterns {
             .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get())))
             .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
             .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
-            .where('~', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
             .where('*', BlockInWorld.hasState(BlockStatePredicate.ANY))
     );
 
@@ -68,7 +65,7 @@ public class ModBlockPatterns {
             .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
             .where('B', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE_BRICKS.get())))
             .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CLIBANO_CORE.get())))
-            .where('A', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
+            .where('A', blockInWorld -> blockInWorld.getState().isAir())
     );
 
     public static final BlockPattern CLIBANO_COMBUSTION = UpwardsBlockPattern.of(BlockPatternBuilder.start()

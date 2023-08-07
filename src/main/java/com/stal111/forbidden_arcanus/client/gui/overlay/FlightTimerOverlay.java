@@ -1,14 +1,11 @@
 package com.stal111.forbidden_arcanus.client.gui.overlay;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.config.RenderingConfig;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -20,12 +17,12 @@ import net.valhelsia.valhelsia_core.common.util.counter.SimpleCounter;
  * @author stal111
  * @since 2022-02-14
  */
-public class FlightTimerOverlay extends GuiComponent implements IGuiOverlay {
+public class FlightTimerOverlay implements IGuiOverlay {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/flight_timer_overlay.png");
 
     @Override
-    public void render(ForgeGui gui, PoseStack poseStack, float partialTicks, int width, int height) {
+    public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTicks, int width, int height) {
         Minecraft minecraft = Minecraft.getInstance();
 
         if (minecraft.player == null) {
@@ -40,16 +37,13 @@ public class FlightTimerOverlay extends GuiComponent implements IGuiOverlay {
                 int posX = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_X_POSITION.get();
                 int posY = RenderingConfig.ORB_OF_TEMPORARY_FLIGHT_OVERLAY_Y_POSITION.get();
 
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, TEXTURE);
+                guiGraphics.blit(TEXTURE, posX, posY, 0, 0, 0, 57, 25, 64, 32);
 
-                GuiComponent.blit(poseStack, posX, posY, 0, 0, 0, 57, 25, 64, 32);
+                guiGraphics.renderFakeItem(ModItems.ORB_OF_TEMPORARY_FLIGHT.get().getDefaultInstance(), posX + 5, (int) (posY + 5.5F));
 
-                minecraft.getItemRenderer().renderAndDecorateItem(poseStack, ModItems.Stacks.ORB_OF_TEMPORARY_FLIGHT, posX + 5, (int) (posY + 5.5F));
+                int i = counter.getValue() < 12000 ? 27 : 25;
 
-                float i = counter.getValue() < 12000 ? 27.0F : 25.5F;
-
-                minecraft.font.draw(poseStack, StringUtil.formatTickDuration(counter.getValue()), posX + i, posY + 9, color.getColor());
+                guiGraphics.drawString(minecraft.font, StringUtil.formatTickDuration(counter.getValue()), posX + i, posY + 9, color.getColor());
             }
         });
     }

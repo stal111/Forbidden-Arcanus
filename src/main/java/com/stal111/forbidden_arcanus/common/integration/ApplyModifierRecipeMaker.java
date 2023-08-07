@@ -8,10 +8,11 @@ import com.stal111.forbidden_arcanus.core.init.ModRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipe;
+import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +45,8 @@ public class ApplyModifierRecipeMaker {
                     modifier.getValidItems().forEach(stack -> {
                         ModifierHelper.setModifier(stack, modifier);
 
-                        recipes.add(new LegacyUpgradeRecipe(id, Ingredient.of(stack.getItem()), applyModifierRecipe.getAddition(), stack));
+                        //TODO add custom smithing template
+                        recipes.add(new SmithingTransformRecipe(id, Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(stack.getItem()), applyModifierRecipe.getAddition(), stack));
                     });
                 });
         return recipes;

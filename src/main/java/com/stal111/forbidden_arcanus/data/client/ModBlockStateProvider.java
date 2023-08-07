@@ -13,8 +13,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -183,7 +181,7 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
 
             buttonBlock((ButtonBlock) block, new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("planks")));
         });
-        forEach(block -> block instanceof PressurePlateBlock && block.defaultBlockState().getMaterial() == Material.WOOD, block -> {
+        forEach(block -> block instanceof PressurePlateBlock, block -> {
             ResourceLocation resourceLocation = modLoc("block/" + getName(block).substring(0, getName(block).length() - 14));
 
             pressurePlateBlock(block, new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("planks")));
@@ -195,17 +193,17 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         forEach(block -> block instanceof StairBlock, block -> {
             ResourceLocation resourceLocation = getName(block).contains("brick") ? modLoc("block/" + getName(block).substring(0, getName(block).length() - 7).concat("s")) : modLoc("block/" + getName(block).substring(0, getName(block).length() - 7));
 
-            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
-                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
-            }
+//            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
+//                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
+//            }
             stairsBlock((StairBlock) block, resourceLocation);
         });
         forEach(block -> block instanceof WallBlock, block -> {
             ResourceLocation resourceLocation = getName(block).contains("brick") ? modLoc("block/" + getName(block).substring(0, getName(block).length() - 5).concat("s")) : modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
 
-            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
-                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
-            }
+//            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
+//                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
+//            }
             wallBlock((WallBlock) block, resourceLocation);
         });
 
@@ -222,9 +220,9 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
         slabs.forEach(block -> {
             ResourceLocation resourceLocation = getName(block).contains("brick") ? modLoc("block/" + getName(block).substring(0, getName(block).length() - 5).concat("s")) : modLoc("block/" + getName(block).substring(0, getName(block).length() - 5));
 
-            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
-                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
-            }
+//            if (block.defaultBlockState().getMaterial() == Material.WOOD) {
+//                resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), resourceLocation.getPath().concat("_planks"));
+//            }
             slabBlock((SlabBlock) block, resourceLocation, resourceLocation);
         });
     }
@@ -397,13 +395,13 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     }
 
     private void crossCropBlock(CropBlock block) {
-        IntegerProperty age = block.getAgeProperty();
-
-        getVariantBuilder(block).forAllStates(
-                state -> ConfiguredModel.builder()
-                        .modelFile(models().cross(getName(block) + "_stage" + state.getValue(age), modLoc("block/" + getName(block) + "_stage" + state.getValue(age))))
-                        .build()
-        );
+//        IntegerProperty age = block.getAgeProperty();
+//
+//        getVariantBuilder(block).forAllStates(
+//                state -> ConfiguredModel.builder()
+//                        .modelFile(models().cross(getName(block) + "_stage" + state.getValue(age), modLoc("block/" + getName(block) + "_stage" + state.getValue(age))))
+//                        .build()
+//        );
     }
 
     private void magicalFarmlandBlock(Block block) {
