@@ -1,8 +1,6 @@
 package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.data.client.ModBlockStateProvider;
-import com.stal111.forbidden_arcanus.data.client.ModItemModelProvider;
 import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ApplyModifierRecipeProvider;
@@ -17,11 +15,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.data.recipes.ValhelsiaRecipeProvider;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
+import net.valhelsia.valhelsia_core.api.datagen.recipes.ValhelsiaRecipeProvider;
 
 import java.util.List;
 import java.util.Set;
@@ -39,30 +38,32 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
-        DataProviderInfo info = DataProviderInfo.of(event, ForbiddenArcanus.REGISTRY_MANAGER);
+        DataProviderContext context = new DataProviderContext(event.getGenerator().getPackOutput(), event.getLookupProvider(), ForbiddenArcanus.REGISTRY_MANAGER);
 
         // Client Providers
-        generator.addProvider(event.includeClient(), new ModBlockStateProvider(info));
-        generator.addProvider(event.includeClient(), new ModItemModelProvider(info));
+        //TODO
+        //generator.addProvider(event.includeClient(), new ModBlockStateProvider(context));
+        //generator.addProvider(event.includeClient(), new ModItemModelProvider(context));
 
-        generator.addProvider(event.includeClient(), new ModSoundsProvider(info));
-        generator.addProvider(event.includeServer(), new ParticleDataProvider(info));
+        generator.addProvider(event.includeClient(), new ModSoundsProvider(context, fileHelper));
+        generator.addProvider(event.includeServer(), new ParticleDataProvider(context));
 
         // Server Providers
-        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(info), Set.of(ForbiddenArcanus.MOD_ID)));
+        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(), Set.of(ForbiddenArcanus.MOD_ID)));
 
-        ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(info);
+        ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(context);
         generator.addProvider(event.includeServer(), blockTagsProvider);
-        generator.addProvider(event.includeServer(), new ModItemTagsProvider(info, blockTagsProvider.contentsGetter()));
-        generator.addProvider(event.includeServer(), new ModEnchantmentTagsProvider(info));
-        generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(info));
-        generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(info));
-        generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(info));
+        generator.addProvider(event.includeServer(), new ModItemTagsProvider(context, fileHelper, blockTagsProvider.contentsGetter()));
+        generator.addProvider(event.includeServer(), new ModEnchantmentTagsProvider(context, fileHelper));
+        generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(context, fileHelper));
+        generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(context, fileHelper));
+        generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(context, fileHelper));
 
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
 
-        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(info, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new));
+        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(output, ForbiddenArcanus.REGISTRY_MANAGER, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new));
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(output));
     }

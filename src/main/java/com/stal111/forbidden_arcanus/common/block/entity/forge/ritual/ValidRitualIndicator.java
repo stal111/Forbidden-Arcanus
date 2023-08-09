@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.valhelsia.valhelsia_core.common.util.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
 
 /**
  * @author stal111

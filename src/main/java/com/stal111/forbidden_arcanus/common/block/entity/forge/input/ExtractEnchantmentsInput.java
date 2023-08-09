@@ -8,7 +8,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
+import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import java.util.Map;
 

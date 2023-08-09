@@ -13,9 +13,8 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 /**
  * Mod Cave Placements <br>
@@ -26,12 +25,12 @@ import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
  */
 public class ModCavePlacements extends DatapackRegistryClass<PlacedFeature> {
 
-    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.PLACED_FEATURE);
+    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.PLACED_FEATURE);
 
     public static final ResourceKey<PlacedFeature> PETRIFIED_ROOT = HELPER.createKey("petrified_root");
 
-    public ModCavePlacements(DataProviderInfo info, BootstapContext<PlacedFeature> context) {
-        super(info, context);
+    public ModCavePlacements(BootstapContext<PlacedFeature> context) {
+        super(context);
     }
 
     @Override

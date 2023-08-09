@@ -3,11 +3,10 @@ package com.stal111.forbidden_arcanus.data.client;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-
-import java.util.Objects;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 
 /**
  * @author stal111
@@ -15,8 +14,8 @@ import java.util.Objects;
  */
 public class ModSoundsProvider extends SoundDefinitionsProvider {
 
-    public ModSoundsProvider(DataProviderInfo info) {
-        super(info.output(), ForbiddenArcanus.MOD_ID, Objects.requireNonNull(info.fileHelper()));
+    public ModSoundsProvider(DataProviderContext context, ExistingFileHelper fileHelper) {
+        super(context.output(), ForbiddenArcanus.MOD_ID, fileHelper);
     }
 
     @Override

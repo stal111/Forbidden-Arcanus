@@ -7,7 +7,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
+import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author stal111
  * @since 2022-06-29
  */
-public class ResiduesStorage implements NeedsStoring {
+public class ResiduesStorage implements SerializableComponent {
 
     public static final List<ResidueType> RESIDUE_TYPES = new ArrayList<>();
 
@@ -39,9 +39,9 @@ public class ResiduesStorage implements NeedsStoring {
                 ItemStack stack = recipe.getResultItem(level.registryAccess());
                 boolean flag = true;
 
-                if (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
+                if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
                     resultStack.grow(stack.getCount());
-                } else if (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+                } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
                     secondResultStack.grow(stack.getCount());
                 } else if (resultStack.isEmpty()) {
                     blockEntity.setStack(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());

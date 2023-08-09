@@ -14,8 +14,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.data.recipes.RecipeSubProvider;
-import net.valhelsia.valhelsia_core.data.recipes.ValhelsiaRecipeProvider;
+import net.valhelsia.valhelsia_core.api.datagen.recipes.RecipeSubProvider;
+import net.valhelsia.valhelsia_core.api.datagen.recipes.ValhelsiaRecipeProvider;
 
 /**
  * @author stal111

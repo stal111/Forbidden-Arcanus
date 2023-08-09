@@ -9,9 +9,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.network.UpdateCounterPacket;
-import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterProvider;
+import net.valhelsia.valhelsia_core.api.common.network.UpdateCounterPacket;
 
 /**
  * Tick Listener <br>

@@ -18,11 +18,11 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
+import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -48,13 +48,13 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     private final ContainerData containerData;
 
-    private final MenuCreationContext<ClibanoMainBlockEntity> context;
+    private final MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context;
 
     public ClibanoMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.FULL_DATA_COUNT), MenuCreationContext.of(inventory, buffer.readBlockPos()));
+        this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.FULL_DATA_COUNT), MenuCreationContext.of(inventory));
     }
 
-    public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<ClibanoMainBlockEntity> context) {
+    public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context) {
         super(ModContainers.CLIBANO.get(), containerId);
         this.containerData = containerData;
         this.context = context;
@@ -80,13 +80,13 @@ public class ClibanoMenu extends AbstractContainerMenu {
         // Inventory Slots
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new SlotItemHandler(context.playerInventory(), j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
+                this.addSlot(new SlotItemHandler(context.inventory(), j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
             }
         }
 
         // Hotbar Slots
         for(int k = 0; k < 9; ++k) {
-            this.addSlot(new SlotItemHandler(context.playerInventory(), k, 8 + k * 18, 149));
+            this.addSlot(new SlotItemHandler(context.inventory(), k, 8 + k * 18, 149));
         }
     }
 
@@ -151,9 +151,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     protected boolean canSmelt(ItemStack stack) {
-        Level level = this.context.level();
-
-        return level.getRecipeManager().getRecipeFor(ClibanoMainBlockEntity.RECIPE_TYPE, new SimpleContainer(stack), level).isPresent();
+        return context.levelAccess().evaluate((level, pos) -> level.getRecipeManager().getRecipeFor(ClibanoMainBlockEntity.RECIPE_TYPE, new SimpleContainer(stack), level).isPresent(), false);
     }
 
     protected boolean isFuel(ItemStack stack) {

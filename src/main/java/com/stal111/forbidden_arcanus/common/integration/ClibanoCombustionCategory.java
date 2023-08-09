@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.integration;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
@@ -20,6 +19,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -126,36 +126,38 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     }
 
     @Override
-    public void draw(@Nonnull ClibanoRecipe recipe, @Nonnull IRecipeSlotsView recipeSlotsView, @Nonnull PoseStack stack, double mouseX, double mouseY) {
-        this.animatedFlames.get(recipe.getRequiredFireType()).draw(stack, 48, 43);
+    public void draw(@Nonnull ClibanoRecipe recipe, @Nonnull IRecipeSlotsView recipeSlotsView, @Nonnull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.animatedFlames.get(recipe.getRequiredFireType()).draw(guiGraphics, 48, 43);
 
         IDrawableAnimated arrow = this.getArrow(recipe);
-        arrow.draw(stack, 74, 43);
+        arrow.draw(guiGraphics, 74, 43);
 
-        this.drawExperience(recipe, stack, 12);
-        this.drawCookTime(recipe, stack, 79);
+        this.drawExperience(recipe, guiGraphics, 12);
+        this.drawCookTime(recipe, guiGraphics, 79);
     }
 
-    protected void drawExperience(ClibanoRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawExperience(ClibanoRecipe recipe, GuiGraphics guiGraphics, int y) {
         float experience = recipe.getExperience();
         if (experience > 0) {
             Component experienceString = Component.translatable("gui.jei.category.smelting.experience", experience);
             Minecraft minecraft = Minecraft.getInstance();
-            Font fontRenderer = minecraft.font;
-            int stringWidth = fontRenderer.width(experienceString);
-            fontRenderer.draw(poseStack, experienceString, this.background.getWidth() - stringWidth, y, 0xFF808080);
+            Font font = minecraft.font;
+            int stringWidth = font.width(experienceString);
+
+            guiGraphics.drawString(font, experienceString, this.background.getWidth() - stringWidth, y, 0xFF808080);
         }
     }
 
-    protected void drawCookTime(ClibanoRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawCookTime(ClibanoRecipe recipe, GuiGraphics guiGraphics, int y) {
         int cookTime = recipe.getCookingTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
             Minecraft minecraft = Minecraft.getInstance();
-            Font fontRenderer = minecraft.font;
-            int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080);
+            Font font = minecraft.font;
+            int stringWidth = font.width(timeString);
+
+            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080);
         }
     }
 

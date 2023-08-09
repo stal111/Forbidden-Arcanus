@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.valhelsia.valhelsia_core.core.registry.helper.block.CompostableHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.block.CompostableHelper;
 
 /**
  * Compostable Registry <br>
@@ -15,7 +14,7 @@ import net.valhelsia.valhelsia_core.core.registry.helper.block.CompostableHelper
  */
 public class CompostableRegistry {
 
-    private static final CompostableHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getBlockHelper().getCompostableHelper();
+    private static final CompostableHelper HELPER = CompostableHelper.get();
 
     public static void register() {
         HELPER.register03(ModBlocks.CHERRY_LEAVES.get());

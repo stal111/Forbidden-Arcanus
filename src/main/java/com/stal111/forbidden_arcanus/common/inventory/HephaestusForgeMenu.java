@@ -16,9 +16,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
+import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.annotation.Nonnull;
@@ -42,10 +43,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final int[] lockedSlots = new int[4];
 
     public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(9), new SimpleContainerData(4), MenuCreationContext.of(inventory, buffer.readBlockPos()));
+        this(id, new ItemStackHandler(9), new SimpleContainerData(4), MenuCreationContext.of(inventory));
     }
 
-    public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity> creationContext) {
+    public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
         super(ModContainers.HEPHAESTUS_FORGE.get(), id);
         this.levelAccess = creationContext.levelAccess();
         this.hephaestusForgeData = containerData;
@@ -80,13 +81,13 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         // Inventory Slots
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlot(new SlotItemHandler(creationContext.playerInventory(), j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new SlotItemHandler(creationContext.inventory(), j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Hotbar Slots
         for (int k = 0; k < 9; ++k) {
-            this.addSlot(new SlotItemHandler(creationContext.playerInventory(), k, 8 + k * 18, 142));
+            this.addSlot(new SlotItemHandler(creationContext.inventory(), k, 8 + k * 18, 142));
         }
     }
 
@@ -99,7 +100,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(@Nonnull Player player, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        Level level = player.getLevel();
+        Level level = player.level();
 
         if (!slot.hasItem()) {
             return result;

@@ -4,9 +4,9 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.structure.NipaPieces;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
-import net.minecraftforge.registries.RegistryObject;
-import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
 /**
  * Mod Structure Pieces
@@ -17,8 +17,8 @@ import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
  */
 public class ModStructurePieces implements RegistryClass {
 
-    public static final MappedRegistryHelper<StructurePieceType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(Registries.STRUCTURE_PIECE);
+    public static final MappedRegistryHelper<StructurePieceType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.STRUCTURE_PIECE);
 
 
-    public static final RegistryObject<StructurePieceType> NIPA = HELPER.register("nipa", () -> NipaPieces.Piece::new);
+    public static final RegistryEntry<StructurePieceType> NIPA = HELPER.register("nipa", () -> NipaPieces.Piece::new);
 }

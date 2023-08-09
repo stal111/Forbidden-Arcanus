@@ -14,9 +14,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 import java.util.Map;
 
@@ -30,13 +29,13 @@ import java.util.Map;
 public class ModStructures extends DatapackRegistryClass<Structure> {
 
 
-    public static final DatapackRegistryHelper<Structure> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.STRUCTURE);
+    public static final DatapackRegistryHelper<Structure> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.STRUCTURE);
 
     public static final ResourceKey<Structure> NIPA = HELPER.createKey("nipa");
     public static final ResourceKey<Structure> NIPA_FLOATING = HELPER.createKey("nipa_floating");
 
-    public ModStructures(DataProviderInfo info, BootstapContext<Structure> context) {
-        super(info, context);
+    public ModStructures(BootstapContext<Structure> context) {
+        super(context);
     }
 
     @Override

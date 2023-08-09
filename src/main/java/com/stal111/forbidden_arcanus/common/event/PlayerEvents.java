@@ -40,7 +40,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
+import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import java.util.ArrayList;
 import java.util.List;

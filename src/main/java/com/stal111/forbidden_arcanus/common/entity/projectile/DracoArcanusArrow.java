@@ -39,8 +39,8 @@ public class DracoArcanusArrow extends AbstractArrow {
     @Override
     public void tick() {
         super.tick();
-        if (this.level.isClientSide() && !this.inGround) {
-            this.level.addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+        if (this.level().isClientSide() && !this.inGround) {
+            this.level().addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -54,7 +54,7 @@ public class DracoArcanusArrow extends AbstractArrow {
     protected void doPostHurtEffects(@Nonnull LivingEntity entity) {
         super.doPostHurtEffects(entity);
 
-        AreaEffectCloud areaEffectCloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+        AreaEffectCloud areaEffectCloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
 
         if (this.getOwner() instanceof LivingEntity owner) {
             areaEffectCloud.setOwner(owner);
@@ -65,7 +65,7 @@ public class DracoArcanusArrow extends AbstractArrow {
         areaEffectCloud.setRadiusPerTick((7.0F - areaEffectCloud.getRadius()) / (float) areaEffectCloud.getDuration());
         areaEffectCloud.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 1));
 
-        this.level.levelEvent(2006, this.blockPosition(), 0);
-        this.level.addFreshEntity(areaEffectCloud);
+        this.level().levelEvent(2006, this.blockPosition(), 0);
+        this.level().addFreshEntity(areaEffectCloud);
     }
 }

@@ -52,7 +52,7 @@ public class ZombieArmItem extends Item {
 
     @Override
     public boolean hurtEnemy(@Nonnull ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
-        if (!target.isDeadOrDying() || !(attacker.getLevel() instanceof ServerLevel level)) {
+        if (!target.isDeadOrDying() || !(attacker.level() instanceof ServerLevel level)) {
             return true;
         }
 

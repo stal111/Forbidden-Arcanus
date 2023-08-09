@@ -6,7 +6,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,8 +19,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ModBiomeTagsProvider extends BiomeTagsProvider {
 
-    public ModBiomeTagsProvider(DataProviderInfo info) {
-        super(info.output(), info.lookupProvider(), ForbiddenArcanus.MOD_ID, info.fileHelper());
+    public ModBiomeTagsProvider(DataProviderContext context, ExistingFileHelper fileHelper) {
+        super(context.output(), context.lookupProvider(), ForbiddenArcanus.MOD_ID, fileHelper);
     }
 
     @Override

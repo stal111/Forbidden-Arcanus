@@ -7,7 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
-import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
+import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.19 - 2.1.0
  * @since 2021-02-06
  */
-public class SoundConsequence extends Consequence implements NeedsStoring {
+public class SoundConsequence extends Consequence implements SerializableComponent {
 
     private static final List<SoundEvent> SOUNDS = List.of(
             SoundEvents.STONE_BREAK,

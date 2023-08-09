@@ -37,8 +37,8 @@ public class BoomArrow extends AbstractArrow {
     @Override
     public void tick() {
         super.tick();
-        if (this.level.isClientSide() && !this.inGround) {
-            this.level.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+        if (this.level().isClientSide() && !this.inGround) {
+            this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -51,6 +51,6 @@ public class BoomArrow extends AbstractArrow {
     @Override
     protected void doPostHurtEffects(@Nonnull LivingEntity entity) {
         super.doPostHurtEffects(entity);
-        this.level.explode(this, entity.getX(), entity.getY(), entity.getZ(), ItemConfig.BOOM_ARROW_EXPLOSION_RADIUS.get(), ItemConfig.BOOM_ARROW_BLOCK_DAMAGE.get() ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE);
+        this.level().explode(this, entity.getX(), entity.getY(), entity.getZ(), ItemConfig.BOOM_ARROW_EXPLOSION_RADIUS.get(), ItemConfig.BOOM_ARROW_BLOCK_DAMAGE.get() ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE);
     }
 }

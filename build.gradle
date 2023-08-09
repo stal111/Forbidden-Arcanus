@@ -125,7 +125,10 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.20.1-47.1.3'
 
-    implementation fg.deobf(files("libs/valhelsia_core-forge-${valhelsia_core_version}-dev.jar"))
+    compileOnly fg.deobf(files("libs/valhelsia_core-common-${valhelsia_core_version}-dev.jar"))
+    compileOnly fg.deobf(files("libs/valhelsia_core-forge-${valhelsia_core_version}-dev.jar"))
+
+    runtimeOnly fg.deobf(files("libs/valhelsia_core-forge-${valhelsia_core_version}.jar"))
 
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 

@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.valhelsia.valhelsia_core.common.util.DeferredCodec;
+import net.valhelsia.valhelsia_core.api.common.util.DeferredCodec;
 
 import java.util.List;
 

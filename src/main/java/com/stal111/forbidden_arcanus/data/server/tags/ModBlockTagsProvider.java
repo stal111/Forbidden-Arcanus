@@ -5,9 +5,8 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.data.tags.ValhelsiaBlockTagsProvider;
-import net.valhelsia.valhelsia_core.core.init.ValhelsiaTags;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
+import net.valhelsia.valhelsia_core.api.datagen.tags.ValhelsiaBlockTagsProvider;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -20,14 +19,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
 
-    public ModBlockTagsProvider(DataProviderInfo info) {
-        super(info);
+    public ModBlockTagsProvider(DataProviderContext context) {
+        super(context.output(), context.lookupProvider());
     }
 
     @Override
     protected void addTags(@NotNull HolderLookup.Provider provider) {
-        super.addTags(provider);
-
         this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(ModBlocks.FUNGYSS_STEM.get(), ModBlocks.FUNGYSS_HYPHAE.get());
         this.tag(ModTags.Blocks.CHERRYWOOD_LOGS).add(ModBlocks.CHERRY_LOG.get(), ModBlocks.CHERRY_WOOD.get(), ModBlocks.STRIPPED_CHERRY_LOG.get(), ModBlocks.STRIPPED_CHERRY_WOOD.get(), ModBlocks.THIN_CHERRY_LOG.get());
         this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(ModBlocks.AURUM_LOG.get(), ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());
@@ -57,15 +54,18 @@ public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
         this.tag(ModTags.Blocks.RUNE_BLOCKS).add(ModBlocks.RUNE_BLOCK.get(), ModBlocks.DARK_RUNE_BLOCK.get());
         this.tag(ModTags.Blocks.ARCANE_CRYSTAL_ORES).add(ModBlocks.ARCANE_CRYSTAL_ORE.get(), ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get());
         this.tag(BlockTags.IMPERMEABLE).add(ModBlocks.DEORUM_GLASS.get(), ModBlocks.RUNIC_GLASS.get(), ModBlocks.DARK_RUNIC_GLASS.get());
-        this.tag(BlockTags.STANDING_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.EDELWOOD_SIGN.getFirst().get());
-        this.tag(BlockTags.WALL_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getSecond().get(), ModBlocks.CHERRY_SIGN.getSecond().get(), ModBlocks.AURUM_SIGN.getSecond().get(), ModBlocks.EDELWOOD_SIGN.getSecond().get());
+        //TODO
+        //this.tag(BlockTags.STANDING_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.EDELWOOD_SIGN.getFirst().get());
+        //this.tag(BlockTags.WALL_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getSecond().get(), ModBlocks.CHERRY_SIGN.getSecond().get(), ModBlocks.AURUM_SIGN.getSecond().get(), ModBlocks.EDELWOOD_SIGN.getSecond().get());
         this.tag(BlockTags.SAPLINGS).add(ModBlocks.CHERRY_SAPLING.get(), ModBlocks.AURUM_SAPLING.get());
         this.tag(BlockTags.LEAVES).add(ModBlocks.CHERRY_LEAVES.get(), ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.get());
         this.tag(BlockTags.FLOWERS).add(ModBlocks.CHERRY_FLOWER_VINES.get(), ModBlocks.CHERRY_FLOWER_VINES_PLANT.get());
         this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.get());
         this.tag(BlockTags.CROPS).add(ModBlocks.GOLDEN_ORCHID.get(), ModBlocks.STRANGE_ROOT.get());
-        this.tag(ValhelsiaTags.Blocks.OFFSET_RENDERING).add(ModBlocks.CHERRY_LEAF_CARPET.get());
+
+        //TODO
+        //this.tag(ValhelsiaTags.Blocks.OFFSET_RENDERING).add(ModBlocks.CHERRY_LEAF_CARPET.get());
 
         this.tag(ModTags.Blocks.DEORUM_STORAGE_BLOCKS).add(ModBlocks.DEORUM_BLOCK.get());
         this.tag(ModTags.Blocks.ARCANE_CRYSTAL_STORAGE_BLOCKS).add(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());

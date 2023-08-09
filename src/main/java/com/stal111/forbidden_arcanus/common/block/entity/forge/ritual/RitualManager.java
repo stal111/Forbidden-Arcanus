@@ -28,7 +28,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
+import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ import java.util.function.Predicate;
  * @author stal111
  * @since 2021-07-09
  */
-public class RitualManager implements NeedsStoring {
+public class RitualManager implements SerializableComponent {
 
     public static final float DEFAULT_RITUAL_TIME = 500.0F;
 

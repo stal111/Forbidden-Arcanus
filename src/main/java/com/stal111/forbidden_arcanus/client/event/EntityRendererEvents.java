@@ -1,8 +1,6 @@
 package com.stal111.forbidden_arcanus.client.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.model.DracoAurumHeadModel;
-import com.stal111.forbidden_arcanus.client.model.DracoAurumWingsModel;
 import com.stal111.forbidden_arcanus.client.model.LostSoulModel;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
@@ -62,8 +60,8 @@ public class EntityRendererEvents {
         event.registerLayerDefinition(MagicCircleModel.INNER_RING_LAYER, MagicCircleModel::createLayer);
         event.registerLayerDefinition(MagicCircleModel.VALID_RITUAL_INDICATOR, MagicCircleModel::createLayer);
 
-        event.registerLayerDefinition(DracoAurumWingsModel.LAYER_LOCATION, DracoAurumWingsModel::createBodyLayer);
-        event.registerLayerDefinition(DracoAurumHeadModel.LAYER_LOCATION, DracoAurumHeadModel::createBodyLayer);
+        //event.registerLayerDefinition(DracoAurumWingsModel.LAYER_LOCATION, DracoAurumWingsModel::createBodyLayer);
+        //event.registerLayerDefinition(DracoAurumHeadModel.LAYER_LOCATION, DracoAurumHeadModel::createBodyLayer);
 
         event.registerLayerDefinition(LostSoulModel.LAYER_LOCATION, LostSoulModel::createBodyLayer);
 

@@ -7,7 +7,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -16,8 +17,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ModDamageTypeTagsProvider extends TagsProvider<DamageType> {
 
-    public ModDamageTypeTagsProvider(DataProviderInfo info) {
-        super(info.output(), Registries.DAMAGE_TYPE, info.lookupProvider(), ForbiddenArcanus.MOD_ID, info.fileHelper());
+    public ModDamageTypeTagsProvider(DataProviderContext context, ExistingFileHelper fileHelper) {
+        super(context.output(), Registries.DAMAGE_TYPE, context.lookupProvider(), ForbiddenArcanus.MOD_ID, fileHelper);
     }
 
     @Override

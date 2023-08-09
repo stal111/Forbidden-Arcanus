@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.ItemStack;
-import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
+import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import java.util.Objects;
 

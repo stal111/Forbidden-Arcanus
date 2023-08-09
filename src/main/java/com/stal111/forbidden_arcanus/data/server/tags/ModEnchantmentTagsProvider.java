@@ -7,8 +7,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -22,8 +23,8 @@ import javax.annotation.Nonnull;
  */
 public class ModEnchantmentTagsProvider extends IntrinsicHolderTagsProvider<Enchantment> {
 
-    public ModEnchantmentTagsProvider(DataProviderInfo info) {
-        super(info.output(), Registries.ENCHANTMENT, info.lookupProvider(), enchantment -> ForgeRegistries.ENCHANTMENTS.getResourceKey(enchantment).orElseThrow(), ForbiddenArcanus.MOD_ID, info.fileHelper());
+    public ModEnchantmentTagsProvider(DataProviderContext context, ExistingFileHelper fileHelper) {
+        super(context.output(), Registries.ENCHANTMENT, context.lookupProvider(), enchantment -> ForgeRegistries.ENCHANTMENTS.getResourceKey(enchantment).orElseThrow(), ForbiddenArcanus.MOD_ID, fileHelper);
     }
 
     @Override

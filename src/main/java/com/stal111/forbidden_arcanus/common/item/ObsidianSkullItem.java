@@ -30,11 +30,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.NonNullLazy;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterCapability;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterImpl;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCapability;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCreator;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterImpl;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterProvider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

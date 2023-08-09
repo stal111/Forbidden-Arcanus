@@ -11,7 +11,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,8 +26,8 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ModItemTagsProvider extends ItemTagsProvider {
 
-    public ModItemTagsProvider(DataProviderInfo info, CompletableFuture<TagLookup<Block>> blockTagsLookup) {
-        super(info.output(), info.lookupProvider(), blockTagsLookup, ForbiddenArcanus.MOD_ID, info.fileHelper());
+    public ModItemTagsProvider(DataProviderContext context, ExistingFileHelper fileHelper, CompletableFuture<TagLookup<Block>> blockTagsLookup) {
+        super(context.output(), context.lookupProvider(), blockTagsLookup, ForbiddenArcanus.MOD_ID, fileHelper);
     }
 
     @Override

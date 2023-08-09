@@ -28,9 +28,8 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 import java.util.List;
 import java.util.OptionalInt;
@@ -44,7 +43,7 @@ import java.util.function.Supplier;
  */
 public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeature<?, ?>> {
 
-    public static final DatapackRegistryHelper<ConfiguredFeature<?, ?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.CONFIGURED_FEATURE);
+    public static final DatapackRegistryHelper<ConfiguredFeature<?, ?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.CONFIGURED_FEATURE);
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ARCANE_CRYSTAL_ORE = HELPER.createKey("ore_arcane_crystal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RUNIC_STONE = HELPER.createKey("ore_rune");
@@ -68,8 +67,8 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_FUNGYSS_0 = HELPER.createKey("mega_fungyss_0");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_FUNGYSS_1 = HELPER.createKey("mega_fungyss_1");
 
-    public ModConfiguredFeatures(DataProviderInfo info, BootstapContext<ConfiguredFeature<?, ?>> context) {
-        super(info, context);
+    public ModConfiguredFeatures(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        super(context);
     }
 
     private static SimpleWeightedRandomList.Builder<BlockState> weightedBlockStateBuilder() {

@@ -26,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -106,14 +107,13 @@ public class SoulExtractorItem extends Item {
     }
 
     @Override
-    public void onUsingTick(ItemStack stack, LivingEntity livingEntity, int count) {
+    public void onUseTick(@NotNull Level level, @NotNull LivingEntity livingEntity, @NotNull ItemStack stack, int remainingUseDuration) {
         if (!(livingEntity instanceof Player player) || player.isShiftKeyDown()) {
             livingEntity.stopUsingItem();
 
             return;
         }
 
-        Level level = player.getLevel();
         BlockPos pos = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY).getBlockPos();
 
         if (this.isValidBlock(level, pos, player) && player.getRandom().nextInt(6) == 1) {
@@ -126,7 +126,7 @@ public class SoulExtractorItem extends Item {
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity entity, @Nonnull InteractionHand usedHand) {
-        Level level = player.getLevel();
+        Level level = player.level();
 
         if (entity instanceof SoulExtractable soulExtractable && !level.isClientSide() && level.getGameTime() % 3 == 0) {
             soulExtractable.setExtracting();

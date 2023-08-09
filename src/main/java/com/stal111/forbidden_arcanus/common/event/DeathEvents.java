@@ -48,7 +48,7 @@ public final class DeathEvents {
 
     private void spawnLostSoul(LivingEntity entity, RandomSource random) {
         EntityType<?> type = entity.getType();
-        Level level = entity.getLevel();
+        Level level = entity.level();
 
         double chance = LostSoul.ENTITY_DEATH_SPAWN_CHANCE;
 

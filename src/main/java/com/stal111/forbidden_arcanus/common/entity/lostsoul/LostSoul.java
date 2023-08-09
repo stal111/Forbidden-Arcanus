@@ -167,7 +167,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     @Override
     public void tick() {
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide()) {
             boolean isPanicking = this.brain.getMemory(MemoryModuleType.IS_PANICKING).orElse(false);
             boolean isScared = this.getBrain().checkMemory(ModMemoryModules.SCARED_TIME.get(), MemoryStatus.VALUE_PRESENT);
 
@@ -213,10 +213,10 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 //            if (!isScared && this.isScared()) {
 //                this.entityData.set(DATA_SCARED, false);
 //            }
-        } else if (this.level.getGameTime() % 10 == 0) {
+        } else if (this.level().getGameTime() % 10 == 0) {
             Vec3 viewVector = this.calculateViewVector(this.getXRot(), this.getYRot());
 
-            this.level.addParticle(new DustParticleOptions(this.getVariant().getTrailColor(), 1.0F), this.getX() - viewVector.x * 0.5D, this.getY() + 0.2D, this.getZ() - viewVector.z * 0.5D, 0.0F, 0.0F, 0.0F);
+            this.level().addParticle(new DustParticleOptions(this.getVariant().getTrailColor(), 1.0F), this.getX() - viewVector.x * 0.5D, this.getY() + 0.2D, this.getZ() - viewVector.z * 0.5D, 0.0F, 0.0F, 0.0F);
         }
 
         super.tick();
@@ -257,9 +257,9 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     @Override
     protected void customServerAiStep() {
-        this.level.getProfiler().push("lostSoulBrain");
-        this.getBrain().tick((ServerLevel) this.level, this);
-        this.level.getProfiler().pop();
+        this.level().getProfiler().push("lostSoulBrain");
+        this.getBrain().tick((ServerLevel) this.level(), this);
+        this.level().getProfiler().pop();
 
         super.customServerAiStep();
     }
@@ -286,13 +286,13 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
         if (variant != Variant.CORRUPT_LOST_SOUL && stack.is(ModItems.CORRUPTI_DUST.get())) {
             this.setVariant(Variant.CORRUPT_LOST_SOUL);
-            return InteractionResult.sidedSuccess(this.level.isClientSide());
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         } else if (variant == Variant.CORRUPT_LOST_SOUL && stack.is(ModItems.AUREAL_BOTTLE.get())) {
             this.setVariant(Variant.LOST_SOUL);
-            return InteractionResult.sidedSuccess(this.level.isClientSide());
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         } else if (variant == Variant.LOST_SOUL && stack.is(ModItems.AUREAL_BOTTLE.get())) {
             this.setVariant(Variant.ENCHANTED_LOST_SOUL);
-            return InteractionResult.sidedSuccess(this.level.isClientSide());
+            return InteractionResult.sidedSuccess(this.level().isClientSide());
         }
 
         return super.mobInteract(player, hand);
@@ -326,10 +326,10 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     public void extractTick(Player player) {
         this.extractCounter = EXTRACT_STUNNED_TIME;
 
-        this.hurt(this.level.damageSources().source(ModDamageTypes.EXTRACT_SOUL), EXTRACT_DAMAGE);
+        this.hurt(this.level().damageSources().source(ModDamageTypes.EXTRACT_SOUL), EXTRACT_DAMAGE);
 
         if (this.isDeadOrDying()) {
-            this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getSoulItem()));
+            this.level().addFreshEntity(new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getSoulItem()));
         }
     }
 

@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.core.init.world.ModTreeDecorators;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
@@ -53,7 +54,7 @@ public class LeafCarpetDecorator extends TreeDecorator {
                     return;
                 }
 
-                if (level.isStateAtPosition(groundPos, state -> state.getMaterial().isReplaceable())
+                if (level.isStateAtPosition(groundPos, BlockBehaviour.BlockStateBase::canBeReplaced)
                         && !level.isStateAtPosition(groundPos.below(), state -> state.is(provider.getState(random, groundPos).getBlock()))
                         && !context.logs().contains(groundPos.below())) {
                     context.setBlock(groundPos, provider.getState(random, groundPos));

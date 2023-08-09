@@ -47,10 +47,10 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
     protected void onHit(@Nonnull HitResult result) {
         super.onHit(result);
 
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide()) {
             this.applySplash();
 
-            NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.blockPosition()), new AddThrownAurealBottleParticle(this.getX(), this.getY(), this.getZ()));
+            NetworkHandler.sendToTrackingChunk(this.level().getChunkAt(this.blockPosition()), new AddThrownAurealBottleParticle(this.getX(), this.getY(), this.getZ()));
 
             this.discard();
         }
@@ -58,7 +58,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
 
     private void applySplash() {
         AABB aabb = this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D);
-        List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb);
+        List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, aabb);
 
         if (list.isEmpty()) {
             return;

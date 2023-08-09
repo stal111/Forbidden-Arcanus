@@ -11,7 +11,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.valhelsia.valhelsia_core.common.world.structure.SimpleValhelsiaStructure;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -23,9 +22,9 @@ import java.util.Optional;
  * @author stal111
  * @since 2021-04-07
  */
-public class NipaStructure extends SimpleValhelsiaStructure {
+public class NipaStructure extends Structure {
 
-    public static final Codec<NipaStructure> CODEC = RecordCodecBuilder.create((instance) -> {
+    public static final Codec<NipaStructure> CODEC = RecordCodecBuilder.create(instance -> {
         return instance.group(settingsCodec(instance), Codec.BOOL.fieldOf("floating").forGetter((structure) -> {
             return structure.floating;
         })).apply(instance, NipaStructure::new);
@@ -33,7 +32,7 @@ public class NipaStructure extends SimpleValhelsiaStructure {
     private final boolean floating;
 
     public NipaStructure(Structure.StructureSettings settings, boolean floating) {
-        super(settings, "nipa");
+        super(settings);
         this.floating = floating;
     }
 

@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
+import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
 import java.util.Map;

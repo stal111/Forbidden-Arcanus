@@ -38,7 +38,7 @@ public class BloodInput extends HephaestusForgeInput {
         if (inputValue != 0) {
             ItemStack newStack = BloodTestTubeItem.removeBlood(stack, inputValue);
 
-            if (!stack.sameItem(newStack)) {
+            if (!ItemStack.isSameItem(stack, newStack)) {
                 tileEntity.setStack(slot, newStack);
             }
         }

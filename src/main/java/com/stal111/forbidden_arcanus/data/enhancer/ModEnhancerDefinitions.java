@@ -11,9 +11,8 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
  */
 public class ModEnhancerDefinitions extends DatapackRegistryClass<EnhancerDefinition> {
 
-    public static final DatapackRegistryHelper<EnhancerDefinition> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(FARegistries.ENHANCER_DEFINITION);
+    public static final DatapackRegistryHelper<EnhancerDefinition> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.ENHANCER_DEFINITION);
 
     public static final ResourceKey<EnhancerDefinition> ARTISAN_RELIC = HELPER.createKey("artisan_relic");
     public static final ResourceKey<EnhancerDefinition> CRESCENT_MOON = HELPER.createKey("crescent_moon");
@@ -37,8 +36,8 @@ public class ModEnhancerDefinitions extends DatapackRegistryClass<EnhancerDefini
     public static final ResourceKey<EnhancerDefinition> DIVINE_PACT = HELPER.createKey("divine_pact");
     public static final ResourceKey<EnhancerDefinition> MALEDICTUS_PACT = HELPER.createKey("maledictus_pact");
 
-    public ModEnhancerDefinitions(DataProviderInfo info, BootstapContext<EnhancerDefinition> context) {
-        super(info, context);
+    public ModEnhancerDefinitions(BootstapContext<EnhancerDefinition> context) {
+        super(context);
     }
 
     @Override

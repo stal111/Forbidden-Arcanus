@@ -9,9 +9,8 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 import java.util.List;
 
@@ -21,13 +20,13 @@ import java.util.List;
  */
 public class ModStructureSets extends DatapackRegistryClass<StructureSet> {
 
-    public static final DatapackRegistryHelper<StructureSet> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.STRUCTURE_SET);
+    public static final DatapackRegistryHelper<StructureSet> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.STRUCTURE_SET);
 
     public static final ResourceKey<StructureSet> NIPAS = HELPER.createKey("nipas");
 
 
-    public ModStructureSets(DataProviderInfo info, BootstapContext<StructureSet> context) {
-        super(info, context);
+    public ModStructureSets(BootstapContext<StructureSet> context) {
+        super(context);
     }
 
     @Override

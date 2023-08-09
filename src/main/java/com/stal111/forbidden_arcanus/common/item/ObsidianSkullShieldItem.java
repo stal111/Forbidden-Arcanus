@@ -29,8 +29,11 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.NonNullLazy;
-import net.valhelsia.valhelsia_core.common.capability.counter.*;
-import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCapability;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCreator;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterImpl;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterProvider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

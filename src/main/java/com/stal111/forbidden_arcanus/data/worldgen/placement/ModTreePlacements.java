@@ -10,9 +10,8 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 /**
  * Mod Tree Placements <br>
@@ -23,7 +22,7 @@ import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
  */
 public class ModTreePlacements extends DatapackRegistryClass<PlacedFeature> {
 
-    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.PLACED_FEATURE);
+    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.PLACED_FEATURE);
 
     public static final PlacementModifier TREE_THRESHOLD = SurfaceWaterDepthFilter.forMaxDepth(0);
 
@@ -32,8 +31,8 @@ public class ModTreePlacements extends DatapackRegistryClass<PlacedFeature> {
     public static final ResourceKey<PlacedFeature> LARGE_CHERRY_CHECKED = HELPER.createKey("large_cherry_checked");
     public static final ResourceKey<PlacedFeature> AURUM_TREES = HELPER.createKey("aurum_trees");
 
-    public ModTreePlacements(DataProviderInfo info, BootstapContext<PlacedFeature> context) {
-        super(info, context);
+    public ModTreePlacements(BootstapContext<PlacedFeature> context) {
+        super(context);
     }
 
     @Override

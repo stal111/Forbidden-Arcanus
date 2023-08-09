@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.data.hephaestus_forge.input;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.BloodInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ExtractEnchantmentsInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ItemInput;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -12,9 +12,8 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 /**
  * @author stal111
@@ -22,7 +21,7 @@ import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
  */
 public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> {
 
-    public static final DatapackRegistryHelper<HephaestusForgeInput> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(FARegistries.FORGE_INPUT);
+    public static final DatapackRegistryHelper<HephaestusForgeInput> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.FORGE_INPUT);
 
     public static final ResourceKey<HephaestusForgeInput> SOUL = HELPER.createKey("soul");
     public static final ResourceKey<HephaestusForgeInput> CORRUPT_SOUL = HELPER.createKey("corrupt_soul");
@@ -34,8 +33,8 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
     public static final ResourceKey<HephaestusForgeInput> BLOOD_TEST_TUBE = HELPER.createKey("blood_test_tube");
     public static final ResourceKey<HephaestusForgeInput> EXTRACT_ENCHANTMENTS = HELPER.createKey("extract_enchantments");
 
-    public ModForgeInputs(DataProviderInfo info, BootstapContext<HephaestusForgeInput> context) {
-        super(info, context);
+    public ModForgeInputs(BootstapContext<HephaestusForgeInput> context) {
+        super(context);
     }
 
     @Override

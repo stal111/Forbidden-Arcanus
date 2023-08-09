@@ -9,7 +9,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.valhelsia.valhelsia_core.common.network.UpdateCounterPacket;
+import net.valhelsia.valhelsia_core.api.common.network.UpdateCounterPacket;
 
 public class NetworkHandler {
 

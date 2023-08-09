@@ -12,9 +12,8 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.data.ValhelsiaDataProvider;
-import net.valhelsia.valhelsia_core.core.registry.RegistryManager;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryManager;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,16 +27,16 @@ import java.util.concurrent.CompletableFuture;
  * @author stal111
  * @since 2023-01-03
  */
-public class ParticleDataProvider implements DataProvider, ValhelsiaDataProvider {
+public class ParticleDataProvider implements DataProvider {
 
     private final PackOutput.PathProvider particlePathProvider;
     private final RegistryManager registryManager;
 
     private final Map<ResourceLocation, ParticleDefinition> builders = new HashMap<>();
 
-    public ParticleDataProvider(DataProviderInfo info) {
-        this.particlePathProvider = info.output().createPathProvider(PackOutput.Target.RESOURCE_PACK, "particles");
-        this.registryManager = info.registryManager();
+    public ParticleDataProvider(DataProviderContext context) {
+        this.particlePathProvider = context.output().createPathProvider(PackOutput.Target.RESOURCE_PACK, "particles");
+        this.registryManager = context.registryManager();
     }
 
     protected void registerParticles() {
@@ -76,7 +75,6 @@ public class ParticleDataProvider implements DataProvider, ValhelsiaDataProvider
         return ForbiddenArcanus.MOD_ID + " - Particles";
     }
 
-    @Override
     public String getModId() {
         return this.registryManager.modId();
     }

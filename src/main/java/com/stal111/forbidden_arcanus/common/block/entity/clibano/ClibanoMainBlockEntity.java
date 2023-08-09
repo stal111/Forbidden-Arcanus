@@ -22,7 +22,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.FurnaceFuelSlot;
@@ -38,12 +37,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
-import net.valhelsia.valhelsia_core.common.block.entity.ValhelsiaContainerBlockEntity;
+import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
+import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -55,7 +54,7 @@ import java.util.List;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implements RecipeHolder {
+public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<ClibanoMainBlockEntity> implements RecipeHolder {
 
     public static final int SOUL_DURATION = 2700;
 
@@ -304,15 +303,15 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
 
         if (resultStack.isEmpty() || secondResultStack.isEmpty()) {
             return true;
-        } else if (!resultStack.sameItem(stack) && !secondResultStack.sameItem(stack)) {
+        } else if (!ItemStack.isSameItem(resultStack, stack) && !ItemStack.isSameItem(secondResultStack, stack)) {
             return false;
-        } else if (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= maxCount && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
+        } else if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= maxCount && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
             return true;
-        } else if (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= maxCount && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= maxCount && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
             return true;
         }
 
-        return (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize()) || (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize());
+        return (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize()) || (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize());
     }
 
     /**
@@ -341,9 +340,9 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         ItemStack resultStack = this.getStack(ClibanoMenu.RESULT_SLOTS.getFirst());
         ItemStack secondResultStack = this.getStack(ClibanoMenu.RESULT_SLOTS.getSecond());
 
-        if (resultStack.sameItem(stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
+        if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
             resultStack.grow(stack.getCount());
-        } else if (secondResultStack.sameItem(stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
             secondResultStack.grow(stack.getCount());
         } else if (resultStack.isEmpty()) {
             this.setStack(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
@@ -449,7 +448,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, @Nonnull MenuCreationContext context) {
+    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext context) {
         return new ClibanoMenu(containerId, this.getItemStackHandler(), this.containerData, context);
     }
 
@@ -537,12 +536,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity implem
         this.recipesUsed.addTo(recipe.getId(), 1);
     }
 
-    @Override
-    public void awardUsedRecipes(@Nonnull Player player) {
-    }
-
     public void awardUsedRecipesAndPopExperience(ServerPlayer player) {
-        player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.getLevel(), player.position()));
+        player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.serverLevel(), player.position()));
 
         this.recipesUsed.clear();
     }

@@ -5,9 +5,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageType;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 /**
  * @author stal111
@@ -15,12 +14,12 @@ import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
  */
 public class ModDamageTypes extends DatapackRegistryClass<DamageType> {
 
-    public static final DatapackRegistryHelper<DamageType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.DAMAGE_TYPE);
+    public static final DatapackRegistryHelper<DamageType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.DAMAGE_TYPE);
 
     public static final ResourceKey<DamageType> EXTRACT_SOUL = HELPER.createKey("extract_soul");
 
-    public ModDamageTypes(DataProviderInfo info, BootstapContext<DamageType> context) {
-        super(info, context);
+    public ModDamageTypes(BootstapContext<DamageType> context) {
+        super(context);
     }
 
     @Override

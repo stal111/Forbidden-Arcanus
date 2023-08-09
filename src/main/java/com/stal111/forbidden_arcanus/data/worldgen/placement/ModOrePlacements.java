@@ -10,9 +10,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ import java.util.List;
  */
 public class ModOrePlacements extends DatapackRegistryClass<PlacedFeature> {
 
-    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.PLACED_FEATURE);
+    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.PLACED_FEATURE);
 
     public static final ResourceKey<PlacedFeature> ARCANE_CRYSTAL_ORE = HELPER.createKey("arcane_crystal_ore");
     public static final ResourceKey<PlacedFeature> RUNIC_STONE = HELPER.createKey("runic_stone");
@@ -34,8 +33,8 @@ public class ModOrePlacements extends DatapackRegistryClass<PlacedFeature> {
     public static final ResourceKey<PlacedFeature> STELLA_ARCANUM = HELPER.createKey("stella_arcanum");
     public static final ResourceKey<PlacedFeature> XPETRIFIED_ORE = HELPER.createKey("xpetrified_ore");
 
-    public ModOrePlacements(DataProviderInfo info, BootstapContext<PlacedFeature> context) {
-        super(info, context);
+    public ModOrePlacements(BootstapContext<PlacedFeature> context) {
+        super(context);
     }
 
     private List<PlacementModifier> orePlacement(PlacementModifier countModifier, PlacementModifier placementModifier) {

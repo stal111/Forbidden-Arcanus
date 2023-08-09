@@ -32,7 +32,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.common.helper.VoxelShapeHelper;
+import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

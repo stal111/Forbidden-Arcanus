@@ -57,7 +57,7 @@ public class ClibanoResultSlot extends SlotItemHandler {
 
     @Override
     protected void checkTakeAchievements(@Nonnull ItemStack stack) {
-        stack.onCraftedBy(this.player.level, this.player, this.removeCount);
+        stack.onCraftedBy(this.player.level(), this.player, this.removeCount);
 
         if (this.player instanceof ServerPlayer serverPlayer) {
             this.blockEntity.awardUsedRecipesAndPopExperience(serverPlayer);

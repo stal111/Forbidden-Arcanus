@@ -7,7 +7,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 
 import javax.annotation.Nonnull;
 
@@ -20,8 +21,8 @@ import javax.annotation.Nonnull;
  */
 public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
-    public ModEntityTypeTagsProvider(DataProviderInfo info) {
-        super(info.output(), info.lookupProvider(), ForbiddenArcanus.MOD_ID, info.fileHelper());
+    public ModEntityTypeTagsProvider(DataProviderContext context, ExistingFileHelper fileHelper) {
+        super(context.output(), context.lookupProvider(), ForbiddenArcanus.MOD_ID, fileHelper);
     }
 
     @Override

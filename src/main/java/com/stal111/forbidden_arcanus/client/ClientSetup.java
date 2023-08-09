@@ -1,13 +1,10 @@
 package com.stal111.forbidden_arcanus.client;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.ObsidianSkullOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
-import com.stal111.forbidden_arcanus.client.model.DracoAurumHeadModel;
-import com.stal111.forbidden_arcanus.client.model.DracoAurumWingsModel;
 import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
@@ -40,10 +37,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticType;
-import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticsCategory;
-import net.valhelsia.valhelsia_core.client.cosmetics.CosmeticsRegistry;
-import net.valhelsia.valhelsia_core.client.cosmetics.elytra.CancelRenderingModifier;
+import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 
 /**
  * @author stal111
@@ -51,7 +45,7 @@ import net.valhelsia.valhelsia_core.client.cosmetics.elytra.CancelRenderingModif
  */
 public class ClientSetup {
 
-    public ClientSetup() {
+    public ClientSetup(ClientSetupHelper helper) {
         Minecraft minecraft = Minecraft.getInstance();
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -99,15 +93,15 @@ public class ClientSetup {
     }
 
     private void registerCosmetics() {
-        var source = new FACosmeticsSource(ForbiddenArcanus.MOD_ID);
-
-        CosmeticsRegistry.addSource(source);
-
-        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.BACK, DracoAurumWingsModel::new)
-                .exactName("draco_aurum_wings")
-                .elytraModifier(CancelRenderingModifier.INSTANCE));
-        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.HAT, DracoAurumHeadModel::new)
-                .exactName("draco_aurum_head"));
+//        var source = new FACosmeticsSource(ForbiddenArcanus.MOD_ID);
+//
+//        CosmeticsRegistry.addSource(source);
+//
+//        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.BACK, DracoAurumWingsModel::new)
+//                .exactName("draco_aurum_wings")
+//                .elytraModifier(CancelRenderingModifier.INSTANCE));
+//        CosmeticsRegistry.registerType(source, CosmeticType.builder(CosmeticsCategory.HAT, DracoAurumHeadModel::new)
+//                .exactName("draco_aurum_head"));
     }
 
     @SubscribeEvent

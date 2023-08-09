@@ -15,12 +15,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterCapability;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterCreator;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
-import net.valhelsia.valhelsia_core.common.util.counter.SerializableCounter;
-import net.valhelsia.valhelsia_core.common.util.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SerializableCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCapability;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCreator;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterProvider;
+import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

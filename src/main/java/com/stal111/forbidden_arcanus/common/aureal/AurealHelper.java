@@ -17,7 +17,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
-import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
+import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 
 import java.util.Objects;
 
@@ -62,7 +62,7 @@ public class AurealHelper {
                 Consequence consequence = Consequences.getRandomConsequence(random).create();
                 consequence.tick(player);
 
-                if (consequence instanceof NeedsStoring) {
+                if (consequence instanceof SerializableComponent) {
                     aureal.addActiveConsequence(consequence);
                 }
             }
@@ -113,7 +113,7 @@ public class AurealHelper {
             ListTag consequences = new ListTag();
 
             for (Consequence consequence : aureal.getActiveConsequences()){
-                if (consequence instanceof NeedsStoring needsStoring && needsStoring.shouldBeSaved()) {
+                if (consequence instanceof SerializableComponent needsStoring && needsStoring.shouldBeSaved()) {
                     CompoundTag consequenceTag = new CompoundTag();
 
                     consequenceTag.putString("Type", consequence.getName().toString());
@@ -140,7 +140,7 @@ public class AurealHelper {
                     ResourceLocation name = new ResourceLocation(consequenceTag.getString("Type"));
                     Consequence consequence = Objects.requireNonNull(Consequences.getByName(name)).create();
 
-                    if (consequence instanceof NeedsStoring needsStoring) {
+                    if (consequence instanceof SerializableComponent needsStoring) {
                         needsStoring.load(consequenceTag);
                     }
 

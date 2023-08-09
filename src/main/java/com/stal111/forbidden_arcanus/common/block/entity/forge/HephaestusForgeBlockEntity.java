@@ -28,8 +28,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.valhelsia.valhelsia_core.common.block.entity.MenuCreationContext;
-import net.valhelsia.valhelsia_core.common.block.entity.ValhelsiaContainerBlockEntity;
+import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
+import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +45,7 @@ import java.util.stream.Stream;
  * @author stal111
  * @since 2021-06-18
  */
-public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity implements EssencesContainer {
+public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<HephaestusForgeBlockEntity> implements EssencesContainer {
 
     public static final int MAIN_SLOT = 4;
 

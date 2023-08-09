@@ -12,9 +12,8 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 import java.util.List;
 
@@ -27,13 +26,13 @@ import java.util.List;
  */
 public class ModVegetationFeatures extends DatapackRegistryClass<ConfiguredFeature<?, ?>> {
 
-    public static final DatapackRegistryHelper<ConfiguredFeature<?, ?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.CONFIGURED_FEATURE);
+    public static final DatapackRegistryHelper<ConfiguredFeature<?, ?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.CONFIGURED_FEATURE);
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> CHERRY_TREES_PLAINS = HELPER.createKey("cherry_trees_plains");
 
 
-    public ModVegetationFeatures(DataProviderInfo info, BootstapContext<ConfiguredFeature<?, ?>> context) {
-        super(info, context);
+    public ModVegetationFeatures(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        super(context);
     }
 
     @Override

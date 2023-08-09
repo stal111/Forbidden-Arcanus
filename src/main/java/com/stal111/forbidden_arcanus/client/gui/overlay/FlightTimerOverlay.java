@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.util.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterProvider;
 
 /**
  * @author stal111

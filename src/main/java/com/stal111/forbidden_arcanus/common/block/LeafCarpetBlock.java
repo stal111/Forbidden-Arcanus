@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.RegistryObject;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 
 import javax.annotation.Nonnull;
 
@@ -29,9 +29,9 @@ public class LeafCarpetBlock extends Block {
 
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1, 16);
 
-    private final RegistryObject<LeavesBlock> leavesBlock;
+    private final RegistryEntry<LeavesBlock> leavesBlock;
 
-    public LeafCarpetBlock(RegistryObject<LeavesBlock> leavesBlock, Properties properties) {
+    public LeafCarpetBlock(RegistryEntry<LeavesBlock> leavesBlock, Properties properties) {
         super(properties);
         this.leavesBlock = leavesBlock;
     }
@@ -64,7 +64,7 @@ public class LeafCarpetBlock extends Block {
         return !level.isEmptyBlock(pos.below());
     }
 
-    public RegistryObject<LeavesBlock> getLeavesBlock() {
+    public RegistryEntry<LeavesBlock> getLeavesBlock() {
         return this.leavesBlock;
     }
 }

@@ -7,9 +7,9 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.Rit
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraftforge.registries.RegistryObject;
-import net.valhelsia.valhelsia_core.core.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
 /**
  * @author stal111
@@ -17,12 +17,12 @@ import net.valhelsia.valhelsia_core.core.registry.helper.MappedRegistryHelper;
  */
 public class ModRitualResultTypes implements RegistryClass {
 
-    public static final MappedRegistryHelper<RitualResultType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getMappedHelper(FARegistries.RITUAL_RESULT_TYPE);
+    public static final MappedRegistryHelper<RitualResultType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.RITUAL_RESULT_TYPE);
 
-    public static final RegistryObject<RitualResultType<CreateItemResult>> CREATE_ITEM = register("create_item", CreateItemResult.CODEC);
-    public static final RegistryObject<RitualResultType<UpgradeTierResult>> UPGRADE_TIER = register("upgrade_tier", UpgradeTierResult.CODEC);
+    public static final RegistryEntry<RitualResultType<CreateItemResult>> CREATE_ITEM = register("create_item", CreateItemResult.CODEC);
+    public static final RegistryEntry<RitualResultType<UpgradeTierResult>> UPGRADE_TIER = register("upgrade_tier", UpgradeTierResult.CODEC);
 
-    public static <T extends RitualResult> RegistryObject<RitualResultType<T>> register(String name, Codec<T> codec) {
+    public static <T extends RitualResult> RegistryEntry<RitualResultType<T>> register(String name, Codec<T> codec) {
         return HELPER.register(name, () -> new RitualResultType<>(codec));
     }
 }

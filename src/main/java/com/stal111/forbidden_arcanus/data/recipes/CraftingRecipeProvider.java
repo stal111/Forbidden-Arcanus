@@ -17,10 +17,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.common.util.ValhelsiaNBTIngredient;
-import net.valhelsia.valhelsia_core.data.recipes.RecipePart;
-import net.valhelsia.valhelsia_core.data.recipes.RecipeSubProvider;
-import net.valhelsia.valhelsia_core.data.recipes.ValhelsiaRecipeProvider;
+import net.minecraftforge.common.crafting.StrictNBTIngredient;
+import net.valhelsia.valhelsia_core.api.datagen.recipes.RecipePart;
+import net.valhelsia.valhelsia_core.api.datagen.recipes.RecipeSubProvider;
+import net.valhelsia.valhelsia_core.api.datagen.recipes.ValhelsiaRecipeProvider;
 
 /**
  * @author Valhelsia Team
@@ -42,7 +42,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.shaped(RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL_DUST.get(), builder -> builder.pattern("###").pattern("###").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST_SPECK.get()).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST_SPECK.get()));
         this.shaped(RecipeCategory.TOOLS, ModItems.SOUL_EXTRACTOR.get(), builder -> builder.pattern("U  ").pattern("##X").pattern("Q  ").define('U', ModBlocks.UTREM_JAR.get()).define('#', Blocks.NETHER_BRICKS).define('X', Blocks.QUARTZ_BLOCK).define('Q', Items.QUARTZ).unlockedBy(this, ModBlocks.UTREM_JAR.get()));
         this.shaped(RecipeCategory.MISC, ModItems.ARCANE_BONE_MEAL.get(), 4, builder -> builder.pattern(" # ").pattern("#X#").pattern(" # ").define('#', Items.BONE_MEAL).define('X', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST.get()));
-        this.shaped(RecipeCategory.MISC, ModItems.AUREAL_BOTTLE.get(), builder -> builder.pattern("###").pattern("#X#").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST.get()).define('X', new ValhelsiaNBTIngredient(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.STRONG_REGENERATION))).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST.get()));
+        this.shaped(RecipeCategory.MISC, ModItems.AUREAL_BOTTLE.get(), builder -> builder.pattern("###").pattern("#X#").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST.get()).define('X', StrictNBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.STRONG_REGENERATION))).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST.get()));
 
         this.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARKSTONE_PEDESTAL.get(), builder -> builder.pattern("###").pattern(" * ").pattern("XXX").define('#', ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get()).define('*', ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get()).define('X', ModBlocks.POLISHED_DARKSTONE.get()).unlockedBy(this, ModBlocks.POLISHED_DARKSTONE.get()));
 
@@ -153,10 +153,11 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.fenceGate(ModBlocks.AURUM_FENCE_GATE.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
         this.fenceGate(ModBlocks.EDELWOOD_FENCE_GATE.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
-        this.sign(ModBlocks.FUNGYSS_SIGN.getFirst().get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.sign(ModBlocks.CHERRY_SIGN.getFirst().get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
-        this.sign(ModBlocks.AURUM_SIGN.getFirst().get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.sign(ModBlocks.EDELWOOD_SIGN.getFirst().get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
+        //TODO
+//        this.sign(ModBlocks.FUNGYSS_SIGN.getFirst().get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
+//        this.sign(ModBlocks.CHERRY_SIGN.getFirst().get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
+//        this.sign(ModBlocks.AURUM_SIGN.getFirst().get(), this.item(ModBlocks.AURUM_PLANKS.get()));
+//        this.sign(ModBlocks.EDELWOOD_SIGN.getFirst().get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
 
         this.pressurePlate(ModBlocks.DEORUM_PRESSURE_PLATE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
         this.pressurePlate(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));

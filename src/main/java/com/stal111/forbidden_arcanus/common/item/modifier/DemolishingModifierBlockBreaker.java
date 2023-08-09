@@ -179,7 +179,7 @@ public class DemolishingModifierBlockBreaker {
 
         if (this.level instanceof ServerLevel serverLevel) {
             for(ServerPlayer serverPlayer : serverLevel.getServer().getPlayerList().getPlayers()) {
-                if (serverPlayer != null && serverPlayer.level == serverLevel && serverPlayer.getId() != this.player.getId()) {
+                if (serverPlayer != null && serverPlayer.level() == serverLevel && serverPlayer.getId() != this.player.getId()) {
                     double d0 = (double)pos.getX() - serverPlayer.getX();
                     double d1 = (double)pos.getY() - serverPlayer.getY();
                     double d2 = (double)pos.getZ() - serverPlayer.getZ();

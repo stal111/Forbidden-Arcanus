@@ -46,7 +46,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
             AABB aabb = this.getBoundingBox().inflate(2.5D, 1.5D, 2.5D);
 
-            List<Entity> list = this.level.getEntities(this, aabb);
+            List<Entity> list = this.level().getEntities(this, aabb);
 
             for (Entity entity : list) {
                 if (entity instanceof ItemEntity) {
@@ -56,9 +56,9 @@ public abstract class PlayerMixin extends LivingEntity {
         }
     }
 
-    @Redirect(at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/player/Player;onGround:Z"), method = "getDigSpeed")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onGround()Z"), method = "getDigSpeed")
     public boolean forbiddenArcanus_getDigSpeed$seaPrismModifier(Player instance) {
-        boolean onGround = instance.isOnGround();
+        boolean onGround = instance.onGround();
 
         if (!onGround && this.isEyeInFluidType(ForgeMod.WATER_TYPE.get()) && ModifierHelper.getModifier(instance.getItemBySlot(EquipmentSlot.HEAD)) == ModItemModifiers.AQUATIC.get()) {
             return true;

@@ -18,9 +18,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 import java.util.function.UnaryOperator;
 
@@ -30,7 +29,7 @@ import java.util.function.UnaryOperator;
  */
 public class ModRituals extends DatapackRegistryClass<Ritual> {
 
-    public static final DatapackRegistryHelper<Ritual> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(FARegistries.RITUAL);
+    public static final DatapackRegistryHelper<Ritual> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.RITUAL);
 
     public static final ResourceKey<Ritual> ETERNAL_STELLA = HELPER.createKey("eternal_stella");
     public static final ResourceKey<Ritual> TERRASTOMP_PRISM = HELPER.createKey("terrastomp_prism");
@@ -43,8 +42,8 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public static final ResourceKey<Ritual> UPGRADE_TIER_4 = HELPER.createKey("upgrade_tier_4");
     public static final ResourceKey<Ritual> UPGRADE_TIER_5 = HELPER.createKey("upgrade_tier_5");
 
-    public ModRituals(DataProviderInfo info, BootstapContext<Ritual> context) {
-        super(info, context);
+    public ModRituals(BootstapContext<Ritual> context) {
+        super(context);
     }
 
     @Override

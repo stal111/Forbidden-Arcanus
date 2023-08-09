@@ -78,7 +78,7 @@ public class EnergyBall extends Projectile {
     public void tick() {
         super.tick();
 
-        HitResult hitResult = ProjectileUtil.getHitResult(this, entity -> entity.isAlive() && entity != this.shootingEntity);
+        HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, entity -> entity.isAlive() && entity != this.shootingEntity);
         if (hitResult.getType() != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, hitResult)) {
             this.onImpact(hitResult);
         }
@@ -91,7 +91,7 @@ public class EnergyBall extends Projectile {
 
         if (this.isInWater()) {
             for (int i = 0; i < 4; ++i) {
-                this.level.addParticle(ParticleTypes.BUBBLE, this.getX() - vec3.x * 0.25D, this.getY() - vec3.y * 0.25D, this.getZ() - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
+                this.level().addParticle(ParticleTypes.BUBBLE, this.getX() - vec3.x * 0.25D, this.getY() - vec3.y * 0.25D, this.getZ() - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
             }
             motionFactor = MOTION_FACTOR_WATER;
         }
@@ -100,23 +100,23 @@ public class EnergyBall extends Projectile {
     }
 
     public void onImpact(HitResult result) {
-        if (this.level.isClientSide()) {
+        if (this.level().isClientSide()) {
             return;
         }
 
         if (result instanceof EntityHitResult entityHitResult) {
             Entity entity = entityHitResult.getEntity();
 
-            entity.hurt(this.level.damageSources().indirectMagic(this, this.shootingEntity), DAMAGE_AMOUNT);
+            entity.hurt(this.level().damageSources().indirectMagic(this, this.shootingEntity), DAMAGE_AMOUNT);
 
-            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level);
+            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
             lightningBolt.setPos(entity.getX(), entity.getY(), entity.getZ());
 
-            this.level.addFreshEntity(lightningBolt);
+            this.level().addFreshEntity(lightningBolt);
         } else if (result.getType() == HitResult.Type.BLOCK) {
             Vec3 vec3 = result.getLocation();
 
-            this.level.playSound(null, vec3.x(), vec3.y(), vec3.z(), ModSounds.ENERGY_BALL_HIT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+            this.level().playSound(null, vec3.x(), vec3.y(), vec3.z(), ModSounds.ENERGY_BALL_HIT.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
 
         this.discard();

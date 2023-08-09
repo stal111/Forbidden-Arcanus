@@ -50,8 +50,8 @@ public class SpectralEyeEffect extends MobEffect {
             double l = entity.getY();
             double i1 = entity.getZ();
 
-            AABB aabb = new AABB(k, l, i1, (k + 1), (l + 1), (i1 + 1)).inflate(EFFECT_RADIUS).expandTowards(0.0D, entity.level.getMaxBuildHeight(), 0.0D);
-            List<LivingEntity> list = entity.level.getEntitiesOfClass(LivingEntity.class, aabb);
+            AABB aabb = new AABB(k, l, i1, (k + 1), (l + 1), (i1 + 1)).inflate(EFFECT_RADIUS).expandTowards(0.0D, entity.level().getMaxBuildHeight(), 0.0D);
+            List<LivingEntity> list = entity.level().getEntitiesOfClass(LivingEntity.class, aabb);
 
             for(LivingEntity livingEntity : list) {
                 if (livingEntity instanceof Animal || livingEntity instanceof AmbientCreature) {

@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 public interface CherryFlowerVines {
 
     static void entityInside(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Entity entity) {
-        if (entity instanceof LivingEntity livingEntity && livingEntity.onClimbable() && !level.getBlockState(livingEntity.getOnPos()).getMaterial().isSolid()) {
+        if (entity instanceof LivingEntity livingEntity && livingEntity.onClimbable() && !livingEntity.onGround()) {
             for (int i = 0; i < 3; i++) {
                 BlockPos abovePos = pos.above(i + 1);
 

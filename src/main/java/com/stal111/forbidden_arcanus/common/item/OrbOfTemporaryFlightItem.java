@@ -14,9 +14,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.common.capability.counter.CounterProvider;
-import net.valhelsia.valhelsia_core.common.util.ItemStackUtils;
-import net.valhelsia.valhelsia_core.common.util.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
+import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterProvider;
+import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

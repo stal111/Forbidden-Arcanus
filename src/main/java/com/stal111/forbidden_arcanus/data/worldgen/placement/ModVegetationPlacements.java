@@ -13,9 +13,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.valhelsia.valhelsia_core.core.data.DataProviderInfo;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryClass;
-import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
 /**
  * Mod Vegetation Placements <br>
@@ -26,15 +25,15 @@ import net.valhelsia.valhelsia_core.core.registry.helper.DatapackRegistryHelper;
  */
 public class ModVegetationPlacements extends DatapackRegistryClass<PlacedFeature> {
 
-    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getDatapackHelper(Registries.PLACED_FEATURE);
+    public static final DatapackRegistryHelper<PlacedFeature> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.PLACED_FEATURE);
 
     public static final PlacementModifier TREE_THRESHOLD = SurfaceWaterDepthFilter.forMaxDepth(0);
 
     public static final ResourceKey<PlacedFeature> YELLOW_ORCHID = HELPER.createKey("yellow_orchid");
     public static final ResourceKey<PlacedFeature> CHERRY_TREES_PLAINS = HELPER.createKey("cherry_trees_plains");
 
-    public ModVegetationPlacements(DataProviderInfo info, BootstapContext<PlacedFeature> context) {
-        super(info, context);
+    public ModVegetationPlacements(BootstapContext<PlacedFeature> context) {
+        super(context);
     }
 
     @Override

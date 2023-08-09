@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.valhelsia.valhelsia_core.common.util.NeedsStoring;
+import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 2021-07-10
  */
-public class EssenceManager implements NeedsStoring {
+public class EssenceManager implements SerializableComponent {
 
     private static final int ENTITY_CHECK_RADIUS = 5;
 

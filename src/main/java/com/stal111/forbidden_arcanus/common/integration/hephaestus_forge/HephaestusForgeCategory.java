@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.integration.hephaestus_forge;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -15,6 +14,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -118,8 +118,8 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
     }
 
     @Override
-    public void draw(@Nonnull Ritual recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
-        this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(poseStack, essenceInfo.posX(), essenceInfo.posY()));
+    public void draw(@Nonnull Ritual recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(guiGraphics, essenceInfo.posX(), essenceInfo.posY()));
     }
 
     @Nonnull
