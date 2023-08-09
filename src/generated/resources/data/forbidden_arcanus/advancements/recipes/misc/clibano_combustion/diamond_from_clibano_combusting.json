@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:clibano_combustion/diamond_from_clibano_combusting"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

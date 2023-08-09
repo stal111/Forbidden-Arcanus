@@ -6,7 +6,12 @@
       "item": "forbidden_arcanus:fungyss_planks"
     },
     "X": {
-      "tag": "forge:rods/wooden"
+      "fabric_value": {
+        "item": "minecraft:stick"
+      },
+      "forge_value": {
+        "tag": "forge:rods/wooden"
+      }
     }
   },
   "pattern": [

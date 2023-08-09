@@ -17,14 +17,10 @@ public class CompostableRegistry {
     private static final CompostableHelper HELPER = CompostableHelper.get();
 
     public static void register() {
-        HELPER.register03(ModBlocks.CHERRY_LEAVES.get());
-        HELPER.register03(ModBlocks.CHERRY_LEAF_CARPET.get());
         HELPER.register03(ModBlocks.AURUM_LEAVES.get());
         HELPER.register03(ModBlocks.NUGGETY_AURUM_LEAVES.get());
         HELPER.register03(ModBlocks.FUNGYSS.get());
-        HELPER.register03(ModBlocks.CHERRY_SAPLING.get());
         HELPER.register03(ModBlocks.AURUM_SAPLING.get());
-        HELPER.register03(ModBlocks.CHERRY_FLOWER_VINES.get());
         HELPER.register065(ModBlocks.YELLOW_ORCHID.get());
         HELPER.register03(ModItems.GOLDEN_ORCHID_SEEDS.get());
         HELPER.register065(ModBlocks.NIPA.get());

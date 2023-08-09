@@ -41,5 +41,6 @@
     "recipes": [
       "forbidden_arcanus:arcane_chiseled_darkstone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

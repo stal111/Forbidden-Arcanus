@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:dark_nether_star_block_from_dark_nether_star"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

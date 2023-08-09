@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

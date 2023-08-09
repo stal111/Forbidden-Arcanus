@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:fungyss_button"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

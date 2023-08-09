@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:fungyss_planks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

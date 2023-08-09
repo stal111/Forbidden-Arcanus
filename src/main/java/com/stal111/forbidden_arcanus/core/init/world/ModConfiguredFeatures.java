@@ -2,9 +2,6 @@ package com.stal111.forbidden_arcanus.core.init.world;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
-import com.stal111.forbidden_arcanus.common.world.feature.config.CherryTreeConfiguration;
-import com.stal111.forbidden_arcanus.common.world.feature.foliageplacers.CherryFoliagePlacer;
-import com.stal111.forbidden_arcanus.common.world.feature.trunkplacers.CherryTrunkPlacer;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -52,10 +49,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
     public static final ResourceKey<ConfiguredFeature<?, ?>> STELLA_ARCANUM = HELPER.createKey("ore_stella_arcanum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> XPETRIFIED_ORE = HELPER.createKey("ore_xpetrified");
 
-
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_CHERRY = HELPER.createKey("small_cherry");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_CHERRY = HELPER.createKey("large_cherry");
-
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURUM = HELPER.createKey("aurum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ORCHID = HELPER.createKey("flower_yellow_orchid");
 
@@ -92,8 +85,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         context.register(ARCANE_GILDED_DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE.get(), 4)));
         context.register(STELLA_ARCANUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(stellaArcanumTargetList, 3)));
         context.register(XPETRIFIED_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(xpetrifiedTargetList, 3)));
-        context.register(SMALL_CHERRY, new ConfiguredFeature<>(Feature.TREE, new CherryTreeConfiguration(BlockStateProvider.simple(ModBlocks.CHERRY_LOG.get()), BlockStateProvider.simple(ModBlocks.THIN_CHERRY_LOG.get()), new CherryTrunkPlacer(3, 1, 1), BlockStateProvider.simple(ModBlocks.CHERRY_LEAVES.get()), new CherryFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))));
-        context.register(LARGE_CHERRY, new ConfiguredFeature<>(Feature.TREE, new CherryTreeConfiguration(BlockStateProvider.simple(ModBlocks.CHERRY_LOG.get()), BlockStateProvider.simple(ModBlocks.THIN_CHERRY_LOG.get()), new CherryTrunkPlacer(4, 2, 2), BlockStateProvider.simple(ModBlocks.CHERRY_LEAVES.get()), new CherryFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), new TwoLayersFeatureSize(1, 0, 2))));
         context.register(AURUM, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.AURUM_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES.get(), 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES.get(), 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build()));
         context.register(YELLOW_ORCHID, new ConfiguredFeature<>(Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))))));
         context.register(EDELWOOD, new ConfiguredFeature<>(ModFeatures.EDELWOOD.get(), NoneFeatureConfiguration.INSTANCE));
@@ -121,9 +112,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         private static final Supplier<BlockState> ARCANE_GILDED_DARKSTONE = () -> ModBlocks.GILDED_DARKSTONE.get().defaultBlockState();
         private static final Supplier<BlockState> STELLA_ARCANUM = () -> ModBlocks.STELLA_ARCANUM.get().defaultBlockState();
         private static final Supplier<BlockState> XPETRIFIED_ORE = () -> ModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
-        private static final Supplier<BlockState> CHERRYWOOD_LOG = () -> ModBlocks.CHERRY_LOG.get().defaultBlockState();
-        private static final Supplier<BlockState> CHERRYWOOD_LEAVES = () -> ModBlocks.CHERRY_LEAVES.get().defaultBlockState();
-        private static final Supplier<BlockState> CHERRYWOOD_SAPLING = () -> ModBlocks.CHERRY_SAPLING.get().defaultBlockState();
         private static final Supplier<BlockState> MYSTERYWOOD_LOG = () -> ModBlocks.AURUM_LOG.get().defaultBlockState();
         private static final Supplier<BlockState> MYSTERYWOOD_LEAVES = () -> ModBlocks.AURUM_LEAVES.get().defaultBlockState();
         private static final Supplier<BlockState> NUGGETY_MYSTERYWOOD_LEAVES = () -> ModBlocks.NUGGETY_AURUM_LEAVES.get().defaultBlockState();

@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:smelting/rune_from_smelting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

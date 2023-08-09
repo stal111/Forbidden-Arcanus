@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:deorum_ingot_from_deorum_nugget"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

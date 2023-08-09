@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:aurum_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

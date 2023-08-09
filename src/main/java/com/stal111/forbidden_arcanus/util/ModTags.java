@@ -14,7 +14,6 @@ public class ModTags {
 
     public static class Blocks {
         public static final TagKey<Block> FUNGYSS_STEMS = modTag("fungyss_stems");
-        public static final TagKey<Block> CHERRYWOOD_LOGS = modTag("cherrywood_logs");
         public static final TagKey<Block> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
         public static final TagKey<Block> EDELWOOD_LOGS = modTag("edelwood_logs");
         public static final TagKey<Block> BLACKSMITH_GAVEL_UNAFFECTED = modTag("blacksmith_gavel_unaffected");
@@ -47,7 +46,6 @@ public class ModTags {
         public static final TagKey<Item> EXPLOSION_RESISTANT = forgeTag("explosion_resistant");
         public static final TagKey<Item> OBSIDIAN_SKULLS = modTag("obsidian_skulls");
         public static final TagKey<Item> FUNGYSS_STEMS = modTag("fungyss_stems");
-        public static final TagKey<Item> CHERRYWOOD_LOGS = modTag("cherrywood_logs");
         public static final TagKey<Item> MYSTERYWOOD_LOGS = modTag("mysterywood_logs");
         public static final TagKey<Item> EDELWOOD_LOGS = modTag("edelwood_logs");
         public static final TagKey<Item> BLACKSMITH_GAVEL = modTag("blacksmith_gavel");

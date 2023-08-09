@@ -41,5 +41,6 @@
     "recipes": [
       "forbidden_arcanus:arcane_edelwood_planks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

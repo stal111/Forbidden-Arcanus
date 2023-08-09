@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:blasting/arcane_crystal_from_blasting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

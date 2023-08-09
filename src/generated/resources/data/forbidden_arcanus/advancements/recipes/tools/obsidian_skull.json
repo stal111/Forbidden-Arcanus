@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:obsidian_skull"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

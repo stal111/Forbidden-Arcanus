@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:sanity_meter"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

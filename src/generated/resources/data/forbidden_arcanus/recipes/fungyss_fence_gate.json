@@ -3,7 +3,12 @@
   "category": "building",
   "key": {
     "#": {
-      "tag": "forge:rods/wooden"
+      "fabric_value": {
+        "item": "minecraft:stick"
+      },
+      "forge_value": {
+        "tag": "forge:rods/wooden"
+      }
     },
     "X": {
       "item": "forbidden_arcanus:fungyss_planks"

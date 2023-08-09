@@ -43,5 +43,6 @@
     "recipes": [
       "forbidden_arcanus:runic_glass"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

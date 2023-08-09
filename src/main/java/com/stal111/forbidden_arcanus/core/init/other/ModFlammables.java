@@ -8,20 +8,14 @@ import net.minecraft.world.level.block.Blocks;
 public class ModFlammables {
 
     public static void registerFlammables() {
-        registerLeaves(ModBlocks.CHERRY_LEAVES.get());
         registerLeaves(ModBlocks.AURUM_LEAVES.get());
         registerLeaves(ModBlocks.NUGGETY_AURUM_LEAVES.get());
 
-        registerLog(ModBlocks.CHERRY_LOG.get());
-        registerLog(ModBlocks.THIN_CHERRY_LOG.get());
         registerLog(ModBlocks.AURUM_LOG.get());
         registerLog(ModBlocks.EDELWOOD_LOG.get());
         registerLog(ModBlocks.CARVED_EDELWOOD_LOG.get());
-        registerLog(ModBlocks.STRIPPED_CHERRY_LOG.get());
         registerLog(ModBlocks.STRIPPED_AURUM_LOG.get());
-        registerLog(ModBlocks.CHERRY_WOOD.get());
         registerLog(ModBlocks.AURUM_WOOD.get());
-        registerLog(ModBlocks.STRIPPED_CHERRY_WOOD.get());
         registerLog(ModBlocks.STRIPPED_AURUM_WOOD.get());
 
         registerWoodenBlock(ModBlocks.EDELWOOD_PLANKS.get());
@@ -30,12 +24,6 @@ public class ModFlammables {
         registerWoodenBlock(ModBlocks.EDELWOOD_STAIRS.get());
         registerWoodenBlock(ModBlocks.EDELWOOD_FENCE.get());
         registerWoodenBlock(ModBlocks.EDELWOOD_FENCE_GATE.get());
-
-        registerWoodenBlock(ModBlocks.CHERRY_PLANKS.get());
-        registerWoodenBlock(ModBlocks.CHERRY_SLAB.get());
-        registerWoodenBlock(ModBlocks.CHERRY_STAIRS.get());
-        registerWoodenBlock(ModBlocks.CHERRY_FENCE.get());
-        registerWoodenBlock(ModBlocks.CHERRY_FENCE_GATE.get());
 
         registerWoodenBlock(ModBlocks.AURUM_PLANKS.get());
         registerWoodenBlock(ModBlocks.AURUM_SLAB.get());

@@ -41,5 +41,6 @@
     "recipes": [
       "forbidden_arcanus:golden_orchid_seeds"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

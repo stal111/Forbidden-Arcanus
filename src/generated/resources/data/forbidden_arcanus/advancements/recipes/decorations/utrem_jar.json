@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:utrem_jar"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

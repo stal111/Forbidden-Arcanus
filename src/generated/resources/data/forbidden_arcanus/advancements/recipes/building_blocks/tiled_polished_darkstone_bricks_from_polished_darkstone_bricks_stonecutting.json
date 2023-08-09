@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:tiled_polished_darkstone_bricks_from_polished_darkstone_bricks_stonecutting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

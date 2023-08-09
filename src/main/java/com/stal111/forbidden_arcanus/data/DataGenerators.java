@@ -6,14 +6,11 @@ import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ApplyModifierRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ClibanoRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.CraftingRecipeProvider;
-import com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -22,7 +19,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
 import net.valhelsia.valhelsia_core.api.datagen.recipes.ValhelsiaRecipeProvider;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -61,7 +57,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(context, fileHelper));
 
-        generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
+        //generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
 
         generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(output, ForbiddenArcanus.REGISTRY_MANAGER, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new));
 

@@ -39,7 +39,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.PARTICLE_TYPE, ModParticles::new);
         this.addMappedHelper(Registries.MEMORY_MODULE_TYPE, ModMemoryModules::new);
         this.addMappedHelper(Registries.ACTIVITY, ModActivities::new);
-        this.addMappedHelper(Registries.TRUNK_PLACER_TYPE, ModTrunkPlacers::new);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes::new);
         this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers::new);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects::new);

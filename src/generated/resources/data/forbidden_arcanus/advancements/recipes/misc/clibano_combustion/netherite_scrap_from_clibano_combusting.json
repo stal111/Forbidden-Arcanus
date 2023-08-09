@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:clibano_combustion/netherite_scrap_from_clibano_combusting"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

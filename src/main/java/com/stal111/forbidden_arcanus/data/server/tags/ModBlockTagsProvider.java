@@ -26,28 +26,26 @@ public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
     @Override
     protected void addTags(@NotNull HolderLookup.Provider provider) {
         this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(ModBlocks.FUNGYSS_STEM.get(), ModBlocks.FUNGYSS_HYPHAE.get());
-        this.tag(ModTags.Blocks.CHERRYWOOD_LOGS).add(ModBlocks.CHERRY_LOG.get(), ModBlocks.CHERRY_WOOD.get(), ModBlocks.STRIPPED_CHERRY_LOG.get(), ModBlocks.STRIPPED_CHERRY_WOOD.get(), ModBlocks.THIN_CHERRY_LOG.get());
         this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(ModBlocks.AURUM_LOG.get(), ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());
         this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(ModBlocks.EDELWOOD_LOG.get(), ModBlocks.CARVED_EDELWOOD_LOG.get());
-        this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.CHERRYWOOD_LOGS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS);
-        this.tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.CHERRYWOOD_LOGS).addTag(ModTags.Blocks.MYSTERYWOOD_LOGS);
-        this.tag(BlockTags.PLANKS).add(ModBlocks.FUNGYSS_PLANKS.get(), ModBlocks.CHERRY_PLANKS.get(), ModBlocks.CARVED_CHERRY_PLANKS.get(), ModBlocks.AURUM_PLANKS.get(), ModBlocks.EDELWOOD_PLANKS.get(), ModBlocks.ARCANE_EDELWOOD_PLANKS.get());
-        this.tag(BlockTags.WOODEN_SLABS).add(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.CHERRY_SLAB.get(), ModBlocks.AURUM_SLAB.get(), ModBlocks.EDELWOOD_SLAB.get());
-        this.tag(BlockTags.WOODEN_STAIRS).add(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.CHERRY_STAIRS.get(), ModBlocks.AURUM_STAIRS.get(), ModBlocks.EDELWOOD_STAIRS.get());
+        this.tag(BlockTags.LOGS).addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS);
+        this.tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.MYSTERYWOOD_LOGS);
+        this.tag(BlockTags.PLANKS).add(ModBlocks.FUNGYSS_PLANKS.get(), ModBlocks.AURUM_PLANKS.get(), ModBlocks.EDELWOOD_PLANKS.get(), ModBlocks.ARCANE_EDELWOOD_PLANKS.get());
+        this.tag(BlockTags.WOODEN_SLABS).add(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.AURUM_SLAB.get(), ModBlocks.EDELWOOD_SLAB.get());
+        this.tag(BlockTags.WOODEN_STAIRS).add(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.AURUM_STAIRS.get(), ModBlocks.EDELWOOD_STAIRS.get());
         this.tag(BlockTags.PRESSURE_PLATES).add(ModBlocks.DEORUM_PRESSURE_PLATE.get());
-        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.CHERRY_PRESSURE_PLATE.get(), ModBlocks.AURUM_PRESSURE_PLATE.get(), ModBlocks.EDELWOOD_PRESSURE_PLATE.get());
+        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), ModBlocks.AURUM_PRESSURE_PLATE.get(), ModBlocks.EDELWOOD_PRESSURE_PLATE.get());
         this.tag(BlockTags.BUTTONS).add(ModBlocks.POLISHED_DARKSTONE_BUTTON.get());
-        this.tag(BlockTags.WOODEN_BUTTONS).add(ModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.CHERRY_BUTTON.get(), ModBlocks.AURUM_BUTTON.get(), ModBlocks.EDELWOOD_BUTTON.get());
-        this.tag(BlockTags.WOODEN_FENCES).add(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.CHERRY_FENCE.get(), ModBlocks.AURUM_FENCE.get(), ModBlocks.EDELWOOD_FENCE.get());
-        this.tag(Tags.Blocks.FENCES_WOODEN).add(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.CHERRY_FENCE.get(), ModBlocks.AURUM_FENCE.get(), ModBlocks.EDELWOOD_FENCE.get());
-        this.tag(BlockTags.FENCE_GATES).add(ModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.CHERRY_FENCE_GATE.get(), ModBlocks.AURUM_FENCE_GATE.get(), ModBlocks.EDELWOOD_FENCE_GATE.get());
-        this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(ModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.CHERRY_FENCE_GATE.get(), ModBlocks.AURUM_FENCE_GATE.get(), ModBlocks.EDELWOOD_FENCE_GATE.get());
-        this.tag(BlockTags.WOODEN_DOORS).add(ModBlocks.FUNGYSS_DOOR.get(), ModBlocks.CHERRY_DOOR.get(), ModBlocks.AURUM_DOOR.get(), ModBlocks.EDELWOOD_DOOR.get(), ModBlocks.ARCANE_EDELWOOD_DOOR.get());
+        this.tag(BlockTags.WOODEN_BUTTONS).add(ModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.AURUM_BUTTON.get(), ModBlocks.EDELWOOD_BUTTON.get());
+        this.tag(BlockTags.WOODEN_FENCES).add(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.AURUM_FENCE.get(), ModBlocks.EDELWOOD_FENCE.get());
+        this.tag(Tags.Blocks.FENCES_WOODEN).add(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.AURUM_FENCE.get(), ModBlocks.EDELWOOD_FENCE.get());
+        this.tag(BlockTags.FENCE_GATES).add(ModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.AURUM_FENCE_GATE.get(), ModBlocks.EDELWOOD_FENCE_GATE.get());
+        this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(ModBlocks.FUNGYSS_FENCE_GATE.get(), ModBlocks.AURUM_FENCE_GATE.get(), ModBlocks.EDELWOOD_FENCE_GATE.get());
+        this.tag(BlockTags.WOODEN_DOORS).add(ModBlocks.FUNGYSS_DOOR.get(), ModBlocks.AURUM_DOOR.get(), ModBlocks.EDELWOOD_DOOR.get(), ModBlocks.ARCANE_EDELWOOD_DOOR.get());
         this.tag(BlockTags.DOORS).add(ModBlocks.DEORUM_DOOR.get());
-        this.tag(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.CHERRY_TRAPDOOR.get(), ModBlocks.AURUM_TRAPDOOR.get(), ModBlocks.EDELWOOD_TRAPDOOR.get(), ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get());
+        this.tag(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.FUNGYSS_TRAPDOOR.get(), ModBlocks.AURUM_TRAPDOOR.get(), ModBlocks.EDELWOOD_TRAPDOOR.get(), ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get());
         this.tag(BlockTags.TRAPDOORS).add(ModBlocks.DEORUM_TRAPDOOR.get());
-        this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.CHERRY_FLOWER_VINES.get(), ModBlocks.CHERRY_FLOWER_VINES_PLANT.get());
-        this.tag(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_FUNGYSS.get(), ModBlocks.POTTED_CHERRY_SAPLING.get(), ModBlocks.POTTED_AURUM_SAPLING.get(), ModBlocks.POTTED_GROWING_EDELWOOD.get(), ModBlocks.POTTED_YELLOW_ORCHID.get());
+        this.tag(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_FUNGYSS.get(), ModBlocks.POTTED_AURUM_SAPLING.get(), ModBlocks.POTTED_GROWING_EDELWOOD.get(), ModBlocks.POTTED_YELLOW_ORCHID.get());
         this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED);
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
         this.tag(ModTags.Blocks.RUNIC_STONES).add(ModBlocks.RUNIC_STONE.get(), ModBlocks.RUNIC_DEEPSLATE.get(), ModBlocks.RUNIC_DARKSTONE.get());
@@ -57,10 +55,9 @@ public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
         //TODO
         //this.tag(BlockTags.STANDING_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.EDELWOOD_SIGN.getFirst().get());
         //this.tag(BlockTags.WALL_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getSecond().get(), ModBlocks.CHERRY_SIGN.getSecond().get(), ModBlocks.AURUM_SIGN.getSecond().get(), ModBlocks.EDELWOOD_SIGN.getSecond().get());
-        this.tag(BlockTags.SAPLINGS).add(ModBlocks.CHERRY_SAPLING.get(), ModBlocks.AURUM_SAPLING.get());
-        this.tag(BlockTags.LEAVES).add(ModBlocks.CHERRY_LEAVES.get(), ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get());
+        this.tag(BlockTags.SAPLINGS).add(ModBlocks.AURUM_SAPLING.get());
+        this.tag(BlockTags.LEAVES).add(ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.get());
-        this.tag(BlockTags.FLOWERS).add(ModBlocks.CHERRY_FLOWER_VINES.get(), ModBlocks.CHERRY_FLOWER_VINES_PLANT.get());
         this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.get());
         this.tag(BlockTags.CROPS).add(ModBlocks.GOLDEN_ORCHID.get(), ModBlocks.STRANGE_ROOT.get());
 

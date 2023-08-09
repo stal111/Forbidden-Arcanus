@@ -25,7 +25,6 @@ public final class FAVillagerTrades {
 
     private void buildTrades() {
         this.addBasicTrade(3, new ItemStack(ModBlocks.FUNGYSS.get()), 5, 1);
-        this.addBasicTrade(5, new ItemStack(ModBlocks.CHERRY_SAPLING.get()), 8, 1);
         this.addBasicTrade(5, new ItemStack(ModBlocks.AURUM_SAPLING.get()), 8, 1);
         this.addBasicTrade(6, new ItemStack(ModBlocks.GROWING_EDELWOOD.get()), 8, 1);
         this.addBasicTrade(2, new ItemStack(ModBlocks.YELLOW_ORCHID.get()), 6, 1);

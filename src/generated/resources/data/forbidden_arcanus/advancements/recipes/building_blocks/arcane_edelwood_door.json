@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:arcane_edelwood_door"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:smelting/arcane_crystal_dust_from_smelting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

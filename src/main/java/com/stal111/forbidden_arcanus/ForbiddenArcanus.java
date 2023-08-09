@@ -15,8 +15,6 @@ import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
 import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
-import com.stal111.forbidden_arcanus.core.init.world.ModFoliagePlacers;
-import com.stal111.forbidden_arcanus.core.init.world.ModTreeDecorators;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -60,9 +58,6 @@ public final class ForbiddenArcanus {
 		ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
 		ModContainers.CONTAINERS.register(modEventBus);
 		ModPOITypes.POI_TYPES.register(modEventBus);
-
-		ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
-		ModTreeDecorators.TREE_DECORATORS.register(modEventBus);
 
 		modEventBus.addListener(CommonSetup::setup);
 

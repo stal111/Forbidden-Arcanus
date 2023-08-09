@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:stone_blacksmith_gavel"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

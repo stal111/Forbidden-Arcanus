@@ -30,5 +30,6 @@
     "recipes": [
       "forbidden_arcanus:aurum_fence_gate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

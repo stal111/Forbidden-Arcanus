@@ -39,5 +39,6 @@
     "recipes": [
       "forbidden_arcanus:deorum_chain"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

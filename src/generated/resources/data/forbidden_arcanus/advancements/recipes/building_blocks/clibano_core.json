@@ -43,5 +43,6 @@
     "recipes": [
       "forbidden_arcanus:clibano_core"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

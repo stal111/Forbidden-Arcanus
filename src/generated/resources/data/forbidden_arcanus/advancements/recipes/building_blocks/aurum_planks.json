@@ -28,5 +28,6 @@
     "recipes": [
       "forbidden_arcanus:aurum_planks"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
