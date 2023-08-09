@@ -45,6 +45,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects::new);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions::new);
         this.addMappedHelper(FARegistries.FORGE_INPUT_TYPE, ModForgeInputTypes::new);
+        this.addMappedHelper(Registries.CREATIVE_MODE_TAB, ModCreativeModeTabs::new);
 
         this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);
