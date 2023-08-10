@@ -1,5 +1,8 @@
 {
   "type": "forbidden_arcanus:apply_modifier",
+  "template": {
+    "item": "forbidden_arcanus:darkstone_upgrade_smithing_template"
+  },
   "addition": {
     "item": "forbidden_arcanus:smelter_prism"
   },

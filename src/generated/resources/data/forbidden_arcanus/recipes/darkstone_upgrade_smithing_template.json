@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:darkstone"
+    },
+    "X": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "item": "forbidden_arcanus:darkstone_upgrade_smithing_template"
+  },
+  "show_notification": true
+}

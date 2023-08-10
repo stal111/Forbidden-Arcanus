@@ -14,7 +14,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SmithingTransformRecipe;
+import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +28,9 @@ import java.util.Objects;
  * @author stal111
  * @since 2021-11-29
  */
-public class ApplyModifierRecipe extends SmithingTransformRecipe {
+public class ApplyModifierRecipe implements SmithingRecipe {
+
+    private final ResourceLocation id;
 
     private final Ingredient template;
     private final Ingredient addition;
@@ -36,7 +38,7 @@ public class ApplyModifierRecipe extends SmithingTransformRecipe {
     private final ItemModifier modifier;
 
     public ApplyModifierRecipe(ResourceLocation id, Ingredient template, Ingredient addition, ItemModifier modifier) {
-        super(id, template, Ingredient.EMPTY, addition, ItemStack.EMPTY);
+        this.id = id;
         this.addition = addition;
         this.template = template;
         this.modifier = modifier;
@@ -44,16 +46,16 @@ public class ApplyModifierRecipe extends SmithingTransformRecipe {
 
     @Override
     public boolean matches(@Nonnull Container inv, @Nonnull Level level) {
-        if (!this.modifier.canItemContainModifier(inv.getItem(0))) {
+        if (!this.isTemplateIngredient(inv.getItem(0)) || !this.isBaseIngredient(inv.getItem(1))) {
             return false;
         }
-        return this.addition.test(inv.getItem(1));
+        return this.isAdditionIngredient(inv.getItem(2));
     }
 
     @Nonnull
     @Override
     public ItemStack assemble(@Nonnull Container inv, @NotNull RegistryAccess registryAccess) {
-        ItemStack stack = inv.getItem(0).copy();
+        ItemStack stack = inv.getItem(1).copy();
 
         ModifierHelper.setModifier(stack, this.modifier);
 
@@ -72,6 +74,10 @@ public class ApplyModifierRecipe extends SmithingTransformRecipe {
         return ModRecipes.APPLY_MODIFIER.get();
     }
 
+    public Ingredient getTemplate() {
+        return this.template;
+    }
+
     public ItemModifier getModifier() {
         return this.modifier;
     }
@@ -83,6 +89,26 @@ public class ApplyModifierRecipe extends SmithingTransformRecipe {
     @Override
     public boolean isSpecial() {
         return true;
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return this.id;
+    }
+
+    @Override
+    public boolean isTemplateIngredient(@NotNull ItemStack stack) {
+        return this.template.test(stack);
+    }
+
+    @Override
+    public boolean isBaseIngredient(@NotNull ItemStack stack) {
+        return this.modifier.canItemContainModifier(stack);
+    }
+
+    @Override
+    public boolean isAdditionIngredient(@NotNull ItemStack stack) {
+        return this.addition.test(stack);
     }
 
     public static class Serializer implements RecipeSerializer<ApplyModifierRecipe> {

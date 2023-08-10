@@ -57,6 +57,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(context, fileHelper));
 
+        //TODO
         //generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
 
         generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(output, ForbiddenArcanus.REGISTRY_MANAGER, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new));

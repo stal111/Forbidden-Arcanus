@@ -20,14 +20,14 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 2022-10-21
  */
-public record ApplyModifierRecipeBuilder(Ingredient addition, ItemModifier modifier) implements RecipeBuilder {
+public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient addition, ItemModifier modifier) implements RecipeBuilder {
 
-    public static ApplyModifierRecipeBuilder of(ItemLike addition, ItemModifier modifier) {
-        return new ApplyModifierRecipeBuilder(Ingredient.of(addition), modifier);
+    public static ApplyModifierRecipeBuilder of(ItemLike template, ItemLike addition, ItemModifier modifier) {
+        return new ApplyModifierRecipeBuilder(Ingredient.of(template), Ingredient.of(addition), modifier);
     }
 
-    public static ApplyModifierRecipeBuilder of(Ingredient addition, ItemModifier modifier) {
-        return new ApplyModifierRecipeBuilder(addition, modifier);
+    public static ApplyModifierRecipeBuilder of(ItemLike template, Ingredient addition, ItemModifier modifier) {
+        return new ApplyModifierRecipeBuilder(Ingredient.of(template), addition, modifier);
     }
 
     @Nonnull
@@ -55,15 +55,17 @@ public record ApplyModifierRecipeBuilder(Ingredient addition, ItemModifier modif
 
     @Override
     public void save(@Nonnull Consumer<FinishedRecipe> finishedRecipeConsumer, @Nonnull ResourceLocation recipeId) {
-        finishedRecipeConsumer.accept(new ApplyModifierRecipeBuilder.Result(recipeId, this.addition, this.modifier));
+        finishedRecipeConsumer.accept(new ApplyModifierRecipeBuilder.Result(recipeId, this.template, this.addition, this.modifier));
     }
 
     private record Result(ResourceLocation recipeId,
+                          Ingredient template,
                           Ingredient addition,
                           ItemModifier modifier) implements FinishedRecipe {
 
         @Override
             public void serializeRecipeData(JsonObject json) {
+                json.add("template", this.template.toJson());
                 json.add("addition", this.addition.toJson());
                 json.addProperty("modifier", this.modifier.getRegistryName().toString());
             }

@@ -318,6 +318,7 @@
     "item.forbidden_arcanus.elementarium": "Elementarium",
     "item.forbidden_arcanus.divine_pact": "Divine Pact",
     "item.forbidden_arcanus.maledictus_pact": "Maledictus Pact",
+    "item.forbidden_arcanus.darkstone_upgrade_smithing_template": "Darkstone Upgrade Smithing Template",
 
     "item.forbidden_arcanus.enhancer": "Enhancer Relic",
     "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Hephaestus Forge effect:",
@@ -331,6 +332,13 @@
     "item.forbidden_arcanus.enhancer.elementarium.hephaestus_forge": "Allows the creation of elemental items.",
     "item.forbidden_arcanus.enhancer.divine_pact.hephaestus_forge": "Allows the creation of celestial items.",
     "item.forbidden_arcanus.enhancer.maledictus_pact.hephaestus_forge": "Allows the creation of cursed items.",
+
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.additions_slot_description": "Add a modifier item",
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.applies_to": "Equipment",
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.base_slot_description": "Add armor, weapon, or tool",
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.ingredients": "Modifier Item",
+
+    "upgrade.forbidden_arcanus.darkstone_upgrade": "Apply Item Modifier",
 
     "comment.tooltips": "---Tooltips---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "The Forbiddenmicon will soon be able to be read",

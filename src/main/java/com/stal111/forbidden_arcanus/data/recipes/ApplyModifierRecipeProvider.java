@@ -29,6 +29,6 @@ public class ApplyModifierRecipeProvider extends RecipeSubProvider {
     }
 
     private void modifier(ItemLike addition, ItemModifier modifier) {
-        this.add(ApplyModifierRecipeBuilder.of(addition, modifier));
+        this.add(ApplyModifierRecipeBuilder.of(ModItems.DARKSTONE_UPGRADE_SMITHING_TEMPLATE.get(), addition, modifier));
     }
 }
