@@ -82,7 +82,6 @@ public class ModBoat extends Boat implements CustomBoat {
     }
 
     public enum Type implements StringRepresentable {
-        CHERRY("cherry", ModItems.CHERRY_BOAT, ModItems.CHERRY_CHEST_BOAT),
         AURUM("aurum", ModItems.AURUM_BOAT, ModItems.AURUM_CHEST_BOAT),
         EDELWOOD("edelwood", ModItems.EDELWOOD_BOAT, ModItems.EDELWOOD_CHEST_BOAT);
        // FUNGYSS("fungyss", ModItems.FUNGYSS_BOAT, ModItems.FUNGYSS_CHEST_BOAT);

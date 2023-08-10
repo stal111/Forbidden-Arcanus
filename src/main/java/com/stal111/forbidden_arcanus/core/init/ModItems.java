@@ -48,7 +48,6 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<Item> RUNE = HELPER.register("rune", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> DARK_RUNE = HELPER.register("dark_rune", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> CLOTH = HELPER.register("cloth", () -> new Item(new Item.Properties()));
-    public static final RegistryEntry<Item> CHERRY_PEACH = HELPER.register("cherry_peach", () -> new Item(new Item.Properties().food(ModFoods.CHERRY_PEACH)));
     public static final RegistryEntry<Item> ENDER_PEARL_FRAGMENT = HELPER.register("ender_pearl_fragment", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> DRAGON_SCALE = HELPER.register("dragon_scale", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> SILVER_DRAGON_SCALE = HELPER.register("silver_dragon_scale", () -> new Item(new Item.Properties()));
@@ -134,8 +133,6 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<ItemNameBlockItem> GOLDEN_ORCHID_SEEDS = HELPER.register("golden_orchid_seeds", () -> new ItemNameBlockItem(ModBlocks.GOLDEN_ORCHID.get(), new Item.Properties()));
     public static final RegistryEntry<Item> DARKSTONE_UPGRADE_SMITHING_TEMPLATE = HELPER.register("darkstone_upgrade_smithing_template", SmithingTemplateConstants::createDarkstoneUpgradeTemplate);
 
-    public static final RegistryEntry<BoatItem> CHERRY_BOAT = HELPER.register("cherry_boat", () -> new ModBoatItem(false, ModBoat.Type.CHERRY, new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<BoatItem> CHERRY_CHEST_BOAT = HELPER.register("cherry_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.CHERRY, new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<BoatItem> AURUM_BOAT = HELPER.register("aurum_boat", () -> new ModBoatItem(false, ModBoat.Type.AURUM, new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<BoatItem> AURUM_CHEST_BOAT = HELPER.register("aurum_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.AURUM, new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<BoatItem> EDELWOOD_BOAT = HELPER.register("edelwood_boat", () -> new ModBoatItem(false, ModBoat.Type.EDELWOOD, new Item.Properties().stacksTo(1)));
