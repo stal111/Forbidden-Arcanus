@@ -4,30 +4,24 @@ import com.google.common.collect.ImmutableSet;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * Mod POI Types
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.other.ModPOITypes
- *
  * @author stal111
  * @since 2021-07-31
  */
-public class ModPOITypes {
+public class ModPOITypes implements RegistryClass {
 
-    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, ForbiddenArcanus.MOD_ID);
+    public static final MappedRegistryHelper<PoiType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.POINT_OF_INTEREST_TYPE);
 
     //TODO: Add POI Tags
-    public static final RegistryObject<PoiType> HEPHAESTUS_FORGE = register("hephaestus_forge", () -> new PoiType(ModBlocks.HEPHAESTUS_FORGE.get().getStateDefinition().getPossibleStates().stream().filter(state -> state.getValue(HephaestusForgeBlock.ACTIVATED)).collect(Collectors.toUnmodifiableSet()), 0, 1));
-    public static final RegistryObject<PoiType> CLIBANO_MAIN_PART = register("clibano_main_part", () -> new PoiType(ImmutableSet.of(ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState()), 0, 1));
+    public static final RegistryEntry<PoiType> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", () -> new PoiType(ModBlocks.HEPHAESTUS_FORGE.get().getStateDefinition().getPossibleStates().stream().filter(state -> state.getValue(HephaestusForgeBlock.ACTIVATED)).collect(Collectors.toUnmodifiableSet()), 0, 1));
+    public static final RegistryEntry<PoiType> CLIBANO_MAIN_PART = HELPER.register("clibano_main_part", () -> new PoiType(ImmutableSet.of(ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState()), 0, 1));
 
-    private static <T extends PoiType> RegistryObject<T> register(String name, Supplier<T> type) {
-        return POI_TYPES.register(name, type);
-    }
 }

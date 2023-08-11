@@ -8,7 +8,7 @@ import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.Smithin
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.UpgradeTierCategory;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -53,7 +53,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-        registration.addRecipes(CLIBANO_COMBUSTION, Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModRecipes.CLIBANO_COMBUSTION.get()));
+        registration.addRecipes(CLIBANO_COMBUSTION, Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get()));
     }
 
     @Override

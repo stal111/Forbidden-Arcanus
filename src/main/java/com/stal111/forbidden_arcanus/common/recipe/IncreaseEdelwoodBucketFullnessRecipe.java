@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.recipe;
 import com.stal111.forbidden_arcanus.common.item.CapacityBucket;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodBucketItem;
 import com.stal111.forbidden_arcanus.common.item.EdelwoodSoupBucketItem;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -139,6 +139,6 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.EDELWOOD_BUCKET_INCREASE_FULLNESS.get();
+        return ModRecipeSerializers.EDELWOOD_BUCKET_INCREASE_FULLNESS.get();
     }
 }

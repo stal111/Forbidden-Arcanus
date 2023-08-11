@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -125,7 +125,7 @@ public record ClibanoRecipeBuilder(RecipeCategory category, Item result, Ingredi
 
         @Nonnull
         public RecipeSerializer<?> getType() {
-            return ModRecipes.CLIBANO_SERIALIZER.get();
+            return ModRecipeSerializers.CLIBANO_SERIALIZER.get();
         }
 
         /**

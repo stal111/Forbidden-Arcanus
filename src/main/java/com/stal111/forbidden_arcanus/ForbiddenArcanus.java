@@ -6,15 +6,8 @@ import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.core.config.Config;
-import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.init.ModEffects;
-import com.stal111.forbidden_arcanus.core.init.ModEnchantments;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
-import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
 import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
 import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
-import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
-import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -49,15 +42,6 @@ public final class ForbiddenArcanus {
 				.withEventHandler(new ModEventHandler(modEventBus))
 				.clientSetup(() -> ClientSetup::new)
 				.create();
-
-		ModBlockEntities.TILE_ENTITIES.register(modEventBus);
-		ModEnchantments.ENCHANTMENTS.register(modEventBus);
-		ModEffects.EFFECTS.register(modEventBus);
-		ModFeatures.FEATURES.register(modEventBus);
-		ModRecipes.RECIPE_TYPES.register(modEventBus);
-		ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
-		ModContainers.CONTAINERS.register(modEventBus);
-		ModPOITypes.POI_TYPES.register(modEventBus);
 
 		modEventBus.addListener(CommonSetup::setup);
 

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.aureal.consequence;
 
 import com.mojang.datafixers.util.Pair;
-import com.stal111.forbidden_arcanus.core.init.ModEffects;
+import com.stal111.forbidden_arcanus.core.init.ModMobEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -24,7 +24,7 @@ public class EffectConsequence extends Consequence {
             Pair.of(MobEffects.WEAKNESS, 1800),
             Pair.of(MobEffects.UNLUCK, 3600),
             Pair.of(MobEffects.BAD_OMEN, 3600),
-            Pair.of(ModEffects.DARKENED.get(), 2400)
+            Pair.of(ModMobEffects.DARKENED.get(), 2400)
     );
 
     public EffectConsequence(ConsequenceType<?> type) {

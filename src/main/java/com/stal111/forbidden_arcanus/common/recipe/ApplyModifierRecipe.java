@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -71,7 +71,7 @@ public class ApplyModifierRecipe implements SmithingRecipe {
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.APPLY_MODIFIER.get();
+        return ModRecipeSerializers.APPLY_MODIFIER.get();
     }
 
     public Ingredient getTemplate() {

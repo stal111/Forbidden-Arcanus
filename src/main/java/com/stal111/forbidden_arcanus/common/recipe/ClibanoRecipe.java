@@ -5,7 +5,8 @@ import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -42,7 +43,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     private final ClibanoFireType requiredFireType;
 
     public ClibanoRecipe(ResourceLocation id, String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
-        super(ModRecipes.CLIBANO_COMBUSTION.get(), id, group, category, ingredient, result, experience, cookingTime);
+        super(ModRecipeTypes.CLIBANO_COMBUSTION.get(), id, group, category, ingredient, result, experience, cookingTime);
         this.residueInfo = residueInfo;
         this.requiredFireType = requiredFireType;
 
@@ -77,7 +78,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.CLIBANO_SERIALIZER.get();
+        return ModRecipeSerializers.CLIBANO_SERIALIZER.get();
     }
 
     public static class Serializer implements RecipeSerializer<ClibanoRecipe> {

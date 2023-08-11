@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.data.recipes.builder;
 
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -72,7 +72,7 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
 
             @Nonnull
             public RecipeSerializer<?> getType() {
-                return ModRecipes.APPLY_MODIFIER.get();
+                return ModRecipeSerializers.APPLY_MODIFIER.get();
             }
 
             /**

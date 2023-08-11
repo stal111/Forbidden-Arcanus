@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -29,7 +29,7 @@ public class ResiduesStorage implements SerializableComponent {
     private int totalAmount = 0;
 
     public void tick(Level level, ClibanoMainBlockEntity blockEntity) {
-        level.getRecipeManager().getAllRecipesFor(ModRecipes.COMBINE_RESIDUES.get()).forEach(recipe -> {
+        level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.COMBINE_RESIDUES.get()).forEach(recipe -> {
             ResidueType type = new ResidueType(recipe.getResidue());
 
             if (this.residueTypeAmountMap.getOrDefault(type, 0) >= recipe.getResidueAmount()) {

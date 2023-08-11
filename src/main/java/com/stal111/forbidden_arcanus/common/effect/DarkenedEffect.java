@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.effect;
 
-import com.stal111.forbidden_arcanus.core.init.ModEffects;
+import com.stal111.forbidden_arcanus.core.init.ModMobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -27,7 +27,7 @@ public class DarkenedEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        int i = livingEntity.getEffect(ModEffects.DARKENED.get()).getDuration();
+        int i = livingEntity.getEffect(ModMobEffects.DARKENED.get()).getDuration();
         if (i >= 20) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 99999, 0, false, false, false));
         } else {

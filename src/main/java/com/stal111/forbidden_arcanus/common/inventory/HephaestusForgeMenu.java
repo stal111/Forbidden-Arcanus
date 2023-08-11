@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
@@ -47,7 +47,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
-        super(ModContainers.HEPHAESTUS_FORGE.get(), id);
+        super(ModMenuTypes.HEPHAESTUS_FORGE.get(), id);
         this.levelAccess = creationContext.levelAccess();
         this.hephaestusForgeData = containerData;
 

@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -71,7 +71,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     public static final int BASE_DATA_COUNT = 9;
     public static final int FULL_DATA_COUNT = BASE_DATA_COUNT + ResiduesStorage.RESIDUE_TYPES.size();
 
-    public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipes.CLIBANO_COMBUSTION.get();
+    public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_COMBUSTION.get();
 
     private final ResiduesStorage residuesStorage = new ResiduesStorage();
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();

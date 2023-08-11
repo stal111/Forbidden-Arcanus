@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -55,7 +55,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context) {
-        super(ModContainers.CLIBANO.get(), containerId);
+        super(ModMenuTypes.CLIBANO.get(), containerId);
         this.containerData = containerData;
         this.context = context;
 

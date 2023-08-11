@@ -39,12 +39,20 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.PARTICLE_TYPE, ModParticles::new);
         this.addMappedHelper(Registries.MEMORY_MODULE_TYPE, ModMemoryModules::new);
         this.addMappedHelper(Registries.ACTIVITY, ModActivities::new);
+        this.addMappedHelper(Registries.CREATIVE_MODE_TAB, ModCreativeModeTabs::new);
+        this.addMappedHelper(Registries.MENU, ModMenuTypes::new);
+        this.addMappedHelper(Registries.POINT_OF_INTEREST_TYPE, ModPOITypes::new);
+        this.addMappedHelper(Registries.FEATURE, ModFeatures::new);
+        this.addMappedHelper(Registries.BLOCK_ENTITY_TYPE, ModBlockEntities::new);
+        this.addMappedHelper(Registries.MOB_EFFECT, ModMobEffects::new);
+        this.addMappedHelper(Registries.ENCHANTMENT, ModEnchantments::new);
+        this.addMappedHelper(Registries.RECIPE_TYPE, ModRecipeTypes::new);
+        this.addMappedHelper(Registries.RECIPE_SERIALIZER, ModRecipeSerializers::new);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes::new);
         this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers::new);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects::new);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions::new);
         this.addMappedHelper(FARegistries.FORGE_INPUT_TYPE, ModForgeInputTypes::new);
-        this.addMappedHelper(Registries.CREATIVE_MODE_TAB, ModCreativeModeTabs::new);
 
         this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);

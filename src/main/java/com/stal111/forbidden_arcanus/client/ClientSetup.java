@@ -18,7 +18,7 @@ import com.stal111.forbidden_arcanus.common.item.UtremJarItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
-import com.stal111.forbidden_arcanus.core.init.other.ModContainers;
+import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -62,8 +62,8 @@ public class ClientSetup {
         this.registerCosmetics();
 
         event.enqueueWork(() -> {
-            MenuScreens.register(ModContainers.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
-            MenuScreens.register(ModContainers.CLIBANO.get(), ClibanoScreen::new);
+            MenuScreens.register(ModMenuTypes.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
+            MenuScreens.register(ModMenuTypes.CLIBANO.get(), ClibanoScreen::new);
 
             Sheets.addWoodType(ModWoodTypes.FUNGYSS);
             Sheets.addWoodType(ModWoodTypes.AURUM);

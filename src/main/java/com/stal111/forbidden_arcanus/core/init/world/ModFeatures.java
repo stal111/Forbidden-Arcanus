@@ -6,29 +6,24 @@ import com.stal111.forbidden_arcanus.common.world.feature.EdelwoodFeature;
 import com.stal111.forbidden_arcanus.common.world.feature.MegaFungyssFeature;
 import com.stal111.forbidden_arcanus.common.world.feature.RootFeature;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
-import java.util.function.Supplier;
+/**
+ * @author stal111
+ */
+public class ModFeatures implements RegistryClass {
 
-public class ModFeatures {
+    public static final MappedRegistryHelper<Feature<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.FEATURE);
 
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, ForbiddenArcanus.MOD_ID);
-    //public static final DeferredRegister<FeatureDecorator<?>> PLACEMENTS = DeferredRegister.create(ForgeRegistries.DECORATORS, ForbiddenArcanus.MOD_ID);
+    public static final RegistryEntry<Feature<BlockStateConfiguration>> PETRIFIED_ROOT = HELPER.register("petrified_root", () -> new RootFeature(BlockStateConfiguration.CODEC));
+    public static final RegistryEntry<Feature<BigFungyssFeatureConfig>> BIG_FUNGYSS = HELPER.register("big_fungyss", () -> new BigFungyssFeature(BigFungyssFeatureConfig.CODEC));
+    public static final RegistryEntry<Feature<BigFungyssFeatureConfig>> MEGA_FUNGYSS = HELPER.register("mega_fungyss", () -> new MegaFungyssFeature(BigFungyssFeatureConfig.CODEC));
+    public static final RegistryEntry<Feature<NoneFeatureConfiguration>> EDELWOOD = HELPER.register("edelwood", () -> new EdelwoodFeature(NoneFeatureConfiguration.CODEC));
 
-    public static final RegistryObject<Feature<BlockStateConfiguration>> PETRIFIED_ROOT = register("petrified_root", () -> new RootFeature(BlockStateConfiguration.CODEC));
-    public static final RegistryObject<Feature<BigFungyssFeatureConfig>> BIG_FUNGYSS = register("big_fungyss", () -> new BigFungyssFeature(BigFungyssFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<BigFungyssFeatureConfig>> MEGA_FUNGYSS = register("mega_fungyss", () -> new MegaFungyssFeature(BigFungyssFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> EDELWOOD = register("edelwood", () -> new EdelwoodFeature(NoneFeatureConfiguration.CODEC));
-
-   // public static final RegistryObject<DimensionPlacement> DIMENSION_PLACEMENT = PLACEMENTS.register("dimension_placement", () -> new DimensionPlacement(DimensionConfig.CODEC));
-
-    private static <T extends FeatureConfiguration> RegistryObject<Feature<T>> register(String name, Supplier<Feature<T>> feature) {
-        return FEATURES.register(name, feature);
-    }
 }

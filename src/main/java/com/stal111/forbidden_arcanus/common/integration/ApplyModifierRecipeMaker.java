@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +35,7 @@ public class ApplyModifierRecipeMaker {
         List<SmithingRecipe> recipes = new ArrayList<>();
 
         level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream()
-                .filter(upgradeRecipe -> upgradeRecipe.getSerializer() == ModRecipes.APPLY_MODIFIER.get())
+                .filter(upgradeRecipe -> upgradeRecipe.getSerializer() == ModRecipeSerializers.APPLY_MODIFIER.get())
                 .map(upgradeRecipe -> (ApplyModifierRecipe) upgradeRecipe)
                 .forEach(applyModifierRecipe -> {
                     ItemModifier modifier = applyModifierRecipe.getModifier();

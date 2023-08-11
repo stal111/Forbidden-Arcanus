@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.data.recipes.builder;
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.recipe.CombineResiduesRecipe;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -58,7 +58,7 @@ public record CombineResiduesRecipeBuilder(String residueName, int residueAmount
 
     @Override
     public void save(@Nonnull Consumer<FinishedRecipe> finishedRecipeConsumer, @Nonnull ResourceLocation recipeId) {
-        finishedRecipeConsumer.accept(new CombineResiduesRecipeBuilder.Result(recipeId, this.residueName, this.residueAmount, this.result, this.count, ModRecipes.COMBINE_RESIDUES_SERIALIZER.get()));
+        finishedRecipeConsumer.accept(new CombineResiduesRecipeBuilder.Result(recipeId, this.residueName, this.residueAmount, this.result, this.count, ModRecipeSerializers.COMBINE_RESIDUES_SERIALIZER.get()));
     }
 
     private record Result(ResourceLocation recipeId,

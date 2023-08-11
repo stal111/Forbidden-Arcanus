@@ -1,7 +1,8 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.google.gson.JsonObject;
-import com.stal111.forbidden_arcanus.core.init.ModRecipes;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -10,6 +11,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -57,19 +59,19 @@ public class CombineResiduesRecipe extends CustomRecipe {
     @Nonnull
     @Override
     public RecipeType<?> getType() {
-        return ModRecipes.COMBINE_RESIDUES.get();
+        return ModRecipeTypes.COMBINE_RESIDUES.get();
     }
 
     @Nonnull
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
         return this.result;
     }
 
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.COMBINE_RESIDUES_SERIALIZER.get();
+        return ModRecipeSerializers.COMBINE_RESIDUES_SERIALIZER.get();
     }
 
     public static class Serializer implements RecipeSerializer<CombineResiduesRecipe> {
