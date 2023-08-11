@@ -47,7 +47,7 @@ public final class ForbiddenArcanus {
 		ModDefinition.of(ForbiddenArcanus.MOD_ID)
 				.withRegistryManager(REGISTRY_MANAGER)
 				.withEventHandler(new ModEventHandler(modEventBus))
-				.clientSetup(ClientSetup::new)
+				.clientSetup(() -> ClientSetup::new)
 				.create();
 
 		ModBlockEntities.TILE_ENTITIES.register(modEventBus);
