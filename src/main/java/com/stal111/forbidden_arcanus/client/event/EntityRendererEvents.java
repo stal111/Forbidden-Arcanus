@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.model.DarkTraderModel;
 import com.stal111.forbidden_arcanus.client.model.LostSoulModel;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
@@ -48,6 +49,7 @@ public class EntityRendererEvents {
         event.registerEntityRenderer(ModEntities.CHEST_BOAT.get(), context -> new ModBoatRenderer(context, true));
         event.registerEntityRenderer(ModEntities.LOST_SOUL.get(), LostSoulRenderer::new);
         event.registerEntityRenderer(ModEntities.AUREAL_BOTTLE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntities.DARK_TRADER.get(), DarkTraderRenderer::new);
     }
 
     @SubscribeEvent
@@ -64,6 +66,7 @@ public class EntityRendererEvents {
         //event.registerLayerDefinition(DracoAurumHeadModel.LAYER_LOCATION, DracoAurumHeadModel::createBodyLayer);
 
         event.registerLayerDefinition(LostSoulModel.LAYER_LOCATION, LostSoulModel::createBodyLayer);
+        event.registerLayerDefinition(DarkTraderModel.LAYER_LOCATION, DarkTraderModel::createBodyLayer);
 
         for (ModBoat.Type type : ModBoat.Type.values()) {
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);

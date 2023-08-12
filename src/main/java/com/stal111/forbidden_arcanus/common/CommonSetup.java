@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
@@ -68,5 +69,6 @@ public class CommonSetup {
     @SubscribeEvent
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntities.LOST_SOUL.get(), LostSoul.createAttributes().build());
+        event.put(ModEntities.DARK_TRADER.get(), DarkTrader.createAttributes().build());
     }
 }

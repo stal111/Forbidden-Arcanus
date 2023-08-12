@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.core.registry;
 
+import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
@@ -29,30 +30,32 @@ public class ModRegistryCollector extends RegistryCollector {
 
     @Override
     protected void collectHelpers() {
-        this.addBlockHelper(ModBlocks::new);
-        this.addItemHelper(ModItems::new);
-        this.addMappedHelper(Registries.ENTITY_TYPE, EntityRegistryHelper::new, ModEntities::new);
-        this.addMappedHelper(Registries.STRUCTURE_TYPE, ModStructureTypes::new);
-        this.addMappedHelper(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ModLootModifiers::new);
-        this.addMappedHelper(Registries.STRUCTURE_PIECE, ModStructurePieces::new);
-        this.addMappedHelper(Registries.SOUND_EVENT, ModSounds::new);
-        this.addMappedHelper(Registries.PARTICLE_TYPE, ModParticles::new);
-        this.addMappedHelper(Registries.MEMORY_MODULE_TYPE, ModMemoryModules::new);
-        this.addMappedHelper(Registries.ACTIVITY, ModActivities::new);
-        this.addMappedHelper(Registries.CREATIVE_MODE_TAB, ModCreativeModeTabs::new);
-        this.addMappedHelper(Registries.MENU, ModMenuTypes::new);
-        this.addMappedHelper(Registries.POINT_OF_INTEREST_TYPE, ModPOITypes::new);
-        this.addMappedHelper(Registries.FEATURE, ModFeatures::new);
-        this.addMappedHelper(Registries.BLOCK_ENTITY_TYPE, ModBlockEntities::new);
-        this.addMappedHelper(Registries.MOB_EFFECT, ModMobEffects::new);
-        this.addMappedHelper(Registries.ENCHANTMENT, ModEnchantments::new);
-        this.addMappedHelper(Registries.RECIPE_TYPE, ModRecipeTypes::new);
-        this.addMappedHelper(Registries.RECIPE_SERIALIZER, ModRecipeSerializers::new);
-        this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes::new);
-        this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers::new);
-        this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects::new);
-        this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions::new);
-        this.addMappedHelper(FARegistries.FORGE_INPUT_TYPE, ModForgeInputTypes::new);
+        this.addBlockHelper(ModBlocks.class);
+        this.addItemHelper(ModItems.class);
+        this.addMappedHelper(Registries.ENTITY_TYPE, EntityRegistryHelper::new, ModEntities.class);
+        this.addMappedHelper(Registries.STRUCTURE_TYPE, ModStructureTypes.class);
+        this.addMappedHelper(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ModLootModifiers.class);
+        this.addMappedHelper(Registries.STRUCTURE_PIECE, ModStructurePieces.class);
+        this.addMappedHelper(Registries.SOUND_EVENT, ModSounds.class);
+        this.addMappedHelper(Registries.PARTICLE_TYPE, ModParticles.class);
+        this.addMappedHelper(Registries.MEMORY_MODULE_TYPE, ModMemoryModules.class);
+        this.addMappedHelper(Registries.ACTIVITY, ModActivities.class);
+        this.addMappedHelper(Registries.CREATIVE_MODE_TAB, ModCreativeModeTabs.class);
+        this.addMappedHelper(Registries.MENU, ModMenuTypes.class);
+        this.addMappedHelper(Registries.POINT_OF_INTEREST_TYPE, ModPOITypes.class);
+        this.addMappedHelper(Registries.FEATURE, ModFeatures.class);
+        this.addMappedHelper(Registries.BLOCK_ENTITY_TYPE, ModBlockEntities.class);
+        this.addMappedHelper(Registries.MOB_EFFECT, ModMobEffects.class);
+        this.addMappedHelper(Registries.ENCHANTMENT, ModEnchantments.class);
+        this.addMappedHelper(Registries.RECIPE_TYPE, ModRecipeTypes.class);
+        this.addMappedHelper(Registries.RECIPE_SERIALIZER, ModRecipeSerializers.class);
+        this.addMappedHelper(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
+        this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);
+        this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers.class);
+        this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects.class);
+        this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions.class);
+        this.addMappedHelper(FARegistries.FORGE_INPUT_TYPE, ModForgeInputTypes.class);
+        this.addMappedHelper(FARegistries.DARK_TRADER_VARIANT, DarkTraderVariant.class);
 
         this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);
