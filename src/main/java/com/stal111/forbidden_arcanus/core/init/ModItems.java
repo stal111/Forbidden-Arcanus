@@ -132,7 +132,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<EdelwoodOilItem> EDELWOOD_OIL = HELPER.register("edelwood_oil", () -> new EdelwoodOilItem(new Item.Properties().stacksTo(16)));
     public static final RegistryEntry<ItemNameBlockItem> GOLDEN_ORCHID_SEEDS = HELPER.register("golden_orchid_seeds", () -> new ItemNameBlockItem(ModBlocks.GOLDEN_ORCHID.get(), new Item.Properties()));
     public static final RegistryEntry<Item> DARKSTONE_UPGRADE_SMITHING_TEMPLATE = HELPER.register("darkstone_upgrade_smithing_template", SmithingTemplateConstants::createDarkstoneUpgradeTemplate);
-
+    public static final RegistryEntry<Item> OMEGA_ARCOIN = HELPER.register("omega_arcoin", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<BoatItem> AURUM_BOAT = HELPER.register("aurum_boat", () -> new ModBoatItem(false, ModBoat.Type.AURUM, new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<BoatItem> AURUM_CHEST_BOAT = HELPER.register("aurum_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.AURUM, new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<BoatItem> EDELWOOD_BOAT = HELPER.register("edelwood_boat", () -> new ModBoatItem(false, ModBoat.Type.EDELWOOD, new Item.Properties().stacksTo(1)));

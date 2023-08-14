@@ -2,20 +2,28 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
+import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nonnull;
@@ -52,6 +60,17 @@ public class PedestalBlockEntity extends BlockEntity {
                 }
             }
         });
+
+        if (stack.is(ModItems.OMEGA_ARCOIN.get())) {
+            BlockPos pos = this.findSpawnPositionNear(level, this.getBlockPos(), 10);
+            DarkTrader darkTrader = ModEntities.DARK_TRADER.get().create(level);
+
+            if (pos != null && darkTrader != null) {
+                darkTrader.moveTo(pos.getCenter());
+
+                level.addFreshEntity(darkTrader);
+            }
+        }
     };
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
@@ -67,6 +86,24 @@ public class PedestalBlockEntity extends BlockEntity {
         this.stack = stack;
 
         this.setChanged();
+    }
+
+    @Nullable
+    private BlockPos findSpawnPositionNear(LevelReader pLevel, BlockPos pPos, int pMaxDistance) {
+        BlockPos blockpos = null;
+
+        for(int i = 0; i < 10; ++i) {
+            int j = pPos.getX() + this.level.random.nextInt(pMaxDistance * 2) - pMaxDistance;
+            int k = pPos.getZ() + this.level.random.nextInt(pMaxDistance * 2) - pMaxDistance;
+            int l = pLevel.getHeight(Heightmap.Types.WORLD_SURFACE, j, k);
+            BlockPos blockpos1 = new BlockPos(j, l, k);
+            if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.ON_GROUND, pLevel, blockpos1, EntityType.WANDERING_TRADER)) {
+                blockpos = blockpos1;
+                break;
+            }
+        }
+
+        return blockpos;
     }
 
     public void setStackAndSync(ItemStack stack) {
