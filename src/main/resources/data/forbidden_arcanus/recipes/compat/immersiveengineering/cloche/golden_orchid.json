@@ -5,30 +5,22 @@
       "modid": "immersiveengineering"
     }
   ],
-"type":
-"immersiveengineering:cloche",
-"results":
-[
+"type": "immersiveengineering:cloche",
+"results": [
 {
-"item":"forbidden_arcanus:deorum_nugget",
-"count":2
+"item": "forbidden_arcanus:deorum_nugget",
+"count": 2
 }
 ],
-"input":
-{
-"item":
-"forbidden_arcanus:golden_orchid_seeds"
+"input": {
+"item": "forbidden_arcanus:golden_orchid_seeds"
 },
-"soil":
-{
-"item":
-"forbidden_arcanus:magical_farmland"
+"soil": {
+"item": "forbidden_arcanus:magical_farmland"
 },
-"time":1200,
-"render":
-{
-"type":
-"crop",
-"block":"forbidden_arcanus:golden_orchid"
+"time": 1200,
+"render": {
+"type": "crop",
+"block": "forbidden_arcanus:golden_orchid"
 }
 }
