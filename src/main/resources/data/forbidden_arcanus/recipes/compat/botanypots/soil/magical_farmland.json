@@ -5,13 +5,13 @@
       "modid": "botanypots"
     }
   ],
-  "type":"botanypots:soil",
+  "type": "botanypots:soil",
   "input":{
-    "item":"forbidden_arcanus:magical_farmland"
+    "item": "forbidden_arcanus:magical_farmland"
   },
   "display":
   {
-    "block":"forbidden_arcanus:magical_farmland"
+    "block": "forbidden_arcanus:magical_farmland"
   },
   "categories":
   [
@@ -19,5 +19,5 @@
     "farmland",
     "dirt"
   ],
-  "growthModifier":3.00
+  "growthModifier": 3.00
 }
