@@ -5,29 +5,29 @@
       "modid": "botanypots"
     }
   ],
-  "type":"botanypots:crop",
+  "type": "botanypots:crop",
   "seed":
   {
-    "item":"forbidden_arcanus:golden_orchid_seeds"
+    "item": "forbidden_arcanus:golden_orchid_seeds"
   },
   "categories":
   [
     "magical_farmland"
   ],
-  "growthTicks":1200,
+  "growthTicks": 1200,
   "display":
   {
-    "type":"botanypots:aging",
-    "block":"forbidden_arcanus:golden_orchid"
+    "type": "botanypots:aging",
+    "block": "forbidden_arcanus:golden_orchid"
   },
   "drops":
   [
     {
-      "chance":1.00,
+      "chance": 1.00,
       "output":
       {
-        "item":"forbidden_arcanus:deorum_nugget",
-        "count":2
+        "item": "forbidden_arcanus:deorum_nugget",
+        "count": 2
       }
     }
   ]
