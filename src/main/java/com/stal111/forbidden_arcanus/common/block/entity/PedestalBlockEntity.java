@@ -9,14 +9,17 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -25,9 +28,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 /**
@@ -48,7 +51,7 @@ public class PedestalBlockEntity extends BlockEntity {
     private int ticksExisted;
     private int itemHeight = DEFAULT_ITEM_HEIGHT;
 
-    private final ChangedCallback onChanged = (level, stack) -> {
+    private final ChangedCallback onChanged = (level, stack, player) -> {
         this.findHephaestusForge(level, this.getBlockPos()).ifPresent(forgePos -> {
             if (level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity blockEntity) {
                 RitualManager ritualManager = blockEntity.getRitualManager();
@@ -63,12 +66,15 @@ public class PedestalBlockEntity extends BlockEntity {
 
         if (stack.is(ModItems.OMEGA_ARCOIN.get())) {
             BlockPos pos = this.findSpawnPositionNear(level, this.getBlockPos(), 10);
-            DarkTrader darkTrader = ModEntities.DARK_TRADER.get().create(level);
 
-            if (pos != null && darkTrader != null) {
-                darkTrader.moveTo(pos.getCenter());
+            if (pos != null) {
+                DarkTrader darkTrader = ModEntities.DARK_TRADER.get().create(level, null, null, pos, MobSpawnType.MOB_SUMMONED, false, false);
 
-                level.addFreshEntity(darkTrader);
+                if (darkTrader != null) {
+                    darkTrader.lookAt(EntityAnchorArgument.Anchor.EYES, this.getBlockPos().getCenter());
+
+                    level.addFreshEntity(darkTrader);
+                }
             }
         }
     };
@@ -106,18 +112,18 @@ public class PedestalBlockEntity extends BlockEntity {
         return blockpos;
     }
 
-    public void setStackAndSync(ItemStack stack) {
-        this.setStackAndSync(stack, true);
+    public void setStackAndSync(ItemStack stack, @Nullable Player player) {
+        this.setStackAndSync(stack, player, true);
     }
 
-    public void setStackAndSync(ItemStack stack, boolean runOnChanged) {
+    public void setStackAndSync(ItemStack stack, @Nullable Player player, boolean runOnChanged) {
         this.stack = stack;
 
         if (this.level instanceof ServerLevel serverLevel) {
             NetworkHandler.sendToTrackingChunk(serverLevel.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
 
             if (runOnChanged) {
-                this.onChanged.run(serverLevel, stack);
+                this.onChanged.run(serverLevel, stack, player);
             }
         }
 
@@ -132,14 +138,14 @@ public class PedestalBlockEntity extends BlockEntity {
         return !this.stack.isEmpty();
     }
 
-    public void clearStack(Level level) {
-        this.clearStack(level, true);
+    public void clearStack(Level level, Player player) {
+        this.clearStack(level, player, true);
     }
 
-    public void clearStack(Level level, boolean runOnChanged) {
+    public void clearStack(Level level, @Nullable Player player, boolean runOnChanged) {
         this.setItemHeight(DEFAULT_ITEM_HEIGHT);
 
-        this.setStackAndSync(ItemStack.EMPTY, runOnChanged);
+        this.setStackAndSync(ItemStack.EMPTY, player, runOnChanged);
     }
 
     public float getItemHover(float partialTicks) {
@@ -197,6 +203,6 @@ public class PedestalBlockEntity extends BlockEntity {
 
     @FunctionalInterface
     private interface ChangedCallback {
-        void run(ServerLevel level, ItemStack stack);
+        void run(ServerLevel level, ItemStack stack, Player player);
     }
 }

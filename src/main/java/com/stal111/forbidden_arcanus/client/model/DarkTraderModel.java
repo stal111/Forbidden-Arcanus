@@ -3,8 +3,9 @@ package com.stal111.forbidden_arcanus.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.animation.DarkTraderAnimation;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -16,14 +17,14 @@ import org.jetbrains.annotations.NotNull;
  * @author stal111
  * @since 2023-08-11
  */
-public class DarkTraderModel extends EntityModel<DarkTrader> {
+public class DarkTraderModel extends HierarchicalModel<DarkTrader> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "dark_trader"), "main");
 
-	private final ModelPart all;
+	private final ModelPart root;
 
 	public DarkTraderModel(ModelPart root) {
-		this.all = root.getChild("all");
+		this.root = root;
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -85,11 +86,18 @@ public class DarkTraderModel extends EntityModel<DarkTrader> {
 
 	@Override
 	public void setupAnim(@NotNull DarkTrader entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 
+		this.animate(entity.spawnAnimationState, DarkTraderAnimation.SPAWN, ageInTicks);
 	}
 
 	@Override
 	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.all.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	}
+
+	@Override
+	public @NotNull ModelPart root() {
+		return this.root;
 	}
 }

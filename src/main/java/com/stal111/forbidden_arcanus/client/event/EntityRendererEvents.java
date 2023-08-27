@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.DarkTraderModel;
 import com.stal111.forbidden_arcanus.client.model.LostSoulModel;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
+import com.stal111.forbidden_arcanus.client.model.QuantumLightDoorModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.common.entity.ModBoat;
@@ -67,6 +68,7 @@ public class EntityRendererEvents {
 
         event.registerLayerDefinition(LostSoulModel.LAYER_LOCATION, LostSoulModel::createBodyLayer);
         event.registerLayerDefinition(DarkTraderModel.LAYER_LOCATION, DarkTraderModel::createBodyLayer);
+        event.registerLayerDefinition(QuantumLightDoorModel.LAYER_LOCATION, QuantumLightDoorModel::createLayer);
 
         for (ModBoat.Type type : ModBoat.Type.values()) {
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);

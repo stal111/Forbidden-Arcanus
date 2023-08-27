@@ -248,7 +248,7 @@ public class RitualManager implements SerializableComponent {
                     BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
                     this.level.addFreshEntity(new ItemEntity(this.level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
-                    pedestalBlockEntity.clearStack(this.level);
+                    pedestalBlockEntity.clearStack(this.level, null);
                 }
             });
         }
@@ -292,7 +292,7 @@ public class RitualManager implements SerializableComponent {
 
     private void clearPedestals() {
         this.cachedIngredients.keySet().forEach(blockEntity -> {
-            blockEntity.clearStack(this.level, false);
+            blockEntity.clearStack(this.level, null, false);
         });
 
         this.cachedIngredients.clear();
