@@ -223,7 +223,7 @@ public class RitualManager implements NeedsStoring {
     }
 
     public double getFailureChance() {
-        return ((this.getBlockEntity().getEssenceManager().getCorruption() + 5) / (float) this.getBlockEntity().getForgeLevel().getMaxCorruption()) / 2;
+        return 0.0D;
     }
 
     @Override
