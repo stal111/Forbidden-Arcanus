@@ -117,6 +117,9 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
     }
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
@@ -128,7 +131,7 @@ dependencies {
     //compileOnly fg.deobf(files("libs/valhelsia_core-common-${valhelsia_core_version}-dev.jar"))
     //compileOnly fg.deobf(files("libs/valhelsia_core-forge-${valhelsia_core_version}-dev.jar"))
 
-    implementation fg.deobf(files("libs/valhelsia_core-forge-${valhelsia_core_version}.jar"))
+    implementation fg.deobf("net.valhelsia:valhelsia_core-forge-${mc_version}:${valhelsia_core_version}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 
