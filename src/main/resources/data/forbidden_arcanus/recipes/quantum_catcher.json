@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#X#",
+        " # "
+    ],
+    "key": {
+        "X": {
+            "item": "forbidden_arcanus:arcane_crystal_block"
+        },
+        "#": {
+            "item": "forbidden_arcanus:spawner_scrap"
+        }
+    },
+    "result": {
+        "item": "forbidden_arcanus:quantum_catcher"
+    }
+}
