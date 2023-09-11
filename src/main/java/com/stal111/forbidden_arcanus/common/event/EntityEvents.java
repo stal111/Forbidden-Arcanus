@@ -22,15 +22,6 @@ public class EntityEvents {
         LivingEntity entity = event.getEntity();
 
         //On Player damaged
-        if (entity instanceof Player player) {
-            Inventory inventory = player.getInventory();
-
-            if (ObsidianSkullItem.shouldProtectFromDamage(source, inventory) || ObsidianSkullShieldItem.shouldProtectFromDamage(source, inventory)) {
-                event.setCanceled(true);
-                return;
-            }
-        }
-
         if (source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player) {
             if (player.getMainHandItem().is(ModItems.MYSTICAL_DAGGER.get())) {
                 BloodTestTubeItem.collectBlood(player, event.getAmount());

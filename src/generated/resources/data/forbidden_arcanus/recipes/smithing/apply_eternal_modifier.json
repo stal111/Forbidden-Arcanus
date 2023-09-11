@@ -1,10 +1,10 @@
 {
   "type": "forbidden_arcanus:apply_modifier",
-  "template": {
-    "item": "forbidden_arcanus:darkstone_upgrade_smithing_template"
-  },
   "addition": {
     "item": "forbidden_arcanus:eternal_stella"
   },
-  "modifier": "forbidden_arcanus:eternal"
+  "modifier": "forbidden_arcanus:eternal",
+  "template": {
+    "item": "forbidden_arcanus:darkstone_upgrade_smithing_template"
+  }
 }

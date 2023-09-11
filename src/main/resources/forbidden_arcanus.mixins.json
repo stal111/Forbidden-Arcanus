@@ -11,11 +11,11 @@
     "ItemMixin",
     "ItemStackMixin",
     "PlayerMixin",
+    "LivingEntityMixin",
     "ServerPlayerGameModeMixin",
     "SlimeMixin"
   ],
   "client": [
-    "CustomHeadLayerMixin",
     "GlowParticleAccessor",
     "ItemRendererMixin",
     "LevelRendererAccessor",

@@ -11,10 +11,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -92,24 +90,6 @@ public class ObsidianSkullShieldItem extends Item {
             });
         }
         super.inventoryTick(stack, level, entity, itemSlot, isSelected);
-    }
-
-    public static boolean shouldProtectFromDamage(DamageSource damageSource, Inventory inventory) {
-        if (!damageSource.is(DamageTypeTags.IS_FIRE)) {
-            return false;
-        }
-
-        if (inventory.contains(ModItems.Stacks.ETERNAL_OBSIDIAN_SKULL)) {
-            return true;
-        }
-
-        ItemStack stack = getSkullWithLowestCounter(inventory);
-
-        if (stack.isEmpty()) {
-            return false;
-        }
-
-        return getCounterValue(stack) < ObsidianSkullItem.OBSIDIAN_SKULL_PROTECTION_TIME;
     }
 
     public static ItemStack getSkullWithLowestCounter(Inventory inventory) {

@@ -1,9 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/pixie_utrem_jar_template",
-  "textures": {
-    "bottle_block_bottom": "forbidden_arcanus:block/utrem_jar_bottom",
-    "bottle_block_side": "forbidden_arcanus:block/utrem_jar_side",
-    "bottle_block_top": "forbidden_arcanus:block/utrem_jar_top",
-    "pixie": "forbidden_arcanus:block/utrem_jar_pixie"
-  }
-}

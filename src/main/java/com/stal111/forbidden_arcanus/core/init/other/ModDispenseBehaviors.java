@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.dispenser.SoulDispenseBehavior
 import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
@@ -30,8 +31,11 @@ public class ModDispenseBehaviors {
     public static void registerDispenseBehaviors() {
         DispenserBlock.registerBehavior(ModItems.SOUL.get(), new SoulDispenseBehavior());
         DispenserBlock.registerBehavior(ModItems.OBSIDIAN_SKULL_SHIELD.get(), ArmorItem.DISPENSE_ITEM_BEHAVIOR);
-        DispenserBlock.registerBehavior(ModItems.OBSIDIAN_SKULL.get(), ObsidianSkullItem.getDispenseBehavior());
-        DispenserBlock.registerBehavior(ModItems.ETERNAL_OBSIDIAN_SKULL.get(), ObsidianSkullItem.getDispenseBehavior());
+        DispenserBlock.registerBehavior(ModBlocks.OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
+        DispenserBlock.registerBehavior(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
+        DispenserBlock.registerBehavior(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
+        DispenserBlock.registerBehavior(ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
+        DispenserBlock.registerBehavior(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModItems.BOOM_ARROW.get(), new AbstractProjectileDispenseBehavior() {
             @Nonnull
             protected Projectile getProjectile(@Nonnull Level level, @Nonnull Position position, @Nonnull ItemStack stack) {

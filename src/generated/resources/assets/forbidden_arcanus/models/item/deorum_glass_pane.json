@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "forbidden_arcanus:block/deorum_glass"
-  }
+  "parent": "forbidden_arcanus:block/deorum_glass_pane"
 }

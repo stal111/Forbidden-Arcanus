@@ -9,6 +9,8 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.CompostableRegistry;
+import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
+import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -45,6 +47,9 @@ public class CommonSetup {
             ModWoodTypes.registerWoodTypes();
 
             CompostableRegistry.register();
+
+            ModFlammables.registerFlammables();
+            ModDispenseBehaviors.registerDispenseBehaviors();
 
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 

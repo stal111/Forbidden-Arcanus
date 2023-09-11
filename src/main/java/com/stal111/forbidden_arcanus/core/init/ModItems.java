@@ -78,9 +78,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<LensOfVeritatisItem> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new LensOfVeritatisItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> PURIFYING_SOAP = HELPER.register("purifying_soap", () -> new PurifyingSoapItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> WET_PURIFYING_SOAP = HELPER.register("wet_purifying_soap", () -> new WetPurifyingSoapItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<ObsidianSkullItem> OBSIDIAN_SKULL = HELPER.register("obsidian_skull", () -> new ObsidianSkullItem(ModBlocks.OBSIDIAN_SKULL.get(), ModBlocks.OBSIDIAN_WALL_SKULL.get(), false, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant()));
     public static final RegistryEntry<ObsidianSkullShieldItem> OBSIDIAN_SKULL_SHIELD = HELPER.register("obsidian_skull_shield", () -> new ObsidianSkullShieldItem(new Item.Properties().durability(1008).rarity(Rarity.UNCOMMON).fireResistant()));
-    public static final RegistryEntry<ObsidianSkullItem> ETERNAL_OBSIDIAN_SKULL = HELPER.register("eternal_obsidian_skull", () -> new ObsidianSkullItem(ModBlocks.ETERNAL_OBSIDIAN_SKULL.get(), ModBlocks.ETERNAL_OBSIDIAN_WALL_SKULL.get(), true, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryEntry<UtremJarItem> UTREM_JAR = HELPER.register("utrem_jar", () -> new UtremJarItem(ModBlocks.UTREM_JAR.get(), new Item.Properties()));
     public static final RegistryEntry<AurealBottleItem> AUREAL_BOTTLE = HELPER.register("aureal_bottle", () -> new AurealBottleItem(new Item.Properties().stacksTo(16)));
     public static final RegistryEntry<SplashAurealBottleItem> SPLASH_AUREAL_BOTTLE = HELPER.register("splash_aureal_bottle", () -> new SplashAurealBottleItem(new Item.Properties().stacksTo(16)));
@@ -173,8 +171,5 @@ public class ModItems implements RegistryClass {
         public static final ItemStack ORB_OF_TEMPORARY_FLIGHT = new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get());
         public static final ItemStack SANITY_METER = new ItemStack(ModItems.SANITY_METER.get());
         public static final ItemStack ARCANE_CRYSTAL_DUST_SPECK = new ItemStack(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get());
-        public static final ItemStack OBSIDIAN_SKULL = new ItemStack(ModItems.OBSIDIAN_SKULL.get());
-        public static final ItemStack ETERNAL_OBSIDIAN_SKULL = new ItemStack(ModItems.ETERNAL_OBSIDIAN_SKULL.get());
-        public static final ItemStack OBSIDIAN_SKULL_SHIELD = new ItemStack(ModItems.OBSIDIAN_SKULL_SHIELD.get());
     }
 }

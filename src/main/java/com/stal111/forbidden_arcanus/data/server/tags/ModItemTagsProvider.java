@@ -1,18 +1,16 @@
 package com.stal111.forbidden_arcanus.data.server.tags;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
+import net.valhelsia.valhelsia_core.api.datagen.tags.ValhelsiaItemTagsProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -24,15 +22,15 @@ import java.util.concurrent.CompletableFuture;
  * @author stal111
  * @since 2021-02-11
  */
-public class ModItemTagsProvider extends ItemTagsProvider {
+public class ModItemTagsProvider extends ValhelsiaItemTagsProvider {
 
-    public ModItemTagsProvider(DataProviderContext context, ExistingFileHelper fileHelper, CompletableFuture<TagLookup<Block>> blockTagsLookup) {
-        super(context.output(), context.lookupProvider(), blockTagsLookup, ForbiddenArcanus.MOD_ID, fileHelper);
+    public ModItemTagsProvider(DataProviderContext context, CompletableFuture<TagLookup<Block>> blockTagsLookup) {
+        super(context.output(), context.lookupProvider(), blockTagsLookup);
     }
 
     @Override
     protected void addTags(@NotNull HolderLookup.Provider provider) {
-        this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(ModItems.OBSIDIAN_SKULL.get(), ModItems.ETERNAL_OBSIDIAN_SKULL.get());
+        this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(ModBlocks.OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull().asItem());
         this.tag(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
         this.tag(ModTags.Items.BLACKSMITH_GAVEL).add(
                 ModItems.WOODEN_BLACKSMITH_GAVEL.get(),

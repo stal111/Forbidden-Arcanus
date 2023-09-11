@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
+import com.stal111.forbidden_arcanus.data.model.ModModelProvider;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ApplyModifierRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ClibanoRecipeProvider;
@@ -43,6 +44,8 @@ public class DataGenerators {
         //generator.addProvider(event.includeClient(), new ModBlockStateProvider(context));
         //generator.addProvider(event.includeClient(), new ModItemModelProvider(context));
 
+        generator.addProvider(event.includeClient(), new ModModelProvider(output));
+
         generator.addProvider(event.includeClient(), new ModSoundsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ParticleDataProvider(context));
 
@@ -51,7 +54,7 @@ public class DataGenerators {
 
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(context);
         generator.addProvider(event.includeServer(), blockTagsProvider);
-        generator.addProvider(event.includeServer(), new ModItemTagsProvider(context, fileHelper, blockTagsProvider.contentsGetter()));
+        generator.addProvider(event.includeServer(), new ModItemTagsProvider(context, blockTagsProvider.contentsGetter()));
         generator.addProvider(event.includeServer(), new ModEnchantmentTagsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(context, fileHelper));

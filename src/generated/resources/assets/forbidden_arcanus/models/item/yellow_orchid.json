@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "forbidden_arcanus:block/yellow_orchid"
-  }
+  "parent": "forbidden_arcanus:block/yellow_orchid"
 }
