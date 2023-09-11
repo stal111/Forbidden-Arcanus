@@ -11,7 +11,6 @@ import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -30,7 +29,6 @@ public class ModDispenseBehaviors {
 
     public static void registerDispenseBehaviors() {
         DispenserBlock.registerBehavior(ModItems.SOUL.get(), new SoulDispenseBehavior());
-        DispenserBlock.registerBehavior(ModItems.OBSIDIAN_SKULL_SHIELD.get(), ArmorItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModBlocks.OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);

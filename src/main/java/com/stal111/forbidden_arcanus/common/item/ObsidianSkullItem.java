@@ -50,7 +50,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
 
     private final ObsidianSkullType type;
 
-    public ObsidianSkullItem(ObsidianSkullType type, Block floorBlock, Block wallBlock, boolean eternal, Properties properties) {
+    public ObsidianSkullItem(ObsidianSkullType type, Block floorBlock, Block wallBlock, Properties properties) {
         super(floorBlock, wallBlock, properties, Direction.DOWN);
         this.type = type;
     }

@@ -78,7 +78,6 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<LensOfVeritatisItem> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new LensOfVeritatisItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> PURIFYING_SOAP = HELPER.register("purifying_soap", () -> new PurifyingSoapItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> WET_PURIFYING_SOAP = HELPER.register("wet_purifying_soap", () -> new WetPurifyingSoapItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<ObsidianSkullShieldItem> OBSIDIAN_SKULL_SHIELD = HELPER.register("obsidian_skull_shield", () -> new ObsidianSkullShieldItem(new Item.Properties().durability(1008).rarity(Rarity.UNCOMMON).fireResistant()));
     public static final RegistryEntry<UtremJarItem> UTREM_JAR = HELPER.register("utrem_jar", () -> new UtremJarItem(ModBlocks.UTREM_JAR.get(), new Item.Properties()));
     public static final RegistryEntry<AurealBottleItem> AUREAL_BOTTLE = HELPER.register("aureal_bottle", () -> new AurealBottleItem(new Item.Properties().stacksTo(16)));
     public static final RegistryEntry<SplashAurealBottleItem> SPLASH_AUREAL_BOTTLE = HELPER.register("splash_aureal_bottle", () -> new SplashAurealBottleItem(new Item.Properties().stacksTo(16)));
