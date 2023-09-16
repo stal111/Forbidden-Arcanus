@@ -14,34 +14,27 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.Collections;
 
-/**
- * @author stal111
- * @since 2022-02-14
- */
-public class SanityMeterOverlay implements IGuiOverlay {
-
+public class AurealMeterOverlay implements IGuiOverlay {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
 
     @Override
-    public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTicks, int width, int height) {
-        Minecraft minecraft = Minecraft.getInstance();
-        Window window = minecraft.getWindow();
-        Player player = minecraft.player;
+    public void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+        Window window = Minecraft.getInstance().getWindow();
+        Player player = Minecraft.getInstance().player;
 
         if (player == null || !player.getInventory().hasAnyOf(Collections.singleton(ModItems.SANITY_METER.get()))) {
             return;
         }
-
         IAureal aureal = AurealHelper.getCapability(player);
 
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 9, window.getGuiScaledHeight() - 39 - 13, 0, 0, 18, 18, 256, 128);
+        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 9, window.getGuiScaledHeight() - 25 - 23, 17, 9, 81, 10, 256, 128);
 
-        this.renderOverlay(guiGraphics, window, aureal, false);
-        this.renderOverlay(guiGraphics, window, aureal, true);
+        this.renderOverlay(guiGraphics, window, aureal);
+        this.renderOverlay(guiGraphics, window, aureal);
     }
-
-    private void renderOverlay(GuiGraphics guiGraphics, Window window, IAureal aureal, boolean corruption) {
-        int ySize = Math.toIntExact(Math.round(12.0F * (corruption ? aureal.getCorruption() / 100.0F : aureal.getAureal() / 200.0F)));
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 9, window.getGuiScaledHeight() - 36 - ySize, 0, (corruption ? 51 : 38) - 4 - ySize, 18, ySize, 256, 128);
+    private void renderOverlay(GuiGraphics guiGraphics, Window window, IAureal aureal) {
+        int xSize = Math.toIntExact(Math.round(80.0F * ((aureal.getAureal()) / 200.0F)));
+        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 11,window.getGuiScaledHeight() - 25 - 23, 19, 18,xSize, 18, 256, 128);
     }
 }
+
