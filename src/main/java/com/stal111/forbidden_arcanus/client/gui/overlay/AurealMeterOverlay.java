@@ -30,7 +30,7 @@ public class AurealMeterOverlay implements IGuiOverlay {
         }
         IAureal aureal = AurealHelper.getCapability(player);
 
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 23, 18, 9, 81, 9, 256, 128);
+        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 24, 18, 9, 81, 9, 256, 128);
 
         this.renderOverlay(guiGraphics, window, aureal);
     }
@@ -39,7 +39,7 @@ public class AurealMeterOverlay implements IGuiOverlay {
         int xSize = Math.toIntExact(Math.round(BAR_WIDTH * ((aureal.getAureal()) / 200.0F)));
         int startOffset = BAR_WIDTH - xSize;
 
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 13 + startOffset, window.getGuiScaledHeight() - 25 - 22, 21 + startOffset, 19, xSize, 7, 256, 128);
+        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 13 + startOffset, window.getGuiScaledHeight() - 25 - 23, 21 + startOffset, 19, xSize, 7, 256, 128);
     }
 }
 
