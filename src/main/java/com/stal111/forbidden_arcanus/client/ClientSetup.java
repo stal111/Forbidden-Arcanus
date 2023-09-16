@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
@@ -114,6 +115,7 @@ public class ClientSetup {
     public void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "flight_timer", new FlightTimerOverlay());
         event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "sanity_meter", new SanityMeterOverlay());
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "aureal_meter", new AurealMeterOverlay());
     }
 
     @SubscribeEvent
