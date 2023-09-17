@@ -34,14 +34,15 @@ public class SanityMeterOverlay implements IGuiOverlay {
 
         IAureal aureal = AurealHelper.getCapability(player);
 
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 9, window.getGuiScaledHeight() - 39 - 16, 0, 0, 18, 18, 256, 128);
+        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 8, window.getGuiScaledHeight() - 39 - 14, 0, 0, 16, 16, 256, 128);
 
         this.renderOverlay(guiGraphics, window, aureal, false);
         this.renderOverlay(guiGraphics, window, aureal, true);
     }
 
     private void renderOverlay(GuiGraphics guiGraphics, Window window, IAureal aureal, boolean corruption) {
-        int ySize = Math.toIntExact(Math.round(12.0F * (corruption ? aureal.getCorruption() / 100.0F : aureal.getAureal() / 200.0F)));
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 9, window.getGuiScaledHeight() - 39 - ySize, 0, (corruption ? 51 : 38) - 4 - ySize, 18, ySize, 256, 128);
+        int ySize = Math.toIntExact(Math.round(11 * (corruption ? aureal.getCorruption() / 100.0F : aureal.getAureal() / 200.0F)));
+
+        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 6, window.getGuiScaledHeight() - 39 - ySize, 2, (corruption ? 46 : 30) - ySize, 12, ySize, 256, 128);
     }
 }

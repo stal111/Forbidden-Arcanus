@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.data.model;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -30,7 +29,7 @@ public class ModModelProvider extends ValhelsiaModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerators generators) {
-
+        ModItemModels.create(generators);
     }
 
     @Override

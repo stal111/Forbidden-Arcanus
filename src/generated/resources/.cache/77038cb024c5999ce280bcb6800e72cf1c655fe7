@@ -1,4 +1,4 @@
-// 1.20.1	2023-09-11T17:40:17.5290618	Model Definitions
+// 1.20.1	2023-09-17T13:11:59.0603115	Model Definitions
 0da1af8cca8f6454350d2f257009031457d4c881 assets/forbidden_arcanus/blockstates/cracked_obsidian_skull.json
 0da1af8cca8f6454350d2f257009031457d4c881 assets/forbidden_arcanus/blockstates/cracked_obsidian_wall_skull.json
 0da1af8cca8f6454350d2f257009031457d4c881 assets/forbidden_arcanus/blockstates/eternal_obsidian_skull.json
@@ -126,6 +126,7 @@ baff3544d79016b2adb9b758adb765ff98b2e938 assets/forbidden_arcanus/models/item/po
 9785534629f4ed91a0132eb8a521b08e1156e8b2 assets/forbidden_arcanus/models/item/runic_glass.json
 82502f666ac8b8320e80898886aa86c53e249e5d assets/forbidden_arcanus/models/item/runic_glass_pane.json
 7a0b3ec194169d359a86eba974ea76047419e627 assets/forbidden_arcanus/models/item/runic_stone.json
+61cf897499ef2f79a64e34b84d7766c4243812f1 assets/forbidden_arcanus/models/item/sanity_meter.json
 bb786437deb428edd76e5b4fbbd3e441f0857774 assets/forbidden_arcanus/models/item/soulless_sand.json
 fe956b5ddf74142dc6fbf3477743ded4e3ad9251 assets/forbidden_arcanus/models/item/soulless_sandstone.json
 299e32cc1e592f9ced846e17d708a3331e3c16bc assets/forbidden_arcanus/models/item/soulless_sandstone_slab.json
