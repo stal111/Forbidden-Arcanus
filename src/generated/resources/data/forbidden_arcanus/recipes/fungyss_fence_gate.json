@@ -3,6 +3,7 @@
   "category": "building",
   "key": {
     "#": {
+      "type": "valhelsia_core:platform_dependent",
       "fabric_value": {
         "item": "minecraft:stick"
       },

@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus;
 import com.stal111.forbidden_arcanus.common.event.*;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.valhelsia.valhelsia_core.core.ValhelsiaForgeEventHandler;
+import net.valhelsia.valhelsia_core.core.forge.ValhelsiaForgeEventHandler;
 
 /**
  * @author stal111

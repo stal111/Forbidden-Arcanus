@@ -75,6 +75,8 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", () -> new Item(new Item.Properties()));
 
     public static final RegistryEntry<Item> SANITY_METER = HELPER.register("sanity_meter", () -> new SanityMeterItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", () -> new AurealTankItem(new Item.Properties().stacksTo(1)));
+
     public static final RegistryEntry<LensOfVeritatisItem> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new LensOfVeritatisItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> PURIFYING_SOAP = HELPER.register("purifying_soap", () -> new PurifyingSoapItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> WET_PURIFYING_SOAP = HELPER.register("wet_purifying_soap", () -> new WetPurifyingSoapItem(new Item.Properties().stacksTo(1)));

@@ -1,10 +1,7 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
-import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
-import com.stal111.forbidden_arcanus.common.recipe.CombineResiduesRecipe;
-import com.stal111.forbidden_arcanus.common.recipe.IncreaseEdelwoodBucketFullnessRecipe;
+import com.stal111.forbidden_arcanus.common.recipe.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
@@ -24,5 +21,6 @@ public class ModRecipeSerializers implements RegistryClass {
     public static final RegistryEntry<RecipeSerializer<ApplyModifierRecipe>> APPLY_MODIFIER = HELPER.register("apply_modifier", ApplyModifierRecipe.Serializer::new);
     public static final RegistryEntry<RecipeSerializer<ClibanoRecipe>> CLIBANO_SERIALIZER = HELPER.register("clibano_combustion", ClibanoRecipe.Serializer::new);
     public static final RegistryEntry<RecipeSerializer<CombineResiduesRecipe>> COMBINE_RESIDUES_SERIALIZER = HELPER.register("combine_residues", CombineResiduesRecipe.Serializer::new);
+    public static final RegistryEntry<RecipeSerializer<CombineAurealTankRecipe>> COMBINE_AUREAL_TANK = HELPER.register("combine_aureal_tank", () -> new SimpleCraftingRecipeSerializer<>(CombineAurealTankRecipe::new));
 
 }

@@ -17,9 +17,9 @@ public class ItemAurealProvider implements AurealProvider, ICapabilityProvider {
     private static final String AUREAL_KEY = "Aureal";
     private static final String AUREAL_LIMIT_KEY = "AurealLimit";
 
-    public static final Capability<AurealProvider> AUREAL = CapabilityManager.get(new CapabilityToken<>(){});
+    public static final Capability<ItemAurealProvider> AUREAL = CapabilityManager.get(new CapabilityToken<>(){});
 
-    private final LazyOptional<AurealProvider> holder = LazyOptional.of(() -> this);
+    private final LazyOptional<ItemAurealProvider> holder = LazyOptional.of(() -> this);
 
     @NotNull
     private final ItemStack stack;
@@ -67,8 +67,21 @@ public class ItemAurealProvider implements AurealProvider, ICapabilityProvider {
         tag.putInt(AUREAL_LIMIT_KEY, limit);
     }
 
+    public ProviderInfo getSnapshot() {
+        return new ProviderInfo(this.getAureal(), this.getAurealLimit());
+    }
+
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction side) {
         return AUREAL.orEmpty(capability, this.holder);
+    }
+
+    public record ProviderInfo(int aureal, int limit) {
+
+        public static final ProviderInfo EMPTY = new ProviderInfo(0, 0);
+
+        public ProviderInfo combine(ProviderInfo info) {
+            return new ProviderInfo(this.aureal() + info.aureal(), this.limit() + info.limit());
+        }
     }
 }

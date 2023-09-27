@@ -35,6 +35,7 @@ public class ModItemModels {
 
     public void createModels() {
         this.generateFlatItem(ModItems.SANITY_METER);
+        this.generateFlatItem(ModItems.AUREAL_TANK);
     }
 
     private void generateFlatItem(RegistryEntry<Item> item) {

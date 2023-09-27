@@ -6,6 +6,7 @@
       "item": "forbidden_arcanus:edelwood_planks"
     },
     "X": {
+      "type": "valhelsia_core:platform_dependent",
       "fabric_value": {
         "item": "minecraft:stick"
       },
