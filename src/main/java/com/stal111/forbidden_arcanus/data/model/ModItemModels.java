@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.data.model;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -35,7 +37,31 @@ public class ModItemModels {
 
     public void createModels() {
         this.generateFlatItem(ModItems.SANITY_METER);
-        this.generateFlatItem(ModItems.AUREAL_TANK);
+
+        this.generateFlatItem(ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.AUREAL_TANK, "_2", ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.AUREAL_TANK, "_3", ModelTemplates.FLAT_ITEM);
+
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(ModItems.AUREAL_TANK.get()), TextureMapping.layer0(ModItems.AUREAL_TANK.get()), this.modelOutput, (modelLocation, map) -> {
+            JsonObject jsonObject = ModelTemplates.TWO_LAYERED_ITEM.createBaseTemplate(modelLocation, map);
+            JsonArray jsonArray = new JsonArray();
+
+            for (int i = 0; i <= 3; i++) {
+                JsonObject entry = new JsonObject();
+                JsonObject predicate = new JsonObject();
+
+                predicate.addProperty("amount", (i + 1) * 0.25F);
+                entry.add("predicate", predicate);
+                entry.addProperty("model", "forbidden_arcanus:item/aureal_tank_" + i);
+
+                jsonArray.add(entry);
+            }
+
+            jsonObject.add("overrides", jsonArray);
+
+            return jsonObject;
+        });
     }
 
     private void generateFlatItem(RegistryEntry<Item> item) {
@@ -44,5 +70,9 @@ public class ModItemModels {
 
     private void generateFlatItem(RegistryEntry<Item> item, ModelTemplate template) {
         template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(item.get()), this.modelOutput);
+    }
+
+    private void generateFlatItem(RegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
+        template.create(ModelLocationUtils.getModelLocation(item.get(), modelSuffix), TextureMapping.layer0(TextureMapping.getItemTexture(item.get(), modelSuffix)), this.modelOutput);
     }
 }

@@ -12,6 +12,7 @@ import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
 import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
+import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
@@ -41,6 +42,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
+
+import java.util.Optional;
 
 /**
  * @author stal111
@@ -97,6 +100,13 @@ public class ClientSetup {
 
             return 0.0F;
         });
+
+        ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> {
+            Optional<ItemAurealProvider> optional = stack.getCapability(ItemAurealProvider.AUREAL).resolve();
+
+            return optional.map(provider -> (float) provider.getAureal() / provider.getAurealLimit()).orElse(0.0F);
+        });
+
     }
 
     private void registerCosmetics() {
