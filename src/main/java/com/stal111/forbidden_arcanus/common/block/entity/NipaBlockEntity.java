@@ -1,12 +1,12 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,11 +57,11 @@ public class NipaBlockEntity extends BlockEntity {
 
         if (level.getGameTime() % 20 == 0) {
             AABB axisAlignedBB = new AABB(pos).inflate(3);
-            List<Player> playersInRange = level.getEntitiesOfClass(Player.class, axisAlignedBB);
+            List<ServerPlayer> playersInRange = level.getEntitiesOfClass(ServerPlayer.class, axisAlignedBB);
 
             Map<UUID, Integer> players = new HashMap<>();
 
-            for (Player player : playersInRange) {
+            for (ServerPlayer player : playersInRange) {
                 UUID uuid = player.getUUID();
 
                 players.put(uuid, blockEntity.players.getOrDefault(uuid, 0) + 1);

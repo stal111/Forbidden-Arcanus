@@ -4,12 +4,11 @@ import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * Update Forge Ritual Packet
@@ -29,12 +28,12 @@ public record UpdateForgeRitualPacket(BlockPos pos, @Nullable ResourceLocation r
         return new UpdateForgeRitualPacket(buffer.readBlockPos(), buffer.readOptional(FriendlyByteBuf::readResourceLocation).orElse(null));
     }
 
-    public static void consume(UpdateForgeRitualPacket packet, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void consume(UpdateForgeRitualPacket packet, CustomPayloadEvent.Context context) {
+        context.enqueueWork(() -> {
+            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
             ClientPacketHandler.handleUpdateRitual(packet);
         });
-        ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
     }
 }

@@ -26,6 +26,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.*;
  * @author stal111
  * @since 2022-08-14
  */
-public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe> {
+public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<ClibanoRecipe>> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/clibano_combustion_jei.png");
 
@@ -80,8 +81,8 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
 
     @Nonnull
     @Override
-    public RecipeType<ClibanoRecipe> getRecipeType() {
-        return ForbiddenArcanusJEIPlugin.CLIBANO_COMBUSTION;
+    public RecipeType<RecipeHolder<ClibanoRecipe>> getRecipeType() {
+        return ForbiddenArcanusJEIPlugin.CLIBANO_COMBUSTION.get();
     }
 
     @Nonnull
@@ -103,18 +104,18 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ClibanoRecipe recipe, @Nonnull IFocusGroup focuses) {
+    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IFocusGroup focuses) {
         builder.addSlot(INPUT, 55, 24)
-                .addIngredients(recipe.getIngredients().get(0));
+                .addIngredients(recipe.value().getIngredients().get(0));
 
-        TagKey<Item> tagKey = recipe.getRequiredFireType().getTagKey();
+        TagKey<Item> tagKey = recipe.value().getRequiredFireType().getTagKey();
 
         if (tagKey != null) {
             builder.addSlot(RENDER_ONLY, 12, 60).addIngredients(Ingredient.of(tagKey));
         }
 
         builder.addSlot(OUTPUT, 97, 35)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     private IDrawableAnimated getArrow(ClibanoRecipe recipe) {
@@ -126,14 +127,14 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     }
 
     @Override
-    public void draw(@Nonnull ClibanoRecipe recipe, @Nonnull IRecipeSlotsView recipeSlotsView, @Nonnull GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        this.animatedFlames.get(recipe.getRequiredFireType()).draw(guiGraphics, 48, 43);
+    public void draw(@Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IRecipeSlotsView recipeSlotsView, @Nonnull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.animatedFlames.get(recipe.value().getRequiredFireType()).draw(guiGraphics, 48, 43);
 
-        IDrawableAnimated arrow = this.getArrow(recipe);
+        IDrawableAnimated arrow = this.getArrow(recipe.value());
         arrow.draw(guiGraphics, 74, 43);
 
-        this.drawExperience(recipe, guiGraphics, 12);
-        this.drawCookTime(recipe, guiGraphics, 79);
+        this.drawExperience(recipe.value(), guiGraphics, 12);
+        this.drawCookTime(recipe.value(), guiGraphics, 79);
     }
 
     protected void drawExperience(ClibanoRecipe recipe, GuiGraphics guiGraphics, int y) {
@@ -163,9 +164,9 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
 
     @Nonnull
     @Override
-    public List<Component> getTooltipStrings(@Nonnull ClibanoRecipe recipe, @Nonnull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(@Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 92 && mouseY >= 59 && mouseX <= 117 && mouseY <= 65) {
-            ClibanoRecipe.ResidueInfo residueInfo = recipe.getResidueInfo();
+            ClibanoRecipe.ResidueInfo residueInfo = recipe.value().getResidueInfo();
 
             if (residueInfo == ClibanoRecipe.ResidueInfo.NONE) {
                 return List.of();

@@ -5,10 +5,8 @@ import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 /**
  * @author stal111
@@ -31,12 +29,12 @@ public record CreateMagicCirclePacket(BlockPos pos, ResourceLocation innerTextur
         return new CreateMagicCirclePacket(buffer.readBlockPos(), buffer.readResourceLocation(), buffer.readResourceLocation(), buffer.readInt());
     }
 
-    public static void consume(CreateMagicCirclePacket packet, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void consume(CreateMagicCirclePacket packet, CustomPayloadEvent.Context context) {
+        context.enqueueWork(() -> {
+            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
             ClientPacketHandler.handleCreateMagicCircle(packet);
         });
-        ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
     }
 }

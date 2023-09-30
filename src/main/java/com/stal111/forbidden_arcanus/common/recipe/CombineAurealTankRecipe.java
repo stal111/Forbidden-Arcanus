@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -22,8 +21,8 @@ import java.util.List;
  */
 public class CombineAurealTankRecipe extends CustomRecipe {
 
-    public CombineAurealTankRecipe(ResourceLocation id, CraftingBookCategory category) {
-        super(id, category);
+    public CombineAurealTankRecipe(CraftingBookCategory category) {
+        super(category);
     }
 
     @Override

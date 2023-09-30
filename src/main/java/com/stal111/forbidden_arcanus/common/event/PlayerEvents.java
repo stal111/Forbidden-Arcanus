@@ -130,7 +130,7 @@ public class PlayerEvents {
         Entity entity = event.getEntity();
         Level level = event.getLevel();
 
-        if (entity instanceof Player player && !level.isClientSide()) {
+        if (entity instanceof ServerPlayer player) {
             AurealHelper.sendAurealUpdatePacket(player);
         }
     }
@@ -140,29 +140,30 @@ public class PlayerEvents {
         ItemStack result = null;
         SoundEvent soundEvent = SoundEvents.COW_MILK;
 
-        if (cow instanceof MushroomCow mushroomCow) {
-            if (stack.is(ModItems.EDELWOOD_BUCKET.get())) {
-                boolean flag = mushroomCow.effect != null;
-
-                result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(flag ? ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.get() : ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())));
-
-                if (flag) {
-                    soundEvent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
-
-                    EdelwoodSuspiciousStewBucketItem.saveMobEffect(result, mushroomCow.effect, mushroomCow.effectDuration);
-                    mushroomCow.effect = null;
-                    mushroomCow.effectDuration = 0;
-                } else {
-                    soundEvent = SoundEvents.MOOSHROOM_MILK;
-                }
-            } else if (stack.is(ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())) {
-                Pair<Boolean, ItemStack> pair = capacityBucket.tryFill(stack);
-
-                if (pair.getFirst()) {
-                    result = pair.getSecond();
-                }
-            }
-        } else if (stack.is(ModItems.EDELWOOD_MILK_BUCKET.get()) && !capacityBucket.isFull(stack)) {
+//        if (cow instanceof MushroomCow mushroomCow) {
+//            if (stack.is(ModItems.EDELWOOD_BUCKET.get())) {
+//                boolean flag = mushroomCow.effect != null;
+//
+//                result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(flag ? ModItems.EDELWOOD_SUSPICIOUS_STEW_BUCKET.get() : ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())));
+//
+//                if (flag) {
+//                    soundEvent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
+//
+//                    EdelwoodSuspiciousStewBucketItem.saveMobEffect(result, mushroomCow.effect, mushroomCow.effectDuration);
+//                    mushroomCow.effect = null;
+//                    mushroomCow.effectDuration = 0;
+//                } else {
+//                    soundEvent = SoundEvents.MOOSHROOM_MILK;
+//                }
+//            } else if (stack.is(ModItems.EDELWOOD_MUSHROOM_STEW_BUCKET.get())) {
+//                Pair<Boolean, ItemStack> pair = capacityBucket.tryFill(stack);
+//
+//                if (pair.getFirst()) {
+//                    result = pair.getSecond();
+//                }
+//            }
+//        } else
+            if (stack.is(ModItems.EDELWOOD_MILK_BUCKET.get()) && !capacityBucket.isFull(stack)) {
             result = capacityBucket.tryFill(ItemUtils.createFilledResult(copy, player, stack)).getSecond();
         } else if (stack.is(capacityBucket.getEmptyBucket().getItem())) {
             result = ItemUtils.createFilledResult(copy, player, ItemStackUtils.transferEnchantments(copy, new ItemStack(ModItems.EDELWOOD_MILK_BUCKET.get())));

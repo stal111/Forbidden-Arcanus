@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
-import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -20,8 +19,8 @@ import java.util.Optional;
 public class ItemInput extends HephaestusForgeInput {
 
     public static final Codec<ItemInput> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            essenTypeCodec(),
-            AdditionalCodecs.INGREDIENT.fieldOf("item").forGetter(input -> {
+            essenceTypeCodec(),
+            Ingredient.CODEC_NONEMPTY.fieldOf("item").forGetter(input -> {
                 return input.ingredient;
             }),
             Codec.INT.optionalFieldOf("amount").forGetter(input -> {

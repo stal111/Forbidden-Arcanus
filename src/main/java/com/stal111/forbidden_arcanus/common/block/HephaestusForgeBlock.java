@@ -39,7 +39,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
 import javax.annotation.Nonnull;
@@ -130,7 +129,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
                 if (stack.getItem() instanceof RitualStarterItem ritualStarterItem) {
                     ritualStarterItem.tryStartRitual(blockEntity, level, stack, player);
                 } else {
-                    NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
+                    player.openMenu(blockEntity);
                 }
                 return InteractionResult.CONSUME;
             }

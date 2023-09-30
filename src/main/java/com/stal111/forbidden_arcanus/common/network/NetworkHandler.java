@@ -4,49 +4,39 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.ChannelBuilder;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.valhelsia.valhelsia_core.api.common.network.UpdateCounterPacket;
+import net.minecraftforge.network.SimpleChannel;
 
 public class NetworkHandler {
 
     public static SimpleChannel INSTANCE;
-    private static int id = 0;
-
-    public static int nextID() {
-        return id++;
-    }
 
     public static void init() {
-        INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(ForbiddenArcanus.MOD_ID, "channel"), () -> "1.0", s -> true, s -> true);
+        INSTANCE = ChannelBuilder.named(new ResourceLocation(ForbiddenArcanus.MOD_ID, "channel")).networkProtocolVersion(1).simpleChannel();
 
-        INSTANCE.registerMessage(nextID(), UpdateAurealPacket.class, UpdateAurealPacket::encode, UpdateAurealPacket::decode, UpdateAurealPacket::consume);
-        INSTANCE.registerMessage(nextID(), UpdateCounterPacket.class, UpdateCounterPacket::encode, UpdateCounterPacket::decode, UpdateCounterPacket::consume);
-        INSTANCE.registerMessage(nextID(), UpdatePedestalPacket.class, UpdatePedestalPacket::encode, UpdatePedestalPacket::decode, UpdatePedestalPacket::consume);
-        INSTANCE.registerMessage(nextID(), AddItemParticlePacket.class, AddItemParticlePacket::encode, AddItemParticlePacket::decode, AddItemParticlePacket::consume);
-        INSTANCE.registerMessage(nextID(), UpdateForgeRitualPacket.class, UpdateForgeRitualPacket::encode, UpdateForgeRitualPacket::decode, UpdateForgeRitualPacket::consume);
-        INSTANCE.registerMessage(nextID(), UpdateItemInSlotPacket.class, UpdateItemInSlotPacket::encode, UpdateItemInSlotPacket::decode, UpdateItemInSlotPacket::consume);
-        INSTANCE.registerMessage(nextID(), AddThrownAurealBottleParticle.class, AddThrownAurealBottleParticle::encode, AddThrownAurealBottleParticle::decode, AddThrownAurealBottleParticle::consume);
-        INSTANCE.registerMessage(nextID(), UpdateResidueTypesPacket.class, UpdateResidueTypesPacket::encode, UpdateResidueTypesPacket::decode, UpdateResidueTypesPacket::consume);
-        INSTANCE.registerMessage(nextID(), TransformPedestalPacket.class, TransformPedestalPacket::encode, TransformPedestalPacket::decode, TransformPedestalPacket::consume);
-        INSTANCE.registerMessage(nextID(), CreateMagicCirclePacket.class, CreateMagicCirclePacket::encode, CreateMagicCirclePacket::decode, CreateMagicCirclePacket::consume);
-        INSTANCE.registerMessage(nextID(), RemoveMagicCirclePacket.class, RemoveMagicCirclePacket::encode, RemoveMagicCirclePacket::decode, RemoveMagicCirclePacket::consume);
-        INSTANCE.registerMessage(nextID(), CreateValidRitualIndicatorPacket.class, CreateValidRitualIndicatorPacket::encode, CreateValidRitualIndicatorPacket::decode, CreateValidRitualIndicatorPacket::consume);
-        INSTANCE.registerMessage(nextID(), RemoveValidRitualIndicatorPacket.class, RemoveValidRitualIndicatorPacket::encode, RemoveValidRitualIndicatorPacket::decode, RemoveValidRitualIndicatorPacket::consume);
+        INSTANCE.messageBuilder(UpdateAurealPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateAurealPacket::encode).decoder(UpdateAurealPacket::decode).consumerNetworkThread(UpdateAurealPacket::consume).add();
+       // INSTANCE.messageBuilder(UpdateCounterPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateCounterPacket::encode).decoder(UpdateCounterPacket::decode).consumerNetworkThread(UpdateCounterPacket::consume).add();
+        INSTANCE.messageBuilder(UpdatePedestalPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdatePedestalPacket::encode).decoder(UpdatePedestalPacket::decode).consumerNetworkThread(UpdatePedestalPacket::consume).add();
+        INSTANCE.messageBuilder(AddItemParticlePacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(AddItemParticlePacket::encode).decoder(AddItemParticlePacket::decode).consumerNetworkThread(AddItemParticlePacket::consume).add();
+        INSTANCE.messageBuilder(UpdateForgeRitualPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateForgeRitualPacket::encode).decoder(UpdateForgeRitualPacket::decode).consumerNetworkThread(UpdateForgeRitualPacket::consume).add();
+        INSTANCE.messageBuilder(UpdateItemInSlotPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateItemInSlotPacket::encode).decoder(UpdateItemInSlotPacket::decode).consumerNetworkThread(UpdateItemInSlotPacket::consume).add();
+        INSTANCE.messageBuilder(AddThrownAurealBottleParticle.class, NetworkDirection.PLAY_TO_CLIENT).encoder(AddThrownAurealBottleParticle::encode).decoder(AddThrownAurealBottleParticle::decode).consumerNetworkThread(AddThrownAurealBottleParticle::consume).add();
+        INSTANCE.messageBuilder(UpdateResidueTypesPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateResidueTypesPacket::encode).decoder(UpdateResidueTypesPacket::decode).consumerNetworkThread(UpdateResidueTypesPacket::consume).add();
+        INSTANCE.messageBuilder(TransformPedestalPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(TransformPedestalPacket::encode).decoder(TransformPedestalPacket::decode).consumerNetworkThread(TransformPedestalPacket::consume).add();
+        INSTANCE.messageBuilder(CreateMagicCirclePacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(CreateMagicCirclePacket::encode).decoder(CreateMagicCirclePacket::decode).consumerNetworkThread(CreateMagicCirclePacket::consume).add();
+        INSTANCE.messageBuilder(RemoveMagicCirclePacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(RemoveMagicCirclePacket::encode).decoder(RemoveMagicCirclePacket::decode).consumerNetworkThread(RemoveMagicCirclePacket::consume).add();
+        INSTANCE.messageBuilder(CreateValidRitualIndicatorPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(CreateValidRitualIndicatorPacket::encode).decoder(CreateValidRitualIndicatorPacket::decode).consumerNetworkThread(CreateValidRitualIndicatorPacket::consume).add();
+        INSTANCE.messageBuilder(RemoveValidRitualIndicatorPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(RemoveValidRitualIndicatorPacket::encode).decoder(RemoveValidRitualIndicatorPacket::decode).consumerNetworkThread(RemoveValidRitualIndicatorPacket::consume).add();
     }
 
-    public static <MSG> void sendTo(Player player, MSG msg) {
-        NetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), msg);
-    }
-
-    public static <MSG> void sendToServer(MSG msg) {
-        NetworkHandler.INSTANCE.sendToServer(msg);
+    public static <MSG> void sendTo(ServerPlayer player, MSG msg) {
+        NetworkHandler.INSTANCE.send(msg, PacketDistributor.PLAYER.with(player));
     }
 
     public static <MSG> void sendToTrackingChunk(LevelChunk chunk, MSG msg) {
-        NetworkHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), msg);
+        NetworkHandler.INSTANCE.send(msg, PacketDistributor.TRACKING_CHUNK.with(chunk));
     }
 }

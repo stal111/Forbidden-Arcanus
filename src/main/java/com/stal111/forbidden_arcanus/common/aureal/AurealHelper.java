@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
@@ -39,13 +40,13 @@ public class AurealHelper {
         return getCapability(player).getAureal();
     }
 
-    public static void increaseAureal(Player player, int amount) {
+    public static void increaseAureal(ServerPlayer player, int amount) {
         getCapability(player).increaseAureal(amount);
 
         sendAurealUpdatePacket(player);
     }
 
-    public static void increaseCorruption(Player player, int amount) {
+    public static void increaseCorruption(ServerPlayer player, int amount) {
         IAureal aureal = getCapability(player);
         RandomSource random = player.getRandom();
 
@@ -71,7 +72,7 @@ public class AurealHelper {
         sendAurealUpdatePacket(player);
     }
 
-    public static void playerTick(Player player) {
+    public static void playerTick(ServerPlayer player) {
         IAureal aureal = AurealHelper.getCapability(player);
 
         aureal.tickActiveConsequences(player);
@@ -100,7 +101,7 @@ public class AurealHelper {
      *
      * @param player the player the packet gets sent to.
      */
-    public static void sendAurealUpdatePacket(Player player) {
+    public static void sendAurealUpdatePacket(ServerPlayer player) {
         NetworkHandler.sendTo(player, new UpdateAurealPacket(player));
     }
 

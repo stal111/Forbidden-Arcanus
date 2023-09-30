@@ -1,15 +1,13 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -17,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -28,21 +27,9 @@ import java.util.Objects;
  * @author stal111
  * @since 2021-11-29
  */
-public class ApplyModifierRecipe implements SmithingRecipe {
-
-    private final ResourceLocation id;
-
-    private final Ingredient template;
-    private final Ingredient addition;
-
-    private final ItemModifier modifier;
-
-    public ApplyModifierRecipe(ResourceLocation id, Ingredient template, Ingredient addition, ItemModifier modifier) {
-        this.id = id;
-        this.addition = addition;
-        this.template = template;
-        this.modifier = modifier;
-    }
+public record ApplyModifierRecipe(Ingredient template,
+                                  Ingredient addition,
+                                  ItemModifier modifier) implements SmithingRecipe {
 
     @Override
     public boolean matches(@Nonnull Container inv, @Nonnull Level level) {
@@ -74,26 +61,9 @@ public class ApplyModifierRecipe implements SmithingRecipe {
         return ModRecipeSerializers.APPLY_MODIFIER.get();
     }
 
-    public Ingredient getTemplate() {
-        return this.template;
-    }
-
-    public ItemModifier getModifier() {
-        return this.modifier;
-    }
-
-    public Ingredient getAddition() {
-        return this.addition;
-    }
-
     @Override
     public boolean isSpecial() {
         return true;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
     }
 
     @Override
@@ -112,27 +82,31 @@ public class ApplyModifierRecipe implements SmithingRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<ApplyModifierRecipe> {
-        @Nonnull
+
+        private static final Codec<ApplyModifierRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Ingredient.CODEC_NONEMPTY.fieldOf("template").forGetter(recipe -> {
+                    return recipe.template;
+                }),
+                Ingredient.CODEC_NONEMPTY.fieldOf("addition").forGetter(recipe -> {
+                    return recipe.addition;
+                }),
+                FARegistries.ITEM_MODIFIER_REGISTRY.get().getCodec().fieldOf("modifier").forGetter(recipe -> {
+                    return recipe.modifier;
+                })
+        ).apply(instance, ApplyModifierRecipe::new));
+
         @Override
-        public ApplyModifierRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-            Ingredient template = Ingredient.fromJson(GsonHelper.getNonNull(json, "template"));
-            Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
-
-            ResourceLocation resourceLocation = ResourceLocation.tryParse(GsonHelper.getAsString(json, "modifier"));
-
-            if (!FARegistries.ITEM_MODIFIER_REGISTRY.get().containsKey(resourceLocation)) {
-                throw new JsonSyntaxException("Unknown item modifier '" + resourceLocation + "'");
-            }
-            ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(resourceLocation);
-            return new ApplyModifierRecipe(recipeId, template, addition, modifier);
+        public @NotNull Codec<ApplyModifierRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public ApplyModifierRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+        public @Nullable ApplyModifierRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
             Ingredient template = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
             ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(buffer.readResourceLocation());
-            return new ApplyModifierRecipe(recipeId, template, addition, modifier);
+
+            return new ApplyModifierRecipe(template, addition, modifier);
         }
 
         @Override

@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AddThrownAurealBottleParticle;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -68,7 +69,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
             double distance = this.distanceToSqr(entity);
 
             if (distance < 16.0D) {
-                if (entity instanceof Player player) {
+                if (entity instanceof ServerPlayer player) {
                     AurealHelper.increaseAureal(player, 30);
                 }
 

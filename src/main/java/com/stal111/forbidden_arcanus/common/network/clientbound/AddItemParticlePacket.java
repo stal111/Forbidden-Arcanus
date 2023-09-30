@@ -4,10 +4,8 @@ import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 /**
  * Add Item Particle Packet <br>
@@ -28,12 +26,12 @@ public record AddItemParticlePacket(BlockPos pos, ItemStack stack) {
         return new AddItemParticlePacket(buffer.readBlockPos(), buffer.readItem());
     }
 
-    public static void consume(AddItemParticlePacket packet, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void consume(AddItemParticlePacket packet, CustomPayloadEvent.Context context) {
+        context.enqueueWork(() -> {
+            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
             ClientPacketHandler.handleAddItemParticle(packet);
         });
-        ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
     }
 }

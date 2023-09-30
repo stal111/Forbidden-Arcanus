@@ -5,10 +5,8 @@ import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 /**
  * Update Aureal Packet <br>
@@ -32,12 +30,12 @@ public record UpdateAurealPacket(CompoundTag tag) {
         return new UpdateAurealPacket(buffer.readNbt());
     }
 
-    public static void consume(UpdateAurealPacket packet, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void consume(UpdateAurealPacket packet, CustomPayloadEvent.Context context) {
+        context.enqueueWork(() -> {
+            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
             ClientPacketHandler.handleUpdateAureal(packet);
         });
-        ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
     }
 }

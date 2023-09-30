@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.item.EdelwoodSoupBucketItem;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.BucketItem;
@@ -32,8 +31,8 @@ public class IncreaseEdelwoodBucketFullnessRecipe extends CustomRecipe {
     private int bucketSlot = 0;
     private int increasement = 0;
 
-    public IncreaseEdelwoodBucketFullnessRecipe(ResourceLocation resourceLocation, CraftingBookCategory category) {
-        super(resourceLocation, category);
+    public IncreaseEdelwoodBucketFullnessRecipe(CraftingBookCategory category) {
+        super(category);
     }
 
     @Override

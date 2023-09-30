@@ -22,6 +22,8 @@ public enum ClibanoFireType implements StringRepresentable {
     SOUL_FIRE("soul_fire", 1.5D, ModTags.Items.CLIBANO_CREATES_SOUL_FIRE, ClibanoCenterType.FRONT_SOUL_FIRE, ClibanoSideType.SOUL_FIRE),
     ENCHANTED_FIRE("enchanted_fire", 2.5D, ModTags.Items.CLIBANO_CREATES_ENCHANTED_FIRE, ClibanoCenterType.FRONT_ENCHANTED_FIRE, ClibanoSideType.ENCHANTED_FIRE);
 
+    public static final StringRepresentable.EnumCodec<ClibanoFireType> CODEC = StringRepresentable.fromEnum(ClibanoFireType::values);
+
     private final String name;
     private final double cookingSpeedMultiplier;
     private final TagKey<Item> tagKey;

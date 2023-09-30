@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.dispenser;
 import com.stal111.forbidden_arcanus.common.item.ArcaneBoneMealItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -28,8 +28,8 @@ public class ArcaneBoneMealDispenseBehavior extends OptionalDispenseItemBehavior
     @Nonnull
     @Override
     protected ItemStack execute(@Nonnull BlockSource source, @Nonnull ItemStack stack) {
-        Level level = source.getLevel();
-        BlockPos pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+        Level level = source.level();
+        BlockPos pos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
         BlockState state = level.getBlockState(pos);
 
         this.setSuccess(true);

@@ -45,7 +45,7 @@ public class SolidEdelwoodBucketItem extends SolidBucketItem implements Capacity
             if (player != null) {
                 player.setItemInHand(context.getHand(), this.tryFill(stack).getSecond());
 
-                bucketPickup.pickupBlock(level, pos, state);
+                bucketPickup.pickupBlock(player, level, pos, state);
                 bucketPickup.getPickupSound().ifPresent((event) -> player.playSound(event, 1.0F, 1.0F));
 
                 if (!level.isClientSide()) {

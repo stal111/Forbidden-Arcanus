@@ -36,7 +36,7 @@ public record Ritual(List<RitualInput> inputs,
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
                 return ritual.inputs;
             }),
-            AdditionalCodecs.INGREDIENT.fieldOf("main_ingredient").forGetter(ritual -> {
+            Ingredient.CODEC_NONEMPTY.fieldOf("main_ingredient").forGetter(ritual -> {
                 return ritual.mainIngredient;
             }),
             RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {
@@ -59,7 +59,7 @@ public record Ritual(List<RitualInput> inputs,
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
                 return ritual.inputs;
             }),
-            AdditionalCodecs.INGREDIENT.fieldOf("main_ingredient").forGetter(ritual -> {
+            Ingredient.CODEC_NONEMPTY.fieldOf("main_ingredient").forGetter(ritual -> {
                 return ritual.mainIngredient;
             }),
             RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {

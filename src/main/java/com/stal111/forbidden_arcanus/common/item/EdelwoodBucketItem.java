@@ -131,7 +131,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
             }
 
             if (state.getBlock() instanceof BucketPickup bucketPickup) {
-                ItemStack filledBucket = bucketPickup.pickupBlock(level, pos, state);
+                ItemStack filledBucket = bucketPickup.pickupBlock(player, level, pos, state);
 
                 if (filledBucket.isEmpty() || !ITEM_TO_BUCKET.containsKey(filledBucket.getItem())) {
                     return this.cancelFluidPickup(pos, state, level, stack);
@@ -196,7 +196,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
 
     @Override
     protected boolean canBlockContainFluid(Level level, BlockPos pos, BlockState state) {
-        return state.getBlock() instanceof LiquidBlockContainer liquidBlockContainer && liquidBlockContainer.canPlaceLiquid(level, pos, state, this.getFluid());
+        return state.getBlock() instanceof LiquidBlockContainer liquidBlockContainer && liquidBlockContainer.canPlaceLiquid(null, level, pos, state, this.getFluid());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -29,8 +30,8 @@ public class TickListener {
         Level world = player.getCommandSenderWorld();
 
         if (event.phase == TickEvent.Phase.START) {
-            if (!world.isClientSide()) {
-                AurealHelper.playerTick(player);
+            if (player instanceof ServerPlayer serverPlayer) {
+                AurealHelper.playerTick(serverPlayer);
 
                 player.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
                     SerializableCounter counter = counterCapability.getCounter(new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"));
@@ -54,7 +55,7 @@ public class TickListener {
                             player.onUpdateAbilities();
                         }
 
-                        NetworkHandler.sendTo(player, new UpdateCounterPacket(counter));
+                        NetworkHandler.sendTo(serverPlayer, new UpdateCounterPacket(counter));
                     }
                 });
             }

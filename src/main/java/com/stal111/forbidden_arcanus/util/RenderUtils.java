@@ -49,12 +49,12 @@ public class RenderUtils {
         float y2 = (float) bounds.maxY;
         float z1 = (float) bounds.minZ;
         float z2 = (float) bounds.maxZ;
-        double bx1 = bounds.minX * 16;
-        double bx2 = bounds.maxX * 16;
-        double by1 = bounds.minY * 16;
-        double by2 = bounds.maxY * 16;
-        double bz1 = bounds.minZ * 16;
-        double bz2 = bounds.maxZ * 16;
+        float bx1 = (float) (bounds.minX * 16);
+        float bx2 = (float) (bounds.maxX * 16);
+        float by1 = (float) (bounds.minY * 16);
+        float by2 = (float) (bounds.maxY * 16);
+        float bz1 = (float) (bounds.minZ * 16);
+        float bz2 = (float) (bounds.maxZ * 16);
 
         for (Direction direction : Direction.values()) {
             if (direction == Direction.DOWN) {

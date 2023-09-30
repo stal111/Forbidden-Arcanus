@@ -49,7 +49,7 @@ public class FieryLootModifier extends LootModifier {
 
     private ItemStack trySmelt(ItemStack stack, Level level) {
         return level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), level)
-                .map(smeltingRecipe -> smeltingRecipe.getResultItem(level.registryAccess()))
+                .map(smeltingRecipe -> smeltingRecipe.value().getResultItem(level.registryAccess()))
                 .filter(itemStack -> !itemStack.isEmpty())
                 .map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount()))
                 .orElse(stack);

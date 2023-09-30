@@ -39,14 +39,14 @@ public class AurealBottleItem extends Item {
             return emptyBottle;
         }
 
-        if (player instanceof ServerPlayer) {
+        if (player instanceof ServerPlayer serverPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
+
+            AurealHelper.increaseAureal(serverPlayer, 35);
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
         ItemStackUtils.shrinkStack(player, stack);
-
-        AurealHelper.increaseAureal(player, 35);
 
         if (!player.getAbilities().instabuild) {
             if (stack.isEmpty()) {

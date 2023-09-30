@@ -1,17 +1,21 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
@@ -25,8 +29,8 @@ public class CombineResiduesRecipe extends CustomRecipe {
     private final short residueAmount;
     private final ItemStack result;
 
-    public CombineResiduesRecipe(ResourceLocation id, CraftingBookCategory category, String residue, short residueAmount, ItemStack result) {
-        super(id, category);
+    public CombineResiduesRecipe(CraftingBookCategory category, String residue, short residueAmount, ItemStack result) {
+        super(category);
         this.residue = residue;
         this.residueAmount = residueAmount;
         this.result = result;
@@ -39,7 +43,7 @@ public class CombineResiduesRecipe extends CustomRecipe {
 
     @Nonnull
     @Override
-    public ItemStack assemble(@Nonnull CraftingContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(@Nonnull CraftingContainer container, @NotNull RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -75,21 +79,28 @@ public class CombineResiduesRecipe extends CustomRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<CombineResiduesRecipe> {
-        @Nonnull
+
+        private static final Codec<CombineResiduesRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(CustomRecipe::category),
+                Codec.STRING.fieldOf("residue_name").forGetter(recipe -> {
+                    return recipe.residue;
+                }),
+                Codec.SHORT.fieldOf("residue_amount").forGetter(recipe -> {
+                    return recipe.residueAmount;
+                }),
+                BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> {
+                    return recipe.result;
+                })
+        ).apply(instance, CombineResiduesRecipe::new));
+
         @Override
-        public CombineResiduesRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-            CraftingBookCategory category = CraftingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null), CraftingBookCategory.MISC);
-
-            String residueName = GsonHelper.getAsString(json, "residue_name");
-            short residueAmount = GsonHelper.getAsShort(json, "residue_amount");
-            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-
-            return new CombineResiduesRecipe(recipeId, category, residueName, residueAmount, result);
+        public @NotNull Codec<CombineResiduesRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public CombineResiduesRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
-            return new CombineResiduesRecipe(recipeId, buffer.readEnum(CraftingBookCategory.class), buffer.readUtf(), buffer.readShort(), buffer.readItem());
+        public @Nullable CombineResiduesRecipe fromNetwork(FriendlyByteBuf buffer) {
+            return new CombineResiduesRecipe(buffer.readEnum(CraftingBookCategory.class), buffer.readUtf(), buffer.readShort(), buffer.readItem());
         }
 
         @Override

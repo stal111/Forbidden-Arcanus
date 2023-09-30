@@ -4,11 +4,11 @@ import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.core.config.AurealConfig;
 import com.stal111.forbidden_arcanus.util.ModTags;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -25,13 +25,13 @@ public final class DeathEvents {
         LivingEntity entity = event.getEntity();
         RandomSource random = entity.getRandom();
 
-        if (event.getSource().getEntity() instanceof Player player && !(player instanceof FakePlayer)) {
+        if (event.getSource().getEntity() instanceof ServerPlayer player && !(player instanceof FakePlayer)) {
             this.increaseCorruption(player, entity, random);
             this.spawnLostSoul(entity, random);
         }
     }
 
-    private void increaseCorruption(Player player, LivingEntity entity, RandomSource random) {
+    private void increaseCorruption(ServerPlayer player, LivingEntity entity, RandomSource random) {
         MobCategory category = entity.getType().getCategory();
 
         if (category == MobCategory.AMBIENT || category == MobCategory.CREATURE) {

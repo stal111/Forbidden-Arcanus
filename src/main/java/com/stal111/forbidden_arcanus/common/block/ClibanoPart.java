@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -57,7 +56,7 @@ public interface ClibanoPart extends EntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(blockPos);
 
             if (blockEntity instanceof ClibanoMainBlockEntity clibanoMainBlockEntity) {
-                NetworkHooks.openScreen(serverPlayer, clibanoMainBlockEntity, blockPos);
+                player.openMenu(clibanoMainBlockEntity);
             }
         });
 

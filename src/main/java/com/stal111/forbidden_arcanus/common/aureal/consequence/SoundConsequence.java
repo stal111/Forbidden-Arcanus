@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.aureal.consequence;
 
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -53,7 +54,9 @@ public class SoundConsequence extends Consequence implements SerializableCompone
             if (this.timer >= CONSEQUENCE_DURATION) {
                 AurealHelper.getCapability(player).removeActiveConsequence(this);
 
-                AurealHelper.sendAurealUpdatePacket(player);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    AurealHelper.sendAurealUpdatePacket(serverPlayer);
+                }
             }
         }
     }

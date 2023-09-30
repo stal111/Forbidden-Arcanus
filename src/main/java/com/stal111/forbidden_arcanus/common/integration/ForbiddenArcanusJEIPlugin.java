@@ -23,6 +23,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +38,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     public static final RecipeType<Ritual> HEPHAESTUS_SMITHING = RecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_smithing", Ritual.class);
     public static final RecipeType<Ritual> HEPHAESTUS_FORGE_UPGRADING = RecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_forge_upgrading", Ritual.class);
 
-    public static final RecipeType<ClibanoRecipe> CLIBANO_COMBUSTION = RecipeType.create(ForbiddenArcanus.MOD_ID, "clibano_combustion", ClibanoRecipe.class);
+    public static final RegistryEntry<RecipeType<RecipeHolder<ClibanoRecipe>>> CLIBANO_COMBUSTION = new RegistryEntry<>(() -> RecipeType.createFromVanilla(ModRecipeTypes.CLIBANO_COMBUSTION.get()));
 
     @Nonnull
     @Override
@@ -53,13 +55,13 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-        registration.addRecipes(CLIBANO_COMBUSTION, Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get()));
+        registration.addRecipes(CLIBANO_COMBUSTION.get(), Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get()));
     }
 
     @Override
     public void registerRecipeCatalysts(@Nonnull IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), HEPHAESTUS_SMITHING, HEPHAESTUS_FORGE_UPGRADING);
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.CLIBANO_CORE.get()), CLIBANO_COMBUSTION);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.CLIBANO_CORE.get()), CLIBANO_COMBUSTION.get());
     }
 
     @Override

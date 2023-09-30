@@ -25,9 +25,9 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.FurnaceFuelSlot;
-import net.minecraft.world.inventory.RecipeHolder;
+import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -54,7 +54,7 @@ import java.util.List;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<ClibanoMainBlockEntity> implements RecipeHolder {
+public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<ClibanoMainBlockEntity> implements RecipeCraftingHolder {
 
     public static final int SOUL_DURATION = 2700;
 
@@ -154,8 +154,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         Container firstSlot = new SimpleContainer(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getFirst()));
         Container secondSlot = new SimpleContainer(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getSecond()));
 
-        ClibanoRecipe firstRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, firstSlot, level).orElse(null);
-        ClibanoRecipe secondRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, secondSlot, level).orElse(null);
+        RecipeHolder<ClibanoRecipe> firstRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, firstSlot, level).orElse(null);
+        RecipeHolder<ClibanoRecipe> secondRecipe = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, secondSlot, level).orElse(null);
 
         boolean isLit = blockEntity.burnTime > 0;
 
@@ -164,8 +164,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         RegistryAccess registryAccess = level.registryAccess();
 
-        boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(registryAccess, firstRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
-        boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(registryAccess, secondRecipe, currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
+        boolean canSmeltFirst = firstRecipe != null && blockEntity.canBurn(registryAccess, firstRecipe.value(), currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getFirst());
+        boolean canSmeltSecond = secondRecipe != null && blockEntity.canBurn(registryAccess, secondRecipe.value(), currentHighestType, blockEntity.getMaxStackSize(), ClibanoMenu.INPUT_SLOTS.getSecond());
 
         RandomSource random = level.getRandom();
 
@@ -223,7 +223,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         }
 
         if (canSmeltFirst) {
-            blockEntity.cookingDurationFirst = firstRecipe.getCookingTime(blockEntity.fireType);
+            blockEntity.cookingDurationFirst = firstRecipe.value().getCookingTime(blockEntity.fireType);
 
             blockEntity.cookingProgressFirst++;
 
@@ -237,7 +237,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         }
 
         if (canSmeltSecond) {
-            blockEntity.cookingDurationSecond = secondRecipe.getCookingTime(blockEntity.fireType);
+            blockEntity.cookingDurationSecond = secondRecipe.value().getCookingTime(blockEntity.fireType);
 
             blockEntity.cookingProgressSecond++;
 
@@ -322,8 +322,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
      * @param random the random instance
      * @param slot   the slot where the recipe input was placed in
      */
-    private void finishRecipe(RegistryAccess registryAccess, ClibanoRecipe recipe, RandomSource random, int slot) {
-        ItemStack stack = recipe.getResultItem(registryAccess);
+    private void finishRecipe(RegistryAccess registryAccess, RecipeHolder<ClibanoRecipe> recipe, RandomSource random, int slot) {
+        ItemStack stack = recipe.value().getResultItem(registryAccess);
 
         this.getStack(slot).shrink(1);
 
@@ -350,7 +350,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             this.setStack(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
         }
 
-        this.addResidue(recipe, random);
+        this.addResidue(recipe.value(), random);
 
         this.setRecipeUsed(recipe);
     }
@@ -385,20 +385,20 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
      * @param firstRecipe  the recipe for the first input slot
      * @param secondRecipe the recipe for the second input slot
      */
-    private void changeFireType(Level level, ClibanoFireType fireType, @Nullable ClibanoRecipe firstRecipe, @Nullable ClibanoRecipe secondRecipe) {
+    private void changeFireType(Level level, ClibanoFireType fireType, @Nullable RecipeHolder<ClibanoRecipe> firstRecipe, @Nullable RecipeHolder<ClibanoRecipe> secondRecipe) {
         this.fireType = fireType;
 
         if (firstRecipe != null) {
             int oldDuration = this.cookingDurationFirst;
 
-            this.cookingDurationFirst = firstRecipe.getCookingTime(fireType);
+            this.cookingDurationFirst = firstRecipe.value().getCookingTime(fireType);
             this.cookingProgressFirst = (int) (((float) this.cookingProgressFirst / oldDuration) * this.cookingDurationFirst);
         }
 
         if (secondRecipe != null) {
             int oldDuration = this.cookingDurationSecond;
 
-            this.cookingDurationSecond = secondRecipe.getCookingTime(fireType);
+            this.cookingDurationSecond = secondRecipe.value().getCookingTime(fireType);
             this.cookingProgressSecond = (int) (((float) this.cookingProgressSecond / oldDuration) * this.cookingDurationSecond);
         }
 
@@ -523,17 +523,17 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
     @Override
     @Nullable
-    public Recipe<?> getRecipeUsed() {
+    public RecipeHolder<?> getRecipeUsed() {
         return null;
     }
 
     @Override
-    public void setRecipeUsed(@Nullable Recipe<?> recipe) {
+    public void setRecipeUsed(@Nullable RecipeHolder<?> recipe) {
         if (recipe == null) {
             return;
         }
 
-        this.recipesUsed.addTo(recipe.getId(), 1);
+        this.recipesUsed.addTo(recipe.id(), 1);
     }
 
     public void awardUsedRecipesAndPopExperience(ServerPlayer player) {
@@ -542,13 +542,13 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         this.recipesUsed.clear();
     }
 
-    public Collection<Recipe<?>> getRecipesToAwardAndPopExperience(ServerLevel level, Vec3 position) {
-        List<Recipe<?>> list = new ArrayList<>();
+    public Collection<RecipeHolder<?>> getRecipesToAwardAndPopExperience(ServerLevel level, Vec3 position) {
+        List<RecipeHolder<?>> list = new ArrayList<>();
 
         for (Object2IntMap.Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
-            level.getRecipeManager().byKey(entry.getKey()).ifPresent((recipe) -> {
+            level.getRecipeManager().byKey(entry.getKey()).ifPresent(recipe -> {
                 list.add(recipe);
-                ClibanoMainBlockEntity.createExperience(level, position, entry.getIntValue(), ((ClibanoRecipe) recipe).getExperience());
+                ClibanoMainBlockEntity.createExperience(level, position, entry.getIntValue(), ((ClibanoRecipe) recipe.value()).getExperience());
             });
         }
 

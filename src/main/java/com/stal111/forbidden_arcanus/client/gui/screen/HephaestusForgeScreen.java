@@ -77,7 +77,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
     @Override
     protected void renderBg(@Nonnull GuiGraphics guiGraphics, float partialTicks, int x, int y) {
-        this.renderBackground(guiGraphics);
+        this.renderBackground(guiGraphics, x, y, partialTicks);
 
         guiGraphics.blit(TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize());
 

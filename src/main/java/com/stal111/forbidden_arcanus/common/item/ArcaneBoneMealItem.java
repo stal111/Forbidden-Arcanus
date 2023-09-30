@@ -92,7 +92,7 @@ public class ArcaneBoneMealItem extends BoneMealItem {
     private static boolean canGrow(Level world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof BonemealableBlock) {
-            return ((BonemealableBlock) state.getBlock()).isValidBonemealTarget(world, pos, state, world.isClientSide());
+            return ((BonemealableBlock) state.getBlock()).isValidBonemealTarget(world, pos, state);
         }
         return false;
     }

@@ -29,7 +29,7 @@ public abstract class HephaestusForgeInput {
         this.essenceTypes = essenceTypes;
     }
 
-    public static <T extends HephaestusForgeInput> RecordCodecBuilder<T, List<EssenceType>> essenTypeCodec() {
+    public static <T extends HephaestusForgeInput> RecordCodecBuilder<T, List<EssenceType>> essenceTypeCodec() {
         return EssenceType.ONE_OR_MULTIPLE_CODEC.fieldOf("essence_type").forGetter(input -> {
             return input.essenceTypes;
         });

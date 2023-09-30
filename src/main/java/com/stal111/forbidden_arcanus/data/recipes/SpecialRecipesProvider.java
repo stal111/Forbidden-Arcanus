@@ -17,6 +17,6 @@ public class SpecialRecipesProvider extends RecipeSubProvider {
 
     @Override
     protected void registerRecipes() {
-        SpecialRecipeBuilder.special(ModRecipeSerializers.COMBINE_AUREAL_TANK.get()).save(this.getFinishedRecipeConsumer(), "combine_aureal_tank");
+        SpecialRecipeBuilder.special(ModRecipeSerializers.COMBINE_AUREAL_TANK.get()).save(this.getRecipeOutput(), "combine_aureal_tank");
     }
 }

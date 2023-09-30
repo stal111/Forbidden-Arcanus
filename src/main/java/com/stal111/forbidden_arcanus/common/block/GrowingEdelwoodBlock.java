@@ -74,7 +74,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(@Nonnull LevelReader level, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@Nonnull LevelReader level, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return true;
     }
 

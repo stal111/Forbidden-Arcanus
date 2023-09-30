@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -13,7 +12,6 @@ import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
 import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -60,8 +58,6 @@ public class CommonSetup {
         });
 
         NetworkHandler.init();
-
-        ItemPredicate.register(new ResourceLocation(ForbiddenArcanus.MOD_ID, "modifier"), ModifierItemPredicate::fromJson);
 
         ModUtils.addStrippable(ModBlocks.AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_LOG.get());
         ModUtils.addStrippable(ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());

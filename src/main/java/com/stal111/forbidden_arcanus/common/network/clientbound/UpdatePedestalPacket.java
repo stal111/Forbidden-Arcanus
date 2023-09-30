@@ -4,10 +4,8 @@ import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 /**
  * Update Pedestal Packet <br>
@@ -28,12 +26,12 @@ public record UpdatePedestalPacket(BlockPos pos, ItemStack stack, int itemHeight
         return new UpdatePedestalPacket(buffer.readBlockPos(), buffer.readItem(), buffer.readInt());
     }
 
-    public static void consume(UpdatePedestalPacket packet, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+    public static void consume(UpdatePedestalPacket packet, CustomPayloadEvent.Context context) {
+        context.enqueueWork(() -> {
+            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
             ClientPacketHandler.handleUpdatePedestal(packet);
         });
-        ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
     }
 }

@@ -1,23 +1,29 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
@@ -42,8 +48,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
      */
     private final ClibanoFireType requiredFireType;
 
-    public ClibanoRecipe(ResourceLocation id, String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
-        super(ModRecipeTypes.CLIBANO_COMBUSTION.get(), id, group, category, ingredient, result, experience, cookingTime);
+    public ClibanoRecipe(String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
+        super(ModRecipeTypes.CLIBANO_COMBUSTION.get(), group, category, ingredient, result, experience, cookingTime);
         this.residueInfo = residueInfo;
         this.requiredFireType = requiredFireType;
 
@@ -53,7 +59,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     }
 
     @Override
-    public boolean matches(@Nonnull Container inv, @Nonnull Level level) {
+    public boolean matches(@NotNull Container inv, @NotNull Level level) {
         return this.ingredient.test(inv.getItem(0));
     }
 
@@ -75,54 +81,50 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         return this.requiredFireType;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.CLIBANO_SERIALIZER.get();
     }
 
+    @Override
+    public @NotNull ItemStack getToastSymbol() {
+        return new ItemStack(ModBlocks.CLIBANO_CORE.get());
+    }
+
     public static class Serializer implements RecipeSerializer<ClibanoRecipe> {
 
-        @Nonnull
+        private static final Codec<ClibanoRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(recipe -> {
+                    return recipe.group;
+                }),
+                CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> {
+                    return recipe.category;
+                }),
+                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(recipe -> {
+                    return recipe.ingredient;
+                }),
+                BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> {
+                    return recipe.result;
+                }),
+                Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> {
+                    return recipe.experience;
+                }),
+                Codec.INT.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIME).forGetter(recipe -> {
+                    return recipe.cookingTime;
+                }),
+                ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> {
+                    return recipe.requiredFireType;
+                })
+        ).apply(instance, (s, cookingBookCategory, ingredient1, stack, aFloat, integer, clibanoFireType) -> new ClibanoRecipe(s, cookingBookCategory, ingredient1, stack, aFloat, integer, ResidueInfo.NONE, clibanoFireType)));
+
         @Override
-        public ClibanoRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject jsonObject) {
-            String group = GsonHelper.getAsString(jsonObject, "group", "");
-            JsonElement jsonElement = GsonHelper.isArrayNode(jsonObject, "ingredient") ? GsonHelper.getAsJsonArray(jsonObject, "ingredient") : GsonHelper.getAsJsonObject(jsonObject, "ingredient");
-            Ingredient ingredient = Ingredient.fromJson(jsonElement);
-
-            CookingBookCategory category = CookingBookCategory.CODEC.byName(GsonHelper.getAsString(jsonObject, "category", null), CookingBookCategory.MISC);
-
-            if (!jsonObject.has("result")) {
-                throw new com.google.gson.JsonSyntaxException("Missing result, expected to find a string or object");
-            }
-
-            ItemStack stack;
-
-            if (jsonObject.get("result").isJsonObject()) {
-                stack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
-            } else {
-                String result = GsonHelper.getAsString(jsonObject, "result");
-                stack = new ItemStack(ForgeRegistries.ITEMS.getDelegateOrThrow(new ResourceLocation(result)).get());
-            }
-
-            float experience = GsonHelper.getAsFloat(jsonObject, "experience", 0.0F);
-            int cookingTime = GsonHelper.getAsInt(jsonObject, "cooking_time", ClibanoRecipe.DEFAULT_COOKING_TIME);
-
-            ResidueInfo residueInfo = ResidueInfo.fromJson(jsonObject);
-            ResidueType residueType = new ResidueType(residueInfo.name);
-
-            if (!ResiduesStorage.RESIDUE_TYPES.contains(residueType) && residueInfo != ResidueInfo.NONE) {
-                ResiduesStorage.RESIDUE_TYPES.add(residueType);
-            }
-
-            Optional<ClibanoFireType> fireType = ClibanoFireType.byName(GsonHelper.getAsString(jsonObject, "fire_type", "fire"));
-
-            return new ClibanoRecipe(recipeId, group, category, ingredient, stack, experience, cookingTime, residueInfo, fireType.orElse(ClibanoFireType.FIRE));
+        public @NotNull Codec<ClibanoRecipe> codec() {
+            return CODEC;
         }
 
-        @Nullable
         @Override
-        public ClibanoRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+        public @Nullable ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
             String s = buffer.readUtf();
             CookingBookCategory category = buffer.readEnum(CookingBookCategory.class);
             Ingredient ingredient = Ingredient.fromNetwork(buffer);
@@ -132,11 +134,10 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
             Optional<ClibanoFireType> fireType = ClibanoFireType.byName(buffer.readUtf());
 
-            return new ClibanoRecipe(recipeId, s, category, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType.orElse(ClibanoFireType.FIRE));
-        }
+            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType.orElse(ClibanoFireType.FIRE));        }
 
         @Override
-        public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull ClibanoRecipe recipe) {
+        public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ClibanoRecipe recipe) {
             buffer.writeUtf(recipe.group);
             buffer.writeEnum(recipe.category());
             recipe.ingredient.toNetwork(buffer);
