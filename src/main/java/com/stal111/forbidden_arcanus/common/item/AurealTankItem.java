@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -29,7 +30,8 @@ public class AurealTankItem extends Item {
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
         stack.getCapability(ItemAurealProvider.AUREAL).ifPresent(aurealProvider -> {
-            components.add(Component.literal(aurealProvider.getAureal() + " / " + aurealProvider.getAurealLimit()));
+            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", aurealProvider.getTrueAurealLimit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
+            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.aureal", aurealProvider.getAureal(), aurealProvider.getAurealLimit()).withStyle(ChatFormatting.AQUA));
         });
     }
 

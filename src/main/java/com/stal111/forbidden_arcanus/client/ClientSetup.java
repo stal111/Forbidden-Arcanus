@@ -110,7 +110,7 @@ public class ClientSetup {
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
             Optional<ItemAurealProvider> optional = stack.getCapability(ItemAurealProvider.AUREAL).resolve();
 
-            return optional.map(provider -> provider.getAurealLimit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
+            return optional.map(provider -> provider.getTrueAurealLimit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
         });
     }
 

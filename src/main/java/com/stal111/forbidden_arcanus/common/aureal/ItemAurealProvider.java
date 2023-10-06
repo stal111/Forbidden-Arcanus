@@ -1,9 +1,13 @@
 package com.stal111.forbidden_arcanus.common.aureal;
 
+import com.stal111.forbidden_arcanus.core.init.ModEnchantments;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,13 +55,20 @@ public class ItemAurealProvider implements AurealProvider, ICapabilityProvider {
 
     @Override
     public int getAurealLimit() {
-        CompoundTag tag = this.stack.getTag();
+        int limit = this.getTrueAurealLimit();
+        int aurealReservoirLevel = this.stack.getEnchantmentLevel(ModEnchantments.AUREAL_RESERVOIR.get());
 
-        if (tag == null) {
-            return this.defaultLimit;
+        if (aurealReservoirLevel == 0) {
+            return limit;
         }
 
-        return tag.getInt(AUREAL_LIMIT_KEY);
+        return (int) (limit * (1 + aurealReservoirLevel / 10.0D));
+    }
+
+    public int getTrueAurealLimit() {
+        CompoundTag tag = this.stack.getTag();
+
+        return tag == null || !tag.contains(AUREAL_LIMIT_KEY) ? this.defaultLimit : tag.getInt(AUREAL_LIMIT_KEY);
     }
 
     @Override
@@ -68,7 +79,7 @@ public class ItemAurealProvider implements AurealProvider, ICapabilityProvider {
     }
 
     public ProviderInfo getSnapshot() {
-        return new ProviderInfo(this.getAureal(), this.getAurealLimit());
+        return new ProviderInfo(this.getAureal(), this.getTrueAurealLimit());
     }
 
     @Override

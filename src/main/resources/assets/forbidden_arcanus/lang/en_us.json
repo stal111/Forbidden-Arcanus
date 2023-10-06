@@ -296,6 +296,7 @@
     "item.forbidden_arcanus.divine_pact": "Divine Pact",
     "item.forbidden_arcanus.maledictus_pact": "Maledictus Pact",
     "item.forbidden_arcanus.omega_arcoin": "Omega Arcoin",
+    "item.forbidden_arcanus.aureal_tank": "Aureal Tank",
 
     "item.forbidden_arcanus.enhancer": "Enhancer Relic",
     "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Hephaestus Forge effect:",
@@ -330,6 +331,8 @@
     "tooltip.forbidden_arcanus.entity": "Entity",
     "tooltip.forbidden_arcanus.pixie": "Pixie",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
+    "tooltip.forbidden_arcanus.aureal_tank.tier": "Tier: %s",
+    "tooltip.forbidden_arcanus.aureal_tank.aureal": "Aureal: %s / %s",
 
     "containers": "Containers",
     "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
@@ -337,6 +340,7 @@
 
     "enchantments": "Enchantments",
     "enchantment.forbidden_arcanus.permafrost": "Permafrost",
+    "enchantment.forbidden_arcanus.aureal_reservoir": "Aureal Reservoir",
 
     "entity.forbidden_arcanus.lost_soul": "Lost Soul",
 
