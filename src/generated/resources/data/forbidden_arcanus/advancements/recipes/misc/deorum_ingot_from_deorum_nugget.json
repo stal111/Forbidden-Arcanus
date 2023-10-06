@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_deorum_nugget",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_deorum_nugget"
     ]
   ],
   "rewards": {

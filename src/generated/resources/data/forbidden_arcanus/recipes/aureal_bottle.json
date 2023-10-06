@@ -6,10 +6,7 @@
       "item": "forbidden_arcanus:arcane_crystal_dust"
     },
     "X": {
-      "type": "forge:nbt",
-      "count": 1,
-      "item": "minecraft:potion",
-      "nbt": "{Potion:\"minecraft:strong_regeneration\"}"
+      "item": "minecraft:potion"
     }
   },
   "pattern": [

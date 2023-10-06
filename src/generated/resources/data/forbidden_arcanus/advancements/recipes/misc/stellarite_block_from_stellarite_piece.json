@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_stellarite_piece",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_stellarite_piece"
     ]
   ],
   "rewards": {

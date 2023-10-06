@@ -1,16 +1,6 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
-      "conditions": {
-        "items": [
-          {
-            "tag": "minecraft:emerald_ores"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_the_recipe": {
       "conditions": {
         "recipe": "forbidden_arcanus:clibano_combustion/emerald_from_clibano_combusting"
@@ -20,7 +10,6 @@
   },
   "requirements": [
     [
-      "has_item",
       "has_the_recipe"
     ]
   ],
@@ -29,5 +18,5 @@
       "forbidden_arcanus:clibano_combustion/emerald_from_clibano_combusting"
     ]
   },
-  "sends_telemetry_event": true
+  "sends_telemetry_event": false
 }

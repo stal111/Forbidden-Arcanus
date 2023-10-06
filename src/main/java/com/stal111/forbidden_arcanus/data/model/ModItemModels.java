@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
@@ -38,24 +39,64 @@ public class ModItemModels {
     public void createModels() {
         this.generateFlatItem(ModItems.SANITY_METER);
 
-        this.generateFlatItem(ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.AUREAL_TANK, "_2", ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.AUREAL_TANK, "_3", ModelTemplates.FLAT_ITEM);
+        var aurealTank0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
+        var aurealTank1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);
+        var aurealTank2 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_2", ModelTemplates.FLAT_ITEM);
+        var aurealTank3 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_3", ModelTemplates.FLAT_ITEM);
 
-        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(ModItems.AUREAL_TANK.get()), TextureMapping.layer0(ModItems.AUREAL_TANK.get()), this.modelOutput, (modelLocation, map) -> {
+        var aurealTankMax = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_max", ModelTemplates.FLAT_ITEM);
+        var aurealTankMax0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_max_0", ModelTemplates.FLAT_ITEM);
+        var aurealTankMax1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_max_1", ModelTemplates.FLAT_ITEM);
+        var aurealTankMax2 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_max_2", ModelTemplates.FLAT_ITEM);
+        var aurealTankMax3 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_max_3", ModelTemplates.FLAT_ITEM);
+
+        this.generateWithOverrides("aureal_tank", ModItems.AUREAL_TANK,
+                new ModelPredicate(aurealTank0, ModelProperty.of("amount", 0.25F), ModelProperty.of("max", 0.0F)),
+                new ModelPredicate(aurealTank1, ModelProperty.of("amount", 0.5F), ModelProperty.of("max", 0.0F)),
+                new ModelPredicate(aurealTank2, ModelProperty.of("amount", 0.75F), ModelProperty.of("max", 0.0F)),
+                new ModelPredicate(aurealTank3, ModelProperty.of("amount", 1.0F), ModelProperty.of("max", 0.0F)),
+                new ModelPredicate(aurealTankMax, ModelProperty.of("amount", 0.0F), ModelProperty.of("max", 1.0F)),
+                new ModelPredicate(aurealTankMax0, ModelProperty.of("amount", 0.25F), ModelProperty.of("max", 1.0F)),
+                new ModelPredicate(aurealTankMax1, ModelProperty.of("amount", 0.5F), ModelProperty.of("max", 1.0F)),
+                new ModelPredicate(aurealTankMax2, ModelProperty.of("amount", 0.75F), ModelProperty.of("max", 1.0F)),
+                new ModelPredicate(aurealTankMax3, ModelProperty.of("amount", 1.0F), ModelProperty.of("max", 1.0F))
+        );
+    }
+
+    private ResourceLocation generateFlatItem(RegistryEntry<Item> item) {
+        return this.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
+    }
+
+    private ResourceLocation generateFlatItem(String folder, RegistryEntry<Item> item, ModelTemplate template) {
+        return template.create(ModLocationUtils.getItem(folder, item), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput);
+    }
+
+    private ResourceLocation generateFlatItem(RegistryEntry<Item> item, ModelTemplate template) {
+        return template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(item.get()), this.modelOutput);
+    }
+
+    private ResourceLocation generateFlatItem(String folder, RegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
+        return template.create(ModLocationUtils.getItem(folder, item, modelSuffix), TextureMapping.layer0(getItemTexture(item.get(), folder, modelSuffix)), this.modelOutput);
+    }
+
+    private ResourceLocation generateFlatItem(RegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
+        return template.create(ModelLocationUtils.getModelLocation(item.get(), modelSuffix), TextureMapping.layer0(TextureMapping.getItemTexture(item.get(), modelSuffix)), this.modelOutput);
+    }
+
+    public static ResourceLocation getItemTexture(Item item, String folder, String suffix) {
+        ResourceLocation resourcelocation = BuiltInRegistries.ITEM.getKey(item);
+        return resourcelocation.withPath(path -> {
+            return "item/" + folder + "/" + path + suffix;
+        });
+    }
+
+    private void generateWithOverrides(String folder, RegistryEntry<Item> item, ModelPredicate... predicates) {
+        ModelTemplates.FLAT_ITEM.create(ModLocationUtils.getItem(item), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput, (modelLocation, map) -> {
             JsonObject jsonObject = ModelTemplates.TWO_LAYERED_ITEM.createBaseTemplate(modelLocation, map);
             JsonArray jsonArray = new JsonArray();
 
-            for (int i = 0; i <= 3; i++) {
-                JsonObject entry = new JsonObject();
-                JsonObject predicate = new JsonObject();
-
-                predicate.addProperty("amount", (i + 1) * 0.25F);
-                entry.add("predicate", predicate);
-                entry.addProperty("model", "forbidden_arcanus:item/aureal_tank_" + i);
-
-                jsonArray.add(entry);
+            for (ModelPredicate predicate : predicates) {
+                predicate.serialize(jsonArray);
             }
 
             jsonObject.add("overrides", jsonArray);
@@ -64,15 +105,31 @@ public class ModItemModels {
         });
     }
 
-    private void generateFlatItem(RegistryEntry<Item> item) {
-        this.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
+    public record ModelPredicate(ResourceLocation modelLocation, ModelProperty... properties) {
+
+        public void serialize(JsonArray jsonArray) {
+            JsonObject entry = new JsonObject();
+            JsonObject predicate = new JsonObject();
+
+            for (ModelProperty property : properties) {
+                property.serialize(predicate);
+            }
+
+            entry.add("predicate", predicate);
+            entry.addProperty("model", this.modelLocation.toString());
+
+            jsonArray.add(entry);
+        }
     }
 
-    private void generateFlatItem(RegistryEntry<Item> item, ModelTemplate template) {
-        template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(item.get()), this.modelOutput);
-    }
+    public record ModelProperty(String name, float value) {
 
-    private void generateFlatItem(RegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
-        template.create(ModelLocationUtils.getModelLocation(item.get(), modelSuffix), TextureMapping.layer0(TextureMapping.getItemTexture(item.get(), modelSuffix)), this.modelOutput);
+        public static ModelProperty of(String name, float value) {
+            return new ModelProperty(name, value);
+        }
+
+        public void serialize(JsonObject jsonObject) {
+            jsonObject.addProperty(this.name, this.value);
+        }
     }
 }

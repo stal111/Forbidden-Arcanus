@@ -35,9 +35,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_aurum_boat",
-      "has_chest",
-      "has_the_recipe"
+      "has_chest"
     ]
   ],
   "rewards": {

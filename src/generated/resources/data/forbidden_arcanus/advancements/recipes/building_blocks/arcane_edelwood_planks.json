@@ -32,9 +32,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_ingots/deorum",
-      "has_edelwood_planks",
-      "has_the_recipe"
+      "has_edelwood_planks"
     ]
   ],
   "rewards": {

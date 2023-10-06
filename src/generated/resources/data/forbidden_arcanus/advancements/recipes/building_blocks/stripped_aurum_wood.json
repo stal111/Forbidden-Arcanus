@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_stripped_aurum_log",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_stripped_aurum_log"
     ]
   ],
   "rewards": {

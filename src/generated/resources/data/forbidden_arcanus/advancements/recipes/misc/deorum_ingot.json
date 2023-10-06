@@ -46,10 +46,10 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_gold_ingot",
       "has_arcane_crystal_dust",
-      "has_mundabitur_dust",
-      "has_the_recipe"
+      "has_mundabitur_dust"
     ]
   ],
   "rewards": {

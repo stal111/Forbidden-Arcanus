@@ -34,9 +34,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_rune",
-      "has_dust",
-      "has_the_recipe"
+      "has_dust"
     ]
   ],
   "rewards": {

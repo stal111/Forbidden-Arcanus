@@ -32,9 +32,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_yellow_orchid",
-      "has_deorum_ingot",
-      "has_the_recipe"
+      "has_deorum_ingot"
     ]
   ],
   "rewards": {

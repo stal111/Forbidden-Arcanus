@@ -15,6 +15,7 @@ import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
 import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
+import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.common.item.UtremJarItem;
@@ -106,7 +107,11 @@ public class ClientSetup {
 
             return optional.map(provider -> (float) provider.getAureal() / provider.getAurealLimit()).orElse(0.0F);
         });
+        ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
+            Optional<ItemAurealProvider> optional = stack.getCapability(ItemAurealProvider.AUREAL).resolve();
 
+            return optional.map(provider -> provider.getAurealLimit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
+        });
     }
 
     private void registerCosmetics() {

@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_arcane_crystal_dust",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_arcane_crystal_dust"
     ]
   ],
   "rewards": {

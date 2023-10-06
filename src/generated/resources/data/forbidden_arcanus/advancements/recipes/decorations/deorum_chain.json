@@ -30,9 +30,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_ingots/deorum",
-      "has_nuggets/deorum",
-      "has_the_recipe"
+      "has_nuggets/deorum"
     ]
   ],
   "rewards": {

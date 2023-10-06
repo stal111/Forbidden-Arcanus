@@ -32,9 +32,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_ingots/deorum",
-      "has_darkstone",
-      "has_the_recipe"
+      "has_darkstone"
     ]
   ],
   "rewards": {

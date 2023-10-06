@@ -32,9 +32,9 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_nuggets/deorum",
-      "has_soul_torch",
-      "has_the_recipe"
+      "has_soul_torch"
     ]
   ],
   "rewards": {

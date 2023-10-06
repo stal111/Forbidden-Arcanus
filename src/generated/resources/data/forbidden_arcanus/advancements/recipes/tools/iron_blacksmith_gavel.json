@@ -20,8 +20,8 @@
   },
   "requirements": [
     [
-      "has_ingots/iron",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_ingots/iron"
     ]
   ],
   "rewards": {

@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_polished_darkstone",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_polished_darkstone"
     ]
   ],
   "rewards": {
