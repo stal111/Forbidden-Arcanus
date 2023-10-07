@@ -4,7 +4,6 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
-import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequences;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
 import net.minecraftforge.common.ForgeConfigSpec;
