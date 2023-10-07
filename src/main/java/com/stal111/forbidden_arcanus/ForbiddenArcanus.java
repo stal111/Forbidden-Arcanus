@@ -70,7 +70,5 @@ public final class ForbiddenArcanus {
 
 
 		//CounterHelper.addCounter(CounterCreator.of(resourceLocation -> new SerializableCounter(resourceLocation, 0, false), new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer")));
-
-		Consequences.registerConsequences();
 	}
 }
