@@ -59,14 +59,14 @@ public class AurealHelper {
                 continue;
             }
 
-            if (random.nextDouble() < (corruption + 3) / 185.0F) {
-                Consequence consequence = Consequences.getRandomConsequence(random).create();
-                consequence.tick(player);
-
-                if (consequence instanceof SerializableComponent) {
-                    aureal.addActiveConsequence(consequence);
-                }
-            }
+//            if (random.nextDouble() < (corruption + 3) / 185.0F) {
+//                Consequence consequence = Consequences.getRandomConsequence(random).create();
+//                consequence.tick(player);
+//
+//                if (consequence instanceof SerializableComponent) {
+//                    aureal.addActiveConsequence(consequence);
+//                }
+//            }
         }
 
         sendAurealUpdatePacket(player);

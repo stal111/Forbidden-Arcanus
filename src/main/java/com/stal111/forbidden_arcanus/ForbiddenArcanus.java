@@ -63,7 +63,5 @@ public final class ForbiddenArcanus {
 	private void setup(final FMLCommonSetupEvent event) {
 
 		//CounterHelper.addCounter(CounterCreator.of(resourceLocation -> new SerializableCounter(resourceLocation, 0, false), new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer")));
-
-		Consequences.registerConsequences();
 	}
 }
