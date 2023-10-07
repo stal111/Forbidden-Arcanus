@@ -2,7 +2,7 @@
   "type": "valhelsia_core:append_loot",
   "conditions": [
     {
-      "condition": "minecraft:alternative",
+      "condition": "minecraft:any_of",
       "terms": [
         {
           "condition": "forge:loot_table_id",
