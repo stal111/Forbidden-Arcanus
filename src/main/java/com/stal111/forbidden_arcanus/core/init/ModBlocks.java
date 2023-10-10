@@ -177,6 +177,7 @@ public class ModBlocks implements RegistryClass {
     public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> CRACKED_OBSIDIAN_SKULL = HELPER.registerSkull("cracked_obsidian", ObsidianSkullType.CRACKED, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL), BlockItems.CRACKED_OBSIDIAN_SKULL_ITEM);
     public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> FRAGMENTED_OBSIDIAN_SKULL = HELPER.registerSkull("fragmented_obsidian", ObsidianSkullType.FRAGMENTED, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL), BlockItems.FRAGMENTED_OBSIDIAN_SKULL_ITEM);
     public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> FADING_OBSIDIAN_SKULL = HELPER.registerSkull("fading_obsidian", ObsidianSkullType.FADING, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL), BlockItems.FADING_OBSIDIAN_SKULL_ITEM);
+    public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> AUREALIC_OBSIDIAN_SKULL = HELPER.registerSkull("aurealic_obsidian", ObsidianSkullType.AUREALIC, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL), BlockItems.AUREALIC_OBSIDIAN_SKULL_ITEM);
     public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> ETERNAL_OBSIDIAN_SKULL = HELPER.registerSkull("eternal_obsidian", ObsidianSkullType.ETERNAL, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL), BlockItems.ETERNAL_OBSIDIAN_SKULL_ITEM);
 
     public static final BlockRegistryEntry<UtremJarBlock> UTREM_JAR = HELPER.register("utrem_jar", () -> new UtremJarBlock(Block.Properties.copy(Blocks.GLASS))).renderType(ValhelsiaRenderType.CUTOUT);
@@ -210,11 +211,11 @@ public class ModBlocks implements RegistryClass {
     }
 
     private static class BlockItems {
-        public static final SkullRegistryEntry.SkullItemFactory OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.DEFAULT, skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-        public static final SkullRegistryEntry.SkullItemFactory CRACKED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.CRACKED, skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-        public static final SkullRegistryEntry.SkullItemFactory FRAGMENTED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.FRAGMENTED, skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-        public static final SkullRegistryEntry.SkullItemFactory FADING_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.FADING, skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.ETERNAL, skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
-
+        public static final SkullRegistryEntry.SkullItemFactory OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.DEFAULT, skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant());
+        public static final SkullRegistryEntry.SkullItemFactory CRACKED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.CRACKED, skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant());
+        public static final SkullRegistryEntry.SkullItemFactory FRAGMENTED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.FRAGMENTED, skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant());
+        public static final SkullRegistryEntry.SkullItemFactory FADING_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.FADING, skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant());
+        public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.AUREALIC, skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant());
+        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(ObsidianSkullType.ETERNAL, skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant());
     }
 }

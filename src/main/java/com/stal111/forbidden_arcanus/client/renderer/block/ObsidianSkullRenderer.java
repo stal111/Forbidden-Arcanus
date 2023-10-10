@@ -35,7 +35,7 @@ public class ObsidianSkullRenderer implements BlockEntityRenderer<ObsidianSkullB
         return LayerDefinition.create(createBaseMesh(), 32, 16);
     }
 
-    public static LayerDefinition createEternalObsidianSkullLayer() {
+    public static LayerDefinition createDetailedObsidianSkullLayer() {
         MeshDefinition meshdefinition = createBaseMesh();
         PartDefinition partdefinition = meshdefinition.getRoot();
         partdefinition.getChild("head").addOrReplaceChild("layer", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.ZERO);

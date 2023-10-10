@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.client;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
@@ -76,11 +75,9 @@ public class ClientSetup {
             Sheets.addWoodType(ModWoodTypes.AURUM);
             Sheets.addWoodType(ModWoodTypes.EDELWOOD);
 
-            SkullBlockRenderer.SKIN_BY_TYPE.put(ObsidianSkullType.DEFAULT, new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/obsidian_skull/obsidian_skull.png"));
-            SkullBlockRenderer.SKIN_BY_TYPE.put(ObsidianSkullType.CRACKED, new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/obsidian_skull/cracked_obsidian_skull.png"));
-            SkullBlockRenderer.SKIN_BY_TYPE.put(ObsidianSkullType.FRAGMENTED, new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/obsidian_skull/fragmented_obsidian_skull.png"));
-            SkullBlockRenderer.SKIN_BY_TYPE.put(ObsidianSkullType.FADING, new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/obsidian_skull/fading_obsidian_skull.png"));
-            SkullBlockRenderer.SKIN_BY_TYPE.put(ObsidianSkullType.ETERNAL, new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/obsidian_skull/eternal_obsidian_skull.png"));
+            for (ObsidianSkullType skullType : ObsidianSkullType.values()) {
+                SkullBlockRenderer.SKIN_BY_TYPE.put(skullType, skullType.getTextureLocation());
+            }
         });
 
         //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);

@@ -36,7 +36,7 @@ import net.minecraftforge.fml.common.Mod;
 public class EntityRendererEvents {
 
     public static final ModelLayerLocation OBSIDIAN_SKULL_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "obsidian_skull"), "main");
-    public static final ModelLayerLocation ETERNAL_OBSIDIAN_SKULL_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "eternal_obsidian_skull"), "main");
+    public static final ModelLayerLocation DETAILED_OBSIDIAN_SKULL_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "detailed_obsidian_skull"), "main");
 
     @SubscribeEvent
     public static void onRegisterRenders(EntityRenderersEvent.RegisterRenderers event) {
@@ -76,7 +76,7 @@ public class EntityRendererEvents {
         event.registerLayerDefinition(QuantumLightDoorModel.LAYER_LOCATION, QuantumLightDoorModel::createLayer);
 
         event.registerLayerDefinition(OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createObsidianSkullLayer);
-        event.registerLayerDefinition(ETERNAL_OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createEternalObsidianSkullLayer);
+        event.registerLayerDefinition(DETAILED_OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createDetailedObsidianSkullLayer);
 
         for (ModBoat.Type type : ModBoat.Type.values()) {
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
@@ -92,6 +92,7 @@ public class EntityRendererEvents {
         event.registerSkullModel(ObsidianSkullType.CRACKED, new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
         event.registerSkullModel(ObsidianSkullType.FRAGMENTED, new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
         event.registerSkullModel(ObsidianSkullType.FADING, new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
-        event.registerSkullModel(ObsidianSkullType.ETERNAL, new SkullModel(modelSet.bakeLayer(ETERNAL_OBSIDIAN_SKULL_LAYER)));
+        event.registerSkullModel(ObsidianSkullType.AUREALIC, new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
+        event.registerSkullModel(ObsidianSkullType.ETERNAL, new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
     }
 }
