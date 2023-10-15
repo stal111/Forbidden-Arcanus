@@ -1,6 +1,6 @@
-// 1.19.4	2023-03-26T13:22:35.1643841	Tags for minecraft:block mod id forbidden_arcanus
+// 1.19.4	2023-10-15T13:22:25.5412763	Tags for minecraft:block mod id forbidden_arcanus
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/blocks/arcane_crystal_ores.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/blocks/blacksmith_gavel_unaffected.json
+19b073a7559571c409a9e82de27bfabac67ee6ac data/forbidden_arcanus/tags/blocks/blacksmith_gavel_unaffected.json
 8c6e37a9a9345b42c82959b74579b25696da1e40 data/forbidden_arcanus/tags/blocks/cherrywood_logs.json
 7178fc65549c2cdfe3c0d34421efedf7c81a341f data/forbidden_arcanus/tags/blocks/darkstone_ore_replaceables.json
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/blocks/edelwood_logs.json
