@@ -45,7 +45,6 @@ public class ModBlockStateProvider extends ValhelsiaBlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         Arrays.asList(
-                ModBlocks.UPWIND,
                 ModBlocks.OBSIDIAN_SKULL,
                 ModBlocks.OBSIDIAN_WALL_SKULL,
                 ModBlocks.ETERNAL_OBSIDIAN_SKULL,
