@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.valhelsia.valhelsia_core.core.init.ValhelsiaTags;
@@ -51,7 +52,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.TRAPDOORS).add(ModBlocks.DEORUM_TRAPDOOR.get());
         this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.CHERRY_FLOWER_VINES.get(), ModBlocks.CHERRY_FLOWER_VINES_PLANT.get());
         this.tag(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_FUNGYSS.get(), ModBlocks.POTTED_CHERRY_SAPLING.get(), ModBlocks.POTTED_AURUM_SAPLING.get(), ModBlocks.POTTED_GROWING_EDELWOOD.get(), ModBlocks.POTTED_YELLOW_ORCHID.get());
-        this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED);
+        this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED).add(Blocks.ANCIENT_DEBRIS);
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED);
         this.tag(ModTags.Blocks.RUNIC_STONES).add(ModBlocks.RUNIC_STONE.get(), ModBlocks.RUNIC_DEEPSLATE.get(), ModBlocks.RUNIC_DARKSTONE.get());
         this.tag(ModTags.Blocks.RUNE_BLOCKS).add(ModBlocks.RUNE_BLOCK.get(), ModBlocks.DARK_RUNE_BLOCK.get());
