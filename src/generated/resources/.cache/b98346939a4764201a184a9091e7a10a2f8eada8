@@ -1,4 +1,4 @@
-// 1.19.4	2023-03-26T13:22:35.1923063	Tags for minecraft:item mod id forbidden_arcanus
+// 1.19.4	2023-10-15T13:22:25.552447	Tags for minecraft:item mod id forbidden_arcanus
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 15934456b6a5c4baa26b521dac8e9ec371c2b006 data/forbidden_arcanus/tags/items/black_hole_unaffected.json
@@ -35,6 +35,7 @@ b128c22b1f0aef1502fa919bc8d063604b299c75 data/forge/tags/items/storage_blocks/de
 ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/items/doors.json
 2573ed5fa40458e79d5a51f0321c3cedd6bf5dd3 data/minecraft/tags/items/leaves.json
 21ceee370fb7ad0bb83b405e7f92b1ed504c29cf data/minecraft/tags/items/logs.json
+69f86cd5de0f713fdbc24827fd81b631cbc51404 data/minecraft/tags/items/pickaxes.json
 369674d5826e2cb2f27e403624001d2f9202639a data/minecraft/tags/items/planks.json
 2ae2823ba754386a4370da044ed59d77c03c6b32 data/minecraft/tags/items/saplings.json
 17aacb83834d35cca378c25ef6c6a5f0530932ac data/minecraft/tags/items/signs.json
