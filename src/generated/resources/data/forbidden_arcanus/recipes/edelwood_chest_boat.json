@@ -6,7 +6,13 @@
       "item": "forbidden_arcanus:edelwood_boat"
     },
     {
-      "tag": "forge:chests/wooden"
+      "type": "valhelsia_core:platform_dependent_ingredient",
+      "fabric_value": {
+        "tag": "c:chests"
+      },
+      "forge_value": {
+        "tag": "forge:chests/wooden"
+      }
     }
   ],
   "result": {

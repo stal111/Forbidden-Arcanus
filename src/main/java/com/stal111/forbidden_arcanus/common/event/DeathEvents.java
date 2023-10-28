@@ -10,7 +10,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -25,7 +24,7 @@ public final class DeathEvents {
         LivingEntity entity = event.getEntity();
         RandomSource random = entity.getRandom();
 
-        if (event.getSource().getEntity() instanceof ServerPlayer player && !(player instanceof FakePlayer)) {
+        if (event.getSource().getEntity() instanceof ServerPlayer player) {
             this.increaseCorruption(player, entity, random);
             this.spawnLostSoul(entity, random);
         }

@@ -6,7 +6,13 @@
       "item": "forbidden_arcanus:edelwood_planks"
     },
     "X": {
-      "tag": "forge:rods/wooden"
+      "type": "valhelsia_core:platform_dependent_ingredient",
+      "fabric_value": {
+        "item": "minecraft:stick"
+      },
+      "forge_value": {
+        "tag": "forge:rods/wooden"
+      }
     }
   },
   "pattern": [
