@@ -16,13 +16,13 @@
 			}
 		},
 		{
-			"from": [11, -1, 0],
+			"from": [11, 0, 0],
 			"to": [13, 2, 0],
 			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [11, 2, 0]},
 			"faces": {
-				"north": {"uv": [14, 1, 16, 4], "texture": "#side"},
-				"south": {"uv": [16, 1, 14, 4], "texture": "#side"}
+				"north": {"uv": [14, 1, 16, 3], "texture": "#side"},
+				"south": {"uv": [16, 1, 14, 3], "texture": "#side"}
 			}
 		},
 		{
