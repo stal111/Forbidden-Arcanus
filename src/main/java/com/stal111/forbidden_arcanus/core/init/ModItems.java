@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.core.init;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.entity.ModBoat;
 import com.stal111.forbidden_arcanus.common.item.*;
+import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturDustItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.Foods;

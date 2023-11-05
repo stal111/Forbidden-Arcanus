@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerEffectType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.condition.EffectConditionType;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
+import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteraction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -33,18 +34,21 @@ public class FARegistries {
     public static final ResourceKey<Registry<EnhancerEffectType<?>>> ENHANCER_EFFECT = FARegistries.createRegistryKey("enhancer/effect");
     public static final ResourceKey<Registry<EffectConditionType<?>>> ENHANCER_EFFECT_CONDITION = FARegistries.createRegistryKey("enhancer/effect_condition");
     public static final ResourceKey<Registry<EnhancerDefinition>> ENHANCER_DEFINITION = FARegistries.createRegistryKey("enhancer/definition");
+    public static final ResourceKey<Registry<MundabiturInteraction<?>>> MUNDABITUR_INTERACTION = FARegistries.createRegistryKey("mundabitur_interaction");
 
     private static final DeferredRegister<RitualResultType<?>> RITUAL_RESULT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.RITUAL_RESULT_TYPE, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<HephaestusForgeInputType<?>> FORGE_INPUT_TYPE_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.FORGE_INPUT_TYPE, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<ItemModifier> ITEM_MODIFIER_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ITEM_MODIFIER, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<EnhancerEffectType<?>> ENHANCER_EFFECT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ENHANCER_EFFECT, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ENHANCER_EFFECT_CONDITION, ForbiddenArcanus.MOD_ID);
+    private static final DeferredRegister<MundabiturInteraction<?>> MUNDABITUR_INTERACTION_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.MUNDABITUR_INTERACTION, ForbiddenArcanus.MOD_ID);
 
     public static final Supplier<IForgeRegistry<RitualResultType<?>>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_DEFERRED_REGISTER);
     public static final Supplier<IForgeRegistry<HephaestusForgeInputType<?>>> FORGE_INPUT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT_TYPE_DEFERRED_REGISTER);
     public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = FARegistries.makeSyncedRegistry(ITEM_MODIFIER_DEFERRED_REGISTER);
     public static final Supplier<IForgeRegistry<EnhancerEffectType<?>>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_DEFERRED_REGISTER);
     public static final Supplier<IForgeRegistry<EffectConditionType<?>>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER);
+    public static final Supplier<IForgeRegistry<MundabiturInteraction<?>>> MUNDABITUR_INTERACTION_REGISTRY = FARegistries.makeSyncedRegistry(MUNDABITUR_INTERACTION_DEFERRED_REGISTER);
 
     public static void register(IEventBus modEventBus) {
         FARegistries.RITUAL_RESULT_DEFERRED_REGISTER.register(modEventBus);
@@ -52,6 +56,7 @@ public class FARegistries {
         FARegistries.ENHANCER_EFFECT_DEFERRED_REGISTER.register(modEventBus);
         FARegistries.ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER.register(modEventBus);
         FARegistries.FORGE_INPUT_TYPE_DEFERRED_REGISTER.register(modEventBus);
+        FARegistries.MUNDABITUR_INTERACTION_DEFERRED_REGISTER.register(modEventBus);
     }
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {
