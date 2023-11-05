@@ -37,7 +37,7 @@ public class ModBlocks implements RegistryClass {
 
     public static final BlockRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getBlockHelper();
 
-    public static final BlockRegistryEntry<ForbiddenomiconBlock> FORBIDDENOMICON = HELPER.register("forbiddenomicon", () -> new ForbiddenomiconBlock(BlockBehaviour.Properties.of())).withItem();
+    public static final BlockRegistryEntry<ForbiddenomiconBlock> FORBIDDENOMICON = HELPER.register("forbiddenomicon", () -> new ForbiddenomiconBlock(BlockBehaviour.Properties.of())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
 
     public static final BlockRegistryEntry<Block> DARKSTONE = HELPER.register("darkstone", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
     public static final BlockRegistryEntry<Block> ARCANE_CHISELED_DARKSTONE = HELPER.register("arcane_chiseled_darkstone", () -> new Block(Block.Properties.copy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
