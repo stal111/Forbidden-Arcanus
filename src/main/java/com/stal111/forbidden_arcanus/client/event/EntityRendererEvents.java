@@ -1,10 +1,7 @@
 package com.stal111.forbidden_arcanus.client.event;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.model.DarkTraderModel;
-import com.stal111.forbidden_arcanus.client.model.LostSoulModel;
-import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
-import com.stal111.forbidden_arcanus.client.model.QuantumLightDoorModel;
+import com.stal111.forbidden_arcanus.client.model.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
@@ -47,6 +44,7 @@ public class EntityRendererEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.UTREM_JAR.get(), UtremJarRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.OBSIDIAN_SKULL.get(), SkullBlockRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE.get(), HephaestusForgeRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK.get(), ResearchDeskRenderer::new);
 
         // Entities
         event.registerEntityRenderer(ModEntities.BOOM_ARROW.get(), BoomArrowRenderer::new);
@@ -77,6 +75,7 @@ public class EntityRendererEvents {
 
         event.registerLayerDefinition(OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createObsidianSkullLayer);
         event.registerLayerDefinition(DETAILED_OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createDetailedObsidianSkullLayer);
+        event.registerLayerDefinition(AbstractForbiddenomiconModel.LAYER_LOCATION, AbstractForbiddenomiconModel::createBodyLayer);
 
         for (ModBoat.Type type : ModBoat.Type.values()) {
             event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);

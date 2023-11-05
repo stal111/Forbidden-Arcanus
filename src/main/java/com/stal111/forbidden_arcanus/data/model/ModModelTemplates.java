@@ -14,6 +14,7 @@ import java.util.Optional;
 public class ModModelTemplates {
 
     public static final ModelTemplate FORBIDDENOMICON = create("template_forbiddenomicon", TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.INSIDE, TextureSlot.SIDE);
+    public static final ModelTemplate DESK = create("template_desk", TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.INSIDE, TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
 
     public static ModelTemplate create(String name, TextureSlot... textureSlots) {
         return new ModelTemplate(Optional.of(new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + name)), Optional.empty(), textureSlots);
