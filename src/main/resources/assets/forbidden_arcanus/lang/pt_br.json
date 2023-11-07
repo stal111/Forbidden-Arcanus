@@ -338,7 +338,7 @@
     "item.forbidden_arcanus.smithing_template.darkstone_upgrade.base_slot_description": "Adicionar armadura, arma ou ferramenta",
     "item.forbidden_arcanus.smithing_template.darkstone_upgrade.ingredients": "Modificador de Item",
 
-    "upgrade.forbidden_arcanus.darkstone_upgrade": "Aplicar Modificador de Item"
+    "upgrade.forbidden_arcanus.darkstone_upgrade": "Aplicar Modificador de Item",
     
     "comment.tooltips": "---Dicas de ferramentas---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "O Forbiddenmicon poderá ser lido em breve",
