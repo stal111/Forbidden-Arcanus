@@ -52,6 +52,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.tag(ModTags.Items.EXPLOSION_RESISTANT).add(Items.NETHER_STAR, ModItems.DARK_NETHER_STAR.get(), ModItems.STELLARITE_PIECE.get(), ModItems.ETERNAL_STELLA.get(), ModBlocks.STELLARITE_BLOCK.get().asItem(), ModBlocks.DARK_NETHER_STAR_BLOCK.get().asItem());
         this.tag(Tags.Items.SEEDS).add(ModItems.GOLDEN_ORCHID_SEEDS.get());
         this.tag(Tags.Items.FEATHERS).add(ModItems.GOLDEN_FEATHER.get());
+        this.tag(ItemTags.PICKAXES).add(ModItems.DRACO_ARCANUS_PICKAXE.get(),ModItems.SLIMEC_PICKAXE.get(),ModItems.REINFORCED_DEORUM_PICKAXE.get());
 
         this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE);
         this.tag(ModTags.Items.FIERY_INCOMPATIBLE);
