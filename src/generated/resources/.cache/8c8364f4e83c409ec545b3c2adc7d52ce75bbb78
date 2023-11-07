@@ -1,4 +1,4 @@
-// 1.20.2	2023-10-10T18:32:32.454503	Tags for minecraft:item mod id vanilla
+// 1.20.2	2023-10-25T15:06:10.4003182	Tags for minecraft:item mod id vanilla
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 15934456b6a5c4baa26b521dac8e9ec371c2b006 data/forbidden_arcanus/tags/items/black_hole_unaffected.json
@@ -34,6 +34,7 @@ b128c22b1f0aef1502fa919bc8d063604b299c75 data/forge/tags/items/storage_blocks/de
 ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/items/doors.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/items/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/items/logs.json
+a601a497d9a2287b4e77b7d903477c866f685b19 data/minecraft/tags/items/pickaxes.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/items/planks.json
 5bb0d891062facc905907fc2a2e830548570301b data/minecraft/tags/items/saplings.json
 9e9500e769cd5c0703ef99e4a2a0df188529f697 data/minecraft/tags/items/small_flowers.json
