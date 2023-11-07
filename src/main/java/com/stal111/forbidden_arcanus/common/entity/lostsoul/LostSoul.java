@@ -17,6 +17,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -101,7 +102,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     @Override
     protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
-        if (source.is(ModDamageTypes.EXTRACT_SOUL)) {
+        if (source.is(ModDamageTypes.EXTRACT_SOUL) || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             super.actuallyHurt(source, amount);
         }
     }
