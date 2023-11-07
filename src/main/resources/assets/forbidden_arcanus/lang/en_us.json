@@ -358,6 +358,7 @@
     "tooltip.forbidden_arcanus.entity": "Entity",
     "tooltip.forbidden_arcanus.pixie": "Pixie",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
+    "tooltip.forbidden_arcanus.hephaestus_forge.tier": "Tier %s",
 
     "containers": "Containers",
     "container.dark_beacon": "Dark Beacon",
