@@ -33,6 +33,7 @@ public class ModDispenseBehaviors {
         DispenserBlock.registerBehavior(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
+        DispenserBlock.registerBehavior(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull(), ObsidianSkullItem.DISPENSE_ITEM_BEHAVIOR);
         DispenserBlock.registerBehavior(ModItems.BOOM_ARROW.get(), new AbstractProjectileDispenseBehavior() {
             @Nonnull

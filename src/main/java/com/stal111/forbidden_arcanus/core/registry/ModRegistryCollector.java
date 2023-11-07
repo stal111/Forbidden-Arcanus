@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.core.registry;
 
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
+import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteractions;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
@@ -56,6 +57,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions.class);
         this.addMappedHelper(FARegistries.FORGE_INPUT_TYPE, ModForgeInputTypes.class);
         this.addMappedHelper(FARegistries.DARK_TRADER_VARIANT, DarkTraderVariant.class);
+        this.addMappedHelper(FARegistries.MUNDABITUR_INTERACTION, MundabiturInteractions.class);
 
         this.addDatapackHelper(Registries.STRUCTURE, ModStructures::new);
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);

@@ -30,7 +30,7 @@ public class ModItemTagsProvider extends ValhelsiaItemTagsProvider {
 
     @Override
     protected void addTags(@NotNull HolderLookup.Provider provider) {
-        this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(ModBlocks.OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull().asItem());
+        this.tag(ModTags.Items.OBSIDIAN_SKULLS).add(ModBlocks.OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull().asItem(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull().asItem());
         this.tag(Tags.Items.HEADS).addTag(ModTags.Items.OBSIDIAN_SKULLS);
         this.tag(ModTags.Items.BLACKSMITH_GAVEL).add(
                 ModItems.WOODEN_BLACKSMITH_GAVEL.get(),

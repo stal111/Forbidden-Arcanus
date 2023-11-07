@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.*;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -19,7 +20,7 @@ public class ModBlockEntities implements RegistryClass {
     public static final MappedRegistryHelper<BlockEntityType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.BLOCK_ENTITY_TYPE);
 
     public static final RegistryEntry<BlockEntityType<BlackHoleBlockEntity>> BLACK_HOLE = HELPER.register("black_hole", () -> BlockEntityType.Builder.of(BlackHoleBlockEntity::new, ModBlocks.BLACK_HOLE.get()).build(null));
-    public static final RegistryEntry<BlockEntityType<ObsidianSkullBlockEntity>> OBSIDIAN_SKULL = HELPER.register("obsidian_skull", () -> BlockEntityType.Builder.of(ObsidianSkullBlockEntity::new, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull()).build(null));
+    public static final RegistryEntry<BlockEntityType<ObsidianSkullBlockEntity>> OBSIDIAN_SKULL = HELPER.register("obsidian_skull", () -> BlockEntityType.Builder.of(ObsidianSkullBlockEntity::new, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull()).build(null));
     public static final RegistryEntry<BlockEntityType<UtremJarBlockEntity>> UTREM_JAR = HELPER.register("utrem_jar", () -> BlockEntityType.Builder.of(UtremJarBlockEntity::new, ModBlocks.UTREM_JAR.get()).build(null));
     public static final RegistryEntry<BlockEntityType<NipaBlockEntity>> NIPA = HELPER.register("nipa", () -> BlockEntityType.Builder.of(NipaBlockEntity::new, ModBlocks.NIPA.get()).build(null));
     public static final RegistryEntry<BlockEntityType<HephaestusForgeBlockEntity>> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", () -> BlockEntityType.Builder.of(HephaestusForgeBlockEntity::new, ModBlocks.HEPHAESTUS_FORGE.get()).build(null));
@@ -27,5 +28,6 @@ public class ModBlockEntities implements RegistryClass {
     public static final RegistryEntry<BlockEntityType<ArcaneCrystalObeliskBlockEntity>> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", () -> BlockEntityType.Builder.of(ArcaneCrystalObeliskBlockEntity::new, ModBlocks.ARCANE_CRYSTAL_OBELISK.get()).build(null));
     public static final RegistryEntry<BlockEntityType<ClibanoMainBlockEntity>> CLIBANO_MAIN = HELPER.register("clibano_main", () -> BlockEntityType.Builder.of(ClibanoMainBlockEntity::new, ModBlocks.CLIBANO_MAIN_PART.get()).build(null));
     public static final RegistryEntry<BlockEntityType<ClibanoBlockEntity>> CLIBANO = HELPER.register("clibano", () -> BlockEntityType.Builder.of(ClibanoBlockEntity::new, ModBlocks.CLIBANO_CORNER.get(), ModBlocks.CLIBANO_CENTER.get(), ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(), ModBlocks.CLIBANO_SIDE_VERTICAL.get()).build(null));
+    public static final RegistryEntry<BlockEntityType<ResearchDeskBlockEntity>> RESEARCH_DESK = HELPER.register("research_desk", () -> BlockEntityType.Builder.of(ResearchDeskBlockEntity::new, ModBlocks.RESEARCH_DESK.get()).build(null));
 
 }

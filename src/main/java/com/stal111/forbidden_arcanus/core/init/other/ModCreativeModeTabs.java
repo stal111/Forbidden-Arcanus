@@ -237,6 +237,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModBlocks.FADING_OBSIDIAN_SKULL.getSkull());
+                            output.accept(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModItems.UTREM_JAR.get());
                             output.accept(ModItems.ZOMBIE_ARM.get());

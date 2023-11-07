@@ -7,9 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
@@ -30,10 +27,7 @@ import java.util.Map;
  */
 public class ObsidianSkullItem extends StandingAndWallBlockItem {
 
-    public static final UniformInt STAGE_DURATION = UniformInt.of(8, 13);
-    private static final String TAG_REMAINING_TICKS = "remaining_ticks";
-
-    private static final Map<ObsidianSkullType, Block> NEXT_SKULL_STAGE = Util.make(new EnumMap<>(ObsidianSkullType.class), map -> {
+    public static final Map<ObsidianSkullType, Block> NEXT_SKULL_STAGE = Util.make(new EnumMap<>(ObsidianSkullType.class), map -> {
         map.put(ObsidianSkullType.DEFAULT, ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull());
         map.put(ObsidianSkullType.CRACKED, ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull());
         map.put(ObsidianSkullType.FRAGMENTED, ModBlocks.FADING_OBSIDIAN_SKULL.getSkull());
@@ -67,19 +61,10 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
             return;
         }
 
-        CompoundTag tag = stack.getOrCreateTag();
-        int remainingTicks = tag.contains(TAG_REMAINING_TICKS) ? tag.getInt(TAG_REMAINING_TICKS) : STAGE_DURATION.sample(player.getRandom()) * 20;
+        this.type.tick(stack, player);
+    }
 
-        remainingTicks--;
-
-        if (remainingTicks <= 0) {
-            player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(NEXT_SKULL_STAGE.get(this.type)));
-
-            player.playSound(SoundEvents.ALLAY_DEATH);
-
-            return;
-        }
-
-        tag.putInt(TAG_REMAINING_TICKS, remainingTicks);
+    public ObsidianSkullType getType() {
+        return this.type;
     }
 }
