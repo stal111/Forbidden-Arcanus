@@ -333,6 +333,7 @@
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",
     "tooltip.forbidden_arcanus.aureal_tank.tier": "Tier: %s",
     "tooltip.forbidden_arcanus.aureal_tank.aureal": "Aureal: %s / %s",
+    "tooltip.forbidden_arcanus.hephaestus_forge.tier": "Tier %s",
 
     "containers": "Containers",
     "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
