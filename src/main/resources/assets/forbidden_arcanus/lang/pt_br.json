@@ -297,6 +297,9 @@
     "item.forbidden_arcanus.zombie_arm": "Braço de Zumbi",
     "item.forbidden_arcanus.shiny_zombie_arm": "Braço de Zumbi Brilhante",
     "item.forbidden_arcanus.test_tube": "Tubo de Ensaio",
+    "item.forbidden_arcanus.terrastomp_prism": "Prisma Terrapisador",
+    "item.forbidden_arcanus.sea_prism": "Prisma do Mar",
+    "item.forbidden_arcanus.whirlwind_prism": "Prisma do Redemoinho",
     "item.forbidden_arcanus.smelter_prism": "Prisma de Fundição",
     "item.forbidden_arcanus.ferrognetic_mixture": "Mistura Ferrognética",
     "item.forbidden_arcanus.blacksmith_gavel_head": "Cabeça de Martelo de Ferreiro",
@@ -308,7 +311,35 @@
     "item.forbidden_arcanus.netherite_blacksmith_gavel": "Martelo de Ferreiro de Netherita",
     "item.forbidden_arcanus.deorumen_blacksmith_gavel": "Martelo de Ferreiro de Deorum",
     "item.forbidden_arcanus.reinforced_deorumen_blacksmith_gavel": "Martelo de Ferreiro de Deorum Reforçado",
+    "item.forbidden_arcanus.artisan_relic": "Relíquia do Artesão",
+    "item.forbidden_arcanus.crescent_moon": "Lua Crescente",
+    "item.forbidden_arcanus.crimson_stone": "Pedra Carmesim",
+    "item.forbidden_arcanus.soul_crimson_stone": "Pedra Carmesim da Alma",
+    "item.forbidden_arcanus.elementarium": "Elementário",
+    "item.forbidden_arcanus.divine_pact": "Pacto Divino",
+    "item.forbidden_arcanus.maledictus_pact": "Pacto Maldito",
+    "item.forbidden_arcanus.darkstone_upgrade_smithing_template": "Modelo de Aprimoramento em Pedra Sombria",
 
+    "item.forbidden_arcanus.enhancer": "Relíquia de Aprimoramento",
+    "item.forbidden_arcanus.enhancer.hephaestus_forge_effect": "Efeito da Forja de Hefesto:",
+    "item.forbidden_arcanus.enhancer.clibano_effect": "Efeito Clibano:",
+    "item.forbidden_arcanus.enhancer.artisan_relic.hephaestus_forge": "Economiza muita experiência.",
+    "item.forbidden_arcanus.enhancer.artisan_relic.clibano": "Permite criar novas ligas. (Em breve)",
+    "item.forbidden_arcanus.enhancer.crescent_moon.hephaestus_forge": "Reduz a quantidade de Aureal necessária, dependendo da hora do dia.",
+    "item.forbidden_arcanus.enhancer.crimson_stone.hephaestus_forge": "Diminui significativamente a quantidade de almas necessárias.",
+    "item.forbidden_arcanus.enhancer.crimson_stone.clibano": "As almas usadas durarão mais tempo. (Em breve)",
+    "item.forbidden_arcanus.enhancer.soul_crimson_stone.hephaestus_forge": "Remove completamente o requisito de essência para um ritual.",
+    "item.forbidden_arcanus.enhancer.elementarium.hephaestus_forge": "Permite a criação de itens elementais.",
+    "item.forbidden_arcanus.enhancer.divine_pact.hephaestus_forge": "Permite a criação de itens celestiais.",
+    "item.forbidden_arcanus.enhancer.maledictus_pact.hephaestus_forge": "Permite a criação de itens amaldiçoados.",
+
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.additions_slot_description": "Adicionar um modificador de item",
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.applies_to": "Equipamento",
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.base_slot_description": "Adicionar armadura, arma ou ferramenta",
+    "item.forbidden_arcanus.smithing_template.darkstone_upgrade.ingredients": "Modificador de Item",
+
+    "upgrade.forbidden_arcanus.darkstone_upgrade": "Aplicar Modificador de Item"
+    
     "comment.tooltips": "---Dicas de ferramentas---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "O Forbiddenmicon poderá ser lido em breve",
     "tooltip.forbidden_arcanus.obsidian_skull": "Pode salvá-lo de dano de fogo por até 30 segundos.",
@@ -337,14 +368,16 @@
     "enchantment.forbidden_arcanus.permafrost": "Permafrost",
     "enchantment.forbidden_arcanus.indestructible": "Indestrutível",
 
+    "entity.forbidden_arcanus.lost_soul": "Alma Perdida",
+    
     "comment.enchantment.descriptions": "---Descrições de encantamentos---",
     "enchantment.forbidden_arcanus.permafrost.desc": "Permite que um balde de madeira ancestral transporte lava com segurança.",
 
     "modifier.forbidden_arcanus.eternal": "Eterno",
     "modifier.forbidden_arcanus.fiery": "Ardente",
     "modifier.forbidden_arcanus.magnetized": "Magnetizado",
-
-    "entity.forbidden_arcanus.lost_soul": "Alma Perdida",
+    "modifier.forbidden_arcanus.demolishing": "Demolidor",
+    "modifier.forbidden_arcanus.aquatic": "Aquático",
     
     "forbiddenmicon": "Forbiddenmicon",
     "forbiddenmicon.category.main": "Principal",
@@ -375,10 +408,10 @@
     "gui.forbidden_arcanus.clibano.residue.netherite": "Netherita",
     "gui.forbidden_arcanus.clibano.residue.deorum": "Deorum",
 
-    "jei.forbidden_arcanus.category.hephaestusSmithing": "Metalurgia de Hefesto",
+    "jei.forbidden_arcanus.category.hephaestus_smithing": "Forja de Hefesto",
+    "jei.forbidden_arcanus.category.hephaestus_forge_upgrading": "Aprimoramento na Forja de Hefesto",
     "jei.forbidden_arcanus.category.clibanoCombustion": "Combustão de Clibano",
     
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredPedestal": "Pedestal obrigatório",    
     "jei.forbidden_arcanus.hephaestusSmithing.requiredLevel": "Nível de forja necessário",
     "jei.forbidden_arcanus.hephaestusSmithing.requiredAureal": "Aureal necessário",
     "jei.forbidden_arcanus.hephaestusSmithing.requiredSouls": "Almas necessárias",
@@ -387,4 +420,3 @@
 
     "jei.forbidden_arcanus.clibanoCombustion.residue": "Resíduo"
 }
-
