@@ -9,7 +9,6 @@
     "BubbleColumnBlockMixin",
     "ItemMixin",
     "ItemStackMixin",
-    "LevelRendererAccessor",
     "PlayerMixin",
     "ServerPlayerGameModeMixin",
     "SlimeMixin"
