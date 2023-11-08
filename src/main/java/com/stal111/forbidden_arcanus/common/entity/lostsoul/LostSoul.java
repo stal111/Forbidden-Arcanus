@@ -101,7 +101,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     @Override
     protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
-        if (source.getMsgId().equals(ModDamageSources.ID_EXTRACT_SOUL)) {
+        if (source.getMsgId().equals(ModDamageSources.ID_EXTRACT_SOUL) || source == DamageSource.OUT_OF_WORLD) {
             super.actuallyHurt(source, amount);
         }
     }
