@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
+import com.stal111.forbidden_arcanus.client.gui.screen.ResearchScreen;
 import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
@@ -70,6 +71,7 @@ public class ClientSetup {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenuTypes.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
             MenuScreens.register(ModMenuTypes.CLIBANO.get(), ClibanoScreen::new);
+            MenuScreens.register(ModMenuTypes.RESEARCH_DESK.get(), ResearchScreen::new);
 
             Sheets.addWoodType(ModWoodTypes.FUNGYSS);
             Sheets.addWoodType(ModWoodTypes.AURUM);

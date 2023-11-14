@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.core.init.other;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -22,6 +23,7 @@ public class ModMenuTypes implements RegistryClass {
 
     public static final RegistryEntry<MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
     public static final RegistryEntry<MenuType<ClibanoMenu>> CLIBANO = register("clibano", ClibanoMenu::new);
+    public static final RegistryEntry<MenuType<ResearchDeskMenu>> RESEARCH_DESK = register("research_desk", ResearchDeskMenu::new);
 
     private static <T extends AbstractContainerMenu> RegistryEntry<MenuType<T>> register(String name, IContainerFactory<T> factory) {
         return HELPER.register(name, () -> IForgeMenuType.create(factory));

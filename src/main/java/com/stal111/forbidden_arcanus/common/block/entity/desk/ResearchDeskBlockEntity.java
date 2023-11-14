@@ -1,25 +1,30 @@
 package com.stal111.forbidden_arcanus.common.block.entity.desk;
 
+import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.IItemHandler;
+import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
+import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 30.10.2023
  */
-public class ResearchDeskBlockEntity extends BlockEntity {
+public class ResearchDeskBlockEntity extends ValhelsiaContainerBlockEntity<ResearchDeskBlockEntity> {
 
     private static final int ANIMATION_LENGTH = 1000;
     private static final IntProvider TICKS_TILL_NEXT_PAGE_FLIP = UniformInt.of(140, 280);
@@ -41,7 +46,7 @@ public class ResearchDeskBlockEntity extends BlockEntity {
     private int pageFlipCounter;
 
     public ResearchDeskBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.RESEARCH_DESK.get(), pos, state);
+        super(ModBlockEntities.RESEARCH_DESK.get(), pos, state, 0);
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, ResearchDeskBlockEntity blockEntity) {
@@ -137,6 +142,16 @@ public class ResearchDeskBlockEntity extends BlockEntity {
 
     public int getTickCount() {
         return this.tickCount;
+    }
+
+    @Override
+    protected Component getDefaultName() {
+        return Component.empty();
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext<ResearchDeskBlockEntity, IItemHandler> menuCreationContext) {
+        return new ResearchDeskMenu(containerId, menuCreationContext);
     }
 
     private enum BookState {
