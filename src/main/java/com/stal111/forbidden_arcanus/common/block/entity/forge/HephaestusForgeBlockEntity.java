@@ -17,6 +17,7 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.ValueNotifier;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -28,6 +29,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +60,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         map.put(EssenceType.BLOOD, 7);
         map.put(EssenceType.EXPERIENCE, 8);
     });
+
+    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     private final ContainerData hephaestusForgeData;
     private final EssenceManager essenceManager;
@@ -328,6 +335,28 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public void setEssences(EssencesDefinition definition) {
         definition.forEach(this.essenceManager::setEssence);
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return this.lazyItemHandler.cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        this.lazyItemHandler = LazyOptional.of(this::getItemStackHandler);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+
+        this.lazyItemHandler.invalidate();
     }
 
     private record MainSlotAccessor(HephaestusForgeBlockEntity blockEntity) implements RitualManager.MainIngredientAccessor {
