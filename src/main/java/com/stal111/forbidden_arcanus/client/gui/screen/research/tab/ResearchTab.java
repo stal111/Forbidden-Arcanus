@@ -2,12 +2,17 @@ package com.stal111.forbidden_arcanus.client.gui.screen.research.tab;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.client.gui.screen.research.KnowledgeWidget;
+import com.stal111.forbidden_arcanus.common.research.Knowledge;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author stal111
@@ -19,6 +24,8 @@ public class ResearchTab extends AbstractTab {
     private static final ResourceLocation BACKGROUND_STARS = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/background_stars.png");
     private static final ResourceLocation BACKGROUND_STELLAR_DUST_0 = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/background_stellar_dust_0.png");
     private static final ResourceLocation BACKGROUND_STELLAR_DUST_1 = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/background_stellar_dust_1.png");
+
+    private final List<KnowledgeWidget> knowledgeWidgets = new ArrayList<>();
 
     private double scrollX;
     private double scrollY;
@@ -34,7 +41,12 @@ public class ResearchTab extends AbstractTab {
 
     @Override
     public void init() {
+        int x = 0;
+        for (Knowledge entry : Minecraft.getInstance().level.registryAccess().registryOrThrow(FARegistries.KNOWLEDGE)) {
+            this.knowledgeWidgets.add(new KnowledgeWidget(entry.displayInfo(), this.getWidth() / 2 - 8 + x, this.getHeight() / 2 - 8));
 
+            x += 40;
+        }
     }
 
     @Override
@@ -54,8 +66,9 @@ public class ResearchTab extends AbstractTab {
 
         RenderSystem.disableBlend();
 
-        guiGraphics.renderItem(new ItemStack(ModItems.SANITY_METER.get()), this.getWidth() / 2 - 8 + i, this.getHeight() / 2 - 8 + j);
-        guiGraphics.renderItem(new ItemStack(ModItems.QUANTUM_CATCHER.get()), this.getWidth() / 2 - 40 + i, this.getHeight() / 2 + 80 + j);
+        for (KnowledgeWidget widget : this.knowledgeWidgets) {
+            widget.render(guiGraphics, i, j);
+        }
     }
 
     @Override

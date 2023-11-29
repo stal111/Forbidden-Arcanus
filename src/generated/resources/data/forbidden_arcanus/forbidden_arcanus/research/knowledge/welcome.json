@@ -1,0 +1,11 @@
+{
+  "display_info": {
+    "frame": "default",
+    "icon": {
+      "texture": "forbidden_arcanus:textures/gui/research/icon/feather.png"
+    },
+    "title": {
+      "text": "Welcome to Forbidden & Arcanus!"
+    }
+  }
+}

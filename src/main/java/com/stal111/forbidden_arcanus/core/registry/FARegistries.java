@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerEffectType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.condition.EffectConditionType;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteraction;
+import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +38,7 @@ public class FARegistries {
     public static final ResourceKey<Registry<EnhancerDefinition>> ENHANCER_DEFINITION = FARegistries.createRegistryKey("enhancer/definition");
     public static final ResourceKey<Registry<DarkTraderVariant>> DARK_TRADER_VARIANT = FARegistries.createRegistryKey("dark_trader_variant");
     public static final ResourceKey<Registry<MundabiturInteraction<?>>> MUNDABITUR_INTERACTION = FARegistries.createRegistryKey("mundabitur_interaction");
+    public static final ResourceKey<Registry<Knowledge>> KNOWLEDGE = FARegistries.createRegistryKey("research/knowledge");
 
     private static final DeferredRegister<RitualResultType<?>> RITUAL_RESULT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.RITUAL_RESULT_TYPE, ForbiddenArcanus.MOD_ID);
     private static final DeferredRegister<HephaestusForgeInputType<?>> FORGE_INPUT_TYPE_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.FORGE_INPUT_TYPE, ForbiddenArcanus.MOD_ID);

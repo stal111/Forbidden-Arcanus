@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.event;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.DataPackRegistryEvent;
@@ -18,5 +19,6 @@ public class DatapackRegistryEvents {
         event.dataPackRegistry(FARegistries.RITUAL, Ritual.CODEC, Ritual.NETWORK_CODEC);
         event.dataPackRegistry(FARegistries.ENHANCER_DEFINITION, EnhancerDefinition.CODEC, EnhancerDefinition.NETWORK_CODEC);
         event.dataPackRegistry(FARegistries.FORGE_INPUT, HephaestusForgeInput.DIRECT_CODEC, HephaestusForgeInput.DIRECT_CODEC);
+        event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.CODEC, Knowledge.CODEC);
     }
 }
