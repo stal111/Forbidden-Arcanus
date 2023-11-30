@@ -15,6 +15,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
+import java.util.List;
+
 /**
  * @author stal111
  * @since 23.11.2023
@@ -33,8 +35,8 @@ public class ModKnowledge extends DatapackRegistryClass<Knowledge> {
 
     @Override
     public void bootstrap(BootstapContext<Knowledge> context) {
-        context.register(WELCOME, new Knowledge(new DisplayInfo(Component.literal("Welcome to Forbidden & Arcanus!"), FrameType.DEFAULT, new TextureIcon(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/icon/feather.png")))));
-        context.register(FORBIDDENOMICON, new Knowledge(new DisplayInfo(Component.literal("Forbiddenomicon"), FrameType.ADVANCED, new ItemIcon(ModBlocks.FORBIDDENOMICON.get().asItem()))));
-        context.register(RESEARCH_DESK, new Knowledge(new DisplayInfo(Component.literal("Research Desk"), FrameType.MASTER, new ItemIcon(ModBlocks.RESEARCH_DESK.get().asItem()))));
+        var welcome = context.register(WELCOME, new Knowledge(new DisplayInfo(Component.literal("Welcome to Forbidden & Arcanus!"), FrameType.DEFAULT, new TextureIcon(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/icon/feather.png"))), List.of()));
+        context.register(FORBIDDENOMICON, new Knowledge(new DisplayInfo(Component.literal("Forbiddenomicon"), FrameType.ADVANCED, new ItemIcon(ModBlocks.FORBIDDENOMICON.get().asItem())), List.of(welcome)));
+        context.register(RESEARCH_DESK, new Knowledge(new DisplayInfo(Component.literal("Research Desk"), FrameType.MASTER, new ItemIcon(ModBlocks.RESEARCH_DESK.get().asItem())), List.of(welcome)));
     }
 }
