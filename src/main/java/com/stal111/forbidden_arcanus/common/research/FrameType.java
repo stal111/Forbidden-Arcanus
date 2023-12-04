@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.research;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
@@ -18,11 +19,11 @@ public enum FrameType implements StringRepresentable {
     public static final Codec<FrameType> CODEC = StringRepresentable.fromEnum(FrameType::values);
 
     private final String name;
-    private final ResourceLocation frameTexture;
+    private final WidgetSprites sprites;
 
     FrameType(String name) {
         this.name = name;
-        this.frameTexture = new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/" + name);
+        this.sprites = new WidgetSprites(new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/" + name + "_locked"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/" + name), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/" + name + "_locked_highlighted"));
     }
 
     @Override
@@ -30,7 +31,7 @@ public enum FrameType implements StringRepresentable {
         return this.name;
     }
 
-    public ResourceLocation getFrameTexture() {
-        return this.frameTexture;
+    public ResourceLocation getFrameTexture(boolean locked, boolean highlighted) {
+        return this.sprites.get(locked, highlighted);
     }
 }

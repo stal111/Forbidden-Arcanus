@@ -43,6 +43,11 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
     }
 
     @Override
+    protected void containerTick() {
+        this.selectedTab.tick();
+    }
+
+    @Override
     protected void init() {
         super.init();
 
@@ -129,6 +134,8 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
                 return true;
             }
         }
+
+        this.selectedTab.mouseClicked(mouseX, mouseY, button);
 
         return false;
     }

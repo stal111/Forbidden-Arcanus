@@ -47,6 +47,13 @@ public class ResearchTab extends AbstractTab {
     }
 
     @Override
+    public void tick() {
+        for (KnowledgeWidget widget : this.knowledgeWidgets) {
+            widget.tick();
+        }
+    }
+
+    @Override
     public void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int i = Mth.floor(this.scrollX);
         int j = Mth.floor(this.scrollY);
@@ -64,7 +71,7 @@ public class ResearchTab extends AbstractTab {
         RenderSystem.disableBlend();
 
         for (KnowledgeWidget widget : this.knowledgeWidgets) {
-            widget.render(guiGraphics, i, j);
+            widget.render(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
 
@@ -87,8 +94,23 @@ public class ResearchTab extends AbstractTab {
 //
 //        this.scrollY = Mth.clamp(this.scrollY + dragY, -(this.maxY - 113), 0.0D);
 
-        this.scrollX = this.scrollX + dragX;
+        this.scrollX += dragX;
+        this.scrollY += dragY;
 
-        this.scrollY = this.scrollY + dragY;
+        for (KnowledgeWidget widget : this.knowledgeWidgets) {
+            widget.setX(widget.calculatePositionX((int) this.scrollX));
+            widget.setY(widget.calculatePositionY((int) this.scrollY));
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        for (KnowledgeWidget widget : this.knowledgeWidgets) {
+            if (widget.mouseClicked(mouseX, mouseY, button)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

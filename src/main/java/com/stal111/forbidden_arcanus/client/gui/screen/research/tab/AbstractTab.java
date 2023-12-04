@@ -19,10 +19,15 @@ public abstract class AbstractTab {
 
     public abstract void init();
 
+    public void tick() {}
+
     public abstract void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY);
 
     public abstract boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY);
+
     public abstract boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY);
+
+    public abstract boolean mouseClicked(double mouseX, double mouseY, int button);
 
     public int getWidth() {
         return this.width;
