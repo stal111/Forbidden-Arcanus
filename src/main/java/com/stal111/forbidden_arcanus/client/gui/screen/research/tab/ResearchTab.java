@@ -41,11 +41,8 @@ public class ResearchTab extends AbstractTab {
 
     @Override
     public void init() {
-        int x = 0;
         for (Knowledge entry : Minecraft.getInstance().level.registryAccess().registryOrThrow(FARegistries.KNOWLEDGE)) {
-            this.knowledgeWidgets.add(new KnowledgeWidget(entry.displayInfo(), this.getWidth() / 2 - 8 + x, this.getHeight() / 2 - 8));
-
-            x += 40;
+            this.knowledgeWidgets.add(new KnowledgeWidget(entry.displayInfo(), 0, 0));
         }
     }
 

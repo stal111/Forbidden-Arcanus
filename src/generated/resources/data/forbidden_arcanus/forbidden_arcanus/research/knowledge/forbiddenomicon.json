@@ -4,6 +4,8 @@
     "icon": {
       "item": "forbidden_arcanus:forbiddenomicon"
     },
+    "relative_x": 2,
+    "relative_y": 0,
     "title": {
       "text": "Forbiddenomicon"
     }

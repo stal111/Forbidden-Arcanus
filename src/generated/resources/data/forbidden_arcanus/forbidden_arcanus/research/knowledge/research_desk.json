@@ -4,6 +4,8 @@
     "icon": {
       "item": "forbidden_arcanus:research_desk"
     },
+    "relative_x": 0,
+    "relative_y": 2,
     "title": {
       "text": "Research Desk"
     }

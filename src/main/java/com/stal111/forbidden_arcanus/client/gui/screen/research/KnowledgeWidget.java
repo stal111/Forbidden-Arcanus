@@ -16,13 +16,13 @@ public class KnowledgeWidget {
 
     public KnowledgeWidget(DisplayInfo display, int x, int y) {
         this.display = display;
-        this.x = x;
-        this.y = y;
+        this.x = x + display.getRelativeX() * 25;
+        this.y = y + display.getRelativeY() * 25;
     }
 
-    public void render(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blitSprite(this.display.getFrame().getFrameTexture(), this.x + x + 3, this.y + y, 26, 26);
+    public void render(GuiGraphics guiGraphics, int scrollX, int scrollY) {
+        guiGraphics.blitSprite(this.display.getFrame().getFrameTexture(), this.x + scrollX + 3, this.y + scrollY, 26, 26);
 
-        this.display.getIcon().renderIcon(guiGraphics, this.x + x + 8, this.y + y + 5);
+        this.display.getIcon().renderIcon(guiGraphics, this.x + scrollX + 8, this.y + scrollY + 5);
     }
 }
