@@ -2,9 +2,12 @@ package com.stal111.forbidden_arcanus.common.block.entity.desk;
 
 import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -87,10 +90,18 @@ public class ResearchDeskBlockEntity extends ValhelsiaContainerBlockEntity<Resea
 
         if ((this.bookState == BookState.CLOSED && playerNearby && !currentlyChanging) || (this.bookState == BookState.OPENING && this.openingAnimation.getAccumulatedTime() < ANIMATION_LENGTH)) {
             newState = BookState.OPENING;
+
+            if (this.bookState == BookState.CLOSED && this.level != null) {
+                this.level.playSound(Minecraft.getInstance().player, this.getBlockPos(), ModSounds.FORBIDDENOMICON_OPEN.get(), SoundSource.BLOCKS, 1.0F, 0.9F + this.level.getRandom().nextFloat() * 0.2F);
+            }
         } else if ((this.bookState == BookState.OPENING && this.openingAnimation.getAccumulatedTime() >= ANIMATION_LENGTH) || (this.bookState == BookState.OPEN && playerNearby)) {
             newState = BookState.OPEN;
         } else if (this.bookState == BookState.OPEN || this.bookState == BookState.CLOSING && this.closingAnimation.getAccumulatedTime() < ANIMATION_LENGTH) {
             newState = BookState.CLOSING;
+
+            if (this.bookState == BookState.OPEN && this.level != null) {
+                this.level.playSound(Minecraft.getInstance().player, this.getBlockPos(), ModSounds.FORBIDDENOMICON_CLOSE.get(), SoundSource.BLOCKS, 1.0F, 0.9F + this.level.getRandom().nextFloat() * 0.2F);
+            }
         }
 
         return newState;

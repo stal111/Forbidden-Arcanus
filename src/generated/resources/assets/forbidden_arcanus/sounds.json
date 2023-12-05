@@ -38,6 +38,16 @@
       "forbidden_arcanus:ferrognetic_mixture_apply_2"
     ]
   },
+  "item.forbiddenomicon.close": {
+    "sounds": [
+      "forbidden_arcanus:forbiddenomicon_close"
+    ]
+  },
+  "item.forbiddenomicon.open": {
+    "sounds": [
+      "forbidden_arcanus:forbiddenomicon_open"
+    ]
+  },
   "item.quantum_catcher.pick_up": {
     "sounds": [
       "forbidden_arcanus:quantum_catcher_pick_up"
