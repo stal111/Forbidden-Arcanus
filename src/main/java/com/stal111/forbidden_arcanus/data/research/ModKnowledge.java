@@ -35,8 +35,8 @@ public class ModKnowledge extends DatapackRegistryClass<Knowledge> {
 
     @Override
     public void bootstrap(BootstapContext<Knowledge> context) {
-        var welcome = context.register(WELCOME, new Knowledge(new DisplayInfo(Component.literal("Welcome to Forbidden & Arcanus!"), FrameType.DEFAULT, new TextureIcon(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/icon/feather.png")), 0, 0), List.of()));
-        context.register(FORBIDDENOMICON, new Knowledge(new DisplayInfo(Component.literal("Forbiddenomicon"), FrameType.ADVANCED, new ItemIcon(ModBlocks.FORBIDDENOMICON.get().asItem()), 2, 0), List.of(welcome)));
-        context.register(RESEARCH_DESK, new Knowledge(new DisplayInfo(Component.literal("Research Desk"), FrameType.MASTER, new ItemIcon(ModBlocks.RESEARCH_DESK.get().asItem()), 0, 2), List.of(welcome)));
+        var welcome = context.register(WELCOME, new Knowledge(new DisplayInfo(Component.literal("Welcome!"), Component.literal("The start of an adventure."), FrameType.DEFAULT, new TextureIcon(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/icon/feather.png")), 0, 0), List.of()));
+        context.register(FORBIDDENOMICON, new Knowledge(new DisplayInfo(Component.literal("Forbiddenomicon"), Component.literal("The forbidden grimoire."), FrameType.ADVANCED, new ItemIcon(ModBlocks.FORBIDDENOMICON.get().asItem()), 2, 0), List.of(welcome)));
+        context.register(RESEARCH_DESK, new Knowledge(new DisplayInfo(Component.literal("Desk"), Component.literal("More than elegant furniture."), FrameType.MASTER, new ItemIcon(ModBlocks.RESEARCH_DESK.get().asItem()), 0, 2), List.of(welcome)));
     }
 }

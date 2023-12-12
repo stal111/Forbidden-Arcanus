@@ -2,18 +2,25 @@ package com.stal111.forbidden_arcanus.client.gui.screen.research;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.research.DisplayInfo;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * @author stal111
  * @since 23.11.2023
  */
 public class KnowledgeWidget extends AbstractWidget {
+
+    private static final ResourceLocation TITLE_BOX = new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/title_box");
+    private static final ResourceLocation INFO_BOX = new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/info_box");
 
     private final DisplayInfo display;
 
@@ -35,13 +42,53 @@ public class KnowledgeWidget extends AbstractWidget {
         int scrollX = 0;
         int scrollY = 0;
 
-        guiGraphics.blitSprite(this.display.getFrame().getFrameTexture(this.locked, this.isHoveredOrFocused()), this.getX() + scrollX + 3, this.getY() + scrollY, 26, 26);
-
-        if (!this.locked && !this.unlockAnimation.started) {
-            this.display.getIcon().renderIcon(guiGraphics, this.getX() + scrollX + 8, this.getY() + scrollY + 5);
+        if (this.isMouseOver(mouseX, mouseY)) {
+            this.renderHover(guiGraphics, mouseX, mouseY);
         }
 
-        this.unlockAnimation.render(guiGraphics, this.getX() + scrollX + 3, this.getY() + scrollY);
+        guiGraphics.blitSprite(this.display.getFrame().getFrameTexture(this.locked, this.isHoveredOrFocused()), this.getX() + scrollX, this.getY() + scrollY, 26, 26);
+
+        if (!this.locked && !this.unlockAnimation.started) {
+            this.display.getIcon().renderIcon(guiGraphics, this.getX() + scrollX + 5, this.getY() + scrollY + 5);
+        }
+
+        this.unlockAnimation.render(guiGraphics, this.getX() + scrollX, this.getY() + scrollY);
+    }
+
+    private void renderHover(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        int width = Math.max(90, 90 + Minecraft.getInstance().font.width(this.display.getTitle()));
+
+        List<FormattedCharSequence> lines = Minecraft.getInstance().font.split(this.display.getDescription(), width - 10);
+
+        for (int i = 0; i < lines.size(); i++) {
+           this.renderBox(INFO_BOX, guiGraphics, this.getX() - 3, this.getY() + 22 + i * 10, width, i == lines.size() - 1 ? 20 : 18);
+        }
+
+        this.renderBox(TITLE_BOX, guiGraphics, this.getX() - 3, this.getY() + 3, width, 20);
+
+        guiGraphics.drawCenteredString(Minecraft.getInstance().font, this.display.getTitle(), this.getX() - 3 + width / 2, this.getY() + 10, -1);
+
+        for (int i = 0; i < lines.size(); i++) {
+            guiGraphics.drawString(Minecraft.getInstance().font, lines.get(i), this.getX() - 3 + 5, this.getY() + 28 + i * 10, -1);
+        }
+    }
+
+    private void renderBox(ResourceLocation texture, GuiGraphics guiGraphics, int x, int y, int width, int height) {
+        guiGraphics.blitSprite(texture, 120, 20, 0, 0, x, y, 45, height);
+
+        int x2 = this.getX() - 3 + 45;
+
+        int i = width - 90;
+
+        while (i > 0) {
+            int j = Math.min(i, 30);
+
+            guiGraphics.blitSprite(texture, 120, 20, 45, 0, x2, y, j, height);
+            i -= j;
+            x2 += j;
+        }
+
+        guiGraphics.blitSprite(texture, 120, 20, 120 - 45, 0, x + width - 45, y, 45, height);
     }
 
     public int calculatePositionX(int x) {

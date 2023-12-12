@@ -16,6 +16,9 @@ public class DisplayInfo {
             ExtraCodecs.COMPONENT.fieldOf("title").forGetter(info -> {
                 return info.title;
             }),
+            ExtraCodecs.COMPONENT.fieldOf("description").forGetter(info -> {
+                return info.description;
+            }),
             FrameType.CODEC.fieldOf("frame").forGetter(info -> {
                 return info.frame;
             }),
@@ -31,13 +34,15 @@ public class DisplayInfo {
     ).apply(instance, DisplayInfo::new));
 
     private final Component title;
+    private final Component description;
     private final FrameType frame;
     private final IconProvider icon;
     private final int relativeX;
     private final int relativeY;
 
-    public DisplayInfo(Component title, FrameType frame, IconProvider icon, int relativeX, int relativeY) {
+    public DisplayInfo(Component title, Component description, FrameType frame, IconProvider icon, int relativeX, int relativeY) {
         this.title = title;
+        this.description = description;
         this.frame = frame;
         this.icon = icon;
         this.relativeX = relativeX;
@@ -46,6 +51,10 @@ public class DisplayInfo {
 
     public Component getTitle() {
         return this.title;
+    }
+
+    public Component getDescription() {
+        return this.description;
     }
 
     public FrameType getFrame() {

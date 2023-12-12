@@ -1,5 +1,8 @@
 {
   "display_info": {
+    "description": {
+      "text": "The forbidden grimoire."
+    },
     "frame": "advanced",
     "icon": {
       "item": "forbidden_arcanus:forbiddenomicon"

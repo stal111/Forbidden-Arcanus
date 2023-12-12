@@ -1,5 +1,8 @@
 {
   "display_info": {
+    "description": {
+      "text": "The start of an adventure."
+    },
     "frame": "default",
     "icon": {
       "texture": "forbidden_arcanus:textures/gui/research/icon/feather.png"
@@ -7,7 +10,7 @@
     "relative_x": 0,
     "relative_y": 0,
     "title": {
-      "text": "Welcome to Forbidden & Arcanus!"
+      "text": "Welcome!"
     }
   },
   "requirements": []
