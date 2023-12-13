@@ -106,9 +106,14 @@ public class KnowledgeWidget extends AbstractWidget {
 
     @Override
     public void onClick(double mouseX, double mouseY) {
-        this.locked = false;
+        Minecraft.getInstance().pushGuiLayer(new ConfirmPopupScreen(confirm -> {
+            if (confirm) {
+                this.locked = false;
 
-        this.unlockAnimation.start();
+                this.unlockAnimation.start();
+            }
+            Minecraft.getInstance().popGuiLayer();
+        }, Component.literal("Unlock?")));
     }
 
     private static class UnlockAnimation {
