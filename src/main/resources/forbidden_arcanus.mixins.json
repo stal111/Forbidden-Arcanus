@@ -11,8 +11,7 @@
     "ItemMixin",
     "ItemStackMixin",
     "PlayerMixin",
-    "ServerPlayerGameModeMixin",
-    "SlimeMixin"
+    "ServerPlayerGameModeMixin"
   ],
   "client": [
     "CustomHeadLayerMixin",
