@@ -1,4 +1,4 @@
-// 1.20.2	2024-01-08T22:35:45.8273865	Model Definitions
+// 1.20.2	2024-01-09T00:13:52.0501575	Model Definitions
 0da1af8cca8f6454350d2f257009031457d4c881 assets/forbidden_arcanus/blockstates/aurealic_obsidian_skull.json
 0da1af8cca8f6454350d2f257009031457d4c881 assets/forbidden_arcanus/blockstates/aurealic_obsidian_wall_skull.json
 0da1af8cca8f6454350d2f257009031457d4c881 assets/forbidden_arcanus/blockstates/cracked_obsidian_skull.json
@@ -166,5 +166,4 @@ f9c484e11c8b84d97bc9f62bd11d888e5d43fc2d assets/forbidden_arcanus/models/item/st
 509e8cf8ea80b5c76b6d3f0170170af2003b2837 assets/forbidden_arcanus/models/item/stripped_aurum_wood.json
 fb8430c54a50597fbf2112336ed79ce050a9460b assets/forbidden_arcanus/models/item/tiled_polished_darkstone_bricks.json
 a3c5962d8b2785a539ea3e9a549b2086a0a85512 assets/forbidden_arcanus/models/item/utrem_jar.json
-2e0d6a075dc0392adbe62ad198240845169d9bcb assets/forbidden_arcanus/models/item/xpetrified_ore.json
 59a8c1128da334b68f7fdc27b7b2f4a2ddfbd721 assets/forbidden_arcanus/models/item/yellow_orchid.json

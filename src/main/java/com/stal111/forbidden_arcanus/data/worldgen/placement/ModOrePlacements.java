@@ -31,7 +31,6 @@ public class ModOrePlacements extends DatapackRegistryClass<PlacedFeature> {
     public static final ResourceKey<PlacedFeature> DARKSTONE = HELPER.createKey("darkstone");
     public static final ResourceKey<PlacedFeature> ARCANE_GILDED_DARKSTONE = HELPER.createKey("arcane_gilded_darkstone");
     public static final ResourceKey<PlacedFeature> STELLA_ARCANUM = HELPER.createKey("stella_arcanum");
-    public static final ResourceKey<PlacedFeature> XPETRIFIED_ORE = HELPER.createKey("xpetrified_ore");
 
     public ModOrePlacements(BootstapContext<PlacedFeature> context) {
         super(context);
@@ -54,6 +53,5 @@ public class ModOrePlacements extends DatapackRegistryClass<PlacedFeature> {
         PlacementUtils.register(context, DARKSTONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.DARKSTONE), this.commonOrePlacement(28, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(13))));
         PlacementUtils.register(context, ARCANE_GILDED_DARKSTONE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.ARCANE_GILDED_DARKSTONE), this.commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(13))));
         PlacementUtils.register(context, STELLA_ARCANUM, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.STELLA_ARCANUM), this.commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-44), VerticalAnchor.absolute(42))));
-        PlacementUtils.register(context, XPETRIFIED_ORE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.XPETRIFIED_ORE), this.commonOrePlacement(18, HeightRangePlacement.uniform(VerticalAnchor.absolute(-6), VerticalAnchor.absolute(35))));
     }
 }

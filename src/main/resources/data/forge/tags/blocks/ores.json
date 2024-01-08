@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#forge:ores/stella_arcanum",
-    "#forge:ores/xpetrified_ore"
+    "#forge:ores/stella_arcanum"
   ]
 }

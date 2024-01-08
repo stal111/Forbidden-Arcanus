@@ -47,7 +47,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARKSTONE = HELPER.createKey("ore_darkstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ARCANE_GILDED_DARKSTONE = HELPER.createKey("ore_arcane_gilded_darkstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> STELLA_ARCANUM = HELPER.createKey("ore_stella_arcanum");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> XPETRIFIED_ORE = HELPER.createKey("ore_xpetrified");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURUM = HELPER.createKey("aurum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ORCHID = HELPER.createKey("flower_yellow_orchid");
@@ -77,14 +76,12 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         List<OreConfiguration.TargetBlockState> runicStoneTargetList = List.of(OreConfiguration.target(stoneOreReplaceables, States.RUNIC_STONE.get()), OreConfiguration.target(deepslateOreReplaceables, States.RUNIC_DEEPSLATE.get()), OreConfiguration.target(new BlockMatchTest(ModBlocks.DARKSTONE.get()), States.RUNIC_DARKSTONE.get()));
         List<OreConfiguration.TargetBlockState> darkstoneTargetList = List.of(OreConfiguration.target(stoneOreReplaceables, States.DARKSTONE.get()), OreConfiguration.target(deepslateOreReplaceables, States.DARKSTONE.get()));
         List<OreConfiguration.TargetBlockState> stellaArcanumTargetList = List.of(OreConfiguration.target(stoneOreReplaceables, States.STELLA_ARCANUM.get()), OreConfiguration.target(deepslateOreReplaceables, States.STELLA_ARCANUM.get()));
-        List<OreConfiguration.TargetBlockState> xpetrifiedTargetList = List.of(OreConfiguration.target(stoneOreReplaceables, States.XPETRIFIED_ORE.get()), OreConfiguration.target(deepslateOreReplaceables, States.XPETRIFIED_ORE.get()));
 
         context.register(ARCANE_CRYSTAL_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(arcaneCrystalTargetList, 5)));
         context.register(RUNIC_STONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(runicStoneTargetList, 3)));
         context.register(DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(darkstoneTargetList, 20)));
         context.register(ARCANE_GILDED_DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE.get(), 4)));
         context.register(STELLA_ARCANUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(stellaArcanumTargetList, 3)));
-        context.register(XPETRIFIED_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(xpetrifiedTargetList, 3)));
         context.register(AURUM, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.AURUM_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES.get(), 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES.get(), 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build()));
         context.register(YELLOW_ORCHID, new ConfiguredFeature<>(Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))))));
         context.register(EDELWOOD, new ConfiguredFeature<>(ModFeatures.EDELWOOD.get(), NoneFeatureConfiguration.INSTANCE));
@@ -111,7 +108,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         private static final Supplier<BlockState> DARKSTONE = () -> ModBlocks.DARKSTONE.get().defaultBlockState();
         private static final Supplier<BlockState> ARCANE_GILDED_DARKSTONE = () -> ModBlocks.GILDED_DARKSTONE.get().defaultBlockState();
         private static final Supplier<BlockState> STELLA_ARCANUM = () -> ModBlocks.STELLA_ARCANUM.get().defaultBlockState();
-        private static final Supplier<BlockState> XPETRIFIED_ORE = () -> ModBlocks.XPETRIFIED_ORE.get().defaultBlockState();
         private static final Supplier<BlockState> MYSTERYWOOD_LOG = () -> ModBlocks.AURUM_LOG.get().defaultBlockState();
         private static final Supplier<BlockState> MYSTERYWOOD_LEAVES = () -> ModBlocks.AURUM_LEAVES.get().defaultBlockState();
         private static final Supplier<BlockState> NUGGETY_MYSTERYWOOD_LEAVES = () -> ModBlocks.NUGGETY_AURUM_LEAVES.get().defaultBlockState();

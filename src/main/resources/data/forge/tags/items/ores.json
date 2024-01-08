@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "#forge:ores/arcane_crystal",
-    "#forge:ores/stella_arcanum",
-    "#forge:ores/xpetrified_ore"
+    "#forge:ores/stella_arcanum"
   ]
 }

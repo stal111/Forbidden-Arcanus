@@ -18,7 +18,6 @@ package com.stal111.forbidden_arcanus.data.worldgen.modifier;
 //        this.addFeature("add_darkstone", this.isOverworld, this.directFeature(ModOrePlacements.DARKSTONE), GenerationStep.Decoration.UNDERGROUND_ORES);
 //        this.addFeature("add_arcane_gilded_darkstone", this.isOverworld, this.directFeature(ModOrePlacements.ARCANE_GILDED_DARKSTONE), GenerationStep.Decoration.UNDERGROUND_ORES);
 //        this.addFeature("add_stella_arcanum", this.isOverworld, this.directFeature(ModOrePlacements.STELLA_ARCANUM), GenerationStep.Decoration.UNDERGROUND_ORES);
-//        this.addFeature("add_xpetrified_ore", this.isOverworld, this.directFeature(ModOrePlacements.XPETRIFIED_ORE), GenerationStep.Decoration.UNDERGROUND_ORES);
 //        this.addFeature("add_petrified_roots", this.isOverworld, this.directFeature(ModCavePlacements.PETRIFIED_ROOT), GenerationStep.Decoration.UNDERGROUND_ORES);
 //
 //        this.addFeature("add_cherry_trees", this.directBiome(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS), this.directFeature(ModVegetationPlacements.CHERRY_TREES_PLAINS), GenerationStep.Decoration.VEGETAL_DECORATION);
