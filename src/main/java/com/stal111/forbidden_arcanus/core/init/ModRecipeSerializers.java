@@ -17,7 +17,6 @@ public class ModRecipeSerializers implements RegistryClass {
 
     public static final MappedRegistryHelper<RecipeSerializer<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_SERIALIZER);
 
-    public static final RegistryEntry<RecipeSerializer<IncreaseEdelwoodBucketFullnessRecipe>> EDELWOOD_BUCKET_INCREASE_FULLNESS = HELPER.register("increase_edelwood_bucket_fullness", () -> new SimpleCraftingRecipeSerializer<>(IncreaseEdelwoodBucketFullnessRecipe::new));
     public static final RegistryEntry<RecipeSerializer<ApplyModifierRecipe>> APPLY_MODIFIER = HELPER.register("apply_modifier", ApplyModifierRecipe.Serializer::new);
     public static final RegistryEntry<RecipeSerializer<ClibanoRecipe>> CLIBANO_SERIALIZER = HELPER.register("clibano_combustion", ClibanoRecipe.Serializer::new);
     public static final RegistryEntry<RecipeSerializer<CombineResiduesRecipe>> COMBINE_RESIDUES_SERIALIZER = HELPER.register("combine_residues", CombineResiduesRecipe.Serializer::new);

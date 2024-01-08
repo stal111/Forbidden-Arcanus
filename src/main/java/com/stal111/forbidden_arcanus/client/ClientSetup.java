@@ -10,8 +10,8 @@ import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
 import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
-import com.stal111.forbidden_arcanus.client.tooltip.ClientEdelwoodBucketTooltip;
-import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
+import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
+import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
@@ -134,7 +134,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onRegisterTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(EdelwoodBucketTooltip.class, ClientEdelwoodBucketTooltip::new);
+        event.register(CapacityBucketTooltip.class, ClientCapacityBucketTooltip::new);
     }
 
     //TODO

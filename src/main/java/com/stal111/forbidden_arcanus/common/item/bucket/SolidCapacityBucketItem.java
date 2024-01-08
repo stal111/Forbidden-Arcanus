@@ -1,6 +1,5 @@
-package com.stal111.forbidden_arcanus.common.item;
+package com.stal111.forbidden_arcanus.common.item.bucket;
 
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,41 +14,38 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Solid Edelwood Bucket Item <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.SolidEdelwoodBucketItem
- *
  * @author stal111
- * @since 2021-12-07
+ * @since 05.01.2024
  */
-public class SolidEdelwoodBucketItem extends SolidBucketItem implements CapacityBucket {
+public class SolidCapacityBucketItem extends SolidBucketItem implements CapacityBucket {
 
-    public SolidEdelwoodBucketItem(Block block, SoundEvent placeSound, Properties properties) {
+    private final BucketFamily family;
+
+    public SolidCapacityBucketItem(Block block, SoundEvent placeSound, BucketFamily family, Properties properties) {
         super(block, placeSound, properties);
+        this.family = family;
     }
 
-    @Nonnull
     @Override
-    public InteractionResult useOn(@Nonnull UseOnContext context) {
+    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
         Player player = context.getPlayer();
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
-        ItemStack stack = context.getItemInHand().copy();
+        ItemStack stack = context.getItemInHand();
         BlockState state = level.getBlockState(pos);
 
         if (state.is(this.getBlock()) && state.getBlock() instanceof BucketPickup bucketPickup && !this.isFull(stack)) {
             if (player != null) {
-                player.setItemInHand(context.getHand(), this.tryFill(stack).getSecond());
+                player.setItemInHand(context.getHand(), this.setFullness(stack, this.getFullness(stack) + 1));
 
                 bucketPickup.pickupBlock(player, level, pos, state);
-                bucketPickup.getPickupSound().ifPresent((event) -> player.playSound(event, 1.0F, 1.0F));
+                bucketPickup.getPickupSound(state).ifPresent(event -> player.playSound(event, 1.0F, 1.0F));
 
-                if (!level.isClientSide()) {
-                    CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, stack);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    CriteriaTriggers.FILLED_BUCKET.trigger(serverPlayer, stack);
                 }
             }
             level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
@@ -57,10 +53,12 @@ public class SolidEdelwoodBucketItem extends SolidBucketItem implements Capacity
             return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
+        ItemStack bucket = this.setFullness(stack.copy(), this.getFullness(stack) - 1);
+
         InteractionResult result = super.useOn(context);
 
         if (result.consumesAction() && player != null && !player.isCreative()) {
-            player.setItemInHand(context.getHand(), this.tryDrain(stack));
+            player.setItemInHand(context.getHand(), bucket);
         }
 
         return result;
@@ -72,17 +70,7 @@ public class SolidEdelwoodBucketItem extends SolidBucketItem implements Capacity
     }
 
     @Override
-    public ItemStack getEmptyBucket() {
-        return new ItemStack(ModItems.EDELWOOD_BUCKET.get());
-    }
-
-    @Override
-    public boolean hasCraftingRemainingItem(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getCraftingRemainingItem(ItemStack stack) {
-        return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
+    public BucketFamily getFamily() {
+        return this.family;
     }
 }

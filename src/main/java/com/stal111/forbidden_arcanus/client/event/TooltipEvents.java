@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.client.event;
 
 import com.mojang.datafixers.util.Either;
-import com.stal111.forbidden_arcanus.client.tooltip.EdelwoodBucketTooltip;
-import com.stal111.forbidden_arcanus.common.item.CapacityBucket;
+import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
+import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucket;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import net.minecraft.world.item.ItemStack;
@@ -38,7 +38,7 @@ public class TooltipEvents {
         ItemStack stack = event.getItemStack();
 
         if (stack.getItem() instanceof CapacityBucket capacityBucket && capacityBucket.getCapacity() != 0) {
-            event.getTooltipElements().add(1, Either.right(new EdelwoodBucketTooltip(stack, capacityBucket.getFullness(stack), capacityBucket.getCapacity())));
+            event.getTooltipElements().add(1, Either.right(new CapacityBucketTooltip(stack, capacityBucket.getFullness(stack), capacityBucket.getCapacity())));
         }
     }
 }

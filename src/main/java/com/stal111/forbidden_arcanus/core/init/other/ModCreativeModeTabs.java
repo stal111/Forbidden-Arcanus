@@ -243,6 +243,10 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.ZOMBIE_ARM.get());
                             output.accept(ModItems.SHINY_ZOMBIE_ARM.get());
                             output.accept(ModItems.EDELWOOD_BUCKET.get());
+                            output.accept(ModItems.EDELWOOD_WATER_BUCKET.get());
+                            output.accept(ModItems.EDELWOOD_LAVA_BUCKET.get());
+                            output.accept(ModItems.EDELWOOD_MILK_BUCKET.get());
+
                             output.accept(ModItems.BOOM_ARROW.get());
                             output.accept(ModItems.DRACO_ARCANUS_ARROW.get());
                             output.accept(ModItems.EDELWOOD_OIL.get());

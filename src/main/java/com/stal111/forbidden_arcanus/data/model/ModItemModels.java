@@ -38,6 +38,11 @@ public class ModItemModels {
 
     public void createModels() {
         this.generateFlatItem(ModItems.SANITY_METER);
+        this.generateFlatItem(ModItems.EDELWOOD_BUCKET);
+        this.generateFlatItem(ModItems.EDELWOOD_WATER_BUCKET);
+        this.generateFlatItem(ModItems.EDELWOOD_LAVA_BUCKET);
+        this.generateFlatItem(ModItems.EDELWOOD_MILK_BUCKET);
+        this.generateFlatItem(ModItems.EDELWOOD_POWDER_SNOW_BUCKET);
 
         var aurealTank0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
         var aurealTank1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);
@@ -63,7 +68,7 @@ public class ModItemModels {
         );
     }
 
-    private ResourceLocation generateFlatItem(RegistryEntry<Item> item) {
+    private ResourceLocation generateFlatItem(RegistryEntry<? extends Item> item) {
         return this.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
     }
 
@@ -71,7 +76,7 @@ public class ModItemModels {
         return template.create(ModLocationUtils.getItem(folder, item), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput);
     }
 
-    private ResourceLocation generateFlatItem(RegistryEntry<Item> item, ModelTemplate template) {
+    private ResourceLocation generateFlatItem(RegistryEntry<? extends Item> item, ModelTemplate template) {
         return template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(item.get()), this.modelOutput);
     }
 
