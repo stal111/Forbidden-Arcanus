@@ -20,7 +20,6 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
         FARegistries.register(eventBus);
 
         eventBus.register(new SpawnPlacementEvents());
-        eventBus.register(new CreativeModeTabEvents());
         eventBus.register(new DatapackRegistryEvents());
     }
 
