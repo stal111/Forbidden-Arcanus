@@ -3,7 +3,7 @@
 	"parent": "minecraft:block/block",
 	"textures": {
 		"particle": "#side",
-		"bottom": "forbidden_arcanus:block/pedestal_bottom"
+		"bottom": "forbidden_arcanus:block/pedestal/pedestal_bottom"
 	},
 	"elements": [
 		{
