@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.other.ModStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -94,31 +95,32 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (!(level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity)) {
-            return InteractionResult.PASS;
-        }
-
-        if (blockEntity.hasStack()) {
+        if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
             ItemStack pedestalStack = blockEntity.getStack();
 
-            if (stack.isEmpty()) {
-                player.setItemInHand(hand, pedestalStack);
-            } else if (!player.addItem(pedestalStack)) {
-                player.drop(pedestalStack, false);
+            if (level.isClientSide()) {
+                return InteractionResult.SUCCESS;
             }
 
-            blockEntity.clearStack(level, player);
+            if (pedestalStack.isEmpty() && !stack.isEmpty()) {
+                blockEntity.setStack(stack.copyWithCount(1), player, true);
 
-        } else if (!stack.isEmpty() && !blockEntity.hasStack()) {
-            blockEntity.setStackAndSync(stack.copy().split(1), player);
+                ItemStackUtils.shrinkStack(player, stack);
+            } else if (!pedestalStack.isEmpty()) {
+                if (stack.isEmpty()) {
+                    player.setItemInHand(hand, pedestalStack);
+                } else if (!player.addItem(pedestalStack)) {
+                    player.drop(pedestalStack, false);
+                }
 
-            ItemStackUtils.shrinkStack(player, stack);
-            
-        } else {
-            return InteractionResult.PASS;
+                blockEntity.setStack(ItemStack.EMPTY, player, true);
+            }
+
+
+            return InteractionResult.CONSUME;
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -130,7 +132,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
         if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, blockEntity.getStack()));
 
-            blockEntity.setStackAndSync(ItemStack.EMPTY, null);
+            blockEntity.setStack(ItemStack.EMPTY, null, true);
         }
 
         super.onRemove(state, level, pos, newState, isMoving);

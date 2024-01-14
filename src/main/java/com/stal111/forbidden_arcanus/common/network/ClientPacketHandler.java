@@ -42,15 +42,6 @@ public class ClientPacketHandler {
         }
     }
 
-    public static void handleUpdatePedestal(UpdatePedestalPacket packet) {
-        Level level = getLevel();
-
-        if (level != null && level.getBlockEntity(packet.pos()) instanceof PedestalBlockEntity blockEntity) {
-            blockEntity.setStack(packet.stack());
-            blockEntity.setItemHeight(packet.itemHeight());
-        }
-    }
-
     public static void handleTransformPedestal(TransformPedestalPacket packet) {
         ParticleUtils.spawnParticlesOnBlockFaces(getLevel(), packet.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
 

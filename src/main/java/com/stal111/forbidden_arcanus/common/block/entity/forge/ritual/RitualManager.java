@@ -11,7 +11,6 @@ import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.CreateValidRitualIndicatorPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.RemoveValidRitualIndicatorPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -226,8 +225,6 @@ public class RitualManager implements SerializableComponent {
             if (pedestalBlockEntity.getItemHeight() != 140) {
                 int height = pedestalBlockEntity.getItemHeight() + 1;
                 pedestalBlockEntity.setItemHeight(height);
-
-                NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pedestalPos), new UpdatePedestalPacket(pedestalPos, pedestalBlockEntity.getStack(), height));
             }
 
             this.addItemParticles(pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());

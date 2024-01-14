@@ -3,8 +3,6 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
-import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdatePedestalPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -26,6 +24,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
@@ -88,10 +87,17 @@ public class PedestalBlockEntity extends BlockEntity {
         blockEntity.ticksExisted++;
     }
 
-    public void setStack(ItemStack stack) {
+    public void setStack(ItemStack stack, @Nullable Player player, boolean runOnChanged) {
         this.stack = stack;
 
-        this.setChanged();
+        this.markUpdated();
+
+        if (this.level instanceof ServerLevel serverLevel) {
+
+            if (runOnChanged) {
+                this.onChanged.run(serverLevel, stack, null);
+            }
+        }
     }
 
     @Nullable
@@ -112,24 +118,6 @@ public class PedestalBlockEntity extends BlockEntity {
         return blockpos;
     }
 
-    public void setStackAndSync(ItemStack stack, @Nullable Player player) {
-        this.setStackAndSync(stack, player, true);
-    }
-
-    public void setStackAndSync(ItemStack stack, @Nullable Player player, boolean runOnChanged) {
-        this.stack = stack;
-
-        if (this.level instanceof ServerLevel serverLevel) {
-            NetworkHandler.sendToTrackingChunk(serverLevel.getChunkAt(this.getBlockPos()), new UpdatePedestalPacket(this.getBlockPos(), stack, this.itemHeight));
-
-            if (runOnChanged) {
-                this.onChanged.run(serverLevel, stack, player);
-            }
-        }
-
-        this.setChanged();
-    }
-
     public ItemStack getStack() {
         return this.stack;
     }
@@ -145,7 +133,7 @@ public class PedestalBlockEntity extends BlockEntity {
     public void clearStack(Level level, @Nullable Player player, boolean runOnChanged) {
         this.setItemHeight(DEFAULT_ITEM_HEIGHT);
 
-        this.setStackAndSync(ItemStack.EMPTY, player, runOnChanged);
+        this.setStack(ItemStack.EMPTY, player, runOnChanged);
     }
 
     public float getItemHover(float partialTicks) {
@@ -158,6 +146,8 @@ public class PedestalBlockEntity extends BlockEntity {
 
     public void setItemHeight(int itemHeight) {
         this.itemHeight = itemHeight;
+
+        this.markUpdated();
     }
 
     private Optional<BlockPos> findHephaestusForge(ServerLevel level, BlockPos pos) {
@@ -168,20 +158,21 @@ public class PedestalBlockEntity extends BlockEntity {
     public void load(@Nonnull CompoundTag compound) {
         super.load(compound);
 
-        if (compound.contains("Stack")) {
-            this.stack = ItemStack.of(compound.getCompound("Stack"));
-            this.itemHeight = compound.getInt("ItemHeight");
-        }
+        this.stack = ItemStack.of(compound.getCompound("Stack"));
+        this.itemHeight = compound.getInt("ItemHeight");
     }
 
     @Override
     public void saveAdditional(@Nonnull CompoundTag compound) {
         super.saveAdditional(compound);
 
-        if (this.stack != ItemStack.EMPTY) {
-            compound.put("Stack", this.stack.save(new CompoundTag()));
-            compound.putInt("ItemHeight", this.itemHeight);
-        }
+        compound.put("Stack", this.stack.save(new CompoundTag()));
+        compound.putInt("ItemHeight", this.itemHeight);
+    }
+
+    private void markUpdated() {
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 
     @Nullable

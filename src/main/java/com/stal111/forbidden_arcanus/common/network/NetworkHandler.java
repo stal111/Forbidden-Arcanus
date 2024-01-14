@@ -19,7 +19,6 @@ public class NetworkHandler {
 
         INSTANCE.messageBuilder(UpdateAurealPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateAurealPacket::encode).decoder(UpdateAurealPacket::decode).consumerNetworkThread(UpdateAurealPacket::consume).add();
        // INSTANCE.messageBuilder(UpdateCounterPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateCounterPacket::encode).decoder(UpdateCounterPacket::decode).consumerNetworkThread(UpdateCounterPacket::consume).add();
-        INSTANCE.messageBuilder(UpdatePedestalPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdatePedestalPacket::encode).decoder(UpdatePedestalPacket::decode).consumerNetworkThread(UpdatePedestalPacket::consume).add();
         INSTANCE.messageBuilder(AddItemParticlePacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(AddItemParticlePacket::encode).decoder(AddItemParticlePacket::decode).consumerNetworkThread(AddItemParticlePacket::consume).add();
         INSTANCE.messageBuilder(UpdateForgeRitualPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateForgeRitualPacket::encode).decoder(UpdateForgeRitualPacket::decode).consumerNetworkThread(UpdateForgeRitualPacket::consume).add();
         INSTANCE.messageBuilder(UpdateItemInSlotPacket.class, NetworkDirection.PLAY_TO_CLIENT).encoder(UpdateItemInSlotPacket::encode).decoder(UpdateItemInSlotPacket::decode).consumerNetworkThread(UpdateItemInSlotPacket::consume).add();
