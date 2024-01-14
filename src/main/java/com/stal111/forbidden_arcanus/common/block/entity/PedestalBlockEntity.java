@@ -93,6 +93,7 @@ public class PedestalBlockEntity extends BlockEntity {
         this.markUpdated();
 
         if (this.level instanceof ServerLevel serverLevel) {
+            serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(player, this.getBlockState()));
 
             if (runOnChanged) {
                 this.onChanged.run(serverLevel, stack, null);

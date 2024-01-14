@@ -52,6 +52,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.ENCHANTMENT, ModEnchantments.class);
         this.addMappedHelper(Registries.RECIPE_TYPE, ModRecipeTypes.class);
         this.addMappedHelper(Registries.RECIPE_SERIALIZER, ModRecipeSerializers.class);
+        this.addMappedHelper(Registries.CUSTOM_STAT, ModStats.class);
         this.addMappedHelper(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);
         this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers.class);

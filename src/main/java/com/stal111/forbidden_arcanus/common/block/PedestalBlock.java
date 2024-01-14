@@ -116,6 +116,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
                 blockEntity.setStack(ItemStack.EMPTY, player, true);
             }
 
+            player.awardStat(ModStats.INTERACT_WITH_PEDESTAL.get());
 
             return InteractionResult.CONSUME;
         }
