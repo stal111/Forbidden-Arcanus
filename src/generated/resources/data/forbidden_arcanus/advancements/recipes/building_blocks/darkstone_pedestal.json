@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:darkstone_pedestal"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

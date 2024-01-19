@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:corrupted_arcane_crystal_block_from_corrupted_arcane_crystal"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:stellarite_piece_from_stellarite_block"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -6,14 +6,10 @@
       "item": "forbidden_arcanus:arcane_crystal_dust"
     },
     "X": {
-      "type": "forge:nbt",
-      "stack": {
-        "Count": 1,
-        "id": "minecraft:potion",
-        "tag": {
-          "Potion": "minecraft:strong_regeneration"
-        }
-      }
+      "type": "neoforge:nbt",
+      "item": "minecraft:potion",
+      "strict": true,
+      "tag": "{Potion:\"minecraft:strong_regeneration\"}"
     }
   },
   "pattern": [
@@ -23,6 +19,5 @@
   ],
   "result": {
     "item": "forbidden_arcanus:aureal_bottle"
-  },
-  "show_notification": true
+  }
 }

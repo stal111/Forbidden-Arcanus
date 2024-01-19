@@ -28,6 +28,5 @@
     "recipes": [
       "forbidden_arcanus:blasting/rune_from_blasting"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:aureal_bottle"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

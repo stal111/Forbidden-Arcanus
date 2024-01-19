@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:test_tube"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

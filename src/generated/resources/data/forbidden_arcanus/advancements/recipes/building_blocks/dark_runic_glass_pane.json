@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:dark_runic_glass_pane"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

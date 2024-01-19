@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/arcane_crystal_dust_from_clibano_combusting"
+        "recipe": "forbidden_arcanus:smithing/apply_eternal_modifier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,8 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/arcane_crystal_dust_from_clibano_combusting"
+      "forbidden_arcanus:smithing/apply_eternal_modifier"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

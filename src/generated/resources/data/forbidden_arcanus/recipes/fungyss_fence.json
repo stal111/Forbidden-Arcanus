@@ -6,13 +6,7 @@
       "item": "forbidden_arcanus:fungyss_planks"
     },
     "X": {
-      "type": "valhelsia_core:platform_dependent_ingredient",
-      "fabric_value": {
-        "item": "minecraft:stick"
-      },
-      "forge_value": {
-        "tag": "forge:rods/wooden"
-      }
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
@@ -22,6 +16,5 @@
   "result": {
     "count": 3,
     "item": "forbidden_arcanus:fungyss_fence"
-  },
-  "show_notification": true
+  }
 }

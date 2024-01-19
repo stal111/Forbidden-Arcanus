@@ -1,17 +1,13 @@
 {
   "display_info": {
-    "description": {
-      "text": "The forbidden grimoire."
-    },
+    "description": "The forbidden grimoire.",
     "frame": "advanced",
     "icon": {
       "item": "forbidden_arcanus:forbiddenomicon"
     },
     "relative_x": 2,
     "relative_y": 0,
-    "title": {
-      "text": "Forbiddenomicon"
-    }
+    "title": "Forbiddenomicon"
   },
   "requirements": [
     "forbidden_arcanus:welcome"

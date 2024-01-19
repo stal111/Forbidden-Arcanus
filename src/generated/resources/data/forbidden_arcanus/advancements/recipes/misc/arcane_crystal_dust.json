@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:arcane_crystal_dust"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

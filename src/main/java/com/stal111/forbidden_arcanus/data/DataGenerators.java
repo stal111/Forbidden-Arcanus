@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
 import com.stal111.forbidden_arcanus.data.model.ModModelProvider;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.recipes.ApplyModifierRecipeProvider;
-import com.stal111.forbidden_arcanus.data.recipes.ClibanoRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.CraftingRecipeProvider;
 import com.stal111.forbidden_arcanus.data.recipes.SpecialRecipesProvider;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
@@ -51,7 +50,11 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ParticleDataProvider(context));
 
         // Server Providers
-        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(), Set.of(ForbiddenArcanus.MOD_ID)));
+        var datapackBuiltinEntriesProvider = new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(), Set.of(ForbiddenArcanus.MOD_ID));
+        generator.addProvider(event.includeServer(), datapackBuiltinEntriesProvider);
+
+        lookupProvider = datapackBuiltinEntriesProvider.getRegistryProvider();
+        context = new DataProviderContext(event.getGenerator().getPackOutput(), lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER);
 
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(context);
         generator.addProvider(event.includeServer(), blockTagsProvider);
@@ -64,7 +67,9 @@ public class DataGenerators {
         //TODO
         //generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK))));
 
-        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, lookupProvider, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new));
+        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, lookupProvider, CraftingRecipeProvider::new,
+                //ClibanoRecipeProvider::new,
+                ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new));
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(output));
     }

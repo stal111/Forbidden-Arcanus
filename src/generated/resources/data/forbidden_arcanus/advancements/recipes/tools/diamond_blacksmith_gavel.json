@@ -28,6 +28,5 @@
     "recipes": [
       "forbidden_arcanus:diamond_blacksmith_gavel"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

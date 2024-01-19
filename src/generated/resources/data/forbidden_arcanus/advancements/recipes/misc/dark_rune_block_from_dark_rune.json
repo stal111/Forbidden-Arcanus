@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:dark_rune_block_from_dark_rune"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

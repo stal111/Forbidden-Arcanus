@@ -41,6 +41,5 @@
     "recipes": [
       "forbidden_arcanus:deorum_lantern"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -2,7 +2,7 @@
   "type": "valhelsia_core:append_loot",
   "conditions": [
     {
-      "condition": "forge:loot_table_id",
+      "condition": "neoforge:loot_table_id",
       "loot_table_id": "minecraft:entities/ender_dragon"
     }
   ],

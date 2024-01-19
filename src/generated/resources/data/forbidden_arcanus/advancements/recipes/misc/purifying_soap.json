@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:purifying_soap"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

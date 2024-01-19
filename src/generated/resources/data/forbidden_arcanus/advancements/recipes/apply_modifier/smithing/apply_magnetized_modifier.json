@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/copper_ingot_from_clibano_combusting"
+        "recipe": "forbidden_arcanus:smithing/apply_magnetized_modifier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,8 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/copper_ingot_from_clibano_combusting"
+      "forbidden_arcanus:smithing/apply_magnetized_modifier"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -7,7 +7,7 @@
       "looting_multiplier": 0.001
     },
     {
-      "condition": "forge:loot_table_id",
+      "condition": "neoforge:loot_table_id",
       "loot_table_id": "minecraft:entities/zombie"
     }
   ],

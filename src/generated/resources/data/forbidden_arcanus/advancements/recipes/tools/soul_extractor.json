@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:soul_extractor"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

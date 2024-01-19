@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:lens_of_veritatis"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

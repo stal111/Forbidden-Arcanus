@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:processed_obsidian_block_from_obsidian_ingot"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

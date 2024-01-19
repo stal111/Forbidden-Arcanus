@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:stripped_aurum_wood"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

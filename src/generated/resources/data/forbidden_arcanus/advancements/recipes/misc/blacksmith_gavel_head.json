@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:blacksmith_gavel_head"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

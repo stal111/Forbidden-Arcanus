@@ -30,6 +30,5 @@
     "recipes": [
       "forbidden_arcanus:fungyss_hyphae"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

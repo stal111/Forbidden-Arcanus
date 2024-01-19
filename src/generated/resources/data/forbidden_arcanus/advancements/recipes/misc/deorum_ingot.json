@@ -56,6 +56,5 @@
     "recipes": [
       "forbidden_arcanus:deorum_ingot"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
