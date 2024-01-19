@@ -6,10 +6,10 @@ import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucket;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 
 /**
  * Tooltip Events <br>

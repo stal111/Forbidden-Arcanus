@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.client;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
@@ -10,9 +11,10 @@ import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
 import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
-import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
-import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
+import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
@@ -34,14 +36,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 
 import java.util.Optional;
@@ -102,14 +104,14 @@ public class ClientSetup {
         });
 
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> {
-            Optional<ItemAurealProvider> optional = stack.getCapability(ItemAurealProvider.AUREAL).resolve();
+            Optional<AurealProvider> optional = AurealHelper.getCapability(stack);
 
             return optional.map(provider -> (float) provider.getAureal() / provider.getAurealLimit()).orElse(0.0F);
         });
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
-            Optional<ItemAurealProvider> optional = stack.getCapability(ItemAurealProvider.AUREAL).resolve();
+            Optional<AurealProvider> optional = AurealHelper.getCapability(stack);
 
-            return optional.map(provider -> provider.getTrueAurealLimit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
+            return optional.map(provider -> provider.getAurealLimit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
         });
     }
 
@@ -127,9 +129,9 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "flight_timer", new FlightTimerOverlay());
-        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "sanity_meter", new SanityMeterOverlay());
-        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "aureal_meter", new AurealMeterOverlay());
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"), new FlightTimerOverlay());
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), new ResourceLocation(ForbiddenArcanus.MOD_ID, "sanity_meter"), new SanityMeterOverlay());
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), new ResourceLocation(ForbiddenArcanus.MOD_ID, "aureal_meter"), new AurealMeterOverlay());
     }
 
     @SubscribeEvent

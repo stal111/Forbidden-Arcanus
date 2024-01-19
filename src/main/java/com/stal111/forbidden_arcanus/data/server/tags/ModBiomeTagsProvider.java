@@ -6,8 +6,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
 import org.jetbrains.annotations.NotNull;
 
 /**

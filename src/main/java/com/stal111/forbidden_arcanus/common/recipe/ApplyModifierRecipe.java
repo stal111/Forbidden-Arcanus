@@ -90,7 +90,7 @@ public record ApplyModifierRecipe(Ingredient template,
                 Ingredient.CODEC_NONEMPTY.fieldOf("addition").forGetter(recipe -> {
                     return recipe.addition;
                 }),
-                FARegistries.ITEM_MODIFIER_REGISTRY.get().getCodec().fieldOf("modifier").forGetter(recipe -> {
+                ItemModifier.NAME_CODEC.fieldOf("modifier").forGetter(recipe -> {
                     return recipe.modifier;
                 })
         ).apply(instance, ApplyModifierRecipe::new));
@@ -104,7 +104,7 @@ public record ApplyModifierRecipe(Ingredient template,
         public @Nullable ApplyModifierRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
             Ingredient template = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
-            ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(buffer.readResourceLocation());
+            ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get(buffer.readResourceLocation());
 
             return new ApplyModifierRecipe(template, addition, modifier);
         }
@@ -113,7 +113,7 @@ public record ApplyModifierRecipe(Ingredient template,
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, ApplyModifierRecipe recipe) {
             recipe.template.toNetwork(buffer);
             recipe.addition.toNetwork(buffer);
-            buffer.writeResourceLocation(Objects.requireNonNull(FARegistries.ITEM_MODIFIER_REGISTRY.get().getKey(recipe.modifier)));
+            buffer.writeResourceLocation(Objects.requireNonNull(FARegistries.ITEM_MODIFIER_REGISTRY.getKey(recipe.modifier)));
         }
     }
 }

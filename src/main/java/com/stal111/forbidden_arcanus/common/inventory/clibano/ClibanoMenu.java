@@ -18,10 +18,10 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 
 import javax.annotation.Nonnull;
@@ -155,7 +155,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     protected boolean isFuel(ItemStack stack) {
-        return ForgeHooks.getBurnTime(stack, RecipeType.BLASTING) > 0;
+        return CommonHooks.getBurnTime(stack, RecipeType.BLASTING) > 0;
     }
 
     protected boolean isSoul(ItemStack stack) {

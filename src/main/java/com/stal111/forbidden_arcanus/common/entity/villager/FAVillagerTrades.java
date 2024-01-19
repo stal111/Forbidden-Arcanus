@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.BasicItemListing;
+import net.neoforged.neoforge.common.BasicItemListing;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,6 @@
 package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.event.network.CustomPayloadEvent;
-import net.minecraftforge.network.NetworkDirection;
 
 /**
  * @author stal111
@@ -21,12 +18,12 @@ public record AddThrownAurealBottleParticle(double x, double y, double z) {
         return new AddThrownAurealBottleParticle(buffer.readDouble(), buffer.readDouble(), buffer.readDouble());
     }
 
-    public static void consume(AddThrownAurealBottleParticle packet, CustomPayloadEvent.Context context) {
-        context.enqueueWork(() -> {
-            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
-
-            ClientPacketHandler.handleAddThrownAurealBottleParticle(packet);
-        });
-        context.setPacketHandled(true);
-    }
+//    public static void consume(AddThrownAurealBottleParticle packet, CustomPayloadEvent.Context context) {
+//        context.enqueueWork(() -> {
+//            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+//
+//            ClientPacketHandler.handleAddThrownAurealBottleParticle(packet);
+//        });
+//        context.setPacketHandled(true);
+//    }
 }

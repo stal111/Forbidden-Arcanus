@@ -24,16 +24,18 @@ import javax.annotation.Nonnull;
  */
 public class DracoArcanusArrow extends AbstractArrow {
 
+    private static final ItemStack DEFAULT_ARROW_STACK = new ItemStack(ModItems.DRACO_ARCANUS_ARROW.get());
+
     public DracoArcanusArrow(EntityType<? extends DracoArcanusArrow> entityType, Level level) {
-        super(entityType, level);
+        super(entityType, level, DEFAULT_ARROW_STACK);
     }
 
-    public DracoArcanusArrow(Level level, LivingEntity shooter) {
-        super(ModEntities.DRACO_ARCANUS_ARROW.get(), shooter, level);
+    public DracoArcanusArrow(Level level, LivingEntity shooter, ItemStack stack) {
+        super(ModEntities.DRACO_ARCANUS_ARROW.get(), shooter, level, stack);
     }
 
-    public DracoArcanusArrow(Level level, double x, double y, double z) {
-        super(ModEntities.DRACO_ARCANUS_ARROW.get(), x, y, z, level);
+    public DracoArcanusArrow(Level level, double x, double y, double z, ItemStack stack) {
+        super(ModEntities.DRACO_ARCANUS_ARROW.get(), x, y, z, level, stack);
     }
 
     @Override

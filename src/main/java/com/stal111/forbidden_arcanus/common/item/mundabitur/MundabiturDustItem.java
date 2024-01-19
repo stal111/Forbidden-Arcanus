@@ -40,7 +40,7 @@ public class MundabiturDustItem extends Item {
     }
 
     private <T extends MundabiturInteraction.Context> InteractionResult tryInteract(Player player, ItemStack stack, Class<? extends MundabiturInteraction<T>> clazz, T context) {
-        var optional = FARegistries.MUNDABITUR_INTERACTION_REGISTRY.get().getValues().stream()
+        var optional = FARegistries.MUNDABITUR_INTERACTION_REGISTRY.stream()
                 .filter(clazz::isInstance)
                 .map(clazz::cast)
                 .filter(interaction -> interaction.canInteract(context))

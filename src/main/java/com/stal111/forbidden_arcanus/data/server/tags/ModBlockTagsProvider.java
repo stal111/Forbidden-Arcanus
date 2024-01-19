@@ -4,9 +4,9 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
-import net.valhelsia.valhelsia_core.api.datagen.tags.ValhelsiaBlockTagsProvider;
+import net.neoforged.neoforge.common.Tags;
+import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
+import net.valhelsia.valhelsia_core.datagen.tags.ValhelsiaBlockTagsProvider;
 import org.jetbrains.annotations.NotNull;
 
 /**

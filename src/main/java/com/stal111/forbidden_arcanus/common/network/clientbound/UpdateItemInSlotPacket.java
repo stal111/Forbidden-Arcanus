@@ -1,11 +1,8 @@
 package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import com.stal111.forbidden_arcanus.common.network.ClientPacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.network.CustomPayloadEvent;
-import net.minecraftforge.network.NetworkDirection;
 
 /**
  * Update Item In Slot Packet <br>
@@ -26,12 +23,12 @@ public record UpdateItemInSlotPacket(BlockPos pos, ItemStack stack, int slot) {
         return new UpdateItemInSlotPacket(buffer.readBlockPos(), buffer.readItem(), buffer.readInt());
     }
 
-    public static void consume(UpdateItemInSlotPacket packet, CustomPayloadEvent.Context context) {
-        context.enqueueWork(() -> {
-            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
-
-            ClientPacketHandler.handleUpdateItemInSlot(packet);
-        });
-        context.setPacketHandled(true);
-    }
+//    public static void consume(UpdateItemInSlotPacket packet, CustomPayloadEvent.Context context) {
+//        context.enqueueWork(() -> {
+//            assert context.getDirection() == NetworkDirection.PLAY_TO_CLIENT;
+//
+//            ClientPacketHandler.handleUpdateItemInSlot(packet);
+//        });
+//        context.setPacketHandled(true);
+//    }
 }

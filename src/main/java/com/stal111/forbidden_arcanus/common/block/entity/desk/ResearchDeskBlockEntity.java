@@ -18,9 +18,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
-import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
+import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 /**

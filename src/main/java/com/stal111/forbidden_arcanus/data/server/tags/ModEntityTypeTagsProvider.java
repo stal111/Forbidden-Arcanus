@@ -7,8 +7,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
 
 import javax.annotation.Nonnull;
 

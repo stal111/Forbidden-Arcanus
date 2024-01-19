@@ -23,11 +23,7 @@ public class ModifierHelper {
             return null;
         }
 
-        if (FARegistries.ITEM_MODIFIER_REGISTRY.get() == null) {
-            return null;
-        }
-
-        return FARegistries.ITEM_MODIFIER_REGISTRY.get().getValue(new ResourceLocation(Objects.requireNonNull(stack.getTag()).getString("Modifier")));
+        return FARegistries.ITEM_MODIFIER_REGISTRY.get(new ResourceLocation(Objects.requireNonNull(stack.getTag()).getString("Modifier")));
     }
 
     public static void setModifier(ItemStack stack, ItemModifier modifier) {

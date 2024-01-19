@@ -12,7 +12,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fml.common.Mod;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.ItemRegistryHelper;
@@ -25,7 +24,6 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.ItemRegistryHelpe
  * @version 1.19 - 2.1.0
  * @since 2021-01-26
  */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModItems implements RegistryClass {
 
     public static final ItemRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getItemHelper();

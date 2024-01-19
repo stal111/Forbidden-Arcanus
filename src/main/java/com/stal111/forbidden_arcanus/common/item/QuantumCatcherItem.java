@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -24,7 +25,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -122,7 +122,7 @@ public class QuantumCatcherItem extends Item {
 
             MutableComponent textComponent = Component.translatable("tooltip.forbidden_arcanus.entity")
                     .append(": ")
-                    .append(Component.literal(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.getType())).toString()));
+                    .append(Component.literal(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString()));
 
             if (this.getEntityName(stack) != null)  {
                 textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
@@ -144,11 +144,7 @@ public class QuantumCatcherItem extends Item {
         entity.ejectPassengers();
 
         CompoundTag entityTag = new CompoundTag();
-        ResourceLocation name = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
-
-        if (name == null) {
-            return;
-        }
+        ResourceLocation name = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
 
         entityTag.putString("entity", name.toString());
         if (entity.hasCustomName()) {
@@ -170,11 +166,7 @@ public class QuantumCatcherItem extends Item {
         }
 
         CompoundTag entityTag = itemTag.getCompound("entity");
-        EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(entityTag.getString("entity")));
-
-        if (entityType == null) {
-            return null;
-        }
+        EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(entityTag.getString("entity")));
 
         Entity entity = entityType.create(level);
 

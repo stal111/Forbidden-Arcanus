@@ -110,13 +110,13 @@ public class DarkTrader extends Mob implements VariantHolder<DarkTraderVariant>,
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
-        tag.putString("variant", FARegistries.DARK_TRADER_VARIANT_REGISTRY.get().getKey(this.getVariant()).toString());
+        tag.putString("variant", FARegistries.DARK_TRADER_VARIANT_REGISTRY.getKey(this.getVariant()).toString());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        DarkTraderVariant variant = FARegistries.DARK_TRADER_VARIANT_REGISTRY.get().getValue(ResourceLocation.tryParse(tag.getString("variant")));
+        DarkTraderVariant variant = FARegistries.DARK_TRADER_VARIANT_REGISTRY.get(ResourceLocation.tryParse(tag.getString("variant")));
 
         if (variant != null) {
             this.setVariant(variant);

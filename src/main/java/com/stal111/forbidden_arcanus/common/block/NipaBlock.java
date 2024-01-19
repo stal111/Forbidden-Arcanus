@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.NipaBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -16,10 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,6 +43,8 @@ import java.util.Objects;
  */
 public class NipaBlock extends BushBlock implements EntityBlock {
 
+    public static final MapCodec<NipaBlock> CODEC = simpleCodec(NipaBlock::new);
+
     public static final BooleanProperty SPECK = ModBlockStateProperties.SPECK;
 
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 11.0D, 14.0D);
@@ -51,6 +52,11 @@ public class NipaBlock extends BushBlock implements EntityBlock {
     public NipaBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(SPECK, false));
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
     @Nonnull

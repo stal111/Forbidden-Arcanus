@@ -5,8 +5,8 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import com.stal111.forbidden_arcanus.data.recipes.builder.ApplyModifierRecipeBuilder;
 import net.minecraft.world.level.ItemLike;
-import net.valhelsia.valhelsia_core.api.datagen.recipes.RecipeSubProvider;
-import net.valhelsia.valhelsia_core.api.datagen.recipes.ValhelsiaRecipeProvider;
+import net.valhelsia.valhelsia_core.datagen.recipes.RecipeSubProvider;
+import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider;
 
 /**
  * @author stal111

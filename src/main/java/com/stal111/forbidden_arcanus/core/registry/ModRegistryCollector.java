@@ -17,7 +17,7 @@ import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModVegetationPlacements;
 import net.minecraft.core.registries.Registries;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryCollector;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.EntityRegistryHelper;
 
@@ -37,7 +37,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addItemHelper(ModItems.class);
         this.addMappedHelper(Registries.ENTITY_TYPE, EntityRegistryHelper::new, ModEntities.class);
         this.addMappedHelper(Registries.STRUCTURE_TYPE, ModStructureTypes.class);
-        this.addMappedHelper(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ModLootModifiers.class);
+        this.addMappedHelper(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ModLootModifiers.class);
         this.addMappedHelper(Registries.STRUCTURE_PIECE, ModStructurePieces.class);
         this.addMappedHelper(Registries.SOUND_EVENT, ModSounds.class);
         this.addMappedHelper(Registries.PARTICLE_TYPE, ModParticles.class);
@@ -53,7 +53,8 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.RECIPE_TYPE, ModRecipeTypes.class);
         this.addMappedHelper(Registries.RECIPE_SERIALIZER, ModRecipeSerializers.class);
         this.addMappedHelper(Registries.CUSTOM_STAT, ModStats.class);
-        this.addMappedHelper(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
+        this.addMappedHelper(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
+        this.addMappedHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModAttachmentTypes.class);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);
         this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers.class);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects.class);

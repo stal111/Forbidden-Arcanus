@@ -16,12 +16,7 @@ import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
-
-import java.util.function.Supplier;
+import net.neoforged.neoforge.registries.RegistryBuilder;
 
 /**
  * @author stal111
@@ -42,51 +37,33 @@ public class FARegistries {
     public static final ResourceKey<Registry<Knowledge>> KNOWLEDGE = FARegistries.createRegistryKey("research/knowledge");
     public static final ResourceKey<Registry<Constellation>> CONSTELLATION = FARegistries.createRegistryKey("research/constellation");
 
-    private static final DeferredRegister<RitualResultType<?>> RITUAL_RESULT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.RITUAL_RESULT_TYPE, ForbiddenArcanus.MOD_ID);
-    private static final DeferredRegister<HephaestusForgeInputType<?>> FORGE_INPUT_TYPE_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.FORGE_INPUT_TYPE, ForbiddenArcanus.MOD_ID);
-    private static final DeferredRegister<ItemModifier> ITEM_MODIFIER_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ITEM_MODIFIER, ForbiddenArcanus.MOD_ID);
-    private static final DeferredRegister<EnhancerEffectType<?>> ENHANCER_EFFECT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ENHANCER_EFFECT, ForbiddenArcanus.MOD_ID);
-    private static final DeferredRegister<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.ENHANCER_EFFECT_CONDITION, ForbiddenArcanus.MOD_ID);
-    private static final DeferredRegister<DarkTraderVariant> DARK_TRADER_VARIANT_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.DARK_TRADER_VARIANT, ForbiddenArcanus.MOD_ID);
-    private static final DeferredRegister<MundabiturInteraction<?>> MUNDABITUR_INTERACTION_DEFERRED_REGISTER = DeferredRegister.create(FARegistries.MUNDABITUR_INTERACTION, ForbiddenArcanus.MOD_ID);
-
-    public static final Supplier<IForgeRegistry<RitualResultType<?>>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_DEFERRED_REGISTER);
-    public static final Supplier<IForgeRegistry<HephaestusForgeInputType<?>>> FORGE_INPUT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT_TYPE_DEFERRED_REGISTER);
-    public static final Supplier<IForgeRegistry<ItemModifier>> ITEM_MODIFIER_REGISTRY = FARegistries.makeSyncedRegistry(ITEM_MODIFIER_DEFERRED_REGISTER);
-    public static final Supplier<IForgeRegistry<EnhancerEffectType<?>>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_DEFERRED_REGISTER);
-    public static final Supplier<IForgeRegistry<EffectConditionType<?>>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER);
-    public static final Supplier<IForgeRegistry<DarkTraderVariant>> DARK_TRADER_VARIANT_REGISTRY = FARegistries.makeSyncedRegistry(DARK_TRADER_VARIANT_DEFERRED_REGISTER);
-    public static final Supplier<IForgeRegistry<MundabiturInteraction<?>>> MUNDABITUR_INTERACTION_REGISTRY = FARegistries.makeSyncedRegistry(MUNDABITUR_INTERACTION_DEFERRED_REGISTER);
-
-    public static void register(IEventBus modEventBus) {
-        FARegistries.RITUAL_RESULT_DEFERRED_REGISTER.register(modEventBus);
-        FARegistries.ITEM_MODIFIER_DEFERRED_REGISTER.register(modEventBus);
-        FARegistries.ENHANCER_EFFECT_DEFERRED_REGISTER.register(modEventBus);
-        FARegistries.ENHANCER_EFFECT_CONDITION_DEFERRED_REGISTER.register(modEventBus);
-        FARegistries.FORGE_INPUT_TYPE_DEFERRED_REGISTER.register(modEventBus);
-        FARegistries.DARK_TRADER_VARIANT_DEFERRED_REGISTER.register(modEventBus);
-        FARegistries.MUNDABITUR_INTERACTION_DEFERRED_REGISTER.register(modEventBus);
-    }
+    public static final Registry<RitualResultType<?>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_TYPE);
+    public static final Registry<HephaestusForgeInputType<?>> FORGE_INPUT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT_TYPE);
+    public static final Registry<ItemModifier> ITEM_MODIFIER_REGISTRY = FARegistries.makeSyncedRegistry(ITEM_MODIFIER);
+    public static final Registry<EnhancerEffectType<?>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT);
+    public static final Registry<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION);
+    public static final Registry<DarkTraderVariant> DARK_TRADER_VARIANT_REGISTRY = FARegistries.makeSyncedRegistry(DARK_TRADER_VARIANT);
+    public static final Registry<MundabiturInteraction<?>> MUNDABITUR_INTERACTION_REGISTRY = FARegistries.makeSyncedRegistry(MUNDABITUR_INTERACTION);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {
         return ResourceKey.createRegistryKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
     }
 
     /**
-     * Creates a {@link IForgeRegistry} that get synchronised to clients.
+     * Creates a {@link Registry} that get synchronised to clients.
      *
      * @param <T> the entry of the registry.
      */
-    private static <T> Supplier<IForgeRegistry<T>> makeSyncedRegistry(DeferredRegister<T> deferredRegister) {
-        return deferredRegister.makeRegistry(() -> new RegistryBuilder<T>().disableSaving());
+    private static <T> Registry<T> makeSyncedRegistry(ResourceKey<Registry<T>> registryKey) {
+        return new RegistryBuilder<>(registryKey).sync(true).create();
     }
 
     /**
-     * Creates a simple {@link IForgeRegistry} that <B>won't</B> be synced to clients.
+     * Creates a simple {@link Registry} that <B>won't</B> be synced to clients.
      *
      * @param <T> the entry of the registry.
      */
-    private static <T> Supplier<IForgeRegistry<T>> makeRegistry(DeferredRegister<T> deferredRegister) {
-        return deferredRegister.makeRegistry(() -> new RegistryBuilder<T>().disableSaving().disableSync());
+    private static <T> Registry<T> makeRegistry(ResourceKey<Registry<T>> registryKey) {
+        return new RegistryBuilder<>(registryKey).create();
     }
 }

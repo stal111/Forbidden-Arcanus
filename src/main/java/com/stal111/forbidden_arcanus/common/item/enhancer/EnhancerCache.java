@@ -22,7 +22,7 @@ public class EnhancerCache {
 
         Registry<EnhancerDefinition> registry = registryAccess.registryOrThrow(FARegistries.ENHANCER_DEFINITION);
 
-        registry.holders().map(Holder::get).forEach(definition -> {
+        registry.holders().map(Holder::value).forEach(definition -> {
             ENHANCER_BY_ITEM.put(definition.item(), definition);
         });
     }

@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.common.inventory;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

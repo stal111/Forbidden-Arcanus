@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -9,9 +8,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -75,18 +71,19 @@ public class ClibanoBlockEntity extends BlockEntity {
         }
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (this.level == null || this.mainDirection == null || this.getBlockState().getBlock() != ModBlocks.CLIBANO_CENTER.get()) {
-            return super.getCapability(cap, side);
-        }
-
-        BlockEntity blockEntity = this.level.getBlockEntity(this.worldPosition.relative(this.mainDirection));
-
-        if (blockEntity == null) {
-            return super.getCapability(cap, side);
-        }
-
-        return blockEntity.getCapability(cap, side);
-    }
+    //TODO: Fix this
+//    @Override
+//    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+//        if (this.level == null || this.mainDirection == null || this.getBlockState().getBlock() != ModBlocks.CLIBANO_CENTER.get()) {
+//            return super.getCapability(cap, side);
+//        }
+//
+//        BlockEntity blockEntity = this.level.getBlockEntity(this.worldPosition.relative(this.mainDirection));
+//
+//        if (blockEntity == null) {
+//            return super.getCapability(cap, side);
+//        }
+//
+//        return blockEntity.getCapability(cap, side);
+//    }
 }

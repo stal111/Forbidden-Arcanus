@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class HephaestusForgeInput {
 
-    public static final Codec<HephaestusForgeInput> DIRECT_CODEC = new DeferredCodec<>(() -> FARegistries.FORGE_INPUT_TYPE_REGISTRY.get().getCodec().dispatch(HephaestusForgeInput::type, HephaestusForgeInputType::codec));
+    public static final Codec<HephaestusForgeInput> DIRECT_CODEC = new DeferredCodec<>(() -> FARegistries.FORGE_INPUT_TYPE_REGISTRY.byNameCodec().dispatch(HephaestusForgeInput::type, HephaestusForgeInputType::codec));
 
     protected final List<EssenceType> essenceTypes;
 

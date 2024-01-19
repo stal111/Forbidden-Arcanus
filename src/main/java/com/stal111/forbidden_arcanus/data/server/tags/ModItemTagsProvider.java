@@ -8,9 +8,9 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
-import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
-import net.valhelsia.valhelsia_core.api.datagen.tags.ValhelsiaItemTagsProvider;
+import net.neoforged.neoforge.common.Tags;
+import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
+import net.valhelsia.valhelsia_core.datagen.tags.ValhelsiaItemTagsProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;

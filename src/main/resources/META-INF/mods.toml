@@ -1,19 +1,29 @@
 modLoader="javafml" #mandatory
-loaderVersion="[43,)" #mandatory
-license="All Rights Reserved"
+loaderVersion="${loader_version_range}" #mandatory
+license="${mod_license}"
 [[mods]] #mandatory
-modId="forbidden_arcanus" #mandatory
-version="${file.jarVersion}" #mandatory
+modId="${mod_id}" #mandatory
+version="${mod_version}" #mandatory
  # A display name for the mod
-displayName="Forbidden & Arcanus" #mandatory
-credits="stal111, CesarZorak" #optional
-authors="stal111, CesarZorak" #optional
+displayName="${mod_name}" #mandatory
+credits="{mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description=''' '''
 
-[[dependencies.forbidden_arcanus]]
-modId="valhelsia_core"
-mandatory=true
-versionRange="[1.1.1,)"
+[[dependencies.${mod_id}]]
+modId="neoforge"
+type="required"
+versionRange="${neo_version_range}" #mandatory
 ordering="NONE"
 side="BOTH"
+
+
+[[dependencies.${mod_id}]]
+modId="valhelsia_core"
+type="required"
+versionRange="[1.1.2,)"
+ordering="BEFORE"
+side="BOTH"
+
+[[mixins]]
+config = "forbidden_arcanus.mixins.json"

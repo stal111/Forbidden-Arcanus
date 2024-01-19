@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -67,7 +68,12 @@ public class NipaBlockEntity extends BlockEntity {
                 players.put(uuid, blockEntity.players.getOrDefault(uuid, 0) + 1);
 
                 if (players.get(uuid) == 30) {
-                    AurealHelper.increaseAureal(player, 1);
+                    AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
+
+                    if (provider != null) {
+                        provider.setAureal(provider.getAureal() + 1);
+                    }
+
                     players.remove(uuid);
                 }
             }

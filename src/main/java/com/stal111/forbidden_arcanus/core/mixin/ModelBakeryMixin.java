@@ -8,12 +8,12 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,13 +41,9 @@ public abstract class ModelBakeryMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "<init>")
     public void forbiddenArcanus_init(BlockColors colors, ProfilerFiller filler, Map<ResourceLocation, BlockModel> map, Map<ResourceLocation, List<ModelBakery.LoadedJson>> map2, CallbackInfo ci) {
-        for (Item item : ForgeRegistries.ITEMS) {
+        for (Item item : BuiltInRegistries.ITEM) {
             if (item instanceof ArmorItem armorItem && armorItem.getType() == ArmorItem.Type.BOOTS) {
-                ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(item);
-
-                if (resourceLocation == null) {
-                    continue;
-                }
+                ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
 
                 UnbakedModel model = this.getModel(new ModelResourceLocation(resourceLocation, "inventory"));
 

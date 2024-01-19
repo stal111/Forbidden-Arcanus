@@ -1,10 +1,10 @@
 package com.stal111.forbidden_arcanus.util;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 /**
  * Fluid Tank Tile

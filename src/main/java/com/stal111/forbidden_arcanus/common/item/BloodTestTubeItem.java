@@ -2,16 +2,15 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.minecraft.core.NonNullList;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -46,19 +45,20 @@ public class BloodTestTubeItem extends Item {
 
         ItemStack stack = null;
 
-        outer: for (NonNullList<ItemStack> nonNullList : inventory.compartments) {
-            for (ItemStack inventoryStack : nonNullList) {
-                if (inventoryStack.is(ModItems.TEST_TUBE.get()) && stack == null) {
-                    stack = inventoryStack;
-
-                } else if (inventoryStack.is(ModItems.BLOOD_TEST_TUBE.get()) && BloodTestTubeItem.getBlood(inventoryStack) != BloodTestTubeItem.MAX_BLOOD) {
-                    BloodTestTubeItem.addBlood(inventoryStack, blood);
-                    stack = null;
-
-                    break outer;
-                }
-            }
-        }
+        //TODO: Fix Blood Test Tube
+//        outer: for (NonNullList<ItemStack> nonNullList : inventory.compartments) {
+//            for (ItemStack inventoryStack : nonNullList) {
+//                if (inventoryStack.is(ModItems.TEST_TUBE.get()) && stack == null) {
+//                    stack = inventoryStack;
+//
+//                } else if (inventoryStack.is(ModItems.BLOOD_TEST_TUBE.get()) && BloodTestTubeItem.getBlood(inventoryStack) != BloodTestTubeItem.MAX_BLOOD) {
+//                    BloodTestTubeItem.addBlood(inventoryStack, blood);
+//                    stack = null;
+//
+//                    break outer;
+//                }
+//            }
+//        }
 
         if (stack != null) {
             ItemStack newStack = BloodTestTubeItem.setBlood(new ItemStack(ModItems.BLOOD_TEST_TUBE.get()), blood);

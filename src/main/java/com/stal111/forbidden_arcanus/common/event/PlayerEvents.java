@@ -1,32 +1,23 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
-import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
-import com.stal111.forbidden_arcanus.common.aureal.capability.IAureal;
-import com.stal111.forbidden_arcanus.common.aureal.consequence.Consequence;
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
 import com.stal111.forbidden_arcanus.core.config.BlockConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 /**
  * Player Events <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.event.PlayerEvents
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-11-28
  */
 @Mod.EventBusSubscriber
@@ -61,34 +52,14 @@ public class PlayerEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onPlayerClone(PlayerEvent.Clone event) {
-        if (event.isWasDeath()) {
-            Player player = event.getEntity();
-            Player original = event.getOriginal();
 
-            original.reviveCaps();
-
-            IAureal capability = AurealHelper.getCapability(original);
-
-            player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
-                aureal.setAureal(capability.getAureal());
-                aureal.setCorruption(capability.getCorruption());
-                aureal.setCorruptionTimer(capability.getCorruptionTimer());
-
-                for (Consequence consequence : capability.getActiveConsequences()) {
-                    aureal.addActiveConsequence(consequence);
-                }
-            });
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
-        Entity entity = event.getEntity();
-
-        if (entity instanceof ServerPlayer player) {
-            AurealHelper.sendAurealUpdatePacket(player);
-        }
-    }
+    //TODO
+//    @SubscribeEvent
+//    public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
+//        Entity entity = event.getEntity();
+//
+//        if (entity instanceof ServerPlayer player) {
+//            AurealHelper.sendAurealUpdatePacket(player);
+//        }
+//    }
 }

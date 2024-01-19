@@ -32,13 +32,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.common.CommonHooks;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
-import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
+import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -134,16 +130,12 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     private Direction frontDirection = Direction.NORTH;
     private boolean wasLit = false;
 
-    private final LazyOptional<IItemHandler> topInputHandler = LazyOptional.of(() -> new ClibanoItemHandler(this.getItemStackHandler(), Direction.UP));;
-    private final LazyOptional<IItemHandler> sideInputHandler = LazyOptional.of(() -> new ClibanoItemHandler(this.getItemStackHandler(), Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST));
-    private final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> new ClibanoItemHandler(this.getItemStackHandler(), Direction.DOWN));
-
     public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, ClibanoMenu.SLOT_COUNT, (slot, stack) -> {
             if (slot == ClibanoMenu.SOUL_SLOT) {
                 return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
             } else if (slot == ClibanoMenu.FUEL_SLOT) {
-                return ForgeHooks.getBurnTime(stack, RecipeType.BLASTING) > 0 || FurnaceFuelSlot.isBucket(stack);
+                return CommonHooks.getBurnTime(stack, RecipeType.BLASTING) > 0 || FurnaceFuelSlot.isBucket(stack);
             }
 
             return !slot.equals(ClibanoMenu.RESULT_SLOTS.getFirst()) && !slot.equals(ClibanoMenu.RESULT_SLOTS.getSecond());
@@ -518,7 +510,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             return 0;
         }
 
-        return ForgeHooks.getBurnTime(fuel, RECIPE_TYPE);
+        return CommonHooks.getBurnTime(fuel, RECIPE_TYPE);
     }
 
     @Override
@@ -553,24 +545,5 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         }
 
         return list;
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @org.jetbrains.annotations.Nullable Direction side) {
-        if (this.remove || this.level == null) {
-            return super.getCapability(cap, side);
-        }
-
-        if (cap.equals(ForgeCapabilities.ITEM_HANDLER) && side != null) {
-            if (side == Direction.DOWN) {
-                return this.outputHandler.cast();
-            } else if (side == Direction.UP) {
-                return this.topInputHandler.cast();
-            } else {
-                return this.sideInputHandler.cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
     }
 }

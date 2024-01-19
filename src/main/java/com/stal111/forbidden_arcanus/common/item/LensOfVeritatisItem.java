@@ -57,8 +57,9 @@ public class LensOfVeritatisItem extends Item {
                         double posZ = livingEntity.getZ() + random.nextFloat() * k;
                         float ySpeed = (random.nextFloat() - 0.4F) * 0.125F;
 
+                        //TODO: Fix particles
                         ClientboundLevelParticlesPacket packet = new ClientboundLevelParticlesPacket(ModParticles.AUREAL_MOTE.get(), false, posX, posY, posZ, 0.0F, ySpeed, 0.0F, 1.0F, 0);
-                        serverLevel.sendParticles(player, false, posX, posY, posZ, packet);
+                       // serverLevel.sendParticles(player, false, posX, posY, posZ, packet);
                     });
 
             persistentData.putInt(LENS_SLOT, slotId);

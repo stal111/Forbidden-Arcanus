@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
@@ -15,10 +16,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -38,11 +36,18 @@ import javax.annotation.Nullable;
  */
 public class ClibanoCenterBlock extends DirectionalBlock implements ClibanoPart {
 
+    public static final MapCodec<ClibanoCenterBlock> CODEC = simpleCodec(ClibanoCenterBlock::new);
+
     private static final EnumProperty<ClibanoCenterType> TYPE = ModBlockStateProperties.CLIBANO_CENTER_TYPE;
 
     public ClibanoCenterBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ClibanoCenterType.SIDE));
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

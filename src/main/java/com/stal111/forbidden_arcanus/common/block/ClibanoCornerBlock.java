@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,11 +32,18 @@ import javax.annotation.Nullable;
  */
 public class ClibanoCornerBlock extends HorizontalDirectionalBlock implements ClibanoPart {
 
+    public static final MapCodec<ClibanoCornerBlock> CODEC = simpleCodec(ClibanoCornerBlock::new);
+
     private static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 
     public ClibanoCornerBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(BOTTOM, true));
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

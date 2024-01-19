@@ -37,6 +37,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -130,7 +131,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public void playerWillDestroy(@Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Player player) {
+    public @NotNull BlockState playerWillDestroy(@Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Player player) {
         if (!level.isClientSide() && player.getAbilities().instabuild) {
             ObeliskPart part = state.getValue(PART);
 
@@ -142,7 +143,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
             }
         }
 
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override

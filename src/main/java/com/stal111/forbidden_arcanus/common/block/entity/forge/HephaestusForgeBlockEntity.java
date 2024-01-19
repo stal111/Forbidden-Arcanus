@@ -27,9 +27,8 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
-import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
+import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -192,7 +191,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         }
 
         return level.registryAccess().registryOrThrow(FARegistries.FORGE_INPUT).holders()
-                .map(Holder::get)
+                .map(Holder.Reference::value)
                 .filter(input -> input.canInput(essenceType, stack))
                 .findFirst();
     }
@@ -288,20 +287,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
-    }
-
-    @Override
-    public AABB getRenderBoundingBox() {
-        AABB boundingBox = new AABB(this.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
-
-        if (this.useExpandedRenderBoundingBox()) {
-            boundingBox = boundingBox.inflate(2.5F, 0.0F, 2.5D);
-        }
-        return boundingBox;
-    }
-
-    public boolean useExpandedRenderBoundingBox() {
-        return this.getRitualManager().isRitualActive() || this.hasValidRitualIndicator();
     }
 
     @NotNull

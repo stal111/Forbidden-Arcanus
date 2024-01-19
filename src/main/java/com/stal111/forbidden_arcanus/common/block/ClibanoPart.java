@@ -65,7 +65,7 @@ public interface ClibanoPart extends EntityBlock {
 
     default Optional<BlockPos> findMainPos(@Nonnull Level level, @Nonnull BlockPos pos) {
         if (level instanceof ServerLevel serverLevel) {
-            return serverLevel.getPoiManager().find(poiType -> poiType.get() == ModPOITypes.CLIBANO_MAIN_PART.get(), blockPos -> !level.getBlockState(blockPos).isAir(), pos, 2, PoiManager.Occupancy.ANY);
+            return serverLevel.getPoiManager().find(poiType -> poiType.value() == ModPOITypes.CLIBANO_MAIN_PART.get(), blockPos -> !level.getBlockState(blockPos).isAir(), pos, 2, PoiManager.Occupancy.ANY);
         }
         return Optional.empty();
     }

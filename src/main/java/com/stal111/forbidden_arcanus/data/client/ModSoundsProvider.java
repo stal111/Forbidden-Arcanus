@@ -3,10 +3,10 @@ package com.stal111.forbidden_arcanus.data.client;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SoundDefinition;
-import net.minecraftforge.common.data.SoundDefinitionsProvider;
-import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.SoundDefinition;
+import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
+import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
 
 /**
  * @author stal111

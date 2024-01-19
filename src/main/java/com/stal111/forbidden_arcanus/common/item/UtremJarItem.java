@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -11,12 +12,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Utrem Jar Item <br>
@@ -35,7 +34,7 @@ public class UtremJarItem extends BlockItem {
         ItemStack stack = new ItemStack(this);
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("FluidName", Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluid)).toString());
+        tag.putString("FluidName", BuiltInRegistries.FLUID.getKey(fluid).toString());
         tag.putInt("Amount", 1000);
 
         stack.getOrCreateTagElement("BlockEntityTag").put("Fluid", tag);
@@ -50,7 +49,7 @@ public class UtremJarItem extends BlockItem {
             if (tag.contains("Fluid")) {
                 CompoundTag compound = tag.getCompound("Fluid");
 
-                return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(compound.getString("FluidName")));
+                return BuiltInRegistries.FLUID.get(new ResourceLocation(compound.getString("FluidName")));
             }
         }
         return Fluids.EMPTY;

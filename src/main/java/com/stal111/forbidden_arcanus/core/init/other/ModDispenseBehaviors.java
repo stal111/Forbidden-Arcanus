@@ -38,7 +38,7 @@ public class ModDispenseBehaviors {
         DispenserBlock.registerBehavior(ModItems.BOOM_ARROW.get(), new AbstractProjectileDispenseBehavior() {
             @Nonnull
             protected Projectile getProjectile(@Nonnull Level level, @Nonnull Position position, @Nonnull ItemStack stack) {
-                AbstractArrow arrow = new BoomArrow(level, position.x(), position.y(), position.z());
+                AbstractArrow arrow = new BoomArrow(level, position.x(), position.y(), position.z(), stack);
                 arrow.pickup = AbstractArrow.Pickup.ALLOWED;
 
                 return arrow;
@@ -47,7 +47,7 @@ public class ModDispenseBehaviors {
         DispenserBlock.registerBehavior(ModItems.DRACO_ARCANUS_ARROW.get(), new AbstractProjectileDispenseBehavior() {
             @Nonnull
             protected Projectile getProjectile(@Nonnull Level level, @Nonnull Position position, @Nonnull ItemStack stack) {
-                AbstractArrow arrow = new DracoArcanusArrow(level, position.x(), position.y(), position.z());
+                AbstractArrow arrow = new DracoArcanusArrow(level, position.x(), position.y(), position.z(), stack);
                 arrow.pickup = AbstractArrow.Pickup.ALLOWED;
 
                 return arrow;

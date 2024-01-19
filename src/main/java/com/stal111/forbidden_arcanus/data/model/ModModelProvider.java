@@ -7,7 +7,7 @@ import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.datagen.ValhelsiaModelProvider;
+import net.valhelsia.valhelsia_core.datagen.ValhelsiaModelProvider;
 
 import java.util.Collection;
 import java.util.function.Consumer;

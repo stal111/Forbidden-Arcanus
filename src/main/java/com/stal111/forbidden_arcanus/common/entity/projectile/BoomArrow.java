@@ -22,16 +22,18 @@ import javax.annotation.Nonnull;
  */
 public class BoomArrow extends AbstractArrow {
 
+    private static final ItemStack DEFAULT_ARROW_STACK = new ItemStack(ModItems.BOOM_ARROW.get());
+
     public BoomArrow(EntityType<? extends BoomArrow> entityType, Level level) {
-        super(entityType, level);
+        super(entityType, level, DEFAULT_ARROW_STACK);
     }
 
-    public BoomArrow(Level level, LivingEntity shooter) {
-        super(ModEntities.BOOM_ARROW.get(), shooter, level);
+    public BoomArrow(Level level, LivingEntity shooter, ItemStack stack) {
+        super(ModEntities.BOOM_ARROW.get(), shooter, level, stack);
     }
 
-    public BoomArrow(Level level, double x, double y, double z) {
-        super(ModEntities.BOOM_ARROW.get(), x, y, z, level);
+    public BoomArrow(Level level, double x, double y, double z, ItemStack stack) {
+        super(ModEntities.BOOM_ARROW.get(), x, y, z, level, stack);
     }
 
     @Override

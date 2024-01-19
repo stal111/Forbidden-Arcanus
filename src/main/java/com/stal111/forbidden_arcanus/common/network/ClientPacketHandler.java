@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.common.network;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
-import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
@@ -22,26 +20,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
+import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
 
 /**
  * @author stal111
  * @since 2021-12-25
  */
 public class ClientPacketHandler {
-
-    public static void handleUpdateAureal(UpdateAurealPacket packet) {
-        Player player = Minecraft.getInstance().player;
-
-        if (player != null) {
-            AurealHelper.load(packet.tag(), AurealHelper.getCapability(player));
-        }
-    }
-
     public static void handleTransformPedestal(TransformPedestalPacket packet) {
         ParticleUtils.spawnParticlesOnBlockFaces(getLevel(), packet.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
 

@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
  */
 public abstract class RitualResult {
 
-    public static final Codec<RitualResult> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(() -> FARegistries.RITUAL_RESULT_TYPE_REGISTRY.get().getCodec())
+    public static final Codec<RitualResult> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(FARegistries.RITUAL_RESULT_TYPE_REGISTRY::byNameCodec)
             .dispatch(RitualResult::getType, RitualResultType::codec);
 
     /**

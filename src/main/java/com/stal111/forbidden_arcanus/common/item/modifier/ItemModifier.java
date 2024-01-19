@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
+import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -10,8 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.tags.ITagManager;
+import net.valhelsia.valhelsia_core.api.common.util.DeferredCodec;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -25,6 +26,8 @@ import java.util.function.Predicate;
  * @since 2021-11-24
  */
 public class ItemModifier {
+
+    public static final Codec<ItemModifier> NAME_CODEC = new DeferredCodec<>(FARegistries.ITEM_MODIFIER_REGISTRY::byNameCodec);
 
     private final Predicate<ItemStack> predicate;
 
@@ -57,7 +60,7 @@ public class ItemModifier {
     }
 
     public ResourceLocation getRegistryName() {
-        return FARegistries.ITEM_MODIFIER_REGISTRY.get().getKey(this);
+        return FARegistries.ITEM_MODIFIER_REGISTRY.getKey(this);
     }
 
     public ResourceLocation getTooltipTexture() {
@@ -77,19 +80,15 @@ public class ItemModifier {
             return false;
         }
 
-        ITagManager<Enchantment> tagManager = ForgeRegistries.ENCHANTMENTS.tags();
-
-        if (tagManager == null) {
-            return false;
-        }
+        var tagHolder = BuiltInRegistries.ENCHANTMENT.getOrCreateTag(this.getIncompatibleEnchantments());
 
         return EnchantmentHelper.getEnchantments(stack).keySet().stream()
-                .noneMatch(enchantment -> tagManager.getTag(this.getIncompatibleEnchantments()).contains(enchantment));
+                .noneMatch(enchantment -> tagHolder.contains(enchantment.builtInRegistryHolder()));
     }
 
     public List<ItemStack> getValidItems() {
         if (this.cachedValidItems == null) {
-            this.cachedValidItems = ForgeRegistries.ITEMS.getValues().stream().map(ItemStack::new).filter(this::canItemContainModifier).toList();
+            this.cachedValidItems = BuiltInRegistries.ITEM.stream().map(ItemStack::new).filter(this::canItemContainModifier).toList();
         }
         return this.cachedValidItems;
     }

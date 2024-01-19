@@ -39,7 +39,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ToolActions;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 

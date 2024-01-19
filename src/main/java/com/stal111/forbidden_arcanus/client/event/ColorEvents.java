@@ -3,16 +3,16 @@ package com.stal111.forbidden_arcanus.client.event;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
 /**
  * @author stal111
  * @since 2021-12-11
  */
-@Mod.EventBusSubscriber(value = Dist.CLIENT)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ColorEvents {
 
     @SubscribeEvent

@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -17,9 +18,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.level.SaplingGrowTreeEvent;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.bus.api.Event;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.event.level.SaplingGrowTreeEvent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -33,6 +35,8 @@ import javax.annotation.Nonnull;
  */
 public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock {
 
+    public static final MapCodec<GrowingEdelwoodBlock> CODEC = simpleCodec(GrowingEdelwoodBlock::new);
+
     private static final float BONEMEAL_CHANCE = 0.45F;
     private static final int REQUIRED_BRIGHTNESS = 9;
 
@@ -40,6 +44,11 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
 
     public GrowingEdelwoodBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
     @Nonnull
@@ -60,7 +69,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
 
     public void growEdelwood(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ModConfiguredFeatures.EDELWOOD).orElse(null);
-        SaplingGrowTreeEvent event = ForgeEventFactory.blockGrowFeature(level, random, pos, holder);
+        SaplingGrowTreeEvent event = EventHooks.blockGrowFeature(level, random, pos, holder);
 
         if (event.getResult().equals(Event.Result.DENY) || event.getFeature() == null) {
             return;
@@ -68,7 +77,9 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
 
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        if (!event.getFeature().get().place(level, level.getChunkSource().getGenerator(), random, pos)) {
+        //TODO: use tree grower if possible
+
+        if (!event.getFeature().value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
             level.setBlock(pos, state, 4);
         }
     }

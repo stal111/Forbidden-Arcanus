@@ -1,15 +1,13 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
+import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,10 +30,11 @@ public class AurealTankItem extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
-        stack.getCapability(ItemAurealProvider.AUREAL).ifPresent(aurealProvider -> {
-            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", aurealProvider.getTrueAurealLimit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
-            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.aureal", aurealProvider.getAureal(), aurealProvider.getAurealLimit()).withStyle(ChatFormatting.AQUA));
-        });
+        AurealProvider aurealProvider = stack.getCapability(AurealProvider.ITEM_AUREAL);
+
+        if (aurealProvider != null) {
+            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", aurealProvider.getAurealLimit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
+            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.aureal", aurealProvider.getAureal(), aurealProvider.getAurealLimit()).withStyle(ChatFormatting.AQUA));        }
     }
 
     @Override
@@ -50,11 +49,12 @@ public class AurealTankItem extends Item {
 
     @Override
     public int getBarWidth(@NotNull ItemStack stack) {
-        return Math.round(stack.getCapability(ItemAurealProvider.AUREAL).map(provider -> 13.0F * provider.getAureal() / provider.getAurealLimit()).orElse(0.0F));
-    }
+        AurealProvider aurealProvider = stack.getCapability(AurealProvider.ITEM_AUREAL);
 
-    @Override
-    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new ItemAurealProvider(stack, DEFAULT_CAPACITY);
+        if (aurealProvider != null) {
+            return Math.round(13.0F * aurealProvider.getAureal() / aurealProvider.getAurealLimit());
+        }
+
+        return 0;
     }
 }

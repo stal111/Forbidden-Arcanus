@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoSideType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,6 +34,8 @@ import javax.annotation.Nullable;
  */
 public class ClibanoVerticalSideBlock extends HorizontalDirectionalBlock implements ClibanoPart {
 
+    public static final MapCodec<ClibanoVerticalSideBlock> CODEC = simpleCodec(ClibanoVerticalSideBlock::new);
+
     private static final EnumProperty<ClibanoSideType> TYPE = ModBlockStateProperties.CLIBANO_SIDE_TYPE;
     private static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 
@@ -42,6 +46,11 @@ public class ClibanoVerticalSideBlock extends HorizontalDirectionalBlock impleme
                 .setValue(TYPE, ClibanoSideType.OFF)
                 .setValue(BOTTOM, true)
         );
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

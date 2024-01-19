@@ -1,25 +1,17 @@
 package com.stal111.forbidden_arcanus.common.item.bucket;
 
-import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author stal111
  * @since 15.12.2023
  */
-public class CapacityBucketFluidHandler implements IFluidHandlerItem, ICapabilityProvider {
-
-    private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
+public class CapacityBucketFluidHandler implements IFluidHandlerItem {
 
     private final CapacityFluidBucket bucket;
     private ItemStack container;
@@ -127,10 +119,5 @@ public class CapacityBucketFluidHandler implements IFluidHandlerItem, ICapabilit
         }
 
         return FluidStack.EMPTY;
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction side) {
-        return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(capability, this.holder);
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public abstract class EnhancerEffect {
 
-    public static final Codec<EnhancerEffect> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(() -> FARegistries.ENHANCER_EFFECT_REGISTRY.get().getCodec())
+    public static final Codec<EnhancerEffect> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(FARegistries.ENHANCER_EFFECT_REGISTRY::byNameCodec)
             .dispatch(EnhancerEffect::getType, EnhancerEffectType::codec);
 
     private final List<EffectCondition> conditions;

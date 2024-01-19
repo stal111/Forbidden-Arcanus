@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.core.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 /**
  * Aureal Config
@@ -12,17 +12,17 @@ import net.minecraftforge.common.ForgeConfigSpec;
  */
 public class AurealConfig {
 
-    public static ForgeConfigSpec.BooleanValue DISABLE_CONSEQUENCES;
-    public static ForgeConfigSpec.DoubleValue AUREAL_ENTITY_SPAWN_CHANCE;
-    public static ForgeConfigSpec.IntValue ENTITY_DEATH_INCREASEMENT_AMOUNT;
-    public static ForgeConfigSpec.IntValue AUREAL_ENTITY_DEATH_INCREASEMENT_AMOUNT;
-    public static ForgeConfigSpec.DoubleValue ENTITY_DEATH_INCREASEMENT_CHANCE;
-    public static ForgeConfigSpec.DoubleValue AUREAL_ENTITY_DEATH_INCREASEMENT_CHANCE;
-    public static ForgeConfigSpec.BooleanValue NATURAL_CORRUPTION_DECREASEMENT;
-    public static ForgeConfigSpec.IntValue NATURAL_CORRUPTION_DECREASEMENT_TIME;
-    public static ForgeConfigSpec.DoubleValue BREEDING_DECREASEMENT_CHANCE;
+    public static ModConfigSpec.BooleanValue DISABLE_CONSEQUENCES;
+    public static ModConfigSpec.DoubleValue AUREAL_ENTITY_SPAWN_CHANCE;
+    public static ModConfigSpec.IntValue ENTITY_DEATH_INCREASEMENT_AMOUNT;
+    public static ModConfigSpec.IntValue AUREAL_ENTITY_DEATH_INCREASEMENT_AMOUNT;
+    public static ModConfigSpec.DoubleValue ENTITY_DEATH_INCREASEMENT_CHANCE;
+    public static ModConfigSpec.DoubleValue AUREAL_ENTITY_DEATH_INCREASEMENT_CHANCE;
+    public static ModConfigSpec.BooleanValue NATURAL_CORRUPTION_DECREASEMENT;
+    public static ModConfigSpec.IntValue NATURAL_CORRUPTION_DECREASEMENT_TIME;
+    public static ModConfigSpec.DoubleValue BREEDING_DECREASEMENT_CHANCE;
 
-    public static void init(ForgeConfigSpec.Builder builder) {
+    public static void init(ModConfigSpec.Builder builder) {
         builder.push("aureal");
 
         DISABLE_CONSEQUENCES = builder.comment("Do you want to completely disable corruption consequences? [default: false]").define("corruption.disable_consequences", false);

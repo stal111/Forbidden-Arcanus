@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.skull;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.aureal.capability.AurealProvider;
+import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +26,15 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
     CRACKED("cracked_obsidian_skull", UpdateFunctions.DEFAULT, entity -> true),
     FRAGMENTED("fragmented_obsidian_skull", UpdateFunctions.DEFAULT, entity -> true),
     FADING("fading_obsidian_skull", UpdateFunctions.DEFAULT, entity -> true),
-    AUREALIC("aurealic_obsidian_skull", UpdateFunctions.AUREALIC, entity -> entity.getCapability(AurealProvider.CAPABILITY).map(aureal -> aureal.getAureal() > 0).orElse(false)),
+    AUREALIC("aurealic_obsidian_skull", UpdateFunctions.AUREALIC, entity -> {
+        AurealProvider provider = entity.getCapability(AurealProvider.ENTITY_AUREAL);
+
+        if (provider != null) {
+            return provider.getAureal() > 0;
+        }
+
+        return false;
+    }),
     ETERNAL("eternal_obsidian_skull", UpdateFunctions.EMPTY, entity -> true);
 
     private final String name;
@@ -81,9 +89,11 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
         };
 
         public static final UpdateFunction AUREALIC = (type, stack, player) -> {
-            player.getCapability(AurealProvider.CAPABILITY).ifPresent(aureal -> {
-                aureal.decreaseAureal(1);
-            });
+            AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
+
+            if (provider != null) {
+                provider.setAureal(provider.getAureal() - 1);
+            }
         };
     }
 

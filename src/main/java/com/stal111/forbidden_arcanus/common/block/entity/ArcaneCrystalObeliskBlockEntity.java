@@ -33,7 +33,7 @@ public class ArcaneCrystalObeliskBlockEntity extends BlockEntity {
 
         PoiManager manager = ((ServerLevel) level).getPoiManager();
 
-        BlockPos forgePos = manager.getInRange(poiType -> poiType.get() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst().orElse(null);
+        BlockPos forgePos = manager.getInRange(poiType -> poiType.value() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst().orElse(null);
 
         if (forgePos != null && level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity forgeBlockEntity) {
             forgeBlockEntity.getEssenceManager().increaseEssence(EssenceType.AUREAL, 1);

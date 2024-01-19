@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.item.bucket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -26,14 +25,12 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -75,7 +72,7 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         BlockHitResult hitResult = getPlayerPOVHitResult(level, player, this.getFluid().isSame(Fluids.EMPTY) || !this.isFull(stack) ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
-        InteractionResultHolder<ItemStack> resultHolder = ForgeEventFactory.onBucketUse(player, level, stack, hitResult);
+        InteractionResultHolder<ItemStack> resultHolder = EventHooks.onBucketUse(player, level, stack, hitResult);
 
         if (resultHolder != null) {
             return resultHolder;
@@ -93,7 +90,7 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
             return InteractionResultHolder.fail(stack);
         }
 
-        IFluidHandlerItem fluidHandlerItem = stack.copyWithCount(1).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).orElseThrow(() -> new IllegalStateException("CapacityBucketItem did not have a fluid handler capability!"));
+        IFluidHandlerItem fluidHandlerItem = FluidUtil.getFluidHandler(stack.copyWithCount(1)).orElseThrow(() -> new IllegalStateException("CapacityBucketItem did not have a fluid handler capability!"));
 
         BlockState state = level.getBlockState(pos);
 
@@ -105,7 +102,7 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
             return InteractionResultHolder.sidedSuccess(ItemUtils.createFilledResult(stack, player, filledBucket), level.isClientSide());
         }
 
-        BlockPos placePos = this.canBlockContainFluid(level, pos, state) ? pos : relativePos;
+        BlockPos placePos = this.canBlockContainFluid(player, level, pos, state) ? pos : relativePos;
 
         if (this.emptyContents(player, level, placePos, hitResult, stack)) {
             this.checkExtraContent(player, level, stack, placePos);
@@ -160,10 +157,5 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
     @Override
     public BucketFamily getFamily() {
         return this.family;
-    }
-
-    @Override
-    public ICapabilityProvider initCapabilities(@NotNull ItemStack stack, @Nullable CompoundTag nbt) {
-        return new CapacityBucketFluidHandler(this, stack);
     }
 }

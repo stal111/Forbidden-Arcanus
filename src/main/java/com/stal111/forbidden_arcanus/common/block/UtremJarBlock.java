@@ -27,15 +27,16 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * Utrem Jar Block <br>
@@ -80,20 +81,19 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock, Enti
 
     @Nonnull
     @Override
-    public InteractionResult use(@Nonnull BlockState state, Level level, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
+    public InteractionResult use(@Nonnull BlockState state, @NotNull Level level, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
+        Optional<IFluidHandler> fluidHandler = FluidUtil.getFluidHandler(level, pos, null);
 
-        if (!(level.getBlockEntity(pos) instanceof UtremJarBlockEntity blockEntity) || player.isShiftKeyDown()) {
+        if (player.isShiftKeyDown() || fluidHandler.isEmpty()) {
             return super.use(state, level, pos, player, hand, hit);
         }
 
-        IFluidHandler fluidHandler = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).resolve().get();
-
-        if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
+        if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler.get())) {
             player.getInventory().setChanged();
 
             return InteractionResult.sidedSuccess(level.isClientSide());
-        } else if (fluidHandler.getFluidInTank(0).isEmpty()) {
+        } else if (fluidHandler.get().getFluidInTank(0).isEmpty()) {
             BlockState newState = null;
 
             if (stack.is(ModItems.PIXIE.get())) {

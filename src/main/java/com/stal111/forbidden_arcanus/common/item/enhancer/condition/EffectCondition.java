@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
  */
 public abstract class EffectCondition {
 
-    public static final Codec<EffectCondition> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(() -> FARegistries.ENHANCER_EFFECT_CONDITION_REGISTRY.get().getCodec())
+    public static final Codec<EffectCondition> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(FARegistries.ENHANCER_EFFECT_CONDITION_REGISTRY::byNameCodec)
             .dispatch(EffectCondition::getType, EffectConditionType::codec);
 
     public abstract boolean test(Level level);

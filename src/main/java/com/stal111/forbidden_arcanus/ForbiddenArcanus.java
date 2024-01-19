@@ -6,14 +6,14 @@ import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryManager;
 import net.valhelsia.valhelsia_core.core.ModDefinition;
 import org.apache.logging.log4j.LogManager;
@@ -46,13 +46,13 @@ public final class ForbiddenArcanus {
 		this.registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 	}
 
-	private void registerConfig(ModConfig.Type type, ForgeConfigSpec configSpec) {
+	private void registerConfig(ModConfig.Type type, ModConfigSpec configSpec) {
 		ModLoadingContext.get().registerConfig(type, configSpec);
 
 		this.loadConfig(configSpec, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-" + type.name().toLowerCase(Locale.ROOT) + ".toml").toString());
 	}
 
-	private void loadConfig(ForgeConfigSpec configSpec, String path) {
+	private void loadConfig(ModConfigSpec configSpec, String path) {
 		CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).preserveInsertionOrder().sync().autosave().writingMode(WritingMode.REPLACE).build();
 
 		file.load();

@@ -7,7 +7,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.valhelsia.valhelsia_core.api.datagen.ValhelsiaBlockLootTables;
+import net.valhelsia.valhelsia_core.datagen.ValhelsiaBlockLootTables;
 
 import java.util.Set;
 

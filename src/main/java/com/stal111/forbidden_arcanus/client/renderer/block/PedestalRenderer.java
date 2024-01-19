@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -39,5 +41,10 @@ public class PedestalRenderer implements BlockEntityRenderer<PedestalBlockEntity
 
             poseStack.popPose();
         }
+    }
+
+    @Override
+    public @NotNull AABB getRenderBoundingBox(PedestalBlockEntity blockEntity) {
+        return new AABB(blockEntity.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
     }
 }

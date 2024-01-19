@@ -7,10 +7,10 @@ import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateResidueTypesPacket;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.event.TagsUpdatedEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.event.TagsUpdatedEvent;
 
 /**
  * Datapack Events <br>
@@ -38,7 +38,7 @@ public class DatapackEvents {
 
     @SubscribeEvent
     public static void onTagsUpdate(TagsUpdatedEvent event) {
-        FARegistries.ITEM_MODIFIER_REGISTRY.get().getValues().forEach(ItemModifier::clearCachedValidItems);
+        FARegistries.ITEM_MODIFIER_REGISTRY.forEach(ItemModifier::clearCachedValidItems);
 
         EnhancerCache.cacheEnhancers(event.getRegistryAccess());
     }

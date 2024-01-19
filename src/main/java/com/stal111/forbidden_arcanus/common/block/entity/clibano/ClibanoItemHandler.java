@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

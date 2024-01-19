@@ -7,13 +7,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryManager;
-import net.valhelsia.valhelsia_core.api.datagen.DataProviderContext;
+import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,11 +48,11 @@ public class ParticleDataProvider implements DataProvider {
     }
 
     private void register(ParticleType<?> particleType, ResourceLocation... textures) {
-        this.builders.put(ForgeRegistries.PARTICLE_TYPES.getKey(particleType), new ParticleDefinition(List.of(textures)));
+        this.builders.put(BuiltInRegistries.PARTICLE_TYPE.getKey(particleType), new ParticleDefinition(List.of(textures)));
     }
 
     private void register(ParticleType<?> particleType) {
-        this.builders.put(ForgeRegistries.PARTICLE_TYPES.getKey(particleType), new ParticleDefinition(null));
+        this.builders.put(BuiltInRegistries.PARTICLE_TYPE.getKey(particleType), new ParticleDefinition(null));
     }
 
     @Override

@@ -14,18 +14,16 @@ import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.brewing.BrewingRecipeRegistry;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
 /**
  * Common Setup <br>
@@ -62,7 +60,8 @@ public class CommonSetup {
         ModUtils.addStrippable(ModBlocks.AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_LOG.get());
         ModUtils.addStrippable(ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());
 
-        PotionBrewing.addMix(Potions.WATER, ModItems.STRANGE_ROOT.get(), Potions.AWKWARD);
+        //TODO
+       // PotionBrewing.addMix(Potions.WATER, ModItems.STRANGE_ROOT.get(), Potions.AWKWARD);
 
         BrewingRecipeRegistry.addRecipe(Ingredient.of(ModItems.AUREAL_BOTTLE.get()), Ingredient.of(Tags.Items.GUNPOWDER), new ItemStack(ModItems.SPLASH_AUREAL_BOTTLE.get()));
     }

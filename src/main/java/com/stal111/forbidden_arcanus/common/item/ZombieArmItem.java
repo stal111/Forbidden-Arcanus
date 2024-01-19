@@ -17,7 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +62,7 @@ public class ZombieArmItem extends Item {
             if (entity != null) {
                 entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.CONVERSION, null, null);
 
-                ForgeEventFactory.onLivingConvert(target, entity);
+                EventHooks.onLivingConvert(target, entity);
             }
 
             return true;
@@ -78,7 +78,7 @@ public class ZombieArmItem extends Item {
                 entity.setTradeOffers(villager.getOffers().createTag());
                 entity.setVillagerXp(villager.getVillagerXp());
 
-                ForgeEventFactory.onLivingConvert(villager, entity);
+                EventHooks.onLivingConvert(villager, entity);
             }
         }
 

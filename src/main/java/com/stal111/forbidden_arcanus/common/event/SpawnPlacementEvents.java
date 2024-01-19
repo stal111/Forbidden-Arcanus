@@ -4,8 +4,8 @@ import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
 
 /**
  * @author stal111

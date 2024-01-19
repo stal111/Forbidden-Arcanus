@@ -1,26 +1,26 @@
 package com.stal111.forbidden_arcanus.core.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class ItemConfig {
 
-    public static ForgeConfigSpec.IntValue ORB_OF_TEMPORARY_FLIGHT_TIME;
+    public static ModConfigSpec.IntValue ORB_OF_TEMPORARY_FLIGHT_TIME;
 
-    public static ForgeConfigSpec.IntValue EDELWOOD_WATER_BUCKET_CAPACITY;
-    public static ForgeConfigSpec.IntValue EDELWOOD_LAVA_BUCKET_CAPACITY;
-    public static ForgeConfigSpec.IntValue EDELWOOD_MILK_BUCKET_CAPACITY;
-    public static ForgeConfigSpec.IntValue EDELWOOD_SOUP_BUCKET_CAPACITY;
+    public static ModConfigSpec.IntValue EDELWOOD_WATER_BUCKET_CAPACITY;
+    public static ModConfigSpec.IntValue EDELWOOD_LAVA_BUCKET_CAPACITY;
+    public static ModConfigSpec.IntValue EDELWOOD_MILK_BUCKET_CAPACITY;
+    public static ModConfigSpec.IntValue EDELWOOD_SOUP_BUCKET_CAPACITY;
 
-    public static ForgeConfigSpec.BooleanValue BOOM_ARROW_BLOCK_DAMAGE;
-    public static ForgeConfigSpec.IntValue BOOM_ARROW_EXPLOSION_RADIUS;
+    public static ModConfigSpec.BooleanValue BOOM_ARROW_BLOCK_DAMAGE;
+    public static ModConfigSpec.IntValue BOOM_ARROW_EXPLOSION_RADIUS;
 
-    public static ForgeConfigSpec.BooleanValue MUNDABITUR_DUST_CHARGE_CREEPER;
+    public static ModConfigSpec.BooleanValue MUNDABITUR_DUST_CHARGE_CREEPER;
 
-    public static ForgeConfigSpec.IntValue XPETRIFIED_ORB_EXPERIENCE_POINTS;
+    public static ModConfigSpec.IntValue XPETRIFIED_ORB_EXPERIENCE_POINTS;
 
-    public static ForgeConfigSpec.IntValue ETERNAL_STELLA_USES;
+    public static ModConfigSpec.IntValue ETERNAL_STELLA_USES;
 
-    public static void init(ForgeConfigSpec.Builder builder) {
+    public static void init(ModConfigSpec.Builder builder) {
         builder.push("items");
 
         ORB_OF_TEMPORARY_FLIGHT_TIME = builder.comment("Flight Time the Orb grants (in ticks) [default: 6000]").defineInRange("orb_of_temporary_flight.time", 6000, 20, 120000);

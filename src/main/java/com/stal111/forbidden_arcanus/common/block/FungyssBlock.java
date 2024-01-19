@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -10,15 +11,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -33,10 +31,17 @@ import javax.annotation.Nonnull;
  */
 public class FungyssBlock extends BushBlock implements BonemealableBlock {
 
+    public static final MapCodec<FungyssBlock> CODEC = simpleCodec(FungyssBlock::new);
+
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D);
 
     public FungyssBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends BushBlock> codec() {
+        return CODEC;
     }
 
     @Nonnull

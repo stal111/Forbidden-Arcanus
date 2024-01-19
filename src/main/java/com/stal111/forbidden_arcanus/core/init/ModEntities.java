@@ -10,9 +10,9 @@ import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow;
 import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
 import com.stal111.forbidden_arcanus.common.entity.projectile.ThrownAurealBottle;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.EntityRegistryHelper;
@@ -26,7 +26,7 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.EntityRegistryHel
  */
 public class ModEntities implements RegistryClass {
 
-    public static final EntityRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(ForgeRegistries.Keys.ENTITY_TYPES);
+    public static final EntityRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ENTITY_TYPE);
 
     public static final RegistryEntry<EntityType<EnergyBall>> ENERGY_BALL = HELPER.register("energy_ball", EntityType.Builder.<EnergyBall>of(EnergyBall::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
     public static final RegistryEntry<EntityType<BoomArrow>> BOOM_ARROW = HELPER.register("boom_arrow", EntityType.Builder.<BoomArrow>of(BoomArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));

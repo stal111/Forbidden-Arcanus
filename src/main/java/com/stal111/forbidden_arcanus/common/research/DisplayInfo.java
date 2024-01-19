@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.research.icon.IconProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.ExtraCodecs;
+import net.minecraft.network.chat.ComponentSerialization;
 
 /**
  * @author stal111
@@ -13,10 +13,10 @@ import net.minecraft.util.ExtraCodecs;
 public class DisplayInfo {
 
     public static final Codec<DisplayInfo> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.COMPONENT.fieldOf("title").forGetter(info -> {
+            ComponentSerialization.CODEC.fieldOf("title").forGetter(info -> {
                 return info.title;
             }),
-            ExtraCodecs.COMPONENT.fieldOf("description").forGetter(info -> {
+            ComponentSerialization.CODEC.fieldOf("description").forGetter(info -> {
                 return info.description;
             }),
             FrameType.CODEC.fieldOf("frame").forGetter(info -> {

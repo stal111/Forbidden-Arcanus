@@ -1,9 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -14,23 +12,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.valhelsia.valhelsia_core.api.common.counter.SerializableCounter;
-import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
-import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCapability;
-import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterCreator;
-import net.valhelsia.valhelsia_core.api.common.counter.capability.CounterProvider;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Wet Purifying Soap Item <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.WetPurifyingSoapItem
  *
  * @author stal111
- * @version 1.18.1 - 2.0.3
  * @since 2021-01-31
  */
 public class WetPurifyingSoapItem extends Item {
@@ -48,19 +38,20 @@ public class WetPurifyingSoapItem extends Item {
         if (this.isUltraWarm(entity)) {
             entity.setItem(new ItemStack(ModItems.PURIFYING_SOAP.get()));
         } else {
-            stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
-                SimpleCounter counter = this.getCounter(counterCapability);
-
-                if (entity.isInWaterRainOrBubble()) {
-                    counter.reset();
-                } else {
-                    counter.increase();
-
-                    if (counter.getValue() >= 3600) {
-                        entity.setItem(new ItemStack(ModItems.PURIFYING_SOAP.get()));
-                    }
-                }
-            });
+            //TODO
+//            stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
+//                SimpleCounter counter = this.getCounter(counterCapability);
+//
+//                if (entity.isInWaterRainOrBubble()) {
+//                    counter.reset();
+//                } else {
+//                    counter.increase();
+//
+//                    if (counter.getValue() >= 3600) {
+//                        entity.setItem(new ItemStack(ModItems.PURIFYING_SOAP.get()));
+//                    }
+//                }
+//            });
         }
         return false;
     }
@@ -71,19 +62,20 @@ public class WetPurifyingSoapItem extends Item {
             if (this.isUltraWarm(player)) {
                 player.getInventory().setItem(itemSlot, new ItemStack(ModItems.PURIFYING_SOAP.get()));
             }
-            stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
-                SimpleCounter timer = this.getCounter(counterCapability);
-
-                if (player.isInWaterRainOrBubble()) {
-                    timer.reset();
-                } else {
-                    timer.increase();
-
-                    if (timer.getValue() >= 3600) {
-                        player.getInventory().setItem(itemSlot, new ItemStack(ModItems.PURIFYING_SOAP.get()));
-                    }
-                }
-            });
+            //TODO
+//            stack.getCapability(CounterProvider.CAPABILITY).ifPresent(counterCapability -> {
+//                SimpleCounter timer = this.getCounter(counterCapability);
+//
+//                if (player.isInWaterRainOrBubble()) {
+//                    timer.reset();
+//                } else {
+//                    timer.increase();
+//
+//                    if (timer.getValue() >= 3600) {
+//                        player.getInventory().setItem(itemSlot, new ItemStack(ModItems.PURIFYING_SOAP.get()));
+//                    }
+//                }
+//            });
         }
         super.inventoryTick(stack, level, entity, itemSlot, isSelected);
     }
@@ -100,7 +92,7 @@ public class WetPurifyingSoapItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        AurealHelper.getCapability(player).decreaseCorruption(20);
+        //TODO: new use
 
         if (!level.isClientSide()) {
             player.removeAllEffects();
@@ -113,15 +105,5 @@ public class WetPurifyingSoapItem extends Item {
         player.awardStat(Stats.ITEM_USED.get(this));
 
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
-    }
-
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag tag) {
-        return new CounterProvider(CounterCreator.of(SerializableCounter::new, COUNTER));
-    }
-
-    private SimpleCounter getCounter(CounterCapability counterCapability) {
-        return counterCapability.getCounter(COUNTER);
     }
 }

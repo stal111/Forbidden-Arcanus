@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
+import net.neoforged.neoforge.common.NeoForgeMod;
 
 import java.util.*;
 import java.util.function.Function;
@@ -72,7 +72,7 @@ public class DemolishingModifierBlockBreaker {
     private static Direction calculateBlockSide(Level level, Player player) {
         Vec3 eyePosition = player.getEyePosition();
         Vec3 viewVector = player.getViewVector(1);
-        double reach = player.getAttributeValue(ForgeMod.BLOCK_REACH.getHolder().orElseThrow());
+        double reach = player.getAttributeValue(NeoForgeMod.BLOCK_REACH.value());
 
         Vec3 combined = eyePosition.add(viewVector.x * reach, viewVector.y * reach, viewVector.z * reach);
 

@@ -169,10 +169,9 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         return HephaestusForgeBlock.setTierOnStack(super.getCloneItemStack(state, target, level, pos, player), state.getValue(TIER));
     }
-
 
     @Override
     public @NotNull FluidState getFluidState(BlockState state) {

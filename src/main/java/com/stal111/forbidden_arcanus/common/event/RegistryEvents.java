@@ -6,14 +6,15 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.research.Constellation;
 import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.DataPackRegistryEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 
 /**
  * @author stal111
  * @since 2023-02-19
  */
-public class DatapackRegistryEvents {
+public class RegistryEvents {
 
     @SubscribeEvent
     public void newDatapackRegistry(DataPackRegistryEvent.NewRegistry event) {
@@ -22,5 +23,16 @@ public class DatapackRegistryEvents {
         event.dataPackRegistry(FARegistries.FORGE_INPUT, HephaestusForgeInput.DIRECT_CODEC, HephaestusForgeInput.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.DIRECT_CODEC, Knowledge.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.CONSTELLATION, Constellation.CODEC, Constellation.CODEC);
+    }
+
+    @SubscribeEvent
+    public void newRegistry(NewRegistryEvent event) {
+        event.register(FARegistries.RITUAL_RESULT_TYPE_REGISTRY);
+        event.register(FARegistries.FORGE_INPUT_TYPE_REGISTRY);
+        event.register(FARegistries.ITEM_MODIFIER_REGISTRY);
+        event.register(FARegistries.ENHANCER_EFFECT_REGISTRY);
+        event.register(FARegistries.ENHANCER_EFFECT_CONDITION_REGISTRY);
+        event.register(FARegistries.DARK_TRADER_VARIANT_REGISTRY);
+        event.register(FARegistries.MUNDABITUR_INTERACTION_REGISTRY);
     }
 }

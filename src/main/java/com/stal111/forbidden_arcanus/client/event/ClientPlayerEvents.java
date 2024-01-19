@@ -2,13 +2,12 @@ package com.stal111.forbidden_arcanus.client.event;
 
 import com.stal111.forbidden_arcanus.client.animation.DracoAurumWingsAnimation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fml.common.Mod;
 
 /**
  * @author stal111
  * @since 2022-08-13
  */
-@Mod.EventBusSubscriber
+//@Mod.EventBusSubscriber
 public class ClientPlayerEvents {
 
 //    @SubscribeEvent

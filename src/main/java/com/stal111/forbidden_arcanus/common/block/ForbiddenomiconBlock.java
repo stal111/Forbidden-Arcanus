@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -29,6 +30,8 @@ import java.util.Map;
  */
 public class ForbiddenomiconBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 
+    public static final MapCodec<ForbiddenomiconBlock> CODEC = simpleCodec(ForbiddenomiconBlock::new);
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 0.0D, 14.0D, 4.0D, 16.0D);
@@ -39,6 +42,11 @@ public class ForbiddenomiconBlock extends HorizontalDirectionalBlock implements 
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
         this.shapesCache = this.getShapeForEachState(ForbiddenomiconBlock::calculateShape);
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     private static VoxelShape calculateShape(BlockState state) {

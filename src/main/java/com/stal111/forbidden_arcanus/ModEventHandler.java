@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus;
 
 import com.stal111.forbidden_arcanus.common.event.*;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.valhelsia.valhelsia_core.core.forge.ValhelsiaForgeEventHandler;
+import net.neoforged.bus.api.IEventBus;
+import net.valhelsia.valhelsia_core.core.neoforge.ValhelsiaForgeEventHandler;
 
 /**
  * @author stal111
@@ -17,10 +16,8 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
 
     @Override
     public void registerModEvents(IEventBus eventBus) {
-        FARegistries.register(eventBus);
-
         eventBus.register(new SpawnPlacementEvents());
-        eventBus.register(new DatapackRegistryEvents());
+        eventBus.register(new RegistryEvents());
     }
 
     @Override

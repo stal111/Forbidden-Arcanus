@@ -4,8 +4,9 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBloc
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
@@ -64,6 +65,6 @@ public class ClibanoResultSlot extends SlotItemHandler {
         }
 
         this.removeCount = 0;
-        net.minecraftforge.event.ForgeEventFactory.firePlayerSmeltedEvent(this.player, stack);
+        EventHooks.firePlayerSmeltedEvent(this.player, stack);
     }
 }

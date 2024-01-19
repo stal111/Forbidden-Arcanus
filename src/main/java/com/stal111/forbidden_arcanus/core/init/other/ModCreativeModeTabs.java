@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
+import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
@@ -210,15 +210,15 @@ public class ModCreativeModeTabs implements RegistryClass {
                             var maxAurealTank = new ItemStack(ModItems.AUREAL_TANK.get());
                             var fullMaxAurealTank = new ItemStack(ModItems.AUREAL_TANK.get());
 
-                            fullAurealTank.getCapability(ItemAurealProvider.AUREAL).ifPresent(provider -> {
+                            AurealHelper.getCapability(fullAurealTank).ifPresent(provider -> {
                                 provider.setAureal(AurealTankItem.DEFAULT_CAPACITY);
                             });
 
-                            maxAurealTank.getCapability(ItemAurealProvider.AUREAL).ifPresent(provider -> {
+                            AurealHelper.getCapability(maxAurealTank).ifPresent(provider -> {
                                 provider.setAurealLimit(AurealTankItem.MAX_CAPACITY);
                             });
 
-                            fullMaxAurealTank.getCapability(ItemAurealProvider.AUREAL).ifPresent(provider -> {
+                            AurealHelper.getCapability(fullMaxAurealTank).ifPresent(provider -> {
                                 provider.setAurealLimit(AurealTankItem.MAX_CAPACITY);
                                 provider.setAureal(AurealTankItem.MAX_CAPACITY);
                             });

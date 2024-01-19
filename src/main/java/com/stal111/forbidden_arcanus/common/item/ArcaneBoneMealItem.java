@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
@@ -73,7 +73,7 @@ public class ArcaneBoneMealItem extends BoneMealItem {
     }
 
     public static boolean applyBoneMeal(ItemStack stack, Level level, BlockPos pos, @Nullable Player player) {
-        int hook = ForgeEventFactory.onApplyBonemeal(player, level, pos, level.getBlockState(pos), stack);
+        int hook = EventHooks.onApplyBonemeal(player, level, pos, level.getBlockState(pos), stack);
         if (hook != 0) {
             return hook > 0;
         }

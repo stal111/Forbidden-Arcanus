@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.CommonHooks;
 
 import javax.annotation.Nonnull;
 
@@ -70,9 +70,9 @@ public class StrangeRootBlock extends CropBlock {
 
         int age = this.getAge(state);
 
-        if (age < this.getMaxAge() && ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) ((25.0F / getGrowthSpeed(this, level, pos)) + 1)) == 0)) {
+        if (age < this.getMaxAge() && CommonHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) ((25.0F / getGrowthSpeed(this, level, pos)) + 1)) == 0)) {
             level.setBlock(pos, state.cycle(AGE), 2);
-            ForgeHooks.onCropsGrowPost(level, pos, state);
+            CommonHooks.onCropsGrowPost(level, pos, state);
         }
     }
 

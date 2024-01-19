@@ -3,17 +3,12 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.util.FluidTankTile;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,7 +24,6 @@ import javax.annotation.Nullable;
 public class UtremJarBlockEntity extends BlockEntity {
 
     private final FluidTank tank = new FluidTankTile(FluidType.BUCKET_VOLUME, this);
-    private final LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
 
     public UtremJarBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.UTREM_JAR.get(), pos, state);
@@ -70,14 +64,5 @@ public class UtremJarBlockEntity extends BlockEntity {
     @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
-    }
-
-    @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-        if (capability == ForgeCapabilities.FLUID_HANDLER) {
-            return holder.cast();
-        }
-        return super.getCapability(capability, facing);
     }
 }

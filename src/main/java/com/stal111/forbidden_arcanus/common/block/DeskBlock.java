@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,6 +40,8 @@ import java.util.Map;
  */
 public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 
+    public static final MapCodec<DeskBlock> CODEC = simpleCodec(DeskBlock::new);
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape INSIDE_SHAPE = Block.box(4.0D, 0.0D, 1.0D, 12.0D, 9.0D, 12.0D);
@@ -52,6 +55,11 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
         this.shapesCache = this.getShapeForEachState(DeskBlock::calculateShape);
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     private static VoxelShape calculateShape(BlockState state) {

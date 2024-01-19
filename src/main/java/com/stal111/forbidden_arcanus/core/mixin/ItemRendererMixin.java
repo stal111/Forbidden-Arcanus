@@ -6,12 +6,12 @@ import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,11 +31,7 @@ public class ItemRendererMixin {
     @Inject(at = @At(value = "RETURN"), method = "getModel", cancellable = true)
     public void forbiddenArcanus_getModel(ItemStack stack, Level level, LivingEntity livingEntity, int seed, CallbackInfoReturnable<BakedModel> cir) {
         if (stack.getItem() instanceof ArmorItem item && item.getType() == ArmorItem.Type.BOOTS && ModifierHelper.getModifier(stack) == ModItemModifiers.MAGNETIZED.get()) {
-            ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(item);
-
-            if (resourceLocation == null) {
-                return;
-            }
+            ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
 
             BakedModel model = this.itemModelShaper.getModelManager().getModel(new ModelResourceLocation(new ResourceLocation(resourceLocation.getNamespace(), "magnetized_" + resourceLocation.getPath()), "inventory"));
 

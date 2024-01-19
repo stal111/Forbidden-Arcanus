@@ -31,7 +31,7 @@ public record RitualRequirements(int tier, List<Holder<EnhancerDefinition>> enha
         }
 
         for (Holder<EnhancerDefinition> enhancer : this.enhancers) {
-            if (!enhancers.contains(enhancer.get())) {
+            if (!enhancers.contains(enhancer.value())) {
                 return false;
             }
         }

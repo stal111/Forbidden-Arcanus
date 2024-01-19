@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -152,7 +151,7 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     private Optional<BlockPos> findHephaestusForge(ServerLevel level, BlockPos pos) {
-        return level.getPoiManager().getInRange(poiTypeHolder -> poiTypeHolder.get() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst();
+        return level.getPoiManager().getInRange(poiTypeHolder -> poiTypeHolder.value() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst();
     }
 
     @Override
@@ -186,11 +185,6 @@ public class PedestalBlockEntity extends BlockEntity {
     @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
-    }
-
-    @Override
-    public AABB getRenderBoundingBox() {
-        return new AABB(this.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
     }
 
     @FunctionalInterface

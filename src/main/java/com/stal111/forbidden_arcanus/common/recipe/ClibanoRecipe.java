@@ -21,7 +21,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.EnumMap;
@@ -124,7 +123,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         }
 
         @Override
-        public @Nullable ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+        public @NotNull ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
             String s = buffer.readUtf();
             CookingBookCategory category = buffer.readEnum(CookingBookCategory.class);
             Ingredient ingredient = Ingredient.fromNetwork(buffer);

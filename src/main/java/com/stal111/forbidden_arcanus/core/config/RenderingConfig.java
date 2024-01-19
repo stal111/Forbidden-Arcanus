@@ -1,15 +1,15 @@
 package com.stal111.forbidden_arcanus.core.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class RenderingConfig {
 
-    public static ForgeConfigSpec.BooleanValue ORB_OF_TEMPORARY_FLIGHT_OVERLAY_RENDER;
-    public static ForgeConfigSpec.IntValue ORB_OF_TEMPORARY_FLIGHT_OVERLAY_X_POSITION;
-    public static ForgeConfigSpec.IntValue ORB_OF_TEMPORARY_FLIGHT_OVERLAY_Y_POSITION;
+    public static ModConfigSpec.BooleanValue ORB_OF_TEMPORARY_FLIGHT_OVERLAY_RENDER;
+    public static ModConfigSpec.IntValue ORB_OF_TEMPORARY_FLIGHT_OVERLAY_X_POSITION;
+    public static ModConfigSpec.IntValue ORB_OF_TEMPORARY_FLIGHT_OVERLAY_Y_POSITION;
 
 
-    public static void init(ForgeConfigSpec.Builder builder) {
+    public static void init(ModConfigSpec.Builder builder) {
         builder.push("rendering");
 
         ORB_OF_TEMPORARY_FLIGHT_OVERLAY_RENDER = builder.comment("Should the Orb of Temporary Flight Overlay be rendered? [default: true]").define("orb_of_temporary_flight.render", true);

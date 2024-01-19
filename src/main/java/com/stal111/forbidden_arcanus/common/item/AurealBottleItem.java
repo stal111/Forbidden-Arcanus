@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
+import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -42,7 +42,11 @@ public class AurealBottleItem extends Item {
         if (player instanceof ServerPlayer serverPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
 
-            AurealHelper.increaseAureal(serverPlayer, 35);
+            AurealProvider provider = serverPlayer.getCapability(AurealProvider.ENTITY_AUREAL);
+
+            if (provider != null) {
+                provider.setAureal(provider.getAureal() + 35);
+            }
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
@@ -73,7 +77,9 @@ public class AurealBottleItem extends Item {
     @Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
-        if (AurealHelper.getAureal(player) < 200) {
+        AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
+
+        if (provider != null && provider.getAureal() < 200) {
             return ItemUtils.startUsingInstantly(level, player, hand);
         }
         return super.use(level, player, hand);

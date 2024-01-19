@@ -1,5 +1,7 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
+import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.aureal.AurealStorage;
 import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -27,28 +29,30 @@ public class CombineAurealTankRecipe extends CustomRecipe {
 
     @Override
     public boolean matches(@NotNull CraftingContainer container, @NotNull Level level) {
-        ItemAurealProvider.ProviderInfo info = this.getCombinedInfo(container.getItems());
+        AurealStorage storage = this.getCombinedStorage(container.getItems());
         boolean multipleStacks = container.getItems().stream().filter(stack -> !stack.isEmpty()).toList().size() > 1;
 
-        return info != ItemAurealProvider.ProviderInfo.EMPTY && multipleStacks && info.limit() <= AurealTankItem.MAX_CAPACITY;
+        return storage != AurealStorage.EMPTY && multipleStacks && storage.limit() <= AurealTankItem.MAX_CAPACITY;
     }
 
     @Override
     public @NotNull ItemStack assemble(@NotNull CraftingContainer container, @NotNull RegistryAccess registryAccess) {
-        ItemAurealProvider.ProviderInfo info = this.getCombinedInfo(container.getItems());
+        AurealStorage storage = this.getCombinedStorage(container.getItems());
 
         ItemStack stack = new ItemStack(ModItems.AUREAL_TANK.get());
 
-        stack.getCapability(ItemAurealProvider.AUREAL).ifPresent(provider -> {
-            provider.setAurealLimit(info.limit());
-            provider.setAureal(info.aureal());
-        });
+        AurealProvider provider = stack.getCapability(ItemAurealProvider.ITEM_AUREAL);
+
+        if (provider != null) {
+            provider.setAurealLimit(storage.limit());
+            provider.setAureal(storage.value());
+        }
 
         return stack;
     }
 
-    private ItemAurealProvider.ProviderInfo getCombinedInfo(List<ItemStack> stacks) {
-        ItemAurealProvider.ProviderInfo info = ItemAurealProvider.ProviderInfo.EMPTY;
+    private AurealStorage getCombinedStorage(List<ItemStack> stacks) {
+        AurealStorage storage = AurealStorage.EMPTY;
 
         for (ItemStack stack : stacks) {
             if (stack.isEmpty()) {
@@ -56,15 +60,17 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             }
 
             if (!stack.is(ModItems.AUREAL_TANK.get())) {
-                return ItemAurealProvider.ProviderInfo.EMPTY;
+                return AurealStorage.EMPTY;
             }
 
-            ItemAurealProvider provider = stack.getCapability(ItemAurealProvider.AUREAL).orElseThrow(() -> new RuntimeException("Aureal Tank item is missing aureal capability."));
+            AurealProvider provider = stack.getCapability(AurealProvider.ITEM_AUREAL);
 
-            info = info.combine(provider.getSnapshot());
+            if (provider != null) {
+                storage.combine(provider.getAurealStorage());
+            }
         }
 
-        return info;
+        return storage;
     }
 
     @Override

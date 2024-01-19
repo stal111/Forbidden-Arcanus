@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.core.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 /**
  * Config
@@ -9,14 +8,13 @@ import net.minecraftforge.fml.common.Mod;
  *
  * @author Valhelsia Team
  */
-@Mod.EventBusSubscriber
 public class Config {
 
-	private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
-	private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
+	private static final ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
+	private static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
 
-	public static final ForgeConfigSpec COMMON_CONFIG;
-	public static final ForgeConfigSpec CLIENT_CONFIG;
+	public static final ModConfigSpec COMMON_CONFIG;
+	public static final ModConfigSpec CLIENT_CONFIG;
 
 	static {
 		ItemConfig.init(COMMON_BUILDER);

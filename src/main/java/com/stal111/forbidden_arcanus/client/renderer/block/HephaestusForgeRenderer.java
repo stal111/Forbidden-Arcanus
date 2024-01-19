@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -56,6 +58,20 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 
     @Override
     public boolean shouldRenderOffScreen(@Nonnull HephaestusForgeBlockEntity blockEntity) {
-        return blockEntity.useExpandedRenderBoundingBox();
+        return this.useExpandedRenderBoundingBox(blockEntity);
+    }
+
+    @Override
+    public @NotNull AABB getRenderBoundingBox(@NotNull HephaestusForgeBlockEntity blockEntity) {
+        AABB boundingBox = BlockEntityRenderer.super.getRenderBoundingBox(blockEntity).expandTowards(0.0D, 1.0D, 0.0D);
+
+        if (this.useExpandedRenderBoundingBox(blockEntity)) {
+            boundingBox = boundingBox.inflate(2.5F, 0.0F, 2.5D);
+        }
+        return boundingBox;
+    }
+
+    public boolean useExpandedRenderBoundingBox(HephaestusForgeBlockEntity blockEntity) {
+        return blockEntity.getRitualManager().isRitualActive() || blockEntity.hasValidRitualIndicator();
     }
 }
