@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.event;
 
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -23,6 +24,7 @@ public class RegistryEvents {
         event.dataPackRegistry(FARegistries.FORGE_INPUT, HephaestusForgeInput.DIRECT_CODEC, HephaestusForgeInput.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.DIRECT_CODEC, Knowledge.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.CONSTELLATION, Constellation.CODEC, Constellation.CODEC);
+        event.dataPackRegistry(FARegistries.RESIDUE_TYPE, ResidueType.CODEC, ResidueType.CODEC);
     }
 
     @SubscribeEvent

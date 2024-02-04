@@ -172,7 +172,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
                 return List.of();
             }
 
-            return List.of(residueInfo.getType().getComponent()
+            return List.of(residueInfo.getType().name().copy()
                     .append(" ")
                     .append(Component.translatable("jei.forbidden_arcanus.clibanoCombustion.residue"))
                     .append(" (" + residueInfo.chance() * 100 +"%)")

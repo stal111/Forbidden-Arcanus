@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoSideType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;

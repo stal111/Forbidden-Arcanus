@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.CombineResiduesRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;

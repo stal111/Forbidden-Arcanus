@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.network.clientbound;
 
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResidueType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.List;
