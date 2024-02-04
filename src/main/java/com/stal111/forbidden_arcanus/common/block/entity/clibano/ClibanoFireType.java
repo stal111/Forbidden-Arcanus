@@ -10,9 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 /**
  * @author stal111
  * @since 2022-06-02
@@ -60,10 +57,6 @@ public enum ClibanoFireType implements StringRepresentable {
 
     public ClibanoSideType getSideType() {
         return this.sideType;
-    }
-
-    public static Optional<ClibanoFireType> byName(String name) {
-        return Arrays.stream(ClibanoFireType.values()).filter(fireType -> fireType.getSerializedName().equals(name)).findFirst();
     }
 
     public static ClibanoFireType fromItem(ItemStack stack) {

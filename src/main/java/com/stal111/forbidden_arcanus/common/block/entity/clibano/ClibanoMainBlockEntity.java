@@ -488,7 +488,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         this.cookingDurationFirst = tag.getInt("CookingDurationFirst");
         this.cookingDurationSecond = tag.getInt("CookingDurationSecond");
 
-        this.fireType = ClibanoFireType.byName(tag.getString("FireType")).orElse(ClibanoFireType.FIRE);
+        this.fireType = ClibanoFireType.CODEC.byName(tag.getString("FireType"), ClibanoFireType.FIRE);
 
         this.frontDirection = Direction.byName(tag.getString("FrontDirection"));
 

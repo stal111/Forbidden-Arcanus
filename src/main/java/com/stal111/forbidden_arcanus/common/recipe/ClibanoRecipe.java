@@ -25,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Clibano Recipe <br>
@@ -131,9 +130,10 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             float f = buffer.readFloat();
             int i = buffer.readVarInt();
 
-            Optional<ClibanoFireType> fireType = ClibanoFireType.byName(buffer.readUtf());
+            ClibanoFireType fireType = ClibanoFireType.CODEC.byName(buffer.readUtf(), ClibanoFireType.FIRE);
 
-            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType.orElse(ClibanoFireType.FIRE));        }
+            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType);
+        }
 
         @Override
         public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ClibanoRecipe recipe) {
