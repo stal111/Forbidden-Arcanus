@@ -2,9 +2,13 @@ package com.stal111.forbidden_arcanus.data.residue;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
@@ -34,16 +38,16 @@ public class ModResidueTypes extends DatapackRegistryClass<ResidueType> {
 
     @Override
     public void bootstrap(BootstapContext<ResidueType> context) {
-        context.register(ARCANE_CRYSTAL, ResidueType.withDefaultKey("arcane_crystal"));
-        context.register(RUNE, ResidueType.withDefaultKey("rune"));
-        context.register(COAL, ResidueType.withDefaultKey("coal"));
-        context.register(IRON, ResidueType.withDefaultKey("iron"));
-        context.register(GOLD, ResidueType.withDefaultKey("gold"));
-        context.register(COPPER, ResidueType.withDefaultKey("copper"));
-        context.register(LAPIS_LAZULI, ResidueType.withDefaultKey("lapis_lazuli"));
-        context.register(DIAMOND, ResidueType.withDefaultKey("diamond"));
-        context.register(EMERALD, ResidueType.withDefaultKey("emerald"));
-        context.register(NETHERITE, ResidueType.withDefaultKey("netherite"));
-        context.register(DEORUM, ResidueType.withDefaultKey("deorum"));
+        context.register(ARCANE_CRYSTAL, ResidueType.withDefaultKey("arcane_crystal", 9, new ItemStack(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())));
+        context.register(RUNE, ResidueType.withDefaultKey("rune", 9, new ItemStack(ModBlocks.RUNE_BLOCK.get())));
+        context.register(COAL, ResidueType.withDefaultKey("coal", 9, Items.COAL_BLOCK.getDefaultInstance()));
+        context.register(IRON, ResidueType.withDefaultKey("iron", 9, Items.IRON_BLOCK.getDefaultInstance()));
+        context.register(GOLD, ResidueType.withDefaultKey("gold", 9, Items.GOLD_BLOCK.getDefaultInstance()));
+        context.register(COPPER, ResidueType.withDefaultKey("copper", 9, Items.COPPER_BLOCK.getDefaultInstance()));
+        context.register(LAPIS_LAZULI, ResidueType.withDefaultKey("lapis_lazuli", 9, Items.LAPIS_BLOCK.getDefaultInstance()));
+        context.register(DIAMOND, ResidueType.withDefaultKey("diamond", 9, Items.DIAMOND_BLOCK.getDefaultInstance()));
+        context.register(EMERALD, ResidueType.withDefaultKey("emerald", 9, Items.EMERALD_BLOCK.getDefaultInstance()));
+        context.register(NETHERITE, ResidueType.withDefaultKey("netherite", 9, Items.NETHERITE_BLOCK.getDefaultInstance()));
+        context.register(DEORUM, ResidueType.withDefaultKey("deorum", 1, new ItemStack(ModItems.DEORUM_NUGGET.get(), 2)));
     }
 }

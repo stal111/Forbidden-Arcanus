@@ -4,8 +4,6 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
-import com.stal111.forbidden_arcanus.common.recipe.CombineResiduesRecipe;
-import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
@@ -34,15 +32,14 @@ public class ResiduesStorage implements SerializableComponent {
     private int totalAmount = 0;
 
     public void tick(Level level, ClibanoMainBlockEntity blockEntity) {
-        level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.COMBINE_RESIDUES.get()).forEach(holder -> {
-            CombineResiduesRecipe recipe = holder.value();
-            ResidueType type = recipe.getResidue();
+        this.residueTypeAmountMap.forEach((type, amount) -> {
+            ResidueType.CombineInfo combineInfo = type.combineInfo();
 
-            if (this.residueTypeAmountMap.getOrDefault(type, 0) >= recipe.getResidueAmount()) {
+            if (amount >= combineInfo.requiredAmount()) {
                 ItemStack resultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getFirst());
                 ItemStack secondResultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getSecond());
 
-                ItemStack stack = recipe.getResultItem(level.registryAccess());
+                ItemStack stack = combineInfo.result().copy();
                 boolean flag = true;
 
                 if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
@@ -58,11 +55,9 @@ public class ResiduesStorage implements SerializableComponent {
                 }
 
                 if (flag) {
-                    this.residueTypeAmountMap.computeIfPresent(type, (residueType, value) -> {
-                        this.totalAmount -= recipe.getResidueAmount();
+                    this.residueTypeAmountMap.merge(type, -combineInfo.requiredAmount(), Integer::sum);
 
-                        return value - recipe.getResidueAmount();
-                    });
+                    this.totalAmount -= combineInfo.requiredAmount();
                 }
             }
         });

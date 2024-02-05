@@ -1,0 +1,15 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "category": "misc",
+  "cooking_time": 100,
+  "experience": 0.1,
+  "fire_type": "fire",
+  "ingredient": {
+    "tag": "minecraft:lapis_ores"
+  },
+  "residue": {
+    "type": "forbidden_arcanus:lapis_lazuli",
+    "chance": 0.2
+  },
+  "result": "minecraft:lapis_lazuli"
+}

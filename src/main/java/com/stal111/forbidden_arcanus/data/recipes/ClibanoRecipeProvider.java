@@ -17,7 +17,6 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -66,28 +65,11 @@ public class ClibanoRecipeProvider extends RecipeSubProvider {
         this.add(this.clibanoRecipe(Items.IRON_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), 0.35F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.IRON), CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_IRON)), "clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron");
         this.add(this.clibanoRecipe(Items.GOLD_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD), 0.5F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.GOLD), CHANCE_20)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_GOLD)), "clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold");
         this.add(this.clibanoRecipe(Items.COPPER_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER), 0.35F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.COPPER), CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_COPPER)), "clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper");
-
-//        this.combineResidue("arcane_crystal", 9, new ItemStack(ModBlocks.ARCANE_CRYSTAL_BLOCK.get()));
-//        this.combineResidue("rune", 9, new ItemStack(ModBlocks.RUNE_BLOCK.get()));
-//
-//        this.combineResidue("iron", 9, new ItemStack(Blocks.IRON_BLOCK));
-//        this.combineResidue("gold", 9, new ItemStack(Blocks.GOLD_BLOCK));
-//        this.combineResidue("copper", 9, new ItemStack(Blocks.COPPER_BLOCK));
-//        this.combineResidue("lapis_lazuli", 9, new ItemStack(Blocks.LAPIS_BLOCK));
-//        this.combineResidue("diamond", 9, new ItemStack(Blocks.DIAMOND_BLOCK));
-//        this.combineResidue("emerald", 9, new ItemStack(Blocks.EMERALD_BLOCK));
-//        this.combineResidue("netherite", 9, new ItemStack(Blocks.NETHERITE_BLOCK));
-//
-//        this.combineResidue("deorum", 1, new ItemStack(ModItems.DEORUM_NUGGET.get(), 2));
     }
 
     @Override
     public void add(RecipeBuilder builder) {
         super.add(builder, "clibano_combustion/" + BuiltInRegistries.ITEM.getKey(builder.getResult()).getPath() + "_from_clibano_combustion");
-    }
-
-    private void combineResidue(String name, int amount, ItemStack result) {
-      //  this.add(CombineResiduesRecipeBuilder.of(name, amount, result));
     }
 
     private RecipeBuilder clibanoRecipe(ItemLike result, Ingredient ingredient, float experience, int cookingTime, ResidueChance chance) {

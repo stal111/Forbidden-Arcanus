@@ -19,7 +19,6 @@ public class ModRecipeSerializers implements RegistryClass {
 
     public static final RegistryEntry<RecipeSerializer<ApplyModifierRecipe>> APPLY_MODIFIER = HELPER.register("apply_modifier", ApplyModifierRecipe.Serializer::new);
     public static final RegistryEntry<RecipeSerializer<ClibanoRecipe>> CLIBANO_SERIALIZER = HELPER.register("clibano_combustion", ClibanoRecipe.Serializer::new);
-    public static final RegistryEntry<RecipeSerializer<CombineResiduesRecipe>> COMBINE_RESIDUES_SERIALIZER = HELPER.register("combine_residues", CombineResiduesRecipe.Serializer::new);
     public static final RegistryEntry<RecipeSerializer<CombineAurealTankRecipe>> COMBINE_AUREAL_TANK = HELPER.register("combine_aureal_tank", () -> new SimpleCraftingRecipeSerializer<>(CombineAurealTankRecipe::new));
 
 }

@@ -1,4 +1,11 @@
 {
+  "combine_info": {
+    "required_amount": 9,
+    "result": {
+      "Count": 1,
+      "id": "minecraft:gold_block"
+    }
+  },
   "name": {
     "translate": "residue.forbidden_arcanus.gold"
   }
