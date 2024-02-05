@@ -24,7 +24,7 @@ public class RegistryEvents {
         event.dataPackRegistry(FARegistries.FORGE_INPUT, HephaestusForgeInput.DIRECT_CODEC, HephaestusForgeInput.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.DIRECT_CODEC, Knowledge.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.CONSTELLATION, Constellation.CODEC, Constellation.CODEC);
-        event.dataPackRegistry(FARegistries.RESIDUE_TYPE, ResidueType.CODEC, ResidueType.CODEC);
+        event.dataPackRegistry(FARegistries.RESIDUE_TYPE, ResidueType.DIRECT_CODEC, ResidueType.DIRECT_CODEC);
     }
 
     @SubscribeEvent

@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ClibanoSideType;
@@ -66,7 +67,6 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     public static final int DATA_RESIDUE_FULLNESS = 8;
 
     public static final int BASE_DATA_COUNT = 9;
-    public static final int FULL_DATA_COUNT = BASE_DATA_COUNT + ResiduesStorage.RESIDUE_TYPES.size();
 
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_COMBUSTION.get();
 
@@ -96,9 +96,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
                 case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
                 case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.getTotalAmount();
                 default -> {
-                    ResidueType type = ResiduesStorage.RESIDUE_TYPES.get(index - BASE_DATA_COUNT);
-
-                    yield blockEntity.residuesStorage.getResidueTypeAmountMap().getOrDefault(type, 0);
+                    yield blockEntity.residuesStorage.getResidueTypeAmountMap().values().toArray(Integer[]::new)[index - BASE_DATA_COUNT];
                 }
             };
         }
@@ -118,14 +116,16 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
                 case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
                 case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.setTotalAmount(value);
                 default -> {
-                    blockEntity.residuesStorage.getResidueTypeAmountMap().put(ResiduesStorage.RESIDUE_TYPES.get(index - BASE_DATA_COUNT), value);
+                    ResidueType type = blockEntity.residuesStorage.getResidueTypeAmountMap().keySet().toArray(ResidueType[]::new)[index - BASE_DATA_COUNT];
+
+                    blockEntity.residuesStorage.getResidueTypeAmountMap().put(type, value);
                 }
             }
         }
 
         @Override
         public int getCount() {
-            return FULL_DATA_COUNT;
+            return BASE_DATA_COUNT + ClibanoMainBlockEntity.this.residuesStorage.getResidueTypeAmountMap().size();
         }
     };
     private Direction frontDirection = Direction.NORTH;
@@ -359,14 +359,10 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             return;
         }
 
-        ClibanoRecipe.ResidueInfo residueInfo = recipe.getResidueInfo();
+        ResidueChance chance = recipe.getResidueChance();
 
-        if (residueInfo == ClibanoRecipe.ResidueInfo.NONE) {
-            return;
-        }
-
-        if (random.nextDouble() < residueInfo.chance()) {
-            this.residuesStorage.increaseType(residueInfo.getType(), 1);
+        if (chance != null && random.nextDouble() < chance.chance()) {
+            this.residuesStorage.increaseType(chance.type(), 1);
         }
     }
 

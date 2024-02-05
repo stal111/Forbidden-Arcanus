@@ -1,18 +1,15 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
-import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
@@ -21,8 +18,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -39,16 +36,16 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     public static final int DEFAULT_COOKING_TIME = 100;
 
     private final Map<ClibanoFireType, Integer> cookingTimes = new EnumMap<>(ClibanoFireType.class);
-    private final ResidueInfo residueInfo;
+    private final @Nullable ResidueChance residueChance;
 
     /**
      * The minimum fire type that needs to be present to start this recipe.
      */
     private final ClibanoFireType requiredFireType;
 
-    public ClibanoRecipe(String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime, ResidueInfo residueInfo, ClibanoFireType requiredFireType) {
+    public ClibanoRecipe(String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime, @Nullable ResidueChance residueChance, ClibanoFireType requiredFireType) {
         super(ModRecipeTypes.CLIBANO_COMBUSTION.get(), group, category, ingredient, result, experience, cookingTime);
-        this.residueInfo = residueInfo;
+        this.residueChance = residueChance;
         this.requiredFireType = requiredFireType;
 
         for (ClibanoFireType fireType : ClibanoFireType.values()) {
@@ -71,8 +68,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         return this.cookingTimes.get(fireType);
     }
 
-    public ResidueInfo getResidueInfo() {
-        return this.residueInfo;
+    public @Nullable ResidueChance getResidueChance() {
+        return this.residueChance;
     }
 
     public ClibanoFireType getRequiredFireType() {
@@ -114,7 +111,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
                 ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> {
                     return recipe.requiredFireType;
                 })
-        ).apply(instance, (s, cookingBookCategory, ingredient1, stack, aFloat, integer, clibanoFireType) -> new ClibanoRecipe(s, cookingBookCategory, ingredient1, stack, aFloat, integer, ResidueInfo.NONE, clibanoFireType)));
+        ).apply(instance, (s, cookingBookCategory, ingredient1, stack, aFloat, integer, clibanoFireType) -> new ClibanoRecipe(s, cookingBookCategory, ingredient1, stack, aFloat, integer, null, clibanoFireType)));
 
         @Override
         public @NotNull Codec<ClibanoRecipe> codec() {
@@ -132,7 +129,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
             ClibanoFireType fireType = ClibanoFireType.CODEC.byName(buffer.readUtf(), ClibanoFireType.FIRE);
 
-            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, ResidueInfo.fromNetwork(buffer), fireType);
+            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, ResidueChance.fromNetwork(buffer), fireType);
         }
 
         @Override
@@ -146,50 +143,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
             buffer.writeUtf(recipe.requiredFireType.getSerializedName());
 
-            recipe.residueInfo.toNetwork(buffer);
-        }
-    }
-
-    public record ResidueInfo(String name, double chance) {
-
-        public static final ResidueInfo NONE = new ResidueInfo("none", 0.0D);
-
-        public static ResidueInfo fromNetwork(@Nonnull FriendlyByteBuf buffer) {
-            return new ResidueInfo(buffer.readUtf(), buffer.readDouble());
-        }
-
-        public void toNetwork(@Nonnull FriendlyByteBuf buffer) {
-            buffer.writeUtf(this.name);
-            buffer.writeDouble(this.chance);
-        }
-
-        public ResidueType getType() {
-            return ResiduesStorage.RESIDUE_TYPES.stream().filter(residueType -> residueType.name().equals(this.name)).findFirst().orElseThrow(() -> {
-                return new IllegalStateException("No ResidueType found");
-            });
-        }
-
-        public static ResidueInfo fromJson(@Nonnull JsonObject jsonObject) {
-            if (jsonObject.has("residue")) {
-                JsonObject residue = jsonObject.getAsJsonObject("residue");
-
-                return new ResidueInfo(GsonHelper.getAsString(residue, "name"), GsonHelper.getAsDouble(residue, "chance"));
-            }
-
-            return NONE;
-        }
-
-        public void toJson(@Nonnull JsonObject jsonObject) {
-            JsonObject residue = new JsonObject();
-
-            if (this == ResidueInfo.NONE) {
-                return;
-            }
-
-            residue.addProperty("name", this.name);
-            residue.addProperty("chance", this.chance);
-
-            jsonObject.add("residue", residue);
+            recipe.residueChance.toNetwork(buffer);
         }
     }
 }

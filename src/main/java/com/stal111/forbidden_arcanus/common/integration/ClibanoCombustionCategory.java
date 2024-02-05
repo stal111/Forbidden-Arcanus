@@ -5,6 +5,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
@@ -166,16 +167,16 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
     @Override
     public List<Component> getTooltipStrings(@Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 92 && mouseY >= 59 && mouseX <= 117 && mouseY <= 65) {
-            ClibanoRecipe.ResidueInfo residueInfo = recipe.value().getResidueInfo();
+            ResidueChance chance = recipe.value().getResidueChance();
 
-            if (residueInfo == ClibanoRecipe.ResidueInfo.NONE) {
+            if (chance == null) {
                 return List.of();
             }
 
-            return List.of(residueInfo.getType().name().copy()
+            return List.of(chance.type().value().name().copy()
                     .append(" ")
                     .append(Component.translatable("jei.forbidden_arcanus.clibanoCombustion.residue"))
-                    .append(" (" + residueInfo.chance() * 100 +"%)")
+                    .append(" (" + chance.chance() * 100 +"%)")
             );
         }
 

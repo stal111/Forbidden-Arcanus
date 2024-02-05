@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
@@ -51,7 +50,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context;
 
     public ClibanoMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.FULL_DATA_COUNT), MenuCreationContext.of(inventory));
+        this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.BASE_DATA_COUNT), MenuCreationContext.of(inventory));
     }
 
     public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context) {
@@ -203,7 +202,8 @@ public class ClibanoMenu extends AbstractContainerMenu {
         Map<ResidueType, Integer> map = new HashMap<>();
 
         for (int i = BASE_DATA_COUNT; i < this.containerData.getCount(); i++) {
-            map.put(ResiduesStorage.RESIDUE_TYPES.get(i - BASE_DATA_COUNT), this.containerData.get(i));
+            //TODO: sync residue types with a packet
+          //  map.put(ResiduesStorage.RESIDUE_TYPES.get(i - BASE_DATA_COUNT), this.containerData.get(i));
         }
 
         return map;

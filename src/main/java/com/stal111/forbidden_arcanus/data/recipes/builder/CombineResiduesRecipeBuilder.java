@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.data.recipes.builder;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.recipe.CombineResiduesRecipe;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -17,10 +19,10 @@ import javax.annotation.Nullable;
  * @author stal111
  * @since 2022-07-05
  */
-public record CombineResiduesRecipeBuilder(String residueName, int residueAmount, ItemStack result) implements RecipeBuilder {
+public record CombineResiduesRecipeBuilder(Holder<ResidueType> residueType, int residueAmount, ItemStack result) implements RecipeBuilder {
 
-    public static CombineResiduesRecipeBuilder of(String residueName, int residueAmount, ItemStack result) {
-        return new CombineResiduesRecipeBuilder(residueName, residueAmount, result);
+    public static CombineResiduesRecipeBuilder of(Holder<ResidueType> residueType, int residueAmount, ItemStack result) {
+        return new CombineResiduesRecipeBuilder(residueType, residueAmount, result);
     }
 
     @Nonnull
@@ -44,12 +46,12 @@ public record CombineResiduesRecipeBuilder(String residueName, int residueAmount
     @Override
     public void save(@Nonnull RecipeOutput recipeOutput) {
         ResourceLocation recipeId = RecipeBuilder.getDefaultRecipeId(this.getResult());
-        this.save(recipeOutput, new ResourceLocation(ForbiddenArcanus.MOD_ID, "combine_residues/" + this.residueName + "_residues_to_" + recipeId.getPath()));
+        this.save(recipeOutput, new ResourceLocation(ForbiddenArcanus.MOD_ID, "combine_residues/" + this.residueType + "_residues_to_" + recipeId.getPath()));
     }
 
     @Override
     public void save(@Nonnull RecipeOutput recipeOutput, @Nonnull ResourceLocation recipeId) {
-        CombineResiduesRecipe recipe = new CombineResiduesRecipe(CraftingBookCategory.MISC, this.residueName, (short) this.residueAmount, this.result);
+        CombineResiduesRecipe recipe = new CombineResiduesRecipe(CraftingBookCategory.MISC, this.residueType, (short) this.residueAmount, this.result);
 
         recipeOutput.accept(recipeId, recipe, recipeOutput.advancement().build(recipeId.withPrefix("recipes/combine_residues/")));
     }

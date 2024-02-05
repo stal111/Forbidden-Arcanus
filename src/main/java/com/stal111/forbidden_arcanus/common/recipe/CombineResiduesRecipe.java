@@ -2,8 +2,10 @@ package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,11 +27,11 @@ import javax.annotation.Nonnull;
  */
 public class CombineResiduesRecipe extends CustomRecipe {
 
-    private final String residue;
+    private final Holder<ResidueType> residue;
     private final short residueAmount;
     private final ItemStack result;
 
-    public CombineResiduesRecipe(CraftingBookCategory category, String residue, short residueAmount, ItemStack result) {
+    public CombineResiduesRecipe(CraftingBookCategory category, Holder<ResidueType> residue, short residueAmount, ItemStack result) {
         super(category);
         this.residue = residue;
         this.residueAmount = residueAmount;
@@ -47,8 +49,8 @@ public class CombineResiduesRecipe extends CustomRecipe {
         return ItemStack.EMPTY;
     }
 
-    public String getResidue() {
-        return this.residue;
+    public ResidueType getResidue() {
+        return this.residue.value();
     }
 
     public short getResidueAmount() {
@@ -82,10 +84,10 @@ public class CombineResiduesRecipe extends CustomRecipe {
 
         private static final Codec<CombineResiduesRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(CustomRecipe::category),
-                Codec.STRING.fieldOf("residue_name").forGetter(recipe -> {
+                ResidueType.CODEC.fieldOf("type").forGetter(recipe -> {
                     return recipe.residue;
                 }),
-                Codec.SHORT.fieldOf("residue_amount").forGetter(recipe -> {
+                Codec.SHORT.fieldOf("amount").forGetter(recipe -> {
                     return recipe.residueAmount;
                 }),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> {
@@ -100,13 +102,13 @@ public class CombineResiduesRecipe extends CustomRecipe {
 
         @Override
         public @Nullable CombineResiduesRecipe fromNetwork(FriendlyByteBuf buffer) {
-            return new CombineResiduesRecipe(buffer.readEnum(CraftingBookCategory.class), buffer.readUtf(), buffer.readShort(), buffer.readItem());
+            return new CombineResiduesRecipe(buffer.readEnum(CraftingBookCategory.class), buffer.readJsonWithCodec(ResidueType.CODEC), buffer.readShort(), buffer.readItem());
         }
 
         @Override
         public void toNetwork(@Nonnull FriendlyByteBuf buffer, CombineResiduesRecipe recipe) {
             buffer.writeEnum(recipe.category());
-            buffer.writeUtf(recipe.residue);
+            buffer.writeJsonWithCodec(ResidueType.CODEC, recipe.residue);
             buffer.writeShort(recipe.residueAmount);
             buffer.writeItem(recipe.result);
         }

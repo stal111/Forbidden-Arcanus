@@ -4,9 +4,12 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import com.stal111.forbidden_arcanus.data.recipes.builder.ApplyModifierRecipeBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.ItemLike;
 import net.valhelsia.valhelsia_core.datagen.recipes.RecipeSubProvider;
 import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author stal111
@@ -20,7 +23,7 @@ public class ApplyModifierRecipeProvider extends RecipeSubProvider {
     }
 
     @Override
-    protected void registerRecipes() {
+    protected void registerRecipes(CompletableFuture<HolderLookup.Provider> lookupProvider) {
         this.modifier(ModItems.ETERNAL_STELLA.get(), ModItemModifiers.ETERNAL.get());
         this.modifier(ModItems.SMELTER_PRISM.get(), ModItemModifiers.FIERY.get());
         this.modifier(ModItems.FERROGNETIC_MIXTURE.get(), ModItemModifiers.MAGNETIZED.get());
