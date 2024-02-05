@@ -3,7 +3,14 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "minecraft:stick"
+      "type": "valhelsia_core:platform_dependent",
+      "fabric:type": "valhelsia_core:platform_dependent",
+      "fabric_value": {
+        "item": "minecraft:stick"
+      },
+      "forge_value": {
+        "tag": "forge:rods/wooden"
+      }
     },
     "X": {
       "item": "forbidden_arcanus:fungyss_planks"

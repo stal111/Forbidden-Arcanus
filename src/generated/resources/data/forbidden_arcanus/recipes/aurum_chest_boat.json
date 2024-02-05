@@ -6,7 +6,14 @@
       "item": "forbidden_arcanus:aurum_boat"
     },
     {
-      "tag": "c:chests"
+      "type": "valhelsia_core:platform_dependent",
+      "fabric:type": "valhelsia_core:platform_dependent",
+      "fabric_value": {
+        "tag": "c:chests"
+      },
+      "forge_value": {
+        "tag": "forge:chests/wooden"
+      }
     }
   ],
   "result": {
