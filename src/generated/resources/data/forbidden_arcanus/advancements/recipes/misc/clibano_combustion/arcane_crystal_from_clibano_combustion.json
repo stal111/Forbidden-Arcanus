@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_rune": {
+    "has_item": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:rune"
-            ]
+            "tag": "forbidden_arcanus:arcane_crystal_ores"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:rune_block_from_rune"
+        "recipe": "forbidden_arcanus:clibano_combustion/arcane_crystal_from_clibano_combustion"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_rune"
+      "has_item"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:rune_block_from_rune"
+      "forbidden_arcanus:clibano_combustion/arcane_crystal_from_clibano_combustion"
     ]
   }
 }

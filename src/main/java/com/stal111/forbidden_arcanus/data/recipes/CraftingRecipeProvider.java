@@ -23,8 +23,6 @@ import net.valhelsia.valhelsia_core.datagen.recipes.RecipePart;
 import net.valhelsia.valhelsia_core.datagen.recipes.RecipeSubProvider;
 import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author Valhelsia Team
  * @since 2023-01-02
@@ -36,7 +34,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
     }
 
     @Override
-    protected void registerRecipes(CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    protected void registerRecipes(HolderLookup.Provider lookupProvider) {
         //Shaped Recipes
         this.shaped(RecipeCategory.TOOLS, ModItems.SANITY_METER.get(), builder -> builder.pattern("AXA").pattern("X#X").pattern("AXA").define('X', Tags.Items.INGOTS_GOLD).define('#', Tags.Items.ENDER_PEARLS).define('A', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy(this, RecipePart.of(Tags.Items.INGOTS_GOLD)));
         this.shaped(RecipeCategory.TOOLS, ModItems.LENS_OF_VERITATIS.get(), builder -> builder.pattern(" # ").pattern("#X#").pattern("S# ").define('#', ModItems.SPAWNER_SCRAP.get()).define('X', ModItems.ARCANE_CRYSTAL.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy(this, ModItems.ARCANE_CRYSTAL.get()));

@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Clibano Recipe <br>
@@ -108,10 +109,13 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
                 Codec.INT.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIME).forGetter(recipe -> {
                     return recipe.cookingTime;
                 }),
+                ExtraCodecs.strictOptionalField(ResidueChance.CODEC, "residue", null).forGetter(recipe -> {
+                    return recipe.residueChance;
+                }),
                 ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> {
                     return recipe.requiredFireType;
                 })
-        ).apply(instance, (s, cookingBookCategory, ingredient1, stack, aFloat, integer, clibanoFireType) -> new ClibanoRecipe(s, cookingBookCategory, ingredient1, stack, aFloat, integer, null, clibanoFireType)));
+        ).apply(instance, ClibanoRecipe::new));
 
         @Override
         public @NotNull Codec<ClibanoRecipe> codec() {
@@ -127,9 +131,10 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             float f = buffer.readFloat();
             int i = buffer.readVarInt();
 
+            ResidueChance chance = buffer.readOptional(ResidueChance::fromNetwork).orElse(null);
             ClibanoFireType fireType = ClibanoFireType.CODEC.byName(buffer.readUtf(), ClibanoFireType.FIRE);
 
-            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, ResidueChance.fromNetwork(buffer), fireType);
+            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, chance, fireType);
         }
 
         @Override
@@ -141,9 +146,11 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             buffer.writeFloat(recipe.experience);
             buffer.writeVarInt(recipe.cookingTime);
 
-            buffer.writeUtf(recipe.requiredFireType.getSerializedName());
+            buffer.writeOptional(Optional.ofNullable(recipe.residueChance), (friendlyByteBuf, chance) -> {
+                chance.toNetwork(friendlyByteBuf);
+            });
 
-            recipe.residueChance.toNetwork(buffer);
+            buffer.writeUtf(recipe.requiredFireType.getSerializedName());
         }
     }
 }

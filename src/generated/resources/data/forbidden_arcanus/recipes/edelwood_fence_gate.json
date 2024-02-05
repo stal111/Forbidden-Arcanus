@@ -1,26 +1,34 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "key": {
-    "#": {
-      "type": "valhelsia_core:platform_dependent",
-      "fabric:type": "valhelsia_core:platform_dependent",
-      "fabric_value": {
-        "item": "minecraft:stick"
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_edelwood_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forbidden_arcanus:edelwood_planks"
+            ]
+          }
+        ]
       },
-      "forge_value": {
-        "tag": "forge:rods/wooden"
-      }
+      "trigger": "minecraft:inventory_changed"
     },
-    "X": {
-      "item": "forbidden_arcanus:edelwood_planks"
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:edelwood_fence_gate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "pattern": [
-    "#X#",
-    "#X#"
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_edelwood_planks"
+    ]
   ],
-  "result": {
-    "item": "forbidden_arcanus:edelwood_fence_gate"
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:edelwood_fence_gate"
+    ]
   }
 }

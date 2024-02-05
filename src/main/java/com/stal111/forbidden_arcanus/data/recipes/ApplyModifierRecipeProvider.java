@@ -9,8 +9,6 @@ import net.minecraft.world.level.ItemLike;
 import net.valhelsia.valhelsia_core.datagen.recipes.RecipeSubProvider;
 import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * @author stal111
  * @since 2022-10-21
@@ -23,7 +21,7 @@ public class ApplyModifierRecipeProvider extends RecipeSubProvider {
     }
 
     @Override
-    protected void registerRecipes(CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    protected void registerRecipes(HolderLookup.Provider lookupProvider) {
         this.modifier(ModItems.ETERNAL_STELLA.get(), ModItemModifiers.ETERNAL.get());
         this.modifier(ModItems.SMELTER_PRISM.get(), ModItemModifiers.FIERY.get());
         this.modifier(ModItems.FERROGNETIC_MIXTURE.get(), ModItemModifiers.MAGNETIZED.get());

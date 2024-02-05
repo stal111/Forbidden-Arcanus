@@ -1,15 +1,12 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.CombineResiduesRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
-import it.unimi.dsi.fastutil.objects.AbstractObject2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -29,11 +26,6 @@ import java.util.Map;
 public class ResiduesStorage implements SerializableComponent {
 
     private static final Codec<Map<ResidueType, Integer>> MAP_CODEC = Codec.unboundedMap(ResidueType.CODEC.xmap(Holder::value, Holder::direct), Codec.INT);
-
-    private static final Codec<Object2IntMap.Entry<ResidueType>> ENTRY_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResidueType.CODEC.fieldOf("type").forGetter(residueTypeBasicEntry -> Holder.direct(residueTypeBasicEntry.getKey())),
-            Codec.INT.fieldOf("amount").forGetter(Object2IntMap.Entry::getIntValue)
-    ).apply(instance, (residueTypeHolder, amount) -> new AbstractObject2IntMap.BasicEntry<>(residueTypeHolder.value(), amount)));
 
     public static final int MAX_AMOUNT = 64;
 
