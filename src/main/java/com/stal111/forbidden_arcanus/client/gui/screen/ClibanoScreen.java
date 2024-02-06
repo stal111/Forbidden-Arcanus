@@ -44,8 +44,6 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
     @Override
     protected void renderBg(@Nonnull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-
         guiGraphics.blit(TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize());
 
         // Cooking Indicators
