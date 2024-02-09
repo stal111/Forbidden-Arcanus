@@ -8,7 +8,7 @@
             "from": [0, 0, 0],
             "to": [16, 16, 16],
             "faces": {
-                "up": {"uv": [16, 16, 0, 0], "texture": "#texture"}
+                "north": { "texture": "#texture", "cullface": "north" }
             }
         }
     ]

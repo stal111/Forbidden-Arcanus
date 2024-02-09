@@ -1,14 +1,14 @@
 package com.stal111.forbidden_arcanus.data.model;
 
 import com.google.gson.JsonElement;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.DeskBlock;
 import com.stal111.forbidden_arcanus.common.block.PedestalBlock;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import net.minecraft.core.Direction;
 import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.blockstates.BlockStateGenerator;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
+import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -51,6 +52,11 @@ public class ModBlockModels {
         this.createDesk(ModBlocks.RESEARCH_DESK.get(), true);
         this.createPedestal(ModBlocks.DARKSTONE_PEDESTAL.get());
         this.createPedestal(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
+        this.createClibanoCore(ModBlocks.CLIBANO_CORE.get());
+        this.createClibanoCenter(ModBlocks.CLIBANO_CENTER.get());
+        this.createClibanoCorner(ModBlocks.CLIBANO_CORNER.get());
+        this.createClibanoSideHorizontal(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get());
+        this.createClibanoSideVertical(ModBlocks.CLIBANO_SIDE_VERTICAL.get());
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
 
@@ -77,6 +83,75 @@ public class ModBlockModels {
         ResourceLocation model = ModModelTemplates.PEDESTAL.create(block, textureMapping, this.modelOutput);
 
         this.blockStateOutput.accept(createSimpleBlock(block, model));
+    }
+
+    private void createClibanoCore(Block block) {
+        TextureMapping textureMapping = ModTextureMapping.clibanoCore();
+        ResourceLocation model = ModelTemplates.CUBE_ORIENTABLE.create(block, textureMapping, this.modelOutput);
+
+        this.blockStateOutput.accept(createSimpleBlock(block, model).with(BlockModelGenerators.createHorizontalFacingDispatch()));
+    }
+
+    private void createClibanoCenter(Block block) {
+        PropertyDispatch dispatch = PropertyDispatch.property(ModBlockStateProperties.CLIBANO_CENTER_TYPE).generate(type -> {
+            ResourceLocation model = ModModelTemplates.CLIBANO_CENTER.createWithSuffix(block, "_" + type.getSerializedName(), ModTextureMapping.clibanoCenter(type), this.modelOutput);
+
+            return Variant.variant().with(VariantProperties.MODEL, model);
+        });
+
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch).with(BlockModelGenerators.createFacingDispatch()));
+    }
+
+    private void createClibanoCorner(Block block) {
+        ResourceLocation model = new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/clibano_corner");
+
+        PropertyDispatch dispatch = PropertyDispatch.property(BlockStateProperties.BOTTOM).generate(bottom -> {
+            return Variant.variant().with(VariantProperties.X_ROT, bottom ? VariantProperties.Rotation.R90 : VariantProperties.Rotation.R0);
+        });
+
+        this.blockStateOutput.accept(createSimpleBlock(block, model).with(dispatch).with(BlockModelGenerators.createHorizontalFacingDispatch()));
+    }
+
+    private void createClibanoSideHorizontal(Block block) {
+        PropertyDispatch typeDispatch = PropertyDispatch.property(ModBlockStateProperties.CLIBANO_SIDE_TYPE).generate(type -> {
+            TextureMapping textureMapping = ModTextureMapping.clibanoSide(type);
+            ResourceLocation model = ModModelTemplates.CLIBANO_SIDE_HORIZONTAL.createWithSuffix(block, "_" + type.getSerializedName(), textureMapping, this.modelOutput);
+
+            return Variant.variant().with(VariantProperties.MODEL, model);
+        });
+
+        PropertyDispatch facingDispatch = PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, ModBlockStateProperties.MIRRORED)
+                .select(Direction.EAST, false, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                .select(Direction.EAST, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.SOUTH, false, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.SOUTH, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.WEST, false, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                .select(Direction.WEST, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.NORTH, false, Variant.variant())
+                .select(Direction.NORTH, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180));
+
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(typeDispatch).with(facingDispatch));
+    }
+
+    private void createClibanoSideVertical(Block block) {
+        PropertyDispatch typeDispatch = PropertyDispatch.property(ModBlockStateProperties.CLIBANO_SIDE_TYPE).generate(type -> {
+            TextureMapping textureMapping = ModTextureMapping.clibanoSide(type);
+            ResourceLocation model = ModModelTemplates.CLIBANO_SIDE_VERTICAL.createWithSuffix(block, "_" + type.getSerializedName(), textureMapping, this.modelOutput);
+
+            return Variant.variant().with(VariantProperties.MODEL, model);
+        });
+
+        PropertyDispatch facingDispatch = PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, ModBlockStateProperties.MIRRORED)
+                .select(Direction.EAST, false, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                .select(Direction.EAST, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.SOUTH, false, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.SOUTH, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.WEST, false, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                .select(Direction.WEST, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.NORTH, false, Variant.variant())
+                .select(Direction.NORTH, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180));
+
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(typeDispatch).with(facingDispatch));
     }
 
     static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {
