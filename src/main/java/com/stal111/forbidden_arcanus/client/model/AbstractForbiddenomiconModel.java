@@ -37,9 +37,9 @@ public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Hie
 
         PartDefinition back = body.addOrReplaceChild("back", CubeListBuilder.create().texOffs(36, 0).addBox(0.0F, -8.0F, -1.0F, 12.0F, 16.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 0.0F, 1.0F));
 
-        PartDefinition lock = back.addOrReplaceChild("lock", CubeListBuilder.create().texOffs(56, 14).addBox(0.0F, -2.0F, -4.0F, 0.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(12.0F, 0.0F, 0.0F));
+        PartDefinition lock = back.addOrReplaceChild("lock", CubeListBuilder.create().texOffs(56, 14).addBox(0.0F, -2.0F, -4.0F, 0.0F, 3.0F, 4.0F, new CubeDeformation(0.01F)), PartPose.offset(12.0F, 0.0F, 0.0F));
 
-        lock.addOrReplaceChild("locktip", CubeListBuilder.create().texOffs(50, 15).addBox(0.0F, -2.0F, -3.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -4.0F));
+        lock.addOrReplaceChild("locktip", CubeListBuilder.create().texOffs(50, 15).addBox(0.0F, -2.0F, -3.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 0.0F, -4.0F));
 
         PartDefinition sheet = body.addOrReplaceChild("sheet", CubeListBuilder.create().texOffs(22, 17).addBox(-1.0F, -7.0F, -1.0F, 2.0F, 14.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
