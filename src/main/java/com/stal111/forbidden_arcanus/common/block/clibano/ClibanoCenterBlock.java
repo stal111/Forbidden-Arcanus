@@ -1,9 +1,9 @@
-package com.stal111.forbidden_arcanus.common.block;
+package com.stal111.forbidden_arcanus.common.block.clibano;
 
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,30 +11,24 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Clibano Corner Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ClibanoCornerBlock
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.clibano.ClibanoCornerBlock
  *
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoCenterBlock extends DirectionalBlock implements ClibanoPart {
+public class ClibanoCenterBlock extends AbstractClibanoFrameBlock {
 
     public static final MapCodec<ClibanoCenterBlock> CODEC = simpleCodec(ClibanoCenterBlock::new);
 
@@ -42,56 +36,37 @@ public class ClibanoCenterBlock extends DirectionalBlock implements ClibanoPart 
 
     public ClibanoCenterBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ClibanoCenterType.SIDE));
+
+        this.registerDefaultState(this.stateDefinition.any().setValue(this.getFacingProperty(), Direction.NORTH).setValue(TYPE, ClibanoCenterType.SIDE));
     }
 
     @Override
-    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
+    public DirectionProperty getFacingProperty() {
+        return BlockStateProperties.FACING;
     }
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-        return new ClibanoBlockEntity(pos, state);
-    }
+    public BlockState updateAppearance(BlockState state, boolean isLit, ClibanoFireType fireType) {
+        if (state.getValue(TYPE).isFront()) {
+            return state.setValue(TYPE, isLit ? ClibanoCenterType.valueOf("FRONT_" + fireType) : ClibanoCenterType.FRONT_OFF);
+        }
 
-    @Nonnull
-    @Override
-    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-        return this.openScreen(level, pos, player);
+        return super.updateAppearance(state, isLit, fireType);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getClickedFace());
-    }
-
-    @Override
-    public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-        this.onRemove(state, level, pos, newState);
-    }
-
-    @Nonnull
-    @Override
-    public BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
-    }
-
-    @Nonnull
-    @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
+        return this.defaultBlockState().setValue(this.getFacingProperty(), context.getClickedFace());
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, TYPE);
+        builder.add(this.getFacingProperty(), TYPE);
     }
 
     @Override
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        if (state.getValue(TYPE).getLightLevel() != 0) {
+        if (state.getValue(TYPE).getFireType() != null) {
             double x = pos.getX() + 0.5D;
             double y = pos.getY();
             double z = pos.getZ() + 0.5D;
@@ -102,7 +77,7 @@ public class ClibanoCenterBlock extends DirectionalBlock implements ClibanoPart 
                 level.playLocalSound(x, y, z, soundEvent, SoundSource.BLOCKS, 0.2F, 1.0F, false);
             }
 
-            Direction direction = state.getValue(FACING);
+            Direction direction = state.getValue(this.getFacingProperty());
             Direction.Axis axis = direction.getAxis();
 
             double d4 = random.nextDouble() * 0.6D - 0.3D;

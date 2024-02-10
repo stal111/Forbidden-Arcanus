@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.*;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFrameBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
@@ -27,7 +27,7 @@ public class ModBlockEntities implements RegistryClass {
     public static final RegistryEntry<BlockEntityType<PedestalBlockEntity>> PEDESTAL = HELPER.register("pedestal", () -> BlockEntityType.Builder.of(PedestalBlockEntity::new, ModBlocks.DARKSTONE_PEDESTAL.get(), ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get()).build(null));
     public static final RegistryEntry<BlockEntityType<ArcaneCrystalObeliskBlockEntity>> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", () -> BlockEntityType.Builder.of(ArcaneCrystalObeliskBlockEntity::new, ModBlocks.ARCANE_CRYSTAL_OBELISK.get()).build(null));
     public static final RegistryEntry<BlockEntityType<ClibanoMainBlockEntity>> CLIBANO_MAIN = HELPER.register("clibano_main", () -> BlockEntityType.Builder.of(ClibanoMainBlockEntity::new, ModBlocks.CLIBANO_MAIN_PART.get()).build(null));
-    public static final RegistryEntry<BlockEntityType<ClibanoBlockEntity>> CLIBANO = HELPER.register("clibano", () -> BlockEntityType.Builder.of(ClibanoBlockEntity::new, ModBlocks.CLIBANO_CORNER.get(), ModBlocks.CLIBANO_CENTER.get(), ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(), ModBlocks.CLIBANO_SIDE_VERTICAL.get()).build(null));
+    public static final RegistryEntry<BlockEntityType<ClibanoFrameBlockEntity>> CLIBANO = HELPER.register("clibano", () -> BlockEntityType.Builder.of(ClibanoFrameBlockEntity::new, ModBlocks.CLIBANO_CORNER.get(), ModBlocks.CLIBANO_CENTER.get(), ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(), ModBlocks.CLIBANO_SIDE_VERTICAL.get()).build(null));
     public static final RegistryEntry<BlockEntityType<ResearchDeskBlockEntity>> RESEARCH_DESK = HELPER.register("research_desk", () -> BlockEntityType.Builder.of(ResearchDeskBlockEntity::new, ModBlocks.RESEARCH_DESK.get()).build(null));
 
 }

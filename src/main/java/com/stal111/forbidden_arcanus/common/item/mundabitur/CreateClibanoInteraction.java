@@ -1,10 +1,9 @@
 package com.stal111.forbidden_arcanus.common.item.mundabitur;
 
-import com.stal111.forbidden_arcanus.common.block.ClibanoPart;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFrameBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +20,8 @@ import java.util.function.Predicate;
  * @since 05.11.2023
  */
 public class CreateClibanoInteraction extends TransformPatternInteraction {
+
+    private BlockPos centerPos;
 
     public CreateClibanoInteraction(Predicate<BlockState> predicate, BlockPattern pattern) {
         super(predicate, pattern);
@@ -52,13 +53,13 @@ public class CreateClibanoInteraction extends TransformPatternInteraction {
 
         // Center blocks & sides
 
-        BlockPos centerPos = pos.relative(clickedFace.getOpposite());
+        this.centerPos = pos.relative(clickedFace.getOpposite());
         BlockState centerState = ModBlocks.CLIBANO_CENTER.get().defaultBlockState();
         BlockState horizontalSideState = ModBlocks.CLIBANO_SIDE_HORIZONTAL.get().defaultBlockState();
         BlockState verticalSideState = ModBlocks.CLIBANO_SIDE_VERTICAL.get().defaultBlockState();
 
         for (Direction direction : Direction.values()) {
-            BlockPos relativePos = centerPos.relative(direction);
+            BlockPos relativePos = this.centerPos.relative(direction);
 
             this.placeBlock(level, relativePos, centerState
                     .setValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE, ClibanoCenterType.getFromDirection(direction, clickedFace))
@@ -69,20 +70,20 @@ public class CreateClibanoInteraction extends TransformPatternInteraction {
                         .setValue(BlockStateProperties.HORIZONTAL_FACING, direction)
                         .setValue(ModBlockStateProperties.MIRRORED, direction == clickedFace.getCounterClockWise()));
 
-                this.placeBlock(level, relativePos.relative(Direction.UP), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(BlockStateProperties.BOTTOM, false));
-                this.placeBlock(level, relativePos.relative(Direction.DOWN), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
+                this.placeBlock(level, relativePos.relative(Direction.UP), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
+                this.placeBlock(level, relativePos.relative(Direction.DOWN), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(ModBlockStateProperties.MIRRORED, true));
 
             }
         }
 
         // Main block
-        level.setBlock(centerPos, ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState(), 2);
+        level.setBlock(this.centerPos, ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState(), 2);
 
-        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(centerPos) instanceof ClibanoMainBlockEntity blockEntity) {
+        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(this.centerPos) instanceof ClibanoMainBlockEntity blockEntity) {
             blockEntity.setFrontDirection(clickedFace);
 
             for (Direction direction : Direction.values()) {
-                if (serverLevel.getBlockEntity(centerPos.relative(direction)) instanceof ClibanoBlockEntity clibanoBlockEntity) {
+                if (serverLevel.getBlockEntity(this.centerPos.relative(direction)) instanceof ClibanoFrameBlockEntity clibanoBlockEntity) {
                     clibanoBlockEntity.setMainDirection(direction.getOpposite());
                 }
             }
@@ -95,8 +96,8 @@ public class CreateClibanoInteraction extends TransformPatternInteraction {
 
         super.placeBlock(level, pos, state);
 
-        if (state.getBlock() instanceof ClibanoPart && level.getBlockEntity(pos) instanceof ClibanoBlockEntity blockEntity) {
-            blockEntity.setReplaceState(oldState);
+        if (level.getBlockEntity(pos) instanceof ClibanoFrameBlockEntity blockEntity) {
+            blockEntity.setFrameData(new ClibanoFrameBlockEntity.FrameData(oldState, this.centerPos));
         }
     }
 }

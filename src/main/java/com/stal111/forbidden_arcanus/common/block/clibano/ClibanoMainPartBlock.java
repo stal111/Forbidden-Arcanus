@@ -1,17 +1,13 @@
-package com.stal111.forbidden_arcanus.common.block;
+package com.stal111.forbidden_arcanus.common.block.clibano;
 
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFrameBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,7 +19,7 @@ import javax.annotation.Nullable;
 
 /**
  * Clibano Main Part Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ClibanoMainPartBlock
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock
  *
  * @author stal111
  * @since 2022-05-22
@@ -60,19 +56,17 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
             super.onRemove(state, level, pos, newState, isMoving);
         }
 
-        pos = pos.relative(Direction.DOWN).relative(Direction.NORTH).relative(Direction.WEST);
+        ClibanoMainPartBlock.dismantle(level, pos);
+    }
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    BlockPos offsetPos = pos.offset(i, j, k);
+    public static void dismantle(Level level, BlockPos mainPos) {
+        var positions = BlockPos.betweenClosed(mainPos.offset(-1, -1, -1), mainPos.offset(1, 1, 1));
 
-                    if (level.getBlockEntity(offsetPos) instanceof ClibanoBlockEntity blockEntity) {
-                        level.levelEvent(2001, offsetPos, Block.getId(level.getBlockState(offsetPos)));
+        for (BlockPos pos : positions) {
+            if (level.getBlockEntity(pos) instanceof ClibanoFrameBlockEntity blockEntity && !level.getBlockState(pos).isAir()) {
+                level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(level.getBlockState(pos)));
 
-                        level.setBlock(offsetPos, blockEntity.getReplaceState(), 2);
-                    }
-                }
+                level.setBlockAndUpdate(pos, blockEntity.getFrameData().replaceState());
             }
         }
     }

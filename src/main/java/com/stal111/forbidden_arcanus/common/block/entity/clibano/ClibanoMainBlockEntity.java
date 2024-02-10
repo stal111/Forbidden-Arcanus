@@ -1,10 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
+import com.stal111.forbidden_arcanus.common.block.clibano.AbstractClibanoFrameBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
-import com.stal111.forbidden_arcanus.common.block.properties.ClibanoCenterType;
-import com.stal111.forbidden_arcanus.common.block.properties.ClibanoSideType;
-import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -397,32 +395,33 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     }
 
     /**
-     * Updates the clibano's appearance to resemble the current fire type.
+     * Updates the appearance of the clibano frame blocks around the main clibano block.
      *
      * @param level the level the clibano is in
      */
     private void updateAppearance(Level level) {
-        ClibanoCenterType centerType = ClibanoCenterType.FRONT_OFF;
-        ClibanoSideType sideType = ClibanoSideType.OFF;
+        BlockPos front = this.worldPosition.relative(this.frontDirection);
 
-        if (this.burnTime > 0) {
-            centerType = this.fireType.getCenterType();
-            sideType = this.fireType.getSideType();
-        }
-
-        BlockPos frontCenterPos = this.worldPosition.relative(this.frontDirection);
-        BlockState center = level.getBlockState(frontCenterPos).setValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE, centerType);
-
-        level.setBlockAndUpdate(frontCenterPos, center);
+        this.updateAppearance(level, front);
 
         for (Direction direction : Direction.values()) {
-            if (direction.getAxis() == this.frontDirection.getAxis()) {
-                continue;
+            if (direction.getAxis() != this.frontDirection.getAxis()) {
+                this.updateAppearance(level, front.relative(direction));
             }
+        }
+    }
 
-            BlockState side = level.getBlockState(frontCenterPos.relative(direction)).setValue(ModBlockStateProperties.CLIBANO_SIDE_TYPE, sideType);
+    /**
+     * Updates the appearance of the clibano frame block at the given position.
+     *
+     * @param level the level the clibano is in
+     * @param pos   the position of the block
+     */
+    private void updateAppearance(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
 
-            level.setBlockAndUpdate(frontCenterPos.relative(direction), side);
+        if (state.getBlock() instanceof AbstractClibanoFrameBlock clibanoFrameBlock) {
+            level.setBlockAndUpdate(pos, clibanoFrameBlock.updateAppearance(state, this.burnTime > 0, this.fireType));
         }
     }
 

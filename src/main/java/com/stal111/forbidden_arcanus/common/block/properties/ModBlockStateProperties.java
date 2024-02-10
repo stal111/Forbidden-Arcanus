@@ -1,5 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.properties;
 
+import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType;
+import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;

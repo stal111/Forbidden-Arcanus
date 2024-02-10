@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.properties;
+package com.stal111.forbidden_arcanus.common.block.properties.clibano;
 
 import net.minecraft.util.StringRepresentable;
 

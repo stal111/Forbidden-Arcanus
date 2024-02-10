@@ -3,6 +3,8 @@ package com.stal111.forbidden_arcanus.core.init;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.RodBlock;
 import com.stal111.forbidden_arcanus.common.block.*;
+import com.stal111.forbidden_arcanus.common.block.clibano.*;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.grower.FATreeGrower;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullBlock;
@@ -26,6 +28,8 @@ import net.minecraft.world.level.material.MapColor;
 import net.valhelsia.valhelsia_core.api.client.ValhelsiaRenderType;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.block.*;
+
+import java.util.Optional;
 
 /**
  * Mod Blocks <br>
@@ -70,11 +74,11 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<PedestalBlock> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", () -> new PedestalBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion())).withItem();
     public static final BlockRegistryEntry<MagnetizedPedestalBlock> MAGNETIZED_DARKSTONE_PEDESTAL = HELPER.register("magnetized_darkstone_pedestal", () -> new MagnetizedPedestalBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion())).withItem();
     public static final BlockRegistryEntry<ClibanoCoreBlock> CLIBANO_CORE = HELPER.register("clibano_core", () -> new ClibanoCoreBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
-    public static final BlockRegistryEntry<ClibanoHorizontalSideBlock> CLIBANO_SIDE_HORIZONTAL = HELPER.register("clibano_side_horizontal", () -> new ClibanoHorizontalSideBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)));
-    public static final BlockRegistryEntry<ClibanoVerticalSideBlock> CLIBANO_SIDE_VERTICAL = HELPER.register("clibano_side_vertical", () -> new ClibanoVerticalSideBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final BlockRegistryEntry<ClibanoSideBlock> CLIBANO_SIDE_HORIZONTAL = HELPER.register("clibano_side_horizontal", () -> new ClibanoSideBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)));
+    public static final BlockRegistryEntry<ClibanoSideBlock> CLIBANO_SIDE_VERTICAL = HELPER.register("clibano_side_vertical", () -> new ClibanoSideBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final BlockRegistryEntry<ClibanoMainPartBlock> CLIBANO_MAIN_PART = HELPER.register("clibano_main_part", () -> new ClibanoMainPartBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)));
     public static final BlockRegistryEntry<ClibanoCornerBlock> CLIBANO_CORNER = HELPER.register("clibano_corner", () -> new ClibanoCornerBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)));
-    public static final BlockRegistryEntry<ClibanoCenterBlock> CLIBANO_CENTER = HELPER.register("clibano_center", () -> new ClibanoCenterBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F).lightLevel(state -> state.getValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE).getLightLevel())));
+    public static final BlockRegistryEntry<ClibanoCenterBlock> CLIBANO_CENTER = HELPER.register("clibano_center", () -> new ClibanoCenterBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F).lightLevel(state -> Optional.ofNullable(state.getValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE).getFireType()).map(ClibanoFireType::getLightLevel).orElse(0))));
 
     public static final BlockRegistryEntry<StellaArcanumBlock> STELLA_ARCANUM = HELPER.register("stella_arcanum", () -> new StellaArcanumBlock(Block.Properties.ofLegacyCopy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F))).withItem();
     public static final BlockRegistryEntry<DropExperienceBlock> ARCANE_CRYSTAL_ORE = HELPER.register("arcane_crystal_ore", () -> new DropExperienceBlock(UniformInt.of(2, 5), Block.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F))).withItem().renderType(ValhelsiaRenderType.CUTOUT);

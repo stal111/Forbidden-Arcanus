@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block;
+package com.stal111.forbidden_arcanus.common.block.clibano;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Clibano Core Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ClibanoCoreBlock
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.clibano.ClibanoCoreBlock
  *
  * @author stal111
  * @version 1.18.2 - 2.1.0
