@@ -58,11 +58,13 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.containerData = containerData;
         this.context = context;
 
-        this.addDataSlots(this.containerData);
+        this.addSlots(handler);
 
         checkContainerDataCount(containerData, BASE_DATA_COUNT);
+    }
 
-        this.addSlot(new EnhancerSlot(handler, ENHANCER_SLOT, 18, 20));
+    private void addSlots(ItemStackHandler handler) {
+        this.addSlot(new EnhancerSlot(handler, ENHANCER_SLOT, 18, 20, false));
         this.addSlot(new ClibanoSoulSlot(handler, SOUL_SLOT, 18, 56));
         this.addSlot(new ClibanoFuelSlot(this, handler, FUEL_SLOT, 53, 56));
 
@@ -70,23 +72,25 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.addSlot(new SlotItemHandler(handler, INPUT_SLOTS.getFirst(), 44, 20));
         this.addSlot(new SlotItemHandler(handler, INPUT_SLOTS.getSecond(), 62, 20));
 
-        ClibanoMainBlockEntity blockEntity = context.getBlockEntity();
+        ClibanoMainBlockEntity blockEntity = this.context.getBlockEntity();
 
         // Result Slot
-        this.addSlot(new ClibanoResultSlot(context.player(), handler, blockEntity, RESULT_SLOTS.getFirst(), 116, 32));
-        this.addSlot(new ClibanoResultSlot(context.player(), handler, blockEntity, RESULT_SLOTS.getSecond(), 142, 28));
+        this.addSlot(new ClibanoResultSlot(this.context.player(), handler, blockEntity, RESULT_SLOTS.getFirst(), 116, 32));
+        this.addSlot(new ClibanoResultSlot(this.context.player(), handler, blockEntity, RESULT_SLOTS.getSecond(), 142, 28));
 
         // Inventory Slots
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new SlotItemHandler(context.inventory(), j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
+                this.addSlot(new SlotItemHandler(this.context.inventory(), j + i * 9 + 9, 8 + j * 18, 91 + i * 18));
             }
         }
 
         // Hotbar Slots
         for(int k = 0; k < 9; ++k) {
-            this.addSlot(new SlotItemHandler(context.inventory(), k, 8 + k * 18, 149));
+            this.addSlot(new SlotItemHandler(this.context.inventory(), k, 8 + k * 18, 149));
         }
+
+        this.addDataSlots(this.containerData);
     }
 
     @Nonnull
@@ -150,7 +154,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     protected boolean canSmelt(ItemStack stack) {
-        return context.levelAccess().evaluate((level, pos) -> level.getRecipeManager().getRecipeFor(ClibanoMainBlockEntity.RECIPE_TYPE, new SimpleContainer(stack), level).isPresent(), false);
+        return this.context.levelAccess().evaluate((level, pos) -> level.getRecipeManager().getRecipeFor(ClibanoMainBlockEntity.RECIPE_TYPE, new SimpleContainer(stack), level).isPresent(), false);
     }
 
     protected boolean isFuel(ItemStack stack) {

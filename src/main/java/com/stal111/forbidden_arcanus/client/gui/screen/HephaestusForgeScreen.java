@@ -50,7 +50,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
             Slot slot = this.menu.slots.get(i);
 
             if (slot instanceof EnhancerSlot enhancerSlot) {
-                enhancerSlot.updateLocked(this.menu.getLevel());
+                //TODO: Fix enhancer slots
             }
         }
     }

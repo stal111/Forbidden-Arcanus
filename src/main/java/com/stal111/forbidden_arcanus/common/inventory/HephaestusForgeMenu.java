@@ -20,7 +20,6 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
-import org.apache.commons.lang3.BooleanUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -92,7 +91,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     private void addEnhancerSlot(ItemStackHandler handler, int index, int x, int y, HephaestusForgeLevel requiredLevel, HephaestusForgeLevel currentLevel) {
-        this.addSlot(new EnhancerSlot(handler, index, x, y, requiredLevel, locked -> this.lockedSlots[index] = BooleanUtils.toInteger(locked)).updateLocked(currentLevel));
+        this.addSlot(new EnhancerSlot(handler, index, x, y));
     }
 
     @Nonnull
@@ -181,6 +180,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     public HephaestusForgeLevel getLevel() {
         return HephaestusForgeLevel.getFromIndex(this.hephaestusForgeLevel.get());
+    }
+
+    public void unlockSlot(EnhancerSlot slot) {
+        this.lockedSlots[slot.getSlotIndex()] = 0;
     }
 
     public boolean isSlotLocked(EnhancerSlot slot) {
