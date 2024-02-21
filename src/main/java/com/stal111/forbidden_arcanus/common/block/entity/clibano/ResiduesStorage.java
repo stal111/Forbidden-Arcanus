@@ -28,7 +28,7 @@ public class ResiduesStorage implements SerializableComponent {
     public static final Codec<Map<Holder<ResidueType>, Integer>> MAP_CODEC = Codec.unboundedMap(ResidueType.CODEC, Codec.INT);
 
     public static final int MAX_AMOUNT = 64;
-    private static final String RESIDUES_TAG = "Residues";
+    private static final String RESIDUES_TAG = "residues";
 
     private Supplier<Map<Holder<ResidueType>, Integer>> residueTypeAmountMap = Suppliers.memoize(HashMap::new);
 

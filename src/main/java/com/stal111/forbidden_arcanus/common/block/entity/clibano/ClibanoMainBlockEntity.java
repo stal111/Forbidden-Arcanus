@@ -468,15 +468,15 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         this.saveInventory(tag);
 
-        tag.putInt("SoulTime", this.soulTime);
-        tag.putInt("BurnTime", this.burnTime);
+        tag.putInt("soul_time", this.soulTime);
+        tag.putInt("burn_time", this.burnTime);
 
         tag.putIntArray("cooking_times", this.logic.cookingProgress);
         tag.putIntArray("cooking_durations", this.logic.cookingDuration);
 
-        tag.putString("FireType", this.fireType.getSerializedName());
+        tag.putString("fire_type", this.fireType.getSerializedName());
 
-        tag.putString("FrontDirection", this.frontDirection.getName());
+        tag.putString("front_direction", this.frontDirection.getName());
 
         CompoundTag recipesUsed = new CompoundTag();
 
@@ -484,7 +484,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             recipesUsed.putInt(resourceLocation.toString(), integer);
         });
 
-        tag.put("RecipesUsed", recipesUsed);
+        tag.put("recipes_used", recipesUsed);
 
         if (this.residuesStorage.shouldBeSaved() && this.level != null) {
             this.residuesStorage.save(tag);
@@ -497,18 +497,18 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         this.loadInventory(tag);
 
-        this.soulTime = tag.getInt("SoulTime");
-        this.burnTime = tag.getInt("BurnTime");
+        this.soulTime = tag.getInt("soul_time");
+        this.burnTime = tag.getInt("burn_time");
         this.burnDuration = this.getBurnDuration(this.getStack(ClibanoMenu.FUEL_SLOT));
 
         this.logic.cookingProgress = tag.getIntArray("cooking_times");
         this.logic.cookingDuration = tag.getIntArray("cooking_durations");
 
-        this.fireType = ClibanoFireType.CODEC.byName(tag.getString("FireType"), ClibanoFireType.FIRE);
+        this.fireType = ClibanoFireType.CODEC.byName(tag.getString("fire_type"), ClibanoFireType.FIRE);
 
-        this.frontDirection = Direction.byName(tag.getString("FrontDirection"));
+        this.frontDirection = Direction.byName(tag.getString("front_direction"));
 
-        CompoundTag recipesUsed = tag.getCompound("RecipesUsed");
+        CompoundTag recipesUsed = tag.getCompound("recipes_used");
 
         for (String recipe : recipesUsed.getAllKeys()) {
             this.recipesUsed.put(new ResourceLocation(recipe), tag.getInt(recipe));
