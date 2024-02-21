@@ -21,7 +21,7 @@ public abstract class ClibanoSmeltLogic {
         this.clibano = clibano;
     }
 
-    public abstract void tick();
+    public abstract void tick(boolean isLit);
 
     public abstract boolean canSmelt();
 

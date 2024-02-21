@@ -1,12 +1,14 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.ExtraCodecs;
@@ -20,9 +22,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
 
 /**
  * Clibano Recipe <br>
@@ -37,6 +38,9 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     public static final int DEFAULT_COOKING_TIME = 100;
 
     private final Map<ClibanoFireType, Integer> cookingTimes = new EnumMap<>(ClibanoFireType.class);
+
+    private final NonNullList<Ingredient> ingredients;
+
     private final @Nullable ResidueChance residueChance;
 
     /**
@@ -44,8 +48,9 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
      */
     private final ClibanoFireType requiredFireType;
 
-    public ClibanoRecipe(String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime, @Nullable ResidueChance residueChance, ClibanoFireType requiredFireType) {
-        super(ModRecipeTypes.CLIBANO_COMBUSTION.get(), group, category, ingredient, result, experience, cookingTime);
+    public ClibanoRecipe(String group, CookingBookCategory category, NonNullList<Ingredient> ingredients, ItemStack result, float experience, int cookingTime, @Nullable ResidueChance residueChance, ClibanoFireType requiredFireType) {
+        super(ModRecipeTypes.CLIBANO_COMBUSTION.get(), group, category, null, result, experience, cookingTime);
+        this.ingredients = ingredients;
         this.residueChance = residueChance;
         this.requiredFireType = requiredFireType;
 
@@ -56,7 +61,17 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
     @Override
     public boolean matches(@NotNull Container inv, @NotNull Level level) {
-        return this.ingredient.test(inv.getItem(0));
+        for (int i = 0; i < this.ingredients.size(); i++) {
+            if (!this.ingredients.get(i).test(inv.getItem(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public @NotNull NonNullList<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 
     /**
@@ -90,6 +105,13 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
     public static class Serializer implements RecipeSerializer<ClibanoRecipe> {
 
+        private static final Function<NonNullList<Ingredient>, DataResult<NonNullList<Ingredient>>> INGREDIENT_CHECK = ingredients -> {
+            if (ingredients.isEmpty() || ingredients.size() >= 3) {
+                return DataResult.error(() -> "Invalid number of ingredients", ingredients);
+            }
+            return DataResult.success(ingredients);
+        };
+
         private static final Codec<ClibanoRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(recipe -> {
                     return recipe.group;
@@ -97,8 +119,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
                 CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> {
                     return recipe.category;
                 }),
-                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(recipe -> {
-                    return recipe.ingredient;
+                NonNullList.codecOf(Ingredient.CODEC_NONEMPTY).flatXmap(INGREDIENT_CHECK, INGREDIENT_CHECK).fieldOf("ingredients").forGetter(recipe -> {
+                    return recipe.ingredients;
                 }),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> {
                     return recipe.result;
@@ -126,7 +148,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         public @NotNull ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
             String s = buffer.readUtf();
             CookingBookCategory category = buffer.readEnum(CookingBookCategory.class);
-            Ingredient ingredient = Ingredient.fromNetwork(buffer);
+            NonNullList<Ingredient> ingredients = NonNullList.copyOf(buffer.readList(Ingredient::fromNetwork));
             ItemStack itemstack = buffer.readItem();
             float f = buffer.readFloat();
             int i = buffer.readVarInt();
@@ -134,14 +156,16 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             ResidueChance chance = buffer.readOptional(ResidueChance::fromNetwork).orElse(null);
             ClibanoFireType fireType = ClibanoFireType.CODEC.byName(buffer.readUtf(), ClibanoFireType.FIRE);
 
-            return new ClibanoRecipe(s, category, ingredient, itemstack, f, i, chance, fireType);
+            return new ClibanoRecipe(s, category, ingredients, itemstack, f, i, chance, fireType);
         }
 
         @Override
         public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ClibanoRecipe recipe) {
             buffer.writeUtf(recipe.group);
             buffer.writeEnum(recipe.category());
-            recipe.ingredient.toNetwork(buffer);
+            buffer.writeCollection(recipe.ingredients, (friendlyByteBuf, ingredient) -> {
+                ingredient.toNetwork(friendlyByteBuf);
+            });
             buffer.writeItem(recipe.result);
             buffer.writeFloat(recipe.experience);
             buffer.writeVarInt(recipe.cookingTime);

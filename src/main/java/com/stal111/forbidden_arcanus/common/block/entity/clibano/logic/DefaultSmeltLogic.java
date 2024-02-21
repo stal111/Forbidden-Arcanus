@@ -27,10 +27,8 @@ public class DefaultSmeltLogic extends ClibanoSmeltLogic {
     }
 
     @Override
-    public void tick() {
-        boolean lit = true;
-
-        if (!lit) {
+    public void tick(boolean isLit) {
+        if (!isLit) {
             this.cookingProgress[0] = Mth.clamp(0, this.cookingProgress[0] - 2, this.cookingDuration[0]);
             this.cookingProgress[1] = Mth.clamp(0, this.cookingProgress[1] - 2, this.cookingDuration[1]);
         }

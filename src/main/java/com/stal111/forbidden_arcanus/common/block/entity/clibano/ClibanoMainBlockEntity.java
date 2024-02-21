@@ -174,6 +174,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             blockEntity.onSlotChanged(ClibanoMenu.SOUL_SLOT);
         }
 
+        blockEntity.logic.tick(isLit);
+
         if (isLit) {
             blockEntity.burnTime--;
         } else {
@@ -204,8 +206,6 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
             return;
         }
-
-        blockEntity.logic.tick();
 
         blockEntity.wasLit = true;
     }

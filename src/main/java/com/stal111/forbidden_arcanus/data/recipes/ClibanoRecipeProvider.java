@@ -12,6 +12,7 @@ import com.stal111.forbidden_arcanus.data.residue.ModResidueTypes;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -77,6 +78,6 @@ public class ClibanoRecipeProvider extends RecipeSubProvider {
     }
 
     private RecipeBuilder clibanoRecipe(ItemLike result, Ingredient ingredient, float experience, int cookingTime, ResidueChance chance, ClibanoFireType fireType) {
-        return SimpleCookingRecipeBuilder.generic(ingredient, RecipeCategory.MISC, result.asItem().getDefaultInstance(), experience, cookingTime, ModRecipeSerializers.CLIBANO_SERIALIZER.get(), (group, category, i, r, xp, time) -> new ClibanoRecipe(group, category, i, r, xp, time, chance, fireType));
+        return SimpleCookingRecipeBuilder.generic(ingredient, RecipeCategory.MISC, result.asItem().getDefaultInstance(), experience, cookingTime, ModRecipeSerializers.CLIBANO_SERIALIZER.get(), (group, category, i, r, xp, time) -> new ClibanoRecipe(group, category, NonNullList.of(Ingredient.EMPTY, i), r, xp, time, chance, fireType));
     }
 }
