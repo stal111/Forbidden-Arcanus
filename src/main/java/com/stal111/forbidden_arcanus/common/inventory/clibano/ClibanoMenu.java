@@ -5,10 +5,11 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
+import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -16,6 +17,8 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -154,7 +157,16 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     protected boolean canSmelt(ItemStack stack) {
-        return this.context.levelAccess().evaluate((level, pos) -> level.getRecipeManager().getRecipeFor(ClibanoMainBlockEntity.RECIPE_TYPE, new SimpleContainer(stack), level).isPresent(), false);
+        return this.context.levelAccess().evaluate((level, pos) -> {
+            for (RecipeHolder<ClibanoRecipe> recipe : level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get())) {
+                for (Ingredient ingredient : recipe.value().getIngredients()) {
+                    if (ingredient.test(stack)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }, false);
     }
 
     protected boolean isFuel(ItemStack stack) {

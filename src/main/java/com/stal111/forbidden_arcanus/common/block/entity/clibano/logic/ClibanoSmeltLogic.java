@@ -32,7 +32,7 @@ public abstract class ClibanoSmeltLogic {
     public abstract boolean canSmelt();
 
     public abstract void onFireTypeChange(ClibanoFireType fireType);
-    
+
     public void resetCookingProgress(int slot) {
         this.cookingProgress[slot] = 0;
     }
