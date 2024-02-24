@@ -92,6 +92,10 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         return this.requiredFireType;
     }
 
+    public boolean isDoubleRecipe() {
+        return this.getIngredients().size() == 2;
+    }
+
     @NotNull
     @Override
     public RecipeSerializer<?> getSerializer() {

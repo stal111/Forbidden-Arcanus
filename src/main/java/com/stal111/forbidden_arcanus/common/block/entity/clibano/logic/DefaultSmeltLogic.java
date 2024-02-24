@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano.logic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoInputSlot;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,10 +27,7 @@ public class DefaultSmeltLogic extends ClibanoSmeltLogic {
 
     @Override
     public void tick(boolean isLit) {
-        if (!isLit) {
-            this.cookingProgress[0] = Mth.clamp(0, this.cookingProgress[0] - 2, this.cookingDuration[0]);
-            this.cookingProgress[1] = Mth.clamp(0, this.cookingProgress[1] - 2, this.cookingDuration[1]);
-        }
+        super.tick(isLit);
 
         if (this.clibano.canSmelt(this.firstRecipe, ClibanoInputSlot.FIRST)) {
             this.cookingDuration[0] = this.clibano.getCookingTime(this.firstRecipe);
@@ -70,11 +66,6 @@ public class DefaultSmeltLogic extends ClibanoSmeltLogic {
     }
 
     @Override
-    public void resetCookingProgress(int slot) {
-        this.cookingProgress[slot] = 0;
-    }
-
-    @Override
     public final void updateRecipes(List<RecipeHolder<ClibanoRecipe>> recipeHolders) {
         this.updateRecipe(0, this.firstRecipe, recipeHolders);
         this.updateRecipe(1, this.secondRecipe, recipeHolders);
@@ -88,15 +79,6 @@ public class DefaultSmeltLogic extends ClibanoSmeltLogic {
                 this.secondRecipe = recipeHolders.get(slot);
             }
             this.resetCookingProgress(slot);
-        }
-    }
-
-    private void updateCookingProgress(ClibanoFireType fireType, RecipeHolder<ClibanoRecipe> recipeHolder, int slot) {
-        if (recipeHolder != null) {
-            int oldDuration = this.cookingDuration[slot];
-
-            this.cookingDuration[slot] = recipeHolder.value().getCookingTime(fireType);
-            this.cookingProgress[slot] = (int) (((float) this.cookingProgress[slot] / oldDuration) * this.cookingDuration[slot]);
         }
     }
 }

@@ -66,6 +66,8 @@ public class ClibanoRecipeProvider extends RecipeSubProvider {
         this.add(this.clibanoRecipe(Items.IRON_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), 0.35F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.IRON), CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_IRON)), "clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron");
         this.add(this.clibanoRecipe(Items.GOLD_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD), 0.5F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.GOLD), CHANCE_20)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_GOLD)), "clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold");
         this.add(this.clibanoRecipe(Items.COPPER_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER), 0.35F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.COPPER), CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_COPPER)), "clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper");
+
+        this.add(this.clibanoRecipe(ModItems.OBSIDIAN_INGOT.get(), Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), Ingredient.of(Blocks.OBSIDIAN), 0.5F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.COPPER), CHANCE_33)).unlockedBy("has_raw_iron", has(Tags.Items.RAW_MATERIALS_IRON)).unlockedBy("has_obsidian", has(Blocks.OBSIDIAN)));
     }
 
     @Override
@@ -76,6 +78,11 @@ public class ClibanoRecipeProvider extends RecipeSubProvider {
     private RecipeBuilder clibanoRecipe(ItemLike result, Ingredient ingredient, float experience, int cookingTime, ResidueChance chance) {
         return this.clibanoRecipe(result, ingredient, experience, cookingTime, chance, ClibanoFireType.FIRE);
     }
+
+    private RecipeBuilder clibanoRecipe(ItemLike result, Ingredient firstIngredient, Ingredient secondIngredient, float experience, int cookingTime, ResidueChance chance) {
+        return SimpleCookingRecipeBuilder.generic(null, RecipeCategory.MISC, result.asItem().getDefaultInstance(), experience, cookingTime, ModRecipeSerializers.CLIBANO_SERIALIZER.get(), (group, category, i, r, xp, time) -> new ClibanoRecipe(group, category, NonNullList.of(Ingredient.EMPTY, firstIngredient, secondIngredient), r, xp, time, chance, ClibanoFireType.FIRE));
+    }
+
 
     private RecipeBuilder clibanoRecipe(ItemLike result, Ingredient ingredient, float experience, int cookingTime, ResidueChance chance, ClibanoFireType fireType) {
         return SimpleCookingRecipeBuilder.generic(ingredient, RecipeCategory.MISC, result.asItem().getDefaultInstance(), experience, cookingTime, ModRecipeSerializers.CLIBANO_SERIALIZER.get(), (group, category, i, r, xp, time) -> new ClibanoRecipe(group, category, NonNullList.of(Ingredient.EMPTY, i), r, xp, time, chance, fireType));
