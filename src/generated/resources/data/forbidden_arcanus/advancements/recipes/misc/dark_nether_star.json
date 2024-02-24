@@ -13,12 +13,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_obsidian_ingot": {
+    "has_obsidiansteel_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "forbidden_arcanus:obsidian_ingot"
+              "forbidden_arcanus:obsidiansteel_ingot"
             ]
           }
         ]
@@ -35,7 +35,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_obsidian_ingot",
+      "has_obsidiansteel_ingot",
       "has_nether_star"
     ]
   ],

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "forbidden_arcanus:obsidian_ingot"
+      "item": "forbidden_arcanus:obsidiansteel_ingot"
     }
   },
   "pattern": [
@@ -12,6 +12,6 @@
     "###"
   ],
   "result": {
-    "item": "forbidden_arcanus:processed_obsidian_block"
+    "item": "forbidden_arcanus:obsidiansteel_block"
   }
 }

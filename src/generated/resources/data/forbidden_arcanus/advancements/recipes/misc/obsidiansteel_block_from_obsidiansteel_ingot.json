@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_obsidiansteel_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "forbidden_arcanus:processed_obsidian_block"
+              "forbidden_arcanus:obsidiansteel_ingot"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:obsidian_ingot_from_processed_obsidian_block"
+        "recipe": "forbidden_arcanus:obsidiansteel_block_from_obsidiansteel_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +23,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_obsidiansteel_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:obsidian_ingot_from_processed_obsidian_block"
+      "forbidden_arcanus:obsidiansteel_block_from_obsidiansteel_ingot"
     ]
   }
 }

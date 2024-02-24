@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "item": "forbidden_arcanus:obsidian_ingot"
+      "item": "forbidden_arcanus:obsidiansteel_ingot"
     },
     "O": {
       "tag": "forge:obsidian"

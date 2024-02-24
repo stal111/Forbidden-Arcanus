@@ -43,6 +43,7 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.EDELWOOD_LAVA_BUCKET);
         this.generateFlatItem(ModItems.EDELWOOD_MILK_BUCKET);
         this.generateFlatItem(ModItems.EDELWOOD_POWDER_SNOW_BUCKET);
+        this.generateFlatItem(ModItems.OBSIDIANSTEEL_INGOT);
 
         var aurealTank0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
         var aurealTank1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);

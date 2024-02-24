@@ -75,7 +75,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.DARK_RUNE_BLOCK.get());
                             output.accept(ModBlocks.STELLARITE_BLOCK.get());
                             output.accept(ModBlocks.DEORUM_BLOCK.get());
-                            output.accept(ModBlocks.PROCESSED_OBSIDIAN_BLOCK.get());
+                            output.accept(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
                             output.accept(ModBlocks.ARCANE_CRYSTAL_OBELISK.get());
                             output.accept(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get());
                             output.accept(ModBlocks.DEORUM_GLASS.get());
@@ -162,7 +162,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.DARK_NETHER_STAR.get());
                             output.accept(ModItems.DEORUM_NUGGET.get());
                             output.accept(ModItems.DEORUM_INGOT.get());
-                            output.accept(ModItems.OBSIDIAN_INGOT.get());
+                            output.accept(ModItems.OBSIDIANSTEEL_INGOT.get());
                             output.accept(ModItems.ARCANE_CRYSTAL_DUST.get());
                             output.accept(ModItems.MUNDABITUR_DUST.get());
                             output.accept(ModItems.CORRUPTI_DUST.get());
@@ -183,7 +183,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.FERROGNETIC_MIXTURE.get());
                             output.accept(ModItems.DARK_MATTER.get());
                             output.accept(ModItems.OBSIDIAN_WITH_IRON.get());
-                            output.accept(ModItems.OBSIDIAN_INGOT.get());
+                            output.accept(ModItems.OBSIDIANSTEEL_INGOT.get());
                             output.accept(ModItems.CLOTH.get());
                             output.accept(ModItems.ENDER_PEARL_FRAGMENT.get());
                             output.accept(ModItems.DRAGON_SCALE.get());

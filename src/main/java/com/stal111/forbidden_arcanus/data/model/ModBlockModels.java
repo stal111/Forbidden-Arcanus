@@ -47,6 +47,7 @@ public class ModBlockModels {
     }
 
     public void createModels() {
+        this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
         this.createForbiddenomicon(ModBlocks.FORBIDDENOMICON.get());
         this.createDesk(ModBlocks.DESK.get(), false);
         this.createDesk(ModBlocks.RESEARCH_DESK.get(), true);

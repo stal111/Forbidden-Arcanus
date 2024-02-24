@@ -67,7 +67,7 @@ public class ClibanoRecipeProvider extends RecipeSubProvider {
         this.add(this.clibanoRecipe(Items.GOLD_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD), 0.5F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.GOLD), CHANCE_20)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_GOLD)), "clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold");
         this.add(this.clibanoRecipe(Items.COPPER_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER), 0.35F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.COPPER), CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_COPPER)), "clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper");
 
-        this.add(this.clibanoRecipe(ModItems.OBSIDIAN_INGOT.get(), Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), Ingredient.of(Blocks.OBSIDIAN), 0.5F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.COPPER), CHANCE_33)).unlockedBy("has_raw_iron", has(Tags.Items.RAW_MATERIALS_IRON)).unlockedBy("has_obsidian", has(Blocks.OBSIDIAN)));
+        this.add(this.clibanoRecipe(ModItems.OBSIDIANSTEEL_INGOT.get(), Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), Ingredient.of(Blocks.OBSIDIAN), 0.5F, 100, new ResidueChance(lookup.getOrThrow(ModResidueTypes.COPPER), CHANCE_33)).unlockedBy("has_raw_iron", has(Tags.Items.RAW_MATERIALS_IRON)).unlockedBy("has_obsidian", has(Blocks.OBSIDIAN)));
     }
 
     @Override

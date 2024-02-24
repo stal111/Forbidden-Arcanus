@@ -1,4 +1,4 @@
-// 1.20.4	2024-01-19T13:04:28.8379104	Tags for minecraft:item mod id vanilla
+// 1.20.4	2024-02-24T18:28:11.9586232	Tags for minecraft:item mod id vanilla
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
 15934456b6a5c4baa26b521dac8e9ec371c2b006 data/forbidden_arcanus/tags/items/black_hole_unaffected.json
@@ -20,14 +20,14 @@ ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/forge/tags/items/fences/wooden.jso
 dc8fa4f00124b07aa7c7d1400f8dc2652d9a8f51 data/forge/tags/items/heads.json
 4a2636aab0a6ff9f71559b543e92a4ab039254f7 data/forge/tags/items/ingots.json
 238635bd5dd1c15728e03bd1774ab8343944a8b5 data/forge/tags/items/ingots/deorum.json
-9ed069c6891656a213b43d990cc2cd64c086538d data/forge/tags/items/ingots/obsidian.json
+0d4b957112a35b9712ca2728004c934f1b488ddd data/forge/tags/items/ingots/obsidian.json
 7c2fa587c6bcbc4afb7882a02044ed5435a29f2c data/forge/tags/items/nuggets/deorum.json
 6529c1b5741e0d61a30d3957253c488859843df8 data/forge/tags/items/seeds.json
 f702e38b39dc647446912583011eb706701d0362 data/forge/tags/items/storage_blocks.json
 09957d67edabb535833ace6cdc1345b60d228657 data/forge/tags/items/storage_blocks/arcane_crystal.json
 34d6538bf00faf329f38a1cd1cf1e399eb79d8db data/forge/tags/items/storage_blocks/dark_nether_star.json
 b128c22b1f0aef1502fa919bc8d063604b299c75 data/forge/tags/items/storage_blocks/deorum.json
-095d4cf501ae8aafcb5deec4e1d5272e66490643 data/forge/tags/items/storage_blocks/obsidian.json
+84788ba04723700a23026d7561c99fc099deeafc data/forge/tags/items/storage_blocks/obsidian.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/forge/tags/items/storage_blocks/stellarite.json
 2d99bbc8b9f6c5859eeabbb7f27a2d571e7ae4d6 data/minecraft/tags/items/arrows.json
 4447fb4f3ca90f441c2430ab8f246986ca58fc1e data/minecraft/tags/items/buttons.json

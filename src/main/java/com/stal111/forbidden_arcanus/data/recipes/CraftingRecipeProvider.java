@@ -38,7 +38,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         //Shaped Recipes
         this.shaped(RecipeCategory.TOOLS, ModItems.SANITY_METER.get(), builder -> builder.pattern("AXA").pattern("X#X").pattern("AXA").define('X', Tags.Items.INGOTS_GOLD).define('#', Tags.Items.ENDER_PEARLS).define('A', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy(this, RecipePart.of(Tags.Items.INGOTS_GOLD)));
         this.shaped(RecipeCategory.TOOLS, ModItems.LENS_OF_VERITATIS.get(), builder -> builder.pattern(" # ").pattern("#X#").pattern("S# ").define('#', ModItems.SPAWNER_SCRAP.get()).define('X', ModItems.ARCANE_CRYSTAL.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy(this, ModItems.ARCANE_CRYSTAL.get()));
-        this.shaped(RecipeCategory.TOOLS, ModBlocks.OBSIDIAN_SKULL.getSkull(), builder -> builder.pattern("#O#").pattern("OXO").pattern("#O#").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.SKELETON_SKULL).define('O', Tags.Items.OBSIDIAN).unlockedBy(this, RecipePart.of(Tags.Items.OBSIDIAN)));
+        this.shaped(RecipeCategory.TOOLS, ModBlocks.OBSIDIAN_SKULL.getSkull(), builder -> builder.pattern("#O#").pattern("OXO").pattern("#O#").define('#', ModItems.OBSIDIANSTEEL_INGOT.get()).define('X', Items.SKELETON_SKULL).define('O', Tags.Items.OBSIDIAN).unlockedBy(this, RecipePart.of(Tags.Items.OBSIDIAN)));
         this.shaped(RecipeCategory.DECORATIONS, ModBlocks.UTREM_JAR.get(), builder -> builder.pattern("#X#").pattern("# #").pattern("###").define('#', Tags.Items.GLASS_COLORLESS).define('X', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy(this, RecipePart.of(Tags.Items.GLASS_COLORLESS)));
         this.shaped(RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL_DUST.get(), builder -> builder.pattern("###").pattern("###").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST_SPECK.get()).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST_SPECK.get()));
         this.shaped(RecipeCategory.TOOLS, ModItems.SOUL_EXTRACTOR.get(), builder -> builder.pattern("U  ").pattern("##X").pattern("Q  ").define('U', ModBlocks.UTREM_JAR.get()).define('#', Blocks.NETHER_BRICKS).define('X', Blocks.QUARTZ_BLOCK).define('Q', Items.QUARTZ).unlockedBy(this, ModBlocks.UTREM_JAR.get()));
@@ -47,7 +47,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
 
         this.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARKSTONE_PEDESTAL.get(), builder -> builder.pattern("###").pattern(" * ").pattern("XXX").define('#', ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get()).define('*', ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get()).define('X', ModBlocks.POLISHED_DARKSTONE.get()).unlockedBy(this, ModBlocks.POLISHED_DARKSTONE.get()));
 
-        this.shaped(RecipeCategory.MISC, ModItems.DARK_NETHER_STAR.get(), builder -> builder.pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIAN_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy(this, ModItems.OBSIDIAN_INGOT.get()).unlockedBy(this, Items.NETHER_STAR));
+        this.shaped(RecipeCategory.MISC, ModItems.DARK_NETHER_STAR.get(), builder -> builder.pattern(" # ").pattern("#X#").pattern(" # ").define('#', ModItems.OBSIDIANSTEEL_INGOT.get()).define('X', Items.NETHER_STAR).unlockedBy(this, ModItems.OBSIDIANSTEEL_INGOT.get()).unlockedBy(this, Items.NETHER_STAR));
         this.shaped(RecipeCategory.MISC, ModItems.DEORUM_INGOT.get(), builder -> builder.pattern("#*#").pattern("MXM").pattern("#*#").define('#', Items.CHARCOAL).define('X', Items.GOLD_INGOT).define('M', ModItems.MUNDABITUR_DUST.get()).define('*', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy(this, Items.GOLD_INGOT).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy(this, ModItems.MUNDABITUR_DUST.get()));
 
         this.shaped(RecipeCategory.DECORATIONS, ModBlocks.DEORUM_CHAIN.get(), builder -> builder.pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.DEORUM_NUGGETS).define('X', ModTags.Items.DEORUM_INGOTS).unlockedBy(this, RecipePart.of(ModTags.Items.DEORUM_INGOTS)).unlockedBy(this, RecipePart.of(ModTags.Items.DEORUM_NUGGETS)));
@@ -85,7 +85,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.surroundingItem(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ARCANE_CHISELED_DARKSTONE.get(), RecipePart.of(ModTags.Items.DEORUM_INGOTS), RecipePart.of(ModBlocks.DARKSTONE.get()), 8);
 
         this.storageRecipe(ModItems.DARK_NETHER_STAR.get(), ModBlocks.DARK_NETHER_STAR_BLOCK.get());
-        this.storageRecipe(ModItems.OBSIDIAN_INGOT.get(), ModBlocks.PROCESSED_OBSIDIAN_BLOCK.get(), "obsidian_ingot", null);
+        this.storageRecipe(ModItems.OBSIDIANSTEEL_INGOT.get(), ModBlocks.OBSIDIANSTEEL_BLOCK.get(), "obsidian_ingot", null);
         this.storageRecipe(ModItems.DEORUM_INGOT.get(), ModBlocks.DEORUM_BLOCK.get(), "deorum_ingot", null);
         this.storageRecipe(ModItems.DEORUM_NUGGET.get(), ModItems.DEORUM_INGOT.get(), null, "deorum_ingot");
         this.storageRecipe(ModItems.STELLARITE_PIECE.get(), ModBlocks.STELLARITE_BLOCK.get());

@@ -1,4 +1,4 @@
-// 1.20.4	2024-01-19T13:04:28.8359161	Tags for minecraft:block mod id vanilla
+// 1.20.4	2024-02-24T18:28:11.9566292	Tags for minecraft:block mod id vanilla
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/blocks/arcane_crystal_ores.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/blocks/blacksmith_gavel_unaffected.json
 7178fc65549c2cdfe3c0d34421efedf7c81a341f data/forbidden_arcanus/tags/blocks/darkstone_ore_replaceables.json
@@ -14,7 +14,7 @@ f702e38b39dc647446912583011eb706701d0362 data/forge/tags/blocks/storage_blocks.j
 09957d67edabb535833ace6cdc1345b60d228657 data/forge/tags/blocks/storage_blocks/arcane_crystal.json
 34d6538bf00faf329f38a1cd1cf1e399eb79d8db data/forge/tags/blocks/storage_blocks/dark_nether_star.json
 b128c22b1f0aef1502fa919bc8d063604b299c75 data/forge/tags/blocks/storage_blocks/deorum.json
-095d4cf501ae8aafcb5deec4e1d5272e66490643 data/forge/tags/blocks/storage_blocks/obsidian.json
+84788ba04723700a23026d7561c99fc099deeafc data/forge/tags/blocks/storage_blocks/obsidian.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/forge/tags/blocks/storage_blocks/stellarite.json
 4447fb4f3ca90f441c2430ab8f246986ca58fc1e data/minecraft/tags/blocks/buttons.json
 98f7cdc4722e641f4a147ff84611a8b26531da93 data/minecraft/tags/blocks/crops.json
@@ -25,9 +25,9 @@ ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/blocks/doors.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/blocks/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/blocks/logs.json
 c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/blocks/logs_that_burn.json
-0c7e8dc241511622dae747cd22f48a0fa1e7baea data/minecraft/tags/blocks/mineable/pickaxe.json
+6a08d0555283f29d9871baca978ab5791cfb0dcb data/minecraft/tags/blocks/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/blocks/mineable/shovel.json
-9efc59ecb59a8a83cb542bcb9f769b713ec4c193 data/minecraft/tags/blocks/needs_diamond_tool.json
+e622c2900772c3de95c1febef2d5acc6d891dd56 data/minecraft/tags/blocks/needs_diamond_tool.json
 f5e817be5db288101afc38ab4ee917799b5d90fe data/minecraft/tags/blocks/needs_iron_tool.json
 ca9f8a00095b035961fefdad101f72d44e15defb data/minecraft/tags/blocks/needs_stone_tool.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/blocks/planks.json

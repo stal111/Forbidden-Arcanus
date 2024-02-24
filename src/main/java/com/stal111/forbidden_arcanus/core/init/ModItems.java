@@ -40,7 +40,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<Item> CORRUPTI_DUST = HELPER.register("corrupti_dust", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> DARK_MATTER = HELPER.register("dark_matter", () -> new DarkMatterItem(new Item.Properties()));
     public static final RegistryEntry<Item> OBSIDIAN_WITH_IRON = HELPER.register("obsidian_with_iron", () -> new Item(new Item.Properties()));
-    public static final RegistryEntry<Item> OBSIDIAN_INGOT = HELPER.register("obsidian_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryEntry<Item> OBSIDIANSTEEL_INGOT = HELPER.register("obsidiansteel_ingot", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> SOUL = HELPER.register("soul", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<DarkSoulItem> CORRUPT_SOUL = HELPER.register("corrupt_soul", () -> new DarkSoulItem(new Item.Properties()));
     public static final RegistryEntry<Item> ENCHANTED_SOUL = HELPER.register("enchanted_soul", () -> new Item(new Item.Properties()));
