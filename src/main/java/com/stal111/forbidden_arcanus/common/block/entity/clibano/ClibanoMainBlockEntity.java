@@ -8,6 +8,9 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DoubleSme
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
@@ -78,7 +81,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     private int burnDuration;
 
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
-    private ClibanoFireType nextFireType = this.getFireTypeFromInput();
+    private ClibanoFireType nextFireType = ClibanoFireType.FIRE;
 
     private final ContainerData containerData = new ContainerData() {
         @Override
@@ -133,6 +136,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     private boolean wasLit = false;
 
     private ClibanoSmeltLogic logic = new DefaultSmeltLogic(this, null, null);
+    private @Nullable EnhancerDefinition enhancer;
 
     public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state, ClibanoMenu.SLOT_COUNT, (slot, stack) -> {
@@ -144,7 +148,13 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
             return !slot.equals(ClibanoMenu.RESULT_SLOTS.getFirst()) && !slot.equals(ClibanoMenu.RESULT_SLOTS.getSecond());
         });
-        this.quickCheck = new CachedRecipeCheck();
+        this.quickCheck = new CachedRecipeCheck(() -> this.enhancer != null ? List.of(this.enhancer) : Collections.emptyList());
+    }
+
+    @Override
+    public void onLoad() {
+        this.fireType = this.getFireTypeFromInput();
+        this.enhancer = this.updateEnhancer();
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
@@ -426,7 +436,13 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     protected void onSlotChanged(int slot) {
         if (slot == ClibanoMenu.SOUL_SLOT) {
             this.nextFireType = this.getFireTypeFromInput();
+        } else if (slot == ClibanoMenu.ENHANCER_SLOT) {
+            this.enhancer = this.updateEnhancer();
         }
+    }
+
+    private @Nullable EnhancerDefinition updateEnhancer() {
+        return EnhancerCache.get(this.getStack(ClibanoMenu.ENHANCER_SLOT).getItem()).orElse(null);
     }
 
     @Override
@@ -536,6 +552,12 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         private RecipeHolder<ClibanoRecipe> lastAlloyRecipe;
         private final Queue<RecipeHolder<ClibanoRecipe>> lastRecipes = new LinkedList<>();
 
+        private final EnhancerAccessor accessor;
+
+        public CachedRecipeCheck(EnhancerAccessor accessor) {
+            this.accessor = accessor;
+        }
+
         @Override
         public @NotNull Optional<RecipeHolder<ClibanoRecipe>> getRecipeFor(@NotNull Container container, @NotNull Level level) {
             while (!this.lastRecipes.isEmpty()) {
@@ -546,7 +568,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
                 }
             }
 
-            Optional<RecipeHolder<ClibanoRecipe>> optional = level.getRecipeManager().getRecipeFor(RECIPE_TYPE, container, level);
+            Optional<RecipeHolder<ClibanoRecipe>> optional = level.getRecipeManager().getAllRecipesFor(RECIPE_TYPE).stream().filter(recipe -> !recipe.value().isDoubleRecipe() && recipe.value().matches(container, level, this.accessor.getEnhancers())).findFirst();
 
             optional.ifPresent(this.lastRecipes::add);
 
@@ -555,8 +577,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         public Optional<RecipeHolder<ClibanoRecipe>> getAlloyRecipe(Container container, Level level) {
             return Optional.ofNullable(this.checkRecipe(this.lastAlloyRecipe, container, level).orElseGet(() -> {
-                for (RecipeHolder<ClibanoRecipe> recipe : level.getRecipeManager().getRecipesFor(RECIPE_TYPE, container, level)) {
-                    if (recipe.value().isDoubleRecipe()) {
+                for (RecipeHolder<ClibanoRecipe> recipe : level.getRecipeManager().getAllRecipesFor(RECIPE_TYPE)) {
+                    if (recipe.value().isDoubleRecipe() && recipe.value().matches(container, level, this.accessor.getEnhancers())) {
                         this.lastAlloyRecipe = recipe;
 
                         return recipe;
@@ -570,7 +592,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         }
 
         private Optional<RecipeHolder<ClibanoRecipe>> checkRecipe(@Nullable RecipeHolder<ClibanoRecipe> recipeHolder, Container container, Level level) {
-            if (recipeHolder != null && recipeHolder.value().matches(container, level)) {
+            if (recipeHolder != null && recipeHolder.value().matches(container, level, this.accessor.getEnhancers())) {
                 return Optional.of(recipeHolder);
             }
 

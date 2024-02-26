@@ -2,6 +2,7 @@
   "type": "forbidden_arcanus:clibano_combustion",
   "category": "misc",
   "cooking_time": 100,
+  "enhancer": "forbidden_arcanus:artisan_relic",
   "experience": 0.5,
   "fire_type": "fire",
   "ingredients": [
