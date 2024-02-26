@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSm
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DoubleSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
@@ -67,8 +66,9 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     public static final int DATA_COOKING_DURATION_SECOND = 6;
     public static final int DATA_FIRE_TYPE = 7;
     public static final int DATA_RESIDUE_FULLNESS = 8;
+    public static final int DATA_IS_DOUBLE_RECIPE = 9;
 
-    public static final int BASE_DATA_COUNT = 9;
+    public static final int BASE_DATA_COUNT = 10;
 
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_COMBUSTION.get();
 
@@ -98,9 +98,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
                 case DATA_COOKING_DURATION_SECOND -> blockEntity.logic.cookingDuration[1];
                 case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
                 case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.getTotalAmount();
-                default -> {
-                    yield blockEntity.residuesStorage.getResidueTypeAmountMap().values().toArray(Integer[]::new)[index - BASE_DATA_COUNT];
-                }
+                case DATA_IS_DOUBLE_RECIPE -> blockEntity.logic instanceof DoubleSmeltLogic ? 1 : 0;
+                default -> 0;
             };
         }
 
@@ -118,11 +117,6 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
                 case DATA_COOKING_DURATION_SECOND -> blockEntity.logic.cookingDuration[1] = value;
                 case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
                 case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.setTotalAmount(value);
-                default -> {
-                    ResidueType type = blockEntity.residuesStorage.getResidueTypeAmountMap().keySet().toArray(ResidueType[]::new)[index - BASE_DATA_COUNT];
-
-                    blockEntity.residuesStorage.getResidueTypeAmountMap().put(type, value);
-                }
             }
         }
 

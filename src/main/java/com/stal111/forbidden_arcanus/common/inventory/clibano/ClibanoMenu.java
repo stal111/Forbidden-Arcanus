@@ -214,6 +214,10 @@ public class ClibanoMenu extends AbstractContainerMenu {
         return this.containerData.get(ClibanoMainBlockEntity.DATA_RESIDUE_FULLNESS);
     }
 
+    public boolean isDoubleRecipe() {
+        return this.containerData.get(ClibanoMainBlockEntity.DATA_IS_DOUBLE_RECIPE) == 1;
+    }
+
     public Map<ResidueType, Integer> getResidueData() {
         Map<ResidueType, Integer> map = new HashMap<>();
 

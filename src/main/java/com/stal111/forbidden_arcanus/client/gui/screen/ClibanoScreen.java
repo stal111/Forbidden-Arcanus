@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.apache.commons.lang3.BooleanUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -46,17 +47,19 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     protected void renderBg(@Nonnull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize());
 
+        boolean isDoubleRecipe = this.menu.isDoubleRecipe();
+
         // Cooking Indicators
         if (this.menu.getCookingDuration().getFirst() != 0) {
             int xSize = Math.toIntExact(Math.round(22.0F * this.menu.getCookingProgress().getFirst() / this.menu.getCookingDuration().getFirst()));
 
-            guiGraphics.blit(TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 34, 176, 32, xSize, 7);
+            guiGraphics.blit(TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 34 + BooleanUtils.toInteger(isDoubleRecipe), 176, 32, xSize, 7);
         }
 
         if (this.menu.getCookingDuration().getSecond() != 0) {
             int xSize = Math.toIntExact(Math.round(22.0F * this.menu.getCookingProgress().getSecond() / this.menu.getCookingDuration().getSecond()));
 
-            guiGraphics.blit(TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 43, 176, 41, xSize, 7);
+            guiGraphics.blit(TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 43 - BooleanUtils.toInteger(isDoubleRecipe), 176, 41, xSize, 7);
         }
 
         // Soul Indicator
