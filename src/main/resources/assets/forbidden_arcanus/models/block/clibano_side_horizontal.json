@@ -9,8 +9,8 @@
 			"from": [0, 0, 0],
 			"to": [16, 16, 16],
 			"faces": {
-				"north": {"uv": [16, 16, 0, 0], "rotation": 90, "texture": "#side"},
-				"east": {"uv": [16, 16, 0, 0], "rotation": 270, "texture": "#top"}
+				"north": {"uv": [16, 16, 0, 0], "rotation": 90, "texture": "#side", "cullface": "north"},
+				"east": {"uv": [16, 16, 0, 0], "rotation": 270, "texture": "#top", "cullface": "east"}
 			}
 		}
 	]
