@@ -44,6 +44,13 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.EDELWOOD_MILK_BUCKET);
         this.generateFlatItem(ModItems.EDELWOOD_POWDER_SNOW_BUCKET);
         this.generateFlatItem(ModItems.OBSIDIANSTEEL_INGOT);
+        this.generateFlatItem("enhancer", ModItems.ARTISAN_RELIC, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("enhancer", ModItems.CRESCENT_MOON, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("enhancer", ModItems.CRIMSON_STONE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("enhancer", ModItems.SOUL_CRIMSON_STONE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("enhancer", ModItems.ELEMENTARIUM, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("enhancer", ModItems.DIVINE_PACT, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("enhancer", ModItems.MALEDICTUS_PACT, ModelTemplates.FLAT_ITEM);
 
         var aurealTank0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
         var aurealTank1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);
@@ -74,7 +81,7 @@ public class ModItemModels {
     }
 
     private ResourceLocation generateFlatItem(String folder, RegistryEntry<Item> item, ModelTemplate template) {
-        return template.create(ModLocationUtils.getItem(folder, item), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput);
+        return template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput);
     }
 
     private ResourceLocation generateFlatItem(RegistryEntry<? extends Item> item, ModelTemplate template) {
