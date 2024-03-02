@@ -10,6 +10,8 @@ import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
+import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
@@ -191,11 +193,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
                 blockEntity.changeFireType(level, ClibanoFireType.FIRE);
             }
         } else if (canSmelt && blockEntity.nextFireType != ClibanoFireType.FIRE) {
-            blockEntity.soulTime = SOUL_DURATION;
-
-            blockEntity.changeFireType(level, blockEntity.nextFireType);
-            blockEntity.getStack(ClibanoMenu.SOUL_SLOT).shrink(1);
-            blockEntity.onSlotChanged(ClibanoMenu.SOUL_SLOT);
+            blockEntity.consumeSoul(level);
         }
 
         blockEntity.logic.tick(isLit);
@@ -409,6 +407,28 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         if (state.getBlock() instanceof AbstractClibanoFrameBlock clibanoFrameBlock) {
             level.setBlockAndUpdate(pos, clibanoFrameBlock.updateAppearance(state, this.burnTime > 0, this.fireType));
         }
+    }
+
+    /**
+     * Consumes a soul from the {@link ClibanoMenu#SOUL_SLOT} and updates the fire type of the clibano.
+     *
+     * @param level the level the clibano is in
+     */
+    private void consumeSoul(Level level) {
+        this.soulTime = SOUL_DURATION;
+
+        if (this.enhancer != null) {
+            this.enhancer.getEffects(EnhancerTarget.CLIBANO).forEach(enhancerEffect -> {
+                if (enhancerEffect instanceof MultiplySoulDurationEffect effect) {
+                    this.soulTime = effect.getModifiedValue(this.soulTime);
+                }
+            });
+        }
+
+        this.changeFireType(level, this.nextFireType);
+
+        this.getStack(ClibanoMenu.SOUL_SLOT).shrink(1);
+        this.onSlotChanged(ClibanoMenu.SOUL_SLOT);
     }
 
     public void setFrontDirection(Direction direction) {

@@ -13,7 +13,7 @@ import java.util.List;
  * @author stal111
  * @since 2023-02-19
  */
-public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements EssenceModifier {
+public class MultiplyRequiredEssenceEffect extends ValueModifierEffect<Integer> implements EssenceModifier {
 
     public static final Codec<MultiplyRequiredEssenceEffect> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             EnhancerEffect.conditionsCodec(),
@@ -35,13 +35,13 @@ public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements Ess
     }
 
     @Override
-    public EssenceType getEssenceType() {
-        return this.essenceType;
+    public Integer getModifiedValue(Integer originalValue) {
+        return (int) (originalValue * this.multiplier);
     }
 
     @Override
-    public int getModifiedValue(int originalValue) {
-        return (int) (originalValue * this.multiplier);
+    public EssenceType getEssenceType() {
+        return this.essenceType;
     }
 
     @Override

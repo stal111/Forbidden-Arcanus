@@ -13,6 +13,11 @@
       "conditions": [],
       "essence_type": "souls",
       "multiplier": 0.5
+    },
+    {
+      "type": "forbidden_arcanus:multiply_soul_duration",
+      "conditions": [],
+      "multiplier": 1.3
     }
   ],
   "item": "forbidden_arcanus:crimson_stone"

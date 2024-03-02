@@ -11,5 +11,5 @@ public interface EssenceModifier {
         return essenceType == this.getEssenceType();
     }
 
-    int getModifiedValue(int originalValue);
+    Integer getModifiedValue(Integer originalValue);
 }
