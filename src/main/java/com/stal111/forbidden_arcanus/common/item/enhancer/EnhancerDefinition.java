@@ -48,6 +48,10 @@ public record EnhancerDefinition(Item item, Map<EnhancerTarget, Component> descr
         return new EnhancerDefinition(item, description, ImmutableList.of());
     }));
 
+    public static EnhancerDefinition create(Item item, Map<EnhancerTarget, Component> description, EnhancerEffect... effects) {
+        return new EnhancerDefinition(item, description, List.of(effects));
+    }
+
     public Stream<EnhancerEffect> getEffects(EnhancerTarget target) {
         return this.effects.stream().filter(effect -> effect.getType().target() == target);
     }
