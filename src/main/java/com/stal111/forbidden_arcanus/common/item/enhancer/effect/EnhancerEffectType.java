@@ -1,6 +1,7 @@
-package com.stal111.forbidden_arcanus.common.item.enhancer;
+package com.stal111.forbidden_arcanus.common.item.enhancer.effect;
 
 import com.mojang.serialization.Codec;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 
 /**
  * @author stal111

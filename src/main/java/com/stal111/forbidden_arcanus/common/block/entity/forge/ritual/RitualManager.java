@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesD
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.CreateValidRitualIndicatorPacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.RemoveValidRitualIndicatorPacket;
@@ -31,7 +31,6 @@ import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -159,8 +158,7 @@ public class RitualManager implements SerializableComponent {
 
     public boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
         List<EssenceModifier> modifiers = this.enhancerAccessor.getEnhancers().stream()
-                .map(EnhancerDefinition::effects)
-                .flatMap(Collection::stream)
+                .flatMap(enhancerDefinition -> enhancerDefinition.getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
                 .filter(effect -> effect instanceof EssenceModifier)
                 .map(effect -> (EssenceModifier) effect)
                 .toList();

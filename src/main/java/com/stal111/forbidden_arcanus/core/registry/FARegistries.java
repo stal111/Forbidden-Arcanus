@@ -8,7 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerEffectType;
+import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffectType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.condition.EffectConditionType;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteraction;

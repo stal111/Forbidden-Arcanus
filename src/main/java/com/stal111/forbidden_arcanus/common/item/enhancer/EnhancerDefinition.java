@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.item.enhancer;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffect;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.core.Holder;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Item;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * @author stal111
@@ -45,4 +47,8 @@ public record EnhancerDefinition(Item item, Map<EnhancerTarget, Component> descr
     ).apply(instance, (item, description) -> {
         return new EnhancerDefinition(item, description, ImmutableList.of());
     }));
+
+    public Stream<EnhancerEffect> getEffects(EnhancerTarget target) {
+        return this.effects.stream().filter(effect -> effect.getType().target() == target);
+    }
 }

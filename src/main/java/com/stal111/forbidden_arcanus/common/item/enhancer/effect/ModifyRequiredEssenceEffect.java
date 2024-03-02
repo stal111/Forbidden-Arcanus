@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.item.enhancer;
+package com.stal111.forbidden_arcanus.common.item.enhancer.effect;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -13,25 +13,25 @@ import java.util.List;
  * @author stal111
  * @since 2023-02-19
  */
-public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements EssenceModifier {
+public class ModifyRequiredEssenceEffect extends EnhancerEffect implements EssenceModifier {
 
-    public static final Codec<MultiplyRequiredEssenceEffect> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final Codec<ModifyRequiredEssenceEffect> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EnhancerEffect.conditionsCodec(),
             EssenceType.CODEC.fieldOf("essence_type").forGetter(effect -> {
                 return effect.essenceType;
             }),
-            Codec.DOUBLE.fieldOf("multiplier").forGetter(effect -> {
-                return effect.multiplier;
+            Codec.INT.fieldOf("value").forGetter(effect -> {
+                return effect.value;
             })
-    ).apply(instance, MultiplyRequiredEssenceEffect::new));
+    ).apply(instance, ModifyRequiredEssenceEffect::new));
 
     private final EssenceType essenceType;
-    private final double multiplier;
+    private final int value;
 
-    public MultiplyRequiredEssenceEffect(List<EffectCondition> conditions, EssenceType essenceType, double multiplier) {
+    public ModifyRequiredEssenceEffect(List<EffectCondition> conditions, EssenceType essenceType, int value) {
         super(conditions);
         this.essenceType = essenceType;
-        this.multiplier = multiplier;
+        this.value = value;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class MultiplyRequiredEssenceEffect extends EnhancerEffect implements Ess
 
     @Override
     public int getModifiedValue(int originalValue) {
-        return (int) (originalValue * this.multiplier);
+        return Math.max(0, originalValue + this.value);
     }
 
     @Override
     public EnhancerEffectType<? extends EnhancerEffect> getType() {
-        return ModEnhancerEffects.MULTIPLY_REQUIRED_ESSENCE.get();
+        return ModEnhancerEffects.MODIFY_REQUIRED_ESSENCE.get();
     }
 }
