@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.network;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
 import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
@@ -17,5 +18,6 @@ public class NetworkEvents {
         final IPayloadRegistrar registrar = event.registrar(ForbiddenArcanus.MOD_ID).versioned("1.0");
 
         registrar.play(SetClibanoResiduesPayload.ID, SetClibanoResiduesPayload::new, builder -> builder.client(SetClibanoResiduesPayload::handle));
+        registrar.play(TransformPedestalPayload.ID, TransformPedestalPayload::new, builder -> builder.client(TransformPedestalPayload::handle));
     }
 }
