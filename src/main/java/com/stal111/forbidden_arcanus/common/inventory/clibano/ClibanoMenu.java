@@ -3,13 +3,18 @@ package com.stal111.forbidden_arcanus.common.inventory.clibano;
 import com.mojang.datafixers.util.Pair;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -27,7 +32,6 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -40,7 +44,7 @@ import java.util.Map;
 public class ClibanoMenu extends AbstractContainerMenu {
 
     public static final int SLOT_COUNT = 7;
-    public static final int BASE_DATA_COUNT = ClibanoMainBlockEntity.BASE_DATA_COUNT;
+    public static final int BASE_DATA_COUNT = ClibanoMainBlockEntity.DATA_COUNT;
     public static final int ENHANCER_SLOT = 0;
     public static final int SOUL_SLOT = 1;
     public static final int FUEL_SLOT = 2;
@@ -49,16 +53,18 @@ public class ClibanoMenu extends AbstractContainerMenu {
     public static final Pair<Integer, Integer> RESULT_SLOTS = Pair.of(5, 6);
 
     private final ContainerData containerData;
+    private Map<Holder<ResidueType>, Integer> residueData;
 
     private final MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context;
 
     public ClibanoMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.BASE_DATA_COUNT), MenuCreationContext.of(inventory));
+        this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.DATA_COUNT), buffer.readWithCodecTrusted(RegistryOps.create(NbtOps.INSTANCE, Minecraft.getInstance().level.registryAccess()), ResiduesStorage.MAP_CODEC), MenuCreationContext.of(inventory));
     }
 
-    public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context) {
+    public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, Map<Holder<ResidueType>, Integer> residueData, MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context) {
         super(ModMenuTypes.CLIBANO.get(), containerId);
         this.containerData = containerData;
+        this.residueData = residueData;
         this.context = context;
 
         this.addSlots(handler);
@@ -218,14 +224,11 @@ public class ClibanoMenu extends AbstractContainerMenu {
         return this.containerData.get(ClibanoMainBlockEntity.DATA_IS_DOUBLE_RECIPE) == 1;
     }
 
-    public Map<ResidueType, Integer> getResidueData() {
-        Map<ResidueType, Integer> map = new HashMap<>();
+    public void setResidueData(Map<Holder<ResidueType>, Integer> residueData) {
+        this.residueData = residueData;
+    }
 
-        for (int i = BASE_DATA_COUNT; i < this.containerData.getCount(); i++) {
-            //TODO: sync residue types with a packet
-          //  map.put(ResiduesStorage.RESIDUE_TYPES.get(i - BASE_DATA_COUNT), this.containerData.get(i));
-        }
-
-        return map;
+    public Map<Holder<ResidueType>, Integer> getResidueData() {
+        return this.residueData;
     }
 }
