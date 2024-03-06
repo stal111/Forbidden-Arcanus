@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item.mundabitur;
 
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,11 +49,15 @@ public class MundabiturDustItem extends Item {
                 .findFirst();
 
         if (optional.isPresent()) {
+            Level level = player.level();
+
             optional.get().interact(context);
 
             ItemStackUtils.shrinkStack(player, stack);
 
-            return InteractionResult.sidedSuccess(player.level().isClientSide());
+            level.playSound(player, context.getPos(), ModSounds.MUNDABITUR_DUST_USE.get(), SoundSource.PLAYERS, 1.0F, level.getRandom().nextFloat() * 0.15F + 0.9F);
+
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
         return InteractionResult.PASS;

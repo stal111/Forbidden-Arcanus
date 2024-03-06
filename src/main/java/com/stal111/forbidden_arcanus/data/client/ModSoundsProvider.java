@@ -30,6 +30,7 @@ public class ModSoundsProvider extends SoundDefinitionsProvider {
         this.add(ModSounds.BLACKSMITH_GAVEL_RITUAL_START, SoundDefinition.definition().with(this.simpleSound("blacksmith_gavel_ritual_start")));
         this.add(ModSounds.FORBIDDENOMICON_OPEN, SoundDefinition.definition().with(this.simpleSound("forbiddenomicon_open")));
         this.add(ModSounds.FORBIDDENOMICON_CLOSE, SoundDefinition.definition().with(this.simpleSound("forbiddenomicon_close")));
+        this.add(ModSounds.MUNDABITUR_DUST_USE, SoundDefinition.definition().with(this.simpleSound("mundabitur_dust_use")));
     }
 
     private SoundDefinition.Sound simpleSound(String name) {

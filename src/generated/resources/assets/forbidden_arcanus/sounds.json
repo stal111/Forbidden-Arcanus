@@ -48,6 +48,11 @@
       "forbidden_arcanus:forbiddenomicon_open"
     ]
   },
+  "item.mundabitur_dust.use": {
+    "sounds": [
+      "forbidden_arcanus:mundabitur_dust_use"
+    ]
+  },
   "item.quantum_catcher.pick_up": {
     "sounds": [
       "forbidden_arcanus:quantum_catcher_pick_up"
