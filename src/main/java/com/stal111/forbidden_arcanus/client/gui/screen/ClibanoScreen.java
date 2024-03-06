@@ -103,7 +103,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
                 if (integer == 0) {
                     return;
                 }
-                textComponents.add(residueType.name().copy().append(": " + integer));
+                textComponents.add(residueType.value().name().copy().append(": " + integer));
             });
 
             if (textComponents.size() == 2) {

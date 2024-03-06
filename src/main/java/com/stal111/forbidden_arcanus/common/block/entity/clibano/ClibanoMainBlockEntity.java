@@ -70,11 +70,11 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     public static final int DATA_RESIDUE_FULLNESS = 8;
     public static final int DATA_IS_DOUBLE_RECIPE = 9;
 
-    public static final int BASE_DATA_COUNT = 10;
+    public static final int DATA_COUNT = 10;
 
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_COMBUSTION.get();
 
-    private final ResiduesStorage residuesStorage = new ResiduesStorage();
+    private final ResiduesStorage residuesStorage = new ResiduesStorage(() -> this.level);
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
     private final CachedRecipeCheck quickCheck;
 
@@ -124,7 +124,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         @Override
         public int getCount() {
-            return BASE_DATA_COUNT + ClibanoMainBlockEntity.this.residuesStorage.getResidueTypeAmountMap().size();
+            return DATA_COUNT;
         }
     };
 
@@ -184,7 +184,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         boolean isLit = blockEntity.burnTime > 0;
         boolean canSmelt = blockEntity.logic.canSmelt();
 
-        blockEntity.residuesStorage.tick(level, blockEntity);
+        blockEntity.residuesStorage.tick(blockEntity);
 
         if (blockEntity.soulTime != 0) {
             blockEntity.soulTime--;
@@ -483,7 +483,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         tag.put("RecipesUsed", recipesUsed);
 
-        if (this.residuesStorage.shouldBeSaved()) {
+        if (this.residuesStorage.shouldBeSaved() && this.level != null) {
             this.residuesStorage.save(tag);
         }
     }
@@ -524,6 +524,10 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         }
 
         return CommonHooks.getBurnTime(fuel, RECIPE_TYPE);
+    }
+
+    public ResiduesStorage getResiduesStorage() {
+        return this.residuesStorage;
     }
 
     @Override
