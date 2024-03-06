@@ -70,7 +70,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         }
 
         // Flame
-        if (this.menu.getBurnDuration() != 0) {
+        if (this.menu.getBurnTime() != 0) {
             int ySize = Math.toIntExact(Math.round(15.0F * this.menu.getBurnTime() / this.menu.getBurnDuration()));
 
             int uOffset = 179 + 19 * this.menu.getFireType();

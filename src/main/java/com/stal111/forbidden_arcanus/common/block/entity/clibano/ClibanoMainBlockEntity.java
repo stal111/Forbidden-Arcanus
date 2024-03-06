@@ -12,6 +12,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
+import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
@@ -41,6 +42,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -149,7 +151,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
     @Override
     public void onLoad() {
-        this.fireType = this.getFireTypeFromInput();
+        this.nextFireType = this.getFireTypeFromInput();
         this.enhancer = this.updateEnhancer();
     }
 
@@ -183,6 +185,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         boolean isLit = blockEntity.burnTime > 0;
         boolean canSmelt = blockEntity.logic.canSmelt();
+        ItemStack fuel = blockEntity.getStack(ClibanoMenu.FUEL_SLOT);
 
         blockEntity.residuesStorage.tick(blockEntity);
 
@@ -192,7 +195,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             if (blockEntity.soulTime == 0) {
                 blockEntity.changeFireType(level, ClibanoFireType.FIRE);
             }
-        } else if (canSmelt && blockEntity.nextFireType != ClibanoFireType.FIRE) {
+        } else if (canSmelt && (isLit || !fuel.isEmpty()) && blockEntity.nextFireType != ClibanoFireType.FIRE) {
             blockEntity.consumeSoul(level);
         }
 
@@ -201,9 +204,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         if (isLit) {
             blockEntity.burnTime--;
         } else {
-            if (blockEntity.logic.canSmelt()) {
-                ItemStack fuel = blockEntity.getStack(ClibanoMenu.FUEL_SLOT);
-
+            if (canSmelt) {
                 blockEntity.burnDuration = 0;
 
                 if (!fuel.isEmpty()) {
@@ -359,6 +360,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
         if (chance != null && random.nextDouble() < chance.chance()) {
             this.residuesStorage.increaseType(chance.type(), 1);
+
+            PacketDistributor.TRACKING_CHUNK.with(this.level.getChunkAt(this.worldPosition)).send(new SetClibanoResiduesPayload(this.residuesStorage.getResidueTypeAmountMap()));
         }
     }
 
@@ -443,7 +446,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext context) {
-        return new ClibanoMenu(containerId, this.getItemStackHandler(), this.containerData, context);
+        return new ClibanoMenu(containerId, this.getItemStackHandler(), this.containerData, this.residuesStorage.getResidueTypeAmountMap(), context);
     }
 
     @Override
