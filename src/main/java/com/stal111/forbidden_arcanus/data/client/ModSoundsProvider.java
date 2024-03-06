@@ -28,6 +28,7 @@ public class ModSoundsProvider extends SoundDefinitionsProvider {
         this.add(ModSounds.CLIBANO_FIRE_CRACKLE, SoundDefinition.definition().with(this.simpleSound("clibano_fire_crackle_1")).with(this.simpleSound("clibano_fire_crackle_2")).with(this.simpleSound("clibano_fire_crackle_3")).with(this.simpleSound("clibano_fire_crackle_4")).with(this.simpleSound("clibano_fire_crackle_5")));
         this.add(ModSounds.CLIBANO_SOUL_FIRE_CRACKLE, SoundDefinition.definition().with(this.simpleSound("clibano_soul_fire_crackle_1")).with(this.simpleSound("clibano_soul_fire_crackle_2")).with(this.simpleSound("clibano_soul_fire_crackle_3")).with(this.simpleSound("clibano_soul_fire_crackle_4")).with(this.simpleSound("clibano_soul_fire_crackle_5")));
         this.add(ModSounds.BLACKSMITH_GAVEL_RITUAL_START, SoundDefinition.definition().with(this.simpleSound("blacksmith_gavel_ritual_start")));
+        this.add(ModSounds.MUNDABITUR_DUST_USE, SoundDefinition.definition().with(this.simpleSound("mundabitur_dust_use")));
     }
 
     private SoundDefinition.Sound simpleSound(String name) {

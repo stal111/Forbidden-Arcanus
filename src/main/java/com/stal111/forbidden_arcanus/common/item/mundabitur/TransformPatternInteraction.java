@@ -37,8 +37,13 @@ public abstract class TransformPatternInteraction implements MundabiturInteracti
 
     public record TransformPatternContext(Level level, BlockPos pos, InteractionHand hand, Direction clickedFace) implements Context {
 
-        public static TransformPatternInteraction.TransformPatternContext of( Level level, BlockPos pos, InteractionHand hand, Direction clickedFace) {
+        public static TransformPatternInteraction.TransformPatternContext of(Level level, BlockPos pos, InteractionHand hand, Direction clickedFace) {
             return new TransformPatternInteraction.TransformPatternContext(level, pos, hand, clickedFace);
+        }
+
+        @Override
+        public BlockPos getPos() {
+            return this.pos;
         }
     }
 }

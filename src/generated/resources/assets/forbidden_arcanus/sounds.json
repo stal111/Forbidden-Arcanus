@@ -47,5 +47,10 @@
     "sounds": [
       "forbidden_arcanus:quantum_catcher_release"
     ]
+  },
+  "item.mundabitur_dust.use": {
+    "sounds": [
+      "forbidden_arcanus:mundabitur_dust_use"
+    ]
   }
 }
