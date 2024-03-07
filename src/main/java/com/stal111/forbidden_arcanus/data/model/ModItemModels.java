@@ -44,6 +44,12 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.EDELWOOD_MILK_BUCKET);
         this.generateFlatItem(ModItems.EDELWOOD_POWDER_SNOW_BUCKET);
         this.generateFlatItem(ModItems.OBSIDIANSTEEL_INGOT);
+        this.generateFlatItem(ModItems.MUNDABITUR_DUST);
+        this.generateFlatItem(ModItems.CORRUPTI_DUST);
+        this.generateFlatItem(ModItems.FERROGNETIC_MIXTURE);
+        this.generateFlatItem(ModItems.SOUL);
+        this.generateFlatItem(ModItems.CORRUPT_SOUL);
+        this.generateFlatItem(ModItems.ENCHANTED_SOUL);
         this.generateFlatItem("enhancer", ModItems.ARTISAN_RELIC, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.CRESCENT_MOON, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.CRIMSON_STONE, ModelTemplates.FLAT_ITEM);
