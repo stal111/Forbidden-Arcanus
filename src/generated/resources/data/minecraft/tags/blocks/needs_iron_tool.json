@@ -2,6 +2,7 @@
   "values": [
     "forbidden_arcanus:xpetrified_ore",
     "forbidden_arcanus:deorum_block",
-    "#forbidden_arcanus:arcane_crystal_ores"
+    "#forbidden_arcanus:arcane_crystal_ores",
+    "forbidden_arcanus:arcane_crystal_block"
   ]
 }
