@@ -6,12 +6,14 @@ import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -75,6 +77,8 @@ public class PedestalBlockEntity extends BlockEntity {
                 }
             }
         }
+
+        level.playSound(null, this.getBlockPos(), ModSounds.PEDESTAL_INTERACT.get(), SoundSource.BLOCKS, 0.8F, level.getRandom().nextFloat() * 0.15F + 0.9F - (stack.isEmpty() ? 0.3F : 0.0F));
     };
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {

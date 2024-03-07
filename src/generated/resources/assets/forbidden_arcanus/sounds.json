@@ -17,6 +17,11 @@
       "forbidden_arcanus:clibano_soul_fire_crackle_5"
     ]
   },
+  "block.pedestal.interact": {
+    "sounds": [
+      "forbidden_arcanus:pedestal_interact"
+    ]
+  },
   "entity.energy_ball.hit": {
     "sounds": [
       "forbidden_arcanus:energy_ball_hit"
