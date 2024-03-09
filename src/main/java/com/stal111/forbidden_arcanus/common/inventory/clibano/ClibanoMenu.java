@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBloc
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
@@ -136,6 +137,10 @@ public class ClibanoMenu extends AbstractContainerMenu {
                 }
             } else if (this.isSoul(stack)) {
                 if (!this.moveItemStackTo(stack, SOUL_SLOT, SOUL_SLOT + 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (EnhancerCache.get(stack.getItem()).isPresent()) {
+                if (!this.moveItemStackTo(stack, ENHANCER_SLOT, ENHANCER_SLOT + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (index < 34) {
