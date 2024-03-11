@@ -146,7 +146,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
             Font font = minecraft.font;
             int stringWidth = font.width(experienceString);
 
-            guiGraphics.drawString(font, experienceString, this.background.getWidth() - stringWidth, y, 0xFF808080);
+            guiGraphics.drawString(font, experienceString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 
@@ -159,7 +159,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
 
-            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080);
+            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 
