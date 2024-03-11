@@ -66,7 +66,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
         this.animatedFlames.put(ClibanoFireType.SOUL_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
 
         this.staticPurpleFlame = guiHelper.createDrawable(TEXTURE, 189, 1, 12, 15);
-        this.animatedFlames.put(ClibanoFireType.ENCHANTED_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+        this.animatedFlames.put(ClibanoFireType.ENCHANTED_FIRE, guiHelper.createAnimatedDrawable(this.staticPurpleFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
 
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(25)
