@@ -10,8 +10,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryManager;
@@ -31,13 +29,11 @@ public final class ForbiddenArcanus {
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistryCollector(ForbiddenArcanus.MOD_ID));
 
-	public ForbiddenArcanus() {
-		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+	public ForbiddenArcanus(IEventBus modEventBus) {
 		ModDefinition.of(ForbiddenArcanus.MOD_ID)
 				.withRegistryManager(REGISTRY_MANAGER)
 				.withEventHandler(new ModEventHandler(modEventBus))
-				.clientSetup(() -> ClientSetup::new)
+				.clientSetup(() -> helper -> new ClientSetup(helper, modEventBus))
 				.create();
 
 		modEventBus.addListener(CommonSetup::setup);
@@ -57,10 +53,5 @@ public final class ForbiddenArcanus {
 
 		file.load();
 		configSpec.setConfig(file);
-	}
-
-	private void setup(final FMLCommonSetupEvent event) {
-
-		//CounterHelper.addCounter(CounterCreator.of(resourceLocation -> new SerializableCounter(resourceLocation, 0, false), new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer")));
 	}
 }

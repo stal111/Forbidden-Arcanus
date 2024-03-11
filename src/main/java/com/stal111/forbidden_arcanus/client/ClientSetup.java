@@ -39,7 +39,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -54,10 +53,8 @@ import java.util.Optional;
  */
 public class ClientSetup {
 
-    public ClientSetup(ClientSetupHelper helper) {
+    public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
         Minecraft minecraft = Minecraft.getInstance();
-
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::onClientSetup);
         //modEventBus.addListener(this::onTextureStitch);
