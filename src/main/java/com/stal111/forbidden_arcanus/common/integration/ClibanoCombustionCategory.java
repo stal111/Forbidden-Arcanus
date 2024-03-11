@@ -41,7 +41,8 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.*;
  */
 public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<ClibanoRecipe>> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/clibano_combustion_jei.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/jei/clibano_combustion.png");
+    private static final Component TITLE = Component.translatable("jei.forbidden_arcanus.category.clibanoCombustion");
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -89,7 +90,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.forbidden_arcanus.category.clibanoCombustion");
+        return TITLE;
     }
 
     @Nonnull
@@ -106,8 +107,11 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IFocusGroup focuses) {
-        builder.addSlot(INPUT, 55, 24)
-                .addIngredients(recipe.value().getIngredients().get(0));
+        builder.addSlot(INPUT, 37, 24).addIngredients(recipe.value().getIngredients().get(0));
+
+        if (recipe.value().isDoubleRecipe()) {
+            builder.addSlot(INPUT, 55, 24).addIngredients(recipe.value().getIngredients().get(1));
+        }
 
         TagKey<Item> tagKey = recipe.value().getRequiredFireType().getTagKey();
 
@@ -115,8 +119,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
             builder.addSlot(RENDER_ONLY, 12, 60).addIngredients(Ingredient.of(tagKey));
         }
 
-        builder.addSlot(OUTPUT, 97, 35)
-                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
+        builder.addSlot(OUTPUT, 97, 35).addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     private IDrawableAnimated getArrow(ClibanoRecipe recipe) {
@@ -130,6 +133,10 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
     @Override
     public void draw(@Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IRecipeSlotsView recipeSlotsView, @Nonnull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         this.animatedFlames.get(recipe.value().getRequiredFireType()).draw(guiGraphics, 48, 43);
+
+        if (!recipe.value().isDoubleRecipe()) {
+            guiGraphics.blit(TEXTURE, 54, 23, 224, 0, 18, 18);
+        }
 
         IDrawableAnimated arrow = this.getArrow(recipe.value());
         arrow.draw(guiGraphics, 74, 43);
