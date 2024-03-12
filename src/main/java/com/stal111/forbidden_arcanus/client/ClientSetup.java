@@ -11,6 +11,8 @@ import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
 import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
 import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
 import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
+import com.stal111.forbidden_arcanus.client.renderer.block.*;
+import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
@@ -21,9 +23,7 @@ import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.common.item.UtremJarItem;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
@@ -31,6 +31,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -55,6 +56,24 @@ public class ClientSetup {
 
     public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
         Minecraft minecraft = Minecraft.getInstance();
+
+        helper.registerBlockEntityRenderer(ModBlockEntities.NIPA, NipaRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL, PedestalRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE, BlackHoleRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.UTREM_JAR, UtremJarRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.OBSIDIAN_SKULL, SkullBlockRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK, ResearchDeskRenderer::new);
+
+        helper.registerEntityRenderer(ModEntities.BOOM_ARROW, BoomArrowRenderer::new);
+        helper.registerEntityRenderer(ModEntities.DRACO_ARCANUS_ARROW, DracoArcanusArrowRenderer::new);
+        helper.registerEntityRenderer(ModEntities.ENERGY_BALL, EnergyBallRenderer::new);
+        helper.registerEntityRenderer(ModEntities.CRIMSON_LIGHTNING_BOLT, CrimsonLightningBoltRenderer::new);
+        helper.registerEntityRenderer(ModEntities.BOAT, context -> new ModBoatRenderer(context, false));
+        helper.registerEntityRenderer(ModEntities.CHEST_BOAT, context -> new ModBoatRenderer(context, true));
+        helper.registerEntityRenderer(ModEntities.LOST_SOUL, LostSoulRenderer::new);
+        helper.registerEntityRenderer(ModEntities.AUREAL_BOTTLE, ThrownItemRenderer::new);
+        helper.registerEntityRenderer(ModEntities.DARK_TRADER, DarkTraderRenderer::new);
 
         modEventBus.addListener(this::onClientSetup);
         //modEventBus.addListener(this::onTextureStitch);
