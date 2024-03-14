@@ -27,7 +27,7 @@ import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
@@ -47,6 +47,9 @@ import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 
 import java.util.Optional;
+
+import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.DETAILED_OBSIDIAN_SKULL_LAYER;
+import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_SKULL_LAYER;
 
 /**
  * @author stal111
@@ -75,6 +78,17 @@ public class ClientSetup {
         helper.registerEntityRenderer(ModEntities.AUREAL_BOTTLE, ThrownItemRenderer::new);
         helper.registerEntityRenderer(ModEntities.DARK_TRADER, DarkTraderRenderer::new);
 
+        helper.registerSkullModel(ObsidianSkullType.DEFAULT, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
+        helper.registerSkullModel(ObsidianSkullType.CRACKED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
+        helper.registerSkullModel(ObsidianSkullType.FRAGMENTED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
+        helper.registerSkullModel(ObsidianSkullType.FADING, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
+        helper.registerSkullModel(ObsidianSkullType.AUREALIC, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
+        helper.registerSkullModel(ObsidianSkullType.ETERNAL, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
+
+        helper.registerScreen(ModMenuTypes.HEPHAESTUS_FORGE, HephaestusForgeScreen::new);
+        helper.registerScreen(ModMenuTypes.CLIBANO, ClibanoScreen::new);
+        helper.registerScreen(ModMenuTypes.RESEARCH_DESK, ResearchScreen::new);
+
         modEventBus.addListener(this::onClientSetup);
         //modEventBus.addListener(this::onTextureStitch);
         modEventBus.addListener(this::onRegisterGuiOverlays);
@@ -87,9 +101,6 @@ public class ClientSetup {
         this.registerCosmetics();
 
         event.enqueueWork(() -> {
-            MenuScreens.register(ModMenuTypes.HEPHAESTUS_FORGE.get(), HephaestusForgeScreen::new);
-            MenuScreens.register(ModMenuTypes.CLIBANO.get(), ClibanoScreen::new);
-            MenuScreens.register(ModMenuTypes.RESEARCH_DESK.get(), ResearchScreen::new);
 
             Sheets.addWoodType(ModWoodTypes.FUNGYSS);
             Sheets.addWoodType(ModWoodTypes.AURUM);
