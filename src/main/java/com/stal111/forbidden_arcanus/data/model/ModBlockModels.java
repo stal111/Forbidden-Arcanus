@@ -61,6 +61,7 @@ public class ModBlockModels {
                 .forEach(blockFamily -> this.family(blockFamily.getBaseBlock()).generateFor(blockFamily));
 
         this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.SOULLESS_SAND.get());
         this.createForbiddenomicon(ModBlocks.FORBIDDENOMICON.get());
         this.createDesk(ModBlocks.DESK.get(), false);
         this.createDesk(ModBlocks.RESEARCH_DESK.get(), true);
