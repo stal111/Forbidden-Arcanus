@@ -1,23 +1,28 @@
 package com.stal111.forbidden_arcanus.data.model;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.DeskBlock;
 import com.stal111.forbidden_arcanus.common.block.PedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.data.FABlockFamilies;
 import net.minecraft.core.Direction;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -34,6 +39,10 @@ public class ModBlockModels {
 
     private final Consumer<Item> skippedAutoItemModels;
 
+    private final Map<Block, TexturedModel> texturedModels = ImmutableMap.<Block, TexturedModel>builder()
+            .put(ModBlocks.CUT_SOULLESS_SANDSTONE.get(), TexturedModel.COLUMN.get(ModBlocks.CUT_SOULLESS_SANDSTONE.get()))
+            .build();
+
     private ModBlockModels(BlockModelGenerators generators, Consumer<Item> skippedAutoItemModels) {
         this.generators = generators;
         this.blockStateOutput = generators.blockStateOutput;
@@ -47,6 +56,10 @@ public class ModBlockModels {
     }
 
     public void createModels() {
+        FABlockFamilies.getAllFamilies()
+                .filter(BlockFamily::shouldGenerateModel)
+                .forEach(blockFamily -> this.family(blockFamily.getBaseBlock()).generateFor(blockFamily));
+
         this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
         this.createForbiddenomicon(ModBlocks.FORBIDDENOMICON.get());
         this.createDesk(ModBlocks.DESK.get(), false);
@@ -59,6 +72,11 @@ public class ModBlockModels {
         this.createClibanoSideHorizontal(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get());
         this.createClibanoSideVertical(ModBlocks.CLIBANO_SIDE_VERTICAL.get());
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
+    }
+
+    public BlockModelGenerators.BlockFamilyProvider family(Block block) {
+        TexturedModel texturedmodel = this.texturedModels.getOrDefault(block, TexturedModel.CUBE.get(block));
+        return this.generators.new BlockFamilyProvider(texturedmodel.getMapping()).fullBlock(block, texturedmodel.getTemplate());
     }
 
     private BlockModelGenerators.BlockEntityModelGenerator blockEntityModels(ResourceLocation modelLocation, Block block) {
