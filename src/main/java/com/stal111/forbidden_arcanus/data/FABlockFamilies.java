@@ -19,6 +19,7 @@ public class FABlockFamilies {
             .slab(ModBlocks.SOULLESS_SANDSTONE_SLAB.get())
             .cut(ModBlocks.CUT_SOULLESS_SANDSTONE.get())
             .polished(ModBlocks.POLISHED_SOULLESS_SANDSTONE.get())
+            .dontGenerateRecipe()
             .getFamily();
 
     public static final BlockFamily CUT_SOULLESS_SANDSTONE = familyBuilder(ModBlocks.CUT_SOULLESS_SANDSTONE.get())

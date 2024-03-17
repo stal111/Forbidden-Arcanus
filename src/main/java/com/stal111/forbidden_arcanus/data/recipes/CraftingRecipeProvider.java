@@ -2,13 +2,18 @@ package com.stal111.forbidden_arcanus.data.recipes;
 
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.data.FABlockFamilies;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,12 +34,17 @@ import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider;
  */
 public class CraftingRecipeProvider extends RecipeSubProvider {
 
+    private final ValhelsiaRecipeProvider provider;
+
     public CraftingRecipeProvider(ValhelsiaRecipeProvider provider) {
         super(provider);
+        this.provider = provider;
     }
 
     @Override
     protected void registerRecipes(HolderLookup.Provider lookupProvider) {
+        FABlockFamilies.getAllFamilies().filter(BlockFamily::shouldGenerateRecipe).forEach(family -> RecipeProvider.generateRecipes(this.provider.getRecipeOutput(), family, FeatureFlagSet.of(FeatureFlags.VANILLA)));
+
         //Shaped Recipes
         this.shaped(RecipeCategory.TOOLS, ModItems.SANITY_METER.get(), builder -> builder.pattern("AXA").pattern("X#X").pattern("AXA").define('X', Tags.Items.INGOTS_GOLD).define('#', Tags.Items.ENDER_PEARLS).define('A', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy(this, RecipePart.of(Tags.Items.INGOTS_GOLD)));
         this.shaped(RecipeCategory.TOOLS, ModItems.LENS_OF_VERITATIS.get(), builder -> builder.pattern(" # ").pattern("#X#").pattern("S# ").define('#', ModItems.SPAWNER_SCRAP.get()).define('X', ModItems.ARCANE_CRYSTAL.get()).define('S', Tags.Items.RODS_WOODEN).unlockedBy(this, ModItems.ARCANE_CRYSTAL.get()));
@@ -100,6 +110,12 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.glassPane(ModBlocks.RUNIC_GLASS_PANE.get(), this.item(ModBlocks.RUNIC_GLASS.get()));
         this.surroundingItem(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_RUNIC_GLASS.get(), RecipePart.of(ModItems.DARK_RUNE.get()), RecipePart.of(Blocks.GLASS), 8);
         this.glassPane(ModBlocks.DARK_RUNIC_GLASS_PANE.get(), this.item(ModBlocks.DARK_RUNIC_GLASS.get()));
+
+        this.combine2x2(ModBlocks.SOULLESS_SANDSTONE.get(), this.item(ModBlocks.SOULLESS_SAND.get()));
+        this.slab(ModBlocks.SOULLESS_SANDSTONE_SLAB.get(), this.item(ModBlocks.SOULLESS_SANDSTONE.get()));
+        this.stairs(ModBlocks.SOULLESS_SANDSTONE_STAIRS.get(), this.item(ModBlocks.SOULLESS_SANDSTONE.get()));
+        this.wall(ModBlocks.SOULLESS_SANDSTONE_WALL.get(), this.item(ModBlocks.SOULLESS_SANDSTONE.get()));
+        this.combine2x2(ModBlocks.POLISHED_SOULLESS_SANDSTONE.get(), this.item(ModBlocks.SOULLESS_SANDSTONE.get()), 4);
 
         this.wood(ModBlocks.FUNGYSS_HYPHAE.get(), this.item(ModBlocks.FUNGYSS_STEM.get()));
         this.wood(ModBlocks.AURUM_WOOD.get(), this.item(ModBlocks.AURUM_LOG.get()));
@@ -174,6 +190,34 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.blacksmithGavel(ModItems.GOLDEN_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_GOLD);
         this.blacksmithGavel(ModItems.IRON_BLACKSMITH_GAVEL.get(), Tags.Items.INGOTS_IRON);
         this.blacksmithGavel(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), Tags.Items.GEMS_DIAMOND);
+    }
+
+    public void slab(ItemLike result, RecipePart<?> material) {
+        this.shaped(RecipeCategory.BUILDING_BLOCKS, result, 6, (builder) -> {
+            return builder.pattern("###").define('#', material).unlockedBy(this, material);
+        });
+    }
+
+    public void stairs(ItemLike result, RecipePart<?> material) {
+        this.shaped(RecipeCategory.BUILDING_BLOCKS, result, 4, (builder) -> {
+            return builder.pattern("#  ").pattern("## ").pattern("###").define('#', material).unlockedBy(this, material);
+        });
+    }
+
+    public void wall(ItemLike result, RecipePart<?> material) {
+        this.shaped(RecipeCategory.BUILDING_BLOCKS, result, 6, (builder) -> {
+            return builder.pattern("###").pattern("###").define('#', material).unlockedBy(this, material);
+        });
+    }
+
+    public void combine2x2(ItemLike result, RecipePart<?> material) {
+        this.combine2x2(result, material, 1);
+    }
+
+    public void combine2x2(ItemLike result, RecipePart<?> material, int count) {
+        this.shaped(RecipeCategory.BUILDING_BLOCKS, result, count, (builder) -> {
+            return builder.pattern("##").pattern("##").define('#', material).unlockedBy(this, material);
+        });
     }
 
     private void lantern(ItemLike result, ItemLike torch, RecipePart<?> material) {
