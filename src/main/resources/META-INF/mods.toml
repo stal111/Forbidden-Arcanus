@@ -14,6 +14,6 @@ description=''' '''
 [[dependencies.forbidden_arcanus]]
 modId="valhelsia_core"
 mandatory=true
-versionRange="[1.1.1,)"
+versionRange="[1.1.2,)"
 ordering="NONE"
 side="BOTH"
