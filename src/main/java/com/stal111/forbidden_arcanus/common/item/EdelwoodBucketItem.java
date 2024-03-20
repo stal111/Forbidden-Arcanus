@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -26,9 +27,12 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -80,6 +84,7 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
     }
 
     private boolean shouldBurn(ItemStack stack, Level level, Entity entity) {
+        
         if (level.isClientSide() || !this.canBurn(stack) || EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.PERMAFROST.get(), stack) != 0) {
             return false;
         }
@@ -217,5 +222,10 @@ public class EdelwoodBucketItem extends BucketItem implements CapacityBucket {
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack stack) {
         return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
+    }
+
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        return new EdelwoodFluidBucketHandler(stack);
     }
 }

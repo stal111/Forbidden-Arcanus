@@ -3,15 +3,18 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.core.config.ItemConfig;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Edelwood Milk Bucket Item <br>
@@ -59,5 +62,10 @@ public class EdelwoodMilkBucketItem extends MilkBucketItem implements CapacityBu
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack stack) {
         return ItemStackUtils.transferEnchantments(stack, new ItemStack(ModItems.EDELWOOD_BUCKET.get()));
+    }
+
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        return null;
     }
 }
