@@ -13,6 +13,23 @@ public class FABlockFamilies {
 
     private static final Map<Block, BlockFamily> MAP = Maps.newHashMap();
 
+    public static final BlockFamily DARKSTONE = familyBuilder(ModBlocks.DARKSTONE.get())
+            .wall(ModBlocks.DARKSTONE_WALL.get())
+            .stairs(ModBlocks.DARKSTONE_STAIRS.get())
+            .slab(ModBlocks.DARKSTONE_SLAB.get())
+            .polished(ModBlocks.POLISHED_DARKSTONE.get())
+            .getFamily();
+
+    public static final BlockFamily POLISHED_DARKSTONE = familyBuilder(ModBlocks.POLISHED_DARKSTONE.get())
+            .wall(ModBlocks.POLISHED_DARKSTONE_WALL.get())
+            .stairs(ModBlocks.POLISHED_DARKSTONE_STAIRS.get())
+            .slab(ModBlocks.POLISHED_DARKSTONE_SLAB.get())
+            .pressurePlate(ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.get())
+            .button(ModBlocks.POLISHED_DARKSTONE_BUTTON.get())
+            .polished(ModBlocks.POLISHED_DARKSTONE_BRICKS.get())
+            .chiseled(ModBlocks.CHISELED_POLISHED_DARKSTONE.get())
+            .getFamily();
+
     public static final BlockFamily SOULLESS_SANDSTONE = familyBuilder(ModBlocks.SOULLESS_SANDSTONE.get())
             .wall(ModBlocks.SOULLESS_SANDSTONE_WALL.get())
             .stairs(ModBlocks.SOULLESS_SANDSTONE_STAIRS.get())

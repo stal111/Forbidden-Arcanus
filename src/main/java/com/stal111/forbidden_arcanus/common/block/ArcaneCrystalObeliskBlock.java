@@ -200,7 +200,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     public static boolean isArcaneChiseledPolishedDarkstoneBelow(Level level, BlockPos pos) {
-        return level.getBlockState(pos.below()).is(ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
+        return level.getBlockState(pos.below()).is(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
     }
 
     @Override

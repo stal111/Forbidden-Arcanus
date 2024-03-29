@@ -49,6 +49,9 @@ public class ModBlockModels {
         this.modelOutput = generators.modelOutput;
         this.skippedAutoItemModels = skippedAutoItemModels;
 
+        this.generators.fullBlockModelCustomGenerators = ImmutableMap.<Block, BlockModelGenerators.BlockStateGeneratorSupplier>builder()
+                .put(ModBlocks.DARKSTONE.get(), BlockModelGenerators::createMirroredCubeGenerator)
+                .build();
     }
 
     public static void create(BlockModelGenerators generators, Consumer<Item> skippedAutoItemModels) {
@@ -62,6 +65,7 @@ public class ModBlockModels {
 
         this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.SOULLESS_SAND.get());
+        this.generators.createTrivialCube(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
         this.createForbiddenomicon(ModBlocks.FORBIDDENOMICON.get());
         this.createDesk(ModBlocks.DESK.get(), false);
         this.createDesk(ModBlocks.RESEARCH_DESK.get(), true);

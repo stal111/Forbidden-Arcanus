@@ -43,7 +43,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.POLISHED_DARKSTONE_BUTTON.get());
                             output.accept(ModBlocks.CHISELED_POLISHED_DARKSTONE.get());
                             output.accept(ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE.get());
-                            output.accept(ModBlocks.ARCANE_CHISELED_POLISHED_DARKSTONE.get());
+                            output.accept(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_BRICKS.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.get());
