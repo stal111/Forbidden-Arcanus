@@ -30,6 +30,20 @@ public class FABlockFamilies {
             .chiseled(ModBlocks.CHISELED_POLISHED_DARKSTONE.get())
             .getFamily();
 
+    public static final BlockFamily POLISHED_DARKSTONE_BRICKS = familyBuilder(ModBlocks.POLISHED_DARKSTONE_BRICKS.get())
+            .wall(ModBlocks.POLISHED_DARKSTONE_BRICK_WALL.get())
+            .stairs(ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.get())
+            .slab(ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.get())
+            .cracked(ModBlocks.CRACKED_POLISHED_DARKSTONE_BRICKS.get())
+            .getFamily();
+
+    public static final BlockFamily ARCANE_POLISHED_DARKSTONE = familyBuilder(ModBlocks.ARCANE_POLISHED_DARKSTONE.get())
+            .wall(ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.get())
+            .stairs(ModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS.get())
+            .slab(ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get())
+            .chiseled(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())
+            .getFamily();
+
     public static final BlockFamily SOULLESS_SANDSTONE = familyBuilder(ModBlocks.SOULLESS_SANDSTONE.get())
             .wall(ModBlocks.SOULLESS_SANDSTONE_WALL.get())
             .stairs(ModBlocks.SOULLESS_SANDSTONE_STAIRS.get())
