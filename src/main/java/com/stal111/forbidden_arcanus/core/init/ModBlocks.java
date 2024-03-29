@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.RodBlock;
 import com.stal111.forbidden_arcanus.common.block.*;
 import com.stal111.forbidden_arcanus.common.block.clibano.*;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.grower.FATreeGrower;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullBlock;
@@ -168,7 +169,11 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<PressurePlateBlock> AURUM_PRESSURE_PLATE = HELPER.register("aurum_pressure_plate", () -> new PressurePlateBlock(BlockSetTypes.AURUM, BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_PRESSURE_PLATE))).withItem();
     public static final BlockRegistryEntry<PressurePlateBlock> EDELWOOD_PRESSURE_PLATE = HELPER.register("edelwood_pressure_plate", () -> new PressurePlateBlock(BlockSetTypes.EDELWOOD, BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_PRESSURE_PLATE))).withItem();
 
-    public static final BlockRegistryEntry<HephaestusForgeBlock> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", () -> new HephaestusForgeBlock(Block.Properties.ofLegacyCopy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
+    public static final BlockRegistryEntry<HephaestusForgeBlock> HEPHAESTUS_FORGE_TIER_1 = HELPER.register("hephaestus_forge_tier_1", () -> new HephaestusForgeBlock(HephaestusForgeLevel.ONE, Block.Properties.ofLegacyCopy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
+    public static final BlockRegistryEntry<HephaestusForgeBlock> HEPHAESTUS_FORGE_TIER_2 = HELPER.register("hephaestus_forge_tier_2", () -> new HephaestusForgeBlock(HephaestusForgeLevel.TWO, Block.Properties.ofLegacyCopy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
+    public static final BlockRegistryEntry<HephaestusForgeBlock> HEPHAESTUS_FORGE_TIER_3 = HELPER.register("hephaestus_forge_tier_3", () -> new HephaestusForgeBlock(HephaestusForgeLevel.THREE, Block.Properties.ofLegacyCopy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
+    public static final BlockRegistryEntry<HephaestusForgeBlock> HEPHAESTUS_FORGE_TIER_4 = HELPER.register("hephaestus_forge_tier_4", () -> new HephaestusForgeBlock(HephaestusForgeLevel.FOUR, Block.Properties.ofLegacyCopy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
+    public static final BlockRegistryEntry<HephaestusForgeBlock> HEPHAESTUS_FORGE_TIER_5 = HELPER.register("hephaestus_forge_tier_5", () -> new HephaestusForgeBlock(HephaestusForgeLevel.FIVE, Block.Properties.ofLegacyCopy(Blocks.OBSIDIAN).strength(38.0F, 1200.0F).noOcclusion())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
 
     public static final BlockRegistryEntry<ArcaneDragonEggBlock> ARCANE_DRAGON_EGG = HELPER.register("arcane_dragon_egg", () -> new ArcaneDragonEggBlock(Block.Properties.ofLegacyCopy(Blocks.DRAGON_EGG).lightLevel(value -> 5))).withItem();
 

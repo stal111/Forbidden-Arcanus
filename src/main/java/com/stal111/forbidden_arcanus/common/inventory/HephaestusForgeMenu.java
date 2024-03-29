@@ -4,9 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
@@ -42,10 +40,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final int[] lockedSlots = new int[4];
 
     public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(9), new SimpleContainerData(4), MenuCreationContext.of(inventory));
+        this(id, new ItemStackHandler(9), new SimpleContainerData(4), MenuCreationContext.of(inventory), HephaestusForgeLevel.ONE);
     }
 
-    public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
+    public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext, HephaestusForgeLevel level) {
         super(ModMenuTypes.HEPHAESTUS_FORGE.get(), id);
         this.levelAccess = creationContext.levelAccess();
         this.hephaestusForgeData = containerData;
@@ -57,8 +55,6 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addDataSlot(DataSlot.shared(this.lockedSlots, 1));
         this.addDataSlot(DataSlot.shared(this.lockedSlots, 2));
         this.addDataSlot(DataSlot.shared(this.lockedSlots, 3));
-
-        HephaestusForgeLevel level = this.updateLevel();
 
         this.hephaestusForgeLevel.set(level.getAsInt());
 
@@ -165,17 +161,11 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@Nonnull Player player) {
-        return stillValid(this.levelAccess, player, ModBlocks.HEPHAESTUS_FORGE.get());
+        return stillValid(this.levelAccess, player, this.getLevel().getBlock());
     }
 
     public ContainerData getHephaestusForgeData() {
         return this.hephaestusForgeData;
-    }
-
-    private HephaestusForgeLevel updateLevel() {
-        return this.levelAccess.evaluate((level, pos) -> {
-            return HephaestusForgeLevel.getFromIndex(level.getBlockState(pos).getValue(ModBlockStateProperties.TIER));
-        }, HephaestusForgeLevel.ONE);
     }
 
     public HephaestusForgeLevel getLevel() {

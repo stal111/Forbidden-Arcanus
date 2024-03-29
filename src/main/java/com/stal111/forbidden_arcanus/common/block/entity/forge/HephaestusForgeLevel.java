@@ -1,7 +1,10 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
+import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 
 import java.util.function.IntSupplier;
 
@@ -13,18 +16,24 @@ import java.util.function.IntSupplier;
  * @since 2021-06-29
  */
 public enum HephaestusForgeLevel implements IntSupplier {
-    ONE(1, 1000, 10, 10000, 900),
-    TWO(2, 3000, 50, 15000, 1350),
-    THREE(3, 5000, 100, 30000, 2500),
-    FOUR(4, 10000, 500, 50000, 5000),
-    FIVE(5, 20000, 1000, 100000, 7500);
+    ONE(ModBlocks.HEPHAESTUS_FORGE_TIER_1, 1, 1000, 10, 10000, 900),
+    TWO(ModBlocks.HEPHAESTUS_FORGE_TIER_2, 2, 3000, 50, 15000, 1350),
+    THREE(ModBlocks.HEPHAESTUS_FORGE_TIER_3, 3, 5000, 100, 30000, 2500),
+    FOUR(ModBlocks.HEPHAESTUS_FORGE_TIER_4, 4, 10000, 500, 50000, 5000),
+    FIVE(ModBlocks.HEPHAESTUS_FORGE_TIER_5, 5, 20000, 1000, 100000, 7500);
 
+    private final RegistryEntry<HephaestusForgeBlock> block;
     private final int index;
     private final EssencesDefinition maxEssences;
 
-    HephaestusForgeLevel(int index, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
+    HephaestusForgeLevel(RegistryEntry<HephaestusForgeBlock> block, int index, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
+        this.block = block;
         this.index = index;
         this.maxEssences = new EssencesDefinition(maxAureal, maxSouls, maxBlood, maxExperience);
+    }
+
+    public HephaestusForgeBlock getBlock() {
+        return this.block.get();
     }
 
     public int getIndex() {

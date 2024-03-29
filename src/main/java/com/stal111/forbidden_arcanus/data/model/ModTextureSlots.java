@@ -8,6 +8,9 @@ import net.minecraft.data.models.model.TextureSlot;
  */
 public class ModTextureSlots {
 
-    public static final TextureSlot WOOL = TextureSlot.create("wool");
+    public static final TextureSlot TOP_LAYER = TextureSlot.create("top_layer");
+    public static final TextureSlot SIDE_LAYER = TextureSlot.create("side_layer");
+    public static final TextureSlot CLOTH_SIDE = TextureSlot.create("cloth_side");
+    public static final TextureSlot BLOCK = TextureSlot.create("block");
 
 }

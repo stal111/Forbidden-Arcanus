@@ -17,13 +17,15 @@ import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
-import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.common.item.UtremJarItem;
-import com.stal111.forbidden_arcanus.core.init.*;
+import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
@@ -33,8 +35,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
@@ -116,19 +116,6 @@ public class ClientSetup {
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
-        ItemProperties.register(ModBlocks.HEPHAESTUS_FORGE.get().asItem(), new ResourceLocation("tier"), (stack, level, entity, seed) -> {
-            CompoundTag tag = stack.getTagElement("BlockStateTag");
-
-            if (tag != null) {
-                Tag tier = tag.get(ModBlockStateProperties.TIER.getName());
-
-                if (tier != null) {
-                    return Integer.parseInt(tier.getAsString()) / 5.0F;
-                }
-            }
-
-            return 0.0F;
-        });
 
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> {
             Optional<AurealProvider> optional = AurealHelper.getCapability(stack);

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.DeskBlock;
+import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.PedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -77,6 +78,12 @@ public class ModBlockModels {
         this.createClibanoCorner(ModBlocks.CLIBANO_CORNER.get());
         this.createClibanoSideHorizontal(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get());
         this.createClibanoSideVertical(ModBlocks.CLIBANO_SIDE_VERTICAL.get());
+        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get());
+        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get());
+        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get());
+        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get());
+        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
+
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
 
@@ -177,6 +184,13 @@ public class ModBlockModels {
                 .select(Direction.NORTH, true, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180));
 
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(typeDispatch).with(facingDispatch));
+    }
+
+    private void createHephaestusForge(HephaestusForgeBlock block) {
+        TextureMapping textureMapping = ModTextureMapping.hephaestusForge(block.getLevel().getAsInt());
+        ResourceLocation model = ModModelTemplates.HEPHAESTUS_FORGE.create(block, textureMapping, this.modelOutput);
+
+        this.blockStateOutput.accept(createSimpleBlock(block, model));
     }
 
     static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {

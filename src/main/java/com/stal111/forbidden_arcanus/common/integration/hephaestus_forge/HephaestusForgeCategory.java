@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.integration.hephaestus_forge;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -25,12 +26,21 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author stal111
  * @since 2023-06-05
  */
 public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual> {
+
+    protected static final Map<Integer, ItemStack> FORGE_TIERS = ImmutableMap.of(
+            1, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()),
+            2, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get()),
+            3, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get()),
+            4, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get()),
+            5, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get())
+    );
 
     private static final List<IntIntPair> INPUT_POSITIONS = ImmutableList.of(
             IntIntPair.of(63, 13),
@@ -56,7 +66,7 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
     public HephaestusForgeCategory(String name, IGuiHelper guiHelper, ResourceLocation texture, int essencesStartX, int essencesStartY) {
         this.name = name;
         this.background = guiHelper.createDrawable(texture, 0, 0, 148, 108);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()));
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()));
         this.essences = EssenceInfo.create(guiHelper, essencesStartX, essencesStartY);
     }
 

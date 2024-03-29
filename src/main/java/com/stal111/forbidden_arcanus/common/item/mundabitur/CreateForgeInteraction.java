@@ -26,7 +26,7 @@ public class CreateForgeInteraction extends TransformPatternInteraction {
         Level level = context.level();
         BlockPos pos = context.pos();
 
-        this.placeBlock(level, pos, ModBlocks.HEPHAESTUS_FORGE.get().defaultBlockState().setValue(ModBlockStateProperties.ACTIVATED, true));
+        this.placeBlock(level, pos, ModBlocks.HEPHAESTUS_FORGE_TIER_1.get().defaultBlockState().setValue(ModBlockStateProperties.ACTIVATED, true));
 
         CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), level);
         entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);

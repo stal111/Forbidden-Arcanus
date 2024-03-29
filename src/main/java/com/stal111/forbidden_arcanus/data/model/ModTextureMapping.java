@@ -10,6 +10,8 @@ import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
+import java.util.Map;
+
 /**
  * @author stal111
  * @since 28.10.2023
@@ -20,6 +22,15 @@ public class ModTextureMapping {
     private static final String DESK = "desk";
     private static final String PEDESTAL = "pedestal";
     private static final String CLIBANO = "clibano";
+    private static final String HEPHAESTUS_FORGE = "hephaestus_forge";
+
+    private static final Map<Integer, ResourceLocation> FORGE_BLOCK_TEXTURES = Map.of(
+            1, new ResourceLocation("block/smithing_table_bottom"),
+            2, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/edelwood_planks"),
+            3, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/chiseled_polished_darkstone"),
+            4, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/chiseled_polished_darkstone"),
+            5, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/stellarite_block")
+    );
 
     public static TextureMapping forbiddenomicon(Block block) {
         return new TextureMapping().put(TextureSlot.FRONT, getBlockTexture(block, FORBIDDENOMICON, "_front")).put(TextureSlot.BACK, getBlockTexture(block, FORBIDDENOMICON, "_back")).put(TextureSlot.INSIDE, getBlockTexture(block, FORBIDDENOMICON, "_inside")).put(TextureSlot.SIDE, getBlockTexture(block, FORBIDDENOMICON, "_side"));
@@ -46,6 +57,11 @@ public class ModTextureMapping {
 
     public static TextureMapping clibanoSide(ClibanoSideType type) {
         return new TextureMapping().put(TextureSlot.SIDE, getBlockTexture(CLIBANO, type == ClibanoSideType.OFF ? "clibano_side_off" : type.getSerializedName() + "/clibano_side"));
+    }
+
+    public static TextureMapping hephaestusForge(int tier) {
+        String folder = HEPHAESTUS_FORGE + "/tier_" + tier;
+        return new TextureMapping().put(TextureSlot.TOP, getBlockTexture(folder, "top")).put(ModTextureSlots.TOP_LAYER, getBlockTexture(folder, "top_layer")).put(TextureSlot.SIDE, getBlockTexture(folder, "side")).put(ModTextureSlots.SIDE_LAYER, getBlockTexture(folder, "side_layer")).put(ModTextureSlots.CLOTH_SIDE, getBlockTexture(folder, "cloth_side")).put(TextureSlot.BOTTOM, getBlockTexture(folder, "bottom")).put(ModTextureSlots.BLOCK, FORGE_BLOCK_TEXTURES.get(tier));
     }
 
     public static ResourceLocation getBlockTexture(Block block) {

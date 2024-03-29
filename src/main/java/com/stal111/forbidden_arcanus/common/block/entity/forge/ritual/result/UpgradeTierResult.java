@@ -1,22 +1,36 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.block.BlockRegistryEntry;
+
+import java.util.Map;
 
 /**
  * @author stal111
  * @since 2023-02-05
  */
 public class UpgradeTierResult extends RitualResult {
+
+    //TODO
+    private static final Map<Integer, BlockRegistryEntry<HephaestusForgeBlock>> FORGE_TIERS = ImmutableMap.of(
+            1, ModBlocks.HEPHAESTUS_FORGE_TIER_1,
+            2, ModBlocks.HEPHAESTUS_FORGE_TIER_2,
+            3, ModBlocks.HEPHAESTUS_FORGE_TIER_3,
+            4, ModBlocks.HEPHAESTUS_FORGE_TIER_4,
+            5, ModBlocks.HEPHAESTUS_FORGE_TIER_5
+    );
 
     public static final Codec<UpgradeTierResult> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             Codec.INT.fieldOf("required_tier").forGetter(result -> {
@@ -39,7 +53,7 @@ public class UpgradeTierResult extends RitualResult {
     public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
 
-        level.setBlockAndUpdate(pos, state.setValue(HephaestusForgeBlock.TIER, this.upgradedTier));
+        level.setBlockAndUpdate(pos, FORGE_TIERS.get(this.upgradedTier).get().defaultBlockState().setValue(HephaestusForgeBlock.ACTIVATED, state.getValue(HephaestusForgeBlock.ACTIVATED)).setValue(HephaestusForgeBlock.WATERLOGGED, state.getValue(HephaestusForgeBlock.WATERLOGGED)));
 
         accessor.set(ItemStack.EMPTY);
 
@@ -52,7 +66,10 @@ public class UpgradeTierResult extends RitualResult {
 
     @Override
     public boolean checkConditions(ItemStack mainIngredient, Level level, BlockPos pos) {
-        return level.getBlockState(pos).getValue(HephaestusForgeBlock.TIER) == this.requiredTier;
+        if (level.getBlockState(pos).getBlock() instanceof HephaestusForgeBlock block) {
+            return block.getLevel().getAsInt() == this.requiredTier;
+        }
+        return false;
     }
 
     public int getRequiredTier() {

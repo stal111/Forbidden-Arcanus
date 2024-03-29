@@ -7,10 +7,11 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,7 +22,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -34,11 +34,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -57,8 +55,10 @@ import java.util.List;
  */
 public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
+    private static final String DESCRIPTION_ID = Util.makeDescriptionId("block", new ResourceLocation(ForbiddenArcanus.MOD_ID, "hephaestus_forge"));
+    private static final String TIER_ID = Util.makeDescriptionId("tooltip", new ResourceLocation(ForbiddenArcanus.MOD_ID, "hephaestus_forge.tier"));
+
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
-    public static final IntegerProperty TIER = ModBlockStateProperties.TIER;
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -76,11 +76,13 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
             BooleanOp.ONLY_FIRST
     );
 
-    public HephaestusForgeBlock(Properties properties) {
+    private final HephaestusForgeLevel level;
+
+    public HephaestusForgeBlock(HephaestusForgeLevel level, Properties properties) {
         super(properties);
+        this.level = level;
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(ACTIVATED, false)
-                .setValue(TIER, 1)
                 .setValue(WATERLOGGED, false)
         );
     }
@@ -92,8 +94,13 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     }
 
     @Override
+    public @NotNull String getDescriptionId() {
+        return DESCRIPTION_ID;
+    }
+
+    @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".hephaestus_forge.tier", HephaestusForgeBlock.getTier(stack)).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable(TIER_ID, this.level.getAsInt()).withStyle(ChatFormatting.GRAY));
     }
 
 
@@ -108,6 +115,12 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         return this.defaultBlockState().setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
     }
 
+    @Override
+    public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState oldState, boolean movedByPiston) {
+        level.getBlockEntity(pos, ModBlockEntities.HEPHAESTUS_FORGE.get()).ifPresent(blockEntity -> {
+            blockEntity.setForgeLevel(this.level);
+        });
+    }
 
     @Override
     public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
@@ -115,13 +128,6 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
         return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
-    }
-
-    @Override
-    public void onBlockStateChange(LevelReader level, BlockPos pos, BlockState oldState, BlockState newState) {
-        if (level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
-            blockEntity.setForgeLevel(HephaestusForgeLevel.getFromIndex(newState.getValue(TIER)));
-        }
     }
 
     @Override
@@ -169,8 +175,16 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-        return HephaestusForgeBlock.setTierOnStack(super.getCloneItemStack(state, target, level, pos, player), state.getValue(TIER));
+    public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston) {
+        if (newState.getBlock() instanceof HephaestusForgeBlock) {
+            return;
+        }
+
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    public HephaestusForgeLevel getLevel() {
+        return this.level;
     }
 
     @Override
@@ -180,26 +194,6 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVATED, TIER, WATERLOGGED);
-    }
-
-    public static ItemStack setTierOnStack(ItemStack stack, int tier) {
-        if (tier != 1) {
-            CompoundTag tag = new CompoundTag();
-            tag.putInt(TIER.getName(), tier);
-            stack.addTagElement("BlockStateTag", tag);
-        }
-
-        return stack;
-    }
-
-    public static int getTier(ItemStack stack) {
-        CompoundTag tag = stack.getTagElement("BlockStateTag");
-
-        if (tag != null) {
-            return tag.getInt(TIER.getName());
-        }
-
-        return 1;
+        builder.add(ACTIVATED, WATERLOGGED);
     }
 }

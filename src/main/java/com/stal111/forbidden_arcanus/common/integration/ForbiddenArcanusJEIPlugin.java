@@ -68,7 +68,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(@Nonnull IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), HEPHAESTUS_SMITHING, HEPHAESTUS_FORGE_UPGRADING);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()), HEPHAESTUS_SMITHING, HEPHAESTUS_FORGE_UPGRADING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CLIBANO_CORE.get()), CLIBANO_COMBUSTION.get());
     }
 

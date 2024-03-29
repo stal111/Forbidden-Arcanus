@@ -1,7 +1,7 @@
-// 1.20.4	2024-02-24T18:28:11.9586232	Tags for minecraft:item mod id vanilla
+// 1.20.4	2024-03-29T19:19:14.6503366	Tags for minecraft:item mod id vanilla
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/items/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/items/blacksmith_gavel.json
-15934456b6a5c4baa26b521dac8e9ec371c2b006 data/forbidden_arcanus/tags/items/black_hole_unaffected.json
+33c838131c77a87637243c72385fb1d6238f05c9 data/forbidden_arcanus/tags/items/black_hole_unaffected.json
 eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/items/clibano/creates_enchanted_fire.json
 248044db5d2fb658e1cc0140c81427a0718726e4 data/forbidden_arcanus/tags/items/clibano/creates_soul_fire.json
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/items/edelwood_logs.json

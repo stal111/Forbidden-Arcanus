@@ -26,7 +26,7 @@ public class ModCreativeModeTabs implements RegistryClass {
     public static final MappedRegistryHelper<CreativeModeTab> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.CREATIVE_MODE_TAB);
 
     public static final RegistryEntry<CreativeModeTab> MAIN = HELPER.register("main", CreativeTabFactory.create(builder -> {
-                builder.icon(() -> new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()))
+                builder.icon(() -> new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()))
                         .title(Component.translatable("itemGroup.forbidden_arcanus"))
                         .displayItems((itemDisplayParameters, output) -> {
                             output.accept(ModBlocks.DARKSTONE.get());
@@ -57,9 +57,11 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.DARKSTONE_PEDESTAL.get());
                             output.accept(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
                             output.accept(ModBlocks.CLIBANO_CORE.get());
-                            for (HephaestusForgeLevel level : HephaestusForgeLevel.values()) {
-                                output.accept(HephaestusForgeBlock.setTierOnStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()), level.getAsInt()));
-                            }
+                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get());
+                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get());
+                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get());
+                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get());
+                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
                             output.accept(ModBlocks.ARCANE_CRYSTAL_ORE.get());
                             output.accept(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get());
                             output.accept(ModBlocks.RUNIC_STONE.get());

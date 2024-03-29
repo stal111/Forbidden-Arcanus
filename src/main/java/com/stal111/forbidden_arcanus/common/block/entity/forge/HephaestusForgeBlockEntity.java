@@ -14,7 +14,6 @@ import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import com.stal111.forbidden_arcanus.util.ValueNotifier;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -27,6 +26,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -59,7 +59,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     private final EssenceManager essenceManager;
     private final RitualManager ritualManager;
 
-    private final ValueNotifier<HephaestusForgeLevel> forgeLevel;
+    private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
 
     private MagicCircle magicCircle;
     private ValidRitualIndicator validRitualIndicator;
@@ -104,7 +104,11 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             }
         };
 
-        HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(state.getValue(HephaestusForgeBlock.TIER));
+        HephaestusForgeLevel level = HephaestusForgeLevel.ONE;
+
+        if (state.getBlock() instanceof HephaestusForgeBlock forgeBlock) {
+            level = forgeBlock.getLevel();
+        }
 
         this.ritualManager = new RitualManager(new MainSlotAccessor(this), () -> Stream.of(this.getStack(0), this.getStack(1), this.getStack(2), this.getStack(3))
                 .map(stack -> EnhancerCache.get(stack.getItem()))
@@ -112,11 +116,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
                 .map(Optional::orElseThrow)
                 .toList(), level.getAsInt());
         this.essenceManager = new EssenceManager(level.getMaxEssences(), this.ritualManager::updateValidRitual);
-
-        this.forgeLevel = ValueNotifier.of(level, forgeTier -> {
-            this.ritualManager.setForgeTier(forgeTier.getAsInt());
-            this.essenceManager.setMaxEssences(forgeTier.getMaxEssences());
-        });
     }
 
     @Override
@@ -197,7 +196,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     public void setForgeLevel(HephaestusForgeLevel level) {
-        this.forgeLevel.set(level);
+        this.forgeLevel = level;
+
+        this.ritualManager.setForgeTier(level.getAsInt());
+        this.essenceManager.setMaxEssences(level.getMaxEssences());
     }
 
     public ContainerData getHephaestusForgeData() {
@@ -296,8 +298,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext creationContext) {
-        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext);
+    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
+        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext, this.forgeLevel);
     }
 
     @Override
