@@ -30,11 +30,9 @@ public class ModCreativeModeTabs implements RegistryClass {
                         .title(Component.translatable("itemGroup.forbidden_arcanus"))
                         .displayItems((itemDisplayParameters, output) -> {
                             output.accept(ModBlocks.DARKSTONE.get());
-                            output.accept(ModBlocks.ARCANE_CHISELED_DARKSTONE.get());
                             output.accept(ModBlocks.DARKSTONE_SLAB.get());
                             output.accept(ModBlocks.DARKSTONE_STAIRS.get());
                             output.accept(ModBlocks.DARKSTONE_WALL.get());
-                            output.accept(ModBlocks.GILDED_DARKSTONE.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_SLAB.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_STAIRS.get());
@@ -42,7 +40,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_BUTTON.get());
                             output.accept(ModBlocks.CHISELED_POLISHED_DARKSTONE.get());
-                            output.accept(ModBlocks.RUNIC_CHISELED_POLISHED_DARKSTONE.get());
                             output.accept(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_BRICKS.get());
                             output.accept(ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.get());

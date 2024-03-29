@@ -45,7 +45,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
     public static final ResourceKey<ConfiguredFeature<?, ?>> ARCANE_CRYSTAL_ORE = HELPER.createKey("ore_arcane_crystal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RUNIC_STONE = HELPER.createKey("ore_rune");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARKSTONE = HELPER.createKey("ore_darkstone");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ARCANE_GILDED_DARKSTONE = HELPER.createKey("ore_arcane_gilded_darkstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> STELLA_ARCANUM = HELPER.createKey("ore_stella_arcanum");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURUM = HELPER.createKey("aurum");
@@ -80,7 +79,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         context.register(ARCANE_CRYSTAL_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(arcaneCrystalTargetList, 5)));
         context.register(RUNIC_STONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(runicStoneTargetList, 3)));
         context.register(DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(darkstoneTargetList, 20)));
-        context.register(ARCANE_GILDED_DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(FillerBlockTypes.DARKSTONE, States.ARCANE_GILDED_DARKSTONE.get(), 4)));
         context.register(STELLA_ARCANUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(stellaArcanumTargetList, 3)));
         context.register(AURUM, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.AURUM_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES.get(), 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES.get(), 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build()));
         context.register(YELLOW_ORCHID, new ConfiguredFeature<>(Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))))));
@@ -106,7 +104,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         private static final Supplier<BlockState> RUNIC_DEEPSLATE = () -> ModBlocks.RUNIC_DEEPSLATE.get().defaultBlockState();
         private static final Supplier<BlockState> RUNIC_DARKSTONE = () -> ModBlocks.RUNIC_DARKSTONE.get().defaultBlockState();
         private static final Supplier<BlockState> DARKSTONE = () -> ModBlocks.DARKSTONE.get().defaultBlockState();
-        private static final Supplier<BlockState> ARCANE_GILDED_DARKSTONE = () -> ModBlocks.GILDED_DARKSTONE.get().defaultBlockState();
         private static final Supplier<BlockState> STELLA_ARCANUM = () -> ModBlocks.STELLA_ARCANUM.get().defaultBlockState();
         private static final Supplier<BlockState> MYSTERYWOOD_LOG = () -> ModBlocks.AURUM_LOG.get().defaultBlockState();
         private static final Supplier<BlockState> MYSTERYWOOD_LEAVES = () -> ModBlocks.AURUM_LEAVES.get().defaultBlockState();

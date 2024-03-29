@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.Residue
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -63,8 +62,6 @@ public class ClibanoRecipeProvider extends RecipeSubProvider {
         this.add(this.clibanoRecipe(Items.DIAMOND, Ingredient.of(ItemTags.DIAMOND_ORES), 0.5F, 100, new ResidueChance(residueLookup.getOrThrow(ModResidueTypes.DIAMOND), CHANCE_10)).unlockedBy("has_item", has(ItemTags.DIAMOND_ORES)));
         this.add(this.clibanoRecipe(Items.EMERALD, Ingredient.of(ItemTags.EMERALD_ORES), 0.5F, 100, new ResidueChance(residueLookup.getOrThrow(ModResidueTypes.EMERALD), CHANCE_10)).unlockedBy("has_item", has(ItemTags.EMERALD_ORES)));
         this.add(this.clibanoRecipe(Items.NETHERITE_SCRAP, Ingredient.of(Blocks.ANCIENT_DEBRIS), 1.0F, 100, new ResidueChance(residueLookup.getOrThrow(ModResidueTypes.NETHERITE), CHANCE_05)).unlockedBy("has_item", has(Blocks.ANCIENT_DEBRIS)));
-
-        this.add(this.clibanoRecipe(ModItems.DEORUM_NUGGET.get(), Ingredient.of(ModBlocks.GILDED_DARKSTONE.get()), 1.0F, 150, new ResidueChance(residueLookup.getOrThrow(ModResidueTypes.DEORUM), CHANCE_65), ClibanoFireType.SOUL_FIRE).unlockedBy("has_item", has(ModBlocks.GILDED_DARKSTONE.get())));
 
         this.add(this.clibanoRecipe(Items.IRON_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_IRON), 0.35F, 100, new ResidueChance(residueLookup.getOrThrow(ModResidueTypes.IRON), CHANCE_33)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_IRON)), "clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron");
         this.add(this.clibanoRecipe(Items.GOLD_INGOT, Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD), 0.5F, 100, new ResidueChance(residueLookup.getOrThrow(ModResidueTypes.GOLD), CHANCE_20)).unlockedBy("has_item", has(Tags.Items.RAW_MATERIALS_GOLD)), "clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold");

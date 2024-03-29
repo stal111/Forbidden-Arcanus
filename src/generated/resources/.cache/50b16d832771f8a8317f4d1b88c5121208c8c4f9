@@ -1,4 +1,4 @@
-// 1.20.4	2024-03-29T13:27:28.5585188	Tags for minecraft:block mod id vanilla
+// 1.20.4	2024-03-29T15:03:04.3765931	Tags for minecraft:block mod id vanilla
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/blocks/arcane_crystal_ores.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/blocks/blacksmith_gavel_unaffected.json
 7178fc65549c2cdfe3c0d34421efedf7c81a341f data/forbidden_arcanus/tags/blocks/darkstone_ore_replaceables.json
@@ -25,11 +25,11 @@ ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/blocks/doors.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/blocks/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/blocks/logs.json
 c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/blocks/logs_that_burn.json
-d61cc3064b9bef97aa32eaf53d88d71b9c051872 data/minecraft/tags/blocks/mineable/pickaxe.json
+f984948d998f02ca371847c9e7943c459f8e7bf4 data/minecraft/tags/blocks/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/blocks/mineable/shovel.json
 e622c2900772c3de95c1febef2d5acc6d891dd56 data/minecraft/tags/blocks/needs_diamond_tool.json
 f5e817be5db288101afc38ab4ee917799b5d90fe data/minecraft/tags/blocks/needs_iron_tool.json
-3b627cb0ada83701662523a7e11689de58a4cac2 data/minecraft/tags/blocks/needs_stone_tool.json
+53413468614704e67f4c2c233ec04b6e4c5eadc4 data/minecraft/tags/blocks/needs_stone_tool.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/blocks/planks.json
 3c465edf3943f5cfd498d3a7d90becf5a6f249b2 data/minecraft/tags/blocks/pressure_plates.json
 5bb0d891062facc905907fc2a2e830548570301b data/minecraft/tags/blocks/saplings.json
