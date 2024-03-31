@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.valhelsia.valhelsia_core.api.client.ValhelsiaRenderType;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.block.*;
@@ -177,8 +178,8 @@ public class ModBlocks implements RegistryClass {
 
     public static final BlockRegistryEntry<ArcaneDragonEggBlock> ARCANE_DRAGON_EGG = HELPER.register("arcane_dragon_egg", () -> new ArcaneDragonEggBlock(Block.Properties.ofLegacyCopy(Blocks.DRAGON_EGG).lightLevel(value -> 5))).withItem();
 
-    public static final BlockRegistryEntry<ArcaneCrystalObeliskBlock> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", () -> new ArcaneCrystalObeliskBlock(Block.Properties.of().strength(1.0F, 10.0F))).withItem();
-    public static final BlockRegistryEntry<ArcaneCrystalObeliskBlock> CORRUPTED_ARCANE_CRYSTAL_OBELISK = HELPER.register("corrupted_arcane_crystal_obelisk", () -> new ArcaneCrystalObeliskBlock(Block.Properties.of().strength(1.0F, 10.0F))).withItem();
+    public static final BlockRegistryEntry<ArcaneCrystalObeliskBlock> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", () -> new ArcaneCrystalObeliskBlock(Block.Properties.of().strength(1.0F, 10.0F).pushReaction(PushReaction.BLOCK))).withItem();
+    public static final BlockRegistryEntry<ArcaneCrystalObeliskBlock> CORRUPTED_ARCANE_CRYSTAL_OBELISK = HELPER.register("corrupted_arcane_crystal_obelisk", () -> new ArcaneCrystalObeliskBlock(Block.Properties.of().strength(1.0F, 10.0F).pushReaction(PushReaction.BLOCK))).withItem();
 
     public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> OBSIDIAN_SKULL = HELPER.registerSkull("obsidian", ObsidianSkullType.DEFAULT, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.OBSIDIAN_SKULL_ITEM);
     public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> CRACKED_OBSIDIAN_SKULL = HELPER.registerSkull("cracked_obsidian", ObsidianSkullType.CRACKED, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.CRACKED_OBSIDIAN_SKULL_ITEM);

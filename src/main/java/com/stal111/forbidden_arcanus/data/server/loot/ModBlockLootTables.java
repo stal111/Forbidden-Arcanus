@@ -1,6 +1,10 @@
 package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -8,8 +12,10 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.valhelsia.valhelsia_core.datagen.ValhelsiaBlockLootTables;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * Mod Block Loot Tables <br>
@@ -27,6 +33,11 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
 
     @Override
     protected void generate() {
+        this.add(ModBlocks.ARCANE_CRYSTAL_OBELISK.get(), block -> this.createSinglePropConditionTable(block, ModBlockStateProperties.OBELISK_PART, ObeliskPart.LOWER));
+        this.add(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get(), block -> this.createSinglePropConditionTable(block, ModBlockStateProperties.OBELISK_PART, ObeliskPart.LOWER));
+
+
+
         //TODO
 //        take(block -> add(block, droppingWithFunction(block, builder -> builder.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fluid", "BlockEntityTag.Fluid")))), ModBlocks.UTREM_JAR);
 //        take(block -> add(block, LootTable.lootTable()), ModBlocks.BLACK_HOLE, ModBlocks.CLIBANO_SIDE_HORIZONTAL, ModBlocks.CLIBANO_SIDE_VERTICAL, ModBlocks.CLIBANO_CORNER, ModBlocks.CLIBANO_CENTER, ModBlocks.CLIBANO_MAIN_PART);
@@ -64,5 +75,13 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
 
     protected static LootTable.Builder createSilkTouchOrShearsOnlyTable(ItemLike pItem) {
         return LootTable.lootTable().withPool(LootPool.lootPool().when(HAS_SHEARS_OR_SILK_TOUCH).setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(pItem)));
+    }
+
+    //TODO: remove after transitioning all loot tables
+    @Override
+    public void generate(@NotNull BiConsumer<ResourceLocation, LootTable.Builder> biConsumer) {
+        this.generate();
+
+        this.map.forEach(biConsumer);
     }
 }

@@ -1,3 +1,6 @@
 {
-  "parent": "forbidden_arcanus:block/arcane_crystal_obelisk"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forbidden_arcanus:item/arcane_crystal_obelisk"
+  }
 }

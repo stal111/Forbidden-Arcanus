@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.data.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -23,6 +24,7 @@ public class ModTextureMapping {
     private static final String PEDESTAL = "pedestal";
     private static final String CLIBANO = "clibano";
     private static final String HEPHAESTUS_FORGE = "hephaestus_forge";
+    private static final String OBELISK = "obelisk";
 
     private static final Map<Integer, ResourceLocation> FORGE_BLOCK_TEXTURES = Map.of(
             1, new ResourceLocation("block/smithing_table_bottom"),
@@ -62,6 +64,10 @@ public class ModTextureMapping {
     public static TextureMapping hephaestusForge(int tier) {
         String folder = HEPHAESTUS_FORGE + "/tier_" + tier;
         return new TextureMapping().put(TextureSlot.TOP, getBlockTexture(folder, "top")).put(ModTextureSlots.TOP_LAYER, getBlockTexture(folder, "top_layer")).put(TextureSlot.SIDE, getBlockTexture(folder, "side")).put(ModTextureSlots.SIDE_LAYER, getBlockTexture(folder, "side_layer")).put(ModTextureSlots.CLOTH_SIDE, getBlockTexture(folder, "cloth_side")).put(TextureSlot.BOTTOM, getBlockTexture(folder, "bottom")).put(ModTextureSlots.BLOCK, FORGE_BLOCK_TEXTURES.get(tier));
+    }
+
+    public static TextureMapping obelisk(Block block, ObeliskPart part) {
+        return new TextureMapping().put(TextureSlot.TOP, getBlockTexture(block, OBELISK, "_top")).put(TextureSlot.TEXTURE, getBlockTexture(block, OBELISK, "_" + part.getSerializedName()));
     }
 
     public static ResourceLocation getBlockTexture(Block block) {

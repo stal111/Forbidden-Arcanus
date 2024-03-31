@@ -4,12 +4,11 @@
 	"textures": {
 		"1": "forbidden_arcanus:block/obelisk_lower",
 		"2": "forbidden_arcanus:block/obelisk_base",
-		"particle": "#0"
+		"particle": "#top"
 	},
 	"render_type": "cutout",
 	"elements": [
 		{
-			"name": "0",
 			"from": [0, 0, 0],
 			"to": [16, 8, 16],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
@@ -23,24 +22,22 @@
 			}
 		},
 		{
-			"name": "1_layer",
 			"from": [1, 8, 1],
 			"to": [15, 16, 15],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
 			"faces": {
-				"north": {"uv": [1, 0, 15, 8], "texture": "#lower"},
-				"east": {"uv": [1, 0, 15, 8], "texture": "#lower"},
-				"south": {"uv": [1, 0, 15, 8], "texture": "#lower"},
-				"west": {"uv": [1, 0, 15, 8], "texture": "#lower"},
-				"up": {"uv": [1, 1, 15, 15], "texture": "#0", "cullface": "up"}
+				"north": {"uv": [1, 0, 15, 8], "texture": "#texture"},
+				"east": {"uv": [1, 0, 15, 8], "texture": "#texture"},
+				"south": {"uv": [1, 0, 15, 8], "texture": "#texture"},
+				"west": {"uv": [1, 0, 15, 8], "texture": "#texture"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#top", "cullface": "up"}
 			},
-			"forge_data": {
+			"neoforge_data": {
 				"block_light": 15,
 				"sky_light": 15
 			}
 		},
 		{
-			"name": "1",
 			"from": [1, 8, 1],
 			"to": [15, 16, 15],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},

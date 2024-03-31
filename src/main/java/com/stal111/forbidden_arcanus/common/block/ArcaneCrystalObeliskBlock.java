@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -49,7 +48,7 @@ import java.util.Map;
 public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
     public static final EnumProperty<ObeliskPart> PART = ModBlockStateProperties.OBELISK_PART;
-    public static final BooleanProperty RITUAL = ModBlockStateProperties.RITUAL;
+    public static final BooleanProperty ACTIVE = ModBlockStateProperties.ACTIVE;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final Map<ObeliskPart, VoxelShape> SHAPES = Util.make(new EnumMap<>(ObeliskPart.class), map -> {
@@ -60,13 +59,13 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
 
     public ArcaneCrystalObeliskBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(PART, ObeliskPart.LOWER).setValue(RITUAL, false).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(PART, ObeliskPart.LOWER).setValue(ACTIVE, false).setValue(WATERLOGGED, false));
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return state.getValue(RITUAL) && state.getValue(PART) == ObeliskPart.LOWER ? new ArcaneCrystalObeliskBlockEntity(pos, state) : null;
+        return state.getValue(ACTIVE) && state.getValue(PART) == ObeliskPart.LOWER ? new ArcaneCrystalObeliskBlockEntity(pos, state) : null;
     }
 
     @Override
@@ -85,7 +84,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
         }
 
         return this.defaultBlockState()
-                .setValue(RITUAL, this.isArcaneChiseledPolishedDarkstoneBelow(level, pos))
+                .setValue(ACTIVE, shouldActivate(level, pos))
                 .setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER);
     }
 
@@ -97,42 +96,45 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
 
         ObeliskPart part = state.getValue(PART);
 
-        if (facing.getAxis() == Direction.Axis.Y && ((part == ObeliskPart.LOWER == (facing == Direction.UP)) || part == ObeliskPart.MIDDLE)) {
-            return facingState.getBlock() == this && facingState.getValue(PART) != part ? state : Blocks.AIR.defaultBlockState();
+        if (facing.getAxis() != Direction.Axis.Y) {
+            return state;
+        }
+
+        if (part == ObeliskPart.LOWER == (facing == Direction.UP) || part == ObeliskPart.MIDDLE) {
+            return facingState.is(this) && facingState.getValue(PART) != part ? state : Blocks.AIR.defaultBlockState();
         }
 
         if (part == ObeliskPart.LOWER && facing == Direction.DOWN && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
 
-        return super.updateShape(state, facing, facingState, level, pos, facingPos);
+        return state;
     }
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(state, level, pos, block, fromPos, isMoving);
-
         if (!fromPos.equals(pos.below())) {
             return;
         }
 
-        BlockState newState = state.setValue(RITUAL, this.isArcaneChiseledPolishedDarkstoneBelow(level, pos));
+        boolean flag = shouldActivate(level, pos);
 
-        if (state != newState) {
-            level.setBlockAndUpdate(pos, newState);
+        if (state.getValue(ACTIVE) != flag) {
+            level.setBlockAndUpdate(pos, state.setValue(ACTIVE, flag));
         }
     }
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && player.getAbilities().instabuild) {
+        if (!level.isClientSide() && (player.isCreative() || !player.hasCorrectToolForDrops(state))) {
             ObeliskPart part = state.getValue(PART);
 
             if (part != ObeliskPart.LOWER) {
                 BlockPos offsetPos = pos.below(part == ObeliskPart.MIDDLE ? 1 : 2);
+                BlockState offsetState = level.getBlockState(offsetPos);
 
-                level.setBlock(offsetPos, Blocks.AIR.defaultBlockState(), 35);
-                level.levelEvent(player, 2001, offsetPos, Block.getId(level.getBlockState(offsetPos)));
+                level.setBlock(offsetPos, offsetState.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+                level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, offsetPos, Block.getId(offsetState));
             }
         }
 
@@ -147,19 +149,14 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        ObeliskPart part = state.getValue(PART);
         BlockPos posDown = pos.below();
+        BlockState stateDown = level.getBlockState(posDown);
 
-        if (part == ObeliskPart.LOWER) {
-            return level.getBlockState(posDown).isFaceSturdy(level, posDown, Direction.UP);
+        if (state.getValue(PART) == ObeliskPart.LOWER) {
+            return stateDown.isFaceSturdy(level, posDown, Direction.UP);
         }
 
-        return true;
-    }
-
-    @Override
-    public PushReaction getPistonPushReaction(BlockState state) {
-        return PushReaction.BLOCK;
+        return stateDown.is(this);
     }
 
     @Override
@@ -191,13 +188,13 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
         return null;
     }
 
-    public static boolean isArcaneChiseledPolishedDarkstoneBelow(Level level, BlockPos pos) {
+    public static boolean shouldActivate(Level level, BlockPos pos) {
         return level.getBlockState(pos.below()).is(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(PART, RITUAL, WATERLOGGED);
+        builder.add(PART, ACTIVE, WATERLOGGED);
     }
 
     @Override

@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 public class ModBlockStateProperties {
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
     public static final BooleanProperty SPECK = BooleanProperty.create("speck");
-    public static final BooleanProperty RITUAL = BooleanProperty.create("ritual");
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
     public static final BooleanProperty OILY = BooleanProperty.create("oily");
     public static final BooleanProperty LEAVES = BooleanProperty.create("leaves");
     public static final BooleanProperty MIRRORED = BooleanProperty.create("mirrored");

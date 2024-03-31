@@ -32,7 +32,7 @@ public class CreateObeliskInteraction extends TransformPatternInteraction {
 
         BlockState obelisk = ModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
 
-        this.placeBlock(level, pos, obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER).setValue(ModBlockStateProperties.RITUAL, ArcaneCrystalObeliskBlock.isArcaneChiseledPolishedDarkstoneBelow(level, pos)));
+        this.placeBlock(level, pos, obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER).setValue(ModBlockStateProperties.ACTIVE, ArcaneCrystalObeliskBlock.shouldActivate(level, pos)));
         this.placeBlock(level, pos.above(), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.MIDDLE));
         this.placeBlock(level, pos.above(2), obelisk.setValue(ArcaneCrystalObeliskBlock.PART, ObeliskPart.UPPER));
     }

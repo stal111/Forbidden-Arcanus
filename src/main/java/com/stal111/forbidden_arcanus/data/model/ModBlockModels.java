@@ -83,6 +83,8 @@ public class ModBlockModels {
         this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get());
         this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get());
         this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
+        this.createObelisk(ModBlocks.ARCANE_CRYSTAL_OBELISK.get());
+        this.createObelisk(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get());
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -193,7 +195,23 @@ public class ModBlockModels {
         this.blockStateOutput.accept(createSimpleBlock(block, model));
     }
 
+    private void createObelisk(Block block) {
+        PropertyDispatch dispatch = PropertyDispatch.property(ModBlockStateProperties.OBELISK_PART).generate(part -> {
+            TextureMapping textureMapping = ModTextureMapping.obelisk(block, part);
+            ResourceLocation model = ModModelTemplates.OBELISK.get(part).createWithSuffix(block, "_" + part.getSerializedName(), textureMapping, this.modelOutput);
+
+            return Variant.variant().with(VariantProperties.MODEL, model);
+        });
+
+        this.createSimpleFlatItemModel(block.asItem());
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+    }
+
     static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {
         return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resourceLocation));
+    }
+
+    void createSimpleFlatItemModel(Item item) {
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(item), this.modelOutput);
     }
 }

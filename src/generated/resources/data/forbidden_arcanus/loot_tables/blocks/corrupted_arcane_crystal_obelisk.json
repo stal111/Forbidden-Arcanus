@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "forbidden_arcanus:corrupted_arcane_crystal_obelisk",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "part": "lower"
+              }
+            }
+          ],
+          "name": "forbidden_arcanus:corrupted_arcane_crystal_obelisk"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "forbidden_arcanus:blocks/corrupted_arcane_crystal_obelisk"
+}
