@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
@@ -25,7 +24,7 @@ public class MagnetizedPedestalBlock extends PedestalBlock {
     }
 
     @Override
-    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!(level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) || blockEntity.hasStack()) {
             return;
         }

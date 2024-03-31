@@ -24,16 +24,11 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
-import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.Objects;
 
 /**
- * Pillar Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.PillarBlock
- *
  * @author stal111
- * @version 2.0.0
  * @since 2021-11-26
  */
 public class PillarBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
@@ -61,21 +56,19 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
         this.registerDefaultState(this.getStateDefinition().any().setValue(TYPE, PillarType.SINGLE).setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
     }
 
-    @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.getValue(TYPE)).get(state.getValue(AXIS));
     }
 
     @Override
-    public BlockState getStateForPlacement(@Nonnull BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
         return Objects.requireNonNull(super.getStateForPlacement(context)).setValue(WATERLOGGED, flag);
     }
 
-    @Nonnull
     @Override
-    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction direction, @Nonnull BlockState neighborState, @Nonnull LevelAccessor level, @Nonnull BlockPos currentPos, @Nonnull BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -84,32 +77,31 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
             return state;
         }
 
-        return state.setValue(TYPE, this.tryConnect(state, level, currentPos));
+        return state.setValue(TYPE, calculatePillarType(state, level, currentPos));
     }
 
-    private PillarType tryConnect(BlockState state, LevelAccessor level, BlockPos pos) {
+    private static PillarType calculatePillarType(BlockState state, LevelAccessor level, BlockPos pos) {
         Direction.Axis axis = state.getValue(AXIS);
 
         BlockState stateDown = level.getBlockState(pos.relative(Direction.get(Direction.AxisDirection.NEGATIVE, axis)));
         BlockState stateUp = level.getBlockState(pos.relative(Direction.get(Direction.AxisDirection.POSITIVE, axis)));
 
-        boolean axisUpEqual = stateUp.is(this) && stateUp.getValue(AXIS) == axis;
-        boolean axisDownEqual = stateDown.is(this) && stateDown.getValue(AXIS) == axis;
+        boolean axisUpEqual = stateUp.is(state.getBlock()) && stateUp.getValue(AXIS) == axis;
+        boolean axisDownEqual = stateDown.is(state.getBlock()) && stateDown.getValue(AXIS) == axis;
 
         return PillarType.getTypeForConnections(axisUpEqual, axisDownEqual);
     }
 
     @Override
-    protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(TYPE, AXIS, WATERLOGGED);
     }
 
     @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 
-    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);

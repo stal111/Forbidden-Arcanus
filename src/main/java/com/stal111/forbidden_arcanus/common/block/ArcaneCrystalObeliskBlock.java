@@ -37,17 +37,12 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Arcane Crystal Obelisk Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.ArcaneCrystalObeliskBlock
- *
  * @author stal111
  * @version 1.19 - 2.1.0
  */
@@ -70,13 +65,12 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return state.getValue(RITUAL) && state.getValue(PART) == ObeliskPart.LOWER ? new ArcaneCrystalObeliskBlockEntity(pos, state) : null;
     }
 
-    @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.getValue(PART));
     }
 
@@ -95,9 +89,8 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
                 .setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER);
     }
 
-    @Nonnull
     @Override
-    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -116,7 +109,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public void neighborChanged(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Block block, @Nonnull BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
 
         if (!fromPos.equals(pos.below())) {
@@ -131,7 +124,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public @NotNull BlockState playerWillDestroy(@Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide() && player.getAbilities().instabuild) {
             ObeliskPart part = state.getValue(PART);
 
@@ -147,13 +140,13 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity entity, @Nonnull ItemStack stack) {
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
         level.setBlockAndUpdate(pos.above(), state.setValue(PART, ObeliskPart.MIDDLE).setValue(WATERLOGGED, level.getFluidState(pos.above()).getType() == Fluids.WATER));
         level.setBlockAndUpdate(pos.above(2), state.setValue(PART, ObeliskPart.UPPER).setValue(WATERLOGGED, level.getFluidState(pos.above(2)).getType() == Fluids.WATER));
     }
 
     @Override
-    public boolean canSurvive(@Nonnull BlockState state, @Nonnull LevelReader level, @Nonnull BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         ObeliskPart part = state.getValue(PART);
         BlockPos posDown = pos.below();
 
@@ -164,14 +157,13 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
         return true;
     }
 
-    @Nonnull
     @Override
-    public PushReaction getPistonPushReaction(@Nonnull BlockState state) {
+    public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.BLOCK;
     }
 
     @Override
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         LocalPlayer player = Minecraft.getInstance().player;
 
         if (player != null && state.getValue(PART) != ObeliskPart.LOWER) {
@@ -192,7 +184,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@Nonnull Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (!level.isClientSide()) {
             return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.ARCANE_CRYSTAL_OBELISK.get(), ArcaneCrystalObeliskBlockEntity::serverTick);
         }
@@ -209,11 +201,10 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 
-    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
