@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -48,29 +49,22 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
             Block.box(1, 2, 1, 15, 3, 15)
     };
 
-    private final EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> shapes;
-
-    public PillarBlock(Properties properties) {
-        super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(TYPE, PillarType.SINGLE).setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
-        this.shapes = this.buildShapes();
-    }
-
-    private EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> buildShapes() {
-        EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> map = new EnumMap<>(PillarType.class);
-
+    private static final EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> SHAPES = Util.make(new EnumMap<>(PillarType.class), map -> {
         map.put(PillarType.MIDDLE, VoxelShapeHelper.rotateAxis(SHAPE_PARTS[2]));
         map.put(PillarType.TOP, VoxelShapeHelper.rotateAxis(Shapes.or(SHAPE_PARTS[0], SHAPE_PARTS[1], SHAPE_PARTS[2])));
         map.put(PillarType.BOTTOM, VoxelShapeHelper.rotateAxis(Shapes.or(SHAPE_PARTS[3], SHAPE_PARTS[4], SHAPE_PARTS[2])));
         map.put(PillarType.SINGLE, VoxelShapeHelper.rotateAxis(VoxelShapeHelper.combineAll(SHAPE_PARTS)));
+    });
 
-        return map;
+    public PillarBlock(Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.getStateDefinition().any().setValue(TYPE, PillarType.SINGLE).setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
     }
 
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return this.shapes.get(state.getValue(TYPE)).get(state.getValue(AXIS));
+        return SHAPES.get(state.getValue(TYPE)).get(state.getValue(AXIS));
     }
 
     @Override
