@@ -104,18 +104,17 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             }
         };
 
-        HephaestusForgeLevel level = HephaestusForgeLevel.ONE;
 
         if (state.getBlock() instanceof HephaestusForgeBlock forgeBlock) {
-            level = forgeBlock.getLevel();
+            this.forgeLevel = forgeBlock.getLevel();
         }
 
         this.ritualManager = new RitualManager(new MainSlotAccessor(this), () -> Stream.of(this.getStack(0), this.getStack(1), this.getStack(2), this.getStack(3))
                 .map(stack -> EnhancerCache.get(stack.getItem()))
                 .filter(Optional::isPresent)
                 .map(Optional::orElseThrow)
-                .toList(), level.getAsInt());
-        this.essenceManager = new EssenceManager(level.getMaxEssences(), this.ritualManager::updateValidRitual);
+                .toList(), this.forgeLevel.getAsInt());
+        this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), this.ritualManager::updateValidRitual);
     }
 
     @Override
