@@ -1,37 +1,25 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
-import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
+import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect;
+import com.stal111.forbidden_arcanus.common.block.pedestal.effect.SummonEntityEffect;
+import com.stal111.forbidden_arcanus.common.block.pedestal.effect.UpdateForgeIngredientsEffect;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.levelgen.Heightmap;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Pedestal Block Entity <br>
@@ -51,35 +39,7 @@ public class PedestalBlockEntity extends BlockEntity {
     private int ticksExisted;
     private int itemHeight = DEFAULT_ITEM_HEIGHT;
 
-    private final ChangedCallback onChanged = (level, stack, player) -> {
-        this.findHephaestusForge(level, this.getBlockPos()).ifPresent(forgePos -> {
-            if (level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity blockEntity) {
-                RitualManager ritualManager = blockEntity.getRitualManager();
-
-                ritualManager.updateIngredient(this, stack, blockEntity.getEssences());
-
-                if (blockEntity.getRitualManager().isRitualActive()) {
-                    ritualManager.failRitual();
-                }
-            }
-        });
-
-        if (stack.is(ModItems.OMEGA_ARCOIN.get())) {
-            BlockPos pos = this.findSpawnPositionNear(level, this.getBlockPos(), 10);
-
-            if (pos != null) {
-                DarkTrader darkTrader = ModEntities.DARK_TRADER.get().create(level, null, null, pos, MobSpawnType.MOB_SUMMONED, false, false);
-
-                if (darkTrader != null) {
-                    darkTrader.lookAt(EntityAnchorArgument.Anchor.EYES, this.getBlockPos().getCenter());
-
-                    level.addFreshEntity(darkTrader);
-                }
-            }
-        }
-
-        level.playSound(null, this.getBlockPos(), ModSounds.PEDESTAL_INTERACT.get(), SoundSource.BLOCKS, 0.8F, level.getRandom().nextFloat() * 0.15F + 0.9F - (stack.isEmpty() ? 0.3F : 0.0F));
-    };
+    private final List<PedestalEffect> effects = List.of(new UpdateForgeIngredientsEffect(), new SummonEntityEffect<>((serverLevel, itemStack) -> itemStack.is(ModItems.OMEGA_ARCOIN.get()), ModEntities.DARK_TRADER, 10, false));
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL.get(), pos, state);
@@ -99,27 +59,11 @@ public class PedestalBlockEntity extends BlockEntity {
             serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(player, this.getBlockState()));
 
             if (runOnChanged) {
-                this.onChanged.run(serverLevel, stack, null);
+                this.effects.forEach(pedestalEffect -> {
+                    pedestalEffect.execute(serverLevel, this.getBlockPos(), stack);
+                });
             }
         }
-    }
-
-    @Nullable
-    private BlockPos findSpawnPositionNear(LevelReader pLevel, BlockPos pPos, int pMaxDistance) {
-        BlockPos blockpos = null;
-
-        for(int i = 0; i < 10; ++i) {
-            int j = pPos.getX() + this.level.random.nextInt(pMaxDistance * 2) - pMaxDistance;
-            int k = pPos.getZ() + this.level.random.nextInt(pMaxDistance * 2) - pMaxDistance;
-            int l = pLevel.getHeight(Heightmap.Types.WORLD_SURFACE, j, k);
-            BlockPos blockpos1 = new BlockPos(j, l, k);
-            if (NaturalSpawner.isSpawnPositionOk(SpawnPlacements.Type.ON_GROUND, pLevel, blockpos1, EntityType.WANDERING_TRADER)) {
-                blockpos = blockpos1;
-                break;
-            }
-        }
-
-        return blockpos;
     }
 
     public ItemStack getStack() {
@@ -154,10 +98,6 @@ public class PedestalBlockEntity extends BlockEntity {
         this.markUpdated();
     }
 
-    private Optional<BlockPos> findHephaestusForge(ServerLevel level, BlockPos pos) {
-        return level.getPoiManager().getInRange(poiTypeHolder -> poiTypeHolder.value() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY).map(PoiRecord::getPos).findFirst();
-    }
-
     @Override
     public void load(@Nonnull CompoundTag compound) {
         super.load(compound);
@@ -189,10 +129,5 @@ public class PedestalBlockEntity extends BlockEntity {
     @Override
     public CompoundTag getUpdateTag() {
         return this.saveWithoutMetadata();
-    }
-
-    @FunctionalInterface
-    private interface ChangedCallback {
-        void run(ServerLevel level, ItemStack stack, Player player);
     }
 }

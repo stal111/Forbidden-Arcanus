@@ -67,7 +67,7 @@ public class RitualManager implements SerializableComponent {
 
     private boolean loaded = false;
 
-    private final HashMap<PedestalBlockEntity, ItemStack> cachedIngredients = new HashMap<>();
+    private final HashMap<BlockPos, ItemStack> cachedIngredients = new HashMap<>();
     private @Nullable Ritual validRitual;
     private @Nullable Ritual activeRitual;
     private int counter;
@@ -124,11 +124,11 @@ public class RitualManager implements SerializableComponent {
         started.accept(false);
     }
 
-    public void updateIngredient(PedestalBlockEntity pedestal, ItemStack stack, EssencesDefinition definition) {
-        if (stack.isEmpty()) {
-            this.cachedIngredients.remove(pedestal);
-        } else {
-            this.cachedIngredients.put(pedestal, stack);
+    public void updateIngredient(BlockPos pos, ItemStack stack, EssencesDefinition definition) {
+        this.cachedIngredients.put(pos, stack);
+
+        if (this.isRitualActive()) {
+            this.failRitual();
         }
 
         this.updateValidRitual(definition);
@@ -183,7 +183,7 @@ public class RitualManager implements SerializableComponent {
                 BlockPos offsetPos = pos.offset(vec3i);
 
                 if (level.getBlockEntity(offsetPos) instanceof PedestalBlockEntity blockEntity && !blockEntity.getStack().isEmpty()) {
-                    this.updateIngredient(blockEntity, blockEntity.getStack(), definition);
+                    this.updateIngredient(offsetPos, blockEntity.getStack(), definition);
                 }
             }
 
@@ -286,9 +286,7 @@ public class RitualManager implements SerializableComponent {
     }
 
     private void clearPedestals() {
-        this.cachedIngredients.keySet().forEach(blockEntity -> {
-            blockEntity.clearStack(this.level, null, false);
-        });
+        this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> blockEntity.clearStack(this.level, null, false));
 
         this.cachedIngredients.clear();
 
@@ -355,8 +353,8 @@ public class RitualManager implements SerializableComponent {
     }
 
     public void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
-        for (PedestalBlockEntity blockEntity : this.cachedIngredients.keySet()) {
-            if (predicate.test(blockEntity)) {
+        for (BlockPos pos : this.cachedIngredients.keySet()) {
+            if (this.level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity && predicate.test(blockEntity)) {
                 consumer.accept(blockEntity);
             }
         }

@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block;
+package com.stal111.forbidden_arcanus.common.block.pedestal;
 
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import net.minecraft.core.BlockPos;

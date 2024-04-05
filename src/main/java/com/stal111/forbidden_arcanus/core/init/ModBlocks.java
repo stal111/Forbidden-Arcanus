@@ -7,6 +7,8 @@ import com.stal111.forbidden_arcanus.common.block.clibano.*;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.grower.FATreeGrower;
+import com.stal111.forbidden_arcanus.common.block.pedestal.MagnetizedPedestalBlock;
+import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
