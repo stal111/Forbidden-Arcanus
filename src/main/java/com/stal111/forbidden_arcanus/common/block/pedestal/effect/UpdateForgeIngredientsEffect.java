@@ -18,7 +18,7 @@ import java.util.Optional;
 public class UpdateForgeIngredientsEffect extends PedestalEffect {
 
     public UpdateForgeIngredientsEffect() {
-        super(PedestalEffectTrigger.ITEM_CHANGED);
+        super(PedestalEffectTrigger.PLAYER_PLACE_ITEM, PedestalEffectTrigger.PLAYER_REMOVE_ITEM, PedestalEffectTrigger.ENTITY_SUMMONED, PedestalEffectTrigger.MAGNETIZED_PICKUP);
     }
 
     @Override

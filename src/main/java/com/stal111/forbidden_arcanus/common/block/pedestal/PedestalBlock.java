@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.pedestal;
 
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.other.ModStats;
 import net.minecraft.core.BlockPos;
@@ -95,7 +96,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
             }
 
             if (pedestalStack.isEmpty() && !stack.isEmpty()) {
-                blockEntity.setStack(stack.copyWithCount(1), player, true);
+                blockEntity.setStack(stack.copyWithCount(1), player, PedestalEffectTrigger.PLAYER_PLACE_ITEM);
 
                 ItemStackUtils.shrinkStack(player, stack);
             } else if (!pedestalStack.isEmpty()) {
@@ -105,7 +106,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
                     player.drop(pedestalStack, false);
                 }
 
-                blockEntity.setStack(ItemStack.EMPTY, player, true);
+                blockEntity.setStack(ItemStack.EMPTY, player, PedestalEffectTrigger.PLAYER_REMOVE_ITEM);
             }
 
             player.awardStat(ModStats.INTERACT_WITH_PEDESTAL.get());
@@ -125,7 +126,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
         if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, blockEntity.getStack()));
 
-            blockEntity.setStack(ItemStack.EMPTY, null, true);
+            blockEntity.setStack(ItemStack.EMPTY, null, PedestalEffectTrigger.PLAYER_REMOVE_ITEM);
         }
 
         super.onRemove(state, level, pos, newState, isMoving);

@@ -28,7 +28,7 @@ public class SummonEntityEffect<T extends LivingEntity> extends PedestalEffect {
     private final boolean consumeItem;
 
     public SummonEntityEffect(BiPredicate<ServerLevel, ItemStack> spawnCondition, RegistryEntry<EntityType<T>> entityType, int spawnRadius, boolean consumeItem) {
-        super(PedestalEffectTrigger.ITEM_PLACED);
+        super(PedestalEffectTrigger.PLAYER_PLACE_ITEM);
         this.spawnCondition = spawnCondition;
         this.entityType = entityType;
         this.spawnRadius = spawnRadius;
@@ -54,7 +54,7 @@ public class SummonEntityEffect<T extends LivingEntity> extends PedestalEffect {
         }
 
         if (this.consumeItem && level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
-            blockEntity.clearStack(level, null);
+            blockEntity.clearStack(null, PedestalEffectTrigger.ENTITY_SUMMONED);
         }
     }
 

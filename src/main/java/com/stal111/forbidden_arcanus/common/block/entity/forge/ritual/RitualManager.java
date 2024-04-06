@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
+import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
@@ -243,7 +244,7 @@ public class RitualManager implements SerializableComponent {
                     BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
                     this.level.addFreshEntity(new ItemEntity(this.level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
-                    pedestalBlockEntity.clearStack(this.level, null);
+                    pedestalBlockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED);
                 }
             });
         }
@@ -286,7 +287,7 @@ public class RitualManager implements SerializableComponent {
     }
 
     private void clearPedestals() {
-        this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> blockEntity.clearStack(this.level, null, false));
+        this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> blockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED));
 
         this.cachedIngredients.clear();
 

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect;
+import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.SummonEntityEffect;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.UpdateForgeIngredientsEffect;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -50,7 +51,7 @@ public class PedestalBlockEntity extends BlockEntity {
         blockEntity.ticksExisted++;
     }
 
-    public void setStack(ItemStack stack, @Nullable Player player, boolean runOnChanged) {
+    public void setStack(ItemStack stack, @Nullable Player player, PedestalEffectTrigger trigger) {
         this.stack = stack;
 
         this.markUpdated();
@@ -58,11 +59,9 @@ public class PedestalBlockEntity extends BlockEntity {
         if (this.level instanceof ServerLevel serverLevel) {
             serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(player, this.getBlockState()));
 
-            if (runOnChanged) {
-                this.effects.forEach(pedestalEffect -> {
-                    pedestalEffect.execute(serverLevel, this.getBlockPos(), stack);
-                });
-            }
+            this.effects.stream().filter(pedestalEffect -> pedestalEffect.shouldExecute(trigger)).forEach(pedestalEffect -> {
+                pedestalEffect.execute(serverLevel, this.getBlockPos(), stack);
+            });
         }
     }
 
@@ -74,14 +73,10 @@ public class PedestalBlockEntity extends BlockEntity {
         return !this.stack.isEmpty();
     }
 
-    public void clearStack(Level level, Player player) {
-        this.clearStack(level, player, true);
-    }
-
-    public void clearStack(Level level, @Nullable Player player, boolean runOnChanged) {
+    public void clearStack(@Nullable Player player, PedestalEffectTrigger trigger) {
         this.setItemHeight(DEFAULT_ITEM_HEIGHT);
 
-        this.setStack(ItemStack.EMPTY, player, runOnChanged);
+        this.setStack(ItemStack.EMPTY, player, trigger);
     }
 
     public float getItemHover(float partialTicks) {
