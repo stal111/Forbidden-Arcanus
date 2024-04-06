@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusF
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
+import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffectType;
@@ -38,6 +39,7 @@ public class FARegistries {
     public static final ResourceKey<Registry<Knowledge>> KNOWLEDGE = FARegistries.createRegistryKey("research/knowledge");
     public static final ResourceKey<Registry<Constellation>> CONSTELLATION = FARegistries.createRegistryKey("research/constellation");
     public static final ResourceKey<Registry<ResidueType>> RESIDUE_TYPE = FARegistries.createRegistryKey("residue_type");
+    public static final ResourceKey<Registry<PedestalEffect>> PEDESTAL_EFFECT = FARegistries.createRegistryKey("pedestal_effect");
 
     public static final Registry<RitualResultType<?>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_TYPE);
     public static final Registry<HephaestusForgeInputType<?>> FORGE_INPUT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT_TYPE);
@@ -46,6 +48,7 @@ public class FARegistries {
     public static final Registry<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION);
     public static final Registry<DarkTraderVariant> DARK_TRADER_VARIANT_REGISTRY = FARegistries.makeSyncedRegistry(DARK_TRADER_VARIANT);
     public static final Registry<MundabiturInteraction<?>> MUNDABITUR_INTERACTION_REGISTRY = FARegistries.makeSyncedRegistry(MUNDABITUR_INTERACTION);
+    public static final Registry<PedestalEffect> PEDESTAL_EFFECT_REGISTRY = FARegistries.makeRegistry(PEDESTAL_EFFECT);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {
         return ResourceKey.createRegistryKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, name));

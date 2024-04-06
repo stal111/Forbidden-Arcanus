@@ -1,13 +1,9 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
-import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
-import com.stal111.forbidden_arcanus.common.block.pedestal.effect.SummonEntityEffect;
-import com.stal111.forbidden_arcanus.common.block.pedestal.effect.UpdateForgeIngredientsEffect;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.init.ModEntities;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -22,7 +18,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Pedestal Block Entity <br>
@@ -42,8 +37,6 @@ public class PedestalBlockEntity extends BlockEntity {
     private int ticksExisted;
     private int itemHeight = DEFAULT_ITEM_HEIGHT;
 
-    private final List<PedestalEffect> effects = List.of(new UpdateForgeIngredientsEffect(), new SummonEntityEffect<>((serverLevel, itemStack) -> itemStack.is(ModItems.OMEGA_ARCOIN.get()), ModEntities.DARK_TRADER, 10, false));
-
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL.get(), pos, state);
         this.hoverStart = (float) (Math.random() * Math.PI * 2.0D);
@@ -61,7 +54,7 @@ public class PedestalBlockEntity extends BlockEntity {
         if (this.level instanceof ServerLevel serverLevel) {
             serverLevel.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(player, this.getBlockState()));
 
-            this.effects.stream().filter(pedestalEffect -> pedestalEffect.shouldExecute(trigger)).forEach(pedestalEffect -> {
+            FARegistries.PEDESTAL_EFFECT_REGISTRY.stream().filter(pedestalEffect -> pedestalEffect.shouldExecute(trigger)).forEach(pedestalEffect -> {
                 pedestalEffect.execute(serverLevel, this.getBlockPos(), stack);
             });
 

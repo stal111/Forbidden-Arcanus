@@ -36,5 +36,6 @@ public class RegistryEvents {
         event.register(FARegistries.ENHANCER_EFFECT_CONDITION_REGISTRY);
         event.register(FARegistries.DARK_TRADER_VARIANT_REGISTRY);
         event.register(FARegistries.MUNDABITUR_INTERACTION_REGISTRY);
+        event.register(FARegistries.PEDESTAL_EFFECT_REGISTRY);
     }
 }
