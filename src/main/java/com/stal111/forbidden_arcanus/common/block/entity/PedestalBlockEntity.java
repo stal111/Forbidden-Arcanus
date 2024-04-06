@@ -7,10 +7,12 @@ import com.stal111.forbidden_arcanus.common.block.pedestal.effect.UpdateForgeIng
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -62,6 +64,8 @@ public class PedestalBlockEntity extends BlockEntity {
             this.effects.stream().filter(pedestalEffect -> pedestalEffect.shouldExecute(trigger)).forEach(pedestalEffect -> {
                 pedestalEffect.execute(serverLevel, this.getBlockPos(), stack);
             });
+
+            this.level.playSound(null, this.getBlockPos(), ModSounds.PEDESTAL_INTERACT.get(), SoundSource.BLOCKS, 0.8F, level.getRandom().nextFloat() * 0.15F + 0.9F - (stack.isEmpty() ? 0.3F : 0.0F));
         }
     }
 

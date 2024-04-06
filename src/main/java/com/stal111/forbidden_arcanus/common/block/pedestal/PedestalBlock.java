@@ -123,7 +123,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
             return;
         }
 
-        if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
+        if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity && blockEntity.hasStack()) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, blockEntity.getStack()));
 
             blockEntity.setStack(ItemStack.EMPTY, null, PedestalEffectTrigger.PLAYER_REMOVE_ITEM);
