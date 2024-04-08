@@ -47,6 +47,7 @@ import java.util.function.Predicate;
 public class RitualManager implements SerializableComponent {
 
     public static final float DEFAULT_RITUAL_TIME = 500.0F;
+    public static final int PEDESTAL_ITEM_HEIGHT = 140;
 
     public static final Vec3i[] PEDESTAL_OFFSETS = {
             new Vec3i(-3, 0, 0),
@@ -176,6 +177,10 @@ public class RitualManager implements SerializableComponent {
         ritual.createMagicCircle(this.level, this.pos, 0);
 
         storage.reduce(ritual.essences());
+
+        this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> {
+            blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);
+        });
     }
 
     public void tick(EssencesDefinition definition) {
@@ -218,15 +223,8 @@ public class RitualManager implements SerializableComponent {
             }
         }
 
-        this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
-            BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
-
-            if (pedestalBlockEntity.getItemHeight() != 140) {
-                int height = pedestalBlockEntity.getItemHeight() + 1;
-                pedestalBlockEntity.setItemHeight(height);
-            }
-
-            this.addItemParticles(pedestalPos, pedestalBlockEntity.getItemHeight(), pedestalBlockEntity.getStack());
+        this.cachedIngredients.forEach((blockPos, stack) -> {
+            this.addItemParticles(blockPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + this.counter, PEDESTAL_ITEM_HEIGHT), stack);
         });
 
         if (progress == 0.5F && random.nextDouble() <= this.getFailureChance() * 2) {

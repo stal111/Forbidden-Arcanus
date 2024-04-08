@@ -29,13 +29,14 @@ import javax.annotation.Nonnull;
  */
 public class PedestalBlockEntity extends BlockEntity {
 
-    private static final int DEFAULT_ITEM_HEIGHT = 120;
+    public static final int DEFAULT_ITEM_HEIGHT = 120;
 
     private ItemStack stack = ItemStack.EMPTY;
 
     private final float hoverStart;
     private int ticksExisted;
     private int itemHeight = DEFAULT_ITEM_HEIGHT;
+    private int heightTarget = DEFAULT_ITEM_HEIGHT;
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.PEDESTAL.get(), pos, state);
@@ -44,6 +45,18 @@ public class PedestalBlockEntity extends BlockEntity {
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, PedestalBlockEntity blockEntity) {
         blockEntity.ticksExisted++;
+    }
+
+    public static void serverTick(Level level, BlockPos pos, BlockState state, PedestalBlockEntity blockEntity) {
+        if (blockEntity.itemHeight != blockEntity.heightTarget) {
+            if (blockEntity.itemHeight < blockEntity.heightTarget) {
+                blockEntity.itemHeight++;
+            } else {
+                blockEntity.itemHeight--;
+            }
+
+            blockEntity.markUpdated();
+        }
     }
 
     public void setStack(ItemStack stack, @Nullable Player player, PedestalEffectTrigger trigger) {
@@ -71,7 +84,7 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     public void clearStack(@Nullable Player player, PedestalEffectTrigger trigger) {
-        this.setItemHeight(DEFAULT_ITEM_HEIGHT);
+        this.itemHeight = DEFAULT_ITEM_HEIGHT;
 
         this.setStack(ItemStack.EMPTY, player, trigger);
     }
@@ -84,10 +97,8 @@ public class PedestalBlockEntity extends BlockEntity {
         return this.itemHeight;
     }
 
-    public void setItemHeight(int itemHeight) {
-        this.itemHeight = itemHeight;
-
-        this.markUpdated();
+    public void setItemHeightTarget(int heightTarget) {
+        this.heightTarget = heightTarget;
     }
 
     @Override

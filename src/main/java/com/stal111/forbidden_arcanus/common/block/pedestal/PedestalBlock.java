@@ -138,7 +138,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
         if (level.isClientSide()) {
             return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.PEDESTAL.get(), PedestalBlockEntity::clientTick);
         }
-        return null;
+        return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.PEDESTAL.get(), PedestalBlockEntity::serverTick);
     }
 
     @Override
