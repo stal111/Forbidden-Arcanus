@@ -20,10 +20,6 @@ public record TransformPedestalPayload(BlockPos pos) implements CustomPacketPayl
         this(buffer.readBlockPos());
     }
 
-    public static TransformPedestalPayload decode(FriendlyByteBuf buffer) {
-        return new TransformPedestalPayload(buffer.readBlockPos());
-    }
-
     @Override
     public void write(FriendlyByteBuf buffer) {
         buffer.writeBlockPos(this.pos);
