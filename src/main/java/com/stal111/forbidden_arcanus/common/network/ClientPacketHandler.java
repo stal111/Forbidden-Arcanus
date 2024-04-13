@@ -48,26 +48,6 @@ public class ClientPacketHandler {
         blockEntity.removeMagicCircle();
     }
 
-    public static void handleCreateValidRitualIndicator(CreateValidRitualIndicatorPacket packet) {
-        Level level = getLevel();
-
-        if (level == null || !(level.getBlockEntity(packet.pos()) instanceof HephaestusForgeBlockEntity blockEntity)) {
-            return;
-        }
-
-        blockEntity.createValidRitualIndicator(true);
-    }
-
-    public static void handleRemoveValidRitualIndicator(RemoveValidRitualIndicatorPacket packet) {
-        Level level = getLevel();
-
-        if (level == null || !(level.getBlockEntity(packet.pos()) instanceof HephaestusForgeBlockEntity blockEntity)) {
-            return;
-        }
-
-        blockEntity.removeValidRitualIndicator();
-    }
-
     public static void handleAddItemParticle(AddItemParticlePacket packet) {
         Level level = getLevel();
 

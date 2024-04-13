@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.client;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateValidRitualIndicatorPayload;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.sounds.SoundSource;
@@ -14,9 +16,12 @@ import net.neoforged.neoforge.network.handling.PlayPayloadContext;
  * @author stal111
  * @since 02.03.2024
  */
-public class ClientPayloadHandler {
+public final class ClientPayloadHandler {
 
     private static final ClientPayloadHandler INSTANCE = new ClientPayloadHandler();
+
+    private ClientPayloadHandler() {
+    }
 
     public static ClientPayloadHandler getInstance() {
         return INSTANCE;
@@ -36,6 +41,16 @@ public class ClientPayloadHandler {
                 ParticleUtils.spawnParticlesOnBlockFaces(level, payload.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
 
                 level.playLocalSound(payload.pos(), ModSounds.FERROGNETIC_MIXTURE_APPLY.get(), SoundSource.PLAYERS, 0.75F, 0.9F + level.getRandom().nextFloat() * 0.1F, false);
+            });
+        });
+    }
+
+    public void handle(UpdateValidRitualIndicatorPayload payload, PlayPayloadContext context) {
+        context.workHandler().execute(() -> {
+            context.level().ifPresent(level -> {
+                if (level.getBlockEntity(payload.pos()) instanceof HephaestusForgeBlockEntity blockEntity) {
+                    blockEntity.updateValidRitualIndicator(payload.showIndicator());
+                }
             });
         });
     }

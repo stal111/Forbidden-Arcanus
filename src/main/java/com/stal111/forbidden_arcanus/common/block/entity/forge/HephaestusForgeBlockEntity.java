@@ -234,12 +234,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         return this.validRitualIndicator;
     }
 
-    public void createValidRitualIndicator(boolean playAnimation) {
-        this.validRitualIndicator = new ValidRitualIndicator(playAnimation);
-    }
-
-    public void removeValidRitualIndicator() {
-        this.validRitualIndicator = null;
+    public void updateValidRitualIndicator(boolean showIndicator) {
+        this.validRitualIndicator = showIndicator ? new ValidRitualIndicator(true) : null;
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
