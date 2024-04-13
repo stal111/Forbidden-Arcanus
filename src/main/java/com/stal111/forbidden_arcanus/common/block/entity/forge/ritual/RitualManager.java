@@ -67,8 +67,6 @@ public class RitualManager implements SerializableComponent {
     private BlockPos pos;
     private int forgeTier;
 
-    private boolean loaded = false;
-
     private final HashMap<BlockPos, ItemStack> cachedIngredients = new HashMap<>();
     private @Nullable Ritual validRitual;
     private @Nullable Ritual activeRitual;
@@ -183,19 +181,7 @@ public class RitualManager implements SerializableComponent {
         });
     }
 
-    public void tick(EssencesDefinition definition) {
-        if (!this.loaded && this.level != null) {
-            for (Vec3i vec3i : PEDESTAL_OFFSETS) {
-                BlockPos offsetPos = pos.offset(vec3i);
-
-                if (level.getBlockEntity(offsetPos) instanceof PedestalBlockEntity blockEntity && !blockEntity.getStack().isEmpty()) {
-                    this.updateIngredient(offsetPos, blockEntity.getStack(), definition);
-                }
-            }
-
-            this.loaded = true;
-        }
-
+    public void tick() {
         if (!this.isRitualActive()) {
             return;
         }

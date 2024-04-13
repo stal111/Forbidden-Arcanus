@@ -59,6 +59,17 @@ public class PedestalBlockEntity extends BlockEntity {
         }
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        if (this.getLevel() instanceof ServerLevel serverLevel) {
+            FARegistries.PEDESTAL_EFFECT_REGISTRY.stream().filter(pedestalEffect -> pedestalEffect.shouldExecute(PedestalEffectTrigger.LOAD)).forEach(pedestalEffect -> {
+                pedestalEffect.execute(serverLevel, this.getBlockPos(), this.stack);
+            });
+        }
+    }
+
     public void setStack(ItemStack stack, @Nullable Player player, PedestalEffectTrigger trigger) {
         this.stack = stack;
 

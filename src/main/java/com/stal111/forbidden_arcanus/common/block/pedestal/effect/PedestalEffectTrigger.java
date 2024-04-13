@@ -9,5 +9,6 @@ public enum PedestalEffectTrigger {
     PLAYER_REMOVE_ITEM,
     RITUAL_FINISHED,
     MAGNETIZED_PICKUP,
-    ENTITY_SUMMONED
+    ENTITY_SUMMONED,
+    LOAD
 }

@@ -161,7 +161,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             blockEntity.essenceManager.tick(level, pos);
         }
 
-        blockEntity.ritualManager.tick(blockEntity.essenceManager.getCurrentEssences());
+        blockEntity.ritualManager.tick();
     }
 
     @Override
