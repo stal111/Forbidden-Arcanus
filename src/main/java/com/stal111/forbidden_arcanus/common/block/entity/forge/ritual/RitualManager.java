@@ -92,6 +92,10 @@ public class RitualManager implements SerializableComponent {
         return this.validRitual != null;
     }
 
+    public @Nullable Ritual getValidRitual() {
+        return this.validRitual;
+    }
+
     public @Nullable Ritual getActiveRitual() {
         return this.activeRitual;
     }
