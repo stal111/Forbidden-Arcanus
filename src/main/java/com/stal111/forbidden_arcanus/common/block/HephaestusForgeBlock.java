@@ -174,6 +174,16 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     }
 
     @Override
+    public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int param) {
+        super.triggerEvent(state, level, pos, id, param);
+
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+
+        return blockEntity != null && blockEntity.triggerEvent(id, param);
+    }
+
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (newState.getBlock() instanceof HephaestusForgeBlock) {
             return;

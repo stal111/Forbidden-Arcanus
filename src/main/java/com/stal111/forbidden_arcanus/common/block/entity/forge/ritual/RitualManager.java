@@ -10,7 +10,6 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateValidRitualIndicatorPayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -27,7 +26,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 import org.jetbrains.annotations.Nullable;
 
@@ -144,7 +142,7 @@ public class RitualManager implements SerializableComponent {
         for (Ritual ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL)) {
             if (this.canStartRitual(ritual, definition)) {
                 if (!oldValue) {
-                    PacketDistributor.TRACKING_CHUNK.with(this.level.getChunkAt(this.pos)).send(new UpdateValidRitualIndicatorPayload(this.pos, true));
+                    this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), 1, 1);
                 }
 
                 this.validRitual = ritual;
@@ -156,7 +154,7 @@ public class RitualManager implements SerializableComponent {
         this.validRitual = null;
 
         if (oldValue && !this.isRitualActive()) {
-            PacketDistributor.TRACKING_CHUNK.with(this.level.getChunkAt(this.pos)).send(new UpdateValidRitualIndicatorPayload(this.pos, false));
+            this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), 1, 0);
         }
     }
 

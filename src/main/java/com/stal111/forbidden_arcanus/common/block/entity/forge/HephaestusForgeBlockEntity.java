@@ -165,6 +165,16 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     @Override
+    public boolean triggerEvent(int id, int type) {
+        if (id == 1) {
+            this.updateValidRitualIndicator(type == 1);
+
+            return true;
+        }
+        return super.triggerEvent(id, type);
+    }
+
+    @Override
     protected void onSlotChanged(int slot) {
         if (this.level == null) {
             return;
@@ -234,7 +244,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         return this.validRitualIndicator;
     }
 
-    public void updateValidRitualIndicator(boolean showIndicator) {
+    private void updateValidRitualIndicator(boolean showIndicator) {
         this.validRitualIndicator = showIndicator ? new ValidRitualIndicator(true) : null;
     }
 
