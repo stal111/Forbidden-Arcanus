@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -32,8 +33,10 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 
     @Override
     public void render(@Nonnull HephaestusForgeBlockEntity blockEntity, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        if (blockEntity.hasMagicCircle()) {
-            blockEntity.getMagicCircle().render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel);
+        MagicCircle magicCircle = blockEntity.getMagicCircleController().getMagicCircle();
+
+        if (magicCircle != null) {
+            magicCircle.render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel);
         }
 
         if (blockEntity.hasValidRitualIndicator()) {

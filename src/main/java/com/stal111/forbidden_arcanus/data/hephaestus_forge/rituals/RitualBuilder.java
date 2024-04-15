@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
@@ -9,8 +8,10 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInpu
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -25,15 +26,19 @@ public class RitualBuilder {
 
     private final Ingredient mainIngredient;
     private final RitualResult result;
+    private final HolderGetter<MagicCircleType> magicCircleLookup;
 
     private final List<RitualInput> inputs = new ArrayList<>();
     private final EssencesStorage essences = new EssencesStorage();
     private RitualRequirements additionalRequirements;
-    private MagicCircle.Config magicCircleConfig = MagicCircle.Config.DEFAULT;
+    private Holder<MagicCircleType> magicCircleType;
 
-    public RitualBuilder(ItemStack mainIngredient, RitualResult result) {
+    public RitualBuilder(ItemStack mainIngredient, RitualResult result, HolderGetter<MagicCircleType> magicCircleLookup) {
         this.mainIngredient = Ingredient.of(mainIngredient);
         this.result = result;
+        this.magicCircleLookup = magicCircleLookup;
+
+        this.magicCircleType = this.magicCircleLookup.getOrThrow(ModMagicCircles.CREATE_ITEM);
     }
 
     public RitualBuilder input(Ingredient ingredient) {
@@ -70,8 +75,8 @@ public class RitualBuilder {
         return this;
     }
 
-    public RitualBuilder magicCircle(String innerTexture, String outerTexture) {
-        this.magicCircleConfig = new MagicCircle.Config(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner/" + innerTexture + ".png"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/outer/" + outerTexture + ".png"));
+    public RitualBuilder magicCircle(ResourceKey<MagicCircleType> type) {
+        this.magicCircleType = this.magicCircleLookup.getOrThrow(type);
 
         return this;
     }
@@ -90,6 +95,6 @@ public class RitualBuilder {
     }
 
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.additionalRequirements, this.magicCircleConfig);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.additionalRequirements, this.magicCircleType);
     }
 }

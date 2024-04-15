@@ -22,6 +22,7 @@
       }
     }
   ],
+  "magic_circle": "forbidden_arcanus:create_item",
   "main_ingredient": {
     "item": "minecraft:diamond"
   },

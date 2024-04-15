@@ -19,10 +19,7 @@
       }
     }
   ],
-  "magic_circle": {
-    "inner_texture": "forbidden_arcanus:textures/effect/magic_circle/inner/origin.png",
-    "outer_texture": "forbidden_arcanus:textures/effect/magic_circle/outer/pure.png"
-  },
+  "magic_circle": "forbidden_arcanus:upgrade_tier",
   "main_ingredient": {
     "item": "forbidden_arcanus:chiseled_polished_darkstone"
   },

@@ -2,14 +2,13 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.util.AdditionalCodecs;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -30,7 +29,7 @@ public record Ritual(List<RitualInput> inputs,
                      RitualResult result,
                      EssencesDefinition essences,
                      @Nullable RitualRequirements requirements,
-                     MagicCircle.Config magicCircleConfig) implements MagicCircle.TextureProvider {
+                     Holder<MagicCircleType> magicCircleType) {
 
     public static final Codec<Ritual> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
@@ -48,11 +47,11 @@ public record Ritual(List<RitualInput> inputs,
             RitualRequirements.CODEC.optionalFieldOf("additional_requirements").forGetter(ritual -> {
                 return Optional.ofNullable(ritual.requirements);
             }),
-            MagicCircle.Config.CODEC.optionalFieldOf("magic_circle").forGetter(ritual -> {
-                return Optional.ofNullable(ritual.magicCircleConfig.equals(MagicCircle.Config.DEFAULT) ? null : ritual.magicCircleConfig);
+            MagicCircleType.CODEC.fieldOf("magic_circle").forGetter(ritual -> {
+                return ritual.magicCircleType;
             })
-    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleConfig) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleConfig.orElse(MagicCircle.Config.DEFAULT));
+    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleType) -> {
+        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleType);
     }));
 
     public static final Codec<Ritual> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -113,17 +112,7 @@ public record Ritual(List<RitualInput> inputs,
             return false;
         }
 
-        return ingredients.isEmpty();
-    }
-
-    @Override
-    public ResourceLocation getInnerTexture() {
-        return this.magicCircleConfig.innerTexture();
-    }
-
-    @Override
-    public ResourceLocation getOuterTexture() {
-        return this.magicCircleConfig.outerTexture();
+        return ingredients.stream().filter(stack -> !stack.isEmpty()).toList().isEmpty();
     }
 
     public enum PedestalType {

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
@@ -10,7 +11,9 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
+import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
@@ -42,14 +45,22 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public static final ResourceKey<Ritual> UPGRADE_TIER_4 = HELPER.createKey("upgrade_tier_4");
     public static final ResourceKey<Ritual> UPGRADE_TIER_5 = HELPER.createKey("upgrade_tier_5");
 
+    private HolderGetter<MagicCircleType> magicCircleLookup;
+
     public ModRituals(BootstapContext<Ritual> context) {
         super(context);
+    }
+
+    @Override
+    public void init(BootstapContext<Ritual> context) {
+        this.magicCircleLookup = context.lookup(FARegistries.MAGIC_CIRCLE);
     }
 
     @Override
     public void bootstrap(BootstapContext<Ritual> context) {
         Holder<EnhancerDefinition> elementarium = context.lookup(FARegistries.ENHANCER_DEFINITION).getOrThrow(ModEnhancerDefinitions.ELEMENTARIUM);
 
+        var test = context.lookup(FARegistries.MAGIC_CIRCLE).getOrThrow(ModMagicCircles.CREATE_ITEM);
         this.register(context, ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000).requirements(3));
 
         this.register(context, TERRASTOMP_PRISM, ModItems.TERRASTOMP_PRISM.get(), Blocks.DIAMOND_BLOCK, builder -> builder.input(Ingredient.of(Items.FLINT), 2).input(Ingredient.of(Blocks.DRIPSTONE_BLOCK), 2).input(Ingredient.of(Blocks.POINTED_DRIPSTONE), 2).aureal(300).souls(9).blood(1500).requirements(2, elementarium));
@@ -58,21 +69,21 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         this.register(context, SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).aureal(200).souls(4).blood(1250).requirements(1, elementarium));
         this.register(context, FERROGNETIC_MIXTURE, ModItems.FERROGNETIC_MIXTURE.get(), Blocks.LODESTONE, builder -> builder.input(Ingredient.of(Items.CLAY_BALL), 2).input(Ingredient.of(ModItems.WAX.get()), 2).input(Ingredient.of(Items.SLIME_BALL), 2).input(Ingredient.of(Items.IRON_INGOT)).aureal(100).souls(2).blood(1250));
 
-        this.register(context, UPGRADE_TIER_2, new UpgradeTierResult(1, 2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).aureal(500).souls(10).blood(6000).magicCircle("origin", "pure"));
-        this.register(context, UPGRADE_TIER_3, new UpgradeTierResult(2, 3), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).aureal(1000).souls(50).blood(9000).magicCircle("origin", "pure"));
-        this.register(context, UPGRADE_TIER_4, new UpgradeTierResult(3, 4), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.STELLARITE_PIECE.get()), 4).input(Ingredient.of(ModItems.RUNE.get()), 4).aureal(2000).souls(100).blood(12000).magicCircle("origin", "pure"));
-        this.register(context, UPGRADE_TIER_5, new UpgradeTierResult(4, 5), new ItemStack(ModBlocks.STELLARITE_BLOCK.get()), builder -> builder.input(Ingredient.of(Blocks.SCULK_CATALYST), 4).input(Ingredient.of(ModItems.DARK_NETHER_STAR.get()), 2).input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).aureal(5000).souls(500).blood(20000).magicCircle("origin", "pactum"));
+        this.register(context, UPGRADE_TIER_2, new UpgradeTierResult(1, 2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).aureal(500).souls(10).blood(6000).magicCircle(ModMagicCircles.UPGRADE_TIER));
+        this.register(context, UPGRADE_TIER_3, new UpgradeTierResult(2, 3), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).aureal(1000).souls(50).blood(9000).magicCircle(ModMagicCircles.UPGRADE_TIER));
+        this.register(context, UPGRADE_TIER_4, new UpgradeTierResult(3, 4), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.STELLARITE_PIECE.get()), 4).input(Ingredient.of(ModItems.RUNE.get()), 4).aureal(2000).souls(100).blood(12000).magicCircle(ModMagicCircles.UPGRADE_TIER));
+        this.register(context, UPGRADE_TIER_5, new UpgradeTierResult(4, 5), new ItemStack(ModBlocks.STELLARITE_BLOCK.get()), builder -> builder.input(Ingredient.of(Blocks.SCULK_CATALYST), 4).input(Ingredient.of(ModItems.DARK_NETHER_STAR.get()), 2).input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).aureal(5000).souls(500).blood(20000).magicCircle(ModMagicCircles.UPGRADE_FINAL_TIER));
     }
 
     private void register(BootstapContext<Ritual> context, ResourceKey<Ritual> key, ItemLike result, ItemLike mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        context.register(key, builder.apply(new RitualBuilder(new ItemStack(mainIngredient), new CreateItemResult(new ItemStack(result)))).build());
+        context.register(key, builder.apply(new RitualBuilder(new ItemStack(mainIngredient), new CreateItemResult(new ItemStack(result)), this.magicCircleLookup)).build());
     }
 
     private void register(BootstapContext<Ritual> context, ResourceKey<Ritual> key, ItemStack result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        context.register(key, builder.apply(new RitualBuilder(mainIngredient, new CreateItemResult(result))).build());
+        context.register(key, builder.apply(new RitualBuilder(mainIngredient, new CreateItemResult(result), this.magicCircleLookup)).build());
     }
 
     private void register(BootstapContext<Ritual> context, ResourceKey<Ritual> key, RitualResult result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        context.register(key, builder.apply(new RitualBuilder(mainIngredient, result)).build());
+        context.register(key, builder.apply(new RitualBuilder(mainIngredient, result, this.magicCircleLookup)).build());
     }
 }

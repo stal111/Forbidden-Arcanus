@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.network;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.MagicCircle;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
@@ -27,26 +26,6 @@ import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaCo
  * @since 2021-12-25
  */
 public class ClientPacketHandler {
-
-    public static void handleCreateMagicCircle(CreateMagicCirclePacket packet) {
-        Level level = getLevel();
-
-        if (level == null || !(level.getBlockEntity(packet.pos()) instanceof HephaestusForgeBlockEntity blockEntity)) {
-            return;
-        }
-
-        blockEntity.setMagicCircle(new MagicCircle(level, packet.pos(), packet.innerTexture(), packet.outerTexture()));
-    }
-
-    public static void handleRemoveMagicCircle(RemoveMagicCirclePacket packet) {
-        Level level = getLevel();
-
-        if (level == null || !(level.getBlockEntity(packet.pos()) instanceof HephaestusForgeBlockEntity blockEntity)) {
-            return;
-        }
-
-        blockEntity.removeMagicCircle();
-    }
 
     public static void handleAddItemParticle(AddItemParticlePacket packet) {
         Level level = getLevel();

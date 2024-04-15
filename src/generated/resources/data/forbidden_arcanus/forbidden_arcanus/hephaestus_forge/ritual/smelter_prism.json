@@ -24,6 +24,7 @@
       }
     }
   ],
+  "magic_circle": "forbidden_arcanus:create_item",
   "main_ingredient": {
     "item": "forbidden_arcanus:arcane_crystal_block"
   },

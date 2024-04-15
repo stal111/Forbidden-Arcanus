@@ -25,10 +25,7 @@
       }
     }
   ],
-  "magic_circle": {
-    "inner_texture": "forbidden_arcanus:textures/effect/magic_circle/inner/origin.png",
-    "outer_texture": "forbidden_arcanus:textures/effect/magic_circle/outer/pactum.png"
-  },
+  "magic_circle": "forbidden_arcanus:upgrade_final_tier",
   "main_ingredient": {
     "item": "forbidden_arcanus:stellarite_block"
   },

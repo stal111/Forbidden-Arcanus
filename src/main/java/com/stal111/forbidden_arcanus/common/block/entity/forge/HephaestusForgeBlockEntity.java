@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesContainer;
@@ -55,13 +56,16 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         map.put(EssenceType.EXPERIENCE, 8);
     });
 
+    public static final int UPDATE_RITUAL_INDICATOR = 1;
+    public static final int UPDATE_MAGIC_CIRCLE = 2;
+
     private final ContainerData hephaestusForgeData;
     private final EssenceManager essenceManager;
     private final RitualManager ritualManager;
+    private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
 
     private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
 
-    private MagicCircle magicCircle;
     private ValidRitualIndicator validRitualIndicator;
     private int displayCounter;
 
@@ -113,7 +117,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
                 .map(stack -> EnhancerCache.get(stack.getItem()))
                 .filter(Optional::isPresent)
                 .map(Optional::orElseThrow)
-                .toList(), this.forgeLevel.getAsInt());
+                .toList(), this.magicCircleController, this.forgeLevel.getAsInt());
         this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), this.ritualManager::updateValidRitual);
     }
 
@@ -127,9 +131,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        if (blockEntity.hasMagicCircle()) {
-            blockEntity.magicCircle.tick();
-        }
+        blockEntity.magicCircleController.tick();
+
         if (blockEntity.hasValidRitualIndicator()) {
             blockEntity.validRitualIndicator.tick();
         }
@@ -166,11 +169,16 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     @Override
     public boolean triggerEvent(int id, int type) {
-        if (id == 1) {
+        if (id == UPDATE_RITUAL_INDICATOR) {
             this.updateValidRitualIndicator(type == 1);
 
             return true;
+        } else if (id == UPDATE_MAGIC_CIRCLE) {
+            this.magicCircleController.handleEvent(this.level, this.getBlockPos(), type);
+
+            return true;
         }
+
         return super.triggerEvent(id, type);
     }
 
@@ -219,21 +227,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         return this.essenceManager;
     }
 
-    public boolean hasMagicCircle() {
-        return this.magicCircle != null;
-    }
-
-    public MagicCircle getMagicCircle() {
-        return this.magicCircle;
-    }
-
-    public void setMagicCircle(@NotNull MagicCircle magicCircle) {
-        this.magicCircle = magicCircle;
-    }
-
-    public void removeMagicCircle() {
-        this.magicCircle = null;
-        this.validRitualIndicator = null;
+    public MagicCircleController getMagicCircleController() {
+        return this.magicCircleController;
     }
 
     public boolean hasValidRitualIndicator() {

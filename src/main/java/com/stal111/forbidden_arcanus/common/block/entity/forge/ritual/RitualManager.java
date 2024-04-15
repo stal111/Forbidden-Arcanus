@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
@@ -60,6 +61,7 @@ public class RitualManager implements SerializableComponent {
 
     private final MainIngredientAccessor mainIngredientAccessor;
     private final EnhancerAccessor enhancerAccessor;
+    private final MagicCircleController magicCircleController;
 
     private ServerLevel level;
     private BlockPos pos;
@@ -71,9 +73,10 @@ public class RitualManager implements SerializableComponent {
     private int counter;
     private int lightningCounter;
 
-    public RitualManager(MainIngredientAccessor accessor, EnhancerAccessor enhancerAccessor, int forgeTier) {
+    public RitualManager(MainIngredientAccessor accessor, EnhancerAccessor enhancerAccessor, MagicCircleController circleController, int forgeTier) {
         this.mainIngredientAccessor = accessor;
         this.enhancerAccessor = enhancerAccessor;
+        this.magicCircleController = circleController;
         this.forgeTier = forgeTier;
     }
 
@@ -174,7 +177,7 @@ public class RitualManager implements SerializableComponent {
     public void startRitual(EssencesStorage storage, Ritual ritual) {
         this.setActiveRitual(ritual);
 
-        ritual.createMagicCircle(this.level, this.pos, 0);
+        this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.magicCircleType());
 
         storage.reduce(ritual.essences());
 
@@ -245,7 +248,8 @@ public class RitualManager implements SerializableComponent {
     }
 
     public void finishRitual() {
-        this.activeRitual.removeMagicCircle(this.level, this.pos);
+        this.magicCircleController.removeMagicCircle(this.level, this.pos);
+
         this.activeRitual.result().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         this.reset();
@@ -256,7 +260,7 @@ public class RitualManager implements SerializableComponent {
     public void failRitual() {
         ItemStack stack = this.mainIngredientAccessor.get();
 
-        this.activeRitual.removeMagicCircle(this.level, this.pos);
+        this.magicCircleController.removeMagicCircle(this.level, this.pos);
 
         this.reset();
 
@@ -330,6 +334,7 @@ public class RitualManager implements SerializableComponent {
     @Override
     public void load(CompoundTag tag) {
         if (tag.contains("ActiveRitual")) {
+            //TODO this breaks as level is null during load
             this.setActiveRitual(this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).get(new ResourceLocation(tag.getString("ActiveRitual"))));
             this.counter = tag.getInt("Counter");
 
