@@ -5,7 +5,6 @@ import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -43,18 +42,18 @@ public class MagicCircle {
         this.counter = counter;
     }
 
-    public void render(PoseStack poseStack, float partialTicks, MultiBufferSource buffer, int packedLight, MagicCircleModel model) {
+    public void render(PoseStack poseStack, float partialTicks, MultiBufferSource buffer, int packedLight, MagicCircleModel model, int duration) {
         float rotation = this.counter + partialTicks;
-        float ritualProgress = RitualManager.getRitualProgress(rotation);
+        float progress = this.counter / (float) duration;
 
         poseStack.pushPose();
 
         poseStack.translate(0.5D, 0.0D, 0.5D);
 
-        float size = this.easeSineOut(Math.min(ritualProgress, 0.25D), 1.25D, 7.25D, 0.25D);
+        float size = this.easeSineOut(Math.min(progress, 0.25D), 1.25D, 7.25D, 0.25D);
         poseStack.scale(size, 1.0F, size);
 
-        float alpha = ritualProgress > 0.9F ? this.easeSineOut(ritualProgress - 0.9F, 1.0D, -1.0D, 0.1D) : 1.0F;
+        float alpha = progress > 0.9F ? this.easeSineOut(progress - 0.9F, 1.0D, -1.0D, 0.1D) : 1.0F;
 
         poseStack.mulPose(Axis.YN.rotationDegrees(rotation));
         model.outerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(this.type.outerTexture())), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
@@ -64,7 +63,7 @@ public class MagicCircle {
 
         poseStack.popPose();
 
-        if (ritualProgress > 0.9F) {
+        if (progress > 0.9F) {
             RandomSource random = this.level.getRandom();
 
             double posX = this.pos.getX() + 0.25D + random.nextFloat() + random.nextInt(4);

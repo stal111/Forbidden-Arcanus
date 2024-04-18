@@ -33,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -45,8 +46,8 @@ import java.util.function.Predicate;
  */
 public class RitualManager implements SerializableComponent {
 
-    public static final float DEFAULT_RITUAL_TIME = 500.0F;
     public static final int PEDESTAL_ITEM_HEIGHT = 140;
+    public static final int LIGHTNING_COUNTER_THRESHOLD = 300;
 
     public static final Vec3i[] PEDESTAL_OFFSETS = {
             new Vec3i(-3, 0, 0),
@@ -97,8 +98,8 @@ public class RitualManager implements SerializableComponent {
         return this.validRitual;
     }
 
-    public @Nullable Ritual getActiveRitual() {
-        return this.activeRitual;
+    public Optional<Ritual> getActiveRitual() {
+        return Optional.ofNullable(this.activeRitual);
     }
 
     public void setActiveRitual(@Nullable Ritual ritual) {
@@ -192,27 +193,11 @@ public class RitualManager implements SerializableComponent {
         }
 
         RandomSource random = this.level.getRandom();
-        float progress = RitualManager.getRitualProgress(this.counter);
+        float progress = this.calculateRitualProgress();
 
         this.counter++;
 
-        if (this.lightningCounter != 0) {
-            this.lightningCounter++;
-
-            if (this.lightningCounter == 300) {
-                List<ItemStack> list = new ArrayList<>();
-
-                this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
-
-                if (!this.getActiveRitual().checkIngredients(list, this.mainIngredientAccessor.get())) {
-                    this.failRitual();
-
-                    return;
-                }
-
-                this.lightningCounter = 0;
-            }
-        }
+        this.handleLightningCounter();
 
         this.cachedIngredients.forEach((blockPos, stack) -> {
             this.addItemParticles(blockPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + this.counter, PEDESTAL_ITEM_HEIGHT), stack);
@@ -243,6 +228,24 @@ public class RitualManager implements SerializableComponent {
                 this.finishRitual();
             } else {
                 this.failRitual();
+            }
+        }
+    }
+
+    private void handleLightningCounter() {
+        if (this.lightningCounter != 0) {
+            this.lightningCounter++;
+
+            if (this.lightningCounter == LIGHTNING_COUNTER_THRESHOLD) {
+                List<ItemStack> list = new ArrayList<>();
+
+                this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
+
+                this.getActiveRitual().ifPresentOrElse(ritual -> {
+                    if (!ritual.checkIngredients(list, this.mainIngredientAccessor.get())) {
+                        this.failRitual();
+                    }
+                }, this::failRitual);
             }
         }
     }
@@ -311,10 +314,13 @@ public class RitualManager implements SerializableComponent {
     }
 
     /**
-     * @return the progress of the currently active ritual. Between {@code 0.0F} and {@code 1.0F} if the ritual is finished.
+     * Returns the progress of the active ritual as a ratio of the counter to the ritual's duration.
+     * If no ritual is active, returns -1.0F.
+     *
+     * @return Ritual progress as a float between 0.0F and 1.0F, or -1.0F if no ritual is active.
      */
-    public static float getRitualProgress(float counter) {
-        return counter / DEFAULT_RITUAL_TIME;
+    public float calculateRitualProgress() {
+        return this.getActiveRitual().map(ritual -> this.counter / (float) ritual.duration()).orElse(-1.0F);
     }
 
     @Override

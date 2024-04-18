@@ -58,6 +58,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     public static final int UPDATE_RITUAL_INDICATOR = 1;
     public static final int UPDATE_MAGIC_CIRCLE = 2;
+    public static final int UPDATE_RITUAL_DURATION = 3;
 
     private final ContainerData hephaestusForgeData;
     private final EssenceManager essenceManager;
@@ -68,6 +69,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     private ValidRitualIndicator validRitualIndicator;
     private int displayCounter;
+    private int clientRitualDuration;
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state, 9, (slot, stack) -> {
@@ -168,18 +170,22 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     @Override
-    public boolean triggerEvent(int id, int type) {
+    public boolean triggerEvent(int id, int value) {
         if (id == UPDATE_RITUAL_INDICATOR) {
-            this.updateValidRitualIndicator(type == 1);
+            this.updateValidRitualIndicator(value == 1);
 
             return true;
         } else if (id == UPDATE_MAGIC_CIRCLE) {
-            this.magicCircleController.handleEvent(this.level, this.getBlockPos(), type);
+            this.magicCircleController.handleEvent(this.level, this.getBlockPos(), value);
+
+            return true;
+        } else if (id == UPDATE_RITUAL_DURATION) {
+            this.clientRitualDuration = value;
 
             return true;
         }
 
-        return super.triggerEvent(id, type);
+        return super.triggerEvent(id, value);
     }
 
     @Override
@@ -257,6 +263,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     public int getDisplayCounter() {
         return this.displayCounter;
+    }
+
+    public int getClientRitualDuration() {
+        return this.clientRitualDuration;
     }
 
     @Override

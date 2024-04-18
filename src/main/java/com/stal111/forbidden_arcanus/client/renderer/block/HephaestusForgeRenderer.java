@@ -36,7 +36,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         MagicCircle magicCircle = blockEntity.getMagicCircleController().getMagicCircle();
 
         if (magicCircle != null) {
-            magicCircle.render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel);
+            magicCircle.render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel, blockEntity.getClientRitualDuration());
         }
 
         if (blockEntity.hasValidRitualIndicator()) {

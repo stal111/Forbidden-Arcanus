@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -29,7 +30,10 @@ public record Ritual(List<RitualInput> inputs,
                      RitualResult result,
                      EssencesDefinition essences,
                      @Nullable RitualRequirements requirements,
-                     Holder<MagicCircleType> magicCircleType) {
+                     Holder<MagicCircleType> magicCircleType,
+                     int duration) {
+
+    public static final int DEFAULT_DURATION = 500;
 
     public static final Codec<Ritual> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
@@ -49,9 +53,12 @@ public record Ritual(List<RitualInput> inputs,
             }),
             MagicCircleType.CODEC.fieldOf("magic_circle").forGetter(ritual -> {
                 return ritual.magicCircleType;
+            }),
+            ExtraCodecs.strictOptionalField(ExtraCodecs.POSITIVE_INT, "duration", DEFAULT_DURATION).forGetter(ritual -> {
+                return ritual.duration;
             })
-    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleType) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleType);
+    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleType, duration) -> {
+        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleType, duration);
     }));
 
     public static final Codec<Ritual> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -69,9 +76,12 @@ public record Ritual(List<RitualInput> inputs,
             }),
             RitualRequirements.CODEC.optionalFieldOf("additional_requirements").forGetter(ritual -> {
                 return Optional.ofNullable(ritual.requirements);
+            }),
+            ExtraCodecs.strictOptionalField(ExtraCodecs.POSITIVE_INT, "duration", DEFAULT_DURATION).forGetter(ritual -> {
+                return ritual.duration;
             })
-    ).apply(instance, (inputs, mainIngredient, result, essences, requirements) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), null);
+    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, duration) -> {
+        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), null, duration);
     }));
 
     public boolean canStart(RitualStartContext context) {

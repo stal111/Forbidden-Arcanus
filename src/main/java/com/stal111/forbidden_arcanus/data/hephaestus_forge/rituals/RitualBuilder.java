@@ -95,6 +95,6 @@ public class RitualBuilder {
     }
 
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.additionalRequirements, this.magicCircleType);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.additionalRequirements, this.magicCircleType, Ritual.DEFAULT_DURATION);
     }
 }
