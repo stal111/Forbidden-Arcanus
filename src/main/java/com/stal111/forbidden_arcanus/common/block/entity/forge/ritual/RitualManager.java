@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
@@ -9,8 +10,6 @@ import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
-import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateForgeRitualPacket;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -105,13 +104,9 @@ public class RitualManager implements SerializableComponent {
     public void setActiveRitual(@Nullable Ritual ritual) {
         this.activeRitual = ritual;
 
-        ResourceLocation resourceLocation = null;
+        int duration = ritual != null ? ritual.duration() : 0;
 
-        if (ritual != null) {
-            resourceLocation = this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).getKey(ritual);
-        }
-
-        NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, resourceLocation));
+        this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_DURATION, duration);
     }
 
     public boolean isRitualActive() {
