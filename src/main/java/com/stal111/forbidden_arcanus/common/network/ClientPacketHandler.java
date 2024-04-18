@@ -1,10 +1,10 @@
 package com.stal111.forbidden_arcanus.common.network;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.network.clientbound.*;
+import com.stal111.forbidden_arcanus.common.network.clientbound.AddItemParticlePacket;
+import com.stal111.forbidden_arcanus.common.network.clientbound.AddThrownAurealBottleParticle;
+import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -33,16 +33,6 @@ public class ClientPacketHandler {
         if (level != null) {
             RenderUtils.addItemParticles(level, packet.stack(), packet.pos(), 16);
         }
-    }
-
-    public static void handleUpdateRitual(UpdateForgeRitualPacket packet) {
-        Level level = getLevel();
-
-        if (level == null || !(level.getBlockEntity(packet.pos()) instanceof HephaestusForgeBlockEntity blockEntity)) {
-            return;
-        }
-
-        blockEntity.getRitualManager().setActiveRitual(level.registryAccess().registryOrThrow(FARegistries.RITUAL).get(packet.ritual()));
     }
 
     public static void handleUpdateItemInSlot(UpdateItemInSlotPacket packet) {
