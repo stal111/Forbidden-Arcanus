@@ -1,11 +1,9 @@
 package com.stal111.forbidden_arcanus.common.network;
 
-import com.stal111.forbidden_arcanus.common.network.clientbound.AddItemParticlePacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AddThrownAurealBottleParticle;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
-import com.stal111.forbidden_arcanus.util.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -26,14 +24,6 @@ import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaCo
  * @since 2021-12-25
  */
 public class ClientPacketHandler {
-
-    public static void handleAddItemParticle(AddItemParticlePacket packet) {
-        Level level = getLevel();
-
-        if (level != null) {
-            RenderUtils.addItemParticles(level, packet.stack(), packet.pos(), 16);
-        }
-    }
 
     public static void handleUpdateItemInSlot(UpdateItemInSlotPacket packet) {
         Level level = getLevel();
