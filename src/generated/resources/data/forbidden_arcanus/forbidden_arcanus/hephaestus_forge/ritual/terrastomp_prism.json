@@ -37,6 +37,7 @@
   },
   "result": {
     "type": "forbidden_arcanus:create_item",
+    "copy_nbt": false,
     "result_item": {
       "Count": 1,
       "id": "forbidden_arcanus:terrastomp_prism"
