@@ -3,8 +3,7 @@ package com.stal111.forbidden_arcanus.common.entity.projectile;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
-import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.common.network.clientbound.AddThrownAurealBottleParticle;
+import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -51,7 +51,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
         if (!this.level().isClientSide()) {
             this.applySplash();
 
-            NetworkHandler.sendToTrackingChunk(this.level().getChunkAt(this.blockPosition()), new AddThrownAurealBottleParticle(this.getX(), this.getY(), this.getZ()));
+            PacketDistributor.TRACKING_CHUNK.with(this.level().getChunkAt(this.blockPosition())).send(new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 1));
 
             this.discard();
         }

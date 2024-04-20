@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forbidden_arcanus:item/aureal_bottle"
+  }
+}

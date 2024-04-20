@@ -47,6 +47,8 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.SOUL);
         this.generateFlatItem(ModItems.CORRUPT_SOUL);
         this.generateFlatItem(ModItems.ENCHANTED_SOUL);
+        this.generateFlatItem(ModItems.AUREAL_BOTTLE);
+        this.generateFlatItem(ModItems.SPLASH_AUREAL_BOTTLE);
         this.generateFlatItem("enhancer", ModItems.ARTISAN_RELIC, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.CRESCENT_MOON, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.CRIMSON_STONE, ModelTemplates.FLAT_ITEM);
