@@ -27,6 +27,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
+import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -141,7 +142,7 @@ public class RitualManager implements SerializableComponent {
         for (Ritual ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL)) {
             if (this.canStartRitual(ritual, definition)) {
                 if (!oldValue) {
-                    this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), 1, 1);
+                    this.updateRitualIndicator(true);
                 }
 
                 this.validRitual = ritual;
@@ -153,7 +154,7 @@ public class RitualManager implements SerializableComponent {
         this.validRitual = null;
 
         if (oldValue && !this.isRitualActive()) {
-            this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), 1, 0);
+            this.updateRitualIndicator(false);
         }
     }
 
@@ -246,8 +247,6 @@ public class RitualManager implements SerializableComponent {
     }
 
     public void finishRitual() {
-        this.magicCircleController.removeMagicCircle(this.level, this.pos);
-
         this.activeRitual.result().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         this.reset();
@@ -257,8 +256,6 @@ public class RitualManager implements SerializableComponent {
 
     public void failRitual() {
         ItemStack stack = this.mainIngredientAccessor.get();
-
-        this.magicCircleController.removeMagicCircle(this.level, this.pos);
 
         this.reset();
 
@@ -300,6 +297,8 @@ public class RitualManager implements SerializableComponent {
         this.lightningCounter = 0;
         this.validRitual = null;
         this.setActiveRitual(null);
+        this.magicCircleController.removeMagicCircle(this.level, this.pos);
+        this.updateRitualIndicator(false);
     }
 
     public double getFailureChance() {
@@ -351,6 +350,10 @@ public class RitualManager implements SerializableComponent {
                 consumer.accept(blockEntity);
             }
         }
+    }
+
+    private void updateRitualIndicator(boolean show) {
+        this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_INDICATOR, BooleanUtils.toInteger(show));
     }
 
     public interface MainIngredientAccessor {
