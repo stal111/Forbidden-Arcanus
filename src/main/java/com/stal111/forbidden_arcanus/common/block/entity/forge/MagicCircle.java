@@ -44,7 +44,7 @@ public class MagicCircle {
 
     public void render(PoseStack poseStack, float partialTicks, MultiBufferSource buffer, int packedLight, MagicCircleModel model, int duration) {
         float rotation = this.counter + partialTicks;
-        float progress = this.counter / (float) duration;
+        float progress = rotation / duration;
 
         poseStack.pushPose();
 
