@@ -276,8 +276,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         this.saveInventory(tag);
 
         this.getRitualManager().save(tag);
-
-        tag.put("Essences", this.getEssenceManager().save(new CompoundTag()));
+        this.getEssenceManager().save(tag);
     }
 
     @Override
@@ -286,8 +285,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
         this.loadInventory(tag);
 
-        this.getRitualManager().load(tag.getCompound("Ritual"));
-        this.getEssenceManager().load(tag.getCompound("Essences"));
+        this.getRitualManager().load(tag);
+        this.getEssenceManager().load(tag);
     }
 
     @Nullable

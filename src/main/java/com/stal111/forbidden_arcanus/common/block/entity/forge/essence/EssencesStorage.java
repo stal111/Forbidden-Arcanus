@@ -1,5 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.UnaryOperator;
@@ -12,6 +15,21 @@ import java.util.function.UnaryOperator;
  * @since 2023-01-04
  */
 public class EssencesStorage extends EnumMap<EssenceType, Integer> {
+
+    public static final Codec<EssencesStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.INT.fieldOf("aureal").forGetter(data -> {
+                return data.getOrDefault(EssenceType.AUREAL, 0);
+            }),
+            Codec.INT.fieldOf("souls").forGetter(data -> {
+                return data.getOrDefault(EssenceType.SOULS, 0);
+            }),
+            Codec.INT.fieldOf("blood").forGetter(data -> {
+                return data.getOrDefault(EssenceType.BLOOD, 0);
+            }),
+            Codec.INT.fieldOf("experience").forGetter(data -> {
+                return data.getOrDefault(EssenceType.EXPERIENCE, 0);
+            })
+    ).apply(instance, EssencesStorage::new));
 
     public EssencesStorage() {
         super(EssenceType.class);

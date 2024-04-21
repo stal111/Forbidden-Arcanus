@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -19,6 +20,8 @@ import java.util.function.Consumer;
  * @since 2021-07-10
  */
 public class EssenceManager implements SerializableComponent {
+
+    public static final String TAG_ESSENCES = "essences";
 
     private static final int ENTITY_CHECK_RADIUS = 5;
 
@@ -103,18 +106,17 @@ public class EssenceManager implements SerializableComponent {
 
     @Override
     public CompoundTag save(CompoundTag tag) {
-        for (EssenceType type : EssenceType.values()) {
-            tag.putInt(type.getSerializedName(), this.getEssence(type));
-        }
+        EssencesStorage.CODEC.encodeStart(NbtOps.INSTANCE, this.essences).result().ifPresent(essences -> tag.put(TAG_ESSENCES, essences));
 
         return tag;
     }
 
     @Override
     public void load(CompoundTag tag) {
-        for (EssenceType type : EssenceType.values()) {
-            this.setEssence(type, tag.getInt(type.getSerializedName()), false);
-        }
+        EssencesStorage.CODEC.parse(NbtOps.INSTANCE, tag.get(TAG_ESSENCES)).result().ifPresent(essences -> {
+            this.essences.clear();
+            this.essences.putAll(essences);
+        });
     }
 
     public void tick(Level level, BlockPos pos) {
