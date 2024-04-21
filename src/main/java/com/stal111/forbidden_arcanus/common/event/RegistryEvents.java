@@ -20,7 +20,7 @@ public class RegistryEvents {
 
     @SubscribeEvent
     public void newDatapackRegistry(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(FARegistries.RITUAL, Ritual.CODEC, Ritual.NETWORK_CODEC);
+        event.dataPackRegistry(FARegistries.RITUAL, Ritual.DIRECT_CODEC, Ritual.NETWORK_CODEC);
         event.dataPackRegistry(FARegistries.ENHANCER_DEFINITION, EnhancerDefinition.CODEC, EnhancerDefinition.NETWORK_CODEC);
         event.dataPackRegistry(FARegistries.FORGE_INPUT, HephaestusForgeInput.DIRECT_CODEC, HephaestusForgeInput.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.DIRECT_CODEC, Knowledge.DIRECT_CODEC);

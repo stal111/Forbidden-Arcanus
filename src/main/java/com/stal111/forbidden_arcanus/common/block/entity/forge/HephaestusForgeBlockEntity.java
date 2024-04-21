@@ -275,7 +275,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
         this.saveInventory(tag);
 
-        tag.put("Ritual", this.getRitualManager().save(new CompoundTag()));
+        this.getRitualManager().save(tag);
+
         tag.put("Essences", this.getEssenceManager().save(new CompoundTag()));
     }
 

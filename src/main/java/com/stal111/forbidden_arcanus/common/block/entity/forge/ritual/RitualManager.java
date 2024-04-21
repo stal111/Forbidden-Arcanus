@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
+import com.google.common.base.Suppliers;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
@@ -14,11 +15,13 @@ import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -35,6 +38,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * Ritual Manager <br>
@@ -44,6 +48,8 @@ import java.util.function.Predicate;
  * @since 2021-07-09
  */
 public class RitualManager implements SerializableComponent {
+
+    public static final String TAG_ACTIVE_RITUAL = "active_ritual";
 
     public static final int PEDESTAL_ITEM_HEIGHT = 140;
     public static final int LIGHTNING_COUNTER_THRESHOLD = 300;
@@ -68,10 +74,9 @@ public class RitualManager implements SerializableComponent {
     private int forgeTier;
 
     private final HashMap<BlockPos, ItemStack> cachedIngredients = new HashMap<>();
-    private @Nullable Ritual validRitual;
-    private @Nullable Ritual activeRitual;
-    private int counter;
-    private int lightningCounter;
+    private @Nullable Holder<Ritual> validRitual;
+    //We need to wrap this in a Supplier because the ActiveRitualData cannot be deserialized during #load as the level is not set yet
+    private Supplier<ActiveRitualData> activeRitualData = Suppliers.memoize(() -> null);
 
     public RitualManager(MainIngredientAccessor accessor, EnhancerAccessor enhancerAccessor, MagicCircleController circleController, int forgeTier) {
         this.mainIngredientAccessor = accessor;
@@ -89,28 +94,24 @@ public class RitualManager implements SerializableComponent {
         this.forgeTier = forgeTier;
     }
 
-    private boolean canStart() {
-        return this.validRitual != null;
-    }
-
-    public Optional<Ritual> getValidRitual() {
+    public Optional<Holder<Ritual>> getValidRitual() {
         return Optional.ofNullable(this.validRitual);
     }
 
-    public Optional<Ritual> getActiveRitual() {
-        return Optional.ofNullable(this.activeRitual);
+    private Optional<ActiveRitualData> getActiveRitualData() {
+        return Optional.ofNullable(this.activeRitualData.get());
     }
 
-    public void setActiveRitual(@Nullable Ritual ritual) {
-        this.activeRitual = ritual;
+    public void setActiveRitual(@Nullable Holder<Ritual> ritual) {
+        this.activeRitualData = Suppliers.memoize(() -> ritual != null ? ActiveRitualData.create(ritual) : null);
 
-        int duration = ritual != null ? ritual.duration() : 0;
+        int duration = ritual != null ? ritual.value().duration() : 0;
 
         this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_DURATION, duration);
     }
 
     public boolean isRitualActive() {
-        return this.activeRitual != null;
+        return this.level != null && this.getActiveRitualData().isPresent();
     }
 
     public void updateIngredient(BlockPos pos, ItemStack stack, EssencesDefinition definition) {
@@ -126,7 +127,7 @@ public class RitualManager implements SerializableComponent {
     public void updateValidRitual(EssencesDefinition definition) {
         boolean oldValue = this.validRitual != null;
 
-        for (Ritual ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL)) {
+        for (Holder<Ritual> ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).holders().toList()) {
             if (this.canStartRitual(ritual, definition)) {
                 if (!oldValue) {
                     this.updateRitualIndicator(true);
@@ -145,26 +146,26 @@ public class RitualManager implements SerializableComponent {
         }
     }
 
-    public boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
+    public boolean canStartRitual(Holder<Ritual> ritual, EssencesDefinition definition) {
         List<EssenceModifier> modifiers = this.enhancerAccessor.getEnhancers().stream()
                 .flatMap(enhancerDefinition -> enhancerDefinition.getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
                 .filter(effect -> effect instanceof EssenceModifier)
                 .map(effect -> (EssenceModifier) effect)
                 .toList();
 
-        EssencesDefinition updatedEssences = ritual.essences().applyModifiers(modifiers);
+        EssencesDefinition updatedEssences = ritual.value().essences().applyModifiers(modifiers);
         Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor.get(), this.enhancerAccessor.getEnhancers());
 
-        return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
+        return definition.hasMoreThan(updatedEssences) && ritual.value().canStart(context);
     }
 
     public boolean startRitual(EssencesStorage storage) {
         return this.getValidRitual().map(ritual -> {
             this.setActiveRitual(ritual);
 
-            this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.magicCircleType());
+            this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.value().magicCircleType());
 
-            storage.reduce(ritual.essences());
+            storage.reduce(ritual.value().essences());
 
             this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> {
                 blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);
@@ -175,36 +176,38 @@ public class RitualManager implements SerializableComponent {
     }
 
     public void tick() {
-        if (!this.isRitualActive()) {
+        ActiveRitualData data = this.getActiveRitualData().orElse(null);
+
+        if (data == null) {
             return;
         }
 
         RandomSource random = this.level.getRandom();
-        float progress = this.calculateRitualProgress();
+        float progress = data.calculateRitualProgress();
 
-        this.counter++;
+        data.incrementCounter();
 
-        this.handleLightningCounter();
+        this.handleLightningCounter(data);
 
         this.cachedIngredients.forEach((blockPos, stack) -> {
-            this.addItemParticles(blockPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + this.counter, PEDESTAL_ITEM_HEIGHT), stack);
+            this.addItemParticles(blockPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + data.getCounter(), PEDESTAL_ITEM_HEIGHT), stack);
         });
 
         if (progress == 0.5F && random.nextDouble() <= this.getFailureChance() * 2) {
-            CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), this.level);
+            CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), level);
             entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
             entity.setVisualOnly(true);
 
-            this.level.addFreshEntity(entity);
+            level.addFreshEntity(entity);
 
-            this.lightningCounter++;
+            data.incrementLightningCounter();
 
             this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
                 if (random.nextBoolean()) {
                     ItemStack stack = pedestalBlockEntity.getStack().copy();
                     BlockPos pedestalPos = pedestalBlockEntity.getBlockPos();
 
-                    this.level.addFreshEntity(new ItemEntity(this.level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
+                    level.addFreshEntity(new ItemEntity(level, pedestalPos.getX() + 0.5, pedestalPos.getY() + pedestalBlockEntity.getItemHeight() / 100.0F, pedestalPos.getZ() + 0.5, stack));
                     pedestalBlockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED);
                 }
             });
@@ -212,33 +215,31 @@ public class RitualManager implements SerializableComponent {
 
         if (progress == 1.0F) {
             if (random.nextDouble() > this.getFailureChance()) {
-                this.finishRitual();
+                this.finishRitual(data);
             } else {
                 this.failRitual();
             }
         }
     }
 
-    private void handleLightningCounter() {
-        if (this.lightningCounter != 0) {
-            this.lightningCounter++;
+    private void handleLightningCounter(ActiveRitualData data) {
+        if (data.getLightningCounter() != 0) {
+            data.incrementLightningCounter();
 
-            if (this.lightningCounter == LIGHTNING_COUNTER_THRESHOLD) {
+            if (data.getLightningCounter() == LIGHTNING_COUNTER_THRESHOLD) {
                 List<ItemStack> list = new ArrayList<>();
 
                 this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
-                this.getActiveRitual().ifPresentOrElse(ritual -> {
-                    if (!ritual.checkIngredients(list, this.mainIngredientAccessor.get())) {
-                        this.failRitual();
-                    }
-                }, this::failRitual);
+                if (!data.getRitual().checkIngredients(list, this.mainIngredientAccessor.get())) {
+                    this.failRitual();
+                }
             }
         }
     }
 
-    public void finishRitual() {
-        this.activeRitual.result().apply(this.mainIngredientAccessor, this.level, this.pos);
+    public void finishRitual(ActiveRitualData data) {
+        data.getRitual().result().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         this.reset();
     }
@@ -278,8 +279,6 @@ public class RitualManager implements SerializableComponent {
     }
 
     private void reset() {
-        this.counter = 0;
-        this.lightningCounter = 0;
         this.validRitual = null;
         this.setActiveRitual(null);
         this.magicCircleController.removeMagicCircle(this.level, this.pos);
@@ -293,25 +292,12 @@ public class RitualManager implements SerializableComponent {
         //return ((this.getBlockEntity().getEssenceManager().getCorruption() + 5) / (float) this.getBlockEntity().getForgeLevel().getMaxCorruption()) / 2;
     }
 
-    /**
-     * Returns the progress of the active ritual as a ratio of the counter to the ritual's duration.
-     * If no ritual is active, returns -1.0F.
-     *
-     * @return Ritual progress as a float between 0.0F and 1.0F, or -1.0F if no ritual is active.
-     */
-    public float calculateRitualProgress() {
-        return this.getActiveRitual().map(ritual -> this.counter / (float) ritual.duration()).orElse(-1.0F);
-    }
-
     @Override
     public CompoundTag save(CompoundTag tag) {
-        this.getActiveRitual().ifPresent(ritual -> {
-            tag.putString("ActiveRitual", this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).getResourceKey(ritual).orElseThrow().toString());
-            tag.putInt("Counter", this.counter);
-
-            if (this.lightningCounter != 0) {
-                tag.putInt("LightningCounter", this.lightningCounter);
-            }
+        this.getActiveRitualData().flatMap(data -> {
+            return ActiveRitualData.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), this.activeRitualData.get()).result();
+        }).ifPresent(dataTag -> {
+            tag.put(TAG_ACTIVE_RITUAL, dataTag);
         });
 
         return tag;
@@ -319,14 +305,10 @@ public class RitualManager implements SerializableComponent {
 
     @Override
     public void load(CompoundTag tag) {
-        if (tag.contains("ActiveRitual")) {
-            //TODO this breaks as level is null during load
-            this.setActiveRitual(this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).get(new ResourceLocation(tag.getString("ActiveRitual"))));
-            this.counter = tag.getInt("Counter");
-
-            if (tag.contains("LightningCounter")) {
-                this.lightningCounter = tag.getInt("LightningCounter");
-            }
+        if (tag.contains(TAG_ACTIVE_RITUAL)) {
+            this.activeRitualData = Suppliers.memoize(() -> {
+                return ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), tag).resultOrPartial(System.err::println).orElse(null);
+            });
         }
     }
 

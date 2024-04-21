@@ -2,13 +2,16 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,7 +38,7 @@ public record Ritual(List<RitualInput> inputs,
 
     public static final int DEFAULT_DURATION = 500;
 
-    public static final Codec<Ritual> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final Codec<Ritual> DIRECT_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
                 return ritual.inputs;
             }),
@@ -60,6 +63,8 @@ public record Ritual(List<RitualInput> inputs,
     ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleType, duration) -> {
         return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleType, duration);
     }));
+
+    public static final Codec<Holder<Ritual>> CODEC = RegistryFileCodec.create(FARegistries.RITUAL, DIRECT_CODEC);
 
     public static final Codec<Ritual> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
