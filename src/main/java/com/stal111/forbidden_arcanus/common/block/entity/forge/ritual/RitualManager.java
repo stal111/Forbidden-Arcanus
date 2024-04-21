@@ -13,7 +13,6 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -94,8 +93,8 @@ public class RitualManager implements SerializableComponent {
         return this.validRitual != null;
     }
 
-    public @Nullable Ritual getValidRitual() {
-        return this.validRitual;
+    public Optional<Ritual> getValidRitual() {
+        return Optional.ofNullable(this.validRitual);
     }
 
     public Optional<Ritual> getActiveRitual() {
@@ -112,18 +111,6 @@ public class RitualManager implements SerializableComponent {
 
     public boolean isRitualActive() {
         return this.activeRitual != null;
-    }
-
-    public void tryStartRitual(EssencesStorage storage, BooleanConsumer started) {
-        if (this.canStart()) {
-            this.startRitual(storage, this.validRitual);
-
-            started.accept(true);
-
-            return;
-        }
-
-        started.accept(false);
     }
 
     public void updateIngredient(BlockPos pos, ItemStack stack, EssencesDefinition definition) {
@@ -171,16 +158,20 @@ public class RitualManager implements SerializableComponent {
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
     }
 
-    public void startRitual(EssencesStorage storage, Ritual ritual) {
-        this.setActiveRitual(ritual);
+    public boolean startRitual(EssencesStorage storage) {
+        return this.getValidRitual().map(ritual -> {
+            this.setActiveRitual(ritual);
 
-        this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.magicCircleType());
+            this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.magicCircleType());
 
-        storage.reduce(ritual.essences());
+            storage.reduce(ritual.essences());
 
-        this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> {
-            blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);
-        });
+            this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> {
+                blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);
+            });
+
+            return true;
+        }).orElse(false);
     }
 
     public void tick() {
@@ -250,8 +241,6 @@ public class RitualManager implements SerializableComponent {
         this.activeRitual.result().apply(this.mainIngredientAccessor, this.level, this.pos);
 
         this.reset();
-
-        this.clearPedestals();
     }
 
     public void failRitual() {
@@ -265,8 +254,6 @@ public class RitualManager implements SerializableComponent {
             this.mainIngredientAccessor.set(ItemStack.EMPTY);
         }
 
-        this.clearPedestals();
-
         this.level.sendParticles(ModParticles.HUGE_MAGIC_EXPLOSION.get(), this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D, 0, 1.0D, 0.0D, 0.0D, 0.0D);
         this.level.playSound(null, this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F) * 0.7F);
     }
@@ -275,8 +262,6 @@ public class RitualManager implements SerializableComponent {
         this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> blockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED));
 
         this.cachedIngredients.clear();
-
-        this.validRitual = null;
     }
 
     private void addItemParticles(BlockPos pedestalPos, int itemHeight, ItemStack stack) {
@@ -299,6 +284,7 @@ public class RitualManager implements SerializableComponent {
         this.setActiveRitual(null);
         this.magicCircleController.removeMagicCircle(this.level, this.pos);
         this.updateRitualIndicator(false);
+        this.clearPedestals();
     }
 
     public double getFailureChance() {

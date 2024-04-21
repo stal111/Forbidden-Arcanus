@@ -299,7 +299,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag tag = this.saveWithoutMetadata();
-        tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual() != null);
+        tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
 
         return tag;
     }
