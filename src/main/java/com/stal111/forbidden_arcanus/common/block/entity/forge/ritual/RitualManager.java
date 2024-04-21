@@ -305,14 +305,14 @@ public class RitualManager implements SerializableComponent {
 
     @Override
     public CompoundTag save(CompoundTag tag) {
-        if (this.isRitualActive()) {
-            tag.putString("ActiveRitual", this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).getResourceKey(this.activeRitual).orElseThrow().toString());
+        this.getActiveRitual().ifPresent(ritual -> {
+            tag.putString("ActiveRitual", this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).getResourceKey(ritual).orElseThrow().toString());
             tag.putInt("Counter", this.counter);
 
             if (this.lightningCounter != 0) {
                 tag.putInt("LightningCounter", this.lightningCounter);
             }
-        }
+        });
 
         return tag;
     }
