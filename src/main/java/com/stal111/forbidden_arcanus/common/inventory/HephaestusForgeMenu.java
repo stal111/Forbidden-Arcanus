@@ -130,7 +130,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, 0, this.getLevel().getAsInt() + 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            }  else if (!this.getSlot(4).hasItem()) {
+            } else if (!this.getSlot(4).hasItem()) {
                 if (!this.moveItemStackTo(stack, 4, 5, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -141,6 +141,13 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
             } else if (index < 45 && !this.moveItemStackTo(stack, 9, 36, false)) {
                 return ItemStack.EMPTY;
             }
+        }
+
+        if (index == 4) {
+            this.levelAccess.execute((level1, pos) -> {
+                level.sendBlockUpdated(pos, level1.getBlockState(pos), level1.getBlockState(pos), 3);
+
+            });
         }
 
         slot.onTake(player, stack);

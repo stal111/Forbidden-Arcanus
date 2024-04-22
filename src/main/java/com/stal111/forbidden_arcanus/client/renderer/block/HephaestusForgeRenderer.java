@@ -43,7 +43,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
             blockEntity.getValidRitualIndicator().render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel.validRitualIndicator());
         }
 
-        ItemStack stack = blockEntity.getStack(4);
+        ItemStack stack = blockEntity.getClientMainItem();
 
         if (!stack.isEmpty()) {
             poseStack.pushPose();

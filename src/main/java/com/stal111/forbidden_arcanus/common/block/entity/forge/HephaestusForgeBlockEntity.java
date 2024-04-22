@@ -11,14 +11,13 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualMana
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
-import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -70,6 +69,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     private ValidRitualIndicator validRitualIndicator;
     private int displayCounter;
     private int clientRitualDuration;
+    private ItemStack clientMainItem = ItemStack.EMPTY;
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state, 9, (slot, stack) -> {
@@ -201,7 +201,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
                 this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences());
             }
 
-            NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.worldPosition), new UpdateItemInSlotPacket(this.worldPosition, this.getStack(slot), slot));
+            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
         } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
             this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences());
         }
@@ -269,6 +269,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         return this.clientRitualDuration;
     }
 
+    public ItemStack getClientMainItem() {
+        return this.clientMainItem;
+    }
+
     @Override
     public void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
@@ -300,6 +304,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     public CompoundTag getUpdateTag() {
         CompoundTag tag = this.saveWithoutMetadata();
         tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
+        tag.put("main_item", this.getStack(MAIN_SLOT).save(new CompoundTag()));
 
         return tag;
     }
@@ -309,6 +314,15 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         super.handleUpdateTag(tag);
 
         this.updateValidRitualIndicator(tag.getBoolean("display_valid_ritual_indicator"));
+        this.clientMainItem = ItemStack.of(tag.getCompound("main_item"));
+    }
+
+    @Override
+    public void onDataPacket(@NotNull Connection net, @NotNull ClientboundBlockEntityDataPacket packet) {
+        CompoundTag tag = packet.getTag();
+        if (tag != null) {
+            this.handleUpdateTag(tag);
+        }
     }
 
     @NotNull
