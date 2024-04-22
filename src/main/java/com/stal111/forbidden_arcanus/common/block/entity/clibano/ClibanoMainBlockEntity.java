@@ -141,7 +141,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             if (slot == ClibanoMenu.SOUL_SLOT) {
                 return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
             } else if (slot == ClibanoMenu.FUEL_SLOT) {
-                return CommonHooks.getBurnTime(stack, RecipeType.BLASTING) > 0 || FurnaceFuelSlot.isBucket(stack);
+                return stack.getBurnTime(RecipeType.BLASTING) > 0 || FurnaceFuelSlot.isBucket(stack);
             }
 
             return !slot.equals(ClibanoMenu.RESULT_SLOTS.getFirst()) && !slot.equals(ClibanoMenu.RESULT_SLOTS.getSecond());
@@ -526,7 +526,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             return 0;
         }
 
-        return CommonHooks.getBurnTime(fuel, RECIPE_TYPE);
+        return fuel.getBurnTime(RECIPE_TYPE);
     }
 
     public ResiduesStorage getResiduesStorage() {

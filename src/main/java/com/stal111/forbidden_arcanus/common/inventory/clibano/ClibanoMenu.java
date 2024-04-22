@@ -181,7 +181,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     protected boolean isFuel(ItemStack stack) {
-        return CommonHooks.getBurnTime(stack, RecipeType.BLASTING) > 0;
+        return stack.getBurnTime(RecipeType.BLASTING) > 0;
     }
 
     protected boolean isSoul(ItemStack stack) {
