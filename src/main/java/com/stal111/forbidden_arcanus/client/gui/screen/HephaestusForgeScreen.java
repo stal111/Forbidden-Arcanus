@@ -43,19 +43,6 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    protected void containerTick() {
-        super.containerTick();
-
-        for (int i = 0; i < this.menu.slots.size(); i++) {
-            Slot slot = this.menu.slots.get(i);
-
-            if (slot instanceof EnhancerSlot enhancerSlot) {
-                //TODO: Fix enhancer slots
-            }
-        }
-    }
-
-    @Override
     public void render(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
 
@@ -105,7 +92,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
         Slot slot = this.getSlotUnderMouse();
 
-        if (slot instanceof EnhancerSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot)) {
+        if (slot instanceof EnhancerSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot.getSlotIndex())) {
             guiGraphics.renderTooltip(this.font, Component.translatable("gui.forbidden_arcanus.hephaestus_forge.unlocked_at").append(": " + enhancerSlot.getAdditionalData()), x, y);
         }
     }
@@ -132,7 +119,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     public void renderEnhancerSlot(EnhancerSlot slot, GuiGraphics guiGraphics, int guiLeft, int guiTop) {
-        if (this.menu.isSlotLocked(slot)) {
+        if (this.menu.isSlotLocked(slot.getSlotIndex())) {
             guiGraphics.blit(TEXTURES, guiLeft + slot.x - 2, guiTop + slot.y - 2, 176, 40, 20, 20);
         }
     }

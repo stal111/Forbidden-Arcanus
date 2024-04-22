@@ -6,6 +6,7 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.BooleanSupplier;
 
 /**
  * Enhancer Slot
@@ -16,13 +17,13 @@ import javax.annotation.Nullable;
  */
 public class EnhancerSlot extends SlotItemHandler {
 
-    private boolean locked;
+    private final BooleanSupplier locked;
 
     public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-        this(itemHandler, index, xPosition, yPosition, true);
+        this(itemHandler, index, xPosition, yPosition, () -> false);
     }
 
-    public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, boolean locked) {
+    public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, BooleanSupplier locked) {
         super(itemHandler, index, xPosition, yPosition);
         this.locked = locked;
     }
@@ -43,7 +44,7 @@ public class EnhancerSlot extends SlotItemHandler {
     }
 
     public boolean isLocked() {
-        return this.locked;
+        return this.locked.getAsBoolean();
     }
 
     @Nullable
