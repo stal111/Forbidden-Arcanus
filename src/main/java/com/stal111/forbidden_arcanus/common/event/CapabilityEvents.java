@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.aureal.EntityAurealProvider;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 /**
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
  * @author Valhelsia Team
  * @since 2021-09-25
  */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class CapabilityEvents {
 
     @SubscribeEvent

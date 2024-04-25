@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
 
 /**
@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.TagsUpdatedEvent;
  * @version 2.0.0
  * @since 2021-12-21
  */
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class DatapackEvents {
 
     @SubscribeEvent

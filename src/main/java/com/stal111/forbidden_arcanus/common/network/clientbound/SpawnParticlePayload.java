@@ -2,37 +2,39 @@ package com.stal111.forbidden_arcanus.common.network.clientbound;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.ClientPayloadHandler;
-import net.minecraft.network.FriendlyByteBuf;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
  * @author stal111
  * @since 19.04.2024
  */
-public record SpawnParticlePayload(double x, double y, double z, int type) implements CustomPacketPayload {
+public record SpawnParticlePayload(double x, double y, double z, int id) implements CustomPacketPayload {
 
-    public static final ResourceLocation ID = new ResourceLocation(ForbiddenArcanus.MOD_ID, "spawn_particle");
+    public static final Type<SpawnParticlePayload> TYPE = new Type<>(new ResourceLocation(ForbiddenArcanus.MOD_ID, "spawn_particle"));
 
-    public SpawnParticlePayload(FriendlyByteBuf buffer) {
-        this(buffer.readDouble(), buffer.readDouble(), buffer.readDouble(), buffer.readInt());
-    }
+    public static final StreamCodec<ByteBuf, SpawnParticlePayload> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.DOUBLE,
+            SpawnParticlePayload::x,
+            ByteBufCodecs.DOUBLE,
+            SpawnParticlePayload::y,
+            ByteBufCodecs.DOUBLE,
+            SpawnParticlePayload::z,
+            ByteBufCodecs.INT,
+            SpawnParticlePayload::id,
+            SpawnParticlePayload::new
+    );
 
-    @Override
-    public void write(FriendlyByteBuf buffer) {
-        buffer.writeDouble(this.x);
-        buffer.writeDouble(this.y);
-        buffer.writeDouble(this.z);
-        buffer.writeInt(this.type);
-    }
-
-    @Override
-    public ResourceLocation id() {
-        return ID;
-    }
-
-    public void handle(PlayPayloadContext context) {
+    public void handle(IPayloadContext context) {
         ClientPayloadHandler.getInstance().handle(this, context);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

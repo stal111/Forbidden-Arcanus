@@ -4,9 +4,10 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.ClientPayloadHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
  * @author stal111
@@ -14,23 +15,20 @@ import net.neoforged.neoforge.network.handling.PlayPayloadContext;
  */
 public record TransformPedestalPayload(BlockPos pos) implements CustomPacketPayload {
 
-    public static final ResourceLocation ID = new ResourceLocation(ForbiddenArcanus.MOD_ID, "transform_pedestal");
+    public static final Type<TransformPedestalPayload> TYPE = new Type<>(new ResourceLocation(ForbiddenArcanus.MOD_ID, "transform_pedestal"));
 
-    public TransformPedestalPayload(FriendlyByteBuf buffer) {
-        this(buffer.readBlockPos());
-    }
+    public static final StreamCodec<FriendlyByteBuf, TransformPedestalPayload> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC,
+            TransformPedestalPayload::pos,
+            TransformPedestalPayload::new
+    );
 
-    @Override
-    public void write(FriendlyByteBuf buffer) {
-        buffer.writeBlockPos(this.pos);
-    }
-
-    @Override
-    public ResourceLocation id() {
-        return ID;
-    }
-
-    public void handle(PlayPayloadContext context) {
+    public void handle(IPayloadContext context) {
         ClientPayloadHandler.getInstance().handle(this, context);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

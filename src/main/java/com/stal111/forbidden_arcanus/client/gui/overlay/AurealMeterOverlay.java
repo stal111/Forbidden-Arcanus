@@ -6,21 +6,28 @@ import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
-public class AurealMeterOverlay implements IGuiOverlay {
+public class AurealMeterOverlay implements LayeredDraw.Layer {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
 
     private static final int BAR_WIDTH = 75;
 
+    private void renderOverlay(GuiGraphics guiGraphics, Window window, int aureal) {
+        int xSize = Math.toIntExact(Math.round(BAR_WIDTH * (aureal / 200.0F)));
+        int startOffset = BAR_WIDTH - xSize;
+
+        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 13 + startOffset, window.getGuiScaledHeight() - 25 - 23, 21 + startOffset, 19, xSize, 7, 256, 128);
+    }
+
     @Override
-    public void render(ExtendedGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
+    public void render(@NotNull GuiGraphics guiGraphics, float partialTick) {
         Window window = Minecraft.getInstance().getWindow();
         Player player = Minecraft.getInstance().player;
 
@@ -35,13 +42,6 @@ public class AurealMeterOverlay implements IGuiOverlay {
         if (provider != null) {
             this.renderOverlay(guiGraphics, window, provider.getAureal());
         }
-    }
-
-    private void renderOverlay(GuiGraphics guiGraphics, Window window, int aureal) {
-        int xSize = Math.toIntExact(Math.round(BAR_WIDTH * (aureal / 200.0F)));
-        int startOffset = BAR_WIDTH - xSize;
-
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 13 + startOffset, window.getGuiScaledHeight() - 25 - 23, 21 + startOffset, 19, xSize, 7, 256, 128);
     }
 }
 

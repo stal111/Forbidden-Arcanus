@@ -1,22 +1,22 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
-import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
-import net.minecraft.Util;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -27,20 +27,33 @@ public class ResiduesStorage implements SerializableComponent {
 
     public static final Codec<Map<Holder<ResidueType>, Integer>> MAP_CODEC = Codec.unboundedMap(ResidueType.CODEC, Codec.INT);
 
+    public static final StreamCodec<RegistryFriendlyByteBuf, ResiduesStorage> STREAM_CODEC = ByteBufCodecs.map(
+            Object2IntOpenHashMap::new,
+            ByteBufCodecs.holderRegistry(FARegistries.RESIDUE_TYPE),
+            ByteBufCodecs.INT
+    ).map(ResiduesStorage::new, residuesStorage -> residuesStorage.residueTypeAmountMap);
+
     public static final int MAX_AMOUNT = 64;
     private static final String RESIDUES_TAG = "residues";
 
-    private Supplier<Map<Holder<ResidueType>, Integer>> residueTypeAmountMap = Suppliers.memoize(HashMap::new);
+    private final Object2IntOpenHashMap<Holder<ResidueType>> residueTypeAmountMap;
 
     private int totalAmount = 0;
     private final Supplier<Level> levelAccessor;
 
+    public ResiduesStorage(Object2IntOpenHashMap<Holder<ResidueType>> map) {
+        this.residueTypeAmountMap = map;
+        this.totalAmount = map.values().intStream().sum();
+        this.levelAccessor = () -> null;
+    }
+
     public ResiduesStorage(Supplier<Level> levelAccessor) {
+        this.residueTypeAmountMap = new Object2IntOpenHashMap<>();
         this.levelAccessor = levelAccessor;
     }
 
     public void tick(ClibanoMainBlockEntity blockEntity) {
-        this.residueTypeAmountMap.get().forEach((type, amount) -> {
+        this.residueTypeAmountMap.forEach((type, amount) -> {
             ResidueType.CombineInfo combineInfo = type.value().combineInfo();
 
             if (amount >= combineInfo.requiredAmount()) {
@@ -63,7 +76,7 @@ public class ResiduesStorage implements SerializableComponent {
                 }
 
                 if (flag) {
-                    this.residueTypeAmountMap.get().merge(type, -combineInfo.requiredAmount(), Integer::sum);
+                    this.residueTypeAmountMap.merge(type, -combineInfo.requiredAmount(), Integer::sum);
 
                     this.totalAmount -= combineInfo.requiredAmount();
                 }
@@ -78,13 +91,13 @@ public class ResiduesStorage implements SerializableComponent {
 
         int amountToFill = Math.min(MAX_AMOUNT - this.totalAmount, amount);
 
-        this.residueTypeAmountMap.get().merge(residueType, amountToFill, Integer::sum);
+        this.residueTypeAmountMap.merge(residueType, amountToFill, Integer::sum);
         this.totalAmount += amountToFill;
     }
 
     @Override
     public CompoundTag save(CompoundTag tag) {
-        MAP_CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, this.levelAccessor.get().registryAccess()), this.residueTypeAmountMap.get()).result().ifPresent(listTag -> {
+        MAP_CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, this.levelAccessor.get().registryAccess()), this.residueTypeAmountMap).result().ifPresent(listTag -> {
             tag.put(RESIDUES_TAG, listTag);
         });
         return tag;
@@ -94,17 +107,18 @@ public class ResiduesStorage implements SerializableComponent {
     public void load(CompoundTag tag) {
         this.totalAmount = 0;
 
-        this.residueTypeAmountMap = Suppliers.memoize(() -> {
-            Optional<Map<Holder<ResidueType>, Integer>> optional = MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.levelAccessor.get().registryAccess()), tag.getCompound(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error));
-
-            optional.ifPresent(holderIntegerMap -> {
-                holderIntegerMap.forEach((residueType, amount) -> {
-                    this.totalAmount += amount;
-                });
-            });
-
-            return optional.map(HashMap::new).orElseGet(HashMap::new);
-        });
+        //TODO
+//        this.residueTypeAmountMap = Suppliers.memoize(() -> {
+//            Optional<Map<Holder<ResidueType>, Integer>> optional = MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.levelAccessor.get().registryAccess()), tag.getCompound(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error));
+//
+//            optional.ifPresent(holderIntegerMap -> {
+//                holderIntegerMap.forEach((residueType, amount) -> {
+//                    this.totalAmount += amount;
+//                });
+//            });
+//
+//            return optional.map(HashMap::new).orElseGet(HashMap::new);
+//        });
     }
 
     @Override
@@ -117,7 +131,7 @@ public class ResiduesStorage implements SerializableComponent {
     }
 
     public Map<Holder<ResidueType>, Integer> getResidueTypeAmountMap() {
-        return this.residueTypeAmountMap.get();
+        return this.residueTypeAmountMap;
     }
 
     public void setTotalAmount(int totalAmount) {

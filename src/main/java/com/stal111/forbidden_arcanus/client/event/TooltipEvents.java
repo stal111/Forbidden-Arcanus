@@ -8,7 +8,7 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 
 /**
@@ -19,7 +19,7 @@ import net.neoforged.neoforge.client.event.RenderTooltipEvent;
  * @version 2.0.0
  * @since 2021-11-25
  */
-@Mod.EventBusSubscriber(value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class TooltipEvents {
 
     @SubscribeEvent

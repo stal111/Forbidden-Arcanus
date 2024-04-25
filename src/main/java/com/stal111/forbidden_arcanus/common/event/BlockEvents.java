@@ -10,14 +10,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 /**
  * @author stal111
  * @since 2021-11-17
  */
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class BlockEvents {
 
     @SubscribeEvent
@@ -29,7 +29,7 @@ public class BlockEvents {
             BlockState state = event.getState();
             ItemStack stack = player.getMainHandItem();
 
-            if (state.getBlock() instanceof StellaArcanumBlock && BlockConfig.STELLA_ARCANUM_EXPLODE.get() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
+            if (state.getBlock() instanceof StellaArcanumBlock && BlockConfig.STELLA_ARCANUM_EXPLODE.get() && stack.getEnchantmentLevel(Enchantments.SILK_TOUCH) == 0) {
                 StellaArcanumBlock.explode = true;
                 StellaArcanumBlock.world = (Level) level;
             }

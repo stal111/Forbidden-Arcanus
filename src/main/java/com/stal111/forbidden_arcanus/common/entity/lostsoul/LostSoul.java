@@ -44,8 +44,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
@@ -83,9 +84,9 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     public LostSoul(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.BLOCKED, 16.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(PathType.BLOCKED, 16.0F);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
         this.moveControl = new FlyingMoveControl(this, 15, true);
 
         this.noPhysics = true;
@@ -129,7 +130,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(@Nonnull ServerLevelAccessor level, @Nonnull DifficultyInstance difficulty, @Nonnull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@Nonnull ServerLevelAccessor level, @Nonnull DifficultyInstance difficulty, @Nonnull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
         boolean enchanted = random.nextDouble() < ENCHANTED_CHANCE;
 
         if (enchanted) {
@@ -138,7 +139,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
             this.setVariant(Variant.CORRUPT_LOST_SOUL);
         }
 
-        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        return super.finalizeSpawn(level, difficulty, reason, spawnData);
     }
 
     @Override
@@ -159,10 +160,10 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_VARIANT, 0);
-        this.entityData.define(DATA_SCARED, false);
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_VARIANT, 0);
+        builder.define(DATA_SCARED, false);
     }
 
     @Override
@@ -193,7 +194,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
             if (this.getBrain().hasMemoryValue(MemoryModuleType.HURT_BY_ENTITY) && !this.isScared()) {
                 this.entityData.set(DATA_SCARED, true);
 
-                this.setPathfindingMalus(BlockPathTypes.BLOCKED, 0.0F);
+                this.setPathfindingMalus(PathType.BLOCKED, 0.0F);
 
                 this.getBrain().setActiveActivityIfPossible(Activity.PANIC);
             }

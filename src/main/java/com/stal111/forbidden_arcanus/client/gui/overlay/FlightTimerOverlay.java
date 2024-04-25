@@ -3,20 +3,20 @@ package com.stal111.forbidden_arcanus.client.gui.overlay;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 2022-02-14
  */
-public class FlightTimerOverlay implements IGuiOverlay {
+public class FlightTimerOverlay implements LayeredDraw.Layer {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/flight_timer_overlay.png");
 
     @Override
-    public void render(ExtendedGui gui, GuiGraphics guiGraphics, float partialTicks, int width, int height) {
+    public void render(@NotNull GuiGraphics guiGraphics, float partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
 
         if (minecraft.player == null) {

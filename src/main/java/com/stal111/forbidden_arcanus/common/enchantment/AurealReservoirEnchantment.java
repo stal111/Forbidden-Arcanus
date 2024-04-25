@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.common.enchantment;
 
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
@@ -10,23 +12,18 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
  */
 public class AurealReservoirEnchantment extends Enchantment {
 
-    public AurealReservoirEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... applicableSlots) {
-        super(rarity, category, applicableSlots);
-    }
+    private static final EnchantmentDefinition DEFINITION = Enchantment.definition(
+            ModTags.Items.AUREAL_STORAGE_ENCHANTABLE,
+            2,
+            1,
+            Enchantment.dynamicCost(25, 25),
+            Enchantment.dynamicCost(75, 25),
+            4,
+            EquipmentSlot.values()
+    );
 
-    @Override
-    public int getMinCost(int level) {
-        return level * 25;
-    }
-
-    @Override
-    public int getMaxCost(int level) {
-        return this.getMinCost(level) + 50;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 3;
+    public AurealReservoirEnchantment() {
+        super(DEFINITION);
     }
 
     @Override
@@ -41,6 +38,11 @@ public class AurealReservoirEnchantment extends Enchantment {
 
     @Override
     public boolean isDiscoverable() {
+        return false;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(@NotNull ItemStack stack) {
         return false;
     }
 }

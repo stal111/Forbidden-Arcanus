@@ -6,23 +6,17 @@ import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.CompostableRegistry;
 import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
 import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.brewing.BrewingRecipeRegistry;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
 /**
@@ -32,11 +26,8 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
  * @author stal111
  * @since 2021-08-07
  */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class CommonSetup {
-
-    public static final BlockPathTypes DANGER_SOUL_FIRE = BlockPathTypes.create("danger_soul_fire", 8.0F);
-    public static final BlockPathTypes DAMAGE_SOUL_FIRE = BlockPathTypes.create("damage_soul_fire", 16.0F);
 
     public static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
@@ -63,7 +54,9 @@ public class CommonSetup {
         //TODO
        // PotionBrewing.addMix(Potions.WATER, ModItems.STRANGE_ROOT.get(), Potions.AWKWARD);
 
-        BrewingRecipeRegistry.addRecipe(Ingredient.of(ModItems.AUREAL_BOTTLE.get()), Ingredient.of(Tags.Items.GUNPOWDER), new ItemStack(ModItems.SPLASH_AUREAL_BOTTLE.get()));
+
+        //TODO
+       // BrewingRecipeRegistry.addRecipe(Ingredient.of(ModItems.AUREAL_BOTTLE.get()), Ingredient.of(Tags.Items.GUNPOWDER), new ItemStack(ModItems.SPLASH_AUREAL_BOTTLE.get()));
     }
 
     @SubscribeEvent

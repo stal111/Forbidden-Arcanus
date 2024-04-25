@@ -5,7 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.VillagerPanicTrigger;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;
@@ -38,7 +38,7 @@ public class LostSoulCalmDown extends Behavior<LostSoul> {
 
             entity.getEntityData().set(LostSoul.DATA_SCARED, false);
 
-            entity.setPathfindingMalus(BlockPathTypes.BLOCKED, 16.0F);
+            entity.setPathfindingMalus(PathType.BLOCKED, 16.0F);
 
             entity.getBrain().useDefaultActivity();
         }

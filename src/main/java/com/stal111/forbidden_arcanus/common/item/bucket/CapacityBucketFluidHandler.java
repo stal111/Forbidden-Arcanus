@@ -61,7 +61,7 @@ public class CapacityBucketFluidHandler implements IFluidHandlerItem {
             return this.bucket.getFilledBucket(stack.getFluid()) != null;
         }
 
-        return stack.isFluidEqual(fluidStack);
+        return FluidStack.isSameFluidSameComponents(stack, fluidStack);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class CapacityBucketFluidHandler implements IFluidHandlerItem {
 
     @Override
     public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
-        if (this.container.getCount() != 1 || resource.getAmount() < FluidType.BUCKET_VOLUME || !resource.isFluidEqual(this.getFluidInTank(0))) {
+        if (this.container.getCount() != 1 || resource.getAmount() < FluidType.BUCKET_VOLUME || !FluidStack.isSameFluidSameComponents(resource, this.getFluidInTank(0))) {
             return FluidStack.EMPTY;
         }
 

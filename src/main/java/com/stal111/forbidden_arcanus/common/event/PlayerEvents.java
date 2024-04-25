@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
@@ -20,7 +20,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
  * @author stal111
  * @since 2021-11-28
  */
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class PlayerEvents {
 
     @SubscribeEvent
@@ -28,7 +28,7 @@ public class PlayerEvents {
         if (event.phase == TickEvent.Phase.START) {
             Player player = event.player;
 
-            if (player.onClimbable() && !player.isCrouching() && player.getFeetBlockState().is(ModBlocks.EDELWOOD_LADDER.get())) {
+            if (player.onClimbable() && !player.isCrouching() && player.getInBlockState().is(ModBlocks.EDELWOOD_LADDER.get())) {
                 double multiplier = BlockConfig.EDELWOOD_LADDER_SPEED.get();
 
                 if (!player.horizontalCollision) {
