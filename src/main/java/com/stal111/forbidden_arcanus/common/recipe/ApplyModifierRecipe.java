@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,7 +16,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -41,7 +41,7 @@ public record ApplyModifierRecipe(Ingredient template,
 
     @Nonnull
     @Override
-    public ItemStack assemble(@Nonnull Container inv, @NotNull RegistryAccess registryAccess) {
+    public ItemStack assemble(@Nonnull Container inv, @NotNull HolderLookup.Provider provider) {
         ItemStack stack = inv.getItem(1).copy();
 
         ModifierHelper.setModifier(stack, this.modifier);
@@ -51,7 +51,7 @@ public record ApplyModifierRecipe(Ingredient template,
 
     @Nonnull
     @Override
-    public ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
+    public ItemStack getResultItem(@NotNull HolderLookup.Provider provider) {
         return ItemStack.EMPTY;
     }
 
@@ -83,7 +83,7 @@ public record ApplyModifierRecipe(Ingredient template,
 
     public static class Serializer implements RecipeSerializer<ApplyModifierRecipe> {
 
-        private static final Codec<ApplyModifierRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        private static final MapCodec<ApplyModifierRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Ingredient.CODEC_NONEMPTY.fieldOf("template").forGetter(recipe -> {
                     return recipe.template;
                 }),
@@ -95,24 +95,31 @@ public record ApplyModifierRecipe(Ingredient template,
                 })
         ).apply(instance, ApplyModifierRecipe::new));
 
+        public static final StreamCodec<RegistryFriendlyByteBuf, ApplyModifierRecipe> STREAM_CODEC = StreamCodec.of(
+                ApplyModifierRecipe.Serializer::toNetwork, ApplyModifierRecipe.Serializer::fromNetwork
+        );
+
         @Override
-        public @NotNull Codec<ApplyModifierRecipe> codec() {
+        public @NotNull MapCodec<ApplyModifierRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public @Nullable ApplyModifierRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-            Ingredient template = Ingredient.fromNetwork(buffer);
-            Ingredient addition = Ingredient.fromNetwork(buffer);
+        public StreamCodec<RegistryFriendlyByteBuf, ApplyModifierRecipe> streamCodec() {
+            return null;
+        }
+
+        public static ApplyModifierRecipe fromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
+            Ingredient template = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            Ingredient addition = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             ItemModifier modifier = FARegistries.ITEM_MODIFIER_REGISTRY.get(buffer.readResourceLocation());
 
             return new ApplyModifierRecipe(template, addition, modifier);
         }
 
-        @Override
-        public void toNetwork(@Nonnull FriendlyByteBuf buffer, ApplyModifierRecipe recipe) {
-            recipe.template.toNetwork(buffer);
-            recipe.addition.toNetwork(buffer);
+        public static void toNetwork(@Nonnull RegistryFriendlyByteBuf buffer, ApplyModifierRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
             buffer.writeResourceLocation(Objects.requireNonNull(FARegistries.ITEM_MODIFIER_REGISTRY.getKey(recipe.modifier)));
         }
     }

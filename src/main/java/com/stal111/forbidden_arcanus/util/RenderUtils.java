@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.util;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -21,12 +22,11 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.IFluidTank;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class RenderUtils {
 
-    public static void renderFluid(IFluidTank fluidTank, FluidStack fluidStack, MultiBufferSource buffer, Matrix4f matrix, Matrix3f normal, AABB boundingBox, int color, int combinedLight, int combinedOverlay) {
+    public static void renderFluid(PoseStack poseStack, IFluidTank fluidTank, FluidStack fluidStack, MultiBufferSource buffer, Matrix4f matrix, AABB boundingBox, int color, int combinedLight, int combinedOverlay) {
         Fluid fluid = fluidStack.getFluid();
 
         VertexConsumer builder = buffer.getBuffer(Sheets.translucentCullBlockSheet());
@@ -62,10 +62,10 @@ public class RenderUtils {
                 float u2 = texture.getU(bx2);
                 float v1 = texture.getV(bz1);
                 float v2 = texture.getV(bz2);
-                builder.vertex(matrix, x1, y1, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y1, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y1, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y1, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y1, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y1, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
             }
 
             if (direction == Direction.UP) {
@@ -73,10 +73,10 @@ public class RenderUtils {
                 float u2 = texture.getU(bx2);
                 float v1 = texture.getV(bz1);
                 float v2 = texture.getV(bz2);
-                builder.vertex(matrix, x1, y2, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y2, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y2, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y2, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y2, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y2, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
             }
 
             if (direction == Direction.NORTH) {
@@ -84,10 +84,10 @@ public class RenderUtils {
                 float u2 = texture.getU(bx2);
                 float v1 = texture.getV(by1);
                 float v2 = texture.getV(by2);
-                builder.vertex(matrix, x1, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y2, z1).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y2, z1).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y1, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y2, z1).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y2, z1).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y1, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
             }
 
             if (direction == Direction.SOUTH) {
@@ -95,10 +95,10 @@ public class RenderUtils {
                 float u2 = texture.getU(bx2);
                 float v1 = texture.getV(by1);
                 float v2 = texture.getV(by2);
-                builder.vertex(matrix, x2, y1, z2).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y2, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y1, z2).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y1, z2).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y2, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y1, z2).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
             }
 
             if (direction == Direction.WEST) {
@@ -106,10 +106,10 @@ public class RenderUtils {
                 float u2 = texture.getU(by2);
                 float v1 = texture.getV(bz1);
                 float v2 = texture.getV(bz2);
-                builder.vertex(matrix, x1, y1, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y2, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x1, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y1, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y2, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x1, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
             }
 
             if (direction == Direction.EAST) {
@@ -117,10 +117,10 @@ public class RenderUtils {
                 float u2 = texture.getU(by2);
                 float v1 = texture.getV(bz1);
                 float v2 = texture.getV(bz2);
-                builder.vertex(matrix, x2, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y2, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
-                builder.vertex(matrix, x2, y1, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y1, z1).color(r, g, b, a).uv(u1, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y2, z1).color(r, g, b, a).uv(u2, v1).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y2, z2).color(r, g, b, a).uv(u2, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
+                builder.vertex(matrix, x2, y1, z2).color(r, g, b, a).uv(u1, v2).overlayCoords(combinedOverlay).uv2(light1, light2).normal(poseStack.last(), 0.0F, 1.0F, 0.0F).endVertex();
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
@@ -18,7 +19,7 @@ import java.util.Optional;
  */
 public class ItemInput extends HephaestusForgeInput {
 
-    public static final Codec<ItemInput> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<ItemInput> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             essenceTypeCodec(),
             Ingredient.CODEC_NONEMPTY.fieldOf("item").forGetter(input -> {
                 return input.ingredient;

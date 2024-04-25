@@ -15,6 +15,6 @@ public class ModActivities implements RegistryClass {
 
     public static final MappedRegistryHelper<Activity> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ACTIVITY);
 
-    public static final RegistryEntry<Activity> SOUL_EXTRACTING = HELPER.register("soul_extracting", () -> new Activity("soul_extracting"));
+    public static final RegistryEntry<Activity, Activity> SOUL_EXTRACTING = HELPER.register("soul_extracting", () -> new Activity("soul_extracting"));
 
 }

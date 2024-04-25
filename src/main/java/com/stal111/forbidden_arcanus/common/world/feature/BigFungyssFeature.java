@@ -44,7 +44,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
             return false;
         }
 
-        if (!world.getBlockState(pos.below()).is(Tags.Blocks.STONE)) {
+        if (!world.getBlockState(pos.below()).is(Tags.Blocks.STONES)) {
             return false;
         }
 

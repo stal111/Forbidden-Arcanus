@@ -18,6 +18,6 @@ public class ModMemoryModules implements RegistryClass {
 
     public static final MappedRegistryHelper<MemoryModuleType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.MEMORY_MODULE_TYPE);
 
-    public static final RegistryEntry<MemoryModuleType<Integer>> SCARED_TIME = HELPER.register("scared_time", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
+    public static final RegistryEntry<MemoryModuleType<?>, MemoryModuleType<Integer>> SCARED_TIME = HELPER.register("scared_time", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
 
 }

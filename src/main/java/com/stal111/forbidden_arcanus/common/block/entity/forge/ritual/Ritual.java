@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
@@ -57,7 +56,7 @@ public record Ritual(List<RitualInput> inputs,
             MagicCircleType.CODEC.fieldOf("magic_circle").forGetter(ritual -> {
                 return ritual.magicCircleType;
             }),
-            ExtraCodecs.strictOptionalField(ExtraCodecs.POSITIVE_INT, "duration", DEFAULT_DURATION).forGetter(ritual -> {
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ritual -> {
                 return ritual.duration;
             })
     ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleType, duration) -> {
@@ -82,7 +81,7 @@ public record Ritual(List<RitualInput> inputs,
             RitualRequirements.CODEC.optionalFieldOf("additional_requirements").forGetter(ritual -> {
                 return Optional.ofNullable(ritual.requirements);
             }),
-            ExtraCodecs.strictOptionalField(ExtraCodecs.POSITIVE_INT, "duration", DEFAULT_DURATION).forGetter(ritual -> {
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ritual -> {
                 return ritual.duration;
             })
     ).apply(instance, (inputs, mainIngredient, result, essences, requirements, duration) -> {

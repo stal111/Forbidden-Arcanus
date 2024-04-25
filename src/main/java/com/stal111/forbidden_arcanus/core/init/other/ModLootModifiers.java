@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier;
@@ -17,9 +17,9 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHel
  */
 public class ModLootModifiers implements RegistryClass {
 
-    public static final MappedRegistryHelper<Codec<? extends IGlobalLootModifier>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS);
+    public static final MappedRegistryHelper<MapCodec<? extends IGlobalLootModifier>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS);
 
-    public static final RegistryEntry<Codec<BlacksmithGavelLootModifier>> BLACKSMITH_GAVEL = HELPER.register("blacksmith_gavel", BlacksmithGavelLootModifier.CODEC);
-    public static final RegistryEntry<Codec<FieryLootModifier>> FIERY = HELPER.register("fiery", FieryLootModifier.CODEC);
-    public static final RegistryEntry<Codec<MagicalFarmlandLootModifier>> MAGICAL_FARMLAND = HELPER.register("magical_farmland", MagicalFarmlandLootModifier.CODEC);
+    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<BlacksmithGavelLootModifier>> BLACKSMITH_GAVEL = HELPER.register("blacksmith_gavel", BlacksmithGavelLootModifier.CODEC);
+    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<FieryLootModifier>> FIERY = HELPER.register("fiery", FieryLootModifier.CODEC);
+    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<MagicalFarmlandLootModifier>> MAGICAL_FARMLAND = HELPER.register("magical_farmland", MagicalFarmlandLootModifier.CODEC);
 }

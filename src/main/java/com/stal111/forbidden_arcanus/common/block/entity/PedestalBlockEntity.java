@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -113,18 +115,18 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(@Nonnull CompoundTag compound) {
-        super.load(compound);
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.loadAdditional(tag, lookupProvider);
 
-        this.stack = ItemStack.of(compound.getCompound("Stack"));
-        this.itemHeight = compound.getInt("ItemHeight");
+        this.stack = ItemStack.parseOptional(lookupProvider, tag.getCompound("Stack"));
+        this.itemHeight = tag.getInt("ItemHeight");
     }
 
     @Override
-    public void saveAdditional(@Nonnull CompoundTag compound) {
-        super.saveAdditional(compound);
+    public void saveAdditional(@Nonnull CompoundTag compound, HolderLookup.@NotNull Provider lookupProvider) {
+        super.saveAdditional(compound, lookupProvider);
 
-        compound.put("Stack", this.stack.save(new CompoundTag()));
+        compound.put("Stack", this.stack.save(lookupProvider));
         compound.putInt("ItemHeight", this.itemHeight);
     }
 
@@ -139,9 +141,8 @@ public class PedestalBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Nonnull
     @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithoutMetadata();
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
+        return this.saveWithoutMetadata(lookupProvider);
     }
 }

@@ -25,7 +25,8 @@ public class EternalModifier extends ItemModifier {
     @Override
     public void onApplied(ItemStack stack) {
         if (ModifierConfig.ETERNAL_REPAIR_ITEM.get()) {
-            stack.getOrCreateTag().putBoolean("Repair", true);
+            //TODO
+            //stack.getOrCreateTag().putBoolean("Repair", true);
         }
     }
 }

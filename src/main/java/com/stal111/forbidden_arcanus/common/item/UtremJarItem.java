@@ -4,17 +4,14 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -37,31 +34,33 @@ public class UtremJarItem extends BlockItem {
         tag.putString("FluidName", BuiltInRegistries.FLUID.getKey(fluid).toString());
         tag.putInt("Amount", 1000);
 
-        stack.getOrCreateTagElement("BlockEntityTag").put("Fluid", tag);
+        //TODO
+        //stack.getOrCreateTagElement("BlockEntityTag").put("Fluid", tag);
 
         return stack;
     }
 
     public Fluid getFluid(ItemStack stack) {
-        if (stack.hasTag()) {
-            CompoundTag tag = stack.getOrCreateTagElement("BlockEntityTag");
-
-            if (tag.contains("Fluid")) {
-                CompoundTag compound = tag.getCompound("Fluid");
-
-                return BuiltInRegistries.FLUID.get(new ResourceLocation(compound.getString("FluidName")));
-            }
-        }
+//        if (stack.hasTag()) {
+//            CompoundTag tag = stack.getOrCreateTagElement("BlockEntityTag");
+//
+//            if (tag.contains("Fluid")) {
+//                CompoundTag compound = tag.getCompound("Fluid");
+//
+//                return BuiltInRegistries.FLUID.get(new ResourceLocation(compound.getString("FluidName")));
+//            }
+//        }
         return Fluids.EMPTY;
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        super.appendHoverText(stack, level, tooltip, flag);
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
+        super.appendHoverText(stack, context, components, flag);
+
         Fluid fluid = this.getFluid(stack);
 
         if (fluid != Fluids.EMPTY) {
-            tooltip.add(Component.translatable(fluid.getFluidType().getDescriptionId()).withStyle(ChatFormatting.GRAY));
+            components.add(Component.translatable(fluid.getFluidType().getDescriptionId()).withStyle(ChatFormatting.GRAY));
         }
     }
 }

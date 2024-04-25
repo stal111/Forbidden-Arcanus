@@ -37,6 +37,6 @@ public class DarkTraderRenderer extends MobRenderer<DarkTrader, DarkTraderModel>
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull DarkTrader entity) {
-        return entity.getVariant().texture();
+        return entity.getVariant().value().texture();
     }
 }

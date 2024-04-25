@@ -19,7 +19,7 @@ public class ModMobEffects implements RegistryClass {
 
     public static final MappedRegistryHelper<MobEffect> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.MOB_EFFECT);
 
-    public static final RegistryEntry<MobEffect> SPECTRAL_VISION = HELPER.register("spectral_vision", () -> new SpectralEyeEffect(MobEffectCategory.BENEFICIAL, 745784));
-    public static final RegistryEntry<MobEffect> DARKENED = HELPER.register("darkened", () -> new DarkenedEffect(MobEffectCategory.HARMFUL,74578).addAttributeModifier(Attributes.MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", (double)-0.15F, AttributeModifier.Operation.MULTIPLY_TOTAL));
+    public static final RegistryEntry<MobEffect, SpectralEyeEffect> SPECTRAL_VISION = HELPER.register("spectral_vision", () -> new SpectralEyeEffect(MobEffectCategory.BENEFICIAL, 745784));
+    public static final RegistryEntry<MobEffect, MobEffect> DARKENED = HELPER.register("darkened", () -> new DarkenedEffect(MobEffectCategory.HARMFUL,74578).addAttributeModifier(Attributes.MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", (double)-0.15F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
 }

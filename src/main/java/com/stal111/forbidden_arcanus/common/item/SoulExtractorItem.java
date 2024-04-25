@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -84,7 +83,7 @@ public class SoulExtractorItem extends Item {
 
         RandomSource random = player.getRandom();
 
-        stack.hurtAndBreak(1, player, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
         player.awardStat(Stats.ITEM_USED.get(this));
 
         for (int i = 0; i < 4; i++) {
@@ -155,8 +154,7 @@ public class SoulExtractorItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, List<Component> list, @Nonnull TooltipFlag flag) {
-        list.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, level, list, flag);
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
+        components.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".soul_extractor").withStyle(ChatFormatting.GRAY));
     }
 }

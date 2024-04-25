@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.world.structure;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.world.ModStructureTypes;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,7 @@ import java.util.Optional;
  */
 public class NipaStructure extends Structure {
 
-    public static final Codec<NipaStructure> CODEC = RecordCodecBuilder.create(instance -> {
+    public static final MapCodec<NipaStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(settingsCodec(instance), Codec.BOOL.fieldOf("floating").forGetter((structure) -> {
             return structure.floating;
         })).apply(instance, NipaStructure::new);

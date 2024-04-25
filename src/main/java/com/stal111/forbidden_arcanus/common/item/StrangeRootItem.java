@@ -29,7 +29,7 @@ public class StrangeRootItem extends ItemNameBlockItem {
 
         if (!level.isClientSide()) {
             entity.getActiveEffects().stream()
-                    .filter(mobEffectInstance -> mobEffectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL)
+                    .filter(mobEffectInstance -> mobEffectInstance.getEffect().value().getCategory() == MobEffectCategory.HARMFUL)
                     .forEach(mobEffectInstance -> entity.removeEffect(mobEffectInstance.getEffect()));
         }
 

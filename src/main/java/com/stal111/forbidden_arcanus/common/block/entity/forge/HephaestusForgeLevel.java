@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.block.BlockRegistryEntry;
 
 import java.util.function.IntSupplier;
 
@@ -22,10 +22,10 @@ public enum HephaestusForgeLevel implements IntSupplier {
     FOUR(ModBlocks.HEPHAESTUS_FORGE_TIER_4, 10000, 500, 50000, 5000),
     FIVE(ModBlocks.HEPHAESTUS_FORGE_TIER_5, 20000, 1000, 100000, 7500);
 
-    private final RegistryEntry<HephaestusForgeBlock> block;
+    private final BlockRegistryEntry<HephaestusForgeBlock> block;
     private final EssencesDefinition maxEssences;
 
-    HephaestusForgeLevel(RegistryEntry<HephaestusForgeBlock> block, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
+    HephaestusForgeLevel(BlockRegistryEntry<HephaestusForgeBlock> block, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
         this.block = block;
         this.maxEssences = new EssencesDefinition(maxAureal, maxSouls, maxBlood, maxExperience);
     }

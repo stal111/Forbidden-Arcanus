@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.effect;
 
+import com.stal111.forbidden_arcanus.core.init.ModMobEffects;
 import com.stal111.forbidden_arcanus.util.ModUtils;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
@@ -33,8 +34,8 @@ public class SpectralEyeEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
-        int i = entity.getEffect(this).getDuration();
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+        int i = entity.getEffect(ModMobEffects.SPECTRAL_VISION).getDuration();
         if (!entity.getCommandSenderWorld().isClientSide()) {
             Scoreboard scoreboard = entity.getCommandSenderWorld().getServer().getScoreboard();
             PlayerTeam teamPassiveOrNeutral = ModUtils.createTeam(scoreboard, "PassiveOrNeutral", ChatFormatting.GREEN);
@@ -65,5 +66,7 @@ public class SpectralEyeEffect extends MobEffect {
                 ModUtils.removeTeam(scoreboard, teamWater);
             }
         }
+
+        return true;
     }
 }

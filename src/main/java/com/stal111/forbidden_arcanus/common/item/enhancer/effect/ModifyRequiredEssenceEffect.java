@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.enhancer.effect;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class ModifyRequiredEssenceEffect extends ValueModifierEffect<Integer> implements EssenceModifier {
 
-    public static final Codec<ModifyRequiredEssenceEffect> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<ModifyRequiredEssenceEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             EnhancerEffect.conditionsCodec(),
             EssenceType.CODEC.fieldOf("essence_type").forGetter(effect -> {
                 return effect.essenceType;

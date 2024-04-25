@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.enhancer.effect;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.enhancer.condition.EffectCondition;
 import com.stal111.forbidden_arcanus.core.init.other.ModEnhancerEffects;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class MultiplySoulDurationEffect extends ValueModifierEffect<Integer> {
 
-    public static final Codec<MultiplySoulDurationEffect> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<MultiplySoulDurationEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             EnhancerEffect.conditionsCodec(),
             Codec.doubleRange(0.0D, 10.0D).fieldOf("multiplier").forGetter(effect -> {
                 return effect.multiplier;

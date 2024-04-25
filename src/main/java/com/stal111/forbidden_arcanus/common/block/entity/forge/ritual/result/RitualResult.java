@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -14,7 +13,7 @@ import net.minecraft.world.level.Level;
  */
 public abstract class RitualResult {
 
-    public static final Codec<RitualResult> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(FARegistries.RITUAL_RESULT_TYPE_REGISTRY::byNameCodec)
+    public static final Codec<RitualResult> DIRECT_CODEC = Codec.lazyInitialized(FARegistries.RITUAL_RESULT_TYPE_REGISTRY::byNameCodec)
             .dispatch(RitualResult::getType, RitualResultType::codec);
 
     /**

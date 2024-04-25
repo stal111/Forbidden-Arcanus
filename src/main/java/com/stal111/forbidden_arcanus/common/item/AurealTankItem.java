@@ -7,9 +7,7 @@ import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -29,12 +27,13 @@ public class AurealTankItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
         AurealProvider aurealProvider = stack.getCapability(AurealProvider.ITEM_AUREAL);
 
         if (aurealProvider != null) {
             components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", aurealProvider.getAurealLimit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
-            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.aureal", aurealProvider.getAureal(), aurealProvider.getAurealLimit()).withStyle(ChatFormatting.AQUA));        }
+            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.aureal", aurealProvider.getAureal(), aurealProvider.getAurealLimit()).withStyle(ChatFormatting.AQUA));
+        }
     }
 
     @Override

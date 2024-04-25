@@ -2,8 +2,6 @@ package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
-import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -25,7 +23,7 @@ public class ModCreativeModeTabs implements RegistryClass {
 
     public static final MappedRegistryHelper<CreativeModeTab> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.CREATIVE_MODE_TAB);
 
-    public static final RegistryEntry<CreativeModeTab> MAIN = HELPER.register("main", CreativeTabFactory.create(builder -> {
+    public static final RegistryEntry<CreativeModeTab, CreativeModeTab> MAIN = HELPER.register("main", CreativeTabFactory.create(builder -> {
                 builder.icon(() -> new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()))
                         .title(Component.translatable("itemGroup.forbidden_arcanus"))
                         .displayItems((itemDisplayParameters, output) -> {

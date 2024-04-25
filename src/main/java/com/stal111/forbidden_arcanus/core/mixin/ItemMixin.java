@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.core.mixin;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,18 +26,19 @@ public class ItemMixin {
             return;
         }
 
-        CompoundTag compound = stack.getTag();
-        
-        if (compound == null) {
-            return;
-        }
-
-        if (compound.getBoolean("Repair")) {
-            stack.setDamageValue(stack.getDamageValue() - 1);
-
-            if (stack.getDamageValue() == 0) {
-                compound.remove("Repair");
-            }
-        }
+        //TODO
+//        CompoundTag compound = stack.getTag();
+//
+//        if (compound == null) {
+//            return;
+//        }
+//
+//        if (compound.getBoolean("Repair")) {
+//            stack.setDamageValue(stack.getDamageValue() - 1);
+//
+//            if (stack.getDamageValue() == 0) {
+//                compound.remove("Repair");
+//            }
+//        }
     }
 }

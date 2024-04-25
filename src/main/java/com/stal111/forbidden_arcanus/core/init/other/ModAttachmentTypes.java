@@ -15,6 +15,6 @@ public class ModAttachmentTypes {
 
     public static final MappedRegistryHelper<AttachmentType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES);
 
-    public static final RegistryEntry<AttachmentType<AurealStorage>> AUREAL = HELPER.register("aureal", () -> AttachmentType.builder(() -> AurealStorage.EMPTY).serialize(AurealStorage.CODEC).build());
+    public static final RegistryEntry<AttachmentType<?>, AttachmentType<AurealStorage>> AUREAL = HELPER.register("aureal", () -> AttachmentType.builder(() -> AurealStorage.EMPTY).serialize(AurealStorage.CODEC).build());
 
 }

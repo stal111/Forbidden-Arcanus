@@ -15,11 +15,11 @@ public record DarkTraderVariant(ResourceLocation texture) implements RegistryCla
 
     public static final MappedRegistryHelper<DarkTraderVariant> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.DARK_TRADER_VARIANT);
 
-    public static final RegistryEntry<DarkTraderVariant> BROOK = register("brook");
-    public static final RegistryEntry<DarkTraderVariant> IDRIL = register("idril");
-    public static final RegistryEntry<DarkTraderVariant> HOHENHEIM = register("hohenheim");
+    public static final RegistryEntry<DarkTraderVariant, DarkTraderVariant> BROOK = register("brook");
+    public static final RegistryEntry<DarkTraderVariant, DarkTraderVariant> IDRIL = register("idril");
+    public static final RegistryEntry<DarkTraderVariant, DarkTraderVariant> HOHENHEIM = register("hohenheim");
 
-    private static RegistryEntry<DarkTraderVariant> register(String name) {
+    private static RegistryEntry<DarkTraderVariant, DarkTraderVariant> register(String name) {
         return HELPER.register(name, () -> new DarkTraderVariant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/dark_trader/" + name + ".png")));
     }
 }

@@ -6,10 +6,13 @@ import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.*;
+import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplate;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.ItemRegistryEntry;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -81,23 +84,23 @@ public class ModItemModels {
         );
     }
 
-    private ResourceLocation generateFlatItem(RegistryEntry<? extends Item> item) {
+    private ResourceLocation generateFlatItem(ItemRegistryEntry<? extends Item> item) {
         return this.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
     }
 
-    private ResourceLocation generateFlatItem(String folder, RegistryEntry<Item> item, ModelTemplate template) {
+    private ResourceLocation generateFlatItem(String folder, ItemRegistryEntry<Item> item, ModelTemplate template) {
         return template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput);
     }
 
-    private ResourceLocation generateFlatItem(RegistryEntry<? extends Item> item, ModelTemplate template) {
+    private ResourceLocation generateFlatItem(ItemRegistryEntry<? extends Item> item, ModelTemplate template) {
         return template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(item.get()), this.modelOutput);
     }
 
-    private ResourceLocation generateFlatItem(String folder, RegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
+    private ResourceLocation generateFlatItem(String folder, ItemRegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
         return template.create(ModLocationUtils.getItem(folder, item, modelSuffix), TextureMapping.layer0(getItemTexture(item.get(), folder, modelSuffix)), this.modelOutput);
     }
 
-    private ResourceLocation generateFlatItem(RegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
+    private ResourceLocation generateFlatItem(ItemRegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
         return template.create(ModelLocationUtils.getModelLocation(item.get(), modelSuffix), TextureMapping.layer0(TextureMapping.getItemTexture(item.get(), modelSuffix)), this.modelOutput);
     }
 
@@ -108,7 +111,7 @@ public class ModItemModels {
         });
     }
 
-    private void generateWithOverrides(String folder, RegistryEntry<Item> item, ModelPredicate... predicates) {
+    private void generateWithOverrides(String folder, ItemRegistryEntry<Item> item, ModelPredicate... predicates) {
         ModelTemplates.FLAT_ITEM.create(ModLocationUtils.getItem(item), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput, (modelLocation, map) -> {
             JsonObject jsonObject = ModelTemplates.TWO_LAYERED_ITEM.createBaseTemplate(modelLocation, map);
             JsonArray jsonArray = new JsonArray();

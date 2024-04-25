@@ -13,7 +13,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -107,11 +108,8 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
         return !state.getValue(OILY);
     }
 
-    @Nonnull
     @Override
-    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-        ItemStack stack = player.getItemInHand(hand);
-
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (stack.is(Items.GLASS_BOTTLE) && state.getValue(OILY)) {
             ItemStack oil = new ItemStack(ModItems.EDELWOOD_OIL.get());
 
@@ -128,11 +126,11 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
 
             level.setBlockAndUpdate(pos, state.setValue(OILY, false));
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
         } else if (stack.canPerformAction(ToolActions.AXE_STRIP) && !this.isCarved() && state.getValue(AXIS) == Direction.Axis.Y) {
-            Direction direction = hit.getDirection().getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : hit.getDirection();
+            Direction direction = result.getDirection().getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : result.getDirection();
 
-            stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
+            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 
             if (!level.isClientSide()) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, pos, stack);
@@ -140,10 +138,10 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.setBlockAndUpdate(pos, ModBlocks.CARVED_EDELWOOD_LOG.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(OILY, state.getValue(OILY)).setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
 
-        return super.use(state, level, pos, player, hand, hit);
+        return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 
     protected boolean shouldHandlePrecipitation(BlockState state, Level level, Biome.Precipitation precipitation) {
@@ -190,7 +188,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 

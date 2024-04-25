@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -85,36 +86,49 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
             ItemStack pedestalStack = blockEntity.getStack();
 
-            if (level.isClientSide()) {
-                return InteractionResult.SUCCESS;
-            }
-
-            if (pedestalStack.isEmpty() && !stack.isEmpty()) {
-                blockEntity.setStack(stack.copyWithCount(1), player, PedestalEffectTrigger.PLAYER_PLACE_ITEM);
-
-                ItemStackUtils.shrinkStack(player, stack);
-            } else if (!pedestalStack.isEmpty()) {
-                if (stack.isEmpty()) {
-                    player.setItemInHand(hand, pedestalStack);
-                } else if (!player.addItem(pedestalStack)) {
+            if (!pedestalStack.isEmpty()) {
+                if (!player.addItem(pedestalStack)) {
                     player.drop(pedestalStack, false);
                 }
 
                 blockEntity.setStack(ItemStack.EMPTY, player, PedestalEffectTrigger.PLAYER_REMOVE_ITEM);
             }
-
-            player.awardStat(ModStats.INTERACT_WITH_PEDESTAL.get());
-
-            return InteractionResult.CONSUME;
         }
 
-        return InteractionResult.PASS;
+        return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+        if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
+            ItemStack pedestalStack = blockEntity.getStack();
+
+            if (!level.isClientSide()) {
+                if (pedestalStack.isEmpty() && !stack.isEmpty()) {
+                    blockEntity.setStack(stack.copyWithCount(1), player, PedestalEffectTrigger.PLAYER_PLACE_ITEM);
+
+                    ItemStackUtils.shrinkStack(player, stack);
+                } else if (!pedestalStack.isEmpty()) {
+                    if (stack.isEmpty()) {
+                        player.setItemInHand(hand, pedestalStack);
+                    } else if (!player.addItem(pedestalStack)) {
+                        player.drop(pedestalStack, false);
+                    }
+
+                    blockEntity.setStack(ItemStack.EMPTY, player, PedestalEffectTrigger.PLAYER_REMOVE_ITEM);
+                }
+
+                player.awardStat(ModStats.INTERACT_WITH_PEDESTAL.get());
+            }
+
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        }
+
+        return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 
     @Override

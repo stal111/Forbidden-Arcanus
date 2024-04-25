@@ -5,7 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.ItemRegistryEntry;
 
 /**
  * @author stal111
@@ -31,15 +31,15 @@ public class ModLocationUtils {
         return new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + name);
     }
 
-    public static ResourceLocation getItem(String folder, RegistryEntry<Item> item, String suffix) {
+    public static ResourceLocation getItem(String folder, ItemRegistryEntry<Item> item, String suffix) {
         return BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/" + folder + "/").withSuffix(suffix);
     }
 
-    public static ResourceLocation getItem(String folder, RegistryEntry<Item> item) {
+    public static ResourceLocation getItem(String folder, ItemRegistryEntry<Item> item) {
         return BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/" + folder + "/");
     }
 
-    public static ResourceLocation getItem(RegistryEntry<Item> item) {
+    public static ResourceLocation getItem(ItemRegistryEntry<Item> item) {
         return BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
     }
 }

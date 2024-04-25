@@ -21,9 +21,9 @@ public class ModFeatures implements RegistryClass {
 
     public static final MappedRegistryHelper<Feature<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.FEATURE);
 
-    public static final RegistryEntry<Feature<BlockStateConfiguration>> PETRIFIED_ROOT = HELPER.register("petrified_root", () -> new RootFeature(BlockStateConfiguration.CODEC));
-    public static final RegistryEntry<Feature<BigFungyssFeatureConfig>> BIG_FUNGYSS = HELPER.register("big_fungyss", () -> new BigFungyssFeature(BigFungyssFeatureConfig.CODEC));
-    public static final RegistryEntry<Feature<BigFungyssFeatureConfig>> MEGA_FUNGYSS = HELPER.register("mega_fungyss", () -> new MegaFungyssFeature(BigFungyssFeatureConfig.CODEC));
-    public static final RegistryEntry<Feature<NoneFeatureConfiguration>> EDELWOOD = HELPER.register("edelwood", () -> new EdelwoodFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryEntry<Feature<?>, Feature<BlockStateConfiguration>> PETRIFIED_ROOT = HELPER.register("petrified_root", () -> new RootFeature(BlockStateConfiguration.CODEC));
+    public static final RegistryEntry<Feature<?>, Feature<BigFungyssFeatureConfig>> BIG_FUNGYSS = HELPER.register("big_fungyss", () -> new BigFungyssFeature(BigFungyssFeatureConfig.CODEC));
+    public static final RegistryEntry<Feature<?>, Feature<BigFungyssFeatureConfig>> MEGA_FUNGYSS = HELPER.register("mega_fungyss", () -> new MegaFungyssFeature(BigFungyssFeatureConfig.CODEC));
+    public static final RegistryEntry<Feature<?>, Feature<NoneFeatureConfiguration>> EDELWOOD = HELPER.register("edelwood", () -> new EdelwoodFeature(NoneFeatureConfiguration.CODEC));
 
 }

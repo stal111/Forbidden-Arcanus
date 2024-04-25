@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
@@ -32,7 +33,7 @@ public class UpgradeTierResult extends RitualResult {
             5, ModBlocks.HEPHAESTUS_FORGE_TIER_5
     );
 
-    public static final Codec<UpgradeTierResult> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final MapCodec<UpgradeTierResult> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.INT.fieldOf("required_tier").forGetter(result -> {
                 return result.requiredTier;
             }),

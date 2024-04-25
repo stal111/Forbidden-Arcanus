@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.enhancer.condition;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.other.ModEnhancerEffectConditions;
 import net.minecraft.world.level.Level;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.Level;
  */
 public class TimeCondition extends EffectCondition {
 
-    public static final Codec<TimeCondition> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<TimeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.INT.fieldOf("start").forGetter(condition -> {
                 return condition.startTime;
             }),

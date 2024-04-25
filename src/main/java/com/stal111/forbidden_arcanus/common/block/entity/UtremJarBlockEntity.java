@@ -3,12 +3,14 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.util.FluidTankTile;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,10 +36,11 @@ public class UtremJarBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(@Nonnull CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.loadAdditional(tag, lookupProvider);
+
         if (tag.contains("Fluid")) {
-            this.tank.readFromNBT(tag.getCompound("Fluid"));
+            this.tank.readFromNBT(lookupProvider, tag.getCompound("Fluid"));
         }
 
         if (!tank.getFluid().isEmpty() && level != null) {
@@ -46,11 +49,11 @@ public class UtremJarBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void saveAdditional(@Nonnull CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(@Nonnull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.saveAdditional(tag, lookupProvider);
 
         if (!this.tank.getFluid().isEmpty()) {
-            tag.put("Fluid", this.tank.writeToNBT(new CompoundTag()));
+            tag.put("Fluid", this.tank.writeToNBT(lookupProvider, new CompoundTag()));
         }
     }
 
@@ -62,7 +65,7 @@ public class UtremJarBlockEntity extends BlockEntity {
 
     @Nonnull
     @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithoutMetadata();
+    public CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
+        return this.saveWithoutMetadata(lookupProvider);
     }
 }

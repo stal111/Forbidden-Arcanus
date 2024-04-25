@@ -33,7 +33,7 @@ public class ModModelProvider extends ValhelsiaModelProvider {
     }
 
     @Override
-    public Collection<RegistryEntry<? extends Block>> getBlocks() {
+    public Collection<RegistryEntry<Block, ? extends Block>> getBlocks() {
         return ModBlocks.HELPER.getRegistryEntries();
     }
 }

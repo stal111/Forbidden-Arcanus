@@ -21,11 +21,11 @@ public class ModMenuTypes implements RegistryClass {
 
     public static final MappedRegistryHelper<MenuType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.MENU);
 
-    public static final RegistryEntry<MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
-    public static final RegistryEntry<MenuType<ClibanoMenu>> CLIBANO = register("clibano", ClibanoMenu::new);
-    public static final RegistryEntry<MenuType<ResearchDeskMenu>> RESEARCH_DESK = register("research_desk", ResearchDeskMenu::new);
+    public static final RegistryEntry<MenuType<?>, MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
+    public static final RegistryEntry<MenuType<?>, MenuType<ClibanoMenu>> CLIBANO = register("clibano", ClibanoMenu::new);
+    public static final RegistryEntry<MenuType<?>, MenuType<ResearchDeskMenu>> RESEARCH_DESK = register("research_desk", ResearchDeskMenu::new);
 
-    private static <T extends AbstractContainerMenu> RegistryEntry<MenuType<T>> register(String name, IContainerFactory<T> factory) {
+    private static <T extends AbstractContainerMenu> RegistryEntry<MenuType<?>, MenuType<T>> register(String name, IContainerFactory<T> factory) {
         return HELPER.register(name, () -> IMenuTypeExtension.create(factory));
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -13,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.NeoForgeMod;
 
 import java.util.*;
 import java.util.function.Function;
@@ -72,7 +72,7 @@ public class DemolishingModifierBlockBreaker {
     private static Direction calculateBlockSide(Level level, Player player) {
         Vec3 eyePosition = player.getEyePosition();
         Vec3 viewVector = player.getViewVector(1);
-        double reach = player.getAttributeValue(NeoForgeMod.BLOCK_REACH.value());
+        double reach = player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
 
         Vec3 combined = eyePosition.add(viewVector.x * reach, viewVector.y * reach, viewVector.z * reach);
 

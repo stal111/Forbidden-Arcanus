@@ -15,5 +15,5 @@ public class ModEnchantments implements RegistryClass {
 
     public static final MappedRegistryHelper<Enchantment> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ENCHANTMENT);
 
-    public static final RegistryEntry<Enchantment> AUREAL_RESERVOIR = HELPER.register("aureal_reservoir", AurealReservoirEnchantment::new);
+    public static final RegistryEntry<Enchantment, AurealReservoirEnchantment> AUREAL_RESERVOIR = HELPER.register("aureal_reservoir", AurealReservoirEnchantment::new);
 }

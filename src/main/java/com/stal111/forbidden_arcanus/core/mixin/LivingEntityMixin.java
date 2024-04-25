@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -22,7 +23,7 @@ public abstract class LivingEntityMixin {
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot pSlot);
 
     @Inject(at = @At(value = "HEAD"), method = "hasEffect", cancellable = true)
-    public void forbiddenArcanus_hasEffect$preventFireDamage(MobEffect effect, CallbackInfoReturnable<Boolean> cir) {
+    public void forbiddenArcanus_hasEffect$preventFireDamage(Holder<MobEffect> effect, CallbackInfoReturnable<Boolean> cir) {
         if (effect == MobEffects.FIRE_RESISTANCE) {
             ItemStack stack = this.getItemBySlot(EquipmentSlot.HEAD);
 

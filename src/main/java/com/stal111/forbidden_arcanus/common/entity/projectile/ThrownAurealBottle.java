@@ -6,11 +6,13 @@ import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
@@ -34,7 +36,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
     }
 
     @Override
-    protected float getGravity() {
+    protected double getDefaultGravity() {
         return 0.055F;
     }
 
@@ -48,10 +50,10 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
     protected void onHit(@Nonnull HitResult result) {
         super.onHit(result);
 
-        if (!this.level().isClientSide()) {
+        if (this.level() instanceof ServerLevel serverLevel) {
             this.applySplash();
 
-            PacketDistributor.TRACKING_CHUNK.with(this.level().getChunkAt(this.blockPosition())).send(new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 1));
+            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(this.blockPosition()), new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 1));
 
             this.discard();
         }

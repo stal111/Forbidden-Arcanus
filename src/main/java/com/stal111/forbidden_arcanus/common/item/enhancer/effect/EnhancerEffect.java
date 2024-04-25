@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.enhancer.condition.EffectCondition;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public abstract class EnhancerEffect {
 
-    public static final Codec<EnhancerEffect> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(FARegistries.ENHANCER_EFFECT_REGISTRY::byNameCodec)
+    public static final Codec<EnhancerEffect> DIRECT_CODEC = Codec.lazyInitialized(FARegistries.ENHANCER_EFFECT_REGISTRY::byNameCodec)
             .dispatch(EnhancerEffect::getType, EnhancerEffectType::codec);
 
     private final List<EffectCondition> conditions;

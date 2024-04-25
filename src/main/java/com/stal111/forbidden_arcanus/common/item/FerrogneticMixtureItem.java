@@ -3,11 +3,13 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -39,8 +41,8 @@ public class FerrogneticMixtureItem extends Item {
             level.setBlock(pos, state, 11);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
 
-            if (!level.isClientSide()) {
-                PacketDistributor.TRACKING_CHUNK.with(level.getChunkAt(pos)).send(new TransformPedestalPayload(pos));
+            if (level instanceof ServerLevel serverLevel) {
+                PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(pos), new TransformPedestalPayload(pos));
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide());

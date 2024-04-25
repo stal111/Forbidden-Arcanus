@@ -1,11 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 /**
  * Modifier Helper <br>
@@ -19,15 +16,18 @@ public class ModifierHelper {
 
     @Nullable
     public static ItemModifier getModifier(ItemStack stack) {
-        if (stack.isEmpty() || !stack.hasTag()) {
-            return null;
-        }
+        return null;
 
-        return FARegistries.ITEM_MODIFIER_REGISTRY.get(new ResourceLocation(Objects.requireNonNull(stack.getTag()).getString("Modifier")));
+        //TODO
+//        if (stack.isEmpty() || !stack.hasTag()) {
+//            return null;
+//        }
+//
+//        return FARegistries.ITEM_MODIFIER_REGISTRY.get(new ResourceLocation(Objects.requireNonNull(stack.getTag()).getString("Modifier")));
     }
 
     public static void setModifier(ItemStack stack, ItemModifier modifier) {
-        stack.getOrCreateTag().putString("Modifier", modifier.getRegistryName().toString());
+       // stack.getOrCreateTag().putString("Modifier", modifier.getRegistryName().toString());
 
         modifier.onApplied(stack);
     }

@@ -1,10 +1,10 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -83,8 +84,9 @@ public class NipaBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(@Nonnull CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.loadAdditional(tag, lookupProvider);
+
         this.lastSpeck = tag.getInt("LastSpeck");
 
         this.players.clear();
@@ -99,8 +101,8 @@ public class NipaBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void saveAdditional(@Nonnull CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(@Nonnull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.saveAdditional(tag, lookupProvider);
         tag.putInt("LastSpeck", this.lastSpeck);
 
         ListTag players = new ListTag();

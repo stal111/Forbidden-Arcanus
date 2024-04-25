@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -24,10 +25,8 @@ import javax.annotation.Nonnull;
  */
 public class DracoArcanusArrow extends AbstractArrow {
 
-    private static final ItemStack DEFAULT_ARROW_STACK = new ItemStack(ModItems.DRACO_ARCANUS_ARROW.get());
-
     public DracoArcanusArrow(EntityType<? extends DracoArcanusArrow> entityType, Level level) {
-        super(entityType, level, DEFAULT_ARROW_STACK);
+        super(entityType, level);
     }
 
     public DracoArcanusArrow(Level level, LivingEntity shooter, ItemStack stack) {
@@ -46,9 +45,8 @@ public class DracoArcanusArrow extends AbstractArrow {
         }
     }
 
-    @Nonnull
     @Override
-    protected ItemStack getPickupItem() {
+    protected @NotNull ItemStack getDefaultPickupItem() {
         return new ItemStack(ModItems.DRACO_ARCANUS_ARROW.get());
     }
 

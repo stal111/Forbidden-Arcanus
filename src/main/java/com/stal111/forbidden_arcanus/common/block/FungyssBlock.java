@@ -52,7 +52,7 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
 
     @Override
     public boolean canSurvive(@Nonnull BlockState state, LevelReader level, BlockPos pos) {
-        return level.getBlockState(pos.below()).is(Tags.Blocks.STONE);
+        return level.getBlockState(pos.below()).is(Tags.Blocks.STONES);
     }
 
     @Override

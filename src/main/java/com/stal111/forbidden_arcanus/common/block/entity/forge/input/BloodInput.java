@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
  */
 public class BloodInput extends HephaestusForgeInput {
 
-    public static final Codec<BloodInput> CODEC = Codec.unit(BloodInput::new);
+    public static final MapCodec<BloodInput> CODEC = MapCodec.unit(BloodInput::new);
 
     public BloodInput() {
         super(EssenceType.BLOOD);

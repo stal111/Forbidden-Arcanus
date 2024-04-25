@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLPaths;
@@ -29,7 +29,7 @@ public final class ForbiddenArcanus {
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistryCollector(ForbiddenArcanus.MOD_ID));
 
-	public ForbiddenArcanus(IEventBus modEventBus) {
+	public ForbiddenArcanus(IEventBus modEventBus, ModContainer modContainer) {
 		ModDefinition.of(ForbiddenArcanus.MOD_ID)
 				.withRegistryManager(REGISTRY_MANAGER)
 				.withEventHandler(new ModEventHandler(modEventBus))
@@ -38,12 +38,12 @@ public final class ForbiddenArcanus {
 
 		modEventBus.addListener(CommonSetup::setup);
 
-		this.registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
-		this.registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+		this.registerConfig(modContainer, ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
+		this.registerConfig(modContainer, ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 	}
 
-	private void registerConfig(ModConfig.Type type, ModConfigSpec configSpec) {
-		ModLoadingContext.get().registerConfig(type, configSpec);
+	private void registerConfig(ModContainer modContainer, ModConfig.Type type, ModConfigSpec configSpec) {
+		modContainer.registerConfig(type, configSpec);
 
 		this.loadConfig(configSpec, FMLPaths.CONFIGDIR.get().resolve(ForbiddenArcanus.MOD_ID + "-" + type.name().toLowerCase(Locale.ROOT) + ".toml").toString());
 	}

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.common.base.Suppliers;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  */
 public class MagicalFarmlandLootModifier extends LootModifier {
 
-    public static final Supplier<Codec<MagicalFarmlandLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(instance -> codecStart(instance).apply(instance, MagicalFarmlandLootModifier::new)));
+    public static final Supplier<MapCodec<MagicalFarmlandLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, MagicalFarmlandLootModifier::new)));
 
     /**
      * Constructs a LootModifier.
@@ -60,7 +60,7 @@ public class MagicalFarmlandLootModifier extends LootModifier {
     }
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
+    public MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }

@@ -11,7 +11,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.valhelsia.valhelsia_core.api.common.util.DeferredCodec;
 
 import java.util.List;
@@ -82,8 +81,8 @@ public class ItemModifier {
 
         var tagHolder = BuiltInRegistries.ENCHANTMENT.getOrCreateTag(this.getIncompatibleEnchantments());
 
-        return EnchantmentHelper.getEnchantments(stack).keySet().stream()
-                .noneMatch(enchantment -> tagHolder.contains(enchantment.builtInRegistryHolder()));
+        return stack.getEnchantments().keySet().stream()
+                .noneMatch(enchantment -> tagHolder.contains(enchantment.value().builtInRegistryHolder()));
     }
 
     public List<ItemStack> getValidItems() {

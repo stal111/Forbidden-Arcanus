@@ -3,13 +3,11 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -21,7 +19,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -29,7 +26,6 @@ import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -111,28 +107,29 @@ public class QuantumCatcherItem extends Item {
         return super.interactLivingEntity(stack, player, target, hand);
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if (level != null && getEntity(stack, level) != null)  {
-            Entity entity = this.getEntity(stack, level);
-
-            if (entity == null) {
-                return;
-            }
-
-            MutableComponent textComponent = Component.translatable("tooltip.forbidden_arcanus.entity")
-                    .append(": ")
-                    .append(Component.literal(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString()));
-
-            if (this.getEntityName(stack) != null)  {
-                textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
-            }
-
-            textComponent.withStyle(ChatFormatting.GRAY);
-
-            tooltip.add(textComponent);
-        }
-    }
+    //TODO
+//    @Override
+//    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+//        if (level != null && getEntity(stack, level) != null)  {
+//            Entity entity = this.getEntity(stack, level);
+//
+//            if (entity == null) {
+//                return;
+//            }
+//
+//            MutableComponent textComponent = Component.translatable("tooltip.forbidden_arcanus.entity")
+//                    .append(": ")
+//                    .append(Component.literal(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString()));
+//
+//            if (this.getEntityName(stack) != null)  {
+//                textComponent.append(" (").append(Objects.requireNonNull(this.getEntityName(stack))).append(")");
+//            }
+//
+//            textComponent.withStyle(ChatFormatting.GRAY);
+//
+//            tooltip.add(textComponent);
+//        }
+//    }
 
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
@@ -152,14 +149,16 @@ public class QuantumCatcherItem extends Item {
         }
         entity.save(entityTag);
 
-        CompoundTag itemNBT = stack.getOrCreateTag();
-        itemNBT.put("entity", entityTag);
+        //TODO
+//        CompoundTag itemNBT = stack.getOrCreateTag();
+//        itemNBT.put("entity", entityTag);
 
         level.playSound(player, player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_PICK_UP.get(), SoundSource.PLAYERS, 0.75F, level.getRandom().nextFloat() * 0.15F + 0.9F);
     }
 
     private Entity getEntity(ItemStack stack, Level level) {
-        CompoundTag itemTag = stack.getTag();
+        //TODO
+        CompoundTag itemTag = null;
 
         if (itemTag == null) {
             return null;
@@ -178,7 +177,8 @@ public class QuantumCatcherItem extends Item {
     }
 
     private Component getEntityName(ItemStack stack) {
-        CompoundTag itemTag = stack.getTag();
+        //TODO
+        CompoundTag itemTag = null;
 
         if (itemTag == null) {
             return null;
@@ -197,6 +197,6 @@ public class QuantumCatcherItem extends Item {
     private void clearEntity(Level level, @Nullable Player player, BlockPos pos, ItemStack stack) {
         level.playSound(player, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_RELEASE.get(), SoundSource.PLAYERS, 0.75F, level.getRandom().nextFloat() * 0.15F + 0.9F);
 
-        stack.setTag(null);
+        //stack.setTag(null);
     }
 }

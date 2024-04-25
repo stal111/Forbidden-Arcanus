@@ -60,7 +60,7 @@ public class ParticleDataProvider implements DataProvider {
         this.registerParticles();
 
         return CompletableFuture.allOf(this.builders.entrySet().stream().map(entry -> {
-            JsonElement element = ParticleDefinition.CODEC.encodeStart(JsonOps.INSTANCE, entry.getValue()).getOrThrow(false, LOGGER::error);
+            JsonElement element = ParticleDefinition.CODEC.encodeStart(JsonOps.INSTANCE, entry.getValue()).getOrThrow();
 
             return DataProvider.saveStable(output, element, this.particlePathProvider.json(entry.getKey()));
         }).toArray(CompletableFuture[]::new));

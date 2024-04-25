@@ -54,7 +54,7 @@ public class ArcaneDragonEggBlock extends FallingBlock {
     }
 
     @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 }

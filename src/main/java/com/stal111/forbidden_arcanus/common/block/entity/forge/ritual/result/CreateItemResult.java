@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
  */
 public class CreateItemResult extends RitualResult {
 
-    public static final Codec<CreateItemResult> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final MapCodec<CreateItemResult> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ItemStack.CODEC.fieldOf("result_item").forGetter(result -> {
                 return result.result;
             })

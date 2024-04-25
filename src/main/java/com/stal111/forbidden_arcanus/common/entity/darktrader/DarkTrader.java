@@ -4,6 +4,7 @@ import com.mojang.serialization.Dynamic;
 import com.stal111.forbidden_arcanus.common.entity.QuantumLightDoorAnimationProvider;
 import com.stal111.forbidden_arcanus.core.init.other.ModEntityDataSerializers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,13 +23,15 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 /**
  * @author stal111
  * @since 2023-08-11
  */
-public class DarkTrader extends Mob implements VariantHolder<DarkTraderVariant>, QuantumLightDoorAnimationProvider {
+public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVariant>>, QuantumLightDoorAnimationProvider {
 
-    private static final EntityDataAccessor<DarkTraderVariant> DATA_VARIANT_ID = SynchedEntityData.defineId(DarkTrader.class, ModEntityDataSerializers.DARK_TRADER_VARIANT.get());
+    private static final EntityDataAccessor<Holder<DarkTraderVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(DarkTrader.class, ModEntityDataSerializers.DARK_TRADER_VARIANT.get());
 
     public final AnimationState portalAnimationState = new AnimationState();
     public final AnimationState spawnAnimationState = new AnimationState();
@@ -42,9 +45,9 @@ public class DarkTrader extends Mob implements VariantHolder<DarkTraderVariant>,
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_VARIANT_ID, DarkTraderVariant.BROOK.get());
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_VARIANT_ID, DarkTraderVariant.BROOK);
     }
 
     @Override
@@ -88,13 +91,13 @@ public class DarkTrader extends Mob implements VariantHolder<DarkTraderVariant>,
     }
 
     @Override
-    public void setVariant(@NotNull DarkTraderVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, variant);
+    public @NotNull Holder<DarkTraderVariant> getVariant() {
+        return this.entityData.get(DATA_VARIANT_ID);
     }
 
     @Override
-    public @NotNull DarkTraderVariant getVariant() {
-        return this.entityData.get(DATA_VARIANT_ID);
+    public void setVariant(@NotNull Holder<DarkTraderVariant> variant) {
+        this.entityData.set(DATA_VARIANT_ID, variant);
     }
 
     @Override
@@ -110,17 +113,16 @@ public class DarkTrader extends Mob implements VariantHolder<DarkTraderVariant>,
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
-        tag.putString("variant", FARegistries.DARK_TRADER_VARIANT_REGISTRY.getKey(this.getVariant()).toString());
+        tag.putString("variant", FARegistries.DARK_TRADER_VARIANT_REGISTRY.getKey(this.getVariant().value()).toString());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        DarkTraderVariant variant = FARegistries.DARK_TRADER_VARIANT_REGISTRY.get(ResourceLocation.tryParse(tag.getString("variant")));
 
-        if (variant != null) {
-            this.setVariant(variant);
-        }
+        Optional.ofNullable(ResourceLocation.tryParse(tag.getString("variant")))
+                .flatMap(FARegistries.DARK_TRADER_VARIANT_REGISTRY::getHolder)
+                .ifPresent(this::setVariant);
     }
 
     @Override

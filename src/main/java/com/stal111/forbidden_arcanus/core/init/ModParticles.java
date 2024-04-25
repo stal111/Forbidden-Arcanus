@@ -12,9 +12,9 @@ public class ModParticles implements RegistryClass {
 
     public static final MappedRegistryHelper<ParticleType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.PARTICLE_TYPE);
 
-    public static final RegistryEntry<SimpleParticleType> SOUL = HELPER.register("soul", () -> new SimpleParticleType(false));
-    public static final RegistryEntry<SimpleParticleType> AUREAL_MOTE = HELPER.register("aureal_mote", () -> new SimpleParticleType(false));
-    public static final RegistryEntry<SimpleParticleType> MAGIC_EXPLOSION = HELPER.register("magic_explosion", () -> new SimpleParticleType(true));
-    public static final RegistryEntry<SimpleParticleType> HUGE_MAGIC_EXPLOSION = HELPER.register("magic_explosion_emitter", () -> new SimpleParticleType(true));
-    public static final RegistryEntry<SimpleParticleType> MAGNETIC_GLOW = HELPER.register("magnetic_glow", () -> new SimpleParticleType(true));
+    public static final RegistryEntry<ParticleType<?>, SimpleParticleType> SOUL = HELPER.register("soul", () -> new SimpleParticleType(false));
+    public static final RegistryEntry<ParticleType<?>, SimpleParticleType> AUREAL_MOTE = HELPER.register("aureal_mote", () -> new SimpleParticleType(false));
+    public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGIC_EXPLOSION = HELPER.register("magic_explosion", () -> new SimpleParticleType(true));
+    public static final RegistryEntry<ParticleType<?>, SimpleParticleType> HUGE_MAGIC_EXPLOSION = HELPER.register("magic_explosion_emitter", () -> new SimpleParticleType(true));
+    public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGNETIC_GLOW = HELPER.register("magnetic_glow", () -> new SimpleParticleType(true));
 }

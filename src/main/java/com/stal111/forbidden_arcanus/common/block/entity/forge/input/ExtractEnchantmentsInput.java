@@ -1,16 +1,19 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
-
-import java.util.Map;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 /**
  * @author stal111
@@ -18,7 +21,7 @@ import java.util.Map;
  */
 public class ExtractEnchantmentsInput extends HephaestusForgeInput {
 
-    public static final Codec<ExtractEnchantmentsInput> CODEC = Codec.unit(ExtractEnchantmentsInput::new);
+    public static final MapCodec<ExtractEnchantmentsInput> CODEC = MapCodec.unit(ExtractEnchantmentsInput::new);
 
     public ExtractEnchantmentsInput() {
         super(EssenceType.EXPERIENCE);
@@ -31,7 +34,7 @@ public class ExtractEnchantmentsInput extends HephaestusForgeInput {
 
     @Override
     public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
-        int xp = this.getEnchantmentXp(stack);
+        int xp = this.getExperienceFromItem(stack);
 
         if (xp <= 0) {
             return 0;
@@ -45,7 +48,7 @@ public class ExtractEnchantmentsInput extends HephaestusForgeInput {
     @Override
     public void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
         if (inputValue != 0) {
-            tileEntity.setStack(slot, ItemStackUtils.removeEnchantments(stack));
+            tileEntity.setStack(slot, this.removeNonCursesFrom(stack));
         }
     }
 
@@ -54,18 +57,39 @@ public class ExtractEnchantmentsInput extends HephaestusForgeInput {
         return ModForgeInputTypes.EXTRACT_ENCHANTMENTS.get();
     }
 
-    private int getEnchantmentXp(ItemStack stack) {
+    private int getExperienceFromItem(ItemStack stack) {
         int xp = 0;
-        Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
+        ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(stack);
 
-        for(Map.Entry<Enchantment, Integer> entry : map.entrySet()) {
-            Enchantment enchantment = entry.getKey();
-            Integer integer = entry.getValue();
+        for (Object2IntOpenHashMap.Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
+            Enchantment enchantment = entry.getKey().value();
+            int level = entry.getIntValue();
+
             if (!enchantment.isCurse()) {
-                xp += enchantment.getMinCost(integer);
+                xp += enchantment.getMinCost(level);
             }
         }
 
         return xp;
+    }
+
+    private ItemStack removeNonCursesFrom(ItemStack stack) {
+        ItemEnchantments enchantments = EnchantmentHelper.updateEnchantments(
+                stack, mutable -> mutable.removeIf(enchantmentHolder -> !enchantmentHolder.value().isCurse())
+        );
+
+        if (stack.is(Items.ENCHANTED_BOOK) && enchantments.isEmpty()) {
+            stack = stack.transmuteCopy(Items.BOOK, stack.getCount());
+        }
+
+        int repairCost = 0;
+
+        for (int j = 0; j < enchantments.size(); j++) {
+            repairCost = AnvilMenu.calculateIncreasedRepairCost(repairCost);
+        }
+
+        stack.set(DataComponents.REPAIR_COST, repairCost);
+
+        return stack;
     }
 }

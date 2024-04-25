@@ -1,17 +1,10 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.UtremJarBlockEntity;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -24,19 +17,13 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 /**
  * Utrem Jar Block <br>
@@ -79,39 +66,40 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock, Enti
         return this.defaultBlockState().setValue(WATERLOGGED, flag);
     }
 
-    @Nonnull
-    @Override
-    public InteractionResult use(@Nonnull BlockState state, @NotNull Level level, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-        ItemStack stack = player.getItemInHand(hand);
-        Optional<IFluidHandler> fluidHandler = FluidUtil.getFluidHandler(level, pos, null);
-
-        if (player.isShiftKeyDown() || fluidHandler.isEmpty()) {
-            return super.use(state, level, pos, player, hand, hit);
-        }
-
-        if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler.get())) {
-            player.getInventory().setChanged();
-
-            return InteractionResult.sidedSuccess(level.isClientSide());
-        } else if (fluidHandler.get().getFluidInTank(0).isEmpty()) {
-            BlockState newState = null;
-
-            if (stack.is(ModItems.PIXIE.get())) {
-                newState = ModBlocks.PIXIE_UTREM_JAR.get().defaultBlockState();
-            } else if (stack.is(ModItems.CORRUPTED_PIXIE.get())) {
-                newState = ModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().defaultBlockState();
-            }
-
-            if (newState != null) {
-                ItemStackUtils.shrinkStack(player, stack);
-
-                level.setBlockAndUpdate(pos, newState.setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
-                return InteractionResult.sidedSuccess(level.isClientSide());
-            }
-        }
-
-        return super.use(state, level, pos, player, hand, hit);
-    }
+    //TODO
+//    @Nonnull
+//    @Override
+//    public InteractionResult use(@Nonnull BlockState state, @NotNull Level level, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
+//        ItemStack stack = player.getItemInHand(hand);
+//        Optional<IFluidHandler> fluidHandler = FluidUtil.getFluidHandler(level, pos, null);
+//
+//        if (player.isShiftKeyDown() || fluidHandler.isEmpty()) {
+//            return super.use(state, level, pos, player, hand, hit);
+//        }
+//
+//        if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler.get())) {
+//            player.getInventory().setChanged();
+//
+//            return InteractionResult.sidedSuccess(level.isClientSide());
+//        } else if (fluidHandler.get().getFluidInTank(0).isEmpty()) {
+//            BlockState newState = null;
+//
+//            if (stack.is(ModItems.PIXIE.get())) {
+//                newState = ModBlocks.PIXIE_UTREM_JAR.get().defaultBlockState();
+//            } else if (stack.is(ModItems.CORRUPTED_PIXIE.get())) {
+//                newState = ModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().defaultBlockState();
+//            }
+//
+//            if (newState != null) {
+//                ItemStackUtils.shrinkStack(player, stack);
+//
+//                level.setBlockAndUpdate(pos, newState.setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
+//                return InteractionResult.sidedSuccess(level.isClientSide());
+//            }
+//        }
+//
+//        return super.use(state, level, pos, player, hand, hit);
+//    }
 
     @Override
     public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
@@ -138,7 +126,7 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock, Enti
     }
 
     @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 

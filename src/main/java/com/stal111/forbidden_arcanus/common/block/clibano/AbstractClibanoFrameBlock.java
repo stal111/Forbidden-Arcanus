@@ -10,7 +10,6 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.player.Player;
@@ -65,22 +64,20 @@ public abstract class AbstractClibanoFrameBlock extends Block implements EntityB
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        if (!(level instanceof ServerLevel serverLevel)) {
-            return InteractionResult.SUCCESS;
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.getPoiManager().find(poiType -> poiType.value() == ModPOITypes.CLIBANO_MAIN_PART.get(), blockPos -> !level.getBlockState(blockPos).isAir(), pos, 2, PoiManager.Occupancy.ANY).ifPresent(blockPos -> {
+                BlockEntity blockEntity = level.getBlockEntity(blockPos);
+
+                if (blockEntity instanceof ClibanoMainBlockEntity clibanoMainBlockEntity) {
+                    player.openMenu(clibanoMainBlockEntity, buffer -> {
+                        buffer.writeWithCodec(RegistryOps.create(NbtOps.INSTANCE, level.registryAccess()), ResiduesStorage.MAP_CODEC, clibanoMainBlockEntity.getResiduesStorage().getResidueTypeAmountMap());
+                    });
+                }
+            });
         }
 
-        serverLevel.getPoiManager().find(poiType -> poiType.value() == ModPOITypes.CLIBANO_MAIN_PART.get(), blockPos -> !level.getBlockState(blockPos).isAir(), pos, 2, PoiManager.Occupancy.ANY).ifPresent(blockPos -> {
-            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-
-            if (blockEntity instanceof ClibanoMainBlockEntity clibanoMainBlockEntity) {
-                player.openMenu(clibanoMainBlockEntity, buffer -> {
-                    buffer.writeWithCodec(RegistryOps.create(NbtOps.INSTANCE, level.registryAccess()), ResiduesStorage.MAP_CODEC, clibanoMainBlockEntity.getResiduesStorage().getResidueTypeAmountMap());
-                });
-            }
-        });
-
-        return InteractionResult.CONSUME;
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Override

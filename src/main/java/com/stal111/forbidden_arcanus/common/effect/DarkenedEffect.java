@@ -21,12 +21,14 @@ public class DarkenedEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        int i = livingEntity.getEffect(ModMobEffects.DARKENED.get()).getDuration();
+    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        int i = livingEntity.getEffect(ModMobEffects.DARKENED).getDuration();
         if (i >= 20) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 99999, 0, false, false, false));
         } else {
             livingEntity.removeEffect(MobEffects.BLINDNESS);
         }
+
+        return true;
     }
 }

@@ -16,6 +16,6 @@ public class ModStructureTypes implements RegistryClass {
 
     public static final MappedRegistryHelper<StructureType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.STRUCTURE_TYPE);
 
-    public static final RegistryEntry<StructureType<NipaStructure>> NIPA = HELPER.register("nipa", () -> () -> NipaStructure.CODEC);
+    public static final RegistryEntry<StructureType<?>, StructureType<NipaStructure>> NIPA = HELPER.register("nipa", () -> () -> NipaStructure.CODEC);
 
 }

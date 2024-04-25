@@ -15,12 +15,11 @@ public record UpdateItemInSlotPacket(BlockPos pos, ItemStack stack, int slot) {
 
     public static void encode(UpdateItemInSlotPacket packet, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(packet.pos);
-        buffer.writeItem(packet.stack);
         buffer.writeInt(packet.slot);
     }
 
     public static UpdateItemInSlotPacket decode(FriendlyByteBuf buffer) {
-        return new UpdateItemInSlotPacket(buffer.readBlockPos(), buffer.readItem(), buffer.readInt());
+        return new UpdateItemInSlotPacket(buffer.readBlockPos(), null, buffer.readInt());
     }
 
 //    public static void consume(UpdateItemInSlotPacket packet, CustomPayloadEvent.Context context) {

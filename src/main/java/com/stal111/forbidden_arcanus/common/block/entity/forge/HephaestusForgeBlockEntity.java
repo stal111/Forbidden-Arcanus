@@ -16,6 +16,7 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -274,20 +275,20 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     @Override
-    public void saveAdditional(@NotNull CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
+        super.saveAdditional(tag, lookupProvider);
 
-        this.saveInventory(tag);
+        this.saveInventory(tag, lookupProvider);
 
         this.getRitualManager().save(tag);
         this.getEssenceManager().save(tag);
     }
 
     @Override
-    public void load(@NotNull CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
+        super.loadAdditional(tag, lookupProvider);
 
-        this.loadInventory(tag);
+        this.loadInventory(tag, lookupProvider);
 
         this.getRitualManager().load(tag);
         this.getEssenceManager().load(tag);
@@ -299,30 +300,26 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @NotNull
     @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag tag = this.saveWithoutMetadata();
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
+        CompoundTag tag = this.saveWithoutMetadata(lookupProvider);
         tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
-        tag.put("main_item", this.getStack(MAIN_SLOT).save(new CompoundTag()));
+        tag.put("main_item", this.getStack(MAIN_SLOT).save(lookupProvider));
 
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag) {
-        super.handleUpdateTag(tag);
+    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.handleUpdateTag(tag, lookupProvider);
 
         this.updateValidRitualIndicator(tag.getBoolean("display_valid_ritual_indicator"));
-        this.clientMainItem = ItemStack.of(tag.getCompound("main_item"));
+        this.clientMainItem = ItemStack.parseOptional(lookupProvider, tag.getCompound("main_item"));
     }
 
     @Override
-    public void onDataPacket(@NotNull Connection net, @NotNull ClientboundBlockEntityDataPacket packet) {
-        CompoundTag tag = packet.getTag();
-        if (tag != null) {
-            this.handleUpdateTag(tag);
-        }
+    public void onDataPacket(@NotNull Connection net, @NotNull ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider lookupProvider) {
+        this.handleUpdateTag(packet.getTag(), lookupProvider);
     }
 
     @NotNull

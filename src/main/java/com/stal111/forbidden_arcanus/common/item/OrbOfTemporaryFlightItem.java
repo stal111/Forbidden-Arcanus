@@ -1,23 +1,15 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.core.config.ItemConfig;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
 
 /**
  * Orb of Temporary Flight Item <br>
@@ -52,9 +44,9 @@ public class OrbOfTemporaryFlightItem extends Item {
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 
-	@Override
-	public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-		super.appendHoverText(stack, level, tooltip, flag);
-		tooltip.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".duration").withStyle(ChatFormatting.GRAY).append(": " + StringUtil.formatTickDuration(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get(), level == null ? 20.0F : level.tickRateManager().tickrate())));
-	}
+//	@Override
+//	public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+//		super.appendHoverText(stack, level, tooltip, flag);
+//		tooltip.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".duration").withStyle(ChatFormatting.GRAY).append(": " + StringUtil.formatTickDuration(ItemConfig.ORB_OF_TEMPORARY_FLIGHT_TIME.get(), level == null ? 20.0F : level.tickRateManager().tickrate())));
+//	}
 }

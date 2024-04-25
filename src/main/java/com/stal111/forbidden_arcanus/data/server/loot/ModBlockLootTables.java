@@ -4,7 +4,8 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -79,9 +80,8 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
 
     //TODO: remove after transitioning all loot tables
     @Override
-    public void generate(@NotNull BiConsumer<ResourceLocation, LootTable.Builder> biConsumer) {
+    public void generate(HolderLookup.Provider lookupProvider, @NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
         this.generate();
 
-        this.map.forEach(biConsumer);
-    }
+        this.map.forEach(biConsumer);    }
 }

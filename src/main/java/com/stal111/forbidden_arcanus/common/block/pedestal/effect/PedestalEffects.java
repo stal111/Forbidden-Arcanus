@@ -15,6 +15,6 @@ public class PedestalEffects {
 
     public static final MappedRegistryHelper<PedestalEffect> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.PEDESTAL_EFFECT);
 
-    public static final RegistryEntry<PedestalEffect> UPDATE_FORGE_INGREDIENTS = HELPER.register("update_forge_ingredients", UpdateForgeIngredientsEffect::new);
-    public static final RegistryEntry<PedestalEffect> SUMMON_DARK_TRADER = HELPER.register("summon_dark_trader", () -> new SummonEntityEffect<>((level, stack) -> stack.is(ModItems.OMEGA_ARCOIN.get()), ModEntities.DARK_TRADER, 10, false));
+    public static final RegistryEntry<PedestalEffect, PedestalEffect> UPDATE_FORGE_INGREDIENTS = HELPER.register("update_forge_ingredients", UpdateForgeIngredientsEffect::new);
+    public static final RegistryEntry<PedestalEffect, PedestalEffect> SUMMON_DARK_TRADER = HELPER.register("summon_dark_trader", () -> new SummonEntityEffect<>((level, stack) -> stack.is(ModItems.OMEGA_ARCOIN.get()), ModEntities.DARK_TRADER, 10, false));
 }

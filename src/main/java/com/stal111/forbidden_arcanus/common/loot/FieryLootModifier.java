@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
 import com.google.common.base.Suppliers;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.SimpleContainer;
@@ -25,7 +25,7 @@ import java.util.function.Supplier;
  */
 public class FieryLootModifier extends LootModifier {
 
-    public static final Supplier<Codec<FieryLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.create(instance -> codecStart(instance).apply(instance, FieryLootModifier::new)));
+    public static final Supplier<MapCodec<FieryLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, FieryLootModifier::new)));
 
     /**
      * Constructs a LootModifier.
@@ -55,7 +55,7 @@ public class FieryLootModifier extends LootModifier {
     }
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
+    public MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC.get();
     }
 }

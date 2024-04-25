@@ -20,5 +20,5 @@ public class ModStructurePieces implements RegistryClass {
     public static final MappedRegistryHelper<StructurePieceType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.STRUCTURE_PIECE);
 
 
-    public static final RegistryEntry<StructurePieceType> NIPA = HELPER.register("nipa", () -> NipaPieces.Piece::new);
+    public static final RegistryEntry<StructurePieceType, StructurePieceType> NIPA = HELPER.register("nipa", () -> NipaPieces.Piece::new);
 }

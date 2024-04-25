@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -123,14 +125,14 @@ public class BlackHoleBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(@Nonnull CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.loadAdditional(tag, lookupProvider);
         this.stored_xp = tag.getDouble("StoredXP");
     }
 
     @Override
-    public void saveAdditional(@Nonnull CompoundTag tag) {
-        super.saveAdditional(tag);
+    public void saveAdditional(@Nonnull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
+        super.saveAdditional(tag, lookupProvider);
         tag.putDouble("StoredXP", this.stored_xp);
     }
 }

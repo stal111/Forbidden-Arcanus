@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,10 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -82,12 +80,14 @@ public class BloodTestTubeItem extends Item {
     }
 
     public static int getBlood(ItemStack stack) {
-        return stack.getOrCreateTag().getInt("Blood");
+        return 0;
+        //TODO
+        //return stack.getOrCreateTag().getInt("Blood");
     }
 
     public static ItemStack setBlood(ItemStack stack, int blood) {
-        CompoundTag compound = stack.getOrCreateTag();
-        compound.putInt("Blood", blood);
+//        CompoundTag compound = stack.getOrCreateTag();
+//        compound.putInt("Blood", blood);
 
         return stack;
     }
@@ -106,8 +106,7 @@ public class BloodTestTubeItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        super.appendHoverText(stack, worldIn, tooltip, flag);
-        tooltip.add(Component.translatable(ForbiddenArcanus.MOD_ID + ".essence.blood").append(": " + getBlood(stack) + "/" + MAX_BLOOD).withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
+        components.add(Component.translatable(ForbiddenArcanus.MOD_ID + ".essence.blood").append(": " + getBlood(stack) + "/" + MAX_BLOOD).withStyle(ChatFormatting.GRAY));
     }
 }

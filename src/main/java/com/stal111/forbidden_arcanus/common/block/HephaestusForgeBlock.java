@@ -12,10 +12,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -98,10 +99,9 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(TIER_ID, this.level.getAsInt()).withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag flag) {
+        components.add(Component.translatable(TIER_ID, this.level.getAsInt()).withStyle(ChatFormatting.GRAY));
     }
-
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -130,26 +130,33 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,  InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
         this.updateState(state, level, pos);
 
         if (state.getValue(ACTIVATED)) {
-            if (!(player instanceof ServerPlayer serverPlayer)) {
-                return InteractionResult.SUCCESS;
+            if (!level.isClientSide() && level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
+                player.openMenu(blockEntity);
             }
-            if (level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
-                ItemStack stack = player.getItemInHand(hand);
 
-                if (stack.getItem() instanceof RitualStarterItem ritualStarterItem) {
-                    ritualStarterItem.tryStartRitual(blockEntity, level, stack, player);
-                } else {
-                    player.openMenu(blockEntity);
-                }
-                return InteractionResult.CONSUME;
-            }
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
-        return super.use(state, level, pos, player, hand, hit);
+        return super.useWithoutItem(state, level, pos, player, result);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+        this.updateState(state, level, pos);
+
+        if (state.getValue(ACTIVATED) && stack.getItem() instanceof RitualStarterItem ritualStarterItem) {
+            if (!level.isClientSide() && level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
+                ritualStarterItem.tryStartRitual(blockEntity, level, stack, player);
+            }
+
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        }
+
+        return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 
     public void updateState(BlockState state, Level level, BlockPos pos) {

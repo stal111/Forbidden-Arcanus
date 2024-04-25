@@ -18,8 +18,8 @@ public class ModForgeInputTypes implements RegistryClass {
 
     public static final MappedRegistryHelper<HephaestusForgeInputType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.FORGE_INPUT_TYPE);
 
-    public static final RegistryEntry<HephaestusForgeInputType<ItemInput>> SIMPLE_ITEM = HELPER.register("simple_item", () -> new HephaestusForgeInputType<>(ItemInput.CODEC));
-    public static final RegistryEntry<HephaestusForgeInputType<ExtractEnchantmentsInput>> EXTRACT_ENCHANTMENTS = HELPER.register("extract_enchantments", () -> new HephaestusForgeInputType<>(ExtractEnchantmentsInput.CODEC));
-    public static final RegistryEntry<HephaestusForgeInputType<BloodInput>> BLOOD = HELPER.register("blood", () -> new HephaestusForgeInputType<>(BloodInput.CODEC));
+    public static final RegistryEntry<HephaestusForgeInputType<?>, HephaestusForgeInputType<ItemInput>> SIMPLE_ITEM = HELPER.register("simple_item", () -> new HephaestusForgeInputType<>(ItemInput.CODEC));
+    public static final RegistryEntry<HephaestusForgeInputType<?>, HephaestusForgeInputType<ExtractEnchantmentsInput>> EXTRACT_ENCHANTMENTS = HELPER.register("extract_enchantments", () -> new HephaestusForgeInputType<>(ExtractEnchantmentsInput.CODEC));
+    public static final RegistryEntry<HephaestusForgeInputType<?>, HephaestusForgeInputType<BloodInput>> BLOOD = HELPER.register("blood", () -> new HephaestusForgeInputType<>(BloodInput.CODEC));
 
 }

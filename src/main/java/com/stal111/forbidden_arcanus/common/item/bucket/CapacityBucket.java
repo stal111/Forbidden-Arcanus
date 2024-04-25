@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item.bucket;
 
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
@@ -34,7 +33,9 @@ public interface CapacityBucket {
     }
 
     default int getFullness(ItemStack stack) {
-        return Math.max(1, stack.getOrCreateTag().getInt(FULLNESS_TAG));
+        return 1;
+        //TODO
+       // return Math.max(1, stack.getOrCreateTag().getInt(FULLNESS_TAG));
     }
 
     default ItemStack setFullness(ItemStack stack, int fullness) {
@@ -42,7 +43,7 @@ public interface CapacityBucket {
             return this.getEmptyBucket().getDefaultInstance();
         }
 
-        stack.getOrCreateTag().putInt(FULLNESS_TAG, Mth.clamp(fullness, 1, this.getCapacity()));
+        //stack.getOrCreateTag().putInt(FULLNESS_TAG, Mth.clamp(fullness, 1, this.getCapacity()));
 
         return stack;
     }

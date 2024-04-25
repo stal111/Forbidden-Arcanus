@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
-
-import javax.annotation.Nonnull;
 
 /**
  * Soulless Sand Block <br>
@@ -31,11 +29,8 @@ public class SoullessSandBlock extends SoulSandBlock {
         super(properties);
     }
 
-    @Nonnull
     @Override
-    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-        ItemStack stack = player.getItemInHand(hand);
-
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (stack.is(ModItems.SOUL.get()) && level.mayInteract(player, pos)) {
             ItemStackUtils.shrinkStack(player, stack);
 
@@ -43,8 +38,9 @@ public class SoullessSandBlock extends SoulSandBlock {
             level.levelEvent(player, 2001, pos, Block.getId(state));
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
-        return super.use(state, level, pos, player, hand, hit);
+
+        return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 }

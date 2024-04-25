@@ -15,6 +15,7 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
@@ -40,9 +41,9 @@ public class ModBoat extends Boat implements CustomBoat {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_ID_WOOD_TYPE, 0);
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_ID_WOOD_TYPE, 0);
     }
 
     @Override

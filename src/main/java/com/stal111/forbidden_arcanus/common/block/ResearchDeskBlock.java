@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockE
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -35,9 +34,7 @@ public class ResearchDeskBlock extends DeskBlock implements EntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack stack = player.getItemInHand(hand);
-
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
         if (player.isShiftKeyDown()) {
             BlockState newState = ModBlocks.DESK.get().defaultBlockState()
                     .setValue(FACING, state.getValue(FACING))
@@ -47,24 +44,18 @@ public class ResearchDeskBlock extends DeskBlock implements EntityBlock {
 
             ItemStack forbiddenomicon = new ItemStack(ModBlocks.FORBIDDENOMICON.get());
 
-            if (stack.isEmpty()) {
-                player.setItemInHand(hand, forbiddenomicon);
-            } else if (!player.addItem(forbiddenomicon)) {
+            if (!player.addItem(forbiddenomicon)) {
                 player.drop(forbiddenomicon, false);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
-
-        if (level.getBlockEntity(pos) instanceof ResearchDeskBlockEntity blockEntity) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof ResearchDeskBlockEntity blockEntity) {
             player.openMenu(blockEntity);
         }
 
-        return InteractionResult.CONSUME;
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Override
