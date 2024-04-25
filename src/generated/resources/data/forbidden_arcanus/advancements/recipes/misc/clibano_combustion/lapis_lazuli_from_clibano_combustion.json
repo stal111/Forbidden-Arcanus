@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "minecraft:lapis_ores"
+            "items": "#minecraft:lapis_ores"
           }
         ]
       },

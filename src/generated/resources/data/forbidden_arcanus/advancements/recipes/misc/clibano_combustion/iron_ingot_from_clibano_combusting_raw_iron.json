@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:raw_materials/iron"
+            "items": "#c:raw_materials/iron"
           }
         ]
       },

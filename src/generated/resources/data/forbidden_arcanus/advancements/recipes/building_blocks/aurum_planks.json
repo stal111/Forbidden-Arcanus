@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forbidden_arcanus:mysterywood_logs"
+            "items": "#forbidden_arcanus:mysterywood_logs"
           }
         ]
       },

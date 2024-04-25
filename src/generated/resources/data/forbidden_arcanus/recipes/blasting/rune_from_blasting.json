@@ -6,5 +6,8 @@
   "ingredient": {
     "tag": "forbidden_arcanus:runic_stones"
   },
-  "result": "forbidden_arcanus:rune"
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:rune"
+  }
 }

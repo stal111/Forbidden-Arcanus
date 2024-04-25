@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:arcane_polished_darkstone_slab"
-            ]
+            "items": "forbidden_arcanus:arcane_polished_darkstone_slab"
           }
         ]
       },

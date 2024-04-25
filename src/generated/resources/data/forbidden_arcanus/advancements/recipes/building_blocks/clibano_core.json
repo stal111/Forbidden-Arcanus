@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:blast_furnace"
-            ]
+            "items": "minecraft:blast_furnace"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:darkstone"
-            ]
+            "items": "forbidden_arcanus:darkstone"
           }
         ]
       },

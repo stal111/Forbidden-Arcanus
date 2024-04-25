@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:arcane_edelwood_planks"
-            ]
+            "items": "forbidden_arcanus:arcane_edelwood_planks"
           }
         ]
       },

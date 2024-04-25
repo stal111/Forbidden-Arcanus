@@ -5,10 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:chests/wooden"
-          },
-          {
-            "tag": "c:chests"
+            "items": "#c:chests/wooden"
           }
         ]
       },
@@ -18,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:edelwood_boat"
-            ]
+            "items": "forbidden_arcanus:edelwood_boat"
           }
         ]
       },

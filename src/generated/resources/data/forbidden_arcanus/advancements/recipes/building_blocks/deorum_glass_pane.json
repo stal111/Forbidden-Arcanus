@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:deorum_glass"
-            ]
+            "items": "forbidden_arcanus:deorum_glass"
           }
         ]
       },

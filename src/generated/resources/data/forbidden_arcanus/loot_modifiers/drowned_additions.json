@@ -1,5 +1,5 @@
 {
-  "type": "valhelsia_core:append_loot",
+  "type": "neoforge:add_table",
   "conditions": [
     {
       "chance": 0.002,
@@ -11,5 +11,5 @@
       "loot_table_id": "minecraft:entities/drowned"
     }
   ],
-  "loot_addition": "forbidden_arcanus:entities/additions/drowned_additions"
+  "table": "forbidden_arcanus:entities/additions/drowned_additions"
 }

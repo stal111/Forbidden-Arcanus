@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:edelwood_planks"
-            ]
+            "items": "forbidden_arcanus:edelwood_planks"
           }
         ]
       },
@@ -17,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:rods/wooden"
+            "items": "#c:rods/wooden"
           }
         ]
       },

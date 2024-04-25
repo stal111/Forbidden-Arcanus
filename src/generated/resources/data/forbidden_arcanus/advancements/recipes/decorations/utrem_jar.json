@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_glass/colorless": {
+    "has_glass_blocks/colorless": {
       "conditions": {
         "items": [
           {
-            "tag": "forge:glass/colorless"
+            "items": "#c:glass_blocks/colorless"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_glass/colorless"
+      "has_glass_blocks/colorless"
     ]
   ],
   "rewards": {

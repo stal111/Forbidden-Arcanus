@@ -3,14 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "type": "valhelsia_core:platform_dependent",
-      "fabric:type": "valhelsia_core:platform_dependent",
-      "fabric_value": {
-        "item": "minecraft:stick"
-      },
-      "forge_value": {
-        "tag": "forge:rods/wooden"
-      }
+      "tag": "c:rods/wooden"
     },
     "X": {
       "item": "forbidden_arcanus:fungyss_planks"
@@ -21,6 +14,7 @@
     "#X#"
   ],
   "result": {
-    "item": "forbidden_arcanus:fungyss_fence_gate"
+    "count": 1,
+    "id": "forbidden_arcanus:fungyss_fence_gate"
   }
 }

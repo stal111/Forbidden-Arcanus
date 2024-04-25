@@ -6,7 +6,7 @@
   "fire_type": "fire",
   "ingredients": [
     {
-      "tag": "forge:raw_materials/copper"
+      "tag": "c:raw_materials/copper"
     }
   ],
   "residue": {

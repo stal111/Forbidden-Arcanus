@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "minecraft:coal_ores"
+            "items": "#minecraft:coal_ores"
           }
         ]
       },

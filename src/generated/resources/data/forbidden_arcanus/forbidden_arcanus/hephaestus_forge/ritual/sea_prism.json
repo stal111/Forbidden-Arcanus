@@ -21,7 +21,7 @@
     {
       "amount": 2,
       "ingredient": {
-        "item": "minecraft:scute"
+        "item": "minecraft:turtle_scute"
       }
     },
     {
@@ -38,7 +38,7 @@
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {
-      "Count": 1,
+      "count": 1,
       "id": "forbidden_arcanus:sea_prism"
     }
   }

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forbidden_arcanus:arcane_crystal_ores"
+            "items": "#forbidden_arcanus:arcane_crystal_ores"
           }
         ]
       },

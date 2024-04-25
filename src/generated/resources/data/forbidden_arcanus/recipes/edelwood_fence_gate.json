@@ -1,34 +1,20 @@
 {
-  "parent": "minecraft:recipes/root",
-  "criteria": {
-    "has_edelwood_planks": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "forbidden_arcanus:edelwood_planks"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "tag": "c:rods/wooden"
     },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "forbidden_arcanus:edelwood_fence_gate"
-      },
-      "trigger": "minecraft:recipe_unlocked"
+    "X": {
+      "item": "forbidden_arcanus:edelwood_planks"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_edelwood_planks"
-    ]
+  "pattern": [
+    "#X#",
+    "#X#"
   ],
-  "rewards": {
-    "recipes": [
-      "forbidden_arcanus:edelwood_fence_gate"
-    ]
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:edelwood_fence_gate"
   }
 }

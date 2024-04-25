@@ -29,7 +29,7 @@
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {
-      "Count": 1,
+      "count": 1,
       "id": "forbidden_arcanus:eternal_stella"
     }
   }

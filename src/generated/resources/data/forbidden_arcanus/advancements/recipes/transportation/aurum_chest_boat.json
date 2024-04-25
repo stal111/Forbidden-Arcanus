@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:aurum_boat"
-            ]
+            "items": "forbidden_arcanus:aurum_boat"
           }
         ]
       },
@@ -17,10 +15,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:chests/wooden"
-          },
-          {
-            "tag": "c:chests"
+            "items": "#c:chests/wooden"
           }
         ]
       },

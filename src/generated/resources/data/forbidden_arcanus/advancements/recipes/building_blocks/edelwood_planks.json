@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forbidden_arcanus:edelwood_logs"
+            "items": "#forbidden_arcanus:edelwood_logs"
           }
         ]
       },

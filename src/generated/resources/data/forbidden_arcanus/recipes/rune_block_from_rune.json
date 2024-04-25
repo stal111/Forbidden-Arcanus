@@ -1,34 +1,18 @@
 {
-  "parent": "minecraft:recipes/root",
-  "criteria": {
-    "has_rune": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "forbidden_arcanus:rune"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "forbidden_arcanus:rune_block_from_rune"
-      },
-      "trigger": "minecraft:recipe_unlocked"
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:rune"
     }
   },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_rune"
-    ]
+  "pattern": [
+    "###",
+    "###",
+    "###"
   ],
-  "rewards": {
-    "recipes": [
-      "forbidden_arcanus:rune_block_from_rune"
-    ]
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:rune_block"
   }
 }

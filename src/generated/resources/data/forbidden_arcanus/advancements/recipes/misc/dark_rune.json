@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:corrupti_dust"
-            ]
+            "items": "forbidden_arcanus:corrupti_dust"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:rune"
-            ]
+            "items": "forbidden_arcanus:rune"
           }
         ]
       },

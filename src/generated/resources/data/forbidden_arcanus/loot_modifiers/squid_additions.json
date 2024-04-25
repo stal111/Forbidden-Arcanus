@@ -1,5 +1,5 @@
 {
-  "type": "valhelsia_core:append_loot",
+  "type": "neoforge:add_table",
   "conditions": [
     {
       "chance": 0.7,
@@ -10,5 +10,5 @@
       "loot_table_id": "minecraft:entities/squid"
     }
   ],
-  "loot_addition": "forbidden_arcanus:entities/additions/squid_additions"
+  "table": "forbidden_arcanus:entities/additions/squid_additions"
 }

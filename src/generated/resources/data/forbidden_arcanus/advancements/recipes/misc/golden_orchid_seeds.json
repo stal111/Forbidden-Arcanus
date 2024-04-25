@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/deorum"
+            "items": "#forge:ingots/deorum"
           }
         ]
       },
@@ -21,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:yellow_orchid"
-            ]
+            "items": "forbidden_arcanus:yellow_orchid"
           }
         ]
       },

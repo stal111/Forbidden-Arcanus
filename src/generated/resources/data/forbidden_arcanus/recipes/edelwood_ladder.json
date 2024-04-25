@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "X": {
       "item": "forbidden_arcanus:edelwood_planks"
@@ -16,6 +16,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "forbidden_arcanus:edelwood_ladder"
+    "id": "forbidden_arcanus:edelwood_ladder"
   }
 }

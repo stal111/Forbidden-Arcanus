@@ -6,5 +6,8 @@
   "ingredient": {
     "tag": "forbidden_arcanus:arcane_crystal_ores"
   },
-  "result": "forbidden_arcanus:arcane_crystal"
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:arcane_crystal"
+  }
 }

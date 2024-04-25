@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass_blocks/colorless"
     },
     "X": {
       "item": "forbidden_arcanus:edelwood_planks"
@@ -15,6 +15,7 @@
     "###"
   ],
   "result": {
-    "item": "forbidden_arcanus:utrem_jar"
+    "count": 1,
+    "id": "forbidden_arcanus:utrem_jar"
   }
 }

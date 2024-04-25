@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:soulless_sandstone"
-            ]
+            "items": "forbidden_arcanus:soulless_sandstone"
           }
         ]
       },

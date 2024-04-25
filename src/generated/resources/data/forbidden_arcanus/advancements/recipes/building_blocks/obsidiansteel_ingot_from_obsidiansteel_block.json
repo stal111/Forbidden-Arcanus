@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:obsidiansteel_block"
-            ]
+            "items": "forbidden_arcanus:obsidiansteel_block"
           }
         ]
       },

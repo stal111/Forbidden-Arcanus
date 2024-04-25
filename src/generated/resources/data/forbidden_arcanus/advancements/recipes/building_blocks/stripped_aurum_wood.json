@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:stripped_aurum_log"
-            ]
+            "items": "forbidden_arcanus:stripped_aurum_log"
           }
         ]
       },

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:nether_star"
-            ]
+            "items": "minecraft:nether_star"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:obsidiansteel_ingot"
-            ]
+            "items": "forbidden_arcanus:obsidiansteel_ingot"
           }
         ]
       },

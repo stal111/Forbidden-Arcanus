@@ -12,6 +12,7 @@
     "###"
   ],
   "result": {
-    "item": "forbidden_arcanus:corrupted_arcane_crystal_block"
+    "count": 1,
+    "id": "forbidden_arcanus:corrupted_arcane_crystal_block"
   }
 }

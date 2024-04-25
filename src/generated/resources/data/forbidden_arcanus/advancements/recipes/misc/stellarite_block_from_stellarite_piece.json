@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:stellarite_piece"
-            ]
+            "items": "forbidden_arcanus:stellarite_piece"
           }
         ]
       },

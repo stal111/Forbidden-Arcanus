@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:dark_nether_star"
-            ]
+            "items": "forbidden_arcanus:dark_nether_star"
           }
         ]
       },

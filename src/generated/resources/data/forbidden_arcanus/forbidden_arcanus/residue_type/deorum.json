@@ -2,7 +2,7 @@
   "combine_info": {
     "required_amount": 1,
     "result": {
-      "Count": 2,
+      "count": 2,
       "id": "forbidden_arcanus:deorum_nugget"
     }
   },

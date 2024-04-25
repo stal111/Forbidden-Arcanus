@@ -1,10 +1,10 @@
 {
-  "type": "valhelsia_core:append_loot",
+  "type": "neoforge:add_table",
   "conditions": [
     {
       "condition": "neoforge:loot_table_id",
       "loot_table_id": "minecraft:entities/bat"
     }
   ],
-  "loot_addition": "forbidden_arcanus:entities/additions/bat_additions"
+  "table": "forbidden_arcanus:entities/additions/bat_additions"
 }

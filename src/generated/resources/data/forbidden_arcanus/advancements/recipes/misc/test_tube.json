@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:rune"
-            ]
+            "items": "forbidden_arcanus:rune"
           }
         ]
       },

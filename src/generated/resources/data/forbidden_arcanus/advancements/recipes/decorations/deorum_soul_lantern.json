@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/deorum"
+            "items": "#forge:nuggets/deorum"
           }
         ]
       },
@@ -15,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:soul_torch"
-            ]
+            "items": "minecraft:soul_torch"
           }
         ]
       },

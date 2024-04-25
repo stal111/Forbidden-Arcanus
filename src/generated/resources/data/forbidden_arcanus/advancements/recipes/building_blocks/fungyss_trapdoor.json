@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "forbidden_arcanus:fungyss_planks"
-            ]
+            "items": "forbidden_arcanus:fungyss_planks"
           }
         ]
       },

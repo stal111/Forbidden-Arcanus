@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_obsidian": {
+    "has_obsidians": {
       "conditions": {
         "items": [
           {
-            "tag": "forge:obsidian"
+            "items": "#c:obsidians"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_obsidian"
+      "has_obsidians"
     ]
   ],
   "rewards": {

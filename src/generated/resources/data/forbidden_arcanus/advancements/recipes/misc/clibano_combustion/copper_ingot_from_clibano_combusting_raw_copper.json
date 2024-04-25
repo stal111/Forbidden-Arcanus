@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:raw_materials/copper"
+            "items": "#c:raw_materials/copper"
           }
         ]
       },

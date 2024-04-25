@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forbidden_arcanus:fungyss_stems"
+            "items": "#forbidden_arcanus:fungyss_stems"
           }
         ]
       },

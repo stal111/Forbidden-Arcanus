@@ -6,5 +6,8 @@
   "ingredient": {
     "item": "forbidden_arcanus:arcane_crystal"
   },
-  "result": "forbidden_arcanus:arcane_crystal_dust"
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:arcane_crystal_dust"
+  }
 }
