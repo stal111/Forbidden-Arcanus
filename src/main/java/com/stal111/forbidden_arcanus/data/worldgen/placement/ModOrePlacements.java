@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -31,7 +31,7 @@ public class ModOrePlacements extends DatapackRegistryClass<PlacedFeature> {
     public static final ResourceKey<PlacedFeature> DARKSTONE = HELPER.createKey("darkstone");
     public static final ResourceKey<PlacedFeature> STELLA_ARCANUM = HELPER.createKey("stella_arcanum");
 
-    public ModOrePlacements(BootstapContext<PlacedFeature> context) {
+    public ModOrePlacements(BootstrapContext<PlacedFeature> context) {
         super(context);
     }
 
@@ -44,7 +44,7 @@ public class ModOrePlacements extends DatapackRegistryClass<PlacedFeature> {
     }
 
     @Override
-    public void bootstrap(BootstapContext<PlacedFeature> context) {
+    public void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
 
         PlacementUtils.register(context, ARCANE_CRYSTAL_ORE, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.ARCANE_CRYSTAL_ORE), this.commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.absolute(-40), VerticalAnchor.absolute(14))));

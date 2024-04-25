@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.data.hephaestus_forge;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
@@ -29,12 +29,12 @@ public class ModMagicCircles extends DatapackRegistryClass<MagicCircleType> {
     public static final ResourceKey<MagicCircleType> UPGRADE_TIER = HELPER.createKey("upgrade_tier");
     public static final ResourceKey<MagicCircleType> UPGRADE_FINAL_TIER = HELPER.createKey("upgrade_final_tier");
 
-    public ModMagicCircles(BootstapContext<MagicCircleType> context) {
+    public ModMagicCircles(BootstrapContext<MagicCircleType> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<MagicCircleType> context) {
+    public void bootstrap(BootstrapContext<MagicCircleType> context) {
         context.register(CREATE_ITEM, new MagicCircleType(UNION_TEXTURE, PURE_TEXTURE));
         context.register(UPGRADE_TIER, new MagicCircleType(ORIGIN_TEXTURE, PURE_TEXTURE));
         context.register(UPGRADE_FINAL_TIER, new MagicCircleType(ORIGIN_TEXTURE, PACTUM_TEXTURE));

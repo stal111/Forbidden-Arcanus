@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.data.worldgen.features;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
@@ -22,12 +22,12 @@ public class ModVegetationFeatures extends DatapackRegistryClass<ConfiguredFeatu
 
 
 
-    public ModVegetationFeatures(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public ModVegetationFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<PlacedFeature> placedFeatureRegistry = context.lookup(Registries.PLACED_FEATURE);
     }
 }

@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
@@ -18,12 +18,12 @@ public class ModDamageTypes extends DatapackRegistryClass<DamageType> {
 
     public static final ResourceKey<DamageType> EXTRACT_SOUL = HELPER.createKey("extract_soul");
 
-    public ModDamageTypes(BootstapContext<DamageType> context) {
+    public ModDamageTypes(BootstrapContext<DamageType> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<DamageType> context) {
+    public void bootstrap(BootstrapContext<DamageType> context) {
         context.register(EXTRACT_SOUL, new DamageType("extract_soul", 0.1F));
     }
 }

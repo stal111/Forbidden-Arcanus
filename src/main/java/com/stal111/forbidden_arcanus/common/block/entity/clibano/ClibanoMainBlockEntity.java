@@ -20,6 +20,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,6 +39,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -361,7 +363,9 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         if (chance != null && random.nextDouble() < chance.chance()) {
             this.residuesStorage.increaseType(chance.type(), 1);
 
-            PacketDistributor.TRACKING_CHUNK.with(this.level.getChunkAt(this.worldPosition)).send(new SetClibanoResiduesPayload(this.residuesStorage.getResidueTypeAmountMap()));
+            if (this.level instanceof ServerLevel serverLevel) {
+                PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(this.getBlockPos()), new SetClibanoResiduesPayload(this.residuesStorage));
+            }
         }
     }
 
@@ -463,10 +467,10 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
+        super.saveAdditional(tag, lookupProvider);
 
-        this.saveInventory(tag);
+        this.saveInventory(tag, lookupProvider);
 
         tag.putInt("soul_time", this.soulTime);
         tag.putInt("burn_time", this.burnTime);
@@ -492,10 +496,10 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     }
 
     @Override
-    public void load(@NotNull CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
+        super.loadAdditional(tag, lookupProvider);
 
-        this.loadInventory(tag);
+        this.loadInventory(tag, lookupProvider);
 
         this.soulTime = tag.getInt("soul_time");
         this.burnTime = tag.getInt("burn_time");

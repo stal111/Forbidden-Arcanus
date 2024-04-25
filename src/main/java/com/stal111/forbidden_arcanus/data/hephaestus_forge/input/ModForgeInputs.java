@@ -8,7 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusF
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ItemInput;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -33,12 +33,12 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
     public static final ResourceKey<HephaestusForgeInput> BLOOD_TEST_TUBE = HELPER.createKey("blood_test_tube");
     public static final ResourceKey<HephaestusForgeInput> EXTRACT_ENCHANTMENTS = HELPER.createKey("extract_enchantments");
 
-    public ModForgeInputs(BootstapContext<HephaestusForgeInput> context) {
+    public ModForgeInputs(BootstrapContext<HephaestusForgeInput> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<HephaestusForgeInput> context) {
+    public void bootstrap(BootstrapContext<HephaestusForgeInput> context) {
         context.register(SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.SOUL.get()), 1));
         context.register(CORRUPT_SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.CORRUPT_SOUL.get()), 1));
         context.register(ENCHANTED_SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.ENCHANTED_SOUL.get()), 10));

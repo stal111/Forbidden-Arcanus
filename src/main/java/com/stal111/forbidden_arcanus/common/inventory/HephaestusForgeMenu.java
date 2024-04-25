@@ -60,7 +60,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addEnhancerSlot(handler, 3, 124, 46);
 
         // Main Slot
-        this.addSlot(new MainSlot(handler, 4, 80, 24));
+        this.addSlot(new MainSlot(handler, 4, 80, 24, this));
 
         // Input Slots
         this.addSlot(new InputSlot(handler, 5, 8 - 26, 25, EssenceType.AUREAL));

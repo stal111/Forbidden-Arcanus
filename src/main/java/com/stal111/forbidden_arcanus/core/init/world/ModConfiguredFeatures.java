@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -58,7 +58,7 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_FUNGYSS_0 = HELPER.createKey("mega_fungyss_0");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEGA_FUNGYSS_1 = HELPER.createKey("mega_fungyss_1");
 
-    public ModConfiguredFeatures(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public ModConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         super(context);
     }
 
@@ -67,7 +67,7 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
     }
 
     @Override
-    public void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneOreReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateOreReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 

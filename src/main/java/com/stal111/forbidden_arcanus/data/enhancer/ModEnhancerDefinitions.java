@@ -9,7 +9,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.condition.TimeConditio
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
@@ -37,12 +37,12 @@ public class ModEnhancerDefinitions extends DatapackRegistryClass<EnhancerDefini
     public static final ResourceKey<EnhancerDefinition> DIVINE_PACT = HELPER.createKey("divine_pact");
     public static final ResourceKey<EnhancerDefinition> MALEDICTUS_PACT = HELPER.createKey("maledictus_pact");
 
-    public ModEnhancerDefinitions(BootstapContext<EnhancerDefinition> context) {
+    public ModEnhancerDefinitions(BootstrapContext<EnhancerDefinition> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<EnhancerDefinition> context) {
+    public void bootstrap(BootstrapContext<EnhancerDefinition> context) {
         context.register(ARTISAN_RELIC, EnhancerDefinition.create(ModItems.ARTISAN_RELIC.get(), this.generateDescription("artisan_relic", EnhancerTarget.HEPHAESTUS_FORGE, EnhancerTarget.CLIBANO), new MultiplyRequiredEssenceEffect(List.of(), EssenceType.EXPERIENCE, 0.75)));
         context.register(CRESCENT_MOON, EnhancerDefinition.create(ModItems.CRESCENT_MOON.get(), this.generateDescription("crescent_moon", EnhancerTarget.HEPHAESTUS_FORGE), new MultiplyRequiredEssenceEffect(List.of(new TimeCondition(23000, 23999)), EssenceType.AUREAL, 0.9), new MultiplyRequiredEssenceEffect(List.of(new TimeCondition(0, 12999)), EssenceType.AUREAL, 0.9), new MultiplyRequiredEssenceEffect(List.of(new TimeCondition(13000, 22999)), EssenceType.AUREAL, 0.99)));
         context.register(CRIMSON_STONE, EnhancerDefinition.create(ModItems.CRIMSON_STONE.get(), this.generateDescription("crimson_stone", EnhancerTarget.HEPHAESTUS_FORGE, EnhancerTarget.CLIBANO), new MultiplyRequiredEssenceEffect(List.of(), EssenceType.SOULS, 0.5), new MultiplySoulDurationEffect(List.of(), 1.3D)));

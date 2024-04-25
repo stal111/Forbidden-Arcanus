@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.Residue
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -32,12 +32,12 @@ public class ModResidueTypes extends DatapackRegistryClass<ResidueType> {
     public static final ResourceKey<ResidueType> NETHERITE = HELPER.createKey("netherite");
     public static final ResourceKey<ResidueType> DEORUM = HELPER.createKey("deorum");
 
-    public ModResidueTypes(BootstapContext<ResidueType> context) {
+    public ModResidueTypes(BootstrapContext<ResidueType> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<ResidueType> context) {
+    public void bootstrap(BootstrapContext<ResidueType> context) {
         context.register(ARCANE_CRYSTAL, ResidueType.withDefaultKey("arcane_crystal", 9, new ItemStack(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())));
         context.register(RUNE, ResidueType.withDefaultKey("rune", 9, new ItemStack(ModBlocks.RUNE_BLOCK.get())));
         context.register(COAL, ResidueType.withDefaultKey("coal", 9, Items.COAL_BLOCK.getDefaultInstance()));

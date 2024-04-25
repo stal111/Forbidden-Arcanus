@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -29,12 +29,12 @@ public class ModCavePlacements extends DatapackRegistryClass<PlacedFeature> {
 
     public static final ResourceKey<PlacedFeature> PETRIFIED_ROOT = HELPER.createKey("petrified_root");
 
-    public ModCavePlacements(BootstapContext<PlacedFeature> context) {
+    public ModCavePlacements(BootstrapContext<PlacedFeature> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<PlacedFeature> context) {
+    public void bootstrap(BootstrapContext<PlacedFeature> context) {
         PlacementUtils.register(context, PETRIFIED_ROOT, context.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(ModConfiguredFeatures.PETRIFIED_ROOT), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(50)), InSquarePlacement.spread(), CountPlacement.of(UniformInt.of(173, 256)), EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12), RandomOffsetPlacement.vertical(ConstantInt.of(-1)), BiomeFilter.biome());
     }
 }

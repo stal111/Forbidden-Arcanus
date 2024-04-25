@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -28,12 +28,12 @@ public class ModTreePlacements extends DatapackRegistryClass<PlacedFeature> {
     public static final ResourceKey<PlacedFeature> EDELWOOD_TREES = HELPER.createKey("edelwood_trees");
     public static final ResourceKey<PlacedFeature> AURUM_TREES = HELPER.createKey("aurum_trees");
 
-    public ModTreePlacements(BootstapContext<PlacedFeature> context) {
+    public ModTreePlacements(BootstrapContext<PlacedFeature> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<PlacedFeature> context) {
+    public void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
 
         PlacementUtils.register(context, EDELWOOD_TREES, configuredFeatureRegistry.getOrThrow(ModConfiguredFeatures.EDELWOOD), InSquarePlacement.spread(), TREE_THRESHOLD, PlacementUtils.HEIGHTMAP_WORLD_SURFACE, PlacementUtils.countExtra(18, 0.25F, 3), BiomeFilter.biome());

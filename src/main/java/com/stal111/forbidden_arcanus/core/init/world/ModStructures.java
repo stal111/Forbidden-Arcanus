@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -34,12 +34,12 @@ public class ModStructures extends DatapackRegistryClass<Structure> {
     public static final ResourceKey<Structure> NIPA = HELPER.createKey("nipa");
     public static final ResourceKey<Structure> NIPA_FLOATING = HELPER.createKey("nipa_floating");
 
-    public ModStructures(BootstapContext<Structure> context) {
+    public ModStructures(BootstrapContext<Structure> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<Structure> context) {
+    public void bootstrap(BootstrapContext<Structure> context) {
         HolderGetter<Biome> biomeRegistry = context.lookup(Registries.BIOME);
 
         context.register(NIPA, new NipaStructure(structure(biomeRegistry.getOrThrow(ModTags.Biomes.HAS_NIPA), TerrainAdjustment.NONE), false));

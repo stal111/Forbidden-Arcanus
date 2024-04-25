@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityMilkBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.SolidCapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturDustItem;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
@@ -98,7 +99,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<BlacksmithGavelItem> NETHERITE_BLACKSMITH_GAVEL = HELPER.register("netherite_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.NETHERITE, 7, -3.25F, 60, new Item.Properties().stacksTo(1).fireResistant()));
     public static final RegistryEntry<BlacksmithGavelItem> REINFORCED_DEORUM_BLACKSMITH_GAVEL = HELPER.register("reinforced_deorum_blacksmith_gavel", () -> new BlacksmithGavelItem(ModTiers.REINFORCED_DEORUM, 7, -3.25F, 80, new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> STELLARITE_PIECE = HELPER.register("stellarite_piece", () -> new Item(new Item.Properties()));
-    public static final RegistryEntry<SimpleFoiledItem> DARK_NETHER_STAR = HELPER.register("dark_nether_star", () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryEntry<Item> DARK_NETHER_STAR = HELPER.register("dark_nether_star", () -> new Item(new Item.Properties().rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
     public static final RegistryEntry<Item> TERRASTOMP_PRISM = HELPER.register("terrastomp_prism", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> SEA_PRISM = HELPER.register("sea_prism", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> WHIRLWIND_PRISM = HELPER.register("whirlwind_prism", () -> new WhirlwindPrismItem(new Item.Properties()));
@@ -136,18 +137,18 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<Item> REINFORCED_DEORUM_AXE = HELPER.register("reinforced_deorum_axe", () -> new AxeItem(ModTiers.REINFORCED_DEORUM, 5, -3.0F, new Item.Properties()));
     public static final RegistryEntry<Item> REINFORCED_DEORUM_HOE = HELPER.register("reinforced_deorum_hoe", () -> new HoeItem(ModTiers.REINFORCED_DEORUM, -3, 0, new Item.Properties()));
     public static final RegistryEntry<Item> MYSTICAL_DAGGER = HELPER.register("mystical_dagger", () -> new MysticalDaggerItem(ModTiers.MYSTICAL_DAGGER, 2.5F, -0.3F, new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<Item> DRACO_ARCANUS_HELMET = HELPER.register("draco_arcanus_helmet", () -> new ArmorItem(ModArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final RegistryEntry<Item> DRACO_ARCANUS_CHESTPLATE = HELPER.register("draco_arcanus_chestplate", () -> new ArmorItem(ModArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final RegistryEntry<Item> DRACO_ARCANUS_LEGGINGS = HELPER.register("draco_arcanus_leggings", () -> new ArmorItem(ModArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-    public static final RegistryEntry<Item> DRACO_ARCANUS_BOOTS = HELPER.register("draco_arcanus_boots", () -> new ArmorItem(ModArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.BOOTS, new Item.Properties()));
-    public static final RegistryEntry<Item> TYR_HELMET = HELPER.register("tyr_helmet", () -> new ArmorItem(ModArmorMaterials.TYR, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final RegistryEntry<Item> TYR_CHESTPLATE = HELPER.register("tyr_chestplate", () -> new ArmorItem(ModArmorMaterials.TYR, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final RegistryEntry<Item> TYR_LEGGINGS = HELPER.register("tyr_leggings", () -> new ArmorItem(ModArmorMaterials.TYR, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-    public static final RegistryEntry<Item> TYR_BOOTS = HELPER.register("tyr_boots", () -> new ArmorItem(ModArmorMaterials.TYR, ArmorItem.Type.BOOTS, new Item.Properties()));
-    public static final RegistryEntry<Item> MORTEM_HELMET = HELPER.register("mortem_helmet", () -> new MortemArmorItem(ModArmorMaterials.MORTEM, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final RegistryEntry<Item> MORTEM_CHESTPLATE = HELPER.register("mortem_chestplate", () -> new MortemArmorItem(ModArmorMaterials.MORTEM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final RegistryEntry<Item> MORTEM_LEGGINGS = HELPER.register("mortem_leggings", () -> new MortemArmorItem(ModArmorMaterials.MORTEM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-    public static final RegistryEntry<Item> MORTEM_BOOTS = HELPER.register("mortem_boots", () -> new MortemArmorItem(ModArmorMaterials.MORTEM, ArmorItem.Type.BOOTS, new Item.Properties()));
+    public static final RegistryEntry<Item> DRACO_ARCANUS_HELMET = HELPER.register("draco_arcanus_helmet", () -> new ArmorItem(FAArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryEntry<Item> DRACO_ARCANUS_CHESTPLATE = HELPER.register("draco_arcanus_chestplate", () -> new ArmorItem(FAArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+    public static final RegistryEntry<Item> DRACO_ARCANUS_LEGGINGS = HELPER.register("draco_arcanus_leggings", () -> new ArmorItem(FAArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final RegistryEntry<Item> DRACO_ARCANUS_BOOTS = HELPER.register("draco_arcanus_boots", () -> new ArmorItem(FAArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.BOOTS, new Item.Properties()));
+    public static final RegistryEntry<Item> TYR_HELMET = HELPER.register("tyr_helmet", () -> new ArmorItem(FAArmorMaterials.TYR, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryEntry<Item> TYR_CHESTPLATE = HELPER.register("tyr_chestplate", () -> new ArmorItem(FAArmorMaterials.TYR, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+    public static final RegistryEntry<Item> TYR_LEGGINGS = HELPER.register("tyr_leggings", () -> new ArmorItem(FAArmorMaterials.TYR, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final RegistryEntry<Item> TYR_BOOTS = HELPER.register("tyr_boots", () -> new ArmorItem(FAArmorMaterials.TYR, ArmorItem.Type.BOOTS, new Item.Properties()));
+    public static final RegistryEntry<Item> MORTEM_HELMET = HELPER.register("mortem_helmet", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryEntry<Item> MORTEM_CHESTPLATE = HELPER.register("mortem_chestplate", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+    public static final RegistryEntry<Item> MORTEM_LEGGINGS = HELPER.register("mortem_leggings", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final RegistryEntry<Item> MORTEM_BOOTS = HELPER.register("mortem_boots", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static class Stacks {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(ModItems.LENS_OF_VERITATIS.get());

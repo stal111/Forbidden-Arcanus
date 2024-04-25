@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.core.init.world;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
@@ -25,12 +25,12 @@ public class ModStructureSets extends DatapackRegistryClass<StructureSet> {
     public static final ResourceKey<StructureSet> NIPAS = HELPER.createKey("nipas");
 
 
-    public ModStructureSets(BootstapContext<StructureSet> context) {
+    public ModStructureSets(BootstrapContext<StructureSet> context) {
         super(context);
     }
 
     @Override
-    public void bootstrap(BootstapContext<StructureSet> context) {
+    public void bootstrap(BootstrapContext<StructureSet> context) {
         HolderGetter<Structure> structureRegistry = context.lookup(Registries.STRUCTURE);
 
         context.register(NIPAS, new StructureSet(List.of(StructureSet.entry(structureRegistry.getOrThrow(ModStructures.NIPA)), StructureSet.entry(structureRegistry.getOrThrow(ModStructures.NIPA_FLOATING))), new RandomSpreadStructurePlacement(35, 8, RandomSpreadType.LINEAR, 710359251)));

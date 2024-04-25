@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.recipe;
 import com.google.errorprone.annotations.DoNotCall;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
@@ -14,6 +15,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -137,8 +140,8 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
             return DataResult.success(ingredients);
         };
 
-        private static final Codec<ClibanoRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(recipe -> {
+        private static final MapCodec<ClibanoRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> {
                     return recipe.group;
                 }),
                 CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> {
@@ -156,32 +159,40 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
                 Codec.INT.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIME).forGetter(recipe -> {
                     return recipe.cookingTime;
                 }),
-                ExtraCodecs.strictOptionalField(ResidueChance.CODEC, "residue").forGetter(recipe -> {
+                ResidueChance.CODEC.optionalFieldOf("residue").forGetter(recipe -> {
                     return Optional.ofNullable(recipe.residueChance);
                 }),
                 ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> {
                     return recipe.requiredFireType;
                 }),
-                ExtraCodecs.strictOptionalField(EnhancerDefinition.REFERENCE_CODEC, "enhancer").forGetter(recipe -> {
+                EnhancerDefinition.REFERENCE_CODEC.optionalFieldOf("enhancer").forGetter(recipe -> {
                     return Optional.ofNullable(recipe.requiredEnhancer);
                 })
         ).apply(instance, (s, category, ingredients, stack, experience, cooking_time, residue, fireType, enhancer) -> {
             return new ClibanoRecipe(s, category, ingredients, stack, experience, cooking_time, residue.orElse(null), fireType, enhancer.orElse(null));
         }));
 
+        public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = StreamCodec.of(
+                ClibanoRecipe.Serializer::toNetwork, ClibanoRecipe.Serializer::fromNetwork
+        );
+
         @Override
-        public @NotNull Codec<ClibanoRecipe> codec() {
+        public @NotNull MapCodec<ClibanoRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public @NotNull ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-            return buffer.readJsonWithCodec(CODEC);
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
 
-        @Override
-        public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ClibanoRecipe recipe) {
-            buffer.writeJsonWithCodec(CODEC, recipe);
+        public static @NotNull ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
+            return buffer.readJsonWithCodec(CODEC.codec());
+        }
+
+
+        public static void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ClibanoRecipe recipe) {
+            buffer.writeJsonWithCodec(CODEC.codec(), recipe);
         }
     }
 }
