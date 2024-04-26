@@ -32,7 +32,7 @@ public class ServerPlayerGameModeMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "incrementDestroyProgress")
     public void forbiddenArcanus_incrementDestroyProgress(BlockState state, BlockPos pos, int destroyProgressStart, CallbackInfoReturnable<Float> cir) {
-        if (ModifierHelper.getModifier(this.player.getMainHandItem()) == ModItemModifiers.DEMOLISHING.get()) {
+        if (ModifierHelper.hasModifier(this.player.getMainHandItem(), ModItemModifiers.DEMOLISHING.get())) {
             int i = this.gameTicks - destroyProgressStart;
             float f = state.getDestroyProgress(this.player, this.player.level(), pos) * (float) (i + 1);
             int progress = (int) (f * 10.0F);

@@ -8,8 +8,6 @@
     "AccessorFireBlock",
     "BubbleColumnBlockMixin",
     "ItemEntityMixin",
-    "ItemMixin",
-    "ItemStackMixin",
     "PlayerMixin",
     "LivingEntityMixin",
     "ServerPlayerGameModeMixin"

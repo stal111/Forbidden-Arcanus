@@ -7,6 +7,7 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -21,13 +22,13 @@ import javax.annotation.Nullable;
  * @author stal111
  * @since 2022-10-21
  */
-public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient addition, ItemModifier modifier) implements RecipeBuilder {
+public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient addition, Holder<ItemModifier> modifier) implements RecipeBuilder {
 
-    public static ApplyModifierRecipeBuilder of(ItemLike template, ItemLike addition, ItemModifier modifier) {
+    public static ApplyModifierRecipeBuilder of(ItemLike template, ItemLike addition, Holder<ItemModifier> modifier) {
         return new ApplyModifierRecipeBuilder(Ingredient.of(template), Ingredient.of(addition), modifier);
     }
 
-    public static ApplyModifierRecipeBuilder of(ItemLike template, Ingredient addition, ItemModifier modifier) {
+    public static ApplyModifierRecipeBuilder of(ItemLike template, Ingredient addition, Holder<ItemModifier> modifier) {
         return new ApplyModifierRecipeBuilder(Ingredient.of(template), addition, modifier);
     }
 
@@ -50,7 +51,7 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
 
     @Override
     public void save(@Nonnull RecipeOutput recipeOutput) {
-        ResourceLocation key = this.modifier.getRegistryName();
+        ResourceLocation key = this.modifier.value().getRegistryName();
         this.save(recipeOutput, new ResourceLocation(key.getNamespace(), "smithing/apply_" + key.getPath() + "_modifier"));
     }
 

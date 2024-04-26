@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.client.event;
 import com.mojang.datafixers.util.Either;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucket;
-import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -25,12 +24,11 @@ public class TooltipEvents {
     @SubscribeEvent
     public static void onRenderTooltipColor(RenderTooltipEvent.Color event) {
         ItemStack stack = event.getItemStack();
-        ItemModifier modifier = ModifierHelper.getModifier(stack);
 
-        if (modifier != null) {
+        ModifierHelper.getModifier(stack).ifPresent(modifier -> {
             event.setBorderStart(modifier.getStartTooltipColor());
             event.setBorderEnd(modifier.getEndTooltipColor());
-        }
+        });
     }
 
     @SubscribeEvent

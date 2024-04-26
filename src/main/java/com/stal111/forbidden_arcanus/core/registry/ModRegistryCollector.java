@@ -58,6 +58,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.RECIPE_SERIALIZER, ModRecipeSerializers.class);
         this.addMappedHelper(Registries.CUSTOM_STAT, ModStats.class);
         this.addMappedHelper(Registries.ARMOR_MATERIAL, FAArmorMaterials.class);
+        this.addMappedHelper(Registries.DATA_COMPONENT_TYPE, ModDataComponents.class);
         this.addMappedHelper(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
         this.addMappedHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModAttachmentTypes.class);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);

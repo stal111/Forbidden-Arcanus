@@ -28,7 +28,7 @@ public class MultiPlayerGameModeMixin {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V"), method = "continueDestroyBlock")
     public void forbiddenArcanus_continueDestroyBlock$updateBlockBreaker(BlockPos pos, Direction facing, CallbackInfoReturnable<Boolean> cir) {
-        if (ModifierHelper.getModifier(this.minecraft.player.getMainHandItem()) == ModItemModifiers.DEMOLISHING.get()) {
+        if (ModifierHelper.hasModifier(this.minecraft.player.getMainHandItem(), ModItemModifiers.DEMOLISHING.get())) {
             var blockBreaker = DemolishingModifierBlockBreaker.getOrCreate(this.minecraft.level, pos, this.minecraft.level.getBlockState(pos), this.minecraft.player);
 
             blockBreaker.update((int) (this.destroyProgress * 10.0F));

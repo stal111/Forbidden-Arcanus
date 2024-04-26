@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;
 
@@ -35,10 +36,10 @@ public class ApplyModifierRecipeMaker {
                 .filter(upgradeRecipe -> upgradeRecipe.value().getSerializer() == ModRecipeSerializers.APPLY_MODIFIER.get())
                 .map(upgradeRecipe -> (ApplyModifierRecipe) upgradeRecipe.value())
                 .forEach(applyModifierRecipe -> {
-                    ItemModifier modifier = applyModifierRecipe.modifier();
-                    ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_" + modifier.getRegistryName().getPath() + "_modifier");
+                    Holder<ItemModifier> modifier = applyModifierRecipe.modifier();
+                    ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_" + modifier.value().getRegistryName().getPath() + "_modifier");
 
-                    modifier.getValidItems().forEach(stack -> {
+                    modifier.value().getValidItems().forEach(stack -> {
                         ModifierHelper.setModifier(stack, modifier);
 
                         recipes.add(new RecipeHolder<>(id, new SmithingTransformRecipe(applyModifierRecipe.template(), Ingredient.of(stack.getItem()), applyModifierRecipe.addition(), stack)));

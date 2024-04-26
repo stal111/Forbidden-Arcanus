@@ -39,9 +39,7 @@ public abstract class ScreenMixin {
 
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"), method = "renderTooltipInternal", locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void forbiddenArcanus_renderTooltipInternal(Font font, List<ClientTooltipComponent> components, int x, int y, ClientTooltipPositioner positioner, CallbackInfo ci, RenderTooltipEvent.Pre event) {
-        ItemModifier modifier = ModifierHelper.getModifier(this.tooltipStack);
-
-        if (modifier != null) {
+        ModifierHelper.getModifier(this.tooltipStack).ifPresent(modifier -> {
             int width = 0;
             int height = components.size() == 1 ? -2 : 0;
 
@@ -79,6 +77,6 @@ public abstract class ScreenMixin {
             }
 
             RenderSystem.disableBlend();
-        }
+        });
     }
 }

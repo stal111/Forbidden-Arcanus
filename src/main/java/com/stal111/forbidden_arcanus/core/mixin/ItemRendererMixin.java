@@ -30,7 +30,7 @@ public class ItemRendererMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "getModel", cancellable = true)
     public void forbiddenArcanus_getModel(ItemStack stack, Level level, LivingEntity livingEntity, int seed, CallbackInfoReturnable<BakedModel> cir) {
-        if (stack.getItem() instanceof ArmorItem item && item.getType() == ArmorItem.Type.BOOTS && ModifierHelper.getModifier(stack) == ModItemModifiers.MAGNETIZED.get()) {
+        if (stack.getItem() instanceof ArmorItem item && item.getType() == ArmorItem.Type.BOOTS && ModifierHelper.hasModifier(stack, ModItemModifiers.MAGNETIZED.get())) {
             ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
 
             BakedModel model = this.itemModelShaper.getModelManager().getModel(new ModelResourceLocation(new ResourceLocation(resourceLocation.getNamespace(), "magnetized_" + resourceLocation.getPath()), "inventory"));

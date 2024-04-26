@@ -3,9 +3,16 @@ package com.stal111.forbidden_arcanus.common.item.modifier;
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -27,8 +34,11 @@ import java.util.function.Predicate;
 public class ItemModifier {
 
     public static final Codec<ItemModifier> NAME_CODEC = new DeferredCodec<>(FARegistries.ITEM_MODIFIER_REGISTRY::byNameCodec);
+    public static final Codec<Holder<ItemModifier>> CODEC = RegistryFileCodec.create(FARegistries.ITEM_MODIFIER, NAME_CODEC);
 
-    private final Predicate<ItemStack> predicate;
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ItemModifier>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FARegistries.ITEM_MODIFIER);
+
+    private final ItemPredicate predicate;
 
     private final TagKey<Item> incompatibleItems;
     private final TagKey<Enchantment> incompatibleEnchantments;
@@ -37,7 +47,8 @@ public class ItemModifier {
     private final int endTooltipColor;
 
     private List<ItemStack> cachedValidItems;
-    public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
+
+    public ItemModifier(ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
         this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
         this.incompatibleEnchantments = incompatibleEnchantments;
@@ -46,7 +57,9 @@ public class ItemModifier {
     }
 
     public void onApplied(ItemStack stack) {
-
+        if (!stack.has(DataComponents.CUSTOM_NAME)) {
+            stack.update(DataComponents.ITEM_NAME, stack.getItem().getName(stack), component -> this.getComponent().append(" ").append(component));
+        }
     }
 
     public MutableComponent getComponent() {

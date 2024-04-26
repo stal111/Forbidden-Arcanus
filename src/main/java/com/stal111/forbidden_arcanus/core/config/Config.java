@@ -20,7 +20,6 @@ public class Config {
 		ItemConfig.init(COMMON_BUILDER);
 		BlockConfig.init(COMMON_BUILDER);
 		RenderingConfig.init(CLIENT_BUILDER);
-		ModifierConfig.init(COMMON_BUILDER);
 		AurealConfig.init(COMMON_BUILDER);
 
 		COMMON_CONFIG = COMMON_BUILDER.build();
