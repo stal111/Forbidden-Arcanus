@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
@@ -56,7 +58,7 @@ public enum ModTiers implements Tier {
     @Override
     public TagKey<Block> getIncorrectBlocksForDrops() {
         //TODO
-        return null;
+        return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
     }
 
     @Override

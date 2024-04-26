@@ -12,6 +12,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.function.Supplier;
  */
 public class FAArmorMaterials {
 
-    public static final DeferredRegister<ArmorMaterial> HELPER = DeferredRegister.create(Registries.ARMOR_MATERIAL, ForbiddenArcanus.MOD_ID);
+    public static final MappedRegistryHelper<ArmorMaterial> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ARMOR_MATERIAL);
 
     public static final Holder<ArmorMaterial> DRACO_ARCANUS = register("draco_arcanus", Util.make(new EnumMap<>(ArmorItem.Type.class), map ->  {
         map.put(ArmorItem.Type.BOOTS, 6);

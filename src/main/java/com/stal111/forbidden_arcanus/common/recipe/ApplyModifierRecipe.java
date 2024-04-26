@@ -105,8 +105,8 @@ public record ApplyModifierRecipe(Ingredient template,
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, ApplyModifierRecipe> streamCodec() {
-            return null;
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, ApplyModifierRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
 
         public static ApplyModifierRecipe fromNetwork(@NotNull RegistryFriendlyByteBuf buffer) {
