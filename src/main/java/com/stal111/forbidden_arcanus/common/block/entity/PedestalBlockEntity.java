@@ -118,7 +118,7 @@ public class PedestalBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
         super.loadAdditional(tag, lookupProvider);
 
-        this.stack = ItemStack.parseOptional(lookupProvider, tag.getCompound("Stack"));
+        this.stack = tag.contains("Stack", 10) ? ItemStack.parseOptional(lookupProvider, tag.getCompound("Stack")) : ItemStack.EMPTY;
         this.itemHeight = tag.getInt("ItemHeight");
     }
 
@@ -126,7 +126,9 @@ public class PedestalBlockEntity extends BlockEntity {
     public void saveAdditional(@Nonnull CompoundTag compound, HolderLookup.@NotNull Provider lookupProvider) {
         super.saveAdditional(compound, lookupProvider);
 
-        compound.put("Stack", this.stack.save(lookupProvider));
+        if (!this.stack.isEmpty()) {
+            compound.put("Stack", this.stack.save(lookupProvider));
+        }
         compound.putInt("ItemHeight", this.itemHeight);
     }
 

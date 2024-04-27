@@ -317,7 +317,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         super.handleUpdateTag(tag, lookupProvider);
 
         this.updateValidRitualIndicator(tag.getBoolean("display_valid_ritual_indicator"));
-        this.clientMainItem = tag.contains("main_item") ? ItemStack.parseOptional(lookupProvider, tag.getCompound("main_item")) : ItemStack.EMPTY;
+        this.clientMainItem = tag.contains("main_item", 10) ? ItemStack.parseOptional(lookupProvider, tag.getCompound("main_item")) : ItemStack.EMPTY;
     }
 
     @Override
