@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.item.modifier;
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,7 +37,7 @@ public class ItemModifier {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ItemModifier>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FARegistries.ITEM_MODIFIER);
 
-    private final ItemPredicate predicate;
+    private final Predicate<ItemStack> predicate;
 
     private final TagKey<Item> incompatibleItems;
     private final TagKey<Enchantment> incompatibleEnchantments;
@@ -48,7 +47,7 @@ public class ItemModifier {
 
     private List<ItemStack> cachedValidItems;
 
-    public ItemModifier(ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
+    public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
         this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
         this.incompatibleEnchantments = incompatibleEnchantments;

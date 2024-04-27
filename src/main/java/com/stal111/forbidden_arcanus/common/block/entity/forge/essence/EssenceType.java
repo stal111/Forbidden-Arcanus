@@ -3,9 +3,11 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.StringRepresentable;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -29,15 +31,17 @@ public enum EssenceType implements StringRepresentable {
         return list.size() == 1 ? DataResult.success(Either.left(list.get(0))) : DataResult.error(() -> "List size must be 1");
     });
 
+    public static final StreamCodec<FriendlyByteBuf, EssenceType> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(EssenceType.class);
+
     private final String name;
-    private final MutableComponent component;
+    private final Component component;
 
     EssenceType(String name) {
         this.name = name;
         this.component = Component.translatable("forbidden_arcanus.essence." + name);
     }
 
-    public MutableComponent getComponent() {
+    public Component getComponent() {
         return this.component;
     }
 

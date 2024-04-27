@@ -15,6 +15,8 @@ import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
+import java.util.function.Predicate;
+
 /**
  * Mod Item Modifiers <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.other.ModItemModifiers
@@ -26,12 +28,11 @@ public class ModItemModifiers implements RegistryClass {
 
     public static final MappedRegistryHelper<ItemModifier> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.ITEM_MODIFIER);
 
-    private static final ItemPredicate TOOL_PREDICATE = ItemPredicate.Builder.item()
-            .withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.PICKAXE_DIG))
-            .withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.AXE_DIG))
-            .withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.SHOVEL_DIG))
-            .withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.HOE_DIG))
-            .build();
+    private static final Predicate<ItemStack> TOOL_PREDICATE =
+            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.PICKAXE_DIG)).build().or(
+            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.AXE_DIG)).build().or(
+            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.SHOVEL_DIG)).build().or(
+            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.HOE_DIG)).build())));
 
     public static final RegistryEntry<ItemModifier, EternalModifier> ETERNAL = HELPER.register("eternal", () -> new EternalModifier(ItemStack::isDamageableItem, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56)));
     public static final RegistryEntry<ItemModifier, ItemModifier> FIERY = HELPER.register("fiery", () -> new ItemModifier(TOOL_PREDICATE, ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, FastColor.ARGB32.color(255, 255, 143, 0), FastColor.ARGB32.color(255, 88, 6, 6)));
