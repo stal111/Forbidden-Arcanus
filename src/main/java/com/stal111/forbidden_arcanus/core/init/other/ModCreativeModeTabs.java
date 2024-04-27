@@ -171,7 +171,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.AUREAL_BOTTLE.get());
                             output.accept(ModItems.SPLASH_AUREAL_BOTTLE.get());
                             output.accept(ModItems.TEST_TUBE.get());
-                            output.accept(BloodTestTubeItem.setBlood(new ItemStack(ModItems.BLOOD_TEST_TUBE.get()), BloodTestTubeItem.MAX_BLOOD));
+                            output.accept(BloodTestTubeItem.create(ModItems.BLOOD_TEST_TUBE.get(), BloodTestTubeItem.MAX_BLOOD));
                             output.accept(ModItems.ETERNAL_STELLA.get());
                             output.accept(ModItems.TERRASTOMP_PRISM.get());
                             output.accept(ModItems.SEA_PRISM.get());

@@ -4,11 +4,13 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Optional;
+
 /**
  * @author stal111
  * @since 26.04.2024
  */
-public interface EssenceHolder {
+public interface EssenceContainer {
 
     EssenceType getType();
     int getLimit();
@@ -33,5 +35,9 @@ public interface EssenceHolder {
 
     default boolean isFull(ItemStack stack) {
         return this.getEssence(stack) >= this.getLimit();
+    }
+
+    default Optional<ItemStack> getEmptyStack() {
+        return Optional.empty();
     }
 }

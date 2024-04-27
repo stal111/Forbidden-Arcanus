@@ -10,7 +10,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,7 +19,7 @@ import java.util.Optional;
 public class ItemInput extends HephaestusForgeInput {
 
     public static final MapCodec<ItemInput> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            essenceTypeCodec(),
+            EssenceType.CODEC.fieldOf("essence_type").forGetter(HephaestusForgeInput::getEssenceType),
             Ingredient.CODEC_NONEMPTY.fieldOf("item").forGetter(input -> {
                 return input.ingredient;
             }),
@@ -36,12 +35,6 @@ public class ItemInput extends HephaestusForgeInput {
 
     public ItemInput(EssenceType essenceType, Ingredient ingredient, int amount) {
         super(essenceType);
-        this.ingredient = ingredient;
-        this.amount = amount;
-    }
-
-    public ItemInput(List<EssenceType> essenceTypes, Ingredient ingredient, int amount) {
-        super(essenceTypes);
         this.ingredient = ingredient;
         this.amount = amount;
     }

@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.data.hephaestus_forge.input;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.BloodInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.EssenceContainerInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ExtractEnchantmentsInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ItemInput;
@@ -30,7 +30,10 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
     public static final ResourceKey<HephaestusForgeInput> SPLASH_AUREAL_BOTTLE = HELPER.createKey("splash_aureal_bottle");
     public static final ResourceKey<HephaestusForgeInput> EXPERIENCE_BOTTLE = HELPER.createKey("experience_bottle");
     public static final ResourceKey<HephaestusForgeInput> XPETRIFIED_ORB = HELPER.createKey("xpetrified_orb");
-    public static final ResourceKey<HephaestusForgeInput> BLOOD_TEST_TUBE = HELPER.createKey("blood_test_tube");
+    public static final ResourceKey<HephaestusForgeInput> AUREAL_ESSENCE_CONTAINER = HELPER.createKey("aureal_essence_container");
+    public static final ResourceKey<HephaestusForgeInput> SOULS_ESSENCE_CONTAINER = HELPER.createKey("souls_essence_container");
+    public static final ResourceKey<HephaestusForgeInput> BLOOD_ESSENCE_CONTAINER = HELPER.createKey("blood_essence_container");
+    public static final ResourceKey<HephaestusForgeInput> EXPERIENCE_ESSENCE_CONTAINER = HELPER.createKey("experience_essence_container");
     public static final ResourceKey<HephaestusForgeInput> EXTRACT_ENCHANTMENTS = HELPER.createKey("extract_enchantments");
 
     public ModForgeInputs(BootstrapContext<HephaestusForgeInput> context) {
@@ -46,7 +49,10 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
         context.register(SPLASH_AUREAL_BOTTLE, new ItemInput(EssenceType.AUREAL, Ingredient.of(ModItems.SPLASH_AUREAL_BOTTLE.get()), 30));
         context.register(EXPERIENCE_BOTTLE, new ItemInput(EssenceType.EXPERIENCE, Ingredient.of(Items.EXPERIENCE_BOTTLE), 15));
         context.register(XPETRIFIED_ORB, new ItemInput(EssenceType.EXPERIENCE, Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 91));
-        context.register(BLOOD_TEST_TUBE, new BloodInput());
+        context.register(AUREAL_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.AUREAL, 10));
+        context.register(SOULS_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.SOULS, 10));
+        context.register(BLOOD_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.BLOOD, 10));
+        context.register(EXPERIENCE_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.EXPERIENCE, 10));
         context.register(EXTRACT_ENCHANTMENTS, new ExtractEnchantmentsInput());
     }
 }
