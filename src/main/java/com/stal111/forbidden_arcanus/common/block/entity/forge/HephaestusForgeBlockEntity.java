@@ -304,7 +304,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
         CompoundTag tag = this.saveWithoutMetadata(lookupProvider);
         tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
-        tag.put("main_item", this.getStack(MAIN_SLOT).save(lookupProvider));
+
+        if (!this.getStack(MAIN_SLOT).isEmpty()) {
+            tag.put("main_item", this.getStack(MAIN_SLOT).save(lookupProvider));
+        }
 
         return tag;
     }
@@ -314,7 +317,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         super.handleUpdateTag(tag, lookupProvider);
 
         this.updateValidRitualIndicator(tag.getBoolean("display_valid_ritual_indicator"));
-        this.clientMainItem = ItemStack.parseOptional(lookupProvider, tag.getCompound("main_item"));
+        this.clientMainItem = tag.contains("main_item") ? ItemStack.parseOptional(lookupProvider, tag.getCompound("main_item")) : ItemStack.EMPTY;
     }
 
     @Override
