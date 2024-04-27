@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -200,24 +199,9 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SANITY_METER.get());
 
                             output.accept(ModItems.AUREAL_TANK.get());
-                            output.accept(AurealTankItem.create(ModItems.AUREAL_TANK.get(), AurealTankItem.DEFAULT_CAPACITY));
-
-                            var maxAurealTank = new ItemStack(ModItems.AUREAL_TANK.get());
-                            var fullMaxAurealTank = new ItemStack(ModItems.AUREAL_TANK.get());
-
-                            AurealHelper.getCapability(maxAurealTank).ifPresent(provider -> {
-                                provider.setAurealLimit(AurealTankItem.MAX_CAPACITY);
-                            });
-
-                            AurealHelper.getCapability(fullMaxAurealTank).ifPresent(provider -> {
-                                provider.setAurealLimit(AurealTankItem.MAX_CAPACITY);
-                                provider.setAureal(AurealTankItem.MAX_CAPACITY);
-                            });
-
-                            output.accept(maxAurealTank);
-                            output.accept(fullMaxAurealTank);
-
-                            output.accept(ModItems.AUREAL_TANK.get());
+                            output.accept(AurealTankItem.create(ModItems.AUREAL_TANK.get(), AurealTankItem.DEFAULT_CAPACITY, AurealTankItem.DEFAULT_CAPACITY));
+                            output.accept(AurealTankItem.create(ModItems.AUREAL_TANK.get(), 0, AurealTankItem.MAX_CAPACITY));
+                            output.accept(AurealTankItem.create(ModItems.AUREAL_TANK.get(), AurealTankItem.MAX_CAPACITY, AurealTankItem.MAX_CAPACITY));
 
                             output.accept(ModItems.LENS_OF_VERITATIS.get());
                             output.accept(ModItems.PURIFYING_SOAP.get());

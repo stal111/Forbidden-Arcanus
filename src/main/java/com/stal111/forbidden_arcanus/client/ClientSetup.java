@@ -15,8 +15,6 @@ import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
@@ -43,8 +41,6 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
-
-import java.util.Optional;
 
 import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.DETAILED_OBSIDIAN_SKULL_LAYER;
 import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_SKULL_LAYER;
@@ -123,9 +119,9 @@ public class ClientSetup {
 
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
-            Optional<AurealProvider> optional = AurealHelper.getCapability(stack);
+            EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-            return optional.map(provider -> provider.getAurealLimit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
+            return data != null && data.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F;
         });
     }
 

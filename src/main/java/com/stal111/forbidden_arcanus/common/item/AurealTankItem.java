@@ -31,10 +31,10 @@ public class AurealTankItem extends Item implements EssenceContainer {
         super(properties);
     }
 
-    public static ItemStack create(Item item, int aureal) {
+    public static ItemStack create(Item item, int aureal, int capacity) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(aureal, DEFAULT_CAPACITY));
+        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(aureal, capacity));
 
         return stack;
     }
