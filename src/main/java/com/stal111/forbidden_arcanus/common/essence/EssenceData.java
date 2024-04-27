@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.essence;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -39,6 +40,10 @@ public record EssenceData(EssenceType type, int amount, int limit) implements To
 
     @Override
     public void addToTooltip(Item.@NotNull TooltipContext context, @NotNull Consumer<Component> consumer, @NotNull TooltipFlag flag) {
-        consumer.accept(this.type.getComponent().copy().append(": " + this.amount + "/" + this.limit));
+        consumer.accept(this.type.getComponent().copy().append(": " + this.amount + "/" + this.limit).withStyle(ChatFormatting.GRAY));
+    }
+
+    public float getFillPercentage() {
+        return (float) this.amount / this.limit;
     }
 }

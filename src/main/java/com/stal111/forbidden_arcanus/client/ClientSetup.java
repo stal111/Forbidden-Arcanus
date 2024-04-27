@@ -18,14 +18,11 @@ import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
-import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.common.item.UtremJarItem;
-import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.init.ModEntities;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.init.ModParticles;
+import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
@@ -115,7 +112,11 @@ public class ClientSetup {
         ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, level, entity, seed) -> entity != null && stack.getItem() instanceof SpectralEyeAmuletItem item && item.isDeactivated(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> (BloodTestTubeItem.getBlood(stack) / (float) BloodTestTubeItem.MAX_BLOOD));
+        ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> {
+            EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+
+            return data != null ? data.getFillPercentage() : 0.0F;
+        });
 
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> {
             Optional<AurealProvider> optional = AurealHelper.getCapability(stack);

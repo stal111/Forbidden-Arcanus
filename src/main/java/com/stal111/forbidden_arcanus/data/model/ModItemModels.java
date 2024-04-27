@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -82,6 +83,24 @@ public class ModItemModels {
                 new ModelPredicate(aurealTankMax2, ModelProperty.of("amount", 0.75F), ModelProperty.of("max", 1.0F)),
                 new ModelPredicate(aurealTankMax3, ModelProperty.of("amount", 1.0F), ModelProperty.of("max", 1.0F))
         );
+
+        this.generateFlatItem(ModItems.TEST_TUBE);
+
+        var bloodTestTube0 = this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_0", ModelTemplates.FLAT_ITEM);
+        var bloodTestTube1 = this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_1", ModelTemplates.FLAT_ITEM);
+        var bloodTestTube2 = this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_2", ModelTemplates.FLAT_ITEM);
+        var bloodTestTube3 = this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_3", ModelTemplates.FLAT_ITEM);
+        var bloodTestTube4 = this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_4", ModelTemplates.FLAT_ITEM);
+        var bloodTestTube5 = this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_5", ModelTemplates.FLAT_ITEM);
+
+        this.generateWithOverrides("blood_test_tube", ModItems.BLOOD_TEST_TUBE,
+                new ModelPredicate(bloodTestTube0, ModelProperty.of("amount", 0.1F)),
+                new ModelPredicate(bloodTestTube1, ModelProperty.of("amount", 0.25F)),
+                new ModelPredicate(bloodTestTube2, ModelProperty.of("amount", 0.5F)),
+                new ModelPredicate(bloodTestTube3, ModelProperty.of("amount", 0.75F)),
+                new ModelPredicate(bloodTestTube4, ModelProperty.of("amount", 0.9F)),
+                new ModelPredicate(bloodTestTube5, ModelProperty.of("amount", 1.0F))
+        );
     }
 
     private ResourceLocation generateFlatItem(ItemRegistryEntry<? extends Item> item) {
@@ -96,7 +115,7 @@ public class ModItemModels {
         return template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(item.get()), this.modelOutput);
     }
 
-    private ResourceLocation generateFlatItem(String folder, ItemRegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
+    private ResourceLocation generateFlatItem(String folder, ItemRegistryEntry<? extends Item> item, String modelSuffix, ModelTemplate template) {
         return template.create(ModLocationUtils.getItem(folder, item, modelSuffix), TextureMapping.layer0(getItemTexture(item.get(), folder, modelSuffix)), this.modelOutput);
     }
 
@@ -111,8 +130,8 @@ public class ModItemModels {
         });
     }
 
-    private void generateWithOverrides(String folder, ItemRegistryEntry<Item> item, ModelPredicate... predicates) {
-        ModelTemplates.FLAT_ITEM.create(ModLocationUtils.getItem(item), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput, (modelLocation, map) -> {
+    private void generateWithOverrides(String folder, Holder<Item> item, ModelPredicate... predicates) {
+        ModelTemplates.FLAT_ITEM.create(ModLocationUtils.getItem(item), TextureMapping.layer0(getItemTexture(item.value(), folder, "")), this.modelOutput, (modelLocation, map) -> {
             JsonObject jsonObject = ModelTemplates.TWO_LAYERED_ITEM.createBaseTemplate(modelLocation, map);
             JsonArray jsonArray = new JsonArray();
 
