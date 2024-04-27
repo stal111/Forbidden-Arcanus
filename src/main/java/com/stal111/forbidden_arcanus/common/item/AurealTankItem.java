@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceContainer;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
@@ -42,15 +41,12 @@ public class AurealTankItem extends Item implements EssenceContainer {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
-        AurealProvider aurealProvider = stack.getCapability(AurealProvider.ITEM_AUREAL);
         EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
         if (data != null) {
+            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", data.limit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
+
             data.addToTooltip(context, component -> components.add(this.getType(stack).getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), flag);
-        }
-        if (aurealProvider != null) {
-            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", aurealProvider.getAurealLimit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
-            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.aureal", aurealProvider.getAureal(), aurealProvider.getAurealLimit()).withStyle(ChatFormatting.AQUA));
         }
     }
 

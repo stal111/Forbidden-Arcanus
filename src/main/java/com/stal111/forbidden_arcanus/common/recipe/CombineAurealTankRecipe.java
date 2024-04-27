@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
-import com.stal111.forbidden_arcanus.common.aureal.AurealStorage;
-import com.stal111.forbidden_arcanus.common.aureal.ItemAurealProvider;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.core.HolderLookup;
@@ -29,29 +28,25 @@ public class CombineAurealTankRecipe extends CustomRecipe {
 
     @Override
     public boolean matches(@NotNull CraftingContainer container, @NotNull Level level) {
-        AurealStorage storage = this.getCombinedStorage(container.getItems());
+        EssenceData data = this.getCombinedStorage(container.getItems());
         boolean multipleStacks = container.getItems().stream().filter(stack -> !stack.isEmpty()).toList().size() > 1;
 
-        return storage != AurealStorage.EMPTY && multipleStacks && storage.limit() <= AurealTankItem.MAX_CAPACITY;
+        return data != EssenceData.EMPTY && multipleStacks && data.limit() <= AurealTankItem.MAX_CAPACITY;
     }
 
     @Override
     public @NotNull ItemStack assemble(@NotNull CraftingContainer container, HolderLookup.@NotNull Provider lookupProvider) {
-        AurealStorage storage = this.getCombinedStorage(container.getItems());
+        EssenceData data = this.getCombinedStorage(container.getItems());
 
         ItemStack stack = new ItemStack(ModItems.AUREAL_TANK.get());
 
-        AurealProvider provider = stack.getCapability(ItemAurealProvider.ITEM_AUREAL);
+        stack.set(ModDataComponents.ESSENCE_DATA, data);
 
-        if (provider != null) {
-            provider.setAurealLimit(storage.limit());
-            provider.setAureal(storage.value());
-        }
+        return stack;
+    }
 
-        return stack;    }
-
-    private AurealStorage getCombinedStorage(List<ItemStack> stacks) {
-        AurealStorage storage = AurealStorage.EMPTY;
+    private EssenceData getCombinedStorage(List<ItemStack> stacks) {
+        EssenceData combined = EssenceData.EMPTY;
 
         for (ItemStack stack : stacks) {
             if (stack.isEmpty()) {
@@ -59,17 +54,17 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             }
 
             if (!stack.is(ModItems.AUREAL_TANK.get())) {
-                return AurealStorage.EMPTY;
+                return EssenceData.EMPTY;
             }
 
-            AurealProvider provider = stack.getCapability(AurealProvider.ITEM_AUREAL);
+            EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-            if (provider != null) {
-                storage.combine(provider.getAurealStorage());
+            if (data != null) {
+                combined = combined.combine(data);
             }
         }
 
-        return storage;
+        return combined;
     }
 
     @Override

@@ -21,6 +21,8 @@ import java.util.function.Consumer;
  */
 public record EssenceData(int amount, int limit) implements TooltipProvider {
 
+    public static final EssenceData EMPTY = new EssenceData(0, 0);
+
     public static final Codec<EssenceData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(EssenceData::amount),
             ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceData::limit)
@@ -45,5 +47,9 @@ public record EssenceData(int amount, int limit) implements TooltipProvider {
 
     public float getFillPercentage() {
         return (float) this.amount / this.limit;
+    }
+
+    public EssenceData combine(EssenceData data) {
+        return new EssenceData(this.amount + data.amount, this.limit + data.limit);
     }
 }
