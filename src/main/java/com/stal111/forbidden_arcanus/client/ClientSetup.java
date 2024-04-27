@@ -32,6 +32,7 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
@@ -53,6 +54,12 @@ import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_
  * @since 2021-02-13
  */
 public class ClientSetup {
+
+    public static final ItemPropertyFunction ESSENCE_AMOUNT_PROPERTY_FUNCTION = (stack, level, entity, seed) -> {
+        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+
+        return data != null ? data.getFillPercentage() : 0.0F;
+    };
 
     public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
         Minecraft minecraft = Minecraft.getInstance();
@@ -112,17 +119,9 @@ public class ClientSetup {
         ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, level, entity, seed) -> entity != null && stack.getItem() instanceof SpectralEyeAmuletItem item && item.isDeactivated(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> {
-            EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+        ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
 
-            return data != null ? data.getFillPercentage() : 0.0F;
-        });
-
-        ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), (stack, level, entity, seed) -> {
-            Optional<AurealProvider> optional = AurealHelper.getCapability(stack);
-
-            return optional.map(provider -> (float) provider.getAureal() / provider.getAurealLimit()).orElse(0.0F);
-        });
+        ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
             Optional<AurealProvider> optional = AurealHelper.getCapability(stack);
 

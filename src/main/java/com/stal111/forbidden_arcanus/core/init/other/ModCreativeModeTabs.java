@@ -200,14 +200,10 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SANITY_METER.get());
 
                             output.accept(ModItems.AUREAL_TANK.get());
+                            output.accept(AurealTankItem.create(ModItems.AUREAL_TANK.get(), AurealTankItem.DEFAULT_CAPACITY));
 
-                            var fullAurealTank = new ItemStack(ModItems.AUREAL_TANK.get());
                             var maxAurealTank = new ItemStack(ModItems.AUREAL_TANK.get());
                             var fullMaxAurealTank = new ItemStack(ModItems.AUREAL_TANK.get());
-
-                            AurealHelper.getCapability(fullAurealTank).ifPresent(provider -> {
-                                provider.setAureal(AurealTankItem.DEFAULT_CAPACITY);
-                            });
 
                             AurealHelper.getCapability(maxAurealTank).ifPresent(provider -> {
                                 provider.setAurealLimit(AurealTankItem.MAX_CAPACITY);
@@ -218,7 +214,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                                 provider.setAureal(AurealTankItem.MAX_CAPACITY);
                             });
 
-                            output.accept(fullAurealTank);
                             output.accept(maxAurealTank);
                             output.accept(fullMaxAurealTank);
 

@@ -1,6 +1,10 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceContainer;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
@@ -15,7 +19,7 @@ import java.util.List;
  * @author stal111
  * @since 17.09.2023
  */
-public class AurealTankItem extends Item {
+public class AurealTankItem extends Item implements EssenceContainer {
 
     public static final int DEFAULT_CAPACITY = 100;
     public static final int MAX_CAPACITY = 3000;
@@ -26,10 +30,22 @@ public class AurealTankItem extends Item {
         super(properties);
     }
 
+    public static ItemStack create(Item item, int aureal) {
+        ItemStack stack = new ItemStack(item);
+
+        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(EssenceType.AUREAL, aureal, DEFAULT_CAPACITY));
+
+        return stack;
+    }
+
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
         AurealProvider aurealProvider = stack.getCapability(AurealProvider.ITEM_AUREAL);
+        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
+        if (data != null) {
+            data.addToTooltip(context, components::add, isAdvanced);
+        }
         if (aurealProvider != null) {
             components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", aurealProvider.getAurealLimit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
             components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.aureal", aurealProvider.getAureal(), aurealProvider.getAurealLimit()).withStyle(ChatFormatting.AQUA));
@@ -48,12 +64,18 @@ public class AurealTankItem extends Item {
 
     @Override
     public int getBarWidth(@NotNull ItemStack stack) {
-        AurealProvider aurealProvider = stack.getCapability(AurealProvider.ITEM_AUREAL);
+        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-        if (aurealProvider != null) {
-            return Math.round(13.0F * aurealProvider.getAureal() / aurealProvider.getAurealLimit());
-        }
+        return data != null ? Math.round(13.0F * data.getFillPercentage()) : 0;
+    }
 
-        return 0;
+    @Override
+    public EssenceType getType() {
+        return EssenceType.AUREAL;
+    }
+
+    @Override
+    public int getLimit() {
+        return DEFAULT_CAPACITY;
     }
 }
