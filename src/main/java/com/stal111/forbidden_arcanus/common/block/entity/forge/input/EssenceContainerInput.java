@@ -32,7 +32,7 @@ public class EssenceContainerInput extends HephaestusForgeInput {
 
     @Override
     public boolean canInputStack(ItemStack stack) {
-        return stack.has(ModDataComponents.ESSENCE_DATA) && stack.getItem() instanceof EssenceContainer;
+        return stack.has(ModDataComponents.ESSENCE_DATA) && stack.getItem() instanceof EssenceContainer essenceContainer && essenceContainer.getType(stack) == this.getEssenceType();
     }
 
     @Override

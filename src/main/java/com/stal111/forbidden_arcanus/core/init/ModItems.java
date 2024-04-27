@@ -76,7 +76,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", () -> new Item(new Item.Properties()));
 
     public static final ItemRegistryEntry<Item> SANITY_METER = HELPER.register("sanity_meter", () -> new SanityMeterItem(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", () -> new AurealTankItem(new Item.Properties().stacksTo(1)));
+    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", () -> new AurealTankItem(new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_DATA, AurealTankItem.DEFAULT_DATA)));
 
     public static final ItemRegistryEntry<LensOfVeritatisItem> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new LensOfVeritatisItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> PURIFYING_SOAP = HELPER.register("purifying_soap", () -> new PurifyingSoapItem(new Item.Properties().stacksTo(1)));
@@ -89,7 +89,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<ZombieArmItem> ZOMBIE_ARM = HELPER.register("zombie_arm", () -> new ZombieArmItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<ZombieArmItem> SHINY_ZOMBIE_ARM = HELPER.register("shiny_zombie_arm", () -> new ZombieArmItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> TEST_TUBE = HELPER.register("test_tube", () -> new Item(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", () -> new BloodTestTubeItem(new Item.Properties().stacksTo(1)));
+    public static final ItemRegistryEntry<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", () -> new BloodTestTubeItem(new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_DATA, BloodTestTubeItem.DEFAULT_DATA)));
     public static final ItemRegistryEntry<Item> BLACKSMITH_GAVEL_HEAD = HELPER.register("blacksmith_gavel_head", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final ItemRegistryEntry<BlacksmithGavelItem> WOODEN_BLACKSMITH_GAVEL = HELPER.register("wooden_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.WOOD, 1, new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<BlacksmithGavelItem> STONE_BLACKSMITH_GAVEL = HELPER.register("stone_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.STONE, 3, new Item.Properties().stacksTo(1)));

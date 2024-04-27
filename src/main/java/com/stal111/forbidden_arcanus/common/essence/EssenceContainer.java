@@ -12,21 +12,28 @@ import java.util.Optional;
  */
 public interface EssenceContainer {
 
-    EssenceType getType();
-    int getLimit();
+    default EssenceData getEssenceData(ItemStack stack) {
+        return stack.get(ModDataComponents.ESSENCE_DATA);
+    }
+
+    EssenceType getType(ItemStack stack);
+
+    default int getLimit(ItemStack stack) {
+        return this.getEssenceData(stack).limit();
+    }
 
     default int getEssence(ItemStack stack) {
         EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-        return data != null && data.type() == this.getType() ? data.amount() : 0;
+        return data != null ? data.amount() : 0;
     }
 
     default void setEssence(ItemStack stack, int amount) {
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(this.getType(), amount, this.getLimit()));
+        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(amount, this.getLimit(stack)));
     }
 
     default void addEssence(ItemStack stack, int amount) {
-        this.setEssence(stack, Math.min(this.getEssence(stack) + amount, this.getLimit()));
+        this.setEssence(stack, Math.min(this.getEssence(stack) + amount, this.getLimit(stack)));
     }
 
     default boolean isEmpty(ItemStack stack) {
@@ -34,7 +41,7 @@ public interface EssenceContainer {
     }
 
     default boolean isFull(ItemStack stack) {
-        return this.getEssence(stack) >= this.getLimit();
+        return this.getEssence(stack) >= this.getLimit(stack);
     }
 
     default Optional<ItemStack> getEmptyStack() {

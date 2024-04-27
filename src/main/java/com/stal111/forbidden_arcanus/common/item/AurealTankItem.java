@@ -24,6 +24,8 @@ public class AurealTankItem extends Item implements EssenceContainer {
     public static final int DEFAULT_CAPACITY = 100;
     public static final int MAX_CAPACITY = 3000;
 
+    public static final EssenceData DEFAULT_DATA = EssenceData.createEmpty(DEFAULT_CAPACITY);
+
     private static final int BAR_COLOR = FastColor.ARGB32.color(255, 159, 226, 253);
 
     public AurealTankItem(Properties properties) {
@@ -33,18 +35,18 @@ public class AurealTankItem extends Item implements EssenceContainer {
     public static ItemStack create(Item item, int aureal) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(EssenceType.AUREAL, aureal, DEFAULT_CAPACITY));
+        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(aureal, DEFAULT_CAPACITY));
 
         return stack;
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
         AurealProvider aurealProvider = stack.getCapability(AurealProvider.ITEM_AUREAL);
         EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
         if (data != null) {
-            data.addToTooltip(context, components::add, isAdvanced);
+            data.addToTooltip(context, component -> components.add(this.getType(stack).getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), flag);
         }
         if (aurealProvider != null) {
             components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", aurealProvider.getAurealLimit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
@@ -70,12 +72,7 @@ public class AurealTankItem extends Item implements EssenceContainer {
     }
 
     @Override
-    public EssenceType getType() {
+    public EssenceType getType(ItemStack stack) {
         return EssenceType.AUREAL;
-    }
-
-    @Override
-    public int getLimit() {
-        return DEFAULT_CAPACITY;
     }
 }
