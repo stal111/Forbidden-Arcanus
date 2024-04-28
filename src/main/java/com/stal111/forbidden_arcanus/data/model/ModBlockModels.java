@@ -86,6 +86,7 @@ public class ModBlockModels {
         this.createObelisk(ModBlocks.ARCANE_CRYSTAL_OBELISK.get());
         this.createObelisk(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get());
         this.createUtremJar(ModBlocks.UTREM_JAR.get());
+        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.ESSENCE_UTREM_JAR.get(), ModelLocationUtils.getModelLocation(ModBlocks.UTREM_JAR.get())));
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }

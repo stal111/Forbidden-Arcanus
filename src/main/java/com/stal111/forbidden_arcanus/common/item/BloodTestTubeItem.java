@@ -23,7 +23,7 @@ public class BloodTestTubeItem extends Item implements EssenceContainer {
 
     public static final int MAX_BLOOD = 3000;
 
-    public static final EssenceData DEFAULT_DATA = EssenceData.createEmpty(MAX_BLOOD);
+    public static final EssenceData DEFAULT_DATA = EssenceData.createEmpty(EssenceType.BLOOD, MAX_BLOOD);
 
     public BloodTestTubeItem(Properties properties) {
         super(properties);
@@ -32,7 +32,7 @@ public class BloodTestTubeItem extends Item implements EssenceContainer {
     public static ItemStack create(Item item, int blood) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(blood, MAX_BLOOD));
+        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(EssenceType.BLOOD, blood, MAX_BLOOD));
 
         return stack;
     }

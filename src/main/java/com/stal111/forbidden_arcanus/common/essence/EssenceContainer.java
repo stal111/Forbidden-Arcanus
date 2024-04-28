@@ -29,7 +29,7 @@ public interface EssenceContainer {
     }
 
     default void setEssence(ItemStack stack, int amount) {
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(amount, this.getLimit(stack)));
+        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(this.getType(stack), amount, this.getLimit(stack)));
     }
 
     default void addEssence(ItemStack stack, int amount) {

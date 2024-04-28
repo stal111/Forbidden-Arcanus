@@ -23,7 +23,7 @@ public class AurealTankItem extends Item implements EssenceContainer {
     public static final int DEFAULT_CAPACITY = 100;
     public static final int MAX_CAPACITY = 3000;
 
-    public static final EssenceData DEFAULT_DATA = EssenceData.createEmpty(DEFAULT_CAPACITY);
+    public static final EssenceData DEFAULT_DATA = EssenceData.createEmpty(EssenceType.AUREAL, DEFAULT_CAPACITY);
 
     private static final int BAR_COLOR = FastColor.ARGB32.color(255, 159, 226, 253);
 
@@ -34,7 +34,7 @@ public class AurealTankItem extends Item implements EssenceContainer {
     public static ItemStack create(Item item, int aureal, int capacity) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(aureal, capacity));
+        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(EssenceType.AUREAL, aureal, capacity));
 
         return stack;
     }

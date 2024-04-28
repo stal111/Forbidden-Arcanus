@@ -1,9 +1,12 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -213,6 +216,12 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModItems.UTREM_JAR.get());
+
+                            ItemStack stack = new ItemStack(ModItems.ESSENCE_UTREM_JAR.get());
+
+                            stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(EssenceType.AUREAL, 10000, 10000));
+
+                            output.accept(stack);
                             output.accept(ModItems.ZOMBIE_ARM.get());
                             output.accept(ModItems.SHINY_ZOMBIE_ARM.get());
                             output.accept(ModItems.EDELWOOD_BUCKET.get());

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -19,16 +20,19 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 26.04.2024
  */
-public record EssenceData(int amount, int limit) implements TooltipProvider {
+public record EssenceData(EssenceType type, int amount, int limit) implements TooltipProvider {
 
-    public static final EssenceData EMPTY = new EssenceData(0, 0);
+    public static final EssenceData EMPTY = new EssenceData(null, 0, 0);
 
     public static final Codec<EssenceData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            EssenceType.CODEC.fieldOf("type").forGetter(EssenceData::type),
             ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(EssenceData::amount),
             ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceData::limit)
     ).apply(instance, EssenceData::new));
 
     public static final StreamCodec<FriendlyByteBuf, EssenceData> STREAM_CODEC = StreamCodec.composite(
+            EssenceType.STREAM_CODEC,
+            EssenceData::type,
             ByteBufCodecs.INT,
             EssenceData::amount,
             ByteBufCodecs.INT,
@@ -36,8 +40,8 @@ public record EssenceData(int amount, int limit) implements TooltipProvider {
             EssenceData::new
     );
 
-    public static EssenceData createEmpty(int limit) {
-        return new EssenceData(0, limit);
+    public static EssenceData createEmpty(EssenceType type, int limit) {
+        return new EssenceData(type, 0, limit);
     }
 
     @Override
@@ -50,6 +54,6 @@ public record EssenceData(int amount, int limit) implements TooltipProvider {
     }
 
     public EssenceData combine(EssenceData data) {
-        return new EssenceData(this.amount + data.amount, this.limit + data.limit);
+        return new EssenceData(this.type, this.amount + data.amount, this.limit + data.limit);
     }
 }
