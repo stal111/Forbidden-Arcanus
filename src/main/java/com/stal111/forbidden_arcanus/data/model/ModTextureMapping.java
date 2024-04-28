@@ -25,6 +25,7 @@ public class ModTextureMapping {
     private static final String CLIBANO = "clibano";
     private static final String HEPHAESTUS_FORGE = "hephaestus_forge";
     private static final String OBELISK = "obelisk";
+    private static final String UTREM_JAR = "utrem_jar";
 
     private static final Map<Integer, ResourceLocation> FORGE_BLOCK_TEXTURES = Map.of(
             1, new ResourceLocation("block/smithing_table_bottom"),
@@ -70,19 +71,21 @@ public class ModTextureMapping {
         return new TextureMapping().put(TextureSlot.TOP, getBlockTexture(block, OBELISK, "_top")).put(TextureSlot.TEXTURE, getBlockTexture(block, OBELISK, "_" + part.getSerializedName()));
     }
 
+    public static TextureMapping utremJar(Block block) {
+        return new TextureMapping().put(TextureSlot.SIDE, getBlockTexture(block, UTREM_JAR, "_side")).put(TextureSlot.TOP, getBlockTexture(block, UTREM_JAR, "_top")).put(TextureSlot.BOTTOM, getBlockTexture(block, UTREM_JAR, "_bottom"));
+    }
+
     public static ResourceLocation getBlockTexture(Block block) {
         ResourceLocation resourceLocation = BuiltInRegistries.BLOCK.getKey(block);
         return resourceLocation.withPrefix("block/");
     }
 
     public static ResourceLocation getBlockTexture(Block block, String folder) {
-        ResourceLocation resourceLocation = BuiltInRegistries.BLOCK.getKey(block);
-        return resourceLocation.withPrefix("block/" + folder + "/");
+        return ModLocationUtils.getBlock(block, folder);
     }
 
     public static ResourceLocation getBlockTexture(Block block, String folder, String suffix) {
-        ResourceLocation resourceLocation = BuiltInRegistries.BLOCK.getKey(block);
-        return resourceLocation.withPath(s -> "block/" + folder + "/" + s + suffix);
+        return ModLocationUtils.getBlock(block, folder, suffix);
     }
 
     public static ResourceLocation getBlockTexture(String folder, String texture) {

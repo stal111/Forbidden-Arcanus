@@ -1,0 +1,88 @@
+{
+	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "#side"
+	},
+	"elements": [
+		{
+			"name": "cork",
+			"from": [5, 13, 5],
+			"to": [11, 15, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [5, 1, 11, 3], "texture": "#side"},
+				"east": {"uv": [5, 1, 11, 3], "texture": "#side"},
+				"south": {"uv": [5, 1, 11, 3], "texture": "#side"},
+				"west": {"uv": [5, 1, 11, 3], "texture": "#side"},
+				"up": {"uv": [5, 5, 11, 11], "texture": "#top"}
+			}
+		},
+		{
+			"name": "down",
+			"from": [3, 0, 3],
+			"to": [13, 0.001, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [3, 13, 13, 3], "texture": "#bottom"},
+				"down": {"uv": [3, 3, 13, 13], "texture": "#bottom", "cullface": "down"}
+			}
+		},
+		{
+			"name": "side0",
+			"from": [3, 0, 3],
+			"to": [13, 13, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [3, 3, 13, 16], "texture": "#side"},
+				"south": {"uv": [13, 3, 3, 16], "texture": "#side"}
+			}
+		},
+		{
+			"name": "side1",
+			"from": [3, 0, 3],
+			"to": [3, 13, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [13, 3, 3, 16], "texture": "#side"},
+				"west": {"uv": [3, 3, 13, 16], "texture": "#side"}
+			}
+		},
+		{
+			"name": "side2",
+			"from": [3, 0, 13],
+			"to": [13, 13, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [13, 3, 3, 16], "texture": "#side"},
+				"south": {"uv": [3, 3, 13, 16], "texture": "#side"}
+			}
+		},
+		{
+			"name": "side3",
+			"from": [13, 0, 3],
+			"to": [13, 13, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [3, 3, 13, 16], "texture": "#side"},
+				"west": {"uv": [13, 3, 3, 16], "texture": "#side"}
+			}
+		},
+		{
+			"name": "top",
+			"from": [3, 13, 3],
+			"to": [13, 13, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [3, 3, 13, 13], "texture": "#top"},
+				"down": {"uv": [3, 13, 13, 3], "texture": "#top"}
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"translation": [0, 14.5, 0]
+		}
+	}
+}

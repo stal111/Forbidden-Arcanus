@@ -85,6 +85,7 @@ public class ModBlockModels {
         this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
         this.createObelisk(ModBlocks.ARCANE_CRYSTAL_OBELISK.get());
         this.createObelisk(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get());
+        this.createUtremJar(ModBlocks.UTREM_JAR.get());
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -205,6 +206,13 @@ public class ModBlockModels {
 
         this.createSimpleFlatItemModel(block.asItem());
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+    }
+
+    private void createUtremJar(Block block) {
+        TextureMapping textureMapping = ModTextureMapping.utremJar(block);
+        ResourceLocation model = ModModelTemplates.UTREM_JAR.create(block, textureMapping, this.modelOutput);
+
+        this.blockStateOutput.accept(createSimpleBlock(block, model));
     }
 
     static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {

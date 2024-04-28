@@ -29,6 +29,7 @@ public class ModModelTemplates {
         map.put(ObeliskPart.MIDDLE, create("obelisk_middle", TextureSlot.TEXTURE, TextureSlot.TOP));
         map.put(ObeliskPart.LOWER, create("obelisk_lower", TextureSlot.TEXTURE, TextureSlot.TOP));
     });
+    public static final ModelTemplate UTREM_JAR = create("template_utrem_jar", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
 
     public static ModelTemplate create(String name, TextureSlot... textureSlots) {
         return new ModelTemplate(Optional.of(new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + name)), Optional.empty(), textureSlots);
