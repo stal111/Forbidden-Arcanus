@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
+import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.util.RenderUtils;
@@ -18,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtremJarBlockEntity> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/liquid/experience_flow");
+    private EssenceFluidBox fluidBox;
 
     public EssenceUtremJarRenderer(BlockEntityRendererProvider.Context context) {
 
@@ -29,7 +31,11 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
         EssenceData data = blockEntity.getEssenceData();
 
         if (data != EssenceData.EMPTY && data.amount() > 0) {
-            RenderUtils.renderFluid(poseStack, TEXTURE, bufferSource, new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F), 1, packedLight, packedOverlay);
+            if (this.fluidBox == null  || this.fluidBox.getType().getEssenceType() != data.type()) {
+                this.fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(data.type()), new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
+            }
+
+            this.fluidBox.render(poseStack, bufferSource, packedLight, packedOverlay);
         }
     }
 }
