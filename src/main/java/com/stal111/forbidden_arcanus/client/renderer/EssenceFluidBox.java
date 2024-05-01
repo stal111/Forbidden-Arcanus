@@ -27,7 +27,7 @@ public class EssenceFluidBox extends FluidBox {
     }
 
     public enum Type {
-        AUREAL(EssenceType.AUREAL, "aureal_still", "aureal_flow4"),
+        AUREAL(EssenceType.AUREAL, "aureal_still", "aureal_flow"),
         BLOOD(EssenceType.BLOOD, "blood_still", "blood_flow"),
         EXPERIENCE(EssenceType.EXPERIENCE, "experience_still", "experience_flow");
 

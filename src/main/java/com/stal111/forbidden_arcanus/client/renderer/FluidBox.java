@@ -70,10 +70,10 @@ public class FluidBox {
         float bz2 = (float) (boundingBox.maxZ);
 
         for (Direction direction : Direction.values()) {
-            TextureAtlasSprite texture = direction.getAxis() == Direction.Axis.Y ? stillTexture : flowingTexture;
+            TextureAtlasSprite texture = direction.getAxis() == Direction.Axis.Y ? this.stillTexture : this.flowingTexture;
 
             float scale = direction.getAxis() == Direction.Axis.Y ? 1.0F : 0.5F;
-
+            
             float u1 = texture.getU((direction.getAxis() == Direction.Axis.X ? by1 : bx1) * scale);
             float u2 = texture.getU((direction.getAxis() == Direction.Axis.X ? by2 : bx2) * scale);
             float v1 = texture.getV((direction.getAxis() == Direction.Axis.Z ? by1 : bz1) * scale);
