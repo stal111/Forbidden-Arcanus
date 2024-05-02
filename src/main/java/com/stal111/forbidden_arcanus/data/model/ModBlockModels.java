@@ -13,10 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.*;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -87,6 +84,7 @@ public class ModBlockModels {
         this.createObelisk(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get());
         this.createUtremJar(ModBlocks.UTREM_JAR.get());
         this.blockStateOutput.accept(createSimpleBlock(ModBlocks.ESSENCE_UTREM_JAR.get(), ModelLocationUtils.getModelLocation(ModBlocks.UTREM_JAR.get())));
+        ModModelTemplates.UTREM_JAR_ITEM.create(ModelLocationUtils.getModelLocation(ModBlocks.ESSENCE_UTREM_JAR.get().asItem()), TextureMapping.particle(ModBlocks.UTREM_JAR.get()), this.modelOutput);
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -222,5 +220,9 @@ public class ModBlockModels {
 
     void createSimpleFlatItemModel(Item item) {
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(item), this.modelOutput);
+    }
+
+    void delegateItemModel(Block block, ResourceLocation resourceLocation) {
+        this.modelOutput.accept(ModelLocationUtils.getModelLocation(block.asItem()), new DelegatedModel(resourceLocation));
     }
 }

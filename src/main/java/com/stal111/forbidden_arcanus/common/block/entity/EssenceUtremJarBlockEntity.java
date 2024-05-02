@@ -90,9 +90,4 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
         return this.saveWithoutMetadata(lookupProvider);
     }
-
-    @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        super.handleUpdateTag(tag, lookupProvider);
-    }
 }
