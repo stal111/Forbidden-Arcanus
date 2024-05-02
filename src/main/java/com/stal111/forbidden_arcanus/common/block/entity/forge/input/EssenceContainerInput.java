@@ -12,6 +12,8 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Optional;
+
 /**
  * @author stal111
  * @since 2021-07-08
@@ -48,7 +50,7 @@ public class EssenceContainerInput extends HephaestusForgeInput {
             essenceContainer.addEssence(stack, -inputValue);
 
             if (essenceContainer.isEmpty(stack)) {
-                essenceContainer.getEmptyStack().ifPresent(stack1 -> blockEntity.setStack(slot, stack1));
+                Optional.ofNullable(stack.get(ModDataComponents.EMPTY_ITEM)).ifPresent(item -> blockEntity.setStack(slot, new ItemStack(item)));
             }
         }
     }

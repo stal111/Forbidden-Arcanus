@@ -82,7 +82,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> PURIFYING_SOAP = HELPER.register("purifying_soap", () -> new PurifyingSoapItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> WET_PURIFYING_SOAP = HELPER.register("wet_purifying_soap", () -> new WetPurifyingSoapItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<UtremJarItem> UTREM_JAR = HELPER.register("utrem_jar", () -> new UtremJarItem(ModBlocks.UTREM_JAR.get(), new Item.Properties()));
-    public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", () -> new EssenceUtremJarItem(ModBlocks.ESSENCE_UTREM_JAR.get(), new Item.Properties()));
+    public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", () -> new EssenceUtremJarItem(ModBlocks.ESSENCE_UTREM_JAR.get(), new Item.Properties().component(ModDataComponents.EMPTY_ITEM, ModItems.UTREM_JAR)));
 
     public static final ItemRegistryEntry<AurealBottleItem> AUREAL_BOTTLE = HELPER.register("aureal_bottle", () -> new AurealBottleItem(new Item.Properties().stacksTo(16)));
     public static final ItemRegistryEntry<SplashAurealBottleItem> SPLASH_AUREAL_BOTTLE = HELPER.register("splash_aureal_bottle", () -> new SplashAurealBottleItem(new Item.Properties().stacksTo(16)));
@@ -91,7 +91,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<ZombieArmItem> ZOMBIE_ARM = HELPER.register("zombie_arm", () -> new ZombieArmItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<ZombieArmItem> SHINY_ZOMBIE_ARM = HELPER.register("shiny_zombie_arm", () -> new ZombieArmItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> TEST_TUBE = HELPER.register("test_tube", () -> new Item(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", () -> new BloodTestTubeItem(new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_DATA, BloodTestTubeItem.DEFAULT_DATA)));
+    public static final ItemRegistryEntry<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", () -> new BloodTestTubeItem(new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_DATA, BloodTestTubeItem.DEFAULT_DATA).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE)));
     public static final ItemRegistryEntry<Item> BLACKSMITH_GAVEL_HEAD = HELPER.register("blacksmith_gavel_head", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final ItemRegistryEntry<BlacksmithGavelItem> WOODEN_BLACKSMITH_GAVEL = HELPER.register("wooden_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.WOOD, 1, new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<BlacksmithGavelItem> STONE_BLACKSMITH_GAVEL = HELPER.register("stone_blacksmith_gavel", () -> new BlacksmithGavelItem(Tiers.STONE, 3, new Item.Properties().stacksTo(1)));

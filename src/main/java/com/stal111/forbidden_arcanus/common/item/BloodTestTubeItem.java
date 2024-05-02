@@ -10,8 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
-
 /**
  * @author stal111
  * @since 2021-07-08
@@ -43,10 +41,5 @@ public class BloodTestTubeItem extends Item implements EssenceContainer {
     @Override
     public EssenceType getType(ItemStack stack) {
         return EssenceType.BLOOD;
-    }
-
-    @Override
-    public Optional<ItemStack> getEmptyStack() {
-        return Optional.of(new ItemStack(ModItems.TEST_TUBE.get()));
     }
 }
