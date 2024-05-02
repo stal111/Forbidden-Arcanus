@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceContainer;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -23,7 +24,7 @@ public class AurealTankItem extends Item implements EssenceContainer {
     public static final int DEFAULT_CAPACITY = 100;
     public static final int MAX_CAPACITY = 3000;
 
-    public static final EssenceData DEFAULT_DATA = EssenceData.createEmpty(EssenceType.AUREAL, DEFAULT_CAPACITY);
+    public static final ItemEssenceData DEFAULT_DATA = new ItemEssenceData(EssenceData.createEmpty(EssenceType.AUREAL, DEFAULT_CAPACITY), true);
 
     private static final int BAR_COLOR = FastColor.ARGB32.color(255, 159, 226, 253);
 
@@ -34,19 +35,17 @@ public class AurealTankItem extends Item implements EssenceContainer {
     public static ItemStack create(Item item, int aureal, int capacity) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(EssenceType.AUREAL, aureal, capacity));
+        stack.set(ModDataComponents.ESSENCE_DATA, new ItemEssenceData(EssenceData.of(EssenceType.AUREAL, aureal, capacity), true));
 
         return stack;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
-        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+        ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
         if (data != null) {
-            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", data.limit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
-
-            data.addToTooltip(context, component -> components.add(this.getType(stack).getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), flag);
+            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", data.get().limit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
         }
     }
 
@@ -62,9 +61,9 @@ public class AurealTankItem extends Item implements EssenceContainer {
 
     @Override
     public int getBarWidth(@NotNull ItemStack stack) {
-        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+        ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-        return data != null ? Math.round(13.0F * data.getFillPercentage()) : 0;
+        return data != null ? Math.round(13.0F * data.get().getFillPercentage()) : 0;
     }
 
     @Override

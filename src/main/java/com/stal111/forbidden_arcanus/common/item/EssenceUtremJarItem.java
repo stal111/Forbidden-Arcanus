@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.client.renderer.block.EssenceUtremJarRenderer;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -29,7 +30,7 @@ public class EssenceUtremJarItem extends BlockItem {
     public static ItemStack create(EssenceType type, Item item, int amount) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(type, amount, 10000));
+        stack.set(ModDataComponents.ESSENCE_DATA, new ItemEssenceData(EssenceData.of(type, amount, 10000), true));
 
         return stack;
     }

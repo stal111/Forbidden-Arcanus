@@ -16,7 +16,7 @@ import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.common.item.UtremJarItem;
@@ -52,9 +52,9 @@ import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_
 public class ClientSetup {
 
     public static final ItemPropertyFunction ESSENCE_AMOUNT_PROPERTY_FUNCTION = (stack, level, entity, seed) -> {
-        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+        ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-        return data != null ? data.getFillPercentage() : 0.0F;
+        return data != null ? data.get().getFillPercentage() : 0.0F;
     };
 
     public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
@@ -120,9 +120,9 @@ public class ClientSetup {
 
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
-            EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+            ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-            return data != null && data.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F;
+            return data != null && data.get().limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F;
         });
     }
 

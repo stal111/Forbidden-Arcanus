@@ -12,24 +12,24 @@ import java.util.Optional;
  */
 public interface EssenceContainer {
 
-    default EssenceData getEssenceData(ItemStack stack) {
+    default ItemEssenceData getEssenceData(ItemStack stack) {
         return stack.get(ModDataComponents.ESSENCE_DATA);
     }
 
     EssenceType getType(ItemStack stack);
 
     default int getLimit(ItemStack stack) {
-        return this.getEssenceData(stack).limit();
+        return this.getEssenceData(stack).get().limit();
     }
 
     default int getEssence(ItemStack stack) {
-        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+        ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-        return data != null ? data.amount() : 0;
+        return data != null ? data.get().amount() : 0;
     }
 
     default void setEssence(ItemStack stack, int amount) {
-        stack.set(ModDataComponents.ESSENCE_DATA, new EssenceData(this.getType(stack), amount, this.getLimit(stack)));
+        stack.set(ModDataComponents.ESSENCE_DATA, new ItemEssenceData(EssenceData.of(this.getType(stack), amount, this.getLimit(stack)), true));
     }
 
     default void addEssence(ItemStack stack, int amount) {

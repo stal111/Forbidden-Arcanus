@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.core.BlockPos;
@@ -64,13 +65,13 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     @Override
     protected void applyImplicitComponents(@NotNull DataComponentInput input) {
         super.applyImplicitComponents(input);
-        this.essenceData = input.getOrDefault(ModDataComponents.ESSENCE_DATA, EssenceData.EMPTY);
+        this.essenceData = input.getOrDefault(ModDataComponents.ESSENCE_DATA, ItemEssenceData.EMPTY).data();
     }
 
     @Override
     protected void collectImplicitComponents(DataComponentMap.@NotNull Builder builder) {
         super.collectImplicitComponents(builder);
-        builder.set(ModDataComponents.ESSENCE_DATA, this.essenceData);
+        builder.set(ModDataComponents.ESSENCE_DATA, new ItemEssenceData(this.essenceData, true));
     }
 
     @Override

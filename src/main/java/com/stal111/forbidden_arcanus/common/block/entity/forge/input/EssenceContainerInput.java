@@ -4,8 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceContainer;
+import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
 import net.minecraft.util.ExtraCodecs;
@@ -37,9 +37,9 @@ public class EssenceContainerInput extends HephaestusForgeInput {
 
     @Override
     public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
-        EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+        ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
-        return data != null ? Math.min(data.amount(), this.extractionSpeed) : 0;
+        return data != null ? Math.min(data.get().amount(), this.extractionSpeed) : 0;
     }
 
     @Override

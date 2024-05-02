@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -28,15 +29,15 @@ public class CombineAurealTankRecipe extends CustomRecipe {
 
     @Override
     public boolean matches(@NotNull CraftingContainer container, @NotNull Level level) {
-        EssenceData data = this.getCombinedStorage(container.getItems());
+        ItemEssenceData data = this.getCombinedStorage(container.getItems());
         boolean multipleStacks = container.getItems().stream().filter(stack -> !stack.isEmpty()).toList().size() > 1;
 
-        return data != EssenceData.EMPTY && multipleStacks && data.limit() <= AurealTankItem.MAX_CAPACITY;
+        return data != ItemEssenceData.EMPTY && multipleStacks && data.get().limit() <= AurealTankItem.MAX_CAPACITY;
     }
 
     @Override
     public @NotNull ItemStack assemble(@NotNull CraftingContainer container, HolderLookup.@NotNull Provider lookupProvider) {
-        EssenceData data = this.getCombinedStorage(container.getItems());
+        ItemEssenceData data = this.getCombinedStorage(container.getItems());
 
         ItemStack stack = new ItemStack(ModItems.AUREAL_TANK.get());
 
@@ -45,7 +46,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
         return stack;
     }
 
-    private EssenceData getCombinedStorage(List<ItemStack> stacks) {
+    private ItemEssenceData getCombinedStorage(List<ItemStack> stacks) {
         EssenceData combined = EssenceData.EMPTY;
 
         for (ItemStack stack : stacks) {
@@ -54,17 +55,17 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             }
 
             if (!stack.is(ModItems.AUREAL_TANK.get())) {
-                return EssenceData.EMPTY;
+                return ItemEssenceData.EMPTY;
             }
 
-            EssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+            ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
 
             if (data != null) {
-                combined = combined.combine(data);
+                combined = combined.combine(data.get());
             }
         }
 
-        return combined;
+        return new ItemEssenceData(combined, true);
     }
 
     @Override

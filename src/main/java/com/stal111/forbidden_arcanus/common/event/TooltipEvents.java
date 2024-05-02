@@ -1,11 +1,12 @@
 package com.stal111.forbidden_arcanus.common.event;
 
+import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -25,16 +26,16 @@ public class TooltipEvents {
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        Player player = event.getEntity();
+        List<Component> tooltip = event.getToolTip();
+        boolean advanced = event.getFlags().isAdvanced();
 
-        if (player == null) {
-            return;
+        ItemEssenceData essenceData = stack.get(ModDataComponents.ESSENCE_DATA);
+
+        if (essenceData != null && essenceData.showInTooltip()) {
+            essenceData.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceData.get().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags());
         }
 
         EnhancerCache.get(stack.getItem()).ifPresent(definition -> {
-            List<Component> tooltip = event.getToolTip();
-            boolean advanced = event.getFlags().isAdvanced();
-
             this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);
             this.expandTooltip(advanced, tooltip, CommonComponents.EMPTY);
 
@@ -47,7 +48,7 @@ public class TooltipEvents {
 
     private void expandTooltip(boolean advanced, List<Component> tooltip, Component addition) {
         if (advanced) {
-            tooltip.add(tooltip.size() - 1, addition);
+            tooltip.add(tooltip.size() - 2, addition);
         } else {
             tooltip.add(addition);
         }
