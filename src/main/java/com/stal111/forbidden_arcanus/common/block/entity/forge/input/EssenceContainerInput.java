@@ -4,8 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceContainer;
-import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
 import net.minecraft.util.ExtraCodecs;
@@ -34,22 +33,20 @@ public class EssenceContainerInput extends HephaestusForgeInput {
 
     @Override
     public boolean canInputStack(ItemStack stack) {
-        return stack.has(ModDataComponents.ESSENCE_DATA) && stack.getItem() instanceof EssenceContainer essenceContainer && essenceContainer.getType(stack) == this.getEssenceType();
+        return EssenceHelper.hasEssence(stack, this.getEssenceType());
     }
 
     @Override
     public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
-        ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
-
-        return data != null ? Math.min(data.get().amount(), this.extractionSpeed) : 0;
+        return EssenceHelper.getEssenceData(stack).map(data -> Math.min(data.amount(), this.extractionSpeed)).orElse(0);
     }
 
     @Override
     public void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity blockEntity, int slot, int inputValue) {
-        if (inputValue != 0 && stack.getItem() instanceof EssenceContainer essenceContainer) {
-            essenceContainer.addEssence(stack, -inputValue);
+        if (inputValue != 0) {
+            EssenceHelper.addEssence(stack, -inputValue);
 
-            if (essenceContainer.isEmpty(stack)) {
+            if (EssenceHelper.isEmpty(stack)) {
                 Optional.ofNullable(stack.get(ModDataComponents.EMPTY_ITEM)).ifPresent(item -> blockEntity.setStack(slot, new ItemStack(item)));
             }
         }

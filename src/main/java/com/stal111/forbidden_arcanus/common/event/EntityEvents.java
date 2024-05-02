@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.event;
 
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.world.InteractionHand;
@@ -23,8 +24,8 @@ public class EntityEvents {
 
             ItemStack stack = player.getOffhandItem();
 
-            if (stack.getItem() instanceof BloodTestTubeItem item && !item.isFull(stack)) {
-                item.addEssence(stack, (int) (20 * event.getAmount()));
+            if (stack.getItem() instanceof BloodTestTubeItem && !EssenceHelper.isFull(stack)) {
+                EssenceHelper.addEssence(stack, (int) (20 * event.getAmount()));
             }
         }
     }
