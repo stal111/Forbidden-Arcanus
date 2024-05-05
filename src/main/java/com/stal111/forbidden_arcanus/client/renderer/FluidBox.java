@@ -13,6 +13,8 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 
+//TODO: move into core
+
 /**
  * @author stal111
  * @since 29.04.2024
@@ -22,13 +24,16 @@ public class FluidBox {
     private final TextureAtlasSprite stillTexture;
     private final TextureAtlasSprite flowingTexture;
     private final int[] color;
+    private final AABB fullBounds;
     private AABB boundingBox;
+    private float fillPercentage = 1.0F;
 
-    public FluidBox(ResourceLocation stillTexture, ResourceLocation flowingTexture, int[] color, AABB boundingBox) {
+    public FluidBox(ResourceLocation stillTexture, ResourceLocation flowingTexture, int[] color, AABB fullBounds) {
         this.stillTexture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(stillTexture);
         this.flowingTexture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(flowingTexture);
         this.color = color;
-        this.boundingBox = boundingBox;
+        this.fullBounds = fullBounds;
+        this.boundingBox = fullBounds;
     }
 
     public static FluidBox create(FluidStack fluid, AABB boundingBox) {
@@ -48,6 +53,15 @@ public class FluidBox {
 
     public static FluidBox create(ResourceLocation stillTexture, ResourceLocation flowingTexture, AABB boundingBox) {
         return new FluidBox(stillTexture, flowingTexture, new int[] {255, 255, 255, 255}, boundingBox);
+    }
+
+    public void setFillPercentage(float percentage) {
+        if (this.fillPercentage == percentage) {
+            return;
+        }
+
+        this.fillPercentage = percentage;
+        this.boundingBox = this.boundingBox.setMaxY(this.fullBounds.minY + (this.fullBounds.maxY - this.fullBounds.minY) * percentage);
     }
 
     public void render(PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {

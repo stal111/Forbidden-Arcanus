@@ -82,7 +82,6 @@ public class UtremJarSoulsModel<T extends Entity> extends HierarchicalModel<T> {
     public void setupAnim(@Nonnull EssenceUtremJarBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animate(entity.rotateAnimation, UtremJarSoulAnimation.ANIMATION, ageInTicks);
         this.animate(entity.rotateAnimation, UtremJarSoulAnimation.ROTATE, ageInTicks);
     }
 

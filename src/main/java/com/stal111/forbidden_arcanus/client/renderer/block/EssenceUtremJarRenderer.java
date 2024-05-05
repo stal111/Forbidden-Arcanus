@@ -71,6 +71,8 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
                     this.fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(data.type()), new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
                 }
 
+                this.fluidBox.setFillPercentage(data.amount() / (float) data.limit());
+
                 this.fluidBox.render(poseStack, bufferSource, packedLight, packedOverlay);
             }
         }
