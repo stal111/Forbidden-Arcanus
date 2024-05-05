@@ -13,6 +13,8 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +29,10 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     public static final String TAG_ESSENCE_TYPE = "essence_type";
     public static final String TAG_ESSENCE_DATA = "essence_data";
 
+    public final AnimationState rotateAnimation = new AnimationState();
+
+    private int tickCount = -1;
+
     @Nullable
     private EssenceType essenceType;
     private EssenceData essenceData = EssenceData.EMPTY;
@@ -35,8 +41,18 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
         super(ModBlockEntities.ESSENCE_UTREM_JAR.get(), pos, state);
     }
 
+    public static void clientTick(Level level, BlockPos pos, BlockState state, EssenceUtremJarBlockEntity blockEntity) {
+        blockEntity.rotateAnimation.startIfStopped(blockEntity.tickCount);
+
+        blockEntity.tickCount++;
+    }
+
     public EssenceData getEssenceData() {
         return this.essenceData;
+    }
+
+    public int getTickCount() {
+        return this.tickCount;
     }
 
     @Override

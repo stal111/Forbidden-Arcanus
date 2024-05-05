@@ -1,8 +1,12 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.model.UtremJarSoulsModel;
 import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.client.Minecraft;
@@ -15,6 +19,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
@@ -26,11 +31,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer implements BlockEntityRenderer<EssenceUtremJarBlockEntity> {
 
+    public static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/lost_soul/lost_soul.png");
+
     private static final ItemStack EMPTY_JAR = new ItemStack(ModBlocks.UTREM_JAR.get());
 
     // Dummy BlockEntity used for item rendering
     private final EssenceUtremJarBlockEntity blockEntity = new EssenceUtremJarBlockEntity(BlockPos.ZERO, ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState());
 
+    private final UtremJarSoulsModel<?> model;
     private EssenceFluidBox fluidBox;
 
     public EssenceUtremJarRenderer(BlockEntityRendererProvider.Context context) {
@@ -39,6 +47,7 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
 
     public EssenceUtremJarRenderer(BlockEntityRenderDispatcher renderDispatcher, EntityModelSet modelSet) {
         super(renderDispatcher, modelSet);
+        this.model = new UtremJarSoulsModel<>(modelSet);
     }
 
     @Override
@@ -46,11 +55,24 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
         EssenceData data = blockEntity.getEssenceData();
 
         if (data != EssenceData.EMPTY && data.amount() > 0) {
-            if (this.fluidBox == null  || this.fluidBox.getType().getEssenceType() != data.type()) {
-                this.fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(data.type()), new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
-            }
+            if (data.type() == EssenceType.SOULS) {
+                poseStack.pushPose();
 
-            this.fluidBox.render(poseStack, bufferSource, packedLight, packedOverlay);
+                poseStack.translate(0.5F, 1.5F, 0.5F);
+                poseStack.mulPose(Axis.ZP.rotationDegrees(180));
+
+                float ageInTicks = (blockEntity.getTickCount() == -1 ? Minecraft.getInstance().level.getGameTime() : blockEntity.getTickCount()) + partialTick;
+                this.model.setupAnim(blockEntity, 0.0F, 0.0F, ageInTicks, 0.0F, 0.0F);
+                this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+
+                poseStack.popPose();
+            } else {
+                if (this.fluidBox == null  || this.fluidBox.getType().getEssenceType() != data.type()) {
+                    this.fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(data.type()), new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
+                }
+
+                this.fluidBox.render(poseStack, bufferSource, packedLight, packedOverlay);
+            }
         }
     }
 
@@ -71,6 +93,7 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
 
         poseStack.translate(-0.5F, -0.5F, -0.5F);
 
+        this.blockEntity.rotateAnimation.startIfStopped(this.blockEntity.getTickCount());
         this.render(this.blockEntity, 0, poseStack, bufferSource, packedLight, packedOverlay);
 
         poseStack.popPose();
