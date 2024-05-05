@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.world.AuxiliaryLightManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,8 +33,6 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
 
     private int tickCount = -1;
 
-    @Nullable
-    private EssenceType essenceType;
     private EssenceData essenceData = EssenceData.EMPTY;
 
     public EssenceUtremJarBlockEntity(BlockPos pos, BlockState state) {
@@ -55,13 +53,21 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
         return this.tickCount;
     }
 
+    public void setEssenceData(EssenceData data) {
+        this.essenceData = data;
+
+        if (this.level != null) {
+            AuxiliaryLightManager lightManager = this.level.getAuxLightManager(this.worldPosition);
+
+            if (lightManager != null) {
+                lightManager.setLightAt(this.worldPosition, this.essenceData == EssenceData.EMPTY ? 0 : this.essenceData.type().getLightEmission());
+            }
+        }
+    }
+
     @Override
     protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
         super.saveAdditional(tag, lookupProvider);
-
-        if (this.essenceType != null) {
-            tag.putString(TAG_ESSENCE_TYPE, this.essenceType.getSerializedName());
-        }
 
         if (this.essenceData != EssenceData.EMPTY) {
             EssenceData.CODEC.encodeStart(NbtOps.INSTANCE, this.essenceData).result().ifPresent(essenceDataTag -> {
@@ -74,14 +80,13 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
         super.loadAdditional(tag, lookupProvider);
 
-        this.essenceType = EssenceType.CODEC.byName(tag.getString(TAG_ESSENCE_TYPE));
-        this.essenceData = EssenceData.CODEC.parse(NbtOps.INSTANCE, tag.get(TAG_ESSENCE_DATA)).result().orElse(EssenceData.EMPTY);
+        this.setEssenceData(EssenceData.CODEC.parse(NbtOps.INSTANCE, tag.get(TAG_ESSENCE_DATA)).result().orElse(EssenceData.EMPTY));
     }
 
     @Override
     protected void applyImplicitComponents(@NotNull DataComponentInput input) {
         super.applyImplicitComponents(input);
-        this.essenceData = input.getOrDefault(ModDataComponents.ESSENCE_DATA, ItemEssenceData.EMPTY).data();
+        this.setEssenceData(input.getOrDefault(ModDataComponents.ESSENCE_DATA, ItemEssenceData.EMPTY).data());
     }
 
     @Override

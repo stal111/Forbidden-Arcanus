@@ -18,10 +18,10 @@ import java.util.function.Function;
  * @since 2023-01-04
  */
 public enum EssenceType implements StringRepresentable {
-    AUREAL("aureal"),
-    SOULS("souls"),
-    BLOOD("blood"),
-    EXPERIENCE("experience");
+    AUREAL("aureal", 7),
+    SOULS("souls", 0),
+    BLOOD("blood", 0),
+    EXPERIENCE("experience", 13);
 
     public static final StringRepresentable.EnumCodec<EssenceType> CODEC = StringRepresentable.fromEnum(EssenceType::values);
 
@@ -34,15 +34,21 @@ public enum EssenceType implements StringRepresentable {
     public static final StreamCodec<FriendlyByteBuf, EssenceType> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(EssenceType.class);
 
     private final String name;
+    private final int lightEmission;
     private final Component component;
 
-    EssenceType(String name) {
+    EssenceType(String name, int lightEmission) {
         this.name = name;
+        this.lightEmission = lightEmission;
         this.component = Component.translatable("forbidden_arcanus.essence." + name);
     }
 
     public Component getComponent() {
         return this.component;
+    }
+
+    public int getLightEmission() {
+        return this.lightEmission;
     }
 
     @Override
