@@ -1,11 +1,9 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.EssenceContainerInput;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ExtractEnchantmentsInput;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ItemInput;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.*;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.core.Holder;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
@@ -16,10 +14,10 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHel
  */
 public class ModForgeInputTypes implements RegistryClass {
 
-    public static final MappedRegistryHelper<HephaestusForgeInputType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.FORGE_INPUT_TYPE);
+    public static final MappedRegistryHelper<HephaestusForgeInput> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.FORGE_INPUT);
 
-    public static final RegistryEntry<HephaestusForgeInputType<?>, HephaestusForgeInputType<ItemInput>> SIMPLE_ITEM = HELPER.register("simple_item", () -> new HephaestusForgeInputType<>(ItemInput.CODEC));
-    public static final RegistryEntry<HephaestusForgeInputType<?>, HephaestusForgeInputType<ExtractEnchantmentsInput>> EXTRACT_ENCHANTMENTS = HELPER.register("extract_enchantments", () -> new HephaestusForgeInputType<>(ExtractEnchantmentsInput.CODEC));
-    public static final RegistryEntry<HephaestusForgeInputType<?>, HephaestusForgeInputType<EssenceContainerInput>> ESSENCE_CONTAINER = HELPER.register("essence_container", () -> new HephaestusForgeInputType<>(EssenceContainerInput.CODEC));
+    public static final Holder<HephaestusForgeInput> SIMPLE_ITEM = HELPER.register("essence_data", EssenceDataInput::new);
+    public static final Holder<HephaestusForgeInput> EXTRACT_ENCHANTMENTS = HELPER.register("extract_enchantments", ExtractEnchantmentsInput::new);
+    public static final Holder<HephaestusForgeInput> ESSENCE_CONTAINER = HELPER.register("essence_container", EssenceContainerInput::new);
 
 }

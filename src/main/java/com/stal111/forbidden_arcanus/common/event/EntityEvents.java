@@ -24,8 +24,10 @@ public class EntityEvents {
 
             ItemStack stack = player.getOffhandItem();
 
-            if (stack.getItem() instanceof BloodTestTubeItem && !EssenceHelper.isFull(stack)) {
-                EssenceHelper.addEssence(stack, (int) (20 * event.getAmount()));
+            if (stack.getItem() instanceof BloodTestTubeItem) {
+                EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
+                    storage.addEssence(stack, (int) (20 * event.getAmount()));
+                });
             }
         }
     }

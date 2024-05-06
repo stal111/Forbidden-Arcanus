@@ -172,7 +172,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.AUREAL_BOTTLE.get());
                             output.accept(ModItems.SPLASH_AUREAL_BOTTLE.get());
                             output.accept(ModItems.TEST_TUBE.get());
-                            output.accept(EssenceHelper.createItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceType.BLOOD, BloodTestTubeItem.MAX_BLOOD, BloodTestTubeItem.MAX_BLOOD));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceType.BLOOD, BloodTestTubeItem.MAX_BLOOD, BloodTestTubeItem.MAX_BLOOD));
                             output.accept(ModItems.ETERNAL_STELLA.get());
                             output.accept(ModItems.TERRASTOMP_PRISM.get());
                             output.accept(ModItems.SEA_PRISM.get());
@@ -201,9 +201,9 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SANITY_METER.get());
 
                             output.accept(ModItems.AUREAL_TANK.get());
-                            output.accept(EssenceHelper.createItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, AurealTankItem.DEFAULT_CAPACITY, AurealTankItem.DEFAULT_CAPACITY));
-                            output.accept(EssenceHelper.createItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, 0, AurealTankItem.MAX_CAPACITY));
-                            output.accept(EssenceHelper.createItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY, AurealTankItem.MAX_CAPACITY));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, AurealTankItem.DEFAULT_CAPACITY, AurealTankItem.DEFAULT_CAPACITY));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, 0, AurealTankItem.MAX_CAPACITY));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY, AurealTankItem.MAX_CAPACITY));
 
                             output.accept(ModItems.LENS_OF_VERITATIS.get());
                             output.accept(ModItems.PURIFYING_SOAP.get());
@@ -216,10 +216,10 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModItems.UTREM_JAR.get());
 
-                            output.accept(EssenceHelper.createItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.AUREAL, 10000, 10000));
-                            output.accept(EssenceHelper.createItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.SOULS, 10000, 10000));
-                            output.accept(EssenceHelper.createItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.BLOOD, 10000, 10000));
-                            output.accept(EssenceHelper.createItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.EXPERIENCE, 10000, 10000));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.AUREAL, 10000, 10000));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.SOULS, 10000, 10000));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.BLOOD, 10000, 10000));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.EXPERIENCE, 10000, 10000));
 
                             output.accept(ModItems.ZOMBIE_ARM.get());
                             output.accept(ModItems.SHINY_ZOMBIE_ARM.get());

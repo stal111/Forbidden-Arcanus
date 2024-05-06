@@ -13,14 +13,13 @@ import net.minecraft.util.ExtraCodecs;
  * @author stal111
  * @since 26.04.2024
  */
-public record EssenceData(EssenceType type, int amount, int limit) {
+public record EssenceData(EssenceType type, int amount) {
 
-    public static final EssenceData EMPTY = new EssenceData(null, 0, 0);
+    public static final EssenceData EMPTY = new EssenceData(null, 0);
 
     public static final MapCodec<EssenceData> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             EssenceType.CODEC.fieldOf("type").forGetter(EssenceData::type),
-            ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(EssenceData::amount),
-            ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceData::limit)
+            ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(EssenceData::amount)
     ).apply(instance, EssenceData::new));
 
     public static final Codec<EssenceData> CODEC = MAP_CODEC.codec();
@@ -30,24 +29,18 @@ public record EssenceData(EssenceType type, int amount, int limit) {
             EssenceData::type,
             ByteBufCodecs.INT,
             EssenceData::amount,
-            ByteBufCodecs.INT,
-            EssenceData::limit,
             EssenceData::new
     );
 
-    public static EssenceData of(EssenceType type, int amount, int limit) {
-        return new EssenceData(type, amount, limit);
+    public static EssenceData of(EssenceType type, int amount) {
+        return new EssenceData(type, amount);
     }
 
-    public static EssenceData createEmpty(EssenceType type, int limit) {
-        return new EssenceData(type, 0, limit);
-    }
-
-    public float getFillPercentage() {
-        return (float) this.amount / this.limit;
+    public static EssenceData createEmpty(EssenceType type) {
+        return EssenceData.of(type, 0);
     }
 
     public EssenceData combine(EssenceData data) {
-        return new EssenceData(this.type, this.amount + data.amount, this.limit + data.limit);
+        return new EssenceData(this.type, this.amount + data.amount);
     }
 }

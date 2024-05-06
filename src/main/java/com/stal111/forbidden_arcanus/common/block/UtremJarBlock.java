@@ -1,5 +1,9 @@
 package com.stal111.forbidden_arcanus.common.block;
 
+import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -60,7 +64,19 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return EssenceHelper.getEssenceData(stack).map(essenceData -> {
+            BlockState essenceJar = ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState()
+                    .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
+                    .setValue(ModBlockStateProperties.ESSENCE_TYPE, essenceData.type());
+
+            level.setBlockAndUpdate(pos, essenceJar);
+
+            if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
+                blockEntity.addEssence(essenceData.amount());
+            }
+
+            return ItemInteractionResult.SUCCESS;
+        }).orElse(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
     }
 
     //TODO

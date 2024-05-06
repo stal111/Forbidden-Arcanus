@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.core.init.other.ModForgeInputTypes;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -23,13 +22,9 @@ public class ExtractEnchantmentsInput extends HephaestusForgeInput {
 
     public static final MapCodec<ExtractEnchantmentsInput> CODEC = MapCodec.unit(ExtractEnchantmentsInput::new);
 
-    public ExtractEnchantmentsInput() {
-        super(EssenceType.EXPERIENCE);
-    }
-
     @Override
-    public boolean canInputStack(ItemStack stack) {
-        return stack.isEnchanted();
+    public boolean canInput(EssenceType type, ItemStack stack) {
+        return type == EssenceType.EXPERIENCE && stack.isEnchanted();
     }
 
     @Override
@@ -50,11 +45,6 @@ public class ExtractEnchantmentsInput extends HephaestusForgeInput {
         if (inputValue != 0) {
             tileEntity.setStack(slot, this.removeNonCursesFrom(stack));
         }
-    }
-
-    @Override
-    public HephaestusForgeInputType<?> type() {
-        return ModForgeInputTypes.EXTRACT_ENCHANTMENTS.get();
     }
 
     private int getExperienceFromItem(ItemStack stack) {

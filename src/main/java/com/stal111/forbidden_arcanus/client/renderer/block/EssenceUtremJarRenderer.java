@@ -7,7 +7,9 @@ import com.stal111.forbidden_arcanus.client.model.UtremJarSoulsModel;
 import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -52,10 +54,10 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
 
     @Override
     public void render(@NotNull EssenceUtremJarBlockEntity blockEntity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        EssenceData data = blockEntity.getEssenceData();
+        if (blockEntity.getAmount() > 0) {
+            EssenceType type = blockEntity.getBlockState().getValue(ModBlockStateProperties.ESSENCE_TYPE);
 
-        if (data != EssenceData.EMPTY && data.amount() > 0) {
-            if (data.type() == EssenceType.SOULS) {
+            if (type == EssenceType.SOULS) {
                 poseStack.pushPose();
 
                 poseStack.translate(0.5F, 1.5F, 0.5F);
@@ -67,11 +69,11 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
 
                 poseStack.popPose();
             } else {
-                if (this.fluidBox == null  || this.fluidBox.getType().getEssenceType() != data.type()) {
-                    this.fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(data.type()), new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
+                if (this.fluidBox == null  || this.fluidBox.getType().getEssenceType() != type) {
+                    this.fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(type), new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
                 }
 
-                this.fluidBox.setFillPercentage(data.amount() / (float) data.limit());
+                this.fluidBox.setFillPercentage(blockEntity.getAmount() / (float) blockEntity.getLimit());
 
                 this.fluidBox.render(poseStack, bufferSource, packedLight, packedOverlay);
             }

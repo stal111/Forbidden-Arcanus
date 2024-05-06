@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -29,10 +29,10 @@ public class TooltipEvents {
         List<Component> tooltip = event.getToolTip();
         boolean advanced = event.getFlags().isAdvanced();
 
-        ItemEssenceData essenceData = stack.get(ModDataComponents.ESSENCE_DATA);
+        EssenceStorage essenceStorage = stack.get(ModDataComponents.ESSENCE_STORAGE);
 
-        if (essenceData != null && essenceData.showInTooltip()) {
-            essenceData.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceData.get().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags());
+        if (essenceStorage != null && essenceStorage.showInTooltip()) {
+            essenceStorage.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceStorage.data().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags());
         }
 
         EnhancerCache.get(stack.getItem()).ifPresent(definition -> {

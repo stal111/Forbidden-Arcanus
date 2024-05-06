@@ -22,7 +22,6 @@ public class RegistryEvents {
     public void newDatapackRegistry(DataPackRegistryEvent.NewRegistry event) {
         event.dataPackRegistry(FARegistries.RITUAL, Ritual.DIRECT_CODEC, Ritual.NETWORK_CODEC);
         event.dataPackRegistry(FARegistries.ENHANCER_DEFINITION, EnhancerDefinition.CODEC, EnhancerDefinition.NETWORK_CODEC);
-        event.dataPackRegistry(FARegistries.FORGE_INPUT, HephaestusForgeInput.DIRECT_CODEC, HephaestusForgeInput.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.DIRECT_CODEC, Knowledge.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.CONSTELLATION, Constellation.CODEC, Constellation.CODEC);
         event.dataPackRegistry(FARegistries.RESIDUE_TYPE, ResidueType.DIRECT_CODEC, ResidueType.DIRECT_CODEC);
@@ -32,7 +31,7 @@ public class RegistryEvents {
     @SubscribeEvent
     public void newRegistry(NewRegistryEvent event) {
         event.register(FARegistries.RITUAL_RESULT_TYPE_REGISTRY);
-        event.register(FARegistries.FORGE_INPUT_TYPE_REGISTRY);
+        event.register(FARegistries.FORGE_INPUT_REGISTRY);
         event.register(FARegistries.ITEM_MODIFIER_REGISTRY);
         event.register(FARegistries.ENHANCER_EFFECT_REGISTRY);
         event.register(FARegistries.ENHANCER_EFFECT_CONDITION_REGISTRY);

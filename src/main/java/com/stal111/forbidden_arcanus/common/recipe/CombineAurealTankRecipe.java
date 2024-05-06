@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.recipe;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
-import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -29,25 +29,26 @@ public class CombineAurealTankRecipe extends CustomRecipe {
 
     @Override
     public boolean matches(@NotNull CraftingContainer container, @NotNull Level level) {
-        ItemEssenceData data = this.getCombinedStorage(container.getItems());
+        EssenceStorage data = this.getCombinedStorage(container.getItems());
         boolean multipleStacks = container.getItems().stream().filter(stack -> !stack.isEmpty()).toList().size() > 1;
 
-        return data != ItemEssenceData.EMPTY && multipleStacks && data.get().limit() <= AurealTankItem.MAX_CAPACITY;
+        return data != EssenceStorage.EMPTY && multipleStacks && data.limit() <= AurealTankItem.MAX_CAPACITY;
     }
 
     @Override
     public @NotNull ItemStack assemble(@NotNull CraftingContainer container, HolderLookup.@NotNull Provider lookupProvider) {
-        ItemEssenceData data = this.getCombinedStorage(container.getItems());
+        EssenceStorage data = this.getCombinedStorage(container.getItems());
 
         ItemStack stack = new ItemStack(ModItems.AUREAL_TANK.get());
 
-        stack.set(ModDataComponents.ESSENCE_DATA, data);
+        stack.set(ModDataComponents.ESSENCE_STORAGE, data);
 
         return stack;
     }
 
-    private ItemEssenceData getCombinedStorage(List<ItemStack> stacks) {
+    private EssenceStorage getCombinedStorage(List<ItemStack> stacks) {
         EssenceData combined = EssenceData.EMPTY;
+        int limit = 0;
 
         for (ItemStack stack : stacks) {
             if (stack.isEmpty()) {
@@ -55,17 +56,17 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             }
 
             if (!stack.is(ModItems.AUREAL_TANK.get())) {
-                return ItemEssenceData.EMPTY;
+                return EssenceStorage.EMPTY;
             }
 
-            ItemEssenceData data = stack.get(ModDataComponents.ESSENCE_DATA);
+            EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
 
-            if (data != null) {
-                combined = combined.combine(data.get());
+            if (storage != null) {
+                combined = combined.combine(storage.data());
             }
         }
 
-        return new ItemEssenceData(combined, true);
+        return new EssenceStorage(combined, limit, true);
     }
 
     @Override

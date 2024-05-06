@@ -1,17 +1,10 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.input;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.EssenceContainerInput;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ExtractEnchantmentsInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.ItemInput;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
@@ -42,17 +35,8 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
 
     @Override
     public void bootstrap(BootstrapContext<HephaestusForgeInput> context) {
-        context.register(SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.SOUL.get()), 1));
-        context.register(CORRUPT_SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.CORRUPT_SOUL.get()), 1));
-        context.register(ENCHANTED_SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.ENCHANTED_SOUL.get()), 10));
-        context.register(AUREAL_BOTTLE, new ItemInput(EssenceType.AUREAL, Ingredient.of(ModItems.AUREAL_BOTTLE.get()), 35));
-        context.register(SPLASH_AUREAL_BOTTLE, new ItemInput(EssenceType.AUREAL, Ingredient.of(ModItems.SPLASH_AUREAL_BOTTLE.get()), 30));
-        context.register(EXPERIENCE_BOTTLE, new ItemInput(EssenceType.EXPERIENCE, Ingredient.of(Items.EXPERIENCE_BOTTLE), 15));
-        context.register(XPETRIFIED_ORB, new ItemInput(EssenceType.EXPERIENCE, Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 91));
-        context.register(AUREAL_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.AUREAL, 10));
-        context.register(SOULS_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.SOULS, 10));
-        context.register(BLOOD_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.BLOOD, 10));
-        context.register(EXPERIENCE_ESSENCE_CONTAINER, new EssenceContainerInput(EssenceType.EXPERIENCE, 10));
-        context.register(EXTRACT_ENCHANTMENTS, new ExtractEnchantmentsInput());
+        //TODO
+        //context.register(EXPERIENCE_BOTTLE, new ItemInput(EssenceType.EXPERIENCE, Ingredient.of(Items.EXPERIENCE_BOTTLE), 15));
+
     }
 }

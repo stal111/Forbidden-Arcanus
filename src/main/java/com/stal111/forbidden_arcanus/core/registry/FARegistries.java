@@ -29,7 +29,6 @@ public class FARegistries {
 
     public static final ResourceKey<Registry<Ritual>> RITUAL = FARegistries.createRegistryKey("hephaestus_forge/ritual");
     public static final ResourceKey<Registry<RitualResultType<?>>> RITUAL_RESULT_TYPE = FARegistries.createRegistryKey("ritual_result");
-    public static final ResourceKey<Registry<HephaestusForgeInputType<?>>> FORGE_INPUT_TYPE = FARegistries.createRegistryKey("hephaestus_forge/input_type");
     public static final ResourceKey<Registry<HephaestusForgeInput>> FORGE_INPUT = FARegistries.createRegistryKey("hephaestus_forge/input");
     public static final ResourceKey<Registry<ItemModifier>> ITEM_MODIFIER = FARegistries.createRegistryKey("item_modifier");
     public static final ResourceKey<Registry<EnhancerEffectType<?>>> ENHANCER_EFFECT = FARegistries.createRegistryKey("enhancer/effect");
@@ -44,7 +43,7 @@ public class FARegistries {
     public static final ResourceKey<Registry<MagicCircleType>> MAGIC_CIRCLE = FARegistries.createRegistryKey("magic_circle");
 
     public static final Registry<RitualResultType<?>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_TYPE);
-    public static final Registry<HephaestusForgeInputType<?>> FORGE_INPUT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT_TYPE);
+    public static final Registry<HephaestusForgeInput> FORGE_INPUT_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT);
     public static final Registry<ItemModifier> ITEM_MODIFIER_REGISTRY = FARegistries.makeSyncedRegistry(ITEM_MODIFIER);
     public static final Registry<EnhancerEffectType<?>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT);
     public static final Registry<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION);

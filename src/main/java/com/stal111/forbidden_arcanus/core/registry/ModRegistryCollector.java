@@ -65,7 +65,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers.class);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects.class);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions.class);
-        this.addMappedHelper(FARegistries.FORGE_INPUT_TYPE, ModForgeInputTypes.class);
+        this.addMappedHelper(FARegistries.FORGE_INPUT, ModForgeInputTypes.class);
         this.addMappedHelper(FARegistries.DARK_TRADER_VARIANT, DarkTraderVariant.class);
         this.addMappedHelper(FARegistries.MUNDABITUR_INTERACTION, MundabiturInteractions.class);
         this.addMappedHelper(FARegistries.PEDESTAL_EFFECT, PedestalEffects.class);
@@ -78,7 +78,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addDatapackHelper(FARegistries.RITUAL, ModRituals::new);
         this.addDatapackHelper(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions::new);
         this.addDatapackHelper(Registries.DAMAGE_TYPE, ModDamageTypes::new);
-        this.addDatapackHelper(FARegistries.FORGE_INPUT, ModForgeInputs::new);
         this.addDatapackHelper(FARegistries.KNOWLEDGE, ModKnowledge::new);
         this.addDatapackHelper(FARegistries.CONSTELLATION, ModConstellations::new);
         this.addDatapackHelper(FARegistries.RESIDUE_TYPE, ModResidueTypes::new);
