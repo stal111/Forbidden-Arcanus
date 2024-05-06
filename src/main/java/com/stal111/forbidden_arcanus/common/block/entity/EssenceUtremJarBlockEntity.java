@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
@@ -13,6 +14,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
  */
 public class EssenceUtremJarBlockEntity extends BlockEntity {
 
-    public static final String TAG_ESSENCE_STORAGE = "essence_storage";
     public static final String TAG_AMOUNT = "essence_amount";
     public static final String TAG_LIMIT = "essence_limit";
 
@@ -46,6 +47,14 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
         blockEntity.rotateAnimation.startIfStopped(blockEntity.tickCount);
 
         blockEntity.tickCount++;
+    }
+
+    public ItemStack getAsItem() {
+        ItemStack stack = ModItems.ESSENCE_UTREM_JAR.get().getDefaultInstance();
+
+        stack.applyComponents(this.collectComponents());
+
+        return stack;
     }
 
     public void addEssence(int amount) {
@@ -103,7 +112,8 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     @Override
     public void removeComponentsFromTag(@NotNull CompoundTag tag) {
         super.removeComponentsFromTag(tag);
-        tag.remove(TAG_ESSENCE_STORAGE);
+        tag.remove(TAG_AMOUNT);
+        tag.remove(TAG_LIMIT);
     }
 
     @Nullable

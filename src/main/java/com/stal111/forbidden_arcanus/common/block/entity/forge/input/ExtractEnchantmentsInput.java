@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -28,23 +28,25 @@ public class ExtractEnchantmentsInput extends HephaestusForgeInput {
     }
 
     @Override
-    public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
+    public EssenceData getInputValue(ItemStack stack, RandomSource random) {
         int xp = this.getExperienceFromItem(stack);
 
         if (xp <= 0) {
-            return 0;
+            return EssenceData.EMPTY;
         }
 
         int i = (int) Math.ceil((double) xp / 2.0D);
 
-        return i + random.nextInt(i);
+        return EssenceData.of(EssenceType.EXPERIENCE, i + random.nextInt(i));
     }
 
     @Override
-    public void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
+    public ItemStack finishInput(ItemStack stack, int inputValue) {
         if (inputValue != 0) {
-            tileEntity.setStack(slot, this.removeNonCursesFrom(stack));
+            return this.removeNonCursesFrom(stack);
         }
+
+        return stack;
     }
 
     private int getExperienceFromItem(ItemStack stack) {

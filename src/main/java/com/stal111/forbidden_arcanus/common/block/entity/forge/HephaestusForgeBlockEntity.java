@@ -251,11 +251,11 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
-        int value = input.getInputValue(essenceType, stack, Objects.requireNonNull(this.getLevel()).getRandom());
+        int value = input.getInputValue(stack, Objects.requireNonNull(this.getLevel()).getRandom()).amount();
 
         this.getEssenceManager().increaseEssence(essenceType, value);
 
-        input.finishInput(essenceType, stack, this, slot, value);
+        this.setStack(slot, input.finishInput(stack, value));
     }
 
     public RitualManager getRitualManager() {

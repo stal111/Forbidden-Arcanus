@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
@@ -15,16 +14,18 @@ public class EssenceDataInput extends HephaestusForgeInput {
 
     @Override
     public boolean canInput(EssenceType type, ItemStack stack) {
-        return EssenceHelper.getEssenceData(stack).isPresent();
+        return EssenceHelper.getEssenceData(stack).map(data -> data.type() == type).orElse(false);
     }
 
     @Override
-    public int getInputValue(EssenceType type, ItemStack stack, RandomSource random) {
-        return EssenceHelper.getEssenceData(stack).map(EssenceData::amount).orElse(0);
+    public EssenceData getInputValue(ItemStack stack, RandomSource random) {
+        return EssenceHelper.getEssenceData(stack).orElse(EssenceData.EMPTY);
     }
 
     @Override
-    public void finishInput(EssenceType type, ItemStack stack, HephaestusForgeBlockEntity tileEntity, int slot, int inputValue) {
+    public ItemStack finishInput(ItemStack stack, int inputValue) {
         stack.shrink(1);
+
+        return stack;
     }
 }

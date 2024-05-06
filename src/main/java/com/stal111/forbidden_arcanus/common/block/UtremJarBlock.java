@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -64,19 +66,27 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        return EssenceHelper.getEssenceData(stack).map(essenceData -> {
-            BlockState essenceJar = ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState()
-                    .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
-                    .setValue(ModBlockStateProperties.ESSENCE_TYPE, essenceData.type());
+        for (HephaestusForgeInput input : FARegistries.FORGE_INPUT_REGISTRY) {
+            EssenceData inputValue = input.getMaxInputValue(stack, level.getRandom());
 
-            level.setBlockAndUpdate(pos, essenceJar);
+            if (inputValue != EssenceData.EMPTY) {
+                BlockState essenceJar = ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState()
+                        .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
+                        .setValue(ModBlockStateProperties.ESSENCE_TYPE, inputValue.type());
 
-            if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
-                blockEntity.addEssence(essenceData.amount());
+                level.setBlockAndUpdate(pos, essenceJar);
+
+                if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
+                    blockEntity.addEssence(inputValue.amount());
+
+                    player.setItemInHand(hand, input.finishInput(stack, Math.min(inputValue.amount(), blockEntity.getLimit())));
+                }
+
+                return ItemInteractionResult.SUCCESS;
             }
+        }
 
-            return ItemInteractionResult.SUCCESS;
-        }).orElse(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     //TODO

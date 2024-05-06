@@ -8,8 +8,7 @@ import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
-import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -97,7 +96,12 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
 
         poseStack.translate(-0.5F, -0.5F, -0.5F);
 
+        EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
+            this.blockEntity.setBlockState(this.blockEntity.getBlockState().setValue(ModBlockStateProperties.ESSENCE_TYPE, storage.data().type()));
+        });
+
         this.blockEntity.rotateAnimation.startIfStopped(this.blockEntity.getTickCount());
+
         this.render(this.blockEntity, 0, poseStack, bufferSource, packedLight, packedOverlay);
 
         poseStack.popPose();

@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Optional;
 
 /**
  * @author stal111
@@ -23,20 +24,32 @@ public class EssenceContainerInput extends HephaestusForgeInput {
     }
 
     @Override
-    public int getInputValue(EssenceType inputType, ItemStack stack, RandomSource random) {
-        return EssenceHelper.getEssenceStorage(stack).map(storage -> Math.min(storage.data().amount(), EXTRACTION_SPEED)).orElse(0);
+    public EssenceData getInputValue(ItemStack stack, RandomSource random) {
+        EssenceData data = this.getMaxInputValue(stack, random);
+
+        return EssenceData.of(data.type(), Math.min(data.amount(), EXTRACTION_SPEED));
     }
 
     @Override
-    public void finishInput(EssenceType inputType, ItemStack stack, HephaestusForgeBlockEntity blockEntity, int slot, int inputValue) {
-        if (inputValue != 0) {
-            EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
-                storage.addEssence(stack, -inputValue);
+    public EssenceData getMaxInputValue(ItemStack stack, RandomSource random) {
+        return EssenceHelper.getEssenceStorage(stack).orElse(EssenceStorage.EMPTY).data();
+    }
 
-                if (storage.isEmpty()) {
-                    Optional.ofNullable(stack.get(ModDataComponents.EMPTY_ITEM)).ifPresent(item -> blockEntity.setStack(slot, new ItemStack(item)));
+    @Override
+    public ItemStack finishInput(ItemStack stack, int inputValue) {
+        return EssenceHelper.getEssenceStorage(stack).map(storage -> {
+            int amount = storage.data().amount();
+
+            storage.addEssence(stack, -inputValue);
+
+            if (amount - inputValue <= 0) {
+                Holder<Item> itemHolder = stack.get(ModDataComponents.EMPTY_ITEM);
+
+                if (itemHolder != null) {
+                    return new ItemStack(itemHolder);
                 }
-            });
-        }
+            }
+            return stack;
+        }).orElse(stack);
     }
 }

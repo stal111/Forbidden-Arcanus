@@ -191,7 +191,7 @@ public class ModBlocks implements RegistryClass {
     public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> ETERNAL_OBSIDIAN_SKULL = HELPER.registerSkull("eternal_obsidian", ObsidianSkullType.ETERNAL, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.ETERNAL_OBSIDIAN_SKULL_ITEM);
 
     public static final BlockRegistryEntry<UtremJarBlock> UTREM_JAR = HELPER.register("utrem_jar", () -> new UtremJarBlock(Block.Properties.ofLegacyCopy(Blocks.GLASS))).renderType(ValhelsiaRenderType.CUTOUT);
-    public static final BlockRegistryEntry<EssenceUtremJarBlock> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", () -> new EssenceUtremJarBlock(Block.Properties.ofLegacyCopy(Blocks.GLASS))).renderType(ValhelsiaRenderType.CUTOUT);
+    public static final BlockRegistryEntry<EssenceUtremJarBlock> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", () -> new EssenceUtremJarBlock(Block.Properties.ofLegacyCopy(Blocks.GLASS).lightLevel(state -> state.getValue(ModBlockStateProperties.ESSENCE_TYPE).getLightEmission()))).renderType(ValhelsiaRenderType.CUTOUT);
 
     public static final BlockRegistryEntry<NipaBlock> NIPA = HELPER.register("nipa", () -> new NipaBlock(Block.Properties.ofLegacyCopy(Blocks.LARGE_FERN).offsetType(BlockBehaviour.OffsetType.NONE))).withItem().renderType(ValhelsiaRenderType.CUTOUT);
     public static final BlockRegistryEntry<NoFluidOverlayBlock> PETRIFIED_ROOT = HELPER.register("petrified_root", () -> new NoFluidOverlayBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).noOcclusion())).withItem().renderType(ValhelsiaRenderType.CUTOUT);
