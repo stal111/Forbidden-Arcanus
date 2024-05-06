@@ -6,19 +6,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.world.AuxiliaryLightManager;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * @author stal111
  * @since 28.04.2024
  */
-public class EssenceUtremJarBlock extends UtremJarBlock {
+public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
 
     public EssenceUtremJarBlock(Properties properties) {
         super(properties);
@@ -26,7 +26,7 @@ public class EssenceUtremJarBlock extends UtremJarBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new EssenceUtremJarBlockEntity(pos, state);
     }
 

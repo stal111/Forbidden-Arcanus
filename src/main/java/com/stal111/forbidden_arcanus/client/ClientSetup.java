@@ -19,7 +19,6 @@ import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.essence.ItemEssenceData;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
-import com.stal111.forbidden_arcanus.common.item.UtremJarItem;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
@@ -32,7 +31,6 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -63,7 +61,6 @@ public class ClientSetup {
         helper.registerBlockEntityRenderer(ModBlockEntities.NIPA, NipaRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL, PedestalRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE, BlackHoleRenderer::new);
-        helper.registerBlockEntityRenderer(ModBlockEntities.UTREM_JAR, UtremJarRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, EssenceUtremJarRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.OBSIDIAN_SKULL, SkullBlockRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
@@ -114,8 +111,6 @@ public class ClientSetup {
 
         //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, level, entity, seed) -> entity != null && stack.getItem() instanceof SpectralEyeAmuletItem item && item.isDeactivated(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("water"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.WATER ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.UTREM_JAR.get(), new ResourceLocation("lava"), (stack, level, entity, seed) -> stack.getItem() instanceof UtremJarItem item && item.getFluid(stack) == Fluids.LAVA ? 1.0F : 0.0F);
         ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
 
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
