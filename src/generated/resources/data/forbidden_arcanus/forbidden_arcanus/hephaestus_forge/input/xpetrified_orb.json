@@ -1,8 +1,0 @@
-{
-  "type": "forbidden_arcanus:simple_item",
-  "amount": 91,
-  "essence_type": "experience",
-  "item": {
-    "item": "forbidden_arcanus:xpetrified_orb"
-  }
-}
