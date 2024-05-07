@@ -10,7 +10,6 @@ import com.stal111.forbidden_arcanus.core.init.world.*;
 import com.stal111.forbidden_arcanus.data.ModDamageTypes;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
-import com.stal111.forbidden_arcanus.data.hephaestus_forge.input.ModForgeInputs;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals.ModRituals;
 import com.stal111.forbidden_arcanus.data.research.ModConstellations;
 import com.stal111.forbidden_arcanus.data.research.ModKnowledge;
