@@ -35,8 +35,5 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
 
     @Override
     public void bootstrap(BootstrapContext<HephaestusForgeInput> context) {
-        //TODO
-        //context.register(EXPERIENCE_BOTTLE, new ItemInput(EssenceType.EXPERIENCE, Ingredient.of(Items.EXPERIENCE_BOTTLE), 15));
-
     }
 }
