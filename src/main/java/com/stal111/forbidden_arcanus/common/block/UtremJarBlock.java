@@ -96,41 +96,6 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
-    //TODO
-//    @Nonnull
-//    @Override
-//    public InteractionResult use(@Nonnull BlockState state, @NotNull Level level, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-//        ItemStack stack = player.getItemInHand(hand);
-//        Optional<IFluidHandler> fluidHandler = FluidUtil.getFluidHandler(level, pos, null);
-//
-//        if (player.isShiftKeyDown() || fluidHandler.isEmpty()) {
-//            return super.use(state, level, pos, player, hand, hit);
-//        }
-//
-//        if (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler.get())) {
-//            player.getInventory().setChanged();
-//
-//            return InteractionResult.sidedSuccess(level.isClientSide());
-//        } else if (fluidHandler.get().getFluidInTank(0).isEmpty()) {
-//            BlockState newState = null;
-//
-//            if (stack.is(ModItems.PIXIE.get())) {
-//                newState = ModBlocks.PIXIE_UTREM_JAR.get().defaultBlockState();
-//            } else if (stack.is(ModItems.CORRUPTED_PIXIE.get())) {
-//                newState = ModBlocks.CORRUPTED_PIXIE_UTREM_JAR.get().defaultBlockState();
-//            }
-//
-//            if (newState != null) {
-//                ItemStackUtils.shrinkStack(player, stack);
-//
-//                level.setBlockAndUpdate(pos, newState.setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
-//                return InteractionResult.sidedSuccess(level.isClientSide());
-//            }
-//        }
-//
-//        return super.use(state, level, pos, player, hand, hit);
-//    }
-
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
