@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
  * @author stal111
  * @since 2021-07-08
  */
-public class EssenceContainerInput extends HephaestusForgeInput {
+public class EssenceContainerInput implements HephaestusForgeInput {
 
     public static final int EXTRACTION_SPEED = 10;
 

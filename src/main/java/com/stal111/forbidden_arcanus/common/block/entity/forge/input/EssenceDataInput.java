@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
  * @author stal111
  * @since 06.05.2024
  */
-public class EssenceDataInput extends HephaestusForgeInput {
+public class EssenceDataInput implements HephaestusForgeInput {
 
     @Override
     public boolean canInput(EssenceType type, ItemStack stack) {

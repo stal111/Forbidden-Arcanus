@@ -18,7 +18,7 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
  * @author stal111
  * @since 2021-07-07
  */
-public class ExtractEnchantmentsInput extends HephaestusForgeInput {
+public class ExtractEnchantmentsInput implements HephaestusForgeInput {
 
     public static final MapCodec<ExtractEnchantmentsInput> CODEC = MapCodec.unit(ExtractEnchantmentsInput::new);
 

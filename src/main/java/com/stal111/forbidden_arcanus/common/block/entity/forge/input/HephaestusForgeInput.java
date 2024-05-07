@@ -9,15 +9,15 @@ import net.minecraft.world.item.ItemStack;
  * @author stal111
  * @since 2023-05-24
  */
-public abstract class HephaestusForgeInput {
+public interface HephaestusForgeInput {
 
-    public abstract boolean canInput(EssenceType type, ItemStack stack);
+    boolean canInput(EssenceType type, ItemStack stack);
 
-    public abstract EssenceData getInputValue(ItemStack stack, RandomSource random);
+    EssenceData getInputValue(ItemStack stack, RandomSource random);
 
-    public EssenceData getMaxInputValue(ItemStack stack, RandomSource random) {
+    default EssenceData getMaxInputValue(ItemStack stack, RandomSource random) {
         return this.getInputValue(stack, random);
     }
 
-    public abstract ItemStack finishInput(ItemStack stack, int inputValue);
+    ItemStack finishInput(ItemStack stack, int inputValue);
 }
