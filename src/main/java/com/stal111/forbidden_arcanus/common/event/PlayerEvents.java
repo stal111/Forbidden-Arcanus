@@ -10,8 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 /**
  * Player Events <br>
@@ -24,19 +24,17 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 public class PlayerEvents {
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            Player player = event.player;
+    public static void onPlayerTick(PlayerTickEvent.Pre event) {
+        Player player = event.getEntity();
 
-            if (player.onClimbable() && !player.isCrouching() && player.getInBlockState().is(ModBlocks.EDELWOOD_LADDER.get())) {
-                double multiplier = BlockConfig.EDELWOOD_LADDER_SPEED.get();
+        if (player.onClimbable() && !player.isCrouching() && player.getInBlockState().is(ModBlocks.EDELWOOD_LADDER.get())) {
+            double multiplier = BlockConfig.EDELWOOD_LADDER_SPEED.get();
 
-                if (!player.horizontalCollision) {
-                    multiplier *= 0.3F;
-                }
-
-                player.move(MoverType.SELF, new Vec3(0.0D, player.getDeltaMovement().y * multiplier, 0.0D));
+            if (!player.horizontalCollision) {
+                multiplier *= 0.3F;
             }
+
+            player.move(MoverType.SELF, new Vec3(0.0D, player.getDeltaMovement().y * multiplier, 0.0D));
         }
     }
 
