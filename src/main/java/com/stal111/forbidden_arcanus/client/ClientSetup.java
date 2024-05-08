@@ -1,8 +1,11 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
+import com.stal111.forbidden_arcanus.client.gui.label.JarFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
+import com.stal111.forbidden_arcanus.client.gui.overlay.FlyingLabelOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
@@ -40,6 +43,9 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.DETAILED_OBSIDIAN_SKULL_LAYER;
 import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_SKULL_LAYER;
 
@@ -48,6 +54,8 @@ import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_
  * @since 2021-02-13
  */
 public class ClientSetup {
+
+    public static final List<FlyingLabel> FLYING_LABELS = new ArrayList<>();
 
     public static final ItemPropertyFunction ESSENCE_AMOUNT_PROPERTY_FUNCTION = (stack, level, entity, seed) -> {
         EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
@@ -119,6 +127,8 @@ public class ClientSetup {
 
             return storage != null && storage.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F;
         });
+
+        FLYING_LABELS.add(new JarFlyingLabel(state -> state.is(ModBlocks.ESSENCE_UTREM_JAR)));
     }
 
     private void registerCosmetics() {
@@ -138,6 +148,7 @@ public class ClientSetup {
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"), new FlightTimerOverlay());
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "sanity_meter"), new SanityMeterOverlay());
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "aureal_meter"), new AurealMeterOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "flying_label"), new FlyingLabelOverlay());
     }
 
     @SubscribeEvent
