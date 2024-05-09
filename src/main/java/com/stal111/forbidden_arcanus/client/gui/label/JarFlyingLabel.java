@@ -1,16 +1,13 @@
 package com.stal111.forbidden_arcanus.client.gui.label;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Predicate;
@@ -20,9 +17,7 @@ import java.util.function.Predicate;
  * @since 08.05.2024
  */
 public class JarFlyingLabel extends BlockFlyingLabel {
-
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
-
+    
     private static final String ESSENCE_FORMAT = "tooltip.forbidden_arcanus.essence.storage_format";
 
     public JarFlyingLabel(Predicate<BlockState> predicate) {
@@ -38,12 +33,13 @@ public class JarFlyingLabel extends BlockFlyingLabel {
         if (Minecraft.getInstance().level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
             poseStack.pushPose();
 
-            poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-            float f = Minecraft.getInstance().options.getBackgroundOpacity(0.25F);
+            Component component = Component.translatable(ESSENCE_FORMAT, type.getComponent(), blockEntity.getAmount(), blockEntity.getLimit());
+            int width = Minecraft.getInstance().font.width(component.getVisualOrderText());
 
-            Minecraft.getInstance().font.drawInBatch(Component.translatable(ESSENCE_FORMAT, type.getComponent(), blockEntity.getAmount(), blockEntity.getLimit()), 0, 0, -1, true, poseStack.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(), Font.DisplayMode.NORMAL, (int)(f * 255.0F) << 24, 1);
+            guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 2, centerX + width / 2 + 2, centerY - 10 + 2, 0x44000000);
+            guiGraphics.fill(centerX - width / 2 - 4, centerY - 20 - 4, centerX + width / 2 + 4, centerY - 10 + 4, 0x44000000);
 
-          //  guiGraphics.drawCenteredString(Minecraft.getInstance().font, Component.translatable(ESSENCE_FORMAT, type.getComponent(), blockEntity.getAmount(), blockEntity.getLimit()), centerX, centerY - 20, -1);
+            guiGraphics.drawString(Minecraft.getInstance().font, component.getVisualOrderText(), centerX - width / 2, centerY - 20, -1);
 
             poseStack.popPose();
         }
