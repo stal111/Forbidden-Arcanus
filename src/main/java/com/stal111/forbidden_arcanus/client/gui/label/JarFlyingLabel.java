@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  * @since 08.05.2024
  */
 public class JarFlyingLabel extends BlockFlyingLabel {
-    
+
     private static final String ESSENCE_FORMAT = "tooltip.forbidden_arcanus.essence.storage_format";
 
     public JarFlyingLabel(Predicate<BlockState> predicate) {
