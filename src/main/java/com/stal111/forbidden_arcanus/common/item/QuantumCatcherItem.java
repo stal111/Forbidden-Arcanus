@@ -5,16 +5,13 @@ import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -43,11 +40,16 @@ public class QuantumCatcherItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItemInHand();
+        Level level = context.getLevel();
+
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
 
         return getData(stack).map(storedEntity -> {
             BlockPos pos = context.getClickedPos();
-            Level level = context.getLevel();
             Player player = context.getPlayer();
+
             Entity entity = storedEntity.createEntity(level);
 
             if (!level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context))) {
@@ -58,18 +60,16 @@ public class QuantumCatcherItem extends Item {
                 return InteractionResult.FAIL;
             }
 
-            if (!level.isClientSide()) {
-                entity.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+            entity.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
 
-                if (context.getPlayer() != null) {
-                    entity.lookAt(EntityAnchorArgument.Anchor.EYES, context.getPlayer().position());
-                }
-                level.addFreshEntity(entity);
+            if (context.getPlayer() != null) {
+                entity.lookAt(EntityAnchorArgument.Anchor.EYES, context.getPlayer().position());
             }
+            level.addFreshEntity(entity);
 
             clearEntity(level, player, player == null ? pos : player.blockPosition(), stack);
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.CONSUME;
         }).orElse(super.useOn(context));
     }
 
@@ -78,6 +78,11 @@ public class QuantumCatcherItem extends Item {
 
         if (target instanceof Player || target.getType().is(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED)) {
             return InteractionResult.PASS;
+        }
+
+
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
         }
 
         if (getData(stack).isEmpty() && target.isAlive()) {
@@ -98,7 +103,7 @@ public class QuantumCatcherItem extends Item {
 
             player.swing(hand);
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.CONSUME;
         }
 
         return super.interactLivingEntity(stack, player, target, hand);
@@ -107,26 +112,9 @@ public class QuantumCatcherItem extends Item {
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
         getData(stack).ifPresent(storedEntity -> {
-            EntityType<?> type = storedEntity.type();
-
-            if (type == null) {
-                return;
-            }
-
-            MutableComponent component = Component.translatable("tooltip.forbidden_arcanus.entity")
-                    .append(": ")
-                    .append(Component.literal(storedEntity.type().getDescriptionId()));
-
-            if (storedEntity.name() != null) {
-                component.append(" (").append(storedEntity.name()).append(")");
-            }
-
-            component.withStyle(ChatFormatting.GRAY);
-
-            components.add(component);
+            storedEntity.addToTooltip(context, components::add, flag);
         });
     }
-
 
     @Override
     public boolean shouldCauseReequipAnimation(@NotNull ItemStack oldStack, @NotNull ItemStack newStack, boolean slotChanged) {
