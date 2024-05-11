@@ -44,9 +44,8 @@ public class PlayerEvents {
         ItemStack stack = event.getItemStack();
 
         if (event.getTarget() instanceof LivingEntity entity && stack.getItem() instanceof QuantumCatcherItem item) {
-            if (item.onEntityInteract(stack, player, entity, event.getHand()).consumesAction()) {
-                event.setCanceled(true);
-            }
+            event.setCancellationResult(item.onEntityInteract(stack, player, entity));
+            event.setCanceled(true);
         }
     }
 

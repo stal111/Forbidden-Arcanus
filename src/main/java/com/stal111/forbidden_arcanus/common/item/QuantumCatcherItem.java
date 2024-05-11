@@ -9,7 +9,6 @@ import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,73 +39,83 @@ public class QuantumCatcherItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItemInHand();
-        Level level = context.getLevel();
-
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
 
         return getData(stack).map(storedEntity -> {
-            BlockPos pos = context.getClickedPos();
-            Player player = context.getPlayer();
+            Level level = context.getLevel();
 
-            Entity entity = storedEntity.createEntity(level);
-
-            if (!level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context))) {
-                pos = pos.relative(context.getClickedFace());
+            if (!level.isClientSide()) {
+                if (!this.summonEntity(storedEntity, context)) {
+                    return InteractionResult.FAIL;
+                }
             }
 
-            if (entity == null || !level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context))) {
-                return InteractionResult.FAIL;
-            }
+            playSound(level, context.getPlayer(), context.getClickedPos(), false);
 
-            entity.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
-
-            if (context.getPlayer() != null) {
-                entity.lookAt(EntityAnchorArgument.Anchor.EYES, context.getPlayer().position());
-            }
-            level.addFreshEntity(entity);
-
-            clearEntity(level, player, player == null ? pos : player.blockPosition(), stack);
-
-            return InteractionResult.CONSUME;
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }).orElse(super.useOn(context));
     }
 
-    public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+    private boolean summonEntity(StoredEntity storedEntity, UseOnContext context) {
+        BlockPos pos = context.getClickedPos();
+        Level level = context.getLevel();
+        Entity entity = storedEntity.createEntity(level);
+
+        if (!level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context))) {
+            pos = pos.relative(context.getClickedFace());
+        }
+
+        if (entity == null || !level.getBlockState(pos).canBeReplaced(new BlockPlaceContext(context))) {
+            return false;
+        }
+
+        entity.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+
+        if (context.getPlayer() != null) {
+            entity.lookAt(EntityAnchorArgument.Anchor.EYES, context.getPlayer().position());
+        }
+        level.addFreshEntity(entity);
+
+        context.getItemInHand().remove(ModDataComponents.STORED_ENTITY);
+
+        return true;
+    }
+
+    public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target) {
         Level level = player.getCommandSenderWorld();
 
-        if (target instanceof Player || target.getType().is(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED)) {
+        if (!isValidEntity(target) || getData(stack).isPresent()) {
             return InteractionResult.PASS;
         }
 
-
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
-
-        if (getData(stack).isEmpty() && target.isAlive()) {
+        if (!level.isClientSide()) {
             if (stack.getCount() != 1) {
                 ItemStackUtils.shrinkStack(player, stack);
 
-                ItemStack newStack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
-                setEntity(level, player, target, newStack);
+                stack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
 
-                if (!player.addItem(newStack)) {
-                    player.drop(newStack, false);
+                if (!player.addItem(stack)) {
+                    player.drop(stack, false);
                 }
-            } else {
-                setEntity(level, player, target, stack);
             }
 
+            stack.set(ModDataComponents.STORED_ENTITY, StoredEntity.of(target));
+
             target.discard();
-
-            player.swing(hand);
-
-            return InteractionResult.CONSUME;
         }
 
-        return super.interactLivingEntity(stack, player, target, hand);
+        playSound(level, player, target.blockPosition(), true);
+
+        return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    private static boolean isValidEntity(LivingEntity entity) {
+        return !entity.getType().is(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED) && entity.isAlive();
+    }
+
+    private static void playSound(Level level, @Nullable Player player, BlockPos pos, boolean release) {
+        BlockPos soundPos = player == null ? pos : player.blockPosition();
+
+        level.playSound(player, soundPos.getX() + 0.5D, soundPos.getY() + 0.5D, soundPos.getZ() + 0.5D, release ? ModSounds.QUANTUM_CATCHER_RELEASE.get() : ModSounds.QUANTUM_CATCHER_PICK_UP.get(), SoundSource.PLAYERS, 0.75F, level.getRandom().nextFloat() * 0.15F + 0.9F);
     }
 
     @Override
@@ -116,26 +125,7 @@ public class QuantumCatcherItem extends Item {
         });
     }
 
-    @Override
-    public boolean shouldCauseReequipAnimation(@NotNull ItemStack oldStack, @NotNull ItemStack newStack, boolean slotChanged) {
-        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
-    }
-
-    private static void setEntity(Level level, Player player, LivingEntity entity, ItemStack stack) {
-        stack.set(ModDataComponents.STORED_ENTITY, StoredEntity.of(entity));
-
-        level.playSound(player, player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_PICK_UP.get(), SoundSource.PLAYERS, 0.75F, level.getRandom().nextFloat() * 0.15F + 0.9F);
-    }
-
     private static Optional<StoredEntity> getData(ItemStack stack) {
-        StoredEntity storedEntity = stack.get(ModDataComponents.STORED_ENTITY);
-
-       return storedEntity == StoredEntity.EMPTY ? Optional.empty() : Optional.ofNullable(storedEntity);
-    }
-
-    private static void clearEntity(Level level, @Nullable Player player, BlockPos pos, ItemStack stack) {
-        level.playSound(player, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, ModSounds.QUANTUM_CATCHER_RELEASE.get(), SoundSource.PLAYERS, 0.75F, level.getRandom().nextFloat() * 0.15F + 0.9F);
-
-        stack.set(ModDataComponents.STORED_ENTITY, StoredEntity.EMPTY);
+       return Optional.ofNullable(stack.get(ModDataComponents.STORED_ENTITY));
     }
 }
