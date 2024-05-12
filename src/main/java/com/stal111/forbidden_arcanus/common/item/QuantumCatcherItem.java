@@ -83,7 +83,7 @@ public class QuantumCatcherItem extends Item {
     public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target) {
         Level level = player.getCommandSenderWorld();
 
-        if (!isValidEntity(target) || getData(stack).isPresent()) {
+        if (!this.isValidEntity(target) || getData(stack).isPresent()) {
             return InteractionResult.PASS;
         }
 
@@ -108,8 +108,20 @@ public class QuantumCatcherItem extends Item {
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
-    private static boolean isValidEntity(LivingEntity entity) {
+    public boolean isValidEntity(LivingEntity entity) {
         return !entity.getType().is(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED) && entity.isAlive();
+    }
+
+    public static int calculateAurealCost(LivingEntity entity) {
+        int health = Math.round(entity.getMaxHealth());
+
+        if (entity.getType().getCategory().isFriendly()) {
+            health = health >> 1;
+        } else {
+            health = (int) (health * 1.1F);
+        }
+
+        return health;
     }
 
     private static void playSound(Level level, @Nullable Player player, BlockPos pos, boolean release) {

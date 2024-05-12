@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.JarFlyingLabel;
+import com.stal111.forbidden_arcanus.client.gui.label.QuantumCatcherFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlyingLabelOverlay;
@@ -128,7 +129,8 @@ public class ClientSetup {
             return storage != null && storage.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F;
         });
 
-        FLYING_LABELS.add(new JarFlyingLabel(state -> state.is(ModBlocks.ESSENCE_UTREM_JAR)));
+        FLYING_LABELS.add(new JarFlyingLabel());
+        FLYING_LABELS.add(new QuantumCatcherFlyingLabel());
     }
 
     private void registerCosmetics() {
