@@ -12,5 +12,6 @@ public class ModTextureSlots {
     public static final TextureSlot SIDE_LAYER = TextureSlot.create("side_layer");
     public static final TextureSlot CLOTH_SIDE = TextureSlot.create("cloth_side");
     public static final TextureSlot BLOCK = TextureSlot.create("block");
+    public static final TextureSlot INNER = TextureSlot.create("inner");
 
 }

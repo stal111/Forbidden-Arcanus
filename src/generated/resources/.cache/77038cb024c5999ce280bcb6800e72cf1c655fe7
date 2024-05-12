@@ -1,4 +1,4 @@
-// 1.20.6	2024-05-07T14:28:57.2488908	Model Definitions
+// 1.20.6	2024-05-11T18:15:44.1082142	Model Definitions
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 f8bae591361fc4660ca12ae7f9fe356b9e15d523 assets/forbidden_arcanus/blockstates/arcane_polished_darkstone.json
 5fbe45830292f70ba8a3d8b9f21fecab60bb173a assets/forbidden_arcanus/blockstates/arcane_polished_darkstone_slab.json
@@ -319,6 +319,7 @@ b121a7d62294036a26f08747ed25071541c66416 assets/forbidden_arcanus/models/item/po
 203421116601daa80be82fded193c82b97a9c4f0 assets/forbidden_arcanus/models/item/polished_soulless_sandstone.json
 baff3544d79016b2adb9b758adb765ff98b2e938 assets/forbidden_arcanus/models/item/polished_soulless_sandstone_slab.json
 8c33a84846527ffd457a09320312ed9795433333 assets/forbidden_arcanus/models/item/polished_soulless_sandstone_stairs.json
+0bf7a6b17bec710fa58c0d0fa2aa9bca767d2096 assets/forbidden_arcanus/models/item/quantum_catcher.json
 b8de30767e199fb3f89fea2500259f3d381aca91 assets/forbidden_arcanus/models/item/research_desk.json
 85c829fbd05fe0af0763283517e279d5ff1ae991 assets/forbidden_arcanus/models/item/rune_block.json
 29fd03da045afc7475d0ee9975706d856c398f14 assets/forbidden_arcanus/models/item/runic_darkstone.json

@@ -27,7 +27,7 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
     private static final ResourceLocation FRAME_BOTTOM_LEFT_CORNER = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/bottom_left_corner.png");
     private static final ResourceLocation FRAME_BOTTOM_RIGHT_CORNER = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/bottom_right_corner.png");
     private static final ResourceLocation FRAME_TOP_CENTER = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/top_center.png");
-    private static final ResourceLocation FRAME_TOP = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/top.png");
+    private static final ResourceLocation FRAME_TOP = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/quantum_catcher_top.png");
     private static final ResourceLocation FRAME_BOTTOM = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/bottom.png");
     private static final ResourceLocation FRAME_LEFT = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/left.png");
     private static final ResourceLocation FRAME_RIGHT = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/frame/right.png");

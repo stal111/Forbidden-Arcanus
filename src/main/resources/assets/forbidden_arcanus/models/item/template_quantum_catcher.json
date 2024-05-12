@@ -1,0 +1,74 @@
+{
+	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
+	"textures": {
+		"particle": "#side"
+	},
+	"elements": [
+		{
+			"name": "side",
+			"from": [2, 2, 2],
+			"to": [14, 14, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
+			"faces": {
+				"north": {"uv": [2, 2, 14, 14], "texture": "#side"},
+				"east": {"uv": [2, 2, 14, 14], "texture": "#side"},
+				"south": {"uv": [2, 2, 14, 14], "texture": "#side"},
+				"west": {"uv": [2, 2, 14, 14], "texture": "#side"},
+				"up": {"uv": [2, 2, 14, 14], "texture": "#top"},
+				"down": {"uv": [2, 2, 14, 14], "texture": "#top"}
+			}
+		},
+		{
+			"name": "inner",
+			"from": [3, 3, 3],
+			"to": [13, 13, 13],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
+			"faces": {
+				"north": {"uv": [2, 2, 14, 14], "texture": "#inner"},
+				"east": {"uv": [2, 2, 14, 14], "texture": "#inner"},
+				"south": {"uv": [2, 2, 14, 14], "texture": "#inner"},
+				"west": {"uv": [2, 2, 14, 14], "texture": "#inner"},
+				"up": {"uv": [2, 2, 14, 14], "texture": "#inner"},
+				"down": {"uv": [2, 2, 14, 14], "texture": "#inner"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [45, 135, 0],
+			"translation": [0, 3, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [45, 135, 0],
+			"translation": [0, 3, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 135, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 135, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"ground": {
+			"rotation": [35, 0, 45],
+			"translation": [0, 3, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"gui": {
+			"rotation": [30, -135, 0],
+			"scale": [0.7, 0.7, 0.7]
+		},
+		"head": {
+			"scale": [1.225, 1.225, 1.225]
+		},
+		"fixed": {
+			"translation": [0, 0, -1]
+		}
+	}
+}

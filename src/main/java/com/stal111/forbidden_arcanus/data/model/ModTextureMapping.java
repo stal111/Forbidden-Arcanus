@@ -5,10 +5,12 @@ import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Map;
@@ -26,6 +28,7 @@ public class ModTextureMapping {
     private static final String HEPHAESTUS_FORGE = "hephaestus_forge";
     private static final String OBELISK = "obelisk";
     private static final String UTREM_JAR = "utrem_jar";
+    private static final String QUANTUM_CATCHER = "quantum_catcher";
 
     private static final Map<Integer, ResourceLocation> FORGE_BLOCK_TEXTURES = Map.of(
             1, new ResourceLocation("block/smithing_table_bottom"),
@@ -75,6 +78,10 @@ public class ModTextureMapping {
         return new TextureMapping().put(TextureSlot.SIDE, getBlockTexture(block, UTREM_JAR, "_side")).put(TextureSlot.TOP, getBlockTexture(block, UTREM_JAR, "_top")).put(TextureSlot.BOTTOM, getBlockTexture(block, UTREM_JAR, "_bottom"));
     }
 
+    public static TextureMapping quantumCatcher(Holder<Item> item) {
+        return new TextureMapping().put(TextureSlot.SIDE, geItemTexture(item, QUANTUM_CATCHER, "_side")).put(TextureSlot.TOP, geItemTexture(item, QUANTUM_CATCHER, "_top")).put(ModTextureSlots.INNER, geItemTexture(item, QUANTUM_CATCHER, "_inner"));
+    }
+
     public static ResourceLocation getBlockTexture(Block block) {
         ResourceLocation resourceLocation = BuiltInRegistries.BLOCK.getKey(block);
         return resourceLocation.withPrefix("block/");
@@ -90,5 +97,9 @@ public class ModTextureMapping {
 
     public static ResourceLocation getBlockTexture(String folder, String texture) {
         return new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + folder + "/" + texture);
+    }
+
+    public static ResourceLocation geItemTexture(Holder<Item> item, String folder, String suffix) {
+        return ModLocationUtils.getItem(folder, item, suffix);
     }
 }
