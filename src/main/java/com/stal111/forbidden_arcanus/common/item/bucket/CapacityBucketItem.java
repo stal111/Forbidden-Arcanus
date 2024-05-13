@@ -18,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
@@ -95,11 +96,12 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
         IFluidHandlerItem fluidHandlerItem = FluidUtil.getFluidHandler(stack.copyWithCount(1)).orElseThrow(() -> new IllegalStateException("CapacityBucketItem did not have a fluid handler capability!"));
 
         BlockState state = level.getBlockState(pos);
+        FluidState fluid = level.getFluidState(pos);
 
         boolean isEmpty = this.getFluid().isSame(Fluids.EMPTY);
 
-        if ((isEmpty || !this.isFull(stack)) && state.getBlock() instanceof BucketPickup bucketPickup) {
-            ItemStack filledBucket = this.fillBucket(fluidHandlerItem, bucketPickup, player, level, pos, state, stack);
+        if ((isEmpty || !this.isFull(stack)) && state.getBlock() instanceof BucketPickup bucketPickup && (!fluid.isEmpty() || bucketPickup instanceof PowderSnowBlock)) {
+            ItemStack filledBucket = this.fillBucket(fluidHandlerItem, fluid, bucketPickup, player, level, pos, state);
 
             return InteractionResultHolder.sidedSuccess(ItemUtils.createFilledResult(stack, player, filledBucket), level.isClientSide());
         }
@@ -125,8 +127,7 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
         return InteractionResultHolder.fail(stack);
     }
 
-    private ItemStack fillBucket(IFluidHandlerItem fluidHandlerItem, BucketPickup bucketPickup, Player player, Level level, BlockPos pos, BlockState state, ItemStack stack) {
-        FluidState fluid = level.getFluidState(pos);
+    private ItemStack fillBucket(IFluidHandlerItem fluidHandlerItem, FluidState fluid, BucketPickup bucketPickup, Player player, Level level, BlockPos pos, BlockState state) {
         ItemStack filledBucket;
 
         bucketPickup.pickupBlock(player, level, pos, state);

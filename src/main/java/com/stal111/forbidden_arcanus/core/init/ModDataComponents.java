@@ -9,6 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
@@ -27,5 +28,6 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<EssenceStorage>> ESSENCE_STORAGE = HELPER.register("essence_storage", () -> DataComponentType.<EssenceStorage>builder().persistent(EssenceStorage.CODEC).networkSynchronized(EssenceStorage.STREAM_CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Holder<Item>>> EMPTY_ITEM = HELPER.register("empty_item", () -> DataComponentType.<Holder<Item>>builder().persistent(ItemStack.ITEM_NON_AIR_CODEC).networkSynchronized(ByteBufCodecs.holderRegistry(Registries.ITEM)).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<StoredEntity>> STORED_ENTITY = HELPER.register("stored_entity", () -> DataComponentType.<StoredEntity>builder().persistent(StoredEntity.CODEC).networkSynchronized(StoredEntity.STREAM_CODEC).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> STORED_FLUID_AMOUNT = HELPER.register("stored_fluid_amount", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
 
 }

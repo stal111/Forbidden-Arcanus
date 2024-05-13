@@ -1,5 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.bucket;
 
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
@@ -11,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
  * @since 15.12.2023
  */
 public interface CapacityBucket {
-    String FULLNESS_TAG = "Fullness";
 
     int getCapacity();
     BucketFamily getFamily();
@@ -33,9 +34,7 @@ public interface CapacityBucket {
     }
 
     default int getFullness(ItemStack stack) {
-        return 1;
-        //TODO
-       // return Math.max(1, stack.getOrCreateTag().getInt(FULLNESS_TAG));
+       return Math.max(1, stack.getOrDefault(ModDataComponents.STORED_FLUID_AMOUNT, 1));
     }
 
     default ItemStack setFullness(ItemStack stack, int fullness) {
@@ -43,7 +42,7 @@ public interface CapacityBucket {
             return this.getEmptyBucket().getDefaultInstance();
         }
 
-        //stack.getOrCreateTag().putInt(FULLNESS_TAG, Mth.clamp(fullness, 1, this.getCapacity()));
+        stack.set(ModDataComponents.STORED_FLUID_AMOUNT, Mth.clamp(fullness, 1, this.getCapacity()));
 
         return stack;
     }
