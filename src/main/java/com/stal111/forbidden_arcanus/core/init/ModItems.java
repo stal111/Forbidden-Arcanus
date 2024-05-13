@@ -45,8 +45,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> SOUL = HELPER.register("soul", () -> new Item(new Item.Properties().component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.SOULS, 1))));
     public static final ItemRegistryEntry<DarkSoulItem> CORRUPT_SOUL = HELPER.register("corrupt_soul", () -> new DarkSoulItem(new Item.Properties().component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.SOULS, 1))));
     public static final ItemRegistryEntry<Item> ENCHANTED_SOUL = HELPER.register("enchanted_soul", () -> new Item(new Item.Properties().component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.SOULS, 10))));
-    public static final ItemRegistryEntry<Item> PIXIE = HELPER.register("pixie", () -> new Item(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<Item> CORRUPTED_PIXIE = HELPER.register("corrupted_pixie", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> RUNE = HELPER.register("rune", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> DARK_RUNE = HELPER.register("dark_rune", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> CLOTH = HELPER.register("cloth", () -> new Item(new Item.Properties()));
