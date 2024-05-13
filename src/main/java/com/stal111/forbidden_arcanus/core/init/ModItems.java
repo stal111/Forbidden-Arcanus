@@ -38,7 +38,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> DEORUM_NUGGET = HELPER.register("deorum_nugget", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> XPETRIFIED_ORB = HELPER.register("xpetrified_orb", () -> new XpetrifiedOrbItem(new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.EXPERIENCE, 91))));
     public static final ItemRegistryEntry<Item> ETERNAL_STELLA = HELPER.register("eternal_stella", () -> new EternalStellaItem(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<Item> ORB_OF_TEMPORARY_FLIGHT = HELPER.register("orb_of_temporary_flight", () -> new OrbOfTemporaryFlightItem(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1)));
     public static final ItemRegistryEntry<Item> MUNDABITUR_DUST = HELPER.register("mundabitur_dust", () -> new MundabiturDustItem(new Item.Properties()));
     public static final ItemRegistryEntry<Item> CORRUPTI_DUST = HELPER.register("corrupti_dust", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> DARK_MATTER = HELPER.register("dark_matter", () -> new DarkMatterItem(new Item.Properties()));
@@ -156,7 +155,6 @@ public class ModItems implements RegistryClass {
 
     public static class Stacks {
         public static final ItemStack LENS_OF_VERITATIS = new ItemStack(ModItems.LENS_OF_VERITATIS.get());
-        public static final ItemStack ORB_OF_TEMPORARY_FLIGHT = new ItemStack(ModItems.ORB_OF_TEMPORARY_FLIGHT.get());
         public static final ItemStack SANITY_METER = new ItemStack(ModItems.SANITY_METER.get());
         public static final ItemStack ARCANE_CRYSTAL_DUST_SPECK = new ItemStack(ModItems.ARCANE_CRYSTAL_DUST_SPECK.get());
     }
