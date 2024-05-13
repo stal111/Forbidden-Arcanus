@@ -55,6 +55,7 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
         return EquipmentSlot.HEAD;
     }
 
+    @SuppressWarnings("all")
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if (!player.isOnFire()) {
