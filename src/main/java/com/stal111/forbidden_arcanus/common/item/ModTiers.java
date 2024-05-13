@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
@@ -23,8 +22,7 @@ public enum ModTiers implements Tier {
     DRACO_ARCANUS(2661, 12.0F, 7.0F, 20, () -> Ingredient.of(ModItems.DRAGON_SCALE.get())),
     REINFORCED_DEORUM(2561, 9.0F, 3.5F, 26, () ->  Ingredient.of(ModItems.STELLARITE_PIECE.get())),
     BONE(131, 4.0F, 1.0F, 5, () ->  Ingredient.of(Items.BONE)),
-    SLIMEC(2061, 13.0F, 2.5F, 20, () ->  Ingredient.of(ModItems.DEORUM_INGOT.get())),
-    MYSTICAL_DAGGER(561, 4.0F, 1.0F, 5, () ->  Ingredient.of(ModItems.DARK_RUNE.get()));
+    SLIMEC(2061, 13.0F, 2.5F, 20, () ->  Ingredient.of(ModItems.DEORUM_INGOT.get()));
 
     private final int uses;
     private final float speed;

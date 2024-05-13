@@ -124,7 +124,6 @@ public class ModItems implements RegistryClass {
     //public static final ItemRegistryEntry<BoatItem> FUNGYSS_CHEST_BOAT = HELPER.register("fungyss_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.FUNGYSS, new Item.Properties().stacksTo(1)));
 
     public static final ItemRegistryEntry<Item> SOUL_EXTRACTOR = HELPER.register("soul_extractor", () -> new SoulExtractorItem(new Item.Properties().durability(128)));
-    public static final ItemRegistryEntry<Item> SLIMEC_PICKAXE = HELPER.register("slimec_pickaxe", () -> new PickaxeItem(ModTiers.SLIMEC, new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(ModTiers.DRACO_ARCANUS, new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SHOVEL = HELPER.register("draco_arcanus_shovel", () -> new ShovelItem(ModTiers.DRACO_ARCANUS, new Item.Properties()));
@@ -137,7 +136,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_PICKAXE = HELPER.register("reinforced_deorum_pickaxe", () -> new PickaxeItem(ModTiers.REINFORCED_DEORUM, new Item.Properties()));
     public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_AXE = HELPER.register("reinforced_deorum_axe", () -> new AxeItem(ModTiers.REINFORCED_DEORUM, new Item.Properties()));
     public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_HOE = HELPER.register("reinforced_deorum_hoe", () -> new HoeItem(ModTiers.REINFORCED_DEORUM, new Item.Properties()));
-    public static final ItemRegistryEntry<Item> MYSTICAL_DAGGER = HELPER.register("mystical_dagger", () -> new MysticalDaggerItem(ModTiers.MYSTICAL_DAGGER, new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_HELMET = HELPER.register("draco_arcanus_helmet", () -> new ArmorItem(FAArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_CHESTPLATE = HELPER.register("draco_arcanus_chestplate", () -> new ArmorItem(FAArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_LEGGINGS = HELPER.register("draco_arcanus_leggings", () -> new ArmorItem(FAArmorMaterials.DRACO_ARCANUS, ArmorItem.Type.LEGGINGS, new Item.Properties()));
