@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -47,6 +48,17 @@ public record EssenceStorage(EssenceData data, int limit, boolean showInTooltip)
             EssenceStorage::showInTooltip,
             EssenceStorage::new
     );
+
+    public static Codec<EssenceStorage> codec(EssenceType type) {
+        return RecordCodecBuilder.create(instance -> instance.group(
+                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(storage -> storage.data.amount()),
+                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceStorage::limit)
+        ).apply(instance, (amount, limit1) -> new EssenceStorage(EssenceData.of(type, amount), limit1, true)));
+    }
+
+    public static EssenceStorage createEmpty(EssenceType type, int limit) {
+        return new EssenceStorage(EssenceData.of(type, 0), limit, true);
+    }
 
     public float getFillPercentage() {
         return (float) this.data.amount() / this.limit;

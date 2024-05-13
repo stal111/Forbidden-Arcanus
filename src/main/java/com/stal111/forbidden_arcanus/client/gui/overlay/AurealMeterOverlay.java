@@ -2,7 +2,8 @@ package com.stal111.forbidden_arcanus.client.gui.overlay;
 
 import com.mojang.blaze3d.platform.Window;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -19,8 +20,8 @@ public class AurealMeterOverlay implements LayeredDraw.Layer {
 
     private static final int BAR_WIDTH = 75;
 
-    private void renderOverlay(GuiGraphics guiGraphics, Window window, int aureal) {
-        int xSize = Math.toIntExact(Math.round(BAR_WIDTH * (aureal / 200.0F)));
+    private void renderOverlay(GuiGraphics guiGraphics, Window window, int aureal, int limit) {
+        int xSize = Math.toIntExact(Math.round(BAR_WIDTH * ((float) aureal / limit)));
         int startOffset = BAR_WIDTH - xSize;
 
         guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 13 + startOffset, window.getGuiScaledHeight() - 25 - 23, 21 + startOffset, 19, xSize, 7, 256, 128);
@@ -37,11 +38,9 @@ public class AurealMeterOverlay implements LayeredDraw.Layer {
 
         guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 24, 18, 9, 81, 9, 256, 128);
 
-        AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
-
-        if (provider != null) {
-            this.renderOverlay(guiGraphics, window, provider.getAureal());
-        }
+        EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
+            this.renderOverlay(guiGraphics, window, provider.getAmount(EssenceType.AUREAL), provider.getLimit(EssenceType.AUREAL));
+        });
     }
 }
 

@@ -21,6 +21,7 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
         eventBus.register(new RegistryEvents());
         eventBus.register(new NetworkEvents());
         eventBus.register(new DataComponentEvents());
+        eventBus.register(new CapabilityEvents());
     }
 
     @Override
@@ -29,5 +30,6 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
         eventBus.register(new TooltipEvents());
         eventBus.register(new TradeEvents());
         eventBus.register(new EntityEvents());
+        eventBus.register(new PlayerEvents());
     }
 }

@@ -1,8 +1,9 @@
 package com.stal111.forbidden_arcanus.common.entity.projectile;
 
 import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -72,11 +73,9 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
 
             if (distance < 16.0D) {
                 if (entity instanceof ServerPlayer player) {
-                    AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
-
-                    if (provider != null) {
-                        provider.setAureal(provider.getAureal() + 30);
-                    }
+                    EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
+                        provider.updateAmount(EssenceType.AUREAL, amount -> amount + 30);
+                    });
                 }
 
                 if (AurealHelper.canEntityBeAureal(entity) && !entity.getPersistentData().getBoolean("aureal")) {

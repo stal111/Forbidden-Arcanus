@@ -1,5 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -82,9 +85,15 @@ public class QuantumCatcherItem extends Item {
 
     public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target) {
         Level level = player.getCommandSenderWorld();
+        int cost = calculateAurealCost(target);
+        EssenceProvider essenceProvider = EssenceHelper.getEssenceProvider(player).orElseThrow();
 
         if (!this.isValidEntity(target) || getData(stack).isPresent()) {
             return InteractionResult.PASS;
+        }
+
+        if (essenceProvider.getAmount(EssenceType.AUREAL) < cost) {
+            return InteractionResult.FAIL;
         }
 
         if (!level.isClientSide()) {
@@ -101,6 +110,8 @@ public class QuantumCatcherItem extends Item {
             stack.set(ModDataComponents.STORED_ENTITY, StoredEntity.of(target));
 
             target.discard();
+
+            essenceProvider.updateAmount(EssenceType.AUREAL, amount -> amount - cost);
         }
 
         playSound(level, player, target.blockPosition(), true);

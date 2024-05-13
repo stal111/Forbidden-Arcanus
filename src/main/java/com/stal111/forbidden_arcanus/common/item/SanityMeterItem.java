@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,11 +32,9 @@ public class SanityMeterItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
 
         if (level.isClientSide()) {
-            AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
-
-            if (provider != null) {
-                player.displayClientMessage(Component.translatable("forbidden_arcanus.aureal").append(": " + provider.getAureal() + "/200"), true);
-            }
+            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
+                player.displayClientMessage(Component.translatable("forbidden_arcanus.aureal").append(": " + provider.getAmount(EssenceType.AUREAL) + "/" + provider.getLimit(EssenceType.AUREAL)), true);
+            });
         }
 
         return new InteractionResultHolder<>(InteractionResult.sidedSuccess(level.isClientSide()), stack);

@@ -1,7 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.skull;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -23,13 +24,7 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
     FRAGMENTED("fragmented_obsidian_skull", UpdateFunctions.DEFAULT, entity -> true),
     FADING("fading_obsidian_skull", UpdateFunctions.DEFAULT, entity -> true),
     AUREALIC("aurealic_obsidian_skull", UpdateFunctions.AUREALIC, entity -> {
-        AurealProvider provider = entity.getCapability(AurealProvider.ENTITY_AUREAL);
-
-        if (provider != null) {
-            return provider.getAureal() > 0;
-        }
-
-        return false;
+        return EssenceHelper.getEssenceProvider(entity).map(provider -> provider.getAmount(EssenceType.AUREAL) > 0).orElse(false);
     }),
     ETERNAL("eternal_obsidian_skull", UpdateFunctions.EMPTY, entity -> true);
 
@@ -86,11 +81,9 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
         };
 
         public static final UpdateFunction AUREALIC = (type, stack, player) -> {
-            AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
-
-            if (provider != null) {
-                provider.setAureal(provider.getAureal() - 1);
-            }
+            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
+                provider.updateAmount(EssenceType.AUREAL, amount -> amount - 1);
+            });
         };
     }
 

@@ -2,7 +2,8 @@ package com.stal111.forbidden_arcanus.client.gui.overlay;
 
 import com.mojang.blaze3d.platform.Window;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,8 +22,8 @@ public class SanityMeterOverlay implements LayeredDraw.Layer {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
 
-    private void renderOverlay(GuiGraphics guiGraphics, Window window, int aureal) {
-        int ySize = Math.toIntExact(Math.round(11 * aureal / 200.0F));
+    private void renderOverlay(GuiGraphics guiGraphics, Window window, int aureal, int limit) {
+        int ySize = Math.toIntExact(Math.round((float) (11 * aureal) / limit));
 
         guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 6, window.getGuiScaledHeight() - 39 - ySize, 2, 30 - ySize, 12, ySize, 256, 128);
     }
@@ -38,10 +39,8 @@ public class SanityMeterOverlay implements LayeredDraw.Layer {
 
         guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 - 8, window.getGuiScaledHeight() - 39 - 14, 0, 0, 16, 16, 256, 128);
 
-        AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
-
-        if (provider != null) {
-            this.renderOverlay(guiGraphics, window, provider.getAureal());
-        }
+        EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
+            this.renderOverlay(guiGraphics, window, provider.getAmount(EssenceType.AUREAL), provider.getLimit(EssenceType.AUREAL));
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealProvider;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -39,14 +40,12 @@ public class AurealBottleItem extends Item {
             return emptyBottle;
         }
 
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
 
-            AurealProvider provider = serverPlayer.getCapability(AurealProvider.ENTITY_AUREAL);
-
-            if (provider != null) {
-                provider.setAureal(provider.getAureal() + 35);
-            }
+            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
+                provider.updateAmount(EssenceType.AUREAL, amount -> amount + 35);
+            });
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
@@ -77,11 +76,11 @@ public class AurealBottleItem extends Item {
     @Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
-        AurealProvider provider = player.getCapability(AurealProvider.ENTITY_AUREAL);
-
-        if (provider != null && provider.getAureal() < 200) {
-            return ItemUtils.startUsingInstantly(level, player, hand);
-        }
-        return super.use(level, player, hand);
+        return EssenceHelper.getEssenceProvider(player).map(provider -> {
+            if (!provider.isFull(EssenceType.AUREAL)) {
+                return ItemUtils.startUsingInstantly(level, player, hand);
+            }
+            return super.use(level, player, hand);
+        }).orElse(super.use(level, player, hand));
     }
 }
