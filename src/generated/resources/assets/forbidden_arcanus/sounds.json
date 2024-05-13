@@ -17,6 +17,12 @@
       "forbidden_arcanus:clibano_soul_fire_crackle_5"
     ]
   },
+  "block.obsidian_skull.crack": {
+    "sounds": [
+      "forbidden_arcanus:obsidian_skull_crack_1",
+      "forbidden_arcanus:obsidian_skull_crack_2"
+    ]
+  },
   "block.pedestal.interact": {
     "sounds": [
       "forbidden_arcanus:pedestal_interact"

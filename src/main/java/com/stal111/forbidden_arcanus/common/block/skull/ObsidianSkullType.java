@@ -73,6 +73,7 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
             if (remainingTicks <= 0) {
                 player.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ObsidianSkullItem.NEXT_SKULL_STAGE.get(type)));
 
+                player.level().playSound(player, player.blockPosition(), ModSounds.OBSIDIAN_SKULL_CRACK.get(), player.getSoundSource(), 0.9F, player.level().getRandom().nextFloat() * 0.15F + 0.9F);
 
                 return;
             }

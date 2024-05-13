@@ -32,6 +32,7 @@ public class ModSoundsProvider extends SoundDefinitionsProvider {
         this.add(ModSounds.FORBIDDENOMICON_CLOSE, SoundDefinition.definition().with(this.simpleSound("forbiddenomicon_close")));
         this.add(ModSounds.MUNDABITUR_DUST_USE, SoundDefinition.definition().with(this.simpleSound("mundabitur_dust_use")));
         this.add(ModSounds.PEDESTAL_INTERACT, SoundDefinition.definition().with(this.simpleSound("pedestal_interact")));
+        this.add(ModSounds.OBSIDIAN_SKULL_CRACK, SoundDefinition.definition().with(this.simpleSound("obsidian_skull_crack_1")).with(this.simpleSound("obsidian_skull_crack_2")));
     }
 
     private SoundDefinition.Sound simpleSound(String name) {
