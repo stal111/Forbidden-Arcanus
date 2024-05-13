@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
  * @since 2021-09-18
  */
 public interface RitualStarterItem {
-    int getRitualUses();
+    int getRitualUses(ItemStack stack);
     int getRemainingUses(ItemStack stack);
     void setRemainingUses(ItemStack stack, int remainingUses);
 

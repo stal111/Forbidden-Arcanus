@@ -326,7 +326,7 @@
     "tooltip.forbidden_arcanus.toggle": "(Right-Click to toggle)",
     "tooltip.forbidden_arcanus.duration": "Duration",
     "tooltip.forbidden_arcanus.remaining_uses": "Remaining right-click uses",
-    "tooltip.forbidden_arcanus.remaining_ritual_uses": "Remaining ritual uses",
+    "tooltip.forbidden_arcanus.remaining_ritual_uses": "Remaining ritual uses: %s",
     "tooltip.forbidden_arcanus.entity": "Entity",
     "tooltip.forbidden_arcanus.pixie": "Pixie",
     "tooltip.forbidden_arcanus.corrupted_pixie": "Corrupted Pixie",

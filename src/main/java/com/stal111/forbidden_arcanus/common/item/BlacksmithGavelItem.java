@@ -1,10 +1,13 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,47 +20,36 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**
- * Blacksmith Gavel Item <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.BlacksmithGavelItem
- *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-09-17
  */
 public class BlacksmithGavelItem extends PickaxeItem implements RitualStarterItem {
 
-    private final int ritualUses;
+    private static final String TOOLTIP_KEY = Util.makeDescriptionId("tooltip", new ResourceLocation(ForbiddenArcanus.MOD_ID, "remaining_ritual_uses"));
 
-    public BlacksmithGavelItem(Tier tier, int ritualUses, Properties properties) {
+
+    public BlacksmithGavelItem(Tier tier, Properties properties) {
         super(tier, properties);
-        this.ritualUses = ritualUses;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag isAdvanced) {
-        components.add(Component.translatable("tooltip." + ForbiddenArcanus.MOD_ID + ".remaining_ritual_uses").append(": " + this.getRemainingUses(stack)).withStyle(ChatFormatting.GRAY));
+        components.add(Component.translatable(TOOLTIP_KEY, this.getRemainingUses(stack)).withStyle(ChatFormatting.GRAY));
     }
 
     @Override
-    public int getRitualUses() {
-        return this.ritualUses;
+    public int getRitualUses(ItemStack stack) {
+        return stack.getOrDefault(ModDataComponents.RITUAL_USES, 0);
     }
 
     @Override
     public int getRemainingUses(ItemStack stack) {
-        //TODO
-//        CompoundTag tag = stack.getOrCreateTag();
-//
-//        if (tag.contains("RemainingRitualUses")) {
-//            return tag.getInt("RemainingRitualUses");
-//        }
-
-        return this.getRitualUses();
+        return stack.getOrDefault(ModDataComponents.REMAINING_RITUAL_USES, this.getRitualUses(stack));
     }
 
     @Override
     public void setRemainingUses(ItemStack stack, int remainingUses) {
-        //stack.getOrCreateTag().putInt("RemainingRitualUses", remainingUses);
+        stack.set(ModDataComponents.REMAINING_RITUAL_USES, remainingUses);
     }
 
     @Override

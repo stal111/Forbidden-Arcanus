@@ -60,6 +60,14 @@ public class ModItemModels {
         this.generateFlatItem("enhancer", ModItems.ELEMENTARIUM, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.DIVINE_PACT, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.MALEDICTUS_PACT, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.BLACKSMITH_GAVEL_HEAD);
+        this.generateFlatItem("tool", ModItems.WOODEN_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("tool", ModItems.STONE_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("tool", ModItems.GOLDEN_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("tool", ModItems.IRON_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("tool", ModItems.DIAMOND_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("tool", ModItems.NETHERITE_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem("tool", ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
 
         ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(ModItems.QUANTUM_CATCHER), this.modelOutput);
 
@@ -109,7 +117,7 @@ public class ModItemModels {
         return this.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
     }
 
-    private ResourceLocation generateFlatItem(String folder, ItemRegistryEntry<Item> item, ModelTemplate template) {
+    private ResourceLocation generateFlatItem(String folder, ItemRegistryEntry<? extends Item> item, ModelTemplate template) {
         return template.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layer0(getItemTexture(item.get(), folder, "")), this.modelOutput);
     }
 
