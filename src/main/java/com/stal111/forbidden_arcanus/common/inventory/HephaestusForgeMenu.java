@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
@@ -126,7 +126,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, 8, 9, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (EnhancerCache.get(stack.getItem()).isPresent()) {
+            } else if (EnhancerHelper.getEnhancer(stack).isPresent()) {
                 if (!this.moveItemStackTo(stack, 0, this.getLevel().getAsInt() + 1, false)) {
                     return ItemStack.EMPTY;
                 }

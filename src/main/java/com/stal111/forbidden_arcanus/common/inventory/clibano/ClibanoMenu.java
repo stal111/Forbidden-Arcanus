@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBloc
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
@@ -26,7 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -139,7 +138,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, SOUL_SLOT, SOUL_SLOT + 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (EnhancerCache.get(stack.getItem()).isPresent()) {
+            } else if (EnhancerHelper.getEnhancer(stack).isPresent()) {
                 if (!this.moveItemStackTo(stack, ENHANCER_SLOT, ENHANCER_SLOT + 1, false)) {
                     return ItemStack.EMPTY;
                 }

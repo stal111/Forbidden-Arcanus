@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,7 +20,5 @@ public class DatapackEvents {
     @SubscribeEvent
     public static void onTagsUpdate(TagsUpdatedEvent event) {
         FARegistries.ITEM_MODIFIER_REGISTRY.forEach(ItemModifier::clearCachedValidItems);
-
-        EnhancerCache.cacheEnhancers(event.getRegistryAccess());
     }
 }

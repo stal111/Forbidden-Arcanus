@@ -8,8 +8,8 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DoubleSme
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
@@ -43,7 +43,6 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
@@ -463,7 +462,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     }
 
     private @Nullable EnhancerDefinition updateEnhancer() {
-        return EnhancerCache.get(this.getStack(ClibanoMenu.ENHANCER_SLOT).getItem()).orElse(null);
+        return EnhancerHelper.getEnhancer(this.getStack(ClibanoMenu.ENHANCER_SLOT)).orElse(null);
     }
 
     @Override

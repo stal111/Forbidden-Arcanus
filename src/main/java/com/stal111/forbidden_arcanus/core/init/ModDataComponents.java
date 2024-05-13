@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -32,5 +33,6 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> TICKS_TILL_NEXT_STAGE = HELPER.register("ticks_till_next_stage", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> RITUAL_USES = HELPER.register("ritual_uses", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> REMAINING_RITUAL_USES = HELPER.register("remaining_ritual_uses", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Holder<EnhancerDefinition>>> ENHANCER = HELPER.register("enhancer", () -> DataComponentType.<Holder<EnhancerDefinition>>builder().persistent(EnhancerDefinition.REFERENCE_CODEC).networkSynchronized(EnhancerDefinition.STREAM_CODEC).build());
 
 }

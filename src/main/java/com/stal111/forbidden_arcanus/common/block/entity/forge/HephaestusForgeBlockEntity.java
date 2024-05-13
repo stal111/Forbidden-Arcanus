@@ -10,7 +10,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusF
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
@@ -75,7 +75,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state, 9, (slot, stack) -> {
             if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-                return EnhancerCache.get(stack.getItem()).isPresent();
+                return EnhancerHelper.getEnhancer(stack).isPresent();
             }
             return true;
         });
@@ -117,7 +117,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         }
 
         this.ritualManager = new RitualManager(new MainSlotAccessor(this), () -> Stream.of(this.getStack(0), this.getStack(1), this.getStack(2), this.getStack(3))
-                .map(stack -> EnhancerCache.get(stack.getItem()))
+                .map(EnhancerHelper::getEnhancer)
                 .filter(Optional::isPresent)
                 .map(Optional::orElseThrow)
                 .toList(), this.magicCircleController, this.forgeLevel.getAsInt());

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
@@ -35,7 +35,7 @@ public class TooltipEvents {
             essenceStorage.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceStorage.data().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags());
         }
 
-        EnhancerCache.get(stack.getItem()).ifPresent(definition -> {
+        EnhancerHelper.getEnhancer(stack).ifPresent(definition -> {
             this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);
             this.expandTooltip(advanced, tooltip, CommonComponents.EMPTY);
 
