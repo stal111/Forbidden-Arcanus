@@ -3,9 +3,11 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import org.jetbrains.annotations.NotNull;
@@ -36,11 +38,18 @@ public enum EssenceType implements StringRepresentable {
     private final String name;
     private final int lightEmission;
     private final Component component;
+    private final ResourceLocation spriteLocation;
 
     EssenceType(String name, int lightEmission) {
         this.name = name;
         this.lightEmission = lightEmission;
         this.component = Component.translatable("forbidden_arcanus.essence." + name);
+        this.spriteLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "icon/" + name);
+    }
+
+    @Override
+    public @NotNull String getSerializedName() {
+        return this.name;
     }
 
     public Component getComponent() {
@@ -51,8 +60,7 @@ public enum EssenceType implements StringRepresentable {
         return this.lightEmission;
     }
 
-    @Override
-    public @NotNull String getSerializedName() {
-        return this.name;
+    public ResourceLocation getSpriteLocation() {
+        return this.spriteLocation;
     }
 }

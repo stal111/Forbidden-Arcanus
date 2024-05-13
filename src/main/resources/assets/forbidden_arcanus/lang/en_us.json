@@ -333,7 +333,7 @@
     "tooltip.forbidden_arcanus.aureal_tank.tier": "Tier: %s",
     "tooltip.forbidden_arcanus.aureal_tank.aureal": "Aureal: %s / %s",
     "tooltip.forbidden_arcanus.hephaestus_forge.tier": "Tier %s",
-    "tooltip.forbidden_arcanus.essence.storage_format": "%s: %s / %s",
+    "tooltip.forbidden_arcanus.essence.storage_format": "%s / %s",
     "item.forbidden_arcanus.stored_entity": "Entity: %s",
     "item.forbidden_arcanus.stored_entity.with_name": "Entity: %s (%s)",
 
