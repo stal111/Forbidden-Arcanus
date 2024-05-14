@@ -1,8 +1,12 @@
 package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.advancements.critereon.FAItemSubPredicates;
+import com.stal111.forbidden_arcanus.common.advancements.critereon.ItemModifierPredicate;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
+import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
+import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -135,11 +139,11 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
         );
 
         // Items
-//        this.add("fiery_modifier",
-//                new FieryLootModifier(new LootItemCondition[] {
-//                        new MatchTool(new ModifierItemPredicate(ModItemModifiers.FIERY.get()))
-//                })
-//        );
+        this.add("fiery_modifier",
+                new FieryLootModifier(new LootItemCondition[] {
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(FAItemSubPredicates.MODIFIER.get(), ItemModifierPredicate.modifier(ModItemModifiers.FIERY))).build()
+                })
+        );
         this.add("blacksmith_gavel_ore_doubling",
                 new BlacksmithGavelLootModifier(new LootItemCondition[] {
                         LootItemRandomChanceCondition.randomChance(0.3F).build()

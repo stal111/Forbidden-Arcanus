@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.core.registry;
 
+import com.stal111.forbidden_arcanus.common.advancements.critereon.FAItemSubPredicates;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffects;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
 import com.stal111.forbidden_arcanus.common.item.FAArmorMaterials;
@@ -58,6 +59,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.CUSTOM_STAT, ModStats.class);
         this.addMappedHelper(Registries.ARMOR_MATERIAL, FAArmorMaterials.class);
         this.addMappedHelper(Registries.DATA_COMPONENT_TYPE, ModDataComponents.class);
+        this.addMappedHelper(Registries.ITEM_SUB_PREDICATE_TYPE, FAItemSubPredicates.class);
         this.addMappedHelper(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
         this.addMappedHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModAttachmentTypes.class);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);
