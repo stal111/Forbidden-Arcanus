@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.18,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "forbidden_arcanus:enhancer": "forbidden_arcanus:maledictus_pact"
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "forbidden_arcanus:maledictus_pact"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "forbidden_arcanus:chests/additions/maledictus_pact_addition"
+}

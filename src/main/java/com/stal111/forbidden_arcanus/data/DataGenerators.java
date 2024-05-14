@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.data.model.ModModelProvider;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.recipes.*;
 import com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables;
+import com.stal111.forbidden_arcanus.data.server.loot.ModChestLoot;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.*;
 import net.minecraft.core.HolderLookup;
@@ -66,7 +67,10 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModBiomeTagsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(context, fileHelper));
 
-        generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK)), context.lookupProvider()));
+        generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
+                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK),
+                new LootTableProvider.SubProviderEntry(ModChestLoot::new, LootContextParamSets.CHEST)
+        ), context.lookupProvider()));
 
         generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new, StonecutterRecipeProvider::new));
 

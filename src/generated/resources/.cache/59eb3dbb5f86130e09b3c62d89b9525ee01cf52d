@@ -1,3 +1,7 @@
-// 1.20.6	2024-05-07T14:28:57.2801355	Loot Tables
+// 1.20.6	2024-05-14T14:20:53.0857537	Loot Tables
 6ee2651059f7e26158de69b8a75f6697e1905f21 data/forbidden_arcanus/loot_tables/blocks/arcane_crystal_obelisk.json
 e637b07968d3ea1e86cab7cf614450adc065a9ab data/forbidden_arcanus/loot_tables/blocks/corrupted_arcane_crystal_obelisk.json
+b400b19c8b1c6dceccfe96fadb500788023f8dee data/forbidden_arcanus/loot_tables/chests/additions/artisan_relic_addition.json
+6deeba5a2efd73114eeb703f834eeeae264367af data/forbidden_arcanus/loot_tables/chests/additions/crimson_stone_addition.json
+149801cfc9dcc3a6f5319f95a772ce6d6adf93c6 data/forbidden_arcanus/loot_tables/chests/additions/elementarium_addition.json
+fc7b3bb1d0f7724b7602a337de9a95728bf96046 data/forbidden_arcanus/loot_tables/chests/additions/maledictus_pact_addition.json

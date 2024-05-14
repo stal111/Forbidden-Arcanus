@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.18,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "forbidden_arcanus:enhancer": "forbidden_arcanus:artisan_relic"
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "forbidden_arcanus:artisan_relic"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "forbidden_arcanus:chests/additions/artisan_relic_addition"
+}
