@@ -135,7 +135,7 @@ public class DemolishingModifierBlockBreaker {
                 return;
             }
 
-            this.updateBreakingProgress(offsetPos, destroyProgress - 1);
+            this.updateBreakingProgress(offsetPos, destroyProgress);
 
         }
     }
@@ -178,11 +178,11 @@ public class DemolishingModifierBlockBreaker {
         int id = this.idFromPos.get(pos);
 
         if (this.level instanceof ServerLevel serverLevel) {
-            for(ServerPlayer serverPlayer : serverLevel.getServer().getPlayerList().getPlayers()) {
+            for (ServerPlayer serverPlayer : serverLevel.getServer().getPlayerList().getPlayers()) {
                 if (serverPlayer != null && serverPlayer.level() == serverLevel && serverPlayer.getId() != this.player.getId()) {
-                    double d0 = (double)pos.getX() - serverPlayer.getX();
-                    double d1 = (double)pos.getY() - serverPlayer.getY();
-                    double d2 = (double)pos.getZ() - serverPlayer.getZ();
+                    double d0 = (double) pos.getX() - serverPlayer.getX();
+                    double d1 = (double) pos.getY() - serverPlayer.getY();
+                    double d2 = (double) pos.getZ() - serverPlayer.getZ();
 
                     if (d0 * d0 + d1 * d1 + d2 * d2 < 1024.0D) {
                         serverPlayer.connection.send(new ClientboundBlockDestructionPacket(id, pos, progress));
