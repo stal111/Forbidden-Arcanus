@@ -1,4 +1,4 @@
-// 1.20.6	2024-05-07T14:28:57.2961718	Tags for minecraft:item mod id vanilla
+// 1.20.6	2024-05-14T14:02:55.7323924	Tags for minecraft:item mod id vanilla
 be2dcd8e24679f2589dbf401a3c118f053ab6090 data/c/tags/items/feathers.json
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/items/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/items/fence_gates/wooden.json
@@ -33,7 +33,7 @@ b128c22b1f0aef1502fa919bc8d063604b299c75 data/forge/tags/items/storage_blocks/de
 ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/items/doors.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/items/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/items/logs.json
-a601a497d9a2287b4e77b7d903477c866f685b19 data/minecraft/tags/items/pickaxes.json
+f80b42c15e715a6f1efd91c02594720b7da2ddeb data/minecraft/tags/items/pickaxes.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/items/planks.json
 5bb0d891062facc905907fc2a2e830548570301b data/minecraft/tags/items/saplings.json
 9e9500e769cd5c0703ef99e4a2a0df188529f697 data/minecraft/tags/items/small_flowers.json
