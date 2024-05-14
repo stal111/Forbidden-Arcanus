@@ -37,7 +37,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> DEORUM_INGOT = HELPER.register("deorum_ingot", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> DEORUM_NUGGET = HELPER.register("deorum_nugget", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> XPETRIFIED_ORB = HELPER.register("xpetrified_orb", () -> new XpetrifiedOrbItem(new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.EXPERIENCE, 91))));
-    public static final ItemRegistryEntry<Item> ETERNAL_STELLA = HELPER.register("eternal_stella", () -> new EternalStellaItem(new Item.Properties().stacksTo(1)));
+    public static final ItemRegistryEntry<Item> ETERNAL_STELLA = HELPER.register("eternal_stella", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> MUNDABITUR_DUST = HELPER.register("mundabitur_dust", () -> new MundabiturDustItem(new Item.Properties()));
     public static final ItemRegistryEntry<Item> CORRUPTI_DUST = HELPER.register("corrupti_dust", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> DARK_MATTER = HELPER.register("dark_matter", () -> new DarkMatterItem(new Item.Properties()));
