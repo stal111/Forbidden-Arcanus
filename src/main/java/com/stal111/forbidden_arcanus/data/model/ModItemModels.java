@@ -68,6 +68,11 @@ public class ModItemModels {
         this.generateFlatItem("tool", ModItems.DIAMOND_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("tool", ModItems.NETHERITE_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("tool", ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.ETERNAL_STELLA);
+        this.generateFlatItem(ModItems.TERRASTOMP_PRISM);
+        this.generateFlatItem(ModItems.SEA_PRISM);
+        this.generateFlatItem(ModItems.WHIRLWIND_PRISM);
+        this.generateFlatItem(ModItems.SMELTER_PRISM);
 
         ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(ModItems.QUANTUM_CATCHER), this.modelOutput);
 
