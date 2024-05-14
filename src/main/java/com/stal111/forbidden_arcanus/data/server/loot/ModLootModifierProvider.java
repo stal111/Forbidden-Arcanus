@@ -4,12 +4,13 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
@@ -50,86 +51,86 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
         this.add("zombie_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
                         LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.002F, 0.001F).build(),
-                        LootTableIdCondition.builder(new ResourceLocation("entities/zombie")).build()
+                        LootTableIdCondition.builder(EntityType.ZOMBIE.getDefaultLootTable().location()).build()
                 }, ZOMBIE_ADDITIONS)
         );
         this.add("drowned_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
                         LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.002F, 0.001F).build(),
-                        LootTableIdCondition.builder(new ResourceLocation("entities/drowned")).build()
+                        LootTableIdCondition.builder(EntityType.DROWNED.getDefaultLootTable().location()).build()
                 }, DROWNED_ADDITIONS)
         );
         this.add("spawner_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
                         InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))))))).build(),
-                        LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
+                        LootTableIdCondition.builder(Blocks.SPAWNER.getLootTable().location()).build()
                 }, SPAWNER_ADDITIONS)
         );
         this.add("enderman_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("entities/enderman")).build()
+                        LootTableIdCondition.builder(EntityType.ENDERMAN.getDefaultLootTable().location()).build()
                 }, ENDERMAN_ADDITIONS)
         );
         this.add("bat_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("entities/bat")).build()
+                        LootTableIdCondition.builder(EntityType.BAT.getDefaultLootTable().location()).build()
                 }, BAT_ADDITIONS)
         );
         this.add("squid_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
                         LootItemRandomChanceCondition.randomChance(0.7F).build(),
-                        LootTableIdCondition.builder(new ResourceLocation("entities/squid")).build()
+                        LootTableIdCondition.builder(EntityType.SQUID.getDefaultLootTable().location()).build()
                 }, SQUID_ADDITIONS)
         );
         this.add("ender_dragon_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("entities/ender_dragon")).build()
+                        LootTableIdCondition.builder(EntityType.ENDER_DRAGON.getDefaultLootTable().location()).build()
                 }, ENDER_DRAGON_ADDITIONS)
         );
 
         // Chests
         this.add("simple_dungeon_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("chests/simple_dungeon")).build()
+                        LootTableIdCondition.builder(BuiltInLootTables.SIMPLE_DUNGEON.location()).build()
                 }, SIMPLE_DUNGEON_ADDITIONS)
         );
         this.add("abandoned_mineshaft_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("chests/abandoned_mineshaft")).build()
+                        LootTableIdCondition.builder(BuiltInLootTables.ABANDONED_MINESHAFT.location()).build()
                 }, ABANDONED_MINESHAFT_ADDITIONS)
         );
         this.add("end_city_treasure_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("chests/end_city_treasure")).build()
+                        LootTableIdCondition.builder(BuiltInLootTables.END_CITY_TREASURE.location()).build()
                 }, END_CITY_TREASURE_ADDITIONS)
         );
-//        this.add("artisan_relic_addition",
-//                new AppendLootTableModifier(new LootItemCondition[] {
-//                        AlternativeLootItemCondition.alternative(
-//                                LootTableIdCondition.builder(new ResourceLocation("chests/village/village_armorer")),
-//                                LootTableIdCondition.builder(new ResourceLocation("chests/village/village_toolsmith")),
-//                                LootTableIdCondition.builder(new ResourceLocation("chests/village/village_weaponsmith"))
-//                        ).build()
-//                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/artisan_relic_addition"))
-//        );
+        this.add("artisan_relic_addition",
+                new AddTableLootModifier(new LootItemCondition[] {
+                        AnyOfCondition.anyOf(
+                                LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_ARMORER.location()),
+                                LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_TOOLSMITH.location()),
+                                LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_WEAPONSMITH.location())
+                        ).build()
+                }, ARTISAN_RELIC_ADDITION)
+        );
         this.add("crimson_stone_addition",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("chests/pillager_outpost")).build()
+                        LootTableIdCondition.builder(BuiltInLootTables.PILLAGER_OUTPOST.location()).build()
                 }, CRIMSON_STONE_ADDITION)
         );
-//        this.add("elementarium_addition",
-//                new AppendLootTableModifier(new LootItemCondition[] {
-//                        AlternativeLootItemCondition.alternative(
-//                                LootTableIdCondition.builder(new ResourceLocation("chests/jungle_temple")),
-//                                LootTableIdCondition.builder(new ResourceLocation("chests/desert_pyramid")),
-//                                LootTableIdCondition.builder(new ResourceLocation("chests/underwater_ruin_small")),
-//                                LootTableIdCondition.builder(new ResourceLocation("chests/underwater_ruin_big"))
-//                        ).build()
-//                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/elementarium_addition"))
-//        );
+        this.add("elementarium_addition",
+                new AddTableLootModifier(new LootItemCondition[] {
+                        AnyOfCondition.anyOf(
+                                LootTableIdCondition.builder(BuiltInLootTables.JUNGLE_TEMPLE.location()),
+                                LootTableIdCondition.builder(BuiltInLootTables.DESERT_PYRAMID.location()),
+                                LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_SMALL.location()),
+                                LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_BIG.location())
+                        ).build()
+                }, ELEMENTARIUM_ADDITION)
+        );
         this.add("maledictus_pact",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(new ResourceLocation("chests/bastion_treasure")).build()
+                        LootTableIdCondition.builder(BuiltInLootTables.BASTION_TREASURE.location()).build()
                 }, MALEDICTUS_PACT_ADDITION)
         );
 
