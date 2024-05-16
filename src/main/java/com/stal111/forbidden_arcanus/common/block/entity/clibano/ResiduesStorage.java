@@ -1,10 +1,12 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.mojang.serialization.Codec;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -16,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 
-import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -25,7 +27,7 @@ import java.util.function.Supplier;
  */
 public class ResiduesStorage implements SerializableComponent {
 
-    public static final Codec<Map<Holder<ResidueType>, Integer>> MAP_CODEC = Codec.unboundedMap(ResidueType.CODEC, Codec.INT);
+    public static final Codec<Object2IntOpenHashMap<Holder<ResidueType>>> MAP_CODEC = Codec.unboundedMap(ResidueType.CODEC, Codec.INT).xmap(Object2IntOpenHashMap::new, Function.identity());
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ResiduesStorage> STREAM_CODEC = ByteBufCodecs.map(
             Object2IntOpenHashMap::new,
@@ -105,20 +107,15 @@ public class ResiduesStorage implements SerializableComponent {
 
     @Override
     public void load(CompoundTag tag) {
+        this.residueTypeAmountMap.clear();
         this.totalAmount = 0;
 
-        //TODO
-//        this.residueTypeAmountMap = Suppliers.memoize(() -> {
-//            Optional<Map<Holder<ResidueType>, Integer>> optional = MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.levelAccessor.get().registryAccess()), tag.getCompound(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error));
-//
-//            optional.ifPresent(holderIntegerMap -> {
-//                holderIntegerMap.forEach((residueType, amount) -> {
-//                    this.totalAmount += amount;
-//                });
-//            });
-//
-//            return optional.map(HashMap::new).orElseGet(HashMap::new);
-//        });
+        MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.levelAccessor.get().registryAccess()), tag.getCompound(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error)).ifPresent(map -> {
+            map.object2IntEntrySet().forEach(entry -> {
+                this.residueTypeAmountMap.put(entry.getKey(), entry.getIntValue());
+                this.totalAmount += entry.getIntValue();
+            });
+        });
     }
 
     @Override
@@ -130,7 +127,7 @@ public class ResiduesStorage implements SerializableComponent {
         return this.totalAmount;
     }
 
-    public Map<Holder<ResidueType>, Integer> getResidueTypeAmountMap() {
+    public Object2IntOpenHashMap<Holder<ResidueType>> getResidueTypeAmountMap() {
         return this.residueTypeAmountMap;
     }
 
