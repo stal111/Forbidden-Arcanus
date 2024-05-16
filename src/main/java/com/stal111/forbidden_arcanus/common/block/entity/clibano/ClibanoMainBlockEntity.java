@@ -77,7 +77,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
 
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_COMBUSTION.get();
 
-    private final ResiduesStorage residuesStorage = new ResiduesStorage(() -> this.level);
+    private final ResiduesStorage residuesStorage = new ResiduesStorage();
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
     private final CachedRecipeCheck quickCheck;
 
@@ -490,7 +490,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         tag.put("recipes_used", recipesUsed);
 
         if (this.residuesStorage.shouldBeSaved() && this.level != null) {
-            this.residuesStorage.save(tag);
+            this.residuesStorage.save(tag, lookupProvider);
         }
     }
 
@@ -517,7 +517,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             this.recipesUsed.put(new ResourceLocation(recipe), tag.getInt(recipe));
         }
 
-        this.residuesStorage.load(tag);
+        this.residuesStorage.load(tag, lookupProvider);
     }
 
     public void setSoulTime(int duration) {
