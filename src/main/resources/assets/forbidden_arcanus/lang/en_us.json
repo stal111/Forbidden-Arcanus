@@ -362,7 +362,7 @@
     "forbidden_arcanus.essence.experience": "Experience",
 
     "guis_comment": "Guis",
-    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at": "Unlocked at tier",
+    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at": "Unlocked at tier: %s",
     "gui.forbidden_arcanus.clibano.residue_fullness": "Residue fullness",
     "gui.forbidden_arcanus.clibano.residue.gold": "Gold",
     "gui.forbidden_arcanus.clibano.residue.iron": "Iron",

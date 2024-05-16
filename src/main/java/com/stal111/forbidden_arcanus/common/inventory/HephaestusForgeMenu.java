@@ -7,8 +7,10 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -31,6 +33,7 @@ import java.util.List;
  */
 public class HephaestusForgeMenu extends AbstractContainerMenu {
 
+    public static final String UNLOCKED_AT_KEY = "gui.forbidden_arcanus.hephaestus_forge.unlocked_at";
     public static final List<Integer> ENHANCERS_SLOTS = ImmutableList.of(0, 1, 2, 3);
 
     private final ContainerData hephaestusForgeData;
@@ -82,7 +85,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     private void addEnhancerSlot(ItemStackHandler handler, int index, int x, int y) {
-        this.addSlot(new EnhancerSlot(handler, index, x, y, () -> this.isSlotLocked(index)));
+        this.addSlot(new EnhancerSlot(handler, index, x, y, () -> this.isSlotLocked(index), Tooltip.create(Component.translatable(UNLOCKED_AT_KEY, index + 1))));
     }
 
     @Nonnull

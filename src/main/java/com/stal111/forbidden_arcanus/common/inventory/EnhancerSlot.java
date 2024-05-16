@@ -1,35 +1,35 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.function.BooleanSupplier;
 
 /**
- * Enhancer Slot
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot
- *
  * @author stal111
  * @since 2021-06-30
  */
 public class EnhancerSlot extends SlotItemHandler {
 
     private final BooleanSupplier locked;
+    private final Tooltip lockedTooltip;
 
     public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-        this(itemHandler, index, xPosition, yPosition, () -> false);
+        this(itemHandler, index, xPosition, yPosition, () -> false, null);
     }
 
-    public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, BooleanSupplier locked) {
+    public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, BooleanSupplier locked, Tooltip lockedTooltip) {
         super(itemHandler, index, xPosition, yPosition);
         this.locked = locked;
+        this.lockedTooltip = lockedTooltip;
     }
 
     @Override
-    public boolean mayPlace(@Nonnull ItemStack stack) {
+    public boolean mayPlace(@NotNull ItemStack stack) {
         return !this.isLocked() && super.mayPlace(stack);
     }
 
@@ -48,9 +48,7 @@ public class EnhancerSlot extends SlotItemHandler {
     }
 
     @Nullable
-    public String getAdditionalData() {
-        return "";
-        //TODO
-        //return this.requiredLevel == 1 ? null : String.valueOf(this.requiredLevel);
+    public Tooltip getLockedTooltip() {
+        return this.lockedTooltip;
     }
 }
