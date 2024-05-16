@@ -20,6 +20,7 @@ import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
@@ -56,12 +57,10 @@ import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_
  */
 public class ClientSetup {
 
-    public static final List<FlyingLabel> FLYING_LABELS = new ArrayList<>();
+    public static final List<FlyingLabel<?>> FLYING_LABELS = new ArrayList<>();
 
     public static final ItemPropertyFunction ESSENCE_AMOUNT_PROPERTY_FUNCTION = (stack, level, entity, seed) -> {
-        EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
-
-        return storage != null ? storage.getFillPercentage() : 0.0F;
+        return EssenceHelper.getEssenceStorage(stack).map(EssenceStorage::getFillPercentage).orElse(0.0F);
     };
 
     public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
@@ -124,9 +123,7 @@ public class ClientSetup {
 
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
         ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
-            EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
-
-            return storage != null && storage.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F;
+            return EssenceHelper.getEssenceStorage(stack).map(essenceStorage -> essenceStorage.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
         });
 
         FLYING_LABELS.add(new JarFlyingLabel());
@@ -157,16 +154,6 @@ public class ClientSetup {
     public void onRegisterTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(CapacityBucketTooltip.class, ClientCapacityBucketTooltip::new);
     }
-
-    //TODO
-//    @SubscribeEvent
-//    public void onTextureStitch(TextureStitchEvent.Pre event) {
-//        ResourceLocation textureLocation = event.getAtlas().location();
-//
-//        if (textureLocation.equals(TextureAtlas.LOCATION_BLOCKS)) {
-//            event.addSprite(new ResourceLocation(ForbiddenArcanus.MOD_ID, "entity/obsidian_skull_shield"));
-//        }
-//    }
 
     @SubscribeEvent
     public void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {

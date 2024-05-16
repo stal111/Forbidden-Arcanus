@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
-import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -29,11 +28,11 @@ public class TooltipEvents {
         List<Component> tooltip = event.getToolTip();
         boolean advanced = event.getFlags().isAdvanced();
 
-        EssenceStorage essenceStorage = stack.get(ModDataComponents.ESSENCE_STORAGE);
-
-        if (essenceStorage != null && essenceStorage.showInTooltip()) {
-            essenceStorage.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceStorage.data().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags());
-        }
+        EssenceHelper.getEssenceStorage(stack).ifPresent(essenceStorage -> {
+            if (essenceStorage.showInTooltip()) {
+                essenceStorage.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceStorage.data().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags());
+            }
+        });
 
         EnhancerHelper.getEnhancer(stack).ifPresent(definition -> {
             this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);

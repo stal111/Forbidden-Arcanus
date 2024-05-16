@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
-import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
@@ -34,11 +33,9 @@ public class AurealTankItem extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
-        EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
-
-        if (storage != null) {
+        EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
             components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", storage.limit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
-        }
+        });
     }
 
     @Override
