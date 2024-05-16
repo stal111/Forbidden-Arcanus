@@ -13,7 +13,7 @@ import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.valhelsia.valhelsia_core.api.common.registry.ItemRegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryEntry;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -74,7 +74,10 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.WHIRLWIND_PRISM);
         this.generateFlatItem(ModItems.SMELTER_PRISM);
 
-        ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(ModItems.QUANTUM_CATCHER), this.modelOutput);
+        ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(null), this.modelOutput);
+        ModItems.DYED_QUANTUM_CATCHERS.forEach((color, registryEntry) -> {
+            ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(registryEntry.get()), ModTextureMapping.quantumCatcher(color), this.modelOutput);
+        });
 
         var aurealTank0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
         var aurealTank1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);

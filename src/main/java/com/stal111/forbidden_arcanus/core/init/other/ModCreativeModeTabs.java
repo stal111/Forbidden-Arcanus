@@ -207,6 +207,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.WAX.get());
                             output.accept(ModItems.SPAWNER_SCRAP.get());
                             output.accept(ModItems.QUANTUM_CATCHER.get());
+                            ModItems.DYED_QUANTUM_CATCHERS.forEach((color, registryEntry) -> output.accept(registryEntry.get()));
                             output.accept(ModItems.SANITY_METER.get());
 
                             output.accept(ModItems.AUREAL_TANK.get());

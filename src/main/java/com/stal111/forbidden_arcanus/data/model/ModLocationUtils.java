@@ -42,4 +42,12 @@ public class ModLocationUtils {
     public static ResourceLocation getItem(Holder<Item> item) {
         return BuiltInRegistries.ITEM.getKey(item.value()).withPrefix("item/");
     }
+
+    public static ResourceLocation getItem(String folder, String name) {
+        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "item/" + folder + "/" + name);
+    }
+
+    public static ResourceLocation getItem(String name) {
+        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "item/" + name);
+    }
 }

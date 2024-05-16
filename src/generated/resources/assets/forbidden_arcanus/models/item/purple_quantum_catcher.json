@@ -1,0 +1,8 @@
+{
+  "parent": "forbidden_arcanus:item/template_quantum_catcher",
+  "textures": {
+    "inner": "forbidden_arcanus:item/quantum_catcher/quantum_catcher_inner",
+    "side": "forbidden_arcanus:item/quantum_catcher/purple/quantum_catcher_side",
+    "top": "forbidden_arcanus:item/quantum_catcher/purple/quantum_catcher_top"
+  }
+}

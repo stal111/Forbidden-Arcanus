@@ -15,9 +15,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
-import net.valhelsia.valhelsia_core.api.common.registry.ItemRegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.ItemRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemEntrySet;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryEntry;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryHelper;
 
 /**
  * Mod Items <br>
@@ -66,6 +67,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<FerrogneticMixtureItem> FERROGNETIC_MIXTURE = HELPER.register("ferrognetic_mixture", () -> new FerrogneticMixtureItem(new Item.Properties()));
     public static final ItemRegistryEntry<Item> SPAWNER_SCRAP = HELPER.register("spawner_scrap", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", () -> new QuantumCatcherItem(new Item.Properties()));
+    public static final ItemEntrySet<QuantumCatcherItem, DyeColor> DYED_QUANTUM_CATCHERS = HELPER.registerColorEntrySet("quantum_catcher", dyeColor -> new QuantumCatcherItem(new Item.Properties()));
     public static final ItemRegistryEntry<Item> ARTISAN_RELIC = HELPER.register("artisan_relic", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> CRESCENT_MOON = HELPER.register("crescent_moon", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> CRIMSON_STONE = HELPER.register("crimson_stone", () -> new Item(new Item.Properties()));
