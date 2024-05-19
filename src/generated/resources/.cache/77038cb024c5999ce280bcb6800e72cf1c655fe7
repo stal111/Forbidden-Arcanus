@@ -1,4 +1,4 @@
-// 1.20.6	2024-05-15T22:47:27.9809677	Model Definitions
+// 1.20.6	2024-05-19T13:29:42.4499354	Model Definitions
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 f8bae591361fc4660ca12ae7f9fe356b9e15d523 assets/forbidden_arcanus/blockstates/arcane_polished_darkstone.json
 5fbe45830292f70ba8a3d8b9f21fecab60bb173a assets/forbidden_arcanus/blockstates/arcane_polished_darkstone_slab.json
@@ -218,6 +218,7 @@ bef3a5d69df21d6c18c6723c84b33470ccb172b3 assets/forbidden_arcanus/models/item/bl
 732cd9fe240d8f2f0c59af8093c5329c3e9a94a3 assets/forbidden_arcanus/models/item/blood_test_tube/blood_test_tube_4.json
 9cdda087482b78f10921eeac888a1a29a01c7cfd assets/forbidden_arcanus/models/item/blood_test_tube/blood_test_tube_5.json
 db49b3ab7beede248d174f89fb3bdcc25e2d261e assets/forbidden_arcanus/models/item/blue_quantum_catcher.json
+71016ff568765ae598dd019ee4151f10bb49e479 assets/forbidden_arcanus/models/item/boss_catcher.json
 d4cefa6cfca6d47d3127315f519223157ea9af4b assets/forbidden_arcanus/models/item/brown_quantum_catcher.json
 bf5741aa28110b296874a3b3d74234c66377318b assets/forbidden_arcanus/models/item/carved_edelwood_log.json
 8b86e82c3e7947a0cb9da2ad4c936c8ab5f71ced assets/forbidden_arcanus/models/item/chiseled_arcane_polished_darkstone.json

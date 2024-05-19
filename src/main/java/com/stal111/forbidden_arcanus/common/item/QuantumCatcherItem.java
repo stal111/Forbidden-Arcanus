@@ -7,13 +7,14 @@ import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -22,7 +23,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,8 +34,11 @@ import java.util.Optional;
  */
 public class QuantumCatcherItem extends Item {
 
-    public QuantumCatcherItem(Properties properties) {
+    private final TagKey<EntityType<?>> blacklistedEntities;
+
+    public QuantumCatcherItem(TagKey<EntityType<?>> blacklistedEntities, Properties properties) {
         super(properties);
+        this.blacklistedEntities = blacklistedEntities;
     }
 
     @NotNull
@@ -98,7 +101,7 @@ public class QuantumCatcherItem extends Item {
 
         if (!level.isClientSide()) {
             if (stack.getCount() != 1) {
-                ItemStackUtils.shrinkStack(player, stack);
+                stack.consume(1, player);
 
                 stack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
 
@@ -120,7 +123,7 @@ public class QuantumCatcherItem extends Item {
     }
 
     public boolean isValidEntity(LivingEntity entity) {
-        return !entity.getType().is(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED) && entity.isAlive();
+        return !entity.getType().is(this.blacklistedEntities) && entity.isAlive();
     }
 
     public static int calculateAurealCost(LivingEntity entity) {

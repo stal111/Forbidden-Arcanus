@@ -10,10 +10,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -80,8 +78,7 @@ public class ModTextureMapping {
         return new TextureMapping().put(TextureSlot.SIDE, getBlockTexture(block, UTREM_JAR, "_side")).put(TextureSlot.TOP, getBlockTexture(block, UTREM_JAR, "_top")).put(TextureSlot.BOTTOM, getBlockTexture(block, UTREM_JAR, "_bottom"));
     }
 
-    public static TextureMapping quantumCatcher(@Nullable DyeColor color) {
-        String folder = color != null ? "/" + color : "";
+    public static TextureMapping quantumCatcher(String folder) {
         return new TextureMapping().put(TextureSlot.SIDE, ModLocationUtils.getItem(QUANTUM_CATCHER + folder, "quantum_catcher_side")).put(TextureSlot.TOP, ModLocationUtils.getItem(QUANTUM_CATCHER + folder, "quantum_catcher_top")).put(ModTextureSlots.INNER, ModLocationUtils.getItem(QUANTUM_CATCHER, "quantum_catcher_inner"));
     }
 

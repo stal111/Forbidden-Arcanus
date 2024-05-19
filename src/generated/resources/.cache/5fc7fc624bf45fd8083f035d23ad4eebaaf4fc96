@@ -1,5 +1,6 @@
-// 1.20.6	2024-05-07T14:28:57.2801355	forbidden_arcanus: Entity Type Tags
+// 1.20.6	2024-05-19T13:28:06.6387663	forbidden_arcanus: Entity Type Tags
 4ba50af514fed477cd925c409fc052dc16e91a03 data/forbidden_arcanus/tags/entity_types/black_hole_affected.json
-6a41c3e5283b5bf9b0e64f6e256b766962943e08 data/forbidden_arcanus/tags/entity_types/quantum_catcher_blacklisted.json
+6ded3ea2e35a47445f95b3e2a263d918575d48cf data/forbidden_arcanus/tags/entity_types/boss_catcher_blacklisted.json
+5b55d9ce01a45dd74dd621c521f3fbf897eed973 data/forbidden_arcanus/tags/entity_types/quantum_catcher_blacklisted.json
 e5787dc002d5587c28c644a7079e27deebf026c8 data/forbidden_arcanus/tags/entity_types/spawns_corrupt_lost_soul_chance.json
 4644ac1aa99a39914985eaeff21120a1b614c9c7 data/forbidden_arcanus/tags/entity_types/spawns_lost_soul_chance.json

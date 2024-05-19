@@ -74,10 +74,11 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.WHIRLWIND_PRISM);
         this.generateFlatItem(ModItems.SMELTER_PRISM);
 
-        ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(null), this.modelOutput);
+        ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(""), this.modelOutput);
         ModItems.DYED_QUANTUM_CATCHERS.forEach((color, registryEntry) -> {
-            ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(registryEntry.get()), ModTextureMapping.quantumCatcher(color), this.modelOutput);
+            ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(registryEntry.get()), ModTextureMapping.quantumCatcher("/" + color), this.modelOutput);
         });
+        ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.BOSS_CATCHER.get()), ModTextureMapping.quantumCatcher("/boss_catcher"), this.modelOutput);
 
         var aurealTank0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM);
         var aurealTank1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM);

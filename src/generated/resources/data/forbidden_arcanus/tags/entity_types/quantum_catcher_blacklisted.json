@@ -1,7 +1,6 @@
 {
   "values": [
-    "minecraft:wither",
-    "minecraft:ender_dragon",
-    "minecraft:elder_guardian"
+    "#forbidden_arcanus:boss_catcher_blacklisted",
+    "#c:bosses"
   ]
 }

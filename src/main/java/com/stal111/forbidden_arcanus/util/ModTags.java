@@ -86,6 +86,7 @@ public class ModTags {
 
     public static class EntityTypes {
         public static final TagKey<EntityType<?>> QUANTUM_CATCHER_BLACKLISTED = modTag("quantum_catcher_blacklisted");
+        public static final TagKey<EntityType<?>> BOSS_CATCHER_BLACKLISTED = modTag("boss_catcher_blacklisted");
         public static final TagKey<EntityType<?>> BLACK_HOLE_AFFECTED = modTag("black_hole_affected");
         public static final TagKey<EntityType<?>> SPAWNS_LOST_SOUL_CHANCE = modTag("spawns_lost_soul_chance");
         public static final TagKey<EntityType<?>> SPAWNS_CORRUPT_LOST_SOUL_CHANCE = modTag("spawns_corrupt_lost_soul_chance");
