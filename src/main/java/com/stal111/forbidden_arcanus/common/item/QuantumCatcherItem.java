@@ -100,17 +100,18 @@ public class QuantumCatcherItem extends Item {
         }
 
         if (!level.isClientSide()) {
-            if (stack.getCount() != 1) {
+            if (stack.getCount() == 1) {
+                stack.set(ModDataComponents.STORED_ENTITY, StoredEntity.of(target));
+            } else {
                 stack.consume(1, player);
 
                 stack = new ItemStack(ModItems.QUANTUM_CATCHER.get());
+                stack.set(ModDataComponents.STORED_ENTITY, StoredEntity.of(target));
 
                 if (!player.addItem(stack)) {
                     player.drop(stack, false);
                 }
             }
-
-            stack.set(ModDataComponents.STORED_ENTITY, StoredEntity.of(target));
 
             target.discard();
 
