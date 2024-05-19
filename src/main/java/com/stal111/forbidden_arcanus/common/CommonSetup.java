@@ -47,13 +47,6 @@ public class CommonSetup {
 
         ModUtils.addStrippable(ModBlocks.AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_LOG.get());
         ModUtils.addStrippable(ModBlocks.AURUM_WOOD.get(), ModBlocks.STRIPPED_AURUM_WOOD.get());
-
-        //TODO
-       // PotionBrewing.addMix(Potions.WATER, ModItems.STRANGE_ROOT.get(), Potions.AWKWARD);
-
-
-        //TODO
-       // BrewingRecipeRegistry.addRecipe(Ingredient.of(ModItems.AUREAL_BOTTLE.get()), Ingredient.of(Tags.Items.GUNPOWDER), new ItemStack(ModItems.SPLASH_AUREAL_BOTTLE.get()));
     }
 
     @SubscribeEvent
