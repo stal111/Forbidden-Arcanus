@@ -1,4 +1,4 @@
-// 1.20.6	2024-05-19T13:29:42.4499354	Model Definitions
+// 1.20.6	2024-05-19T17:19:14.7936647	Model Definitions
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 f8bae591361fc4660ca12ae7f9fe356b9e15d523 assets/forbidden_arcanus/blockstates/arcane_polished_darkstone.json
 5fbe45830292f70ba8a3d8b9f21fecab60bb173a assets/forbidden_arcanus/blockstates/arcane_polished_darkstone_slab.json
@@ -358,6 +358,7 @@ fe956b5ddf74142dc6fbf3477743ded4e3ad9251 assets/forbidden_arcanus/models/item/so
 299e32cc1e592f9ced846e17d708a3331e3c16bc assets/forbidden_arcanus/models/item/soulless_sandstone_slab.json
 6e6817236350ca2f65258e473e882ebbc7d07f61 assets/forbidden_arcanus/models/item/soulless_sandstone_stairs.json
 bbc927935f0316607cafef2961bfbd3c59b0c3ce assets/forbidden_arcanus/models/item/soulless_sandstone_wall.json
+06640b4affb68d79688d7a157b27047b882e3a37 assets/forbidden_arcanus/models/item/soul_binding_crystal.json
 7c65bef82f23e7d87e65fb92a41fcd04ee46679d assets/forbidden_arcanus/models/item/soul_crimson_stone.json
 863eee3ce351483fb5218618ae1ef57e7a494b3f assets/forbidden_arcanus/models/item/splash_aureal_bottle.json
 e59b60cf68bba2556af1cd8d8f358756defff0fd assets/forbidden_arcanus/models/item/stellarite_block.json

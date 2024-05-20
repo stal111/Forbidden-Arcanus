@@ -66,6 +66,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> EDELWOOD_STICK = HELPER.register("edelwood_stick", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> WAX = HELPER.register("wax", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<FerrogneticMixtureItem> FERROGNETIC_MIXTURE = HELPER.register("ferrognetic_mixture", () -> new FerrogneticMixtureItem(new Item.Properties()));
+    public static final ItemRegistryEntry<Item> SOUL_BINDING_CRYSTAL = HELPER.register("soul_binding_crystal", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> SPAWNER_SCRAP = HELPER.register("spawner_scrap", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", () -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, new Item.Properties()));
     public static final ItemEntrySet<QuantumCatcherItem, DyeColor> DYED_QUANTUM_CATCHERS = HELPER.registerColorEntrySet("quantum_catcher", dyeColor -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, new Item.Properties()));

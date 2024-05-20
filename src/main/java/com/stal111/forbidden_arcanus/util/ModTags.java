@@ -62,6 +62,7 @@ public class ModTags {
         public static final TagKey<Item> MAGNETIZED_INCOMPATIBLE = modTag("modifier/magnetized_incompatible");
         public static final TagKey<Item> DEMOLISHING_INCOMPATIBLE = modTag("modifier/demolishing_incompatible");
         public static final TagKey<Item> AQUATIC_INCOMPATIBLE = modTag("modifier/aquatic_incompatible");
+        public static final TagKey<Item> SOULBOUND_INCOMPATIBLE = modTag("modifier/soulbound_incompatible");
 
         public static final TagKey<Item> AUREAL_STORAGE_ENCHANTABLE = modTag("enchantable/aureal_storage");
 
@@ -104,6 +105,7 @@ public class ModTags {
         public static final TagKey<Enchantment> MAGNETIZED_INCOMPATIBLE = modTag("modifier/magnetized_incompatible");
         public static final TagKey<Enchantment> DEMOLISHING_INCOMPATIBLE = modTag("modifier/demolishing_incompatible");
         public static final TagKey<Enchantment> AQUATIC_INCOMPATIBLE = modTag("modifier/aquatic_incompatible");
+        public static final TagKey<Enchantment> SOULBOUND_INCOMPATIBLE = modTag("modifier/soulbound_incompatible");
 
         private static TagKey<Enchantment> modTag(String name) {
             return TagKey.create(Registries.ENCHANTMENT, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));

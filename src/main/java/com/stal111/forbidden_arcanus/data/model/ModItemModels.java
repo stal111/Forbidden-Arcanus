@@ -73,6 +73,7 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.SEA_PRISM);
         this.generateFlatItem(ModItems.WHIRLWIND_PRISM);
         this.generateFlatItem(ModItems.SMELTER_PRISM);
+        this.generateFlatItem(ModItems.SOUL_BINDING_CRYSTAL);
 
         ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(""), this.modelOutput);
         ModItems.DYED_QUANTUM_CATCHERS.forEach((color, registryEntry) -> {
