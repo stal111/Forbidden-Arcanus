@@ -48,7 +48,7 @@ public class DataGenerators {
         //generator.addProvider(event.includeClient(), new ModItemModelProvider(context));
 
         generator.addProvider(event.includeClient(), new ModModelProvider(output));
-
+        generator.addProvider(event.includeClient(), new LangProvider(context.output()));
         generator.addProvider(event.includeClient(), new ModSoundsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ParticleDataProvider(context));
 

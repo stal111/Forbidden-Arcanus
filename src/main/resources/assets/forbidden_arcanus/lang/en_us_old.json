@@ -1,7 +1,4 @@
 {
-    "_comment": "Item Groups",
-    "itemGroup.forbidden_arcanus": "Forbidden & Arcanus",
-
     "__comment": "Effects",
     "effect.forbidden_arcanus.spectral_vision": "Spectral Vision",
     "effect.forbidden_arcanus.darkened": "Darkened",
@@ -336,31 +333,6 @@
     "tooltip.forbidden_arcanus.essence.storage_format": "%s / %s",
     "item.forbidden_arcanus.stored_entity": "Entity: %s",
     "item.forbidden_arcanus.stored_entity.with_name": "Entity: %s (%s)",
-
-    "containers": "Containers",
-    "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
-    "container.forbidden_arcanus.clibano": "Clibano",
-
-    "enchantments": "Enchantments",
-    "enchantment.forbidden_arcanus.permafrost": "Permafrost",
-    "enchantment.forbidden_arcanus.aureal_reservoir": "Aureal Reservoir",
-
-    "entity.forbidden_arcanus.lost_soul": "Lost Soul",
-
-    "comment.enchantment.descriptions": "---Enchantment Descriptions---",
-    "enchantment.forbidden_arcanus.permafrost.desc": "Allows an Edelwood Bucket to safely carry lava.",
-
-    "modifier.forbidden_arcanus.eternal": "Eternal",
-    "modifier.forbidden_arcanus.fiery": "Fiery",
-    "modifier.forbidden_arcanus.magnetized": "Magnetized",
-    "modifier.forbidden_arcanus.demolishing": "Demolishing",
-    "modifier.forbidden_arcanus.aquatic": "Aquatic",
-    "modifier.forbidden_arcanus.soulbound": "Soulbound",
-
-    "forbidden_arcanus.essence.aureal": "Aureal",
-    "forbidden_arcanus.essence.souls": "Souls",
-    "forbidden_arcanus.essence.blood": "Blood",
-    "forbidden_arcanus.essence.experience": "Experience",
 
     "guis_comment": "Guis",
     "gui.forbidden_arcanus.hephaestus_forge.unlocked_at": "Unlocked at tier: %s",

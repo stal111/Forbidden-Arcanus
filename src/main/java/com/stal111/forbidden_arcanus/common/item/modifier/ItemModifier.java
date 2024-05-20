@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.item.modifier;
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.valhelsia.valhelsia_core.api.common.util.DeferredCodec;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -45,6 +47,8 @@ public class ItemModifier {
     private final int startTooltipColor;
     private final int endTooltipColor;
 
+    private String translationKey;
+
     private List<ItemStack> cachedValidItems;
 
     public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
@@ -62,14 +66,17 @@ public class ItemModifier {
     }
 
     public MutableComponent getComponent() {
-        ResourceLocation name = this.getRegistryName();
-
-        if (name == null) {
-            return Component.literal("");
-        }
-        return Component.translatable("modifier." + name.getNamespace() + "." + name.getPath());
+        return Component.translatable(this.getTranslationKey());
     }
 
+    public String getTranslationKey() {
+        if (this.translationKey == null) {
+            this.translationKey = Util.makeDescriptionId("modifier", this.getRegistryName());
+        }
+        return this.translationKey;
+    }
+
+    @Nullable
     public ResourceLocation getRegistryName() {
         return FARegistries.ITEM_MODIFIER_REGISTRY.getKey(this);
     }

@@ -1,0 +1,18 @@
+{
+  "container.forbidden_arcanus.clibano": "Clibano",
+  "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
+  "enchantment.forbidden_arcanus.aureal_reservoir": "Aureal Reservoir",
+  "entity.forbidden_arcanus.dark_trader": "Dark Trader",
+  "entity.forbidden_arcanus.lost_soul": "Lost Soul",
+  "essence.forbidden_arcanus.aureal": "Aureal",
+  "essence.forbidden_arcanus.blood": "Blood",
+  "essence.forbidden_arcanus.experience": "Experience",
+  "essence.forbidden_arcanus.souls": "Souls",
+  "itemGroup.forbidden_arcanus.main": "Forbidden & Arcanus",
+  "modifier.forbidden_arcanus.aquatic": "Aquatic",
+  "modifier.forbidden_arcanus.demolishing": "Demolishing",
+  "modifier.forbidden_arcanus.eternal": "Eternal",
+  "modifier.forbidden_arcanus.fiery": "Fiery",
+  "modifier.forbidden_arcanus.magnetized": "Magnetized",
+  "modifier.forbidden_arcanus.soulbound": "Soulbound"
+}
