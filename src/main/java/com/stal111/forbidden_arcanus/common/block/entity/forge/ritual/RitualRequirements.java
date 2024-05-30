@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +28,8 @@ public record RitualRequirements(TierPredicate tier, Optional<HolderSet<Enhancer
             })
     ).apply(instance, RitualRequirements::new));
 
-    public static RitualRequirements of(TierPredicate tier) {
-        return new RitualRequirements(tier, Optional.empty());
-    }
-
-    public static RitualRequirements of(TierPredicate tier, HolderSet<EnhancerDefinition> enhancers) {
-        return new RitualRequirements(tier, Optional.of(enhancers));
+    public static RitualRequirements.Builder builder() {
+        return new RitualRequirements.Builder();
     }
 
     public boolean checkRequirements(int forgeTier, List<EnhancerDefinition> enhancers) {
@@ -47,5 +44,29 @@ public record RitualRequirements(TierPredicate tier, Optional<HolderSet<Enhancer
         }
 
         return true;
+    }
+
+    public static class Builder {
+        private TierPredicate tier = TierPredicate.ANY;
+        private @Nullable HolderSet<EnhancerDefinition> enhancers;
+
+        public Builder tier(TierPredicate tier) {
+            this.tier = tier;
+            return this;
+        }
+
+        public Builder enhancer(Holder<EnhancerDefinition> enhancer) {
+            this.enhancers = HolderSet.direct(enhancer);
+            return this;
+        }
+
+        public Builder enhancers(HolderSet<EnhancerDefinition> enhancers) {
+            this.enhancers = enhancers;
+            return this;
+        }
+
+        public RitualRequirements build() {
+            return new RitualRequirements(this.tier, Optional.ofNullable(this.enhancers));
+        }
     }
 }

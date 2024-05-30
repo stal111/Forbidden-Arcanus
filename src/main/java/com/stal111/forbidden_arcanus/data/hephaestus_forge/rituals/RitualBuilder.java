@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
@@ -8,11 +7,9 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderSet;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -32,7 +29,7 @@ public class RitualBuilder {
 
     private final List<RitualInput> inputs = new ArrayList<>();
     private final EssencesStorage essences = new EssencesStorage();
-    private RitualRequirements additionalRequirements = RitualRequirements.NONE;
+    private RitualRequirements requirements = RitualRequirements.NONE;
     private Holder<MagicCircleType> magicCircleType;
 
     public RitualBuilder(ItemStack mainIngredient, RitualResult result, HolderGetter<MagicCircleType> magicCircleLookup) {
@@ -83,23 +80,13 @@ public class RitualBuilder {
         return this;
     }
 
-    public RitualBuilder requirements(TierPredicate tier) {
-        this.additionalRequirements = RitualRequirements.of(tier);
-
-        return this;
-    }
-
-    public final RitualBuilder requirements(TierPredicate tier, Holder<EnhancerDefinition> enhancer) {
-        return this.requirements(tier, HolderSet.direct(enhancer));
-    }
-
-    public final RitualBuilder requirements(TierPredicate tier, HolderSet<EnhancerDefinition> enhancers) {
-        this.additionalRequirements = RitualRequirements.of(tier, enhancers);
+    public RitualBuilder requirements(RitualRequirements requirements) {
+        this.requirements = requirements;
 
         return this;
     }
 
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.additionalRequirements, this.magicCircleType, Ritual.DEFAULT_DURATION);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.requirements, this.magicCircleType, Ritual.DEFAULT_DURATION);
     }
 }
