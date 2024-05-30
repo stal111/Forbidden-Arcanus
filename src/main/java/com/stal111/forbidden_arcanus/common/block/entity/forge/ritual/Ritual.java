@@ -93,7 +93,7 @@ public record Ritual(List<RitualInput> inputs,
 
         ItemStack mainIngredient = context.mainIngredient();
 
-        return this.checkIngredients(context.inputs(), mainIngredient) && this.result().checkConditions(mainIngredient, context.level(), context.pos());
+        return this.checkIngredients(context.inputs(), mainIngredient);
     }
 
     public boolean checkIngredients(Collection<ItemStack> list, ItemStack mainIngredient) {

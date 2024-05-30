@@ -1,9 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
@@ -33,28 +31,18 @@ public class UpgradeTierResult extends RitualResult {
             5, ModBlocks.HEPHAESTUS_FORGE_TIER_5
     );
 
-    public static final MapCodec<UpgradeTierResult> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.INT.fieldOf("required_tier").forGetter(result -> {
-                return result.requiredTier;
-            }),
-            Codec.INT.fieldOf("upgraded_tier").forGetter(result -> {
-                return result.upgradedTier;
-            })
-    ).apply(instance, UpgradeTierResult::new));
+    public static final UpgradeTierResult INSTANCE = new UpgradeTierResult();
 
-    private final int requiredTier;
-    private final int upgradedTier;
+    public static final MapCodec<UpgradeTierResult> CODEC = MapCodec.unit(INSTANCE);
 
-    public UpgradeTierResult(int requiredTier, int upgradedTier) {
-        this.requiredTier = requiredTier;
-        this.upgradedTier = upgradedTier;
+    private UpgradeTierResult() {
     }
 
     @Override
-    public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
+    public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos, int forgeTier) {
         BlockState state = level.getBlockState(pos);
 
-        level.setBlockAndUpdate(pos, FORGE_TIERS.get(this.upgradedTier).get().defaultBlockState().setValue(HephaestusForgeBlock.ACTIVATED, state.getValue(HephaestusForgeBlock.ACTIVATED)).setValue(HephaestusForgeBlock.WATERLOGGED, state.getValue(HephaestusForgeBlock.WATERLOGGED)));
+        level.setBlockAndUpdate(pos, FORGE_TIERS.get(forgeTier + 1).get().defaultBlockState().setValue(HephaestusForgeBlock.ACTIVATED, state.getValue(HephaestusForgeBlock.ACTIVATED)).setValue(HephaestusForgeBlock.WATERLOGGED, state.getValue(HephaestusForgeBlock.WATERLOGGED)));
 
         accessor.set(ItemStack.EMPTY);
 
@@ -63,22 +51,6 @@ public class UpgradeTierResult extends RitualResult {
         entity.setVisualOnly(true);
 
         level.addFreshEntity(entity);
-    }
-
-    @Override
-    public boolean checkConditions(ItemStack mainIngredient, Level level, BlockPos pos) {
-        if (level.getBlockState(pos).getBlock() instanceof HephaestusForgeBlock block) {
-            return block.getLevel().getAsInt() == this.requiredTier;
-        }
-        return false;
-    }
-
-    public int getRequiredTier() {
-        return this.requiredTier;
-    }
-
-    public int getUpgradedTier() {
-        return this.upgradedTier;
     }
 
     @Override

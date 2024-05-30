@@ -23,9 +23,8 @@
   "main_ingredient": {
     "item": "forbidden_arcanus:edelwood_planks"
   },
+  "match_tier_exact": true,
   "result": {
-    "type": "forbidden_arcanus:upgrade_tier",
-    "required_tier": 1,
-    "upgraded_tier": 2
+    "type": "forbidden_arcanus:upgrade_tier"
   }
 }

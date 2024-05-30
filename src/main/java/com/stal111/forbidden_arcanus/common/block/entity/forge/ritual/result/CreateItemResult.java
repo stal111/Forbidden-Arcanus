@@ -27,7 +27,7 @@ public class CreateItemResult extends RitualResult {
     }
 
     @Override
-    public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos) {
+    public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos, int forgeTier) {
         accessor.set(this.result.copy());
     }
 

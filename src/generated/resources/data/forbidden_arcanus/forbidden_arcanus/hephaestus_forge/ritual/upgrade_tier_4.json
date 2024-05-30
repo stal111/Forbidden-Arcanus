@@ -5,6 +5,7 @@
     "experience": 0,
     "souls": 100
   },
+  "forge_tier": 3,
   "inputs": [
     {
       "amount": 4,
@@ -23,9 +24,8 @@
   "main_ingredient": {
     "item": "forbidden_arcanus:chiseled_polished_darkstone"
   },
+  "match_tier_exact": true,
   "result": {
-    "type": "forbidden_arcanus:upgrade_tier",
-    "required_tier": 3,
-    "upgraded_tier": 4
+    "type": "forbidden_arcanus:upgrade_tier"
   }
 }

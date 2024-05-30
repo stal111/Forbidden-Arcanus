@@ -239,7 +239,7 @@ public class RitualManager implements SerializableComponent {
     }
 
     public void finishRitual(ActiveRitualData data) {
-        data.getRitual().result().apply(this.mainIngredientAccessor, this.level, this.pos);
+        data.getRitual().result().apply(this.mainIngredientAccessor, this.level, this.pos, this.forgeTier);
 
         this.reset();
     }
