@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -82,14 +83,19 @@ public class RitualBuilder {
     }
 
     public RitualBuilder requirements(int tier) {
-        this.additionalRequirements = new RitualRequirements(tier, List.of());
+        this.additionalRequirements = new RitualRequirements(tier, HolderSet.empty());
 
         return this;
     }
 
-    @SafeVarargs
-    public final RitualBuilder requirements(int tier, Holder<EnhancerDefinition>... enhancers) {
-        this.additionalRequirements = new RitualRequirements(tier, List.of(enhancers));
+    public final RitualBuilder requirements(int tier, Holder<EnhancerDefinition> enhancer) {
+        this.additionalRequirements = new RitualRequirements(tier, HolderSet.direct(enhancer));
+
+        return this;
+    }
+
+    public final RitualBuilder requirements(int tier, HolderSet<EnhancerDefinition> enhancers) {
+        this.additionalRequirements = new RitualRequirements(tier, enhancers);
 
         return this;
     }

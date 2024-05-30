@@ -6,6 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffect;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
@@ -34,6 +36,7 @@ public record EnhancerDefinition(Map<EnhancerTarget, Component> description, Lis
     ).apply(instance, EnhancerDefinition::new));
 
     public static final Codec<Holder<EnhancerDefinition>> REFERENCE_CODEC = RegistryFileCodec.create(FARegistries.ENHANCER_DEFINITION, CODEC);
+    public static final Codec<HolderSet<EnhancerDefinition>> LIST_CODEC = RegistryCodecs.homogeneousList(FARegistries.ENHANCER_DEFINITION, CODEC);
 
     public static final Codec<EnhancerDefinition> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             Codec.simpleMap(EnhancerTarget.CODEC, ComponentSerialization.CODEC, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(definition -> {
