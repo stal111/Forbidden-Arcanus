@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
-import com.google.common.base.Suppliers;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
@@ -38,7 +37,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 /**
  * Ritual Manager <br>
@@ -75,8 +73,7 @@ public class RitualManager implements SerializableComponent {
 
     private final HashMap<BlockPos, ItemStack> cachedIngredients = new HashMap<>();
     private @Nullable Holder<Ritual> validRitual;
-    //We need to wrap this in a Supplier because the ActiveRitualData cannot be deserialized during #load as the level is not set yet
-    private Supplier<ActiveRitualData> activeRitualData = Suppliers.memoize(() -> null);
+    private @Nullable ActiveRitualData activeRitualData;
 
     public RitualManager(MainIngredientAccessor accessor, EnhancerAccessor enhancerAccessor, MagicCircleController circleController, int forgeTier) {
         this.mainIngredientAccessor = accessor;
@@ -99,11 +96,11 @@ public class RitualManager implements SerializableComponent {
     }
 
     private Optional<ActiveRitualData> getActiveRitualData() {
-        return Optional.ofNullable(this.activeRitualData.get());
+        return Optional.ofNullable(this.activeRitualData);
     }
 
     public void setActiveRitual(@Nullable Holder<Ritual> ritual) {
-        this.activeRitualData = Suppliers.memoize(() -> ritual != null ? ActiveRitualData.create(ritual) : null);
+        this.activeRitualData = ritual != null ? ActiveRitualData.create(ritual) : null;
 
         int duration = ritual != null ? ritual.value().duration() : 0;
 
@@ -295,7 +292,7 @@ public class RitualManager implements SerializableComponent {
     @Override
     public CompoundTag save(CompoundTag tag) {
         this.getActiveRitualData().flatMap(data -> {
-            return ActiveRitualData.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), this.activeRitualData.get()).result();
+            return ActiveRitualData.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), this.activeRitualData).result();
         }).ifPresent(dataTag -> {
             tag.put(TAG_ACTIVE_RITUAL, dataTag);
         });
@@ -306,9 +303,7 @@ public class RitualManager implements SerializableComponent {
     @Override
     public void load(CompoundTag tag) {
         if (tag.contains(TAG_ACTIVE_RITUAL)) {
-            this.activeRitualData = Suppliers.memoize(() -> {
-                return ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), tag).resultOrPartial(System.err::println).orElse(null);
-            });
+            this.activeRitualData = ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), tag).resultOrPartial(System.err::println).orElse(null);
         }
     }
 
