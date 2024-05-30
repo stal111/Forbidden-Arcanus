@@ -31,7 +31,7 @@ public class RitualBuilder {
 
     private final List<RitualInput> inputs = new ArrayList<>();
     private final EssencesStorage essences = new EssencesStorage();
-    private RitualRequirements additionalRequirements;
+    private RitualRequirements additionalRequirements = RitualRequirements.NONE;
     private Holder<MagicCircleType> magicCircleType;
 
     public RitualBuilder(ItemStack mainIngredient, RitualResult result, HolderGetter<MagicCircleType> magicCircleLookup) {
@@ -83,19 +83,17 @@ public class RitualBuilder {
     }
 
     public RitualBuilder requirements(int tier) {
-        this.additionalRequirements = new RitualRequirements(tier, HolderSet.empty());
+        this.additionalRequirements = RitualRequirements.of(tier);
 
         return this;
     }
 
     public final RitualBuilder requirements(int tier, Holder<EnhancerDefinition> enhancer) {
-        this.additionalRequirements = new RitualRequirements(tier, HolderSet.direct(enhancer));
-
-        return this;
+        return this.requirements(tier, HolderSet.direct(enhancer));
     }
 
     public final RitualBuilder requirements(int tier, HolderSet<EnhancerDefinition> enhancers) {
-        this.additionalRequirements = new RitualRequirements(tier, enhancers);
+        this.additionalRequirements = RitualRequirements.of(tier, enhancers);
 
         return this;
     }

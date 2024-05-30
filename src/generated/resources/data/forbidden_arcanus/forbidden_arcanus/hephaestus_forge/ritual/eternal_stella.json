@@ -1,14 +1,11 @@
 {
-  "additional_requirements": {
-    "enhancers": [],
-    "forge_tier": 3
-  },
   "essences": {
     "aureal": 82,
     "blood": 1000,
     "experience": 0,
     "souls": 1
   },
+  "forge_tier": 3,
   "inputs": [
     {
       "amount": 3,

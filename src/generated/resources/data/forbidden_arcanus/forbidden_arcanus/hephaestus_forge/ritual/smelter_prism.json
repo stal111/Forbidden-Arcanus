@@ -1,7 +1,5 @@
 {
-  "additional_requirements": {
-    "enhancers": "forbidden_arcanus:elementarium"
-  },
+  "enhancers": "forbidden_arcanus:elementarium",
   "essences": {
     "aureal": 200,
     "blood": 1250,

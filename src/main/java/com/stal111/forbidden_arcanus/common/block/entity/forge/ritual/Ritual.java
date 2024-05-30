@@ -16,9 +16,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Ritual <br>
@@ -31,13 +33,13 @@ public record Ritual(List<RitualInput> inputs,
                      Ingredient mainIngredient,
                      RitualResult result,
                      EssencesDefinition essences,
-                     @Nullable RitualRequirements requirements,
+                     RitualRequirements requirements,
                      Holder<MagicCircleType> magicCircleType,
                      int duration) {
 
     public static final int DEFAULT_DURATION = 500;
 
-    public static final Codec<Ritual> DIRECT_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final Codec<Ritual> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
                 return ritual.inputs;
             }),
@@ -50,8 +52,8 @@ public record Ritual(List<RitualInput> inputs,
             EssencesDefinition.CODEC.fieldOf("essences").forGetter(ritual -> {
                 return ritual.essences;
             }),
-            RitualRequirements.CODEC.optionalFieldOf("additional_requirements").forGetter(ritual -> {
-                return Optional.ofNullable(ritual.requirements);
+            RitualRequirements.CODEC.forGetter(ritual -> {
+                return ritual.requirements;
             }),
             MagicCircleType.CODEC.fieldOf("magic_circle").forGetter(ritual -> {
                 return ritual.magicCircleType;
@@ -59,9 +61,7 @@ public record Ritual(List<RitualInput> inputs,
             ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ritual -> {
                 return ritual.duration;
             })
-    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, magicCircleType, duration) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), magicCircleType, duration);
-    }));
+    ).apply(instance, Ritual::new));
 
     public static final Codec<Holder<Ritual>> CODEC = RegistryFileCodec.create(FARegistries.RITUAL, DIRECT_CODEC);
 
@@ -78,18 +78,18 @@ public record Ritual(List<RitualInput> inputs,
             EssencesDefinition.CODEC.fieldOf("essences").forGetter(ritual -> {
                 return ritual.essences;
             }),
-            RitualRequirements.CODEC.optionalFieldOf("additional_requirements").forGetter(ritual -> {
-                return Optional.ofNullable(ritual.requirements);
+            RitualRequirements.CODEC.forGetter(ritual -> {
+                return ritual.requirements;
             }),
             ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ritual -> {
                 return ritual.duration;
             })
     ).apply(instance, (inputs, mainIngredient, result, essences, requirements, duration) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, requirements.orElse(null), null, duration);
+        return new Ritual(inputs, mainIngredient, result, essences, requirements, null, duration);
     }));
 
     public boolean canStart(RitualStartContext context) {
-        if (this.requirements != null && !this.requirements.checkRequirements(context.forgeTier(), context.enhancers())) {
+        if (!this.requirements.checkRequirements(context.forgeTier(), context.enhancers())) {
             return false;
         }
 

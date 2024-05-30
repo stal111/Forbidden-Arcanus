@@ -1,14 +1,12 @@
 {
-  "additional_requirements": {
-    "enhancers": "forbidden_arcanus:elementarium",
-    "forge_tier": 3
-  },
+  "enhancers": "forbidden_arcanus:elementarium",
   "essences": {
     "aureal": 1000,
     "blood": 2000,
     "experience": 0,
     "souls": 8
   },
+  "forge_tier": 3,
   "inputs": [
     {
       "amount": 2,
