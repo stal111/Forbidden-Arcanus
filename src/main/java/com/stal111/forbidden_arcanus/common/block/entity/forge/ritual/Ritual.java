@@ -129,21 +129,6 @@ public record Ritual(List<RitualInput> inputs,
         return ingredients.stream().filter(stack -> !stack.isEmpty()).toList().isEmpty();
     }
 
-    public enum PedestalType {
-        DARKSTONE_PEDESTAL(ModBlocks.DARKSTONE_PEDESTAL.get()),
-        MAGNETIZED_DARKSTONE_PEDESTAL(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
-
-        private final Block block;
-
-        PedestalType(Block block) {
-            this.block = block;
-        }
-
-        public Block getBlock() {
-            return block;
-        }
-    }
-
     protected record RitualStartContext(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, List<EnhancerDefinition> enhancers) {
         public static RitualStartContext of(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, List<EnhancerDefinition> enhancers) {
             return new RitualStartContext(level, pos, forgeTier, inputs, mainIngredient, enhancers);
