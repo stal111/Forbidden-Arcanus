@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
@@ -82,17 +83,17 @@ public class RitualBuilder {
         return this;
     }
 
-    public RitualBuilder requirements(int tier) {
+    public RitualBuilder requirements(TierPredicate tier) {
         this.additionalRequirements = RitualRequirements.of(tier);
 
         return this;
     }
 
-    public final RitualBuilder requirements(int tier, Holder<EnhancerDefinition> enhancer) {
+    public final RitualBuilder requirements(TierPredicate tier, Holder<EnhancerDefinition> enhancer) {
         return this.requirements(tier, HolderSet.direct(enhancer));
     }
 
-    public final RitualBuilder requirements(int tier, HolderSet<EnhancerDefinition> enhancers) {
+    public final RitualBuilder requirements(TierPredicate tier, HolderSet<EnhancerDefinition> enhancers) {
         this.additionalRequirements = RitualRequirements.of(tier, enhancers);
 
         return this;

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
@@ -60,13 +61,12 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public void bootstrap(BootstrapContext<Ritual> context) {
         Holder<EnhancerDefinition> elementarium = context.lookup(FARegistries.ENHANCER_DEFINITION).getOrThrow(ModEnhancerDefinitions.ELEMENTARIUM);
 
-        var test = context.lookup(FARegistries.MAGIC_CIRCLE).getOrThrow(ModMagicCircles.CREATE_ITEM);
-        this.register(context, ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000).requirements(3));
+        this.register(context, ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000).requirements(TierPredicate.min(3)));
 
-        this.register(context, TERRASTOMP_PRISM, ModItems.TERRASTOMP_PRISM.get(), Blocks.DIAMOND_BLOCK, builder -> builder.input(Ingredient.of(Items.FLINT), 2).input(Ingredient.of(Blocks.DRIPSTONE_BLOCK), 2).input(Ingredient.of(Blocks.POINTED_DRIPSTONE), 2).aureal(300).souls(9).blood(1500).requirements(2, elementarium));
-        this.register(context, SEA_PRISM, ModItems.SEA_PRISM.get(), Items.HEART_OF_THE_SEA, builder -> builder.input(Ingredient.of(Items.PRISMARINE_SHARD), 2).input(Ingredient.of(Items.TURTLE_SCUTE), 2).input(Ingredient.of(Items.LAPIS_LAZULI), 2).aureal(1000).souls(8).blood(2000).requirements(3, elementarium));
-        this.register(context, WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM.get(), Blocks.WHITE_WOOL, builder -> builder.input(Ingredient.of(ModItems.BAT_WING.get())).input(Ingredient.of(Items.FEATHER), 2).input(Ingredient.of(Items.PHANTOM_MEMBRANE), 3).aureal(1000).souls(3).blood(2250).requirements(3, elementarium));
-        this.register(context, SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).aureal(200).souls(4).blood(1250).requirements(1, elementarium));
+        this.register(context, TERRASTOMP_PRISM, ModItems.TERRASTOMP_PRISM.get(), Blocks.DIAMOND_BLOCK, builder -> builder.input(Ingredient.of(Items.FLINT), 2).input(Ingredient.of(Blocks.DRIPSTONE_BLOCK), 2).input(Ingredient.of(Blocks.POINTED_DRIPSTONE), 2).aureal(300).souls(9).blood(1500).requirements(TierPredicate.min(2), elementarium));
+        this.register(context, SEA_PRISM, ModItems.SEA_PRISM.get(), Items.HEART_OF_THE_SEA, builder -> builder.input(Ingredient.of(Items.PRISMARINE_SHARD), 2).input(Ingredient.of(Items.TURTLE_SCUTE), 2).input(Ingredient.of(Items.LAPIS_LAZULI), 2).aureal(1000).souls(8).blood(2000).requirements(TierPredicate.min(3), elementarium));
+        this.register(context, WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM.get(), Blocks.WHITE_WOOL, builder -> builder.input(Ingredient.of(ModItems.BAT_WING.get())).input(Ingredient.of(Items.FEATHER), 2).input(Ingredient.of(Items.PHANTOM_MEMBRANE), 3).aureal(1000).souls(3).blood(2250).requirements(TierPredicate.min(3), elementarium));
+        this.register(context, SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).aureal(200).souls(4).blood(1250).requirements(TierPredicate.ANY, elementarium));
         this.register(context, FERROGNETIC_MIXTURE, ModItems.FERROGNETIC_MIXTURE.get(), Blocks.LODESTONE, builder -> builder.input(Ingredient.of(Items.CLAY_BALL), 2).input(Ingredient.of(ModItems.WAX.get()), 2).input(Ingredient.of(Items.SLIME_BALL), 2).input(Ingredient.of(Items.IRON_INGOT)).aureal(100).souls(2).blood(1250));
 
         this.register(context, UPGRADE_TIER_2, new UpgradeTierResult(1, 2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).aureal(500).souls(10).blood(6000).magicCircle(ModMagicCircles.UPGRADE_TIER));
