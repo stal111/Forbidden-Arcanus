@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
@@ -63,43 +64,44 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         Holder<EnhancerDefinition> elementarium = context.lookup(FARegistries.ENHANCER_DEFINITION).getOrThrow(ModEnhancerDefinitions.ELEMENTARIUM);
 
         // Requirements
-        var eternalStella = this.requirements(builder -> builder.tier(TierPredicate.min(3)));
-        var terrastompPrism = this.requirements(builder -> builder.tier(TierPredicate.min(2)).enhancer(elementarium));
-        var seaPrism = this.requirements(builder -> builder.tier(TierPredicate.min(3)).enhancer(elementarium));
-        var whirlwindPrism = this.requirements(builder -> builder.tier(TierPredicate.min(3)).enhancer(elementarium));
-        var smelterPrism = this.requirements(builder -> builder.enhancer(elementarium));
-        var tier2 = this.requirements(builder -> builder.tier(TierPredicate.exact(1)));
-        var tier3 = this.requirements(builder -> builder.tier(TierPredicate.exact(2)));
-        var tier4 = this.requirements(builder -> builder.tier(TierPredicate.exact(3)));
-        var tier5 = this.requirements(builder -> builder.tier(TierPredicate.exact(4)));
+        var eternalStella = this.requirements(EssencesDefinition.of(82, 1, 1000, 0), builder -> builder.tier(TierPredicate.min(3)));
+        var terrastompPrism = this.requirements(EssencesDefinition.of(300, 9, 1500, 0), builder -> builder.tier(TierPredicate.min(2)).enhancer(elementarium));
+        var seaPrism = this.requirements(EssencesDefinition.of(1000, 8, 2000, 0), builder -> builder.tier(TierPredicate.min(3)).enhancer(elementarium));
+        var whirlwindPrism = this.requirements(EssencesDefinition.of(1000, 3, 2250, 0), builder -> builder.tier(TierPredicate.min(3)).enhancer(elementarium));
+        var smelterPrism = this.requirements(EssencesDefinition.of(200, 4, 1250, 0), builder -> builder.enhancer(elementarium));
+        var ferroneticMixture = this.requirements(EssencesDefinition.of(100, 2, 1250, 0), UnaryOperator.identity());
+        var tier2 = this.requirements(EssencesDefinition.of(500, 10, 6000, 0), builder -> builder.tier(TierPredicate.exact(1)));
+        var tier3 = this.requirements(EssencesDefinition.of(1000, 50, 9000, 0), builder -> builder.tier(TierPredicate.exact(2)));
+        var tier4 = this.requirements(EssencesDefinition.of(2000, 100, 12000, 0), builder -> builder.tier(TierPredicate.exact(3)));
+        var tier5 = this.requirements(EssencesDefinition.of(5000, 500, 20000, 0), builder -> builder.tier(TierPredicate.exact(4)));
 
-        this.register(context, ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).aureal(82).souls(1).blood(1000).requirements(eternalStella));
+        this.register(ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).requirements(eternalStella));
 
-        this.register(context, TERRASTOMP_PRISM, ModItems.TERRASTOMP_PRISM.get(), Blocks.DIAMOND_BLOCK, builder -> builder.input(Ingredient.of(Items.FLINT), 2).input(Ingredient.of(Blocks.DRIPSTONE_BLOCK), 2).input(Ingredient.of(Blocks.POINTED_DRIPSTONE), 2).aureal(300).souls(9).blood(1500).requirements(terrastompPrism));
-        this.register(context, SEA_PRISM, ModItems.SEA_PRISM.get(), Items.HEART_OF_THE_SEA, builder -> builder.input(Ingredient.of(Items.PRISMARINE_SHARD), 2).input(Ingredient.of(Items.TURTLE_SCUTE), 2).input(Ingredient.of(Items.LAPIS_LAZULI), 2).aureal(1000).souls(8).blood(2000).requirements(seaPrism));
-        this.register(context, WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM.get(), Blocks.WHITE_WOOL, builder -> builder.input(Ingredient.of(ModItems.BAT_WING.get())).input(Ingredient.of(Items.FEATHER), 2).input(Ingredient.of(Items.PHANTOM_MEMBRANE), 3).aureal(1000).souls(3).blood(2250).requirements(whirlwindPrism));
-        this.register(context, SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).aureal(200).souls(4).blood(1250).requirements(smelterPrism));
-        this.register(context, FERROGNETIC_MIXTURE, ModItems.FERROGNETIC_MIXTURE.get(), Blocks.LODESTONE, builder -> builder.input(Ingredient.of(Items.CLAY_BALL), 2).input(Ingredient.of(ModItems.WAX.get()), 2).input(Ingredient.of(Items.SLIME_BALL), 2).input(Ingredient.of(Items.IRON_INGOT)).aureal(100).souls(2).blood(1250));
+        this.register(TERRASTOMP_PRISM, ModItems.TERRASTOMP_PRISM.get(), Blocks.DIAMOND_BLOCK, builder -> builder.input(Ingredient.of(Items.FLINT), 2).input(Ingredient.of(Blocks.DRIPSTONE_BLOCK), 2).input(Ingredient.of(Blocks.POINTED_DRIPSTONE), 2).requirements(terrastompPrism));
+        this.register(SEA_PRISM, ModItems.SEA_PRISM.get(), Items.HEART_OF_THE_SEA, builder -> builder.input(Ingredient.of(Items.PRISMARINE_SHARD), 2).input(Ingredient.of(Items.TURTLE_SCUTE), 2).input(Ingredient.of(Items.LAPIS_LAZULI), 2).requirements(seaPrism));
+        this.register(WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM.get(), Blocks.WHITE_WOOL, builder -> builder.input(Ingredient.of(ModItems.BAT_WING.get())).input(Ingredient.of(Items.FEATHER), 2).input(Ingredient.of(Items.PHANTOM_MEMBRANE), 3).requirements(whirlwindPrism));
+        this.register(SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).requirements(smelterPrism));
+        this.register(FERROGNETIC_MIXTURE, ModItems.FERROGNETIC_MIXTURE.get(), Blocks.LODESTONE, builder -> builder.input(Ingredient.of(Items.CLAY_BALL), 2).input(Ingredient.of(ModItems.WAX.get()), 2).input(Ingredient.of(Items.SLIME_BALL), 2).input(Ingredient.of(Items.IRON_INGOT)).requirements(ferroneticMixture));
 
-        this.register(context, UPGRADE_TIER_2, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).aureal(500).souls(10).blood(6000).requirements(tier2).magicCircle(ModMagicCircles.UPGRADE_TIER));
-        this.register(context, UPGRADE_TIER_3, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).aureal(1000).souls(50).blood(9000).requirements(tier3).magicCircle(ModMagicCircles.UPGRADE_TIER));
-        this.register(context, UPGRADE_TIER_4, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.STELLARITE_PIECE.get()), 4).input(Ingredient.of(ModItems.RUNE.get()), 4).aureal(2000).souls(100).blood(12000).requirements(tier4).magicCircle(ModMagicCircles.UPGRADE_TIER));
-        this.register(context, UPGRADE_TIER_5, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.STELLARITE_BLOCK.get()), builder -> builder.input(Ingredient.of(Blocks.SCULK_CATALYST), 4).input(Ingredient.of(ModItems.DARK_NETHER_STAR.get()), 2).input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).aureal(5000).souls(500).blood(20000).requirements(tier5).magicCircle(ModMagicCircles.UPGRADE_FINAL_TIER));
+        this.register(UPGRADE_TIER_2, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).requirements(tier2).magicCircle(ModMagicCircles.UPGRADE_TIER));
+        this.register(UPGRADE_TIER_3, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).requirements(tier3).magicCircle(ModMagicCircles.UPGRADE_TIER));
+        this.register(UPGRADE_TIER_4, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.STELLARITE_PIECE.get()), 4).input(Ingredient.of(ModItems.RUNE.get()), 4).requirements(tier4).magicCircle(ModMagicCircles.UPGRADE_TIER));
+        this.register(UPGRADE_TIER_5, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.STELLARITE_BLOCK.get()), builder -> builder.input(Ingredient.of(Blocks.SCULK_CATALYST), 4).input(Ingredient.of(ModItems.DARK_NETHER_STAR.get()), 2).input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).requirements(tier5).magicCircle(ModMagicCircles.UPGRADE_FINAL_TIER));
     }
 
-    private RitualRequirements requirements(UnaryOperator<RitualRequirements.Builder> builder) {
-        return builder.apply(RitualRequirements.builder()).build();
+    private RitualRequirements requirements(EssencesDefinition essences, UnaryOperator<RitualRequirements.Builder> builder) {
+        return builder.apply(RitualRequirements.builder(essences)).build();
     }
 
-    private void register(BootstrapContext<Ritual> context, ResourceKey<Ritual> key, ItemLike result, ItemLike mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        context.register(key, builder.apply(new RitualBuilder(new ItemStack(mainIngredient), new CreateItemResult(new ItemStack(result)), this.magicCircleLookup)).build());
+    private void register(ResourceKey<Ritual> key, ItemLike result, ItemLike mainIngredient, UnaryOperator<RitualBuilder> builder) {
+        this.getContext().register(key, builder.apply(new RitualBuilder(new ItemStack(mainIngredient), new CreateItemResult(new ItemStack(result)), this.magicCircleLookup)).build());
     }
 
-    private void register(BootstrapContext<Ritual> context, ResourceKey<Ritual> key, ItemStack result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        context.register(key, builder.apply(new RitualBuilder(mainIngredient, new CreateItemResult(result), this.magicCircleLookup)).build());
+    private void register(ResourceKey<Ritual> key, ItemStack result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
+        this.getContext().register(key, builder.apply(new RitualBuilder(mainIngredient, new CreateItemResult(result), this.magicCircleLookup)).build());
     }
 
-    private void register(BootstrapContext<Ritual> context, ResourceKey<Ritual> key, RitualResult result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
-        context.register(key, builder.apply(new RitualBuilder(mainIngredient, result, this.magicCircleLookup)).build());
+    private void register(ResourceKey<Ritual> key, RitualResult result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
+        this.getContext().register(key, builder.apply(new RitualBuilder(mainIngredient, result, this.magicCircleLookup)).build());
     }
 }

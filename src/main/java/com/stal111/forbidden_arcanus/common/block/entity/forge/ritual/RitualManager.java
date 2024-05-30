@@ -128,7 +128,7 @@ public class RitualManager implements SerializableComponent {
         boolean oldValue = this.validRitual != null;
 
         for (Holder<Ritual> ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).holders().toList()) {
-            if (this.canStartRitual(ritual, definition)) {
+            if (this.canStartRitual(ritual.value(), definition)) {
                 if (!oldValue) {
                     this.updateRitualIndicator(true);
                 }
@@ -146,17 +146,17 @@ public class RitualManager implements SerializableComponent {
         }
     }
 
-    public boolean canStartRitual(Holder<Ritual> ritual, EssencesDefinition definition) {
+    public boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
         List<EssenceModifier> modifiers = this.enhancerAccessor.getEnhancers().stream()
                 .flatMap(enhancerDefinition -> enhancerDefinition.getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
                 .filter(effect -> effect instanceof EssenceModifier)
                 .map(effect -> (EssenceModifier) effect)
                 .toList();
 
-        EssencesDefinition updatedEssences = ritual.value().essences().applyModifiers(modifiers);
+        EssencesDefinition updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
         Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor.get(), this.enhancerAccessor.getEnhancers());
 
-        return definition.hasMoreThan(updatedEssences) && ritual.value().canStart(context);
+        return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
     }
 
     public boolean startRitual(EssencesStorage storage) {
@@ -165,7 +165,7 @@ public class RitualManager implements SerializableComponent {
 
             this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.value().magicCircleType());
 
-            storage.reduce(ritual.value().essences());
+            storage.reduce(ritual.value().requirements().essences());
 
             this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> {
                 blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);

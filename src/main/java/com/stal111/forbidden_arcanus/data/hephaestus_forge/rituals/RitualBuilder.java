@@ -1,8 +1,6 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
@@ -28,7 +26,6 @@ public class RitualBuilder {
     private final HolderGetter<MagicCircleType> magicCircleLookup;
 
     private final List<RitualInput> inputs = new ArrayList<>();
-    private final EssencesStorage essences = new EssencesStorage();
     private RitualRequirements requirements = RitualRequirements.NONE;
     private Holder<MagicCircleType> magicCircleType;
 
@@ -50,30 +47,6 @@ public class RitualBuilder {
         return this;
     }
 
-    public RitualBuilder aureal(int amount) {
-        this.essences.put(EssenceType.AUREAL, amount);
-
-        return this;
-    }
-
-    public RitualBuilder souls(int amount) {
-        this.essences.put(EssenceType.SOULS, amount);
-
-        return this;
-    }
-
-    public RitualBuilder blood(int amount) {
-        this.essences.put(EssenceType.BLOOD, amount);
-
-        return this;
-    }
-
-    public RitualBuilder experience(int amount) {
-        this.essences.put(EssenceType.EXPERIENCE, amount);
-
-        return this;
-    }
-
     public RitualBuilder magicCircle(ResourceKey<MagicCircleType> type) {
         this.magicCircleType = this.magicCircleLookup.getOrThrow(type);
 
@@ -87,6 +60,6 @@ public class RitualBuilder {
     }
 
     public Ritual build() {
-        return new Ritual(this.inputs, this.mainIngredient, this.result, this.essences.immutable(), this.requirements, this.magicCircleType, Ritual.DEFAULT_DURATION);
+        return new Ritual(this.inputs, this.mainIngredient, this.result, this.requirements, this.magicCircleType, Ritual.DEFAULT_DURATION);
     }
 }

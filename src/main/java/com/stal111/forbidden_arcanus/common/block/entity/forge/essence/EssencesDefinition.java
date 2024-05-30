@@ -15,12 +15,18 @@ import java.util.function.BiConsumer;
  */
 public record EssencesDefinition(int aureal, int souls, int blood, int experience) {
 
+    public static final EssencesDefinition EMPTY = new EssencesDefinition(0, 0, 0, 0);
+
     public static final Codec<EssencesDefinition> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("aureal").forGetter(EssencesDefinition::aureal),
             Codec.INT.fieldOf("souls").forGetter(EssencesDefinition::souls),
             Codec.INT.fieldOf("blood").forGetter(EssencesDefinition::blood),
             Codec.INT.fieldOf("experience").forGetter(EssencesDefinition::experience)
     ).apply(instance, EssencesDefinition::new));
+
+    public static EssencesDefinition of(int aureal, int souls, int blood, int experience) {
+        return new EssencesDefinition(aureal, souls, blood, experience);
+    }
 
     public int get(EssenceType type) {
         return switch (type) {

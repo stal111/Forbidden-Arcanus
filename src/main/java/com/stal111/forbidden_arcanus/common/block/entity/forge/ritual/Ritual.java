@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -30,7 +29,6 @@ import java.util.List;
 public record Ritual(List<RitualInput> inputs,
                      Ingredient mainIngredient,
                      RitualResult result,
-                     EssencesDefinition essences,
                      RitualRequirements requirements,
                      Holder<MagicCircleType> magicCircleType,
                      int duration) {
@@ -46,9 +44,6 @@ public record Ritual(List<RitualInput> inputs,
             }),
             RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {
                 return ritual.result;
-            }),
-            EssencesDefinition.CODEC.fieldOf("essences").forGetter(ritual -> {
-                return ritual.essences;
             }),
             RitualRequirements.CODEC.forGetter(ritual -> {
                 return ritual.requirements;
@@ -73,17 +68,14 @@ public record Ritual(List<RitualInput> inputs,
             RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {
                 return ritual.result;
             }),
-            EssencesDefinition.CODEC.fieldOf("essences").forGetter(ritual -> {
-                return ritual.essences;
-            }),
             RitualRequirements.CODEC.forGetter(ritual -> {
                 return ritual.requirements;
             }),
             ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ritual -> {
                 return ritual.duration;
             })
-    ).apply(instance, (inputs, mainIngredient, result, essences, requirements, duration) -> {
-        return new Ritual(inputs, mainIngredient, result, essences, requirements, null, duration);
+    ).apply(instance, (inputs, mainIngredient, result, requirements, duration) -> {
+        return new Ritual(inputs, mainIngredient, result, requirements, null, duration);
     }));
 
     public boolean canStart(RitualStartContext context) {
