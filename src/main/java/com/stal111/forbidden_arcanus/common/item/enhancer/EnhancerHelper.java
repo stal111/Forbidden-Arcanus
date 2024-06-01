@@ -15,4 +15,8 @@ public class EnhancerHelper {
     public static Optional<EnhancerDefinition> getEnhancer(ItemStack stack) {
         return Optional.ofNullable(stack.get(ModDataComponents.ENHANCER)).map(Holder::value);
     }
+
+    public static Optional<Holder<EnhancerDefinition>> getEnhancerHolder(ItemStack stack) {
+        return Optional.ofNullable(stack.get(ModDataComponents.ENHANCER));
+    }
 }

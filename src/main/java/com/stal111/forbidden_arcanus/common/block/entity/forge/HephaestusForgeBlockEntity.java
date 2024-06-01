@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusF
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -17,6 +18,7 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -36,7 +38,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumMap;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * Hephaestus Forge Block Entity <br>
@@ -116,12 +117,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             this.forgeLevel = forgeBlock.getLevel();
         }
 
-        this.ritualManager = new RitualManager(new MainSlotAccessor(this), () -> Stream.of(this.getStack(0), this.getStack(1), this.getStack(2), this.getStack(3))
-                .map(EnhancerHelper::getEnhancer)
-                .filter(Optional::isPresent)
-                .map(Optional::orElseThrow)
-                .toList(), this.magicCircleController, this.forgeLevel.getAsInt());
-        this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), this.ritualManager::updateValidRitual);
+        this.ritualManager = new RitualManager(new MainSlotAccessor(this), this.magicCircleController, this.forgeLevel.getAsInt());
+        this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), essencesDefinition -> this.ritualManager.updateValidRitual(essencesDefinition, this.getEnhancers()));
     }
 
     @Override
@@ -199,13 +196,23 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             if (this.getStack(slot).isEmpty() && this.getRitualManager().isRitualActive()) {
                 this.getRitualManager().failRitual();
             } else {
-                this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences());
+                this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences(), this.getEnhancers());
             }
 
             this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
         } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-            this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences());
+            this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences(), this.getEnhancers());
         }
+    }
+
+    //TODO: cache enhancers
+    private HolderSet<EnhancerDefinition> getEnhancers() {
+        var list = HephaestusForgeMenu.ENHANCERS_SLOTS.stream()
+                .map(this::getStack)
+                .flatMap(stack -> EnhancerHelper.getEnhancerHolder(stack).stream())
+                .toList();
+
+        return HolderSet.direct(list);
     }
 
     private Optional<HephaestusForgeInput> getInput(Level level, ItemStack stack, EssenceType essenceType) {
