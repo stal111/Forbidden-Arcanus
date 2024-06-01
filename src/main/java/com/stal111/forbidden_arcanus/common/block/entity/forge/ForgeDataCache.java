@@ -9,28 +9,17 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author stal111
  * @since 01.06.2024
  */
-public class ForgeDataCache {
+public record ForgeDataCache(HashMap<BlockPos, ItemStack> cachedIngredients, ItemStack mainIngredient, List<Holder<EnhancerDefinition>> enhancers) {
 
-    private final HashMap<BlockPos, ItemStack> cachedIngredients = new HashMap<>();
-    private final List<Holder<EnhancerDefinition>> enhancers = new ArrayList<>();
-    private ItemStack mainIngredient = ItemStack.EMPTY;
+    public static final ForgeDataCache EMPTY = new ForgeDataCache(new HashMap<>(), ItemStack.EMPTY, new ArrayList<>());
 
-    public Map<BlockPos, ItemStack> getCachedIngredients() {
-        return this.cachedIngredients;
-    }
-
-    public ItemStack getMainIngredient() {
-        return this.mainIngredient;
-    }
-
-    public void setMainIngredient(ItemStack mainIngredient) {
-        this.mainIngredient = mainIngredient;
+    public ForgeDataCache setMainIngredient(ItemStack mainIngredient) {
+        return new ForgeDataCache(this.cachedIngredients, mainIngredient, this.enhancers);
     }
 
     public void addEnhancer(Holder<EnhancerDefinition> enhancer) {

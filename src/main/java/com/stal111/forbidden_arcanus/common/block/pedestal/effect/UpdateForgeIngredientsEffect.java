@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.pedestal.effect;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -25,9 +24,7 @@ public class UpdateForgeIngredientsEffect extends PedestalEffect {
     public void execute(ServerLevel level, BlockPos pos, ItemStack stack) {
         findHephaestusForge(level, pos).ifPresent(forgePos -> {
             if (level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity blockEntity) {
-                RitualManager ritualManager = blockEntity.getRitualManager();
-
-                ritualManager.updateIngredient(pos, stack, blockEntity.getEssences());
+                blockEntity.updatePedestalStack(pos, stack);
             }
         });
     }

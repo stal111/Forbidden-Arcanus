@@ -15,7 +15,7 @@ import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Vec3i;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -27,7 +27,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,27 +43,16 @@ import java.util.function.Predicate;
  * @author stal111
  * @since 2021-07-09
  */
-public class RitualManager implements SerializableComponent {
+public class RitualManager {
 
     public static final String TAG_ACTIVE_RITUAL = "active_ritual";
 
     public static final int PEDESTAL_ITEM_HEIGHT = 140;
     public static final int LIGHTNING_COUNTER_THRESHOLD = 300;
 
-    public static final Vec3i[] PEDESTAL_OFFSETS = {
-            new Vec3i(-3, 0, 0),
-            new Vec3i(-2, 0, -2),
-            new Vec3i(0, 0, -3),
-            new Vec3i(2, 0, -2),
-            new Vec3i(3, 0, 0),
-            new Vec3i(2, 0, 2),
-            new Vec3i(0, 0, 3),
-            new Vec3i(-2, 0, 2)
-    };
-
     private final MagicCircleController magicCircleController;
 
-    private final ForgeDataCache dataCache;
+    private ForgeDataCache dataCache = ForgeDataCache.EMPTY;
 
     private ServerLevel level;
     private BlockPos pos;
@@ -73,8 +61,7 @@ public class RitualManager implements SerializableComponent {
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
 
-    public RitualManager(ForgeDataCache dataCache, MagicCircleController circleController, int forgeTier) {
-        this.dataCache = dataCache;
+    public RitualManager(MagicCircleController circleController, int forgeTier) {
         this.magicCircleController = circleController;
         this.forgeTier = forgeTier;
     }
@@ -96,7 +83,7 @@ public class RitualManager implements SerializableComponent {
         return Optional.ofNullable(this.activeRitualData);
     }
 
-    public void setActiveRitual(@Nullable Holder<Ritual> ritual) {
+    private void setActiveRitual(@Nullable Holder<Ritual> ritual) {
         this.activeRitualData = ritual != null ? ActiveRitualData.create(ritual) : null;
 
         int duration = ritual != null ? ritual.value().duration() : 0;
@@ -108,14 +95,14 @@ public class RitualManager implements SerializableComponent {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void updateIngredient(BlockPos pos, ItemStack stack, EssencesDefinition definition) {
-        this.dataCache.getCachedIngredients().put(pos, stack);
+    public void onDataChanged(ForgeDataCache dataCache, EssencesDefinition essencesDefinition) {
+        this.dataCache = dataCache;
 
         if (this.isRitualActive()) {
             this.failRitual();
         }
 
-        this.updateValidRitual(definition);
+        this.updateValidRitual(essencesDefinition);
     }
 
     public void updateValidRitual(EssencesDefinition definition) {
@@ -140,7 +127,7 @@ public class RitualManager implements SerializableComponent {
         }
     }
 
-    public boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
+    private boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
         List<EssenceModifier> modifiers = this.dataCache.getEnhancers().stream()
                 .flatMap(enhancerDefinition -> enhancerDefinition.value().getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
                 .filter(effect -> effect instanceof EssenceModifier)
@@ -148,7 +135,7 @@ public class RitualManager implements SerializableComponent {
                 .toList();
 
         EssencesDefinition updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
-        Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.dataCache.getCachedIngredients().values(), this.dataCache.getMainIngredient(), this.dataCache.getEnhancers());
+        Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.dataCache);
 
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
     }
@@ -183,7 +170,7 @@ public class RitualManager implements SerializableComponent {
 
         this.handleLightningCounter(data);
 
-        this.dataCache.getCachedIngredients().forEach((blockPos, stack) -> {
+        this.dataCache.cachedIngredients().forEach((blockPos, stack) -> {
             this.addItemParticles(blockPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + data.getCounter(), PEDESTAL_ITEM_HEIGHT), stack);
         });
 
@@ -227,21 +214,21 @@ public class RitualManager implements SerializableComponent {
 
                 this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
 
-                if (!data.getRitual().checkIngredients(list, this.dataCache.getMainIngredient())) {
+                if (!data.getRitual().checkIngredients(list, this.dataCache.mainIngredient())) {
                     this.failRitual();
                 }
             }
         }
     }
 
-    public ItemStack finishRitual(ActiveRitualData data) {
+    private ItemStack finishRitual(ActiveRitualData data) {
         this.reset();
 
         return data.getRitual().result().apply(this.level, this.pos, this.forgeTier);
     }
 
-    public ItemStack failRitual() {
-        ItemStack stack = this.dataCache.getMainIngredient();
+    private ItemStack failRitual() {
+        ItemStack stack = this.dataCache.mainIngredient();
 
         this.reset();
 
@@ -258,7 +245,7 @@ public class RitualManager implements SerializableComponent {
     private void clearPedestals() {
         this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> blockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED));
 
-        this.dataCache.getCachedIngredients().clear();
+        this.dataCache.cachedIngredients().clear();
     }
 
     private void addItemParticles(BlockPos pedestalPos, int itemHeight, ItemStack stack) {
@@ -282,16 +269,15 @@ public class RitualManager implements SerializableComponent {
         this.clearPedestals();
     }
 
-    public double getFailureChance() {
+    private double getFailureChance() {
         //TODO
         return 0.0D;
         //return ((this.getBlockEntity().getEssenceManager().getCorruption() + 5) / (float) this.getBlockEntity().getForgeLevel().getMaxCorruption()) / 2;
     }
 
-    @Override
-    public CompoundTag save(CompoundTag tag) {
+    public CompoundTag save(CompoundTag tag, HolderLookup.Provider lookupProvider) {
         this.getActiveRitualData().flatMap(data -> {
-            return ActiveRitualData.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), this.activeRitualData).result();
+            return ActiveRitualData.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), this.activeRitualData).result();
         }).ifPresent(dataTag -> {
             tag.put(TAG_ACTIVE_RITUAL, dataTag);
         });
@@ -299,15 +285,14 @@ public class RitualManager implements SerializableComponent {
         return tag;
     }
 
-    @Override
-    public void load(CompoundTag tag) {
+    public void load(CompoundTag tag, HolderLookup.Provider lookupProvider) {
         if (tag.contains(TAG_ACTIVE_RITUAL)) {
-            this.activeRitualData = ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, this.level.registryAccess()), tag).resultOrPartial(System.err::println).orElse(null);
+            this.activeRitualData = ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag).resultOrPartial(System.err::println).orElse(null);
         }
     }
 
-    public void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
-        for (BlockPos pos : this.dataCache.getCachedIngredients().keySet()) {
+    private void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
+        for (BlockPos pos : this.dataCache.cachedIngredients().keySet()) {
             if (this.level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity && predicate.test(blockEntity)) {
                 consumer.accept(blockEntity);
             }

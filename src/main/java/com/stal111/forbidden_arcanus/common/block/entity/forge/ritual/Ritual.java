@@ -2,13 +2,12 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
@@ -80,13 +79,13 @@ public record Ritual(List<RitualInput> inputs,
     }));
 
     public boolean canStart(RitualStartContext context) {
-        if (!this.requirements.checkRequirements(context.forgeTier(), context.enhancers())) {
+        if (!this.requirements.checkRequirements(context.forgeTier(), context.dataCache.getEnhancers())) {
             return false;
         }
 
-        ItemStack mainIngredient = context.mainIngredient();
+        ItemStack mainIngredient = context.dataCache.mainIngredient();
 
-        return this.checkIngredients(context.inputs(), mainIngredient);
+        return this.checkIngredients(context.dataCache.cachedIngredients().values(), mainIngredient);
     }
 
     public boolean checkIngredients(Collection<ItemStack> list, ItemStack mainIngredient) {
@@ -120,9 +119,9 @@ public record Ritual(List<RitualInput> inputs,
         return ingredients.stream().filter(stack -> !stack.isEmpty()).toList().isEmpty();
     }
 
-    protected record RitualStartContext(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, HolderSet<EnhancerDefinition> enhancers) {
-        public static RitualStartContext of(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, HolderSet<EnhancerDefinition> enhancers) {
-            return new RitualStartContext(level, pos, forgeTier, inputs, mainIngredient, enhancers);
+    protected record RitualStartContext(Level level, BlockPos pos, int forgeTier, ForgeDataCache dataCache) {
+        public static RitualStartContext of(Level level, BlockPos pos, int forgeTier, ForgeDataCache dataCache) {
+            return new RitualStartContext(level, pos, forgeTier, dataCache);
         }
     }
 }
