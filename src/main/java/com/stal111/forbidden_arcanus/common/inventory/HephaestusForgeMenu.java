@@ -1,12 +1,13 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
-import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import it.unimi.dsi.fastutil.ints.IntImmutableList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
@@ -22,7 +23,6 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Hephaestus Forge Menu <br>
@@ -34,7 +34,7 @@ import java.util.List;
 public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     public static final String UNLOCKED_AT_KEY = "gui.forbidden_arcanus.hephaestus_forge.unlocked_at";
-    public static final List<Integer> ENHANCERS_SLOTS = ImmutableList.of(0, 1, 2, 3);
+    public static final IntList ENHANCERS_SLOTS = IntImmutableList.of(0, 1, 2, 3);
 
     private final ContainerData hephaestusForgeData;
     private final ContainerLevelAccess levelAccess;

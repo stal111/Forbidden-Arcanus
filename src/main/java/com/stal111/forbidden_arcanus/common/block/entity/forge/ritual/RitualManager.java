@@ -98,9 +98,11 @@ public class RitualManager {
     public void onDataChanged(ForgeDataCache dataCache, EssencesDefinition essencesDefinition) {
         this.dataCache = dataCache;
 
-        if (this.isRitualActive()) {
-            this.failRitual();
-        }
+        this.getActiveRitualData().ifPresent(data -> {
+            if (!data.getRitual().checkIngredients(this.dataCache.cachedIngredients().values(), this.dataCache.mainIngredient())) {
+                this.failRitual();
+            }
+        });
 
         this.updateValidRitual(essencesDefinition);
     }
@@ -286,7 +288,7 @@ public class RitualManager {
 
     public void load(CompoundTag tag, HolderLookup.Provider lookupProvider) {
         if (tag.contains(TAG_ACTIVE_RITUAL)) {
-            this.activeRitualData = ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag).resultOrPartial(System.err::println).orElse(null);
+            this.activeRitualData = ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag.get(TAG_ACTIVE_RITUAL)).resultOrPartial(System.err::println).orElse(null);
         }
     }
 

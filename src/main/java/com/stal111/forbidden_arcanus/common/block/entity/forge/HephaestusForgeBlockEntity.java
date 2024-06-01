@@ -126,6 +126,11 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
         if (level instanceof ServerLevel serverLevel) {
             this.ritualManager.setup(serverLevel, this.getBlockPos());
+
+            this.dataCache = this.dataCache.setMainIngredient(this.getStack(MAIN_SLOT));
+            HephaestusForgeMenu.ENHANCERS_SLOTS.forEach(slot -> EnhancerHelper.getEnhancerHolder(this.getStack(slot)).ifPresent(holder -> this.dataCache.enhancers().put(slot, holder)));
+
+            this.getRitualManager().onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences());
         }
     }
 
@@ -200,7 +205,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
             this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
         } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-            EnhancerHelper.getEnhancerHolder(this.getStack(slot)).ifPresent(this.dataCache::addEnhancer);
+            EnhancerHelper.getEnhancerHolder(this.getStack(slot)).ifPresentOrElse(holder -> this.dataCache.enhancers().put(slot, holder), () -> this.dataCache.enhancers().remove(slot));
 
             this.getRitualManager().onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences());
         }
