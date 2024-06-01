@@ -135,9 +135,8 @@ public class RitualManager {
                 .toList();
 
         EssencesDefinition updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
-        Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.dataCache);
 
-        return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
+        return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.forgeTier);
     }
 
     public boolean startRitual(EssencesStorage storage) {
