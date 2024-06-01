@@ -9,6 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,13 +36,13 @@ public record RitualRequirements(EssencesDefinition essences, TierPredicate tier
         return new RitualRequirements.Builder(essences);
     }
 
-    public boolean checkRequirements(int forgeTier, HolderSet<EnhancerDefinition> enhancers) {
+    public boolean checkRequirements(int forgeTier, List<EnhancerDefinition> enhancers) {
         if (!this.tier.test(forgeTier)) {
             return false;
         }
 
         for (Holder<EnhancerDefinition> enhancer : this.enhancers.orElse(HolderSet.empty())) {
-            if (!enhancers.contains(enhancer)) {
+            if (!enhancers.contains(enhancer.value())) {
                 return false;
             }
         }

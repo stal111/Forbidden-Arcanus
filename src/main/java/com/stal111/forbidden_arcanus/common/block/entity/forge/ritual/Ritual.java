@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
@@ -120,8 +119,8 @@ public record Ritual(List<RitualInput> inputs,
         return ingredients.stream().filter(stack -> !stack.isEmpty()).toList().isEmpty();
     }
 
-    protected record RitualStartContext(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, HolderSet<EnhancerDefinition> enhancers) {
-        public static RitualStartContext of(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, HolderSet<EnhancerDefinition> enhancers) {
+    protected record RitualStartContext(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, List<EnhancerDefinition> enhancers) {
+        public static RitualStartContext of(Level level, BlockPos pos, int forgeTier, Collection<ItemStack> inputs, ItemStack mainIngredient, List<EnhancerDefinition> enhancers) {
             return new RitualStartContext(level, pos, forgeTier, inputs, mainIngredient, enhancers);
         }
     }

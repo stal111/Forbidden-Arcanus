@@ -27,7 +27,7 @@ public class UpdateForgeIngredientsEffect extends PedestalEffect {
             if (level.getBlockEntity(forgePos) instanceof HephaestusForgeBlockEntity blockEntity) {
                 RitualManager ritualManager = blockEntity.getRitualManager();
 
-                ritualManager.updateIngredient(pos, stack, blockEntity.getEssences(), blockEntity.getEnhancers());
+                ritualManager.updateIngredient(pos, stack, blockEntity.getEssences());
             }
         });
     }

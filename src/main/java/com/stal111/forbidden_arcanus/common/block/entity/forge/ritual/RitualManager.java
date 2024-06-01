@@ -8,14 +8,13 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesD
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -65,6 +64,7 @@ public class RitualManager implements SerializableComponent {
     };
 
     private final MainIngredientAccessor mainIngredientAccessor;
+    private final EnhancerAccessor enhancerAccessor;
     private final MagicCircleController magicCircleController;
 
     private ServerLevel level;
@@ -75,8 +75,9 @@ public class RitualManager implements SerializableComponent {
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
 
-    public RitualManager(MainIngredientAccessor accessor, MagicCircleController circleController, int forgeTier) {
+    public RitualManager(MainIngredientAccessor accessor, EnhancerAccessor enhancerAccessor, MagicCircleController circleController, int forgeTier) {
         this.mainIngredientAccessor = accessor;
+        this.enhancerAccessor = enhancerAccessor;
         this.magicCircleController = circleController;
         this.forgeTier = forgeTier;
     }
@@ -110,21 +111,21 @@ public class RitualManager implements SerializableComponent {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void updateIngredient(BlockPos pos, ItemStack stack, EssencesDefinition definition, HolderSet<EnhancerDefinition> enhancers) {
+    public void updateIngredient(BlockPos pos, ItemStack stack, EssencesDefinition definition) {
         this.cachedIngredients.put(pos, stack);
 
         if (this.isRitualActive()) {
             this.failRitual();
         }
 
-        this.updateValidRitual(definition, enhancers);
+        this.updateValidRitual(definition);
     }
 
-    public void updateValidRitual(EssencesDefinition definition, HolderSet<EnhancerDefinition> enhancers) {
+    public void updateValidRitual(EssencesDefinition definition) {
         boolean oldValue = this.validRitual != null;
 
         for (Holder<Ritual> ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).holders().toList()) {
-            if (this.canStartRitual(ritual.value(), definition, enhancers)) {
+            if (this.canStartRitual(ritual.value(), definition)) {
                 if (!oldValue) {
                     this.updateRitualIndicator(true);
                 }
@@ -142,15 +143,15 @@ public class RitualManager implements SerializableComponent {
         }
     }
 
-    public boolean canStartRitual(Ritual ritual, EssencesDefinition definition, HolderSet<EnhancerDefinition> enhancers) {
-        List<EssenceModifier> modifiers = enhancers.stream()
-                .flatMap(enhancerDefinition -> enhancerDefinition.value().getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
+    public boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
+        List<EssenceModifier> modifiers = this.enhancerAccessor.getEnhancers().stream()
+                .flatMap(enhancerDefinition -> enhancerDefinition.getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
                 .filter(effect -> effect instanceof EssenceModifier)
                 .map(effect -> (EssenceModifier) effect)
                 .toList();
 
         EssencesDefinition updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
-        Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor.get(), enhancers);
+        Ritual.RitualStartContext context = Ritual.RitualStartContext.of(this.level, this.pos, this.forgeTier, this.cachedIngredients.values(), this.mainIngredientAccessor.get(), this.enhancerAccessor.getEnhancers());
 
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(context);
     }
