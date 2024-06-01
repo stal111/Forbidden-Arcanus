@@ -65,6 +65,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     private final EssenceManager essenceManager;
     private final RitualManager ritualManager;
     private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
+    private final ForgeDataCache dataCache = new ForgeDataCache();
 
     private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
 
@@ -117,7 +118,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             this.forgeLevel = forgeBlock.getLevel();
         }
 
-        this.ritualManager = new RitualManager(new MainSlotAccessor(this), this.magicCircleController, this.forgeLevel.getAsInt());
+        this.ritualManager = new RitualManager(this.dataCache, this.magicCircleController, this.forgeLevel.getAsInt());
         this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), essencesDefinition -> this.ritualManager.updateValidRitual(essencesDefinition, this.getEnhancers()));
     }
 
@@ -164,7 +165,9 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             blockEntity.essenceManager.tick(level, pos);
         }
 
-        blockEntity.ritualManager.tick();
+        blockEntity.ritualManager.tick().ifPresent(stack -> {
+            blockEntity.setStack(MAIN_SLOT, stack);
+        });
     }
 
     @Override
@@ -193,6 +196,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         }
 
         if (slot == MAIN_SLOT) {
+            this.dataCache.setMainIngredient(this.getStack(MAIN_SLOT));
+
             if (this.getStack(slot).isEmpty() && this.getRitualManager().isRitualActive()) {
                 this.getRitualManager().failRitual();
             } else {
@@ -206,7 +211,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     //TODO: cache enhancers
-    private HolderSet<EnhancerDefinition> getEnhancers() {
+    public HolderSet<EnhancerDefinition> getEnhancers() {
         var list = HephaestusForgeMenu.ENHANCERS_SLOTS.stream()
                 .map(this::getStack)
                 .flatMap(stack -> EnhancerHelper.getEnhancerHolder(stack).stream())
@@ -356,18 +361,5 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public void setEssences(EssencesDefinition definition) {
         definition.forEach(this.essenceManager::setEssence);
-    }
-
-    private record MainSlotAccessor(HephaestusForgeBlockEntity blockEntity) implements RitualManager.MainIngredientAccessor {
-
-        @Override
-        public ItemStack get() {
-            return this.blockEntity.getStack(MAIN_SLOT);
-        }
-
-        @Override
-        public void set(ItemStack stack) {
-            this.blockEntity.setStack(MAIN_SLOT, stack);
-        }
     }
 }

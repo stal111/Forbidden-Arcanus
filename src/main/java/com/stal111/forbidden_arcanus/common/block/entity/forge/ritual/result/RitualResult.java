@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 /**
@@ -18,11 +18,12 @@ public abstract class RitualResult {
     /**
      * Called once the ritual animation finishes. Use this to create the desired result.
      *
-     * @param accessor the main ingredient inside the Hephaestus Forge
-     * @param level    the level the Forge is in
-     * @param pos      the pos where the Forge is located
+     * @param level     the level the Forge is in
+     * @param pos       the pos where the Forge is located
+     * @param forgeTier the tier of the Forge
+     * @return the result ItemStack of the ritual
      */
-    public abstract void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos, int forgeTier);
+    public abstract ItemStack apply(Level level, BlockPos pos, int forgeTier);
 
     /**
      * @return the type which serializes and deserializes this result

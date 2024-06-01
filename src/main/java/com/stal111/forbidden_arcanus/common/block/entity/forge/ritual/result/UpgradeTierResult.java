@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
@@ -39,18 +38,18 @@ public class UpgradeTierResult extends RitualResult {
     }
 
     @Override
-    public void apply(RitualManager.MainIngredientAccessor accessor, Level level, BlockPos pos, int forgeTier) {
+    public ItemStack apply(Level level, BlockPos pos, int forgeTier) {
         BlockState state = level.getBlockState(pos);
 
         level.setBlockAndUpdate(pos, FORGE_TIERS.get(forgeTier + 1).get().defaultBlockState().setValue(HephaestusForgeBlock.ACTIVATED, state.getValue(HephaestusForgeBlock.ACTIVATED)).setValue(HephaestusForgeBlock.WATERLOGGED, state.getValue(HephaestusForgeBlock.WATERLOGGED)));
-
-        accessor.set(ItemStack.EMPTY);
 
         CrimsonLightningBoltEntity entity = new CrimsonLightningBoltEntity(ModEntities.CRIMSON_LIGHTNING_BOLT.get(), level);
         entity.setPos(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
         entity.setVisualOnly(true);
 
         level.addFreshEntity(entity);
+
+        return ItemStack.EMPTY;
     }
 
     @Override
