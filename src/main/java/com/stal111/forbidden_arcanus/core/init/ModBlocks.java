@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.RodBlock;
 import com.stal111.forbidden_arcanus.common.block.*;
 import com.stal111.forbidden_arcanus.common.block.clibano.*;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
@@ -71,7 +70,6 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<WallBlock> ARCANE_POLISHED_DARKSTONE_WALL = HELPER.register("arcane_polished_darkstone_wall", () -> new WallBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
     public static final BlockRegistryEntry<Block> CHISELED_ARCANE_POLISHED_DARKSTONE = HELPER.register("chiseled_arcane_polished_darkstone", () -> new Block(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
     public static final BlockRegistryEntry<PillarBlock> ARCANE_POLISHED_DARKSTONE_PILLAR = HELPER.register("arcane_polished_darkstone_pillar", () -> new PillarBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
-    public static final BlockRegistryEntry<RodBlock> ARCANE_POLISHED_DARKSTONE_ROD = HELPER.register("arcane_polished_darkstone_rod", () -> new RodBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
     public static final BlockRegistryEntry<PedestalBlock> DARKSTONE_PEDESTAL = HELPER.register("darkstone_pedestal", () -> new PedestalBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion())).withItem();
     public static final BlockRegistryEntry<MagnetizedPedestalBlock> MAGNETIZED_DARKSTONE_PEDESTAL = HELPER.register("magnetized_darkstone_pedestal", () -> new MagnetizedPedestalBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F).noOcclusion())).withItem();
     public static final BlockRegistryEntry<ClibanoCoreBlock> CLIBANO_CORE = HELPER.register("clibano_core", () -> new ClibanoCoreBlock(Block.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F))).withItem();
