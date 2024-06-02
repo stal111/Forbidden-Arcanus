@@ -1,10 +1,7 @@
 package com.stal111.forbidden_arcanus.common.network;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateEssencePayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -23,5 +20,6 @@ public class NetworkEvents {
         registrar.playToClient(TransformPedestalPayload.TYPE, TransformPedestalPayload.STREAM_CODEC, TransformPedestalPayload::handle);
         registrar.playToClient(SpawnParticlePayload.TYPE, SpawnParticlePayload.STREAM_CODEC, SpawnParticlePayload::handle);
         registrar.playToClient(UpdateEssencePayload.TYPE, UpdateEssencePayload.STREAM_CODEC, UpdateEssencePayload::handle);
+        registrar.playToClient(AdvancedBlockEventPayload.TYPE, AdvancedBlockEventPayload.STREAM_CODEC, AdvancedBlockEventPayload::handle);
     }
 }

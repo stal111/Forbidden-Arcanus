@@ -2,10 +2,7 @@ package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
-import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateEssencePayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
@@ -34,6 +31,9 @@ public final class ClientPayloadHandler {
 
     private static final ClientPayloadHandler INSTANCE = new ClientPayloadHandler();
 
+    private final Minecraft minecraft = Minecraft.getInstance();
+    private final Level level = minecraft.level;
+
     private ClientPayloadHandler() {
     }
 
@@ -50,16 +50,13 @@ public final class ClientPayloadHandler {
     }
 
     public void handle(TransformPedestalPayload payload, IPayloadContext context) {
-        Level level = Minecraft.getInstance().level;
+        ParticleUtils.spawnParticlesOnBlockFaces(this.level, payload.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
 
-        ParticleUtils.spawnParticlesOnBlockFaces(level, payload.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
-
-        level.playLocalSound(payload.pos(), ModSounds.FERROGNETIC_MIXTURE_APPLY.get(), SoundSource.PLAYERS, 0.75F, 0.9F + level.getRandom().nextFloat() * 0.1F, false);
+        this.level.playLocalSound(payload.pos(), ModSounds.FERROGNETIC_MIXTURE_APPLY.get(), SoundSource.PLAYERS, 0.75F, 0.9F + this.level.getRandom().nextFloat() * 0.1F, false);
     }
 
     public void handle(SpawnParticlePayload payload, IPayloadContext context) {
-        Level level = Minecraft.getInstance().level;
-        RandomSource random = level.getRandom();
+        RandomSource random = this.level.getRandom();
         LevelRenderer levelRenderer = Minecraft.getInstance().levelRenderer;
 
         double x = payload.x();
@@ -67,7 +64,7 @@ public final class ClientPayloadHandler {
         double z = payload.z();
 
         for (int l = 0; l < 8; ++l) {
-            level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
+            this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
         }
 
         ParticleOptions particleoptions = ModParticles.AUREAL_MOTE.get();
@@ -91,5 +88,9 @@ public final class ClientPayloadHandler {
         EssenceHelper.getEssenceProvider(context.player()).ifPresent(provider -> {
             provider.setStorage(payload.storage());
         });
+    }
+
+    public void handle(AdvancedBlockEventPayload payload, IPayloadContext context) {
+        this.minecraft.level.blockEvent(payload.pos(), payload.block(), payload.b1(), payload.b2());
     }
 }

@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesS
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
+import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -27,6 +28,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -88,7 +91,7 @@ public class RitualManager {
 
         int duration = ritual != null ? ritual.value().duration() : 0;
 
-        this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_DURATION, duration);
+        PacketDistributor.sendToPlayersTrackingChunk(this.level, new ChunkPos(pos), new AdvancedBlockEventPayload(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_DURATION, duration));
     }
 
     public boolean isRitualActive() {
