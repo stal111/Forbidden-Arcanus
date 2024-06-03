@@ -203,6 +203,7 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<UpwindBlock> UPWIND = HELPER.register("upwind", () -> new UpwindBlock(BlockBehaviour.Properties.ofLegacyCopy(Blocks.WHEAT)));
     public static final BlockRegistryEntry<DeskBlock> DESK = HELPER.register("desk", () -> new DeskBlock(BlockBehaviour.Properties.of())).withItem();
     public static final BlockRegistryEntry<ResearchDeskBlock> RESEARCH_DESK = HELPER.register("research_desk", () -> new ResearchDeskBlock(BlockBehaviour.Properties.of())).withItem();
+    public static final BlockRegistryEntry<HeavyCoreBlock> QUANTUM_CORE = HELPER.register("quantum_core", () -> new HeavyCoreBlock(BlockBehaviour.Properties.of().explosionResistance(1200.0F))).withItem();
 
     public static final BlockRegistryEntry<FlowerPotBlock> POTTED_FUNGYSS = HELPER.register("potted_fungyss", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, FUNGYSS, Block.Properties.ofLegacyCopy(Blocks.POTTED_OAK_SAPLING))).renderType(ValhelsiaRenderType.CUTOUT);
     public static final BlockRegistryEntry<FlowerPotBlock> POTTED_AURUM_SAPLING = HELPER.register("potted_aurum_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, AURUM_SAPLING, Block.Properties.ofLegacyCopy(Blocks.POTTED_OAK_SAPLING))).renderType(ValhelsiaRenderType.CUTOUT);
