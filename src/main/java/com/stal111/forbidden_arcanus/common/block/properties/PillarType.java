@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.properties;
 
+import com.stal111.forbidden_arcanus.common.block.PillarBlock;
 import net.minecraft.util.StringRepresentable;
 
 import javax.annotation.Nonnull;
@@ -40,5 +41,14 @@ public enum PillarType implements StringRepresentable {
         }
 
         return PillarType.SINGLE;
+    }
+
+    public PillarType getOpposite() {
+        return switch (this) {
+            case SINGLE -> PillarType.SINGLE;
+            case TOP -> PillarType.BOTTOM;
+            case MIDDLE -> PillarType.MIDDLE;
+            case BOTTOM -> PillarType.TOP;
+        };
     }
 }

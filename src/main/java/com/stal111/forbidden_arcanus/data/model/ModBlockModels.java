@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.DeskBlock;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.data.FABlockFamilies;
 import net.minecraft.core.Direction;
@@ -18,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.Map;
@@ -85,6 +87,7 @@ public class ModBlockModels {
         this.createUtremJar(ModBlocks.UTREM_JAR.get());
         this.blockStateOutput.accept(createSimpleBlock(ModBlocks.ESSENCE_UTREM_JAR.get(), ModelLocationUtils.getModelLocation(ModBlocks.UTREM_JAR.get())));
         ModModelTemplates.UTREM_JAR_ITEM.create(ModelLocationUtils.getModelLocation(ModBlocks.ESSENCE_UTREM_JAR.get().asItem()), TextureMapping.particle(ModBlocks.UTREM_JAR.get()), this.modelOutput);
+        this.createPillar(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get());
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -212,6 +215,17 @@ public class ModBlockModels {
         ResourceLocation model = ModModelTemplates.UTREM_JAR.create(block, textureMapping, this.modelOutput);
 
         this.blockStateOutput.accept(createSimpleBlock(block, model));
+    }
+
+    private void createPillar(Block block) {
+        PropertyDispatch dispatch = PropertyDispatch.properties(ModBlockStateProperties.PILLAR_TYPE, RotatedPillarBlock.AXIS).generate((part, axis) -> {
+            return Variant.variant()
+                    .with(VariantProperties.MODEL, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_polished_darkstone_pillar" + (part == PillarType.SINGLE ? "" : "_" + (axis == Direction.Axis.Z ? part.getOpposite() : part).getSerializedName())))
+                    .with(VariantProperties.Y_ROT, axis == Direction.Axis.X ? VariantProperties.Rotation.R90 : VariantProperties.Rotation.R0)
+                    .with(VariantProperties.X_ROT, axis == Direction.Axis.Y ? VariantProperties.Rotation.R0 : VariantProperties.Rotation.R90);
+        });
+
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
     }
 
     static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {
