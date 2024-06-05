@@ -34,8 +34,6 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public static final VoxelShape SHAPE = Block.box(4.0D, 4.0D, 4.0D, 12.0D, 12.0D, 12.0D);
-
     public QuantumInjectorBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(ENABLED, false).setValue(WATERLOGGED, false));
@@ -49,7 +47,12 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
 
     @Override
     protected VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        return Shapes.empty();
+        return state.getValue(ENABLED) ? Shapes.empty() : super.getOcclusionShape(state, level, pos);
+    }
+
+    @Override
+    protected VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.getValue(ENABLED) ? Shapes.empty() : super.getBlockSupportShape(state, level, pos);
     }
 
     @Override
