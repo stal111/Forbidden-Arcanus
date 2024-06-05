@@ -73,6 +73,7 @@ public class ClientSetup {
         helper.registerBlockEntityRenderer(ModBlockEntities.OBSIDIAN_SKULL, SkullBlockRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK, ResearchDeskRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.QUANTUM_INJECTOR, QuantumInjectorRenderer::new);
 
         helper.registerEntityRenderer(ModEntities.BOOM_ARROW, BoomArrowRenderer::new);
         helper.registerEntityRenderer(ModEntities.DRACO_ARCANUS_ARROW, DracoArcanusArrowRenderer::new);

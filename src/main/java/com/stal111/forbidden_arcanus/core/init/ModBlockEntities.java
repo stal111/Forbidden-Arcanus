@@ -29,5 +29,6 @@ public class ModBlockEntities implements RegistryClass {
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<ClibanoMainBlockEntity>> CLIBANO_MAIN = HELPER.register("clibano_main", () -> BlockEntityType.Builder.of(ClibanoMainBlockEntity::new, ModBlocks.CLIBANO_MAIN_PART.get()).build(null));
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<ClibanoFrameBlockEntity>> CLIBANO = HELPER.register("clibano", () -> BlockEntityType.Builder.of(ClibanoFrameBlockEntity::new, ModBlocks.CLIBANO_CORNER.get(), ModBlocks.CLIBANO_CENTER.get(), ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(), ModBlocks.CLIBANO_SIDE_VERTICAL.get()).build(null));
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<ResearchDeskBlockEntity>> RESEARCH_DESK = HELPER.register("research_desk", () -> BlockEntityType.Builder.of(ResearchDeskBlockEntity::new, ModBlocks.RESEARCH_DESK.get()).build(null));
+    public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<QuantumInjectorBlockEntity>> QUANTUM_INJECTOR = HELPER.register("quantum_injector", () -> BlockEntityType.Builder.of(QuantumInjectorBlockEntity::new, ModBlocks.QUANTUM_INJECTOR.get()).build(null));
 
 }

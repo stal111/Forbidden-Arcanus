@@ -70,6 +70,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get());
                             output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
                             output.accept(ModBlocks.QUANTUM_CORE.get());
+                            output.accept(ModBlocks.QUANTUM_INJECTOR.get());
                             output.accept(ModBlocks.ARCANE_CRYSTAL_ORE.get());
                             output.accept(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get());
                             output.accept(ModBlocks.RUNIC_STONE.get());

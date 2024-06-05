@@ -15,8 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author stal111
  * @since 02.05.2024
@@ -79,7 +77,7 @@ public class UtremJarSoulsModel<T extends Entity> extends HierarchicalModel<T> {
 
     }
 
-    public void setupAnim(@Nonnull EssenceUtremJarBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull EssenceUtremJarBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
         this.animate(entity.rotateAnimation, UtremJarSoulAnimation.ROTATE, ageInTicks);
@@ -87,7 +85,7 @@ public class UtremJarSoulsModel<T extends Entity> extends HierarchicalModel<T> {
 
 
     @Override
-    public void renderToBuffer(@Nonnull PoseStack poseStack, @Nonnull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         this.root.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 

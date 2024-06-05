@@ -50,6 +50,7 @@ public class LangProvider extends LanguageProvider {
         this.add(ModEnchantments.AUREAL_RESERVOIR.get(), "Aureal Reservoir");
 
         this.add(ModBlocks.QUANTUM_CORE.get(), "Quantum Core");
+        this.add(ModBlocks.QUANTUM_INJECTOR.get(), "Quantum Injector");
     }
 
     private void add(Supplier<? extends ItemModifier> modifier, String name) {
