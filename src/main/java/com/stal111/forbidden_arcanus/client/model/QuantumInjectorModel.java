@@ -69,6 +69,7 @@ public class QuantumInjectorModel<T extends Entity> extends HierarchicalModel<T>
     public void setupAnim(@Nonnull QuantumInjectorBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animate(entity.animation, QuantumInjectorAnimation.ENABLED, ageInTicks);
+        this.animate(entity.transformAnimation, QuantumInjectorAnimation.TRANSFORM, ageInTicks);
+        this.animate(entity.rotateAnimation, QuantumInjectorAnimation.ROTATE, ageInTicks);
     }
 }

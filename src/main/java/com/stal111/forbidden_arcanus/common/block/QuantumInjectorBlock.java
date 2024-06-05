@@ -4,6 +4,8 @@ import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEnt
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -47,6 +50,15 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
     @Override
     protected VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
         return Shapes.empty();
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
+        level.setBlockAndUpdate(pos, state.cycle(ENABLED));
+
+        level.getBlockEntity(pos, ModBlockEntities.QUANTUM_INJECTOR.get()).ifPresent(QuantumInjectorBlockEntity::startAnimation);
+
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Nullable

@@ -12,7 +12,7 @@ import net.minecraft.client.animation.KeyframeAnimations;
 public class QuantumInjectorAnimation {
 
 
-    public static final AnimationDefinition ENABLED = AnimationDefinition.Builder.withLength(12f).looping()
+    public static final AnimationDefinition ROTATE = AnimationDefinition.Builder.withLength(12f).looping()
             .addAnimation("0",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 720f, 0f),
@@ -62,7 +62,7 @@ public class QuantumInjectorAnimation {
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 4f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
 
-    public static final AnimationDefinition PLAY = AnimationDefinition.Builder.withLength(3f)
+    public static final AnimationDefinition TRANSFORM = AnimationDefinition.Builder.withLength(3f)
             .addAnimation("rune",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
