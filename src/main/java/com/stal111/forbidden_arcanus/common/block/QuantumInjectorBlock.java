@@ -84,7 +84,7 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
         if (level.isClientSide()) {
             return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.QUANTUM_INJECTOR.get(), QuantumInjectorBlockEntity::clientTick);
         }
-        return null;
+        return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.QUANTUM_INJECTOR.get(), QuantumInjectorBlockEntity::serverTick);
     }
 
     @Override
