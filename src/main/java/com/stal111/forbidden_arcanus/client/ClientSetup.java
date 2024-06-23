@@ -11,10 +11,7 @@ import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
-import com.stal111.forbidden_arcanus.client.particle.AurealMoteParticle;
-import com.stal111.forbidden_arcanus.client.particle.HugeMagicExplosionParticle;
-import com.stal111.forbidden_arcanus.client.particle.MagneticGlowProvider;
-import com.stal111.forbidden_arcanus.client.particle.SoulParticle;
+import com.stal111.forbidden_arcanus.client.particle.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
@@ -163,5 +160,9 @@ public class ClientSetup {
         event.registerSpriteSet(ModParticles.MAGIC_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
         event.registerSpecial(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
         event.registerSpriteSet(ModParticles.MAGNETIC_GLOW.get(), MagneticGlowProvider::new);
+        event.registerSpriteSet(ModParticles.AUREAL_DROP.get(), EssenceDropParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.SOULS_DROP.get(), EssenceDropParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.BLOOD_DROP.get(), EssenceDropParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.EXPERIENCE_DROP.get(), EssenceDropParticle.Provider::new);
     }
 }

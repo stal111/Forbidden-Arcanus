@@ -45,6 +45,10 @@ public class ParticleDataProvider implements DataProvider {
         this.register(ModParticles.MAGIC_EXPLOSION.get(), this.modLoc("magic_explosion_0"), this.modLoc("magic_explosion_1"), this.modLoc("magic_explosion_2"), this.modLoc("magic_explosion_3"), this.modLoc("magic_explosion_4"));
         this.register(ModParticles.HUGE_MAGIC_EXPLOSION.get());
         this.register(ModParticles.MAGNETIC_GLOW.get(), this.modLoc("magnetic_glow"));
+        this.register(ModParticles.AUREAL_DROP.get(), this.modLoc("drop/aureal_0"), this.modLoc("drop/aureal_1"), this.modLoc("drop/aureal_2"), this.modLoc("drop/aureal_3"), this.modLoc("drop/aureal_4"), this.modLoc("drop/aureal_5"), this.modLoc("drop/aureal_6"));
+        this.register(ModParticles.SOULS_DROP.get(), this.modLoc("drop/souls_0"), this.modLoc("drop/souls_1"), this.modLoc("drop/souls_2"), this.modLoc("drop/souls_3"), this.modLoc("drop/souls_4"), this.modLoc("drop/souls_5"), this.modLoc("drop/souls_6"));
+        this.register(ModParticles.BLOOD_DROP.get(), this.modLoc("drop/blood_0"), this.modLoc("drop/blood_1"), this.modLoc("drop/blood_2"), this.modLoc("drop/blood_3"), this.modLoc("drop/blood_4"), this.modLoc("drop/blood_5"), this.modLoc("drop/blood_6"));
+        this.register(ModParticles.EXPERIENCE_DROP.get(), this.modLoc("drop/experience_0"), this.modLoc("drop/experience_1"), this.modLoc("drop/experience_2"), this.modLoc("drop/experience_3"), this.modLoc("drop/experience_4"), this.modLoc("drop/experience_5"), this.modLoc("drop/experience_6"));
     }
 
     private void register(ParticleType<?> particleType, ResourceLocation... textures) {

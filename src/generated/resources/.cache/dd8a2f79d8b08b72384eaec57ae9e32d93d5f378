@@ -1,6 +1,10 @@
-// 1.20.6	2024-05-07T14:28:57.3118179	forbidden_arcanus - Particles
+// 1.20.6	2024-06-11T18:09:53.6853198	forbidden_arcanus - Particles
+1c922798b6e4bb27b91d4a1540a91dd23ba06b52 assets/forbidden_arcanus/particles/aureal_drop.json
 3a80c2495cd3001d108bb7f5a0714c447312cdf5 assets/forbidden_arcanus/particles/aureal_mote.json
+9bcacb7749acbe38cdc6004d7b8555198e919548 assets/forbidden_arcanus/particles/blood_drop.json
+e2595caadc5f39683f54305caf4a9f736041a263 assets/forbidden_arcanus/particles/experience_drop.json
 4b0fda6bcab735396d95399beba687a48fad8c8c assets/forbidden_arcanus/particles/magic_explosion.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f assets/forbidden_arcanus/particles/magic_explosion_emitter.json
 63a7292cf945f80824049e94773b16580c080d71 assets/forbidden_arcanus/particles/magnetic_glow.json
 4e86d7e5a8c4138294557cccf2638661a508c76f assets/forbidden_arcanus/particles/soul.json
+e05f91853b9b5c03b1154bb3557cf7ccd7884fb1 assets/forbidden_arcanus/particles/souls_drop.json
