@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.integration.hephaestus_forge;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -24,24 +24,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author stal111
  * @since 2023-06-05
  */
 public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual> {
-
-    protected static final Map<Integer, ItemStack> FORGE_TIERS = ImmutableMap.of(
-            1, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()),
-            2, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get()),
-            3, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get()),
-            4, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get()),
-            5, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get())
-    );
 
     private static final List<IntIntPair> INPUT_POSITIONS = ImmutableList.of(
             IntIntPair.of(63, 13),
@@ -87,7 +77,7 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull Ritual ritual, @Nonnull IFocusGroup focusGroup) {
+    public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull Ritual ritual, @NotNull IFocusGroup focusGroup) {
         this.addInputs(builder, ritual.inputs(), ritual.mainIngredient());
 
         if (ritual.requirements() != null && this.displayEnhancers()) {
@@ -99,13 +89,13 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
         this.buildRecipe(builder, ritual);
     }
 
-    protected abstract void buildRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull Ritual ritual);
+    protected abstract void buildRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull Ritual ritual);
 
     protected boolean displayEnhancers() {
         return true;
     }
 
-    private void addInputs(@Nonnull IRecipeLayoutBuilder builder, List<RitualInput> inputs, Ingredient mainIngredient) {
+    private void addInputs(@NotNull IRecipeLayoutBuilder builder, List<RitualInput> inputs, Ingredient mainIngredient) {
         builder.addSlot(RecipeIngredientRole.INPUT, FORGE_ITEM_POSITION.firstInt(), FORGE_ITEM_POSITION.secondInt())
                 .addIngredients(mainIngredient);
 
@@ -121,7 +111,7 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
         }
     }
 
-    private void addEnhancers(@Nonnull IRecipeLayoutBuilder builder, HolderSet<EnhancerDefinition> enhancers) {
+    private void addEnhancers(@NotNull IRecipeLayoutBuilder builder, HolderSet<EnhancerDefinition> enhancers) {
         for (int i = 0; i < enhancers.size(); i++) {
             Holder<EnhancerDefinition> enhancer = enhancers.get(i);
 
@@ -132,13 +122,13 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
     }
 
     @Override
-    public void draw(@Nonnull Ritual recipe, @Nonnull IRecipeSlotsView slotsView, @Nonnull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull Ritual recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(guiGraphics, essenceInfo.posX(), essenceInfo.posY()));
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public List<Component> getTooltipStrings(@Nonnull Ritual recipe, @Nonnull IRecipeSlotsView slotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(@NotNull Ritual recipe, @NotNull IRecipeSlotsView slotsView, double mouseX, double mouseY) {
         for (EssenceInfo essenceInfo : this.essences) {
             if (essenceInfo.shouldDisplayTooltip(mouseX, mouseY)) {
                 return Collections.singletonList(essenceInfo.getTooltip(recipe.requirements().essences()));
@@ -146,5 +136,9 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
         }
 
         return Collections.emptyList();
+    }
+
+    public static ItemStack getForgeItem(int tier) {
+        return HephaestusForgeLevel.values()[tier].getBlock().asItem().getDefaultInstance();
     }
 }

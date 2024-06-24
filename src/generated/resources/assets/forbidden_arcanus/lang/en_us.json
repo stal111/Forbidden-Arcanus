@@ -1,4 +1,6 @@
 {
+  "block.forbidden_arcanus.hephaestus_forge.tier.at_least": "Requires at least tier %s",
+  "block.forbidden_arcanus.hephaestus_forge.tier.match_exact": "Requires exactly tier %s",
   "block.forbidden_arcanus.quantum_core": "Quantum Core",
   "block.forbidden_arcanus.quantum_injector": "Quantum Injector",
   "container.forbidden_arcanus.clibano": "Clibano",

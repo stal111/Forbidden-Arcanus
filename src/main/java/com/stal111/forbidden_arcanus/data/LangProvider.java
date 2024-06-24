@@ -49,6 +49,9 @@ public class LangProvider extends LanguageProvider {
 
         this.add(ModBlocks.QUANTUM_CORE.get(), "Quantum Core");
         this.add(ModBlocks.QUANTUM_INJECTOR.get(), "Quantum Injector");
+
+        this.add("block", "hephaestus_forge.tier.match_exact", "Requires exactly tier %s");
+        this.add("block", "hephaestus_forge.tier.at_least", "Requires at least tier %s");
     }
 
     private void add(Supplier<? extends ItemModifier> modifier, String name) {
@@ -57,5 +60,9 @@ public class LangProvider extends LanguageProvider {
 
     private <T extends StringRepresentable> void add(String category, T value, String name) {
         this.add(Util.makeDescriptionId(category, ForbiddenArcanus.location(value.getSerializedName())), name);
+    }
+
+    public void add(String category, String path, String name) {
+        this.add(Util.makeDescriptionId(category, ForbiddenArcanus.location(path)), name);
     }
 }
