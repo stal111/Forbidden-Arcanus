@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusForgeMenu> {
 
-    public static final ResourceLocation TEXTURES = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/hephaestus_forge.png");
+    public static final ResourceLocation TEXTURES = ForbiddenArcanus.location("textures/gui/container/hephaestus_forge.png");
 
     public static final List<EssenceBarDefinition> ESSENCE_BAR_DEFINITIONS = ImmutableList.of(
             new EssenceBarDefinition(EssenceType.AUREAL, 0, 12, 177),

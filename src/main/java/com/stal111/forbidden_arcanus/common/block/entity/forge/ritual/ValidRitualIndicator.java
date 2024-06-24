@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
 
 /**
@@ -16,7 +17,7 @@ import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
  */
 public class ValidRitualIndicator {
 
-    private static final ResourceLocation INDICATOR = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/valid_ritual_indicator.png");
+    private static final ResourceLocation INDICATOR = ForbiddenArcanus.location("textures/effect/magic_circle/valid_ritual_indicator.png");
     private static final int ANIMATION_DURATION = 60;
 
     private final IndicatorCounter counter = new IndicatorCounter();
@@ -41,7 +42,7 @@ public class ValidRitualIndicator {
 
         poseStack.scale(8.5F, 1.0F, 8.5F);
 
-        model.render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)));
+        model.render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
 
         poseStack.popPose();
     }

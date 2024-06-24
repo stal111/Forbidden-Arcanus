@@ -23,7 +23,7 @@ public enum FrameType implements StringRepresentable {
 
     FrameType(String name) {
         this.name = name;
-        this.sprites = new WidgetSprites(new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/" + name + "_locked"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/" + name), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/" + name + "_locked_highlighted"));
+        this.sprites = new WidgetSprites(ForbiddenArcanus.location("research/frame/" + name + "_locked"), ForbiddenArcanus.location("research/frame/" + name), ForbiddenArcanus.location("research/frame/" + name + "_locked_highlighted"));
     }
 
     @Override

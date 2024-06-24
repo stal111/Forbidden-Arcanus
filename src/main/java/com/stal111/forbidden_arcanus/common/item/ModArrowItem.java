@@ -8,6 +8,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
@@ -27,12 +28,12 @@ public class ModArrowItem extends ArrowItem {
 
     @Nonnull
     @Override
-    public AbstractArrow createArrow(@Nonnull Level level, @Nonnull ItemStack stack, @Nonnull LivingEntity shooter) {
+    public AbstractArrow createArrow(@Nonnull Level level, @Nonnull ItemStack pickupStack, @Nonnull LivingEntity shooter, @Nullable ItemStack stack) {
         if (this == ModItems.BOOM_ARROW.get()) {
-            return new BoomArrow(level, shooter, stack.copyWithCount(1));
+            return new BoomArrow(level, shooter, pickupStack.copyWithCount(1), stack);
         } else if (this == ModItems.DRACO_ARCANUS_ARROW.get()) {
-            return new DracoArcanusArrow(level, shooter, stack.copyWithCount(1));
+            return new DracoArcanusArrow(level, shooter, pickupStack.copyWithCount(1), stack);
         }
-        return super.createArrow(level, stack, shooter);
+        return super.createArrow(level, pickupStack, shooter, stack);
     }
 }

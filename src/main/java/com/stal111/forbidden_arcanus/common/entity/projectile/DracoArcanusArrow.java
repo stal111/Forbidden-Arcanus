@@ -12,6 +12,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
@@ -29,12 +30,12 @@ public class DracoArcanusArrow extends AbstractArrow {
         super(entityType, level);
     }
 
-    public DracoArcanusArrow(Level level, LivingEntity shooter, ItemStack stack) {
-        super(ModEntities.DRACO_ARCANUS_ARROW.get(), shooter, level, stack);
+    public DracoArcanusArrow(Level level, LivingEntity shooter, ItemStack pickupStack, @Nullable ItemStack stack) {
+        super(ModEntities.DRACO_ARCANUS_ARROW.get(), shooter, level, pickupStack, stack);
     }
 
-    public DracoArcanusArrow(Level level, double x, double y, double z, ItemStack stack) {
-        super(ModEntities.DRACO_ARCANUS_ARROW.get(), x, y, z, level, stack);
+    public DracoArcanusArrow(Level level, double x, double y, double z, ItemStack pickupStack, @Nullable ItemStack stack) {
+        super(ModEntities.DRACO_ARCANUS_ARROW.get(), x, y, z, level, pickupStack, stack);
     }
 
     @Override

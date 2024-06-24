@@ -43,7 +43,7 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
     }
 
     public ResourceLocation getTextureLocation() {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/obsidian_skull/" + this.getSerializedName() + ".png");
+        return ForbiddenArcanus.location("textures/block/obsidian_skull/" + this.getSerializedName() + ".png");
     }
 
     @Override

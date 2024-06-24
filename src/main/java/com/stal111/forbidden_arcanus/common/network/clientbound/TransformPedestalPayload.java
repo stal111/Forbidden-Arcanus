@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
@@ -15,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public record TransformPedestalPayload(BlockPos pos) implements CustomPacketPayload {
 
-    public static final Type<TransformPedestalPayload> TYPE = new Type<>(new ResourceLocation(ForbiddenArcanus.MOD_ID, "transform_pedestal"));
+    public static final Type<TransformPedestalPayload> TYPE = new Type<>(ForbiddenArcanus.location("transform_pedestal"));
 
     public static final StreamCodec<FriendlyByteBuf, TransformPedestalPayload> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC,

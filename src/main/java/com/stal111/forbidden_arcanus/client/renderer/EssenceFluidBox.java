@@ -37,8 +37,8 @@ public class EssenceFluidBox extends FluidBox {
 
         Type(EssenceType type, String still, String flowing) {
             this.essenceType = type;
-            this.stillTexture = new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/liquid/" + still);
-            this.flowingTexture = new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/liquid/" + flowing);
+            this.stillTexture = ForbiddenArcanus.location("block/liquid/" + still);
+            this.flowingTexture = ForbiddenArcanus.location("block/liquid/" + flowing);
         }
 
         public static Type byEssenceType(EssenceType type) {

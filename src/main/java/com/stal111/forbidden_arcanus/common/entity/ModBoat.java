@@ -113,9 +113,9 @@ public class ModBoat extends Boat implements CustomBoat {
 
         public ResourceLocation getTexture(boolean hasChest) {
             if (hasChest) {
-                return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/chest_boat/" + this.name + ".png");
+                return ForbiddenArcanus.location("textures/entity/chest_boat/" + this.name + ".png");
             }
-            return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/boat/" + this.name + ".png");
+            return ForbiddenArcanus.location("textures/entity/boat/" + this.name + ".png");
         }
 
         public String getModelLocation() {

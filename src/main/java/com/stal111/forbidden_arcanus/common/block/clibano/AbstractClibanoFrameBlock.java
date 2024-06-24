@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.clibano;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFrameBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
@@ -36,7 +37,7 @@ import java.util.List;
  */
 public abstract class AbstractClibanoFrameBlock extends Block implements EntityBlock {
 
-    private static final ResourceLocation DYNAMIC_DROP_ID = new ResourceLocation("dynamic_block");
+    private static final ResourceLocation DYNAMIC_DROP_ID = ResourceLocation.fromNamespaceAndPath(ForbiddenArcanus.MOD_ID, "dynamic_block");
 
 
     public AbstractClibanoFrameBlock(Properties properties) {

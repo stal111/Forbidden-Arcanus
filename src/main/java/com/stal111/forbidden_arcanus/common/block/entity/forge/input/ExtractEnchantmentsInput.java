@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
@@ -54,11 +55,11 @@ public class ExtractEnchantmentsInput implements HephaestusForgeInput {
         ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(stack);
 
         for (Object2IntOpenHashMap.Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
-            Enchantment enchantment = entry.getKey().value();
+            Holder<Enchantment> enchantment = entry.getKey();
             int level = entry.getIntValue();
 
-            if (!enchantment.isCurse()) {
-                xp += enchantment.getMinCost(level);
+            if (!enchantment.is(EnchantmentTags.CURSE)) {
+                xp += enchantment.value().getMinCost(level);
             }
         }
 
@@ -67,7 +68,7 @@ public class ExtractEnchantmentsInput implements HephaestusForgeInput {
 
     private ItemStack removeNonCursesFrom(ItemStack stack) {
         ItemEnchantments enchantments = EnchantmentHelper.updateEnchantments(
-                stack, mutable -> mutable.removeIf(enchantmentHolder -> !enchantmentHolder.value().isCurse())
+                stack, mutable -> mutable.removeIf(enchantmentHolder -> !enchantmentHolder.is(EnchantmentTags.CURSE))
         );
 
         if (stack.is(Items.ENCHANTED_BOOK) && enchantments.isEmpty()) {

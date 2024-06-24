@@ -23,9 +23,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class QuantumLightDoorModel<T extends Entity & QuantumLightDoorAnimationProvider> extends HierarchicalModel<T> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/quantum_light_door.png");
+    public static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/effect/quantum_light_door.png");
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "quantum_light_door"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("quantum_light_door"), "main");
 
     private final ModelPart root;
 
@@ -67,6 +67,6 @@ public class QuantumLightDoorModel<T extends Entity & QuantumLightDoorAnimationP
     public void render(T entity, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, float ageInTicks) {
         this.setupAnim(entity, 0.0F, 0.0F, ageInTicks, 0.0F, 0.0F);
 
-        this.renderToBuffer(poseStack, bufferSource.getBuffer(FARenderTypes.entityFullbrightTranslucent(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.renderToBuffer(poseStack, bufferSource.getBuffer(FARenderTypes.entityFullbrightTranslucent(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY);
     }
 }

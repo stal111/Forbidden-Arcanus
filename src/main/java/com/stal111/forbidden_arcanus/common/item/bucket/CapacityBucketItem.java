@@ -26,14 +26,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
 
 /**
  * @author stal111
@@ -75,11 +72,6 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         BlockHitResult hitResult = getPlayerPOVHitResult(level, player, this.getFluid().isSame(Fluids.EMPTY) || !this.isFull(stack) ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
-        InteractionResultHolder<ItemStack> resultHolder = EventHooks.onBucketUse(player, level, stack, hitResult);
-
-        if (resultHolder != null) {
-            return resultHolder;
-        }
 
         if (hitResult.getType() != HitResult.Type.BLOCK) {
             return InteractionResultHolder.pass(stack);

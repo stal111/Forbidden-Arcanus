@@ -70,9 +70,9 @@ public class StrangeRootBlock extends CropBlock {
 
         int age = this.getAge(state);
 
-        if (age < this.getMaxAge() && CommonHooks.onCropsGrowPre(level, pos, state, random.nextInt((int) ((25.0F / getGrowthSpeed(this, level, pos)) + 1)) == 0)) {
+        if (age < this.getMaxAge() && CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) ((25.0F / getGrowthSpeed(this, level, pos)) + 1)) == 0)) {
             level.setBlock(pos, state.cycle(AGE), 2);
-            CommonHooks.onCropsGrowPost(level, pos, state);
+            CommonHooks.fireCropGrowPost(level, pos, state);
         }
     }
 

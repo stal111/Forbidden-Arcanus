@@ -376,7 +376,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
         }
 
         public ResourceLocation getTexture() {
-            return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/lost_soul/" + this.name + ".png");
+            return ForbiddenArcanus.location("textures/entity/lost_soul/" + this.name + ".png");
         }
     }
 }

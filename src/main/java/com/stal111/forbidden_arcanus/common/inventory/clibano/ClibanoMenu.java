@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
-import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;

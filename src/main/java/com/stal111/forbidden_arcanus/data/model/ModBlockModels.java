@@ -142,7 +142,7 @@ public class ModBlockModels {
     }
 
     private void createClibanoCorner(Block block) {
-        ResourceLocation model = new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/clibano_corner");
+        ResourceLocation model = ForbiddenArcanus.location("block/clibano_corner");
 
         PropertyDispatch dispatch = PropertyDispatch.property(BlockStateProperties.BOTTOM).generate(bottom -> {
             return Variant.variant().with(VariantProperties.X_ROT, bottom ? VariantProperties.Rotation.R90 : VariantProperties.Rotation.R0);
@@ -222,7 +222,7 @@ public class ModBlockModels {
     private void createPillar(Block block) {
         PropertyDispatch dispatch = PropertyDispatch.properties(ModBlockStateProperties.PILLAR_TYPE, RotatedPillarBlock.AXIS).generate((part, axis) -> {
             return Variant.variant()
-                    .with(VariantProperties.MODEL, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/arcane_polished_darkstone_pillar" + (part == PillarType.SINGLE ? "" : "_" + (axis == Direction.Axis.Z ? part.getOpposite() : part).getSerializedName())))
+                    .with(VariantProperties.MODEL, ForbiddenArcanus.location("block/arcane_polished_darkstone_pillar" + (part == PillarType.SINGLE ? "" : "_" + (axis == Direction.Axis.Z ? part.getOpposite() : part).getSerializedName())))
                     .with(VariantProperties.Y_ROT, axis == Direction.Axis.X ? VariantProperties.Rotation.R90 : VariantProperties.Rotation.R0)
                     .with(VariantProperties.X_ROT, axis == Direction.Axis.Y ? VariantProperties.Rotation.R0 : VariantProperties.Rotation.R90);
         });

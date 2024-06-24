@@ -31,11 +31,11 @@ public class ModTextureMapping {
     private static final String QUANTUM_CATCHER = "quantum_catcher";
 
     private static final Map<Integer, ResourceLocation> FORGE_BLOCK_TEXTURES = Map.of(
-            1, new ResourceLocation("block/smithing_table_bottom"),
-            2, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/edelwood_planks"),
-            3, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/chiseled_polished_darkstone"),
-            4, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/chiseled_polished_darkstone"),
-            5, new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/stellarite_block")
+            1, ResourceLocation.withDefaultNamespace("block/smithing_table_bottom"),
+            2, ForbiddenArcanus.location("block/edelwood_planks"),
+            3, ForbiddenArcanus.location("block/chiseled_polished_darkstone"),
+            4, ForbiddenArcanus.location("block/chiseled_polished_darkstone"),
+            5, ForbiddenArcanus.location("block/stellarite_block")
     );
 
     public static TextureMapping forbiddenomicon(Block block) {
@@ -96,7 +96,7 @@ public class ModTextureMapping {
     }
 
     public static ResourceLocation getBlockTexture(String folder, String texture) {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + folder + "/" + texture);
+        return ForbiddenArcanus.location("block/" + folder + "/" + texture);
     }
 
     public static ResourceLocation geItemTexture(Holder<Item> item, String folder, String suffix) {

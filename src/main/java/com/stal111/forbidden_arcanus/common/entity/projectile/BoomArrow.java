@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Boom Arrow <br>
@@ -27,12 +28,12 @@ public class BoomArrow extends AbstractArrow {
         super(entityType, level);
     }
 
-    public BoomArrow(Level level, LivingEntity shooter, ItemStack stack) {
-        super(ModEntities.BOOM_ARROW.get(), shooter, level, stack);
+    public BoomArrow(Level level, LivingEntity shooter, ItemStack pickupStack, @Nullable ItemStack stack) {
+        super(ModEntities.BOOM_ARROW.get(), shooter, level, pickupStack, stack);
     }
 
-    public BoomArrow(Level level, double x, double y, double z, ItemStack stack) {
-        super(ModEntities.BOOM_ARROW.get(), x, y, z, level, stack);
+    public BoomArrow(Level level, double x, double y, double z, ItemStack pickupStack, @Nullable ItemStack stack) {
+        super(ModEntities.BOOM_ARROW.get(), x, y, z, level, pickupStack, stack);
     }
 
     @Override

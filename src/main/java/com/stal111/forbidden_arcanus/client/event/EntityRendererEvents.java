@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.common.entity.ModBoat;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -47,8 +46,8 @@ public class EntityRendererEvents {
         event.registerLayerDefinition(AbstractForbiddenomiconModel.LAYER_LOCATION, AbstractForbiddenomiconModel::createBodyLayer);
 
         for (ModBoat.Type type : ModBoat.Type.values()) {
-            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
-            event.registerLayerDefinition(new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, type.getChestModelLocation()), "main"), ChestBoatModel::createBodyModel);
+            event.registerLayerDefinition(new ModelLayerLocation(ForbiddenArcanus.location(type.getModelLocation()), "main"), BoatModel::createBodyModel);
+            event.registerLayerDefinition(new ModelLayerLocation(ForbiddenArcanus.location(type.getChestModelLocation()), "main"), ChestBoatModel::createBodyModel);
         }
     }
 }

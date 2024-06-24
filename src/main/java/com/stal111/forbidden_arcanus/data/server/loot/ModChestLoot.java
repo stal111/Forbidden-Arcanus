@@ -10,7 +10,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -32,9 +31,15 @@ public class ModChestLoot implements LootTableSubProvider {
     public static final ResourceKey<LootTable> ELEMENTARIUM_ADDITION = register("chests/additions/elementarium_addition");
     public static final ResourceKey<LootTable> MALEDICTUS_PACT_ADDITION = register("chests/additions/maledictus_pact_addition");
 
+    private final HolderLookup.Provider lookupProvider;
+
+    public ModChestLoot(HolderLookup.Provider lookupProvider) {
+        this.lookupProvider = lookupProvider;
+    }
+
     @Override
-    public void generate(HolderLookup.@NotNull Provider provider, @NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
-        HolderLookup.RegistryLookup<EnhancerDefinition> lookup = provider.lookup(FARegistries.ENHANCER_DEFINITION).orElseThrow();
+    public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+        HolderLookup.RegistryLookup<EnhancerDefinition> lookup = this.lookupProvider.lookup(FARegistries.ENHANCER_DEFINITION).orElseThrow();
         consumer.accept(ARTISAN_RELIC_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.ARTISAN_RELIC).apply(SetComponentsFunction.setComponent(ModDataComponents.ENHANCER.get(), lookup.get(ModEnhancerDefinitions.ARTISAN_RELIC).orElseThrow()))).when(LootItemRandomChanceCondition.randomChance(0.18F))));
         consumer.accept(CRIMSON_STONE_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.CRIMSON_STONE).apply(SetComponentsFunction.setComponent(ModDataComponents.ENHANCER.get(), lookup.get(ModEnhancerDefinitions.CRIMSON_STONE).orElseThrow()))).when(LootItemRandomChanceCondition.randomChance(0.18F))));
         consumer.accept(ELEMENTARIUM_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.ELEMENTARIUM).apply(SetComponentsFunction.setComponent(ModDataComponents.ENHANCER.get(), lookup.get(ModEnhancerDefinitions.ELEMENTARIUM).orElseThrow()))).when(LootItemRandomChanceCondition.randomChance(0.21F))));
@@ -42,6 +47,6 @@ public class ModChestLoot implements LootTableSubProvider {
     }
 
     private static ResourceKey<LootTable> register(String name) {
-        return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+        return ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location(name));
     }
 }

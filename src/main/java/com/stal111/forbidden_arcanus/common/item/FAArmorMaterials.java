@@ -5,13 +5,11 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
 import java.util.EnumMap;
@@ -48,6 +46,6 @@ public class FAArmorMaterials {
     }), 6, SoundEvents.ARMOR_EQUIP_GENERIC, () -> Ingredient.of(ModItems.CLOTH.get()), 1.0F, 0.0F);
 
     public static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue, Holder<SoundEvent> sound, Supplier<Ingredient> repairIngredient, float toughness, float knockbackResistance) {
-        return HELPER.register(name, () -> new ArmorMaterial(protectionFunctionForType, enchantmentValue, sound, repairIngredient, List.of(new ArmorMaterial.Layer(new ResourceLocation(ForbiddenArcanus.MOD_ID, name))), toughness, knockbackResistance));
+        return HELPER.register(name, () -> new ArmorMaterial(protectionFunctionForType, enchantmentValue, sound, repairIngredient, List.of(new ArmorMaterial.Layer(ForbiddenArcanus.location(name))), toughness, knockbackResistance));
     }
 }

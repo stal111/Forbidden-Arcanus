@@ -8,11 +8,9 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
@@ -55,15 +53,16 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
         return EquipmentSlot.HEAD;
     }
 
-    @SuppressWarnings("all")
-    @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (!player.isOnFire()) {
-            return;
-        }
-
-        this.type.tick(stack, player);
-    }
+    //TODO
+//    @SuppressWarnings("all")
+//    @Override
+//    public void onArmorTick(ItemStack stack, Level level, Player player) {
+//        if (!player.isOnFire()) {
+//            return;
+//        }
+//
+//        this.type.tick(stack, player);
+//    }
 
     public ObsidianSkullType getType() {
         return this.type;

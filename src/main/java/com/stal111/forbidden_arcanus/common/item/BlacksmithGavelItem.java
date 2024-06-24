@@ -7,7 +7,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +24,7 @@ import java.util.List;
  */
 public class BlacksmithGavelItem extends PickaxeItem implements RitualStarterItem {
 
-    private static final String TOOLTIP_KEY = Util.makeDescriptionId("tooltip", new ResourceLocation(ForbiddenArcanus.MOD_ID, "remaining_ritual_uses"));
+    private static final String TOOLTIP_KEY = Util.makeDescriptionId("tooltip", ForbiddenArcanus.location("remaining_ritual_uses"));
 
 
     public BlacksmithGavelItem(Tier tier, Properties properties) {

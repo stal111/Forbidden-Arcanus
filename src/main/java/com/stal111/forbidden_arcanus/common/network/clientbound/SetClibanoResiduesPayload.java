@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
@@ -15,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public record SetClibanoResiduesPayload(ResiduesStorage residueAmounts) implements CustomPacketPayload {
 
-    public static final Type<SetClibanoResiduesPayload> TYPE = new Type<>(new ResourceLocation(ForbiddenArcanus.MOD_ID, "set_clibano_residues"));
+    public static final Type<SetClibanoResiduesPayload> TYPE = new Type<>(ForbiddenArcanus.location("set_clibano_residues"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SetClibanoResiduesPayload> STREAM_CODEC = StreamCodec.composite(
             ResiduesStorage.STREAM_CODEC,

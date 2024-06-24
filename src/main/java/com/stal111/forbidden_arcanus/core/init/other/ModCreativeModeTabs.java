@@ -233,8 +233,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.BLOOD, 10000, 10000));
                             output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.EXPERIENCE, 10000, 10000));
 
-                            output.accept(ModItems.ZOMBIE_ARM.get());
-                            output.accept(ModItems.SHINY_ZOMBIE_ARM.get());
                             output.accept(ModItems.EDELWOOD_BUCKET.get());
                             output.accept(ModItems.EDELWOOD_WATER_BUCKET.get());
                             output.accept(ModItems.EDELWOOD_LAVA_BUCKET.get());

@@ -11,7 +11,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -55,8 +54,8 @@ import java.util.List;
  */
 public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
-    private static final String DESCRIPTION_ID = Util.makeDescriptionId("block", new ResourceLocation(ForbiddenArcanus.MOD_ID, "hephaestus_forge"));
-    private static final String TIER_ID = Util.makeDescriptionId("tooltip", new ResourceLocation(ForbiddenArcanus.MOD_ID, "hephaestus_forge.tier"));
+    private static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge"));
+    private static final String TIER_ID = Util.makeDescriptionId("tooltip", ForbiddenArcanus.location("hephaestus_forge.tier"));
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
 

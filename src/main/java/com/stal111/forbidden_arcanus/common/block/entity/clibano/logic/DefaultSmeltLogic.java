@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano.logic;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoInputSlot;
-import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 

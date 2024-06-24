@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.recipe.*;
+import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.CombineAurealTankRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;

@@ -33,8 +33,8 @@ import javax.annotation.Nonnull;
  */
 public class NipaPieces {
 
-    public static final ResourceLocation NIPA = new ResourceLocation(ForbiddenArcanus.MOD_ID, "nipa");
-    public static final ResourceLocation NIPA_FLOATING = new ResourceLocation(ForbiddenArcanus.MOD_ID, "nipa_floating");
+    public static final ResourceLocation NIPA = ForbiddenArcanus.location("nipa");
+    public static final ResourceLocation NIPA_FLOATING = ForbiddenArcanus.location("nipa_floating");
 
     public static class Piece extends TemplateStructurePiece {
 

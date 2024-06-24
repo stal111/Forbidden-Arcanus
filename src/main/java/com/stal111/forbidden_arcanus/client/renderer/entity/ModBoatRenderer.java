@@ -35,7 +35,7 @@ public class ModBoatRenderer extends BoatRenderer {
     }
 
     private ListModel<Boat> createBoatModel(EntityRendererProvider.Context context, ModBoat.Type type, boolean hasChest) {
-        ModelLayerLocation layerLocation = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, hasChest ? type.getChestModelLocation() : type.getModelLocation()), "main");
+        ModelLayerLocation layerLocation = new ModelLayerLocation(ForbiddenArcanus.location(hasChest ? type.getChestModelLocation() : type.getModelLocation()), "main");
         ModelPart part = context.bakeLayer(layerLocation);
 
         return hasChest ? new ChestBoatModel(part) : new BoatModel(part);

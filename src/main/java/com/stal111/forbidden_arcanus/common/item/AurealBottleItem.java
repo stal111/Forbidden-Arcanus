@@ -63,7 +63,7 @@ public class AurealBottleItem extends Item {
     }
 
     @Override
-    public int getUseDuration(@Nonnull ItemStack stack) {
+    public int getUseDuration(@Nonnull ItemStack stack, LivingEntity entity) {
         return USE_DURATION;
     }
 

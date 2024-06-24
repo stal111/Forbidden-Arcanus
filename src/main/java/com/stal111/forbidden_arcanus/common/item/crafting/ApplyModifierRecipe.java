@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.recipe;
+package com.stal111.forbidden_arcanus.common.item.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -9,17 +9,17 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Apply Modifier Recipe <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe
  *
  * @author stal111
  * @since 2021-11-29
@@ -29,19 +29,19 @@ public record ApplyModifierRecipe(Ingredient template,
                                   Holder<ItemModifier> modifier) implements SmithingRecipe {
 
     @Override
-    public boolean matches(@NotNull Container inv, @NotNull Level level) {
-        ItemStack base = inv.getItem(1);
+    public boolean matches(@NotNull SmithingRecipeInput recipeInput, @NotNull Level level) {
+        ItemStack base = recipeInput.base();
 
-        if (ModifierHelper.hasModifier(base) || !this.isTemplateIngredient(inv.getItem(0)) || !this.isBaseIngredient(base)) {
+        if (ModifierHelper.hasModifier(base) || !this.isTemplateIngredient(recipeInput.template()) || !this.isBaseIngredient(base)) {
             return false;
         }
-        return this.isAdditionIngredient(inv.getItem(2));
+        return this.isAdditionIngredient(recipeInput.addition());
     }
 
     @NotNull
     @Override
-    public ItemStack assemble(@NotNull Container inv, @NotNull HolderLookup.Provider provider) {
-        ItemStack stack = inv.getItem(1).copy();
+    public ItemStack assemble(@NotNull SmithingRecipeInput recipeInput, @NotNull HolderLookup.Provider provider) {
+        ItemStack stack = recipeInput.base().copy();
 
         ModifierHelper.setModifier(stack, this.modifier);
 
@@ -72,7 +72,9 @@ public record ApplyModifierRecipe(Ingredient template,
 
     @Override
     public boolean isBaseIngredient(@NotNull ItemStack stack) {
-        return this.modifier.value().canItemContainModifier(stack);
+        return true;
+        //TODO
+//        return this.modifier.value().canItemContainModifier(stack);
     }
 
     @Override

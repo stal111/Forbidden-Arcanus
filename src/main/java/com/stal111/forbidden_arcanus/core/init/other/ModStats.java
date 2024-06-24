@@ -18,7 +18,7 @@ public class ModStats {
     public static final RegistryEntry<ResourceLocation, ResourceLocation> INTERACT_WITH_PEDESTAL = register("interact_with_pedestal", StatFormatter.DEFAULT);
 
     public static RegistryEntry<ResourceLocation, ResourceLocation> register(String name, StatFormatter formatter) {
-        ResourceLocation resourceLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, name);
+        ResourceLocation resourceLocation = ForbiddenArcanus.location(name);
 
         //TODO
         //Stats.CUSTOM.get(resourceLocation, formatter);

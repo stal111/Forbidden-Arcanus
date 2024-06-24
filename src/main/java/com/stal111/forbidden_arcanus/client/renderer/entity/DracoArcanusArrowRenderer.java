@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
  */
 public class DracoArcanusArrowRenderer extends ArrowRenderer<DracoArcanusArrow> {
 
-    private static final ResourceLocation LOCATION = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/projectiles/draco_arcanus_arrow.png");
+    private static final ResourceLocation LOCATION = ForbiddenArcanus.location("textures/entity/projectiles/draco_arcanus_arrow.png");
 
     public DracoArcanusArrowRenderer(EntityRendererProvider.Context context) {
         super(context);

@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.client;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceProvider;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,8 +32,8 @@ public class FAShaders {
     public static void registerShaders(RegisterShadersEvent event) {
         try {
             ResourceProvider provider = event.getResourceProvider();
-            event.registerShader(new ShaderInstance(provider, new ResourceLocation(ForbiddenArcanus.MOD_ID, "rendertype_entity_fullbright_cutout"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> rendertypeEntityFullbrightCutout = shaderInstance);
-            event.registerShader(new ShaderInstance(provider, new ResourceLocation(ForbiddenArcanus.MOD_ID, "rendertype_entity_fullbright_translucent"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> rendertypeEntityFullbrightTranslucent = shaderInstance);
+            event.registerShader(new ShaderInstance(provider, ForbiddenArcanus.location("rendertype_entity_fullbright_cutout"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> rendertypeEntityFullbrightCutout = shaderInstance);
+            event.registerShader(new ShaderInstance(provider, ForbiddenArcanus.location("rendertype_entity_fullbright_translucent"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> rendertypeEntityFullbrightTranslucent = shaderInstance);
         } catch (IOException e) {
             throw new RuntimeException("Could not reload F&A's shaders!", e);
         }

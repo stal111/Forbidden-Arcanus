@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -24,7 +25,7 @@ public class QuantumCatcherFlyingLabel extends EntityFlyingLabel {
     private static final int ICON_SIZE = 12;
 
     @Override
-    public void render(GuiGraphics guiGraphics, ItemStack stack, float partialTick, int centerX, int centerY, EntityHitResult result) {
+    public void render(GuiGraphics guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, EntityHitResult result) {
         Minecraft minecraft = Minecraft.getInstance();
         PoseStack poseStack = guiGraphics.pose();
         Entity entity = result.getEntity();

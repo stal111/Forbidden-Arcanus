@@ -1,12 +1,10 @@
 package com.stal111.forbidden_arcanus.util;
 
 import com.google.common.collect.Maps;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.LevelReader;
@@ -20,10 +18,6 @@ import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
 
 public class ModUtils {
-
-    public static ResourceLocation location(String path) {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, path);
-    }
 
     public static void addStrippable(Block block, Block strippedBlock) {
         AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);

@@ -10,7 +10,6 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -19,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DarkTraderModel extends HierarchicalModel<DarkTrader> {
 
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "dark_trader"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("dark_trader"), "main");
 
 	private final ModelPart root;
 
@@ -92,8 +91,8 @@ public class DarkTraderModel extends HierarchicalModel<DarkTrader> {
 	}
 
 	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 
 	@Override

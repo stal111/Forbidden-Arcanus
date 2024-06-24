@@ -18,12 +18,12 @@ public class ModMagicCircles extends DatapackRegistryClass<MagicCircleType> {
     public static final DatapackRegistryHelper<MagicCircleType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.MAGIC_CIRCLE);
 
     //INNER TEXTURES
-    private static final ResourceLocation UNION_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner/union.png");
-    private static final ResourceLocation ORIGIN_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/inner/origin.png");
+    private static final ResourceLocation UNION_TEXTURE = ForbiddenArcanus.location("textures/effect/magic_circle/inner/union.png");
+    private static final ResourceLocation ORIGIN_TEXTURE = ForbiddenArcanus.location("textures/effect/magic_circle/inner/origin.png");
 
     //OUTER TEXTURES
-    private static final ResourceLocation PURE_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/outer/pure.png");
-    private static final ResourceLocation PACTUM_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/effect/magic_circle/outer/pactum.png");
+    private static final ResourceLocation PURE_TEXTURE = ForbiddenArcanus.location("textures/effect/magic_circle/outer/pure.png");
+    private static final ResourceLocation PACTUM_TEXTURE = ForbiddenArcanus.location("textures/effect/magic_circle/outer/pactum.png");
 
     public static final ResourceKey<MagicCircleType> CREATE_ITEM = HELPER.createKey("create_item");
     public static final ResourceKey<MagicCircleType> UPGRADE_TIER = HELPER.createKey("upgrade_tier");

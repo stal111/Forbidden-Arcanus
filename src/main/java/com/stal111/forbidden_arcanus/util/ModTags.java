@@ -29,15 +29,15 @@ public class ModTags {
         public static final TagKey<Block> OBSIDIAN_STORAGE_BLOCKS = forgeTag("storage_blocks/obsidian");
 
         private static TagKey<Block> forgeTag(String name) {
-            return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("forge", name));
         }
 
         private static TagKey<Block> modTag(String name) {
-            return TagKey.create(Registries.BLOCK, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.BLOCK, ForbiddenArcanus.location(name));
         }
 
         private static TagKey<Block> vanillaTag(String name) {
-            return TagKey.create(Registries.BLOCK, new ResourceLocation(name));
+            return TagKey.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace(name));
         }
     }
 
@@ -77,11 +77,11 @@ public class ModTags {
 
 
         private static TagKey<Item> forgeTag(String name) {
-            return TagKey.create(Registries.ITEM, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", name));
         }
 
         private static TagKey<Item> modTag(String name) {
-            return TagKey.create(Registries.ITEM, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.ITEM, ForbiddenArcanus.location(name));
         }
     }
 
@@ -93,7 +93,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SPAWNS_CORRUPT_LOST_SOUL_CHANCE = modTag("spawns_corrupt_lost_soul_chance");
 
         private static TagKey<EntityType<?>> modTag(String name) {
-            return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.ENTITY_TYPE, ForbiddenArcanus.location(name));
         }
     }
 
@@ -108,7 +108,7 @@ public class ModTags {
         public static final TagKey<Enchantment> SOULBOUND_INCOMPATIBLE = modTag("modifier/soulbound_incompatible");
 
         private static TagKey<Enchantment> modTag(String name) {
-            return TagKey.create(Registries.ENCHANTMENT, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.ENCHANTMENT, ForbiddenArcanus.location(name));
         }
     }
 
@@ -122,11 +122,11 @@ public class ModTags {
         public static final TagKey<Biome> SPAWNS_CORRUPT_LOST_SOUL = forgeTag("spawns_corrupt_lost_soul");
 
         private static TagKey<Biome> forgeTag(String name) {
-            return TagKey.create(Registries.BIOME, new ResourceLocation("forge", name));
+            return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("forge", name));
         }
 
         private static TagKey<Biome> modTag(String name) {
-            return TagKey.create(Registries.BIOME, new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+            return TagKey.create(Registries.BIOME, ForbiddenArcanus.location(name));
         }
     }
 }

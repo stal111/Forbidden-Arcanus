@@ -8,7 +8,6 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
 
 /**
  * Magic Circle Model <br>
@@ -19,9 +18,9 @@ import net.minecraft.resources.ResourceLocation;
  */
 public record MagicCircleModel(ModelPart outerRing, ModelPart innerRing, ModelPart validRitualIndicator) {
 
-    public static final ModelLayerLocation OUTER_RING_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "magic_circle"), "outer_ring");
-    public static final ModelLayerLocation INNER_RING_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "magic_circle"), "inner_ring");
-    public static final ModelLayerLocation VALID_RITUAL_INDICATOR = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "magic_circle"), "valid_ritual_indicator");
+    public static final ModelLayerLocation OUTER_RING_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("magic_circle"), "outer_ring");
+    public static final ModelLayerLocation INNER_RING_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("magic_circle"), "inner_ring");
+    public static final ModelLayerLocation VALID_RITUAL_INDICATOR = new ModelLayerLocation(ForbiddenArcanus.location("magic_circle"), "valid_ritual_indicator");
 
 
     public MagicCircleModel(BlockEntityRendererProvider.Context context) {

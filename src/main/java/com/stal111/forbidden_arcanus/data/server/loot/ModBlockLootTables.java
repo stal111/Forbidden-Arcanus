@@ -7,11 +7,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.valhelsia.valhelsia_core.datagen.ValhelsiaBlockLootTables;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,8 +24,8 @@ import java.util.function.BiConsumer;
  */
 public class ModBlockLootTables extends ValhelsiaBlockLootTables {
 
-    public ModBlockLootTables() {
-        super(Set.of(), FeatureFlags.DEFAULT_FLAGS, ForbiddenArcanus.REGISTRY_MANAGER);
+    public ModBlockLootTables(HolderLookup.Provider lookupProvider) {
+        super(Set.of(), FeatureFlags.DEFAULT_FLAGS, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER);
     }
 
     @Override
@@ -74,14 +70,11 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
 //        forEach(this::registerDropSelfLootTable);
     }
 
-    protected static LootTable.Builder createSilkTouchOrShearsOnlyTable(ItemLike pItem) {
-        return LootTable.lootTable().withPool(LootPool.lootPool().when(HAS_SHEARS_OR_SILK_TOUCH).setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(pItem)));
-    }
-
     //TODO: remove after transitioning all loot tables
     @Override
-    public void generate(HolderLookup.Provider lookupProvider, @NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
+    public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
         this.generate();
 
-        this.map.forEach(biConsumer);    }
+        this.map.forEach(biConsumer);
+    }
 }

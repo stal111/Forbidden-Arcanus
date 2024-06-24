@@ -58,7 +58,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> ROTTEN_LEATHER = HELPER.register("rotten_leather", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> SPECTRAL_EYE_AMULET = HELPER.register("spectral_eye_amulet", () -> new SpectralEyeAmuletItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
     public static final ItemRegistryEntry<Item> BAT_WING = HELPER.register("bat_wing", () -> new Item(new Item.Properties().food(ModFoods.BAT_WING)));
-    public static final ItemRegistryEntry<Item> BAT_SOUP = HELPER.register("bat_soup", () -> new BowlFoodItem(new Item.Properties().stacksTo(1).food(ModFoods.BAT_SOUP)));
+    public static final ItemRegistryEntry<Item> BAT_SOUP = HELPER.register("bat_soup", () -> new Item(new Item.Properties().stacksTo(1).food(ModFoods.BAT_SOUP)));
     public static final ItemRegistryEntry<Item> TENTACLE = HELPER.register("tentacle", () -> new Item(new Item.Properties().food(ModFoods.TENTACLE)));
     public static final ItemRegistryEntry<Item> COOKED_TENTACLE = HELPER.register("cooked_tentacle", () -> new Item(new Item.Properties().food(ModFoods.COOKED_TENTACLE)));
     public static final ItemRegistryEntry<BlockItem> STRANGE_ROOT = HELPER.register("strange_root", () -> new StrangeRootItem(ModBlocks.STRANGE_ROOT.get(), new Item.Properties().food(ModFoods.STRANGE_ROOT)));
@@ -92,8 +92,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<SplashAurealBottleItem> SPLASH_AUREAL_BOTTLE = HELPER.register("splash_aureal_bottle", () -> new SplashAurealBottleItem(new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.AUREAL, 30))));
     public static final ItemRegistryEntry<Item> ARCANE_CRYSTAL_DUST_SPECK = HELPER.register("arcane_crystal_dust_speck", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<ArcaneBoneMealItem> ARCANE_BONE_MEAL = HELPER.register("arcane_bone_meal", () -> new ArcaneBoneMealItem(new Item.Properties()));
-    public static final ItemRegistryEntry<ZombieArmItem> ZOMBIE_ARM = HELPER.register("zombie_arm", () -> new ZombieArmItem(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<ZombieArmItem> SHINY_ZOMBIE_ARM = HELPER.register("shiny_zombie_arm", () -> new ZombieArmItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> TEST_TUBE = HELPER.register("test_tube", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", () -> new BloodTestTubeItem(new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, BloodTestTubeItem.DEFAULT_DATA).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE)));
     public static final ItemRegistryEntry<Item> BLACKSMITH_GAVEL_HEAD = HELPER.register("blacksmith_gavel_head", () -> new Item(new Item.Properties().stacksTo(16)));

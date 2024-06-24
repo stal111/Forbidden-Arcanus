@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -40,6 +41,10 @@ public final class ForbiddenArcanus {
 
 		this.registerConfig(modContainer, ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
 		this.registerConfig(modContainer, ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+	}
+
+	public static ResourceLocation location(String path) {
+		return ResourceLocation.fromNamespaceAndPath(ForbiddenArcanus.MOD_ID, path);
 	}
 
 	private void registerConfig(ModContainer modContainer, ModConfig.Type type, ModConfigSpec configSpec) {

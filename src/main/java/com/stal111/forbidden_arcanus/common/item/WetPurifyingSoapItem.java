@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  */
 public class WetPurifyingSoapItem extends Item {
 
-    private static final ResourceLocation COUNTER = new ResourceLocation(ForbiddenArcanus.MOD_ID, "dry_timer");
+    private static final ResourceLocation COUNTER = ForbiddenArcanus.location("dry_timer");
 
     private static final double CONSUME_CHANCE = 0.65D;
 

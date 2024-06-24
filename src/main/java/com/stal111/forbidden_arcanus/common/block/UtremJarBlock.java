@@ -10,7 +10,6 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -40,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
 
-    private static final String DESCRIPTION_ID = Util.makeDescriptionId("block", new ResourceLocation(ForbiddenArcanus.MOD_ID, "utrem_jar"));
+    private static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("utrem_jar"));
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 

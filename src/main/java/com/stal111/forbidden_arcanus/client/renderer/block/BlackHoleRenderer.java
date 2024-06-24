@@ -30,14 +30,14 @@ import javax.annotation.Nonnull;
  */
 public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEntity> {
 
-    public static final ModelLayerLocation BLACK_HOLE_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "black_hole"), "main");
-    public static final ModelLayerLocation BLACK_HOLE_AURA_LAYER = new ModelLayerLocation(new ResourceLocation(ForbiddenArcanus.MOD_ID, "black_hole"), "aura");
+    public static final ModelLayerLocation BLACK_HOLE_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("black_hole"), "main");
+    public static final ModelLayerLocation BLACK_HOLE_AURA_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("black_hole"), "aura");
 
-    private static final ResourceLocation BLACK_HOLE_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole.png");
+    private static final ResourceLocation BLACK_HOLE_TEXTURE = ForbiddenArcanus.location("textures/block/black_hole.png");
     private static final ResourceLocation[] BLACK_HOLE_AURA = {
-            new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole_aura_0.png"),
-            new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole_aura_1.png"),
-            new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/block/black_hole_aura_2.png")
+            ForbiddenArcanus.location("textures/block/black_hole_aura_0.png"),
+            ForbiddenArcanus.location("textures/block/black_hole_aura_1.png"),
+            ForbiddenArcanus.location("textures/block/black_hole_aura_2.png"),
     };
 
     private static final RenderType RENDER_TYPE = RenderType.entityCutoutNoCull(BLACK_HOLE_TEXTURE);

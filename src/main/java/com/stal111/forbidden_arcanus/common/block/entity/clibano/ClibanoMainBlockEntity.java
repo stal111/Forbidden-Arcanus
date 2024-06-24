@@ -7,13 +7,14 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSm
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DoubleSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipeInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
-import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -28,8 +29,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -157,14 +156,14 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
-        Container combinedContainer = new SimpleContainer(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getFirst()), blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getSecond()));
+        ClibanoRecipeInput combinedInput = new ClibanoRecipeInput(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getFirst()), blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getSecond()));
 
-        Container firstSlot = new SimpleContainer(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getFirst()));
-        Container secondSlot = new SimpleContainer(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getSecond()));
+        ClibanoRecipeInput firstSlot = new ClibanoRecipeInput(blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getFirst()), ItemStack.EMPTY);
+        ClibanoRecipeInput secondSlot = new ClibanoRecipeInput(ItemStack.EMPTY, blockEntity.getStack(ClibanoMenu.INPUT_SLOTS.getSecond()));
 
         List<RecipeHolder<ClibanoRecipe>> recipeHolders = new ArrayList<>();
 
-        blockEntity.quickCheck.getAlloyRecipe(combinedContainer, level).ifPresentOrElse(recipeHolder -> {
+        blockEntity.quickCheck.getAlloyRecipe(combinedInput, level).ifPresentOrElse(recipeHolder -> {
             recipeHolders.add(recipeHolder);
 
             if (!(blockEntity.logic instanceof DoubleSmeltLogic)) {
@@ -514,7 +513,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         CompoundTag recipesUsed = tag.getCompound("recipes_used");
 
         for (String recipe : recipesUsed.getAllKeys()) {
-            this.recipesUsed.put(new ResourceLocation(recipe), tag.getInt(recipe));
+            this.recipesUsed.put(ResourceLocation.parse(recipe), tag.getInt(recipe));
         }
 
         this.residuesStorage.load(tag, lookupProvider);
@@ -570,7 +569,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         return list;
     }
 
-    public static class CachedRecipeCheck implements RecipeManager.CachedCheck<Container, ClibanoRecipe> {
+    public static class CachedRecipeCheck implements RecipeManager.CachedCheck<ClibanoRecipeInput, ClibanoRecipe> {
 
         @Nullable
         private RecipeHolder<ClibanoRecipe> lastAlloyRecipe;
@@ -583,26 +582,26 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
         }
 
         @Override
-        public @NotNull Optional<RecipeHolder<ClibanoRecipe>> getRecipeFor(@NotNull Container container, @NotNull Level level) {
+        public @NotNull Optional<RecipeHolder<ClibanoRecipe>> getRecipeFor(@NotNull ClibanoRecipeInput recipeInput, @NotNull Level level) {
             while (!this.lastRecipes.isEmpty()) {
-                Optional<RecipeHolder<ClibanoRecipe>> optional = this.checkRecipe(this.lastRecipes.poll(), container, level);
+                Optional<RecipeHolder<ClibanoRecipe>> optional = this.checkRecipe(this.lastRecipes.poll(), recipeInput, level);
 
                 if (optional.isPresent()) {
                     return optional;
                 }
             }
 
-            Optional<RecipeHolder<ClibanoRecipe>> optional = level.getRecipeManager().getAllRecipesFor(RECIPE_TYPE).stream().filter(recipe -> !recipe.value().isDoubleRecipe() && recipe.value().matches(container, level, this.accessor.getEnhancers())).findFirst();
+            Optional<RecipeHolder<ClibanoRecipe>> optional = level.getRecipeManager().getAllRecipesFor(RECIPE_TYPE).stream().filter(recipe -> !recipe.value().isDoubleRecipe() && recipe.value().matches(recipeInput, level, this.accessor.getEnhancers())).findFirst();
 
             optional.ifPresent(this.lastRecipes::add);
 
             return optional;
         }
 
-        public Optional<RecipeHolder<ClibanoRecipe>> getAlloyRecipe(Container container, Level level) {
-            return Optional.ofNullable(this.checkRecipe(this.lastAlloyRecipe, container, level).orElseGet(() -> {
+        public Optional<RecipeHolder<ClibanoRecipe>> getAlloyRecipe(ClibanoRecipeInput recipeInput, Level level) {
+            return Optional.ofNullable(this.checkRecipe(this.lastAlloyRecipe, recipeInput, level).orElseGet(() -> {
                 for (RecipeHolder<ClibanoRecipe> recipe : level.getRecipeManager().getAllRecipesFor(RECIPE_TYPE)) {
-                    if (recipe.value().isDoubleRecipe() && recipe.value().matches(container, level, this.accessor.getEnhancers())) {
+                    if (recipe.value().isDoubleRecipe() && recipe.value().matches(recipeInput, level, this.accessor.getEnhancers())) {
                         this.lastAlloyRecipe = recipe;
 
                         return recipe;
@@ -615,8 +614,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             }));
         }
 
-        private Optional<RecipeHolder<ClibanoRecipe>> checkRecipe(@Nullable RecipeHolder<ClibanoRecipe> recipeHolder, Container container, Level level) {
-            if (recipeHolder != null && recipeHolder.value().matches(container, level, this.accessor.getEnhancers())) {
+        private Optional<RecipeHolder<ClibanoRecipe>> checkRecipe(@Nullable RecipeHolder<ClibanoRecipe> recipeHolder, ClibanoRecipeInput recipeInput, Level level) {
+            if (recipeHolder != null && recipeHolder.value().matches(recipeInput, level, this.accessor.getEnhancers())) {
                 return Optional.of(recipeHolder);
             }
 

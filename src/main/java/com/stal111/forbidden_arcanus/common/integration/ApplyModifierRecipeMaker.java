@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.integration;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
-import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -37,9 +37,9 @@ public class ApplyModifierRecipeMaker {
                 .map(upgradeRecipe -> (ApplyModifierRecipe) upgradeRecipe.value())
                 .forEach(applyModifierRecipe -> {
                     Holder<ItemModifier> modifier = applyModifierRecipe.modifier();
-                    ResourceLocation id = new ResourceLocation(ForbiddenArcanus.MOD_ID, "jei.apply_" + modifier.value().getRegistryName().getPath() + "_modifier");
+                    ResourceLocation id = ForbiddenArcanus.location("jei.apply_" + modifier.value().getRegistryName().getPath() + "_modifier");
 
-                    modifier.value().getValidItems().forEach(stack -> {
+                    modifier.value().getValidItems(level.registryAccess()).forEach(stack -> {
                         ModifierHelper.setModifier(stack, modifier);
 
                         recipes.add(new RecipeHolder<>(id, new SmithingTransformRecipe(applyModifierRecipe.template(), Ingredient.of(stack.getItem()), applyModifierRecipe.addition(), stack)));

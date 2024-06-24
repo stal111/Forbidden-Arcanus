@@ -24,11 +24,11 @@ public class ModLocationUtils {
     }
 
     public static ResourceLocation getBlock(String folder, String name) {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + folder + "/" + name);
+        return ForbiddenArcanus.location("block/" + folder + "/" + name);
     }
 
     public static ResourceLocation getBlock(String name) {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + name);
+        return ForbiddenArcanus.location("block/" + name);
     }
 
     public static ResourceLocation getItem(String folder, Holder<Item> item, String suffix) {
@@ -44,10 +44,10 @@ public class ModLocationUtils {
     }
 
     public static ResourceLocation getItem(String folder, String name) {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "item/" + folder + "/" + name);
+        return ForbiddenArcanus.location("item/" + folder + "/" + name);
     }
 
     public static ResourceLocation getItem(String name) {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "item/" + name);
+        return ForbiddenArcanus.location("item/" + name);
     }
 }

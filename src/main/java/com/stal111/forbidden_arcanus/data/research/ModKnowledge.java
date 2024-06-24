@@ -11,7 +11,6 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryHelper;
 
@@ -35,7 +34,7 @@ public class ModKnowledge extends DatapackRegistryClass<Knowledge> {
 
     @Override
     public void bootstrap(BootstrapContext<Knowledge> context) {
-        var welcome = context.register(WELCOME, new Knowledge(new DisplayInfo(Component.literal("Welcome!"), Component.literal("The start of an adventure."), FrameType.DEFAULT, new TextureIcon(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/icon/feather.png")), 0, 0), List.of()));
+        var welcome = context.register(WELCOME, new Knowledge(new DisplayInfo(Component.literal("Welcome!"), Component.literal("The start of an adventure."), FrameType.DEFAULT, new TextureIcon(ForbiddenArcanus.location("textures/gui/research/icon/feather.png")), 0, 0), List.of()));
         context.register(FORBIDDENOMICON, new Knowledge(new DisplayInfo(Component.literal("Forbiddenomicon"), Component.literal("The forbidden grimoire."), FrameType.ADVANCED, new ItemIcon(ModBlocks.FORBIDDENOMICON.get().asItem()), 2, 0), List.of(welcome)));
         context.register(RESEARCH_DESK, new Knowledge(new DisplayInfo(Component.literal("Desk"), Component.literal("More than elegant furniture."), FrameType.MASTER, new ItemIcon(ModBlocks.RESEARCH_DESK.get().asItem()), 0, 2), List.of(welcome)));
     }

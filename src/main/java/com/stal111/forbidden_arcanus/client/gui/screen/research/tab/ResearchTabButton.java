@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ResearchTabButton extends StateSwitchingButton {
 
-    public static final WidgetSprites PURPLE_SPRITES = new WidgetSprites(new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/purple_tab"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/purple_tab_selected"));
-    public static final WidgetSprites RED_SPRITES = new WidgetSprites(new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/red_tab"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/red_tab_selected"));
+    public static final WidgetSprites PURPLE_SPRITES = new WidgetSprites(ForbiddenArcanus.location("research/purple_tab"), ForbiddenArcanus.location("research/purple_tab_selected"));
+    public static final WidgetSprites RED_SPRITES = new WidgetSprites(ForbiddenArcanus.location("research/red_tab"), ForbiddenArcanus.location("research/red_tab_selected"));
 
     private final ResearchCategory category;
 

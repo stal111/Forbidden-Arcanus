@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,7 @@ public class JarFlyingLabel extends BlockFlyingLabel {
     private static final int ICON_SIZE = 12;
 
     @Override
-    public void render(GuiGraphics guiGraphics, ItemStack stack, float partialTick, int centerX, int centerY, BlockHitResult result) {
+    public void render(GuiGraphics guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, BlockHitResult result) {
         PoseStack poseStack = guiGraphics.pose();
         BlockPos pos = result.getBlockPos();
         Level level = Minecraft.getInstance().level;

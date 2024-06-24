@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.data.recipes;
 
-import com.stal111.forbidden_arcanus.common.recipe.CombineAurealTankRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.CombineAurealTankRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.valhelsia.valhelsia_core.datagen.recipes.RecipeSubProvider;

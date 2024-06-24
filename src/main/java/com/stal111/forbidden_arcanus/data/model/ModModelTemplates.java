@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import net.minecraft.Util;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -34,10 +33,10 @@ public class ModModelTemplates {
     public static final ModelTemplate QUANTUM_CATCHER = createItem("template_quantum_catcher", ModTextureSlots.INNER, TextureSlot.TOP, TextureSlot.SIDE);
 
     public static ModelTemplate create(String name, TextureSlot... textureSlots) {
-        return new ModelTemplate(Optional.of(new ResourceLocation(ForbiddenArcanus.MOD_ID, "block/" + name)), Optional.empty(), textureSlots);
+        return new ModelTemplate(Optional.of(ForbiddenArcanus.location("block/" + name)), Optional.empty(), textureSlots);
     }
 
     public static ModelTemplate createItem(String name, TextureSlot... textureSlots) {
-        return new ModelTemplate(Optional.of(new ResourceLocation(ForbiddenArcanus.MOD_ID, "item/" + name)), Optional.empty(), textureSlots);
+        return new ModelTemplate(Optional.of(ForbiddenArcanus.location("item/" + name)), Optional.empty(), textureSlots);
     }
 }

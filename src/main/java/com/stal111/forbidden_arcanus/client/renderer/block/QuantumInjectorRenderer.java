@@ -19,8 +19,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjectorBlockEntity> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/quantum_injector.png");
-    private static final ResourceLocation LAYER_TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/quantum_injector_layer.png");
+    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/entity/quantum_injector.png");
+    private static final ResourceLocation LAYER_TEXTURE = ForbiddenArcanus.location("textures/entity/quantum_injector_layer.png");
 
     private final QuantumInjectorModel<?> model;
 
@@ -40,9 +40,9 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
         poseStack.mulPose(Axis.ZP.rotationDegrees(180));
 
         this.model.setupAnim(blockEntity, 0.0F, 0.0F, blockEntity.getTickCount() + partialTick, 0.0F, 0.0F);
-        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay);
 
-        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityTranslucentEmissive(LAYER_TEXTURE)), packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityTranslucentEmissive(LAYER_TEXTURE)), packedLight, packedOverlay);
 
         poseStack.popPose();
     }

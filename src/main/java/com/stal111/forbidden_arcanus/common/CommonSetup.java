@@ -10,7 +10,6 @@ import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
 import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -39,10 +38,10 @@ public class CommonSetup {
 
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "fungyss"), ModBlocks.POTTED_FUNGYSS);
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "aurum_sapling"), ModBlocks.POTTED_AURUM_SAPLING);
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "growing_edelwood"), ModBlocks.POTTED_GROWING_EDELWOOD);
-            flowerPotBlock.addPlant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
+            flowerPotBlock.addPlant(ForbiddenArcanus.location("fungyss"), ModBlocks.POTTED_FUNGYSS);
+            flowerPotBlock.addPlant(ForbiddenArcanus.location( "aurum_sapling"), ModBlocks.POTTED_AURUM_SAPLING);
+            flowerPotBlock.addPlant(ForbiddenArcanus.location( "growing_edelwood"), ModBlocks.POTTED_GROWING_EDELWOOD);
+            flowerPotBlock.addPlant(ForbiddenArcanus.location( "yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
         });
 
         ModUtils.addStrippable(ModBlocks.AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_LOG.get());

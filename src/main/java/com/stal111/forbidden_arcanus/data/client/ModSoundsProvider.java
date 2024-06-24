@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.data.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
@@ -36,6 +35,6 @@ public class ModSoundsProvider extends SoundDefinitionsProvider {
     }
 
     private SoundDefinition.Sound simpleSound(String name) {
-        return SoundDefinition.Sound.sound(new ResourceLocation(ForbiddenArcanus.MOD_ID, name), SoundDefinition.SoundType.SOUND);
+        return SoundDefinition.Sound.sound(ForbiddenArcanus.location(name), SoundDefinition.SoundType.SOUND);
     }
 }

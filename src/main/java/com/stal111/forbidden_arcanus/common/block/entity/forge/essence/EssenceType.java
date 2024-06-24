@@ -37,8 +37,8 @@ public enum EssenceType implements StringRepresentable {
         this.name = name;
         this.lightEmission = lightEmission;
         this.particleType = particleType;
-        this.component = Component.translatable(Util.makeDescriptionId("essence", new ResourceLocation(ForbiddenArcanus.MOD_ID, name)));
-        this.spriteLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "icon/" + name);
+        this.component = Component.translatable(Util.makeDescriptionId("essence", ForbiddenArcanus.location(name)));
+        this.spriteLocation = ForbiddenArcanus.location("icon/" + name);
     }
 
     @Override

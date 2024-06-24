@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer implements BlockEntityRenderer<EssenceUtremJarBlockEntity> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/lost_soul/lost_soul.png");
+    public static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/entity/lost_soul/lost_soul.png");
 
     private static final ItemStack EMPTY_JAR = new ItemStack(ModBlocks.UTREM_JAR.get());
 
@@ -64,7 +64,7 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
 
                 float ageInTicks = (blockEntity.getTickCount() == -1 ? Minecraft.getInstance().level.getGameTime() : blockEntity.getTickCount()) + partialTick;
                 this.model.setupAnim(blockEntity, 0.0F, 0.0F, ageInTicks, 0.0F, 0.0F);
-                this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay);
 
                 poseStack.popPose();
             } else {

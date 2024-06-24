@@ -5,8 +5,10 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -82,7 +84,7 @@ public class ItemModifier {
     }
 
     public ResourceLocation getTooltipTexture() {
-        return new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/tooltip/" + this.getRegistryName().getPath() + ".png");
+        return ForbiddenArcanus.location("textures/gui/tooltip/" + this.getRegistryName().getPath() + ".png");
     }
 
     public TagKey<Item> getIncompatibleItems() {
@@ -93,20 +95,23 @@ public class ItemModifier {
         return this.incompatibleEnchantments;
     }
 
-    public boolean canItemContainModifier(ItemStack stack) {
+    public boolean canItemContainModifier(ItemStack stack, HolderLookup.Provider lookupProvider) {
         if (stack.is(this.getIncompatibleItems()) || !this.predicate.test(stack)) {
             return false;
         }
 
-        var tagHolder = BuiltInRegistries.ENCHANTMENT.getOrCreateTag(this.getIncompatibleEnchantments());
-
-        return stack.getEnchantments().keySet().stream()
-                .noneMatch(enchantment -> tagHolder.contains(enchantment.value().builtInRegistryHolder()));
+        return lookupProvider.lookupOrThrow(Registries.ENCHANTMENT)
+                .get(this.getIncompatibleEnchantments())
+                .map(holders -> stack.getTagEnchantments().keySet().stream().noneMatch(holders::contains))
+                .orElse(true);
     }
 
-    public List<ItemStack> getValidItems() {
+    public List<ItemStack> getValidItems(HolderLookup.Provider lookupProvider) {
         if (this.cachedValidItems == null) {
-            this.cachedValidItems = BuiltInRegistries.ITEM.stream().map(ItemStack::new).filter(this::canItemContainModifier).toList();
+            this.cachedValidItems = BuiltInRegistries.ITEM.stream()
+                    .map(ItemStack::new)
+                    .filter(stack -> this.canItemContainModifier(stack, lookupProvider))
+                    .toList();
         }
         return this.cachedValidItems;
     }

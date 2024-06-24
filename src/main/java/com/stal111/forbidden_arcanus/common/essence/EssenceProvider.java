@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 
@@ -15,8 +14,8 @@ import java.util.function.UnaryOperator;
 public interface EssenceProvider {
 
     //TODO: Move this to a better place
-    ItemCapability<EssenceProvider, Void> ITEM_ESSENCE = ItemCapability.createVoid(new ResourceLocation(ForbiddenArcanus.MOD_ID, "essence_provider"), EssenceProvider.class);
-    EntityCapability<EssenceProvider, Void> ENTITY_ESSENCE = EntityCapability.createVoid(new ResourceLocation(ForbiddenArcanus.MOD_ID, "essence_provider"), EssenceProvider.class);
+    ItemCapability<EssenceProvider, Void> ITEM_ESSENCE = ItemCapability.createVoid(ForbiddenArcanus.location("essence_provider"), EssenceProvider.class);
+    EntityCapability<EssenceProvider, Void> ENTITY_ESSENCE = EntityCapability.createVoid(ForbiddenArcanus.location("essence_provider"), EssenceProvider.class);
 
     EssenceStorage asStorage(EssenceType type);
 

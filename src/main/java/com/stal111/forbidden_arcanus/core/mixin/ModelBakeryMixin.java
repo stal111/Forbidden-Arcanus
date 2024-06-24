@@ -4,10 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -31,39 +28,38 @@ import java.util.Map;
 @Mixin(ModelBakery.class)
 public abstract class ModelBakeryMixin {
 
-    @Shadow protected abstract void cacheAndQueueDependencies(ResourceLocation pLocation, UnbakedModel pModel);
+    @Shadow abstract UnbakedModel getModel(ResourceLocation p_119342_);
+
+    @Shadow protected abstract void registerModelAndLoadDependencies(ModelResourceLocation p_352435_, UnbakedModel p_352250_);
+
+    @Shadow @Final private Map<ModelResourceLocation, UnbakedModel> topLevelModels;
 
     @Shadow @Final private Map<ResourceLocation, UnbakedModel> unbakedCache;
 
-    @Shadow @Final private Map<ResourceLocation, UnbakedModel> topLevelModels;
-
-    @Shadow public abstract UnbakedModel getModel(ResourceLocation p_119342_);
-
     @Inject(at = @At(value = "RETURN"), method = "<init>")
-    public void forbiddenArcanus_init(BlockColors colors, ProfilerFiller filler, Map<ResourceLocation, BlockModel> map, Map<ResourceLocation, List<ModelBakery.LoadedJson>> map2, CallbackInfo ci) {
+    public void forbiddenArcanus_init(BlockColors colors, ProfilerFiller filler, Map<ResourceLocation, BlockModel> map, Map<ResourceLocation, List<BlockStateModelLoader.LoadedJson>> map2, CallbackInfo ci) {
         for (Item item : BuiltInRegistries.ITEM) {
             if (item instanceof ArmorItem armorItem && armorItem.getType() == ArmorItem.Type.BOOTS) {
                 ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
 
-                UnbakedModel model = this.getModel(new ModelResourceLocation(resourceLocation, "inventory"));
+                UnbakedModel model = this.getModel(resourceLocation);
 
                 if (model instanceof BlockModel blockModel) {
                     BlockModel magnetizedModel = BlockModel.fromString("{\"parent\": \"minecraft:item/generated\"}");
 
-                    magnetizedModel.textureMap.put("layer0", Either.left(new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(ForbiddenArcanus.MOD_ID, "item/armor/magnetized_boots_layer"))));
+                    magnetizedModel.textureMap.put("layer0", Either.left(new Material(InventoryMenu.BLOCK_ATLAS, ForbiddenArcanus.location("item/armor/magnetized_boots_layer"))));
 
                     for (int i = 0; i < blockModel.textureMap.size(); i++) {
                         magnetizedModel.textureMap.put("layer" + (i + 1), blockModel.textureMap.get("layer" + i));
                     }
 
-                    resourceLocation = new ResourceLocation(resourceLocation.getNamespace(), "magnetized_" + resourceLocation.getPath());
+                    resourceLocation = ResourceLocation.fromNamespaceAndPath(resourceLocation.getNamespace(), "magnetized_" + resourceLocation.getPath());
                     magnetizedModel.name = resourceLocation.toString();
 
-                    ModelResourceLocation modelLoc = new ModelResourceLocation(resourceLocation, "inventory");
+                    ModelResourceLocation modelResourceLocation = ModelResourceLocation.inventory(resourceLocation);
 
-                    this.cacheAndQueueDependencies(modelLoc, magnetizedModel);
-                    this.unbakedCache.put(modelLoc, magnetizedModel);
-                    this.topLevelModels.put(modelLoc, magnetizedModel);
+                    this.unbakedCache.put(resourceLocation, magnetizedModel);
+                    this.topLevelModels.put(modelResourceLocation, magnetizedModel);
 
                     magnetizedModel.resolveParents(this::getModel);
                 }

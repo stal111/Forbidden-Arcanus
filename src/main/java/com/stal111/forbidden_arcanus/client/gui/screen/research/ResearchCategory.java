@@ -25,7 +25,7 @@ public enum ResearchCategory {
 
     ResearchCategory(String name, WidgetSprites sprites, TabFactory tabFactory) {
         this.sprites = sprites;
-        this.iconLocation = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/icon/" + name + ".png");
+        this.iconLocation = ForbiddenArcanus.location("textures/gui/research/icon/" + name + ".png");
         this.tabFactory = tabFactory;
     }
 

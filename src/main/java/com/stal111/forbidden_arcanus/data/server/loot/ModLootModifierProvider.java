@@ -10,7 +10,6 @@ import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
@@ -30,20 +29,20 @@ import java.util.List;
  */
 public class ModLootModifierProvider extends GlobalLootModifierProvider {
 
-    public static final ResourceKey<LootTable> ZOMBIE_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/zombie_additions"));
-    public static final ResourceKey<LootTable> DROWNED_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/drowned_additions"));
-    public static final ResourceKey<LootTable> SPAWNER_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"));
-    public static final ResourceKey<LootTable> ENDERMAN_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/enderman_additions"));
-    public static final ResourceKey<LootTable> BAT_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/bat_additions"));
-    public static final ResourceKey<LootTable> SQUID_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/squid_additions"));
-    public static final ResourceKey<LootTable> ENDER_DRAGON_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/ender_dragon_additions"));
-    public static final ResourceKey<LootTable> SIMPLE_DUNGEON_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/simple_dungeon_additions"));
-    public static final ResourceKey<LootTable> ABANDONED_MINESHAFT_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/abandoned_mineshaft_additions"));
-    public static final ResourceKey<LootTable> END_CITY_TREASURE_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/end_city_treasure_additions"));
-    public static final ResourceKey<LootTable> ARTISAN_RELIC_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/artisan_relic_addition"));
-    public static final ResourceKey<LootTable> CRIMSON_STONE_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/crimson_stone_addition"));
-    public static final ResourceKey<LootTable> ELEMENTARIUM_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/elementarium_addition"));
-    public static final ResourceKey<LootTable> MALEDICTUS_PACT_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(ForbiddenArcanus.MOD_ID, "chests/additions/maledictus_pact_addition"));
+    public static final ResourceKey<LootTable> ZOMBIE_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("entities/additions/zombie_additions"));
+    public static final ResourceKey<LootTable> DROWNED_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("entities/additions/drowned_additions"));
+    public static final ResourceKey<LootTable> SPAWNER_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("blocks/additions/spawner_additions"));
+    public static final ResourceKey<LootTable> ENDERMAN_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("entities/additions/enderman_additions"));
+    public static final ResourceKey<LootTable> BAT_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("entities/additions/bat_additions"));
+    public static final ResourceKey<LootTable> SQUID_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("entities/additions/squid_additions"));
+    public static final ResourceKey<LootTable> ENDER_DRAGON_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("entities/additions/ender_dragon_additions"));
+    public static final ResourceKey<LootTable> SIMPLE_DUNGEON_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("chests/additions/simple_dungeon_additions"));
+    public static final ResourceKey<LootTable> ABANDONED_MINESHAFT_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("chests/additions/abandoned_mineshaft_additions"));
+    public static final ResourceKey<LootTable> END_CITY_TREASURE_ADDITIONS = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("chests/additions/end_city_treasure_additions"));
+    public static final ResourceKey<LootTable> ARTISAN_RELIC_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("chests/additions/artisan_relic_addition"));
+    public static final ResourceKey<LootTable> CRIMSON_STONE_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("chests/additions/crimson_stone_addition"));
+    public static final ResourceKey<LootTable> ELEMENTARIUM_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("chests/additions/elementarium_addition"));
+    public static final ResourceKey<LootTable> MALEDICTUS_PACT_ADDITION = ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location("chests/additions/maledictus_pact_addition"));
 
     public ModLootModifierProvider(DataProviderContext context) {
         super(context.output(), context.lookupProvider(), ForbiddenArcanus.MOD_ID);
@@ -54,19 +53,19 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
         // Entities
         this.add("zombie_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.002F, 0.001F).build(),
+                        LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.002F, 0.001F).build(),
                         LootTableIdCondition.builder(EntityType.ZOMBIE.getDefaultLootTable().location()).build()
                 }, ZOMBIE_ADDITIONS)
         );
         this.add("drowned_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.002F, 0.001F).build(),
+                        LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.002F, 0.001F).build(),
                         LootTableIdCondition.builder(EntityType.DROWNED.getDefaultLootTable().location()).build()
                 }, DROWNED_ADDITIONS)
         );
         this.add("spawner_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))))))).build(),
+                        InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))))).build(),
                         LootTableIdCondition.builder(Blocks.SPAWNER.getLootTable().location()).build()
                 }, SPAWNER_ADDITIONS)
         );

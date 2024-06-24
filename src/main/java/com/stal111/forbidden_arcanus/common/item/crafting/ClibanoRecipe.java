@@ -1,6 +1,8 @@
-package com.stal111.forbidden_arcanus.common.recipe;
+package com.stal111.forbidden_arcanus.common.item.crafting;
 
 import com.google.errorprone.annotations.DoNotCall;
+import com.mojang.datafixers.util.Either;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
@@ -12,18 +14,14 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
-import net.minecraft.world.item.crafting.CookingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.RecipeMatcher;
 import org.jetbrains.annotations.NotNull;
@@ -34,19 +32,27 @@ import java.util.function.Function;
 
 /**
  * Clibano Recipe <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe
  *
  * @author stal111
  * @version 1.19 - 2.1.0
  * @since 2022-05-28
  */
-public class ClibanoRecipe extends AbstractCookingRecipe {
+public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
 
     public static final int DEFAULT_COOKING_TIME = 100;
 
     private final Map<ClibanoFireType, Integer> cookingTimes = new EnumMap<>(ClibanoFireType.class);
 
-    private final NonNullList<Ingredient> ingredients;
+    private final RecipeType<?> type;
+    protected final CookingBookCategory category;
+    private final String group;
+
+    private final Either<Ingredient, Pair<Ingredient, Ingredient>> ingredients;
+    private final ItemStack result;
+
+    private final float experience;
+    private final int cookingTime;
 
     private final @Nullable ResidueChance residueChance;
 
@@ -57,9 +63,14 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
 
     private final @Nullable Holder<EnhancerDefinition> requiredEnhancer;
 
-    public ClibanoRecipe(String group, CookingBookCategory category, NonNullList<Ingredient> ingredients, ItemStack result, float experience, int cookingTime, @Nullable ResidueChance residueChance, ClibanoFireType requiredFireType, @Nullable Holder<EnhancerDefinition> requiredEnhancer) {
-        super(ModRecipeTypes.CLIBANO_COMBUSTION.get(), group, category, null, result, experience, cookingTime);
+    public ClibanoRecipe(String group, CookingBookCategory category, Either<Ingredient, Pair<Ingredient, Ingredient>> ingredients, ItemStack result, float experience, int cookingTime, @Nullable ResidueChance residueChance, ClibanoFireType requiredFireType, @Nullable Holder<EnhancerDefinition> requiredEnhancer) {
+        this.type = ModRecipeTypes.CLIBANO_COMBUSTION.get();
+        this.group = group;
+        this.category = category;
         this.ingredients = ingredients;
+        this.result = result;
+        this.experience = experience;
+        this.cookingTime = cookingTime;
         this.residueChance = residueChance;
         this.requiredFireType = requiredFireType;
         this.requiredEnhancer = requiredEnhancer;
@@ -69,29 +80,41 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         }
     }
 
-    public boolean matches(@NotNull Container inv, @NotNull Level level, List<EnhancerDefinition> enhancers) {
+    public boolean matches(@NotNull ClibanoRecipeInput recipeInput, @NotNull Level level, List<EnhancerDefinition> enhancers) {
         if (this.getRequiredEnhancer() != null && !enhancers.contains(this.getRequiredEnhancer().value())) {
             return false;
         }
 
-        List<ItemStack> inputs = new ArrayList<>();
+        List<ItemStack> inputs = new ArrayList<>(recipeInput.getInputs());
+        var list = this.ingredients.map(List::of, pair -> List.of(pair.getFirst(), pair.getSecond()));
 
-        for (int i = 0; i < this.ingredients.size(); i++) {
-            inputs.add(inv.getItem(i));
-        }
-
-        return RecipeMatcher.findMatches(inputs, this.ingredients) != null;
+        return RecipeMatcher.findMatches(inputs, list) != null;
     }
 
     @DoNotCall
     @Override
-    public boolean matches(@NotNull Container inv, @NotNull Level level) {
-        return this.matches(inv, level, Collections.emptyList());
+    public boolean matches(@NotNull ClibanoRecipeInput recipeInput, @NotNull Level level) {
+        return this.matches(recipeInput, level, Collections.emptyList());
+    }
+
+    @Override
+    public @NotNull ItemStack assemble(@NotNull ClibanoRecipeInput recipeInput, HolderLookup.@NotNull Provider lookupProvider) {
+        return this.result.copy();
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return true;
+    }
+
+    @Override
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider lookupProvider) {
+        return this.result;
     }
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        return this.ingredients;
+        return this.ingredients.map(NonNullList::of, pair -> NonNullList.of(pair.getFirst(), pair.getSecond()));
     }
 
     /**
@@ -116,6 +139,10 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         return this.requiredEnhancer;
     }
 
+    public float getExperience() {
+        return this.experience;
+    }
+
     public boolean isDoubleRecipe() {
         return this.getIngredients().size() == 2;
     }
@@ -124,6 +151,11 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
     @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.CLIBANO_SERIALIZER.get();
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return null;
     }
 
     @Override
@@ -147,7 +179,7 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
                 CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> {
                     return recipe.category;
                 }),
-                NonNullList.codecOf(Ingredient.CODEC_NONEMPTY).flatXmap(INGREDIENT_CHECK, INGREDIENT_CHECK).fieldOf("ingredients").forGetter(recipe -> {
+                Codec.either(Ingredient.CODEC_NONEMPTY, Codec.pair(Ingredient.CODEC_NONEMPTY, Ingredient.CODEC_NONEMPTY)).fieldOf("ingredients").forGetter(recipe -> {
                     return recipe.ingredients;
                 }),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> {
@@ -189,7 +221,6 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         public static @NotNull ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
             return buffer.readJsonWithCodec(CODEC.codec());
         }
-
 
         public static void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ClibanoRecipe recipe) {
             buffer.writeJsonWithCodec(CODEC.codec(), recipe);

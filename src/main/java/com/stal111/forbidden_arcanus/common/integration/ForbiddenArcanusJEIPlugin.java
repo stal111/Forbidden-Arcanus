@@ -7,7 +7,7 @@
 //import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
 //import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.SmithingCategory;
 //import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.UpgradeTierCategory;
-//import com.stal111.forbidden_arcanus.common.recipe.ClibanoRecipe;
+//import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 //import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 //import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 //import com.stal111.forbidden_arcanus.core.registry.FARegistries;

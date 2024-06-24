@@ -20,6 +20,6 @@ public record DarkTraderVariant(ResourceLocation texture) implements RegistryCla
     public static final RegistryEntry<DarkTraderVariant, DarkTraderVariant> HOHENHEIM = register("hohenheim");
 
     private static RegistryEntry<DarkTraderVariant, DarkTraderVariant> register(String name) {
-        return HELPER.register(name, () -> new DarkTraderVariant(new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/dark_trader/" + name + ".png")));
+        return HELPER.register(name, () -> new DarkTraderVariant(ForbiddenArcanus.location("textures/entity/dark_trader/" + name + ".png")));
     }
 }

@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -16,7 +17,7 @@ import java.util.Collections;
 
 public class AurealMeterOverlay implements LayeredDraw.Layer {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/hud.png");
+    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/gui/hud.png");
 
     private static final int BAR_WIDTH = 75;
 
@@ -28,7 +29,7 @@ public class AurealMeterOverlay implements LayeredDraw.Layer {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, float partialTick) {
+    public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
         Window window = Minecraft.getInstance().getWindow();
         Player player = Minecraft.getInstance().player;
 

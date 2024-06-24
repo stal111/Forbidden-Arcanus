@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ResearchDeskRenderer implements BlockEntityRenderer<ResearchDeskBlockEntity> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/forbiddenomicon.png");
+    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/entity/forbiddenomicon.png");
 
     private final DeskForbiddenomiconModel<?> model;
 
@@ -45,7 +45,7 @@ public class ResearchDeskRenderer implements BlockEntityRenderer<ResearchDeskBlo
         poseStack.mulPose(Axis.YP.rotation(rotation));
 
         this.model.setupAnim(blockEntity, 0.0F, 0.0F, blockEntity.getTickCount() + partialTick, 0.0F, 0.0F);
-        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay);
 
         poseStack.popPose();
     }

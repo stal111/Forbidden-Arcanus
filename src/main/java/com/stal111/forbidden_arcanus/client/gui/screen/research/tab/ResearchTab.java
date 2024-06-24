@@ -20,10 +20,10 @@ import java.util.List;
  */
 public class ResearchTab extends AbstractTab {
 
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/background.png");
-    private static final ResourceLocation BACKGROUND_STARS = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/background_stars.png");
-    private static final ResourceLocation BACKGROUND_STELLAR_DUST_0 = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/background_stellar_dust_0.png");
-    private static final ResourceLocation BACKGROUND_STELLAR_DUST_1 = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/background_stellar_dust_1.png");
+    private static final ResourceLocation BACKGROUND = ForbiddenArcanus.location("textures/gui/research/background.png");
+    private static final ResourceLocation BACKGROUND_STARS = ForbiddenArcanus.location("textures/gui/research/background_stars.png");
+    private static final ResourceLocation BACKGROUND_STELLAR_DUST_0 = ForbiddenArcanus.location("textures/gui/research/background_stellar_dust_0.png");
+    private static final ResourceLocation BACKGROUND_STELLAR_DUST_1 = ForbiddenArcanus.location("textures/gui/research/background_stellar_dust_1.png");
 
     private final List<KnowledgeWidget> knowledgeWidgets = new ArrayList<>();
 

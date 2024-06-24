@@ -3,10 +3,7 @@ package com.stal111.forbidden_arcanus.data.server.tags;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
@@ -21,10 +18,10 @@ import javax.annotation.Nonnull;
  * @author stal111
  * @since 2021-02-27
  */
-public class ModEnchantmentTagsProvider extends IntrinsicHolderTagsProvider<Enchantment> {
+public class ModEnchantmentTagsProvider extends EnchantmentTagsProvider {
 
     public ModEnchantmentTagsProvider(DataProviderContext context, ExistingFileHelper fileHelper) {
-        super(context.output(), Registries.ENCHANTMENT, context.lookupProvider(), enchantment -> BuiltInRegistries.ENCHANTMENT.getResourceKey(enchantment).orElseThrow(), ForbiddenArcanus.MOD_ID, fileHelper);
+        super(context.output(), context.lookupProvider(), ForbiddenArcanus.MOD_ID, fileHelper);
     }
 
     @Override

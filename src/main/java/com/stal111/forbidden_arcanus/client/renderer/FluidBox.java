@@ -140,6 +140,6 @@ public class FluidBox {
     }
 
     private void renderVertex(VertexConsumer vertexConsumer, PoseStack.Pose pose, float x, float y, float z, float u, float v, int packedLight, int packedOverlay, Direction direction) {
-        vertexConsumer.vertex(pose, x, y, z).color(color[0], color[1], color[2], color[3]).uv(u, v).overlayCoords(packedOverlay).uv2(packedLight).normal(pose, direction.getStepX(), direction.getStepY(), direction.getStepZ()).endVertex();
+        vertexConsumer.addVertex(pose, x, y, z).setColor(color[0], color[1], color[2], color[3]).setUv(u, v).setOverlay(packedOverlay).setLight(packedLight).setNormal(pose, direction.getStepX(), direction.getStepY(), direction.getStepZ());
     }
 }

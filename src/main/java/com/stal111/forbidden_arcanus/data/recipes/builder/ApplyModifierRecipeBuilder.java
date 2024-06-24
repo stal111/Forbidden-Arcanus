@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.data.recipes.builder;
 
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
-import com.stal111.forbidden_arcanus.common.recipe.ApplyModifierRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -52,7 +52,7 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
     @Override
     public void save(@Nonnull RecipeOutput recipeOutput) {
         ResourceLocation key = this.modifier.value().getRegistryName();
-        this.save(recipeOutput, new ResourceLocation(key.getNamespace(), "smithing/apply_" + key.getPath() + "_modifier"));
+        this.save(recipeOutput, ResourceLocation.fromNamespaceAndPath(key.getNamespace(), "smithing/apply_" + key.getPath() + "_modifier"));
     }
 
     @Override

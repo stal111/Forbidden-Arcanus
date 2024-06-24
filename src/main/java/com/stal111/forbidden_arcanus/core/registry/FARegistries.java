@@ -4,21 +4,19 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInputType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffectType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.condition.EffectConditionType;
+import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffectType;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteraction;
 import com.stal111.forbidden_arcanus.common.research.Constellation;
 import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
 /**
@@ -52,7 +50,7 @@ public class FARegistries {
     public static final Registry<PedestalEffect> PEDESTAL_EFFECT_REGISTRY = FARegistries.makeRegistry(PEDESTAL_EFFECT);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {
-        return ResourceKey.createRegistryKey(new ResourceLocation(ForbiddenArcanus.MOD_ID, name));
+        return ResourceKey.createRegistryKey(ForbiddenArcanus.location(name));
     }
 
     /**

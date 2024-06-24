@@ -17,9 +17,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ConfirmPopupScreen extends Screen {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/research/confirm_background.png");
-    private static final WidgetSprites CONFIRM_SPRITES = new WidgetSprites(new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/confirm"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/confirm_highlighted"));
-    private static final WidgetSprites CANCEL_SPRITES = new WidgetSprites(new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/cancel"), new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/cancel_highlighted"));
+    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/gui/research/confirm_background.png");
+    private static final WidgetSprites CONFIRM_SPRITES = new WidgetSprites(ForbiddenArcanus.location("research/confirm"), ForbiddenArcanus.location("research/confirm_highlighted"));
+    private static final WidgetSprites CANCEL_SPRITES = new WidgetSprites(ForbiddenArcanus.location("research/cancel"), ForbiddenArcanus.location("research/cancel_highlighted"));
 
     private final BooleanConsumer callback;
 

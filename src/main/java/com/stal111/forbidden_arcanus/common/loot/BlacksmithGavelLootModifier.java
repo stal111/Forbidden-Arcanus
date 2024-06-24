@@ -5,6 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
@@ -37,7 +40,7 @@ public class BlacksmithGavelLootModifier extends LootModifier {
 
     @Nonnull
     @Override
-    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+    protected ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
         ItemStack stack = context.getParamOrNull(LootContextParams.TOOL);
 
@@ -45,14 +48,14 @@ public class BlacksmithGavelLootModifier extends LootModifier {
             return generatedLoot;
         }
 
-        if (this.isValidGavel(stack) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
+        if (this.isValidGavel(stack, context.getLevel().registryAccess()) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
             generatedLoot.addAll(generatedLoot.clone());
         }
         return generatedLoot;
     }
 
-    private boolean isValidGavel(ItemStack stack) {
-        return stack.is(ModTags.Items.BLACKSMITH_GAVEL) && stack.getEnchantmentLevel(Enchantments.SILK_TOUCH) == 0;
+    private boolean isValidGavel(ItemStack stack, HolderLookup.Provider lookupProvider) {
+        return stack.is(ModTags.Items.BLACKSMITH_GAVEL) && stack.getEnchantmentLevel(lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH)) == 0;
     }
 
     @Override

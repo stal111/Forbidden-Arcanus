@@ -71,7 +71,7 @@ public class ParticleDataProvider implements DataProvider {
     }
 
     private ResourceLocation modLoc(String path) {
-        return new ResourceLocation(this.getModId(), path);
+        return ResourceLocation.fromNamespaceAndPath(this.getModId(), path);
     }
 
     @Override

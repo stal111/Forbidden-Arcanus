@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class KnowledgeWidget extends AbstractWidget {
 
-    private static final ResourceLocation TITLE_BOX = new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/title_box");
-    private static final ResourceLocation INFO_BOX = new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/info_box");
+    private static final ResourceLocation TITLE_BOX = ForbiddenArcanus.location("research/title_box");
+    private static final ResourceLocation INFO_BOX = ForbiddenArcanus.location("research/info_box");
 
     private final DisplayInfo display;
 
@@ -119,15 +119,15 @@ public class KnowledgeWidget extends AbstractWidget {
     private static class UnlockAnimation {
 
         private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_0"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_1"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_2"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_3"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_4"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_5"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_6"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_7"),
-                new ResourceLocation(ForbiddenArcanus.MOD_ID, "research/frame/unlock/unlock_8"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_0"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_1"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_2"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_3"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_4"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_5"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_6"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_7"),
+                ForbiddenArcanus.location("research/frame/unlock/unlock_8"),
         };
 
         private static final float ANIMATION_SPEED = 1.5F;

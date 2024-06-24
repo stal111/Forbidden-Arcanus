@@ -27,7 +27,7 @@ import java.util.Optional;
  */
 public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
-    private static final ResourceLocation TEXTURES = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/clibano_combustion.png");
+    private static final ResourceLocation TEXTURES = ForbiddenArcanus.location("textures/gui/container/clibano_combustion.png");
 
     public ClibanoScreen(ClibanoMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

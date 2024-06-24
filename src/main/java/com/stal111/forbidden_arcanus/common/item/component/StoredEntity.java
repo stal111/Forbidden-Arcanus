@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -62,8 +61,8 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
     private static final MapCodec<EntityType<?>> ENTITY_TYPE_FIELD_CODEC = BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("id");
     private static final MapCodec<Component> DISPLAY_NAME_FIELD_CODEC = ComponentSerialization.FLAT_CODEC.fieldOf("CustomName");
 
-    private static final String STORED_ENTITY_KEY = Util.makeDescriptionId("item", new ResourceLocation(ForbiddenArcanus.MOD_ID, "stored_entity"));
-    private static final String STORED_ENTITY_WITH_NAME_KEY = Util.makeDescriptionId("item", new ResourceLocation(ForbiddenArcanus.MOD_ID, "stored_entity.with_name"));
+    private static final String STORED_ENTITY_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.location("stored_entity"));
+    private static final String STORED_ENTITY_WITH_NAME_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.location("stored_entity.with_name"));
 
     public static StoredEntity of(LivingEntity entity) {
         entity.stopRiding();

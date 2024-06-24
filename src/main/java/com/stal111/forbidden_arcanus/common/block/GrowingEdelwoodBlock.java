@@ -18,9 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.bus.api.Event;
 import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.event.level.SaplingGrowTreeEvent;
+import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -69,9 +68,9 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
 
     public void growEdelwood(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ModConfiguredFeatures.EDELWOOD).orElse(null);
-        SaplingGrowTreeEvent event = EventHooks.blockGrowFeature(level, random, pos, holder);
+        BlockGrowFeatureEvent event = EventHooks.fireBlockGrowFeature(level, random, pos, holder);
 
-        if (event.getResult().equals(Event.Result.DENY) || event.getFeature() == null) {
+        if (event.isCanceled() || event.getFeature() == null) {
             return;
         }
 

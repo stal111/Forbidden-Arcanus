@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
  */
 public class BoomArrowRenderer extends ArrowRenderer<BoomArrow> {
 
-    private static final ResourceLocation LOCATION = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/entity/projectiles/boom_arrow.png");
+    private static final ResourceLocation LOCATION = ForbiddenArcanus.location("textures/entity/projectiles/boom_arrow.png");
 
     public BoomArrowRenderer(EntityRendererProvider.Context context) {
         super(context);

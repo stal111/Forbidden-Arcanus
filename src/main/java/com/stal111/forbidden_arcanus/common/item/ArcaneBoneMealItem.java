@@ -73,9 +73,10 @@ public class ArcaneBoneMealItem extends BoneMealItem {
     }
 
     public static boolean applyBoneMeal(ItemStack stack, Level level, BlockPos pos, @Nullable Player player) {
-        int hook = EventHooks.onApplyBonemeal(player, level, pos, level.getBlockState(pos), stack);
-        if (hook != 0) {
-            return hook > 0;
+        var event = EventHooks.fireBonemealEvent(player, level, pos, level.getBlockState(pos), stack);
+
+        if (event.isCanceled()) {
+            return event.isSuccessful();
         }
 
         if (canGrow(level, pos)) {

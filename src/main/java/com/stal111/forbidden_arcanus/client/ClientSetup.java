@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.JarFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.QuantumCatcherFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
-import com.stal111.forbidden_arcanus.client.gui.overlay.FlightTimerOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlyingLabelOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.SanityMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
@@ -21,7 +20,10 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
-import com.stal111.forbidden_arcanus.core.init.*;
+import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
@@ -32,7 +34,6 @@ import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -116,11 +117,11 @@ public class ClientSetup {
         });
 
         //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), new ResourceLocation("deactivated"), (stack, level, entity, seed) -> entity != null && stack.getItem() instanceof SpectralEyeAmuletItem item && item.isDeactivated(stack) ? 1.0F : 0.0F);
-        ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
+        ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), ForbiddenArcanus.location("deactivated"), (stack, level, entity, seed) -> entity != null && stack.getItem() instanceof SpectralEyeAmuletItem item && item.isDeactivated(stack) ? 1.0F : 0.0F);
+        ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
 
-        ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
-        ItemProperties.register(ModItems.AUREAL_TANK.get(), new ResourceLocation("max"), (stack, level, entity, seed) -> {
+        ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
+        ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("max"), (stack, level, entity, seed) -> {
             return EssenceHelper.getEssenceStorage(stack).map(essenceStorage -> essenceStorage.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
         });
 
@@ -142,10 +143,9 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "flight_timer"), new FlightTimerOverlay());
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "sanity_meter"), new SanityMeterOverlay());
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "aureal_meter"), new AurealMeterOverlay());
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, new ResourceLocation(ForbiddenArcanus.MOD_ID, "flying_label"), new FlyingLabelOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("sanity_meter"), new SanityMeterOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("aureal_meter"), new AurealMeterOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("flying_label"), new FlyingLabelOverlay());
     }
 
     @SubscribeEvent

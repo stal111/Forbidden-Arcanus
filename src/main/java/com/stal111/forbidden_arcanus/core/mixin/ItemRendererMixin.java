@@ -33,7 +33,7 @@ public class ItemRendererMixin {
         if (stack.getItem() instanceof ArmorItem item && item.getType() == ArmorItem.Type.BOOTS && ModifierHelper.hasModifier(stack, ModItemModifiers.MAGNETIZED.get())) {
             ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
 
-            BakedModel model = this.itemModelShaper.getModelManager().getModel(new ModelResourceLocation(new ResourceLocation(resourceLocation.getNamespace(), "magnetized_" + resourceLocation.getPath()), "inventory"));
+            BakedModel model = this.itemModelShaper.getModelManager().getModel(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(resourceLocation.getNamespace(), "magnetized_" + resourceLocation.getPath()), "inventory"));
 
             cir.setReturnValue(model);
         }
