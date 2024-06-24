@@ -157,7 +157,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.PETRIFIED_ROOT.get());
                             output.accept(ModBlocks.DEORUM_CHAIN.get());
                             output.accept(ModBlocks.YELLOW_ORCHID.get());
-                            output.accept(ModBlocks.GOLDEN_ORCHID.get());
                             output.accept(ModBlocks.MAGICAL_FARMLAND.get());
 
                             output.accept(ModItems.ARCANE_CRYSTAL.get());
@@ -211,7 +210,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.BOSS_CATCHER.get());
                             output.accept(ModItems.SANITY_METER.get());
 
-                            output.accept(ModItems.AUREAL_TANK.get());
+                            output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, 0, AurealTankItem.DEFAULT_CAPACITY));
                             output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, AurealTankItem.DEFAULT_CAPACITY, AurealTankItem.DEFAULT_CAPACITY));
                             output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, 0, AurealTankItem.MAX_CAPACITY));
                             output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY, AurealTankItem.MAX_CAPACITY));
