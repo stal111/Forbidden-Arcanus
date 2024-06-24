@@ -2,9 +2,14 @@
   "type": "neoforge:add_table",
   "conditions": [
     {
-      "chance": 0.002,
-      "condition": "minecraft:random_chance_with_looting",
-      "looting_multiplier": 0.001
+      "condition": "minecraft:random_chance_with_enchanted_bonus",
+      "enchanted_chance": {
+        "type": "minecraft:linear",
+        "base": 0.003,
+        "per_level_above_first": 0.001
+      },
+      "enchantment": "minecraft:looting",
+      "unenchanted_chance": 0.002
     },
     {
       "condition": "neoforge:loot_table_id",

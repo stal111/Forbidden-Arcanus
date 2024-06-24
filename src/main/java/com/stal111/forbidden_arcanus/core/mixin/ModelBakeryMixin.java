@@ -29,9 +29,7 @@ import java.util.Map;
 public abstract class ModelBakeryMixin {
 
     @Shadow abstract UnbakedModel getModel(ResourceLocation p_119342_);
-
-    @Shadow protected abstract void registerModelAndLoadDependencies(ModelResourceLocation p_352435_, UnbakedModel p_352250_);
-
+    
     @Shadow @Final private Map<ModelResourceLocation, UnbakedModel> topLevelModels;
 
     @Shadow @Final private Map<ResourceLocation, UnbakedModel> unbakedCache;
