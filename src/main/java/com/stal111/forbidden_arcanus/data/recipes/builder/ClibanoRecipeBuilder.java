@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author stal111
@@ -111,7 +112,7 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
-        ClibanoRecipe recipe = new ClibanoRecipe(this.group, this.bookCategory, this.ingredients, this.stackResult, this.experience, this.cookingTime, this.residueChance, this.requiredFireType, this.requiredEnhancer);
+        ClibanoRecipe recipe = new ClibanoRecipe(Objects.requireNonNullElse(this.group, ""), this.bookCategory, this.ingredients, this.stackResult, this.experience, this.cookingTime, this.residueChance, this.requiredFireType, this.requiredEnhancer);
 
         recipeOutput.accept(id, recipe, advancement$builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }

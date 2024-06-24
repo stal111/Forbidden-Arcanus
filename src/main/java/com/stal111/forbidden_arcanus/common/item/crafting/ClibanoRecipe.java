@@ -44,7 +44,6 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
 
     private final Map<ClibanoFireType, Integer> cookingTimes = new EnumMap<>(ClibanoFireType.class);
 
-    private final RecipeType<?> type;
     protected final CookingBookCategory category;
     private final String group;
 
@@ -64,7 +63,6 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
     private final @Nullable Holder<EnhancerDefinition> requiredEnhancer;
 
     public ClibanoRecipe(String group, CookingBookCategory category, Either<Ingredient, Pair<Ingredient, Ingredient>> ingredients, ItemStack result, float experience, int cookingTime, @Nullable ResidueChance residueChance, ClibanoFireType requiredFireType, @Nullable Holder<EnhancerDefinition> requiredEnhancer) {
-        this.type = ModRecipeTypes.CLIBANO_COMBUSTION.get();
         this.group = group;
         this.category = category;
         this.ingredients = ingredients;
@@ -154,8 +152,8 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
     }
 
     @Override
-    public RecipeType<?> getType() {
-        return null;
+    public @NotNull RecipeType<?> getType() {
+        return ModRecipeTypes.CLIBANO_COMBUSTION.get();
     }
 
     @Override

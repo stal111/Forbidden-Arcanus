@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "forbidden_arcanus:cut_soulless_sandstone"
+  },
+  "result": {
+    "count": 2,
+    "id": "forbidden_arcanus:cut_soulless_sandstone_slab"
+  }
+}

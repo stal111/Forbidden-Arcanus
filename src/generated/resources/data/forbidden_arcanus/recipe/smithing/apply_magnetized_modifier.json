@@ -1,0 +1,10 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": {
+    "item": "forbidden_arcanus:ferrognetic_mixture"
+  },
+  "modifier": "forbidden_arcanus:magnetized",
+  "template": {
+    "item": "forbidden_arcanus:darkstone_upgrade_smithing_template"
+  }
+}

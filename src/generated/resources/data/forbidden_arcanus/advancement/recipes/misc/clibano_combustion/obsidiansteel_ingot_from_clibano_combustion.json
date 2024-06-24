@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_obsidian": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:obsidian"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_raw_iron": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:raw_materials/iron"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:clibano_combustion/obsidiansteel_ingot_from_clibano_combustion"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_iron",
+      "has_obsidian"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:clibano_combustion/obsidiansteel_ingot_from_clibano_combustion"
+    ]
+  }
+}
