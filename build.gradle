@@ -69,10 +69,10 @@ dependencies {
     implementation "net.valhelsia:valhelsia_core-neoforge-${mc_version}:${valhelsia_core_version}"
 
     // compile against the JEI API but do not include it at runtime
-   // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
     // at runtime, use the full JEI jar
-   // runtimeOnly "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {

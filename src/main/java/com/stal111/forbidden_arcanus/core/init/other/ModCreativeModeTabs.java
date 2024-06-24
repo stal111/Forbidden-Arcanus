@@ -159,7 +159,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.YELLOW_ORCHID.get());
                             output.accept(ModBlocks.GOLDEN_ORCHID.get());
                             output.accept(ModBlocks.MAGICAL_FARMLAND.get());
-                            output.accept(ModBlocks.STRANGE_ROOT.get());
 
                             output.accept(ModItems.ARCANE_CRYSTAL.get());
                             output.accept(ModItems.CORRUPTED_ARCANE_CRYSTAL.get());
