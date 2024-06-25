@@ -34,7 +34,7 @@ public record Ritual(List<RitualInput> inputs,
     public static final int DEFAULT_DURATION = 500;
 
     public static final Codec<Ritual> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
+            RitualInput.CODEC.listOf(1, 8).fieldOf("inputs").forGetter(ritual -> {
                 return ritual.inputs;
             }),
             Ingredient.CODEC_NONEMPTY.fieldOf("main_ingredient").forGetter(ritual -> {
