@@ -55,7 +55,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> SILVER_DRAGON_SCALE = HELPER.register("silver_dragon_scale", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> GOLDEN_DRAGON_SCALE = HELPER.register("golden_dragon_scale", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> AQUATIC_DRAGON_SCALE = HELPER.register("aquatic_dragon_scale", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> ROTTEN_LEATHER = HELPER.register("rotten_leather", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> SPECTRAL_EYE_AMULET = HELPER.register("spectral_eye_amulet", () -> new SpectralEyeAmuletItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
     public static final ItemRegistryEntry<Item> BAT_WING = HELPER.register("bat_wing", () -> new Item(new Item.Properties().food(ModFoods.BAT_WING)));
     public static final ItemRegistryEntry<Item> BAT_SOUP = HELPER.register("bat_soup", () -> new Item(new Item.Properties().stacksTo(1).food(ModFoods.BAT_SOUP)));

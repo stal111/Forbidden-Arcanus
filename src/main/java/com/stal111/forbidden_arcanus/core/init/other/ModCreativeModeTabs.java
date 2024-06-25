@@ -193,7 +193,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SILVER_DRAGON_SCALE.get());
                             output.accept(ModItems.GOLDEN_DRAGON_SCALE.get());
                             output.accept(ModItems.AQUATIC_DRAGON_SCALE.get());
-                            output.accept(ModItems.ROTTEN_LEATHER.get());
                             output.accept(ModItems.SPECTRAL_EYE_AMULET.get());
                             output.accept(ModItems.BAT_WING.get());
                             output.accept(ModItems.BAT_SOUP.get());
