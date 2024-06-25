@@ -14,6 +14,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -60,6 +61,9 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
 
         this.shaped(RecipeCategory.DECORATIONS, ModBlocks.DEORUM_CHAIN.get(), builder -> builder.pattern("#").pattern("X").pattern("#").define('#', ModTags.Items.DEORUM_NUGGETS).define('X', ModTags.Items.DEORUM_INGOTS).unlockedBy(this, RecipePart.of(ModTags.Items.DEORUM_INGOTS)).unlockedBy(this, RecipePart.of(ModTags.Items.DEORUM_NUGGETS)));
 
+        for (DyeColor color : DyeColor.values()) {
+            this.shaped(RecipeCategory.TOOLS, ModItems.DYED_QUANTUM_CATCHERS.get(color), builder -> builder.pattern(" # ").pattern("#X#").pattern(" # ").define('X', ModItems.QUANTUM_CATCHER).define('#', color.getTag()).unlockedBy(this, ModItems.QUANTUM_CATCHER).unlockedBy(this, RecipePart.of(color.getTag())));
+        }
 
         this.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.EDELWOOD_LADDER.get(), 3, builder -> builder.pattern("# #").pattern("#X#").pattern("# #").define('#', Tags.Items.RODS_WOODEN).define('X', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy(this, RecipePart.of(Tags.Items.RODS_WOODEN)).unlockedBy(this, ModBlocks.EDELWOOD_PLANKS.get()));
         this.shaped(RecipeCategory.MISC, ModItems.EDELWOOD_BUCKET.get(), builder -> builder.pattern("# #").pattern("# #").pattern(" # ").define('#', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())));

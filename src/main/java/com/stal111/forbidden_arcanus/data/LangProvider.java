@@ -5,12 +5,16 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -18,6 +22,25 @@ import java.util.function.Supplier;
  * @since 20.05.2024
  */
 public class LangProvider extends LanguageProvider {
+
+    public static final Map<DyeColor, String> COLOR_TO_STRING = Util.make(new EnumMap<>(DyeColor.class), map -> {
+        map.put(DyeColor.WHITE, "White");
+        map.put(DyeColor.ORANGE, "Orange");
+        map.put(DyeColor.MAGENTA, "Magenta");
+        map.put(DyeColor.LIGHT_BLUE, "Light Blue");
+        map.put(DyeColor.YELLOW, "Yellow");
+        map.put(DyeColor.LIME, "Lime");
+        map.put(DyeColor.PINK, "Pink");
+        map.put(DyeColor.GRAY, "Gray");
+        map.put(DyeColor.LIGHT_GRAY, "Light Gray");
+        map.put(DyeColor.CYAN, "Cyan");
+        map.put(DyeColor.PURPLE, "Purple");
+        map.put(DyeColor.BLUE, "Blue");
+        map.put(DyeColor.BROWN, "Brown");
+        map.put(DyeColor.GREEN, "Green");
+        map.put(DyeColor.RED, "Red");
+        map.put(DyeColor.BLACK, "Black");
+    });
 
     public LangProvider(PackOutput output) {
         super(output, ForbiddenArcanus.MOD_ID, "en_us");
@@ -42,13 +65,18 @@ public class LangProvider extends LanguageProvider {
         this.add(Util.makeDescriptionId("container", ForbiddenArcanus.location("hephaestus_forge")), "Hephaestus Forge");
         this.add(Util.makeDescriptionId("container", ForbiddenArcanus.location("clibano")), "Clibano");
 
-        this.add(ModEntities.LOST_SOUL.get(), "Lost Soul");
-        this.add(ModEntities.DARK_TRADER.get(), "Dark Trader");
+        this.addEntityType(ModEntities.LOST_SOUL, "Lost Soul");
+        this.addEntityType(ModEntities.DARK_TRADER, "Dark Trader");
 
        // this.add(ModEnchantments.AUREAL_RESERVOIR.get(), "Aureal Reservoir");
 
-        this.add(ModBlocks.QUANTUM_CORE.get(), "Quantum Core");
-        this.add(ModBlocks.QUANTUM_INJECTOR.get(), "Quantum Injector");
+        this.addBlock(ModBlocks.QUANTUM_CORE, "Quantum Core");
+        this.addBlock(ModBlocks.QUANTUM_INJECTOR, "Quantum Injector");
+        this.addItem(ModItems.QUANTUM_CATCHER, "Quantum Catcher");
+
+        for (DyeColor color : DyeColor.values()) {
+            this.addItem(ModItems.DYED_QUANTUM_CATCHERS.get(color), COLOR_TO_STRING.get(color) + " Quantum Catcher");
+        }
 
         this.add("block", "hephaestus_forge.tier.match_exact", "Requires exactly tier %s");
         this.add("block", "hephaestus_forge.tier.at_least", "Requires at least tier %s");

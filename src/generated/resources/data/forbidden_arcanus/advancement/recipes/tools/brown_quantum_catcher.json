@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dyes/brown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:dyes/brown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_quantum_catcher": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:quantum_catcher"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:brown_quantum_catcher"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_quantum_catcher",
+      "has_dyes/brown"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:brown_quantum_catcher"
+    ]
+  }
+}
