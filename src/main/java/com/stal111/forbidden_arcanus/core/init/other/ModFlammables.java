@@ -32,7 +32,6 @@ public class ModFlammables {
         registerWoodenBlock(ModBlocks.AURUM_FENCE_GATE.get());
 
         registerPlant(ModBlocks.YELLOW_ORCHID.get());
-        registerPlant(ModBlocks.STRANGE_ROOT.get());
     }
 
     private static void register(Block block, int encouragement, int flammability) {

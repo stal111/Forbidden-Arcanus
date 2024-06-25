@@ -43,7 +43,7 @@ public class FAArmorMaterials {
         map.put(ArmorItem.Type.LEGGINGS, 4);
         map.put(ArmorItem.Type.CHESTPLATE, 5);
         map.put(ArmorItem.Type.HELMET, 1);
-    }), 6, SoundEvents.ARMOR_EQUIP_GENERIC, () -> Ingredient.of(ModItems.CLOTH.get()), 1.0F, 0.0F);
+    }), 6, SoundEvents.ARMOR_EQUIP_GENERIC, () -> Ingredient.EMPTY, 1.0F, 0.0F);
 
     public static Holder<ArmorMaterial> register(String name, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue, Holder<SoundEvent> sound, Supplier<Ingredient> repairIngredient, float toughness, float knockbackResistance) {
         return HELPER.register(name, () -> new ArmorMaterial(protectionFunctionForType, enchantmentValue, sound, repairIngredient, List.of(new ArmorMaterial.Layer(ForbiddenArcanus.location(name))), toughness, knockbackResistance));

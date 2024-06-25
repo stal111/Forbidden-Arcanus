@@ -1,4 +1,4 @@
-// 1.21	2024-06-25T16:54:19.8590345	Model Definitions
+// 1.21	2024-06-25T18:10:08.759559	Model Definitions
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 f8bae591361fc4660ca12ae7f9fe356b9e15d523 assets/forbidden_arcanus/blockstates/arcane_polished_darkstone.json
 901273f0ae1e60180a91fd9541d60bdd1b7092fe assets/forbidden_arcanus/blockstates/arcane_polished_darkstone_pillar.json
@@ -368,7 +368,6 @@ bbc927935f0316607cafef2961bfbd3c59b0c3ce assets/forbidden_arcanus/models/item/so
 e59b60cf68bba2556af1cd8d8f358756defff0fd assets/forbidden_arcanus/models/item/stellarite_block.json
 f9c484e11c8b84d97bc9f62bd11d888e5d43fc2d assets/forbidden_arcanus/models/item/stella_arcanum.json
 9fb1845357ab02c3c2e505d6ec3b648535a17e47 assets/forbidden_arcanus/models/item/stone_blacksmith_gavel.json
-3be5a23f4d0ba37a2b9c25904de7b16630c51d5f assets/forbidden_arcanus/models/item/strange_root.json
 4567978ccbdffbb578cb72c70b4249ade85dc7e1 assets/forbidden_arcanus/models/item/stripped_aurum_log.json
 509e8cf8ea80b5c76b6d3f0170170af2003b2837 assets/forbidden_arcanus/models/item/stripped_aurum_wood.json
 c4780b9dca08335e1b966722442ddc6e01621cca assets/forbidden_arcanus/models/item/terrastomp_prism.json

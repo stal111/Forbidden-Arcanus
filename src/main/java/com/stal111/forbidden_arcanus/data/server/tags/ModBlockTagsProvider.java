@@ -59,7 +59,7 @@ public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
         this.tag(BlockTags.LEAVES).add(ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get());
         this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.get());
         this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.get());
-        this.tag(BlockTags.CROPS).add(ModBlocks.GOLDEN_ORCHID.get(), ModBlocks.STRANGE_ROOT.get());
+        this.tag(BlockTags.CROPS).add(ModBlocks.GOLDEN_ORCHID.get());
 
         //TODO
         //this.tag(ValhelsiaTags.Blocks.OFFSET_RENDERING).add(ModBlocks.CHERRY_LEAF_CARPET.get());

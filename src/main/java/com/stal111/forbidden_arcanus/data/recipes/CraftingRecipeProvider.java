@@ -69,7 +69,6 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.shaped(RecipeCategory.MISC, ModItems.EDELWOOD_BUCKET.get(), builder -> builder.pattern("# #").pattern("# #").pattern(" # ").define('#', ModBlocks.EDELWOOD_PLANKS.get()).unlockedBy("has_planks", has(ModBlocks.EDELWOOD_PLANKS.get())));
 
         //Shapeless Recipes
-        this.shapeless(RecipeCategory.MISC, ModItems.PURIFYING_SOAP.get(), builder -> builder.requires(ModItems.ARCANE_CRYSTAL_DUST.get()).requires(ModItems.WAX.get()).requires(Items.SLIME_BALL).requires(Items.PRISMARINE_CRYSTALS).requires(ItemTags.SMALL_FLOWERS).unlockedBy("has_item", has(ModItems.WAX.get())));
         this.shapeless(RecipeCategory.MISC, ModItems.TEST_TUBE.get(), builder -> builder.requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE.get()).unlockedBy("has_item", has(ModItems.RUNE.get())));
         this.shapeless(RecipeCategory.MISC, ModItems.DARK_RUNE.get(), 2, builder -> builder.requires(ModItems.RUNE.get()).requires(ModItems.RUNE.get()).requires(ModItems.CORRUPTI_DUST.get()).unlockedBy("has_rune", has(ModItems.RUNE.get())).unlockedBy("has_dust", has(ModItems.CORRUPTI_DUST.get())));
 

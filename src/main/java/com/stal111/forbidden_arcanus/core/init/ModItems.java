@@ -49,7 +49,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> ENCHANTED_SOUL = HELPER.register("enchanted_soul", () -> new Item(new Item.Properties().component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.SOULS, 10))));
     public static final ItemRegistryEntry<Item> RUNE = HELPER.register("rune", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> DARK_RUNE = HELPER.register("dark_rune", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> CLOTH = HELPER.register("cloth", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> ENDER_PEARL_FRAGMENT = HELPER.register("ender_pearl_fragment", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRAGON_SCALE = HELPER.register("dragon_scale", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> SILVER_DRAGON_SCALE = HELPER.register("silver_dragon_scale", () -> new Item(new Item.Properties()));
@@ -60,8 +59,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> BAT_SOUP = HELPER.register("bat_soup", () -> new Item(new Item.Properties().stacksTo(1).food(ModFoods.BAT_SOUP)));
     public static final ItemRegistryEntry<Item> TENTACLE = HELPER.register("tentacle", () -> new Item(new Item.Properties().food(ModFoods.TENTACLE)));
     public static final ItemRegistryEntry<Item> COOKED_TENTACLE = HELPER.register("cooked_tentacle", () -> new Item(new Item.Properties().food(ModFoods.COOKED_TENTACLE)));
-    public static final ItemRegistryEntry<BlockItem> STRANGE_ROOT = HELPER.register("strange_root", () -> new StrangeRootItem(ModBlocks.STRANGE_ROOT.get(), new Item.Properties().food(ModFoods.STRANGE_ROOT)));
-    public static final ItemRegistryEntry<Item> GOLDEN_FEATHER = HELPER.register("golden_feather", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> EDELWOOD_STICK = HELPER.register("edelwood_stick", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> WAX = HELPER.register("wax", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<FerrogneticMixtureItem> FERROGNETIC_MIXTURE = HELPER.register("ferrognetic_mixture", () -> new FerrogneticMixtureItem(new Item.Properties()));
@@ -82,8 +79,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", () -> new AurealTankItem(new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, AurealTankItem.DEFAULT_DATA)));
 
     public static final ItemRegistryEntry<LensOfVeritatisItem> LENS_OF_VERITATIS = HELPER.register("lens_of_veritatis", () -> new LensOfVeritatisItem(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<Item> PURIFYING_SOAP = HELPER.register("purifying_soap", () -> new PurifyingSoapItem(new Item.Properties().stacksTo(1)));
-    public static final ItemRegistryEntry<Item> WET_PURIFYING_SOAP = HELPER.register("wet_purifying_soap", () -> new WetPurifyingSoapItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<BlockItem> UTREM_JAR = HELPER.register("utrem_jar", () -> new BlockItem(ModBlocks.UTREM_JAR.get(), new Item.Properties()));
     public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", () -> new EssenceUtremJarItem(ModBlocks.ESSENCE_UTREM_JAR.get(), new Item.Properties().component(ModDataComponents.EMPTY_ITEM, ModItems.UTREM_JAR)));
 

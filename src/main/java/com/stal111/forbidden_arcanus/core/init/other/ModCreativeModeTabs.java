@@ -187,7 +187,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SMELTER_PRISM.get());
                             output.accept(ModItems.FERROGNETIC_MIXTURE.get());
                             output.accept(ModItems.DARK_MATTER.get());
-                            output.accept(ModItems.CLOTH.get());
                             output.accept(ModItems.ENDER_PEARL_FRAGMENT.get());
                             output.accept(ModItems.DRAGON_SCALE.get());
                             output.accept(ModItems.SILVER_DRAGON_SCALE.get());
@@ -198,8 +197,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.BAT_SOUP.get());
                             output.accept(ModItems.TENTACLE.get());
                             output.accept(ModItems.COOKED_TENTACLE.get());
-                            output.accept(ModItems.STRANGE_ROOT.get());
-                            output.accept(ModItems.GOLDEN_FEATHER.get());
                             output.accept(ModItems.EDELWOOD_STICK.get());
                             output.accept(ModItems.WAX.get());
                             output.accept(ModItems.SPAWNER_SCRAP.get());
@@ -214,8 +211,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(EssenceHelper.createStorageItem(ModItems.AUREAL_TANK.get(), EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY, AurealTankItem.MAX_CAPACITY));
 
                             output.accept(ModItems.LENS_OF_VERITATIS.get());
-                            output.accept(ModItems.PURIFYING_SOAP.get());
-                            output.accept(ModItems.WET_PURIFYING_SOAP.get());
                             output.accept(ModBlocks.OBSIDIAN_SKULL.getSkull());
                             output.accept(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull());
                             output.accept(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull());
