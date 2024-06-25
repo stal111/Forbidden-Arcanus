@@ -6,8 +6,12 @@
   "experience": 0.5,
   "fire_type": "fire",
   "ingredients": {
-    "item": "minecraft:obsidian",
-    "tag": "c:raw_materials/iron"
+    "first": {
+      "tag": "c:raw_materials/iron"
+    },
+    "second": {
+      "item": "minecraft:obsidian"
+    }
   },
   "residue": {
     "type": "forbidden_arcanus:copper",

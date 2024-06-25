@@ -112,7 +112,7 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        return this.ingredients.map(NonNullList::of, pair -> NonNullList.of(pair.getFirst(), pair.getSecond()));
+        return this.ingredients.map(ingredient -> NonNullList.of(Ingredient.EMPTY, ingredient), pair -> NonNullList.of(Ingredient.EMPTY, pair.getFirst(), pair.getSecond()));
     }
 
     /**
@@ -177,7 +177,7 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
                 CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> {
                     return recipe.category;
                 }),
-                Codec.either(Ingredient.CODEC_NONEMPTY, Codec.pair(Ingredient.CODEC_NONEMPTY, Ingredient.CODEC_NONEMPTY)).fieldOf("ingredients").forGetter(recipe -> {
+                Codec.either(Ingredient.CODEC_NONEMPTY, Codec.mapPair(Ingredient.MAP_CODEC_NONEMPTY.fieldOf("first"), Ingredient.MAP_CODEC_NONEMPTY.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(recipe -> {
                     return recipe.ingredients;
                 }),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> {

@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.integration;
 
-import com.google.common.base.Suppliers;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
@@ -27,10 +26,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
-import java.util.function.Supplier;
 
 @JeiPlugin
 public class ForbiddenArcanusJEIPlugin implements IModPlugin {
@@ -42,9 +39,9 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     public static final RecipeType<Ritual> HEPHAESTUS_SMITHING = RecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_smithing", Ritual.class);
     public static final RecipeType<Ritual> HEPHAESTUS_FORGE_UPGRADING = RecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_forge_upgrading", Ritual.class);
 
-    public static final Supplier<RecipeType<RecipeHolder<ClibanoRecipe>>> CLIBANO_COMBUSTION = Suppliers.memoize(() -> RecipeType.createFromVanilla(ModRecipeTypes.CLIBANO_COMBUSTION.get()));
+    public static final RecipeType<ClibanoRecipe> CLIBANO_COMBUSTION = RecipeType.create(ForbiddenArcanus.MOD_ID, "clibano_combustion", ClibanoRecipe.class);
 
-    @Nonnull
+    @NotNull
     @Override
     public ResourceLocation getPluginUid() {
         return ForbiddenArcanus.location("main");
@@ -57,24 +54,26 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
+        Level level = Minecraft.getInstance().level;
+
         registration.addRecipes(RecipeTypes.SMITHING, ApplyModifierRecipeMaker.getRecipes());
 
-        Registry<Ritual> registry = Minecraft.getInstance().level.registryAccess().registryOrThrow(FARegistries.RITUAL);
+        Registry<Ritual> registry = level.registryAccess().registryOrThrow(FARegistries.RITUAL);
 
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-        registration.addRecipes(CLIBANO_COMBUSTION.get(), Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get()));
+        registration.addRecipes(CLIBANO_COMBUSTION, level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get()).stream().map(RecipeHolder::value).toList());
     }
 
     @Override
-    public void registerRecipeCatalysts(@Nonnull IRecipeCatalystRegistration registration) {
+    public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()), HEPHAESTUS_SMITHING, HEPHAESTUS_FORGE_UPGRADING);
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.CLIBANO_CORE.get()), CLIBANO_COMBUSTION.get());
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.CLIBANO_CORE.get()), CLIBANO_COMBUSTION);
     }
 
     @Override
-    public void registerCategories(@Nonnull IRecipeCategoryRegistration registration) {
+    public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
         IGuiHelper guiHelper = registration.getJeiHelpers().getGuiHelper();
 
         registration.addRecipeCategories(

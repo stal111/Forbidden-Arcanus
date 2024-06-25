@@ -27,9 +27,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,7 +38,7 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.*;
  * @author stal111
  * @since 2022-08-14
  */
-public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<ClibanoRecipe>> {
+public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe> {
 
     private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/gui/jei/clibano_combustion.png");
     private static final Component TITLE = Component.translatable("jei.forbidden_arcanus.category.clibanoCombustion");
@@ -72,54 +71,54 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
-                    @Nonnull
+                    @NotNull
                     @Override
-                    public IDrawableAnimated load(@Nonnull Integer cookTime) {
+                    public IDrawableAnimated load(@NotNull Integer cookTime) {
                         return guiHelper.drawableBuilder(TEXTURE, 148, 32, 13, 12)
                                 .buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public RecipeType<RecipeHolder<ClibanoRecipe>> getRecipeType() {
-        return ForbiddenArcanusJEIPlugin.CLIBANO_COMBUSTION.get();
+    public RecipeType<ClibanoRecipe> getRecipeType() {
+        return ForbiddenArcanusJEIPlugin.CLIBANO_COMBUSTION;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Component getTitle() {
         return TITLE;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public IDrawable getBackground() {
         return this.background;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public IDrawable getIcon() {
         return this.icon;
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IFocusGroup focuses) {
-        builder.addSlot(INPUT, 37, 24).addIngredients(recipe.value().getIngredients().get(0));
+    public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ClibanoRecipe recipe, @NotNull IFocusGroup focuses) {
+        builder.addSlot(INPUT, 37, 24).addIngredients(recipe.getIngredients().get(0));
 
-        if (recipe.value().isDoubleRecipe()) {
-            builder.addSlot(INPUT, 55, 24).addIngredients(recipe.value().getIngredients().get(1));
+        if (recipe.isDoubleRecipe()) {
+            builder.addSlot(INPUT, 55, 24).addIngredients(recipe.getIngredients().get(1));
         }
 
-        TagKey<Item> tagKey = recipe.value().getRequiredFireType().getTagKey();
+        TagKey<Item> tagKey = recipe.getRequiredFireType().getTagKey();
 
         if (tagKey != null) {
             builder.addSlot(RENDER_ONLY, 12, 60).addIngredients(Ingredient.of(tagKey));
         }
 
-        builder.addSlot(OUTPUT, 97, 35).addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
+        builder.addSlot(OUTPUT, 97, 35).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     private IDrawableAnimated getArrow(ClibanoRecipe recipe) {
@@ -131,18 +130,18 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
     }
 
     @Override
-    public void draw(@Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IRecipeSlotsView recipeSlotsView, @Nonnull GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        this.animatedFlames.get(recipe.value().getRequiredFireType()).draw(guiGraphics, 48, 43);
+    public void draw(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.animatedFlames.get(recipe.getRequiredFireType()).draw(guiGraphics, 48, 43);
 
-        if (!recipe.value().isDoubleRecipe()) {
+        if (!recipe.isDoubleRecipe()) {
             guiGraphics.blit(TEXTURE, 54, 23, 224, 0, 18, 18);
         }
 
-        IDrawableAnimated arrow = this.getArrow(recipe.value());
+        IDrawableAnimated arrow = this.getArrow(recipe);
         arrow.draw(guiGraphics, 74, 43);
 
-        this.drawExperience(recipe.value(), guiGraphics, 12);
-        this.drawCookTime(recipe.value(), guiGraphics, 79);
+        this.drawExperience(recipe, guiGraphics, 12);
+        this.drawCookTime(recipe, guiGraphics, 79);
     }
 
     protected void drawExperience(ClibanoRecipe recipe, GuiGraphics guiGraphics, int y) {
@@ -170,11 +169,11 @@ public class ClibanoCombustionCategory implements IRecipeCategory<RecipeHolder<C
         }
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public List<Component> getTooltipStrings(@Nonnull RecipeHolder<ClibanoRecipe> recipe, @Nonnull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 92 && mouseY >= 59 && mouseX <= 117 && mouseY <= 65) {
-            ResidueChance chance = recipe.value().getResidueChance();
+            ResidueChance chance = recipe.getResidueChance();
 
             if (chance == null) {
                 return List.of();
