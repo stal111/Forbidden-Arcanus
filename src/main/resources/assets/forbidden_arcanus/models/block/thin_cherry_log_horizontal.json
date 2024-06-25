@@ -1,9 +1,0 @@
-{
-  "credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
-  "parent": "forbidden_arcanus:block/thin_log_horizontal",
-  "textures": {
-		"0": "forbidden_arcanus:block/thin_cherry_log_top",
-		"1": "forbidden_arcanus:block/cherry_log",
-		"particle": "forbidden_arcanus:block/cherry_log"
-  }
-}
