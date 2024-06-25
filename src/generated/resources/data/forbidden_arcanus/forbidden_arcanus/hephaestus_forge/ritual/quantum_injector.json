@@ -1,0 +1,28 @@
+{
+  "essences": {
+    "aureal": 5000,
+    "blood": 3000,
+    "experience": 1060,
+    "souls": 50
+  },
+  "forge_tier": 3,
+  "inputs": [
+    {
+      "amount": 4,
+      "ingredient": {
+        "item": "forbidden_arcanus:quantum_core"
+      }
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:create_item",
+  "main_ingredient": {
+    "item": "forbidden_arcanus:mundabitur_dust"
+  },
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "count": 1,
+      "id": "forbidden_arcanus:quantum_injector"
+    }
+  }
+}

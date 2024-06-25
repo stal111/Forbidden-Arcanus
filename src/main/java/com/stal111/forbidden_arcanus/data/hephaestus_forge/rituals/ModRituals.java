@@ -43,6 +43,9 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public static final ResourceKey<Ritual> WHIRLWIND_PRISM = HELPER.createKey("whirlwind_prism");
     public static final ResourceKey<Ritual> SMELTER_PRISM = HELPER.createKey("smelter_prism");
     public static final ResourceKey<Ritual> FERROGNETIC_MIXTURE = HELPER.createKey("ferrognetic_mixture");
+    public static final ResourceKey<Ritual> QUANTUM_CATCHER = HELPER.createKey("quantum_catcher");
+    public static final ResourceKey<Ritual> QUANTUM_INJECTOR = HELPER.createKey("quantum_injector");
+
     public static final ResourceKey<Ritual> UPGRADE_TIER_2 = HELPER.createKey("upgrade_tier_2");
     public static final ResourceKey<Ritual> UPGRADE_TIER_3 = HELPER.createKey("upgrade_tier_3");
     public static final ResourceKey<Ritual> UPGRADE_TIER_4 = HELPER.createKey("upgrade_tier_4");
@@ -70,18 +73,22 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         var whirlwindPrism = this.requirements(EssencesDefinition.of(1000, 3, 2250, 0), builder -> builder.tier(TierPredicate.min(3)).enhancer(elementarium));
         var smelterPrism = this.requirements(EssencesDefinition.of(200, 4, 1250, 0), builder -> builder.enhancer(elementarium));
         var ferroneticMixture = this.requirements(EssencesDefinition.of(100, 2, 1250, 0), UnaryOperator.identity());
+        var quantumCatcher = this.requirements(EssencesDefinition.of(200, 5, 1200, 155), UnaryOperator.identity());
+        var quantumInjector = this.requirements(EssencesDefinition.of(5000, 50, 3000, 1060), builder -> builder.tier(TierPredicate.min(3)));
+
         var tier2 = this.requirements(EssencesDefinition.of(500, 10, 6000, 0), builder -> builder.tier(TierPredicate.exact(1)));
         var tier3 = this.requirements(EssencesDefinition.of(1000, 50, 9000, 0), builder -> builder.tier(TierPredicate.exact(2)));
         var tier4 = this.requirements(EssencesDefinition.of(2000, 100, 12000, 0), builder -> builder.tier(TierPredicate.exact(3)));
         var tier5 = this.requirements(EssencesDefinition.of(5000, 500, 20000, 0), builder -> builder.tier(TierPredicate.exact(4)));
 
-        this.register(ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB.get()), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE.get())).requirements(eternalStella));
-
+        this.register(ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND, builder -> builder.input(Ingredient.of(ModItems.XPETRIFIED_ORB), 3).input(Ingredient.of(ModItems.STELLARITE_PIECE)).requirements(eternalStella));
         this.register(TERRASTOMP_PRISM, ModItems.TERRASTOMP_PRISM.get(), Blocks.DIAMOND_BLOCK, builder -> builder.input(Ingredient.of(Items.FLINT), 2).input(Ingredient.of(Blocks.DRIPSTONE_BLOCK), 2).input(Ingredient.of(Blocks.POINTED_DRIPSTONE), 2).requirements(terrastompPrism));
         this.register(SEA_PRISM, ModItems.SEA_PRISM.get(), Items.HEART_OF_THE_SEA, builder -> builder.input(Ingredient.of(Items.PRISMARINE_SHARD), 2).input(Ingredient.of(Items.TURTLE_SCUTE), 2).input(Ingredient.of(Items.LAPIS_LAZULI), 2).requirements(seaPrism));
-        this.register(WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM.get(), Blocks.WHITE_WOOL, builder -> builder.input(Ingredient.of(ModItems.BAT_WING.get())).input(Ingredient.of(Items.FEATHER), 2).input(Ingredient.of(Items.PHANTOM_MEMBRANE), 3).requirements(whirlwindPrism));
+        this.register(WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM.get(), Blocks.WHITE_WOOL, builder -> builder.input(Ingredient.of(ModItems.BAT_WING)).input(Ingredient.of(Items.FEATHER), 2).input(Ingredient.of(Items.PHANTOM_MEMBRANE), 3).requirements(whirlwindPrism));
         this.register(SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).requirements(smelterPrism));
-        this.register(FERROGNETIC_MIXTURE, ModItems.FERROGNETIC_MIXTURE.get(), Blocks.LODESTONE, builder -> builder.input(Ingredient.of(Items.CLAY_BALL), 2).input(Ingredient.of(ModItems.WAX.get()), 2).input(Ingredient.of(Items.SLIME_BALL), 2).input(Ingredient.of(Items.IRON_INGOT)).requirements(ferroneticMixture));
+        this.register(FERROGNETIC_MIXTURE, ModItems.FERROGNETIC_MIXTURE.get(), Blocks.LODESTONE, builder -> builder.input(Ingredient.of(Items.CLAY_BALL), 2).input(Ingredient.of(ModItems.WAX), 2).input(Ingredient.of(Items.SLIME_BALL), 2).input(Ingredient.of(Items.IRON_INGOT)).requirements(ferroneticMixture));
+        this.register(QUANTUM_CATCHER, ModItems.QUANTUM_CATCHER.get(), ModBlocks.QUANTUM_CORE.get(), builder -> builder.input(Ingredient.of(ModItems.SPAWNER_SCRAP), 4).requirements(quantumCatcher));
+        this.register(QUANTUM_INJECTOR, ModBlocks.QUANTUM_INJECTOR.get(), ModItems.MUNDABITUR_DUST.get(), builder -> builder.input(Ingredient.of(ModBlocks.QUANTUM_CORE.get()), 4).requirements(quantumInjector));
 
         this.register(UPGRADE_TIER_2, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).requirements(tier2).magicCircle(ModMagicCircles.UPGRADE_TIER));
         this.register(UPGRADE_TIER_3, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).requirements(tier3).magicCircle(ModMagicCircles.UPGRADE_TIER));

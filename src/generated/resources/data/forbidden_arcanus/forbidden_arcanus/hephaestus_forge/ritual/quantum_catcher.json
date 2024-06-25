@@ -1,0 +1,27 @@
+{
+  "essences": {
+    "aureal": 200,
+    "blood": 1200,
+    "experience": 155,
+    "souls": 5
+  },
+  "inputs": [
+    {
+      "amount": 4,
+      "ingredient": {
+        "item": "forbidden_arcanus:spawner_scrap"
+      }
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:create_item",
+  "main_ingredient": {
+    "item": "forbidden_arcanus:quantum_core"
+  },
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "count": 1,
+      "id": "forbidden_arcanus:quantum_catcher"
+    }
+  }
+}
