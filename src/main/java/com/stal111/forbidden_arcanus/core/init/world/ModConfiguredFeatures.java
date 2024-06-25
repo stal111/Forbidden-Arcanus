@@ -51,7 +51,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
     public static final ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ORCHID = HELPER.createKey("flower_yellow_orchid");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> EDELWOOD = HELPER.createKey("edelwood");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PETRIFIED_ROOT = HELPER.createKey("petrified_root");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_FUNGYSS_0 = HELPER.createKey("big_fungyss_0");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_FUNGYSS_1 = HELPER.createKey("big_fungyss_1");
@@ -83,7 +82,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         context.register(AURUM, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.AURUM_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES.get(), 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES.get(), 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build()));
         context.register(YELLOW_ORCHID, new ConfiguredFeature<>(Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))))));
         context.register(EDELWOOD, new ConfiguredFeature<>(ModFeatures.EDELWOOD.get(), NoneFeatureConfiguration.INSTANCE));
-        context.register(PETRIFIED_ROOT, new ConfiguredFeature<>(ModFeatures.PETRIFIED_ROOT.get(), new BlockStateConfiguration(States.PETRIFIED_ROOT.get())));
         context.register(BIG_FUNGYSS_0, new ConfiguredFeature<>(ModFeatures.BIG_FUNGYSS.get(), new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK.get()), SimpleStateProvider.simple(States.FUNGYSS_STEM.get()), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE.get()), 0)));
         context.register(BIG_FUNGYSS_1, new ConfiguredFeature<>(ModFeatures.BIG_FUNGYSS.get(), new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK.get()), SimpleStateProvider.simple(States.FUNGYSS_STEM.get()), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE.get()), 1)));
         context.register(MEGA_FUNGYSS_0, new ConfiguredFeature<>(ModFeatures.MEGA_FUNGYSS.get(), new BigFungyssFeatureConfig(SimpleStateProvider.simple(States.FUNGYSS_BLOCK.get()), SimpleStateProvider.simple(States.FUNGYSS_STEM.get()), SimpleStateProvider.simple(States.FUNGYSS_HYPHAE.get()), 0)));
@@ -111,7 +109,6 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         private static final Supplier<BlockState> MYSTERYWOOD_SAPLING = () -> ModBlocks.AURUM_SAPLING.get().defaultBlockState();
         private static final Supplier<BlockState> YELLOW_ORCHID = () -> ModBlocks.YELLOW_ORCHID.get().defaultBlockState();
         private static final Supplier<BlockState> EDELWOOD_LOG = () -> ModBlocks.EDELWOOD_LOG.get().defaultBlockState();
-        private static final Supplier<BlockState> PETRIFIED_ROOT = () -> ModBlocks.PETRIFIED_ROOT.get().defaultBlockState();
         private static final Supplier<BlockState> FUNGYSS_BLOCK = () -> ModBlocks.FUNGYSS_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false);
         private static final Supplier<BlockState> FUNGYSS_STEM = () -> ModBlocks.FUNGYSS_STEM.get().defaultBlockState();
         private static final Supplier<BlockState> FUNGYSS_HYPHAE = () -> ModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState();

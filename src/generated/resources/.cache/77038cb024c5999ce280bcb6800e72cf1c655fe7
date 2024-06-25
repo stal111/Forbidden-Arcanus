@@ -1,4 +1,4 @@
-// 1.21	2024-06-24T11:29:32.9154729	Model Definitions
+// 1.21	2024-06-25T16:54:19.8590345	Model Definitions
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 f8bae591361fc4660ca12ae7f9fe356b9e15d523 assets/forbidden_arcanus/blockstates/arcane_polished_darkstone.json
 901273f0ae1e60180a91fd9541d60bdd1b7092fe assets/forbidden_arcanus/blockstates/arcane_polished_darkstone_pillar.json
@@ -326,7 +326,6 @@ d19a453c003492397cc9101eca9431b8a416db5d assets/forbidden_arcanus/models/item/nu
 1278c5216e7f38859e46149783fc6fe18550f490 assets/forbidden_arcanus/models/item/obsidiansteel_ingot.json
 43d32e7d031485f83a1b4eb56ecb3cc40a456163 assets/forbidden_arcanus/models/item/obsidian_skull.json
 1ce8f8b6d84c939ecc37b64a39410d683c25d9cd assets/forbidden_arcanus/models/item/orange_quantum_catcher.json
-e5776c0acf5cc07a4cf7d64349c2b8bf222b207f assets/forbidden_arcanus/models/item/petrified_root.json
 e3ca21d3de7f0db13921af0f8cabf30e0167c0e8 assets/forbidden_arcanus/models/item/pink_quantum_catcher.json
 5e910ed196c9d91bb024d4486e07d98a9a797ef8 assets/forbidden_arcanus/models/item/polished_darkstone.json
 0afd5fcf95bfc59fa576473939897a6a0dec8584 assets/forbidden_arcanus/models/item/polished_darkstone_bricks.json
