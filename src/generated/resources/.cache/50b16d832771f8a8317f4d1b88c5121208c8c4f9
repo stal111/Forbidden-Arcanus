@@ -1,4 +1,4 @@
-// 1.21	2024-06-25T18:10:08.7715259	Tags for minecraft:block mod id vanilla
+// 1.21	2024-06-26T14:54:32.2839845	Tags for minecraft:block mod id vanilla
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/block/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
 f702e38b39dc647446912583011eb706701d0362 data/c/tags/block/storage_blocks.json
@@ -25,13 +25,12 @@ ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/block/doors.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/block/logs.json
 c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/block/logs_that_burn.json
-2adc5822ba0be5d5c2558d887e9361505d92cbf9 data/minecraft/tags/block/mineable/pickaxe.json
+e4b0d0179fdaaae8c02d6477098fbb32010ccef8 data/minecraft/tags/block/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/block/mineable/shovel.json
 fd44e2bacff9aee912823a6e8a2788e19fc84f6f data/minecraft/tags/block/needs_diamond_tool.json
 f5e817be5db288101afc38ab4ee917799b5d90fe data/minecraft/tags/block/needs_iron_tool.json
 a36e2773b5baf7124871d28a30069e16562a7cac data/minecraft/tags/block/needs_stone_tool.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/block/planks.json
-3c465edf3943f5cfd498d3a7d90becf5a6f249b2 data/minecraft/tags/block/pressure_plates.json
 5bb0d891062facc905907fc2a2e830548570301b data/minecraft/tags/block/saplings.json
 9e9500e769cd5c0703ef99e4a2a0df188529f697 data/minecraft/tags/block/small_flowers.json
 8444fa480fdb1b147e132ca4416af4e96e7bcc0b data/minecraft/tags/block/trapdoors.json

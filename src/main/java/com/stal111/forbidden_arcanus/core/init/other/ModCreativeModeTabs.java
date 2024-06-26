@@ -148,7 +148,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.FUNGYSS_BUTTON.get());
                             output.accept(ModBlocks.AURUM_BUTTON.get());
                             output.accept(ModBlocks.EDELWOOD_BUTTON.get());
-                            output.accept(ModBlocks.DEORUM_PRESSURE_PLATE.get());
                             output.accept(ModBlocks.FUNGYSS_PRESSURE_PLATE.get());
                             output.accept(ModBlocks.AURUM_PRESSURE_PLATE.get());
                             output.accept(ModBlocks.EDELWOOD_PRESSURE_PLATE.get());

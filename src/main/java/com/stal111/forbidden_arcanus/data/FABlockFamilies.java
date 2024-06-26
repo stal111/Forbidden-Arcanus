@@ -62,6 +62,53 @@ public class FABlockFamilies {
             .slab(ModBlocks.POLISHED_SOULLESS_SANDSTONE_SLAB.get())
             .getFamily();
 
+    public static final BlockFamily FUNGYSS_PLANKS = familyBuilder(ModBlocks.FUNGYSS_PLANKS.get())
+            .button(ModBlocks.FUNGYSS_BUTTON.get())
+            .fence(ModBlocks.FUNGYSS_FENCE.get())
+            .fenceGate(ModBlocks.FUNGYSS_FENCE_GATE.get())
+            .pressurePlate(ModBlocks.FUNGYSS_PRESSURE_PLATE.get())
+            //.sign(ModBlocks.FUNGYSS_SIGN.get())
+            .slab(ModBlocks.FUNGYSS_SLAB.get())
+            .stairs(ModBlocks.FUNGYSS_STAIRS.get())
+            .door(ModBlocks.FUNGYSS_DOOR.get())
+            .trapdoor(ModBlocks.FUNGYSS_TRAPDOOR.get())
+            .recipeGroupPrefix("wooden")
+            .recipeUnlockedBy("has_planks")
+            .getFamily();
+
+    public static final BlockFamily AURUM_PLANKS = familyBuilder(ModBlocks.AURUM_PLANKS.get())
+            .button(ModBlocks.AURUM_BUTTON.get())
+            .fence(ModBlocks.AURUM_FENCE.get())
+            .fenceGate(ModBlocks.AURUM_FENCE_GATE.get())
+            .pressurePlate(ModBlocks.AURUM_PRESSURE_PLATE.get())
+            //.sign(ModBlocks.AURUM_SIGN.get())
+            .slab(ModBlocks.AURUM_SLAB.get())
+            .stairs(ModBlocks.AURUM_STAIRS.get())
+            .door(ModBlocks.AURUM_DOOR.get())
+            .trapdoor(ModBlocks.AURUM_TRAPDOOR.get())
+            .recipeGroupPrefix("wooden")
+            .recipeUnlockedBy("has_planks")
+            .getFamily();
+
+    public static final BlockFamily EDELWOOD_PLANKS = familyBuilder(ModBlocks.EDELWOOD_PLANKS.get())
+            .button(ModBlocks.EDELWOOD_BUTTON.get())
+            .fence(ModBlocks.EDELWOOD_FENCE.get())
+            .fenceGate(ModBlocks.EDELWOOD_FENCE_GATE.get())
+            .pressurePlate(ModBlocks.EDELWOOD_PRESSURE_PLATE.get())
+            //.sign(ModBlocks.EDELWOOD_SIGN.get())
+            .slab(ModBlocks.EDELWOOD_SLAB.get())
+            .stairs(ModBlocks.EDELWOOD_STAIRS.get())
+            .door(ModBlocks.EDELWOOD_DOOR.get())
+            .trapdoor(ModBlocks.EDELWOOD_TRAPDOOR.get())
+            .recipeGroupPrefix("wooden")
+            .recipeUnlockedBy("has_planks")
+            .getFamily();
+
+    public static final BlockFamily ARCANE_EDELWOOD_PLANKS = familyBuilder(ModBlocks.ARCANE_EDELWOOD_PLANKS.get())
+            .door(ModBlocks.ARCANE_EDELWOOD_DOOR.get())
+            .trapdoor(ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get())
+            .getFamily();
+
     private static BlockFamily.Builder familyBuilder(Block baseBlock) {
         BlockFamily.Builder builder = new BlockFamily.Builder(baseBlock);
         BlockFamily family = MAP.put(baseBlock, builder.getFamily());

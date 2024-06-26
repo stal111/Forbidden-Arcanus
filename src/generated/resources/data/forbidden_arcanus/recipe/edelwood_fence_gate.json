@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "redstone",
+  "group": "wooden_fence_gate",
   "key": {
     "#": {
-      "tag": "c:rods/wooden"
+      "item": "minecraft:stick"
     },
-    "X": {
+    "W": {
       "item": "forbidden_arcanus:edelwood_planks"
     }
   },
   "pattern": [
-    "#X#",
-    "#X#"
+    "#W#",
+    "#W#"
   ],
   "result": {
     "count": 1,

@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
+  "group": "wooden_fence",
   "key": {
     "#": {
-      "item": "forbidden_arcanus:fungyss_planks"
+      "item": "minecraft:stick"
     },
-    "X": {
-      "tag": "c:rods/wooden"
+    "W": {
+      "item": "forbidden_arcanus:fungyss_planks"
     }
   },
   "pattern": [
-    "#X#",
-    "#X#"
+    "W#W",
+    "W#W"
   ],
   "result": {
     "count": 3,

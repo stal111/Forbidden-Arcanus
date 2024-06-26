@@ -127,48 +127,9 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
 
         this.surroundingItem(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ARCANE_EDELWOOD_PLANKS.get(), this.tag(ModTags.Items.DEORUM_INGOTS), this.item(ModBlocks.EDELWOOD_PLANKS.get()), 8);
 
-        this.woodenSlab(ModBlocks.FUNGYSS_SLAB.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.woodenSlab(ModBlocks.AURUM_SLAB.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.woodenSlab(ModBlocks.EDELWOOD_SLAB.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-
-        this.woodenStairs(ModBlocks.FUNGYSS_STAIRS.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.woodenStairs(ModBlocks.AURUM_STAIRS.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.woodenStairs(ModBlocks.EDELWOOD_STAIRS.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-
         this.door(ModBlocks.DEORUM_DOOR.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.door(ModBlocks.FUNGYSS_DOOR.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.door(ModBlocks.AURUM_DOOR.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.door(ModBlocks.EDELWOOD_DOOR.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-        this.door(ModBlocks.ARCANE_EDELWOOD_DOOR.get(), this.item(ModBlocks.ARCANE_EDELWOOD_PLANKS.get()));
 
         this.trapdoor(ModBlocks.DEORUM_TRAPDOOR.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.trapdoor(ModBlocks.FUNGYSS_TRAPDOOR.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.trapdoor(ModBlocks.AURUM_TRAPDOOR.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.trapdoor(ModBlocks.EDELWOOD_TRAPDOOR.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-        this.trapdoor(ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get(), this.item(ModBlocks.ARCANE_EDELWOOD_PLANKS.get()));
-
-        this.fence(ModBlocks.FUNGYSS_FENCE.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.fence(ModBlocks.AURUM_FENCE.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.fence(ModBlocks.EDELWOOD_FENCE.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-
-        this.fenceGate(ModBlocks.FUNGYSS_FENCE_GATE.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.fenceGate(ModBlocks.AURUM_FENCE_GATE.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.fenceGate(ModBlocks.EDELWOOD_FENCE_GATE.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-
-        //TODO
-//        this.sign(ModBlocks.FUNGYSS_SIGN.getFirst().get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-//        this.sign(ModBlocks.CHERRY_SIGN.getFirst().get(), this.item(ModBlocks.CHERRY_PLANKS.get()));
-//        this.sign(ModBlocks.AURUM_SIGN.getFirst().get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-//        this.sign(ModBlocks.EDELWOOD_SIGN.getFirst().get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-
-        this.pressurePlate(ModBlocks.DEORUM_PRESSURE_PLATE.get(), this.tag(ModTags.Items.DEORUM_INGOTS));
-        this.pressurePlate(ModBlocks.FUNGYSS_PRESSURE_PLATE.get(), this.item(ModBlocks.FUNGYSS_PLANKS.get()));
-        this.pressurePlate(ModBlocks.AURUM_PRESSURE_PLATE.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
-        this.pressurePlate(ModBlocks.EDELWOOD_PRESSURE_PLATE.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));
-
-        this.button(ModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.FUNGYSS_PLANKS.get());
-        this.button(ModBlocks.AURUM_BUTTON.get(), ModBlocks.AURUM_PLANKS.get());
-        this.button(ModBlocks.EDELWOOD_BUTTON.get(), ModBlocks.EDELWOOD_PLANKS.get());
 
         this.boat(ModItems.AURUM_BOAT.get(), this.item(ModBlocks.AURUM_PLANKS.get()));
         this.boat(ModItems.EDELWOOD_BOAT.get(), this.item(ModBlocks.EDELWOOD_PLANKS.get()));

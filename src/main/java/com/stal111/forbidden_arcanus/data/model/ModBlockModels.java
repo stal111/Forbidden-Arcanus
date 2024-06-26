@@ -17,6 +17,7 @@ import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -63,6 +64,10 @@ public class ModBlockModels {
                 .filter(BlockFamily::shouldGenerateModel)
                 .forEach(blockFamily -> this.family(blockFamily.getBaseBlock()).generateFor(blockFamily));
 
+        this.createSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get());
+        this.createSimpleFlatItemModel(ModBlocks.NIPA.get());
+        this.createSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get());
+
         this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.SOULLESS_SAND.get());
         this.generators.createTrivialCube(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
@@ -90,6 +95,9 @@ public class ModBlockModels {
         ModModelTemplates.UTREM_JAR_ITEM.create(ModelLocationUtils.getModelLocation(ModBlocks.ESSENCE_UTREM_JAR.get().asItem()), TextureMapping.particle(ModBlocks.UTREM_JAR.get()), this.modelOutput);
         this.createPillar(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get());
         this.createNonTemplateModelBlock(ModBlocks.QUANTUM_CORE.get());
+        this.generators.createDoor(ModBlocks.DEORUM_DOOR.get());
+        this.generators.createTrapdoor(ModBlocks.DEORUM_TRAPDOOR.get());
+        this.generators.createAxisAlignedPillarBlockCustomModel(ModBlocks.DEORUM_CHAIN.get(), ModelLocationUtils.getModelLocation(ModBlocks.DEORUM_CHAIN.get()));
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -208,7 +216,7 @@ public class ModBlockModels {
             return Variant.variant().with(VariantProperties.MODEL, model);
         });
 
-        this.createSimpleFlatItemModel(block.asItem());
+        this.createSimpleFlatItemModel(block);
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
     }
 
@@ -242,8 +250,8 @@ public class ModBlockModels {
         return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resourceLocation));
     }
 
-    void createSimpleFlatItemModel(Item item) {
-        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(item), this.modelOutput);
+    void createSimpleFlatItemModel(ItemLike item) {
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item.asItem()), TextureMapping.layer0(item.asItem()), this.modelOutput);
     }
 
     void delegateItemModel(Block block, ResourceLocation resourceLocation) {
