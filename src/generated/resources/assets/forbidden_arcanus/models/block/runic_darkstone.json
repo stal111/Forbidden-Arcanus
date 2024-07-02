@@ -1,0 +1,7 @@
+{
+  "parent": "forbidden_arcanus:block/cube_all_emissive_layer",
+  "textures": {
+    "all": "forbidden_arcanus:block/runic_stone/runic_darkstone",
+    "layer": "forbidden_arcanus:block/runic_stone/runic_darkstone_layer"
+  }
+}

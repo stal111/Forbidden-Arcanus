@@ -16,6 +16,9 @@ import java.util.Optional;
  */
 public class ModModelTemplates {
 
+    public static final ModelTemplate CUBE_ALL_EMISSIVE = create("cube_all_emissive", TextureSlot.ALL);
+    public static final ModelTemplate CUBE_ALL_EMISSIVE_LAYER = create("cube_all_emissive_layer", TextureSlot.ALL, ModTextureSlots.LAYER);
+
     public static final ModelTemplate FORBIDDENOMICON = create("template_forbiddenomicon", TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.INSIDE, TextureSlot.SIDE);
     public static final ModelTemplate DESK = create("template_desk", TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.INSIDE, TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
     public static final ModelTemplate PEDESTAL = create("template_pedestal", TextureSlot.SIDE, TextureSlot.TOP);
@@ -31,6 +34,9 @@ public class ModModelTemplates {
     public static final ModelTemplate UTREM_JAR = create("template_utrem_jar", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
     public static final ModelTemplate UTREM_JAR_ITEM = createItem("template_utrem_jar");
     public static final ModelTemplate QUANTUM_CATCHER = createItem("template_quantum_catcher", ModTextureSlots.INNER, TextureSlot.TOP, TextureSlot.SIDE);
+    public static final ModelTemplate HOLLOW_LOG = create("hollow_log", TextureSlot.INSIDE, ModTextureSlots.LOG, TextureSlot.TOP);
+    public static final ModelTemplate HOLLOW_LOG_FACE = create("hollow_log_face", TextureSlot.INSIDE, ModTextureSlots.LOG, TextureSlot.TOP, TextureSlot.FRONT);
+    public static final ModelTemplate HOLLOW_LOG_FACE_AND_LEAVES = create("hollow_log_face_and_leaves", TextureSlot.INSIDE, ModTextureSlots.LOG, TextureSlot.TOP, TextureSlot.FRONT, ModTextureSlots.LEAVES);
 
     public static ModelTemplate create(String name, TextureSlot... textureSlots) {
         return new ModelTemplate(Optional.of(ForbiddenArcanus.location("block/" + name)), Optional.empty(), textureSlots);

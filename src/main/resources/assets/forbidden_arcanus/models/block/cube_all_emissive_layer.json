@@ -18,14 +18,14 @@
         {   "from": [ 0, 0, 0 ],
             "to": [ 16, 16, 16 ],
             "faces": {
-                "down":  { "texture": "#cutout", "cullface": "down" },
-                "up":    { "texture": "#cutout", "cullface": "up" },
-                "north": { "texture": "#cutout", "cullface": "north" },
-                "south": { "texture": "#cutout", "cullface": "south" },
-                "west":  { "texture": "#cutout", "cullface": "west" },
-                "east":  { "texture": "#cutout", "cullface": "east" }
+                "down":  { "texture": "#layer", "cullface": "down" },
+                "up":    { "texture": "#layer", "cullface": "up" },
+                "north": { "texture": "#layer", "cullface": "north" },
+                "south": { "texture": "#layer", "cullface": "south" },
+                "west":  { "texture": "#layer", "cullface": "west" },
+                "east":  { "texture": "#layer", "cullface": "east" }
             },
-            "forge_data": {
+            "neoforge_data": {
                 "block_light": 15,
                 "sky_light": 15
             }

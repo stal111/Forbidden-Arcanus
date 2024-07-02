@@ -24,6 +24,9 @@ import java.util.function.Supplier;
  */
 public class ModItemModels {
 
+    private static final String ARMOR = "armor";
+    private static final String TOOL = "tool";
+
     private final ItemModelGenerators generators;
     private final BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput;
 
@@ -53,6 +56,59 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.ENCHANTED_SOUL);
         this.generateFlatItem(ModItems.AUREAL_BOTTLE);
         this.generateFlatItem(ModItems.SPLASH_AUREAL_BOTTLE);
+        this.generateFlatItem(ModItems.ARCANE_CRYSTAL);
+        this.generateFlatItem(ModItems.CORRUPTED_ARCANE_CRYSTAL);
+        this.generateFlatItem(ModItems.RUNE);
+        this.generateFlatItem(ModItems.DARK_RUNE);
+        this.generateFlatItem(ModItems.STELLARITE_PIECE);
+        this.generateFlatItem(ModItems.XPETRIFIED_ORB);
+        this.generateFlatItem(ModItems.DARK_NETHER_STAR);
+        this.generateFlatItem(ModItems.DEORUM_NUGGET);
+        this.generateFlatItem(ModItems.DEORUM_INGOT);
+        this.generateFlatItem(ModItems.ARCANE_CRYSTAL_DUST);
+        this.generateFlatItem(ModItems.ARCANE_CRYSTAL_DUST_SPECK);
+        this.generateFlatItem(ModItems.ARCANE_BONE_MEAL);
+        this.generateFlatItem(ModItems.DARK_MATTER);
+        this.generateFlatItem(ModItems.ENDER_PEARL_FRAGMENT);
+        this.generateFlatItem(ModItems.DRAGON_SCALE);
+        this.generateFlatItem(ModItems.SILVER_DRAGON_SCALE);
+        this.generateFlatItem(ModItems.GOLDEN_DRAGON_SCALE);
+        this.generateFlatItem(ModItems.AQUATIC_DRAGON_SCALE);
+        this.generateFlatItem(ModItems.BAT_WING);
+        this.generateFlatItem(ModItems.BAT_SOUP);
+        this.generateFlatItem(ModItems.TENTACLE);
+        this.generateFlatItem(ModItems.COOKED_TENTACLE);
+        this.generateFlatItem(ModItems.EDELWOOD_STICK);
+        this.generateFlatItem(ModItems.WAX);
+        this.generateFlatItem(ModItems.SPAWNER_SCRAP);
+        this.generateFlatItem(ModItems.BOOM_ARROW);
+        this.generateFlatItem(ModItems.DRACO_ARCANUS_ARROW);
+        this.generateFlatItem(ModItems.EDELWOOD_OIL);
+        this.generateFlatItem(ModItems.GOLDEN_ORCHID_SEEDS);
+        this.generateFlatItem(ModItems.AURUM_BOAT);
+        this.generateFlatItem(ModItems.AURUM_CHEST_BOAT);
+        this.generateFlatItem(ModItems.EDELWOOD_BOAT);
+        this.generateFlatItem(ModItems.EDELWOOD_CHEST_BOAT);
+        this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_STAFF, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_SWORD, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_SHOVEL, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_PICKAXE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_AXE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_HOE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_SCEPTER, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.DRACO_ARCANUS_HELMET, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.DRACO_ARCANUS_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.DRACO_ARCANUS_LEGGINGS, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.DRACO_ARCANUS_BOOTS, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.TYR_HELMET, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.TYR_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.TYR_LEGGINGS, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.TYR_BOOTS, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.MORTEM_HELMET, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.MORTEM_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.MORTEM_LEGGINGS, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ARMOR, ModItems.MORTEM_BOOTS, ModelTemplates.FLAT_ITEM);
+
         this.generateFlatItem("enhancer", ModItems.ARTISAN_RELIC, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.CRESCENT_MOON, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem("enhancer", ModItems.CRIMSON_STONE, ModelTemplates.FLAT_ITEM);

@@ -68,11 +68,27 @@ public class ModBlockModels {
         this.createSimpleFlatItemModel(ModBlocks.NIPA.get());
         this.createSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get());
 
-        this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.SOULLESS_SAND.get());
         this.generators.createTrivialCube(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
         this.generators.createTrivialCube(ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get());
         this.generators.createTrivialCube(ModBlocks.QUANTUM_INJECTOR.get());
+        this.createEmissiveLayerCube(ModBlocks.ARCANE_CRYSTAL_ORE.get(), "arcane_crystal_ore");
+        this.createEmissiveLayerCube(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get(), "arcane_crystal_ore");
+        this.createEmissiveLayerCube(ModBlocks.RUNIC_STONE.get(), "runic_stone");
+        this.createEmissiveLayerCube(ModBlocks.RUNIC_DEEPSLATE.get(), "runic_stone");
+        this.createEmissiveLayerCube(ModBlocks.RUNIC_DARKSTONE.get(), "runic_stone");
+        this.generators.createTrivialCube(ModBlocks.STELLA_ARCANUM.get());
+        this.createEmissiveCube(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.RUNE_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.DARK_RUNE_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.STELLARITE_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.DEORUM_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
+        this.generators.createTrivialCube(ModBlocks.AURUM_LEAVES.get());
+        this.generators.createTrivialCube(ModBlocks.NUGGETY_AURUM_LEAVES.get());
+        this.generators.createTrivialCube(ModBlocks.FUNGYSS_BLOCK.get());
+
         this.createForbiddenomicon(ModBlocks.FORBIDDENOMICON.get());
         this.createDesk(ModBlocks.DESK.get(), false);
         this.createDesk(ModBlocks.RESEARCH_DESK.get(), true);
@@ -98,6 +114,22 @@ public class ModBlockModels {
         this.generators.createDoor(ModBlocks.DEORUM_DOOR.get());
         this.generators.createTrapdoor(ModBlocks.DEORUM_TRAPDOOR.get());
         this.generators.createAxisAlignedPillarBlockCustomModel(ModBlocks.DEORUM_CHAIN.get(), ModelLocationUtils.getModelLocation(ModBlocks.DEORUM_CHAIN.get()));
+        this.generators.createGlassBlocks(ModBlocks.DEORUM_GLASS.get(), ModBlocks.DEORUM_GLASS_PANE.get());
+        this.generators.createGlassBlocks(ModBlocks.RUNIC_GLASS.get(), ModBlocks.RUNIC_GLASS_PANE.get());
+        this.generators.createGlassBlocks(ModBlocks.DARK_RUNIC_GLASS.get(), ModBlocks.DARK_RUNIC_GLASS_PANE.get());
+        this.generators.createLantern(ModBlocks.DEORUM_LANTERN.get());
+        this.generators.createLantern(ModBlocks.DEORUM_SOUL_LANTERN.get());
+        this.generators.createPlant(ModBlocks.FUNGYSS.get(), ModBlocks.POTTED_FUNGYSS.get(), BlockModelGenerators.TintState.NOT_TINTED);
+        this.generators.createPlant(ModBlocks.AURUM_SAPLING.get(), ModBlocks.POTTED_AURUM_SAPLING.get(), BlockModelGenerators.TintState.NOT_TINTED);
+        this.generators.createPlant(ModBlocks.GROWING_EDELWOOD.get(), ModBlocks.POTTED_GROWING_EDELWOOD.get(), BlockModelGenerators.TintState.NOT_TINTED);
+        this.generators.createPlant(ModBlocks.YELLOW_ORCHID.get(), ModBlocks.POTTED_YELLOW_ORCHID.get(), BlockModelGenerators.TintState.NOT_TINTED);
+        this.generators.woodProvider(ModBlocks.FUNGYSS_STEM.get()).log(ModBlocks.FUNGYSS_STEM.get()).wood(ModBlocks.FUNGYSS_HYPHAE.get());
+        this.generators.woodProvider(ModBlocks.AURUM_LOG.get()).logWithHorizontal(ModBlocks.AURUM_LOG.get()).wood(ModBlocks.AURUM_WOOD.get());
+        this.generators.woodProvider(ModBlocks.STRIPPED_AURUM_LOG.get()).logWithHorizontal(ModBlocks.STRIPPED_AURUM_LOG.get()).wood(ModBlocks.STRIPPED_AURUM_WOOD.get());
+        this.createHollowLog(ModBlocks.EDELWOOD_LOG.get());
+        this.createHollowLogWithFace(ModBlocks.CARVED_EDELWOOD_LOG.get());
+        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.EDELWOOD_BRANCH.get(), ModelLocationUtils.getModelLocation(ModBlocks.EDELWOOD_BRANCH.get())));
+        this.createMagicalFarmland();
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -109,6 +141,14 @@ public class ModBlockModels {
 
     private BlockModelGenerators.BlockEntityModelGenerator blockEntityModels(ResourceLocation modelLocation, Block block) {
         return this.generators.new BlockEntityModelGenerator(modelLocation, block);
+    }
+
+    private void createEmissiveCube(Block block) {
+        this.blockStateOutput.accept(createSimpleBlock(block, ModModelTemplates.CUBE_ALL_EMISSIVE.create(block, ModTextureMapping.emissiveCube(block), this.modelOutput)));
+    }
+
+    private void createEmissiveLayerCube(Block block, String folder) {
+        this.blockStateOutput.accept(createSimpleBlock(block, ModModelTemplates.CUBE_ALL_EMISSIVE_LAYER.create(block, ModTextureMapping.emissiveLayerCube(block, folder), this.modelOutput)));
     }
 
     private void createForbiddenomicon(Block block) {
@@ -236,6 +276,41 @@ public class ModBlockModels {
         });
 
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+    }
+
+    private void createHollowLog(Block block) {
+        TextureMapping textureMapping = ModTextureMapping.edelwoodLog();
+        ResourceLocation model = ModModelTemplates.HOLLOW_LOG.create(block, textureMapping, this.modelOutput);
+
+        this.blockStateOutput.accept(createSimpleBlock(block, model));
+    }
+
+    private void createHollowLogWithFace(Block block) {
+        TextureMapping textureMapping = ModTextureMapping.edelwoodLogWithFace(false);
+        TextureMapping textureMappingWithLeaves = ModTextureMapping.edelwoodLogWithFace(true);
+
+        ResourceLocation model = ModModelTemplates.HOLLOW_LOG_FACE.create(block, textureMapping, this.modelOutput);
+        ResourceLocation modelWithLaves = ModModelTemplates.HOLLOW_LOG_FACE_AND_LEAVES.createWithSuffix(block, "_leaves", textureMappingWithLeaves, this.modelOutput);
+
+        PropertyDispatch dispatch = PropertyDispatch.property(ModBlockStateProperties.LEAVES).generate(hasLeaves -> {
+            return Variant.variant().with(VariantProperties.MODEL, hasLeaves ? modelWithLaves : model);
+        });
+
+        this.blockStateOutput.accept(createSimpleBlock(block, model).with(BlockModelGenerators.createHorizontalFacingDispatch()).with(dispatch));
+    }
+
+    private void createMagicalFarmland() {
+        TextureMapping textureMapping = new TextureMapping()
+                .put(TextureSlot.DIRT, ForbiddenArcanus.location("block/magical_dirt"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get()));
+        TextureMapping moistTextureMapping = new TextureMapping()
+                .put(TextureSlot.DIRT, ForbiddenArcanus.location("block/magical_dirt"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"));
+
+        ResourceLocation model = ModelTemplates.FARMLAND.create(ModBlocks.MAGICAL_FARMLAND.get(), textureMapping, this.modelOutput);
+        ResourceLocation moistModel = ModelTemplates.FARMLAND.create(TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"), moistTextureMapping, this.modelOutput);
+
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(ModBlocks.MAGICAL_FARMLAND.get()).with(BlockModelGenerators.createEmptyOrFullDispatch(BlockStateProperties.MOISTURE, 7, moistModel, model)));
     }
 
     private void createNonTemplateModelBlock(Block pBlock) {

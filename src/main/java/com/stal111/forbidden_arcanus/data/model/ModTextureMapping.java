@@ -29,6 +29,7 @@ public class ModTextureMapping {
     private static final String OBELISK = "obelisk";
     private static final String UTREM_JAR = "utrem_jar";
     private static final String QUANTUM_CATCHER = "quantum_catcher";
+    private static final String EDELWOOD_LOG = "edelwood_log";
 
     private static final Map<Integer, ResourceLocation> FORGE_BLOCK_TEXTURES = Map.of(
             1, ResourceLocation.withDefaultNamespace("block/smithing_table_bottom"),
@@ -37,6 +38,14 @@ public class ModTextureMapping {
             4, ForbiddenArcanus.location("block/chiseled_polished_darkstone"),
             5, ForbiddenArcanus.location("block/stellarite_block")
     );
+
+    public static TextureMapping emissiveCube(Block block) {
+        return new TextureMapping().put(TextureSlot.ALL, getBlockTexture(block));
+    }
+
+    public static TextureMapping emissiveLayerCube(Block block, String folder) {
+        return new TextureMapping().put(TextureSlot.ALL, getBlockTexture(block, folder)).put(ModTextureSlots.LAYER, getBlockTexture(block, folder, "_layer"));
+    }
 
     public static TextureMapping forbiddenomicon(Block block) {
         return new TextureMapping().put(TextureSlot.FRONT, getBlockTexture(block, FORBIDDENOMICON, "_front")).put(TextureSlot.BACK, getBlockTexture(block, FORBIDDENOMICON, "_back")).put(TextureSlot.INSIDE, getBlockTexture(block, FORBIDDENOMICON, "_inside")).put(TextureSlot.SIDE, getBlockTexture(block, FORBIDDENOMICON, "_side"));
@@ -80,6 +89,31 @@ public class ModTextureMapping {
 
     public static TextureMapping quantumCatcher(String folder) {
         return new TextureMapping().put(TextureSlot.SIDE, ModLocationUtils.getItem(QUANTUM_CATCHER + folder, "quantum_catcher_side")).put(TextureSlot.TOP, ModLocationUtils.getItem(QUANTUM_CATCHER + folder, "quantum_catcher_top")).put(ModTextureSlots.INNER, ModLocationUtils.getItem(QUANTUM_CATCHER, "quantum_catcher_inner"));
+    }
+
+    public static TextureMapping edelwoodLog() {
+        Block block = ModBlocks.EDELWOOD_LOG.get();
+
+        return new TextureMapping()
+                .put(ModTextureSlots.LOG, getBlockTexture(block, EDELWOOD_LOG))
+                .put(TextureSlot.TOP, getBlockTexture(block, EDELWOOD_LOG, "_top"))
+                .put(TextureSlot.INSIDE, getBlockTexture(block, EDELWOOD_LOG, "_inside"));
+    }
+
+    public static TextureMapping edelwoodLogWithFace(boolean leaves) {
+        Block block = ModBlocks.EDELWOOD_LOG.get();
+
+        var mapping = new TextureMapping()
+                .put(ModTextureSlots.LOG, getBlockTexture(block, EDELWOOD_LOG))
+                .put(TextureSlot.TOP, getBlockTexture(block, EDELWOOD_LOG, "_top"))
+                .put(TextureSlot.INSIDE, getBlockTexture(block, EDELWOOD_LOG, "_inside"))
+                .put(TextureSlot.FRONT, getBlockTexture(block, EDELWOOD_LOG, "_face"));
+
+        if (leaves) {
+            mapping.put(ModTextureSlots.LEAVES, getBlockTexture(block, EDELWOOD_LOG, "_leaves"));
+        }
+
+        return mapping;
     }
 
     public static ResourceLocation getBlockTexture(Block block) {
