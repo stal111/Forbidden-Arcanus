@@ -44,7 +44,9 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public static final ResourceKey<Ritual> SMELTER_PRISM = HELPER.createKey("smelter_prism");
     public static final ResourceKey<Ritual> FERROGNETIC_MIXTURE = HELPER.createKey("ferrognetic_mixture");
     public static final ResourceKey<Ritual> QUANTUM_CATCHER = HELPER.createKey("quantum_catcher");
+    public static final ResourceKey<Ritual> BOSS_CATCHER = HELPER.createKey("boss_catcher");
     public static final ResourceKey<Ritual> QUANTUM_INJECTOR = HELPER.createKey("quantum_injector");
+    public static final ResourceKey<Ritual> SOUL_BINDING_CRYSTAL = HELPER.createKey("soul_binding_crystal");
 
     public static final ResourceKey<Ritual> UPGRADE_TIER_2 = HELPER.createKey("upgrade_tier_2");
     public static final ResourceKey<Ritual> UPGRADE_TIER_3 = HELPER.createKey("upgrade_tier_3");
@@ -64,7 +66,10 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
 
     @Override
     public void bootstrap(BootstrapContext<Ritual> context) {
-        Holder<EnhancerDefinition> elementarium = context.lookup(FARegistries.ENHANCER_DEFINITION).getOrThrow(ModEnhancerDefinitions.ELEMENTARIUM);
+        var enhancerLookup = context.lookup(FARegistries.ENHANCER_DEFINITION);
+
+        Holder<EnhancerDefinition> elementarium = enhancerLookup.getOrThrow(ModEnhancerDefinitions.ELEMENTARIUM);
+        Holder<EnhancerDefinition> divinePact = enhancerLookup.getOrThrow(ModEnhancerDefinitions.DIVINE_PACT);
 
         // Requirements
         var eternalStella = this.requirements(EssencesDefinition.of(82, 1, 1000, 0), builder -> builder.tier(TierPredicate.min(3)));
@@ -74,7 +79,9 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         var smelterPrism = this.requirements(EssencesDefinition.of(200, 4, 1250, 0), builder -> builder.enhancer(elementarium));
         var ferroneticMixture = this.requirements(EssencesDefinition.of(100, 2, 1250, 0), UnaryOperator.identity());
         var quantumCatcher = this.requirements(EssencesDefinition.of(200, 5, 1200, 155), UnaryOperator.identity());
+        var bossCatcher = this.requirements(EssencesDefinition.of(500, 10, 7500, 1200), builder -> builder.tier(TierPredicate.min(4)));
         var quantumInjector = this.requirements(EssencesDefinition.of(5000, 50, 3000, 1060), builder -> builder.tier(TierPredicate.min(3)));
+        var soulBindingCrystal = this.requirements(EssencesDefinition.of(1500, 20, 375, 220), builder -> builder.tier(TierPredicate.min(4)).enhancer(divinePact));
 
         var tier2 = this.requirements(EssencesDefinition.of(500, 10, 6000, 0), builder -> builder.tier(TierPredicate.exact(1)));
         var tier3 = this.requirements(EssencesDefinition.of(1000, 50, 9000, 0), builder -> builder.tier(TierPredicate.exact(2)));
@@ -88,7 +95,9 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         this.register(SMELTER_PRISM, ModItems.SMELTER_PRISM.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get(), builder -> builder.input(Ingredient.of(Items.COAL), 2).input(Ingredient.of(Items.BLAZE_POWDER), 4).requirements(smelterPrism));
         this.register(FERROGNETIC_MIXTURE, ModItems.FERROGNETIC_MIXTURE.get(), Blocks.LODESTONE, builder -> builder.input(Ingredient.of(Items.CLAY_BALL), 2).input(Ingredient.of(ModItems.WAX), 2).input(Ingredient.of(Items.SLIME_BALL), 2).input(Ingredient.of(Items.IRON_INGOT)).requirements(ferroneticMixture));
         this.register(QUANTUM_CATCHER, ModItems.QUANTUM_CATCHER.get(), ModBlocks.QUANTUM_CORE.get(), builder -> builder.input(Ingredient.of(ModItems.SPAWNER_SCRAP), 4).requirements(quantumCatcher));
+        this.register(BOSS_CATCHER, ModItems.BOSS_CATCHER.get(), ModItems.QUANTUM_CATCHER.get(), builder -> builder.input(Ingredient.of(Items.NETHER_STAR)).input(Ingredient.of(ModItems.STELLARITE_PIECE), 3).requirements(bossCatcher));
         this.register(QUANTUM_INJECTOR, ModBlocks.QUANTUM_INJECTOR.get(), ModItems.MUNDABITUR_DUST.get(), builder -> builder.input(Ingredient.of(ModBlocks.QUANTUM_CORE.get()), 4).requirements(quantumInjector));
+        this.register(SOUL_BINDING_CRYSTAL, ModItems.SOUL_BINDING_CRYSTAL.get(), Items.QUARTZ, builder -> builder.input(Ingredient.of(ModItems.SOUL)).input(Ingredient.of(ModItems.CORRUPT_SOUL)).input(Ingredient.of(ModItems.ENCHANTED_SOUL)).input(Ingredient.of(Items.AMETHYST_SHARD), 2).input(Ingredient.of(ModItems.ENDER_PEARL_FRAGMENT), 3).requirements(soulBindingCrystal));
 
         this.register(UPGRADE_TIER_2, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).requirements(tier2).magicCircle(ModMagicCircles.UPGRADE_TIER));
         this.register(UPGRADE_TIER_3, UpgradeTierResult.INSTANCE, new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).requirements(tier3).magicCircle(ModMagicCircles.UPGRADE_TIER));

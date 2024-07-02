@@ -1,0 +1,53 @@
+{
+  "enhancers": "forbidden_arcanus:divine_pact",
+  "essences": {
+    "aureal": 1500,
+    "blood": 375,
+    "experience": 220,
+    "souls": 20
+  },
+  "forge_tier": 4,
+  "inputs": [
+    {
+      "amount": 1,
+      "ingredient": {
+        "item": "forbidden_arcanus:soul"
+      }
+    },
+    {
+      "amount": 1,
+      "ingredient": {
+        "item": "forbidden_arcanus:corrupt_soul"
+      }
+    },
+    {
+      "amount": 1,
+      "ingredient": {
+        "item": "forbidden_arcanus:enchanted_soul"
+      }
+    },
+    {
+      "amount": 2,
+      "ingredient": {
+        "item": "minecraft:amethyst_shard"
+      }
+    },
+    {
+      "amount": 3,
+      "ingredient": {
+        "item": "forbidden_arcanus:ender_pearl_fragment"
+      }
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:create_item",
+  "main_ingredient": {
+    "item": "minecraft:quartz"
+  },
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "count": 1,
+      "id": "forbidden_arcanus:soul_binding_crystal"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "essences": {
+    "aureal": 500,
+    "blood": 7500,
+    "experience": 1200,
+    "souls": 10
+  },
+  "forge_tier": 4,
+  "inputs": [
+    {
+      "amount": 1,
+      "ingredient": {
+        "item": "minecraft:nether_star"
+      }
+    },
+    {
+      "amount": 3,
+      "ingredient": {
+        "item": "forbidden_arcanus:stellarite_piece"
+      }
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:create_item",
+  "main_ingredient": {
+    "item": "forbidden_arcanus:quantum_catcher"
+  },
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "count": 1,
+      "id": "forbidden_arcanus:boss_catcher"
+    }
+  }
+}

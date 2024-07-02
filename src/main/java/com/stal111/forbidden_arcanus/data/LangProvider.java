@@ -200,6 +200,7 @@ public class LangProvider extends LanguageProvider {
 
         // Items
         this.addItem(ModItems.QUANTUM_CATCHER, "Quantum Catcher");
+        this.addItem(ModItems.BOSS_CATCHER, "Boss Catcher");
         this.addItem(ModItems.ARCANE_CRYSTAL, "Arcane Crystal");
         this.addItem(ModItems.CORRUPTED_ARCANE_CRYSTAL, "Corrupted Arcane Crystal");
         this.addItem(ModItems.RUNE, "Rune");
@@ -263,6 +264,7 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.DRACO_ARCANUS_AXE, "Draco Arcanus Axe");
         this.addItem(ModItems.DRACO_ARCANUS_SHOVEL, "Draco Arcanus Shovel");
         this.addItem(ModItems.DRACO_ARCANUS_HOE, "Draco Arcanus Hoe");
+        this.addItem(ModItems.DRACO_ARCANUS_SCEPTER, "Draco Arcanus Scepter");
         this.addItem(ModItems.DRACO_ARCANUS_HELMET, "Draco Arcanus Helmet");
         this.addItem(ModItems.DRACO_ARCANUS_CHESTPLATE, "Draco Arcanus Chestplate");
         this.addItem(ModItems.DRACO_ARCANUS_LEGGINGS, "Draco Arcanus Leggings");

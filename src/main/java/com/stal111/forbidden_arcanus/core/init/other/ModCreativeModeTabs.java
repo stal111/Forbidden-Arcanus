@@ -35,7 +35,7 @@ public class ModCreativeModeTabs implements RegistryClass {
 
     public static final RegistryEntry<CreativeModeTab, CreativeModeTab> MAIN = HELPER.register("main", CreativeTabFactory.create(builder -> {
                 builder.icon(() -> new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()))
-                        .title(Component.translatable("itemGroup.forbidden_arcanus"))
+                        .title(Component.translatable("itemGroup.forbidden_arcanus.main"))
                         .displayItems((itemDisplayParameters, output) -> {
                             output.accept(ModBlocks.DARKSTONE.get());
                             output.accept(ModBlocks.DARKSTONE_SLAB.get());
