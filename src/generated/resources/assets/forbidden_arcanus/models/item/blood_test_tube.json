@@ -4,37 +4,37 @@
     {
       "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_0",
       "predicate": {
-        "amount": 0.1
+        "forbidden_arcanus:amount": 0.1
       }
     },
     {
       "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_1",
       "predicate": {
-        "amount": 0.25
+        "forbidden_arcanus:amount": 0.25
       }
     },
     {
       "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_2",
       "predicate": {
-        "amount": 0.5
+        "forbidden_arcanus:amount": 0.5
       }
     },
     {
       "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_3",
       "predicate": {
-        "amount": 0.75
+        "forbidden_arcanus:amount": 0.75
       }
     },
     {
       "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_4",
       "predicate": {
-        "amount": 0.9
+        "forbidden_arcanus:amount": 0.9
       }
     },
     {
       "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_5",
       "predicate": {
-        "amount": 1.0
+        "forbidden_arcanus:amount": 1.0
       }
     }
   ],

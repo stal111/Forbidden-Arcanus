@@ -4,64 +4,64 @@
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_0",
       "predicate": {
-        "amount": 0.25,
-        "max": 0.0
+        "forbidden_arcanus:amount": 0.25,
+        "forbidden_arcanus:max": 0.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_1",
       "predicate": {
-        "amount": 0.5,
-        "max": 0.0
+        "forbidden_arcanus:amount": 0.5,
+        "forbidden_arcanus:max": 0.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_2",
       "predicate": {
-        "amount": 0.75,
-        "max": 0.0
+        "forbidden_arcanus:amount": 0.75,
+        "forbidden_arcanus:max": 0.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_3",
       "predicate": {
-        "amount": 1.0,
-        "max": 0.0
+        "forbidden_arcanus:amount": 1.0,
+        "forbidden_arcanus:max": 0.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_max",
       "predicate": {
-        "amount": 0.0,
-        "max": 1.0
+        "forbidden_arcanus:amount": 0.0,
+        "forbidden_arcanus:max": 1.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_max_0",
       "predicate": {
-        "amount": 0.25,
-        "max": 1.0
+        "forbidden_arcanus:amount": 0.25,
+        "forbidden_arcanus:max": 1.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_max_1",
       "predicate": {
-        "amount": 0.5,
-        "max": 1.0
+        "forbidden_arcanus:amount": 0.5,
+        "forbidden_arcanus:max": 1.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_max_2",
       "predicate": {
-        "amount": 0.75,
-        "max": 1.0
+        "forbidden_arcanus:amount": 0.75,
+        "forbidden_arcanus:max": 1.0
       }
     },
     {
       "model": "forbidden_arcanus:item/aureal_tank/aureal_tank_max_3",
       "predicate": {
-        "amount": 1.0,
-        "max": 1.0
+        "forbidden_arcanus:amount": 1.0,
+        "forbidden_arcanus:max": 1.0
       }
     }
   ],

@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.data.model;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -239,14 +240,14 @@ public class ModItemModels {
         }
     }
 
-    public record ModelProperty(String name, float value) {
+    public record ModelProperty(ResourceLocation name, float value) {
 
         public static ModelProperty of(String name, float value) {
-            return new ModelProperty(name, value);
+            return new ModelProperty(ForbiddenArcanus.location(name), value);
         }
 
         public void serialize(JsonObject jsonObject) {
-            jsonObject.addProperty(this.name, this.value);
+            jsonObject.addProperty(this.name.toString(), this.value);
         }
     }
 }
