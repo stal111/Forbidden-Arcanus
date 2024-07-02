@@ -34,7 +34,7 @@ public class SmithingTemplateConstants {
     private static final ResourceLocation EMPTY_SLOT_PICKAXE = ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe");
     private static final ResourceLocation EMPTY_SLOT_INGOT = ResourceLocation.withDefaultNamespace("item/empty_slot_ingot");
 
-    public static SmithingTemplateItem createDarkstoneUpgradeTemplate() {
+    public static SmithingTemplateItem createApplyModifierTemplate() {
         return new SmithingTemplateItem(DARKSTONE_UPGRADE_APPLIES_TO, DARKSTONE_UPGRADE_INGREDIENTS, DARKSTONE_UPGRADE, DARKSTONE_UPGRADE_BASE_SLOT_DESCRIPTION, DARKSTONE_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, createDarkstoneUpgradeIconList(), createDarkstoneUpgradeMaterialList());
     }
 

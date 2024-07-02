@@ -111,7 +111,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<ModArrowItem> DRACO_ARCANUS_ARROW = HELPER.register("draco_arcanus_arrow", () -> new ModArrowItem(new Item.Properties()));
     public static final ItemRegistryEntry<EdelwoodOilItem> EDELWOOD_OIL = HELPER.register("edelwood_oil", () -> new EdelwoodOilItem(new Item.Properties().stacksTo(16)));
     public static final ItemRegistryEntry<ItemNameBlockItem> GOLDEN_ORCHID_SEEDS = HELPER.register("golden_orchid_seeds", () -> new ItemNameBlockItem(ModBlocks.GOLDEN_ORCHID.get(), new Item.Properties()));
-    public static final ItemRegistryEntry<Item> DARKSTONE_UPGRADE_SMITHING_TEMPLATE = HELPER.register("darkstone_upgrade_smithing_template", SmithingTemplateConstants::createDarkstoneUpgradeTemplate);
+    public static final ItemRegistryEntry<Item> APPLY_MODIFIER_SMITHING_TEMPLATE = HELPER.register("apply_modifier_smithing_template", SmithingTemplateConstants::createApplyModifierTemplate);
     public static final ItemRegistryEntry<Item> OMEGA_ARCOIN = HELPER.register("omega_arcoin", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<BoatItem> AURUM_BOAT = HELPER.register("aurum_boat", () -> new ModBoatItem(false, ModBoat.Type.AURUM, new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<BoatItem> AURUM_CHEST_BOAT = HELPER.register("aurum_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.AURUM, new Item.Properties().stacksTo(1)));

@@ -5,6 +5,6 @@
   },
   "modifier": "forbidden_arcanus:soulbound",
   "template": {
-    "item": "forbidden_arcanus:darkstone_upgrade_smithing_template"
+    "item": "forbidden_arcanus:apply_modifier_smithing_template"
   }
 }

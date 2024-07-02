@@ -89,6 +89,7 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.AURUM_CHEST_BOAT);
         this.generateFlatItem(ModItems.EDELWOOD_BOAT);
         this.generateFlatItem(ModItems.EDELWOOD_CHEST_BOAT);
+        this.generateFlatItem(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE);
         this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_STAFF, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_SWORD, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(TOOL, ModItems.DRACO_ARCANUS_SHOVEL, ModelTemplates.FLAT_ITEM);

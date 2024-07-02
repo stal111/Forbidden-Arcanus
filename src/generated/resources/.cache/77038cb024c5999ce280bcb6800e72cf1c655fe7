@@ -1,4 +1,4 @@
-// 1.21	2024-07-02T14:56:08.6305895	Model Definitions
+// 1.21	2024-07-02T15:57:33.7853661	Model Definitions
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -415,6 +415,7 @@ f96d9e7c235667bbaa49c53131c1f241b47d1f0a assets/forbidden_arcanus/models/block/s
 db13e3301a1197ffec393279b1ec34cd196e996a assets/forbidden_arcanus/models/block/tiled_polished_darkstone_bricks.json
 370f3d4cc395cd4a05157e97eb6692079a63eebb assets/forbidden_arcanus/models/block/utrem_jar.json
 b59e63810b979bb7abcb6f166b61e31f00e760e9 assets/forbidden_arcanus/models/block/yellow_orchid.json
+661e5b46a94031990ba41c3eb7f64c6f24ec20f1 assets/forbidden_arcanus/models/item/apply_modifier_smithing_template.json
 ec32963c36c92245dedb808f3147fe81dd495883 assets/forbidden_arcanus/models/item/aquatic_dragon_scale.json
 a362c1701734ea16f61260dddb1bcfbfe0cad6d4 assets/forbidden_arcanus/models/item/arcane_bone_meal.json
 a1e3d350bdbbd0a2dc5d2cad8ecb227816fff8c1 assets/forbidden_arcanus/models/item/arcane_crystal.json

@@ -179,12 +179,14 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SPLASH_AUREAL_BOTTLE.get());
                             output.accept(ModItems.TEST_TUBE.get());
                             output.accept(EssenceHelper.createStorageItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceType.BLOOD, BloodTestTubeItem.MAX_BLOOD, BloodTestTubeItem.MAX_BLOOD));
+                            output.accept(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get());
                             output.accept(ModItems.ETERNAL_STELLA.get());
                             output.accept(ModItems.TERRASTOMP_PRISM.get());
                             output.accept(ModItems.SEA_PRISM.get());
                             output.accept(ModItems.WHIRLWIND_PRISM.get());
                             output.accept(ModItems.SMELTER_PRISM.get());
                             output.accept(ModItems.FERROGNETIC_MIXTURE.get());
+                            output.accept(ModItems.SOUL_BINDING_CRYSTAL.get());
                             output.accept(ModItems.DARK_MATTER.get());
                             output.accept(ModItems.ENDER_PEARL_FRAGMENT.get());
                             output.accept(ModItems.DRAGON_SCALE.get());
