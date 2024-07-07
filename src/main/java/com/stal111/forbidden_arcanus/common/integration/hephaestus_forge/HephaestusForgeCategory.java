@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInpu
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -57,7 +56,7 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
     public HephaestusForgeCategory(String name, IGuiHelper guiHelper, ResourceLocation texture, int essencesStartX, int essencesStartY) {
         this.name = name;
         this.background = guiHelper.createDrawable(texture, 0, 0, 148, 108);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()));
         this.essences = EssenceInfo.create(guiHelper, essencesStartX, essencesStartY);
     }
 
