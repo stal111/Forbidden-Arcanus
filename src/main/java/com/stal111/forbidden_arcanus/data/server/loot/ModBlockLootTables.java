@@ -1,18 +1,31 @@
 package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.clibano.AbstractClibanoFrameBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.valhelsia.valhelsia_core.datagen.ValhelsiaBlockLootTables;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 /**
  * Mod Block Loot Tables <br>
@@ -30,51 +43,201 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
 
     @Override
     protected void generate() {
+        this.dropSelf(ModBlocks.DARKSTONE.get());
+        this.dropSelf(ModBlocks.DARKSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.DARKSTONE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE_BUTTON.get());
+        this.dropSelf(ModBlocks.CHISELED_POLISHED_DARKSTONE.get());
+        this.dropSelf(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.get());
+        this.dropSelf(ModBlocks.POLISHED_DARKSTONE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CRACKED_POLISHED_DARKSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.ARCANE_POLISHED_DARKSTONE.get());
+        this.dropSelf(ModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get());
+        this.dropSelf(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get());
+        this.dropSelf(ModBlocks.DARKSTONE_PEDESTAL.get());
+        this.dropSelf(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
+        this.dropSelf(ModBlocks.CLIBANO_CORE.get());
+        this.dropSelf(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get());
+        this.dropSelf(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get());
+        this.dropSelf(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get());
+        this.dropSelf(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get());
+        this.dropSelf(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
+        this.dropSelf(ModBlocks.QUANTUM_CORE.get());
+        this.dropSelf(ModBlocks.QUANTUM_INJECTOR.get());
+        this.dropSelf(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
+        this.dropSelf(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
+        this.dropSelf(ModBlocks.RUNE_BLOCK.get());
+        this.dropSelf(ModBlocks.DARK_RUNE_BLOCK.get());
+        this.dropSelf(ModBlocks.STELLARITE_BLOCK.get());
+        this.dropSelf(ModBlocks.DEORUM_BLOCK.get());
+        this.dropSelf(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
+        this.dropSelf(ModBlocks.DARK_NETHER_STAR_BLOCK.get());
+        this.dropSelf(ModBlocks.DEORUM_LANTERN.get());
+        this.dropSelf(ModBlocks.DEORUM_SOUL_LANTERN.get());
+        this.dropSelf(ModBlocks.SOULLESS_SAND.get());
+        this.dropSelf(ModBlocks.SOULLESS_SANDSTONE.get());
+        this.dropSelf(ModBlocks.SOULLESS_SANDSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.SOULLESS_SANDSTONE_WALL.get());
+        this.dropSelf(ModBlocks.CUT_SOULLESS_SANDSTONE.get());
+        this.dropSelf(ModBlocks.POLISHED_SOULLESS_SANDSTONE.get());
+        this.dropSelf(ModBlocks.POLISHED_SOULLESS_SANDSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.FUNGYSS.get());
+        this.dropSelf(ModBlocks.GROWING_EDELWOOD.get());
+        this.dropSelf(ModBlocks.AURUM_SAPLING.get());
+        this.dropSelf(ModBlocks.FUNGYSS_STEM.get());
+        this.dropSelf(ModBlocks.AURUM_LOG.get());
+        this.dropSelf(ModBlocks.EDELWOOD_LOG.get());
+        this.dropSelf(ModBlocks.CARVED_EDELWOOD_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_AURUM_LOG.get());
+        this.dropSelf(ModBlocks.FUNGYSS_HYPHAE.get());
+        this.dropSelf(ModBlocks.AURUM_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_AURUM_WOOD.get());
+        this.dropSelf(ModBlocks.FUNGYSS_PLANKS.get());
+        this.dropSelf(ModBlocks.AURUM_PLANKS.get());
+        this.dropSelf(ModBlocks.EDELWOOD_PLANKS.get());
+        this.dropSelf(ModBlocks.ARCANE_EDELWOOD_PLANKS.get());
+        this.dropSelf(ModBlocks.FUNGYSS_STAIRS.get());
+        this.dropSelf(ModBlocks.AURUM_STAIRS.get());
+        this.dropSelf(ModBlocks.EDELWOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.DEORUM_DOOR.get());
+        this.dropSelf(ModBlocks.FUNGYSS_DOOR.get());
+        this.dropSelf(ModBlocks.AURUM_DOOR.get());
+        this.dropSelf(ModBlocks.EDELWOOD_DOOR.get());
+        this.dropSelf(ModBlocks.ARCANE_EDELWOOD_DOOR.get());
+        this.dropSelf(ModBlocks.DEORUM_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.FUNGYSS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.AURUM_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.EDELWOOD_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.FUNGYSS_FENCE.get());
+        this.dropSelf(ModBlocks.AURUM_FENCE.get());
+        this.dropSelf(ModBlocks.EDELWOOD_FENCE.get());
+        this.dropSelf(ModBlocks.FUNGYSS_FENCE_GATE.get());
+        this.dropSelf(ModBlocks.AURUM_FENCE_GATE.get());
+        this.dropSelf(ModBlocks.EDELWOOD_FENCE_GATE.get());
+        this.dropSelf(ModBlocks.EDELWOOD_LADDER.get());
+        this.dropSelf(ModBlocks.FUNGYSS_BUTTON.get());
+        this.dropSelf(ModBlocks.AURUM_BUTTON.get());
+        this.dropSelf(ModBlocks.EDELWOOD_BUTTON.get());
+        this.dropSelf(ModBlocks.FUNGYSS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.AURUM_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.EDELWOOD_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.ARCANE_DRAGON_EGG.get());
+        this.dropSelf(ModBlocks.NIPA.get());
+        this.dropSelf(ModBlocks.DEORUM_CHAIN.get());
+        this.dropSelf(ModBlocks.YELLOW_ORCHID.get());
+        this.dropSelf(ModBlocks.GOLDEN_ORCHID.get());
+        this.dropSelf(ModBlocks.UTREM_JAR.get());
+        this.dropSelf(ModBlocks.FORBIDDENOMICON.get());
+        this.dropSelf(ModBlocks.DESK.get());
+        this.dropSelf(ModBlocks.RESEARCH_DESK.get());
+        this.dropSelf(ModBlocks.OBSIDIAN_SKULL.getSkull());
+        this.dropOther(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.OBSIDIAN_SKULL.getSkull());
+        this.dropSelf(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull());
+        this.dropOther(ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull());
+        this.dropSelf(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull());
+        this.dropOther(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull());
+        this.dropSelf(ModBlocks.FADING_OBSIDIAN_SKULL.getSkull());
+        this.dropOther(ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull());
+        this.dropSelf(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
+        this.dropOther(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
+        this.dropSelf(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
+        this.dropOther(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
+
+        this.dropOther(ModBlocks.MAGICAL_FARMLAND.get(), Blocks.DIRT);
+
+        this.add(ModBlocks.DARKSTONE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.POLISHED_DARKSTONE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.SOULLESS_SANDSTONE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.CUT_SOULLESS_SANDSTONE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.POLISHED_SOULLESS_SANDSTONE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.FUNGYSS_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.AURUM_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.EDELWOOD_SLAB.get(), this::createSlabItemTable);
+
+        this.dropWhenSilkTouch(ModBlocks.DEORUM_GLASS.get());
+        this.dropWhenSilkTouch(ModBlocks.DEORUM_GLASS_PANE.get());
+        this.dropWhenSilkTouch(ModBlocks.RUNIC_GLASS.get());
+        this.dropWhenSilkTouch(ModBlocks.RUNIC_GLASS_PANE.get());
+        this.dropWhenSilkTouch(ModBlocks.DARK_RUNIC_GLASS.get());
+        this.dropWhenSilkTouch(ModBlocks.DARK_RUNIC_GLASS_PANE.get());
+
+        this.add(ModBlocks.ARCANE_CRYSTAL_ORE.get(), block -> this.createOreDrop(block, ModItems.ARCANE_CRYSTAL.get()));
+        this.add(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get(), block -> this.createOreDrop(block, ModItems.ARCANE_CRYSTAL.get()));
+        this.add(ModBlocks.RUNIC_STONE.get(), block -> this.createOreDrop(block, ModItems.RUNE.get()));
+        this.add(ModBlocks.RUNIC_DEEPSLATE.get(), block -> this.createOreDrop(block, ModItems.RUNE.get()));
+        this.add(ModBlocks.RUNIC_DARKSTONE.get(), block -> this.createOreDrop(block, ModItems.RUNE.get()));
+        this.add(ModBlocks.STELLA_ARCANUM.get(), block -> this.createSingleItemTableWithSilkTouch(block, ModItems.STELLARITE_PIECE.get()));
+        this.add(ModBlocks.FUNGYSS_BLOCK.get(), block -> this.createMushroomBlockDrop(block, ModBlocks.FUNGYSS.get()));
         this.add(ModBlocks.ARCANE_CRYSTAL_OBELISK.get(), block -> this.createSinglePropConditionTable(block, ModBlockStateProperties.OBELISK_PART, ObeliskPart.LOWER));
         this.add(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get(), block -> this.createSinglePropConditionTable(block, ModBlockStateProperties.OBELISK_PART, ObeliskPart.LOWER));
+        this.add(ModBlocks.AURUM_LEAVES.get(), block -> this.createLeavesDrops(block, ModBlocks.AURUM_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.NUGGETY_AURUM_LEAVES.get(), block -> this.createNuggetyAurumLeavesDrops(block, ModBlocks.AURUM_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.ESSENCE_UTREM_JAR.get(), this::createUtremJarDrops);
+        this.add(ModBlocks.CLIBANO_CENTER.get(), this::createClibanoFrameTable);
+        this.add(ModBlocks.CLIBANO_CORNER.get(), this::createClibanoFrameTable);
+        this.add(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(), this::createClibanoFrameTable);
+        this.add(ModBlocks.CLIBANO_SIDE_VERTICAL.get(), this::createClibanoFrameTable);
+        this.add(ModBlocks.CLIBANO_MAIN_PART.get(), block -> LootTable.lootTable());
+        this.add(ModBlocks.EDELWOOD_BRANCH.get(), block -> this.createSingleItemTableWithSilkTouch(block, ModItems.EDELWOOD_STICK.get()));
+        this.add(ModBlocks.BLACK_HOLE.get(), block -> LootTable.lootTable());
+        this.add(ModBlocks.WHIRLWIND.get(), block -> LootTable.lootTable());
+        this.add(ModBlocks.UPWIND.get(), block -> LootTable.lootTable());
 
-
-
-        //TODO
-//        take(block -> add(block, droppingWithFunction(block, builder -> builder.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Fluid", "BlockEntityTag.Fluid")))), ModBlocks.UTREM_JAR);
-//        take(block -> add(block, LootTable.lootTable()), ModBlocks.BLACK_HOLE, ModBlocks.CLIBANO_SIDE_HORIZONTAL, ModBlocks.CLIBANO_SIDE_VERTICAL, ModBlocks.CLIBANO_CORNER, ModBlocks.CLIBANO_CENTER, ModBlocks.CLIBANO_MAIN_PART);
-//        take(block -> add(block, createSilkTouchDispatchTable(block, LootItem.lootTableItem(ModBlocks.FUNGYSS.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(-6.0F, 2.0F))).apply(LimitCount.limitCount(IntRange.lowerBound(0))).apply(ApplyExplosionDecay.explosionDecay()))), ModBlocks.FUNGYSS_BLOCK);
-//        take(block -> add(block, droppingWhen(block, ArcaneCrystalObeliskBlock.PART, ObeliskPart.LOWER)), ModBlocks.ARCANE_CRYSTAL_OBELISK, ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK);
-//        take(block -> add(block, createSingleItemTableWithSilkTouch(block, ModItems.STELLARITE_PIECE.get())), ModBlocks.STELLA_ARCANUM);
-//        take(block -> add(block, createOreDrop(block, ModItems.ARCANE_CRYSTAL.get())), ModBlocks.ARCANE_CRYSTAL_ORE, ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE);
-//        take(block -> add(block, createSingleItemTableWithSilkTouch(block, ModItems.RUNE.get())), ModBlocks.RUNIC_STONE, ModBlocks.RUNIC_DEEPSLATE, ModBlocks.RUNIC_DARKSTONE);
-//        take(block -> add(block, createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).append(applyExplosionCondition(block, LootItem.lootTableItem(ModItems.STRANGE_ROOT.get())).when(LootItemRandomChanceCondition.randomChance(0.1F))))), ModBlocks.PETRIFIED_ROOT);
-//        take(block -> add(block, createLeavesDrops(block, ModBlocks.CHERRY_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(ModItems.CHERRY_PEACH.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))))), ModBlocks.CHERRY_LEAVES);
-//        take(block -> add(block, createLeavesDrops(block, ModBlocks.AURUM_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F)), ModBlocks.AURUM_LEAVES);
-//        take(block -> add(block, createLeavesDrops(block, ModBlocks.AURUM_SAPLING.get(), 0.05F, 0.0625F, 0.083333336F, 0.1F).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_NO_SHEARS_OR_SILK_TOUCH).add(applyExplosionCondition(block, LootItem.lootTableItem(Items.GOLD_NUGGET)).when(LootItemRandomChanceCondition.randomChance(0.1F))))), ModBlocks.NUGGETY_AURUM_LEAVES);
-//        take(block -> {
-//            LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ModBlockStateProperties.AGE_6, 6));
-//            add(block, applyExplosionDecay(block, createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(ModItems.GOLDEN_ORCHID_SEEDS.get()))).withPool(LootPool.lootPool().when(HAS_NO_SILK_TOUCH).when(builder).add(LootItem.lootTableItem(ModItems.DEORUM_NUGGET.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3))))));
-//        }, ModBlocks.GOLDEN_ORCHID);
-//        take(block -> {
-//            LootItemCondition.Builder builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3));
-//            add(block, createSingleItemTable(ModItems.STRANGE_ROOT.get()).withPool(LootPool.lootPool().when(builder).add(LootItem.lootTableItem(ModItems.STRANGE_ROOT.get()).apply(ApplyBonusCount.addBonusBinomialDistributionCount(Enchantments.BLOCK_FORTUNE, 0.5714286F, 3)))));
-//        }, ModBlocks.STRANGE_ROOT);
-//        take(block -> add(block, createSilkTouchDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(ModItems.EDELWOOD_STICK.get())))), ModBlocks.EDELWOOD_BRANCH);
-//        take(block -> add(block, ModBlockLootTables::createSilkTouchOrShearsOnlyTable),
-//                ModBlocks.CHERRY_LEAF_CARPET,
-//                ModBlocks.CHERRY_FLOWER_VINES,
-//                ModBlocks.CHERRY_FLOWER_VINES_PLANT
-//        );
-//
-//        forEach(block -> block instanceof IronBarsBlock, this::dropWhenSilkTouch);
-//        forEach(block -> block instanceof FlowerPotBlock, this::registerFlowerPot);
-//        forEach(block -> block instanceof SlabBlock, block -> add(block, ValhelsiaBlockLootTables::droppingSlab));
-//        forEach(block -> block instanceof DoorBlock, block -> add(block, block1 -> this.createSinglePropConditionTable(block1, DoorBlock.HALF, DoubleBlockHalf.LOWER)));
-//
-//        forEach(this::registerDropSelfLootTable);
+        this.dropPottedContents(ModBlocks.POTTED_FUNGYSS.get());
+        this.dropPottedContents(ModBlocks.POTTED_AURUM_SAPLING.get());
+        this.dropPottedContents(ModBlocks.POTTED_GROWING_EDELWOOD.get());
+        this.dropPottedContents(ModBlocks.POTTED_YELLOW_ORCHID.get());
     }
 
-    //TODO: remove after transitioning all loot tables
-    @Override
-    public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> biConsumer) {
-        this.generate();
+    private LootItemCondition.Builder hasShearsOrSilkTouch() {
+        return HAS_SHEARS.or(this.hasSilkTouch());
+    }
 
-        this.map.forEach(biConsumer);
+    private LootItemCondition.Builder doesNotHaveShearsOrSilkTouch() {
+        return this.hasShearsOrSilkTouch().invert();
+    }
+
+    private LootTable.Builder createNuggetyAurumLeavesDrops(Block leaves, Block sapling, float... chances) {
+        HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
+        return this.createLeavesDrops(leaves, sapling, chances)
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .when(this.doesNotHaveShearsOrSilkTouch())
+                        .add(this.applyExplosionCondition(leaves, LootItem.lootTableItem(Items.GOLD_NUGGET)
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))
+                        ))
+                );
+    }
+
+    private LootTable.Builder createUtremJarDrops(Block block) {
+        return LootTable.lootTable()
+                .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(block)
+                                .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                        .include(ModDataComponents.ESSENCE_STORAGE.get()))
+                        ))
+                );
+    }
+
+    private LootTable.Builder createClibanoFrameTable(Block block) {
+        return LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(DynamicLoot.dynamicEntry(AbstractClibanoFrameBlock.DYNAMIC_DROP_ID))
+                );
     }
 }

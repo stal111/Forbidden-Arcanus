@@ -37,8 +37,7 @@ import java.util.List;
  */
 public abstract class AbstractClibanoFrameBlock extends Block implements EntityBlock {
 
-    private static final ResourceLocation DYNAMIC_DROP_ID = ResourceLocation.fromNamespaceAndPath(ForbiddenArcanus.MOD_ID, "dynamic_block");
-
+    public static final ResourceLocation DYNAMIC_DROP_ID = ForbiddenArcanus.location("dynamic_block");
 
     public AbstractClibanoFrameBlock(Properties properties) {
         super(properties);
