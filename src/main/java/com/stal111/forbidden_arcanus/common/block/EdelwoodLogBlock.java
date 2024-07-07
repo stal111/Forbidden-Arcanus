@@ -40,7 +40,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
@@ -127,7 +127,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
             level.setBlockAndUpdate(pos, state.setValue(OILY, false));
 
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
-        } else if (stack.canPerformAction(ToolActions.AXE_STRIP) && !this.isCarved() && state.getValue(AXIS) == Direction.Axis.Y) {
+        } else if (stack.canPerformAction(ItemAbilities.AXE_STRIP) && !this.isCarved() && state.getValue(AXIS) == Direction.Axis.Y) {
             Direction direction = result.getDirection().getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : result.getDirection();
 
             stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));

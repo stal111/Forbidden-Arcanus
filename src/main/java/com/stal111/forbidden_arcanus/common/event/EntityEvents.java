@@ -20,7 +20,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 public class EntityEvents {
 
     @SubscribeEvent
-    public void onEntityDamage(LivingDamageEvent event) {
+    public void onEntityDamage(LivingDamageEvent.Post event) {
         DamageSource source = event.getSource();
 
         if (source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player) {
@@ -32,7 +32,7 @@ public class EntityEvents {
 
             if (stack.getItem() instanceof BloodTestTubeItem) {
                 EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
-                    storage.addEssence(stack, (int) (20 * event.getAmount()));
+                    storage.addEssence(stack, (int) (20 * event.getNewDamage()));
                 });
             }
         }

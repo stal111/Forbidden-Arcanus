@@ -9,8 +9,8 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.ToolActions;
-import net.neoforged.neoforge.common.advancements.critereon.ToolActionItemPredicate;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.advancements.critereon.ItemAbilityPredicate;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
@@ -29,10 +29,10 @@ public class ModItemModifiers implements RegistryClass {
     public static final MappedRegistryHelper<ItemModifier> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.ITEM_MODIFIER);
 
     private static final Predicate<ItemStack> TOOL_PREDICATE =
-            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.PICKAXE_DIG)).build().or(
-            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.AXE_DIG)).build().or(
-            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.SHOVEL_DIG)).build().or(
-            ItemPredicate.Builder.item().withSubPredicate(ToolActionItemPredicate.TYPE, new ToolActionItemPredicate(ToolActions.HOE_DIG)).build())));
+            ItemPredicate.Builder.item().withSubPredicate(ItemAbilityPredicate.TYPE, new ItemAbilityPredicate(ItemAbilities.PICKAXE_DIG)).build().or(
+            ItemPredicate.Builder.item().withSubPredicate(ItemAbilityPredicate.TYPE, new ItemAbilityPredicate(ItemAbilities.AXE_DIG)).build().or(
+            ItemPredicate.Builder.item().withSubPredicate(ItemAbilityPredicate.TYPE, new ItemAbilityPredicate(ItemAbilities.SHOVEL_DIG)).build().or(
+            ItemPredicate.Builder.item().withSubPredicate(ItemAbilityPredicate.TYPE, new ItemAbilityPredicate(ItemAbilities.HOE_DIG)).build())));
 
     public static final RegistryEntry<ItemModifier, EternalModifier> ETERNAL = HELPER.register("eternal", () -> new EternalModifier(ItemStack::isDamageableItem, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56)));
     public static final RegistryEntry<ItemModifier, ItemModifier> FIERY = HELPER.register("fiery", () -> new ItemModifier(TOOL_PREDICATE, ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, FastColor.ARGB32.color(255, 255, 143, 0), FastColor.ARGB32.color(255, 88, 6, 6)));

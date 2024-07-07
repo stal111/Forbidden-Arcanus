@@ -29,7 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
@@ -66,7 +66,7 @@ public class CarvedEdelwoodLogBlock extends EdelwoodLogBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        if (stack.canPerformAction(ToolActions.SHEARS_HARVEST) && state.getValue(LEAVES)) {
+        if (stack.canPerformAction(ItemAbilities.SHEARS_HARVEST) && state.getValue(LEAVES)) {
             stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
