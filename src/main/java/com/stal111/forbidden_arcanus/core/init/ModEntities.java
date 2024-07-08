@@ -36,6 +36,6 @@ public class ModEntities implements RegistryClass {
     public static final RegistryEntry<EntityType<?>, EntityType<ModChestBoat>> CHEST_BOAT = HELPER.register("chest_boat", EntityType.Builder.<ModChestBoat>of(ModChestBoat::new, MobCategory.MISC).sized(1.375F, 0.5625F).clientTrackingRange(10));
     public static final RegistryEntry<EntityType<?>, EntityType<LostSoul>> LOST_SOUL = HELPER.register("lost_soul", EntityType.Builder.<LostSoul>of(LostSoul::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));
     public static final RegistryEntry<EntityType<?>, EntityType<ThrownAurealBottle>> AUREAL_BOTTLE = HELPER.register("aureal_bottle", EntityType.Builder.<ThrownAurealBottle>of(ThrownAurealBottle::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
-    public static final RegistryEntry<EntityType<?>, EntityType<DarkTrader>> DARK_TRADER = HELPER.register("dark_trader", EntityType.Builder.of(DarkTrader::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));
+    public static final RegistryEntry<EntityType<?>, EntityType<DarkTrader>> DARK_TRADER = HELPER.register("dark_trader", EntityType.Builder.of(DarkTrader::new, MobCategory.CREATURE).requiredFeatures().sized(0.35F, 0.6F).clientTrackingRange(8));
 
 }

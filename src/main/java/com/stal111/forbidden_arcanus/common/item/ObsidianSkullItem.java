@@ -8,6 +8,7 @@ import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.StandingAndWallBlockItem;
@@ -66,5 +67,10 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
 
     public ObsidianSkullType getType() {
         return this.type;
+    }
+
+    @Override
+    public boolean isEnabled(FeatureFlagSet enabledFeatures) {
+        return this.type != ObsidianSkullType.AUREALIC && this.type != ObsidianSkullType.ETERNAL;
     }
 }
