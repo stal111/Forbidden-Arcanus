@@ -52,7 +52,6 @@ public class ClibanoFrameBlockEntity extends BlockEntity {
         super.saveAdditional(tag, lookupProvider);
 
         if (this.frameData != FrameData.EMPTY) {
-            System.out.println(frameData.mainPos);
             FrameData.CODEC.encodeStart(NbtOps.INSTANCE, this.frameData)
                     .ifSuccess(tag1 -> tag.merge((CompoundTag) tag1))
                     .ifError(result -> ForbiddenArcanus.LOGGER.warn("Failed to encode Clibano FrameData {}", result.message()));

@@ -33,6 +33,8 @@ public class CreateClibanoInteraction extends TransformPatternInteraction {
         BlockPos pos = context.pos();
         Level level = context.level();
 
+        this.centerPos = pos.relative(clickedFace.getOpposite());
+
         // Corner blocks
 
         BlockPos bottomPos = pos.below().relative(clickedFace.getClockWise());
@@ -53,7 +55,6 @@ public class CreateClibanoInteraction extends TransformPatternInteraction {
 
         // Center blocks & sides
 
-        this.centerPos = pos.relative(clickedFace.getOpposite());
         BlockState centerState = ModBlocks.CLIBANO_CENTER.get().defaultBlockState();
         BlockState horizontalSideState = ModBlocks.CLIBANO_SIDE_HORIZONTAL.get().defaultBlockState();
         BlockState verticalSideState = ModBlocks.CLIBANO_SIDE_VERTICAL.get().defaultBlockState();
