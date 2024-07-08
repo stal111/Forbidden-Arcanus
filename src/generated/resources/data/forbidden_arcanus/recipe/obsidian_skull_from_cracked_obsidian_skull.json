@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:cracked_obsidian_skull"
+    },
+    {
+      "item": "forbidden_arcanus:obsidiansteel_ingot"
+    },
+    {
+      "item": "forbidden_arcanus:obsidiansteel_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:obsidian_skull"
+  }
+}
