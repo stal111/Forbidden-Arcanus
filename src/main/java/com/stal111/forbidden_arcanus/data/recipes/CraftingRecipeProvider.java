@@ -69,6 +69,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.shaped(RecipeCategory.MISC, ModItems.BOOM_ARROW, 4, builder -> builder.pattern(" # ").pattern("#X#").pattern(" # ").define('X', Blocks.TNT).define('#', Items.ARROW).unlockedBy(this, Blocks.TNT).unlockedBy(this, Items.ARROW));
         this.surroundingItem(RecipeCategory.MISC, ModBlocks.ARCANE_POLISHED_DARKSTONE.get(), this.item(ModItems.DEORUM_INGOT), this.item(ModBlocks.POLISHED_DARKSTONE.get()), 8);
         this.surroundingItem(RecipeCategory.MISC, ModBlocks.OBSIDIAN_SKULL.getSkull(), this.item(Items.SKELETON_SKULL), this.item(ModItems.OBSIDIANSTEEL_INGOT), 1);
+        this.surroundingItem(RecipeCategory.MISC, ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE, this.item(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), this.item(ModBlocks.DARKSTONE.get()), 1);
 
         //Shapeless Recipes
         this.shapeless(RecipeCategory.MISC, ModItems.TEST_TUBE, builder -> builder.requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE).unlockedBy("has_item", has(ModItems.RUNE)));
