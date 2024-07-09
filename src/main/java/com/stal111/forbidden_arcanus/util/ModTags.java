@@ -98,8 +98,6 @@ public class ModTags {
     }
 
     public static class Enchantments {
-        public static final TagKey<Enchantment> INDESTRUCTIBLE_BLACKLISTED = modTag("indestructible_blacklisted");
-
         public static final TagKey<Enchantment> ETERNAL_INCOMPATIBLE = modTag("modifier/eternal_incompatible");
         public static final TagKey<Enchantment> FIERY_INCOMPATIBLE = modTag("modifier/fiery_incompatible");
         public static final TagKey<Enchantment> MAGNETIZED_INCOMPATIBLE = modTag("modifier/magnetized_incompatible");
