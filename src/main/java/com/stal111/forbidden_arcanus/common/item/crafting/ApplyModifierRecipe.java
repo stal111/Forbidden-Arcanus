@@ -32,10 +32,10 @@ public record ApplyModifierRecipe(Ingredient template,
     public boolean matches(@NotNull SmithingRecipeInput recipeInput, @NotNull Level level) {
         ItemStack base = recipeInput.base();
 
-        if (ModifierHelper.hasModifier(base) || !this.isTemplateIngredient(recipeInput.template()) || !this.isBaseIngredient(base)) {
+        if (ModifierHelper.hasModifier(base) || !this.isTemplateIngredient(recipeInput.template())) {
             return false;
         }
-        return this.isAdditionIngredient(recipeInput.addition());
+        return this.modifier.value().canItemContainModifier(base, level.registryAccess()) && this.isAdditionIngredient(recipeInput.addition());
     }
 
     @NotNull
@@ -72,9 +72,7 @@ public record ApplyModifierRecipe(Ingredient template,
 
     @Override
     public boolean isBaseIngredient(@NotNull ItemStack stack) {
-        return true;
-        //TODO
-//        return this.modifier.value().canItemContainModifier(stack);
+        return this.modifier.value().isValidItem(stack);
     }
 
     @Override

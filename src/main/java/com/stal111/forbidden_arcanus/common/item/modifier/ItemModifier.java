@@ -7,7 +7,6 @@ import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -23,7 +22,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.valhelsia.valhelsia_core.api.common.util.DeferredCodec;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -50,8 +48,6 @@ public class ItemModifier {
     private final int endTooltipColor;
 
     private String translationKey;
-
-    private List<ItemStack> cachedValidItems;
 
     public ItemModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
         this.predicate = predicate;
@@ -96,7 +92,7 @@ public class ItemModifier {
     }
 
     public boolean canItemContainModifier(ItemStack stack, HolderLookup.Provider lookupProvider) {
-        if (stack.is(this.getIncompatibleItems()) || !this.predicate.test(stack)) {
+        if (!this.isValidItem(stack)) {
             return false;
         }
 
@@ -106,18 +102,8 @@ public class ItemModifier {
                 .orElse(true);
     }
 
-    public List<ItemStack> getValidItems(HolderLookup.Provider lookupProvider) {
-        if (this.cachedValidItems == null) {
-            this.cachedValidItems = BuiltInRegistries.ITEM.stream()
-                    .map(ItemStack::new)
-                    .filter(stack -> this.canItemContainModifier(stack, lookupProvider))
-                    .toList();
-        }
-        return this.cachedValidItems;
-    }
-
-    public void clearCachedValidItems() {
-        this.cachedValidItems = null;
+    public boolean isValidItem(ItemStack stack) {
+        return !stack.is(this.getIncompatibleItems()) && this.predicate.test(stack);
     }
 
     public int getStartTooltipColor() {

@@ -1,14 +1,13 @@
 package com.stal111.forbidden_arcanus.common.integration;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
-import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 
 import java.util.ArrayList;
@@ -32,20 +31,32 @@ public class ApplyModifierRecipeMaker {
         }
         List<RecipeHolder<SmithingRecipe>> recipes = new ArrayList<>();
 
-        level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream()
+        var applyModifierRecipes = level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING).stream()
                 .filter(upgradeRecipe -> upgradeRecipe.value().getSerializer() == ModRecipeSerializers.APPLY_MODIFIER.get())
-                .map(upgradeRecipe -> (ApplyModifierRecipe) upgradeRecipe.value())
-                .forEach(applyModifierRecipe -> {
-                    Holder<ItemModifier> modifier = applyModifierRecipe.modifier();
-                    ResourceLocation id = ForbiddenArcanus.location("jei.apply_" + modifier.value().getRegistryName().getPath() + "_modifier");
+                .map(holder -> new RecipeHolder<>(holder.id(), (ApplyModifierRecipe) holder.value()))
+                .toList();
 
-                    modifier.value().getValidItems(level.registryAccess()).forEach(stack -> {
-                        ModifierHelper.setModifier(stack, modifier);
+        for (Item item : BuiltInRegistries.ITEM) {
+            ItemStack stack = item.getDefaultInstance();
 
-                        recipes.add(new RecipeHolder<>(id, new SmithingTransformRecipe(applyModifierRecipe.template(), Ingredient.of(stack.getItem()), applyModifierRecipe.addition(), stack)));
-                    });
-                });
+            for (var recipeHolder : applyModifierRecipes) {
+                var recipe = recipeHolder.value();
+
+                SmithingRecipeInput input = new SmithingRecipeInput(recipe.template().getItems()[0], stack, recipe.addition().getItems()[0]);
+
+                if (recipe.matches(input, level)) {
+                    recipes.add(createRecipe(recipeHolder, input, stack, level.registryAccess()));
+                }
+            }
+        }
 
         return recipes;
+    }
+
+    private static RecipeHolder<SmithingRecipe> createRecipe(RecipeHolder<ApplyModifierRecipe> recipeHolder, SmithingRecipeInput input, ItemStack stack, RegistryAccess registryAccess) {
+        var id = recipeHolder.id().withSuffix("_" + BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath());
+        var recipe = recipeHolder.value();
+
+        return new RecipeHolder<>(id, new SmithingTransformRecipe(recipe.template(), Ingredient.of(stack), recipe.addition(), recipe.assemble(input, registryAccess)));
     }
 }
