@@ -137,9 +137,9 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         this.dropSelf(ModBlocks.YELLOW_ORCHID.get());
         this.dropSelf(ModBlocks.GOLDEN_ORCHID.get());
         this.dropSelf(ModBlocks.UTREM_JAR.get());
-        this.dropSelf(ModBlocks.FORBIDDENOMICON.get());
-        this.dropSelf(ModBlocks.DESK.get());
-        this.dropSelf(ModBlocks.RESEARCH_DESK.get());
+        //this.dropSelf(ModBlocks.FORBIDDENOMICON.get());
+        //this.dropSelf(ModBlocks.DESK.get());
+        //this.dropSelf(ModBlocks.RESEARCH_DESK.get());
         this.dropSelf(ModBlocks.OBSIDIAN_SKULL.getSkull());
         this.dropOther(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.OBSIDIAN_SKULL.getSkull());
         this.dropSelf(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull());
@@ -148,10 +148,10 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         this.dropOther(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull());
         this.dropSelf(ModBlocks.FADING_OBSIDIAN_SKULL.getSkull());
         this.dropOther(ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull());
-        this.dropSelf(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
-        this.dropOther(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
-        this.dropSelf(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
-        this.dropOther(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
+//        this.dropSelf(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
+//        this.dropOther(ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull());
+//        this.dropSelf(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
+//        this.dropOther(ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull());
 
         this.dropOther(ModBlocks.MAGICAL_FARMLAND.get(), Blocks.DIRT);
 
