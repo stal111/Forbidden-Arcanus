@@ -266,5 +266,6 @@
   "modifier.forbidden_arcanus.fiery": "Fiery",
   "modifier.forbidden_arcanus.magnetized": "Magnetized",
   "modifier.forbidden_arcanus.soulbound": "Soulbound",
+  "tooltip.forbidden_arcanus.essence.storage_format": "%s / %s",
   "upgrade.forbidden_arcanus.darkstone_upgrade": "Apply Item Modifier"
 }

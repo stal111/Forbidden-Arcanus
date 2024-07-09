@@ -318,6 +318,8 @@ public class LangProvider extends LanguageProvider {
         this.add("item", "smithing_template.darkstone_upgrade.ingredients", "Modifier Item");
 
         this.add("upgrade", "darkstone_upgrade", "Apply Item Modifier");
+
+        this.add("tooltip", "essence.storage_format", "%s / %s");
     }
 
     private void add(Supplier<? extends ItemModifier> modifier, String name) {
