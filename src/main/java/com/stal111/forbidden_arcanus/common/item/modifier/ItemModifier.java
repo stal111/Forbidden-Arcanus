@@ -7,8 +7,8 @@ import net.minecraft.Util;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -16,7 +16,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -40,15 +39,15 @@ public class ItemModifier {
 
     private final ItemPredicate predicate;
 
-    private final TagKey<Item> incompatibleItems;
-    private final TagKey<Enchantment> incompatibleEnchantments;
+    private final HolderSet<Item> incompatibleItems;
+    private final HolderSet<Enchantment> incompatibleEnchantments;
 
     private final int startTooltipColor;
     private final int endTooltipColor;
 
     private String translationKey;
 
-    public ItemModifier(ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
+    public ItemModifier(ItemPredicate predicate, HolderSet<Item> incompatibleItems, HolderSet<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
         this.predicate = predicate;
         this.incompatibleItems = incompatibleItems;
         this.incompatibleEnchantments = incompatibleEnchantments;
@@ -82,11 +81,11 @@ public class ItemModifier {
         return ForbiddenArcanus.location("textures/gui/tooltip/" + this.getRegistryName().getPath() + ".png");
     }
 
-    public TagKey<Item> getIncompatibleItems() {
+    public HolderSet<Item> getIncompatibleItems() {
         return this.incompatibleItems;
     }
 
-    public TagKey<Enchantment> getIncompatibleEnchantments() {
+    public HolderSet<Enchantment> getIncompatibleEnchantments() {
         return this.incompatibleEnchantments;
     }
 
@@ -95,10 +94,9 @@ public class ItemModifier {
             return false;
         }
 
-        return lookupProvider.lookupOrThrow(Registries.ENCHANTMENT)
-                .get(this.getIncompatibleEnchantments())
-                .map(holders -> stack.getTagEnchantments().keySet().stream().noneMatch(holders::contains))
-                .orElse(true);
+        var enchantments = stack.getTagEnchantments().keySet();
+
+        return this.getIncompatibleEnchantments().stream().noneMatch(enchantments::contains);
     }
 
     public boolean isValidItem(ItemStack stack) {
