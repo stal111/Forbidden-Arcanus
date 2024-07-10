@@ -1,12 +1,11 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-
-import java.util.function.Predicate;
 
 /**
  * @author stal111
@@ -14,7 +13,7 @@ import java.util.function.Predicate;
  */
 public class EternalModifier extends ItemModifier {
 
-    public EternalModifier(Predicate<ItemStack> predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
+    public EternalModifier(ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
         super(predicate, incompatibleItems, incompatibleEnchantments, startTooltipColor, endTooltipColor);
     }
 
