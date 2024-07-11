@@ -64,7 +64,7 @@ public abstract class ScreenMixin {
 
             RenderSystem.enableBlend();
 
-            var texture = modifier.getDisplaySettings().texture();
+            var texture = modifier.displaySettings().texture();
 
             this.blit(texture, j2 - 8, k2 - 8, 9, 9, 7, 7, 128, 32);
             this.blit(texture, j2 + width + 1, k2 - 8, 98, 9, 7, 7, 128, 32);

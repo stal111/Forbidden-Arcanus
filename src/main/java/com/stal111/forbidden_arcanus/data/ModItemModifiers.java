@@ -8,6 +8,8 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.Util;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -62,7 +64,7 @@ public class ModItemModifiers extends DatapackRegistryClass<ItemModifier> {
         var aquaticPredicate = ItemPredicate.Builder.item().of(ItemTags.HEAD_ARMOR).build();
         var soulBoundPredicate = ItemPredicate.Builder.item().build();
 
-        register(ETERNAL, eternalPredicate, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, createDisplay(ETERNAL, FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56)));
+        register(ETERNAL, eternalPredicate, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, HolderSet.direct(BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.DAMAGE), BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.MAX_DAMAGE)), createDisplay(ETERNAL, FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56)));
         register(FIERY, isToolPredicate, ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, createDisplay(FIERY, FastColor.ARGB32.color(255, 255, 143, 0), FastColor.ARGB32.color(255, 88, 6, 6)));
         register(MAGNETIZED, magnetizedPredicate, ModTags.Items.MAGNETIZED_INCOMPATIBLE, ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE, createDisplay(MAGNETIZED, FastColor.ARGB32.color(255, 200, 201, 215), FastColor.ARGB32.color(255, 87, 105, 99)));
         register(DEMOLISHING, isToolPredicate, ModTags.Items.DEMOLISHING_INCOMPATIBLE, ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE, createDisplay(DEMOLISHING, FastColor.ARGB32.color(255, 111, 84, 80), FastColor.ARGB32.color(255, 78, 58, 39)));
@@ -71,7 +73,11 @@ public class ModItemModifiers extends DatapackRegistryClass<ItemModifier> {
     }
 
     private void register(ResourceKey<ItemModifier> key, ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, ItemModifier.DisplaySettings displaySettings) {
-        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrCreateTag(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), displaySettings));
+        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrCreateTag(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), HolderSet.empty(), displaySettings));
+    }
+
+    private void register(ResourceKey<ItemModifier> key, ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, HolderSet<DataComponentType<?>> componentsToRemove, ItemModifier.DisplaySettings displaySettings) {
+        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrCreateTag(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), componentsToRemove, displaySettings));
     }
 
     private static ItemModifier.DisplaySettings createDisplay(ResourceKey<ItemModifier> key, int startColor, int endColor) {

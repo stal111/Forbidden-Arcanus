@@ -24,7 +24,7 @@ public class TooltipEvents {
     public static void onRenderTooltipColor(RenderTooltipEvent.Color event) {
         ItemStack stack = event.getItemStack();
 
-        ModifierHelper.getModifier(stack).map(modifier -> modifier.getDisplaySettings().tooltipColor()).ifPresent(color -> {
+        ModifierHelper.getModifier(stack).map(modifier -> modifier.displaySettings().tooltipColor()).ifPresent(color -> {
             event.setBorderStart(color.getFirst());
             event.setBorderEnd(color.getSecond());
         });

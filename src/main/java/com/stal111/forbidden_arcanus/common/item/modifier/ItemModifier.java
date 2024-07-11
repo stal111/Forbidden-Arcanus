@@ -9,6 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -27,15 +28,20 @@ import net.minecraft.world.item.enchantment.Enchantment;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
  *
  * @author stal111
- * @version 1.19 - 2.1.0
  * @since 2021-11-24
  */
-public class ItemModifier {
+public record ItemModifier(
+        ItemPredicate predicate,
+        HolderSet<Item> incompatibleItems,
+        HolderSet<Enchantment> incompatibleEnchantments,
+        HolderSet<DataComponentType<?>> componentsToRemove,
+        DisplaySettings displaySettings) {
 
     public static final Codec<ItemModifier> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ItemPredicate.CODEC.fieldOf("predicate").forGetter(modifier -> modifier.predicate),
-            RegistryCodecs.homogeneousList(Registries.ITEM).optionalFieldOf("incompatible_items", HolderSet.empty()).forGetter(modifier -> modifier.incompatibleItems),
-            RegistryCodecs.homogeneousList(Registries.ENCHANTMENT).optionalFieldOf("incompatible_enchantments", HolderSet.empty()).forGetter(modifier -> modifier.incompatibleEnchantments),
+            ItemPredicate.CODEC.fieldOf("predicate").forGetter(ItemModifier::predicate),
+            RegistryCodecs.homogeneousList(Registries.ITEM).optionalFieldOf("incompatible_items", HolderSet.empty()).forGetter(ItemModifier::incompatibleItems),
+            RegistryCodecs.homogeneousList(Registries.ENCHANTMENT).optionalFieldOf("incompatible_enchantments", HolderSet.empty()).forGetter(ItemModifier::incompatibleEnchantments),
+            RegistryCodecs.homogeneousList(Registries.DATA_COMPONENT_TYPE).optionalFieldOf("components_to_remove", HolderSet.empty()).forGetter(ItemModifier::componentsToRemove),
             DisplaySettings.CODEC.fieldOf("display").forGetter(modifier -> modifier.displaySettings)
     ).apply(instance, ItemModifier::new));
 
@@ -43,36 +49,14 @@ public class ItemModifier {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ItemModifier>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FARegistries.ITEM_MODIFIER);
 
-    private final ItemPredicate predicate;
-
-    private final HolderSet<Item> incompatibleItems;
-    private final HolderSet<Enchantment> incompatibleEnchantments;
-
-    private final DisplaySettings displaySettings;
-
-    public ItemModifier(ItemPredicate predicate, HolderSet<Item> incompatibleItems, HolderSet<Enchantment> incompatibleEnchantments, DisplaySettings displaySettings) {
-        this.predicate = predicate;
-        this.incompatibleItems = incompatibleItems;
-        this.incompatibleEnchantments = incompatibleEnchantments;
-        this.displaySettings = displaySettings;
-    }
-
     public void onApplied(ItemStack stack) {
         if (!stack.has(DataComponents.CUSTOM_NAME)) {
             stack.update(DataComponents.ITEM_NAME, stack.getItem().getName(stack), component -> this.displaySettings.name.copy().append(" ").append(component));
         }
-    }
 
-    public DisplaySettings getDisplaySettings() {
-        return this.displaySettings;
-    }
-
-    public HolderSet<Item> getIncompatibleItems() {
-        return this.incompatibleItems;
-    }
-
-    public HolderSet<Enchantment> getIncompatibleEnchantments() {
-        return this.incompatibleEnchantments;
+        for (Holder<DataComponentType<?>> component : this.componentsToRemove) {
+            stack.remove(component.value());
+        }
     }
 
     public boolean canItemContainModifier(ItemStack stack, HolderLookup.Provider lookupProvider) {
@@ -82,11 +66,11 @@ public class ItemModifier {
 
         var enchantments = stack.getTagEnchantments().keySet();
 
-        return this.getIncompatibleEnchantments().stream().noneMatch(enchantments::contains);
+        return this.incompatibleEnchantments.stream().noneMatch(enchantments::contains);
     }
 
     public boolean isValidItem(ItemStack stack) {
-        return !stack.is(this.getIncompatibleItems()) && this.predicate.test(stack);
+        return !stack.is(this.incompatibleItems) && this.predicate.test(stack);
     }
 
     public record DisplaySettings(Component name, ResourceLocation texture, Pair<Integer, Integer> tooltipColor) {

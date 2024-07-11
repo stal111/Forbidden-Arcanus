@@ -1,4 +1,8 @@
 {
+  "components_to_remove": [
+    "minecraft:damage",
+    "minecraft:max_damage"
+  ],
   "display": {
     "name": {
       "translate": "modifier.forbidden_arcanus.eternal"
