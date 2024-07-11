@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
+import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -39,7 +39,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;playShoulderEntityAmbientSound(Lnet/minecraft/nbt/CompoundTag;)V"), method = "aiStep")
     public void forbiddenArcanus_aiStep(CallbackInfo ci) {
-        if (this.getHealth() > 0.0F && !this.isSpectator() && ModifierHelper.hasModifier(this.getItemBySlot(EquipmentSlot.FEET), ModItemModifiers.MAGNETIZED.get())) {
+        if (this.getHealth() > 0.0F && !this.isSpectator() && ModifierHelper.hasModifier(this.getItemBySlot(EquipmentSlot.FEET), this.level().holderOrThrow(ModItemModifiers.MAGNETIZED))) {
             if (this.isPassenger() && !this.getVehicle().isRemoved()) {
                 return;
             }
@@ -60,7 +60,7 @@ public abstract class PlayerMixin extends LivingEntity {
     public boolean forbiddenArcanus_getDigSpeed$seaPrismModifier(Player instance) {
         boolean onGround = instance.onGround();
 
-        if (!onGround && this.isEyeInFluidType(NeoForgeMod.WATER_TYPE.value()) && ModifierHelper.hasModifier(instance.getItemBySlot(EquipmentSlot.HEAD), ModItemModifiers.AQUATIC.get())) {
+        if (!onGround && this.isEyeInFluidType(NeoForgeMod.WATER_TYPE.value()) && ModifierHelper.hasModifier(instance.getItemBySlot(EquipmentSlot.HEAD), this.level().holderOrThrow(ModItemModifiers.AQUATIC))) {
             return true;
         }
 
@@ -69,7 +69,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;tick()V"), method = "aiStep")
     public void forbiddenArcanus_aiStep$seaPrismModifier(CallbackInfo ci) {
-        if (this.getHealth() < this.getMaxHealth() && this.tickCount % 100 == 0 && this.isEyeInFluidType(NeoForgeMod.WATER_TYPE.value()) && ModifierHelper.hasModifier(this.getItemBySlot(EquipmentSlot.HEAD), ModItemModifiers.AQUATIC.get())) {
+        if (this.getHealth() < this.getMaxHealth() && this.tickCount % 100 == 0 && this.isEyeInFluidType(NeoForgeMod.WATER_TYPE.value()) && ModifierHelper.hasModifier(this.getItemBySlot(EquipmentSlot.HEAD), this.level().holderOrThrow(ModItemModifiers.AQUATIC))) {
             this.heal(2.0F);
         }
     }

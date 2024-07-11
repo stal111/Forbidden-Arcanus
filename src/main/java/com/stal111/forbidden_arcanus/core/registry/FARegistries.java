@@ -42,7 +42,6 @@ public class FARegistries {
 
     public static final Registry<RitualResultType<?>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_TYPE);
     public static final Registry<HephaestusForgeInput> FORGE_INPUT_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT);
-    public static final Registry<ItemModifier> ITEM_MODIFIER_REGISTRY = FARegistries.makeSyncedRegistry(ITEM_MODIFIER);
     public static final Registry<EnhancerEffectType<?>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT);
     public static final Registry<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION);
     public static final Registry<DarkTraderVariant> DARK_TRADER_VARIANT_REGISTRY = FARegistries.makeSyncedRegistry(DARK_TRADER_VARIANT);

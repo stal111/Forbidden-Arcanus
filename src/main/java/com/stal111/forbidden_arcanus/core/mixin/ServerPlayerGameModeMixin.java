@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.stal111.forbidden_arcanus.common.item.modifier.DemolishingModifierBlockBreaker;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
+import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +32,7 @@ public class ServerPlayerGameModeMixin {
 
     @Inject(at = @At(value = "HEAD"), method = "incrementDestroyProgress")
     public void forbiddenArcanus_incrementDestroyProgress(BlockState state, BlockPos pos, int destroyProgressStart, CallbackInfoReturnable<Float> cir) {
-        if (ModifierHelper.hasModifier(this.player.getMainHandItem(), ModItemModifiers.DEMOLISHING.get())) {
+        if (ModifierHelper.hasModifier(this.player.getMainHandItem(), this.level.holderOrThrow(ModItemModifiers.DEMOLISHING))) {
             int i = this.gameTicks - destroyProgressStart;
             float f = state.getDestroyProgress(this.player, this.player.level(), pos) * (float) (i + 1);
             int progress = (int) (f * 10.0F);

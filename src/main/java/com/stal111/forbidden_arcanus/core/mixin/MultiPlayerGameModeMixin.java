@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.stal111.forbidden_arcanus.common.item.modifier.DemolishingModifierBlockBreaker;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
+import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,7 @@ public class MultiPlayerGameModeMixin {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V"), method = "continueDestroyBlock")
     public void forbiddenArcanus_continueDestroyBlock$updateBlockBreaker(BlockPos pos, Direction facing, CallbackInfoReturnable<Boolean> cir) {
-        if (ModifierHelper.hasModifier(this.minecraft.player.getMainHandItem(), ModItemModifiers.DEMOLISHING.get())) {
+        if (ModifierHelper.hasModifier(this.minecraft.player.getMainHandItem(), this.minecraft.level.holderOrThrow(ModItemModifiers.DEMOLISHING))) {
             var blockBreaker = DemolishingModifierBlockBreaker.getOrCreate(this.minecraft.level, pos, this.minecraft.level.getBlockState(pos), this.minecraft.player);
 
             blockBreaker.update((int) (this.destroyProgress * 10.0F));

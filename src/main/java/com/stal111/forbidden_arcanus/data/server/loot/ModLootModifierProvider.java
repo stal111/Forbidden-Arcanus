@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.advancements.critereon.ItemModifierP
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
+import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -140,7 +140,7 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
         // Items
         this.add("fiery_modifier",
                 new FieryLootModifier(new LootItemCondition[] {
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(FAItemSubPredicates.MODIFIER.get(), ItemModifierPredicate.modifier(ModItemModifiers.FIERY))).build()
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(FAItemSubPredicates.MODIFIER.get(), ItemModifierPredicate.modifier(this.registries.holderOrThrow(ModItemModifiers.FIERY)))).build()
                 })
         );
         this.add("blacksmith_gavel_ore_doubling",

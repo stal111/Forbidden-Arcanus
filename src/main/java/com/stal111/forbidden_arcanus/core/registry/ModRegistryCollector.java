@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.*;
 import com.stal111.forbidden_arcanus.data.ModDamageTypes;
+import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals.ModRituals;
@@ -64,7 +65,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
         this.addMappedHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModAttachmentTypes.class);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);
-        this.addMappedHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers.class);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects.class);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions.class);
         this.addMappedHelper(FARegistries.FORGE_INPUT, ModForgeInputTypes.class);
@@ -84,5 +84,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addDatapackHelper(FARegistries.CONSTELLATION, ModConstellations::new);
         this.addDatapackHelper(FARegistries.RESIDUE_TYPE, ModResidueTypes::new);
         this.addDatapackHelper(FARegistries.MAGIC_CIRCLE, ModMagicCircles::new);
+        this.addDatapackHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers::new);
     }
 }

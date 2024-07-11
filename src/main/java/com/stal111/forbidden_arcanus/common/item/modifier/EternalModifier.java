@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -13,8 +13,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
  */
 public class EternalModifier extends ItemModifier {
 
-    public EternalModifier(ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, int startTooltipColor, int endTooltipColor) {
-        super(predicate, incompatibleItems, incompatibleEnchantments, startTooltipColor, endTooltipColor);
+    public EternalModifier(ItemPredicate predicate, HolderSet<Item> incompatibleItems, HolderSet<Enchantment> incompatibleEnchantments, DisplaySettings displaySettings) {
+        super(predicate, incompatibleItems, incompatibleEnchantments, displaySettings);
     }
 
     @Override

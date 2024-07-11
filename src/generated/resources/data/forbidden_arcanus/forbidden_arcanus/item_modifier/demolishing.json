@@ -1,0 +1,26 @@
+{
+  "display": {
+    "name": {
+      "translate": "modifier.forbidden_arcanus.demolishing"
+    },
+    "texture": "forbidden_arcanus:textures/gui/tooltip/demolishing.png",
+    "tooltip_color": {
+      "end": -11650521,
+      "start": -9481136
+    }
+  },
+  "incompatible_enchantments": "#forbidden_arcanus:modifier/demolishing_incompatible",
+  "incompatible_items": "#forbidden_arcanus:modifier/demolishing_incompatible",
+  "predicate": {
+    "predicates": {
+      "valhelsia_core:any_of": {
+        "neoforge:item_ability": [
+          "pickaxe_dig",
+          "axe_dig",
+          "shovel_dig",
+          "hoe_dig"
+        ]
+      }
+    }
+  }
+}

@@ -15,7 +15,6 @@ import net.neoforged.neoforge.client.event.RenderTooltipEvent;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.event.TooltipEvents
  *
  * @author stal111
- * @version 2.0.0
  * @since 2021-11-25
  */
 @EventBusSubscriber(value = Dist.CLIENT)
@@ -25,9 +24,9 @@ public class TooltipEvents {
     public static void onRenderTooltipColor(RenderTooltipEvent.Color event) {
         ItemStack stack = event.getItemStack();
 
-        ModifierHelper.getModifier(stack).ifPresent(modifier -> {
-            event.setBorderStart(modifier.getStartTooltipColor());
-            event.setBorderEnd(modifier.getEndTooltipColor());
+        ModifierHelper.getModifier(stack).map(modifier -> modifier.getDisplaySettings().tooltipColor()).ifPresent(color -> {
+            event.setBorderStart(color.getFirst());
+            event.setBorderEnd(color.getSecond());
         });
     }
 

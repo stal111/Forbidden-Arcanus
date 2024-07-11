@@ -51,7 +51,7 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
 
     @Override
     public void save(@Nonnull RecipeOutput recipeOutput) {
-        ResourceLocation key = this.modifier.value().getRegistryName();
+        ResourceLocation key = this.modifier.getKey().location();
         this.save(recipeOutput, ResourceLocation.fromNamespaceAndPath(key.getNamespace(), "smithing/apply_" + key.getPath() + "_modifier"));
     }
 

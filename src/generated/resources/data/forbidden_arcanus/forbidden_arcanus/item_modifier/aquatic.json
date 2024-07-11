@@ -1,0 +1,17 @@
+{
+  "display": {
+    "name": {
+      "translate": "modifier.forbidden_arcanus.aquatic"
+    },
+    "texture": "forbidden_arcanus:textures/gui/tooltip/aquatic.png",
+    "tooltip_color": {
+      "end": -14463028,
+      "start": -10845453
+    }
+  },
+  "incompatible_enchantments": "#forbidden_arcanus:modifier/aquatic_incompatible",
+  "incompatible_items": "#forbidden_arcanus:modifier/aquatic_incompatible",
+  "predicate": {
+    "items": "#minecraft:head_armor"
+  }
+}

@@ -53,7 +53,7 @@ public class ModifierHelper {
      * @param modifier The modifier to check for.
      * @return True if the item stack has the specified modifier, otherwise false.
      */
-    public static boolean hasModifier(ItemStack stack, ItemModifier modifier) {
-        return getModifier(stack).map(itemModifier -> itemModifier == modifier).orElse(false);
+    public static boolean hasModifier(ItemStack stack, Holder<ItemModifier> modifier) {
+        return getModifier(stack).map(itemModifier -> itemModifier == modifier.value()).orElse(false);
     }
 }

@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
+import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -46,7 +46,7 @@ public class EntityEvents {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack stack = player.getInventory().getItem(i);
 
-                if (ModifierHelper.hasModifier(stack, ModItemModifiers.SOULBOUND.get())) {
+                if (ModifierHelper.hasModifier(stack, player.level().holderOrThrow(ModItemModifiers.SOULBOUND))) {
                     inventory.add(i, stack);
 
                     player.getInventory().setItem(i, ItemStack.EMPTY);

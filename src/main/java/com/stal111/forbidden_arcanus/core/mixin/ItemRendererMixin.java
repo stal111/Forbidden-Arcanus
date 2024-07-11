@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
+import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -30,7 +30,7 @@ public class ItemRendererMixin {
 
     @Inject(at = @At(value = "RETURN"), method = "getModel", cancellable = true)
     public void forbiddenArcanus_getModel(ItemStack stack, Level level, LivingEntity livingEntity, int seed, CallbackInfoReturnable<BakedModel> cir) {
-        if (stack.getItem() instanceof ArmorItem item && item.getType() == ArmorItem.Type.BOOTS && ModifierHelper.hasModifier(stack, ModItemModifiers.MAGNETIZED.get())) {
+        if (stack.getItem() instanceof ArmorItem item && item.getType() == ArmorItem.Type.BOOTS && ModifierHelper.hasModifier(stack, level.holderOrThrow(ModItemModifiers.MAGNETIZED))) {
             ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
 
             BakedModel model = this.itemModelShaper.getModelManager().getModel(new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(resourceLocation.getNamespace(), "magnetized_" + resourceLocation.getPath()), "inventory"));

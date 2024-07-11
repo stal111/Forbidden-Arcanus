@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -65,15 +64,17 @@ public abstract class ScreenMixin {
 
             RenderSystem.enableBlend();
 
-            this.blit(modifier.getTooltipTexture(), j2 - 8, k2 - 8, 9, 9, 7, 7, 128, 32);
-            this.blit(modifier.getTooltipTexture(), j2 + width + 1, k2 - 8, 98, 9, 7, 7, 128, 32);
+            var texture = modifier.getDisplaySettings().texture();
 
-            this.blit(modifier.getTooltipTexture(), j2 - 8, k2 + height + 1, 9, 17, 7, 7, 128, 32);
-            this.blit(modifier.getTooltipTexture(), j2 + width + 1, k2 + height + 1, 98, 17, 7, 7, 128, 32);
+            this.blit(texture, j2 - 8, k2 - 8, 9, 9, 7, 7, 128, 32);
+            this.blit(texture, j2 + width + 1, k2 - 8, 98, 9, 7, 7, 128, 32);
+
+            this.blit(texture, j2 - 8, k2 + height + 1, 9, 17, 7, 7, 128, 32);
+            this.blit(texture, j2 + width + 1, k2 + height + 1, 98, 17, 7, 7, 128, 32);
 
             if (width >= 94) {
-                this.blit(modifier.getTooltipTexture(), j2 + (width / 2) - 31, k2 - 16, 26, 0, 62, 15, 128, 32);
-                this.blit(modifier.getTooltipTexture(), j2 + (width / 2) - 31, k2 + height + 1, 26, 17, 62, 15, 128, 32);
+                this.blit(texture, j2 + (width / 2) - 31, k2 - 16, 26, 0, 62, 15, 128, 32);
+                this.blit(texture, j2 + (width / 2) - 31, k2 + height + 1, 26, 17, 62, 15, 128, 32);
             }
 
             RenderSystem.disableBlend();

@@ -2,11 +2,9 @@ package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.util.StringRepresentable;
@@ -15,7 +13,6 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * @author stal111
@@ -50,12 +47,12 @@ public class LangProvider extends LanguageProvider {
     protected void addTranslations() {
         this.add(Util.makeDescriptionId("itemGroup", ForbiddenArcanus.location("main")), "Forbidden & Arcanus");
 
-        this.add(ModItemModifiers.ETERNAL, "Eternal");
-        this.add(ModItemModifiers.FIERY, "Fiery");
-        this.add(ModItemModifiers.MAGNETIZED, "Magnetized");
-        this.add(ModItemModifiers.DEMOLISHING, "Demolishing");
-        this.add(ModItemModifiers.AQUATIC, "Aquatic");
-        this.add(ModItemModifiers.SOULBOUND, "Soulbound");
+        this.addModifier("eternal", "Eternal");
+        this.addModifier("fiery", "Fiery");
+        this.addModifier("magnetized", "Magnetized");
+        this.addModifier("demolishing", "Demolishing");
+        this.addModifier("aquatic", "Aquatic");
+        this.addModifier("soulbound", "Soulbound");
 
         this.add("essence", EssenceType.AUREAL, "Aureal");
         this.add("essence", EssenceType.SOULS, "Souls");
@@ -322,8 +319,8 @@ public class LangProvider extends LanguageProvider {
         this.add("tooltip", "essence.storage_format", "%s / %s");
     }
 
-    private void add(Supplier<? extends ItemModifier> modifier, String name) {
-        this.add(modifier.get().getTranslationKey(), name);
+    private void addModifier(String modifier, String name) {
+        this.add(Util.makeDescriptionId("modifier", ForbiddenArcanus.location(modifier)), name);
     }
 
     private <T extends StringRepresentable> void add(String category, T value, String name) {

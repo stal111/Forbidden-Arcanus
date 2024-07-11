@@ -1,0 +1,17 @@
+{
+  "display": {
+    "name": {
+      "translate": "modifier.forbidden_arcanus.magnetized"
+    },
+    "texture": "forbidden_arcanus:textures/gui/tooltip/magnetized.png",
+    "tooltip_color": {
+      "end": -11048605,
+      "start": -3618345
+    }
+  },
+  "incompatible_enchantments": "#forbidden_arcanus:modifier/magnetized_incompatible",
+  "incompatible_items": "#forbidden_arcanus:modifier/magnetized_incompatible",
+  "predicate": {
+    "items": "#minecraft:foot_armor"
+  }
+}
