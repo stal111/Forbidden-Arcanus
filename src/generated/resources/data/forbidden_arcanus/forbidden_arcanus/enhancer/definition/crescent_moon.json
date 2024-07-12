@@ -4,6 +4,7 @@
       "translate": "item.forbidden_arcanus.enhancer.crescent_moon.hephaestus_forge"
     }
   },
+  "display_item": "forbidden_arcanus:crescent_moon",
   "effects": [
     {
       "type": "forbidden_arcanus:multiply_required_essence",

@@ -7,6 +7,8 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -21,6 +23,8 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -118,7 +122,14 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
             builder.addSlot(RENDER_ONLY, 12, 60).addIngredients(Ingredient.of(tagKey));
         }
 
-        builder.addSlot(OUTPUT, 97, 35).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+        RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
+        Holder<EnhancerDefinition> enhancer = recipe.getRequiredEnhancer();
+
+        if (enhancer != null) {
+            builder.addSlot(CATALYST, 12, 24).addItemStack(EnhancerHelper.createEnhancer(registryAccess, enhancer.value().displayItem().value(), enhancer));
+        }
+
+        builder.addSlot(OUTPUT, 97, 35).addItemStack(recipe.getResultItem(registryAccess));
     }
 
     private IDrawableAnimated getArrow(ClibanoRecipe recipe) {

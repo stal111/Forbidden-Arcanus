@@ -5,25 +5,18 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.api.common.item.tab.CreativeTabFactory;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
-
-import java.util.function.Supplier;
 
 /**
  * @author stal111
@@ -37,6 +30,8 @@ public class ModCreativeModeTabs implements RegistryClass {
                 builder.icon(() -> new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()))
                         .title(Component.translatable("itemGroup.forbidden_arcanus.main"))
                         .displayItems((itemDisplayParameters, output) -> {
+                            var lookup = itemDisplayParameters.holders();
+
                             output.accept(ModBlocks.DARKSTONE.get());
                             output.accept(ModBlocks.DARKSTONE_SLAB.get());
                             output.accept(ModBlocks.DARKSTONE_STAIRS.get());
@@ -258,15 +253,14 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.MORTEM_LEGGINGS.get());
                             output.accept(ModItems.MORTEM_BOOTS.get());
 
-                            itemDisplayParameters.holders().lookup(FARegistries.ENHANCER_DEFINITION).ifPresent(lookup -> {
-                                output.accept(createEnhancer(lookup, ModItems.ARTISAN_RELIC, ModEnhancerDefinitions.ARTISAN_RELIC));
-                                output.accept(createEnhancer(lookup, ModItems.CRESCENT_MOON, ModEnhancerDefinitions.CRESCENT_MOON));
-                                output.accept(createEnhancer(lookup, ModItems.CRIMSON_STONE, ModEnhancerDefinitions.CRIMSON_STONE));
-                                output.accept(createEnhancer(lookup, ModItems.SOUL_CRIMSON_STONE, ModEnhancerDefinitions.SOUL_CRIMSON_STONE));
-                                output.accept(createEnhancer(lookup, ModItems.ELEMENTARIUM, ModEnhancerDefinitions.ELEMENTARIUM));
-                                output.accept(createEnhancer(lookup, ModItems.DIVINE_PACT, ModEnhancerDefinitions.DIVINE_PACT));
-                                output.accept(createEnhancer(lookup, ModItems.MALEDICTUS_PACT, ModEnhancerDefinitions.MALEDICTUS_PACT));
-                            });
+                            output.accept(EnhancerHelper.createEnhancer(lookup, ModItems.ARTISAN_RELIC, ModEnhancerDefinitions.ARTISAN_RELIC));
+                            output.accept(EnhancerHelper.createEnhancer(lookup, ModItems.CRESCENT_MOON, ModEnhancerDefinitions.CRESCENT_MOON));
+                            output.accept(EnhancerHelper.createEnhancer(lookup, ModItems.CRIMSON_STONE, ModEnhancerDefinitions.CRIMSON_STONE));
+                            output.accept(EnhancerHelper.createEnhancer(lookup, ModItems.SOUL_CRIMSON_STONE, ModEnhancerDefinitions.SOUL_CRIMSON_STONE));
+                            output.accept(EnhancerHelper.createEnhancer(lookup, ModItems.ELEMENTARIUM, ModEnhancerDefinitions.ELEMENTARIUM));
+                            output.accept(EnhancerHelper.createEnhancer(lookup, ModItems.DIVINE_PACT, ModEnhancerDefinitions.DIVINE_PACT));
+                            output.accept(EnhancerHelper.createEnhancer(lookup, ModItems.MALEDICTUS_PACT, ModEnhancerDefinitions.MALEDICTUS_PACT));
+
                             output.accept(ModItems.SOUL_EXTRACTOR.get());
                             output.accept(ModItems.BLACKSMITH_GAVEL_HEAD.get());
                             output.accept(ModItems.WOODEN_BLACKSMITH_GAVEL.get());
@@ -279,12 +273,4 @@ public class ModCreativeModeTabs implements RegistryClass {
                         });
             })
     );
-
-    private static ItemStack createEnhancer(HolderLookup.RegistryLookup<EnhancerDefinition> lookup, Supplier<Item> item, ResourceKey<EnhancerDefinition> enhancer) {
-        ItemStack stack = item.get().getDefaultInstance();
-
-        stack.set(ModDataComponents.ENHANCER, lookup.get(enhancer).orElseThrow());
-
-        return stack;
-    }
 }
