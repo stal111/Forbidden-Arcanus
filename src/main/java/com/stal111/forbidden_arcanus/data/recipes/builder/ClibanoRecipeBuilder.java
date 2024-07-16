@@ -77,7 +77,7 @@ public record ClibanoRecipeBuilder(RecipeCategory category, Item result, Ingredi
 
          ResourceLocation advancementId = new ResourceLocation(recipeId.getNamespace(), "recipes/" + this.category.getFolderName() + "/" + recipeId.getPath());
 
-        finishedRecipeConsumer.accept(new Result(recipeId, this.ingredient, this.result, this.experience, this.cookingTime, this.advancement, advancementId, this.residueInfo, this.requiredFireType));
+        finishedRecipeConsumer.accept(new Result(recipeId, this.ingredient, this.result, this.experience, this.cookingTime, this.advancement, advancementId, this.residueInfo, this.requiredFireType, this.category));
     }
 
     private void ensureValid(ResourceLocation recipeId) {
@@ -96,8 +96,9 @@ public record ClibanoRecipeBuilder(RecipeCategory category, Item result, Ingredi
         private final ResourceLocation advancementId;
         private final ClibanoRecipe.ResidueInfo residueInfo;
         private final ClibanoFireType fireType;
+        private final RecipeCategory category;
 
-        public Result(ResourceLocation recipeId, Ingredient ingredient, Item result, float experience, int cookingTime, Advancement.Builder advancement, ResourceLocation advancementId, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType fireType) {
+        public Result(ResourceLocation recipeId, Ingredient ingredient, Item result, float experience, int cookingTime, Advancement.Builder advancement, ResourceLocation advancementId, ClibanoRecipe.ResidueInfo residueInfo, ClibanoFireType fireType, RecipeCategory category) {
             this.recipeId = recipeId;
             this.ingredient = ingredient;
             this.result = result;
@@ -107,10 +108,12 @@ public record ClibanoRecipeBuilder(RecipeCategory category, Item result, Ingredi
             this.advancementId = advancementId;
             this.residueInfo = residueInfo;
             this.fireType = fireType;
+            this.category = category;
         }
 
         @Override
         public void serializeRecipeData(JsonObject json) {
+            json.addProperty("category", category.getFolderName());
             json.add("ingredient", this.ingredient.toJson());
             json.addProperty("result", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result)).toString());
             json.addProperty("experience", this.experience);
