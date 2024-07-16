@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/darkstone",
-    "side": "forbidden_arcanus:block/darkstone",
-    "top": "forbidden_arcanus:block/darkstone"
-  }
-}
