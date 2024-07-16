@@ -2,9 +2,11 @@ package com.stal111.forbidden_arcanus.data.server.loot;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier;
+import com.stal111.forbidden_arcanus.common.loot.DynamicItemLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier;
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier;
 import com.stal111.forbidden_arcanus.common.predicate.ModifierItemPredicate;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModItemModifiers;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -43,10 +45,9 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
                 }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "entities/additions/drowned_additions"))
         );
         this.add("spawner_additions",
-                new AppendLootTableModifier(new LootItemCondition[] {
-                        InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(2))))).build(),
+                new DynamicItemLootModifier(new LootItemCondition[] {
                         LootTableIdCondition.builder(new ResourceLocation("blocks/spawner")).build()
-                }, new ResourceLocation(ForbiddenArcanus.MOD_ID, "blocks/additions/spawner_additions"))
+                }, ModItems.SPAWNER_SCRAP.get())
         );
         this.add("enderman_additions",
                 new AppendLootTableModifier(new LootItemCondition[] {
