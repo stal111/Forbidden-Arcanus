@@ -1,8 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/hollow_log",
-  "textures": {
-    "inner": "forbidden_arcanus:block/stripped_edelwood_log",
-    "log": "forbidden_arcanus:block/edelwood_log_oily",
-    "top": "forbidden_arcanus:block/edelwood_log_top"
-  }
-}

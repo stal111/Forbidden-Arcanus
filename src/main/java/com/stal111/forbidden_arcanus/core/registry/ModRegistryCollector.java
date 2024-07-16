@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.input.ModForgeInputs;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals.ModRituals;
 import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
+import com.stal111.forbidden_arcanus.data.worldgen.modifier.ModBiomeModifiers;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModCavePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
@@ -60,7 +61,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addDatapackHelper(Registries.STRUCTURE_SET, ModStructureSets::new);
         this.addDatapackHelper(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::new, ModVegetationFeatures::new);
         this.addDatapackHelper(Registries.PLACED_FEATURE, ModCavePlacements::new, ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new);
-        //this.addDatapackHelper(ForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers.class);
+        this.addDatapackHelper(ForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::new);
         this.addDatapackHelper(FARegistries.RITUAL, ModRituals::new);
         this.addDatapackHelper(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions::new);
         this.addDatapackHelper(Registries.DAMAGE_TYPE, ModDamageTypes::new);
