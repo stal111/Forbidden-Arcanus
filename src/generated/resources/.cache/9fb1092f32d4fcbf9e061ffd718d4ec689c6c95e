@@ -1,4 +1,4 @@
-// 1.21	2024-07-11T12:32:41.463324	Recipes
+// 1.21	2024-07-20T14:46:15.3839808	Recipes
 23e3971ab65829a4a3e4e11d193a181486910d2b data/forbidden_arcanus/advancement/recipes/apply_modifier/smithing/apply_aquatic_modifier.json
 a78e1a205e8c9268ed7ea3f8c79c054150443c19 data/forbidden_arcanus/advancement/recipes/apply_modifier/smithing/apply_demolishing_modifier.json
 2602ab88dabe4475c62ffcc8748bfa0e50d8af63 data/forbidden_arcanus/advancement/recipes/apply_modifier/smithing/apply_eternal_modifier.json
@@ -194,7 +194,7 @@ d4e160478c82f1bfc1517bcf36b8af820aaab486 data/forbidden_arcanus/recipe/arcane_po
 dba1ed7cc6870f02d092cdea80b6fec538f8ca4c data/forbidden_arcanus/recipe/arcane_polished_darkstone_slab.json
 a703ee696e9c65f63dae592cfd74af55a268d958 data/forbidden_arcanus/recipe/arcane_polished_darkstone_stairs.json
 7e7676d955a90546f609bdd635b902524de8e7df data/forbidden_arcanus/recipe/arcane_polished_darkstone_wall.json
-3c88318d2e55ba10553fa77e4bd6e8da71a9a919 data/forbidden_arcanus/recipe/aureal_bottle.json
+acef7b85c169fa6cd2ed079e2f90ba8b0a058ca7 data/forbidden_arcanus/recipe/aureal_bottle.json
 a8e8a93e06950759772a086e7684c9afd58c0039 data/forbidden_arcanus/recipe/aurum_boat.json
 d560be60ed3b7677b0ed1c83d5129f5107269241 data/forbidden_arcanus/recipe/aurum_button.json
 4c8a612cdadc72271a120a53ae26738214de1c4e data/forbidden_arcanus/recipe/aurum_chest_boat.json

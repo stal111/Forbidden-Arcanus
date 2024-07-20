@@ -6,7 +6,14 @@
       "item": "forbidden_arcanus:arcane_crystal_dust"
     },
     "X": {
-      "item": "minecraft:potion"
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "minecraft:strong_regeneration"
+        }
+      },
+      "items": "minecraft:potion",
+      "strict": true
     }
   },
   "pattern": [

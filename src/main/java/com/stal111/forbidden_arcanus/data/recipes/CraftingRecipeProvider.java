@@ -5,6 +5,8 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.data.FABlockFamilies;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -23,6 +25,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.valhelsia.valhelsia_core.datagen.recipes.RecipePart;
 import net.valhelsia.valhelsia_core.datagen.recipes.RecipeSubProvider;
 import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider;
@@ -51,7 +54,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.shaped(RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL_DUST.get(), builder -> builder.pattern("###").pattern("###").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST_SPECK.get()).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST_SPECK.get()));
         this.shaped(RecipeCategory.TOOLS, ModItems.SOUL_EXTRACTOR.get(), builder -> builder.pattern("U  ").pattern("##X").pattern("Q  ").define('U', ModBlocks.UTREM_JAR.get()).define('#', Blocks.NETHER_BRICKS).define('X', Blocks.QUARTZ_BLOCK).define('Q', Items.QUARTZ).unlockedBy(this, ModBlocks.UTREM_JAR.get()));
         this.shaped(RecipeCategory.MISC, ModItems.ARCANE_BONE_MEAL.get(), 4, builder -> builder.pattern(" # ").pattern("#X#").pattern(" # ").define('#', Items.BONE_MEAL).define('X', ModItems.ARCANE_CRYSTAL_DUST.get()).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST.get()));
-        this.shaped(RecipeCategory.MISC, ModItems.AUREAL_BOTTLE.get(), builder -> builder.pattern("###").pattern("#X#").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST.get()).define('X', Ingredient.of(PotionContents.createItemStack(Items.POTION, Potions.STRONG_REGENERATION))).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST.get()));
+        this.shaped(RecipeCategory.MISC, ModItems.AUREAL_BOTTLE.get(), builder -> builder.pattern("###").pattern("#X#").pattern("###").define('#', ModItems.ARCANE_CRYSTAL_DUST.get()).define('X', DataComponentIngredient.of(true, DataComponentPredicate.builder().expect(DataComponents.POTION_CONTENTS, new PotionContents(Potions.STRONG_REGENERATION)).build(), Items.POTION)).unlockedBy(this, ModItems.ARCANE_CRYSTAL_DUST.get()));
 
         this.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARKSTONE_PEDESTAL.get(), builder -> builder.pattern("###").pattern(" * ").pattern("XXX").define('#', ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get()).define('*', ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get()).define('X', ModBlocks.POLISHED_DARKSTONE.get()).unlockedBy(this, ModBlocks.POLISHED_DARKSTONE.get()));
 
