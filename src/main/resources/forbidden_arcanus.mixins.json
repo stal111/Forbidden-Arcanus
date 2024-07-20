@@ -14,9 +14,7 @@
   ],
   "client": [
     "GlowParticleAccessor",
-    "ItemRendererMixin",
     "LevelRendererAccessor",
-    "ModelBakeryMixin",
     "MultiPlayerGameModeMixin",
     "ScreenMixin"
   ],
