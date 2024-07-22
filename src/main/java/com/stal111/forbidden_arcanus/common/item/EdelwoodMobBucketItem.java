@@ -12,9 +12,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.TropicalFish;
 import net.minecraft.world.entity.player.Player;
@@ -107,10 +105,16 @@ public class EdelwoodMobBucketItem extends EdelwoodBucketItem {
 
     protected void spawn(ServerLevel level, ItemStack stack, BlockPos pos) {
         Entity entity = this.entityType.get().spawn(level, stack, null, pos, MobSpawnType.BUCKET, true, false);
-
+        CompoundTag tag = stack.getOrCreateTag();
         if (entity instanceof Bucketable bucketable) {
             bucketable.loadFromBucketTag(stack.getOrCreateTag());
             bucketable.setFromBucket(true);
+        } else if (entity instanceof Mob mob) {
+            if (entity instanceof AgeableMob ageableMob) {
+                ageableMob.setAge(tag.getInt("Age"));
+            }
+            mob.setCustomName(Component.Serializer.fromJson(tag.getString("Name")));
+            Bucketable.loadDefaultDataFromBucketTag(mob, tag);
         }
     }
 

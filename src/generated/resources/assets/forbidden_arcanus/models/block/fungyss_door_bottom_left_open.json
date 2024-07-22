@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_left_open",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/fungyss_door_bottom",
-    "top": "forbidden_arcanus:block/fungyss_door_top"
-  }
-}

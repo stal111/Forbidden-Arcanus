@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_right_open",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/deorum_door_bottom",
-    "top": "forbidden_arcanus:block/deorum_door_top"
-  }
-}

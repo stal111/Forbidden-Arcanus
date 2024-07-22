@@ -1,7 +1,0 @@
-{
-  "type": "forbidden_arcanus:nipa",
-  "biomes": "#forbidden_arcanus:has_structure/nipa",
-  "floating": true,
-  "spawn_overrides": {},
-  "step": "surface_structures"
-}

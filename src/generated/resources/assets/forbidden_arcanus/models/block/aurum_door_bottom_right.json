@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_right",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/aurum_door_bottom",
-    "top": "forbidden_arcanus:block/aurum_door_top"
-  }
-}

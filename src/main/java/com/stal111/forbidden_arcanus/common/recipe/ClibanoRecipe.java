@@ -81,6 +81,12 @@ public class ClibanoRecipe extends AbstractCookingRecipe {
         return ModRecipeSerializers.CLIBANO_SERIALIZER.get();
     }
 
+    @Override
+    public boolean isSpecial()
+    {
+        return true;
+    }
+
     public static class Serializer implements RecipeSerializer<ClibanoRecipe> {
 
         @Nonnull
