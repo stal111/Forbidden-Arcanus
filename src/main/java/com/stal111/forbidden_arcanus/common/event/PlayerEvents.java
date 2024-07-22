@@ -13,15 +13,14 @@ import com.stal111.forbidden_arcanus.core.config.BlockConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
@@ -200,6 +199,16 @@ public class PlayerEvents {
 
             if (stack.getItem() instanceof CapacityBucket capacityBucket) {
                 entityBucket = capacityBucket.transferFullness(stack, entityBucket);
+                if (entity instanceof Mob mob) {
+                    CompoundTag mobTag = entityBucket.getOrCreateTag();
+                    if (entity instanceof AgeableMob ageableMob) {
+                        mobTag.putInt("Age", ageableMob.getAge());
+                    }
+                    mobTag.putFloat("Health", mob.getHealth());
+                    String name = Component.Serializer.toJson(mob.getCustomName());
+                    if (mob.hasCustomName() && !name.equals(""))
+                        mobTag.putString("Name", Component.Serializer.toJson(mob.getCustomName()));
+                }
             }
 
             if (entity instanceof Bucketable bucketable) {
