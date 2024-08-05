@@ -75,7 +75,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
                             output.accept(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
                             output.accept(ModBlocks.RUNE_BLOCK.get());
-                            output.accept(ModBlocks.DARK_RUNE_BLOCK.get());
                             output.accept(ModBlocks.STELLARITE_BLOCK.get());
                             output.accept(ModBlocks.DEORUM_BLOCK.get());
                             output.accept(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
@@ -83,10 +82,8 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get());
                             output.accept(ModBlocks.DEORUM_GLASS.get());
                             output.accept(ModBlocks.RUNIC_GLASS.get());
-                            output.accept(ModBlocks.DARK_RUNIC_GLASS.get());
                             output.accept(ModBlocks.DEORUM_GLASS_PANE.get());
                             output.accept(ModBlocks.RUNIC_GLASS_PANE.get());
-                            output.accept(ModBlocks.DARK_RUNIC_GLASS_PANE.get());
                             output.accept(ModBlocks.DEORUM_LANTERN.get());
                             output.accept(ModBlocks.DEORUM_SOUL_LANTERN.get());
                             output.accept(ModBlocks.SOULLESS_SAND.get());
@@ -155,7 +152,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.ARCANE_CRYSTAL.get());
                             output.accept(ModItems.CORRUPTED_ARCANE_CRYSTAL.get());
                             output.accept(ModItems.RUNE.get());
-                            output.accept(ModItems.DARK_RUNE.get());
                             output.accept(ModItems.STELLARITE_PIECE.get());
                             output.accept(ModItems.XPETRIFIED_ORB.get());
                             output.accept(ModItems.DARK_NETHER_STAR.get());

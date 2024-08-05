@@ -76,7 +76,6 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         this.dropSelf(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
         this.dropSelf(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
         this.dropSelf(ModBlocks.RUNE_BLOCK.get());
-        this.dropSelf(ModBlocks.DARK_RUNE_BLOCK.get());
         this.dropSelf(ModBlocks.STELLARITE_BLOCK.get());
         this.dropSelf(ModBlocks.DEORUM_BLOCK.get());
         this.dropSelf(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
@@ -170,8 +169,6 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         this.dropWhenSilkTouch(ModBlocks.DEORUM_GLASS_PANE.get());
         this.dropWhenSilkTouch(ModBlocks.RUNIC_GLASS.get());
         this.dropWhenSilkTouch(ModBlocks.RUNIC_GLASS_PANE.get());
-        this.dropWhenSilkTouch(ModBlocks.DARK_RUNIC_GLASS.get());
-        this.dropWhenSilkTouch(ModBlocks.DARK_RUNIC_GLASS_PANE.get());
 
         this.add(ModBlocks.ARCANE_CRYSTAL_ORE.get(), block -> this.createOreDrop(block, ModItems.ARCANE_CRYSTAL.get()));
         this.add(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get(), block -> this.createOreDrop(block, ModItems.ARCANE_CRYSTAL.get()));

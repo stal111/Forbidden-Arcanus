@@ -60,7 +60,6 @@ public class ModItemModels {
         this.generateFlatItem(ModItems.ARCANE_CRYSTAL);
         this.generateFlatItem(ModItems.CORRUPTED_ARCANE_CRYSTAL);
         this.generateFlatItem(ModItems.RUNE);
-        this.generateFlatItem(ModItems.DARK_RUNE);
         this.generateFlatItem(ModItems.STELLARITE_PIECE);
         this.generateFlatItem(ModItems.XPETRIFIED_ORB);
         this.generateFlatItem(ModItems.DARK_NETHER_STAR);

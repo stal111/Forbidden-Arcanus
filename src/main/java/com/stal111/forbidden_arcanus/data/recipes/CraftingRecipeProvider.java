@@ -76,7 +76,6 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
 
         //Shapeless Recipes
         this.shapeless(RecipeCategory.MISC, ModItems.TEST_TUBE, builder -> builder.requires(Items.GLASS_BOTTLE).requires(ModItems.RUNE).unlockedBy("has_item", has(ModItems.RUNE)));
-        this.shapeless(RecipeCategory.MISC, ModItems.DARK_RUNE, 2, builder -> builder.requires(ModItems.RUNE).requires(ModItems.RUNE).requires(ModItems.CORRUPTI_DUST).unlockedBy("has_rune", has(ModItems.RUNE)).unlockedBy("has_dust", has(ModItems.CORRUPTI_DUST)));
         this.shapeless(RecipeCategory.MISC, ModItems.MUNDABITUR_DUST, 4, builder -> builder.requires(ModItems.ARCANE_CRYSTAL_DUST).requires(Items.REDSTONE).requires(Items.BLAZE_POWDER).requires(Items.BONE_MEAL).requires(Items.PHANTOM_MEMBRANE).requires(Items.GUNPOWDER).unlockedBy("has_arcane_crystal_dust", has(ModItems.ARCANE_CRYSTAL_DUST)).unlockedBy("has_redstone", has(Items.REDSTONE)).unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER)).unlockedBy("has_bone_meal", has(Items.BONE_MEAL)).unlockedBy("has_phantom_membrane", has(Items.PHANTOM_MEMBRANE)).unlockedBy("has_gunpowder", has(Items.GUNPOWDER)));
         this.shapeless(RecipeCategory.MISC, ModItems.WAX, 2, builder -> builder.requires(Items.HONEY_BOTTLE).requires(Items.SLIME_BALL).unlockedBy("has_honey_bottle", has(Items.HONEY_BOTTLE)).unlockedBy("has_slime_ball", has(Items.SLIME_BALL)));
         this.shapeless(RecipeCategory.MISC, ModItems.CORRUPTI_DUST, 4, builder -> builder.requires(ModItems.OBSIDIANSTEEL_INGOT).requires(Items.BLAZE_POWDER).requires(Items.NETHER_WART).requires(ModItems.ARCANE_CRYSTAL_DUST).requires(ModItems.ENDER_PEARL_FRAGMENT).unlockedBy("has_obsidiansteel_ingot", has(ModItems.OBSIDIANSTEEL_INGOT)).unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER)).unlockedBy("has_nether_wart", has(Items.NETHER_WART)).unlockedBy("has_arcane_crystal_dust", has(ModItems.ARCANE_CRYSTAL_DUST)).unlockedBy("has_ender_pearl_fragment", has(ModItems.ENDER_PEARL_FRAGMENT)));
@@ -114,14 +113,11 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.storageRecipe(ModItems.ARCANE_CRYSTAL.get(), ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
         this.storageRecipe(ModItems.CORRUPTED_ARCANE_CRYSTAL.get(), ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
         this.storageRecipe(ModItems.RUNE.get(), ModBlocks.RUNE_BLOCK.get());
-        this.storageRecipe(ModItems.DARK_RUNE.get(), ModBlocks.DARK_RUNE_BLOCK.get());
 
         this.surroundingItem(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DEORUM_GLASS.get(), this.tag(ModTags.Items.DEORUM_INGOTS), RecipePart.of(Blocks.GLASS), 8);
         this.glassPane(ModBlocks.DEORUM_GLASS_PANE.get(), this.item(ModBlocks.DEORUM_GLASS.get()));
         this.surroundingItem(RecipeCategory.BUILDING_BLOCKS, ModBlocks.RUNIC_GLASS.get(), RecipePart.of(ModItems.RUNE.get()), RecipePart.of(Blocks.GLASS), 8);
         this.glassPane(ModBlocks.RUNIC_GLASS_PANE.get(), this.item(ModBlocks.RUNIC_GLASS.get()));
-        this.surroundingItem(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_RUNIC_GLASS.get(), RecipePart.of(ModItems.DARK_RUNE.get()), RecipePart.of(Blocks.GLASS), 8);
-        this.glassPane(ModBlocks.DARK_RUNIC_GLASS_PANE.get(), this.item(ModBlocks.DARK_RUNIC_GLASS.get()));
 
         this.combine2x2(ModBlocks.SOULLESS_SANDSTONE.get(), this.item(ModBlocks.SOULLESS_SAND.get()));
         this.slab(ModBlocks.SOULLESS_SANDSTONE_SLAB.get(), this.item(ModBlocks.SOULLESS_SANDSTONE.get()));

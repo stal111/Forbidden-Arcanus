@@ -48,7 +48,6 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<DarkSoulItem> CORRUPT_SOUL = HELPER.register("corrupt_soul", () -> new DarkSoulItem(new Item.Properties().component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.SOULS, 1))));
     public static final ItemRegistryEntry<Item> ENCHANTED_SOUL = HELPER.register("enchanted_soul", () -> new Item(new Item.Properties().component(ModDataComponents.ESSENCE_DATA, EssenceData.of(EssenceType.SOULS, 10))));
     public static final ItemRegistryEntry<Item> RUNE = HELPER.register("rune", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> DARK_RUNE = HELPER.register("dark_rune", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> ENDER_PEARL_FRAGMENT = HELPER.register("ender_pearl_fragment", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRAGON_SCALE = HELPER.register("dragon_scale", () -> new Item(new Item.Properties()));
     public static final ItemRegistryEntry<Item> SILVER_DRAGON_SCALE = HELPER.register("silver_dragon_scale", () -> new Item(new Item.Properties()));

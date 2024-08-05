@@ -81,7 +81,6 @@ public class ModBlockModels {
         this.createEmissiveCube(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.RUNE_BLOCK.get());
-        this.generators.createTrivialCube(ModBlocks.DARK_RUNE_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.STELLARITE_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.DEORUM_BLOCK.get());
         this.generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
@@ -116,7 +115,6 @@ public class ModBlockModels {
         this.generators.createAxisAlignedPillarBlockCustomModel(ModBlocks.DEORUM_CHAIN.get(), ModelLocationUtils.getModelLocation(ModBlocks.DEORUM_CHAIN.get()));
         this.generators.createGlassBlocks(ModBlocks.DEORUM_GLASS.get(), ModBlocks.DEORUM_GLASS_PANE.get());
         this.generators.createGlassBlocks(ModBlocks.RUNIC_GLASS.get(), ModBlocks.RUNIC_GLASS_PANE.get());
-        this.generators.createGlassBlocks(ModBlocks.DARK_RUNIC_GLASS.get(), ModBlocks.DARK_RUNIC_GLASS_PANE.get());
         this.generators.createLantern(ModBlocks.DEORUM_LANTERN.get());
         this.generators.createLantern(ModBlocks.DEORUM_SOUL_LANTERN.get());
         this.generators.createPlant(ModBlocks.FUNGYSS.get(), ModBlocks.POTTED_FUNGYSS.get(), BlockModelGenerators.TintState.NOT_TINTED);

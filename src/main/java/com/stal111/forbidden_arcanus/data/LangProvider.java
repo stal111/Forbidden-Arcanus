@@ -107,7 +107,6 @@ public class LangProvider extends LanguageProvider {
         this.addBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK, "Arcane Crystal Block");
         this.addBlock(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK, "Corrupted Arcane Crystal Block");
         this.addBlock(ModBlocks.RUNE_BLOCK, "Rune Block");
-        this.addBlock(ModBlocks.DARK_RUNE_BLOCK, "Dark Rune Block");
         this.addBlock(ModBlocks.STELLARITE_BLOCK, "Stellarite Block");
         this.addBlock(ModBlocks.DEORUM_BLOCK, "Deorum Block");
         this.addBlock(ModBlocks.OBSIDIANSTEEL_BLOCK, "Obsidiansteel Block");
@@ -115,10 +114,8 @@ public class LangProvider extends LanguageProvider {
         this.addBlock(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK, "Corrupted Arcane Crystal Obelisk");
         this.addBlock(ModBlocks.DEORUM_GLASS, "Deorum Glass");
         this.addBlock(ModBlocks.RUNIC_GLASS, "Runic Glass");
-        this.addBlock(ModBlocks.DARK_RUNIC_GLASS, "Dark Runic Glass");
         this.addBlock(ModBlocks.DEORUM_GLASS_PANE, "Deorum Glass Pane");
         this.addBlock(ModBlocks.RUNIC_GLASS_PANE, "Runic Glass Pane");
-        this.addBlock(ModBlocks.DARK_RUNIC_GLASS_PANE, "Dark Runic Glass Pane");
         this.addBlock(ModBlocks.DEORUM_LANTERN, "Deorum Lantern");
         this.addBlock(ModBlocks.DEORUM_SOUL_LANTERN, "Deorum Soul Lantern");
         this.addBlock(ModBlocks.SOULLESS_SAND, "Soulless Sand");
@@ -201,7 +198,6 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.ARCANE_CRYSTAL, "Arcane Crystal");
         this.addItem(ModItems.CORRUPTED_ARCANE_CRYSTAL, "Corrupted Arcane Crystal");
         this.addItem(ModItems.RUNE, "Rune");
-        this.addItem(ModItems.DARK_RUNE, "Dark Rune");
         this.addItem(ModItems.STELLARITE_PIECE, "Stellarite Piece");
         this.addItem(ModItems.XPETRIFIED_ORB, "Xpetrified Orb");
         this.addItem(ModItems.DARK_NETHER_STAR, "Dark Nether Star");

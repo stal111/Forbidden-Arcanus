@@ -1,4 +1,4 @@
-// 1.21	2024-06-25T18:10:08.7755165	Tags for minecraft:item mod id vanilla
+// 1.21	2024-08-05T21:35:51.404231	Tags for minecraft:item mod id vanilla
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/item/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/item/fence_gates/wooden.json
 4a2636aab0a6ff9f71559b543e92a4ab039254f7 data/c/tags/item/ingots.json
@@ -16,7 +16,7 @@ a5e30235f64ca727e45ad31a505dbf74f45d0173 data/forbidden_arcanus/tags/item/magica
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/fiery_incompatible.json
 410a698c3c1ca7186a3b059d2fd4121f45aab362 data/forbidden_arcanus/tags/item/mysterywood_logs.json
 565331c54dabee6ccd5ddb60f2aa542b13e5ee64 data/forbidden_arcanus/tags/item/obsidian_skulls.json
-6bad7bf83d77b4ebde060a958a1ff43c76549380 data/forbidden_arcanus/tags/item/rune_blocks.json
+ec5f886acc1397ae55fe6faaca722b2a2cebb465 data/forbidden_arcanus/tags/item/rune_blocks.json
 321796da77cb8905e7a9b8b3c8413298f0cb9bfe data/forbidden_arcanus/tags/item/runic_stones.json
 6fb3d7581a6715ccf47a2ad0dc47775e8c306940 data/forge/tags/item/explosion_resistant.json
 238635bd5dd1c15728e03bd1774ab8343944a8b5 data/forge/tags/item/ingots/deorum.json
