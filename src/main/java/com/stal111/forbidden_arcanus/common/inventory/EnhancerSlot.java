@@ -1,11 +1,10 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
-import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BooleanSupplier;
 
@@ -16,16 +15,16 @@ import java.util.function.BooleanSupplier;
 public class EnhancerSlot extends SlotItemHandler {
 
     private final BooleanSupplier locked;
-    private final Tooltip lockedTooltip;
+    private final Component lockedDescription;
 
     public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-        this(itemHandler, index, xPosition, yPosition, () -> false, null);
+        this(itemHandler, index, xPosition, yPosition, () -> false, Component.empty());
     }
 
-    public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, BooleanSupplier locked, Tooltip lockedTooltip) {
+    public EnhancerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, BooleanSupplier locked, Component lockedDescription) {
         super(itemHandler, index, xPosition, yPosition);
         this.locked = locked;
-        this.lockedTooltip = lockedTooltip;
+        this.lockedDescription = lockedDescription;
     }
 
     @Override
@@ -47,8 +46,7 @@ public class EnhancerSlot extends SlotItemHandler {
         return this.locked.getAsBoolean();
     }
 
-    @Nullable
-    public Tooltip getLockedTooltip() {
-        return this.lockedTooltip;
+    public Component getLockedDescription() {
+        return this.lockedDescription;
     }
 }

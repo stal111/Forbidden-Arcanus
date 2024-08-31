@@ -1,4 +1,4 @@
-// 1.21	2024-06-24T11:29:32.9354184	Tags for minecraft:worldgen/biome mod id forbidden_arcanus
+// 1.21.1	2024-08-31T12:47:05.7804408	Tags for minecraft:worldgen/biome mod id forbidden_arcanus
 488ca197e91dc180f4a4d81232ae9fda2d083c49 data/forbidden_arcanus/tags/worldgen/biome/has_structure/nipa.json
 06b9467ddc594da827d3c5e8157f45d67cf80802 data/forbidden_arcanus/tags/worldgen/biome/has_structure/nipa_always_floating.json
 f3ef2895c49e29111297e950661e5bc71a79989e data/forge/tags/worldgen/biome/is_desert.json

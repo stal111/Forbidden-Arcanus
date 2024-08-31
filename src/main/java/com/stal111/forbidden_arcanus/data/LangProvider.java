@@ -191,6 +191,7 @@ public class LangProvider extends LanguageProvider {
 
         this.add("block", "hephaestus_forge.tier.match_exact", "Requires exactly tier %s");
         this.add("block", "hephaestus_forge.tier.at_least", "Requires at least tier %s");
+        this.add("block", "hephaestus_forge.slot_unlocked_at", "Unlocked at tier %s");
 
         // Items
         this.addItem(ModItems.QUANTUM_CATCHER, "Quantum Catcher");

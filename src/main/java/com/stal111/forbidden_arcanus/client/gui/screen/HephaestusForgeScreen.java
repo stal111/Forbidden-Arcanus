@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLe
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -94,7 +93,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         Slot slot = this.getSlotUnderMouse();
 
         if (slot instanceof EnhancerSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot.getSlotIndex())) {
-            guiGraphics.renderTooltip(this.font, enhancerSlot.getLockedTooltip().toCharSequence(Minecraft.getInstance()), x, y);
+            guiGraphics.renderTooltip(this.font, enhancerSlot.getLockedDescription(), x, y);
         }
     }
 
