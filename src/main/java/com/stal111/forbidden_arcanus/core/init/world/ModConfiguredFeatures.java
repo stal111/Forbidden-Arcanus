@@ -44,6 +44,7 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ARCANE_CRYSTAL_ORE = HELPER.createKey("ore_arcane_crystal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RUNIC_STONE = HELPER.createKey("ore_rune");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> RUNIC_STONE_LOWER = HELPER.createKey("ore_rune_lower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARKSTONE = HELPER.createKey("ore_darkstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> STELLA_ARCANUM = HELPER.createKey("ore_stella_arcanum");
 
@@ -76,7 +77,8 @@ public class ModConfiguredFeatures extends DatapackRegistryClass<ConfiguredFeatu
         List<OreConfiguration.TargetBlockState> stellaArcanumTargetList = List.of(OreConfiguration.target(stoneOreReplaceables, States.STELLA_ARCANUM.get()), OreConfiguration.target(deepslateOreReplaceables, States.STELLA_ARCANUM.get()));
 
         context.register(ARCANE_CRYSTAL_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(arcaneCrystalTargetList, 5)));
-        context.register(RUNIC_STONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(runicStoneTargetList, 3)));
+        context.register(RUNIC_STONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(runicStoneTargetList, 5, 0.5F)));
+        context.register(RUNIC_STONE_LOWER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(runicStoneTargetList, 7, 0.3F)));
         context.register(DARKSTONE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(darkstoneTargetList, 20)));
         context.register(STELLA_ARCANUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(stellaArcanumTargetList, 3)));
         context.register(AURUM, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.AURUM_LOG.get()), new FancyTrunkPlacer(3, 11, 0), new WeightedStateProvider(weightedBlockStateBuilder().add(States.MYSTERYWOOD_LEAVES.get(), 4).add(States.NUGGETY_MYSTERYWOOD_LEAVES.get(), 1)), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))).ignoreVines().build()));
