@@ -189,6 +189,7 @@ public class LangProvider extends LanguageProvider {
         this.addBlock(ModBlocks.ETERNAL_OBSIDIAN_SKULL.skull(), "Eternal Obsidian Skull");
         this.addBlock(ModBlocks.UTREM_JAR, "Utrem Jar");
 
+        this.add("block", "hephaestus_forge.tier", "Tier %s");
         this.add("block", "hephaestus_forge.tier.match_exact", "Requires exactly tier %s");
         this.add("block", "hephaestus_forge.tier.at_least", "Requires at least tier %s");
         this.add("block", "hephaestus_forge.slot_unlocked_at", "Unlocked at tier %s");
