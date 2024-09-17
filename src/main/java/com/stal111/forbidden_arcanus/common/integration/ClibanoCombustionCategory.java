@@ -12,6 +12,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -34,7 +35,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.*;
 
@@ -180,23 +180,20 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         }
     }
 
-    @NotNull
     @Override
-    public List<Component> getTooltipStrings(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public void getTooltip(@NotNull ITooltipBuilder tooltip, @NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 92 && mouseY >= 59 && mouseX <= 117 && mouseY <= 65) {
             ResidueChance chance = recipe.getResidueChance();
 
             if (chance == null) {
-                return List.of();
+                return;
             }
 
-            return List.of(chance.type().value().name().copy()
+            tooltip.add(chance.type().value().name().copy()
                     .append(" ")
                     .append(Component.translatable("jei.forbidden_arcanus.clibanoCombustion.residue"))
                     .append(" (" + chance.chance() * 100 +"%)")
             );
         }
-
-        return IRecipeCategory.super.getTooltipStrings(recipe, recipeSlotsView, mouseX, mouseY);
     }
 }

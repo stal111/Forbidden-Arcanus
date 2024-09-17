@@ -45,9 +45,6 @@ public class SmithingCategory extends HephaestusForgeCategory {
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, FORGE_TIER_POSITION.firstInt(), FORGE_TIER_POSITION.secondInt())
                 .addItemStack(getForgeItem(tierPredicate.tier() - 1))
-                .addTooltipCallback((recipeSlotView, tooltip) -> {
-                    tooltip.clear();
-                    tooltip.add(tierPredicate.getDescription());
-                });
+                .addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(tierPredicate.getDescription()));
     }
 }

@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -26,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -128,16 +128,13 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
         this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(guiGraphics, essenceInfo.posX(), essenceInfo.posY()));
     }
 
-    @NotNull
     @Override
-    public List<Component> getTooltipStrings(@NotNull Ritual recipe, @NotNull IRecipeSlotsView slotsView, double mouseX, double mouseY) {
+    public void getTooltip(@NotNull ITooltipBuilder tooltip, @NotNull Ritual recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         for (EssenceInfo essenceInfo : this.essences) {
             if (essenceInfo.shouldDisplayTooltip(mouseX, mouseY)) {
-                return Collections.singletonList(essenceInfo.getTooltip(recipe.requirements().essences()));
+                tooltip.add(essenceInfo.getTooltip(recipe.requirements().essences()));
             }
         }
-
-        return Collections.emptyList();
     }
 
     public static ItemStack getForgeItem(int tier) {
