@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:mushrooms"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "forbidden_arcanus:bat_wing"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:bat_soup"
+  }
+}

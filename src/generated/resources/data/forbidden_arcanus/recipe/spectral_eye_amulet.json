@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "D": {
+      "item": "forbidden_arcanus:deorum_ingot"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "X": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    "DED"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:spectral_eye_amulet"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:arcane_crystal_dust"
+    },
+    "D": {
+      "item": "forbidden_arcanus:dragon_scale"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "#X#",
+    "XDX",
+    "#X#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:silver_dragon_scale"
+  }
+}

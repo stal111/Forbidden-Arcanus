@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "forbidden_arcanus:golden_dragon_scale"
+    },
+    "X": {
+      "item": "minecraft:dragon_egg"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:arcane_dragon_egg"
+  }
+}

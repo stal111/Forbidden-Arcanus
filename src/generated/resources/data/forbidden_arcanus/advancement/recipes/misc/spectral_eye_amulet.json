@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_deorum_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:deorum_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nether_star": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:nether_star"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:spectral_eye_amulet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_deorum_ingot",
+      "has_nether_star"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:spectral_eye_amulet"
+    ]
+  }
+}

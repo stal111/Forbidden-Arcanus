@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "forbidden_arcanus:edelwood_oil"
+    },
+    {
+      "item": "forbidden_arcanus:edelwood_oil"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:black_dye"
+  }
+}

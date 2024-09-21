@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dragon_egg": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:dragon_egg"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_golden_dragon_scale": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:golden_dragon_scale"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:arcane_dragon_egg"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dragon_egg",
+      "has_golden_dragon_scale"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:arcane_dragon_egg"
+    ]
+  }
+}

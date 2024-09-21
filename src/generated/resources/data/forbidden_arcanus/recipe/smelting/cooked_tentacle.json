@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "forbidden_arcanus:tentacle"
+  },
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:cooked_tentacle"
+  }
+}
