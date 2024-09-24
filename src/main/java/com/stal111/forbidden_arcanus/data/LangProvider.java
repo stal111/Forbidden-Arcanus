@@ -66,6 +66,7 @@ public class LangProvider extends LanguageProvider {
         this.addEntityType(ModEntities.DARK_TRADER, "Dark Trader");
 
        // this.add(ModEnchantments.AUREAL_RESERVOIR.get(), "Aureal Reservoir");
+        this.add(Util.makeDescriptionId("enchantment", ModEnchantments.SOUL_LOOTING.location()), "Soul Looting");
 
         // Blocks
         this.addBlock(ModBlocks.QUANTUM_CORE, "Quantum Core");

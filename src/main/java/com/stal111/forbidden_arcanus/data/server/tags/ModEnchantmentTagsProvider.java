@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.data.server.tags;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.data.ModEnchantments;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
@@ -31,6 +33,7 @@ public class ModEnchantmentTagsProvider extends EnchantmentTagsProvider {
         this.tag(ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE);
         this.tag(ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE);
         this.tag(ModTags.Enchantments.AQUATIC_INCOMPATIBLE);
+        this.tag(EnchantmentTags.NON_TREASURE).add(ModEnchantments.SOUL_LOOTING);
     }
 
     @Nonnull
