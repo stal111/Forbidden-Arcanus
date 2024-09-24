@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-21T13:10:28.6421529	Recipes
+// 1.21.1	2024-09-24T10:49:18.9816513	Recipes
 23e3971ab65829a4a3e4e11d193a181486910d2b data/forbidden_arcanus/advancement/recipes/apply_modifier/smithing/apply_aquatic_modifier.json
 a78e1a205e8c9268ed7ea3f8c79c054150443c19 data/forbidden_arcanus/advancement/recipes/apply_modifier/smithing/apply_demolishing_modifier.json
 2602ab88dabe4475c62ffcc8748bfa0e50d8af63 data/forbidden_arcanus/advancement/recipes/apply_modifier/smithing/apply_eternal_modifier.json
@@ -349,7 +349,7 @@ caaa87cfb6e080df1553ac02fd65e03ee4e04abb data/forbidden_arcanus/recipe/sanity_me
 271723dbdbc634663f1b6a7b2e999ace9a896946 data/forbidden_arcanus/recipe/smelting/arcane_crystal_dust_from_smelting.json
 035c781c2c9c4fdfd9f519e2ed9d94436d4eea51 data/forbidden_arcanus/recipe/smelting/arcane_crystal_from_smelting.json
 4c37d4ee72d10fa7992b08fc3b914937ca30deb8 data/forbidden_arcanus/recipe/smelting/cooked_tentacle.json
-366ef8951b42346aad696a7e050868884b4b7d43 data/forbidden_arcanus/recipe/smelting/dark_matter.json
+911446574c38021cfa9e747fa01bb9ca2df20603 data/forbidden_arcanus/recipe/smelting/dark_matter.json
 4a931a76234445d3e908cc96c96dd4968e617b41 data/forbidden_arcanus/recipe/smelting/rune_from_smelting.json
 6927e857fdde7ae8acf0b0d6d4a339c5b642b800 data/forbidden_arcanus/recipe/smithing/apply_aquatic_modifier.json
 e16b6ad580959b642fde4cc554b5d3efe248e66a data/forbidden_arcanus/recipe/smithing/apply_demolishing_modifier.json

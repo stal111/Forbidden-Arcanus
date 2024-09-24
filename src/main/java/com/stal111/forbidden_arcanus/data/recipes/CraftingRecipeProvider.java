@@ -101,7 +101,7 @@ public class CraftingRecipeProvider extends RecipeSubProvider {
         this.add(SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModTags.Items.RUNIC_STONES), RecipeCategory.MISC, ModItems.RUNE.get(), 1.0F, 200).unlockedBy("has_item", has(ModTags.Items.RUNIC_STONES)), "smelting/rune_from_smelting");
         this.add(SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModTags.Items.ARCANE_CRYSTAL_ORES), RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL.get(), 1.0F, 200).unlockedBy("has_item", has(ModTags.Items.ARCANE_CRYSTAL_ORES)), "smelting/arcane_crystal_from_smelting");
         this.add(SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.TENTACLE.get()), RecipeCategory.FOOD, ModItems.COOKED_TENTACLE.get(), 0.35F, 200).unlockedBy("has_item", has(ModItems.TENTACLE.get())), "smelting/cooked_tentacle");
-        this.add(SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.DARK_MATTER.get()), RecipeCategory.MISC, ModBlocks.EDELWOOD_LOG.get(), 0.4F, 400).unlockedBy("has_item", has(ModBlocks.EDELWOOD_LOG.get())), "smelting/dark_matter");
+        this.add(SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModBlocks.EDELWOOD_LOG.get()), RecipeCategory.MISC, ModItems.DARK_MATTER.get(), 0.4F, 400).unlockedBy("has_item", has(ModBlocks.EDELWOOD_LOG.get())), "smelting/dark_matter");
 
         //Blasting Recipes
         this.add(SimpleCookingRecipeBuilder.blasting(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL_DUST.get(), 0.4F, 75).unlockedBy("has_item", has(ModItems.ARCANE_CRYSTAL.get())), "blasting/arcane_crystal_dust_from_blasting");
