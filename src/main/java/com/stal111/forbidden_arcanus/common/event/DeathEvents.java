@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
+import com.stal111.forbidden_arcanus.common.item.enchantment.ModEnchantmentHelper;
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
@@ -20,21 +22,24 @@ public final class DeathEvents {
     public void onLivingDeath(LivingDeathEvent event) {
         LivingEntity entity = event.getEntity();
         RandomSource random = entity.getRandom();
+        ItemStack stack = event.getSource().getWeaponItem();
 
-        if (event.getSource().getEntity() instanceof ServerPlayer player) {
-            this.spawnLostSoul(entity, random);
+        if (stack != null && entity.level() instanceof ServerLevel level) {
+            this.spawnLostSoul(ModEnchantmentHelper.getLostSoulSpawnChance(level, stack), entity, random);
         }
     }
 
-    private void spawnLostSoul(LivingEntity entity, RandomSource random) {
+    private void spawnLostSoul(float spawnChance, LivingEntity entity, RandomSource random) {
         EntityType<?> type = entity.getType();
         Level level = entity.level();
 
-        double chance = LostSoul.ENTITY_DEATH_SPAWN_CHANCE;
+        if (random.nextDouble() >= spawnChance) {
+            return;
+        }
 
-        if (type.is(ModTags.EntityTypes.SPAWNS_LOST_SOUL_CHANCE) && random.nextDouble() < chance) {
+        if (type.is(ModTags.EntityTypes.SPAWNS_LOST_SOUL_CHANCE)) {
             level.addFreshEntity(new LostSoul(level, entity.getX(), entity.getY(), entity.getZ()));
-        } else if (type.is(ModTags.EntityTypes.SPAWNS_CORRUPT_LOST_SOUL_CHANCE) && random.nextDouble() < chance) {
+        } else if (type.is(ModTags.EntityTypes.SPAWNS_CORRUPT_LOST_SOUL_CHANCE)) {
             LostSoul lostSoul = new LostSoul(level, entity.getX(), entity.getY(), entity.getZ());
             lostSoul.setVariant(LostSoul.Variant.CORRUPT_LOST_SOUL);
 

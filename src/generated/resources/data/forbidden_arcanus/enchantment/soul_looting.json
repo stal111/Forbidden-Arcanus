@@ -3,6 +3,20 @@
   "description": {
     "translate": "enchantment.forbidden_arcanus.soul_looting"
   },
+  "effects": {
+    "forbidden_arcanus:lost_soul_spawn_chance": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 0.05,
+            "per_level_above_first": 0.05
+          }
+        }
+      }
+    ]
+  },
   "max_cost": {
     "base": 65,
     "per_level_above_first": 9
