@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "forbidden_arcanus:diamond_blacksmith_gavel"
+  },
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:netherite_blacksmith_gavel"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}
