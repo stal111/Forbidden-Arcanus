@@ -67,7 +67,6 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     public static final EntityDataAccessor<Boolean> DATA_SCARED = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.BOOLEAN);
 
     public static final double ENCHANTED_CHANCE = 0.04D;
-    public static final double ENTITY_DEATH_SPAWN_CHANCE = 0.05D;
 
     private static final int EXTRACT_STUNNED_TIME = 30;
     private static final float EXTRACT_DAMAGE = 2.0F;
@@ -98,13 +97,6 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
 
     public static boolean canSpawn(EntityType<LostSoul> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return true;
-    }
-
-    @Override
-    protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
-        if (source.is(ModDamageTypes.EXTRACT_SOUL)) {
-            super.actuallyHurt(source, amount);
-        }
     }
 
     @Override
