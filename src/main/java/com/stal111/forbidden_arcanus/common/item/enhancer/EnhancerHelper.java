@@ -18,6 +18,6 @@ public class EnhancerHelper {
     }
 
     public static Optional<Holder<EnhancerDefinition>> getEnhancerHolder(HolderLookup.Provider lookupProvider, ItemStack stack) {
-        return Optional.ofNullable(stack.get(ModDataComponents.ENHANCER)).map(lookupProvider::holderOrThrow);
+        return Optional.ofNullable(stack.get(ModDataComponents.ENHANCER)).flatMap(lookupProvider::holder);
     }
 }

@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +35,13 @@ public class TooltipEvents {
             }
         });
 
-        EnhancerHelper.getEnhancer(event.getContext().registries(), stack).ifPresent(definition -> {
+        HolderLookup.Provider registries = event.getContext().registries();
+
+        if (registries == null) {
+            return;
+        }
+
+        EnhancerHelper.getEnhancer(registries, stack).ifPresent(definition -> {
             this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);
             this.expandTooltip(advanced, tooltip, CommonComponents.EMPTY);
 
