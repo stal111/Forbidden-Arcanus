@@ -6,10 +6,12 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -33,6 +35,6 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> TICKS_TILL_NEXT_STAGE = HELPER.register("ticks_till_next_stage", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> RITUAL_USES = HELPER.register("ritual_uses", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> REMAINING_RITUAL_USES = HELPER.register("remaining_ritual_uses", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
-    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Holder<EnhancerDefinition>>> ENHANCER = HELPER.register("enhancer", () -> DataComponentType.<Holder<EnhancerDefinition>>builder().persistent(EnhancerDefinition.REFERENCE_CODEC).networkSynchronized(EnhancerDefinition.STREAM_CODEC).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<ResourceKey<EnhancerDefinition>>> ENHANCER = HELPER.register("enhancer", () -> DataComponentType.<ResourceKey<EnhancerDefinition>>builder().persistent(ResourceKey.codec(FARegistries.ENHANCER_DEFINITION)).networkSynchronized(ResourceKey.streamCodec(FARegistries.ENHANCER_DEFINITION)).build());
 
 }

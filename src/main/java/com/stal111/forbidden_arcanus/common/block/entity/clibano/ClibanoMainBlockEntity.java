@@ -461,7 +461,7 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
     }
 
     private @Nullable EnhancerDefinition updateEnhancer() {
-        return EnhancerHelper.getEnhancer(this.getStack(ClibanoMenu.ENHANCER_SLOT)).orElse(null);
+        return EnhancerHelper.getEnhancer(this.level.registryAccess(), this.getStack(ClibanoMenu.ENHANCER_SLOT)).orElse(null);
     }
 
     @Override

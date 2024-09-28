@@ -74,9 +74,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state, 9, (slot, stack) -> {
-            if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-                return EnhancerHelper.getEnhancer(stack).isPresent();
-            }
+            //TODO
+//            if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
+//                return EnhancerHelper.getEnhancer(level.registryAccess(), stack).isPresent();
+//            }
             return true;
         });
         this.hephaestusForgeData = new ContainerData() {
@@ -128,7 +129,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             this.ritualManager.setup(serverLevel, this.getBlockPos());
 
             this.dataCache = this.dataCache.setMainIngredient(this.getStack(MAIN_SLOT));
-            HephaestusForgeMenu.ENHANCERS_SLOTS.forEach(slot -> EnhancerHelper.getEnhancerHolder(this.getStack(slot)).ifPresent(holder -> this.dataCache.enhancers().put(slot, holder)));
+            HephaestusForgeMenu.ENHANCERS_SLOTS.forEach(slot -> EnhancerHelper.getEnhancerHolder(level.registryAccess(), this.getStack(slot)).ifPresent(holder -> this.dataCache.enhancers().put(slot, holder)));
 
             this.getRitualManager().onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences());
         }
@@ -205,7 +206,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
             this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
         } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-            EnhancerHelper.getEnhancerHolder(this.getStack(slot)).ifPresentOrElse(holder -> this.dataCache.enhancers().put(slot, holder), () -> this.dataCache.enhancers().remove(slot));
+            EnhancerHelper.getEnhancerHolder(this.level.registryAccess(), this.getStack(slot)).ifPresentOrElse(holder -> this.dataCache.enhancers().put(slot, holder), () -> this.dataCache.enhancers().remove(slot));
 
             this.getRitualManager().onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences());
         }

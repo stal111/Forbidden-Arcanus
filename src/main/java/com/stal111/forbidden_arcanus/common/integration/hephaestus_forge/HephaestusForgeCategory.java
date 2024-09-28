@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLe
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -16,11 +15,9 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -116,10 +113,9 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
     private void addEnhancers(@NotNull IRecipeLayoutBuilder builder, HolderSet<EnhancerDefinition> enhancers) {
         for (int i = 0; i < enhancers.size(); i++) {
             Holder<EnhancerDefinition> enhancer = enhancers.get(i);
-            RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
 
             builder.addSlot(RecipeIngredientRole.CATALYST, ENHANCER_POSITION.firstInt(), ENHANCER_POSITION.secondInt() + i * ENHANCER_Y_OFFSET)
-                    .addItemStack(EnhancerHelper.createEnhancer(registryAccess, enhancer.value().displayItem().value(), enhancer));
+                    .addItemStack(enhancer.value().displayItem().value().getDefaultInstance());
         }
     }
 

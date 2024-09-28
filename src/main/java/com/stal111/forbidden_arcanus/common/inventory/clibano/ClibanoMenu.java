@@ -138,7 +138,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, SOUL_SLOT, SOUL_SLOT + 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (EnhancerHelper.getEnhancer(stack).isPresent()) {
+            } else if (EnhancerHelper.getEnhancer(player.level().registryAccess(), stack).isPresent()) {
                 if (!this.moveItemStackTo(stack, ENHANCER_SLOT, ENHANCER_SLOT + 1, false)) {
                     return ItemStack.EMPTY;
                 }

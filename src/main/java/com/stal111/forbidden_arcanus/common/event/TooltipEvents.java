@@ -34,7 +34,7 @@ public class TooltipEvents {
             }
         });
 
-        EnhancerHelper.getEnhancer(stack).ifPresent(definition -> {
+        EnhancerHelper.getEnhancer(event.getContext().registries(), stack).ifPresent(definition -> {
             this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);
             this.expandTooltip(advanced, tooltip, CommonComponents.EMPTY);
 

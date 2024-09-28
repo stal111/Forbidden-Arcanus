@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityMilkBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.SolidCapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturDustItem;
+import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
@@ -66,13 +67,13 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", () -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, new Item.Properties()));
     public static final ItemEntrySet<QuantumCatcherItem, DyeColor> DYED_QUANTUM_CATCHERS = HELPER.registerColorEntrySet("quantum_catcher", dyeColor -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, new Item.Properties()));
     public static final ItemRegistryEntry<Item> BOSS_CATCHER = HELPER.register("boss_catcher", () -> new QuantumCatcherItem(ModTags.EntityTypes.BOSS_CATCHER_BLACKLISTED, new Item.Properties()));
-    public static final ItemRegistryEntry<Item> ARTISAN_RELIC = HELPER.register("artisan_relic", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> CRESCENT_MOON = HELPER.register("crescent_moon", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> CRIMSON_STONE = HELPER.register("crimson_stone", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> SOUL_CRIMSON_STONE = HELPER.register("soul_crimson_stone", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> ELEMENTARIUM = HELPER.register("elementarium", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", () -> new Item(new Item.Properties()));
-    public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", () -> new Item(new Item.Properties()));
+    public static final ItemRegistryEntry<Item> ARTISAN_RELIC = HELPER.register("artisan_relic", () -> new Item(new Item.Properties().component(ModDataComponents.ENHANCER.value(), ModEnhancerDefinitions.ARTISAN_RELIC)));
+    public static final ItemRegistryEntry<Item> CRESCENT_MOON = HELPER.register("crescent_moon", () -> new Item(new Item.Properties().component(ModDataComponents.ENHANCER.value(), ModEnhancerDefinitions.CRESCENT_MOON)));
+    public static final ItemRegistryEntry<Item> CRIMSON_STONE = HELPER.register("crimson_stone", () -> new Item(new Item.Properties().component(ModDataComponents.ENHANCER.value(), ModEnhancerDefinitions.CRIMSON_STONE)));
+    public static final ItemRegistryEntry<Item> SOUL_CRIMSON_STONE = HELPER.register("soul_crimson_stone", () -> new Item(new Item.Properties().component(ModDataComponents.ENHANCER.value(), ModEnhancerDefinitions.SOUL_CRIMSON_STONE)));
+    public static final ItemRegistryEntry<Item> ELEMENTARIUM = HELPER.register("elementarium", () -> new Item(new Item.Properties().component(ModDataComponents.ENHANCER.value(), ModEnhancerDefinitions.ELEMENTARIUM)));
+    public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", () -> new Item(new Item.Properties().component(ModDataComponents.ENHANCER.value(), ModEnhancerDefinitions.DIVINE_PACT)));
+    public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", () -> new Item(new Item.Properties().component(ModDataComponents.ENHANCER.value(), ModEnhancerDefinitions.MALEDICTUS_PACT)));
 
     public static final ItemRegistryEntry<Item> SANITY_METER = HELPER.register("sanity_meter", () -> new SanityMeterItem(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", () -> new AurealTankItem(new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, AurealTankItem.DEFAULT_DATA)));

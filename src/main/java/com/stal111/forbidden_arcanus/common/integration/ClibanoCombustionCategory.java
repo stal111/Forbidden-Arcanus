@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -126,7 +125,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         Holder<EnhancerDefinition> enhancer = recipe.getRequiredEnhancer();
 
         if (enhancer != null) {
-            builder.addSlot(CATALYST, 12, 24).addItemStack(EnhancerHelper.createEnhancer(registryAccess, enhancer.value().displayItem().value(), enhancer));
+            builder.addSlot(CATALYST, 12, 24).addItemStack(enhancer.value().displayItem().value().getDefaultInstance());
         }
 
         builder.addSlot(OUTPUT, 97, 35).addItemStack(recipe.getResultItem(registryAccess));

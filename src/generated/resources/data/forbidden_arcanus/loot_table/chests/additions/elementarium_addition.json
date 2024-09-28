@@ -12,14 +12,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "components": {
-                "forbidden_arcanus:enhancer": "forbidden_arcanus:elementarium"
-              },
-              "function": "minecraft:set_components"
-            }
-          ],
           "name": "forbidden_arcanus:elementarium"
         }
       ],
