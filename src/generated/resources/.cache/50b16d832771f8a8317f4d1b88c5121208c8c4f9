@@ -1,7 +1,7 @@
-// 1.21.1	2024-08-31T12:47:05.7475293	Tags for minecraft:block mod id vanilla
+// 1.21.1	2024-09-29T15:14:34.873737	Tags for minecraft:block mod id vanilla
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/block/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
-f702e38b39dc647446912583011eb706701d0362 data/c/tags/block/storage_blocks.json
+9a47ee92a699961d6de23e80ee7a6baf035541bd data/c/tags/block/storage_blocks.json
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/block/arcane_crystal_ores.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/block/blacksmith_gavel_unaffected.json
 7178fc65549c2cdfe3c0d34421efedf7c81a341f data/forbidden_arcanus/tags/block/darkstone_ore_replaceables.json
@@ -12,7 +12,6 @@ f702e38b39dc647446912583011eb706701d0362 data/c/tags/block/storage_blocks.json
 ec5f886acc1397ae55fe6faaca722b2a2cebb465 data/forbidden_arcanus/tags/block/rune_blocks.json
 321796da77cb8905e7a9b8b3c8413298f0cb9bfe data/forbidden_arcanus/tags/block/runic_stones.json
 09957d67edabb535833ace6cdc1345b60d228657 data/forge/tags/block/storage_blocks/arcane_crystal.json
-34d6538bf00faf329f38a1cd1cf1e399eb79d8db data/forge/tags/block/storage_blocks/dark_nether_star.json
 b128c22b1f0aef1502fa919bc8d063604b299c75 data/forge/tags/block/storage_blocks/deorum.json
 84788ba04723700a23026d7561c99fc099deeafc data/forge/tags/block/storage_blocks/obsidian.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/forge/tags/block/storage_blocks/stellarite.json
@@ -25,9 +24,9 @@ ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/block/doors.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/block/logs.json
 c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/block/logs_that_burn.json
-e4b0d0179fdaaae8c02d6477098fbb32010ccef8 data/minecraft/tags/block/mineable/pickaxe.json
+869517204094235374a6082a5aa9c9827c109403 data/minecraft/tags/block/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/block/mineable/shovel.json
-fd44e2bacff9aee912823a6e8a2788e19fc84f6f data/minecraft/tags/block/needs_diamond_tool.json
+03e58d146e5f300cd798f7422d60e69a1202238a data/minecraft/tags/block/needs_diamond_tool.json
 f5e817be5db288101afc38ab4ee917799b5d90fe data/minecraft/tags/block/needs_iron_tool.json
 a36e2773b5baf7124871d28a30069e16562a7cac data/minecraft/tags/block/needs_stone_tool.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/block/planks.json

@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-28T17:50:28.6580442	Loot Tables
+// 1.21.1	2024-09-29T15:14:34.879722	Loot Tables
 0a60ee0f0c874a779c8a5020ab781a2d34f9de33 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_block.json
 6ee2651059f7e26158de69b8a75f6697e1905f21 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_obelisk.json
 2e540add8a1e3eaff27a3f2330ab48712c8256dd data/forbidden_arcanus/loot_table/blocks/arcane_crystal_ore.json
@@ -46,7 +46,6 @@ b46878db45600c2d3e320fc230710b17e588aeef data/forbidden_arcanus/loot_table/block
 68d4f5af62c465e724d1a6ec0c94ac47e0e6adf2 data/forbidden_arcanus/loot_table/blocks/darkstone_slab.json
 e65da2e95a0fea46e8d65a1da575e6979fbd0c9e data/forbidden_arcanus/loot_table/blocks/darkstone_stairs.json
 3824c3b993db46df5a71aed155dcc797c63099bf data/forbidden_arcanus/loot_table/blocks/darkstone_wall.json
-6da234d975087da423435e517cc6b7be4fa5aa25 data/forbidden_arcanus/loot_table/blocks/dark_nether_star_block.json
 7490c8c23d5b89e8797f0d81ba2f319eaf44f0b7 data/forbidden_arcanus/loot_table/blocks/deepslate_arcane_crystal_ore.json
 145871577e1bb455f139d6cc8ee0180b81ac90e0 data/forbidden_arcanus/loot_table/blocks/deorum_block.json
 e472abb5752bc8b945db7532a3bac48ce7591cb5 data/forbidden_arcanus/loot_table/blocks/deorum_chain.json

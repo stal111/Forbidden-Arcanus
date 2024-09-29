@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-31T12:47:05.7305748	Model Definitions
+// 1.21.1	2024-09-29T15:14:34.8577799	Model Definitions
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -490,7 +490,6 @@ de1787f82f868ccde4845f7f4c8efd32fe05f7ec assets/forbidden_arcanus/models/item/da
 ce96b792082a76367db8388ccd27c810c53a435a assets/forbidden_arcanus/models/item/darkstone_wall.json
 a3f46def10710aa695909ec9af9c6a35a847583b assets/forbidden_arcanus/models/item/dark_matter.json
 79f1d81bd0e43941b86bf339c2ab18b7562d24e8 assets/forbidden_arcanus/models/item/dark_nether_star.json
-75d568d55d49e2831883dc3bd45caf244a3fc093 assets/forbidden_arcanus/models/item/dark_nether_star_block.json
 5ebcc396478e878951aa7c61c3dae808456ab832 assets/forbidden_arcanus/models/item/deepslate_arcane_crystal_ore.json
 2e76fb7ce0479aca940f86154d3361fecce8acf1 assets/forbidden_arcanus/models/item/deorum_block.json
 1652eb732a4d44449638f02ede0fa4cef08813ab assets/forbidden_arcanus/models/item/deorum_chain.json

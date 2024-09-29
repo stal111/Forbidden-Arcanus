@@ -1,12 +1,12 @@
-// 1.21.1	2024-08-31T12:47:05.7934065	Tags for minecraft:item mod id vanilla
+// 1.21.1	2024-09-29T15:14:34.8877003	Tags for minecraft:item mod id vanilla
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/item/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/item/fence_gates/wooden.json
 4a2636aab0a6ff9f71559b543e92a4ab039254f7 data/c/tags/item/ingots.json
 6529c1b5741e0d61a30d3957253c488859843df8 data/c/tags/item/seeds.json
-f702e38b39dc647446912583011eb706701d0362 data/c/tags/item/storage_blocks.json
+9a47ee92a699961d6de23e80ee7a6baf035541bd data/c/tags/item/storage_blocks.json
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/item/arcane_crystal_ores.json
 0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/item/blacksmith_gavel.json
-33c838131c77a87637243c72385fb1d6238f05c9 data/forbidden_arcanus/tags/item/black_hole_unaffected.json
+5594c25b676aa98458c6d54417101e266c4a55c8 data/forbidden_arcanus/tags/item/black_hole_unaffected.json
 eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/item/clibano/creates_enchanted_fire.json
 248044db5d2fb658e1cc0140c81427a0718726e4 data/forbidden_arcanus/tags/item/clibano/creates_soul_fire.json
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/item/edelwood_logs.json
@@ -18,12 +18,11 @@ a5e30235f64ca727e45ad31a505dbf74f45d0173 data/forbidden_arcanus/tags/item/magica
 565331c54dabee6ccd5ddb60f2aa542b13e5ee64 data/forbidden_arcanus/tags/item/obsidian_skulls.json
 ec5f886acc1397ae55fe6faaca722b2a2cebb465 data/forbidden_arcanus/tags/item/rune_blocks.json
 321796da77cb8905e7a9b8b3c8413298f0cb9bfe data/forbidden_arcanus/tags/item/runic_stones.json
-6fb3d7581a6715ccf47a2ad0dc47775e8c306940 data/forge/tags/item/explosion_resistant.json
+2572dfc3ed16dc52c40839dfeb364036bf3314be data/forge/tags/item/explosion_resistant.json
 238635bd5dd1c15728e03bd1774ab8343944a8b5 data/forge/tags/item/ingots/deorum.json
 0d4b957112a35b9712ca2728004c934f1b488ddd data/forge/tags/item/ingots/obsidian.json
 7c2fa587c6bcbc4afb7882a02044ed5435a29f2c data/forge/tags/item/nuggets/deorum.json
 09957d67edabb535833ace6cdc1345b60d228657 data/forge/tags/item/storage_blocks/arcane_crystal.json
-34d6538bf00faf329f38a1cd1cf1e399eb79d8db data/forge/tags/item/storage_blocks/dark_nether_star.json
 b128c22b1f0aef1502fa919bc8d063604b299c75 data/forge/tags/item/storage_blocks/deorum.json
 84788ba04723700a23026d7561c99fc099deeafc data/forge/tags/item/storage_blocks/obsidian.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/forge/tags/item/storage_blocks/stellarite.json

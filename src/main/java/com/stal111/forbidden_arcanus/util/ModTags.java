@@ -24,7 +24,6 @@ public class ModTags {
         public static final TagKey<Block> DARKSTONE_ORE_REPLACEABLES = modTag("darkstone_ore_replaceables");
         public static final TagKey<Block> DEORUM_STORAGE_BLOCKS = forgeTag("storage_blocks/deorum");
         public static final TagKey<Block> ARCANE_CRYSTAL_STORAGE_BLOCKS = forgeTag("storage_blocks/arcane_crystal");
-        public static final TagKey<Block> DARK_NETHER_STAR_STORAGE_BLOCKS = forgeTag("storage_blocks/dark_nether_star");
         public static final TagKey<Block> STELLARITE_STORAGE_BLOCKS = forgeTag("storage_blocks/stellarite");
         public static final TagKey<Block> OBSIDIAN_STORAGE_BLOCKS = forgeTag("storage_blocks/obsidian");
 
@@ -71,7 +70,6 @@ public class ModTags {
 
         public static final TagKey<Item> DEORUM_STORAGE_BLOCKS = forgeTag("storage_blocks/deorum");
         public static final TagKey<Item> ARCANE_CRYSTAL_STORAGE_BLOCKS = forgeTag("storage_blocks/arcane_crystal");
-        public static final TagKey<Item> DARK_NETHER_STAR_STORAGE_BLOCKS = forgeTag("storage_blocks/dark_nether_star");
         public static final TagKey<Item> STELLARITE_STORAGE_BLOCKS = forgeTag("storage_blocks/stellarite");
         public static final TagKey<Item> OBSIDIAN_STORAGE_BLOCKS = forgeTag("storage_blocks/obsidian");
 

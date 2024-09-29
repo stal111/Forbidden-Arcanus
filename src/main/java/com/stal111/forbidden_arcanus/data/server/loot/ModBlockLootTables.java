@@ -79,7 +79,6 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
         this.dropSelf(ModBlocks.STELLARITE_BLOCK.get());
         this.dropSelf(ModBlocks.DEORUM_BLOCK.get());
         this.dropSelf(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
-        this.dropSelf(ModBlocks.DARK_NETHER_STAR_BLOCK.get());
         this.dropSelf(ModBlocks.DEORUM_LANTERN.get());
         this.dropSelf(ModBlocks.DEORUM_SOUL_LANTERN.get());
         this.dropSelf(ModBlocks.SOULLESS_SAND.get());
