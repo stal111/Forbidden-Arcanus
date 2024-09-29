@@ -20,7 +20,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
@@ -32,7 +31,6 @@ public final class ClientPayloadHandler {
     private static final ClientPayloadHandler INSTANCE = new ClientPayloadHandler();
 
     private final Minecraft minecraft = Minecraft.getInstance();
-    private final Level level = minecraft.level;
 
     private ClientPayloadHandler() {
     }
@@ -50,21 +48,21 @@ public final class ClientPayloadHandler {
     }
 
     public void handle(TransformPedestalPayload payload, IPayloadContext context) {
-        ParticleUtils.spawnParticlesOnBlockFaces(this.level, payload.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
+        ParticleUtils.spawnParticlesOnBlockFaces(this.minecraft.level, payload.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
 
-        this.level.playLocalSound(payload.pos(), ModSounds.FERROGNETIC_MIXTURE_APPLY.get(), SoundSource.PLAYERS, 0.75F, 0.9F + this.level.getRandom().nextFloat() * 0.1F, false);
+        this.minecraft.level.playLocalSound(payload.pos(), ModSounds.FERROGNETIC_MIXTURE_APPLY.get(), SoundSource.PLAYERS, 0.75F, 0.9F + this.minecraft.level.getRandom().nextFloat() * 0.1F, false);
     }
 
     public void handle(SpawnParticlePayload payload, IPayloadContext context) {
-        RandomSource random = this.level.getRandom();
-        LevelRenderer levelRenderer = Minecraft.getInstance().levelRenderer;
+        RandomSource random = this.minecraft.level.getRandom();
+        LevelRenderer levelRenderer = this.minecraft.levelRenderer;
 
         double x = payload.x();
         double y = payload.y();
         double z = payload.z();
 
         for (int l = 0; l < 8; ++l) {
-            this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
+            this.minecraft.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
         }
 
         ParticleOptions particleoptions = ModParticles.AUREAL_MOTE.get();
@@ -81,7 +79,7 @@ public final class ClientPayloadHandler {
             particle.setLifetime(25 + random.nextInt(10));
         }
 
-        level.playLocalSound(x, y, z, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
+        this.minecraft.level.playLocalSound(x, y, z, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
     }
 
     public void handle(UpdateEssencePayload payload, IPayloadContext context) {
