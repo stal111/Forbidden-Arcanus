@@ -1,8 +1,9 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
-import net.minecraft.world.inventory.CrafterMenu;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Main Slot
@@ -22,6 +23,11 @@ public class MainSlot extends SlotItemHandler {
 
     @Override
     public int getMaxStackSize() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxStackSize(@NotNull ItemStack stack) {
         return 1;
     }
 
