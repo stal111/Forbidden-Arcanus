@@ -5,9 +5,7 @@ import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
 import com.stal111.forbidden_arcanus.data.model.ModModelProvider;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.recipes.*;
-import com.stal111.forbidden_arcanus.data.server.loot.ModBlockLootTables;
-import com.stal111.forbidden_arcanus.data.server.loot.ModChestLoot;
-import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
+import com.stal111.forbidden_arcanus.data.server.loot.*;
 import com.stal111.forbidden_arcanus.data.server.tags.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -69,7 +67,9 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
                 new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK),
-                new LootTableProvider.SubProviderEntry(ModChestLoot::new, LootContextParamSets.CHEST)
+                new LootTableProvider.SubProviderEntry(ModChestLootAdditions::new, LootContextParamSets.CHEST),
+                new LootTableProvider.SubProviderEntry(ModBlockLootAdditions::new, LootContextParamSets.BLOCK),
+                new LootTableProvider.SubProviderEntry(ModEntityLootAdditions::new, LootContextParamSets.ENTITY)
         ), context.lookupProvider()));
 
         generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new, StonecutterRecipeProvider::new));

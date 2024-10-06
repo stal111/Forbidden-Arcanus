@@ -6,5 +6,5 @@
       "loot_table_id": "minecraft:entities/bat"
     }
   ],
-  "table": "forbidden_arcanus:entities/additions/bat_additions"
+  "table": "forbidden_arcanus:entities/additions/bat_wing_addition"
 }

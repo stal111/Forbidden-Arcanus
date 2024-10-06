@@ -6,5 +6,5 @@
       "loot_table_id": "minecraft:entities/ender_dragon"
     }
   ],
-  "table": "forbidden_arcanus:entities/additions/ender_dragon_additions"
+  "table": "forbidden_arcanus:entities/additions/dragon_scale_addition"
 }

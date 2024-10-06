@@ -10,5 +10,5 @@
       "loot_table_id": "minecraft:entities/squid"
     }
   ],
-  "table": "forbidden_arcanus:entities/additions/squid_additions"
+  "table": "forbidden_arcanus:entities/additions/tentacle_addition"
 }

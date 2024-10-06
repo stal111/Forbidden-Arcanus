@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "forbidden_arcanus:ender_pearl_fragment"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "function": "minecraft:set_count"
+        },
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "enchantment": "minecraft:looting",
+          "function": "minecraft:enchanted_count_increase"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "forbidden_arcanus:entities/additions/ender_pearl_fragment_addition"
+}
