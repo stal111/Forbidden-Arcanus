@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
 import com.stal111.forbidden_arcanus.data.ModItemModifiers;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -23,7 +24,7 @@ public class EntityEvents {
     public void onEntityDamage(LivingDamageEvent.Post event) {
         DamageSource source = event.getSource();
 
-        if (source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player) {
+        if (source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player && !event.getEntity().getType().is(ModTags.EntityTypes.TEST_TUBE_BLACKLISTED)) {
             if (player.getOffhandItem().is(ModItems.TEST_TUBE)) {
                 player.setItemInHand(InteractionHand.OFF_HAND, ModItems.BLOOD_TEST_TUBE.get().getDefaultInstance());
             }

@@ -33,7 +33,7 @@ public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
         this.tag(ModTags.EntityTypes.BOSS_CATCHER_BLACKLISTED).add(EntityType.PLAYER);
         this.tag(ModTags.EntityTypes.SPAWNS_LOST_SOUL_CHANCE).add(EntityType.PLAYER, EntityType.VILLAGER, EntityType.WANDERING_TRADER);
         this.tag(ModTags.EntityTypes.SPAWNS_CORRUPT_LOST_SOUL_CHANCE).addTag(EntityTypeTags.SKELETONS).add(EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER,  EntityType.WITCH, EntityType.DROWNED, EntityType.PILLAGER, EntityType.ILLUSIONER, EntityType.VINDICATOR, EntityType.HUSK, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.EVOKER);
-
+        this.tag(ModTags.EntityTypes.TEST_TUBE_BLACKLISTED);
     }
 
     @Nonnull
