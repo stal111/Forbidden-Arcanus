@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:lapis_lazuli",
     "chance": 0.2
   },
-  "result": "minecraft:lapis_lazuli"
+  "result": {
+    "count": 1,
+    "id": "minecraft:lapis_lazuli"
+  }
 }

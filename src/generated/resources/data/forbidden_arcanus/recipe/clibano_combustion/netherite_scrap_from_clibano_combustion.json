@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:netherite",
     "chance": 0.05
   },
-  "result": "minecraft:netherite_scrap"
+  "result": {
+    "count": 1,
+    "id": "minecraft:netherite_scrap"
+  }
 }

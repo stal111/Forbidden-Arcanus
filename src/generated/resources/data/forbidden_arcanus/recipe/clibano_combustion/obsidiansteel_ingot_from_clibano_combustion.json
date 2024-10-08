@@ -17,5 +17,8 @@
     "type": "forbidden_arcanus:copper",
     "chance": 0.33
   },
-  "result": "forbidden_arcanus:obsidiansteel_ingot"
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:obsidiansteel_ingot"
+  }
 }

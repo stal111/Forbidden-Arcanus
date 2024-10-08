@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:iron",
     "chance": 0.33
   },
-  "result": "minecraft:iron_ingot"
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_ingot"
+  }
 }

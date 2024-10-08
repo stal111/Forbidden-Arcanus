@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:diamond",
     "chance": 0.1
   },
-  "result": "minecraft:diamond"
+  "result": {
+    "count": 1,
+    "id": "minecraft:diamond"
+  }
 }

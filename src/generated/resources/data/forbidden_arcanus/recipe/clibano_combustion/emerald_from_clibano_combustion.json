@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:emerald",
     "chance": 0.1
   },
-  "result": "minecraft:emerald"
+  "result": {
+    "count": 1,
+    "id": "minecraft:emerald"
+  }
 }

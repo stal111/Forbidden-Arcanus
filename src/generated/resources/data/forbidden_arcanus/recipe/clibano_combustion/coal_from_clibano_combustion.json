@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:coal",
     "chance": 0.33
   },
-  "result": "minecraft:coal"
+  "result": {
+    "count": 1,
+    "id": "minecraft:coal"
+  }
 }

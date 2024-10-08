@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:rune",
     "chance": 0.1
   },
-  "result": "forbidden_arcanus:rune"
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:rune"
+  }
 }

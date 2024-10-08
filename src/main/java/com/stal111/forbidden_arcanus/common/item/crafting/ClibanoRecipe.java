@@ -4,7 +4,6 @@ import com.google.errorprone.annotations.DoNotCall;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
@@ -16,7 +15,6 @@ import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -28,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.Function;
 
 /**
  * Clibano Recipe <br>
@@ -163,13 +160,6 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
 
     public static class Serializer implements RecipeSerializer<ClibanoRecipe> {
 
-        private static final Function<NonNullList<Ingredient>, DataResult<NonNullList<Ingredient>>> INGREDIENT_CHECK = ingredients -> {
-            if (ingredients.isEmpty() || ingredients.size() >= 3) {
-                return DataResult.error(() -> "Invalid number of ingredients", ingredients);
-            }
-            return DataResult.success(ingredients);
-        };
-
         private static final MapCodec<ClibanoRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> {
                     return recipe.group;
@@ -180,7 +170,7 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
                 Codec.either(Ingredient.CODEC_NONEMPTY, Codec.mapPair(Ingredient.MAP_CODEC_NONEMPTY.fieldOf("first"), Ingredient.MAP_CODEC_NONEMPTY.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(recipe -> {
                     return recipe.ingredients;
                 }),
-                BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> {
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> {
                     return recipe.result;
                 }),
                 Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> {

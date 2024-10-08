@@ -11,5 +11,8 @@
     "type": "forbidden_arcanus:copper",
     "chance": 0.33
   },
-  "result": "minecraft:copper_ingot"
+  "result": {
+    "count": 1,
+    "id": "minecraft:copper_ingot"
+  }
 }
