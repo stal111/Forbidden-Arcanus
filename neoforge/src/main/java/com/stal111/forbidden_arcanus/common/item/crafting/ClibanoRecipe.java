@@ -15,8 +15,8 @@ import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -161,40 +161,20 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
     public static class Serializer implements RecipeSerializer<ClibanoRecipe> {
 
         private static final MapCodec<ClibanoRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> {
-                    return recipe.group;
-                }),
-                CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> {
-                    return recipe.category;
-                }),
-                Codec.either(Ingredient.CODEC_NONEMPTY, Codec.mapPair(Ingredient.MAP_CODEC_NONEMPTY.fieldOf("first"), Ingredient.MAP_CODEC_NONEMPTY.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(recipe -> {
-                    return recipe.ingredients;
-                }),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> {
-                    return recipe.result;
-                }),
-                Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> {
-                    return recipe.experience;
-                }),
-                Codec.INT.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIME).forGetter(recipe -> {
-                    return recipe.cookingTime;
-                }),
-                ResidueChance.CODEC.optionalFieldOf("residue").forGetter(recipe -> {
-                    return Optional.ofNullable(recipe.residueChance);
-                }),
-                ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> {
-                    return recipe.requiredFireType;
-                }),
-                EnhancerDefinition.REFERENCE_CODEC.optionalFieldOf("enhancer").forGetter(recipe -> {
-                    return Optional.ofNullable(recipe.requiredEnhancer);
-                })
+                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+                CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> recipe.category),
+                Codec.either(Ingredient.CODEC_NONEMPTY, Codec.mapPair(Ingredient.MAP_CODEC_NONEMPTY.fieldOf("first"), Ingredient.MAP_CODEC_NONEMPTY.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(recipe -> recipe.ingredients),
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
+                Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> recipe.experience),
+                Codec.INT.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIME).forGetter(recipe -> recipe.cookingTime),
+                ResidueChance.CODEC.optionalFieldOf("residue").forGetter(recipe -> Optional.ofNullable(recipe.residueChance)),
+                ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> recipe.requiredFireType),
+                EnhancerDefinition.REFERENCE_CODEC.optionalFieldOf("enhancer").forGetter(recipe -> Optional.ofNullable(recipe.requiredEnhancer))
         ).apply(instance, (s, category, ingredients, stack, experience, cooking_time, residue, fireType, enhancer) -> {
             return new ClibanoRecipe(s, category, ingredients, stack, experience, cooking_time, residue.orElse(null), fireType, enhancer.orElse(null));
         }));
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = StreamCodec.of(
-                ClibanoRecipe.Serializer::toNetwork, ClibanoRecipe.Serializer::fromNetwork
-        );
+        public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
         @Override
         public @NotNull MapCodec<ClibanoRecipe> codec() {
@@ -204,14 +184,6 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
         @Override
         public @NotNull StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> streamCodec() {
             return STREAM_CODEC;
-        }
-
-        public static @NotNull ClibanoRecipe fromNetwork(@NotNull FriendlyByteBuf buffer) {
-            return buffer.readJsonWithCodec(CODEC.codec());
-        }
-
-        public static void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ClibanoRecipe recipe) {
-            buffer.writeJsonWithCodec(CODEC.codec(), recipe);
         }
     }
 }
