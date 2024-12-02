@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-29T12:48:05.7538436	Loot Tables
+// 1.21.1	2024-12-02T11:31:18.682784	Loot Tables
 a74de49c44b22dd0556c591b9e243d9b76dc514c data/forbidden_arcanus/loot_table/blocks/additions/spawner_scrap_addition.json
 0a60ee0f0c874a779c8a5020ab781a2d34f9de33 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_block.json
 6ee2651059f7e26158de69b8a75f6697e1905f21 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_obelisk.json
@@ -139,7 +139,7 @@ e495d4c791bdd08ea4977be12d8eaf8e583db5f5 data/forbidden_arcanus/loot_table/block
 7b36a181e1947c05ce4a8ada09a4a6b726581496 data/forbidden_arcanus/loot_table/blocks/utrem_jar.json
 e4f8a6b11e165c718288e8d33d97c76bf6cd3a56 data/forbidden_arcanus/loot_table/blocks/whirlwind.json
 99a2dd2f8a7054d292619be25f8de33cfc876789 data/forbidden_arcanus/loot_table/blocks/yellow_orchid.json
-9d0a346b1efab3f566beebffc99c321f2bf3ff04 data/forbidden_arcanus/loot_table/chests/additions/artisan_relic_addition.json
+a1a198b0c623f27be983c6104a21e28f701e38fc data/forbidden_arcanus/loot_table/chests/additions/artisan_relic_addition.json
 36eb355ef92ba123abfa759ee8633424507f153e data/forbidden_arcanus/loot_table/chests/additions/aureal_bottle_addition.json
 d63d1064ac0a6644ba81f24e8f9067ff7db524f8 data/forbidden_arcanus/loot_table/chests/additions/crimson_stone_addition.json
 4c15879700adff37f7ed55943228cba0ac53a9a8 data/forbidden_arcanus/loot_table/chests/additions/dragon_scale_addition.json

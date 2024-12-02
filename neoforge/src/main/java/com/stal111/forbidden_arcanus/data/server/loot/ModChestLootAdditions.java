@@ -38,7 +38,7 @@ public class ModChestLootAdditions implements LootTableSubProvider {
 
     @Override
     public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
-        consumer.accept(ARTISAN_RELIC_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.ARTISAN_RELIC)).when(LootItemRandomChanceCondition.randomChance(0.18F))));
+        consumer.accept(ARTISAN_RELIC_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.ARTISAN_RELIC)).when(LootItemRandomChanceCondition.randomChance(0.28F))));
         consumer.accept(CRIMSON_STONE_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.CRIMSON_STONE)).when(LootItemRandomChanceCondition.randomChance(0.18F))));
         consumer.accept(ELEMENTARIUM_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.ELEMENTARIUM)).when(LootItemRandomChanceCondition.randomChance(0.21F))));
         consumer.accept(MALEDICTUS_PACT_ADDITION, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.MALEDICTUS_PACT)).when(LootItemRandomChanceCondition.randomChance(0.18F))));
