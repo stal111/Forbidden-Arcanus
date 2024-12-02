@@ -14,15 +14,9 @@ import net.minecraft.core.Holder;
 public class ActiveRitualData {
 
     public static final Codec<ActiveRitualData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Ritual.CODEC.fieldOf("ritual").forGetter(data -> {
-                return data.ritual;
-            }),
-            Codec.INT.fieldOf("counter").forGetter(data -> {
-                return data.counter;
-            }),
-            Codec.INT.fieldOf("lightning_counter").forGetter(data -> {
-                return data.lightningCounter;
-            })
+            Ritual.CODEC.fieldOf("ritual").forGetter(data -> data.ritual),
+            Codec.INT.fieldOf("counter").forGetter(data -> data.counter),
+            Codec.INT.fieldOf("lightning_counter").forGetter(data -> data.lightningCounter)
     ).apply(instance, ActiveRitualData::new));
 
     private final Holder<Ritual> ritual;

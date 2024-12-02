@@ -18,10 +18,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
@@ -119,20 +119,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
         this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt());
         this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), this.ritualManager::updateValidRitual);
-    }
-
-    @Override
-    public void setLevel(@NotNull Level level) {
-        super.setLevel(level);
-
-        if (level instanceof ServerLevel serverLevel) {
-            this.ritualManager.setup(serverLevel, this.getBlockPos());
-
-            this.dataCache = this.dataCache.setMainIngredient(this.getStack(MAIN_SLOT));
-            HephaestusForgeMenu.ENHANCERS_SLOTS.forEach(slot -> EnhancerHelper.getEnhancerHolder(level.registryAccess(), this.getStack(slot)).ifPresent(holder -> this.dataCache.enhancers().put(slot, holder)));
-
-            this.getRitualManager().onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences());
-        }
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
@@ -296,6 +282,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
         this.getRitualManager().save(tag, lookupProvider);
         this.getEssenceManager().save(tag);
+
+        ForgeDataCache.CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.dataCache).result().ifPresent(data -> tag.put("data_cache", data));
     }
 
     @Override
@@ -306,6 +294,12 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
         this.getRitualManager().load(tag, lookupProvider);
         this.getEssenceManager().load(tag);
+
+        if (tag.contains("data_cache", 10)) {
+            ForgeDataCache.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag.get("data_cache")).result().ifPresent(forgeDataCache -> this.dataCache = forgeDataCache);
+
+            this.getRitualManager().onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences());
+        }
     }
 
     @Nullable
