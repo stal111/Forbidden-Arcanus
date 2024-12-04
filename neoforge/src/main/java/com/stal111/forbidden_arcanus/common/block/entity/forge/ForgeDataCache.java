@@ -8,29 +8,52 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 /**
  * @author stal111
  * @since 01.06.2024
  */
-public record ForgeDataCache(Map<BlockPos, ItemStack> cachedIngredients, ItemStack mainIngredient, Map<Integer, Holder<EnhancerDefinition>> enhancers) {
+public record ForgeDataCache(ArrayList<IngredientEntry> cachedIngredients, ItemStack mainIngredient, List<Holder<EnhancerDefinition>> enhancers) {
 
     public static final Codec<ForgeDataCache> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.unboundedMap(BlockPos.CODEC, ItemStack.CODEC).fieldOf("ingredients").forGetter(ForgeDataCache::cachedIngredients),
-            ItemStack.CODEC.fieldOf("main_ingredient").forGetter(ForgeDataCache::mainIngredient),
-            Codec.unboundedMap(Codec.INT, EnhancerDefinition.REFERENCE_CODEC).fieldOf("enhancers").forGetter(ForgeDataCache::enhancers)
+            IngredientEntry.CODEC.listOf().xmap(ArrayList::new, UnaryOperator.identity()).fieldOf("ingredients").forGetter(ForgeDataCache::cachedIngredients),
+            ItemStack.OPTIONAL_CODEC.fieldOf("main_ingredient").forGetter(ForgeDataCache::mainIngredient),
+            EnhancerDefinition.REFERENCE_CODEC.listOf().fieldOf("enhancers").forGetter(ForgeDataCache::enhancers)
     ).apply(instance, ForgeDataCache::new));
 
-    public static final ForgeDataCache EMPTY = new ForgeDataCache(new HashMap<>(), ItemStack.EMPTY, new HashMap<>());
+    public static final ForgeDataCache EMPTY = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
 
     public ForgeDataCache setMainIngredient(ItemStack mainIngredient) {
         return new ForgeDataCache(this.cachedIngredients, mainIngredient, this.enhancers);
     }
 
+    public ForgeDataCache setEnhancers(List<Holder<EnhancerDefinition>> enhancers) {
+        return new ForgeDataCache(this.cachedIngredients, this.mainIngredient, enhancers);
+    }
+
     public HolderSet<EnhancerDefinition> getEnhancers() {
-        return HolderSet.direct(UnaryOperator.identity(), this.enhancers.values());
+        return HolderSet.direct(UnaryOperator.identity(), this.enhancers);
+    }
+
+    public void setIngredient(BlockPos pos, ItemStack stack) {
+        this.cachedIngredients.removeIf(entry -> entry.pos().equals(pos));
+
+        if (!stack.isEmpty()) {
+            this.cachedIngredients.add(new IngredientEntry(pos, stack));
+        }
+    }
+
+    public List<ItemStack> getIngredients() {
+        return this.cachedIngredients.stream().map(IngredientEntry::stack).toList();
+    }
+
+    public record IngredientEntry(BlockPos pos, ItemStack stack) {
+        public static final Codec<IngredientEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                BlockPos.CODEC.fieldOf("pos").forGetter(IngredientEntry::pos),
+                ItemStack.SINGLE_ITEM_CODEC.fieldOf("stack").forGetter(IngredientEntry::stack)
+        ).apply(instance, IngredientEntry::new));
     }
 }

@@ -98,22 +98,22 @@ public class RitualManager {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void onDataChanged(ForgeDataCache dataCache, EssencesDefinition essencesDefinition) {
+    public void onDataChanged(ForgeDataCache dataCache, EssencesDefinition essencesDefinition, HolderLookup.Provider lookupProvider) {
         this.dataCache = dataCache;
 
         this.getActiveRitualData().ifPresent(data -> {
-            if (!data.getRitual().checkIngredients(this.dataCache.cachedIngredients().values(), this.dataCache.mainIngredient())) {
+            if (!data.getRitual().checkIngredients(this.dataCache.getIngredients(), this.dataCache.mainIngredient())) {
                 this.failRitual();
             }
         });
 
-        this.updateValidRitual(essencesDefinition);
+        this.updateValidRitual(essencesDefinition, lookupProvider);
     }
 
-    public void updateValidRitual(EssencesDefinition definition) {
+    public void updateValidRitual(EssencesDefinition definition, HolderLookup.Provider lookupProvider) {
         boolean oldValue = this.validRitual != null;
 
-        for (Holder<Ritual> ritual : this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).holders().toList()) {
+        for (Holder<Ritual> ritual : lookupProvider.lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
             if (this.canStartRitual(ritual.value(), definition)) {
                 if (!oldValue) {
                     this.updateRitualIndicator(true);
@@ -174,8 +174,8 @@ public class RitualManager {
 
         this.handleLightningCounter(data);
 
-        this.dataCache.cachedIngredients().forEach((blockPos, stack) -> {
-            this.addItemParticles(blockPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + data.getCounter(), PEDESTAL_ITEM_HEIGHT), stack);
+        this.dataCache.cachedIngredients().forEach(entry -> {
+            this.addItemParticles(entry.pos(), Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + data.getCounter(), PEDESTAL_ITEM_HEIGHT), entry.stack());
         });
 
         if (progress == 0.5F && random.nextDouble() <= this.getFailureChance() * 2) {
@@ -296,8 +296,8 @@ public class RitualManager {
     }
 
     private void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
-        for (BlockPos pos : this.dataCache.cachedIngredients().keySet()) {
-            if (this.level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity && predicate.test(blockEntity)) {
+        for (ForgeDataCache.IngredientEntry entry : this.dataCache.cachedIngredients()) {
+            if (this.level.getBlockEntity(entry.pos()) instanceof PedestalBlockEntity blockEntity && predicate.test(blockEntity)) {
                 consumer.accept(blockEntity);
             }
         }

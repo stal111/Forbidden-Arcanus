@@ -81,7 +81,7 @@ public record Ritual(List<RitualInput> inputs,
             return false;
         }
 
-        return this.checkIngredients(dataCache.cachedIngredients().values(), dataCache.mainIngredient());
+        return this.checkIngredients(dataCache.getIngredients(), dataCache.mainIngredient());
     }
 
     public boolean checkIngredients(Collection<ItemStack> list, ItemStack mainIngredient) {
