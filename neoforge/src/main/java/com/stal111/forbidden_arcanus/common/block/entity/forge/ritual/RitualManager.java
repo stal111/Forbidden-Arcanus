@@ -304,6 +304,8 @@ public class RitualManager {
     }
 
     private void updateRitualIndicator(boolean show) {
-        this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_INDICATOR, BooleanUtils.toInteger(show));
+        if (this.level != null) {
+            this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_INDICATOR, BooleanUtils.toInteger(show));
+        }
     }
 }
