@@ -11,6 +11,8 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -193,6 +195,10 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (newState.getBlock() instanceof HephaestusForgeBlock) {
             return;
+        }
+
+        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
+            Containers.dropContents(level, pos, blockEntity.getStacks());
         }
 
         super.onRemove(state, level, pos, newState, movedByPiston);
