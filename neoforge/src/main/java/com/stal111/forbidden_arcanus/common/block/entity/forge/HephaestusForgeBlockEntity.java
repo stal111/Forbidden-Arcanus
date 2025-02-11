@@ -35,10 +35,7 @@ import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaCo
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Hephaestus Forge Block Entity <br>
@@ -67,7 +64,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     private final RitualManager ritualManager;
     private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
 
-    private ForgeDataCache dataCache = ForgeDataCache.EMPTY;
+    private ForgeDataCache dataCache;
     private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
 
     private ValidRitualIndicator validRitualIndicator;
@@ -119,8 +116,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         if (state.getBlock() instanceof HephaestusForgeBlock forgeBlock) {
             this.forgeLevel = forgeBlock.getLevel();
         }
-
-        this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt());
+        this.dataCache = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
+        this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt(), this.dataCache);
         this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), essencesDefinition -> this.ritualManager.updateValidRitual(essencesDefinition, this.level.registryAccess()));
     }
 

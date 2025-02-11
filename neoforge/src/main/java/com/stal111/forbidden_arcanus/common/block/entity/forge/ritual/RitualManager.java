@@ -55,7 +55,7 @@ public class RitualManager {
 
     private final MagicCircleController magicCircleController;
 
-    private ForgeDataCache dataCache = ForgeDataCache.EMPTY;
+    private ForgeDataCache dataCache;
 
     private ServerLevel level;
     private BlockPos pos;
@@ -64,9 +64,10 @@ public class RitualManager {
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
 
-    public RitualManager(MagicCircleController circleController, int forgeTier) {
+    public RitualManager(MagicCircleController circleController, int forgeTier, ForgeDataCache dataCache) {
         this.magicCircleController = circleController;
         this.forgeTier = forgeTier;
+        this.dataCache = dataCache;
     }
 
     public void setup(ServerLevel level, BlockPos pos) {
