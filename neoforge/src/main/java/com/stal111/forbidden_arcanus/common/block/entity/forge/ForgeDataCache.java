@@ -24,8 +24,6 @@ public record ForgeDataCache(ArrayList<IngredientEntry> cachedIngredients, ItemS
             EnhancerDefinition.REFERENCE_CODEC.listOf().fieldOf("enhancers").forGetter(ForgeDataCache::enhancers)
     ).apply(instance, ForgeDataCache::new));
 
-    public static final ForgeDataCache EMPTY = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
-
     public ForgeDataCache setMainIngredient(ItemStack mainIngredient) {
         return new ForgeDataCache(this.cachedIngredients, mainIngredient, this.enhancers);
     }
