@@ -4,18 +4,21 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.item.RitualStarterItem;
+import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -149,9 +152,13 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         this.updateState(state, level, pos);
 
-        if (state.getValue(ACTIVATED) && stack.getItem() instanceof RitualStarterItem ritualStarterItem) {
-            if (!level.isClientSide() && level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
-                ritualStarterItem.tryStartRitual(blockEntity, level, stack, player);
+        RitualStarter ritualStarter = stack.get(ModDataComponents.RITUAL_STARTER);
+
+        if (state.getValue(ACTIVATED) && ritualStarter != null && level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
+            level.playSound(player, pos, ritualStarter.soundEvent().value(), SoundSource.PLAYERS, 0.85F, level.getRandom().nextFloat() * 0.15F + 0.9F);
+
+            if (blockEntity.getRitualManager().startRitual(blockEntity.getEssenceManager().getStorage()) && !player.getAbilities().instabuild) {
+                stack.hurtAndBreak(ritualStarter.damagePerRitual(), player, LivingEntity.getSlotForHand(hand));
             }
 
             return ItemInteractionResult.sidedSuccess(level.isClientSide());

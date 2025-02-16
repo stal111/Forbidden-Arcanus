@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.core.init;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.common.item.component.ToggleableState;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -36,10 +37,9 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<StoredEntity>> STORED_ENTITY = HELPER.register("stored_entity", () -> DataComponentType.<StoredEntity>builder().persistent(StoredEntity.CODEC).networkSynchronized(StoredEntity.STREAM_CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> STORED_FLUID_AMOUNT = HELPER.register("stored_fluid_amount", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> TICKS_TILL_NEXT_STAGE = HELPER.register("ticks_till_next_stage", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).build());
-    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> RITUAL_USES = HELPER.register("ritual_uses", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).build());
-    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Integer>> REMAINING_RITUAL_USES = HELPER.register("remaining_ritual_uses", () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<ResourceKey<EnhancerDefinition>>> ENHANCER = HELPER.register("enhancer", () -> DataComponentType.<ResourceKey<EnhancerDefinition>>builder().persistent(ResourceKey.codec(FARegistries.ENHANCER_DEFINITION)).networkSynchronized(ResourceKey.streamCodec(FARegistries.ENHANCER_DEFINITION)).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<ToggleableState>> TOGGLEABLE_STATE = HELPER.register("toggleable_state", () -> DataComponentType.<ToggleableState>builder().persistent(ToggleableState.CODEC).networkSynchronized(ToggleableState.STREAM_CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Unit>> SHOWS_AUREAL_METER = HELPER.register("shows_aureal_meter", () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<RitualStarter>> RITUAL_STARTER = HELPER.register("ritual_starter", () -> DataComponentType.<RitualStarter>builder().persistent(RitualStarter.CODEC).build());
 
 }
