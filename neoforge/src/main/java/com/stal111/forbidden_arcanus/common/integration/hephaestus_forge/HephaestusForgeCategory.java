@@ -49,6 +49,9 @@ public abstract class HephaestusForgeCategory<T extends RitualResult> implements
     private static final IntIntPair ENHANCER_POSITION = IntIntPair.of(10, 12);
     private static final int ENHANCER_Y_OFFSET = 21;
 
+    private static final int WIDTH = 148;
+    private static final int HEIGHT = 108;
+
     private final String name;
 
     private final IDrawable background;
@@ -57,7 +60,7 @@ public abstract class HephaestusForgeCategory<T extends RitualResult> implements
 
     public HephaestusForgeCategory(String name, IGuiHelper guiHelper, ResourceLocation texture, int essencesStartX, int essencesStartY) {
         this.name = name;
-        this.background = guiHelper.createDrawable(texture, 0, 0, 148, 108);
+        this.background = guiHelper.createDrawable(texture, 0, 0, WIDTH, HEIGHT);
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()));
         this.essences = EssenceInfo.create(guiHelper, essencesStartX, essencesStartY);
     }
@@ -65,11 +68,6 @@ public abstract class HephaestusForgeCategory<T extends RitualResult> implements
     @Override
     public @NotNull Component getTitle() {
         return Component.translatable("jei.forbidden_arcanus.category." + name);
-    }
-
-    @Override
-    public @NotNull IDrawable getBackground() {
-        return this.background;
     }
 
     @Override
@@ -121,6 +119,7 @@ public abstract class HephaestusForgeCategory<T extends RitualResult> implements
 
     @Override
     public void draw(@NotNull Ritual recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.background.draw(guiGraphics);
         this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(guiGraphics, essenceInfo.posX(), essenceInfo.posY()));
     }
 
@@ -131,6 +130,16 @@ public abstract class HephaestusForgeCategory<T extends RitualResult> implements
                 tooltip.add(essenceInfo.getTooltip(recipe.requirements().essences()));
             }
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public static ItemStack getForgeItem(int tier) {

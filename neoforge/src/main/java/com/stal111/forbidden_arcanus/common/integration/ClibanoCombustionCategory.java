@@ -43,6 +43,9 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/gui/jei/clibano_combustion.png");
     private static final Component TITLE = Component.translatable("jei.forbidden_arcanus.category.clibanoCombustion");
 
+    private static final int WIDTH = 147;
+    private static final int HEIGHT = 97;
+
     private final IDrawable background;
     private final IDrawable icon;
 
@@ -56,7 +59,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
 
 
     public ClibanoCombustionCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 147, 97);
+        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, WIDTH, HEIGHT);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CLIBANO_CORE.get()));
 
         this.staticFlame = guiHelper.createDrawable(TEXTURE, 151, 1, 12, 15);
@@ -94,12 +97,6 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
 
     @NotNull
     @Override
-    public IDrawable getBackground() {
-        return this.background;
-    }
-
-    @NotNull
-    @Override
     public IDrawable getIcon() {
         return this.icon;
     }
@@ -133,6 +130,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
 
     @Override
     public void draw(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        this.background.draw(guiGraphics);
         this.animatedFlames.get(recipe.requiredFireType()).draw(guiGraphics, 48, 43);
 
         if (!recipe.isDoubleRecipe()) {
@@ -180,5 +178,15 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
                 );
             });
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 }
