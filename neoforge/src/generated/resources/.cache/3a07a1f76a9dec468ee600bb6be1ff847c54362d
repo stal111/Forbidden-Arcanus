@@ -1,4 +1,4 @@
-// 1.21.1	2024-12-02T11:36:15.7296489	Tags for minecraft:block mod id forbidden_arcanus
+// 1.21.1	2025-02-16T19:21:41.4663751	Tags for minecraft:block mod id forbidden_arcanus
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/block/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/c/tags/block/glass_blocks.json
@@ -25,6 +25,7 @@ b128c22b1f0aef1502fa919bc8d063604b299c75 data/c/tags/block/storage_blocks/deorum
 4537d87f4c6aa46c92855cb04d1b2dad47830afa data/forbidden_arcanus/tags/block/hephaestus_forges.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/block/magical_farmland_blacklisted.json
 410a698c3c1ca7186a3b059d2fd4121f45aab362 data/forbidden_arcanus/tags/block/mysterywood_logs.json
+62f8b32a35cbdf7b03ae81ef55185863fcd03d58 data/forbidden_arcanus/tags/block/pedestals.json
 ec5f886acc1397ae55fe6faaca722b2a2cebb465 data/forbidden_arcanus/tags/block/rune_blocks.json
 321796da77cb8905e7a9b8b3c8413298f0cb9bfe data/forbidden_arcanus/tags/block/runic_stones.json
 7178fc65549c2cdfe3c0d34421efedf7c81a341f data/minecraft/tags/block/base_stone_overworld.json
@@ -38,11 +39,11 @@ a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/block/logs.json
 c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/block/logs_that_burn.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/mineable/hoe.json
-10aac0822ef158dfed8880a4aba0b5ba7e57574e data/minecraft/tags/block/mineable/pickaxe.json
+959740657379db19a93ecbd9519033e5542ba220 data/minecraft/tags/block/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/block/mineable/shovel.json
 a84a4c59e0530b69750aa8d7a2e184e4c70da27d data/minecraft/tags/block/needs_diamond_tool.json
 f5e817be5db288101afc38ab4ee917799b5d90fe data/minecraft/tags/block/needs_iron_tool.json
-a36e2773b5baf7124871d28a30069e16562a7cac data/minecraft/tags/block/needs_stone_tool.json
+7409d3247bf12caf29a8645fc01252d161bdbe5b data/minecraft/tags/block/needs_stone_tool.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/block/planks.json
 d8eb1237115a12ebd5759bebf3361289621b0456 data/minecraft/tags/block/saplings.json
 9e9500e769cd5c0703ef99e4a2a0df188529f697 data/minecraft/tags/block/small_flowers.json

@@ -34,8 +34,6 @@
     "forbidden_arcanus:arcane_polished_darkstone_stairs",
     "forbidden_arcanus:chiseled_arcane_polished_darkstone",
     "forbidden_arcanus:arcane_polished_darkstone_pillar",
-    "forbidden_arcanus:darkstone_pedestal",
-    "forbidden_arcanus:magnetized_darkstone_pedestal",
     "forbidden_arcanus:tiled_polished_darkstone_bricks",
     "forbidden_arcanus:clibano_core",
     "forbidden_arcanus:clibano_side_horizontal",
@@ -48,6 +46,7 @@
     "#forbidden_arcanus:runic_stones",
     "#forbidden_arcanus:rune_blocks",
     "#forbidden_arcanus:arcane_crystal_ores",
-    "#forbidden_arcanus:hephaestus_forges"
+    "#forbidden_arcanus:hephaestus_forges",
+    "#forbidden_arcanus:pedestals"
   ]
 }

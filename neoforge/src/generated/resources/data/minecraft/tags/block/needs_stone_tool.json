@@ -1,5 +1,6 @@
 {
   "values": [
+    "#forbidden_arcanus:pedestals",
     "forbidden_arcanus:darkstone",
     "forbidden_arcanus:darkstone_slab",
     "forbidden_arcanus:darkstone_stairs",
@@ -23,8 +24,6 @@
     "forbidden_arcanus:arcane_polished_darkstone_wall",
     "forbidden_arcanus:chiseled_arcane_polished_darkstone",
     "forbidden_arcanus:arcane_polished_darkstone_pillar",
-    "forbidden_arcanus:darkstone_pedestal",
-    "forbidden_arcanus:magnetized_darkstone_pedestal",
     "forbidden_arcanus:clibano_core",
     "forbidden_arcanus:clibano_side_horizontal",
     "forbidden_arcanus:clibano_side_vertical",
