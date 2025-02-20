@@ -72,11 +72,6 @@ public class CapacityMilkBucketItem extends MilkBucketItem implements CapacityBu
     }
 
     @Override
-    public int getCapacity() {
-        return 4;
-    }
-
-    @Override
     public BucketFamily getFamily() {
         return this.family;
     }

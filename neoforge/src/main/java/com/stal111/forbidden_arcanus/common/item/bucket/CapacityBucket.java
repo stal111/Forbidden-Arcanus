@@ -14,7 +14,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface CapacityBucket {
 
-    int getCapacity();
+    default int getCapacity(ItemStack stack) {
+        return stack.getOrDefault(ModDataComponents.BUCKET_CAPACITY, 0);
+    }
+
     BucketFamily getFamily();
 
     default Item getEmptyBucket() {
@@ -42,15 +45,15 @@ public interface CapacityBucket {
             return this.getEmptyBucket().getDefaultInstance();
         }
 
-        stack.set(ModDataComponents.STORED_FLUID_AMOUNT, Mth.clamp(fullness, 1, this.getCapacity()));
+        stack.set(ModDataComponents.STORED_FLUID_AMOUNT, Mth.clamp(fullness, 1, this.getCapacity(stack)));
 
         return stack;
     }
 
     default boolean isFull(ItemStack stack) {
-        if (this.getCapacity() == 0) {
+        if (this.getCapacity(stack) == 0) {
             return false;
         }
-        return this.getFullness(stack) >= this.getCapacity();
+        return this.getFullness(stack) >= this.getCapacity(stack);
     }
 }

@@ -41,13 +41,11 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
     private static final double BURN_CHANCE = 0.005;
 
     private final Fluid fluid;
-    private final int capacity;
     private final BucketFamily family;
 
-    public CapacityBucketItem(Fluid fluid, int capacity, BucketFamily family, Properties builder) {
+    public CapacityBucketItem(Fluid fluid, BucketFamily family, Properties builder) {
         super(fluid, builder);
         this.fluid = fluid;
-        this.capacity = capacity;
         this.family = family;
     }
 
@@ -142,11 +140,6 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
         }
 
         return filledBucket;
-    }
-
-    @Override
-    public int getCapacity() {
-        return this.capacity;
     }
 
     @Override

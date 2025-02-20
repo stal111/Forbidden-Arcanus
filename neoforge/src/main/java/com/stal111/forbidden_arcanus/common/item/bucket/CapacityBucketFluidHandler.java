@@ -50,7 +50,7 @@ public class CapacityBucketFluidHandler implements IFluidHandlerItem {
 
     @Override
     public int getTankCapacity(int tank) {
-        return this.bucket.getCapacity();
+        return this.bucket.getCapacity(this.container);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class CapacityBucketFluidHandler implements IFluidHandlerItem {
                 return FluidType.BUCKET_VOLUME;
             }
 
-            int fillAmount = Math.min(this.bucket.getCapacity() - fullness, resource.getAmount() / FluidType.BUCKET_VOLUME);
+            int fillAmount = Math.min(this.bucket.getCapacity(this.container) - fullness, resource.getAmount() / FluidType.BUCKET_VOLUME);
 
             this.bucket.setFullness(this.container, fullness + fillAmount);
 

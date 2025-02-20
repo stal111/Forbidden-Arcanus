@@ -65,11 +65,6 @@ public class SolidCapacityBucketItem extends SolidBucketItem implements Capacity
     }
 
     @Override
-    public int getCapacity() {
-        return 3;
-    }
-
-    @Override
     public BucketFamily getFamily() {
         return this.family;
     }
