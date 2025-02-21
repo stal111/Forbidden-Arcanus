@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
@@ -10,7 +11,6 @@ import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.StandingAndWallBlockItem;
@@ -44,11 +44,8 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
         }
     };
 
-    private final ObsidianSkullType type;
-
-    public ObsidianSkullItem(ObsidianSkullType type, Block floorBlock, Block wallBlock, Properties properties) {
+    public ObsidianSkullItem(Block floorBlock, Block wallBlock, Properties properties) {
         super(floorBlock, wallBlock, properties, Direction.DOWN);
-        this.type = type;
     }
 
     @Nullable
@@ -67,15 +64,10 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
             return;
         }
 
-        this.type.tick(stack, player);
+        this.getType(stack).tick(stack, player);
     }
 
-    public ObsidianSkullType getType() {
-        return this.type;
-    }
-
-    @Override
-    public boolean isEnabled(FeatureFlagSet enabledFeatures) {
-        return this.type != ObsidianSkullType.AUREALIC && this.type != ObsidianSkullType.ETERNAL;
+    public ObsidianSkullType getType(ItemStack stack) {
+        return stack.getOrDefault(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.DEFAULT);
     }
 }

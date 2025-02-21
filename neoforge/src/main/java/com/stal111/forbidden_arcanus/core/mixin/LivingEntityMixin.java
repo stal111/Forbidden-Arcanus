@@ -27,7 +27,7 @@ public abstract class LivingEntityMixin {
         if (effect.is(MobEffects.FIRE_RESISTANCE)) {
             ItemStack stack = this.getItemBySlot(EquipmentSlot.HEAD);
 
-            if (stack.getItem() instanceof ObsidianSkullItem skullItem && skullItem.getType().shouldProtect((LivingEntity) (Object) this)) {
+            if (stack.getItem() instanceof ObsidianSkullItem skullItem && skullItem.getType(stack).shouldProtect((LivingEntity) (Object) this)) {
                 cir.setReturnValue(true);
             }
         }
