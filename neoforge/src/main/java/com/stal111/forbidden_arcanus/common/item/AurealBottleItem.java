@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -11,18 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
-import javax.annotation.Nonnull;
-
-/**
- * Aureal Bottle Item <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.AurealBottleItem
- *
- * @author stal111
- * @version 16.2.0
- * @since 2021-02-16
- */
 public class AurealBottleItem extends Item {
 
     private static final int USE_DURATION = 32;
@@ -31,56 +22,44 @@ public class AurealBottleItem extends Item {
         super(properties);
     }
 
-    @Nonnull
     @Override
-    public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull LivingEntity livingEntity) {
-        ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE);
-
-        if (!(livingEntity instanceof Player player)) {
-            return emptyBottle;
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+        if (livingEntity instanceof ServerPlayer player) {
+            CriteriaTriggers.CONSUME_ITEM.trigger(player, stack);
+            player.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        if (player instanceof ServerPlayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
+        if (!level.isClientSide()) {
+            int aurealAmount = EssenceHelper.getEssenceData(stack).map(EssenceData::amount).orElse(0);
 
-            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
-                provider.updateAmount(EssenceType.AUREAL, amount -> amount + 35);
+            EssenceHelper.getEssenceProvider(livingEntity).ifPresent(provider -> {
+                provider.updateAmount(EssenceType.AUREAL, amount -> amount + aurealAmount);
             });
         }
 
-        player.awardStat(Stats.ITEM_USED.get(this));
-        ItemStackUtils.shrinkStack(player, stack);
-
-        if (!player.getAbilities().instabuild) {
-            if (stack.isEmpty()) {
-                return emptyBottle;
-            }
-
-            player.getInventory().add(emptyBottle);
-        }
+        stack.consume(1, livingEntity);
 
         return stack;
     }
 
     @Override
-    public int getUseDuration(@Nonnull ItemStack stack, LivingEntity entity) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return USE_DURATION;
     }
 
-    @Nonnull
     @Override
-    public UseAnim getUseAnimation(@Nonnull ItemStack stack) {
+    public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 
-    @Nonnull
     @Override
-    public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
-        return EssenceHelper.getEssenceProvider(player).map(provider -> {
-            if (!provider.isFull(EssenceType.AUREAL)) {
-                return ItemUtils.startUsingInstantly(level, player, hand);
-            }
-            return super.use(level, player, hand);
-        }).orElse(super.use(level, player, hand));
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        EssenceProvider essenceProvider = EssenceHelper.getEssenceProvider(player).orElse(null);
+
+        if (essenceProvider != null && !essenceProvider.isFull(EssenceType.AUREAL)) {
+            return ItemUtils.startUsingInstantly(level, player, hand);
+        }
+
+        return super.use(level, player, hand);
     }
 }
