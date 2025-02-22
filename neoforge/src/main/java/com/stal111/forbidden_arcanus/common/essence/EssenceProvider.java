@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import net.minecraft.util.Mth;
 import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 
@@ -28,7 +29,7 @@ public interface EssenceProvider {
     default void setAmount(EssenceType type, int amount) {
         EssenceStorage storage = this.asStorage(type);
 
-        this.setStorage(new EssenceStorage(EssenceData.of(type, Math.min(amount, storage.limit())), storage.limit(), storage.showInTooltip()));
+        this.setStorage(new EssenceStorage(EssenceData.of(type, Mth.clamp(amount, 0, storage.limit())), storage.limit(), storage.showInTooltip()));
     }
 
     default void updateAmount(EssenceType type, UnaryOperator<Integer> operator) {

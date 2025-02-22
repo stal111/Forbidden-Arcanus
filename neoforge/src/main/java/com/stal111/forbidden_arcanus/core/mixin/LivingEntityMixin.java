@@ -2,11 +2,15 @@ package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,16 +22,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * @since 10.09.2023
  */
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin {
+public abstract class LivingEntityMixin extends Entity {
+
+    public LivingEntityMixin(EntityType<?> entityType, Level level) {
+        super(entityType, level);
+    }
 
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot pSlot);
 
     @Inject(at = @At(value = "HEAD"), method = "hasEffect", cancellable = true)
     public void forbiddenArcanus_hasEffect$preventFireDamage(Holder<MobEffect> effect, CallbackInfoReturnable<Boolean> cir) {
-        if (effect.is(MobEffects.FIRE_RESISTANCE)) {
+        if (effect.is(MobEffects.FIRE_RESISTANCE) && this.level() instanceof ServerLevel serverLevel) {
             ItemStack stack = this.getItemBySlot(EquipmentSlot.HEAD);
 
-            if (stack.getItem() instanceof ObsidianSkullItem skullItem && skullItem.getType(stack).shouldProtect((LivingEntity) (Object) this)) {
+            if (stack.getItem() instanceof ObsidianSkullItem skullItem && skullItem.getType(stack).shouldProtect(serverLevel, (LivingEntity) (Object) this)) {
                 cir.setReturnValue(true);
             }
         }
