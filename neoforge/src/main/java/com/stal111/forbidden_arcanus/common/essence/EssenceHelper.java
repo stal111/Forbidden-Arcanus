@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -22,7 +22,7 @@ public class EssenceHelper {
         return Optional.ofNullable(stack.get(ModDataComponents.ESSENCE_STORAGE));
     }
 
-    public static Optional<EssenceProvider> getEssenceProvider(LivingEntity entity) {
+    public static Optional<EssenceProvider> getEssenceProvider(Entity entity) {
         return Optional.ofNullable(entity.getCapability(EssenceProvider.ENTITY_ESSENCE));
     }
 

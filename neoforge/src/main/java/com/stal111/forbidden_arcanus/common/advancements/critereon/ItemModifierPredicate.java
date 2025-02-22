@@ -10,7 +10,6 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
@@ -21,12 +20,12 @@ public record ItemModifierPredicate(HolderSet<ItemModifier> modifiers) implement
     public static final Codec<ItemModifierPredicate> CODEC = RegistryCodecs.homogeneousList(FARegistries.ITEM_MODIFIER).xmap(ItemModifierPredicate::new, ItemModifierPredicate::modifiers);
 
     @Override
-    public @NotNull DataComponentType<Holder<ItemModifier>> componentType() {
+    public DataComponentType<Holder<ItemModifier>> componentType() {
         return ModDataComponents.ITEM_MODIFIER.get();
     }
 
     @Override
-    public boolean matches(@NotNull ItemStack stack, @NotNull Holder<ItemModifier> modifier) {
+    public boolean matches(ItemStack stack, Holder<ItemModifier> modifier) {
         return this.modifiers.contains(modifier);
     }
 
