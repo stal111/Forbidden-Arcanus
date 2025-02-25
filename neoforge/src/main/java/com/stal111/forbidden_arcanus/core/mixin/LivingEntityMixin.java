@@ -1,10 +1,10 @@
 package com.stal111.forbidden_arcanus.core.mixin;
 
-import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
+import com.stal111.forbidden_arcanus.common.item.component.EffectGrantingRule;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,6 +16,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 /**
  * @author stal111
@@ -31,12 +33,19 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot pSlot);
 
     @Inject(at = @At(value = "HEAD"), method = "hasEffect", cancellable = true)
-    public void forbiddenArcanus_hasEffect$preventFireDamage(Holder<MobEffect> effect, CallbackInfoReturnable<Boolean> cir) {
-        if (effect.is(MobEffects.FIRE_RESISTANCE) && this.level() instanceof ServerLevel serverLevel) {
-            ItemStack stack = this.getItemBySlot(EquipmentSlot.HEAD);
+    public void forbiddenArcanus_hasEffect$preventEffect(Holder<MobEffect> effect, CallbackInfoReturnable<Boolean> cir) {
+        if (this.level() instanceof ServerLevel serverLevel) {
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                ItemStack stack = this.getItemBySlot(slot);
 
-            if (stack.getItem() instanceof ObsidianSkullItem skullItem && skullItem.getType(stack).shouldProtect(serverLevel, (LivingEntity) (Object) this)) {
-                cir.setReturnValue(true);
+                List<EffectGrantingRule> rules = stack.getOrDefault(ModDataComponents.GRANTS_EFFECTS, List.of());
+
+                for (EffectGrantingRule rule : rules) {
+                    if (rule.shouldGrantEffect(serverLevel, slot, effect, (LivingEntity) (Object) this)) {
+                        cir.setReturnValue(true);
+                        return;
+                    }
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.item.component.EffectGrantingRule;
 import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.common.item.component.ToggleableState;
@@ -22,6 +23,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+
+import java.util.List;
 
 /**
  * @author stal111
@@ -44,5 +47,6 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Unit>> SHOWS_AUREAL_METER = HELPER.register("shows_aureal_meter", () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<RitualStarter>> RITUAL_STARTER = HELPER.register("ritual_starter", () -> DataComponentType.<RitualStarter>builder().persistent(RitualStarter.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<ObsidianSkullType>> OBSIDIAN_SKULL_TYPE = HELPER.register("obsidian_skull_type", () -> DataComponentType.<ObsidianSkullType>builder().persistent(ObsidianSkullType.CODEC).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<List<EffectGrantingRule>>> GRANTS_EFFECTS = HELPER.register("grants_effects", () -> DataComponentType.<List<EffectGrantingRule>>builder().persistent(EffectGrantingRule.CODEC.listOf()).build());
 
 }

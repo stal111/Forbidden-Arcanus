@@ -13,6 +13,7 @@ import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianWallSkullBlock;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
+import com.stal111.forbidden_arcanus.common.item.component.EffectGrantingRule;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -32,6 +33,7 @@ import net.valhelsia.valhelsia_core.api.client.ValhelsiaRenderType;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.block.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -215,11 +217,11 @@ public class ModBlocks implements RegistryClass {
     }
 
     private static class BlockItems {
-        public static final SkullRegistryEntry.SkullItemFactory OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.DEFAULT));
-        public static final SkullRegistryEntry.SkullItemFactory CRACKED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.CRACKED));
-        public static final SkullRegistryEntry.SkullItemFactory FRAGMENTED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.FRAGMENTED));
-        public static final SkullRegistryEntry.SkullItemFactory FADING_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.FADING));
-        public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.AUREALIC));
-        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.ETERNAL));
+        public static final SkullRegistryEntry.SkullItemFactory OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.DEFAULT).component(ModDataComponents.GRANTS_EFFECTS, List.of(EffectGrantingRule.GRANT_FIRE_RESISTANCE)));
+        public static final SkullRegistryEntry.SkullItemFactory CRACKED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.CRACKED).component(ModDataComponents.GRANTS_EFFECTS, List.of(EffectGrantingRule.GRANT_FIRE_RESISTANCE)));
+        public static final SkullRegistryEntry.SkullItemFactory FRAGMENTED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.FRAGMENTED).component(ModDataComponents.GRANTS_EFFECTS, List.of(EffectGrantingRule.GRANT_FIRE_RESISTANCE)));
+        public static final SkullRegistryEntry.SkullItemFactory FADING_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.FADING).component(ModDataComponents.GRANTS_EFFECTS, List.of(EffectGrantingRule.GRANT_FIRE_RESISTANCE)));
+        public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.AUREALIC).component(ModDataComponents.GRANTS_EFFECTS, List.of(EffectGrantingRule.GRANT_FIRE_RESISTANCE_IF_HAS_AUREAL)));
+        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant().component(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.ETERNAL).component(ModDataComponents.GRANTS_EFFECTS, List.of(EffectGrantingRule.GRANT_FIRE_RESISTANCE)));
     }
 }

@@ -2,20 +2,15 @@ package com.stal111.forbidden_arcanus.common.block.skull;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.advancements.critereon.EssenceDataEntityPredicate;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SkullBlock;
@@ -26,23 +21,21 @@ import org.jetbrains.annotations.NotNull;
  * @since 10.09.2023
  */
 public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
-    DEFAULT("obsidian_skull", TickFunctions.DEFAULT, EntityPredicate.Builder.entity().build()),
-    CRACKED("cracked_obsidian_skull", TickFunctions.DEFAULT, EntityPredicate.Builder.entity().build()),
-    FRAGMENTED("fragmented_obsidian_skull", TickFunctions.DEFAULT, EntityPredicate.Builder.entity().build()),
-    FADING("fading_obsidian_skull", TickFunctions.DEFAULT, EntityPredicate.Builder.entity().build()),
-    AUREALIC("aurealic_obsidian_skull", TickFunctions.AUREALIC, EntityPredicate.Builder.entity().subPredicate(new EssenceDataEntityPredicate(EssenceData.of(EssenceType.AUREAL, 1))).build()),
-    ETERNAL("eternal_obsidian_skull", TickFunctions.EMPTY, EntityPredicate.Builder.entity().build());
+    DEFAULT("obsidian_skull", TickFunctions.DEFAULT),
+    CRACKED("cracked_obsidian_skull", TickFunctions.DEFAULT),
+    FRAGMENTED("fragmented_obsidian_skull", TickFunctions.DEFAULT),
+    FADING("fading_obsidian_skull", TickFunctions.DEFAULT),
+    AUREALIC("aurealic_obsidian_skull", TickFunctions.AUREALIC),
+    ETERNAL("eternal_obsidian_skull", TickFunctions.EMPTY);
 
     public static final Codec<ObsidianSkullType> CODEC = StringRepresentable.fromValues(ObsidianSkullType::values);
 
     private final String name;
     private final TickFunction tickFunction;
-    private final EntityPredicate shouldProtect;
 
-    ObsidianSkullType(String name, TickFunction tickFunction, EntityPredicate shouldProtect) {
+    ObsidianSkullType(String name, TickFunction tickFunction) {
         this.name = name;
         this.tickFunction = tickFunction;
-        this.shouldProtect = shouldProtect;
     }
 
     public ResourceLocation getTextureLocation() {
@@ -56,10 +49,6 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
 
     public void tick(ItemStack stack, Player player) {
         this.tickFunction.tick(this, stack, player);
-    }
-
-    public boolean shouldProtect(ServerLevel level, LivingEntity livingEntity) {
-        return this.shouldProtect.matches(level, null, livingEntity);
     }
 
     public static class TickFunctions {
