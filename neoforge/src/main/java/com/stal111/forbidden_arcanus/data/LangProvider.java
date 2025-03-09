@@ -315,6 +315,8 @@ public class LangProvider extends LanguageProvider {
         this.add("item", "toggle_state", "(Right-Click to toggle)");
         this.add("item", "toggle_state.activated", "Activated");
         this.add("item", "toggle_state.deactivated", "Deactivated");
+        this.add("item", "stored_entity", "Entity: %s");
+        this.add("item", "stored_entity.with_name", "Entity: %s (%s)");
 
         this.add("upgrade", "darkstone_upgrade", "Apply Item Modifier");
 

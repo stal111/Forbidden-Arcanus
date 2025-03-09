@@ -244,6 +244,8 @@
   "item.forbidden_arcanus.splash_aureal_bottle": "Splash Aureal Bottle",
   "item.forbidden_arcanus.stellarite_piece": "Stellarite Piece",
   "item.forbidden_arcanus.stone_blacksmith_gavel": "Stone Blacksmith Gavel",
+  "item.forbidden_arcanus.stored_entity": "Entity: %s",
+  "item.forbidden_arcanus.stored_entity.with_name": "Entity: %s (%s)",
   "item.forbidden_arcanus.tentacle": "Tentacle",
   "item.forbidden_arcanus.terrastomp_prism": "Terrastomp Prism",
   "item.forbidden_arcanus.test_tube": "Test Tube",
