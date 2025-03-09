@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import net.minecraft.ChatFormatting;
@@ -24,7 +24,7 @@ public class AurealTankItem extends Item {
     public static final int DEFAULT_CAPACITY = 100;
     public static final int MAX_CAPACITY = 3000;
 
-    public static final EssenceStorage DEFAULT_DATA = new EssenceStorage(EssenceData.createEmpty(EssenceType.AUREAL), MAX_CAPACITY, true);
+    public static final EssenceStorage DEFAULT_DATA = new EssenceStorage(EssenceValue.createEmpty(EssenceType.AUREAL), MAX_CAPACITY, true);
 
     private static final int BAR_COLOR = FastColor.ARGB32.color(255, 159, 226, 253);
 

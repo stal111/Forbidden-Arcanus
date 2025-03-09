@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -30,7 +30,7 @@ public class AurealBottleItem extends Item {
         }
 
         if (!level.isClientSide()) {
-            int aurealAmount = EssenceHelper.getEssenceData(stack).map(EssenceData::amount).orElse(0);
+            int aurealAmount = EssenceHelper.getEssenceValue(stack).map(EssenceValue::amount).orElse(0);
 
             EssenceHelper.getEssenceProvider(livingEntity).ifPresent(provider -> {
                 provider.updateAmount(EssenceType.AUREAL, amount -> amount + aurealAmount);

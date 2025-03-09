@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -98,7 +98,7 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
         EssenceStorage storage = input.get(ModDataComponents.ESSENCE_STORAGE);
 
         if (storage != null) {
-            this.amount = storage.data().amount();
+            this.amount = storage.value().amount();
             this.limit = storage.limit();
         }
     }
@@ -106,7 +106,7 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     @Override
     protected void collectImplicitComponents(DataComponentMap.@NotNull Builder builder) {
         super.collectImplicitComponents(builder);
-        builder.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceData.of(this.getBlockState().getValue(ModBlockStateProperties.ESSENCE_TYPE), this.amount), this.limit, true));
+        builder.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceValue.of(this.getBlockState().getValue(ModBlockStateProperties.ESSENCE_TYPE), this.amount), this.limit, true));
     }
 
     @Override

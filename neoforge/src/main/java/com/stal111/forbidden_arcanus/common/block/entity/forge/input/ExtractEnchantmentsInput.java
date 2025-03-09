@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
 import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -29,16 +29,16 @@ public class ExtractEnchantmentsInput implements HephaestusForgeInput {
     }
 
     @Override
-    public EssenceData getInputValue(ItemStack stack, RandomSource random) {
+    public EssenceValue getInputValue(ItemStack stack, RandomSource random) {
         int xp = this.getExperienceFromItem(stack);
 
         if (xp <= 0) {
-            return EssenceData.EMPTY;
+            return EssenceValue.EMPTY;
         }
 
         int i = (int) Math.ceil((double) xp / 2.0D);
 
-        return EssenceData.of(EssenceType.EXPERIENCE, i + random.nextInt(i));
+        return EssenceValue.of(EssenceType.EXPERIENCE, i + random.nextInt(i));
     }
 
     @Override

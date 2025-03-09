@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public class EssenceHelper {
 
-    public static Optional<EssenceData> getEssenceData(ItemStack stack) {
-        return Optional.ofNullable(stack.get(ModDataComponents.ESSENCE_DATA));
+    public static Optional<EssenceValue> getEssenceValue(ItemStack stack) {
+        return Optional.ofNullable(stack.get(ModDataComponents.ESSENCE_VALUE));
     }
 
     public static Optional<EssenceStorage> getEssenceStorage(ItemStack stack) {
@@ -29,7 +29,7 @@ public class EssenceHelper {
     public static ItemStack createStorageItem(Item item, EssenceType type, int amount, int limit) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceData.of(type, amount), limit, true));
+        stack.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceValue.of(type, amount), limit, true));
 
         return stack;
     }

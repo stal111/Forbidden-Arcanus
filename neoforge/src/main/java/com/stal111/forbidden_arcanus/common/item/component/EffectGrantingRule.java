@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.common.item.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.advancements.critereon.EssenceDataEntityPredicate;
+import com.stal111.forbidden_arcanus.common.advancements.critereon.EssenceValueEntityPredicate;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -25,7 +25,7 @@ public record EffectGrantingRule(Holder<MobEffect> effect, EquipmentSlotGroup sl
     ).apply(instance, EffectGrantingRule::new));
 
     public static final EffectGrantingRule GRANT_FIRE_RESISTANCE = new EffectGrantingRule(MobEffects.FIRE_RESISTANCE, EquipmentSlotGroup.HEAD, Optional.empty());
-    public static final EffectGrantingRule GRANT_FIRE_RESISTANCE_IF_HAS_AUREAL = new EffectGrantingRule(MobEffects.FIRE_RESISTANCE, EquipmentSlotGroup.HEAD, Optional.of(EntityPredicate.Builder.entity().subPredicate(new EssenceDataEntityPredicate(EssenceData.of(EssenceType.AUREAL, 1))).build()));
+    public static final EffectGrantingRule GRANT_FIRE_RESISTANCE_IF_HAS_AUREAL = new EffectGrantingRule(MobEffects.FIRE_RESISTANCE, EquipmentSlotGroup.HEAD, Optional.of(EntityPredicate.Builder.entity().subPredicate(new EssenceValueEntityPredicate(EssenceValue.of(EssenceType.AUREAL, 1))).build()));
 
     public boolean shouldGrantEffect(ServerLevel level, EquipmentSlot slot, Holder<MobEffect> effect, Entity entity) {
         return this.slot().test(slot) && this.effect().is(effect) && this.entityMatches(level, entity);

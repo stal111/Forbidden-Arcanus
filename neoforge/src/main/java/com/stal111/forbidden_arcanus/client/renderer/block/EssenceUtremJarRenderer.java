@@ -97,7 +97,7 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
         poseStack.translate(-0.5F, -0.5F, -0.5F);
 
         EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
-            this.blockEntity.setBlockState(this.blockEntity.getBlockState().setValue(ModBlockStateProperties.ESSENCE_TYPE, storage.data().type()));
+            this.blockEntity.setBlockState(this.blockEntity.getBlockState().setValue(ModBlockStateProperties.ESSENCE_TYPE, storage.value().type()));
         });
 
         this.blockEntity.rotateAnimation.startIfStopped(this.blockEntity.getTickCount());

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.world.item.Item;
@@ -16,7 +16,7 @@ public class BloodTestTubeItem extends Item {
 
     public static final int MAX_BLOOD = 3000;
 
-    public static final EssenceStorage DEFAULT_DATA = new EssenceStorage(EssenceData.createEmpty(EssenceType.BLOOD), MAX_BLOOD, true);
+    public static final EssenceStorage DEFAULT_DATA = new EssenceStorage(EssenceValue.createEmpty(EssenceType.BLOOD), MAX_BLOOD, true);
 
     public BloodTestTubeItem(Properties properties) {
         super(properties);

@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item.crafting;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -46,7 +46,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
         return stack;    }
 
     private EssenceStorage getCombinedStorage(List<ItemStack> stacks) {
-        EssenceData combined = EssenceData.EMPTY;
+        EssenceValue combined = EssenceValue.EMPTY;
         int limit = 0;
 
         for (ItemStack stack : stacks) {
@@ -61,7 +61,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
 
             if (storage != null) {
-                combined = combined.combine(storage.data());
+                combined = combined.combine(storage.value());
             }
         }
 

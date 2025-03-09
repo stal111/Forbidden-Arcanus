@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEnt
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -63,7 +63,7 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
 
         if (state != null) {
             EssenceType type = EssenceHelper.getEssenceStorage(context.getItemInHand()).
-                    map(essenceStorage -> essenceStorage.data().type())
+                    map(essenceStorage -> essenceStorage.value().type())
                     .orElse(EssenceType.AUREAL);
 
             state = state.setValue(ESSENCE_TYPE, type);
@@ -80,9 +80,9 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
             }
 
             for (HephaestusForgeInput input : FARegistries.FORGE_INPUT_REGISTRY) {
-                EssenceData inputValue = input.getMaxInputValue(stack, level.getRandom());
+                EssenceValue inputValue = input.getMaxInputValue(stack, level.getRandom());
 
-                if (inputValue != EssenceData.EMPTY && inputValue.type() == state.getValue(ESSENCE_TYPE)) {
+                if (inputValue != EssenceValue.EMPTY && inputValue.type() == state.getValue(ESSENCE_TYPE)) {
                     int amount = Math.min(blockEntity.getLimit() - blockEntity.getAmount(), inputValue.amount());
 
                     blockEntity.addEssence(amount);

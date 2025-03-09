@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -20,25 +20,25 @@ public class EssenceStorageInput implements HephaestusForgeInput {
 
     @Override
     public boolean canInput(EssenceType type, ItemStack stack) {
-        return EssenceHelper.getEssenceStorage(stack).map(storage -> storage.data().type() == type).orElse(false);
+        return EssenceHelper.getEssenceStorage(stack).map(storage -> storage.value().type() == type).orElse(false);
     }
 
     @Override
-    public EssenceData getInputValue(ItemStack stack, RandomSource random) {
-        EssenceData data = this.getMaxInputValue(stack, random);
+    public EssenceValue getInputValue(ItemStack stack, RandomSource random) {
+        EssenceValue data = this.getMaxInputValue(stack, random);
 
-        return EssenceData.of(data.type(), Math.min(data.amount(), EXTRACTION_SPEED));
+        return EssenceValue.of(data.type(), Math.min(data.amount(), EXTRACTION_SPEED));
     }
 
     @Override
-    public EssenceData getMaxInputValue(ItemStack stack, RandomSource random) {
-        return EssenceHelper.getEssenceStorage(stack).orElse(EssenceStorage.EMPTY).data();
+    public EssenceValue getMaxInputValue(ItemStack stack, RandomSource random) {
+        return EssenceHelper.getEssenceStorage(stack).orElse(EssenceStorage.EMPTY).value();
     }
 
     @Override
     public ItemStack finishInput(ItemStack stack, int inputValue) {
         return EssenceHelper.getEssenceStorage(stack).map(storage -> {
-            int amount = storage.data().amount();
+            int amount = storage.value().amount();
 
             storage.addEssence(stack, -inputValue);
 

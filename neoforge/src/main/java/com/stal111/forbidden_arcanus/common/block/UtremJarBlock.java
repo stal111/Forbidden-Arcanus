@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.essence.EssenceData;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
@@ -73,9 +73,9 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         for (HephaestusForgeInput input : FARegistries.FORGE_INPUT_REGISTRY) {
-            EssenceData inputValue = input.getMaxInputValue(stack, level.getRandom());
+            EssenceValue inputValue = input.getMaxInputValue(stack, level.getRandom());
 
-            if (inputValue != EssenceData.EMPTY) {
+            if (inputValue != EssenceValue.EMPTY) {
                 BlockState essenceJar = ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState()
                         .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
                         .setValue(ModBlockStateProperties.ESSENCE_TYPE, inputValue.type());

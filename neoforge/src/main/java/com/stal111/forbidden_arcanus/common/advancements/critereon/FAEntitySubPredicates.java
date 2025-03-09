@@ -12,6 +12,6 @@ public class FAEntitySubPredicates {
 
     public static final MappedRegistryHelper<MapCodec<? extends EntitySubPredicate>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ENTITY_SUB_PREDICATE_TYPE);
 
-    public static final Supplier<MapCodec<EssenceDataEntityPredicate>> ESSENCE = HELPER.register("essence", () -> EssenceDataEntityPredicate.MAP_CODEC);
+    public static final Supplier<MapCodec<EssenceValueEntityPredicate>> ESSENCE = HELPER.register("essence", () -> EssenceValueEntityPredicate.MAP_CODEC);
 
 }
