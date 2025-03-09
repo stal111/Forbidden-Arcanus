@@ -9,8 +9,6 @@ public class ItemConfig {
 
     public static ModConfigSpec.BooleanValue MUNDABITUR_DUST_CHARGE_CREEPER;
 
-    public static ModConfigSpec.IntValue XPETRIFIED_ORB_EXPERIENCE_POINTS;
-
     public static void init(ModConfigSpec.Builder builder) {
         builder.push("items");
 
@@ -18,8 +16,6 @@ public class ItemConfig {
         BOOM_ARROW_EXPLOSION_RADIUS = builder.comment("Radius of Boom Arrow explosions [default: 3]").defineInRange("boom_arrow.explosion_radius", 3, 1, 10);
 
         MUNDABITUR_DUST_CHARGE_CREEPER = builder.comment("Should right-clicking a Creeper with Mundabitur Dust charge the Creeper [default: true]").define("mundabitur_dust.charge_creeper", true);
-
-        XPETRIFIED_ORB_EXPERIENCE_POINTS = builder.comment("Experience Points the Orb grants on use [default: 91]").defineInRange("xpetrified_orb.experience_points", 91, 1, 120000);
 
         builder.pop();
     }
