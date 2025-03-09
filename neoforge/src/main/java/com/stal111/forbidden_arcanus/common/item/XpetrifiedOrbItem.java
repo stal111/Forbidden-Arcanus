@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 
@@ -31,7 +30,7 @@ public class XpetrifiedOrbItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
 
         player.giveExperiencePoints(ItemConfig.XPETRIFIED_ORB_EXPERIENCE_POINTS.get());
-        ItemStackUtils.shrinkStack(player, stack);
+        stack.consume(1, player);
 
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
     }

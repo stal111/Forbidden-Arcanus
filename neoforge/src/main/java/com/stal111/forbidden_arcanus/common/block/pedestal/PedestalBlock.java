@@ -33,7 +33,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -111,7 +110,7 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
                 if (pedestalStack.isEmpty() && !stack.isEmpty()) {
                     blockEntity.setStack(stack.copyWithCount(1), player, PedestalEffectTrigger.PLAYER_PLACE_ITEM);
 
-                    ItemStackUtils.shrinkStack(player, stack);
+                    stack.consume(1, player);
                 } else if (!pedestalStack.isEmpty()) {
                     if (stack.isEmpty()) {
                         player.setItemInHand(hand, pedestalStack);

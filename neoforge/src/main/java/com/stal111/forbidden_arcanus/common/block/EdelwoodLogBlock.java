@@ -42,7 +42,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import java.util.EnumMap;
@@ -113,7 +112,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
         if (stack.is(Items.GLASS_BOTTLE) && state.getValue(OILY)) {
             ItemStack oil = new ItemStack(ModItems.EDELWOOD_OIL.get());
 
-            ItemStackUtils.shrinkStack(player, stack);
+            stack.consume(1, player);
 
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);

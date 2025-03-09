@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 
@@ -40,7 +39,7 @@ public class SplashAurealBottleItem extends Item {
 
         player.awardStat(Stats.ITEM_USED.get(this));
 
-        ItemStackUtils.shrinkStack(player, stack);
+        stack.consume(1, player);
 
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }

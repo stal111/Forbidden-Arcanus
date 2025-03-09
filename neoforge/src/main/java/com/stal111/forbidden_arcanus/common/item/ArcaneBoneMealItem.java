@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.event.EventHooks;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,7 +47,7 @@ public class ArcaneBoneMealItem extends BoneMealItem {
             level.setBlockAndUpdate(pos, ModBlocks.MAGICAL_FARMLAND.get().defaultBlockState().setValue(BlockStateProperties.MOISTURE, state.getValue(BlockStateProperties.MOISTURE)));
             level.levelEvent(player, 2001, pos, Block.getId(state));
 
-            ItemStackUtils.shrinkStack(player, stack);
+            stack.consume(1, player);
 
             return InteractionResult.sidedSuccess(level.isClientSide());
         } else if (ArcaneBoneMealItem.applyBoneMeal(stack, level, pos, player)) {

@@ -28,7 +28,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -79,7 +78,7 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
 
             level.setBlockAndUpdate(pos, newState);
 
-            ItemStackUtils.shrinkStack(player, stack);
+            stack.consume(1, player);
 
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }

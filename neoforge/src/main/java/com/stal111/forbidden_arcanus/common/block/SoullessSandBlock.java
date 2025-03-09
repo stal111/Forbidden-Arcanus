@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.SoulSandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 /**
  * Soulless Sand Block <br>
@@ -32,7 +31,7 @@ public class SoullessSandBlock extends SoulSandBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (stack.is(ModItems.SOUL.get()) && level.mayInteract(player, pos)) {
-            ItemStackUtils.shrinkStack(player, stack);
+            stack.consume(1, player);
 
             level.setBlockAndUpdate(pos, Blocks.SOUL_SAND.defaultBlockState());
             level.levelEvent(player, 2001, pos, Block.getId(state));

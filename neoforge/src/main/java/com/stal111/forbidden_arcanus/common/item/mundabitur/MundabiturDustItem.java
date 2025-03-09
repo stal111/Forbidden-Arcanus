@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -53,7 +52,7 @@ public class MundabiturDustItem extends Item {
 
             optional.get().interact(context);
 
-            ItemStackUtils.shrinkStack(player, stack);
+            stack.consume(1, player);
 
             level.playSound(player, context.getPos(), ModSounds.MUNDABITUR_DUST_USE.get(), SoundSource.PLAYERS, 1.0F, level.getRandom().nextFloat() * 0.15F + 0.9F);
 

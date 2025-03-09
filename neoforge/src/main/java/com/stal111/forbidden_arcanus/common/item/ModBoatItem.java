@@ -17,7 +17,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -77,7 +76,7 @@ public class ModBoatItem extends BoatItem {
                         level.addFreshEntity(boat);
                         level.gameEvent(player, GameEvent.ENTITY_PLACE, hitResult.getLocation());
 
-                        ItemStackUtils.shrinkStack(player, stack);
+                        stack.consume(1, player);
                     }
 
                     player.awardStat(Stats.ITEM_USED.get(this));

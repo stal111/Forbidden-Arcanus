@@ -30,7 +30,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.ItemAbilities;
-import net.valhelsia.valhelsia_core.api.common.util.ItemStackUtils;
 
 import javax.annotation.Nonnull;
 
@@ -76,7 +75,7 @@ public class CarvedEdelwoodLogBlock extends EdelwoodLogBlock {
 
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         } else if (stack.getItem() instanceof BoneMealItem && !state.getValue(LEAVES)) {
-            ItemStackUtils.shrinkStack(player, stack);
+            stack.consume(1, player);
 
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
