@@ -18,6 +18,13 @@ public class EssenceHelper {
         return Optional.ofNullable(stack.get(ModDataComponents.ESSENCE_VALUE));
     }
 
+    public static int getEssenceAmount(ItemStack stack, EssenceType type) {
+        return getEssenceValue(stack)
+                .filter(essenceValue -> essenceValue.type() == type)
+                .map(EssenceValue::amount)
+                .orElse(0);
+    }
+
     public static Optional<EssenceStorage> getEssenceStorage(ItemStack stack) {
         return Optional.ofNullable(stack.get(ModDataComponents.ESSENCE_STORAGE));
     }

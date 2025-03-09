@@ -30,7 +30,7 @@ public class AurealBottleItem extends Item {
         }
 
         if (!level.isClientSide()) {
-            int aurealAmount = EssenceHelper.getEssenceValue(stack).map(EssenceValue::amount).orElse(0);
+            int aurealAmount = EssenceHelper.getEssenceAmount(stack, EssenceType.AUREAL);
 
             EssenceHelper.getEssenceProvider(livingEntity).ifPresent(provider -> {
                 provider.updateAmount(EssenceType.AUREAL, amount -> amount + aurealAmount);
