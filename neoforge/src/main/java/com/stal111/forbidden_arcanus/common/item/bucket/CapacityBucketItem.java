@@ -56,14 +56,15 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slot, boolean isSelected) {
-        if (this.getFluid().isSame(Fluids.LAVA) && level.getRandom().nextDouble() < BURN_CHANCE) {
-            if (entity instanceof Player player && !player.getAbilities().instabuild) {
-                player.getInventory().setItem(slot, new ItemStack(Items.CHARCOAL));
-            }
+        if (level.isClientSide() || !(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+
+        if (this.getFluid().isSame(Fluids.LAVA) && level.getRandom().nextDouble() < BURN_CHANCE && !livingEntity.hasInfiniteMaterials()) {
+            livingEntity.getSlot(slot).set(Items.CHARCOAL.getDefaultInstance());
 
             level.setBlockAndUpdate(entity.blockPosition(), this.getFluid().defaultFluidState().createLegacyBlock());
         }
-        super.inventoryTick(stack, level, entity, slot, isSelected);
     }
 
     @Override
