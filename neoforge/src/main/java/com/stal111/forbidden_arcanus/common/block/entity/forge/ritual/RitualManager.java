@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
+import com.stal111.forbidden_arcanus.common.advancements.critereon.FACriteriaTriggers;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
@@ -23,10 +24,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -36,6 +39,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -87,8 +91,8 @@ public class RitualManager {
         return Optional.ofNullable(this.activeRitualData);
     }
 
-    private void setActiveRitual(@Nullable Holder<Ritual> ritual) {
-        this.activeRitualData = ritual != null ? ActiveRitualData.create(ritual) : null;
+    private void setActiveRitual(@Nullable Holder<Ritual> ritual, UUID startedBy) {
+        this.activeRitualData = ritual != null ? ActiveRitualData.create(ritual, startedBy) : null;
 
         int duration = ritual != null ? ritual.value().duration() : 0;
 
@@ -145,9 +149,9 @@ public class RitualManager {
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.forgeTier);
     }
 
-    public boolean startRitual(EssencesStorage storage) {
+    public boolean startRitual(ServerPlayer player, EssencesStorage storage) {
         return this.getValidRitual().map(ritual -> {
-            this.setActiveRitual(ritual);
+            this.setActiveRitual(ritual, player.getUUID());
 
             this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.value().magicCircleType());
 
@@ -229,6 +233,12 @@ public class RitualManager {
     private ItemStack finishRitual(ActiveRitualData data) {
         this.reset();
 
+        Player player = level.getPlayerByUUID(data.getStartedBy());
+
+        if (player instanceof ServerPlayer serverPlayer && data.getRitualId() != null) {
+            FACriteriaTriggers.RITUAL.get().trigger(serverPlayer, data.getRitualId());
+        }
+
         return data.getRitual().result().apply(this.level, this.pos, this.forgeTier);
     }
 
@@ -268,7 +278,7 @@ public class RitualManager {
 
     private void reset() {
         this.validRitual = null;
-        this.setActiveRitual(null);
+        this.setActiveRitual(null, null);
         this.magicCircleController.removeMagicCircle(this.level, this.pos);
         this.updateRitualIndicator(false);
         this.clearPedestals();
