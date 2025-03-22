@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-29T12:48:05.7086056	Model Definitions
+// 1.21.1	2025-03-22T14:25:48.1667557	Model Definitions
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -563,7 +563,6 @@ f175b19d317e69cbefc6de9e09a7ab6449e7bd63 assets/forbidden_arcanus/models/item/fu
 c8a049db41b4943bf9a17c9f0ab2e8e1e633a8c4 assets/forbidden_arcanus/models/item/gilded_chiseled_polished_darkstone.json
 8469197b46b234abc3011a693423198e830bce97 assets/forbidden_arcanus/models/item/golden_blacksmith_gavel.json
 5dcca37846239d570f5f10ceedafb0f0cfa9a707 assets/forbidden_arcanus/models/item/golden_dragon_scale.json
-07682e4a37dbca26456dcc36671870dcb0855fc1 assets/forbidden_arcanus/models/item/golden_orchid_seeds.json
 9725e48aff07483c4e0b839f67f27529c5cf46d0 assets/forbidden_arcanus/models/item/gray_quantum_catcher.json
 80a832eb60b9f7b076e51d32edef27ea46b8b101 assets/forbidden_arcanus/models/item/green_quantum_catcher.json
 1322aba1238bfca159d83d2b7e7d76e6eb3ef6ca assets/forbidden_arcanus/models/item/growing_edelwood.json

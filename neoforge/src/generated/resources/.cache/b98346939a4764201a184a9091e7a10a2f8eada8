@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-29T16:48:18.2920859	Tags for minecraft:item mod id forbidden_arcanus
+// 1.21.1	2025-03-22T14:25:48.1633787	Tags for minecraft:item mod id forbidden_arcanus
 2572dfc3ed16dc52c40839dfeb364036bf3314be data/c/tags/item/explosion_resistant.json
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/item/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/item/fence_gates/wooden.json
@@ -21,7 +21,6 @@ da592e1a235a155dfeb386236d5fc824489270bf data/c/tags/item/ores.json
 5a72be9c06f4519c620cdeda659ccccd0dfcc558 data/c/tags/item/ores/stellarite.json
 fc1d22e637a8c93c504c9d76b6a2873851fd6406 data/c/tags/item/ores_in_ground/deepslate.json
 7b6d96f3c12a58b462463ab2438564a96cf7db64 data/c/tags/item/ores_in_ground/stone.json
-6529c1b5741e0d61a30d3957253c488859843df8 data/c/tags/item/seeds.json
 6c0dc6de9f078bf27a4ecb9c657b5fc772f0f2dd data/c/tags/item/storage_blocks.json
 09957d67edabb535833ace6cdc1345b60d228657 data/c/tags/item/storage_blocks/arcane_crystal.json
 16bbde60e986b8ba60db7706a09833d43d968ad0 data/c/tags/item/storage_blocks/corrupted_arcane_crystal.json
@@ -36,7 +35,7 @@ eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/item/cliban
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/item/edelwood_logs.json
 26ca19a64b7305b1587e6eab631becb52fb1ed25 data/forbidden_arcanus/tags/item/fungyss_stems.json
 4537d87f4c6aa46c92855cb04d1b2dad47830afa data/forbidden_arcanus/tags/item/hephaestus_forges.json
-a5e30235f64ca727e45ad31a505dbf74f45d0173 data/forbidden_arcanus/tags/item/magical_farmland_blacklisted.json
+22309e53a04c10ace1e4db7b4ff71b52960c0ad6 data/forbidden_arcanus/tags/item/magical_farmland_blacklisted.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/aquatic_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/demolishing_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/eternal_incompatible.json

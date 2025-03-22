@@ -219,7 +219,6 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.BOOM_ARROW.get());
                             output.accept(ModItems.DRACO_ARCANUS_ARROW.get());
                             output.accept(ModItems.EDELWOOD_OIL.get());
-                            output.accept(ModItems.GOLDEN_ORCHID_SEEDS.get());
                             output.accept(ModItems.AURUM_BOAT.get());
                             output.accept(ModItems.AURUM_CHEST_BOAT.get());
                             output.accept(ModItems.EDELWOOD_BOAT.get());

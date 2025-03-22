@@ -72,7 +72,6 @@ public class ModItemModels extends ItemModelGenerator {
         this.generateFlatItem(ModItems.BOOM_ARROW);
         this.generateFlatItem(ModItems.DRACO_ARCANUS_ARROW);
         this.generateFlatItem(ModItems.EDELWOOD_OIL);
-        this.generateFlatItem(ModItems.GOLDEN_ORCHID_SEEDS);
         this.generateFlatItem(ModItems.AURUM_BOAT);
         this.generateFlatItem(ModItems.AURUM_CHEST_BOAT);
         this.generateFlatItem(ModItems.EDELWOOD_BOAT);

@@ -44,13 +44,12 @@ public class ModItemTagsProvider extends ValhelsiaItemTagsProvider {
         this.tag(ModTags.Items.DEORUM_INGOTS).add(ModItems.DEORUM_INGOT.get());
         this.tag(ModTags.Items.DEORUM_NUGGETS).add(ModItems.DEORUM_NUGGET.get());
         this.tag(ModTags.Items.OBSIDIANSTEEL_INGOTS).add(ModItems.OBSIDIANSTEEL_INGOT.get());
-        this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED).add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, ModItems.GOLDEN_ORCHID_SEEDS.get());
+        this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED).add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS);
         this.tag(Tags.Items.INGOTS).addTags(ModTags.Items.DEORUM_INGOTS, ModTags.Items.OBSIDIANSTEEL_INGOTS);
         this.tag(ItemTags.PICKAXES).add(ModItems.DRACO_ARCANUS_PICKAXE.get(), ModItems.REINFORCED_DEORUM_PICKAXE.get());
         this.tag(ItemTags.ARROWS).add(ModItems.BOOM_ARROW.get(), ModItems.DRACO_ARCANUS_ARROW.get());
         this.tag(ModTags.Items.BLACK_HOLE_UNAFFECTED).add(ModItems.STELLARITE_PIECE.get(), ModBlocks.STELLARITE_BLOCK.get().asItem(), ModBlocks.STELLA_ARCANUM.get().asItem(), ModItems.ETERNAL_STELLA.get(), ModItems.DARK_NETHER_STAR.get(), Items.NETHER_STAR, Items.BEDROCK, Items.OBSIDIAN, Items.CRYING_OBSIDIAN, Items.ENCHANTING_TABLE, Items.END_PORTAL_FRAME, Items.ENDER_CHEST, Items.RESPAWN_ANCHOR).addTag(ModTags.Items.HEPHAESTUS_FORGES);
         this.tag(ModTags.Items.EXPLOSION_RESISTANT).add(Items.NETHER_STAR, ModItems.DARK_NETHER_STAR.get(), ModItems.STELLARITE_PIECE.get(), ModItems.ETERNAL_STELLA.get(), ModBlocks.STELLARITE_BLOCK.get().asItem());
-        this.tag(Tags.Items.SEEDS).add(ModItems.GOLDEN_ORCHID_SEEDS.get());
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.FUNGYSS.get().asItem());
 
         this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE);

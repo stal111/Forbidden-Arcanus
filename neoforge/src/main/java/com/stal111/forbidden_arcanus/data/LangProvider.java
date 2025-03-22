@@ -248,7 +248,6 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.BOOM_ARROW, "Boom Arrow");
         this.addItem(ModItems.DRACO_ARCANUS_ARROW, "Draco Arcanus Arrow");
         this.addItem(ModItems.EDELWOOD_OIL, "Edelwood Oil");
-        this.addItem(ModItems.GOLDEN_ORCHID_SEEDS, "Golden Orchid Seeds");
         this.addItem(ModItems.AURUM_BOAT, "Aurum Boat");
         this.addItem(ModItems.AURUM_CHEST_BOAT, "Aurum Chest Boat");
         this.addItem(ModItems.EDELWOOD_BOAT, "Edelwood Boat");

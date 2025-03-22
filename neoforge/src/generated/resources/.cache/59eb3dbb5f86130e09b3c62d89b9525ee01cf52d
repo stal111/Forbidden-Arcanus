@@ -1,4 +1,4 @@
-// 1.21.1	2024-12-02T11:31:18.682784	Loot Tables
+// 1.21.1	2025-03-22T14:25:48.1942865	Loot Tables
 a74de49c44b22dd0556c591b9e243d9b76dc514c data/forbidden_arcanus/loot_table/blocks/additions/spawner_scrap_addition.json
 0a60ee0f0c874a779c8a5020ab781a2d34f9de33 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_block.json
 6ee2651059f7e26158de69b8a75f6697e1905f21 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_obelisk.json
@@ -87,7 +87,6 @@ c1ab901eff6aaa4cae3e48a58105297f52997199 data/forbidden_arcanus/loot_table/block
 86210822e2fbdd336317e41ab7af7e5491ac6d73 data/forbidden_arcanus/loot_table/blocks/fungyss_stem.json
 57fba0dfd70ee2f5a6b41d3ceba8218fe92785b2 data/forbidden_arcanus/loot_table/blocks/fungyss_trapdoor.json
 203187541a01fe4c674d21d1dea0e1eb05db0a21 data/forbidden_arcanus/loot_table/blocks/gilded_chiseled_polished_darkstone.json
-c4fcc48ffdcfbde822be4e6fef97c30da6ac6286 data/forbidden_arcanus/loot_table/blocks/golden_orchid.json
 08af45f6954a9ec78a625dd07afbf41be84b6973 data/forbidden_arcanus/loot_table/blocks/growing_edelwood.json
 5f41e44ae2cd1f7e30c03595bd438ef1cf0ed558 data/forbidden_arcanus/loot_table/blocks/hephaestus_forge_tier_1.json
 e846511dacdae20c2862720a364f3be3c48a6847 data/forbidden_arcanus/loot_table/blocks/hephaestus_forge_tier_2.json
