@@ -18,6 +18,7 @@ import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -49,8 +50,9 @@ public class ModBlockModels extends BlockModelGenerator {
                 .filter(BlockFamily::shouldGenerateModel)
                 .forEach(blockFamily -> this.family(blockFamily.getBaseBlock()).generateFor(blockFamily));
 
-        this.createSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get());
-        this.createSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get());
+        this.createSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get().asItem());
+        this.createSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get().asItem());
+        this.createSimpleFlatItemModel(ModBlocks.EDELWOOD_LADDER.get());
 
         generators.createTrivialCube(ModBlocks.SOULLESS_SAND.get());
         generators.createTrivialCube(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get());
@@ -112,6 +114,7 @@ public class ModBlockModels extends BlockModelGenerator {
         this.createHollowLogWithFace(ModBlocks.CARVED_EDELWOOD_LOG.get());
         this.blockStateOutput.accept(createSimpleBlock(ModBlocks.EDELWOOD_BRANCH.get(), ModelLocationUtils.getModelLocation(ModBlocks.EDELWOOD_BRANCH.get())));
         this.createMagicalFarmland();
+        this.createNonTemplateHorizontalBlock(ModBlocks.EDELWOOD_LADDER.get());
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -238,7 +241,7 @@ public class ModBlockModels extends BlockModelGenerator {
             return Variant.variant().with(VariantProperties.MODEL, model);
         });
 
-        this.createSimpleFlatItemModel(block);
+        this.createSimpleFlatItemModel(block.asItem());
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
     }
 
@@ -303,12 +306,20 @@ public class ModBlockModels extends BlockModelGenerator {
         this.blockStateOutput.accept(createSimpleBlock(pBlock, ModelLocationUtils.getModelLocation(pModelBlock)));
     }
 
+    private void createNonTemplateHorizontalBlock(Block horizontalBlock) {
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(horizontalBlock, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(horizontalBlock))).with(BlockModelGenerators.createHorizontalFacingDispatch()));
+    }
+
     static MultiVariantGenerator createSimpleBlock(Block block, ResourceLocation resourceLocation) {
         return MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, resourceLocation));
     }
 
-    void createSimpleFlatItemModel(ItemLike item) {
+    void createSimpleFlatItemModel(Item item) {
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item.asItem()), TextureMapping.layer0(item.asItem()), this.modelOutput);
+    }
+
+    void createSimpleFlatItemModel(Block block) {
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block.asItem()), TextureMapping.layer0(block), this.modelOutput);
     }
 
     void delegateItemModel(Block block, ResourceLocation resourceLocation) {

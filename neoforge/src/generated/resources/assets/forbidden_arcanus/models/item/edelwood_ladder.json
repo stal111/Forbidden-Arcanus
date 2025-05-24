@@ -1,3 +1,6 @@
 {
-  "parent": "forbidden_arcanus:block/edelwood_ladder"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forbidden_arcanus:block/edelwood_ladder"
+  }
 }
