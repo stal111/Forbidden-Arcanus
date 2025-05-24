@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-22T14:25:48.1667557	Model Definitions
+// 1.21.1	2025-05-24T11:50:11.7412951	Model Definitions
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -577,6 +577,7 @@ a57acccc0310137f5d1da06246f86ed82dec95cc assets/forbidden_arcanus/models/item/li
 d192f8f5173a877b536bf4971e48649343416b66 assets/forbidden_arcanus/models/item/lime_quantum_catcher.json
 3099203b386cccff7c40c0c7316ee9e12eec4c7d assets/forbidden_arcanus/models/item/magenta_quantum_catcher.json
 e7981453ed58b7e5782769c77ef8fcd2542b29bd assets/forbidden_arcanus/models/item/magical_farmland.json
+e6681ae59d2f4b70048d571380b33475fdbb4b84 assets/forbidden_arcanus/models/item/magic_wand.json
 07b117678b954d481adcbee8ec84a5da85ee666e assets/forbidden_arcanus/models/item/magnetized_darkstone_pedestal.json
 c438a644ec59240e76294127d576743099727a41 assets/forbidden_arcanus/models/item/maledictus_pact.json
 4e0738d9d074e860657bd0601d48feb02890b8f2 assets/forbidden_arcanus/models/item/mortem_boots.json

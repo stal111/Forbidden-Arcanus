@@ -121,6 +121,7 @@ public class ModItems implements RegistryClass {
     //public static final ItemRegistryEntry<BoatItem> FUNGYSS_CHEST_BOAT = HELPER.register("fungyss_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.FUNGYSS, new Item.Properties().stacksTo(1)));
 
     public static final ItemRegistryEntry<Item> SOUL_EXTRACTOR = HELPER.register("soul_extractor", () -> new SoulExtractorItem(new Item.Properties().durability(128)));
+    public static final ItemRegistryEntry<Item> MAGIC_WAND = HELPER.register("magic_wand", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(ModTiers.DRACO_ARCANUS, new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SHOVEL = HELPER.register("draco_arcanus_shovel", () -> new ShovelItem(ModTiers.DRACO_ARCANUS, new Item.Properties()));

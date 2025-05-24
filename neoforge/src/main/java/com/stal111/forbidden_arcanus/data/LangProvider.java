@@ -259,6 +259,7 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.DRACO_ARCANUS_SHOVEL, "Draco Arcanus Shovel");
         this.addItem(ModItems.DRACO_ARCANUS_HOE, "Draco Arcanus Hoe");
         this.addItem(ModItems.DRACO_ARCANUS_SCEPTER, "Draco Arcanus Scepter");
+        this.addItem(ModItems.MAGIC_WAND, "Magic Wand");
         this.addItem(ModItems.DRACO_ARCANUS_HELMET, "Draco Arcanus Helmet");
         this.addItem(ModItems.DRACO_ARCANUS_CHESTPLATE, "Draco Arcanus Chestplate");
         this.addItem(ModItems.DRACO_ARCANUS_LEGGINGS, "Draco Arcanus Leggings");

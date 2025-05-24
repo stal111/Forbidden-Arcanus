@@ -230,6 +230,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.DRACO_ARCANUS_AXE.get());
                             output.accept(ModItems.DRACO_ARCANUS_HOE.get());
                             output.accept(ModItems.DRACO_ARCANUS_SCEPTER.get());
+                            output.accept(ModItems.MAGIC_WAND.get());
                             output.accept(ModItems.DRACO_ARCANUS_HELMET.get());
                             output.accept(ModItems.DRACO_ARCANUS_CHESTPLATE.get());
                             output.accept(ModItems.DRACO_ARCANUS_LEGGINGS.get());

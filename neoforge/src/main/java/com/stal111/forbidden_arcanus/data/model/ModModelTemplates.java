@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import net.minecraft.Util;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureSlot;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -38,11 +39,17 @@ public class ModModelTemplates {
     public static final ModelTemplate HOLLOW_LOG_FACE = create("hollow_log_face", TextureSlot.INSIDE, ModTextureSlots.LOG, TextureSlot.TOP, TextureSlot.FRONT);
     public static final ModelTemplate HOLLOW_LOG_FACE_AND_LEAVES = create("hollow_log_face_and_leaves", TextureSlot.INSIDE, ModTextureSlots.LOG, TextureSlot.TOP, TextureSlot.FRONT, ModTextureSlots.LEAVES);
 
+    public static final ModelTemplate FLAT_HANDHELD_WAND = createMinecraftItem("handheld_rod", TextureSlot.LAYER0, TextureSlot.LAYER1);
+
     public static ModelTemplate create(String name, TextureSlot... textureSlots) {
         return new ModelTemplate(Optional.of(ForbiddenArcanus.location("block/" + name)), Optional.empty(), textureSlots);
     }
 
     public static ModelTemplate createItem(String name, TextureSlot... textureSlots) {
         return new ModelTemplate(Optional.of(ForbiddenArcanus.location("item/" + name)), Optional.empty(), textureSlots);
+    }
+
+    public static ModelTemplate createMinecraftItem(String name, TextureSlot... textureSlots) {
+        return new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/" + name)), Optional.empty(), textureSlots);
     }
 }

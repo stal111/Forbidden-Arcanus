@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-06T22:58:52.2557021	Global Loot Modifiers : forbidden_arcanus
+// 1.21.1	2025-05-24T11:47:41.5944138	Global Loot Modifiers : forbidden_arcanus
 96adf34752053206adcebea051bde4533f6190a6 data/forbidden_arcanus/loot_modifiers/artisan_relic_addition.json
 6dd7faf82087daf6a22291909eacf300c1e89c81 data/forbidden_arcanus/loot_modifiers/bat_additions.json
 bbd5cab26da5b8d9d0afc036b1b00fe25f4f09c4 data/forbidden_arcanus/loot_modifiers/blacksmith_gavel_ore_doubling.json
@@ -13,4 +13,4 @@ c437bf17053656f0c5a6b7a7b7a7197103db519d data/forbidden_arcanus/loot_modifiers/m
 e8937ddf770c2389fdf1fc1caa358a7b36c1486b data/forbidden_arcanus/loot_modifiers/simple_dungeon_additions.json
 a1c0ebad980386ab527e97376665aa38d32cc4f6 data/forbidden_arcanus/loot_modifiers/spawner_additions.json
 3474191a6a677fe03f3172f6a35191f9f77477a1 data/forbidden_arcanus/loot_modifiers/squid_additions.json
-e57f255a046217934da21e01fab8064fa10d297c data/neoforge/loot_modifiers/global_loot_modifiers.json
+fc24c61eec650ff51471b8e69a482f3d724fd601 data/neoforge/loot_modifiers/global_loot_modifiers.json

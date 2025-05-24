@@ -118,6 +118,7 @@ public class ModItemModels extends ItemModelGenerator {
         this.generateFlatItem(ModItems.WHIRLWIND_PRISM);
         this.generateFlatItem(ModItems.SMELTER_PRISM);
         this.generateFlatItem(ModItems.SOUL_BINDING_CRYSTAL);
+        this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal");
 
         ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(""), this.output);
         ModItems.DYED_QUANTUM_CATCHERS.forEach((color, registryEntry) -> {
@@ -185,6 +186,10 @@ public class ModItemModels extends ItemModelGenerator {
 
     private ResourceLocation generateFlatItem(ItemRegistryEntry<Item> item, String modelSuffix, ModelTemplate template) {
         return template.create(ModelLocationUtils.getModelLocation(item.get(), modelSuffix), TextureMapping.layer0(TextureMapping.getItemTexture(item.get(), modelSuffix)), this.output);
+    }
+
+    private ResourceLocation generateWandItem(ItemRegistryEntry<? extends Item> item, String wand, String pommel) {
+        return ModModelTemplates.FLAT_HANDHELD_WAND.create(ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layered(ForbiddenArcanus.location("item/wand/" + wand), ForbiddenArcanus.location("item/wand/pommel/" + pommel)), this.output);
     }
 
     public static ResourceLocation getItemTexture(Item item, String folder, String suffix) {
