@@ -52,7 +52,7 @@ public class ModItemTagsProvider extends ValhelsiaItemTagsProvider {
         this.tag(ModTags.Items.EXPLOSION_RESISTANT).add(Items.NETHER_STAR, ModItems.DARK_NETHER_STAR.get(), ModItems.STELLARITE_PIECE.get(), ModItems.ETERNAL_STELLA.get(), ModBlocks.STELLARITE_BLOCK.get().asItem());
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.FUNGYSS.get().asItem());
 
-        this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE);
+        this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE).add(Items.ELYTRA);
         this.tag(ModTags.Items.FIERY_INCOMPATIBLE);
         this.tag(ModTags.Items.MAGNETIZED_INCOMPATIBLE);
         this.tag(ModTags.Items.DEMOLISHING_INCOMPATIBLE);

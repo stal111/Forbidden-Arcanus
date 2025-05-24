@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-22T14:25:48.1633787	Tags for minecraft:item mod id forbidden_arcanus
+// 1.21.1	2025-05-24T15:43:37.6304152	Tags for minecraft:item mod id forbidden_arcanus
 2572dfc3ed16dc52c40839dfeb364036bf3314be data/c/tags/item/explosion_resistant.json
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/item/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/item/fence_gates/wooden.json
@@ -38,7 +38,7 @@ eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/item/cliban
 22309e53a04c10ace1e4db7b4ff71b52960c0ad6 data/forbidden_arcanus/tags/item/magical_farmland_blacklisted.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/aquatic_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/demolishing_incompatible.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/eternal_incompatible.json
+e6a557e0f0c7023bf91eaaf1ba66fadae53fd806 data/forbidden_arcanus/tags/item/modifier/eternal_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/fiery_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/magnetized_incompatible.json
 d4fa99e566d551a09760c45a9eb7a1b7a7645420 data/forbidden_arcanus/tags/item/modifier/soulbound_applicable.json
