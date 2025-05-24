@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-22T14:25:48.1845188	Tags for minecraft:block mod id forbidden_arcanus
+// 1.21.1	2025-05-24T13:29:46.5314724	Tags for minecraft:block mod id forbidden_arcanus
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/block/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/c/tags/block/glass_blocks.json
@@ -30,13 +30,16 @@ ec5f886acc1397ae55fe6faaca722b2a2cebb465 data/forbidden_arcanus/tags/block/rune_
 321796da77cb8905e7a9b8b3c8413298f0cb9bfe data/forbidden_arcanus/tags/block/runic_stones.json
 7178fc65549c2cdfe3c0d34421efedf7c81a341f data/minecraft/tags/block/base_stone_overworld.json
 4447fb4f3ca90f441c2430ab8f246986ca58fc1e data/minecraft/tags/block/buttons.json
+03a5318834090a24bfd4b3ce3f4c150e69e0cd12 data/minecraft/tags/block/climbable.json
 ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/block/doors.json
+03a5318834090a24bfd4b3ce3f4c150e69e0cd12 data/minecraft/tags/block/fall_damage_resetting.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/minecraft/tags/block/fence_gates.json
 56b78e2f7215fa7d523ebe14e937937b567aeff7 data/minecraft/tags/block/flower_pots.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/minecraft/tags/block/impermeable.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/block/logs.json
 c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/block/logs_that_burn.json
+03a5318834090a24bfd4b3ce3f4c150e69e0cd12 data/minecraft/tags/block/mineable/axe.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/mineable/hoe.json
 959740657379db19a93ecbd9519033e5542ba220 data/minecraft/tags/block/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/block/mineable/shovel.json
