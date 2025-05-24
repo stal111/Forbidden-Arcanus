@@ -2,7 +2,7 @@
 	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#0808",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"leaves": "forbidden_arcanus:block/edelwood_leaves",
+		"leaves": "forbidden_arcanus:block/edelwood_log/edelwood_log_leaves",
 		"branch": "forbidden_arcanus:block/edelwood_branch",
 		"particle": "#branch"
 	},

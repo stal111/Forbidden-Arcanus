@@ -112,7 +112,7 @@ public class ModBlockModels extends BlockModelGenerator {
         generators.woodProvider(ModBlocks.STRIPPED_AURUM_LOG.get()).logWithHorizontal(ModBlocks.STRIPPED_AURUM_LOG.get()).wood(ModBlocks.STRIPPED_AURUM_WOOD.get());
         this.createHollowLog(ModBlocks.EDELWOOD_LOG.get());
         this.createHollowLogWithFace(ModBlocks.CARVED_EDELWOOD_LOG.get());
-        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.EDELWOOD_BRANCH.get(), ModelLocationUtils.getModelLocation(ModBlocks.EDELWOOD_BRANCH.get())));
+        this.createEdelwoodBranch();
         this.createMagicalFarmland();
         this.createNonTemplateHorizontalBlock(ModBlocks.EDELWOOD_LADDER.get());
 
@@ -282,6 +282,10 @@ public class ModBlockModels extends BlockModelGenerator {
         });
 
         this.blockStateOutput.accept(createSimpleBlock(block, model).with(BlockModelGenerators.createHorizontalFacingDispatch()).with(dispatch));
+    }
+
+    private void createEdelwoodBranch() {
+        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.EDELWOOD_BRANCH.get(), ModelLocationUtils.getModelLocation(ModBlocks.EDELWOOD_BRANCH.get())).with(BlockModelGenerators.createHorizontalFacingDispatch()));
     }
 
     private void createMagicalFarmland() {

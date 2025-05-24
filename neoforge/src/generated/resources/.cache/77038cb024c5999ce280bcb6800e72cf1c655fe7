@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-24T13:17:50.075455	Model Definitions
+// 1.21.1	2025-05-24T13:57:00.1025535	Model Definitions
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -55,7 +55,7 @@ b5baa6fab490e4c65ed51b4327dbccf583635c56 assets/forbidden_arcanus/blockstates/de
 74c6c595a9d31eaf98352d2fd6f9ad87c80c23e6 assets/forbidden_arcanus/blockstates/deorum_soul_lantern.json
 b28745c3b2058ffb06b4d23ccc0af1566b270bac assets/forbidden_arcanus/blockstates/deorum_trapdoor.json
 010d5983675ec659629c7d37ba5cf9977063008b assets/forbidden_arcanus/blockstates/desk.json
-aef9dc2e708cac73cd056b35f41cf0fa3ca922cf assets/forbidden_arcanus/blockstates/edelwood_branch.json
+f6e455694966f7e7e24e7ab86bd06a32e8ca292a assets/forbidden_arcanus/blockstates/edelwood_branch.json
 02e2ecfd3bb063884f467b8436de5513e65e1250 assets/forbidden_arcanus/blockstates/edelwood_button.json
 14bbddbaee9705f4fcfb3c730553ede7f021420c assets/forbidden_arcanus/blockstates/edelwood_door.json
 22533ce08f5ee6e9d5d2c41a5bda2c50a991455f assets/forbidden_arcanus/blockstates/edelwood_fence.json
