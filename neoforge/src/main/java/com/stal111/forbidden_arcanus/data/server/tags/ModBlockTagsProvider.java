@@ -61,9 +61,6 @@ public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
         this.tag(ModTags.Blocks.HEPHAESTUS_FORGES).add(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get(), ModBlocks.HEPHAESTUS_FORGE_TIER_2.get(), ModBlocks.HEPHAESTUS_FORGE_TIER_3.get(), ModBlocks.HEPHAESTUS_FORGE_TIER_4.get(), ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
         this.tag(ModTags.Blocks.PEDESTALS).add(ModBlocks.DARKSTONE_PEDESTAL.get(), ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
 
-        //TODO
-        //this.tag(ValhelsiaTags.Blocks.OFFSET_RENDERING).add(ModBlocks.CHERRY_LEAF_CARPET.get());
-
         this.tag(ModTags.Blocks.STORAGE_BLOCKS_DEORUM).add(ModBlocks.DEORUM_BLOCK.get());
         this.tag(ModTags.Blocks.STORAGE_BLOCKS_ARCANE_CRYSTAL).add(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
         this.tag(ModTags.Blocks.STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL).add(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
