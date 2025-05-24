@@ -90,7 +90,7 @@ public class ModBlockTagsProvider extends ValhelsiaBlockTagsProvider {
                 .addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES).addTag(ModTags.Blocks.HEPHAESTUS_FORGES).addTag(ModTags.Blocks.PEDESTALS);
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.SOULLESS_SAND.get());
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get());
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.EDELWOOD_LADDER.get());
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.EDELWOOD_BRANCH.get());
 
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(ModBlocks.OBSIDIANSTEEL_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.STELLARITE_BLOCK.get()).addTag(ModTags.Blocks.HEPHAESTUS_FORGES).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS);
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.DEORUM_BLOCK.get()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES);
