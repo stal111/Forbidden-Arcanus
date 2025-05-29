@@ -11,10 +11,14 @@ import com.stal111.forbidden_arcanus.common.item.bucket.CapacityMilkBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.SolidCapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.common.item.component.ToggleableState;
+import com.stal111.forbidden_arcanus.common.item.component.WandParts;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturDustItem;
+import com.stal111.forbidden_arcanus.common.item.wand.WandPart;
+import com.stal111.forbidden_arcanus.common.item.wand.WandStats;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.*;
@@ -121,7 +125,7 @@ public class ModItems implements RegistryClass {
     //public static final ItemRegistryEntry<BoatItem> FUNGYSS_CHEST_BOAT = HELPER.register("fungyss_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.FUNGYSS, new Item.Properties().stacksTo(1)));
 
     public static final ItemRegistryEntry<Item> SOUL_EXTRACTOR = HELPER.register("soul_extractor", () -> new SoulExtractorItem(new Item.Properties().durability(128)));
-    public static final ItemRegistryEntry<Item> MAGIC_WAND = HELPER.register("magic_wand", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final ItemRegistryEntry<MagicWandItem> MAGIC_WAND = HELPER.register("magic_wand", () -> new MagicWandItem(new Item.Properties().stacksTo(1).component(ModDataComponents.WAND_PARTS, new WandParts(new WandPart(Component.literal("Aurum Wood"), new WandStats(20, 0, 0)), new WandPart(Component.literal("Deorum"), new WandStats(0, 10, 0)), new WandPart(Component.literal("Arcane Crystal"), new WandStats(0, 0, 100))))));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(ModTiers.DRACO_ARCANUS, new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SHOVEL = HELPER.register("draco_arcanus_shovel", () -> new ShovelItem(ModTiers.DRACO_ARCANUS, new Item.Properties()));

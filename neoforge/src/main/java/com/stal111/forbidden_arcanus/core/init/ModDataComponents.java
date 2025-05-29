@@ -4,10 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
-import com.stal111.forbidden_arcanus.common.item.component.EffectGrantingRule;
-import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
-import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
-import com.stal111.forbidden_arcanus.common.item.component.ToggleableState;
+import com.stal111.forbidden_arcanus.common.item.component.*;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -49,5 +46,6 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<RitualStarter>> RITUAL_STARTER = HELPER.register("ritual_starter", () -> DataComponentType.<RitualStarter>builder().persistent(RitualStarter.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<ObsidianSkullType>> OBSIDIAN_SKULL_TYPE = HELPER.register("obsidian_skull_type", () -> DataComponentType.<ObsidianSkullType>builder().persistent(ObsidianSkullType.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<List<EffectGrantingRule>>> GRANTS_EFFECTS = HELPER.register("grants_effects", () -> DataComponentType.<List<EffectGrantingRule>>builder().persistent(EffectGrantingRule.CODEC.listOf()).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<WandParts>> WAND_PARTS = HELPER.register("wand_parts", () -> DataComponentType.<WandParts>builder().persistent(WandParts.CODEC).build());
 
 }
