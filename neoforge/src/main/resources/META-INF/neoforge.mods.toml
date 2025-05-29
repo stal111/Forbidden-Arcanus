@@ -9,6 +9,7 @@ displayName="${mod_name}" #mandatory
 credits="{mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description=''' '''
+featureFlags="META-INF/feature_flags.json"
 
 [[dependencies.${mod_id}]]
 modId="neoforge"

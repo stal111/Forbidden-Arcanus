@@ -10,11 +10,16 @@ import com.stal111.forbidden_arcanus.core.init.other.ModDispenseBehaviors;
 import com.stal111.forbidden_arcanus.core.init.other.ModFlammables;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import com.stal111.forbidden_arcanus.util.ModUtils;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
 /**
@@ -39,9 +44,9 @@ public class CommonSetup {
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 
             flowerPotBlock.addPlant(ForbiddenArcanus.location("fungyss"), ModBlocks.POTTED_FUNGYSS);
-            flowerPotBlock.addPlant(ForbiddenArcanus.location( "aurum_sapling"), ModBlocks.POTTED_AURUM_SAPLING);
-            flowerPotBlock.addPlant(ForbiddenArcanus.location( "growing_edelwood"), ModBlocks.POTTED_GROWING_EDELWOOD);
-            flowerPotBlock.addPlant(ForbiddenArcanus.location( "yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
+            flowerPotBlock.addPlant(ForbiddenArcanus.location("aurum_sapling"), ModBlocks.POTTED_AURUM_SAPLING);
+            flowerPotBlock.addPlant(ForbiddenArcanus.location("growing_edelwood"), ModBlocks.POTTED_GROWING_EDELWOOD);
+            flowerPotBlock.addPlant(ForbiddenArcanus.location("yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
         });
 
         ModUtils.addStrippable(ModBlocks.AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_LOG.get());
@@ -54,5 +59,10 @@ public class CommonSetup {
         event.put(ModEntities.CORRUPT_LOST_SOUL.get(), AbstractLostSoul.createAttributes().build());
         event.put(ModEntities.ENCHANTED_LOST_SOUL.get(), AbstractLostSoul.createAttributes().build());
         event.put(ModEntities.DARK_TRADER.get(), DarkTrader.createAttributes().build());
+    }
+
+    @SubscribeEvent
+    private static void addFeaturePacks(AddPackFindersEvent event) {
+        event.addPackFinders(ForbiddenArcanus.location("data/forbidden_arcanus/datapacks/update-2.6"), PackType.SERVER_DATA, Component.literal("Forbidden Arcanus: 2.6 Update"), PackSource.FEATURE, false, Pack.Position.TOP);
     }
 }

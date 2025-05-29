@@ -12,6 +12,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.metadata.PackMetadataGenerator;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -76,5 +79,13 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new, StonecutterRecipeProvider::new));
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(context));
+
+        DataGenerator.PackGenerator featurePack = generator.getBuiltinDatapack(true, ForbiddenArcanus.MOD_ID, "update-2.6");
+
+        featurePack.addProvider(output1 -> PackMetadataGenerator.forFeaturePack(
+                output1,
+                Component.literal("Enable experimental features for the Forbidden Arcanus 2.6 Update"),
+                FeatureFlagSet.of(ForbiddenArcanus.UPDATE_2_6)
+        ));
     }
 }

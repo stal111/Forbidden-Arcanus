@@ -5,6 +5,8 @@ import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.flag.FeatureFlags;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -20,8 +22,9 @@ public final class ForbiddenArcanus {
 	public static final String MOD_ID = "forbidden_arcanus";
 	public static final Logger LOGGER = LogManager.getLogger(ForbiddenArcanus.MOD_ID);
 
-
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistryCollector(ForbiddenArcanus.MOD_ID));
+
+	public static final FeatureFlag UPDATE_2_6 = FeatureFlags.REGISTRY.getFlag(ForbiddenArcanus.location("update-2.6"));
 
 	public ForbiddenArcanus(IEventBus modEventBus, ModContainer modContainer) {
 		ModDefinition.of(ForbiddenArcanus.MOD_ID)
