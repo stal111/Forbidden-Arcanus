@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Collection;
 
 /**
  * Ritual <br>
@@ -56,7 +57,7 @@ public class Ritual {
         return this.checkIngredients(inputs, blockEntity);
     }
 
-    public boolean checkIngredients(List<ItemStack> list, HephaestusForgeBlockEntity blockEntity) {
+    public boolean checkIngredients(Collection<ItemStack> list, HephaestusForgeBlockEntity blockEntity) {
         List<ItemStack> ingredients = new ArrayList<>(list);
 
         for (Ingredient ingredient : this.getInputs()) {
