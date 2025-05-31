@@ -26,26 +26,26 @@ public class WandIndicatorLayer implements LayeredDraw.Layer {
             return;
         }
 
-        int j = guiGraphics.guiHeight() / 2 - 7 + 16;
-        int k = guiGraphics.guiWidth() / 2 - 8;
+        int indicatorXPosition = guiGraphics.guiWidth() / 2 - 8;
+        int indicatorYPosition = guiGraphics.guiHeight() / 2 - 7 + 16;
 
-        float f = (float) (player.getMainHandItem().getUseDuration(player) - player.getUseItemRemainingTicks()) / (float) player.getMainHandItem().getUseDuration(player);
+        float progressRatio = (float) (player.getMainHandItem().getUseDuration(player) - player.getUseItemRemainingTicks()) / (float) player.getMainHandItem().getUseDuration(player);
 
-        if (f >= 1.0F) {
-            guiGraphics.blitSprite(CROSSHAIR_WAND_INDICATOR_FULL_SPRITE, k, j, 16, 16);
+        if (progressRatio >= 1.0F) {
+            guiGraphics.blitSprite(CROSSHAIR_WAND_INDICATOR_FULL_SPRITE, indicatorXPosition, indicatorYPosition, 16, 16);
             return;
         }
 
-        int l = (int)(f * 17.0F);
+        int progressWidth = (int)(progressRatio * 17.0F);
 
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
-        guiGraphics.blitSprite(CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE, k, j, 16, 4);
+        guiGraphics.blitSprite(CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE, indicatorXPosition, indicatorYPosition, 16, 4);
 
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
 
-        guiGraphics.blitSprite(CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, k, j, l, 4);
+        guiGraphics.blitSprite(CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, indicatorXPosition, indicatorYPosition, progressWidth, 4);
     }
 }
