@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.label.JarFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.QuantumCatcherFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlyingLabelOverlay;
+import com.stal111.forbidden_arcanus.client.gui.overlay.WandIndicatorLayer;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
@@ -144,6 +145,7 @@ public class ClientSetup {
     public void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("aureal_meter"), new AurealMeterOverlay());
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("flying_label"), new FlyingLabelOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("wand_indicator"), new WandIndicatorLayer());
     }
 
     @SubscribeEvent
