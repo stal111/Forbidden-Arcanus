@@ -26,7 +26,7 @@ public class MagicWandItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 200;
+        return 72000;
     }
 
     @Override
@@ -34,5 +34,9 @@ public class MagicWandItem extends Item {
         player.startUsingItem(usedHand);
 
         return InteractionResultHolder.consume(player.getItemInHand(usedHand));
+    }
+
+    public static float getUseProgress(ItemStack stack, LivingEntity entity) {
+        return entity.isUsingItem() ? Math.min(100, stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 100.0F : 0.0F;
     }
 }

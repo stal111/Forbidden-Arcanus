@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.gui.overlay;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -29,7 +30,7 @@ public class WandIndicatorLayer implements LayeredDraw.Layer {
         int indicatorXPosition = guiGraphics.guiWidth() / 2 - 8;
         int indicatorYPosition = guiGraphics.guiHeight() / 2 - 7 + 16;
 
-        float progressRatio = (float) (player.getMainHandItem().getUseDuration(player) - player.getUseItemRemainingTicks()) / (float) player.getMainHandItem().getUseDuration(player);
+        float progressRatio = MagicWandItem.getUseProgress(player.getMainHandItem(), player);
 
         if (progressRatio >= 1.0F) {
             guiGraphics.blitSprite(CROSSHAIR_WAND_INDICATOR_FULL_SPRITE, indicatorXPosition, indicatorYPosition, 16, 16);
