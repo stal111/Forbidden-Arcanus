@@ -37,6 +37,6 @@ public class MagicWandItem extends Item {
     }
 
     public static float getUseProgress(ItemStack stack, LivingEntity entity) {
-        return entity.isUsingItem() ? Math.min(100, stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 100.0F : 0.0F;
+        return entity.isUsingItem() ? Math.min(60, stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 60.0F : 0.0F;
     }
 }
