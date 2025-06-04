@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
+import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -34,6 +35,16 @@ public class MagicWandItem extends Item {
         player.startUsingItem(usedHand);
 
         return InteractionResultHolder.consume(player.getItemInHand(usedHand));
+    }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
+        if ((stack.getUseDuration(livingEntity) - timeLeft) >= 60) {
+            EnergyBall energyBall = new EnergyBall(level, livingEntity, livingEntity.getLookAngle().x * 1, livingEntity.getLookAngle().y * 1, livingEntity.getLookAngle().z * 1);
+            energyBall.setPos(energyBall.getX(), livingEntity.getY() + livingEntity.getEyeHeight(), energyBall.getZ());
+
+            level.addFreshEntity(energyBall);
+        }
     }
 
     public static float getUseProgress(ItemStack stack, LivingEntity entity) {
