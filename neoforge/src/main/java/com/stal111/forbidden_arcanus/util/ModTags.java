@@ -105,6 +105,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SPAWNS_LOST_SOUL_CHANCE = modTag("spawns_lost_soul_chance");
         public static final TagKey<EntityType<?>> SPAWNS_CORRUPT_LOST_SOUL_CHANCE = modTag("spawns_corrupt_lost_soul_chance");
         public static final TagKey<EntityType<?>> TEST_TUBE_BLACKLISTED = modTag("test_tube_blacklisted");
+        public static final TagKey<EntityType<?>> SPECTRAL_VISION_UNAFFECTED = modTag("spectral_vision_unaffected");
 
         private static TagKey<EntityType<?>> modTag(String name) {
             return TagKey.create(Registries.ENTITY_TYPE, ForbiddenArcanus.location(name));
