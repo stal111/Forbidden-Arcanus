@@ -19,7 +19,6 @@ import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -115,6 +114,7 @@ public class ModBlockModels extends BlockModelGenerator {
         this.createEdelwoodBranch();
         this.createMagicalFarmland();
         this.createNonTemplateHorizontalBlock(ModBlocks.EDELWOOD_LADDER.get());
+        this.createMortar(ModBlocks.MORTAR.get());
 
         this.blockEntityModels(ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()), Blocks.SOUL_SAND).createWithCustomBlockItemModel(ModelTemplates.SKULL_INVENTORY, ModBlocks.OBSIDIAN_SKULL.getSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()).createWithoutBlockItem(ModBlocks.OBSIDIAN_SKULL.getWallSkull(), ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(), ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull());
     }
@@ -243,6 +243,10 @@ public class ModBlockModels extends BlockModelGenerator {
 
         this.createSimpleFlatItemModel(block.asItem());
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+    }
+
+    private void createMortar(Block block) {
+        this.blockStateOutput.accept(createSimpleBlock(block, ForbiddenArcanus.location("block/mortar")));
     }
 
     private void createUtremJar(Block block) {

@@ -56,6 +56,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get());
                             output.accept(ModBlocks.DARKSTONE_PEDESTAL.get());
                             output.accept(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
+                            output.accept(ModBlocks.MORTAR.get());
                             output.accept(ModBlocks.CLIBANO_CORE.get());
                             output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get());
                             output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get());

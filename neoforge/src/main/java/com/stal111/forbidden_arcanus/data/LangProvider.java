@@ -99,6 +99,7 @@ public class LangProvider extends LanguageProvider {
         this.addBlock(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR, "Arcane Polished Darkstone Pillar");
         this.addBlock(ModBlocks.DARKSTONE_PEDESTAL, "Darkstone Pedestal");
         this.addBlock(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL, "Magnetized Darkstone Pedestal");
+        this.addBlock(ModBlocks.MORTAR, "Mortar");
         this.addBlock(ModBlocks.CLIBANO_CORE, "Clibano Core");
         this.addBlock(ModBlocks.HEPHAESTUS_FORGE_TIER_1, "Hephaestus Forge");
         this.addBlock(ModBlocks.ARCANE_CRYSTAL_ORE, "Arcane Crystal Ore");
