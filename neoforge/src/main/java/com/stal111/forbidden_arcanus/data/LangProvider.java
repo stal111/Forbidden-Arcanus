@@ -321,6 +321,10 @@ public class LangProvider extends LanguageProvider {
         this.add("upgrade", "darkstone_upgrade", "Apply Item Modifier");
 
         this.add("tooltip", "essence.storage_format", "%s / %s");
+
+        this.add("jei", "category.hephaestus_smithing", "Hephaestus Smithing");
+        this.add("jei", "category.hephaestus_forge_upgrading", "Hephaestus Forge Upgrading");
+        this.add("jei", "hephaestus_smithing.required_essence", "Required %s: %s");
     }
 
     private void addModifier(String modifier, String name) {

@@ -36,6 +36,6 @@ public record EssenceInfo(IDrawableStatic drawable, EssenceType type, int posX, 
     }
 
     public Component getTooltip(EssencesDefinition definition) {
-        return Component.translatable("jei.forbidden_arcanus.hephaestusSmithing.required_" + this.type().getSerializedName()).append(": " + definition.get(this.type));
+        return Component.translatable("jei.forbidden_arcanus.hephaestus_smithing.required_essence", type.getComponent(), definition.get(this.type));
     }
 }
