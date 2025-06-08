@@ -83,6 +83,7 @@ public class ClientSetup {
         helper.registerEntityRenderer(ModEntities.ENCHANTED_LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.location("textures/entity/lost_soul/enchanted_lost_soul.png")));
         helper.registerEntityRenderer(ModEntities.AUREAL_BOTTLE, ThrownItemRenderer::new);
         helper.registerEntityRenderer(ModEntities.DARK_TRADER, DarkTraderRenderer::new);
+        helper.registerEntityRenderer(ModEntities.AUREAL_MISSILE, AurealMissileRenderer::new);
 
         helper.registerSkullModel(ObsidianSkullType.DEFAULT, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
         helper.registerSkullModel(ObsidianSkullType.CRACKED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));

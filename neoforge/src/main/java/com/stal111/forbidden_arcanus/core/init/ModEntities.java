@@ -8,10 +8,7 @@ import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.CorruptLostSoul;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.EnchantedLostSoul;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
-import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
-import com.stal111.forbidden_arcanus.common.entity.projectile.DracoArcanusArrow;
-import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
-import com.stal111.forbidden_arcanus.common.entity.projectile.ThrownAurealBottle;
+import com.stal111.forbidden_arcanus.common.entity.projectile.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -41,5 +38,6 @@ public class ModEntities implements RegistryClass {
     public static final RegistryEntry<EntityType<?>, EntityType<EnchantedLostSoul>> ENCHANTED_LOST_SOUL = HELPER.register("enchanted_lost_soul", EntityType.Builder.of(EnchantedLostSoul::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));
     public static final RegistryEntry<EntityType<?>, EntityType<ThrownAurealBottle>> AUREAL_BOTTLE = HELPER.register("aureal_bottle", EntityType.Builder.<ThrownAurealBottle>of(ThrownAurealBottle::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
     public static final RegistryEntry<EntityType<?>, EntityType<DarkTrader>> DARK_TRADER = HELPER.register("dark_trader", EntityType.Builder.of(DarkTrader::new, MobCategory.CREATURE).requiredFeatures().sized(0.35F, 0.6F).clientTrackingRange(8));
+    public static final RegistryEntry<EntityType<?>, EntityType<AurealMissile>> AUREAL_MISSILE = HELPER.register("aureal_missile", EntityType.Builder.<AurealMissile>of(AurealMissile::new, MobCategory.MISC).requiredFeatures(ForbiddenArcanus.UPDATE_2_6).sized(0.4F, 0.4F).clientTrackingRange(4).updateInterval(10));
 
 }

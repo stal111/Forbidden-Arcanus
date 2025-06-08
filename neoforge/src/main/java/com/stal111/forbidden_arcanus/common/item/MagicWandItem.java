@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
+import com.stal111.forbidden_arcanus.common.entity.projectile.AurealMissile;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -40,10 +40,10 @@ public class MagicWandItem extends Item {
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
         if ((stack.getUseDuration(livingEntity) - timeLeft) >= 60) {
-            EnergyBall energyBall = new EnergyBall(level, livingEntity, livingEntity.getLookAngle().x * 1, livingEntity.getLookAngle().y * 1, livingEntity.getLookAngle().z * 1);
-            energyBall.setPos(energyBall.getX(), livingEntity.getY() + livingEntity.getEyeHeight(), energyBall.getZ());
+            AurealMissile aurealMissile = new AurealMissile(livingEntity, level, livingEntity.position().x, livingEntity.getEyePosition().y, livingEntity.position().z);
+            aurealMissile.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 1.5F, 1.0F);
 
-            level.addFreshEntity(energyBall);
+            level.addFreshEntity(aurealMissile);
         }
     }
 
