@@ -39,9 +39,9 @@ public class MagicWandItem extends Item {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
-        if ((stack.getUseDuration(livingEntity) - timeLeft) >= 60) {
+        if (!level.isClientSide() && (stack.getUseDuration(livingEntity) - timeLeft) >= 60) {
             AurealMissile aurealMissile = new AurealMissile(livingEntity, level, livingEntity.position().x, livingEntity.getEyePosition().y, livingEntity.position().z);
-            aurealMissile.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 1.5F, 1.0F);
+            aurealMissile.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 0.8F, 0.0F);
 
             level.addFreshEntity(aurealMissile);
         }
