@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AurealMissile extends Projectile {
 
-    public double accelerationPower = 0.01D;
+    public double accelerationPower = 0.03D;
 
     public AurealMissile(EntityType<? extends AurealMissile> entityType, Level level) {
         super(entityType, level);
