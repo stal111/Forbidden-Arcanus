@@ -13,7 +13,7 @@ public class MagicGlintParticle extends TextureSheetParticle {
     protected MagicGlintParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
         super(level, x, y, z);
         this.sprites = spriteSet;
-        this.setLifetime(18);
+        this.setLifetime(9);
         this.setSpriteFromAge(sprites);
     }
 
