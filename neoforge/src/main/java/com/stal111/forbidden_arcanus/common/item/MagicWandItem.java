@@ -16,6 +16,8 @@ import java.util.List;
 
 public class MagicWandItem extends Item {
 
+    private static final float CHARGE_DURATION = 30.0F;
+
     public MagicWandItem(Properties properties) {
         super(properties);
     }
@@ -39,7 +41,7 @@ public class MagicWandItem extends Item {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
-        if (!level.isClientSide() && (stack.getUseDuration(livingEntity) - timeLeft) >= 60) {
+        if (!level.isClientSide() && (stack.getUseDuration(livingEntity) - timeLeft) >= CHARGE_DURATION) {
             AurealMissile aurealMissile = new AurealMissile(livingEntity, level, livingEntity.position().x(), livingEntity.getEyePosition().y(), livingEntity.position().z());
             aurealMissile.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 0.8F, 0.5F);
 
@@ -48,6 +50,6 @@ public class MagicWandItem extends Item {
     }
 
     public static float getUseProgress(ItemStack stack, LivingEntity entity) {
-        return entity.isUsingItem() ? Math.min(60, stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 60.0F : 0.0F;
+        return entity.isUsingItem() ? Math.min(CHARGE_DURATION, stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / CHARGE_DURATION : 0.0F;
     }
 }
