@@ -166,5 +166,6 @@ public class ClientSetup {
         event.registerSpriteSet(ModParticles.BLOOD_DROP.get(), EssenceDropParticle.Provider::new);
         event.registerSpriteSet(ModParticles.EXPERIENCE_DROP.get(), EssenceDropParticle.Provider::new);
         event.registerSpriteSet(ModParticles.MAGIC_GLINT.get(), MagicGlintParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.SPELL_EXPLOSION.get(), HugeExplosionParticle.Provider::new);
     }
 }

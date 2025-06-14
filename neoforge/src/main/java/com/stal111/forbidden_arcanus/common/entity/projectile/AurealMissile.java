@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.entity.projectile;
 
+import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,12 +13,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 public class AurealMissile extends Projectile {
@@ -41,13 +43,9 @@ public class AurealMissile extends Projectile {
 
     @Override
     public void tick() {
-        if (!this.level().hasChunkAt(this.blockPosition())) {
-            this.discard();
-            return;
-        }
         super.tick();
 
-        HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity, ClipContext.Block.COLLIDER);
+        HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
         if (hitresult.getType() != HitResult.Type.MISS && !EventHooks.onProjectileImpact(this, hitresult)) {
             this.hitTargetOrDeflectSelf(hitresult);
         }
@@ -98,7 +96,10 @@ public class AurealMissile extends Projectile {
     @Override
     protected void onHit(@NotNull HitResult result) {
         super.onHit(result);
-        if (!this.level().isClientSide()) {
+
+        if (this.level() instanceof ServerLevel serverLevel) {
+            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(this.blockPosition()), new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 2));
+
             this.discard();
         }
     }

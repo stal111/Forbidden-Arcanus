@@ -61,25 +61,32 @@ public final class ClientPayloadHandler {
         double y = payload.y();
         double z = payload.z();
 
-        for (int l = 0; l < 8; ++l) {
-            this.minecraft.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
+        switch (payload.id()) {
+            case 1 -> {
+                for (int l = 0; l < 8; ++l) {
+                    this.minecraft.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
+                }
+
+                ParticleOptions particleoptions = ModParticles.AUREAL_MOTE.get();
+
+                for (int j3 = 0; j3 < 100; ++j3) {
+                    double xPos = random.nextDouble() * 4.0D;
+                    double zPos = random.nextDouble() * Math.PI * 2.0D;
+                    double xSpeed = Math.cos(zPos) * xPos;
+                    double ySpeed = ((double) random.nextFloat() - 0.4D) * 0.125D;
+                    double zSpeed = Math.sin(zPos) * xPos;
+
+                    Particle particle = ((LevelRendererAccessor) levelRenderer).callAddParticleInternal(particleoptions, particleoptions.getType().getOverrideLimiter(), x + xSpeed * 0.1D, y + 0.3D, z + zSpeed * 0.1D, xSpeed, ySpeed, zSpeed);
+
+                    particle.setLifetime(25 + random.nextInt(10));
+                }
+
+                this.minecraft.level.playLocalSound(x, y, z, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
+            }
+            case 2 -> {
+                this.minecraft.level.addParticle(ModParticles.SPELL_EXPLOSION.get(), x, y, z, 0.0F, 0.0F, 0.0F);
+            }
         }
-
-        ParticleOptions particleoptions = ModParticles.AUREAL_MOTE.get();
-
-        for (int j3 = 0; j3 < 100; ++j3) {
-            double xPos = random.nextDouble() * 4.0D;
-            double zPos = random.nextDouble() * Math.PI * 2.0D;
-            double xSpeed = Math.cos(zPos) * xPos;
-            double ySpeed = ((double) random.nextFloat() - 0.4D) * 0.125D;
-            double zSpeed = Math.sin(zPos) * xPos;
-
-            Particle particle = ((LevelRendererAccessor) levelRenderer).callAddParticleInternal(particleoptions, particleoptions.getType().getOverrideLimiter(), x + xSpeed * 0.1D, y + 0.3D, z + zSpeed * 0.1D, xSpeed, ySpeed, zSpeed);
-
-            particle.setLifetime(25 + random.nextInt(10));
-        }
-
-        this.minecraft.level.playLocalSound(x, y, z, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
     }
 
     public void handle(UpdateEssencePayload payload, IPayloadContext context) {
