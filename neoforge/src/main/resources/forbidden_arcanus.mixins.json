@@ -18,6 +18,7 @@
     "MultiPlayerGameModeMixin",
     "ScreenMixin",
     "client.GuiMixin",
+    "client.HugeExplosionParticleAccessor",
     "client.MinecraftMixin"
   ],
   "injectors": {

@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.core.init;
 import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.particle.EssenceDropParticleOption;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -30,7 +31,7 @@ public class ModParticles implements RegistryClass {
     public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> BLOOD_DROP = register("blood_drop", true, type -> EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
     public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> EXPERIENCE_DROP = register("experience_drop", true,type ->  EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGIC_GLINT = HELPER.register("magic_glint", () -> new SimpleParticleType(false));
-    public static final RegistryEntry<ParticleType<?>, SimpleParticleType> SPELL_EXPLOSION = HELPER.register("spell_explosion", () -> new SimpleParticleType(true));
+    public static final RegistryEntry<ParticleType<?>, ParticleType<ColorParticleOption>> SPELL_EXPLOSION = register("spell_explosion", true, ColorParticleOption::codec, ColorParticleOption::streamCodec);
 
     private static <T extends ParticleOptions> RegistryEntry<ParticleType<?>, ParticleType<T>> register(String name, boolean overrideLimiter, Function<ParticleType<T>, MapCodec<T>> codec, Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> streamCodec) {
         return HELPER.register(name, () -> new ParticleType<T>(overrideLimiter) {
