@@ -89,6 +89,10 @@ public class ModTags {
 
         public static final TagKey<Item> NUGGETS_DEORUM = commonTag("nuggets/deorum");
 
+        public static final TagKey<Item> DUSTS_ARCANE_CRYSTAL = commonTag("dusts/arcane_crystal");
+        public static final TagKey<Item> DUSTS_MUNDABITUR = commonTag("dusts/mundabitur");
+        public static final TagKey<Item> DUSTS_CORRUPTI = commonTag("dusts/corrupti");
+
         private static TagKey<Item> commonTag(String name) {
             return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
         }

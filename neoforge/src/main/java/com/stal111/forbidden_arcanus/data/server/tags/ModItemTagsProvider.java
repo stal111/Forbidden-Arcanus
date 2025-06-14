@@ -74,6 +74,11 @@ public class ModItemTagsProvider extends ValhelsiaItemTagsProvider {
         this.tag(ModTags.Items.NUGGETS_DEORUM).add(ModItems.DEORUM_NUGGET.get());
         this.tag(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_DEORUM);
 
+        this.tag(ModTags.Items.DUSTS_ARCANE_CRYSTAL).add(ModItems.ARCANE_CRYSTAL_DUST.get());
+        this.tag(ModTags.Items.DUSTS_MUNDABITUR).add(ModItems.MUNDABITUR_DUST.get());
+        this.tag(ModTags.Items.DUSTS_CORRUPTI).add(ModItems.CORRUPTI_DUST.get());
+        this.tag(Tags.Items.DUSTS).addTag(ModTags.Items.DUSTS_ARCANE_CRYSTAL).addTag(ModTags.Items.DUSTS_MUNDABITUR).addTag(ModTags.Items.DUSTS_CORRUPTI);
+
         this.tag(ItemTags.BOATS).add(ModItems.AURUM_BOAT.get(), ModItems.EDELWOOD_BOAT.get());
         this.tag(ItemTags.CHEST_BOATS).add(ModItems.AURUM_CHEST_BOAT.get(), ModItems.EDELWOOD_CHEST_BOAT.get());
 

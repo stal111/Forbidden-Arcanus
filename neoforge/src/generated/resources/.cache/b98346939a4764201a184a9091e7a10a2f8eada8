@@ -1,4 +1,8 @@
-// 1.21.1	2025-05-24T15:43:37.6304152	Tags for minecraft:item mod id forbidden_arcanus
+// 1.21.1	2025-06-14T17:14:52.8622116	Tags for minecraft:item mod id forbidden_arcanus
+046c8cf89176d259e937e2ca72a2e472ce0d6849 data/c/tags/item/dusts.json
+674c4d49375c33863d4287f65537171eb637a826 data/c/tags/item/dusts/arcane_crystal.json
+e67ea6dd08228468b13e36125dd5d27a821264e7 data/c/tags/item/dusts/corrupti.json
+2fc6526cf9e66b0a630b1e9d3ef4ddbc307c50e2 data/c/tags/item/dusts/mundabitur.json
 2572dfc3ed16dc52c40839dfeb364036bf3314be data/c/tags/item/explosion_resistant.json
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/item/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/item/fence_gates/wooden.json
