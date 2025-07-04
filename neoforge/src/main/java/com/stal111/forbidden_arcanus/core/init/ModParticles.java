@@ -31,6 +31,7 @@ public class ModParticles implements RegistryClass {
     public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> BLOOD_DROP = register("blood_drop", true, type -> EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
     public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> EXPERIENCE_DROP = register("experience_drop", true,type ->  EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGIC_GLINT = HELPER.register("magic_glint", () -> new SimpleParticleType(false));
+    public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGIC_HIT = HELPER.register("magic_hit", () -> new SimpleParticleType(false));
     public static final RegistryEntry<ParticleType<?>, ParticleType<ColorParticleOption>> SPELL_EXPLOSION = register("spell_explosion", true, ColorParticleOption::codec, ColorParticleOption::streamCodec);
 
     private static <T extends ParticleOptions> RegistryEntry<ParticleType<?>, ParticleType<T>> register(String name, boolean overrideLimiter, Function<ParticleType<T>, MapCodec<T>> codec, Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> streamCodec) {

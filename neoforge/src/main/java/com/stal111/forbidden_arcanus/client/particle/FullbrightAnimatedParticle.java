@@ -6,14 +6,13 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.NotNull;
 
-public class MagicGlintParticle extends TextureSheetParticle {
+public class FullbrightAnimatedParticle extends TextureSheetParticle {
 
     private final SpriteSet sprites;
 
-    protected MagicGlintParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
+    protected FullbrightAnimatedParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
         super(level, x, y, z);
         this.sprites = spriteSet;
-        this.setLifetime(9);
         this.setSpriteFromAge(sprites);
     }
 
@@ -33,11 +32,14 @@ public class MagicGlintParticle extends TextureSheetParticle {
         return LightTexture.FULL_BLOCK;
     }
 
-    public record Factory(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+    public record Factory(SpriteSet spriteSet, int lifetime) implements ParticleProvider<SimpleParticleType> {
 
         @Override
         public Particle createParticle(@NotNull SimpleParticleType type, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new MagicGlintParticle(level, x, y, z, this.spriteSet);
+            var particle = new FullbrightAnimatedParticle(level, x, y, z, this.spriteSet);
+            particle.setLifetime(lifetime);
+
+            return particle;
         }
     }
 }
