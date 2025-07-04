@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.integration.ponder.ForbiddenArcanusPonderPlugin;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -10,6 +11,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+
+import net.createmod.ponder.foundation.PonderIndex;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -326,6 +329,9 @@ public class LangProvider extends LanguageProvider {
         this.add("jei", "category.hephaestus_smithing", "Hephaestus Smithing");
         this.add("jei", "category.hephaestus_forge_upgrading", "Hephaestus Forge Upgrading");
         this.add("jei", "hephaestus_smithing.required_essence", "Required %s: %s");
+
+        PonderIndex.addPlugin(new ForbiddenArcanusPonderPlugin());
+        PonderIndex.getLangAccess().provideLang(ForbiddenArcanus.MOD_ID, this::add);
     }
 
     private void addModifier(String modifier, String name) {
