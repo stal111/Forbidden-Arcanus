@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.entity.projectile.AurealMissile;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
+import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -46,6 +47,8 @@ public class MagicWandItem extends Item {
             aurealMissile.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 1.1F, 0.5F);
 
             level.addFreshEntity(aurealMissile);
+
+            level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.MAGIC_WAND_CAST.get(), livingEntity.getSoundSource(), 1.0F, 1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F);
         }
     }
 

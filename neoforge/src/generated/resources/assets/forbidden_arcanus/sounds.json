@@ -59,6 +59,14 @@
       "forbidden_arcanus:forbiddenomicon_open"
     ]
   },
+  "item.magic_wand.cast": {
+    "sounds": [
+      "forbidden_arcanus:magic_wand_cast_1",
+      "forbidden_arcanus:magic_wand_cast_2",
+      "forbidden_arcanus:magic_wand_cast_3",
+      "forbidden_arcanus:magic_wand_cast_4"
+    ]
+  },
   "item.mundabitur_dust.use": {
     "sounds": [
       "forbidden_arcanus:mundabitur_dust_use"

@@ -28,5 +28,6 @@ public class ModSounds implements RegistryClass {
     public static final RegistryEntry<SoundEvent, SoundEvent> MUNDABITUR_DUST_USE = HELPER.register("mundabitur_dust_use", () -> SoundEvent.createVariableRangeEvent(ForbiddenArcanus.location("item.mundabitur_dust.use")));
     public static final RegistryEntry<SoundEvent, SoundEvent> PEDESTAL_INTERACT = HELPER.register("pedestal_interact", () -> SoundEvent.createVariableRangeEvent(ForbiddenArcanus.location("block.pedestal.interact")));
     public static final RegistryEntry<SoundEvent, SoundEvent> OBSIDIAN_SKULL_CRACK = HELPER.register("obsidian_skull_crack", () -> SoundEvent.createVariableRangeEvent(ForbiddenArcanus.location("block.obsidian_skull.crack")));
+    public static final RegistryEntry<SoundEvent, SoundEvent> MAGIC_WAND_CAST = HELPER.register("magic_wand_cast", () -> SoundEvent.createVariableRangeEvent(ForbiddenArcanus.location("item.magic_wand.cast")));
 
 }
