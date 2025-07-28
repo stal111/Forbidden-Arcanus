@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.entity.projectile.AurealMissile;
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.network.chat.Component;
@@ -35,21 +36,35 @@ public class MagicWandItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        player.startUsingItem(usedHand);
+        ItemStack stack = player.getItemInHand(usedHand);
 
-        return InteractionResultHolder.consume(player.getItemInHand(usedHand));
+        if (EssenceHelper.hasEnoughAureal(level, player, stack)) {
+            player.startUsingItem(usedHand);
+
+            return InteractionResultHolder.consume(player.getItemInHand(usedHand));
+        }
+
+        return super.use(level, player, usedHand);
     }
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
         if (!level.isClientSide() && (stack.getUseDuration(livingEntity) - timeLeft) >= CHARGE_DURATION) {
-            AurealMissile aurealMissile = new AurealMissile(livingEntity, level, livingEntity.position().x(), livingEntity.getEyePosition().y(), livingEntity.position().z());
-            aurealMissile.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 1.1F, 0.5F);
+            if (EssenceHelper.hasEnoughAureal(level, livingEntity, stack)) {
+                this.shootProjectile(level, livingEntity);
 
-            level.addFreshEntity(aurealMissile);
-
-            level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.MAGIC_WAND_CAST.get(), livingEntity.getSoundSource(), 1.0F, 1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F);
+                EssenceHelper.consumeAureal(livingEntity, stack);
+            }
         }
+    }
+
+    private void shootProjectile(Level level, LivingEntity livingEntity) {
+        AurealMissile aurealMissile = new AurealMissile(livingEntity, level, livingEntity.position().x(), livingEntity.getEyePosition().y(), livingEntity.position().z());
+        aurealMissile.shootFromRotation(livingEntity, livingEntity.getXRot(), livingEntity.getYRot(), 0.0F, 1.1F, 0.5F);
+
+        level.addFreshEntity(aurealMissile);
+
+        level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.MAGIC_WAND_CAST.get(), livingEntity.getSoundSource(), 1.0F, 1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F);
     }
 
     public static float getUseProgress(ItemStack stack, LivingEntity entity) {

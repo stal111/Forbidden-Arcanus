@@ -47,5 +47,5 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<ObsidianSkullType>> OBSIDIAN_SKULL_TYPE = HELPER.register("obsidian_skull_type", () -> DataComponentType.<ObsidianSkullType>builder().persistent(ObsidianSkullType.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<List<EffectGrantingRule>>> GRANTS_EFFECTS = HELPER.register("grants_effects", () -> DataComponentType.<List<EffectGrantingRule>>builder().persistent(EffectGrantingRule.CODEC.listOf()).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<WandParts>> WAND_PARTS = HELPER.register("wand_parts", () -> DataComponentType.<WandParts>builder().persistent(WandParts.CODEC).build());
-
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<AurealCost>> AUREAL_COST = HELPER.register("aureal_cost", () -> DataComponentType.<AurealCost>builder().persistent(AurealCost.CODEC).networkSynchronized(AurealCost.STREAM_CODEC).build());
 }
