@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.TransmuteInputResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.SmithingCategory;
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.UpgradeTierCategory;
@@ -60,7 +61,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
         Registry<Ritual> registry = level.registryAccess().registryOrThrow(FARegistries.RITUAL);
 
-        registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult).toList());
+        registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult || ritual.result() instanceof TransmuteInputResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
         registration.addRecipes(CLIBANO_COMBUSTION, level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get()).stream().map(RecipeHolder::value).toList());
