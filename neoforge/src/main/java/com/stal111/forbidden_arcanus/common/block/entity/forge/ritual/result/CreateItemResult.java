@@ -3,9 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 /**
  * @author stal111
@@ -18,7 +16,7 @@ public record CreateItemResult(ItemStack result) implements RitualResult {
     ).apply(instance, CreateItemResult::new));
 
     @Override
-    public ItemStack apply(Level level, BlockPos pos, int forgeTier, ItemStack mainInput) {
+    public ItemStack getResultItem(ItemStack mainInput) {
         return this.result.copy();
     }
 

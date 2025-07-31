@@ -16,15 +16,18 @@ public interface RitualResult {
             .dispatch(RitualResult::getType, RitualResultType::codec);
 
     /**
-     * Called once the ritual animation finishes. Use this to create the desired result.
-     *
-     * @param level     the level the Forge is in
-     * @param pos       the pos where the Forge is located
-     * @param forgeTier the tier of the Forge
-     * @param mainInput the main input ItemStack of the ritual
      * @return the result ItemStack of the ritual
      */
-    ItemStack apply(Level level, BlockPos pos, int forgeTier, ItemStack mainInput);
+    ItemStack getResultItem(ItemStack mainInput);
+
+    /**
+     * Called once the ritual animation finishes. Use this to execute any in world effects.
+     *
+     * @param level the level the Forge is in
+     * @param pos   the pos where the Forge is located
+     */
+    default void executeLevelEffect(Level level, BlockPos pos) {
+    }
 
     /**
      * @return the type which serializes and deserializes this result

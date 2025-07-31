@@ -37,7 +37,12 @@ public record UpgradeTierResult(int resultTier) implements RitualResult {
     ).apply(instance, UpgradeTierResult::new));
 
     @Override
-    public ItemStack apply(Level level, BlockPos pos, int forgeTier, ItemStack mainInput) {
+    public ItemStack getResultItem(ItemStack mainInput) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void executeLevelEffect(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
 
         level.setBlockAndUpdate(pos, FORGE_TIERS.get(this.resultTier).get().withPropertiesOf(state));
@@ -50,8 +55,6 @@ public record UpgradeTierResult(int resultTier) implements RitualResult {
 
             level.addFreshEntity(entity);
         }
-
-        return ItemStack.EMPTY;
     }
 
     @Override

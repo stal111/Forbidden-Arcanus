@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircl
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
@@ -239,7 +240,11 @@ public class RitualManager {
             FACriteriaTriggers.RITUAL.get().trigger(serverPlayer, data.getRitualId());
         }
 
-        return data.getRitual().result().apply(this.level, this.pos, this.forgeTier, this.dataCache.mainIngredient());
+        RitualResult result = data.getRitual().result();
+
+        result.executeLevelEffect(this.level, this.pos);
+
+        return result.getResultItem(this.dataCache.mainIngredient());
     }
 
     private ItemStack failRitual() {

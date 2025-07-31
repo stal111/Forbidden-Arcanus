@@ -3,11 +3,9 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public record TransmuteInputResult(Holder<Item> result) implements RitualResult {
 
@@ -16,7 +14,7 @@ public record TransmuteInputResult(Holder<Item> result) implements RitualResult 
     ).apply(instance, TransmuteInputResult::new));
 
     @Override
-    public ItemStack apply(Level level, BlockPos pos, int forgeTier, ItemStack mainInput) {
+    public ItemStack getResultItem(ItemStack mainInput) {
         return mainInput.transmuteCopy(this.result.value());
     }
 
