@@ -239,7 +239,7 @@ public class RitualManager {
             FACriteriaTriggers.RITUAL.get().trigger(serverPlayer, data.getRitualId());
         }
 
-        return data.getRitual().result().apply(this.level, this.pos, this.forgeTier);
+        return data.getRitual().result().apply(this.level, this.pos, this.forgeTier, this.dataCache.mainIngredient());
     }
 
     private ItemStack failRitual() {

@@ -37,7 +37,7 @@ public record UpgradeTierResult(int resultTier) implements RitualResult {
     ).apply(instance, UpgradeTierResult::new));
 
     @Override
-    public ItemStack apply(Level level, BlockPos pos, int forgeTier) {
+    public ItemStack apply(Level level, BlockPos pos, int forgeTier, ItemStack mainInput) {
         BlockState state = level.getBlockState(pos);
 
         level.setBlockAndUpdate(pos, FORGE_TIERS.get(this.resultTier).get().withPropertiesOf(state));

@@ -21,9 +21,10 @@ public interface RitualResult {
      * @param level     the level the Forge is in
      * @param pos       the pos where the Forge is located
      * @param forgeTier the tier of the Forge
+     * @param mainInput the main input ItemStack of the ritual
      * @return the result ItemStack of the ritual
      */
-    ItemStack apply(Level level, BlockPos pos, int forgeTier);
+    ItemStack apply(Level level, BlockPos pos, int forgeTier, ItemStack mainInput);
 
     /**
      * @return the type which serializes and deserializes this result
