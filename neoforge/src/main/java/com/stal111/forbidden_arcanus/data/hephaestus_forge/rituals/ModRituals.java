@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.TransmuteInputResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -17,6 +18,7 @@ import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
@@ -47,6 +49,11 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public static final ResourceKey<Ritual> BOSS_CATCHER = HELPER.createKey("boss_catcher");
     public static final ResourceKey<Ritual> QUANTUM_INJECTOR = HELPER.createKey("quantum_injector");
     public static final ResourceKey<Ritual> SOUL_BINDING_CRYSTAL = HELPER.createKey("soul_binding_crystal");
+
+    public static final ResourceKey<Ritual> DRACO_ARCANUS_HELMET = HELPER.createKey("draco_arcanus_helmet");
+    public static final ResourceKey<Ritual> DRACO_ARCANUS_CHESTPLATE = HELPER.createKey("draco_arcanus_chestplate");
+    public static final ResourceKey<Ritual> DRACO_ARCANUS_LEGGINGS = HELPER.createKey("draco_arcanus_leggings");
+    public static final ResourceKey<Ritual> DRACO_ARCANUS_BOOTS = HELPER.createKey("draco_arcanus_boots");
 
     public static final ResourceKey<Ritual> UPGRADE_TIER_2 = HELPER.createKey("upgrade_tier_2");
     public static final ResourceKey<Ritual> UPGRADE_TIER_3 = HELPER.createKey("upgrade_tier_3");
@@ -83,6 +90,11 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         var quantumInjector = this.requirements(EssencesDefinition.of(5000, 50, 3000, 1060), builder -> builder.tier(TierPredicate.min(3)));
         var soulBindingCrystal = this.requirements(EssencesDefinition.of(1500, 20, 375, 220), builder -> builder.tier(TierPredicate.min(4)).enhancer(divinePact));
 
+        var dracoArcanusHelmet = this.requirements(EssencesDefinition.of(820, 6, 475, 420), builder -> builder.tier(TierPredicate.min(2)));
+        var dracoArcanusChestplate = this.requirements(EssencesDefinition.of(1300, 9, 625, 760), builder -> builder.tier(TierPredicate.min(2)));
+        var dracoArcanusLeggings = this.requirements(EssencesDefinition.of(1000, 7, 565, 540), builder -> builder.tier(TierPredicate.min(2)));
+        var dracoArcanusBoots = this.requirements(EssencesDefinition.of(700, 5, 405, 370), builder -> builder.tier(TierPredicate.min(2)));
+
         var tier2 = this.requirements(EssencesDefinition.of(500, 10, 6000, 0), builder -> builder.tier(TierPredicate.exact(1)));
         var tier3 = this.requirements(EssencesDefinition.of(1000, 50, 9000, 0), builder -> builder.tier(TierPredicate.exact(2)));
         var tier4 = this.requirements(EssencesDefinition.of(2000, 100, 12000, 0), builder -> builder.tier(TierPredicate.exact(3)));
@@ -98,6 +110,11 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         this.register(BOSS_CATCHER, ModItems.BOSS_CATCHER.get(), ModItems.QUANTUM_CATCHER.get(), builder -> builder.input(Ingredient.of(Items.NETHER_STAR)).input(Ingredient.of(ModItems.STELLARITE_PIECE), 3).requirements(bossCatcher));
         this.register(QUANTUM_INJECTOR, ModBlocks.QUANTUM_INJECTOR.get(), ModItems.MUNDABITUR_DUST.get(), builder -> builder.input(Ingredient.of(ModBlocks.QUANTUM_CORE.get()), 4).requirements(quantumInjector));
         this.register(SOUL_BINDING_CRYSTAL, ModItems.SOUL_BINDING_CRYSTAL.get(), Items.QUARTZ, builder -> builder.input(Ingredient.of(ModItems.SOUL)).input(Ingredient.of(ModItems.CORRUPT_SOUL)).input(Ingredient.of(ModItems.ENCHANTED_SOUL)).input(Ingredient.of(Items.AMETHYST_SHARD), 2).input(Ingredient.of(ModItems.ENDER_PEARL_FRAGMENT), 3).requirements(soulBindingCrystal));
+
+        this.register(DRACO_ARCANUS_HELMET, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.DRACO_ARCANUS_HELMET.getKey())), Items.NETHERITE_HELMET, builder -> builder.input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3).requirements(dracoArcanusHelmet));
+        this.register(DRACO_ARCANUS_CHESTPLATE, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.DRACO_ARCANUS_CHESTPLATE.getKey())), Items.NETHERITE_CHESTPLATE, builder -> builder.input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 4).input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3).requirements(dracoArcanusChestplate));
+        this.register(DRACO_ARCANUS_LEGGINGS, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.DRACO_ARCANUS_LEGGINGS.getKey())), Items.NETHERITE_LEGGINGS, builder -> builder.input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 3).input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3).requirements(dracoArcanusLeggings));
+        this.register(DRACO_ARCANUS_BOOTS, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.DRACO_ARCANUS_BOOTS.getKey())), Items.NETHERITE_BOOTS, builder -> builder.input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 2).requirements(dracoArcanusBoots));
 
         this.register(UPGRADE_TIER_2, new UpgradeTierResult(2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).requirements(tier2).magicCircle(ModMagicCircles.UPGRADE_TIER));
         this.register(UPGRADE_TIER_3, new UpgradeTierResult(3), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).requirements(tier3).magicCircle(ModMagicCircles.UPGRADE_TIER));
@@ -115,6 +132,10 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
 
     private void register(ResourceKey<Ritual> key, ItemStack result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
         this.getContext().register(key, builder.apply(new RitualBuilder(mainIngredient, new CreateItemResult(result), this.magicCircleLookup)).build());
+    }
+
+    private void register(ResourceKey<Ritual> key, RitualResult result, ItemLike mainIngredient, UnaryOperator<RitualBuilder> builder) {
+        this.getContext().register(key, builder.apply(new RitualBuilder(new ItemStack(mainIngredient), result, this.magicCircleLookup)).build());
     }
 
     private void register(ResourceKey<Ritual> key, RitualResult result, ItemStack mainIngredient, UnaryOperator<RitualBuilder> builder) {
