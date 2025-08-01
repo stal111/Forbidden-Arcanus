@@ -55,6 +55,11 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public static final ResourceKey<Ritual> DRACO_ARCANUS_LEGGINGS = HELPER.createKey("draco_arcanus_leggings");
     public static final ResourceKey<Ritual> DRACO_ARCANUS_BOOTS = HELPER.createKey("draco_arcanus_boots");
 
+    public static final ResourceKey<Ritual> TYR_HELMET = HELPER.createKey("tyr_helmet");
+    public static final ResourceKey<Ritual> TYR_CHESTPLATE = HELPER.createKey("tyr_chestplate");
+    public static final ResourceKey<Ritual> TYR_LEGGINGS = HELPER.createKey("tyr_leggings");
+    public static final ResourceKey<Ritual> TYR_BOOTS = HELPER.createKey("tyr_boots");
+
     public static final ResourceKey<Ritual> UPGRADE_TIER_2 = HELPER.createKey("upgrade_tier_2");
     public static final ResourceKey<Ritual> UPGRADE_TIER_3 = HELPER.createKey("upgrade_tier_3");
     public static final ResourceKey<Ritual> UPGRADE_TIER_4 = HELPER.createKey("upgrade_tier_4");
@@ -95,6 +100,11 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         var dracoArcanusLeggings = this.requirements(EssencesDefinition.of(1000, 7, 565, 540), builder -> builder.tier(TierPredicate.min(2)));
         var dracoArcanusBoots = this.requirements(EssencesDefinition.of(700, 5, 405, 370), builder -> builder.tier(TierPredicate.min(2)));
 
+        var tyrHelmet = this.requirements(EssencesDefinition.of(4820, 40, 5930, 2450), builder -> builder.tier(TierPredicate.min(4)));
+        var tyrChestplate = this.requirements(EssencesDefinition.of(6300, 60, 8080, 3420), builder -> builder.tier(TierPredicate.min(4)));
+        var tyrLeggings = this.requirements(EssencesDefinition.of(5080, 50, 7620, 3010), builder -> builder.tier(TierPredicate.min(4)));
+        var tyrBoots = this.requirements(EssencesDefinition.of(4460, 40, 5620, 2170), builder -> builder.tier(TierPredicate.min(4)));
+
         var tier2 = this.requirements(EssencesDefinition.of(500, 10, 6000, 0), builder -> builder.tier(TierPredicate.exact(1)));
         var tier3 = this.requirements(EssencesDefinition.of(1000, 50, 9000, 0), builder -> builder.tier(TierPredicate.exact(2)));
         var tier4 = this.requirements(EssencesDefinition.of(2000, 100, 12000, 0), builder -> builder.tier(TierPredicate.exact(3)));
@@ -115,6 +125,11 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
         this.register(DRACO_ARCANUS_CHESTPLATE, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.DRACO_ARCANUS_CHESTPLATE.getKey())), Items.NETHERITE_CHESTPLATE, builder -> builder.input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 4).input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3).requirements(dracoArcanusChestplate));
         this.register(DRACO_ARCANUS_LEGGINGS, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.DRACO_ARCANUS_LEGGINGS.getKey())), Items.NETHERITE_LEGGINGS, builder -> builder.input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 3).input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3).requirements(dracoArcanusLeggings));
         this.register(DRACO_ARCANUS_BOOTS, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.DRACO_ARCANUS_BOOTS.getKey())), Items.NETHERITE_BOOTS, builder -> builder.input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2).input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 2).requirements(dracoArcanusBoots));
+
+        this.register(TYR_HELMET, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.TYR_HELMET.getKey())), ModItems.DRACO_ARCANUS_HELMET, builder -> builder.input(Ingredient.of(ModItems.AQUATIC_DRAGON_SCALE.get()), 4).input(Ingredient.of(ModItems.GOLDEN_DRAGON_SCALE.get()), 1).requirements(tyrHelmet));
+        this.register(TYR_CHESTPLATE, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.TYR_CHESTPLATE.getKey())), ModItems.DRACO_ARCANUS_CHESTPLATE, builder -> builder.input(Ingredient.of(ModItems.AQUATIC_DRAGON_SCALE.get()), 4).input(Ingredient.of(ModItems.GOLDEN_DRAGON_SCALE.get()), 4).requirements(tyrChestplate));
+        this.register(TYR_LEGGINGS, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.TYR_LEGGINGS.getKey())), ModItems.DRACO_ARCANUS_LEGGINGS, builder -> builder.input(Ingredient.of(ModItems.AQUATIC_DRAGON_SCALE.get()), 4).input(Ingredient.of(ModItems.GOLDEN_DRAGON_SCALE.get()), 3).requirements(tyrLeggings));
+        this.register(TYR_BOOTS, new TransmuteInputResult(context.lookup(Registries.ITEM).getOrThrow(ModItems.TYR_BOOTS.getKey())), ModItems.DRACO_ARCANUS_BOOTS, builder -> builder.input(Ingredient.of(ModItems.AQUATIC_DRAGON_SCALE.get()), 3).input(Ingredient.of(ModItems.GOLDEN_DRAGON_SCALE.get()), 2).requirements(tyrBoots));
 
         this.register(UPGRADE_TIER_2, new UpgradeTierResult(2), new ItemStack(ModBlocks.EDELWOOD_PLANKS.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4).requirements(tier2).magicCircle(ModMagicCircles.UPGRADE_TIER));
         this.register(UPGRADE_TIER_3, new UpgradeTierResult(3), new ItemStack(ModBlocks.CHISELED_POLISHED_DARKSTONE.get()), builder -> builder.input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4).input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4).requirements(tier3).magicCircle(ModMagicCircles.UPGRADE_TIER));

@@ -1,0 +1,31 @@
+{
+  "essences": {
+    "aureal": 4820,
+    "blood": 5930,
+    "experience": 2450,
+    "souls": 40
+  },
+  "forge_tier": 4,
+  "inputs": [
+    {
+      "amount": 4,
+      "ingredient": {
+        "item": "forbidden_arcanus:aquatic_dragon_scale"
+      }
+    },
+    {
+      "amount": 1,
+      "ingredient": {
+        "item": "forbidden_arcanus:golden_dragon_scale"
+      }
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:create_item",
+  "main_ingredient": {
+    "item": "forbidden_arcanus:draco_arcanus_helmet"
+  },
+  "result": {
+    "type": "forbidden_arcanus:transmute_input",
+    "result_item": "forbidden_arcanus:tyr_helmet"
+  }
+}
