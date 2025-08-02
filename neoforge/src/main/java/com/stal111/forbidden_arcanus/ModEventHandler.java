@@ -20,7 +20,6 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
         eventBus.register(new SpawnPlacementEvents());
         eventBus.register(new RegistryEvents());
         eventBus.register(new NetworkEvents());
-        eventBus.register(new DataComponentEvents());
         eventBus.register(new CapabilityEvents());
     }
 
@@ -29,7 +28,6 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
         eventBus.register(new DeathEvents());
         eventBus.register(new TooltipEvents());
         eventBus.register(new TradeEvents());
-        eventBus.register(new EntityEvents());
         eventBus.register(new PlayerEvents());
         eventBus.register(new RecipeEvents());
     }

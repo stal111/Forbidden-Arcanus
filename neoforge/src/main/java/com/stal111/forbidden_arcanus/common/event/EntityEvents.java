@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.event;
 
+import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
@@ -12,16 +13,25 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
+@EventBusSubscriber
 public class EntityEvents {
 
     @SubscribeEvent
-    public void onEntityDamage(LivingDamageEvent.Post event) {
+    public static void onAttributeModification(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, FAAttributes.AUREAL_REGENERATION);
+    }
+
+    @SubscribeEvent
+    public static void onEntityDamage(LivingDamageEvent.Post event) {
         DamageSource source = event.getSource();
 
         if (source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player && !event.getEntity().getType().is(ModTags.EntityTypes.TEST_TUBE_BLACKLISTED)) {
@@ -40,7 +50,7 @@ public class EntityEvents {
     }
 
     @SubscribeEvent
-    public void onLivingDeath(LivingDeathEvent event) {
+    public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             SoulboundInventory inventory = SoulboundInventory.create();
 

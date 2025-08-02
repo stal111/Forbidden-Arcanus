@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
@@ -43,6 +44,13 @@ public class PlayerEvents {
             }
 
             player.move(MoverType.SELF, new Vec3(0.0D, player.getDeltaMovement().y * multiplier, 0.0D));
+        }
+
+        if (!player.level().isClientSide() && player.level().getGameTime() % 100 == 0) {
+            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
+                System.out.println((int) player.getAttributeValue(FAAttributes.AUREAL_REGENERATION));
+               provider.updateAmount(EssenceType.AUREAL, value -> value + (int) player.getAttributeValue(FAAttributes.AUREAL_REGENERATION));
+            });
         }
     }
 

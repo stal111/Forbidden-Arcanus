@@ -4,12 +4,14 @@ import com.stal111.forbidden_arcanus.common.advancements.critereon.FACriteriaTri
 import com.stal111.forbidden_arcanus.common.advancements.critereon.FAEntitySubPredicates;
 import com.stal111.forbidden_arcanus.common.advancements.critereon.FAItemSubPredicates;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffects;
+import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
 import com.stal111.forbidden_arcanus.common.item.FAArmorMaterials;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteractions;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
-import com.stal111.forbidden_arcanus.core.init.world.*;
+import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
+import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.data.ModEnchantments;
 import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
@@ -63,6 +65,7 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.ITEM_SUB_PREDICATE_TYPE, FAItemSubPredicates.class);
         this.addMappedHelper(Registries.ENTITY_SUB_PREDICATE_TYPE, FAEntitySubPredicates.class);
         this.addMappedHelper(Registries.TRIGGER_TYPE, FACriteriaTriggers.class);
+        this.addMappedHelper(Registries.ATTRIBUTE, FAAttributes.class);
         this.addMappedHelper(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, ModEntityDataSerializers.class);
         this.addMappedHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ModAttachmentTypes.class);
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);
