@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "forbidden_arcanus:arcane_crystal"
+    },
+    "D": {
+      "item": "forbidden_arcanus:deorum_ingot"
+    },
+    "E": {
+      "item": "forbidden_arcanus:edelwood_stick"
+    }
+  },
+  "pattern": [
+    "  E",
+    " D ",
+    "A  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:magic_wand"
+  }
+}
