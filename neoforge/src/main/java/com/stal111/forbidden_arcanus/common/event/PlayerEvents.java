@@ -48,7 +48,6 @@ public class PlayerEvents {
 
         if (!player.level().isClientSide() && player.level().getGameTime() % 100 == 0) {
             EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
-                System.out.println((int) player.getAttributeValue(FAAttributes.AUREAL_REGENERATION));
                provider.updateAmount(EssenceType.AUREAL, value -> value + (int) player.getAttributeValue(FAAttributes.AUREAL_REGENERATION));
             });
         }
