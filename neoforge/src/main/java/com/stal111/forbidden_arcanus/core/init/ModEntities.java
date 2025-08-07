@@ -38,6 +38,6 @@ public class ModEntities implements RegistryClass {
     public static final RegistryEntry<EntityType<?>, EntityType<EnchantedLostSoul>> ENCHANTED_LOST_SOUL = HELPER.register("enchanted_lost_soul", EntityType.Builder.of(EnchantedLostSoul::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));
     public static final RegistryEntry<EntityType<?>, EntityType<ThrownAurealBottle>> AUREAL_BOTTLE = HELPER.register("aureal_bottle", EntityType.Builder.<ThrownAurealBottle>of(ThrownAurealBottle::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
     public static final RegistryEntry<EntityType<?>, EntityType<DarkTrader>> DARK_TRADER = HELPER.register("dark_trader", EntityType.Builder.of(DarkTrader::new, MobCategory.CREATURE).requiredFeatures().sized(0.35F, 0.6F).clientTrackingRange(8));
-    public static final RegistryEntry<EntityType<?>, EntityType<AurealMissile>> AUREAL_MISSILE = HELPER.register("aureal_missile", EntityType.Builder.<AurealMissile>of(AurealMissile::new, MobCategory.MISC).requiredFeatures(ForbiddenArcanus.UPDATE_2_6).sized(0.4F, 0.4F).clientTrackingRange(4).updateInterval(10));
+    public static final RegistryEntry<EntityType<?>, EntityType<AurealMissile>> AUREAL_MISSILE = HELPER.register("aureal_missile", EntityType.Builder.<AurealMissile>of(AurealMissile::new, MobCategory.MISC).requiredFeatures(ForbiddenArcanus.PREVIEW).sized(0.4F, 0.4F).clientTrackingRange(4).updateInterval(10));
 
 }

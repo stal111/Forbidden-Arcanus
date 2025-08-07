@@ -1,0 +1,11 @@
+{
+  "features": {
+    "enabled": [
+      "forbidden_arcanus:preview"
+    ]
+  },
+  "pack": {
+    "description": "Enable experimental features for Forbidden Arcanus",
+    "pack_format": 48
+  }
+}

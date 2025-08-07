@@ -80,12 +80,12 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(context));
 
-        DataGenerator.PackGenerator featurePack = generator.getBuiltinDatapack(true, ForbiddenArcanus.MOD_ID, "update-2.6");
+        DataGenerator.PackGenerator featurePack = generator.getBuiltinDatapack(true, ForbiddenArcanus.MOD_ID, "preview");
 
         featurePack.addProvider(output1 -> PackMetadataGenerator.forFeaturePack(
                 output1,
-                Component.literal("Enable experimental features for the Forbidden Arcanus 2.6 Update"),
-                FeatureFlagSet.of(ForbiddenArcanus.UPDATE_2_6)
+                Component.literal("Enable experimental features for Forbidden Arcanus"),
+                FeatureFlagSet.of(ForbiddenArcanus.PREVIEW)
         ));
     }
 }

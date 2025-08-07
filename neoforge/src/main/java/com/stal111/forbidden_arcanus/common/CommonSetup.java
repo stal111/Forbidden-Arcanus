@@ -63,6 +63,6 @@ public class CommonSetup {
 
     @SubscribeEvent
     private static void addFeaturePacks(AddPackFindersEvent event) {
-        event.addPackFinders(ForbiddenArcanus.location("data/forbidden_arcanus/datapacks/update-2.6"), PackType.SERVER_DATA, Component.literal("Forbidden Arcanus: 2.6 Update"), PackSource.FEATURE, false, Pack.Position.TOP);
+        event.addPackFinders(ForbiddenArcanus.location("data/forbidden_arcanus/datapacks/preview"), PackType.SERVER_DATA, Component.literal("Forbidden Arcanus: Preview Features"), PackSource.FEATURE, false, Pack.Position.TOP);
     }
 }

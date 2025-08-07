@@ -24,7 +24,7 @@ public final class ForbiddenArcanus {
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistryCollector(ForbiddenArcanus.MOD_ID));
 
-	public static final FeatureFlag UPDATE_2_6 = FeatureFlags.REGISTRY.getFlag(ForbiddenArcanus.location("update-2.6"));
+	public static final FeatureFlag PREVIEW = FeatureFlags.REGISTRY.getFlag(ForbiddenArcanus.location("preview"));
 
 	public ForbiddenArcanus(IEventBus modEventBus, ModContainer modContainer) {
 		ModDefinition.of(ForbiddenArcanus.MOD_ID)
