@@ -176,6 +176,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SMELTER_PRISM.get());
                             output.accept(ModItems.FERROGNETIC_MIXTURE.get());
                             output.accept(ModItems.SOUL_BINDING_CRYSTAL.get());
+                            output.accept(ModItems.AUREAL_WARDSTONE.get());
                             output.accept(ModItems.DARK_MATTER.get());
                             output.accept(ModItems.ENDER_PEARL_FRAGMENT.get());
                             output.accept(ModItems.DRAGON_SCALE.get());

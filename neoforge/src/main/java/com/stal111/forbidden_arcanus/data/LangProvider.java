@@ -230,6 +230,7 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.SMELTER_PRISM, "Smelter Prism");
         this.addItem(ModItems.FERROGNETIC_MIXTURE, "Ferrognetic Mixture");
         this.addItem(ModItems.SOUL_BINDING_CRYSTAL, "Soul Binding Crystal");
+        this.addItem(ModItems.AUREAL_WARDSTONE, "Aureal Wardstone");
         this.addItem(ModItems.DARK_MATTER, "Dark Matter");
         this.addItem(ModItems.ENDER_PEARL_FRAGMENT, "Ender Pearl Fragment");
         this.addItem(ModItems.DRAGON_SCALE, "Dragon Scale");

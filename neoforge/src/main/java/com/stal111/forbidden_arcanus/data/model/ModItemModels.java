@@ -118,6 +118,7 @@ public class ModItemModels extends ItemModelGenerator {
         this.generateFlatItem(ModItems.WHIRLWIND_PRISM);
         this.generateFlatItem(ModItems.SMELTER_PRISM);
         this.generateFlatItem(ModItems.SOUL_BINDING_CRYSTAL);
+        this.generateFlatItem(ModItems.AUREAL_WARDSTONE);
         this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal");
 
         ModModelTemplates.QUANTUM_CATCHER.create(ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()), ModTextureMapping.quantumCatcher(""), this.output);
