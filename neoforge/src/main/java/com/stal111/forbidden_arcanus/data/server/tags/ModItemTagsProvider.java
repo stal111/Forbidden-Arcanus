@@ -51,6 +51,10 @@ public class ModItemTagsProvider extends ValhelsiaItemTagsProvider {
         this.tag(ModTags.Items.BLACK_HOLE_UNAFFECTED).add(ModItems.STELLARITE_PIECE.get(), ModBlocks.STELLARITE_BLOCK.get().asItem(), ModBlocks.STELLA_ARCANUM.get().asItem(), ModItems.ETERNAL_STELLA.get(), ModItems.DARK_NETHER_STAR.get(), Items.NETHER_STAR, Items.BEDROCK, Items.OBSIDIAN, Items.CRYING_OBSIDIAN, Items.ENCHANTING_TABLE, Items.END_PORTAL_FRAME, Items.ENDER_CHEST, Items.RESPAWN_ANCHOR).addTag(ModTags.Items.HEPHAESTUS_FORGES);
         this.tag(ModTags.Items.EXPLOSION_RESISTANT).add(Items.NETHER_STAR, ModItems.DARK_NETHER_STAR.get(), ModItems.STELLARITE_PIECE.get(), ModItems.ETERNAL_STELLA.get(), ModBlocks.STELLARITE_BLOCK.get().asItem());
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.FUNGYSS.get().asItem());
+        this.tag(ItemTags.HEAD_ARMOR).add(ModItems.DRACO_ARCANUS_HELMET.get(), ModItems.TYR_HELMET.get());
+        this.tag(ItemTags.CHEST_ARMOR).add(ModItems.DRACO_ARCANUS_CHESTPLATE.get(), ModItems.TYR_CHESTPLATE.get());
+        this.tag(ItemTags.LEG_ARMOR).add(ModItems.DRACO_ARCANUS_LEGGINGS.get(), ModItems.TYR_LEGGINGS.get());
+        this.tag(ItemTags.FOOT_ARMOR).add(ModItems.DRACO_ARCANUS_BOOTS.get(), ModItems.TYR_BOOTS.get());
 
         this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE).add(Items.ELYTRA);
         this.tag(ModTags.Items.FIERY_INCOMPATIBLE);

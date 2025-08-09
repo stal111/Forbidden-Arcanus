@@ -1,4 +1,4 @@
-// 1.21.1	2025-06-14T17:14:52.8622116	Tags for minecraft:item mod id forbidden_arcanus
+// 1.21.1	2025-08-09T10:58:22.4792542	Tags for minecraft:item mod id forbidden_arcanus
 046c8cf89176d259e937e2ca72a2e472ce0d6849 data/c/tags/item/dusts.json
 674c4d49375c33863d4287f65537171eb637a826 data/c/tags/item/dusts/arcane_crystal.json
 e67ea6dd08228468b13e36125dd5d27a821264e7 data/c/tags/item/dusts/corrupti.json
@@ -54,9 +54,13 @@ ec5f886acc1397ae55fe6faaca722b2a2cebb465 data/forbidden_arcanus/tags/item/rune_b
 2d99bbc8b9f6c5859eeabbb7f27a2d571e7ae4d6 data/minecraft/tags/item/arrows.json
 5417e1d77dbf5fe40232caee7a2fca27d142992f data/minecraft/tags/item/boats.json
 4447fb4f3ca90f441c2430ab8f246986ca58fc1e data/minecraft/tags/item/buttons.json
+e8991cb299547ec59fcbad0d37b33b100491f757 data/minecraft/tags/item/chest_armor.json
 7f5abd7a087e11e48bb4c9054104c225bd03b2dc data/minecraft/tags/item/chest_boats.json
 ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/item/doors.json
+3c4aae49a03f87dc11c6e44450219080d9a3378d data/minecraft/tags/item/foot_armor.json
+c97ead31923867afd0d82d24da46a35682069289 data/minecraft/tags/item/head_armor.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/item/leaves.json
+887784a513aa7212a7dcfc0fb9ec38d920257afe data/minecraft/tags/item/leg_armor.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/item/logs.json
 f80b42c15e715a6f1efd91c02594720b7da2ddeb data/minecraft/tags/item/pickaxes.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/item/planks.json
