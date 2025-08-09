@@ -37,13 +37,12 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-
-import net.createmod.ponder.foundation.PonderIndex;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 
 import java.util.ArrayList;
@@ -105,7 +104,9 @@ public class ClientSetup {
         modEventBus.addListener(this::onRegisterTooltipComponents);
         modEventBus.addListener(this::onRegisterParticleProviders);
 
-        PonderIndex.addPlugin(new ForbiddenArcanusPonderPlugin());
+        if (ModList.get().isLoaded("ponder")) {
+            ForbiddenArcanusPonderPlugin.register();
+        }
     }
 
     @SubscribeEvent
