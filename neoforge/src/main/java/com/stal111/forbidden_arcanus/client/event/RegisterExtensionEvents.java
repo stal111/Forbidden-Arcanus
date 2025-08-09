@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
  * @author stal111
  * @since 20.07.2024
  */
-@EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class RegisterExtensionEvents {
 
     @SubscribeEvent
