@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -29,7 +29,7 @@ public class SoullessSandBlock extends SoulSandBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (stack.is(ModItems.SOUL.get()) && level.mayInteract(player, pos)) {
             stack.consume(1, player);
 
@@ -37,7 +37,7 @@ public class SoullessSandBlock extends SoulSandBlock {
             level.levelEvent(player, 2001, pos, Block.getId(state));
             level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 
-            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return super.useItemOn(stack, state, level, pos, player, hand, result);

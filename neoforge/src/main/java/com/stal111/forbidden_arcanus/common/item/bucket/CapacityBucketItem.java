@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -68,12 +67,12 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+    public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         BlockHitResult hitResult = getPlayerPOVHitResult(level, player, this.getFluid().isSame(Fluids.EMPTY) || !this.isFull(stack) ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
 
         if (hitResult.getType() != HitResult.Type.BLOCK) {
-            return InteractionResultHolder.pass(stack);
+            return InteractionResult.PASS;
         }
 
         BlockPos pos = hitResult.getBlockPos();
@@ -81,7 +80,7 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
         BlockPos relativePos = pos.relative(direction);
 
         if (!level.mayInteract(player, pos) || !player.mayUseItemAt(relativePos, direction, stack)) {
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
 
         IFluidHandlerItem fluidHandlerItem = FluidUtil.getFluidHandler(stack.copyWithCount(1)).orElseThrow(() -> new IllegalStateException("CapacityBucketItem did not have a fluid handler capability!"));
@@ -94,7 +93,7 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
         if ((isEmpty || !this.isFull(stack)) && state.getBlock() instanceof BucketPickup bucketPickup && (!fluid.isEmpty() || bucketPickup instanceof PowderSnowBlock)) {
             ItemStack filledBucket = this.fillBucket(fluidHandlerItem, fluid, bucketPickup, player, level, pos, state);
 
-            return InteractionResultHolder.sidedSuccess(ItemUtils.createFilledResult(stack, player, filledBucket), level.isClientSide());
+            return InteractionResult.SUCCESS.heldItemTransformedTo(ItemUtils.createFilledResult(stack, player, filledBucket));
         }
 
         BlockPos placePos = this.canBlockContainFluid(player, level, pos, state) ? pos : relativePos;
@@ -112,10 +111,10 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
 
             ItemStack result = player.getAbilities().instabuild ? stack : fluidHandlerItem.getContainer();
 
-            return InteractionResultHolder.sidedSuccess(result, level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
-        return InteractionResultHolder.fail(stack);
+        return InteractionResult.FAIL;
     }
 
     private ItemStack fillBucket(IFluidHandlerItem fluidHandlerItem, FluidState fluid, BucketPickup bucketPickup, Player player, Level level, BlockPos pos, BlockState state) {

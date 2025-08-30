@@ -2,15 +2,14 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.entity.projectile.EnergyBall;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
@@ -43,32 +42,27 @@ public class DracoArcanusScepterItem extends Item {
 
 				level.addFreshEntity(energyBall);
 			}
-			player.getCooldowns().addCooldown(this, COOLDOWN_TICKS);
+			player.getCooldowns().addCooldown(stack, COOLDOWN_TICKS);
 		}
 		return super.finishUsingItem(stack, level, livingEntity);
 	}
 
 	@Nonnull
 	@Override
-	public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
+	public InteractionResult use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
 		player.startUsingItem(hand);
 
-		return new InteractionResultHolder<>(InteractionResult.sidedSuccess(level.isClientSide()), player.getItemInHand(hand));
+		return InteractionResult.CONSUME;
 	}
 
 	@Nonnull
 	@Override
-	public UseAnim getUseAnimation(@Nonnull ItemStack stack) {
-		return UseAnim.BOW;
+	public ItemUseAnimation getUseAnimation(@Nonnull ItemStack stack) {
+		return ItemUseAnimation.BOW;
 	}
 	
 	@Override
 	public int getUseDuration(@Nonnull ItemStack stack, LivingEntity entity) {
 		return USE_DURATION;
-	}
-
-	@Override
-	public boolean isEnchantable(@Nonnull ItemStack stack) {
-		return false;
 	}
 }

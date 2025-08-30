@@ -16,8 +16,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -58,7 +58,7 @@ public class SoulExtractorItem extends Item {
         if (this.isValidBlock(level, pos, player)) {
             player.startUsingItem(context.getHand());
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return super.useOn(context);
@@ -123,8 +123,8 @@ public class SoulExtractorItem extends Item {
 
     @Nonnull
     @Override
-    public UseAnim getUseAnimation(@Nonnull ItemStack stack) {
-        return UseAnim.BOW;
+    public ItemUseAnimation getUseAnimation(@Nonnull ItemStack stack) {
+        return ItemUseAnimation.BOW;
     }
 
     @Override

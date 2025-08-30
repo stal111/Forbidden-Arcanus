@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -35,27 +35,30 @@ public class MagicWandItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
 
         if (EssenceHelper.hasEnoughAureal(level, player, stack)) {
             player.startUsingItem(usedHand);
 
-            return InteractionResultHolder.consume(player.getItemInHand(usedHand));
+            return InteractionResult.CONSUME;
         }
 
         return super.use(level, player, usedHand);
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
         if (!level.isClientSide() && (stack.getUseDuration(livingEntity) - timeLeft) >= CHARGE_DURATION) {
             if (EssenceHelper.hasEnoughAureal(level, livingEntity, stack)) {
                 this.shootProjectile(level, livingEntity);
 
                 EssenceHelper.consumeAureal(livingEntity, stack);
+
+                return true;
             }
         }
+        return false;
     }
 
     private void shootProjectile(Level level, LivingEntity livingEntity) {

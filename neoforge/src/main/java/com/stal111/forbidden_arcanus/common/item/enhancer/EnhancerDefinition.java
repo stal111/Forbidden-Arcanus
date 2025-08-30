@@ -18,7 +18,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ public record EnhancerDefinition(Map<EnhancerTarget, Component> description, Hol
 
     public static final Codec<EnhancerDefinition> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.simpleMap(EnhancerTarget.CODEC, ComponentSerialization.CODEC, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(EnhancerDefinition::description),
-            ItemStack.ITEM_NON_AIR_CODEC.fieldOf("display_item").forGetter(EnhancerDefinition::displayItem),
+            Item.CODEC.fieldOf("display_item").forGetter(EnhancerDefinition::displayItem),
             EnhancerEffect.DIRECT_CODEC.listOf().fieldOf("effects").forGetter(EnhancerDefinition::effects)
     ).apply(instance, EnhancerDefinition::new));
 
@@ -41,7 +40,7 @@ public record EnhancerDefinition(Map<EnhancerTarget, Component> description, Hol
 
     public static final Codec<EnhancerDefinition> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.simpleMap(EnhancerTarget.CODEC, ComponentSerialization.CODEC, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(EnhancerDefinition::description),
-            ItemStack.ITEM_NON_AIR_CODEC.fieldOf("display_item").forGetter(EnhancerDefinition::displayItem)
+            Item.CODEC.fieldOf("display_item").forGetter(EnhancerDefinition::displayItem)
     ).apply(instance, (description, item) -> {
         return new EnhancerDefinition(description, item, ImmutableList.of());
     }));

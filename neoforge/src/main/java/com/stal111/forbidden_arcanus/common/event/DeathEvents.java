@@ -6,9 +6,9 @@ import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
@@ -52,7 +52,7 @@ public final class DeathEvents {
                 lostSoulType = ModEntities.ENCHANTED_LOST_SOUL.get();
             }
 
-            lostSoulType.spawn(level, entity.blockPosition(), MobSpawnType.TRIGGERED);
+            lostSoulType.spawn(level, entity.blockPosition(), EntitySpawnReason.TRIGGERED);
         }
     }
 }

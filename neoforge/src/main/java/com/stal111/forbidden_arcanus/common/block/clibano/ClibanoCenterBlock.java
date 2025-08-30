@@ -17,9 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Clibano Corner Block <br>
@@ -41,7 +39,7 @@ public class ClibanoCenterBlock extends AbstractClibanoFrameBlock {
     }
 
     @Override
-    public DirectionProperty getFacingProperty() {
+    public EnumProperty<Direction> getFacingProperty() {
         return BlockStateProperties.FACING;
     }
 
@@ -65,7 +63,7 @@ public class ClibanoCenterBlock extends AbstractClibanoFrameBlock {
     }
 
     @Override
-    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(TYPE).getFireType() != null) {
             double x = pos.getX() + 0.5D;
             double y = pos.getY();

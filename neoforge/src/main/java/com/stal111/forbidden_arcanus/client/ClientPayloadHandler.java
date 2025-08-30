@@ -15,7 +15,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -86,7 +86,7 @@ public final class ClientPayloadHandler {
                 this.minecraft.level.playLocalSound(x, y, z, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
             }
             case 2 -> {
-                this.minecraft.level.addParticle(ColorParticleOption.create(ModParticles.SPELL_EXPLOSION.get(), FastColor.ARGB32.color(255, 116, 116, 224)), x, y, z, 0.0F, 0.0F, 0.0F);
+                this.minecraft.level.addParticle(ColorParticleOption.create(ModParticles.SPELL_EXPLOSION.get(), ARGB.color(255, 116, 116, 224)), x, y, z, 0.0F, 0.0F, 0.0F);
             }
         }
     }

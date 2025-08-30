@@ -1,17 +1,16 @@
 package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -26,31 +25,31 @@ public class AurealTankItem extends Item {
 
     public static final EssenceStorage DEFAULT_DATA = new EssenceStorage(EssenceValue.createEmpty(EssenceType.AUREAL), MAX_CAPACITY, true);
 
-    private static final int BAR_COLOR = FastColor.ARGB32.color(255, 159, 226, 253);
+    private static final int BAR_COLOR = ARGB.color(255, 159, 226, 253);
 
     public AurealTankItem(Properties properties) {
         super(properties);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag flag) {
         EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
             components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", storage.limit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
         });
     }
 
     @Override
-    public int getBarColor(@NotNull ItemStack stack) {
+    public int getBarColor(ItemStack stack) {
         return BAR_COLOR;
     }
 
     @Override
-    public boolean isBarVisible(@NotNull ItemStack stack) {
+    public boolean isBarVisible(ItemStack stack) {
         return true;
     }
 
     @Override
-    public int getBarWidth(@NotNull ItemStack stack) {
+    public int getBarWidth(ItemStack stack) {
         return EssenceHelper.getEssenceStorage(stack).map(storage -> Math.round(13.0F * storage.getFillPercentage())).orElse(0);
     }
 

@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,12 +23,12 @@ public class XpetrifiedOrbItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         player.giveExperiencePoints(EssenceHelper.getEssenceAmount(stack, EssenceType.EXPERIENCE));
         stack.consume(1, player);
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 }

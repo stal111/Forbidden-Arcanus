@@ -13,7 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +21,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
@@ -43,7 +44,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
-import javax.annotation.Nonnull;
 import java.util.EnumMap;
 
 /**
@@ -72,30 +72,28 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
         }
     }
 
-    @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return context.isHoldingItem(ModBlocks.EDELWOOD_LOG.get().asItem()) || context.isHoldingItem(ModBlocks.CARVED_EDELWOOD_LOG.get().asItem()) ? Shapes.block() : SHAPES.get(state.getValue(AXIS));
     }
 
     @Override
-    public BlockState getStateForPlacement(@Nonnull BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
         return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis()).setValue(WATERLOGGED, flag);
     }
 
-    @Nonnull
     @Override
-    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction direction, @Nonnull BlockState neighborState, @Nonnull LevelAccessor level, @Nonnull BlockPos currentPos, @Nonnull BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        return state;
+        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (random.nextDouble() < OILY_CHANCE && level.isAreaLoaded(pos, 4)) {
             level.setBlock(pos, state.setValue(OILY, true), 2);
         }
@@ -103,12 +101,12 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public boolean isRandomlyTicking(@Nonnull BlockState state) {
+    public boolean isRandomlyTicking(BlockState state) {
         return !state.getValue(OILY);
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (stack.is(Items.GLASS_BOTTLE) && state.getValue(OILY)) {
             ItemStack oil = new ItemStack(ModItems.EDELWOOD_OIL.get());
 
@@ -125,7 +123,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
 
             level.setBlockAndUpdate(pos, state.setValue(OILY, false));
 
-            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         } else if (stack.canPerformAction(ItemAbilities.AXE_STRIP) && !this.isCarved() && state.getValue(AXIS) == Direction.Axis.Y) {
             Direction direction = result.getDirection().getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : result.getDirection();
 
@@ -137,7 +135,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.setBlockAndUpdate(pos, ModBlocks.CARVED_EDELWOOD_LOG.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(OILY, state.getValue(OILY)).setValue(WATERLOGGED, state.getValue(WATERLOGGED)));
 
-            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return super.useItemOn(stack, state, level, pos, player, hand, result);
@@ -151,7 +149,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void handlePrecipitation(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Biome.Precipitation precipitation) {
+    public void handlePrecipitation(BlockState state, Level level, BlockPos pos, Biome.Precipitation precipitation) {
         if (this.shouldHandlePrecipitation(state, level, precipitation)) {
             int i = 0;
             BlockState belowState = level.getBlockState(pos.below(i + 1));
@@ -165,8 +163,8 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
         }
     }
 
-    @Nonnull
-    public BlockState rotate(BlockState state, @Nonnull Rotation rotation) {
+    @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
         return switch (rotation) {
             case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> switch (state.getValue(AXIS)) {
                 case X -> state.setValue(AXIS, Direction.Axis.Z);
@@ -178,7 +176,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AXIS, OILY, WATERLOGGED);
     }
 
@@ -191,7 +189,6 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
         return false;
     }
 
-    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);

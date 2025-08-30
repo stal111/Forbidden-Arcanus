@@ -29,7 +29,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
  * @author stal111
  * @since 2021-08-07
  */
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class CommonSetup {
 
     public static void setup(FMLCommonSetupEvent event) {

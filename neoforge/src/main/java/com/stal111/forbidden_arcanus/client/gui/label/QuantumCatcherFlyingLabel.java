@@ -9,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.Entity;
@@ -48,7 +49,7 @@ public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
 
                 int color = provider.getAmount(EssenceType.AUREAL) < cost ? ChatFormatting.RED.getColor() : -1;
 
-                guiGraphics.blitSprite(EssenceType.AUREAL.getSpriteLocation(), centerX - width / 2, centerY - 20 - 2, ICON_SIZE, ICON_SIZE);
+                guiGraphics.blitSprite(RenderType::guiTextured, EssenceType.AUREAL.getSpriteLocation(), centerX - width / 2, centerY - 20 - 2, ICON_SIZE, ICON_SIZE);
                 guiGraphics.drawString(minecraft.font, component.getVisualOrderText(), centerX - width / 2 + ICON_SIZE + 2, centerY - 20, color);
 
                 poseStack.popPose();

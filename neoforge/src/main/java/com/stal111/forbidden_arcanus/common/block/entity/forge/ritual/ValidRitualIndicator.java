@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
 
 /**
@@ -42,7 +42,7 @@ public class ValidRitualIndicator {
 
         poseStack.scale(8.5F, 1.0F, 8.5F);
 
-        model.render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
+        model.render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
 
         poseStack.popPose();
     }

@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 /**
@@ -38,7 +37,7 @@ public class ClibanoSideBlock extends AbstractClibanoFrameBlock {
     }
 
     @Override
-    public DirectionProperty getFacingProperty() {
+    public EnumProperty<Direction> getFacingProperty() {
         return BlockStateProperties.HORIZONTAL_FACING;
     }
 

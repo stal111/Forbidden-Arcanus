@@ -9,6 +9,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,7 @@ public class AurealMeterOverlay implements LayeredDraw.Layer {
         int xSize = Math.toIntExact(Math.round(BAR_WIDTH * ((float) aureal / limit)));
         int startOffset = BAR_WIDTH - xSize;
 
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 13 + startOffset, window.getGuiScaledHeight() - 25 - 23, 21 + startOffset, 19, xSize, 7, 256, 128);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, window.getGuiScaledWidth() / 2 + 13 + startOffset, window.getGuiScaledHeight() - 25 - 23, 21 + startOffset, 19, xSize, 7, 256, 128);
     }
 
     @Override
@@ -35,7 +36,7 @@ public class AurealMeterOverlay implements LayeredDraw.Layer {
             return;
         }
 
-        guiGraphics.blit(TEXTURE, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 24, 18, 9, 81, 9, 256, 128);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 24, 18, 9, 81, 9, 256, 128);
 
         EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
             this.renderOverlay(guiGraphics, window, provider.getAmount(EssenceType.AUREAL), provider.getLimit(EssenceType.AUREAL));

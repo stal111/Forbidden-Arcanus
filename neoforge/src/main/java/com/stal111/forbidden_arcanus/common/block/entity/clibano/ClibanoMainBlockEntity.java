@@ -138,7 +138,8 @@ public class ClibanoMainBlockEntity extends ValhelsiaContainerBlockEntity<Cliban
             if (slot == ClibanoMenu.SOUL_SLOT) {
                 return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
             } else if (slot == ClibanoMenu.FUEL_SLOT) {
-                return stack.getBurnTime(RecipeType.BLASTING) > 0 || FurnaceFuelSlot.isBucket(stack);
+                //TODO
+                return stack.getBurnTime(RecipeType.BLASTING, null) > 0 || FurnaceFuelSlot.isBucket(stack);
             }
 
             return !slot.equals(ClibanoMenu.RESULT_SLOTS.getFirst()) && !slot.equals(ClibanoMenu.RESULT_SLOTS.getSecond());

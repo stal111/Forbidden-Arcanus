@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.entity.ModBoat;
 import com.stal111.forbidden_arcanus.common.entity.ModChestBoat;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
@@ -34,14 +34,15 @@ public class ModBoatItem extends BoatItem {
     private final boolean hasChest;
 
     public ModBoatItem(boolean hasChest, ModBoat.Type woodType, Properties properties) {
-        super(hasChest, Boat.Type.OAK, properties);
+        //TODO
+        super(null, properties);
         this.woodType = woodType;
         this.hasChest = hasChest;
     }
 
     @Nonnull
     @Override
-    public InteractionResultHolder<ItemStack> use(@Nonnull Level level, Player player, @Nonnull InteractionHand hand) {
+    public InteractionResult use(@Nonnull Level level, Player player, @Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         HitResult hitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
 
@@ -54,7 +55,7 @@ public class ModBoatItem extends BoatItem {
 
                 for (Entity entity : list) {
                     if (entity.getBoundingBox().inflate(entity.getPickRadius()).contains(vec31)) {
-                        return InteractionResultHolder.pass(stack);
+                        return InteractionResult.PASS;
                     }
                 }
             }
@@ -64,13 +65,13 @@ public class ModBoatItem extends BoatItem {
                 customBoat.setWoodType(this.woodType);
 
                 if (!(customBoat instanceof Boat boat)) {
-                    return InteractionResultHolder.pass(stack);
+                    return InteractionResult.PASS;
                 }
 
                 boat.setYRot(player.getYRot());
 
                 if (!level.noCollision(boat, boat.getBoundingBox())) {
-                    return InteractionResultHolder.fail(stack);
+                    return InteractionResult.FAIL;
                 } else {
                     if (!level.isClientSide()) {
                         level.addFreshEntity(boat);
@@ -80,12 +81,12 @@ public class ModBoatItem extends BoatItem {
                     }
 
                     player.awardStat(Stats.ITEM_USED.get(this));
-                    return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+                    return InteractionResult.SUCCESS;
                 }
             }
 
         }
-        return InteractionResultHolder.pass(stack);
+        return InteractionResult.PASS;
     }
 
     private CustomBoat getBoat(Level level, HitResult hitResult) {

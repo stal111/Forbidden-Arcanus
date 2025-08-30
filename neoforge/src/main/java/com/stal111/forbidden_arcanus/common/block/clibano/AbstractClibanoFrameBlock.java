@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBloc
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -47,7 +48,7 @@ public abstract class AbstractClibanoFrameBlock extends Block implements EntityB
         return new ClibanoFrameBlockEntity(pos, state);
     }
 
-    public abstract DirectionProperty getFacingProperty();
+    public abstract EnumProperty<Direction> getFacingProperty();
 
     /**
      * Updates the appearance of the block
@@ -75,7 +76,7 @@ public abstract class AbstractClibanoFrameBlock extends Block implements EntityB
             });
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override

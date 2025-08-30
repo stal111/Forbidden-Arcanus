@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.ItemAbilities;
@@ -56,28 +56,29 @@ public class ModItemModifiers extends DatapackRegistryClass<ItemModifier> {
 
     @Override
     public void bootstrap(BootstrapContext<ItemModifier> context) {
+        var itemsGetter = context.lookup(Registries.ITEM);
         this.enchantmentGetter = context.lookup(Registries.ENCHANTMENT);
 
         var eternalPredicate = ItemPredicate.Builder.item().withSubPredicate(ValhelsiaItemSubPredicates.ALL_OF.get(), new ItemAllOfPredicate(Map.of(ValhelsiaItemSubPredicates.HAS_COMPONENT.get(), List.of(new ItemHasComponentPredicate(DataComponents.MAX_DAMAGE), new ItemHasComponentPredicate(DataComponents.DAMAGE))))).build();
         var isToolPredicate = ItemPredicate.Builder.item().withSubPredicate(ValhelsiaItemSubPredicates.ANY_OF.get(), new ItemAnyOfPredicate(Map.of(ItemAbilityPredicate.TYPE, List.of(new ItemAbilityPredicate(ItemAbilities.PICKAXE_DIG), new ItemAbilityPredicate(ItemAbilities.AXE_DIG), new ItemAbilityPredicate(ItemAbilities.SHOVEL_DIG), new ItemAbilityPredicate(ItemAbilities.HOE_DIG))))).build();
-        var magnetizedPredicate = ItemPredicate.Builder.item().of(ItemTags.FOOT_ARMOR).build();
-        var aquaticPredicate = ItemPredicate.Builder.item().of(ItemTags.HEAD_ARMOR).build();
-        var soulBoundPredicate = ItemPredicate.Builder.item().of(ModTags.Items.SOULBOUND_APPLICABLE).build();
+        var magnetizedPredicate = ItemPredicate.Builder.item().of(itemsGetter, ItemTags.FOOT_ARMOR).build();
+        var aquaticPredicate = ItemPredicate.Builder.item().of(itemsGetter, ItemTags.HEAD_ARMOR).build();
+        var soulBoundPredicate = ItemPredicate.Builder.item().of(itemsGetter, ModTags.Items.SOULBOUND_APPLICABLE).build();
 
-        register(ETERNAL, eternalPredicate, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, HolderSet.direct(BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.DAMAGE), BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.MAX_DAMAGE)), createDisplay(ETERNAL, FastColor.ARGB32.color(255, 170, 181, 159), FastColor.ARGB32.color(255, 49, 57, 56)));
-        register(FIERY, isToolPredicate, ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, createDisplay(FIERY, FastColor.ARGB32.color(255, 255, 143, 0), FastColor.ARGB32.color(255, 88, 6, 6)));
-        register(MAGNETIZED, magnetizedPredicate, ModTags.Items.MAGNETIZED_INCOMPATIBLE, ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE, createDisplay(MAGNETIZED, FastColor.ARGB32.color(255, 200, 201, 215), FastColor.ARGB32.color(255, 87, 105, 99)));
-        register(DEMOLISHING, isToolPredicate, ModTags.Items.DEMOLISHING_INCOMPATIBLE, ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE, createDisplay(DEMOLISHING, FastColor.ARGB32.color(255, 111, 84, 80), FastColor.ARGB32.color(255, 78, 58, 39)));
-        register(AQUATIC, aquaticPredicate, ModTags.Items.AQUATIC_INCOMPATIBLE, ModTags.Enchantments.AQUATIC_INCOMPATIBLE, createDisplay(AQUATIC, FastColor.ARGB32.color(255, 90, 130, 243), FastColor.ARGB32.color(255, 35, 79, 204)));
-        register(SOULBOUND, soulBoundPredicate, ModTags.Items.SOULBOUND_INCOMPATIBLE, ModTags.Enchantments.SOULBOUND_INCOMPATIBLE, createDisplay(SOULBOUND, FastColor.ARGB32.color(255, 166, 185, 246), FastColor.ARGB32.color(255, 247, 184, 217)));
+        register(ETERNAL, eternalPredicate, ModTags.Items.ETERNAL_INCOMPATIBLE, ModTags.Enchantments.ETERNAL_INCOMPATIBLE, HolderSet.direct(BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.DAMAGE), BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.MAX_DAMAGE)), createDisplay(ETERNAL, ARGB.color(255, 170, 181, 159), ARGB.color(255, 49, 57, 56)));
+        register(FIERY, isToolPredicate, ModTags.Items.FIERY_INCOMPATIBLE, ModTags.Enchantments.FIERY_INCOMPATIBLE, createDisplay(FIERY, ARGB.color(255, 255, 143, 0), ARGB.color(255, 88, 6, 6)));
+        register(MAGNETIZED, magnetizedPredicate, ModTags.Items.MAGNETIZED_INCOMPATIBLE, ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE, createDisplay(MAGNETIZED, ARGB.color(255, 200, 201, 215), ARGB.color(255, 87, 105, 99)));
+        register(DEMOLISHING, isToolPredicate, ModTags.Items.DEMOLISHING_INCOMPATIBLE, ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE, createDisplay(DEMOLISHING, ARGB.color(255, 111, 84, 80), ARGB.color(255, 78, 58, 39)));
+        register(AQUATIC, aquaticPredicate, ModTags.Items.AQUATIC_INCOMPATIBLE, ModTags.Enchantments.AQUATIC_INCOMPATIBLE, createDisplay(AQUATIC, ARGB.color(255, 90, 130, 243), ARGB.color(255, 35, 79, 204)));
+        register(SOULBOUND, soulBoundPredicate, ModTags.Items.SOULBOUND_INCOMPATIBLE, ModTags.Enchantments.SOULBOUND_INCOMPATIBLE, createDisplay(SOULBOUND, ARGB.color(255, 166, 185, 246), ARGB.color(255, 247, 184, 217)));
     }
 
     private void register(ResourceKey<ItemModifier> key, ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, ItemModifier.DisplaySettings displaySettings) {
-        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrCreateTag(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), HolderSet.empty(), displaySettings));
+        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrThrow(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), HolderSet.empty(), displaySettings));
     }
 
     private void register(ResourceKey<ItemModifier> key, ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, HolderSet<DataComponentType<?>> componentsToRemove, ItemModifier.DisplaySettings displaySettings) {
-        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrCreateTag(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), componentsToRemove, displaySettings));
+        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrThrow(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), componentsToRemove, displaySettings));
     }
 
     private static ItemModifier.DisplaySettings createDisplay(ResourceKey<ItemModifier> key, int startColor, int endColor) {

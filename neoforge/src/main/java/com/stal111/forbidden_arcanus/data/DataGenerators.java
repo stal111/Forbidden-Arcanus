@@ -5,9 +5,11 @@ import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
 import com.stal111.forbidden_arcanus.data.model.ModBlockModels;
 import com.stal111.forbidden_arcanus.data.model.ModItemModels;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
-import com.stal111.forbidden_arcanus.data.recipes.*;
 import com.stal111.forbidden_arcanus.data.server.loot.*;
-import com.stal111.forbidden_arcanus.data.server.tags.*;
+import com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModEnchantmentTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModEntityTypeTagsProvider;
+import com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -23,7 +25,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
 import net.valhelsia.valhelsia_core.datagen.model.ValhelsiaModelProvider;
-import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider;
 
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
  * @author stal111
  * @since 2021-01-26
  */
-@EventBusSubscriber(modid = ForbiddenArcanus.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class DataGenerators {
 
     @SubscribeEvent
@@ -76,7 +77,7 @@ public class DataGenerators {
                 new LootTableProvider.SubProviderEntry(ModEntityLootAdditions::new, LootContextParamSets.ENTITY)
         ), context.lookupProvider()));
 
-        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new, StonecutterRecipeProvider::new));
+//        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new, StonecutterRecipeProvider::new));
 
         generator.addProvider(event.includeServer(), new ModLootModifierProvider(context));
 

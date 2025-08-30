@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -39,7 +40,7 @@ public class JarFlyingLabel implements BlockFlyingLabel {
             guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 2, 0x44000000);
             guiGraphics.fill(centerX - width / 2 - 4, centerY - 20 - 5, centerX + width / 2 + 4, centerY - 10 + 4, 0x44000000);
 
-            guiGraphics.blitSprite(type.getSpriteLocation(), centerX - width / 2, centerY - 20 - 2, ICON_SIZE, ICON_SIZE);
+            guiGraphics.blitSprite(RenderType::guiTextured, type.getSpriteLocation(), centerX - width / 2, centerY - 20 - 2, ICON_SIZE, ICON_SIZE);
             guiGraphics.drawString(Minecraft.getInstance().font, component.getVisualOrderText(), centerX - width / 2 + ICON_SIZE + 2, centerY - 20, -1);
 
             poseStack.popPose();
