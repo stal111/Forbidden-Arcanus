@@ -16,11 +16,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,23 +106,23 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public void save(@NotNull RecipeOutput recipeOutput, @NotNull ResourceLocation id) {
-        this.ensureValid(id);
+    public void save(@NotNull RecipeOutput output, @NotNull ResourceKey<Recipe<?>> resourceKey) {
+        this.ensureValid(resourceKey);
 
-        Advancement.Builder advancement$builder = recipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-                .rewards(AdvancementRewards.Builder.recipe(id))
+        Advancement.Builder advancement$builder = output.advancement()
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
+                .rewards(AdvancementRewards.Builder.recipe(resourceKey))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
         ClibanoRecipe recipe = new ClibanoRecipe(Objects.requireNonNullElse(this.group, ""), this.bookCategory, this.ingredients, this.stackResult, this.experience, ClibanoCookingTimes.of(this.cookingTime), Optional.ofNullable(this.residueChance), this.requiredFireType, Optional.ofNullable(this.requiredEnhancer));
 
-        recipeOutput.accept(id, recipe, advancement$builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.location().withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
-    private void ensureValid(ResourceLocation pId) {
+    private void ensureValid(ResourceKey<Recipe<?>> recipe) {
         if (this.criteria.isEmpty()) {
-            throw new IllegalStateException("No way of obtaining recipe " + pId);
+            throw new IllegalStateException("No way of obtaining recipe " + recipe);
         }
     }
 }

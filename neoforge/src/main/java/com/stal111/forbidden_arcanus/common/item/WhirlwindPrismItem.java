@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
@@ -19,7 +18,7 @@ public class WhirlwindPrismItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
 
         BlockPos pos = context.getClickedPos();
@@ -30,6 +29,6 @@ public class WhirlwindPrismItem extends Item {
 
         level.setBlockAndUpdate(pos, ModBlocks.WHIRLWIND.get().defaultBlockState());
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 }

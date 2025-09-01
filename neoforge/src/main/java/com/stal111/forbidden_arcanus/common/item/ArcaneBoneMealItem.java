@@ -49,13 +49,13 @@ public class ArcaneBoneMealItem extends BoneMealItem {
 
             stack.consume(1, player);
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         } else if (ArcaneBoneMealItem.applyBoneMeal(stack, level, pos, player)) {
             if (!level.isClientSide()) {
                 level.levelEvent(2005, pos, 0);
             }
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         } else {
             boolean flag = state.isFaceSturdy(level, pos, context.getClickedFace());
 
@@ -64,7 +64,7 @@ public class ArcaneBoneMealItem extends BoneMealItem {
                     level.levelEvent(2005, offsetPos, 0);
                 }
 
-                return InteractionResult.sidedSuccess(level.isClientSide());
+                return InteractionResult.SUCCESS;
             } else {
                 return InteractionResult.PASS;
             }

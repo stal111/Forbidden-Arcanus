@@ -7,12 +7,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.state.LightningBoltRenderState;
+import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * Crimson Lightning Bolt Renderer <br>
@@ -21,32 +19,32 @@ import java.util.Random;
  * @author stal111
  * @since 2021-06-12
  */
-public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightningBoltEntity> {
+public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightningBoltEntity, LightningBoltRenderState> {
 
     public CrimsonLightningBoltRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void render(CrimsonLightningBoltEntity entity, float entityYaw, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int packedLight) {
+    public void render(LightningBoltRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         float[] afloat = new float[8];
         float[] afloat1 = new float[8];
         float f = 0.0F;
         float f1 = 0.0F;
-        Random random = new Random(entity.seed);
+        RandomSource randomsource = RandomSource.create(renderState.seed);
 
         for(int i = 7; i >= 0; --i) {
             afloat[i] = f;
             afloat1[i] = f1;
-            f += (float) (random.nextInt(11) - 5);
-            f1 += (float) (random.nextInt(11) - 5);
+            f += (float)(randomsource.nextInt(11) - 5);
+            f1 += (float)(randomsource.nextInt(11) - 5);
         }
 
-        VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.lightning());
+        VertexConsumer vertexBuilder = bufferSource.getBuffer(RenderType.lightning());
         Matrix4f matrix4f = poseStack.last().pose();
 
         for(int j = 0; j < 4; ++j) {
-            Random random1 = new Random(entity.seed);
+            RandomSource randomsource1 = RandomSource.create(renderState.seed);
 
             for(int k = 0; k < 3; ++k) {
                 int l = 7;
@@ -66,11 +64,11 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
                     float f4 = f2;
                     float f5 = f3;
                     if (k == 0) {
-                        f2 += (float)(random1.nextInt(11) - 5);
-                        f3 += (float)(random1.nextInt(11) - 5);
+                        f2 += (float)(randomsource1.nextInt(11) - 5);
+                        f3 += (float)(randomsource1.nextInt(11) - 5);
                     } else {
-                        f2 += (float)(random1.nextInt(31) - 15);
-                        f3 += (float)(random1.nextInt(31) - 15);
+                        f2 += (float)(randomsource1.nextInt(31) - 15);
+                        f3 += (float)(randomsource1.nextInt(31) - 15);
                     }
 
                     float f10 = 0.1F + (float)j * 0.2F;
@@ -92,16 +90,21 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
         }
     }
 
+    @Override
+    public @NotNull LightningBoltRenderState createRenderState() {
+        return new LightningBoltRenderState();
+    }
+
+    @Override
+    public void extractRenderState(CrimsonLightningBoltEntity entity, LightningBoltRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+        reusedState.seed = entity.seed;
+    }
+
     private void renderBolt(Matrix4f matrix4f, VertexConsumer vertexConsumer, float p_229116_2_, float p_229116_3_, int p_229116_4_, float p_229116_5_, float p_229116_6_, float p_229116_10_, float p_229116_11_, boolean p_229116_12_, boolean p_229116_13_, boolean p_229116_14_, boolean p_229116_15_) {
         vertexConsumer.addVertex(matrix4f, p_229116_2_ + (p_229116_12_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_13_ ? p_229116_11_ : -p_229116_11_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
         vertexConsumer.addVertex(matrix4f, p_229116_5_ + (p_229116_12_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_13_ ? p_229116_10_ : -p_229116_10_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
         vertexConsumer.addVertex(matrix4f, p_229116_5_ + (p_229116_14_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_15_ ? p_229116_10_ : -p_229116_10_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
         vertexConsumer.addVertex(matrix4f, p_229116_2_ + (p_229116_14_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_15_ ? p_229116_11_ : -p_229116_11_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
-    }
-
-    @Nonnull
-    @Override
-    public ResourceLocation getTextureLocation(@Nonnull CrimsonLightningBoltEntity entity) {
-        return TextureAtlas.LOCATION_BLOCKS;
     }
 }

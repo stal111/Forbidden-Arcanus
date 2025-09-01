@@ -19,7 +19,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -97,10 +96,11 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         return new HephaestusForgeBlockEntity(pos, state);
     }
 
-    @Override
-    public String getDescriptionId() {
-        return DESCRIPTION_ID;
-    }
+    //TODO
+//    @Override
+//    public String getDescriptionId() {
+//        return DESCRIPTION_ID;
+//    }
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag flag) {

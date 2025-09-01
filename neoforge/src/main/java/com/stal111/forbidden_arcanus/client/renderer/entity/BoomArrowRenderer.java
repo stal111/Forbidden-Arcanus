@@ -4,9 +4,9 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.ArrowRenderState;
 import net.minecraft.resources.ResourceLocation;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Boom Arrow Renderer <br>
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
  * @version 2.0.0
  * @since 2021-12-16
  */
-public class BoomArrowRenderer extends ArrowRenderer<BoomArrow> {
+public class BoomArrowRenderer extends ArrowRenderer<BoomArrow, ArrowRenderState> {
 
     private static final ResourceLocation LOCATION = ForbiddenArcanus.location("textures/entity/projectiles/boom_arrow.png");
 
@@ -24,9 +24,13 @@ public class BoomArrowRenderer extends ArrowRenderer<BoomArrow> {
         super(context);
     }
 
-    @Nonnull
     @Override
-    public ResourceLocation getTextureLocation(@Nonnull BoomArrow entity) {
+    public @NotNull ArrowRenderState createRenderState() {
+        return new ArrowRenderState();
+    }
+
+    @Override
+    protected @NotNull ResourceLocation getTextureLocation(@NotNull ArrowRenderState renderState) {
         return LOCATION;
     }
 }

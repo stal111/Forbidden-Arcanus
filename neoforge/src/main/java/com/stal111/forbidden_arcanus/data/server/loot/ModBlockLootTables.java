@@ -198,7 +198,7 @@ public class ModBlockLootTables extends ValhelsiaBlockLootTables {
     }
 
     private LootItemCondition.Builder hasShearsOrSilkTouch() {
-        return HAS_SHEARS.or(this.hasSilkTouch());
+        return this.hasShears().or(this.hasSilkTouch());
     }
 
     private LootItemCondition.Builder doesNotHaveShearsOrSilkTouch() {

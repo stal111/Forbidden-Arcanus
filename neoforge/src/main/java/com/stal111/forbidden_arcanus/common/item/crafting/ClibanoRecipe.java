@@ -10,13 +10,11 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoCookingT
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -66,20 +64,11 @@ public record ClibanoRecipe(String group,
         return this.result.copy();
     }
 
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider lookupProvider) {
-        return this.result;
-    }
-
-    @Override
-    public @NotNull NonNullList<Ingredient> getIngredients() {
-        return this.ingredients.map(ingredient -> NonNullList.of(Ingredient.EMPTY, ingredient), pair -> NonNullList.of(Ingredient.EMPTY, pair.getFirst(), pair.getSecond()));
-    }
+    //TODO
+//    @Override
+//    public @NotNull NonNullList<Ingredient> getIngredients() {
+//        return this.ingredients.map(ingredient -> NonNullList.of(Ingredient.EMPTY, ingredient), pair -> NonNullList.of(Ingredient.EMPTY, pair.getFirst(), pair.getSecond()));
+//    }
 
     public int getDefaultCookingTime() {
         return this.cookingTimes.get(this.requiredFireType);
@@ -93,20 +82,24 @@ public record ClibanoRecipe(String group,
         return this.ingredients.right().isPresent();
     }
 
-    @NotNull
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends Recipe<ClibanoRecipeInput>> getSerializer() {
         return ModRecipeSerializers.CLIBANO_SERIALIZER.get();
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<? extends Recipe<ClibanoRecipeInput>> getType() {
         return ModRecipeTypes.CLIBANO_COMBUSTION.get();
     }
 
     @Override
-    public @NotNull ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.CLIBANO_CORE.get());
+    public PlacementInfo placementInfo() {
+        return null;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
     }
 
     public static class Serializer implements RecipeSerializer<ClibanoRecipe> {
@@ -114,7 +107,7 @@ public record ClibanoRecipe(String group,
         private static final MapCodec<ClibanoRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(ClibanoRecipe::group),
                 CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(ClibanoRecipe::category),
-                Codec.either(Ingredient.CODEC_NONEMPTY, Codec.mapPair(Ingredient.MAP_CODEC_NONEMPTY.fieldOf("first"), Ingredient.MAP_CODEC_NONEMPTY.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(ClibanoRecipe::ingredients),
+                Codec.either(Ingredient.CODEC, Codec.mapPair(Ingredient.CODEC.fieldOf("first"), Ingredient.CODEC.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(ClibanoRecipe::ingredients),
                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ClibanoRecipe::result),
                 Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(ClibanoRecipe::experience),
                 ClibanoCookingTimes .CODEC.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(ClibanoRecipe::cookingTimes),

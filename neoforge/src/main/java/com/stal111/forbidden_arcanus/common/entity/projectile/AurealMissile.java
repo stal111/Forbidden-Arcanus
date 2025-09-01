@@ -50,7 +50,6 @@ public class AurealMissile extends Projectile {
             this.hitTargetOrDeflectSelf(hitresult);
         }
 
-        this.checkInsideBlocks();
         Vec3 vec3 = this.getDeltaMovement();
         double d0 = this.getX() + vec3.x;
         double d1 = this.getY() + vec3.y;
@@ -87,7 +86,7 @@ public class AurealMissile extends Projectile {
 
             DamageSource damagesource = this.damageSources().magic();
 
-            if (entity.hurt(damagesource, 5.0F) && entity instanceof LivingEntity livingEntity) {
+            if (entity.hurtOrSimulate(damagesource, 5.0F) && entity instanceof LivingEntity livingEntity) {
                 EnchantmentHelper.doPostAttackEffects(serverLevel, livingEntity, damagesource);
             }
         }
@@ -105,7 +104,7 @@ public class AurealMissile extends Projectile {
     }
 
     @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
+    public boolean hurtServer(@NotNull ServerLevel level, @NotNull DamageSource damageSource, float amount) {
         return false;
     }
 

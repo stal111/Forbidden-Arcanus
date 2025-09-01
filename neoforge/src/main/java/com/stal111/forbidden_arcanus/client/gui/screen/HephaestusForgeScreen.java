@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -64,10 +65,10 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
     @Override
     protected void renderBg(@Nonnull GuiGraphics guiGraphics, float partialTicks, int x, int y) {
-        guiGraphics.blit(TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize());
+        guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize(), 256, 256);
 
-        guiGraphics.blit(TEXTURES, this.getGuiLeft() - 26, this.getGuiTop() + 16, 176, 61, 29, 51);
-        guiGraphics.blit(TEXTURES, this.getGuiLeft() + 172, this.getGuiTop() + 16, 206, 61, 29, 51);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() - 26, this.getGuiTop() + 16, 176, 61, 29, 51, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() + 172, this.getGuiTop() + 16, 206, 61, 29, 51, 256, 256);
 
         for (Slot slotItemHandler : this.menu.slots) {
             if (slotItemHandler instanceof EnhancerSlot enhancerSlot) {
@@ -115,12 +116,12 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
     private void renderBar(GuiGraphics guiGraphics, EssenceBarDefinition definition, int max) {
         int ySize = Math.toIntExact(Math.round(32.0F * this.menu.getHephaestusForgeData().get(definition.dataKey()) / max));
-        guiGraphics.blit(TEXTURES, this.getGuiLeft() + definition.x(), this.getGuiTop() + 22 + 32 - ySize, definition.textureX(), 3 + 32 - ySize, 4, ySize);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() + definition.x(), this.getGuiTop() + 22 + 32 - ySize, definition.textureX(), 3 + 32 - ySize, 4, ySize, 256, 256);
     }
 
     public void renderEnhancerSlot(EnhancerSlot slot, GuiGraphics guiGraphics, int guiLeft, int guiTop) {
         if (this.menu.isSlotLocked(slot.getSlotIndex())) {
-            guiGraphics.blit(TEXTURES, guiLeft + slot.x - 2, guiTop + slot.y - 2, 176, 40, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURES, guiLeft + slot.x - 2, guiTop + slot.y - 2, 176, 40, 20, 20, 256, 256);
         }
     }
 

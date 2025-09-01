@@ -48,7 +48,7 @@ public class EssenceUtremJarRenderer extends BlockEntityWithoutLevelRenderer imp
 
     public EssenceUtremJarRenderer(BlockEntityRenderDispatcher renderDispatcher, EntityModelSet modelSet) {
         super(renderDispatcher, modelSet);
-        this.model = new UtremJarSoulsModel<>(modelSet);
+        this.model = new UtremJarSoulsModel<>(modelSet.bakeLayer(UtremJarSoulsModel.LAYER_LOCATION));
     }
 
     @Override

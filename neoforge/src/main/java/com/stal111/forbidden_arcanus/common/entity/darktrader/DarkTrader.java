@@ -11,6 +11,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
@@ -62,8 +64,8 @@ public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVa
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
-        if (reason == MobSpawnType.MOB_SUMMONED) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
+        if (reason == EntitySpawnReason.MOB_SUMMONED) {
             this.setPose(Pose.EMERGING);
             this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, DarkTraderAI.SPAWN_DURATION);
         }
@@ -76,7 +78,7 @@ public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVa
         super.tick();
 
         if (this.level().isClientSide()) {
-            this.spawnAnimationState.animateWhen(this.getPose() == Pose.EMERGING && this.portalAnimationState.getAccumulatedTime() > 600, this.tickCount);
+            this.spawnAnimationState.animateWhen(this.getPose() == Pose.EMERGING && this.portalAnimationState.getTimeInMillis(this.tickCount) > 600, this.tickCount);
         }
     }
 
@@ -101,12 +103,16 @@ public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVa
     }
 
     @Override
-    protected void customServerAiStep() {
-        this.level().getProfiler().push("darkTraderBrain");
-        this.getBrain().tick((ServerLevel) this.level(), this);
-        this.level().getProfiler().pop();
+    protected void customServerAiStep(@NotNull ServerLevel level) {
+        ProfilerFiller profilerFiller = Profiler.get();
 
+        profilerFiller.push("darkTraderBrain");
+        this.getBrain().tick((ServerLevel) this.level(), this);
+        profilerFiller.pop();
+
+        profilerFiller.push("darkTraderActivityUpdate");
         DarkTraderAI.updateActivity(this);
+        profilerFiller.pop();
     }
 
     @Override
@@ -121,7 +127,7 @@ public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVa
         super.readAdditionalSaveData(tag);
 
         Optional.ofNullable(ResourceLocation.tryParse(tag.getString("variant")))
-                .flatMap(FARegistries.DARK_TRADER_VARIANT_REGISTRY::getHolder)
+                .flatMap(FARegistries.DARK_TRADER_VARIANT_REGISTRY::get)
                 .ifPresent(this::setVariant);
     }
 

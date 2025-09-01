@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class SmithingTemplateConstants {
 
     private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
     private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
+    //TODO
     private static final Component DARKSTONE_UPGRADE = Component.translatable(Util.makeDescriptionId("upgrade", ForbiddenArcanus.location("darkstone_upgrade"))).withStyle(TITLE_FORMAT);
     private static final Component DARKSTONE_UPGRADE_APPLIES_TO = Component.translatable(Util.makeDescriptionId("item", ForbiddenArcanus.location("smithing_template.darkstone_upgrade.applies_to"))).withStyle(DESCRIPTION_FORMAT);
     private static final Component DARKSTONE_UPGRADE_INGREDIENTS = Component.translatable(Util.makeDescriptionId("item", ForbiddenArcanus.location("smithing_template.darkstone_upgrade.ingredients"))).withStyle(DESCRIPTION_FORMAT);
@@ -34,8 +36,8 @@ public class SmithingTemplateConstants {
     private static final ResourceLocation EMPTY_SLOT_PICKAXE = ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe");
     private static final ResourceLocation EMPTY_SLOT_INGOT = ResourceLocation.withDefaultNamespace("item/empty_slot_ingot");
 
-    public static SmithingTemplateItem createApplyModifierTemplate() {
-        return new SmithingTemplateItem(DARKSTONE_UPGRADE_APPLIES_TO, DARKSTONE_UPGRADE_INGREDIENTS, DARKSTONE_UPGRADE, DARKSTONE_UPGRADE_BASE_SLOT_DESCRIPTION, DARKSTONE_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, createDarkstoneUpgradeIconList(), createDarkstoneUpgradeMaterialList());
+    public static SmithingTemplateItem createApplyModifierTemplate(Item.Properties properties) {
+        return new SmithingTemplateItem(DARKSTONE_UPGRADE_APPLIES_TO, DARKSTONE_UPGRADE_INGREDIENTS, DARKSTONE_UPGRADE_BASE_SLOT_DESCRIPTION, DARKSTONE_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, createDarkstoneUpgradeIconList(), createDarkstoneUpgradeMaterialList(), properties);
     }
 
     private static List<ResourceLocation> createDarkstoneUpgradeIconList() {

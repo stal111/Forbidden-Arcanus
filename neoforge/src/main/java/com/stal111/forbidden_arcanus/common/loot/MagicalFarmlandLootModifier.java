@@ -42,8 +42,8 @@ public class MagicalFarmlandLootModifier extends LootModifier {
     @Nonnull
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
-        Vec3 pos = context.getParamOrNull(LootContextParams.ORIGIN);
+        BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+        Vec3 pos = context.getOptionalParameter(LootContextParams.ORIGIN);
         Level level = context.getLevel();
 
         if (state == null || pos == null || !state.is(BlockTags.CROPS) || state.is(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED)) {

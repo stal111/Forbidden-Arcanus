@@ -85,15 +85,15 @@ public class ResearchDeskBlockEntity extends ValhelsiaContainerBlockEntity<Resea
         boolean currentlyChanging = this.openingAnimation.isStarted() || this.closingAnimation.isStarted();
         BookState newState = BookState.CLOSED;
 
-        if ((this.bookState == BookState.CLOSED && playerNearby && !currentlyChanging) || (this.bookState == BookState.OPENING && this.openingAnimation.getAccumulatedTime() < ANIMATION_LENGTH)) {
+        if ((this.bookState == BookState.CLOSED && playerNearby && !currentlyChanging) || (this.bookState == BookState.OPENING && this.openingAnimation.getTimeInMillis(this.tickCount) < ANIMATION_LENGTH)) {
             newState = BookState.OPENING;
 
             if (this.bookState == BookState.CLOSED && this.level != null) {
              //   this.level.playSound(Minecraft.getInstance().player, this.getBlockPos(), ModSounds.FORBIDDENOMICON_OPEN.get(), SoundSource.BLOCKS, 1.0F, 0.9F + this.level.getRandom().nextFloat() * 0.2F);
             }
-        } else if ((this.bookState == BookState.OPENING && this.openingAnimation.getAccumulatedTime() >= ANIMATION_LENGTH) || (this.bookState == BookState.OPEN && playerNearby)) {
+        } else if ((this.bookState == BookState.OPENING && this.openingAnimation.getTimeInMillis(this.tickCount) >= ANIMATION_LENGTH) || (this.bookState == BookState.OPEN && playerNearby)) {
             newState = BookState.OPEN;
-        } else if (this.bookState == BookState.OPEN || this.bookState == BookState.CLOSING && this.closingAnimation.getAccumulatedTime() < ANIMATION_LENGTH) {
+        } else if (this.bookState == BookState.OPEN || this.bookState == BookState.CLOSING && this.closingAnimation.getTimeInMillis(this.tickCount) < ANIMATION_LENGTH) {
             newState = BookState.CLOSING;
 
             if (this.bookState == BookState.OPEN && this.level != null) {

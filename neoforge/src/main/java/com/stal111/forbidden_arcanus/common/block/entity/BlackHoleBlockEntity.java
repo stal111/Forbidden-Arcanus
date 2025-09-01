@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -83,7 +84,9 @@ public class BlackHoleBlockEntity extends BlockEntity {
                         blockEntity.throwOutItemStack(level, new ItemStack(ModItems.XPETRIFIED_ORB.get()), pos.getCenter());
                         blockEntity.stored_xp = 0;
                     }
-                    experienceOrb.kill();
+                    if (level instanceof ServerLevel serverLevel) {
+                        experienceOrb.kill(serverLevel);
+                    }
                 } else {
                     entity.hurt(level.damageSources().magic(), 4);
                 }

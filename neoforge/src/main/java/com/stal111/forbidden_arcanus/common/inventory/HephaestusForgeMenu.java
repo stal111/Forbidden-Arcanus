@@ -160,7 +160,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     public boolean canInput(Level level, EssenceType type, ItemStack stack) {
-        return level.registryAccess().registryOrThrow(FARegistries.FORGE_INPUT).holders()
+        return level.registryAccess().lookupOrThrow(FARegistries.FORGE_INPUT).listElements()
                 .map(Holder.Reference::value)
                 .anyMatch(input -> input.canInput(type, stack));
     }

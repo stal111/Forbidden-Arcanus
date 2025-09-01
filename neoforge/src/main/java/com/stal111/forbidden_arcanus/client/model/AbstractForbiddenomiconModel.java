@@ -1,27 +1,24 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 29.10.2023
  */
-public abstract class AbstractForbiddenomiconModel<T extends Entity> extends HierarchicalModel<T> {
+public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Model {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("forbiddenomicon"), "main");
 
-    private final ModelPart root;
-
-    public AbstractForbiddenomiconModel(BlockEntityRendererProvider.Context context) {
-        this.root = context.bakeLayer(LAYER_LOCATION);
+    public AbstractForbiddenomiconModel(ModelPart root) {
+        super(root, RenderType::entitySolid);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -57,10 +54,5 @@ public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Hie
         head.addOrReplaceChild("feather", CubeListBuilder.create().texOffs(0, 47).addBox(-2.0F, -12.0F, 0.0F, 13.0F, 13.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 6.0F, 0.0F));
 
         return LayerDefinition.create(meshDefinition, 64, 64);
-    }
-
-    @Override
-    public @NotNull ModelPart root() {
-        return this.root;
     }
 }

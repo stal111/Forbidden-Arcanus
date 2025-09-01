@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -46,7 +47,7 @@ public class KnowledgeWidget extends AbstractWidget {
             this.renderHover(guiGraphics, mouseX, mouseY);
         }
 
-        guiGraphics.blitSprite(this.display.getFrame().getFrameTexture(this.locked, this.isHoveredOrFocused()), this.getX() + scrollX, this.getY() + scrollY, 26, 26);
+        guiGraphics.blitSprite(RenderType::guiTextured, this.display.getFrame().getFrameTexture(this.locked, this.isHoveredOrFocused()), this.getX() + scrollX, this.getY() + scrollY, 26, 26);
 
         if (!this.locked && !this.unlockAnimation.started) {
             this.display.getIcon().renderIcon(guiGraphics, this.getX() + scrollX + 5, this.getY() + scrollY + 5);
@@ -74,7 +75,7 @@ public class KnowledgeWidget extends AbstractWidget {
     }
 
     private void renderBox(ResourceLocation texture, GuiGraphics guiGraphics, int x, int y, int width, int height) {
-        guiGraphics.blitSprite(texture, 120, 20, 0, 0, x, y, 45, height);
+        guiGraphics.blitSprite(RenderType::guiTextured, texture, 120, 20, 0, 0, x, y, 45, height);
 
         int x2 = this.getX() - 3 + 45;
 
@@ -83,12 +84,12 @@ public class KnowledgeWidget extends AbstractWidget {
         while (i > 0) {
             int j = Math.min(i, 30);
 
-            guiGraphics.blitSprite(texture, 120, 20, 45, 0, x2, y, j, height);
+            guiGraphics.blitSprite(RenderType::guiTextured, texture, 120, 20, 45, 0, x2, y, j, height);
             i -= j;
             x2 += j;
         }
 
-        guiGraphics.blitSprite(texture, 120, 20, 120 - 45, 0, x + width - 45, y, 45, height);
+        guiGraphics.blitSprite(RenderType::guiTextured, texture, 120, 20, 120 - 45, 0, x + width - 45, y, 45, height);
     }
 
     public int calculatePositionX(int x) {
@@ -155,7 +156,7 @@ public class KnowledgeWidget extends AbstractWidget {
             if (!this.started) {
                 return;
             }
-            guiGraphics.blitSprite(TEXTURES[(int) (this.animationTick / ANIMATION_SPEED)], x - 19, y - 19, 64, 64);
+            guiGraphics.blitSprite(RenderType::guiTextured, TEXTURES[(int) (this.animationTick / ANIMATION_SPEED)], x - 19, y - 19, 64, 64);
         }
     }
 }

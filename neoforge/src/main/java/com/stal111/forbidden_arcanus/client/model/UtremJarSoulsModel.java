@@ -1,16 +1,14 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.UtremJarSoulAnimation;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,14 +16,12 @@ import org.jetbrains.annotations.NotNull;
  * @author stal111
  * @since 02.05.2024
  */
-public class UtremJarSoulsModel<T extends Entity> extends HierarchicalModel<T> {
+public class UtremJarSoulsModel<T extends Entity> extends Model {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("utrem_jar_souls"), "main");
 
-    private final ModelPart root;
-
-    public UtremJarSoulsModel(EntityModelSet modelSet) {
-        this.root = modelSet.bakeLayer(LAYER_LOCATION);
+    public UtremJarSoulsModel(ModelPart root) {
+        super(root, RenderType::entitySolid);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -71,25 +67,9 @@ public class UtremJarSoulsModel<T extends Entity> extends HierarchicalModel<T> {
         return LayerDefinition.create(meshDefinition, 64, 32);
     }
 
-    @Override
-    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
-    }
-
     public void setupAnim(@NotNull EssenceUtremJarBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
         this.animate(entity.rotateAnimation, UtremJarSoulAnimation.ROTATE, ageInTicks);
-    }
-
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-        this.root.render(poseStack, buffer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public @NotNull ModelPart root() {
-        return this.root;
     }
 }

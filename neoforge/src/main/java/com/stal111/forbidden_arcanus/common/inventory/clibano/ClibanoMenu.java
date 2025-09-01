@@ -6,10 +6,8 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBloc
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
-import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -20,9 +18,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -165,19 +160,22 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     protected boolean canSmelt(ItemStack stack) {
         return this.context.levelAccess().evaluate((level, pos) -> {
-            for (RecipeHolder<ClibanoRecipe> recipe : level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get())) {
-                for (Ingredient ingredient : recipe.value().getIngredients()) {
-                    if (ingredient.test(stack)) {
-                        return true;
-                    }
-                }
-            }
+            //TODO
+//            for (RecipeHolder<ClibanoRecipe> recipe : level.recipeAccess().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get())) {
+//                for (Ingredient ingredient : recipe.value().getIngredients()) {
+//                    if (ingredient.test(stack)) {
+//                        return true;
+//                    }
+//                }
+//            }
             return false;
         }, false);
     }
 
     protected boolean isFuel(ItemStack stack) {
-        return stack.getBurnTime(RecipeType.BLASTING) > 0;
+        //TODO
+        return false;
+//        return stack.getBurnTime(RecipeType.BLASTING, this.level.fuelValues()) > 0;
     }
 
     protected boolean isSoul(ItemStack stack) {

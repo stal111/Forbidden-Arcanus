@@ -4,12 +4,11 @@ import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEnt
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -46,8 +45,8 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
     }
 
     @Override
-    protected VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.getValue(ENABLED) ? Shapes.empty() : super.getOcclusionShape(state, level, pos);
+    protected VoxelShape getOcclusionShape(BlockState state) {
+        return state.getValue(ENABLED) ? Shapes.empty() : super.getOcclusionShape(state);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
 
         level.getBlockEntity(pos, ModBlockEntities.QUANTUM_INJECTOR.get()).ifPresent(QuantumInjectorBlockEntity::startAnimation);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -71,12 +70,12 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        return state;
+        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override

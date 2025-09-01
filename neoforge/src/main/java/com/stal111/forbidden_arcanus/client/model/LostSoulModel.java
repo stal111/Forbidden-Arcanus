@@ -1,30 +1,26 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.LostSoulAnimation;
-import com.stal111.forbidden_arcanus.common.entity.lostsoul.AbstractLostSoul;
-import net.minecraft.client.model.HierarchicalModel;
+import com.stal111.forbidden_arcanus.client.renderer.entity.state.LostSoulRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-
-import javax.annotation.Nonnull;
+import net.minecraft.client.renderer.RenderType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 2022-09-14
  */
-public class LostSoulModel extends HierarchicalModel<AbstractLostSoul> {
+public class LostSoulModel extends EntityModel<LostSoulRenderState> {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("lost_soul"), "main");
 
-    private final ModelPart head;
-
     public LostSoulModel(ModelPart root) {
-        this.head = root.getChild("head");
+        super(root, RenderType::entitySolid);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -46,22 +42,11 @@ public class LostSoulModel extends HierarchicalModel<AbstractLostSoul> {
         return LayerDefinition.create(meshDefinition, 64, 32);
     }
 
-    @Nonnull
     @Override
-    public ModelPart root() {
-        return this.head;
-    }
-
-    @Override
-    public void setupAnim(@Nonnull AbstractLostSoul entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull LostSoulRenderState renderState) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animate(entity.stillAnimationState, LostSoulAnimation.LOST_SOUL_STILL, ageInTicks);
-        this.animate(entity.fearAnimationState, LostSoulAnimation.LOST_SOUL_FEAR, ageInTicks);
-    }
-
-    @Override
-    public void renderToBuffer(@Nonnull PoseStack poseStack, @Nonnull VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay, color);
+        this.animate(renderState.still, LostSoulAnimation.LOST_SOUL_STILL, renderState.ageInTicks);
+        this.animate(renderState.fear, LostSoulAnimation.LOST_SOUL_FEAR, renderState.ageInTicks);
     }
 }

@@ -14,7 +14,7 @@ import java.util.Optional;
 public record RitualInput(Ingredient ingredient, int amount) {
 
     public static final Codec<RitualInput> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(input -> {
+            Ingredient.CODEC.fieldOf("ingredient").forGetter(input -> {
                 return input.ingredient;
             }),
             ExtraCodecs.POSITIVE_INT.optionalFieldOf("amount").forGetter(input -> {

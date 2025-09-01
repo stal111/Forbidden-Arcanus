@@ -25,7 +25,7 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
     private final QuantumInjectorModel<?> model;
 
     public QuantumInjectorRenderer(BlockEntityRendererProvider.Context context) {
-        this.model = new QuantumInjectorModel<>(context.getModelSet());
+        this.model = new QuantumInjectorModel<>(context.bakeLayer(QuantumInjectorModel.LAYER_LOCATION));
     }
 
     @Override

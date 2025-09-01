@@ -113,7 +113,7 @@ dependencies {
     // at runtime, use the full JEI jar
 //    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
-    implementation("net.createmod.ponder:Ponder-NeoForge-1.21.1:${ponder_version}")
+//    implementation("net.createmod.ponder:Ponder-NeoForge-1.21.1:${ponder_version}")
 }
 
 test {

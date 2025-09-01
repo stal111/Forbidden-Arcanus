@@ -6,6 +6,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,8 +22,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
 
 /**
  * Energy Ball <br>
@@ -166,21 +165,18 @@ public class EnergyBall extends Projectile {
     }
 
     @Override
-    public boolean hurt(@Nonnull DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
-            return false;
-        }
+    public boolean hurtServer(ServerLevel level, DamageSource damageSource, float amount) {
         this.markHurt();
 
-        if (source.getEntity() != null) {
-            Vec3 vec3 = source.getEntity().getLookAngle();
+        if (damageSource.getEntity() != null) {
+            Vec3 vec3 = damageSource.getEntity().getLookAngle();
 
             this.setDeltaMovement(vec3);
             this.accelerationX = vec3.x * 0.1D;
             this.accelerationY = vec3.y * 0.1D;
             this.accelerationZ = vec3.z * 0.1D;
 
-            if (source.getEntity() instanceof LivingEntity livingEntity) {
+            if (damageSource.getEntity() instanceof LivingEntity livingEntity) {
                 this.shootingEntity = livingEntity;
             }
 

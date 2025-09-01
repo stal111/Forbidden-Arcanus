@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,7 +48,7 @@ public record UpgradeTierResult(int resultTier) implements RitualResult {
 
         level.setBlockAndUpdate(pos, FORGE_TIERS.get(this.resultTier).get().withPropertiesOf(state));
 
-        CrimsonLightningBoltEntity entity = ModEntities.CRIMSON_LIGHTNING_BOLT.get().create(level);
+        CrimsonLightningBoltEntity entity = ModEntities.CRIMSON_LIGHTNING_BOLT.get().create(level, EntitySpawnReason.EVENT);
 
         if (entity != null) {
             entity.moveTo(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);

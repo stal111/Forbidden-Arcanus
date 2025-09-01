@@ -50,7 +50,7 @@ public class SolidCapacityBucketItem extends SolidBucketItem implements Capacity
             }
             level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         ItemStack bucket = this.setFullness(stack.copy(), this.getFullness(stack) - 1);

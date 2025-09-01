@@ -79,7 +79,7 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
         ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.random.nextBoolean() ? ModConfiguredFeatures.BIG_FUNGYSS_0 : ModConfiguredFeatures.BIG_FUNGYSS_1;
-        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(featureKey).orElse(null);
+        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(featureKey).orElse(null);
 
         if (holder != null && !holder.value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
             level.setBlock(pos, state, 4);
@@ -93,7 +93,7 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         level.setBlock(pos.offset(xOffset, 0, zOffset + 1), Blocks.AIR.defaultBlockState(), 4);
 
         ResourceKey<ConfiguredFeature<?, ?>> featureKey = random.nextBoolean() ? ModConfiguredFeatures.MEGA_FUNGYSS_0 : ModConfiguredFeatures.MEGA_FUNGYSS_1;
-        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(featureKey).orElse(null);
+        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(featureKey).orElse(null);
 
         if (holder != null && !holder.value().place(level, level.getChunkSource().getGenerator(), random, pos.offset(xOffset, 0, zOffset))) {
             level.setBlock(pos.offset(xOffset, 0, zOffset), state, 4);

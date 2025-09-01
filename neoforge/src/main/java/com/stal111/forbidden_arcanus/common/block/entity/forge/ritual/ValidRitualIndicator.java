@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -42,7 +42,7 @@ public class ValidRitualIndicator {
 
         poseStack.scale(8.5F, 1.0F, 8.5F);
 
-        model.render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
+        model.render(poseStack, buffer.getBuffer(RenderType.entityTranslucentEmissive(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
 
         poseStack.popPose();
     }

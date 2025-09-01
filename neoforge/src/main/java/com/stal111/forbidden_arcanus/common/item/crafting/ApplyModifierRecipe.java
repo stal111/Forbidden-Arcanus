@@ -10,22 +10,36 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SmithingRecipe;
-import net.minecraft.world.item.crafting.SmithingRecipeInput;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.stream.Stream;
+import java.util.Optional;
 
-public record ApplyModifierRecipe(Ingredient template,
-                                  Ingredient addition,
+public record ApplyModifierRecipe(Optional<Ingredient> template,
+                                  Optional<Ingredient> addition,
                                   Holder<ItemModifier> modifier) implements SmithingRecipe {
+
+    //TODO: refactor
 
     @Override
     public boolean matches(@NotNull SmithingRecipeInput recipeInput, @NotNull Level level) {
         return this.isTemplateIngredient(recipeInput.template()) && this.isAdditionIngredient(recipeInput.addition()) && this.isBaseIngredient(recipeInput.base());
+    }
+
+    @Override
+    public @NotNull Optional<Ingredient> templateIngredient() {
+        return this.template;
+    }
+
+    @Override
+    public @NotNull Optional<Ingredient> baseIngredient() {
+        return Optional.empty();
+    }
+
+    @Override
+    public @NotNull Optional<Ingredient> additionIngredient() {
+        return this.addition;
     }
 
     @NotNull
@@ -38,51 +52,41 @@ public record ApplyModifierRecipe(Ingredient template,
         return stack;
     }
 
-    @NotNull
     @Override
-    public ItemStack getResultItem(@NotNull HolderLookup.Provider provider) {
-        return ItemStack.EMPTY;
-    }
-
-    @NotNull
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SmithingRecipe> getSerializer() {
         return ModRecipeSerializers.APPLY_MODIFIER.get();
     }
 
-
     @Override
-    public boolean isTemplateIngredient(@NotNull ItemStack stack) {
-        return this.template.test(stack);
+    public PlacementInfo placementInfo() {
+        return null;
     }
 
-    @Override
+
+    public boolean isTemplateIngredient(@NotNull ItemStack stack) {
+        return this.template.orElseThrow().test(stack);
+    }
+
     public boolean isBaseIngredient(@NotNull ItemStack stack) {
         return this.modifier.value().isValidItem(stack);
     }
 
-    @Override
     public boolean isAdditionIngredient(@NotNull ItemStack stack) {
-        return this.addition.test(stack);
-    }
-
-    @Override
-    public boolean isIncomplete() {
-        return Stream.of(this.template, this.addition).anyMatch(Ingredient::hasNoItems);
+        return this.addition.orElseThrow().test(stack);
     }
 
     public static class Serializer implements RecipeSerializer<ApplyModifierRecipe> {
 
         private static final MapCodec<ApplyModifierRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.CODEC_NONEMPTY.fieldOf("template").forGetter(ApplyModifierRecipe::template),
-                Ingredient.CODEC_NONEMPTY.fieldOf("addition").forGetter(ApplyModifierRecipe::addition),
+                Ingredient.CODEC.optionalFieldOf("template").forGetter(ApplyModifierRecipe::template),
+                Ingredient.CODEC.optionalFieldOf("addition").forGetter(ApplyModifierRecipe::addition),
                 ItemModifier.CODEC.fieldOf("modifier").forGetter(ApplyModifierRecipe::modifier)
         ).apply(instance, ApplyModifierRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, ApplyModifierRecipe> STREAM_CODEC = StreamCodec.composite(
-                Ingredient.CONTENTS_STREAM_CODEC,
+                Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC,
                 ApplyModifierRecipe::template,
-                Ingredient.CONTENTS_STREAM_CODEC,
+                Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC,
                 ApplyModifierRecipe::addition,
                 ItemModifier.STREAM_CODEC,
                 ApplyModifierRecipe::modifier,

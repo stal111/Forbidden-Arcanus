@@ -81,7 +81,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         for (int i = 0; i < height; i++) {
             mutable.set(pos).move(Direction.UP, i);
 
-            if (!world.getBlockState(mutable).isSolidRender(world, mutable)) {
+            if (!world.getBlockState(mutable).isSolidRender()) {
                 this.setBlock(world, mutable, config.stemProvider.getState(random, pos));
             }
         }

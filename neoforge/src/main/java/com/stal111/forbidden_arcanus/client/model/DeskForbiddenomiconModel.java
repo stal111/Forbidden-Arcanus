@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.client.model;
 import com.stal111.forbidden_arcanus.client.animation.ForbiddenomiconAnimation;
 import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockEntity;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,13 +12,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DeskForbiddenomiconModel<T extends Entity> extends AbstractForbiddenomiconModel<T> {
 
-    public DeskForbiddenomiconModel(BlockEntityRendererProvider.Context context) {
-        super(context);
-    }
-
-    @Override
-    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+    public DeskForbiddenomiconModel(ModelPart root) {
+        super(root);
     }
 
     public void setupAnim(@NotNull ResearchDeskBlockEntity blockEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {

@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -56,16 +55,17 @@ public abstract class PlayerMixin extends LivingEntity {
         }
     }
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onGround()Z"), method = "getDigSpeed")
-    public boolean forbiddenArcanus_getDigSpeed$seaPrismModifier(Player instance) {
-        boolean onGround = instance.onGround();
-
-        if (!onGround && this.isEyeInFluidType(NeoForgeMod.WATER_TYPE.value()) && ModifierHelper.hasModifier(instance.getItemBySlot(EquipmentSlot.HEAD), this.level().holderOrThrow(ModItemModifiers.AQUATIC))) {
-            return true;
-        }
-
-        return onGround;
-    }
+    //TODO
+//    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onGround()Z"), method = "getDigSpeed")
+//    public boolean forbiddenArcanus_getDigSpeed$seaPrismModifier(Player instance) {
+//        boolean onGround = instance.onGround();
+//
+//        if (!onGround && this.isEyeInFluidType(NeoForgeMod.WATER_TYPE.value()) && ModifierHelper.hasModifier(instance.getItemBySlot(EquipmentSlot.HEAD), this.level().holderOrThrow(ModItemModifiers.AQUATIC))) {
+//            return true;
+//        }
+//
+//        return onGround;
+//    }
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;tick()V"), method = "aiStep")
     public void forbiddenArcanus_aiStep$seaPrismModifier(CallbackInfo ci) {

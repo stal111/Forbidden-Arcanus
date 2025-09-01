@@ -37,28 +37,28 @@ public class ModLootModifierProvider extends GlobalLootModifierProvider {
         this.add("spawner_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
                         InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))))).build(),
-                        LootTableIdCondition.builder(Blocks.SPAWNER.getLootTable().location()).build()
+                        LootTableIdCondition.builder(Blocks.SPAWNER.getLootTable().orElseThrow().location()).build()
                 }, ModBlockLootAdditions.SPAWNER_SCRAP_ADDITION)
         );
         this.add("enderman_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(EntityType.ENDERMAN.getDefaultLootTable().location()).build()
+                        LootTableIdCondition.builder(EntityType.ENDERMAN.getDefaultLootTable().orElseThrow().location()).build()
                 }, ModEntityLootAdditions.ENDER_PEARL_FRAGMENT_ADDITION)
         );
         this.add("bat_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(EntityType.BAT.getDefaultLootTable().location()).build()
+                        LootTableIdCondition.builder(EntityType.BAT.getDefaultLootTable().orElseThrow().location()).build()
                 }, ModEntityLootAdditions.BAT_WING_ADDITION)
         );
         this.add("squid_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
                         LootItemRandomChanceCondition.randomChance(0.7F).build(),
-                        LootTableIdCondition.builder(EntityType.SQUID.getDefaultLootTable().location()).build()
+                        LootTableIdCondition.builder(EntityType.SQUID.getDefaultLootTable().orElseThrow().location()).build()
                 }, ModEntityLootAdditions.TENTACLE_ADDITION)
         );
         this.add("ender_dragon_additions",
                 new AddTableLootModifier(new LootItemCondition[] {
-                        LootTableIdCondition.builder(EntityType.ENDER_DRAGON.getDefaultLootTable().location()).build()
+                        LootTableIdCondition.builder(EntityType.ENDER_DRAGON.getDefaultLootTable().orElseThrow().location()).build()
                 }, ModEntityLootAdditions.DRAGON_SCALE_ADDITION)
         );
 

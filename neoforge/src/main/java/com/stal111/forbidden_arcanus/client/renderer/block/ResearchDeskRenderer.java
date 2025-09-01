@@ -22,7 +22,7 @@ public class ResearchDeskRenderer implements BlockEntityRenderer<ResearchDeskBlo
     private final DeskForbiddenomiconModel<?> model;
 
     public ResearchDeskRenderer(BlockEntityRendererProvider.Context context) {
-        this.model = new DeskForbiddenomiconModel<>(context);
+        this.model = new DeskForbiddenomiconModel<>(context.bakeLayer(DeskForbiddenomiconModel.LAYER_LOCATION));
     }
 
     @Override

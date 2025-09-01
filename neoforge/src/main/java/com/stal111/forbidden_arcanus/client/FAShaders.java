@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.client;
 
-import net.neoforged.fml.common.EventBusSubscriber;
-
 /**
  * Forbidden & Arcanus Shaders <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.FAShaders
@@ -9,7 +7,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
  * @author stal111
  * @since 2021-12-11
  */
-@EventBusSubscriber
+//@EventBusSubscriber
 public class FAShaders {
 
     //TODO

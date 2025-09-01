@@ -9,14 +9,17 @@ import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ConversionParams;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
@@ -32,8 +35,8 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
         super(entityType, level);
     }
 
-    public ThrownAurealBottle(Level level, LivingEntity shooter) {
-        super(ModEntities.AUREAL_BOTTLE.get(), shooter, level);
+    public ThrownAurealBottle(Level level, LivingEntity shooter, ItemStack stack) {
+        super(ModEntities.AUREAL_BOTTLE.get(), shooter, level, stack);
     }
 
     @Override
@@ -84,9 +87,13 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
 
                 if (entity instanceof AbstractLostSoul lostSoul) {
                     if (lostSoul.getType() == ModEntities.CORRUPT_LOST_SOUL.get()) {
-                        lostSoul.convertTo(ModEntities.LOST_SOUL.get(), true);
+                        lostSoul.convertTo(ModEntities.LOST_SOUL.get(), ConversionParams.single(lostSoul, true, true), converted -> {
+                            EventHooks.onLivingConvert(lostSoul, converted);
+                        });
                     } else if (lostSoul.getType() == ModEntities.LOST_SOUL.get()) {
-                        lostSoul.convertTo(ModEntities.ENCHANTED_LOST_SOUL.get(), true);
+                        lostSoul.convertTo(ModEntities.ENCHANTED_LOST_SOUL.get(), ConversionParams.single(lostSoul, true, true), converted -> {
+                            EventHooks.onLivingConvert(lostSoul, converted);
+                        });
                     }
                 }
             }

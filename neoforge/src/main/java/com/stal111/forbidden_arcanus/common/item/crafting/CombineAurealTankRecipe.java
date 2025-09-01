@@ -69,12 +69,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 2;
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return ModRecipeSerializers.COMBINE_AUREAL_TANK.get();
     }
 }

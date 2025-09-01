@@ -56,7 +56,7 @@ public class RootFeature extends Feature<BlockStateConfiguration> {
         Direction direction = this.getRandomDirection(random);
         BlockPos.MutableBlockPos relativePos = pos.move(direction);
 
-        return !level.getBlockState(relativePos).isSolidRender(level, relativePos) ? relativePos : pos;
+        return !level.getBlockState(relativePos).isSolidRender() ? relativePos : pos;
     }
 
     private Direction getRandomDirection(RandomSource random) {

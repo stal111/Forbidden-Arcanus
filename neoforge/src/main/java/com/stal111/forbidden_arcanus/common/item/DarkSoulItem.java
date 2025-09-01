@@ -47,7 +47,7 @@ public class DarkSoulItem extends Item {
 
             stack.consume(1, player);
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return super.useOn(context);

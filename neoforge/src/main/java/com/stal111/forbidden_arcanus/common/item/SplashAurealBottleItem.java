@@ -28,7 +28,7 @@ public class SplashAurealBottleItem extends Item {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_BOTTLE_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 
         if (!level.isClientSide()) {
-            ThrownAurealBottle bottle = new ThrownAurealBottle(level, player);
+            ThrownAurealBottle bottle = new ThrownAurealBottle(level, player, stack);
             bottle.setItem(stack);
             bottle.shootFromRotation(player, player.getXRot(), player.getYRot(), -20.0F, 0.7F, 1.0F);
             level.addFreshEntity(bottle);

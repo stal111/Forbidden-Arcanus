@@ -57,10 +57,12 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
         return SHAPE;
     }
 
-    @Override
-    public String getDescriptionId() {
-        return DESCRIPTION_ID;
-    }
+
+    //TODO
+//    @Override
+//    public String getDescriptionId() {
+//        return DESCRIPTION_ID;
+//    }
 
     @Nullable
     @Override

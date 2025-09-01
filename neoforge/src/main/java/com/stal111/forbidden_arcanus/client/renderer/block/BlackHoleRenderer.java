@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -42,9 +41,9 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
 
     private static final RenderType RENDER_TYPE = RenderType.entityCutoutNoCull(BLACK_HOLE_TEXTURE);
     private static final RenderType[] AURA_RENDER_TYPE = {
-            FARenderTypes.entityFullbrightCutout(BLACK_HOLE_AURA[0]),
-            FARenderTypes.entityFullbrightCutout(BLACK_HOLE_AURA[1]),
-            FARenderTypes.entityFullbrightCutout(BLACK_HOLE_AURA[2])
+            RenderType.entityTranslucentEmissive(BLACK_HOLE_AURA[0]),
+            RenderType.entityTranslucentEmissive(BLACK_HOLE_AURA[1]),
+            RenderType.entityTranslucentEmissive(BLACK_HOLE_AURA[2])
     };
 
     private static final float SIN_45 = (float) Math.sin(Math.PI / 3D);

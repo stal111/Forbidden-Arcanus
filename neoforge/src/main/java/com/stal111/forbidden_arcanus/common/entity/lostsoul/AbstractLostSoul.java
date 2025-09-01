@@ -11,10 +11,12 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.profiling.Profiler;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -33,7 +35,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 /**
  * @author stal111
@@ -51,9 +52,9 @@ public abstract class AbstractLostSoul extends PathfinderMob {
     public final AnimationState stillAnimationState = new AnimationState();
     public final AnimationState fearAnimationState = new AnimationState();
 
-    private final Vector3f trailColor;
+    private final int trailColor;
 
-    public AbstractLostSoul(EntityType<? extends AbstractLostSoul> entityType, Level level, Vector3f trailColor) {
+    public AbstractLostSoul(EntityType<? extends AbstractLostSoul> entityType, Level level, int trailColor) {
         super(entityType, level);
         this.trailColor = trailColor;
 
@@ -69,7 +70,7 @@ public abstract class AbstractLostSoul extends PathfinderMob {
         return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 14.0D).add(Attributes.FLYING_SPEED, 0.5D).add(Attributes.MOVEMENT_SPEED, 0.3D);
     }
 
-    public static boolean canSpawn(EntityType<? extends AbstractLostSoul> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(EntityType<? extends AbstractLostSoul> entityType, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {
         return true;
     }
 
@@ -166,12 +167,14 @@ public abstract class AbstractLostSoul extends PathfinderMob {
     }
 
     @Override
-    protected void customServerAiStep() {
-        this.level().getProfiler().push("lostSoulBrain");
-        this.getBrain().tick((ServerLevel) this.level(), this);
-        this.level().getProfiler().pop();
+    protected void customServerAiStep(ServerLevel level) {
+        ProfilerFiller profilerFiller = Profiler.get();
 
-        super.customServerAiStep();
+        profilerFiller.push("lostSoulBrain");
+        this.getBrain().tick((ServerLevel) this.level(), this);
+        profilerFiller.pop();
+
+        super.customServerAiStep(level);
     }
 
     @Override

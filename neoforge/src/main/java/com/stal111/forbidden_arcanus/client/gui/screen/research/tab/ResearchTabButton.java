@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchCategory
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.StateSwitchingButton;
 import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,9 +35,9 @@ public class ResearchTabButton extends StateSwitchingButton {
 
         ResourceLocation resourceLocation = this.sprites.get(true, this.isStateTriggered);
 
-        guiGraphics.blitSprite(resourceLocation, this.getX(), this.getY(), this.width, this.height);
+        guiGraphics.blitSprite(RenderType::guiTextured, resourceLocation, this.getX(), this.getY(), this.width, this.height);
 
-        guiGraphics.blit(this.category.getIconLocation(), this.getX() + 4 + (this.isStateTriggered ? 2 : 0), this.getY() + 5, 0, 0, 16, 16, 16, 16);
+        guiGraphics.blit(RenderType::guiTextured, this.category.getIconLocation(), this.getX() + 4 + (this.isStateTriggered ? 2 : 0), this.getY() + 5, 0, 0, 16, 16, 16, 16);
     }
 
     public ResearchCategory getCategory() {

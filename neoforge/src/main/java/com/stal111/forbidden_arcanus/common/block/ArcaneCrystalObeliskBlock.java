@@ -5,11 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -19,8 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -33,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -79,7 +76,7 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
 
-        if (pos.getY() > level.getMaxBuildHeight() - 3 || !level.getBlockState(pos.above()).canBeReplaced(context) || !level.getBlockState(pos.above(2)).canBeReplaced(context)) {
+        if (pos.getY() > level.getMaxY() - 3 || !level.getBlockState(pos.above()).canBeReplaced(context) || !level.getBlockState(pos.above(2)).canBeReplaced(context)) {
             return null;
         }
 
@@ -89,22 +86,22 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
         ObeliskPart part = state.getValue(PART);
 
-        if (facing.getAxis() != Direction.Axis.Y) {
+        if (direction.getAxis() != Direction.Axis.Y) {
             return state;
         }
 
-        if (part == ObeliskPart.LOWER == (facing == Direction.UP) || part == ObeliskPart.MIDDLE) {
-            return facingState.is(this) && facingState.getValue(PART) != part ? state : Blocks.AIR.defaultBlockState();
+        if (part == ObeliskPart.LOWER == (direction == Direction.UP) || part == ObeliskPart.MIDDLE) {
+            return neighborState.is(this) && neighborState.getValue(PART) != part ? state : Blocks.AIR.defaultBlockState();
         }
 
-        if (part == ObeliskPart.LOWER && facing == Direction.DOWN && !state.canSurvive(level, pos)) {
+        if (part == ObeliskPart.LOWER && direction == Direction.DOWN && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
 
@@ -112,10 +109,10 @@ public class ArcaneCrystalObeliskBlock extends Block implements SimpleWaterlogge
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        if (!fromPos.equals(pos.below())) {
-            return;
-        }
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
+//        if (!fromPos.equals(pos.below())) {
+//            return;
+//        }
 
         boolean flag = shouldActivate(level, pos);
 

@@ -40,7 +40,7 @@ public class SummonEntityEffect<T extends LivingEntity> extends PedestalEffect {
         BlockPos spawnPos = this.findSpawnPositionNear(level, pos, this.spawnRadius);
 
         if (spawnPos != null) {
-            T entity = this.entityType.get().create(level, null, spawnPos, MobSpawnType.MOB_SUMMONED, false, false);
+            T entity = this.entityType.get().create(level, null, spawnPos, EntitySpawnReason.MOB_SUMMONED, false, false);
 
             if (entity != null) {
                 entity.lookAt(EntityAnchorArgument.Anchor.EYES, pos.getCenter());

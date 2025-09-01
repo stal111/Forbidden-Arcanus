@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.data.recipes.builder;
 
-import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
+import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -10,13 +10,16 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * @author stal111
@@ -50,19 +53,13 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
     }
 
     @Override
-    public void save(@Nonnull RecipeOutput recipeOutput) {
-        ResourceLocation key = this.modifier.getKey().location();
-        this.save(recipeOutput, ResourceLocation.fromNamespaceAndPath(key.getNamespace(), "smithing/apply_" + key.getPath() + "_modifier"));
-    }
-
-    @Override
-    public void save(@Nonnull RecipeOutput recipeOutput, @Nonnull ResourceLocation recipeId) {
-        ApplyModifierRecipe recipe = new ApplyModifierRecipe(this.template, this.addition, this.modifier);
-        Advancement.Builder builder = recipeOutput.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
-                .rewards(AdvancementRewards.Builder.recipe(recipeId))
+    public void save(@NotNull RecipeOutput output, @NotNull ResourceKey<Recipe<?>> resourceKey) {
+        ApplyModifierRecipe recipe = new ApplyModifierRecipe(Optional.of(this.template), Optional.of(this.addition), this.modifier);
+        Advancement.Builder builder = output.advancement()
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
+                .rewards(AdvancementRewards.Builder.recipe(resourceKey))
                 .requirements(AdvancementRequirements.Strategy.OR);
 
-        recipeOutput.accept(recipeId, recipe, builder.build(recipeId.withPrefix("recipes/apply_modifier/")));
+        output.accept(resourceKey, recipe, builder.build(resourceKey.location().withPrefix("recipes/apply_modifier/")));
     }
 }

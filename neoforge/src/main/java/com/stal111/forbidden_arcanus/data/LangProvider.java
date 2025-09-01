@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.integration.ponder.ForbiddenArcanusPonderPlugin;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -11,8 +10,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-
-import net.createmod.ponder.foundation.PonderIndex;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -253,16 +250,16 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.BOOM_ARROW, "Boom Arrow");
         this.addItem(ModItems.DRACO_ARCANUS_ARROW, "Draco Arcanus Arrow");
         this.addItem(ModItems.EDELWOOD_OIL, "Edelwood Oil");
-        this.addItem(ModItems.AURUM_BOAT, "Aurum Boat");
-        this.addItem(ModItems.AURUM_CHEST_BOAT, "Aurum Chest Boat");
-        this.addItem(ModItems.EDELWOOD_BOAT, "Edelwood Boat");
-        this.addItem(ModItems.EDELWOOD_CHEST_BOAT, "Edelwood Chest Boat");
+//        this.addItem(ModItems.AURUM_BOAT, "Aurum Boat");
+//        this.addItem(ModItems.AURUM_CHEST_BOAT, "Aurum Chest Boat");
+//        this.addItem(ModItems.EDELWOOD_BOAT, "Edelwood Boat");
+//        this.addItem(ModItems.EDELWOOD_CHEST_BOAT, "Edelwood Chest Boat");
         this.addItem(ModItems.DRACO_ARCANUS_STAFF, "Draco Arcanus Staff");
-        this.addItem(ModItems.DRACO_ARCANUS_SWORD, "Draco Arcanus Sword");
-        this.addItem(ModItems.DRACO_ARCANUS_PICKAXE, "Draco Arcanus Pickaxe");
-        this.addItem(ModItems.DRACO_ARCANUS_AXE, "Draco Arcanus Axe");
-        this.addItem(ModItems.DRACO_ARCANUS_SHOVEL, "Draco Arcanus Shovel");
-        this.addItem(ModItems.DRACO_ARCANUS_HOE, "Draco Arcanus Hoe");
+//        this.addItem(ModItems.DRACO_ARCANUS_SWORD, "Draco Arcanus Sword");
+//        this.addItem(ModItems.DRACO_ARCANUS_PICKAXE, "Draco Arcanus Pickaxe");
+//        this.addItem(ModItems.DRACO_ARCANUS_AXE, "Draco Arcanus Axe");
+//        this.addItem(ModItems.DRACO_ARCANUS_SHOVEL, "Draco Arcanus Shovel");
+//        this.addItem(ModItems.DRACO_ARCANUS_HOE, "Draco Arcanus Hoe");
         this.addItem(ModItems.DRACO_ARCANUS_SCEPTER, "Draco Arcanus Scepter");
         this.addItem(ModItems.MAGIC_WAND, "Magic Wand");
         this.addItem(ModItems.DRACO_ARCANUS_HELMET, "Draco Arcanus Helmet");
@@ -273,10 +270,10 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.TYR_CHESTPLATE, "Tyr Chestplate");
         this.addItem(ModItems.TYR_LEGGINGS, "Tyr Leggings");
         this.addItem(ModItems.TYR_BOOTS, "Tyr Boots");
-        this.addItem(ModItems.MORTEM_HELMET, "Mortem Helmet");
-        this.addItem(ModItems.MORTEM_CHESTPLATE, "Mortem Chestplate");
-        this.addItem(ModItems.MORTEM_LEGGINGS, "Mortem Leggings");
-        this.addItem(ModItems.MORTEM_BOOTS, "Mortem Boots");
+//        this.addItem(ModItems.MORTEM_HELMET, "Mortem Helmet");
+//        this.addItem(ModItems.MORTEM_CHESTPLATE, "Mortem Chestplate");
+//        this.addItem(ModItems.MORTEM_LEGGINGS, "Mortem Leggings");
+//        this.addItem(ModItems.MORTEM_BOOTS, "Mortem Boots");
         this.addItem(ModItems.ARTISAN_RELIC, "Artisan Relic");
         this.addItem(ModItems.CRESCENT_MOON, "Crescent Moon");
         this.addItem(ModItems.CRIMSON_STONE, "Crimson Stone");
@@ -292,7 +289,7 @@ public class LangProvider extends LanguageProvider {
         this.addItem(ModItems.GOLDEN_BLACKSMITH_GAVEL, "Golden Blacksmith Gavel");
         this.addItem(ModItems.DIAMOND_BLACKSMITH_GAVEL, "Diamond Blacksmith Gavel");
         this.addItem(ModItems.NETHERITE_BLACKSMITH_GAVEL, "Netherite Blacksmith Gavel");
-        this.addItem(ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL, "Reinforced Deorum Blacksmith Gavel");
+//        this.addItem(ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL, "Reinforced Deorum Blacksmith Gavel");
         this.addItem(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE, "Smithing Template");
 
         for (DyeColor color : DyeColor.values()) {
@@ -333,8 +330,8 @@ public class LangProvider extends LanguageProvider {
         this.add("jei", "category.hephaestus_forge_upgrading", "Hephaestus Forge Upgrading");
         this.add("jei", "hephaestus_smithing.required_essence", "Required %s: %s");
 
-        PonderIndex.addPlugin(new ForbiddenArcanusPonderPlugin());
-        PonderIndex.getLangAccess().provideLang(ForbiddenArcanus.MOD_ID, this::add);
+//        PonderIndex.addPlugin(new ForbiddenArcanusPonderPlugin());
+//        PonderIndex.getLangAccess().provideLang(ForbiddenArcanus.MOD_ID, this::add);
     }
 
     private void addModifier(String modifier, String name) {

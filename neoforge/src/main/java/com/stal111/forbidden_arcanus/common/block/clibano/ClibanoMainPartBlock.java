@@ -74,9 +74,9 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@Nonnull Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> blockEntityType) {
-        if (level.isClientSide()) {
-            return null;
+        if (level instanceof ServerLevel serverLevel) {
+            return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.CLIBANO_MAIN.get(), (level1, pos, blockState, blockEntity) -> ClibanoMainBlockEntity.serverTick(serverLevel, pos, blockState, blockEntity));
         }
-        return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.CLIBANO_MAIN.get(), ClibanoMainBlockEntity::serverTick);
+        return null;
     }
 }

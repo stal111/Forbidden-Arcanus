@@ -8,11 +8,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class AurealMissileRenderer extends EntityRenderer<AurealMissile> {
+public class AurealMissileRenderer extends EntityRenderer<AurealMissile, EntityRenderState> {
 
     private static final ResourceLocation TEXTURE_LOCATION = ForbiddenArcanus.location("textures/entity/projectiles/aureal_missile.png");
 
@@ -21,7 +22,12 @@ public class AurealMissileRenderer extends EntityRenderer<AurealMissile> {
     }
 
     @Override
-    public void render(@NotNull AurealMissile entity, float entityYaw, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+    public @NotNull EntityRenderState createRenderState() {
+        return new EntityRenderState();
+    }
+
+    @Override
+    public void render(@NotNull EntityRenderState renderState, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
         poseStack.pushPose();
 
         VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(TEXTURE_LOCATION));
@@ -37,7 +43,7 @@ public class AurealMissileRenderer extends EntityRenderer<AurealMissile> {
 
         poseStack.popPose();
 
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        super.render(renderState, poseStack, bufferSource, packedLight);
     }
 
     private static void vertex(
@@ -55,10 +61,5 @@ public class AurealMissileRenderer extends EntityRenderer<AurealMissile> {
                 .setOverlay(OverlayTexture.NO_OVERLAY)
                 .setLight(packedLight)
                 .setNormal(pose, 0.0F, 1.0F, 0.0F);
-    }
-
-    @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull AurealMissile entity) {
-        return TEXTURE_LOCATION;
     }
 }

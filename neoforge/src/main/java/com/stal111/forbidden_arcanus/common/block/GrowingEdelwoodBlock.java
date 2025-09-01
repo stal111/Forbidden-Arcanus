@@ -67,7 +67,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
     }
 
     public void growEdelwood(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(ModConfiguredFeatures.EDELWOOD).orElse(null);
+        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(ModConfiguredFeatures.EDELWOOD).orElse(null);
         BlockGrowFeatureEvent event = EventHooks.fireBlockGrowFeature(level, random, pos, holder);
 
         if (event.isCanceled() || event.getFeature() == null) {

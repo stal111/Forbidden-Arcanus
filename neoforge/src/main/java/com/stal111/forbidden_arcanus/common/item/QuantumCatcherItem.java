@@ -44,19 +44,25 @@ public class QuantumCatcherItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         ItemStack stack = context.getItemInHand();
 
-        return getData(stack).map(storedEntity -> {
+        Optional<StoredEntity> storedEntity = getData(stack);
+
+        if (storedEntity.isEmpty()) {
+            return super.useOn(context);
+        }
+
+        return storedEntity.map(entity -> {
             Level level = context.getLevel();
 
             if (!level.isClientSide()) {
-                if (!this.summonEntity(storedEntity, context)) {
+                if (!this.summonEntity(storedEntity.get(), context)) {
                     return InteractionResult.FAIL;
                 }
             }
 
             playSound(level, context.getPlayer(), context.getClickedPos(), false);
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
-        }).orElse(super.useOn(context));
+            return InteractionResult.SUCCESS;
+        }).orElseThrow();
     }
 
     private boolean summonEntity(StoredEntity storedEntity, UseOnContext context) {
@@ -118,7 +124,7 @@ public class QuantumCatcherItem extends Item {
 
         playSound(level, player, target.blockPosition(), true);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     public boolean isValidEntity(LivingEntity entity) {

@@ -45,7 +45,7 @@ public class FerrogneticMixtureItem extends Item {
                 PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(pos), new TransformPedestalPayload(pos));
             }
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return super.useOn(context);

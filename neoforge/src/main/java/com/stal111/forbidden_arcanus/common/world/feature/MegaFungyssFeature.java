@@ -86,7 +86,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
     private void placeStemBlock(LevelAccessor world, BlockState state, BlockPos.MutableBlockPos mutable, BlockPos pos, int xOffset, int yOffset, int zOffset) {
         mutable.set(pos).move(xOffset, yOffset, zOffset);
 
-        if (!world.getBlockState(mutable).isSolidRender(world, mutable)) {
+        if (!world.getBlockState(mutable).isSolidRender()) {
             this.setBlock(world, mutable, state);
         }
     }

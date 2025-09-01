@@ -38,8 +38,8 @@ public class BlacksmithGavelLootModifier extends LootModifier {
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
-        ItemStack stack = context.getParamOrNull(LootContextParams.TOOL);
+        BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+        ItemStack stack = context.getOptionalParameter(LootContextParams.TOOL);
 
         if (state == null || stack == null) {
             return generatedLoot;

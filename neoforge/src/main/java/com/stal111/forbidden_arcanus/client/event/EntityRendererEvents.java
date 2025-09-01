@@ -1,14 +1,8 @@
 package com.stal111.forbidden_arcanus.client.event;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.block.ObsidianSkullRenderer;
-import com.stal111.forbidden_arcanus.common.entity.ModBoat;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -21,7 +15,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
  * @version 1.19 - 2.1.0
  * @since 2021-11-28
  */
-@EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class EntityRendererEvents {
 
     @SubscribeEvent
@@ -44,10 +38,5 @@ public class EntityRendererEvents {
         event.registerLayerDefinition(FAModelLayers.OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createObsidianSkullLayer);
         event.registerLayerDefinition(FAModelLayers.DETAILED_OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createDetailedObsidianSkullLayer);
         event.registerLayerDefinition(AbstractForbiddenomiconModel.LAYER_LOCATION, AbstractForbiddenomiconModel::createBodyLayer);
-
-        for (ModBoat.Type type : ModBoat.Type.values()) {
-            event.registerLayerDefinition(new ModelLayerLocation(ForbiddenArcanus.location(type.getModelLocation()), "main"), BoatModel::createBodyModel);
-            event.registerLayerDefinition(new ModelLayerLocation(ForbiddenArcanus.location(type.getChestModelLocation()), "main"), ChestBoatModel::createBodyModel);
-        }
     }
 }

@@ -41,7 +41,7 @@ public class DracoArcanusArrow extends AbstractArrow {
     @Override
     public void tick() {
         super.tick();
-        if (this.level().isClientSide() && !this.inGround) {
+        if (this.level().isClientSide() && !this.isInGround()) {
             this.level().addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
     }

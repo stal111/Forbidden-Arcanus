@@ -1,29 +1,27 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.DarkTraderAnimation;
-import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
-import net.minecraft.client.model.HierarchicalModel;
+import com.stal111.forbidden_arcanus.client.renderer.entity.state.DarkTraderRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 2023-08-11
  */
-public class DarkTraderModel extends HierarchicalModel<DarkTrader> {
+public class DarkTraderModel extends EntityModel<DarkTraderRenderState> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("dark_trader"), "main");
 
-	private final ModelPart root;
 
 	public DarkTraderModel(ModelPart root) {
-		this.root = root;
+        super(root, RenderType::entitySolid);
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -84,19 +82,9 @@ public class DarkTraderModel extends HierarchicalModel<DarkTrader> {
 	}
 
 	@Override
-	public void setupAnim(@NotNull DarkTrader entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(@NotNull DarkTraderRenderState renderState) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.spawnAnimationState, DarkTraderAnimation.SPAWN, ageInTicks);
-	}
-
-	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-	@Override
-	public @NotNull ModelPart root() {
-		return this.root;
+		this.animate(renderState.spawnAnimation, DarkTraderAnimation.SPAWN, renderState.ageInTicks);
 	}
 }

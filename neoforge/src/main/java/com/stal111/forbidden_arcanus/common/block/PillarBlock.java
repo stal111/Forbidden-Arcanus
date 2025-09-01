@@ -5,9 +5,11 @@ import com.stal111.forbidden_arcanus.common.block.properties.PillarType;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -68,19 +70,19 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
         if (direction.getAxis() != state.getValue(AXIS)) {
             return state;
         }
 
-        return state.setValue(TYPE, calculatePillarType(state, level, currentPos));
+        return state.setValue(TYPE, calculatePillarType(state, level, pos));
     }
 
-    private static PillarType calculatePillarType(BlockState state, LevelAccessor level, BlockPos pos) {
+    private static PillarType calculatePillarType(BlockState state, LevelReader level, BlockPos pos) {
         Direction.Axis axis = state.getValue(AXIS);
 
         BlockState stateDown = level.getBlockState(pos.relative(Direction.get(Direction.AxisDirection.NEGATIVE, axis)));

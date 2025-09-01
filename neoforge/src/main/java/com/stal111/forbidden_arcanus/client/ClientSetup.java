@@ -7,9 +7,6 @@ import com.stal111.forbidden_arcanus.client.gui.label.QuantumCatcherFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlyingLabelOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.WandIndicatorLayer;
-import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
-import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
-import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
 import com.stal111.forbidden_arcanus.client.particle.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
@@ -18,14 +15,12 @@ import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
-import com.stal111.forbidden_arcanus.common.integration.ponder.ForbiddenArcanusPonderPlugin;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
-import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SkullModel;
@@ -78,8 +73,8 @@ public class ClientSetup {
         helper.registerEntityRenderer(ModEntities.DRACO_ARCANUS_ARROW, DracoArcanusArrowRenderer::new);
         helper.registerEntityRenderer(ModEntities.ENERGY_BALL, EnergyBallRenderer::new);
         helper.registerEntityRenderer(ModEntities.CRIMSON_LIGHTNING_BOLT, CrimsonLightningBoltRenderer::new);
-        helper.registerEntityRenderer(ModEntities.BOAT, context -> new ModBoatRenderer(context, false));
-        helper.registerEntityRenderer(ModEntities.CHEST_BOAT, context -> new ModBoatRenderer(context, true));
+//        helper.registerEntityRenderer(ModEntities.BOAT, context -> new ModBoatRenderer(context, false));
+//        helper.registerEntityRenderer(ModEntities.CHEST_BOAT, context -> new ModBoatRenderer(context, true));
         helper.registerEntityRenderer(ModEntities.LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.location("textures/entity/lost_soul/lost_soul.png")));
         helper.registerEntityRenderer(ModEntities.CORRUPT_LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.location("textures/entity/lost_soul/corrupt_lost_soul.png")));
         helper.registerEntityRenderer(ModEntities.ENCHANTED_LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.location("textures/entity/lost_soul/enchanted_lost_soul.png")));
@@ -94,9 +89,10 @@ public class ClientSetup {
         helper.registerSkullModel(ObsidianSkullType.AUREALIC, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
         helper.registerSkullModel(ObsidianSkullType.ETERNAL, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
 
-        helper.registerScreen(ModMenuTypes.HEPHAESTUS_FORGE, HephaestusForgeScreen::new);
-        helper.registerScreen(ModMenuTypes.CLIBANO, ClibanoScreen::new);
-        helper.registerScreen(ModMenuTypes.RESEARCH_DESK, ResearchScreen::new);
+        //TODO
+//        helper.registerScreen(ModMenuTypes.HEPHAESTUS_FORGE, HephaestusForgeScreen::new);
+//        helper.registerScreen(ModMenuTypes.CLIBANO, ClibanoScreen::new);
+//        helper.registerScreen(ModMenuTypes.RESEARCH_DESK, ResearchScreen::new);
 
         modEventBus.addListener(this::onClientSetup);
         //modEventBus.addListener(this::onTextureStitch);
@@ -105,7 +101,7 @@ public class ClientSetup {
         modEventBus.addListener(this::onRegisterParticleProviders);
 
         if (ModList.get().isLoaded("ponder")) {
-            ForbiddenArcanusPonderPlugin.register();
+//            ForbiddenArcanusPonderPlugin.register();
         }
     }
 

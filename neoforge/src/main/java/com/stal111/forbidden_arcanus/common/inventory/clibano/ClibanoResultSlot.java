@@ -65,6 +65,6 @@ public class ClibanoResultSlot extends SlotItemHandler {
         }
 
         this.removeCount = 0;
-        EventHooks.firePlayerSmeltedEvent(this.player, stack);
+        EventHooks.firePlayerSmeltedEvent(this.player, stack, this.removeCount);
     }
 }

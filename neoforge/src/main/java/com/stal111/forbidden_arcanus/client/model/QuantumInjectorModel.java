@@ -3,14 +3,13 @@ package com.stal111.forbidden_arcanus.client.model;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.QuantumInjectorAnimation;
 import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEntity;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -18,14 +17,12 @@ import javax.annotation.Nonnull;
  * @author stal111
  * @since 03.06.2024
  */
-public class QuantumInjectorModel<T extends Entity> extends HierarchicalModel<T> {
+public class QuantumInjectorModel<T extends Entity> extends Model {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("quantum_injector"), "main");
 
-    private final ModelPart root;
-
-    public QuantumInjectorModel(EntityModelSet modelSet) {
-        this.root = modelSet.bakeLayer(LAYER_LOCATION);
+    public QuantumInjectorModel(ModelPart root) {
+        super(root, RenderType::entitySolid);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -53,16 +50,6 @@ public class QuantumInjectorModel<T extends Entity> extends HierarchicalModel<T>
         cube.addOrReplaceChild("bone8", CubeListBuilder.create().texOffs(32, 0).addBox(-9.0F, 1.0F, 1.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         return LayerDefinition.create(meshDefinition, 64, 64);
-    }
-
-    @Override
-    public @NotNull ModelPart root() {
-        return this.root;
-    }
-
-    @Override
-    public void setupAnim(@NotNull T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-
     }
 
     public void setupAnim(@Nonnull QuantumInjectorBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {

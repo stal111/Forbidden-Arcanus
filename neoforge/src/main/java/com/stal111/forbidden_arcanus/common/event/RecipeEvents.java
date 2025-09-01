@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,6 +16,6 @@ public class RecipeEvents {
 
     @SubscribeEvent
     public void onRegisterBrewingRecipes(RegisterBrewingRecipesEvent event) {
-        event.getBuilder().addRecipe(Ingredient.of(ModItems.AUREAL_BOTTLE.get()), Ingredient.of(Tags.Items.GUNPOWDERS), new ItemStack(ModItems.SPLASH_AUREAL_BOTTLE.get()));
+        event.getBuilder().addRecipe(Ingredient.of(ModItems.AUREAL_BOTTLE.get()), Ingredient.of(event.getRegistryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(Tags.Items.GUNPOWDERS)), new ItemStack(ModItems.SPLASH_AUREAL_BOTTLE.get()));
     }
 }

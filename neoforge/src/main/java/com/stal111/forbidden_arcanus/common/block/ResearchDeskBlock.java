@@ -48,14 +48,14 @@ public class ResearchDeskBlock extends DeskBlock implements EntityBlock {
                 player.drop(forbiddenomicon, false);
             }
 
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof ResearchDeskBlockEntity blockEntity) {
             player.openMenu(blockEntity);
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override

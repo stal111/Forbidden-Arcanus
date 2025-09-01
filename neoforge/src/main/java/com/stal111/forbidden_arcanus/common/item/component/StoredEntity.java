@@ -13,6 +13,7 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -78,7 +79,7 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
 
     @Nullable
     public Entity createEntity(Level level) {
-        return EntityType.loadEntityRecursive(this.data.copyTag(), level, Function.identity());
+        return EntityType.loadEntityRecursive(this.data.copyTag(), level, EntitySpawnReason.SPAWN_ITEM_USE, Function.identity());
     }
 
     public Optional<EntityType<?>> getEntityType() {

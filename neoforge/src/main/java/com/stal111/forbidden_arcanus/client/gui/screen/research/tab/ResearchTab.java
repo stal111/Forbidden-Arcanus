@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,7 @@ public class ResearchTab extends AbstractTab {
 
     @Override
     public void init() {
-        for (Knowledge entry : Minecraft.getInstance().level.registryAccess().registryOrThrow(FARegistries.KNOWLEDGE)) {
+        for (Knowledge entry : Minecraft.getInstance().level.registryAccess().lookupOrThrow(FARegistries.KNOWLEDGE)) {
             this.knowledgeWidgets.add(new KnowledgeWidget(entry.displayInfo(), 0, 0));
         }
     }
@@ -61,12 +62,12 @@ public class ResearchTab extends AbstractTab {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
-        guiGraphics.blit(BACKGROUND, 0, 0, -i * 0.9F, -j * 0.9F, this.getWidth(), this.getHeight(), 512, 512);
+        guiGraphics.blit(RenderType::guiTextured, BACKGROUND, 0, 0, -i * 0.9F, -j * 0.9F, this.getWidth(), this.getHeight(), 512, 512);
 
-        guiGraphics.blit(BACKGROUND_STELLAR_DUST_0, (int) (i * 1.15F), (int) (j * 1.15F), 0, 0, 512, 512, 512, 512);
-        guiGraphics.blit(BACKGROUND_STELLAR_DUST_1, (int) (this.getWidth() / 2 + i * 1.15F), (int) (this.getHeight() / 2 + j * 1.15F), 0, 0, 512, 512, 512, 512);
+        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_STELLAR_DUST_0, (int) (i * 1.15F), (int) (j * 1.15F), 0, 0, 512, 512, 512, 512);
+        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_STELLAR_DUST_1, (int) (this.getWidth() / 2 + i * 1.15F), (int) (this.getHeight() / 2 + j * 1.15F), 0, 0, 512, 512, 512, 512);
 
-        guiGraphics.blit(BACKGROUND_STARS, 0, 0, -i * 1.35F, -j * 1.35F, this.getWidth(), this.getHeight(), 512, 512);
+        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_STARS, 0, 0, -i * 1.35F, -j * 1.35F, this.getWidth(), this.getHeight(), 512, 512);
 
         RenderSystem.disableBlend();
 

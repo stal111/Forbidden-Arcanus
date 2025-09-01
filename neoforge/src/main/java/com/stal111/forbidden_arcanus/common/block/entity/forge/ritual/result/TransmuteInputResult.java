@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 public record TransmuteInputResult(Holder<Item> result) implements RitualResult {
 
     public static final MapCodec<TransmuteInputResult> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            ItemStack.ITEM_NON_AIR_CODEC.fieldOf("result_item").forGetter(TransmuteInputResult::result)
+            Item.CODEC.fieldOf("result_item").forGetter(TransmuteInputResult::result)
     ).apply(instance, TransmuteInputResult::new));
 
     @Override

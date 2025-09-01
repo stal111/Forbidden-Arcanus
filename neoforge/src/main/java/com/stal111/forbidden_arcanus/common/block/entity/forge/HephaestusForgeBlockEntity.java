@@ -224,7 +224,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             return Optional.empty();
         }
 
-        return level.registryAccess().registryOrThrow(FARegistries.FORGE_INPUT).holders()
+        return level.registryAccess().lookupOrThrow(FARegistries.FORGE_INPUT).listElements()
                 .map(Holder.Reference::value)
                 .filter(input -> input.canInput(essenceType, stack))
                 .findFirst();

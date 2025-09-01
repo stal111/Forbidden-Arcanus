@@ -44,7 +44,7 @@ public class MagicCircleController {
     }
 
     public void createMagicCircle(ServerLevel level, BlockPos pos, Holder<MagicCircleType> type) {
-        int id = level.registryAccess().registryOrThrow(FARegistries.MAGIC_CIRCLE).getId(type.value());
+        int id = level.registryAccess().lookupOrThrow(FARegistries.MAGIC_CIRCLE).getId(type.value());
 
         level.blockEvent(pos, level.getBlockState(pos).getBlock(), this.eventId, id);
     }
@@ -54,7 +54,7 @@ public class MagicCircleController {
     }
 
     private MagicCircle getMagicCircleFromRegistry(Level level, BlockPos pos, int id) {
-        return level.registryAccess().registryOrThrow(FARegistries.MAGIC_CIRCLE).getHolder(id)
+        return level.registryAccess().lookupOrThrow(FARegistries.MAGIC_CIRCLE).get(id)
                 .map(holder -> holder.value().create(level, pos))
                 .orElse(null);
     }

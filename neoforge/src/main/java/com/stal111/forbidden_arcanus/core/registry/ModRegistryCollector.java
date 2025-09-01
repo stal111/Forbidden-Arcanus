@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.advancements.critereon.FAItemSubPred
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffects;
 import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
-import com.stal111.forbidden_arcanus.common.item.FAArmorMaterials;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteractions;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
@@ -59,7 +58,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(Registries.RECIPE_TYPE, ModRecipeTypes.class);
         this.addMappedHelper(Registries.RECIPE_SERIALIZER, ModRecipeSerializers.class);
         this.addMappedHelper(Registries.CUSTOM_STAT, ModStats.class);
-        this.addMappedHelper(Registries.ARMOR_MATERIAL, FAArmorMaterials.class);
         this.addMappedHelper(Registries.DATA_COMPONENT_TYPE, ModDataComponents.class);
         this.addMappedHelper(Registries.ENCHANTMENT_EFFECT_COMPONENT_TYPE, ModEnchantmentDataComponents.class);
         this.addMappedHelper(Registries.ITEM_SUB_PREDICATE_TYPE, FAItemSubPredicates.class);

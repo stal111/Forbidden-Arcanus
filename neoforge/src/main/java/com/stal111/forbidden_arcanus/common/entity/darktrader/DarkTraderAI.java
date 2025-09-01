@@ -41,7 +41,7 @@ public class DarkTraderAI {
     }
 
     private static void initCoreActivity(Brain<DarkTrader> brain) {
-        brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
+        brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim<>(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
     }
 
     private static void initSpawnActivity(Brain<DarkTrader> brain) {

@@ -9,8 +9,8 @@ import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class RitualBuilder {
     private RitualRequirements requirements = RitualRequirements.NONE;
     private Holder<MagicCircleType> magicCircleType;
 
-    public RitualBuilder(ItemStack mainIngredient, RitualResult result, HolderGetter<MagicCircleType> magicCircleLookup) {
+    public RitualBuilder(ItemLike mainIngredient, RitualResult result, HolderGetter<MagicCircleType> magicCircleLookup) {
         this.mainIngredient = Ingredient.of(mainIngredient);
         this.result = result;
         this.magicCircleLookup = magicCircleLookup;

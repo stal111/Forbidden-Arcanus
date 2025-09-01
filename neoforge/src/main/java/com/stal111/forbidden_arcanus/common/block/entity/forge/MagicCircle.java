@@ -2,11 +2,11 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -56,10 +56,10 @@ public class MagicCircle {
         float alpha = progress > 0.9F ? this.easeSineOut(progress - 0.9F, 1.0D, -1.0D, 0.1D) : 1.0F;
 
         poseStack.mulPose(Axis.YN.rotationDegrees(rotation));
-        model.outerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(this.type.outerTexture())), packedLight, OverlayTexture.NO_OVERLAY);
+        model.outerRing().render(poseStack, buffer.getBuffer(RenderType.entityTranslucentEmissive(this.type.outerTexture())), packedLight, OverlayTexture.NO_OVERLAY);
 
         poseStack.mulPose(Axis.YN.rotationDegrees(-rotation * 2));
-        model.innerRing().render(poseStack, buffer.getBuffer(FARenderTypes.entityFullbrightTranslucent(this.type.innerTexture())), packedLight, OverlayTexture.NO_OVERLAY);
+        model.innerRing().render(poseStack, buffer.getBuffer(RenderType.entityTranslucentEmissive(this.type.innerTexture())), packedLight, OverlayTexture.NO_OVERLAY);
 
         poseStack.popPose();
 

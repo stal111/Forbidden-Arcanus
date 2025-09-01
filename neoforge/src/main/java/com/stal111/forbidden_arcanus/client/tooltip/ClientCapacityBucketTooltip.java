@@ -28,7 +28,7 @@ public class ClientCapacityBucketTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public int getHeight() {
+    public int getHeight(@Nonnull Font font) {
         return 19;
     }
 
@@ -38,9 +38,9 @@ public class ClientCapacityBucketTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(@Nonnull Font font, int mouseX, int mouseY, @NotNull GuiGraphics guiGraphics) {
+    public void renderImage(@NotNull Font font, int x, int y, int width, int height, @NotNull GuiGraphics guiGraphics) {
         for (int i = 1; i <= this.capacity; i++) {
-            guiGraphics.renderFakeItem(i <= this.fullness ? this.filledBucket : this.emptyBucket,  (i - 1) * 15 + mouseX, mouseY);
+            guiGraphics.renderFakeItem(i <= this.fullness ? this.filledBucket : this.emptyBucket,  (i - 1) * 15 + x, y);
         }
     }
 }

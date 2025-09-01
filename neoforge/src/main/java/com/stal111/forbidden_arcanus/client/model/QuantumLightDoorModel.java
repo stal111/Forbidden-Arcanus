@@ -2,35 +2,30 @@ package com.stal111.forbidden_arcanus.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.FARenderTypes;
 import com.stal111.forbidden_arcanus.client.animation.QuantumLightDoorAnimation;
-import com.stal111.forbidden_arcanus.common.entity.QuantumLightDoorAnimationProvider;
-import net.minecraft.client.model.HierarchicalModel;
+import com.stal111.forbidden_arcanus.client.renderer.entity.state.QuantumLightDoorRenderState;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 2023-08-14
  */
-public class QuantumLightDoorModel<T extends Entity & QuantumLightDoorAnimationProvider> extends HierarchicalModel<T> {
+public class QuantumLightDoorModel extends Model {
 
     public static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/effect/quantum_light_door.png");
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("quantum_light_door"), "main");
 
-    private final ModelPart root;
-
-    public QuantumLightDoorModel(EntityRendererProvider.Context context) {
-        this.root = context.bakeLayer(LAYER_LOCATION);
+    public QuantumLightDoorModel(ModelPart root) {
+        super(root, RenderType::entityTranslucentEmissive);
     }
 
     public static LayerDefinition createLayer() {
@@ -52,21 +47,12 @@ public class QuantumLightDoorModel<T extends Entity & QuantumLightDoorAnimationP
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
-    @Override
-    public @NotNull ModelPart root() {
-        return this.root;
+    public void setupAnim(QuantumLightDoorRenderState renderState) {
+        this.animate(renderState.portal, QuantumLightDoorAnimation.SPAWN, renderState.ageInTicks);
     }
 
-    @Override
-    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-
-        this.animate(entity.getAnimationState(), QuantumLightDoorAnimation.SPAWN, ageInTicks);
-    }
-
-    public void render(T entity, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, float ageInTicks) {
-        this.setupAnim(entity, 0.0F, 0.0F, ageInTicks, 0.0F, 0.0F);
-
-        this.renderToBuffer(poseStack, bufferSource.getBuffer(FARenderTypes.entityFullbrightTranslucent(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY);
+    public void render(QuantumLightDoorRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        this.setupAnim(renderState);
+        this.renderToBuffer(poseStack, bufferSource.getBuffer(this.renderType(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY);
     }
 }

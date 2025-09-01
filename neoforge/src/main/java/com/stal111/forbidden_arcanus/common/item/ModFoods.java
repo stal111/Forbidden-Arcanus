@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
 /**
@@ -14,10 +12,9 @@ import net.minecraft.world.food.FoodProperties;
  */
 public class ModFoods {
 
-    public static final FoodProperties BAT_SOUP = new FoodProperties.Builder().nutrition(7).saturationModifier(0.7F).effect(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F).build();
-    public static final FoodProperties BAT_WING = new FoodProperties.Builder().nutrition(3).saturationModifier(0.2F).effect(() -> new MobEffectInstance(MobEffects.POISON, 160, 0), 0.9F).build();
+    public static final FoodProperties BAT_SOUP = new FoodProperties.Builder().nutrition(7).saturationModifier(0.7F).build();
+    public static final FoodProperties BAT_WING = new FoodProperties.Builder().nutrition(3).saturationModifier(0.2F).build();
     public static final FoodProperties TENTACLE = new FoodProperties.Builder().nutrition(2).saturationModifier(0.1F).build();
     public static final FoodProperties COOKED_TENTACLE = new FoodProperties.Builder().nutrition(5).saturationModifier(0.6F).build();
-    public static final FoodProperties STRANGE_ROOT = new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build();
 
 }
