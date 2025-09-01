@@ -9,21 +9,15 @@
   "inputs": [
     {
       "amount": 1,
-      "ingredient": {
-        "item": "minecraft:nether_star"
-      }
+      "ingredient": "minecraft:nether_star"
     },
     {
       "amount": 3,
-      "ingredient": {
-        "item": "forbidden_arcanus:stellarite_piece"
-      }
+      "ingredient": "forbidden_arcanus:stellarite_piece"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "forbidden_arcanus:quantum_catcher"
-  },
+  "main_ingredient": "forbidden_arcanus:quantum_catcher",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

@@ -9,21 +9,15 @@
   "inputs": [
     {
       "amount": 2,
-      "ingredient": {
-        "item": "forbidden_arcanus:dragon_scale"
-      }
+      "ingredient": "forbidden_arcanus:dragon_scale"
     },
     {
       "amount": 3,
-      "ingredient": {
-        "item": "forbidden_arcanus:obsidiansteel_ingot"
-      }
+      "ingredient": "forbidden_arcanus:obsidiansteel_ingot"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "minecraft:netherite_helmet"
-  },
+  "main_ingredient": "minecraft:netherite_helmet",
   "result": {
     "type": "forbidden_arcanus:transmute_input",
     "result_item": "forbidden_arcanus:draco_arcanus_helmet"

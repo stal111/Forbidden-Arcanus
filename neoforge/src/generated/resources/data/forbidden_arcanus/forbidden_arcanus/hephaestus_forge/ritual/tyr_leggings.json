@@ -9,21 +9,15 @@
   "inputs": [
     {
       "amount": 4,
-      "ingredient": {
-        "item": "forbidden_arcanus:aquatic_dragon_scale"
-      }
+      "ingredient": "forbidden_arcanus:aquatic_dragon_scale"
     },
     {
       "amount": 3,
-      "ingredient": {
-        "item": "forbidden_arcanus:golden_dragon_scale"
-      }
+      "ingredient": "forbidden_arcanus:golden_dragon_scale"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "forbidden_arcanus:draco_arcanus_leggings"
-  },
+  "main_ingredient": "forbidden_arcanus:draco_arcanus_leggings",
   "result": {
     "type": "forbidden_arcanus:transmute_input",
     "result_item": "forbidden_arcanus:tyr_leggings"

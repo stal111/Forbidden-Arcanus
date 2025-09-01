@@ -8,15 +8,11 @@
   "inputs": [
     {
       "amount": 4,
-      "ingredient": {
-        "item": "forbidden_arcanus:spawner_scrap"
-      }
+      "ingredient": "forbidden_arcanus:spawner_scrap"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "forbidden_arcanus:quantum_core"
-  },
+  "main_ingredient": "forbidden_arcanus:quantum_core",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

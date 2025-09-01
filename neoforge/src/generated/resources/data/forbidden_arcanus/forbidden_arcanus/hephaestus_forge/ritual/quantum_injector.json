@@ -9,15 +9,11 @@
   "inputs": [
     {
       "amount": 4,
-      "ingredient": {
-        "item": "forbidden_arcanus:quantum_core"
-      }
+      "ingredient": "forbidden_arcanus:quantum_core"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "forbidden_arcanus:mundabitur_dust"
-  },
+  "main_ingredient": "forbidden_arcanus:mundabitur_dust",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

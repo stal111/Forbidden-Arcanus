@@ -9,21 +9,15 @@
   "inputs": [
     {
       "amount": 2,
-      "ingredient": {
-        "item": "forbidden_arcanus:dragon_scale"
-      }
+      "ingredient": "forbidden_arcanus:dragon_scale"
     },
     {
       "amount": 2,
-      "ingredient": {
-        "item": "forbidden_arcanus:obsidiansteel_ingot"
-      }
+      "ingredient": "forbidden_arcanus:obsidiansteel_ingot"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "minecraft:netherite_boots"
-  },
+  "main_ingredient": "minecraft:netherite_boots",
   "result": {
     "type": "forbidden_arcanus:transmute_input",
     "result_item": "forbidden_arcanus:draco_arcanus_boots"

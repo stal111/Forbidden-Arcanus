@@ -9,27 +9,19 @@
   "inputs": [
     {
       "amount": 1,
-      "ingredient": {
-        "item": "forbidden_arcanus:bat_wing"
-      }
+      "ingredient": "forbidden_arcanus:bat_wing"
     },
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:feather"
-      }
+      "ingredient": "minecraft:feather"
     },
     {
       "amount": 3,
-      "ingredient": {
-        "item": "minecraft:phantom_membrane"
-      }
+      "ingredient": "minecraft:phantom_membrane"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "minecraft:white_wool"
-  },
+  "main_ingredient": "minecraft:white_wool",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

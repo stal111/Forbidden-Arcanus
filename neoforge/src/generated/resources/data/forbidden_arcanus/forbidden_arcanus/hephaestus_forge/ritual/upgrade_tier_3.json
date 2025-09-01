@@ -8,21 +8,15 @@
   "inputs": [
     {
       "amount": 4,
-      "ingredient": {
-        "item": "forbidden_arcanus:arcane_crystal"
-      }
+      "ingredient": "forbidden_arcanus:arcane_crystal"
     },
     {
       "amount": 4,
-      "ingredient": {
-        "item": "forbidden_arcanus:deorum_ingot"
-      }
+      "ingredient": "forbidden_arcanus:deorum_ingot"
     }
   ],
   "magic_circle": "forbidden_arcanus:upgrade_tier",
-  "main_ingredient": {
-    "item": "forbidden_arcanus:chiseled_polished_darkstone"
-  },
+  "main_ingredient": "forbidden_arcanus:chiseled_polished_darkstone",
   "match_tier_exact": true,
   "result": {
     "type": "forbidden_arcanus:upgrade_tier",

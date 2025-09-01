@@ -50,13 +50,15 @@ public class ModItemModifiers extends DatapackRegistryClass<ItemModifier> {
 
     private HolderGetter<Enchantment> enchantmentGetter;
 
+    private HolderGetter<Item> itemsGetter;
+
     public ModItemModifiers(BootstrapContext<ItemModifier> context) {
         super(context);
     }
 
     @Override
     public void bootstrap(BootstrapContext<ItemModifier> context) {
-        var itemsGetter = context.lookup(Registries.ITEM);
+        this.itemsGetter = context.lookup(Registries.ITEM);
         this.enchantmentGetter = context.lookup(Registries.ENCHANTMENT);
 
         var eternalPredicate = ItemPredicate.Builder.item().withSubPredicate(ValhelsiaItemSubPredicates.ALL_OF.get(), new ItemAllOfPredicate(Map.of(ValhelsiaItemSubPredicates.HAS_COMPONENT.get(), List.of(new ItemHasComponentPredicate(DataComponents.MAX_DAMAGE), new ItemHasComponentPredicate(DataComponents.DAMAGE))))).build();
@@ -74,11 +76,11 @@ public class ModItemModifiers extends DatapackRegistryClass<ItemModifier> {
     }
 
     private void register(ResourceKey<ItemModifier> key, ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, ItemModifier.DisplaySettings displaySettings) {
-        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrThrow(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), HolderSet.empty(), displaySettings));
+        this.getContext().register(key, new ItemModifier(predicate, this.itemsGetter.getOrThrow(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), HolderSet.empty(), displaySettings));
     }
 
     private void register(ResourceKey<ItemModifier> key, ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, HolderSet<DataComponentType<?>> componentsToRemove, ItemModifier.DisplaySettings displaySettings) {
-        this.getContext().register(key, new ItemModifier(predicate, BuiltInRegistries.ITEM.getOrThrow(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), componentsToRemove, displaySettings));
+        this.getContext().register(key, new ItemModifier(predicate, this.itemsGetter.getOrThrow(incompatibleItems), this.enchantmentGetter.getOrThrow(incompatibleEnchantments), componentsToRemove, displaySettings));
     }
 
     private static ItemModifier.DisplaySettings createDisplay(ResourceKey<ItemModifier> key, int startColor, int endColor) {

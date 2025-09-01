@@ -9,27 +9,19 @@
   "inputs": [
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:flint"
-      }
+      "ingredient": "minecraft:flint"
     },
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:dripstone_block"
-      }
+      "ingredient": "minecraft:dripstone_block"
     },
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:pointed_dripstone"
-      }
+      "ingredient": "minecraft:pointed_dripstone"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "minecraft:diamond_block"
-  },
+  "main_ingredient": "minecraft:diamond_block",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

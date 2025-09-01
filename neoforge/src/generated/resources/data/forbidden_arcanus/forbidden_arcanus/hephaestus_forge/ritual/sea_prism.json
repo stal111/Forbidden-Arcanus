@@ -9,27 +9,19 @@
   "inputs": [
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:prismarine_shard"
-      }
+      "ingredient": "minecraft:prismarine_shard"
     },
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:turtle_scute"
-      }
+      "ingredient": "minecraft:turtle_scute"
     },
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:lapis_lazuli"
-      }
+      "ingredient": "minecraft:lapis_lazuli"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "minecraft:heart_of_the_sea"
-  },
+  "main_ingredient": "minecraft:heart_of_the_sea",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

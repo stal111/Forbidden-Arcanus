@@ -8,21 +8,15 @@
   "inputs": [
     {
       "amount": 3,
-      "ingredient": {
-        "item": "forbidden_arcanus:xpetrified_orb"
-      }
+      "ingredient": "forbidden_arcanus:xpetrified_orb"
     },
     {
       "amount": 1,
-      "ingredient": {
-        "item": "forbidden_arcanus:stellarite_piece"
-      }
+      "ingredient": "forbidden_arcanus:stellarite_piece"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "minecraft:diamond"
-  },
+  "main_ingredient": "minecraft:diamond",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

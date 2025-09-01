@@ -8,21 +8,15 @@
   "inputs": [
     {
       "amount": 2,
-      "ingredient": {
-        "item": "minecraft:coal"
-      }
+      "ingredient": "minecraft:coal"
     },
     {
       "amount": 4,
-      "ingredient": {
-        "item": "minecraft:blaze_powder"
-      }
+      "ingredient": "minecraft:blaze_powder"
     }
   ],
   "magic_circle": "forbidden_arcanus:create_item",
-  "main_ingredient": {
-    "item": "forbidden_arcanus:arcane_crystal_block"
-  },
+  "main_ingredient": "forbidden_arcanus:arcane_crystal_block",
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {

@@ -8,21 +8,15 @@
   "inputs": [
     {
       "amount": 4,
-      "ingredient": {
-        "item": "forbidden_arcanus:stellarite_piece"
-      }
+      "ingredient": "forbidden_arcanus:stellarite_piece"
     },
     {
       "amount": 4,
-      "ingredient": {
-        "item": "forbidden_arcanus:rune"
-      }
+      "ingredient": "forbidden_arcanus:rune"
     }
   ],
   "magic_circle": "forbidden_arcanus:upgrade_tier",
-  "main_ingredient": {
-    "item": "forbidden_arcanus:chiseled_polished_darkstone"
-  },
+  "main_ingredient": "forbidden_arcanus:chiseled_polished_darkstone",
   "match_tier_exact": true,
   "result": {
     "type": "forbidden_arcanus:upgrade_tier",
