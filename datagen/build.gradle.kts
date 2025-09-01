@@ -22,6 +22,10 @@ repositories {
         dirs("libs")
     }
     maven {
+        name = "Kotlin for Forge"
+        setUrl("https://thedarkcolour.github.io/KotlinForForge/")
+    }
+    maven {
         name = "DataForge"
         url = uri("https://maven.pkg.github.com/ValhelsiaTeam/DataForge")
         credentials {
@@ -70,6 +74,7 @@ dependencies {
     compileOnly(mainProject)
 
     implementation("net.valhelsia:valhelsia_core-neoforge-${minecraft_version}:${valhelsia_core_version}")
+    implementation("thedarkcolour:kotlinforforge-neoforge:5.9.0")
 
-    //implementation(interfaceInjectionData("net.valhelsia:dataforge:${dataforge_version}")!!)
+    implementation(interfaceInjectionData(accessTransformers("net.valhelsia:dataforge:${dataforge_version}")!!)!!)
 }

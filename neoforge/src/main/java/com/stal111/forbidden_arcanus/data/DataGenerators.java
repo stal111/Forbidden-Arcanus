@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider;
@@ -47,12 +46,11 @@ public class DataGenerators {
 
 //        generator.addProvider(event.includeClient(), new ValhelsiaModelProvider(context, ModBlockModels::new, ModItemModels::new));
         generator.addProvider(event.includeClient(), new LangProvider(context.output()));
-        generator.addProvider(event.includeClient(), new ModSoundsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ParticleDataProvider(context));
 
         // Server Providers
         var datapackBuiltinEntriesProvider = new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(), Set.of(ForbiddenArcanus.MOD_ID));
-        generator.addProvider(event.includeServer(), datapackBuiltinEntriesProvider);
+//        generator.addProvider(event.includeServer(), datapackBuiltinEntriesProvider);
 
         lookupProvider = datapackBuiltinEntriesProvider.getRegistryProvider();
         context = new DataProviderContext(event.getGenerator().getPackOutput(), lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER, event.getExistingFileHelper());
