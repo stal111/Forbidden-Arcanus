@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.data;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.client.ModSoundsProvider;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
-import com.stal111.forbidden_arcanus.data.server.loot.*;
+import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.ModEnchantmentTagsProvider;
 import com.stal111.forbidden_arcanus.data.server.tags.ModEntityTypeTagsProvider;
@@ -11,11 +11,9 @@ import com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
@@ -23,7 +21,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -66,13 +63,13 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModEnchantmentTagsProvider(context, fileHelper));
         generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(context, fileHelper));
 
-        generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
-                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK),
-                new LootTableProvider.SubProviderEntry(ModEntityLootTables::new, LootContextParamSets.ENTITY),
-                new LootTableProvider.SubProviderEntry(ModChestLootAdditions::new, LootContextParamSets.CHEST),
-                new LootTableProvider.SubProviderEntry(ModBlockLootAdditions::new, LootContextParamSets.BLOCK),
-                new LootTableProvider.SubProviderEntry(ModEntityLootAdditions::new, LootContextParamSets.ENTITY)
-        ), context.lookupProvider()));
+//        generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
+//                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK),
+//                new LootTableProvider.SubProviderEntry(ModEntityLootTables::new, LootContextParamSets.ENTITY),
+//                new LootTableProvider.SubProviderEntry(ModChestLootAdditions::new, LootContextParamSets.CHEST),
+//                new LootTableProvider.SubProviderEntry(ModBlockLootAdditions::new, LootContextParamSets.BLOCK),
+//                new LootTableProvider.SubProviderEntry(ModEntityLootAdditions::new, LootContextParamSets.ENTITY)
+//        ), context.lookupProvider()));
 
 //        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new, StonecutterRecipeProvider::new));
 

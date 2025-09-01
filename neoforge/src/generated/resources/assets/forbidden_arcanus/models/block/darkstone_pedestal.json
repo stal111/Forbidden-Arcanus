@@ -1,7 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/template_pedestal",
-  "textures": {
-    "side": "forbidden_arcanus:block/pedestal/darkstone_pedestal",
-    "top": "forbidden_arcanus:block/pedestal/darkstone_pedestal_top"
-  }
-}

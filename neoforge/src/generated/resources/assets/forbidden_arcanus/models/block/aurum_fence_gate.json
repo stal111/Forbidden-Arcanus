@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_fence_gate",
-  "textures": {
-    "texture": "forbidden_arcanus:block/aurum_planks"
-  }
-}

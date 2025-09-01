@@ -1,9 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/template_forbiddenomicon",
-  "textures": {
-    "back": "forbidden_arcanus:block/forbiddenomicon/forbiddenomicon_back",
-    "front": "forbidden_arcanus:block/forbiddenomicon/forbiddenomicon_front",
-    "inside": "forbidden_arcanus:block/forbiddenomicon/forbiddenomicon_inside",
-    "side": "forbidden_arcanus:block/forbiddenomicon/forbiddenomicon_side"
-  }
-}

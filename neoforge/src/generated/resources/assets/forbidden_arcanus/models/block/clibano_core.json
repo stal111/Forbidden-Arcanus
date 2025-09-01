@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "front": "forbidden_arcanus:block/clibano/clibano_center_front_off",
-    "side": "forbidden_arcanus:block/clibano/clibano_center_side",
-    "top": "forbidden_arcanus:block/clibano/clibano_center_top"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/soulless_sandstone",
-    "side": "forbidden_arcanus:block/soulless_sandstone",
-    "top": "forbidden_arcanus:block/soulless_sandstone"
-  }
-}

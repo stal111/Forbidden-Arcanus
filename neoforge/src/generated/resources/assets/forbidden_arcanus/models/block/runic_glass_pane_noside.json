@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_glass_pane_noside",
-  "textures": {
-    "pane": "forbidden_arcanus:block/runic_glass"
-  }
-}

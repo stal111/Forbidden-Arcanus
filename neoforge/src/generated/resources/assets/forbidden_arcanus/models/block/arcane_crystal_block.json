@@ -1,6 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/cube_all_emissive",
-  "textures": {
-    "all": "forbidden_arcanus:block/arcane_crystal_block"
-  }
-}

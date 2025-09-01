@@ -1,8 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/template_utrem_jar",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/utrem_jar/utrem_jar_bottom",
-    "side": "forbidden_arcanus:block/utrem_jar/utrem_jar_side",
-    "top": "forbidden_arcanus:block/utrem_jar/utrem_jar_top"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/cut_soulless_sandstone_top",
-    "side": "forbidden_arcanus:block/cut_soulless_sandstone_side",
-    "top": "forbidden_arcanus:block/cut_soulless_sandstone_top"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/clibano_center",
-  "textures": {
-    "texture": "forbidden_arcanus:block/clibano/enchanted_fire/clibano_center_front"
-  }
-}

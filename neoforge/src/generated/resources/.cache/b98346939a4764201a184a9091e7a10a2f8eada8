@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-09T10:58:22.4792542	Tags for minecraft:item mod id forbidden_arcanus
+// 1.21.3	2025-09-01T14:50:07.6628332	Tags for minecraft:item mod id forbidden_arcanus
 046c8cf89176d259e937e2ca72a2e472ce0d6849 data/c/tags/item/dusts.json
 674c4d49375c33863d4287f65537171eb637a826 data/c/tags/item/dusts/arcane_crystal.json
 e67ea6dd08228468b13e36125dd5d27a821264e7 data/c/tags/item/dusts/corrupti.json
@@ -32,7 +32,7 @@ b128c22b1f0aef1502fa919bc8d063604b299c75 data/c/tags/item/storage_blocks/deorum.
 84788ba04723700a23026d7561c99fc099deeafc data/c/tags/item/storage_blocks/obsidiansteel.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/c/tags/item/storage_blocks/stellarite.json
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/item/arcane_crystal_ores.json
-0eeb55318c55e51648d2e850da000a6e461d6815 data/forbidden_arcanus/tags/item/blacksmith_gavel.json
+3bb633a07d87aa8bcc3a5a04741c08b92c7144cc data/forbidden_arcanus/tags/item/blacksmith_gavel.json
 833eb0467cddac3463790ded6592dd9cc0df034d data/forbidden_arcanus/tags/item/black_hole_unaffected.json
 eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/item/clibano/creates_enchanted_fire.json
 248044db5d2fb658e1cc0140c81427a0718726e4 data/forbidden_arcanus/tags/item/clibano/creates_soul_fire.json
@@ -52,17 +52,14 @@ d4fa99e566d551a09760c45a9eb7a1b7a7645420 data/forbidden_arcanus/tags/item/modifi
 ec5f886acc1397ae55fe6faaca722b2a2cebb465 data/forbidden_arcanus/tags/item/rune_blocks.json
 321796da77cb8905e7a9b8b3c8413298f0cb9bfe data/forbidden_arcanus/tags/item/runic_stones.json
 2d99bbc8b9f6c5859eeabbb7f27a2d571e7ae4d6 data/minecraft/tags/item/arrows.json
-5417e1d77dbf5fe40232caee7a2fca27d142992f data/minecraft/tags/item/boats.json
 4447fb4f3ca90f441c2430ab8f246986ca58fc1e data/minecraft/tags/item/buttons.json
 e8991cb299547ec59fcbad0d37b33b100491f757 data/minecraft/tags/item/chest_armor.json
-7f5abd7a087e11e48bb4c9054104c225bd03b2dc data/minecraft/tags/item/chest_boats.json
 ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/item/doors.json
 3c4aae49a03f87dc11c6e44450219080d9a3378d data/minecraft/tags/item/foot_armor.json
 c97ead31923867afd0d82d24da46a35682069289 data/minecraft/tags/item/head_armor.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/item/leaves.json
 887784a513aa7212a7dcfc0fb9ec38d920257afe data/minecraft/tags/item/leg_armor.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/item/logs.json
-f80b42c15e715a6f1efd91c02594720b7da2ddeb data/minecraft/tags/item/pickaxes.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/item/planks.json
 d8eb1237115a12ebd5759bebf3361289621b0456 data/minecraft/tags/item/saplings.json
 9e9500e769cd5c0703ef99e4a2a0df188529f697 data/minecraft/tags/item/small_flowers.json

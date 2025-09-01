@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/button_pressed",
-  "textures": {
-    "texture": "forbidden_arcanus:block/polished_darkstone"
-  }
-}

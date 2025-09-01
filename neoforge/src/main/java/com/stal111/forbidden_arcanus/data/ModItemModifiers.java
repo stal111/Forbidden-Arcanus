@@ -72,7 +72,7 @@ public class ModItemModifiers extends DatapackRegistryClass<ItemModifier> {
         register(MAGNETIZED, magnetizedPredicate, ModTags.Items.MAGNETIZED_INCOMPATIBLE, ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE, createDisplay(MAGNETIZED, ARGB.color(255, 200, 201, 215), ARGB.color(255, 87, 105, 99)));
         register(DEMOLISHING, isToolPredicate, ModTags.Items.DEMOLISHING_INCOMPATIBLE, ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE, createDisplay(DEMOLISHING, ARGB.color(255, 111, 84, 80), ARGB.color(255, 78, 58, 39)));
         register(AQUATIC, aquaticPredicate, ModTags.Items.AQUATIC_INCOMPATIBLE, ModTags.Enchantments.AQUATIC_INCOMPATIBLE, createDisplay(AQUATIC, ARGB.color(255, 90, 130, 243), ARGB.color(255, 35, 79, 204)));
-        register(SOULBOUND, soulBoundPredicate, ModTags.Items.SOULBOUND_INCOMPATIBLE, ModTags.Enchantments.SOULBOUND_INCOMPATIBLE, createDisplay(SOULBOUND, ARGB.color(255, 166, 185, 246), ARGB.color(255, 247, 184, 217)));
+//        register(SOULBOUND, soulBoundPredicate, ModTags.Items.SOULBOUND_INCOMPATIBLE, ModTags.Enchantments.SOULBOUND_INCOMPATIBLE, createDisplay(SOULBOUND, ARGB.color(255, 166, 185, 246), ARGB.color(255, 247, 184, 217)));
     }
 
     private void register(ResourceKey<ItemModifier> key, ItemPredicate predicate, TagKey<Item> incompatibleItems, TagKey<Enchantment> incompatibleEnchantments, ItemModifier.DisplaySettings displaySettings) {

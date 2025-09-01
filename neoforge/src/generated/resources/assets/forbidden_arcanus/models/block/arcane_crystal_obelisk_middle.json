@@ -1,7 +1,0 @@
-{
-  "parent": "forbidden_arcanus:block/obelisk_middle",
-  "textures": {
-    "texture": "forbidden_arcanus:block/obelisk/arcane_crystal_obelisk_middle",
-    "top": "forbidden_arcanus:block/obelisk/arcane_crystal_obelisk_top"
-  }
-}

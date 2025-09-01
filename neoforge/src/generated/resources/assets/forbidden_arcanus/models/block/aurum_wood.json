@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "forbidden_arcanus:block/aurum_log",
-    "side": "forbidden_arcanus:block/aurum_log"
-  }
-}

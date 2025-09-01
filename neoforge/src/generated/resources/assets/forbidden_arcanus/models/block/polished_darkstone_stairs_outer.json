@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/polished_darkstone",
-    "side": "forbidden_arcanus:block/polished_darkstone",
-    "top": "forbidden_arcanus:block/polished_darkstone"
-  }
-}

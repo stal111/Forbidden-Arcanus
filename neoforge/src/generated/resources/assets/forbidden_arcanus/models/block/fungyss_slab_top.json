@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/fungyss_planks",
-    "side": "forbidden_arcanus:block/fungyss_planks",
-    "top": "forbidden_arcanus:block/fungyss_planks"
-  }
-}

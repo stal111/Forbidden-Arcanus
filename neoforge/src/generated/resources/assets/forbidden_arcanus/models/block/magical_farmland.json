@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_farmland",
-  "textures": {
-    "dirt": "forbidden_arcanus:block/magical_dirt",
-    "top": "forbidden_arcanus:block/magical_farmland"
-  }
-}

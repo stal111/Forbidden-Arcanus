@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "forbidden_arcanus:block/polished_darkstone_bricks",
-    "side": "forbidden_arcanus:block/polished_darkstone_bricks",
-    "top": "forbidden_arcanus:block/polished_darkstone_bricks"
-  }
-}
