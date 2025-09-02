@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "forbidden_arcanus:block/arcane_polished_darkstone"
+  }
+}

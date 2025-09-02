@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "lantern": "forbidden_arcanus:block/deorum_lantern"
+  }
+}

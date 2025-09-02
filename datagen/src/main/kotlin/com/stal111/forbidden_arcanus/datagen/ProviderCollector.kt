@@ -1,9 +1,12 @@
 package com.stal111.forbidden_arcanus.datagen
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
+import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
+import com.stal111.forbidden_arcanus.datagen.model.ModItemModels
 import net.valhelsia.dataforge.DataCollector
 import net.valhelsia.dataforge.DataProviderContext
 import net.valhelsia.dataforge.DataTarget
+import net.valhelsia.dataforge.model.DataForgeModelProvider
 
 class ProviderCollector : DataCollector() {
     override fun collectProviders(context: DataProviderContext) {
@@ -11,7 +14,7 @@ class ProviderCollector : DataCollector() {
 
         with(DataTarget.CLIENT) {
             addProvider(this, ModSoundsProvider(context))
-//            DataCollector.addProvider(this, DataForgeModelProvider(context, blocks, { ModBlockModels(it) }, null))
+            addProvider(this, DataForgeModelProvider(context, blocks, { ModBlockModels(it) }, { ModItemModels(it) }))
         }
 //
 //        with(DataTarget.SERVER) {

@@ -36,7 +36,7 @@ public abstract class PlayerMixin extends LivingEntity {
         super(entityType, level);
     }
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;playShoulderEntityAmbientSound(Lnet/minecraft/nbt/CompoundTag;)V"), method = "aiStep")
+//    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;playShoulderEntityAmbientSound(Lnet/minecraft/nbt/CompoundTag;)V"), method = "aiStep")
     public void forbiddenArcanus_aiStep(CallbackInfo ci) {
         if (this.getHealth() > 0.0F && !this.isSpectator() && ModifierHelper.hasModifier(this.getItemBySlot(EquipmentSlot.FEET), this.level().holderOrThrow(ModItemModifiers.MAGNETIZED))) {
             if (this.isPassenger() && !this.getVehicle().isRemoved()) {

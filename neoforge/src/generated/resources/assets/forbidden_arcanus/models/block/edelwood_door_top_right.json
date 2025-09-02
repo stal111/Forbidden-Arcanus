@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right",
+  "textures": {
+    "bottom": "forbidden_arcanus:block/edelwood_door_bottom",
+    "top": "forbidden_arcanus:block/edelwood_door_top"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "forbidden_arcanus:block/cube_all_emissive_layer",
+  "textures": {
+    "all": "forbidden_arcanus:block/arcane_crystal_ore/deepslate_arcane_crystal_ore",
+    "layer": "forbidden_arcanus:block/arcane_crystal_ore/deepslate_arcane_crystal_ore_layer"
+  }
+}
