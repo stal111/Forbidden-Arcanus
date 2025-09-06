@@ -4,7 +4,6 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.init.ModItems
-import com.stal111.forbidden_arcanus.data.model.ModLocationUtils
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.quantumCatcher
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries

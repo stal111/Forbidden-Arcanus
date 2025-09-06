@@ -2,13 +2,11 @@ package com.stal111.forbidden_arcanus.datagen.model
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart
-import com.stal111.forbidden_arcanus.data.model.ModTextureSlots
 import net.minecraft.Util
 import net.minecraft.data.models.model.ModelTemplate
 import net.minecraft.data.models.model.TextureSlot
 import net.minecraft.resources.ResourceLocation
 import java.util.*
-import java.util.function.Consumer
 
 object ModModelTemplates {
     val CUBE_ALL_EMISSIVE = create("cube_all_emissive", TextureSlot.ALL)
