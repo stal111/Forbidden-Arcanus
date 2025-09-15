@@ -3,6 +3,10 @@ package com.stal111.forbidden_arcanus.datagen
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
 import com.stal111.forbidden_arcanus.datagen.model.ModItemModels
+import com.stal111.forbidden_arcanus.datagen.tags.ModBlockTagsProvider
+import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
+import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
+import com.stal111.forbidden_arcanus.datagen.tags.ModItemTagsProvider
 import net.valhelsia.dataforge.DataCollector
 import net.valhelsia.dataforge.DataProviderContext
 import net.valhelsia.dataforge.DataTarget
@@ -17,11 +21,11 @@ class ProviderCollector : DataCollector() {
             addProvider(this, DataForgeModelProvider(context, blocks, { ModBlockModels(it) }, { ModItemModels(it) }))
         }
 //
-//        with(DataTarget.SERVER) {
-//            DataCollector.addProvider(this, ModBlockTagsProvider(context))
-//            DataCollector.addProvider(this, ModItemTagsProvider(context))
-//            DataCollector.addProvider(this, ModBiomeTagsProvider(context))
-//            DataCollector.addProvider(this, ModStructureTagsProvider(context))
+        with(DataTarget.SERVER) {
+            addProvider(this, ModBlockTagsProvider(context))
+            addProvider(this, ModItemTagsProvider(context))
+            addProvider(this, ModEnchantmentTagsProvider(context, context.fileHelper))
+            addProvider(this, ModEntityTypeTagsProvider(context, context.fileHelper))
 //            DataCollector.addProvider(this, DataForgeRecipeRunner(context, ::ModRecipeProvider))
 //            DataCollector.addProvider(
 //                this, LootTableProvider(
@@ -31,7 +35,7 @@ class ProviderCollector : DataCollector() {
 //                    context.lookupProvider
 //                )
 //            )
-//        }
+        }
     }
 
     override fun collectRegistryProviders() {

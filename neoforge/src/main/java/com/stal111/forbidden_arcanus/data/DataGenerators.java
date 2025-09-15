@@ -3,10 +3,6 @@ package com.stal111.forbidden_arcanus.data;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
-import com.stal111.forbidden_arcanus.data.server.tags.ModBlockTagsProvider;
-import com.stal111.forbidden_arcanus.data.server.tags.ModEnchantmentTagsProvider;
-import com.stal111.forbidden_arcanus.data.server.tags.ModEntityTypeTagsProvider;
-import com.stal111.forbidden_arcanus.data.server.tags.ModItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -54,12 +50,6 @@ public class DataGenerators {
 
         lookupProvider = datapackBuiltinEntriesProvider.getRegistryProvider();
         context = new DataProviderContext(event.getGenerator().getPackOutput(), lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER, event.getExistingFileHelper());
-
-        ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(context);
-        generator.addProvider(event.includeServer(), blockTagsProvider);
-        generator.addProvider(event.includeServer(), new ModItemTagsProvider(context, blockTagsProvider.contentsGetter()));
-        generator.addProvider(event.includeServer(), new ModEnchantmentTagsProvider(context, fileHelper));
-        generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(context, fileHelper));
 
 //        generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
 //                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK),
