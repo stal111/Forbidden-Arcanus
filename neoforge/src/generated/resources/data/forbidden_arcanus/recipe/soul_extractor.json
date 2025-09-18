@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:nether_bricks",
+    "Q": "minecraft:quartz",
+    "U": "forbidden_arcanus:utrem_jar",
+    "X": "minecraft:quartz_block"
+  },
+  "pattern": [
+    "U  ",
+    "##X",
+    "Q  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:soul_extractor"
+  }
+}

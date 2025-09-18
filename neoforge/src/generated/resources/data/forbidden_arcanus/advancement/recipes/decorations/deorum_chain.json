@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ingots/deorum": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/deorum"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nuggets/deorum": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:nuggets/deorum"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:deorum_chain"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ingots/deorum",
+      "has_nuggets/deorum"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:deorum_chain"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:soul_extractor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_utrem_jar": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:utrem_jar"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_utrem_jar"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:soul_extractor"
+    ]
+  }
+}

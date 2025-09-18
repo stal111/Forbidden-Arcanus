@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#forbidden_arcanus:mysterywood_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "forbidden_arcanus:aurum_planks"
+  }
+}

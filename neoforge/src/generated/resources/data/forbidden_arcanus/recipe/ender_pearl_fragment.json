@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:ender_pearl"
+  ],
+  "result": {
+    "count": 4,
+    "id": "forbidden_arcanus:ender_pearl_fragment"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_soulless_sandstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:soulless_sandstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:polished_soulless_sandstone"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_soulless_sandstone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:polished_soulless_sandstone"
+    ]
+  }
+}

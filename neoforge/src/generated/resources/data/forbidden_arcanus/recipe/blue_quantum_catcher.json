@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "#c:dyes/blue",
+    "X": "forbidden_arcanus:quantum_catcher"
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:blue_quantum_catcher"
+  }
+}

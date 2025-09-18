@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fungyss_stem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:fungyss_stem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:fungyss_hyphae"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fungyss_stem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:fungyss_hyphae"
+    ]
+  }
+}

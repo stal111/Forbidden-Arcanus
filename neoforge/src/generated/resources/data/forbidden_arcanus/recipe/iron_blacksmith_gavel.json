@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "#c:ingots/iron",
+    "S": "#c:rods/wooden",
+    "X": "forbidden_arcanus:blacksmith_gavel_head"
+  },
+  "pattern": [
+    "#X#",
+    "#S#",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:iron_blacksmith_gavel"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fragmented_obsidian_skull": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:fragmented_obsidian_skull"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_obsidiansteel_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:obsidiansteel_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:cracked_obsidian_skull"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fragmented_obsidian_skull",
+      "has_obsidiansteel_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:cracked_obsidian_skull"
+    ]
+  }
+}

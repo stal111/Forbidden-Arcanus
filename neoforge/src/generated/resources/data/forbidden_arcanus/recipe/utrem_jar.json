@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "#c:glass_blocks/colorless",
+    "X": "forbidden_arcanus:edelwood_planks"
+  },
+  "pattern": [
+    "#X#",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:utrem_jar"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:clay_ball"
+  },
+  "pattern": [
+    "###",
+    "# #",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:blacksmith_gavel_head"
+  }
+}

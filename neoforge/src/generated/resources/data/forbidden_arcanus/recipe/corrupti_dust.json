@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forbidden_arcanus:obsidiansteel_ingot",
+    "minecraft:blaze_powder",
+    "minecraft:nether_wart",
+    "forbidden_arcanus:arcane_crystal_dust",
+    "forbidden_arcanus:ender_pearl_fragment"
+  ],
+  "result": {
+    "count": 4,
+    "id": "forbidden_arcanus:corrupti_dust"
+  }
+}

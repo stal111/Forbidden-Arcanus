@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:bone_meal",
+    "X": "forbidden_arcanus:arcane_crystal_dust"
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "result": {
+    "count": 4,
+    "id": "forbidden_arcanus:arcane_bone_meal"
+  }
+}

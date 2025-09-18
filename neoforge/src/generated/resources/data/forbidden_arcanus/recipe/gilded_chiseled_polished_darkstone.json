@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "forbidden_arcanus:chiseled_polished_darkstone",
+    "forbidden_arcanus:deorum_nugget"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:gilded_chiseled_polished_darkstone"
+  }
+}

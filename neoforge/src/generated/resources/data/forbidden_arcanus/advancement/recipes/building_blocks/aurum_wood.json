@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurum_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:aurum_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:aurum_wood"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aurum_log"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:aurum_wood"
+    ]
+  }
+}

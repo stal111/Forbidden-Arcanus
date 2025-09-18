@@ -3,6 +3,11 @@ package com.stal111.forbidden_arcanus.datagen
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
 import com.stal111.forbidden_arcanus.datagen.model.ModItemModels
+import com.stal111.forbidden_arcanus.datagen.recipes.ApplyModifierRecipeProvider
+import com.stal111.forbidden_arcanus.datagen.recipes.ClibanoRecipeProvider
+import com.stal111.forbidden_arcanus.datagen.recipes.CraftingRecipeProvider
+import com.stal111.forbidden_arcanus.datagen.recipes.SpecialRecipesProvider
+import com.stal111.forbidden_arcanus.datagen.recipes.StonecutterRecipeProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModBlockTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
@@ -11,6 +16,7 @@ import net.valhelsia.dataforge.DataCollector
 import net.valhelsia.dataforge.DataProviderContext
 import net.valhelsia.dataforge.DataTarget
 import net.valhelsia.dataforge.model.DataForgeModelProvider
+import net.valhelsia.dataforge.recipe.DataForgeRecipeRunner
 
 class ProviderCollector : DataCollector() {
     override fun collectProviders(context: DataProviderContext) {
@@ -26,7 +32,17 @@ class ProviderCollector : DataCollector() {
             addProvider(this, ModItemTagsProvider(context))
             addProvider(this, ModEnchantmentTagsProvider(context, context.fileHelper))
             addProvider(this, ModEntityTypeTagsProvider(context, context.fileHelper))
-//            DataCollector.addProvider(this, DataForgeRecipeRunner(context, ::ModRecipeProvider))
+            addProvider(
+                this,
+                DataForgeRecipeRunner(
+                    context,
+                    ::CraftingRecipeProvider,
+                    ::StonecutterRecipeProvider,
+                    ::ApplyModifierRecipeProvider,
+                    ::SpecialRecipesProvider,
+                    ::ClibanoRecipeProvider
+                )
+            )
 //            DataCollector.addProvider(
 //                this, LootTableProvider(
 //                    context.packOutput, setOf<ResourceKey<LootTable>>(), listOf(

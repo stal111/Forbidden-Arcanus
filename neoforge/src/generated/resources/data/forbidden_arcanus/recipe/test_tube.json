@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "forbidden_arcanus:rune"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:test_tube"
+  }
+}

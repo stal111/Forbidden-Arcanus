@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "forbidden_arcanus:corrupted_arcane_crystal_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "forbidden_arcanus:corrupted_arcane_crystal"
+  }
+}

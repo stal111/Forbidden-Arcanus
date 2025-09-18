@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nuggets/deorum": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:nuggets/deorum"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:deorum_lantern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_torch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:torch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nuggets/deorum",
+      "has_torch"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:deorum_lantern"
+    ]
+  }
+}

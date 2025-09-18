@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_corrupted_arcane_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:corrupted_arcane_crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:corrupted_arcane_crystal_block_from_corrupted_arcane_crystal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_corrupted_arcane_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:corrupted_arcane_crystal_block_from_corrupted_arcane_crystal"
+    ]
+  }
+}

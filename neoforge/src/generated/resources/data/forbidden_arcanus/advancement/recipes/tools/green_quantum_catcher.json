@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dyes/green": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:dyes/green"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_quantum_catcher": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:quantum_catcher"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:green_quantum_catcher"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_quantum_catcher",
+      "has_dyes/green"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:green_quantum_catcher"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#forbidden_arcanus:fungyss_stems"
+  ],
+  "result": {
+    "count": 4,
+    "id": "forbidden_arcanus:fungyss_planks"
+  }
+}

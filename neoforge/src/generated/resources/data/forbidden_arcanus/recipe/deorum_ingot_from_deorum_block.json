@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "deorum_ingot",
+  "ingredients": [
+    "forbidden_arcanus:deorum_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "forbidden_arcanus:deorum_ingot"
+  }
+}

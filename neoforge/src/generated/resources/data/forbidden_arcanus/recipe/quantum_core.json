@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forbidden_arcanus:rune",
+    "minecraft:flint",
+    "forbidden_arcanus:mundabitur_dust"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:quantum_core"
+  }
+}

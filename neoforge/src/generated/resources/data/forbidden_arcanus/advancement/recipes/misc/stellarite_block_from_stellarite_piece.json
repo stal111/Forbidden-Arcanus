@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stellarite_piece": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:stellarite_piece"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:stellarite_block_from_stellarite_piece"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_stellarite_piece"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:stellarite_block_from_stellarite_piece"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forbidden_arcanus:dragon_scale",
+    "minecraft:prismarine_shard",
+    "minecraft:prismarine_crystals",
+    "forbidden_arcanus:arcane_crystal_dust"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:aquatic_dragon_scale"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forbidden_arcanus:arcane_crystal_dust",
+    "minecraft:redstone",
+    "minecraft:blaze_powder",
+    "minecraft:bone_meal",
+    "minecraft:phantom_membrane",
+    "minecraft:gunpowder"
+  ],
+  "result": {
+    "count": 4,
+    "id": "forbidden_arcanus:mundabitur_dust"
+  }
+}

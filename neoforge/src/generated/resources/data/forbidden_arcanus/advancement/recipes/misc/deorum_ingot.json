@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_arcane_crystal_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:arcane_crystal_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_gold_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:gold_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_mundabitur_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:mundabitur_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:deorum_ingot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gold_ingot",
+      "has_arcane_crystal_dust",
+      "has_mundabitur_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:deorum_ingot"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dyes/cyan": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:dyes/cyan"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_quantum_catcher": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:quantum_catcher"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:cyan_quantum_catcher"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_quantum_catcher",
+      "has_dyes/cyan"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:cyan_quantum_catcher"
+    ]
+  }
+}

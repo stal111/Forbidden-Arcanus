@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_flint": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:flint"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_mundabitur_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:mundabitur_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_rune": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:rune"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:quantum_core"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rune",
+      "has_flint",
+      "has_mundabitur_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:quantum_core"
+    ]
+  }
+}
