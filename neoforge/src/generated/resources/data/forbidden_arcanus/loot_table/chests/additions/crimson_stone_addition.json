@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.18,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "forbidden_arcanus:crimson_stone"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "forbidden_arcanus:chests/additions/crimson_stone_addition"
+}

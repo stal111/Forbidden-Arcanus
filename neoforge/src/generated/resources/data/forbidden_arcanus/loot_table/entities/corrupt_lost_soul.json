@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "forbidden_arcanus:corrupt_soul"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "forbidden_arcanus:entities/corrupt_lost_soul"
+}

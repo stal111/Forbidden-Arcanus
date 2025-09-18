@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
-import com.stal111.forbidden_arcanus.data.server.loot.ModLootModifierProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -51,17 +50,7 @@ public class DataGenerators {
         lookupProvider = datapackBuiltinEntriesProvider.getRegistryProvider();
         context = new DataProviderContext(event.getGenerator().getPackOutput(), lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER, event.getExistingFileHelper());
 
-//        generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
-//                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK),
-//                new LootTableProvider.SubProviderEntry(ModEntityLootTables::new, LootContextParamSets.ENTITY),
-//                new LootTableProvider.SubProviderEntry(ModChestLootAdditions::new, LootContextParamSets.CHEST),
-//                new LootTableProvider.SubProviderEntry(ModBlockLootAdditions::new, LootContextParamSets.BLOCK),
-//                new LootTableProvider.SubProviderEntry(ModEntityLootAdditions::new, LootContextParamSets.ENTITY)
-//        ), context.lookupProvider()));
-
 //        generator.addProvider(event.includeServer(), new ValhelsiaRecipeProvider(context, CraftingRecipeProvider::new, ClibanoRecipeProvider::new, ApplyModifierRecipeProvider::new, SpecialRecipesProvider::new, StonecutterRecipeProvider::new));
-
-        generator.addProvider(event.includeServer(), new ModLootModifierProvider(context));
 
         DataGenerator.PackGenerator featurePack = generator.getBuiltinDatapack(true, ForbiddenArcanus.MOD_ID, "preview");
 

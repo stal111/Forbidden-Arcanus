@@ -1,6 +1,12 @@
 package com.stal111.forbidden_arcanus.datagen
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
+import com.stal111.forbidden_arcanus.datagen.loot.ModBlockLoot
+import com.stal111.forbidden_arcanus.datagen.loot.ModBlockLootAdditions
+import com.stal111.forbidden_arcanus.datagen.loot.ModChestLootAdditions
+import com.stal111.forbidden_arcanus.datagen.loot.ModEntityLoot
+import com.stal111.forbidden_arcanus.datagen.loot.ModEntityLootAdditions
+import com.stal111.forbidden_arcanus.datagen.loot.ModLootModifierProvider
 import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
 import com.stal111.forbidden_arcanus.datagen.model.ModItemModels
 import com.stal111.forbidden_arcanus.datagen.recipes.ApplyModifierRecipeProvider
@@ -12,6 +18,10 @@ import com.stal111.forbidden_arcanus.datagen.tags.ModBlockTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModItemTagsProvider
+import net.minecraft.data.loot.LootTableProvider
+import net.minecraft.resources.ResourceKey
+import net.minecraft.world.level.storage.loot.LootTable
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets
 import net.valhelsia.dataforge.DataCollector
 import net.valhelsia.dataforge.DataProviderContext
 import net.valhelsia.dataforge.DataTarget
@@ -43,14 +53,19 @@ class ProviderCollector : DataCollector() {
                     ::ClibanoRecipeProvider
                 )
             )
-//            DataCollector.addProvider(
-//                this, LootTableProvider(
-//                    context.packOutput, setOf<ResourceKey<LootTable>>(), listOf(
-//                        LootTableProvider.SubProviderEntry({ ModBlockLoot(it, blocks) }, LootContextParamSets.BLOCK)
-//                    ),
-//                    context.lookupProvider
-//                )
-//            )
+            addProvider(
+                this, LootTableProvider(
+                    context.packOutput, setOf<ResourceKey<LootTable>>(), listOf(
+                        LootTableProvider.SubProviderEntry({ ModBlockLoot(it, blocks) }, LootContextParamSets.BLOCK),
+                        LootTableProvider.SubProviderEntry({ ModEntityLoot(it) }, LootContextParamSets.ENTITY),
+                        LootTableProvider.SubProviderEntry({ ModBlockLootAdditions() }, LootContextParamSets.BLOCK),
+                        LootTableProvider.SubProviderEntry({ ModChestLootAdditions() }, LootContextParamSets.CHEST),
+                        LootTableProvider.SubProviderEntry({ ModEntityLootAdditions(it) }, LootContextParamSets.ENTITY),
+                    ),
+                    context.lookupProvider
+                )
+            )
+            addProvider(this, ModLootModifierProvider(context))
         }
     }
 
