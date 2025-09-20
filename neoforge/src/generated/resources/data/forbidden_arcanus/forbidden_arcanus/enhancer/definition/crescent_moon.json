@@ -1,0 +1,46 @@
+{
+  "description": {
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.crescent_moon.hephaestus_forge"
+    }
+  },
+  "display_item": "forbidden_arcanus:crescent_moon",
+  "effects": [
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [
+        {
+          "type": "forbidden_arcanus:time",
+          "end": 23999,
+          "start": 23000
+        }
+      ],
+      "essence_type": "aureal",
+      "multiplier": 0.9
+    },
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [
+        {
+          "type": "forbidden_arcanus:time",
+          "end": 12999,
+          "start": 0
+        }
+      ],
+      "essence_type": "aureal",
+      "multiplier": 0.9
+    },
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "conditions": [
+        {
+          "type": "forbidden_arcanus:time",
+          "end": 22999,
+          "start": 13000
+        }
+      ],
+      "essence_type": "aureal",
+      "multiplier": 0.99
+    }
+  ]
+}

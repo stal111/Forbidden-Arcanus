@@ -13,7 +13,6 @@ import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.data.ModEnchantments;
 import com.stal111.forbidden_arcanus.data.ModItemModifiers;
-import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals.ModRituals;
 import com.stal111.forbidden_arcanus.data.research.ModConstellations;
@@ -78,7 +77,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addDatapackHelper(Registries.PLACED_FEATURE, ModCavePlacements::new, ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new);
         this.addDatapackHelper(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::new);
         this.addDatapackHelper(FARegistries.RITUAL, ModRituals::new);
-        this.addDatapackHelper(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions::new);
         this.addDatapackHelper(Registries.ENCHANTMENT, ModEnchantments::new);
         this.addDatapackHelper(FARegistries.KNOWLEDGE, ModKnowledge::new);
         this.addDatapackHelper(FARegistries.CONSTELLATION, ModConstellations::new);

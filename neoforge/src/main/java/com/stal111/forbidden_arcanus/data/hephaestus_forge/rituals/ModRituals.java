@@ -10,11 +10,11 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.Cre
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.TransmuteInputResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
+import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -80,8 +80,8 @@ public class ModRituals extends DatapackRegistryClass<Ritual> {
     public void bootstrap(BootstrapContext<Ritual> context) {
         var enhancerLookup = context.lookup(FARegistries.ENHANCER_DEFINITION);
 
-        Holder<EnhancerDefinition> elementarium = enhancerLookup.getOrThrow(ModEnhancerDefinitions.ELEMENTARIUM);
-        Holder<EnhancerDefinition> divinePact = enhancerLookup.getOrThrow(ModEnhancerDefinitions.DIVINE_PACT);
+        Holder<EnhancerDefinition> elementarium = enhancerLookup.getOrThrow(BuiltInEnhancers.ELEMENTARIUM);
+        Holder<EnhancerDefinition> divinePact = enhancerLookup.getOrThrow(BuiltInEnhancers.DIVINE_PACT);
 
         // Requirements
         var eternalStella = this.requirements(EssencesDefinition.of(82, 1, 1000, 0), builder -> builder.tier(TierPredicate.min(3)));

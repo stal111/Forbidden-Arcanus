@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.datagen
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
+import com.stal111.forbidden_arcanus.core.registry.FARegistries
+import com.stal111.forbidden_arcanus.datagen.item.ModEnhancerDefinitions
 import com.stal111.forbidden_arcanus.datagen.loot.ModBlockLoot
 import com.stal111.forbidden_arcanus.datagen.loot.ModBlockLootAdditions
 import com.stal111.forbidden_arcanus.datagen.loot.ModChestLootAdditions
@@ -36,7 +38,7 @@ class ProviderCollector : DataCollector() {
             addProvider(this, ModSoundsProvider(context))
             addProvider(this, DataForgeModelProvider(context, blocks, { ModBlockModels(it) }, { ModItemModels(it) }))
         }
-//
+
         with(DataTarget.SERVER) {
             addProvider(this, ModBlockTagsProvider(context))
             addProvider(this, ModItemTagsProvider(context))
@@ -70,7 +72,7 @@ class ProviderCollector : DataCollector() {
     }
 
     override fun collectRegistryProviders() {
-//        DataCollector.addRegistryProvider(Registries.PROCESSOR_LIST, ModProcessorLists)
+        addRegistryProvider(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions)
 //        DataCollector.addRegistryProvider(Registries.STRUCTURE, ModStructures)
 //        DataCollector.addRegistryProvider(Registries.STRUCTURE_SET, ModStructureSets)
 //        DataCollector.addRegistryProvider(

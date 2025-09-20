@@ -1,0 +1,18 @@
+{
+  "description": {
+    "clibano": {
+      "translate": "item.forbidden_arcanus.enhancer.artisan_relic.clibano"
+    },
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.artisan_relic.hephaestus_forge"
+    }
+  },
+  "display_item": "forbidden_arcanus:artisan_relic",
+  "effects": [
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "essence_type": "experience",
+      "multiplier": 0.75
+    }
+  ]
+}

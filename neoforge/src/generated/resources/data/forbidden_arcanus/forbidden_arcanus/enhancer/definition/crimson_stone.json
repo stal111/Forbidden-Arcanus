@@ -1,0 +1,22 @@
+{
+  "description": {
+    "clibano": {
+      "translate": "item.forbidden_arcanus.enhancer.crimson_stone.clibano"
+    },
+    "hephaestus_forge": {
+      "translate": "item.forbidden_arcanus.enhancer.crimson_stone.hephaestus_forge"
+    }
+  },
+  "display_item": "forbidden_arcanus:crimson_stone",
+  "effects": [
+    {
+      "type": "forbidden_arcanus:multiply_required_essence",
+      "essence_type": "souls",
+      "multiplier": 0.5
+    },
+    {
+      "type": "forbidden_arcanus:multiply_soul_duration",
+      "multiplier": 1.3
+    }
+  ]
+}
