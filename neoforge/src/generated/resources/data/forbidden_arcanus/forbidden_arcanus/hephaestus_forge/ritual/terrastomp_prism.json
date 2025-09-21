@@ -1,0 +1,32 @@
+{
+  "enhancers": "forbidden_arcanus:elementarium",
+  "essences": {
+    "aureal": 300,
+    "blood": 1500,
+    "souls": 9
+  },
+  "forge_tier": 2,
+  "inputs": [
+    {
+      "amount": 2,
+      "ingredient": "minecraft:flint"
+    },
+    {
+      "amount": 2,
+      "ingredient": "minecraft:dripstone_block"
+    },
+    {
+      "amount": 2,
+      "ingredient": "minecraft:pointed_dripstone"
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:create_item",
+  "main_ingredient": "minecraft:diamond_block",
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "count": 1,
+      "id": "forbidden_arcanus:terrastomp_prism"
+    }
+  }
+}

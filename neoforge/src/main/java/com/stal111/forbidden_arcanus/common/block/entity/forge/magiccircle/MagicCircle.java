@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.entity.forge;
+package com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

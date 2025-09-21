@@ -1,11 +1,11 @@
 package com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.BuiltInMagicCircles;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
-import com.stal111.forbidden_arcanus.data.hephaestus_forge.ModMagicCircles;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
@@ -34,7 +34,7 @@ public class RitualBuilder {
         this.result = result;
         this.magicCircleLookup = magicCircleLookup;
 
-        this.magicCircleType = this.magicCircleLookup.getOrThrow(ModMagicCircles.CREATE_ITEM);
+        this.magicCircleType = this.magicCircleLookup.getOrThrow(BuiltInMagicCircles.CREATE_ITEM);
     }
 
     public RitualBuilder input(Ingredient ingredient) {

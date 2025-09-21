@@ -1,0 +1,29 @@
+{
+  "essences": {
+    "aureal": 5000,
+    "blood": 20000,
+    "souls": 500
+  },
+  "forge_tier": 4,
+  "inputs": [
+    {
+      "amount": 4,
+      "ingredient": "minecraft:sculk_catalyst"
+    },
+    {
+      "amount": 2,
+      "ingredient": "forbidden_arcanus:dark_nether_star"
+    },
+    {
+      "amount": 2,
+      "ingredient": "forbidden_arcanus:dragon_scale"
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:upgrade_final_tier",
+  "main_ingredient": "forbidden_arcanus:stellarite_block",
+  "match_tier_exact": true,
+  "result": {
+    "type": "forbidden_arcanus:upgrade_tier",
+    "result_tier": 5
+  }
+}

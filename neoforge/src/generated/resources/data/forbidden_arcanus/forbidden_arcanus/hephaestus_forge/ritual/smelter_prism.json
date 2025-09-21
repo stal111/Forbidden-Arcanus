@@ -1,0 +1,27 @@
+{
+  "enhancers": "forbidden_arcanus:elementarium",
+  "essences": {
+    "aureal": 200,
+    "blood": 1250,
+    "souls": 4
+  },
+  "inputs": [
+    {
+      "amount": 2,
+      "ingredient": "minecraft:coal"
+    },
+    {
+      "amount": 4,
+      "ingredient": "minecraft:blaze_powder"
+    }
+  ],
+  "magic_circle": "forbidden_arcanus:create_item",
+  "main_ingredient": "forbidden_arcanus:arcane_crystal_block",
+  "result": {
+    "type": "forbidden_arcanus:create_item",
+    "result_item": {
+      "count": 1,
+      "id": "forbidden_arcanus:smelter_prism"
+    }
+  }
+}
