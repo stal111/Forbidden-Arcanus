@@ -1,0 +1,28 @@
+{
+  "components_to_remove": [
+    "minecraft:damage",
+    "minecraft:max_damage"
+  ],
+  "display": {
+    "name": {
+      "translate": "modifier.forbidden_arcanus.eternal"
+    },
+    "texture": "forbidden_arcanus:textures/gui/tooltip/eternal.png",
+    "tooltip_color": {
+      "end": -13551304,
+      "start": -5589601
+    }
+  },
+  "incompatible_enchantments": "#forbidden_arcanus:modifier/eternal_incompatible",
+  "incompatible_items": "#forbidden_arcanus:modifier/eternal_incompatible",
+  "predicate": {
+    "predicates": {
+      "valhelsia_core:all_of": {
+        "valhelsia_core:has_component": [
+          "minecraft:max_damage",
+          "minecraft:damage"
+        ]
+      }
+    }
+  }
+}

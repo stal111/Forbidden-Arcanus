@@ -2,9 +2,11 @@ package com.stal111.forbidden_arcanus.datagen
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.registry.FARegistries
+import com.stal111.forbidden_arcanus.datagen.block.clibano.ModResidueTypes
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModMagicCircles
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModRituals
 import com.stal111.forbidden_arcanus.datagen.item.ModEnhancerDefinitions
+import com.stal111.forbidden_arcanus.datagen.item.ModItemModifiers
 import com.stal111.forbidden_arcanus.datagen.lang.LangProvider
 import com.stal111.forbidden_arcanus.datagen.loot.*
 import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
@@ -72,6 +74,8 @@ class ProviderCollector : DataCollector() {
         addRegistryProvider(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions)
         addRegistryProvider(FARegistries.MAGIC_CIRCLE, ModMagicCircles)
         addRegistryProvider(FARegistries.RITUAL, ModRituals)
+        addRegistryProvider(FARegistries.RESIDUE_TYPE, ModResidueTypes)
+        addRegistryProvider(FARegistries.ITEM_MODIFIER, ModItemModifiers)
 //        DataCollector.addRegistryProvider(Registries.STRUCTURE, ModStructures)
 //        DataCollector.addRegistryProvider(Registries.STRUCTURE_SET, ModStructureSets)
 //        DataCollector.addRegistryProvider(

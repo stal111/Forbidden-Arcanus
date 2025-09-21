@@ -12,10 +12,8 @@ import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.data.ModEnchantments;
-import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import com.stal111.forbidden_arcanus.data.research.ModConstellations;
 import com.stal111.forbidden_arcanus.data.research.ModKnowledge;
-import com.stal111.forbidden_arcanus.data.residue.ModResidueTypes;
 import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
 import com.stal111.forbidden_arcanus.data.worldgen.modifier.ModBiomeModifiers;
 import com.stal111.forbidden_arcanus.data.worldgen.placement.ModCavePlacements;
@@ -77,7 +75,5 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addDatapackHelper(Registries.ENCHANTMENT, ModEnchantments::new);
         this.addDatapackHelper(FARegistries.KNOWLEDGE, ModKnowledge::new);
         this.addDatapackHelper(FARegistries.CONSTELLATION, ModConstellations::new);
-        this.addDatapackHelper(FARegistries.RESIDUE_TYPE, ModResidueTypes::new);
-        this.addDatapackHelper(FARegistries.ITEM_MODIFIER, ModItemModifiers::new);
     }
 }

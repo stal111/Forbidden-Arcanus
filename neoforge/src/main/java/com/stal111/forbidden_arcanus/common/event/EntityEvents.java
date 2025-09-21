@@ -3,11 +3,11 @@ package com.stal111.forbidden_arcanus.common.event;
 import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
+import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
-import com.stal111.forbidden_arcanus.data.ModItemModifiers;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -57,7 +57,7 @@ public class EntityEvents {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack stack = player.getInventory().getItem(i);
 
-                if (ModifierHelper.hasModifier(stack, player.level().holderOrThrow(ModItemModifiers.SOULBOUND))) {
+                if (ModifierHelper.hasModifier(stack, player.level().holderOrThrow(BuiltInItemModifiers.SOULBOUND))) {
                     inventory.add(i, stack);
 
                     player.getInventory().setItem(i, ItemStack.EMPTY);

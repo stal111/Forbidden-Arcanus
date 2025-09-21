@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.datagen.recipes
 
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
 import com.stal111.forbidden_arcanus.core.init.ModItems
-import com.stal111.forbidden_arcanus.data.ModItemModifiers
 import com.stal111.forbidden_arcanus.data.recipes.builder.ApplyModifierRecipeBuilder
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup

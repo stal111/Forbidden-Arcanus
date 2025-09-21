@@ -1,0 +1,17 @@
+{
+  "display": {
+    "name": {
+      "translate": "modifier.forbidden_arcanus.soulbound"
+    },
+    "texture": "forbidden_arcanus:textures/gui/tooltip/soulbound.png",
+    "tooltip_color": {
+      "end": -542503,
+      "start": -5850634
+    }
+  },
+  "incompatible_enchantments": "#forbidden_arcanus:modifier/soulbound_incompatible",
+  "incompatible_items": "#forbidden_arcanus:modifier/soulbound_incompatible",
+  "predicate": {
+    "items": "#forbidden_arcanus:modifier/soulbound_applicable"
+  }
+}
