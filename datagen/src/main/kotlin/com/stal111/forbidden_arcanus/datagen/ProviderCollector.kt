@@ -3,19 +3,12 @@ package com.stal111.forbidden_arcanus.datagen
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.registry.FARegistries
 import com.stal111.forbidden_arcanus.datagen.item.ModEnhancerDefinitions
-import com.stal111.forbidden_arcanus.datagen.loot.ModBlockLoot
-import com.stal111.forbidden_arcanus.datagen.loot.ModBlockLootAdditions
-import com.stal111.forbidden_arcanus.datagen.loot.ModChestLootAdditions
-import com.stal111.forbidden_arcanus.datagen.loot.ModEntityLoot
-import com.stal111.forbidden_arcanus.datagen.loot.ModEntityLootAdditions
-import com.stal111.forbidden_arcanus.datagen.loot.ModLootModifierProvider
+import com.stal111.forbidden_arcanus.datagen.lang.LangProvider
+import com.stal111.forbidden_arcanus.datagen.loot.*
 import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
 import com.stal111.forbidden_arcanus.datagen.model.ModItemModels
-import com.stal111.forbidden_arcanus.datagen.recipes.ApplyModifierRecipeProvider
-import com.stal111.forbidden_arcanus.datagen.recipes.ClibanoRecipeProvider
-import com.stal111.forbidden_arcanus.datagen.recipes.CraftingRecipeProvider
-import com.stal111.forbidden_arcanus.datagen.recipes.SpecialRecipesProvider
-import com.stal111.forbidden_arcanus.datagen.recipes.StonecutterRecipeProvider
+import com.stal111.forbidden_arcanus.datagen.particle.ParticleDataProvider
+import com.stal111.forbidden_arcanus.datagen.recipes.*
 import com.stal111.forbidden_arcanus.datagen.tags.ModBlockTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
@@ -35,8 +28,10 @@ class ProviderCollector : DataCollector() {
         val blocks = ForbiddenArcanus.REGISTRY_MANAGER.blockHelper.registryEntries.map { { it.value() } }
 
         with(DataTarget.CLIENT) {
+            addProvider(this, LangProvider(context.packOutput))
             addProvider(this, ModSoundsProvider(context))
             addProvider(this, DataForgeModelProvider(context, blocks, { ModBlockModels(it) }, { ModItemModels(it) }))
+            addProvider(this, ParticleDataProvider(context))
         }
 
         with(DataTarget.SERVER) {

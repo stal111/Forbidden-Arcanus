@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.data;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.data.particle.ParticleDataProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -11,7 +10,6 @@ import net.minecraft.world.flag.FeatureFlagSet;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.valhelsia.valhelsia_core.datagen.DataProviderContext;
 
@@ -30,18 +28,8 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-        ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
         DataProviderContext context = new DataProviderContext(event.getGenerator().getPackOutput(), event.getLookupProvider(), ForbiddenArcanus.REGISTRY_MANAGER, event.getExistingFileHelper());
-
-        // Client Providers
-        //TODO
-        //generator.addProvider(event.includeClient(), new ModBlockStateProvider(context));
-        //generator.addProvider(event.includeClient(), new ModItemModelProvider(context));
-
-//        generator.addProvider(event.includeClient(), new ValhelsiaModelProvider(context, ModBlockModels::new, ModItemModels::new));
-        generator.addProvider(event.includeClient(), new LangProvider(context.output()));
-        generator.addProvider(event.includeServer(), new ParticleDataProvider(context));
 
         // Server Providers
         var datapackBuiltinEntriesProvider = new DatapackBuiltinEntriesProvider(output, lookupProvider, ForbiddenArcanus.REGISTRY_MANAGER.buildRegistrySet(), Set.of(ForbiddenArcanus.MOD_ID));
