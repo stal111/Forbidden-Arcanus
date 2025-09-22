@@ -1,0 +1,6 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": "forbidden_arcanus:ferrognetic_mixture",
+  "modifier": "forbidden_arcanus:magnetized",
+  "template": "forbidden_arcanus:apply_modifier_smithing_template"
+}

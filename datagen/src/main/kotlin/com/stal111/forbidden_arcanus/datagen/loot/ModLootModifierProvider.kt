@@ -1,7 +1,11 @@
 package com.stal111.forbidden_arcanus.datagen.loot
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
+import com.stal111.forbidden_arcanus.common.advancements.critereon.FAItemSubPredicates
+import com.stal111.forbidden_arcanus.common.advancements.critereon.ItemModifierPredicate
+import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier
+import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
 import net.minecraft.advancements.critereon.*
 import net.minecraft.core.registries.Registries
@@ -145,20 +149,19 @@ class ModLootModifierProvider(context: DataProviderContext) :
         )
 
         // Items
-        //TODO
-//        this.add(
-//            "fiery_modifier",
-//            FieryLootModifier(
-//                arrayOf(
-//                    MatchTool.toolMatches(
-//                        ItemPredicate.Builder.item().withSubPredicate(
-//                            FAItemSubPredicates.MODIFIER.get(),
-//                            ItemModifierPredicate.modifier(this.registries.holderOrThrow(ModItemModifiers.FIERY))
-//                        )
-//                    ).build()
-//                )
-//            )
-//        )
+        this.add(
+            "fiery_modifier",
+            FieryLootModifier(
+                arrayOf(
+                    MatchTool.toolMatches(
+                        ItemPredicate.Builder.item().withSubPredicate(
+                            FAItemSubPredicates.MODIFIER.get(),
+                            ItemModifierPredicate.modifier(this.registries.holderOrThrow(BuiltInItemModifiers.FIERY))
+                        )
+                    ).build()
+                )
+            )
+        )
         this.add(
             "blacksmith_gavel_ore_doubling",
             BlacksmithGavelLootModifier(arrayOf(LootItemRandomChanceCondition.randomChance(0.3f).build()))

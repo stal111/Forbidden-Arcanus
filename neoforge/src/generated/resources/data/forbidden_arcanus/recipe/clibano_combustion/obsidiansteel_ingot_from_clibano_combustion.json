@@ -1,0 +1,20 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "category": "misc",
+  "cooking_time": 100,
+  "enhancer": "forbidden_arcanus:artisan_relic",
+  "experience": 0.5,
+  "fire_type": "fire",
+  "ingredients": {
+    "first": "#c:raw_materials/iron",
+    "second": "minecraft:obsidian"
+  },
+  "residue": {
+    "type": "forbidden_arcanus:copper",
+    "chance": 0.33
+  },
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:obsidiansteel_ingot"
+  }
+}

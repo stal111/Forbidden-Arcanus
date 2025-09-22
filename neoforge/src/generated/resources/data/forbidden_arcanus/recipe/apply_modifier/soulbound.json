@@ -1,0 +1,6 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": "forbidden_arcanus:soul_binding_crystal",
+  "modifier": "forbidden_arcanus:soulbound",
+  "template": "forbidden_arcanus:apply_modifier_smithing_template"
+}

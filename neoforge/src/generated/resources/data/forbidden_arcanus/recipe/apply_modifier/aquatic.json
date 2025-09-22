@@ -1,0 +1,6 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": "forbidden_arcanus:sea_prism",
+  "modifier": "forbidden_arcanus:aquatic",
+  "template": "forbidden_arcanus:apply_modifier_smithing_template"
+}

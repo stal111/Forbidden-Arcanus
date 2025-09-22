@@ -1,0 +1,16 @@
+{
+  "type": "forbidden_arcanus:clibano_combustion",
+  "category": "misc",
+  "cooking_time": 100,
+  "experience": 0.5,
+  "fire_type": "fire",
+  "ingredients": "#forbidden_arcanus:runic_stones",
+  "residue": {
+    "type": "forbidden_arcanus:rune",
+    "chance": 0.1
+  },
+  "result": {
+    "count": 1,
+    "id": "forbidden_arcanus:rune"
+  }
+}

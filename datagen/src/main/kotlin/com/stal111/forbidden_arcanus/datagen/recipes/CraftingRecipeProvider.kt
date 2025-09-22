@@ -1,19 +1,17 @@
 package com.stal111.forbidden_arcanus.datagen.recipes
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.ModItems
-import com.stal111.forbidden_arcanus.data.FABlockFamilies
 import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponentPredicate
 import net.minecraft.core.component.DataComponents
-import net.minecraft.data.BlockFamily
-import net.minecraft.data.recipes.*
+import net.minecraft.data.recipes.RecipeCategory
+import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder
+import net.minecraft.data.recipes.SingleItemRecipeBuilder
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
-import net.minecraft.world.flag.FeatureFlagSet
-import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
@@ -21,21 +19,10 @@ import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
-import net.valhelsia.dataforge.recipe.DataForgeRecipePart
-import net.valhelsia.dataforge.recipe.RecipeSubProvider
-import net.valhelsia.dataforge.recipe.define
-import net.valhelsia.dataforge.recipe.getName
-import net.valhelsia.dataforge.recipe.pattern
-import net.valhelsia.dataforge.recipe.requires
-import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryEntry
-import net.valhelsia.valhelsia_core.datagen.recipes.RecipePart
-import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaRecipeProvider
-import net.valhelsia.valhelsia_core.datagen.recipes.ValhelsiaShapedRecipeBuilder
-import java.util.function.UnaryOperator
+import net.valhelsia.dataforge.recipe.*
 
 class CraftingRecipeProvider(
     lookupProvider: HolderLookup.Provider,
@@ -381,11 +368,6 @@ class CraftingRecipeProvider(
                 100
             ).unlockedBy(ModTags.Items.ARCANE_CRYSTAL_ORES), "blasting/arcane_crystal_from_blasting"
         )
-
-        //Smithing Recipes
-        //TODO
-//        this.add(UpgradeRecipeBuilder.smithing(Ingredient.of(Items.SHIELD), Ingredient.of(ModItems.OBSIDIAN_SKULL.get()), RecipeCategory.MISC, ModItems.OBSIDIAN_SKULL_SHIELD.get()).unlocks("has_item", has(ModItems.OBSIDIAN_SKULL.get())),"smithing/obsidian_skull_shield");
-//        this.add(UpgradeRecipeBuilder.smithing(Ingredient.of(ModItems.OBSIDIAN_SKULL.get()), Ingredient.of(ModItems.ETERNAL_STELLA.get()), RecipeCategory.MISC, ModItems.ETERNAL_OBSIDIAN_SKULL.get()).unlocks("has_item", has(ModItems.OBSIDIAN_SKULL.get())), new ResourceLocation(ForbiddenArcanus.MOD_ID, "smithing/eternal_obsidian_skull"));
 
         //TODO
 //        SmithingTransformRecipeBuilder.smithing(

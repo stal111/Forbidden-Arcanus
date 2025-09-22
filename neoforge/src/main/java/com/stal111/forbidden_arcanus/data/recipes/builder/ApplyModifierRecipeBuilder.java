@@ -60,6 +60,6 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
                 .rewards(AdvancementRewards.Builder.recipe(resourceKey))
                 .requirements(AdvancementRequirements.Strategy.OR);
 
-        output.accept(resourceKey, recipe, builder.build(resourceKey.location().withPrefix("recipes/apply_modifier/")));
+        output.accept(resourceKey, recipe, builder.build(resourceKey.location().withPrefix("recipes/")));
     }
 }

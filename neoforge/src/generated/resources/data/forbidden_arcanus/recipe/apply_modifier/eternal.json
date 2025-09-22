@@ -1,0 +1,6 @@
+{
+  "type": "forbidden_arcanus:apply_modifier",
+  "addition": "forbidden_arcanus:eternal_stella",
+  "modifier": "forbidden_arcanus:eternal",
+  "template": "forbidden_arcanus:apply_modifier_smithing_template"
+}
