@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.datagen.model
 
-import com.google.common.collect.ImmutableMap
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.block.DeskBlock
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock
@@ -23,7 +22,6 @@ import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.hephaestusF
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.pedestal
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.utremJar
 import net.minecraft.core.Direction
-import net.minecraft.data.BlockFamily
 import net.minecraft.data.models.BlockModelGenerators
 import net.minecraft.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.data.models.blockstates.PropertyDispatch
@@ -37,13 +35,8 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.RotatedPillarBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.valhelsia.dataforge.model.BlockModelGenerator
-import java.util.function.BiFunction
 import java.util.function.Function
 
-/**
- * @author stal111
- * @since 09.09.2023
- */
 class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : BlockModelGenerator(defaultGenerators) {
     private val texturedModels = mapOf(
         ModBlocks.CUT_SOULLESS_SANDSTONE.get() to TexturedModel.COLUMN.get(ModBlocks.CUT_SOULLESS_SANDSTONE.get())
@@ -53,8 +46,8 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         val generators = this.defaultGenerators
 
         FABlockFamilies.getAllFamilies()
-            .filter { obj: BlockFamily? -> obj!!.shouldGenerateModel() }
-            .forEach { blockFamily: BlockFamily? -> this.family(blockFamily!!.baseBlock).generateFor(blockFamily) }
+            .filter { family -> family.shouldGenerateModel() }
+            .forEach { this.family(it.baseBlock).generateFor(it) }
 
         this.createSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get().asItem())
         this.createSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get().asItem())

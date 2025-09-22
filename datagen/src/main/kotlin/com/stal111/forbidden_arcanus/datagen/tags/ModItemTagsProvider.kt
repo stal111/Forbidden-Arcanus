@@ -28,7 +28,8 @@ class ModItemTagsProvider(context: DataProviderContext) : DataForgeItemTagsProvi
             ModItems.GOLDEN_BLACKSMITH_GAVEL.get(),
             ModItems.IRON_BLACKSMITH_GAVEL.get(),
             ModItems.DIAMOND_BLACKSMITH_GAVEL.get(),
-            ModItems.NETHERITE_BLACKSMITH_GAVEL.get() //                ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL.get()
+            ModItems.NETHERITE_BLACKSMITH_GAVEL.get()
+        //                ModItems.REINFORCED_DEORUM_BLACKSMITH_GAVEL.get()
         )
         this.tag(ModTags.Items.DEORUM_INGOTS).add(ModItems.DEORUM_INGOT.get())
         this.tag(ModTags.Items.DEORUM_NUGGETS).add(ModItems.DEORUM_NUGGET.get())
