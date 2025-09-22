@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.datagen.lang
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType
+import com.stal111.forbidden_arcanus.common.item.enchantment.BuiltInEnchantments
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.ModEntities
 import com.stal111.forbidden_arcanus.core.init.ModItems
-import com.stal111.forbidden_arcanus.data.ModEnchantments
 import net.minecraft.Util
 import net.minecraft.data.PackOutput
 import net.minecraft.util.StringRepresentable
@@ -39,7 +39,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addEntityType(ModEntities.DARK_TRADER, "Dark Trader")
 
         // add(ModEnchantments.AUREAL_RESERVOIR.get(), "Aureal Reservoir");
-        add(Util.makeDescriptionId("enchantment", ModEnchantments.SOUL_LOOTING.location()), "Soul Looting")
+        add(Util.makeDescriptionId("enchantment", BuiltInEnchantments.SOUL_LOOTING.location()), "Soul Looting")
 
         // Blocks
         addBlock(ModBlocks.QUANTUM_CORE, "Quantum Core")

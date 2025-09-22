@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries
 import com.stal111.forbidden_arcanus.datagen.block.clibano.ModResidueTypes
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModMagicCircles
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModRituals
+import com.stal111.forbidden_arcanus.datagen.item.ModEnchantments
 import com.stal111.forbidden_arcanus.datagen.item.ModEnhancerDefinitions
 import com.stal111.forbidden_arcanus.datagen.item.ModItemModifiers
 import com.stal111.forbidden_arcanus.datagen.lang.LangProvider
@@ -17,6 +18,7 @@ import com.stal111.forbidden_arcanus.datagen.tags.ModBlockTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModItemTagsProvider
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.loot.LootTableProvider
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.level.storage.loot.LootTable
@@ -76,6 +78,7 @@ class ProviderCollector : DataCollector() {
         addRegistryProvider(FARegistries.RITUAL, ModRituals)
         addRegistryProvider(FARegistries.RESIDUE_TYPE, ModResidueTypes)
         addRegistryProvider(FARegistries.ITEM_MODIFIER, ModItemModifiers)
+        addRegistryProvider(Registries.ENCHANTMENT, ModEnchantments)
 //        DataCollector.addRegistryProvider(Registries.STRUCTURE, ModStructures)
 //        DataCollector.addRegistryProvider(Registries.STRUCTURE_SET, ModStructureSets)
 //        DataCollector.addRegistryProvider(
