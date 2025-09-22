@@ -18,11 +18,17 @@ import com.stal111.forbidden_arcanus.datagen.tags.ModBlockTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModItemTagsProvider
+import com.stal111.forbidden_arcanus.datagen.worldgen.feature.ModConfiguredFeatures
+import com.stal111.forbidden_arcanus.datagen.worldgen.modifier.ModBiomeModifiersWrapper
+import com.stal111.forbidden_arcanus.datagen.worldgen.placement.ModOrePlacements
+import com.stal111.forbidden_arcanus.datagen.worldgen.placement.ModTreePlacements
+import com.stal111.forbidden_arcanus.datagen.worldgen.placement.ModVegetationPlacements
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.loot.LootTableProvider
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets
+import net.neoforged.neoforge.registries.NeoForgeRegistries
 import net.valhelsia.dataforge.DataCollector
 import net.valhelsia.dataforge.DataProviderContext
 import net.valhelsia.dataforge.DataTarget
@@ -79,11 +85,8 @@ class ProviderCollector : DataCollector() {
         addRegistryProvider(FARegistries.RESIDUE_TYPE, ModResidueTypes)
         addRegistryProvider(FARegistries.ITEM_MODIFIER, ModItemModifiers)
         addRegistryProvider(Registries.ENCHANTMENT, ModEnchantments)
-//        DataCollector.addRegistryProvider(Registries.STRUCTURE, ModStructures)
-//        DataCollector.addRegistryProvider(Registries.STRUCTURE_SET, ModStructureSets)
-//        DataCollector.addRegistryProvider(
-//            Registries.TEMPLATE_POOL,
-//            BigTreePools, DesertHousePools, MobPools, PlayerHousePools, SimpleStructurePools, SpawnerDungeonPools
-//        )
+        addRegistryProvider(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiersWrapper)
+        addRegistryProvider(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures)
+        addRegistryProvider(Registries.PLACED_FEATURE, ModOrePlacements, ModTreePlacements, ModVegetationPlacements)
     }
 }

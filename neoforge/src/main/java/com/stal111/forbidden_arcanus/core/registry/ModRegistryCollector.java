@@ -9,16 +9,9 @@ import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTraderVariant;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteractions;
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
-import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
 import com.stal111.forbidden_arcanus.data.research.ModConstellations;
 import com.stal111.forbidden_arcanus.data.research.ModKnowledge;
-import com.stal111.forbidden_arcanus.data.worldgen.features.ModVegetationFeatures;
-import com.stal111.forbidden_arcanus.data.worldgen.modifier.ModBiomeModifiers;
-import com.stal111.forbidden_arcanus.data.worldgen.placement.ModCavePlacements;
-import com.stal111.forbidden_arcanus.data.worldgen.placement.ModOrePlacements;
-import com.stal111.forbidden_arcanus.data.worldgen.placement.ModTreePlacements;
-import com.stal111.forbidden_arcanus.data.worldgen.placement.ModVegetationPlacements;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryCollector;
@@ -68,9 +61,6 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(FARegistries.MUNDABITUR_INTERACTION, MundabiturInteractions.class);
         this.addMappedHelper(FARegistries.PEDESTAL_EFFECT, PedestalEffects.class);
 
-        this.addDatapackHelper(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::new, ModVegetationFeatures::new);
-        this.addDatapackHelper(Registries.PLACED_FEATURE, ModCavePlacements::new, ModOrePlacements::new, ModTreePlacements::new, ModVegetationPlacements::new);
-        this.addDatapackHelper(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::new);
         this.addDatapackHelper(FARegistries.KNOWLEDGE, ModKnowledge::new);
         this.addDatapackHelper(FARegistries.CONSTELLATION, ModConstellations::new);
     }

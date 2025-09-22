@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
+import com.stal111.forbidden_arcanus.common.world.feature.BuiltInFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -67,7 +67,7 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
     }
 
     public void growEdelwood(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(ModConfiguredFeatures.EDELWOOD).orElse(null);
+        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(BuiltInFeatures.EDELWOOD).orElse(null);
         BlockGrowFeatureEvent event = EventHooks.fireBlockGrowFeature(level, random, pos, holder);
 
         if (event.isCanceled() || event.getFeature() == null) {

@@ -1,0 +1,38 @@
+{
+  "type": "forbidden_arcanus:big_fungyss",
+  "config": {
+    "cap_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "forbidden_arcanus:fungyss_block",
+        "Properties": {
+          "down": "false",
+          "east": "true",
+          "north": "true",
+          "south": "true",
+          "up": "true",
+          "west": "true"
+        }
+      }
+    },
+    "hyphae_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "forbidden_arcanus:fungyss_stem",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "stem_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "forbidden_arcanus:fungyss_stem",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "variant": 1
+  }
+}

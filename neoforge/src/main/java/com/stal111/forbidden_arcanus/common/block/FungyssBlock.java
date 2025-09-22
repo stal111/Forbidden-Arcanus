@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.core.init.world.ModConfiguredFeatures;
+import com.stal111.forbidden_arcanus.common.world.feature.BuiltInFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -11,7 +11,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -78,7 +81,7 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         }
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.random.nextBoolean() ? ModConfiguredFeatures.BIG_FUNGYSS_0 : ModConfiguredFeatures.BIG_FUNGYSS_1;
+        ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.random.nextBoolean() ? BuiltInFeatures.BIG_FUNGYSS_0 : BuiltInFeatures.BIG_FUNGYSS_1;
         Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(featureKey).orElse(null);
 
         if (holder != null && !holder.value().place(level, level.getChunkSource().getGenerator(), random, pos)) {
@@ -92,7 +95,7 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         level.setBlock(pos.offset(xOffset + 1, 0, zOffset + 1), Blocks.AIR.defaultBlockState(), 4);
         level.setBlock(pos.offset(xOffset, 0, zOffset + 1), Blocks.AIR.defaultBlockState(), 4);
 
-        ResourceKey<ConfiguredFeature<?, ?>> featureKey = random.nextBoolean() ? ModConfiguredFeatures.MEGA_FUNGYSS_0 : ModConfiguredFeatures.MEGA_FUNGYSS_1;
+        ResourceKey<ConfiguredFeature<?, ?>> featureKey = random.nextBoolean() ? BuiltInFeatures.MEGA_FUNGYSS_0 : BuiltInFeatures.MEGA_FUNGYSS_1;
         Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(featureKey).orElse(null);
 
         if (holder != null && !holder.value().place(level, level.getChunkSource().getGenerator(), random, pos.offset(xOffset, 0, zOffset))) {
