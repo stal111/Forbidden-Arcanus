@@ -19,7 +19,7 @@ import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModItemTagsProvider
 import com.stal111.forbidden_arcanus.datagen.worldgen.feature.ModConfiguredFeatures
-import com.stal111.forbidden_arcanus.datagen.worldgen.modifier.ModBiomeModifiersWrapper
+import com.stal111.forbidden_arcanus.datagen.worldgen.modifier.ModBiomeModifiers
 import com.stal111.forbidden_arcanus.datagen.worldgen.placement.ModOrePlacements
 import com.stal111.forbidden_arcanus.datagen.worldgen.placement.ModTreePlacements
 import com.stal111.forbidden_arcanus.datagen.worldgen.placement.ModVegetationPlacements
@@ -85,7 +85,7 @@ class ProviderCollector : DataCollector() {
         addRegistryProvider(FARegistries.RESIDUE_TYPE, ModResidueTypes)
         addRegistryProvider(FARegistries.ITEM_MODIFIER, ModItemModifiers)
         addRegistryProvider(Registries.ENCHANTMENT, ModEnchantments)
-        addRegistryProvider(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiersWrapper)
+        addRegistryProvider(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers)
         addRegistryProvider(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures)
         addRegistryProvider(Registries.PLACED_FEATURE, ModOrePlacements, ModTreePlacements, ModVegetationPlacements)
     }

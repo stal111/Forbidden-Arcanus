@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:flower_forest",
+  "features": "forbidden_arcanus:aurum_trees",
+  "step": "vegetal_decoration"
+}
