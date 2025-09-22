@@ -72,7 +72,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addBlock(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL, "Magnetized Darkstone Pedestal")
         addBlock(ModBlocks.MORTAR, "Mortar")
         addBlock(ModBlocks.CLIBANO_CORE, "Clibano Core")
-        addBlock(ModBlocks.HEPHAESTUS_FORGE_TIER_1, "Hephaestus Forge")
+        add("block", "hephaestus_forge", "Hephaestus Forge")
         addBlock(ModBlocks.ARCANE_CRYSTAL_ORE, "Arcane Crystal Ore")
         addBlock(ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE, "Deepslate Arcane Crystal Ore")
         addBlock(ModBlocks.RUNIC_STONE, "Runic Stone")

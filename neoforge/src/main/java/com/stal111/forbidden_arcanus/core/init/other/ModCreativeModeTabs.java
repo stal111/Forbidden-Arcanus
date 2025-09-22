@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.core.init.other;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
-import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.registries.Registries;
@@ -167,7 +167,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.AUREAL_BOTTLE.get());
                             output.accept(ModItems.SPLASH_AUREAL_BOTTLE.get());
                             output.accept(ModItems.TEST_TUBE.get());
-                            output.accept(EssenceHelper.createStorageItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceType.BLOOD, BloodTestTubeItem.MAX_BLOOD, BloodTestTubeItem.MAX_BLOOD));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceStorage.FULL_BLOOD_TEST_TUBE));
                             output.accept(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get());
                             output.accept(ModItems.ETERNAL_STELLA.get());
                             output.accept(ModItems.TERRASTOMP_PRISM.get());

@@ -54,9 +54,13 @@ public class EssenceHelper {
     }
 
     public static ItemStack createStorageItem(Item item, EssenceType type, int amount, int limit) {
+        return createStorageItem(item, new EssenceStorage(EssenceValue.of(type, amount), limit, true));
+    }
+
+    public static ItemStack createStorageItem(Item item, EssenceStorage storage) {
         ItemStack stack = new ItemStack(item);
 
-        stack.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceValue.of(type, amount), limit, true));
+        stack.set(ModDataComponents.ESSENCE_STORAGE, storage);
 
         return stack;
     }

@@ -26,6 +26,9 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
 
     public static final EssenceStorage EMPTY = new EssenceStorage(EssenceValue.EMPTY, 0, true);
 
+    public static final EssenceStorage EMPTY_BLOOD_TEST_TUBE = new EssenceStorage(EssenceValue.createEmpty(EssenceType.BLOOD), 3000, true);
+    public static final EssenceStorage FULL_BLOOD_TEST_TUBE = new EssenceStorage(EssenceValue.of(EssenceType.BLOOD, 3000), 3000, true);
+
     public static final Codec<EssenceStorage> FULL_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EssenceValue.CODEC.fieldOf("data").forGetter(EssenceStorage::value),
             ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceStorage::limit),

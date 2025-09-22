@@ -1,7 +1,10 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
+import com.stal111.forbidden_arcanus.common.block.UtremJarBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.common.item.bucket.BucketFamily;
@@ -83,15 +86,21 @@ public class ModItems implements RegistryClass {
 
     public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, AurealTankItem.DEFAULT_DATA));
 
-    public static final ItemRegistryEntry<BlockItem> UTREM_JAR = HELPER.register("utrem_jar", (properties) -> new BlockItem(ModBlocks.UTREM_JAR.get(), properties), Item.Properties::new);
-    public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", (properties) -> new BlockItem(ModBlocks.ESSENCE_UTREM_JAR.get(), properties), () -> new Item.Properties().component(ModDataComponents.EMPTY_ITEM, ModItems.UTREM_JAR));
+    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_1 = HELPER.register("hephaestus_forge_tier_1", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
+    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_2 = HELPER.register("hephaestus_forge_tier_2", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
+    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_3 = HELPER.register("hephaestus_forge_tier_3", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
+    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_4 = HELPER.register("hephaestus_forge_tier_4", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
+    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_5 = HELPER.register("hephaestus_forge_tier_5", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
+
+    public static final ItemRegistryEntry<BlockItem> UTREM_JAR = HELPER.register("utrem_jar", (properties) -> new BlockItem(ModBlocks.UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID));
+    public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", (properties) -> new BlockItem(ModBlocks.ESSENCE_UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID).component(ModDataComponents.EMPTY_ITEM, ModItems.UTREM_JAR));
 
     public static final ItemRegistryEntry<AurealBottleItem> AUREAL_BOTTLE = HELPER.register("aureal_bottle", AurealBottleItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.AUREAL, 35)).component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
     public static final ItemRegistryEntry<SplashAurealBottleItem> SPLASH_AUREAL_BOTTLE = HELPER.register("splash_aureal_bottle", SplashAurealBottleItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.AUREAL, 30)).component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
     public static final ItemRegistryEntry<Item> ARCANE_CRYSTAL_DUST_SPECK = HELPER.register("arcane_crystal_dust_speck", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<ArcaneBoneMealItem> ARCANE_BONE_MEAL = HELPER.register("arcane_bone_meal", ArcaneBoneMealItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> TEST_TUBE = HELPER.register("test_tube", Item::new, () -> new Item.Properties().stacksTo(1));
-    public static final ItemRegistryEntry<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", BloodTestTubeItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, BloodTestTubeItem.DEFAULT_DATA).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE));
+    public static final ItemRegistryEntry<BloodTestTubeItem> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", BloodTestTubeItem::new, () -> new Item.Properties().stacksTo(1).overrideDescription(TEST_TUBE.value().getDescriptionId()).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_BLOOD_TEST_TUBE).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE));
     public static final ItemRegistryEntry<Item> BLACKSMITH_GAVEL_HEAD = HELPER.register("blacksmith_gavel_head", Item::new, () -> new Item.Properties().stacksTo(16));
     public static final ItemRegistryEntry<PickaxeItem> WOODEN_BLACKSMITH_GAVEL = HELPER.register("wooden_blacksmith_gavel", (properties) -> new PickaxeItem(ToolMaterial.WOOD, 1.0F, -2.8F, properties), () -> new Item.Properties().stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
     public static final ItemRegistryEntry<PickaxeItem> STONE_BLACKSMITH_GAVEL = HELPER.register("stone_blacksmith_gavel", (properties) -> new PickaxeItem(ToolMaterial.STONE, 1.0F, -2.8F, properties), () -> new Item.Properties().stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
@@ -113,7 +122,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<SolidCapacityBucketItem> EDELWOOD_POWDER_SNOW_BUCKET = HELPER.register("edelwood_powder_snow_bucket", (properties) -> new SolidCapacityBucketItem(Blocks.POWDER_SNOW, SoundEvents.BUCKET_EMPTY_POWDER_SNOW, BucketFamily.EDELWOOD_BUCKET, properties), () -> new Item.Properties().stacksTo(1).component(ModDataComponents.BUCKET_CAPACITY, 3).component(ModDataComponents.STORED_FLUID_AMOUNT, 1));
     public static final ItemRegistryEntry<ModArrowItem> BOOM_ARROW = HELPER.register("boom_arrow", ModArrowItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<ModArrowItem> DRACO_ARCANUS_ARROW = HELPER.register("draco_arcanus_arrow", ModArrowItem::new, Item.Properties::new);
-    public static final ItemRegistryEntry<EdelwoodOilItem> EDELWOOD_OIL = HELPER.register("edelwood_oil", EdelwoodOilItem::new, () -> new Item.Properties().stacksTo(16));
+    public static final ItemRegistryEntry<Item> EDELWOOD_OIL = HELPER.register("edelwood_oil", Item::new, () -> new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE));
     public static final ItemRegistryEntry<Item> APPLY_MODIFIER_SMITHING_TEMPLATE = HELPER.register("apply_modifier_smithing_template", SmithingTemplateConstants::createApplyModifierTemplate, () -> new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final ItemRegistryEntry<Item> OMEGA_ARCOIN = HELPER.register("omega_arcoin", Item::new, Item.Properties::new);
     //TODO: boats

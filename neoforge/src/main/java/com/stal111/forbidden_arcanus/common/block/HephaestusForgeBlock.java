@@ -58,7 +58,7 @@ import java.util.List;
  */
 public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
-    private static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge"));
+    public static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge"));
     private static final String TIER_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.tier"));
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
@@ -95,12 +95,6 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new HephaestusForgeBlockEntity(pos, state);
     }
-
-    //TODO
-//    @Override
-//    public String getDescriptionId() {
-//        return DESCRIPTION_ID;
-//    }
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag flag) {

@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
 
-    private static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("utrem_jar"));
+    public static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("utrem_jar"));
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -56,13 +56,6 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
-
-
-    //TODO
-//    @Override
-//    public String getDescriptionId() {
-//        return DESCRIPTION_ID;
-//    }
 
     @Nullable
     @Override
