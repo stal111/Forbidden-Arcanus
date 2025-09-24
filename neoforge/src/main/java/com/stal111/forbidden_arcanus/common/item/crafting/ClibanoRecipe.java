@@ -24,17 +24,42 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.RecipeMatcher;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
-public record ClibanoRecipe(String group,
-                            CookingBookCategory category,
-                            Either<Ingredient, Pair<Ingredient, Ingredient>> ingredients,
-                            ItemStack result,
-                            float experience,
-                            ClibanoCookingTimes cookingTimes,
-                            Optional<ResidueChance> residueChance,
-                            ClibanoFireType requiredFireType,
-                            Optional<Holder<EnhancerDefinition>> requiredEnhancer) implements Recipe<ClibanoRecipeInput> {
+public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
+
+    private final String group;
+    private final CookingBookCategory category;
+    private final Either<Ingredient, Pair<Ingredient, Ingredient>> ingredients;
+    private final ItemStack result;
+    private final float experience;
+    private final ClibanoCookingTimes cookingTimes;
+    private final Optional<ResidueChance> residueChance;
+    private final ClibanoFireType requiredFireType;
+    private final Optional<Holder<EnhancerDefinition>> requiredEnhancer;
+
+    private @Nullable PlacementInfo placementInfo;
+
+    public ClibanoRecipe(String group,
+                         CookingBookCategory category,
+                         Either<Ingredient, Pair<Ingredient, Ingredient>> ingredients,
+                         ItemStack result,
+                         float experience,
+                         ClibanoCookingTimes cookingTimes,
+                         Optional<ResidueChance> residueChance,
+                         ClibanoFireType requiredFireType,
+                         Optional<Holder<EnhancerDefinition>> requiredEnhancer) {
+        this.group = group;
+        this.category = category;
+        this.ingredients = ingredients;
+        this.result = result;
+        this.experience = experience;
+        this.cookingTimes = cookingTimes;
+        this.residueChance = residueChance;
+        this.requiredFireType = requiredFireType;
+        this.requiredEnhancer = requiredEnhancer;
+    }
 
     public static final ClibanoCookingTimes DEFAULT_COOKING_TIMES = ClibanoCookingTimes.of(100);
 
@@ -82,6 +107,18 @@ public record ClibanoRecipe(String group,
         return this.ingredients.right().isPresent();
     }
 
+    public ClibanoFireType requiredFireType() {
+        return this.requiredFireType;
+    }
+
+    public ClibanoCookingTimes cookingTimes() {
+        return this.cookingTimes;
+    }
+
+    public Optional<ResidueChance> residueChance() {
+        return this.residueChance;
+    }
+
     @Override
     public @NotNull RecipeSerializer<? extends Recipe<ClibanoRecipeInput>> getSerializer() {
         return ModRecipeSerializers.CLIBANO_SERIALIZER.get();
@@ -94,7 +131,11 @@ public record ClibanoRecipe(String group,
 
     @Override
     public PlacementInfo placementInfo() {
-        return null;
+        if (this.placementInfo == null) {
+            this.placementInfo = PlacementInfo.create(this.ingredients.map(List::of, pair -> List.of(pair.getFirst(), pair.getSecond())).stream().toList());
+        }
+
+        return this.placementInfo;
     }
 
     @Override
@@ -106,14 +147,14 @@ public record ClibanoRecipe(String group,
 
         private static final MapCodec<ClibanoRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(ClibanoRecipe::group),
-                CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(ClibanoRecipe::category),
-                Codec.either(Ingredient.CODEC, Codec.mapPair(Ingredient.CODEC.fieldOf("first"), Ingredient.CODEC.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(ClibanoRecipe::ingredients),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ClibanoRecipe::result),
-                Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(ClibanoRecipe::experience),
-                ClibanoCookingTimes .CODEC.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(ClibanoRecipe::cookingTimes),
-                ResidueChance.CODEC.optionalFieldOf("residue").forGetter(ClibanoRecipe::residueChance),
-                ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(ClibanoRecipe::requiredFireType),
-                EnhancerDefinition.REFERENCE_CODEC.optionalFieldOf("enhancer").forGetter(ClibanoRecipe::requiredEnhancer)
+                CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> recipe.category),
+                Codec.either(Ingredient.CODEC, Codec.mapPair(Ingredient.CODEC.fieldOf("first"), Ingredient.CODEC.fieldOf("second")).codec()).fieldOf("ingredients").forGetter(recipe -> recipe.ingredients),
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
+                Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> recipe.experience),
+                ClibanoCookingTimes.CODEC.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
+                ResidueChance.CODEC.optionalFieldOf("residue").forGetter(recipe -> recipe.residueChance),
+                ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> recipe.requiredFireType),
+                EnhancerDefinition.REFERENCE_CODEC.optionalFieldOf("enhancer").forGetter(recipe -> recipe.requiredEnhancer)
         ).apply(instance, ClibanoRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());

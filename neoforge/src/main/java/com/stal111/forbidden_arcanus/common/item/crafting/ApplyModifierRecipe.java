@@ -14,16 +14,26 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 public record ApplyModifierRecipe(Optional<Ingredient> template,
                                   Optional<Ingredient> addition,
-                                  Holder<ItemModifier> modifier) implements SmithingRecipe {
+                                  Holder<ItemModifier> modifier,
+                                  PlacementInfo placementInfo) implements SmithingRecipe {
+
+    public ApplyModifierRecipe(Optional<Ingredient> template, Optional<Ingredient> addition, Holder<ItemModifier> modifier) {
+        this(template, addition, modifier, PlacementInfo.createFromOptionals(List.of(template, addition)));
+    }
 
     //TODO: refactor
 
     @Override
     public boolean matches(@NotNull SmithingRecipeInput recipeInput, @NotNull Level level) {
+        System.out.println(this.modifier.getRegisteredName());
+        System.out.println(this.isTemplateIngredient(recipeInput.template()));
+        System.out.println(this.isAdditionIngredient(recipeInput.addition()));
+        System.out.println(this.isBaseIngredient(recipeInput.base()));
         return this.isTemplateIngredient(recipeInput.template()) && this.isAdditionIngredient(recipeInput.addition()) && this.isBaseIngredient(recipeInput.base());
     }
 
@@ -58,8 +68,8 @@ public record ApplyModifierRecipe(Optional<Ingredient> template,
     }
 
     @Override
-    public PlacementInfo placementInfo() {
-        return null;
+    public @NotNull PlacementInfo placementInfo() {
+        return this.placementInfo;
     }
 
 
