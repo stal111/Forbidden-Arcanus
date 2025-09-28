@@ -1,4 +1,4 @@
-// 1.21.4	2025-09-28T18:33:23.8647581	Model Definitions - forbidden_arcanus
+// 1.21.4	2025-09-28T19:08:11.5054728	Model Definitions - forbidden_arcanus
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -185,7 +185,7 @@ a19f052a6d5a42bb17c7be446c7fe9b2e61dc7ef assets/forbidden_arcanus/items/bat_soup
 81b7a36b9d1f6c25695d543b448406003083e9dd assets/forbidden_arcanus/items/bat_wing.json
 f4e74f24372846fda59913751cdd0c8d2840a757 assets/forbidden_arcanus/items/blacksmith_gavel_head.json
 8aa2d4461894fd9670e8f68cf662d9fd6314cffd assets/forbidden_arcanus/items/black_quantum_catcher.json
-647916ddc2e9327812f95e64ea95237058d2116a assets/forbidden_arcanus/items/blood_test_tube.json
+df010de44f5fd20910c64b641f014ab63a0cb5f1 assets/forbidden_arcanus/items/blood_test_tube.json
 f1209b9ad77b5ac161a928d0fec04ac21e8743bf assets/forbidden_arcanus/items/blue_quantum_catcher.json
 4ddd9a9e11d7adc93d58095aa2b72051c486e7e0 assets/forbidden_arcanus/items/boom_arrow.json
 187dff49f928ce3de5d322c573e8723bd51d4e64 assets/forbidden_arcanus/items/boss_catcher.json

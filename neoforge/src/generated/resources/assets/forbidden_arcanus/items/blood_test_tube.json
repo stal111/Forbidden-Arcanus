@@ -1,6 +1,54 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_0"
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_0"
+        },
+        "threshold": 0.1
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_1"
+        },
+        "threshold": 0.25
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_2"
+        },
+        "threshold": 0.5
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_3"
+        },
+        "threshold": 0.75
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_4"
+        },
+        "threshold": 0.9
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:item/blood_test_tube/blood_test_tube_5"
+        },
+        "threshold": 1.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "forbidden_arcanus:item/test_tube"
+    },
+    "property": "forbidden_arcanus:essence_fill_percentage"
   }
 }

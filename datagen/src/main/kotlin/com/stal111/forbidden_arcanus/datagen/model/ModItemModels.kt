@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.datagen.model
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
+import com.stal111.forbidden_arcanus.client.renderer.item.properties.EssenceFillPercentage
 import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.quantumCatcher
 import net.minecraft.client.data.models.ItemModelGenerators
@@ -195,17 +196,18 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         val bloodTestTube5 =
             this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_5", ModelTemplates.FLAT_ITEM)
 
-//        this.generateWithOverrides(
-//            "blood_test_tube", ModItems.BLOOD_TEST_TUBE,
-//            ModItemModels.ModelPredicate(bloodTestTube0, ModelProperty.Companion.of("amount", 0.1f)),
-//            ModItemModels.ModelPredicate(bloodTestTube1, ModelProperty.Companion.of("amount", 0.25f)),
-//            ModItemModels.ModelPredicate(bloodTestTube2, ModelProperty.Companion.of("amount", 0.5f)),
-//            ModItemModels.ModelPredicate(bloodTestTube3, ModelProperty.Companion.of("amount", 0.75f)),
-//            ModItemModels.ModelPredicate(bloodTestTube4, ModelProperty.Companion.of("amount", 0.9f)),
-//            ModItemModels.ModelPredicate(bloodTestTube5, ModelProperty.Companion.of("amount", 1.0f))
-//        )
-
-        output.accept(ModItems.BLOOD_TEST_TUBE.get(), ItemModelUtils.plainModel(bloodTestTube0))
+        output.accept(
+            ModItems.BLOOD_TEST_TUBE.get(), ItemModelUtils.rangeSelect(
+                EssenceFillPercentage(),
+                ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(ModItems.TEST_TUBE.get())),
+                ItemModelUtils.override(ItemModelUtils.plainModel(bloodTestTube0), 0.1f),
+                ItemModelUtils.override(ItemModelUtils.plainModel(bloodTestTube1), 0.25f),
+                ItemModelUtils.override(ItemModelUtils.plainModel(bloodTestTube2), 0.5f),
+                ItemModelUtils.override(ItemModelUtils.plainModel(bloodTestTube3), 0.75f),
+                ItemModelUtils.override(ItemModelUtils.plainModel(bloodTestTube4), 0.9f),
+                ItemModelUtils.override(ItemModelUtils.plainModel(bloodTestTube5), 1.0f),
+            )
+        )
     }
 
     private fun generateFlatItem(
