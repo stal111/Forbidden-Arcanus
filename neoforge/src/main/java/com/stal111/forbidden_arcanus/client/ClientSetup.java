@@ -47,11 +47,6 @@ public class ClientSetup {
 
     public static final List<FlyingLabel<?>> FLYING_LABELS = new ArrayList<>();
 
-    //TODO
-//    public static final ItemPropertyFunction ESSENCE_AMOUNT_PROPERTY_FUNCTION = (stack, level, entity, seed) -> {
-//        return EssenceHelper.getEssenceStorage(stack).map(EssenceStorage::getFillPercentage).orElse(0.0F);
-//    };
-
     public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
         Minecraft minecraft = Minecraft.getInstance();
 
@@ -117,7 +112,6 @@ public class ClientSetup {
             //TODO
             //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
 //            ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), ForbiddenArcanus.location("deactivated"), (stack, level, entity, seed) -> entity != null && SpectralEyeAmuletItem.isActive(stack) ? 0.0F : 1.0F);
-//            ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
 //
 //            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
 //            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("max"), (stack, level, entity, seed) -> {
