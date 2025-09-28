@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * @author stal111
  * @since 10.09.2023
  */
-public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
+public enum ObsidianSkullType implements SkullBlock.Type {
     DEFAULT("obsidian_skull", TickFunctions.DEFAULT),
     CRACKED("cracked_obsidian_skull", TickFunctions.DEFAULT),
     FRAGMENTED("fragmented_obsidian_skull", TickFunctions.DEFAULT),
@@ -36,6 +36,7 @@ public enum ObsidianSkullType implements SkullBlock.Type, StringRepresentable {
     ObsidianSkullType(String name, TickFunction tickFunction) {
         this.name = name;
         this.tickFunction = tickFunction;
+        TYPES.put(name, this);
     }
 
     public ResourceLocation getTextureLocation() {
