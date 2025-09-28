@@ -1,4 +1,4 @@
-// 1.21.4	2025-09-28T17:22:57.7639294	Model Definitions - forbidden_arcanus
+// 1.21.4	2025-09-28T18:33:23.8647581	Model Definitions - forbidden_arcanus
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -258,7 +258,7 @@ c602dc3f978112d09dd7e0560b77b9bd34b7b498 assets/forbidden_arcanus/items/edelwood
 e6b523f87e20729c0419d30b5f657fb898ccb5b2 assets/forbidden_arcanus/items/elementarium.json
 81e537c1c20c38ef5f799235c8d19f5454f9dff5 assets/forbidden_arcanus/items/enchanted_soul.json
 0506214cf75f6c68dec62058cee8b2dfdaa3049b assets/forbidden_arcanus/items/ender_pearl_fragment.json
-0609e615433be9d0915e989ca206c6b34e4e58fd assets/forbidden_arcanus/items/essence_utrem_jar.json
+70c8ffa9272c2aefc1cdb07d735654d8ec95ddf5 assets/forbidden_arcanus/items/essence_utrem_jar.json
 4751227416a8ddbb4ea05c45577fa040f7107d44 assets/forbidden_arcanus/items/eternal_obsidian_skull.json
 a03e68c7f57f133959bc341ad927afaea9fe58a9 assets/forbidden_arcanus/items/eternal_stella.json
 8dd6185d9b7773033b7f5d852593df4efad85da3 assets/forbidden_arcanus/items/fading_obsidian_skull.json
@@ -715,7 +715,6 @@ ccd99f83560fb4ea1407dd3a5d30caf9161cf25e assets/forbidden_arcanus/models/item/ed
 877517662cbff1a4796b573b6b860e9481398edd assets/forbidden_arcanus/models/item/elementarium.json
 8e4038a9a8ea0f021be4baf46b281a4384eb2b4b assets/forbidden_arcanus/models/item/enchanted_soul.json
 254d52013d18781786d4a1590dcf9b46d0632bf8 assets/forbidden_arcanus/models/item/ender_pearl_fragment.json
-78dcb62dd6fec8a0e2ab40b6b8b86767631defd5 assets/forbidden_arcanus/models/item/essence_utrem_jar.json
 69d8acc5e96b3bb7f0b27ef7d774419e2b1cec00 assets/forbidden_arcanus/models/item/eternal_stella.json
 ead805d94f7242f32a4380e342e70e1c28fca2cc assets/forbidden_arcanus/models/item/ferrognetic_mixture.json
 980987c35c80f4cff9059e4b10e4a8d63d20b228 assets/forbidden_arcanus/models/item/fungyss.json

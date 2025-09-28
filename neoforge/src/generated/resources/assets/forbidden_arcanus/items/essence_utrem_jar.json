@@ -1,6 +1,18 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "forbidden_arcanus:block/essence_utrem_jar"
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "forbidden_arcanus:block/utrem_jar"
+      },
+      {
+        "type": "minecraft:special",
+        "base": "forbidden_arcanus:block/utrem_jar",
+        "model": {
+          "type": "forbidden_arcanus:essence_utrem_jar"
+        }
+      }
+    ]
   }
 }

@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.client.gui.overlay.WandIndicatorLayer;
 import com.stal111.forbidden_arcanus.client.particle.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
+import com.stal111.forbidden_arcanus.client.renderer.special.EssenceUtremJarSpecialRenderer;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
@@ -30,6 +31,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 
@@ -57,7 +59,7 @@ public class ClientSetup {
 
         helper.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL, PedestalRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE, BlackHoleRenderer::new);
-//        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, EssenceUtremJarRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, EssenceUtremJarRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.OBSIDIAN_SKULL, SkullBlockRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK, ResearchDeskRenderer::new);
@@ -93,6 +95,7 @@ public class ClientSetup {
         modEventBus.addListener(this::onRegisterGuiOverlays);
         modEventBus.addListener(this::onRegisterTooltipComponents);
         modEventBus.addListener(this::onRegisterParticleProviders);
+        modEventBus.addListener(this::registerSpecialRenderers);
 
         if (ModList.get().isLoaded("ponder")) {
 //            ForbiddenArcanusPonderPlugin.register();
@@ -125,6 +128,11 @@ public class ClientSetup {
 
         FLYING_LABELS.add(new JarFlyingLabel());
         FLYING_LABELS.add(new QuantumCatcherFlyingLabel());
+    }
+
+    @SubscribeEvent
+    public void registerSpecialRenderers(RegisterSpecialModelRendererEvent event) {
+        event.register(ForbiddenArcanus.location("essence_utrem_jar"), EssenceUtremJarSpecialRenderer.Unbaked.MAP_CODEC);
     }
 
     private void registerCosmetics() {

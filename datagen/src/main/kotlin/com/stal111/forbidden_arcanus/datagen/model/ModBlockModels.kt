@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.datagen.model
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
+import com.stal111.forbidden_arcanus.client.renderer.special.EssenceUtremJarSpecialRenderer
 import com.stal111.forbidden_arcanus.common.block.DeskBlock
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock
 import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock
@@ -52,8 +53,18 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         defaultGenerators.createParticleOnlyBlock(ModBlocks.CLIBANO_MAIN_PART.get())
         defaultGenerators.createParticleOnlyBlock(ModBlocks.BLACK_HOLE.get())
         defaultGenerators.createParticleOnlyBlock(ModBlocks.UPWIND.get())
-        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.ARCANE_DRAGON_EGG.get(), ModelLocationUtils.getModelLocation(ModBlocks.ARCANE_DRAGON_EGG.get())))
-        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.WHIRLWIND.get(), ModelLocationUtils.getModelLocation(ModBlocks.WHIRLWIND.get())))
+        this.blockStateOutput.accept(
+            createSimpleBlock(
+                ModBlocks.ARCANE_DRAGON_EGG.get(),
+                ModelLocationUtils.getModelLocation(ModBlocks.ARCANE_DRAGON_EGG.get())
+            )
+        )
+        this.blockStateOutput.accept(
+            createSimpleBlock(
+                ModBlocks.WHIRLWIND.get(),
+                ModelLocationUtils.getModelLocation(ModBlocks.WHIRLWIND.get())
+            )
+        )
 
         generators.registerSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get().asItem())
         generators.registerSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get().asItem())
@@ -97,18 +108,8 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createObelisk(ModBlocks.ARCANE_CRYSTAL_OBELISK.get())
         this.createObelisk(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get())
         this.createUtremJar(ModBlocks.UTREM_JAR.get())
-        this.blockStateOutput.accept(
-            createSimpleBlock(
-                ModBlocks.ESSENCE_UTREM_JAR.get(), ModelLocationUtils.getModelLocation(
-                    ModBlocks.UTREM_JAR.get()
-                )
-            )
-        )
-        ModModelTemplates.UTREM_JAR_ITEM.create(
-            ModelLocationUtils.getModelLocation(ModBlocks.ESSENCE_UTREM_JAR.get().asItem()), TextureMapping.particle(
-                ModBlocks.UTREM_JAR.get()
-            ), this.modelOutput
-        )
+        this.createEssenceUtremJar()
+
         this.createPillar(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get())
         this.createNonTemplateModelBlock(ModBlocks.QUANTUM_CORE.get())
         generators.createDoor(ModBlocks.DEORUM_DOOR.get())
@@ -485,6 +486,29 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         val model = ModModelTemplates.UTREM_JAR.create(block, textureMapping, this.modelOutput)
 
         this.blockStateOutput.accept(createSimpleBlock(block, model))
+    }
+
+    private fun createEssenceUtremJar() {
+        this.blockStateOutput.accept(
+            createSimpleBlock(
+                ModBlocks.ESSENCE_UTREM_JAR.get(), ModelLocationUtils.getModelLocation(
+                    ModBlocks.UTREM_JAR.get()
+                )
+            )
+        )
+
+        val utremJarModel = ModelLocationUtils.getModelLocation(ModBlocks.UTREM_JAR.get())
+
+        defaultGenerators.itemModelOutput.accept(
+            ModBlocks.ESSENCE_UTREM_JAR.get().asItem(),
+            ItemModelUtils.composite(
+                ItemModelUtils.plainModel(utremJarModel),
+                ItemModelUtils.specialModel(
+                    utremJarModel,
+                    EssenceUtremJarSpecialRenderer.Unbaked()
+                )
+            )
+        )
     }
 
     private fun createPillar(block: Block) {

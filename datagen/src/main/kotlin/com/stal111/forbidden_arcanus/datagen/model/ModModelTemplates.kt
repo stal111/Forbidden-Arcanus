@@ -42,7 +42,6 @@ object ModModelTemplates {
         map[ObeliskPart.LOWER] = create("obelisk_lower", TextureSlot.TEXTURE, TextureSlot.TOP)
     }
     val UTREM_JAR = create("template_utrem_jar", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM)
-    val UTREM_JAR_ITEM = createItem("template_utrem_jar")
     val QUANTUM_CATCHER = createItem(
         "template_quantum_catcher",
         ModTextureSlots.INNER, TextureSlot.TOP, TextureSlot.SIDE
