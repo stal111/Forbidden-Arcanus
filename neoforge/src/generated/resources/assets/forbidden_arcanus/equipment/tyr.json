@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "forbidden_arcanus:tyr"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "forbidden_arcanus:tyr"
+      }
+    ]
+  }
+}

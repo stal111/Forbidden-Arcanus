@@ -13,6 +13,7 @@ import com.stal111.forbidden_arcanus.common.item.bucket.CapacityMilkBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.SolidCapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.component.*;
 import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers;
+import com.stal111.forbidden_arcanus.common.item.equipment.FAArmorMaterials;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturDustItem;
 import com.stal111.forbidden_arcanus.common.item.wand.WandPart;
 import com.stal111.forbidden_arcanus.common.item.wand.WandStats;

@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.datagen.item.ModItemModifiers
 import com.stal111.forbidden_arcanus.datagen.lang.LangProvider
 import com.stal111.forbidden_arcanus.datagen.loot.*
 import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
+import com.stal111.forbidden_arcanus.datagen.model.ModEquipmentAssetProvider
 import com.stal111.forbidden_arcanus.datagen.model.ModItemModels
 import com.stal111.forbidden_arcanus.datagen.particle.ParticleDataProvider
 import com.stal111.forbidden_arcanus.datagen.recipes.*
@@ -39,6 +40,7 @@ class ProviderCollector : DataCollector() {
     override fun collectClientProviders(context: DataProviderContext.Client) {
         addClientProvider(LangProvider(context.packOutput))
         addClientProvider(ModSoundsProvider(context))
+        addClientProvider(ModEquipmentAssetProvider(context))
         addClientProvider(DataForgeModelProvider(context, { ModBlockModels(it) }, { ModItemModels(it) }))
         addClientProvider(ParticleDataProvider(context))
     }
