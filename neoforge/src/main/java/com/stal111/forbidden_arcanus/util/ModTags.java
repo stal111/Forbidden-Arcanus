@@ -60,6 +60,8 @@ public class ModTags {
         public static final TagKey<Item> ARCANE_CRYSTAL_ORES = modTag("arcane_crystal_ores");
         public static final TagKey<Item> HEPHAESTUS_FORGES = modTag("hephaestus_forges");
 
+        public static final TagKey<Item> RECEIVES_BLOOD = modTag("receives_blood");
+
         public static final TagKey<Item> REPAIRS_DRACO_ARCANUS_ARMOR = modTag("repairs_draco_arcanus_armor");
         public static final TagKey<Item> REPAIRS_TYR_ARMOR = modTag("repairs_tyr_armor");
 

@@ -69,6 +69,8 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
         this.tag(ItemTags.LEG_ARMOR).add(ModItems.DRACO_ARCANUS_LEGGINGS.get(), ModItems.TYR_LEGGINGS.get())
         this.tag(ItemTags.FOOT_ARMOR).add(ModItems.DRACO_ARCANUS_BOOTS.get(), ModItems.TYR_BOOTS.get())
 
+        tag(ModTags.Items.RECEIVES_BLOOD).add(ModItems.BLOOD_TEST_TUBE.get())
+
         this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE).add(Items.ELYTRA)
         this.tag(ModTags.Items.FIERY_INCOMPATIBLE)
         this.tag(ModTags.Items.MAGNETIZED_INCOMPATIBLE)

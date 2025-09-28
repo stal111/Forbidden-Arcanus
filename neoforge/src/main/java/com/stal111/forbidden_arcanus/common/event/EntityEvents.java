@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
-import com.stal111.forbidden_arcanus.common.item.BloodTestTubeItem;
 import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
@@ -41,7 +40,7 @@ public class EntityEvents {
 
             ItemStack stack = player.getOffhandItem();
 
-            if (stack.getItem() instanceof BloodTestTubeItem) {
+            if (stack.is(ModTags.Items.RECEIVES_BLOOD)) {
                 EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
                     storage.addEssence(stack, (int) (20 * event.getNewDamage()));
                 });
