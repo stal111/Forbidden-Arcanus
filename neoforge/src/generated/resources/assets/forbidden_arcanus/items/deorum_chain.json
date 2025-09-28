@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "forbidden_arcanus:block/deorum_chain"
+    "model": "forbidden_arcanus:item/deorum_chain"
   }
 }

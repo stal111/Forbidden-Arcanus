@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "forbidden_arcanus:block/arcane_crystal_obelisk"
+    "model": "forbidden_arcanus:item/arcane_crystal_obelisk"
   }
 }

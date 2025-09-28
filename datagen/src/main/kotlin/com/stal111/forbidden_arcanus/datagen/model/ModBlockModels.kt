@@ -30,7 +30,6 @@ import net.minecraft.client.data.models.blockstates.VariantProperties
 import net.minecraft.client.data.models.model.*
 import net.minecraft.core.Direction
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.RotatedPillarBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
@@ -56,9 +55,9 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.blockStateOutput.accept(createSimpleBlock(ModBlocks.ARCANE_DRAGON_EGG.get(), ModelLocationUtils.getModelLocation(ModBlocks.ARCANE_DRAGON_EGG.get())))
         this.blockStateOutput.accept(createSimpleBlock(ModBlocks.WHIRLWIND.get(), ModelLocationUtils.getModelLocation(ModBlocks.WHIRLWIND.get())))
 
-        this.createSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get().asItem())
-        this.createSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get().asItem())
-        this.createSimpleFlatItemModel(ModBlocks.EDELWOOD_LADDER.get())
+        generators.registerSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get().asItem())
+        generators.registerSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get().asItem())
+        generators.registerSimpleFlatItemModel(ModBlocks.EDELWOOD_LADDER.get())
 
         generators.createTrivialCube(ModBlocks.SOULLESS_SAND.get())
         generators.createTrivialCube(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get())
@@ -473,7 +472,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
                 Variant.variant().with<ResourceLocation>(VariantProperties.MODEL, model)
             }
 
-        this.createSimpleFlatItemModel(block.asItem())
+        defaultGenerators.registerSimpleFlatItemModel(block.asItem())
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch))
     }
 
@@ -596,26 +595,6 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
                 BlockModelGenerators.createHorizontalFacingDispatch()
             )
         )
-    }
-
-    fun createSimpleFlatItemModel(item: Item) {
-        ModelTemplates.FLAT_ITEM.create(
-            ModelLocationUtils.getModelLocation(item.asItem()),
-            TextureMapping.layer0(item.asItem()),
-            this.modelOutput
-        )
-    }
-
-    fun createSimpleFlatItemModel(block: Block) {
-        ModelTemplates.FLAT_ITEM.create(
-            ModelLocationUtils.getModelLocation(block.asItem()),
-            TextureMapping.layer0(block),
-            this.modelOutput
-        )
-    }
-
-    fun delegateItemModel(block: Block, resourceLocation: ResourceLocation) {
-        this.modelOutput.accept(ModelLocationUtils.getModelLocation(block.asItem()), DelegatedModel(resourceLocation))
     }
 
     companion object {
