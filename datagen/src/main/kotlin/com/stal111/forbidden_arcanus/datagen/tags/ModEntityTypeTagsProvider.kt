@@ -8,12 +8,11 @@ import net.minecraft.data.tags.EntityTypeTagsProvider
 import net.minecraft.tags.EntityTypeTags
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.Tags
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.valhelsia.dataforge.DataProviderContext
 import javax.annotation.Nonnull
 
-class ModEntityTypeTagsProvider(context: DataProviderContext, fileHelper: ExistingFileHelper?) :
-    EntityTypeTagsProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID, fileHelper) {
+class ModEntityTypeTagsProvider(context: DataProviderContext.Server) :
+    EntityTypeTagsProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID) {
     override fun addTags(@Nonnull provider: HolderLookup.Provider) {
         this.tag(ModTags.EntityTypes.BLACK_HOLE_AFFECTED).add(
             EntityType.ITEM,

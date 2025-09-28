@@ -22,8 +22,9 @@ import net.neoforged.neoforge.common.loot.AddTableLootModifier
 import net.neoforged.neoforge.common.loot.LootTableIdCondition
 import net.valhelsia.dataforge.DataProviderContext
 
-class ModLootModifierProvider(context: DataProviderContext) :
-    GlobalLootModifierProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID) {
+class ModLootModifierProvider(
+    context: DataProviderContext.Server
+) : GlobalLootModifierProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID) {
     override fun start() {
         // Entities
         this.add(

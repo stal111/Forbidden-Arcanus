@@ -87,11 +87,6 @@ public class QuantumInjectorBlock extends Block implements EntityBlock, SimpleWa
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return state.getValue(ENABLED) ? RenderShape.ENTITYBLOCK_ANIMATED : RenderShape.MODEL;
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ENABLED, WATERLOGGED);
     }

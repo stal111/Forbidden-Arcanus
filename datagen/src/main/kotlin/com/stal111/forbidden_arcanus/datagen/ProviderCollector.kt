@@ -31,51 +31,48 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets
 import net.neoforged.neoforge.registries.NeoForgeRegistries
 import net.valhelsia.dataforge.DataCollector
 import net.valhelsia.dataforge.DataProviderContext
-import net.valhelsia.dataforge.DataTarget
 import net.valhelsia.dataforge.model.DataForgeModelProvider
 import net.valhelsia.dataforge.recipe.DataForgeRecipeRunner
 
 class ProviderCollector : DataCollector() {
-    override fun collectProviders(context: DataProviderContext) {
+
+    override fun collectClientProviders(context: DataProviderContext.Client) {
+        addClientProvider(LangProvider(context.packOutput))
+        addClientProvider(ModSoundsProvider(context))
+        addClientProvider(DataForgeModelProvider(context, { ModBlockModels(it) }, { ModItemModels(it) }))
+        addClientProvider(ParticleDataProvider(context))
+    }
+
+    override fun collectServerProviders(context: DataProviderContext.Server) {
         val blocks = ForbiddenArcanus.REGISTRY_MANAGER.blockHelper.registryEntries.map { { it.value() } }
 
-        with(DataTarget.CLIENT) {
-            addProvider(this, LangProvider(context.packOutput))
-            addProvider(this, ModSoundsProvider(context))
-            addProvider(this, DataForgeModelProvider(context, blocks, { ModBlockModels(it) }, { ModItemModels(it) }))
-            addProvider(this, ParticleDataProvider(context))
-        }
-
-        with(DataTarget.SERVER) {
-            addProvider(this, ModBlockTagsProvider(context))
-            addProvider(this, ModItemTagsProvider(context))
-            addProvider(this, ModEnchantmentTagsProvider(context, context.fileHelper))
-            addProvider(this, ModEntityTypeTagsProvider(context, context.fileHelper))
-            addProvider(
-                this,
-                DataForgeRecipeRunner(
-                    context,
-                    ::CraftingRecipeProvider,
-                    ::StonecutterRecipeProvider,
-                    ::ApplyModifierRecipeProvider,
-                    ::SpecialRecipesProvider,
-                    ::ClibanoRecipeProvider
-                )
+        addServerProvider(ModBlockTagsProvider(context))
+        addServerProvider(ModItemTagsProvider(context))
+        addServerProvider(ModEnchantmentTagsProvider(context))
+        addServerProvider(ModEntityTypeTagsProvider(context))
+        addServerProvider(
+            DataForgeRecipeRunner(
+                context,
+                ::CraftingRecipeProvider,
+                ::StonecutterRecipeProvider,
+                ::ApplyModifierRecipeProvider,
+                ::SpecialRecipesProvider,
+                ::ClibanoRecipeProvider
             )
-            addProvider(
-                this, LootTableProvider(
-                    context.packOutput, setOf<ResourceKey<LootTable>>(), listOf(
-                        LootTableProvider.SubProviderEntry({ ModBlockLoot(it, blocks) }, LootContextParamSets.BLOCK),
-                        LootTableProvider.SubProviderEntry({ ModEntityLoot(it) }, LootContextParamSets.ENTITY),
-                        LootTableProvider.SubProviderEntry({ ModBlockLootAdditions() }, LootContextParamSets.BLOCK),
-                        LootTableProvider.SubProviderEntry({ ModChestLootAdditions() }, LootContextParamSets.CHEST),
-                        LootTableProvider.SubProviderEntry({ ModEntityLootAdditions(it) }, LootContextParamSets.ENTITY),
-                    ),
-                    context.lookupProvider
-                )
+        )
+        addServerProvider(
+            LootTableProvider(
+                context.packOutput, setOf<ResourceKey<LootTable>>(), listOf(
+                    LootTableProvider.SubProviderEntry({ ModBlockLoot(it, blocks) }, LootContextParamSets.BLOCK),
+                    LootTableProvider.SubProviderEntry({ ModEntityLoot(it) }, LootContextParamSets.ENTITY),
+                    LootTableProvider.SubProviderEntry({ ModBlockLootAdditions() }, LootContextParamSets.BLOCK),
+                    LootTableProvider.SubProviderEntry({ ModChestLootAdditions() }, LootContextParamSets.CHEST),
+                    LootTableProvider.SubProviderEntry({ ModEntityLootAdditions(it) }, LootContextParamSets.ENTITY),
+                ),
+                context.lookupProvider
             )
-            addProvider(this, ModLootModifierProvider(context))
-        }
+        )
+        addServerProvider(ModLootModifierProvider(context))
     }
 
     override fun collectRegistryProviders() {

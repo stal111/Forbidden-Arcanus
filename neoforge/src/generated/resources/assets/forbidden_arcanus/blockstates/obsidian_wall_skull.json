@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "forbidden_arcanus:block/obsidian_skull"
+      "model": "minecraft:block/skull"
     }
   }
 }

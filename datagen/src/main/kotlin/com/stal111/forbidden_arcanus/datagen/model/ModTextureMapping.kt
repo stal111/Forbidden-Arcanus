@@ -5,10 +5,10 @@ import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
+import net.minecraft.client.data.models.model.TextureMapping
+import net.minecraft.client.data.models.model.TextureSlot
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.data.models.model.TextureMapping
-import net.minecraft.data.models.model.TextureSlot
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block

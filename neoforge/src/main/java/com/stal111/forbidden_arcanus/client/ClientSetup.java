@@ -13,13 +13,8 @@ import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
-import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
-import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
-import com.stal111.forbidden_arcanus.common.item.SpectralEyeAmuletItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
@@ -28,8 +23,6 @@ import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -54,16 +47,17 @@ public class ClientSetup {
 
     public static final List<FlyingLabel<?>> FLYING_LABELS = new ArrayList<>();
 
-    public static final ItemPropertyFunction ESSENCE_AMOUNT_PROPERTY_FUNCTION = (stack, level, entity, seed) -> {
-        return EssenceHelper.getEssenceStorage(stack).map(EssenceStorage::getFillPercentage).orElse(0.0F);
-    };
+    //TODO
+//    public static final ItemPropertyFunction ESSENCE_AMOUNT_PROPERTY_FUNCTION = (stack, level, entity, seed) -> {
+//        return EssenceHelper.getEssenceStorage(stack).map(EssenceStorage::getFillPercentage).orElse(0.0F);
+//    };
 
     public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
         Minecraft minecraft = Minecraft.getInstance();
 
         helper.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL, PedestalRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE, BlackHoleRenderer::new);
-        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, EssenceUtremJarRenderer::new);
+//        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, EssenceUtremJarRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.OBSIDIAN_SKULL, SkullBlockRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK, ResearchDeskRenderer::new);
@@ -118,14 +112,15 @@ public class ClientSetup {
                 SkullBlockRenderer.SKIN_BY_TYPE.put(skullType, skullType.getTextureLocation());
             }
 
+            //TODO
             //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
-            ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), ForbiddenArcanus.location("deactivated"), (stack, level, entity, seed) -> entity != null && SpectralEyeAmuletItem.isActive(stack) ? 0.0F : 1.0F);
-            ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
-
-            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
-            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("max"), (stack, level, entity, seed) -> {
-                return EssenceHelper.getEssenceStorage(stack).map(essenceStorage -> essenceStorage.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
-            });
+//            ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), ForbiddenArcanus.location("deactivated"), (stack, level, entity, seed) -> entity != null && SpectralEyeAmuletItem.isActive(stack) ? 0.0F : 1.0F);
+//            ItemProperties.register(ModItems.BLOOD_TEST_TUBE.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
+//
+//            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
+//            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("max"), (stack, level, entity, seed) -> {
+//                return EssenceHelper.getEssenceStorage(stack).map(essenceStorage -> essenceStorage.limit() == AurealTankItem.MAX_CAPACITY ? 1.0F : 0.0F).orElse(0.0F);
+//            });
         });
 
         FLYING_LABELS.add(new JarFlyingLabel());

@@ -54,7 +54,7 @@ neoForge {
     runs {
 
         create("data") {
-            data()
+            clientData()
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             programArguments.addAll("--mod", mod_id, "--all", "--output", mainProject.file("src/generated/resources/").absolutePath, "--existing", mainProject.file("src/main/resources/").absolutePath)

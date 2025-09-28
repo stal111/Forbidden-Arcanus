@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "forbidden_arcanus:item/apply_modifier_smithing_template"
+  }
+}

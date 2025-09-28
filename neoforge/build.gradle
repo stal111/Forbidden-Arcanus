@@ -63,13 +63,6 @@ neoForge {
             systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
         }
 
-        data {
-            data()
-
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
-
         // applies to all the run configs above
         configureEach {
             // Recommended logging data for a userdev environment
@@ -109,9 +102,9 @@ dependencies {
     testImplementation "net.neoforged:testframework:${neo_version}"
 
     // compile against the JEI API but do not include it at runtime
-//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     // at runtime, use the full JEI jar
-//    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
 //    implementation("net.createmod.ponder:Ponder-NeoForge-1.21.1:${ponder_version}")
 }

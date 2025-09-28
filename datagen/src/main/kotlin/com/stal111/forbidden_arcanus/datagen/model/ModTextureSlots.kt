@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.datagen.model
 
-import net.minecraft.data.models.model.TextureSlot
+import net.minecraft.client.data.models.model.TextureSlot
 
 object ModTextureSlots {
     val TOP_LAYER: TextureSlot = TextureSlot.create("top_layer")

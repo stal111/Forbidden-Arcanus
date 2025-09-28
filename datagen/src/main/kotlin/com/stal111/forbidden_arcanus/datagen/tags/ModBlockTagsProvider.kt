@@ -8,7 +8,7 @@ import net.neoforged.neoforge.common.Tags
 import net.valhelsia.dataforge.DataProviderContext
 import net.valhelsia.dataforge.tag.DataForgeBlockTagsProvider
 
-class ModBlockTagsProvider(context: DataProviderContext) : DataForgeBlockTagsProvider(context) {
+class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlockTagsProvider(context) {
     override fun addTags(provider: HolderLookup.Provider) {
         this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(ModBlocks.FUNGYSS_STEM.get(), ModBlocks.FUNGYSS_HYPHAE.get())
         this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(

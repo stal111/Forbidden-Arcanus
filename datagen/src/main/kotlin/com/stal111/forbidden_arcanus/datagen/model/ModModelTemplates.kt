@@ -3,8 +3,8 @@ package com.stal111.forbidden_arcanus.datagen.model
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart
 import net.minecraft.Util
-import net.minecraft.data.models.model.ModelTemplate
-import net.minecraft.data.models.model.TextureSlot
+import net.minecraft.client.data.models.model.ModelTemplate
+import net.minecraft.client.data.models.model.TextureSlot
 import net.minecraft.resources.ResourceLocation
 import java.util.*
 
@@ -35,11 +35,11 @@ object ModModelTemplates {
         ModTextureSlots.BLOCK
     )
     val OBELISK: MutableMap<ObeliskPart, ModelTemplate> = Util.make(
-        EnumMap<ObeliskPart, ModelTemplate>(ObeliskPart::class.java)
+        EnumMap(ObeliskPart::class.java)
     ) { map ->
-        map.put(ObeliskPart.UPPER, create("obelisk_upper", TextureSlot.TEXTURE, TextureSlot.TOP))
-        map.put(ObeliskPart.MIDDLE, create("obelisk_middle", TextureSlot.TEXTURE, TextureSlot.TOP))
-        map.put(ObeliskPart.LOWER, create("obelisk_lower", TextureSlot.TEXTURE, TextureSlot.TOP))
+        map[ObeliskPart.UPPER] = create("obelisk_upper", TextureSlot.TEXTURE, TextureSlot.TOP)
+        map[ObeliskPart.MIDDLE] = create("obelisk_middle", TextureSlot.TEXTURE, TextureSlot.TOP)
+        map[ObeliskPart.LOWER] = create("obelisk_lower", TextureSlot.TEXTURE, TextureSlot.TOP)
     }
     val UTREM_JAR = create("template_utrem_jar", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM)
     val UTREM_JAR_ITEM = createItem("template_utrem_jar")

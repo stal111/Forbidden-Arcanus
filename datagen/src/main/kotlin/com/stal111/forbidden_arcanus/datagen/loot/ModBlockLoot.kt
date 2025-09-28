@@ -24,7 +24,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
-import net.valhelsia.valhelsia_core.datagen.ValhelsiaBlockLootTables
 
 class ModBlockLoot(
     lookupProvider: HolderLookup.Provider,
@@ -188,14 +187,14 @@ class ModBlockLoot(
             createLeavesDrops(
                 it,
                 ModBlocks.AURUM_SAPLING.get(),
-                *ValhelsiaBlockLootTables.NORMAL_LEAVES_SAPLING_CHANCES
+                *NORMAL_LEAVES_SAPLING_CHANCES
             )
         }
         add(ModBlocks.NUGGETY_AURUM_LEAVES.get()) {
             createNuggetyAurumLeavesDrops(
                 it,
                 ModBlocks.AURUM_SAPLING.get(),
-                *ValhelsiaBlockLootTables.NORMAL_LEAVES_SAPLING_CHANCES
+                *NORMAL_LEAVES_SAPLING_CHANCES
             )
         }
         add(ModBlocks.ESSENCE_UTREM_JAR.get()) { createUtremJarDrops(it) }

@@ -7,14 +7,12 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.data.tags.EnchantmentTagsProvider
 import net.minecraft.tags.EnchantmentTags
 import net.minecraft.world.item.enchantment.Enchantments
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.valhelsia.dataforge.DataProviderContext
 import org.jetbrains.annotations.NotNull
 
 class ModEnchantmentTagsProvider(
-    context: DataProviderContext,
-    fileHelper: ExistingFileHelper
-) : EnchantmentTagsProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID, fileHelper) {
+    context: DataProviderContext.Server,
+) : EnchantmentTagsProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID) {
     override fun addTags(provider: HolderLookup.Provider) {
         this.tag(ModTags.Enchantments.ETERNAL_INCOMPATIBLE).add(Enchantments.UNBREAKING, Enchantments.MENDING)
         this.tag(ModTags.Enchantments.FIERY_INCOMPATIBLE).add(Enchantments.SILK_TOUCH)

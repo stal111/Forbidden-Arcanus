@@ -104,7 +104,6 @@ public abstract class AbstractLostSoul extends PathfinderMob {
 
         navigation.setCanOpenDoors(false);
         navigation.setCanFloat(true);
-        navigation.setCanPassDoors(true);
 
         return navigation;
     }

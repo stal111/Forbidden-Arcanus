@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType
+import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.data.FABlockFamilies
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.clibanoCore
@@ -21,17 +22,16 @@ import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.forbiddenom
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.hephaestusForge
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.pedestal
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.utremJar
+import net.minecraft.client.data.models.BlockModelGenerators
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
+import net.minecraft.client.data.models.blockstates.PropertyDispatch
+import net.minecraft.client.data.models.blockstates.Variant
+import net.minecraft.client.data.models.blockstates.VariantProperties
+import net.minecraft.client.data.models.model.*
 import net.minecraft.core.Direction
-import net.minecraft.data.models.BlockModelGenerators
-import net.minecraft.data.models.blockstates.MultiVariantGenerator
-import net.minecraft.data.models.blockstates.PropertyDispatch
-import net.minecraft.data.models.blockstates.Variant
-import net.minecraft.data.models.blockstates.VariantProperties
-import net.minecraft.data.models.model.*
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.RotatedPillarBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.valhelsia.dataforge.model.BlockModelGenerator
@@ -48,6 +48,13 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         FABlockFamilies.getAllFamilies()
             .filter { family -> family.shouldGenerateModel() }
             .forEach { this.family(it.baseBlock).generateFor(it) }
+
+        //TODO
+        defaultGenerators.createParticleOnlyBlock(ModBlocks.CLIBANO_MAIN_PART.get())
+        defaultGenerators.createParticleOnlyBlock(ModBlocks.BLACK_HOLE.get())
+        defaultGenerators.createParticleOnlyBlock(ModBlocks.UPWIND.get())
+        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.ARCANE_DRAGON_EGG.get(), ModelLocationUtils.getModelLocation(ModBlocks.ARCANE_DRAGON_EGG.get())))
+        this.blockStateOutput.accept(createSimpleBlock(ModBlocks.WHIRLWIND.get(), ModelLocationUtils.getModelLocation(ModBlocks.WHIRLWIND.get())))
 
         this.createSimpleFlatItemModel(ModBlocks.DEORUM_CHAIN.get().asItem())
         this.createSimpleFlatItemModel(ModBlocks.ARCANE_DRAGON_EGG.get().asItem())
@@ -116,25 +123,25 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         generators.createGlassBlocks(ModBlocks.RUNIC_GLASS.get(), ModBlocks.RUNIC_GLASS_PANE.get())
         generators.createLantern(ModBlocks.DEORUM_LANTERN.get())
         generators.createLantern(ModBlocks.DEORUM_SOUL_LANTERN.get())
-        generators.createPlant(
+        generators.createPlantWithDefaultItem(
             ModBlocks.FUNGYSS.get(),
             ModBlocks.POTTED_FUNGYSS.get(),
-            BlockModelGenerators.TintState.NOT_TINTED
+            BlockModelGenerators.PlantType.NOT_TINTED
         )
-        generators.createPlant(
+        generators.createPlantWithDefaultItem(
             ModBlocks.AURUM_SAPLING.get(),
             ModBlocks.POTTED_AURUM_SAPLING.get(),
-            BlockModelGenerators.TintState.NOT_TINTED
+            BlockModelGenerators.PlantType.NOT_TINTED
         )
-        generators.createPlant(
+        generators.createPlantWithDefaultItem(
             ModBlocks.GROWING_EDELWOOD.get(),
             ModBlocks.POTTED_GROWING_EDELWOOD.get(),
-            BlockModelGenerators.TintState.NOT_TINTED
+            BlockModelGenerators.PlantType.NOT_TINTED
         )
-        generators.createPlant(
+        generators.createPlantWithDefaultItem(
             ModBlocks.YELLOW_ORCHID.get(),
             ModBlocks.POTTED_YELLOW_ORCHID.get(),
-            BlockModelGenerators.TintState.NOT_TINTED
+            BlockModelGenerators.PlantType.NOT_TINTED
         )
         generators.woodProvider(ModBlocks.FUNGYSS_STEM.get()).log(ModBlocks.FUNGYSS_STEM.get())
             .wood(ModBlocks.FUNGYSS_HYPHAE.get())
@@ -151,24 +158,43 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createNonTemplateHorizontalBlock(ModBlocks.EDELWOOD_LADDER.get())
         this.createMortar(ModBlocks.MORTAR.get())
 
-        this.blockEntityModels(
-            ModelLocationUtils.getModelLocation(ModBlocks.OBSIDIAN_SKULL.getSkull()),
-            Blocks.SOUL_SAND
-        ).createWithCustomBlockItemModel(
-            ModelTemplates.SKULL_INVENTORY,
+        val skullTemplate = ModelLocationUtils.decorateItemModelLocation("template_skull")
+
+        generators.createHead(
             ModBlocks.OBSIDIAN_SKULL.getSkull(),
-            ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(),
-            ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(),
-            ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(),
-            ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(),
-            ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull()
-        ).createWithoutBlockItem(
             ModBlocks.OBSIDIAN_SKULL.getWallSkull(),
+            ObsidianSkullType.DEFAULT,
+            skullTemplate
+        )
+        generators.createHead(
+            ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(),
             ModBlocks.CRACKED_OBSIDIAN_SKULL.getWallSkull(),
+            ObsidianSkullType.CRACKED,
+            skullTemplate
+        )
+        generators.createHead(
+            ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(),
             ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getWallSkull(),
+            ObsidianSkullType.FRAGMENTED,
+            skullTemplate
+        )
+        generators.createHead(
+            ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(),
             ModBlocks.FADING_OBSIDIAN_SKULL.getWallSkull(),
+            ObsidianSkullType.FADING,
+            skullTemplate
+        )
+        generators.createHead(
+            ModBlocks.AUREALIC_OBSIDIAN_SKULL.getSkull(),
             ModBlocks.AUREALIC_OBSIDIAN_SKULL.getWallSkull(),
-            ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull()
+            ObsidianSkullType.AUREALIC,
+            skullTemplate
+        )
+        generators.createHead(
+            ModBlocks.ETERNAL_OBSIDIAN_SKULL.getSkull(),
+            ModBlocks.ETERNAL_OBSIDIAN_SKULL.getWallSkull(),
+            ObsidianSkullType.ETERNAL,
+            skullTemplate
         )
     }
 
@@ -176,13 +202,6 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         val texturedModel = this.texturedModels.getOrDefault(block, TexturedModel.CUBE.get(block))
         return this.defaultGenerators.BlockFamilyProvider(texturedModel.mapping)
             .fullBlock(block, texturedModel.template)
-    }
-
-    private fun blockEntityModels(
-        modelLocation: ResourceLocation,
-        block: Block
-    ): BlockModelGenerators.BlockEntityModelGenerator {
-        return this.defaultGenerators.BlockEntityModelGenerator(modelLocation, block)
     }
 
     private fun createEmissiveCube(block: Block) {

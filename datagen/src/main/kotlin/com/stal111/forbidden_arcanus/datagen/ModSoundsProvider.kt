@@ -9,7 +9,6 @@ import net.valhelsia.dataforge.DataProviderContext
 class ModSoundsProvider(context: DataProviderContext) : SoundDefinitionsProvider(
     context.packOutput,
     ForbiddenArcanus.MOD_ID,
-    context.fileHelper
 ) {
     override fun registerSounds() {
         this.add(

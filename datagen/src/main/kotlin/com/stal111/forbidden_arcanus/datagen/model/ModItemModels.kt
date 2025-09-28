@@ -1,23 +1,18 @@
 package com.stal111.forbidden_arcanus.datagen.model
 
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.quantumCatcher
-import net.minecraft.core.Holder
+import net.minecraft.client.data.models.ItemModelGenerators
+import net.minecraft.client.data.models.model.*
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.data.models.ItemModelGenerators
-import net.minecraft.data.models.model.ModelLocationUtils
-import net.minecraft.data.models.model.ModelTemplate
-import net.minecraft.data.models.model.ModelTemplates
-import net.minecraft.data.models.model.TextureMapping
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.valhelsia.dataforge.model.ItemModelGenerator
+import net.valhelsia.dataforge.model.createModel
 import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryEntry
 
-class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator(defaultGenerators) {
+class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(generators) {
     override fun generate() {
         this.generateFlatItem(ModItems.EDELWOOD_BUCKET)
         this.generateFlatItem(ModItems.EDELWOOD_WATER_BUCKET)
@@ -60,6 +55,7 @@ class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator
         this.generateFlatItem(ModItems.BOOM_ARROW)
         this.generateFlatItem(ModItems.DRACO_ARCANUS_ARROW)
         this.generateFlatItem(ModItems.EDELWOOD_OIL)
+        this.generateFlatItem(ModItems.OMEGA_ARCOIN)
 //        this.generateFlatItem(ModItems.AURUM_BOAT)
 //        this.generateFlatItem(ModItems.AURUM_CHEST_BOAT)
 //        this.generateFlatItem(ModItems.EDELWOOD_BOAT)
@@ -109,21 +105,14 @@ class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator
         this.generateFlatItem(ModItems.AUREAL_WARDSTONE)
         this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal")
 
-        ModModelTemplates.QUANTUM_CATCHER.create(
-            ModelLocationUtils.getModelLocation(ModItems.QUANTUM_CATCHER.get()),
-            quantumCatcher(""),
-            this.output
-        )
+        generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
+        generators.declareCustomModelItem(ModItems.SOUL_EXTRACTOR.get())
+
+        generateQuantumCatcher(ModItems.QUANTUM_CATCHER)
+        generateQuantumCatcher(ModItems.BOSS_CATCHER, "boss_catcher")
         ModItems.DYED_QUANTUM_CATCHERS.forEach { (color, registryEntry) ->
-            ModModelTemplates.QUANTUM_CATCHER.create(
-                ModelLocationUtils.getModelLocation(registryEntry.get()), quantumCatcher("/$color"), this.output
-            )
+            generateQuantumCatcher(registryEntry, color.serializedName)
         }
-        ModModelTemplates.QUANTUM_CATCHER.create(
-            ModelLocationUtils.getModelLocation(ModItems.BOSS_CATCHER.get()),
-            quantumCatcher("/boss_catcher"),
-            this.output
-        )
 
         val aurealTank0 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_0", ModelTemplates.FLAT_ITEM)
         val aurealTank1 = this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_1", ModelTemplates.FLAT_ITEM)
@@ -140,54 +129,56 @@ class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator
         val aurealTankMax3 =
             this.generateFlatItem("aureal_tank", ModItems.AUREAL_TANK, "_max_3", ModelTemplates.FLAT_ITEM)
 
-        this.generateWithOverrides(
-            "aureal_tank", ModItems.AUREAL_TANK,
-            ModItemModels.ModelPredicate(
-                aurealTank0,
-                ModelProperty.of("amount", 0.25f),
-                ModelProperty.of("max", 0.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTank1,
-                ModelProperty.of("amount", 0.5f),
-                ModelProperty.of("max", 0.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTank2,
-                ModelProperty.Companion.of("amount", 0.75f),
-                ModelProperty.Companion.of("max", 0.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTank3,
-                ModelProperty.Companion.of("amount", 1.0f),
-                ModelProperty.Companion.of("max", 0.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTankMax,
-                ModelProperty.Companion.of("amount", 0.0f),
-                ModelProperty.Companion.of("max", 1.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTankMax0,
-                ModelProperty.Companion.of("amount", 0.25f),
-                ModelProperty.Companion.of("max", 1.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTankMax1,
-                ModelProperty.Companion.of("amount", 0.5f),
-                ModelProperty.Companion.of("max", 1.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTankMax2,
-                ModelProperty.Companion.of("amount", 0.75f),
-                ModelProperty.Companion.of("max", 1.0f)
-            ),
-            ModItemModels.ModelPredicate(
-                aurealTankMax3,
-                ModelProperty.Companion.of("amount", 1.0f),
-                ModelProperty.Companion.of("max", 1.0f)
-            )
-        )
+        output.accept(ModItems.AUREAL_TANK.get(), ItemModelUtils.plainModel(aurealTank0))
+
+//        this.generateWithOverrides(
+//            "aureal_tank", ModItems.AUREAL_TANK,
+//            ModItemModels.ModelPredicate(
+//                aurealTank0,
+//                ModelProperty.of("amount", 0.25f),
+//                ModelProperty.of("max", 0.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTank1,
+//                ModelProperty.of("amount", 0.5f),
+//                ModelProperty.of("max", 0.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTank2,
+//                ModelProperty.Companion.of("amount", 0.75f),
+//                ModelProperty.Companion.of("max", 0.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTank3,
+//                ModelProperty.Companion.of("amount", 1.0f),
+//                ModelProperty.Companion.of("max", 0.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTankMax,
+//                ModelProperty.Companion.of("amount", 0.0f),
+//                ModelProperty.Companion.of("max", 1.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTankMax0,
+//                ModelProperty.Companion.of("amount", 0.25f),
+//                ModelProperty.Companion.of("max", 1.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTankMax1,
+//                ModelProperty.Companion.of("amount", 0.5f),
+//                ModelProperty.Companion.of("max", 1.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTankMax2,
+//                ModelProperty.Companion.of("amount", 0.75f),
+//                ModelProperty.Companion.of("max", 1.0f)
+//            ),
+//            ModItemModels.ModelPredicate(
+//                aurealTankMax3,
+//                ModelProperty.Companion.of("amount", 1.0f),
+//                ModelProperty.Companion.of("max", 1.0f)
+//            )
+//        )
 
         this.generateFlatItem(ModItems.TEST_TUBE)
 
@@ -204,39 +195,36 @@ class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator
         val bloodTestTube5 =
             this.generateFlatItem("blood_test_tube", ModItems.BLOOD_TEST_TUBE, "_5", ModelTemplates.FLAT_ITEM)
 
-        this.generateWithOverrides(
-            "blood_test_tube", ModItems.BLOOD_TEST_TUBE,
-            ModItemModels.ModelPredicate(bloodTestTube0, ModelProperty.Companion.of("amount", 0.1f)),
-            ModItemModels.ModelPredicate(bloodTestTube1, ModelProperty.Companion.of("amount", 0.25f)),
-            ModItemModels.ModelPredicate(bloodTestTube2, ModelProperty.Companion.of("amount", 0.5f)),
-            ModItemModels.ModelPredicate(bloodTestTube3, ModelProperty.Companion.of("amount", 0.75f)),
-            ModItemModels.ModelPredicate(bloodTestTube4, ModelProperty.Companion.of("amount", 0.9f)),
-            ModItemModels.ModelPredicate(bloodTestTube5, ModelProperty.Companion.of("amount", 1.0f))
-        )
+//        this.generateWithOverrides(
+//            "blood_test_tube", ModItems.BLOOD_TEST_TUBE,
+//            ModItemModels.ModelPredicate(bloodTestTube0, ModelProperty.Companion.of("amount", 0.1f)),
+//            ModItemModels.ModelPredicate(bloodTestTube1, ModelProperty.Companion.of("amount", 0.25f)),
+//            ModItemModels.ModelPredicate(bloodTestTube2, ModelProperty.Companion.of("amount", 0.5f)),
+//            ModItemModels.ModelPredicate(bloodTestTube3, ModelProperty.Companion.of("amount", 0.75f)),
+//            ModItemModels.ModelPredicate(bloodTestTube4, ModelProperty.Companion.of("amount", 0.9f)),
+//            ModItemModels.ModelPredicate(bloodTestTube5, ModelProperty.Companion.of("amount", 1.0f))
+//        )
+
+        output.accept(ModItems.BLOOD_TEST_TUBE.get(), ItemModelUtils.plainModel(bloodTestTube0))
     }
 
     private fun generateFlatItem(
         folder: String,
         item: ItemRegistryEntry<out Item>,
         template: ModelTemplate
-    ): ResourceLocation? {
-        return template.create(
-            ModelLocationUtils.getModelLocation(item.get()),
-            TextureMapping.layer0(getItemTexture(item.get(), folder, "")),
-            this.output
+    ) = output.accept(
+        item.get(), ItemModelUtils.plainModel(
+            template.createModel(
+                ModelLocationUtils.getModelLocation(item.get()),
+                TextureMapping.layer0(getItemTexture(item.get(), folder, "")),
+            )
         )
-    }
+    )
 
     private fun generateFlatItem(
         item: ItemRegistryEntry<out Item?>,
         template: ModelTemplate = ModelTemplates.FLAT_ITEM
-    ): ResourceLocation? {
-        return template.create(
-            ModelLocationUtils.getModelLocation(item.get()),
-            TextureMapping.layer0(item.get()),
-            this.output
-        )
-    }
+    ) = generators.generateFlatItem(item.get(), template)
 
     private fun generateFlatItem(
         folder: String,
@@ -244,10 +232,9 @@ class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator
         modelSuffix: String,
         template: ModelTemplate
     ): ResourceLocation {
-        return template.create(
+        return template.createModel(
             ModLocationUtils.getItem(folder, item, modelSuffix),
             TextureMapping.layer0(getItemTexture(item.get(), folder, modelSuffix)),
-            this.output
         )
     }
 
@@ -256,10 +243,10 @@ class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator
         modelSuffix: String,
         template: ModelTemplate
     ): ResourceLocation {
-        return template.create(
+        return template.createModel(
             ModelLocationUtils.getModelLocation(item.get(), modelSuffix), TextureMapping.layer0(
                 TextureMapping.getItemTexture(item.get(), modelSuffix)
-            ), this.output
+            )
         )
     }
 
@@ -267,59 +254,26 @@ class ModItemModels(defaultGenerators: ItemModelGenerators) : ItemModelGenerator
         item: ItemRegistryEntry<out Item>,
         wand: String,
         pommel: String
-    ): ResourceLocation {
-        return ModModelTemplates.FLAT_HANDHELD_WAND.create(
+    ) {
+        val model = ModModelTemplates.FLAT_HANDHELD_WAND.createModel(
             ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layered(
                 ForbiddenArcanus.location("item/wand/$wand"), ForbiddenArcanus.location("item/wand/pommel/$pommel")
-            ), this.output
+            )
         )
+
+        output.accept(item.get(), ItemModelUtils.plainModel(model))
     }
 
-    private fun generateWithOverrides(folder: String, item: Holder<Item>, vararg predicates: ModelPredicate) {
-        ModelTemplates.FLAT_ITEM.create(
-            ModLocationUtils.getItem(item),
-            TextureMapping.layer0(getItemTexture(item.value(), folder, "")),
-            this.output
-        ) { modelLocation, map ->
-            val jsonObject = ModelTemplates.TWO_LAYERED_ITEM.createBaseTemplate(modelLocation, map)
-            val jsonArray = JsonArray()
+    private fun generateQuantumCatcher(
+        item: ItemRegistryEntry<out Item>,
+        color: String? = null,
+    ) {
+        val model = ModModelTemplates.QUANTUM_CATCHER.createModel(
+            ModelLocationUtils.getModelLocation(item.get()),
+            quantumCatcher(if (color != null) "/$color" else ""),
+        )
 
-            for (predicate in predicates) {
-                predicate.serialize(jsonArray)
-            }
-
-            jsonObject.add("overrides", jsonArray)
-            jsonObject
-        }
-    }
-
-    class ModelPredicate(val modelLocation: ResourceLocation, vararg val properties: ModelProperty) {
-        fun serialize(jsonArray: JsonArray) {
-            val entry = JsonObject()
-            val predicate = JsonObject()
-
-            for (property in properties) {
-                property.serialize(predicate)
-            }
-
-            entry.add("predicate", predicate)
-            entry.addProperty("model", this.modelLocation.toString())
-
-            jsonArray.add(entry)
-        }
-    }
-
-    @JvmRecord
-    data class ModelProperty(val name: ResourceLocation, val value: Float) {
-        fun serialize(jsonObject: JsonObject) {
-            jsonObject.addProperty(this.name.toString(), this.value)
-        }
-
-        companion object {
-            fun of(name: String, value: Float): ModelProperty {
-                return ModelProperty(ForbiddenArcanus.location(name), value)
-            }
-        }
+        output.accept(item.get(), ItemModelUtils.plainModel(model))
     }
 
     companion object {
