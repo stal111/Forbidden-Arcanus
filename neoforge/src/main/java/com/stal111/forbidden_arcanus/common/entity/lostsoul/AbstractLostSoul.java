@@ -147,7 +147,7 @@ public abstract class AbstractLostSoul extends PathfinderMob {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float multiplier, DamageSource source) {
         return false;
     }
 
@@ -185,7 +185,7 @@ public abstract class AbstractLostSoul extends PathfinderMob {
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.entityData.set(DATA_SCARED, tag.getBoolean("Scared"));
+        this.entityData.set(DATA_SCARED, tag.getBooleanOr("Scared", false));
     }
 
     public boolean isScared() {

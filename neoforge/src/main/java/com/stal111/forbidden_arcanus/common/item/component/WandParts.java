@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.wand.WandPart;
 import com.stal111.forbidden_arcanus.common.item.wand.WandStats;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
@@ -32,8 +33,8 @@ public record WandParts(
     }
 
     @Override
-    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
-//        WandStats combinedStats = this.getCombinedStats();
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
+        //        WandStats combinedStats = this.getCombinedStats();
 //
 //        tooltipAdder.accept(Component.literal("Tip: ").append(this.tip.materialName()).withStyle(ChatFormatting.GRAY));
 //        tooltipAdder.accept(Component.literal("Transition: ").append(this.transition.materialName()).withStyle(ChatFormatting.GRAY));

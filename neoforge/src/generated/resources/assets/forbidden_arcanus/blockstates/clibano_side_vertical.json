@@ -86,23 +86,19 @@
     },
     "facing=south,mirrored=true,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_enchanted_fire",
-      "x": 180,
-      "y": 0
+      "x": 180
     },
     "facing=south,mirrored=true,type=fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_fire",
-      "x": 180,
-      "y": 0
+      "x": 180
     },
     "facing=south,mirrored=true,type=off": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_off",
-      "x": 180,
-      "y": 0
+      "x": 180
     },
     "facing=south,mirrored=true,type=soul_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_soul_fire",
-      "x": 180,
-      "y": 0
+      "x": 180
     },
     "facing=west,mirrored=false,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_enchanted_fire",

@@ -11,8 +11,9 @@ import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author stal111
@@ -31,10 +32,11 @@ public class AurealTankItem extends Item {
         super(properties);
     }
 
+
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
         EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
-            components.add(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", storage.limit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
+            tooltipAdder.accept(Component.translatable("tooltip.forbidden_arcanus.aureal_tank.tier", storage.limit() / DEFAULT_CAPACITY).withStyle(ChatFormatting.GRAY));
         });
     }
 

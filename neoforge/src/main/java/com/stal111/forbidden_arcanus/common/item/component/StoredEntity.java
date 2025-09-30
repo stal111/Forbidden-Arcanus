@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -60,7 +61,7 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
     public static final StreamCodec<ByteBuf, StoredEntity> STREAM_CODEC = CustomData.STREAM_CODEC.map(StoredEntity::new, StoredEntity::data);
 
     private static final MapCodec<EntityType<?>> ENTITY_TYPE_FIELD_CODEC = BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("id");
-    private static final MapCodec<Component> DISPLAY_NAME_FIELD_CODEC = ComponentSerialization.FLAT_CODEC.fieldOf("CustomName");
+    private static final MapCodec<Component> DISPLAY_NAME_FIELD_CODEC = ComponentSerialization.CODEC.fieldOf("CustomName");
 
     private static final String STORED_ENTITY_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.location("stored_entity"));
     private static final String STORED_ENTITY_WITH_NAME_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.location("stored_entity.with_name"));
@@ -90,8 +91,9 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
         return this.data.read(DISPLAY_NAME_FIELD_CODEC).result();
     }
 
+
     @Override
-    public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag) {
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
         this.getEntityType().map(type -> Component.translatable(type.getDescriptionId())).ifPresent(type -> {
             MutableComponent component = this.getDisplayName()
                     .map(name -> Component.translatable(STORED_ENTITY_WITH_NAME_KEY, type, name))
@@ -99,7 +101,7 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
 
             component.withStyle(ChatFormatting.GRAY);
 
-            consumer.accept(component);
+            tooltipAdder.accept(component);
         });
     }
 }

@@ -9,7 +9,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -130,20 +129,21 @@ public class PedestalBlock extends Block implements SimpleWaterloggedBlock, Enti
         return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (newState.getBlock() instanceof PedestalBlock) {
-            return;
-        }
-
-        if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity && blockEntity.hasStack()) {
-            level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, blockEntity.getStack()));
-
-            blockEntity.setStack(ItemStack.EMPTY, null, PedestalEffectTrigger.PLAYER_REMOVE_ITEM);
-        }
-
-        super.onRemove(state, level, pos, newState, isMoving);
-    }
+    //TODO
+//    @Override
+//    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+//        if (newState.getBlock() instanceof PedestalBlock) {
+//            return;
+//        }
+//
+//        if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity && blockEntity.hasStack()) {
+//            level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, blockEntity.getStack()));
+//
+//            blockEntity.setStack(ItemStack.EMPTY, null, PedestalEffectTrigger.PLAYER_REMOVE_ITEM);
+//        }
+//
+//        super.onRemove(state, level, pos, newState, isMoving);
+//    }
 
     @Nullable
     @Override

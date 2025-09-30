@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.client.gui.overlay;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -40,13 +38,14 @@ public class WandIndicatorLayer implements LayeredDraw.Layer {
 
         int progressWidth = (int)(progressRatio * 17.0F);
 
-        RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        //TODO
+//        RenderSystem.enableBlend();
+//        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
         guiGraphics.blitSprite(RenderType::guiTextured, CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE, indicatorXPosition, indicatorYPosition, 16, 4);
 
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.disableBlend();
+//        RenderSystem.defaultBlendFunc();
+//        RenderSystem.disableBlend();
 
         guiGraphics.blitSprite(RenderType::guiTextured, CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, indicatorXPosition, indicatorYPosition, progressWidth, 4);
     }

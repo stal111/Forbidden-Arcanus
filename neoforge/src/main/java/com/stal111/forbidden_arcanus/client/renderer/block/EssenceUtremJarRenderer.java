@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * @author stal111
@@ -37,7 +37,7 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
     }
 
     @Override
-    public void render(@NotNull EssenceUtremJarBlockEntity blockEntity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(EssenceUtremJarBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         if (blockEntity.getAmount() > 0) {
             EssenceType type = blockEntity.getBlockState().getValue(ModBlockStateProperties.ESSENCE_TYPE);
 

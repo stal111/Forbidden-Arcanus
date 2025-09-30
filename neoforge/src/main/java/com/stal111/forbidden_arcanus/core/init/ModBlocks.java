@@ -119,8 +119,8 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<GrowingEdelwoodBlock> GROWING_EDELWOOD = HELPER.register("growing_edelwood", GrowingEdelwoodBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_SAPLING)).withItem().renderType(ValhelsiaRenderType.CUTOUT);
     public static final BlockRegistryEntry<HugeMushroomBlock> FUNGYSS_BLOCK = HELPER.register("fungyss_block", HugeMushroomBlock::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(0.2F).sound(SoundType.WOOD)).withItem();
 
-    public static final BlockRegistryEntry<LeavesBlock> AURUM_LEAVES = HELPER.register("aurum_leaves", LeavesBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_LEAVES)).withItem().renderType(ValhelsiaRenderType.CUTOUT_MIPPED);
-    public static final BlockRegistryEntry<LeavesBlock> NUGGETY_AURUM_LEAVES = HELPER.register("nuggety_aurum_leaves", LeavesBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_LEAVES)).withItem().renderType(ValhelsiaRenderType.CUTOUT_MIPPED);
+    public static final BlockRegistryEntry<TintedParticleLeavesBlock> AURUM_LEAVES = HELPER.register("aurum_leaves", properties -> new TintedParticleLeavesBlock(0.0F, properties), () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_LEAVES)).withItem().renderType(ValhelsiaRenderType.CUTOUT_MIPPED);
+    public static final BlockRegistryEntry<TintedParticleLeavesBlock> NUGGETY_AURUM_LEAVES = HELPER.register("nuggety_aurum_leaves", properties -> new TintedParticleLeavesBlock(0.0F, properties), () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_LEAVES)).withItem().renderType(ValhelsiaRenderType.CUTOUT_MIPPED);
 
     public static final BlockRegistryEntry<RotatedPillarBlock> FUNGYSS_STEM = HELPER.register("fungyss_stem", RotatedPillarBlock::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).strength(2.0F).sound(SoundType.STEM)).withItem();
     public static final BlockRegistryEntry<MysterywoodLogBlock> AURUM_LOG = HELPER.register("aurum_log", MysterywoodLogBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.OAK_LOG)).withItem();

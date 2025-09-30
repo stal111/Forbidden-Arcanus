@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier.DisplaySe
 import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.Util
 import net.minecraft.advancements.critereon.ItemPredicate
-import net.minecraft.advancements.critereon.ItemSubPredicate
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.HolderSet
 import net.minecraft.core.component.DataComponentType
@@ -22,13 +21,7 @@ import net.minecraft.tags.TagKey
 import net.minecraft.util.ARGB
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.enchantment.Enchantment
-import net.neoforged.neoforge.common.ItemAbilities
-import net.neoforged.neoforge.common.advancements.critereon.ItemAbilityPredicate
 import net.valhelsia.dataforge.RegistryDataProvider
-import net.valhelsia.valhelsia_core.api.common.item.predicate.ItemAllOfPredicate
-import net.valhelsia.valhelsia_core.api.common.item.predicate.ItemAnyOfPredicate
-import net.valhelsia.valhelsia_core.api.common.item.predicate.ItemHasComponentPredicate
-import net.valhelsia.valhelsia_core.core.registry.ValhelsiaItemSubPredicates
 
 object ModItemModifiers : RegistryDataProvider<ItemModifier> {
     private var context: BootstrapContext<ItemModifier>? = null
@@ -41,28 +34,32 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
         this.itemsGetter = context.lookup<Item>(Registries.ITEM)
         this.enchantmentGetter = context.lookup<Enchantment>(Registries.ENCHANTMENT)
 
-        val eternalPredicate = ItemPredicate.Builder.item().withSubPredicate(
-            ValhelsiaItemSubPredicates.ALL_OF.get(), ItemAllOfPredicate(
-                mapOf<ItemSubPredicate.Type<*>, List<ItemSubPredicate>>(
-                    ValhelsiaItemSubPredicates.HAS_COMPONENT.get() to listOf(
-                        ItemHasComponentPredicate(DataComponents.MAX_DAMAGE),
-                        ItemHasComponentPredicate(DataComponents.DAMAGE)
-                    )
-                )
-            )
-        ).build()
-        val isToolPredicate = ItemPredicate.Builder.item().withSubPredicate<ItemAnyOfPredicate>(
-            ValhelsiaItemSubPredicates.ANY_OF.get(), ItemAnyOfPredicate(
-                mapOf<ItemSubPredicate.Type<*>, List<ItemSubPredicate>>(
-                    ItemAbilityPredicate.TYPE to listOf(
-                        ItemAbilityPredicate(ItemAbilities.PICKAXE_DIG),
-                        ItemAbilityPredicate(ItemAbilities.AXE_DIG),
-                        ItemAbilityPredicate(ItemAbilities.SHOVEL_DIG),
-                        ItemAbilityPredicate(ItemAbilities.HOE_DIG)
-                    )
-                )
-            )
-        ).build()
+        //TODO
+        val eternalPredicate = ItemPredicate.Builder.item().build()
+//        val eternalPredicate = ItemPredicate.Builder.item().withSubPredicate(
+//            ValhelsiaItemSubPredicates.ALL_OF.get(), ItemAllOfPredicate(
+//                mapOf<ItemSubPredicate.Type<*>, List<ItemSubPredicate>>(
+//                    ValhelsiaItemSubPredicates.HAS_COMPONENT.get() to listOf(
+//                        ItemHasComponentPredicate(DataComponents.MAX_DAMAGE),
+//                        ItemHasComponentPredicate(DataComponents.DAMAGE)
+//                    )
+//                )
+//            )
+//        ).build()
+
+        val isToolPredicate = ItemPredicate.Builder.item().build()
+//        val isToolPredicate = ItemPredicate.Builder.item().withSubPredicate<ItemAnyOfPredicate>(
+//            ValhelsiaItemSubPredicates.ANY_OF.get(), ItemAnyOfPredicate(
+//                mapOf<ItemSubPredicate.Type<*>, List<ItemSubPredicate>>(
+//                    ItemAbilityPredicate.TYPE to listOf(
+//                        ItemAbilityPredicate(ItemAbilities.PICKAXE_DIG),
+//                        ItemAbilityPredicate(ItemAbilities.AXE_DIG),
+//                        ItemAbilityPredicate(ItemAbilities.SHOVEL_DIG),
+//                        ItemAbilityPredicate(ItemAbilities.HOE_DIG)
+//                    )
+//                )
+//            )
+//        ).build()
         val magnetizedPredicate = ItemPredicate.Builder.item().of(itemsGetter!!, ItemTags.FOOT_ARMOR).build()
         val aquaticPredicate = ItemPredicate.Builder.item().of(itemsGetter!!, ItemTags.HEAD_ARMOR).build()
         val soulBoundPredicate =

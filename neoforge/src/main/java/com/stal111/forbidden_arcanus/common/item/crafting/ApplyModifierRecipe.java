@@ -43,8 +43,8 @@ public record ApplyModifierRecipe(Optional<Ingredient> template,
     }
 
     @Override
-    public @NotNull Optional<Ingredient> baseIngredient() {
-        return Optional.empty();
+    public Ingredient baseIngredient() {
+        return Ingredient.of();
     }
 
     @Override

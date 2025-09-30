@@ -9,29 +9,26 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesD
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
-import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
-import net.valhelsia.valhelsia_core.api.common.block.entity.neoforge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +41,7 @@ import java.util.*;
  * @author stal111
  * @since 2021-06-18
  */
-public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<HephaestusForgeBlockEntity> implements EssencesContainer {
+public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssencesContainer {
 
     public static final int MAIN_SLOT = 4;
 
@@ -73,13 +70,15 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state, 9, (slot, stack) -> {
-            //TODO
-//            if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-//                return EnhancerHelper.getEnhancer(level.registryAccess(), stack).isPresent();
-//            }
-            return true;
-        });
+        super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state
+//                , 9, (slot, stack) -> {
+//            //TODO
+////            if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
+////                return EnhancerHelper.getEnhancer(level.registryAccess(), stack).isPresent();
+////            }
+//            return true;
+//        }
+        );
         this.hephaestusForgeData = new ContainerData() {
             @Override
             public int get(int index) {
@@ -142,7 +141,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         for (EssenceType type : EssenceType.values()) {
             int slot = SLOT_FROM_ESSENCE_TYPE_MAP.get(type);
-            ItemStack stack = blockEntity.getStack(slot);
+            ItemStack stack = blockEntity.getItem(slot);
 
             if (stack.isEmpty()) {
                 continue;
@@ -165,7 +164,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         }
 
         blockEntity.ritualManager.tick().ifPresent(stack -> {
-            blockEntity.setStack(MAIN_SLOT, stack);
+            blockEntity.setItem(MAIN_SLOT, stack);
         });
     }
 
@@ -188,30 +187,31 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         return super.triggerEvent(id, value);
     }
 
-    @Override
-    protected void onSlotChanged(int slot) {
-        if (this.level == null) {
-            return;
-        }
-
-        if (slot == MAIN_SLOT) {
-            this.dataCache = this.dataCache.setMainIngredient(this.getStack(MAIN_SLOT));
-
-            this.onDataChanged(this.level.registryAccess());
-
-            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
-        } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-            List<Holder<EnhancerDefinition>> enhancers = HephaestusForgeMenu.ENHANCERS_SLOTS
-                    .intStream()
-                    .mapToObj(s -> EnhancerHelper.getEnhancerHolder(this.level.registryAccess(), this.getStack(s)).orElse(null))
-                    .filter(Objects::nonNull)
-                    .toList();
-
-            this.dataCache = this.dataCache.setEnhancers(enhancers);
-
-            this.onDataChanged(this.level.registryAccess());
-        }
-    }
+    //TODO
+//    @Override
+//    protected void onSlotChanged(int slot) {
+//        if (this.level == null) {
+//            return;
+//        }
+//
+//        if (slot == MAIN_SLOT) {
+//            this.dataCache = this.dataCache.setMainIngredient(this.getStack(MAIN_SLOT));
+//
+//            this.onDataChanged(this.level.registryAccess());
+//
+//            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
+//        } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
+//            List<Holder<EnhancerDefinition>> enhancers = HephaestusForgeMenu.ENHANCERS_SLOTS
+//                    .intStream()
+//                    .mapToObj(s -> EnhancerHelper.getEnhancerHolder(this.level.registryAccess(), this.getStack(s)).orElse(null))
+//                    .filter(Objects::nonNull)
+//                    .toList();
+//
+//            this.dataCache = this.dataCache.setEnhancers(enhancers);
+//
+//            this.onDataChanged(this.level.registryAccess());
+//        }
+//    }
 
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
         this.dataCache.setIngredient(pos, stack);
@@ -266,7 +266,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
         this.getEssenceManager().increaseEssence(essenceType, value);
 
-        this.setStack(slot, input.finishInput(stack, value));
+        this.setItem(slot, input.finishInput(stack, value));
     }
 
     public RitualManager getRitualManager() {
@@ -289,7 +289,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
         super.saveAdditional(tag, lookupProvider);
 
-        this.saveInventory(tag, lookupProvider);
+        //TODO
+//        this.saveInventory(tag, lookupProvider);
 
         this.getRitualManager().save(tag, lookupProvider);
         this.getEssenceManager().save(tag);
@@ -301,12 +302,12 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
         super.loadAdditional(tag, lookupProvider);
 
-        this.loadInventory(tag, lookupProvider);
+//        this.loadInventory(tag, lookupProvider);
 
         this.getRitualManager().load(tag, lookupProvider);
         this.getEssenceManager().load(tag);
 
-        if (tag.contains("data_cache", 10)) {
+        if (tag.contains("data_cache")) {
             ForgeDataCache.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag.get("data_cache")).result().ifPresent(forgeDataCache -> this.dataCache = forgeDataCache);
 
             this.onDataChanged(lookupProvider);
@@ -324,9 +325,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
         CompoundTag tag = this.saveWithoutMetadata(lookupProvider);
         tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
 
-        if (!this.getStack(MAIN_SLOT).isEmpty()) {
-            tag.put("main_item", this.getStack(MAIN_SLOT).save(lookupProvider));
-        }
+        tag.store("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.getItem(MAIN_SLOT));
 
         return tag;
     }
@@ -335,8 +334,9 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
         super.handleUpdateTag(tag, lookupProvider);
 
-        this.updateValidRitualIndicator(tag.getBoolean("display_valid_ritual_indicator"));
-        this.clientMainItem = tag.contains("main_item", 10) ? ItemStack.parseOptional(lookupProvider, tag.getCompound("main_item")) : ItemStack.EMPTY;
+        this.updateValidRitualIndicator(tag.getBooleanOr("display_valid_ritual_indicator", false));
+
+        tag.read("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE)).ifPresent(stack -> this.clientMainItem = stack);
     }
 
     @Override
@@ -351,9 +351,25 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
-        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext, this.forgeLevel);
+    protected NonNullList<ItemStack> getItems() {
+        return null;
     }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+        return null;
+    }
+
+    //TODO
+//    @Override
+//    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
+//        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext, this.forgeLevel);
+//    }
 
     @Override
     public void setEssencesLimit(EssencesDefinition definition) {
@@ -372,5 +388,10 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     private void onDataChanged(HolderLookup.Provider lookupProvider) {
         this.ritualManager.onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences(), lookupProvider);
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 0;
     }
 }

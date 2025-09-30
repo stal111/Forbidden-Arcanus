@@ -45,8 +45,7 @@
     },
     "facing=south,half=top,open=true": {
       "model": "forbidden_arcanus:block/edelwood_trapdoor_open",
-      "x": 180,
-      "y": 0
+      "x": 180
     },
     "facing=west,half=bottom,open=false": {
       "model": "forbidden_arcanus:block/edelwood_trapdoor_bottom",

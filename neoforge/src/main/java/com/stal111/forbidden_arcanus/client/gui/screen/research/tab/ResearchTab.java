@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.research.tab;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.KnowledgeWidget;
 import com.stal111.forbidden_arcanus.common.research.Knowledge;
@@ -59,8 +58,9 @@ public class ResearchTab extends AbstractTab {
         int i = Mth.floor(this.scrollX);
         int j = Mth.floor(this.scrollY);
 
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
+        //TODO
+//        RenderSystem.enableBlend();
+//        RenderSystem.defaultBlendFunc();
 
         guiGraphics.blit(RenderType::guiTextured, BACKGROUND, 0, 0, -i * 0.9F, -j * 0.9F, this.getWidth(), this.getHeight(), 512, 512);
 
@@ -69,7 +69,7 @@ public class ResearchTab extends AbstractTab {
 
         guiGraphics.blit(RenderType::guiTextured, BACKGROUND_STARS, 0, 0, -i * 1.35F, -j * 1.35F, this.getWidth(), this.getHeight(), 512, 512);
 
-        RenderSystem.disableBlend();
+//        RenderSystem.disableBlend();
 
         for (KnowledgeWidget widget : this.knowledgeWidgets) {
             widget.render(guiGraphics, mouseX, mouseY, partialTick);

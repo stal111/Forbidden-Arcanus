@@ -5,12 +5,11 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -42,17 +41,19 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (slotId != 39 || !(entity instanceof Player player)) {
-            return;
-        }
-
-        if (!player.isOnFire()) {
-            return;
-        }
-
-        this.getType(stack).tick(stack, player);
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @org.jetbrains.annotations.Nullable EquipmentSlot slot) {
+        //TODO
+//        if (slotId != 39 || !(entity instanceof Player player)) {
+//            return;
+//        }
+//
+//        if (!player.isOnFire()) {
+//            return;
+//        }
+//
+//        this.getType(stack).tick(stack, player);
     }
+
 
     public ObsidianSkullType getType(ItemStack stack) {
         return stack.getOrDefault(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.DEFAULT);

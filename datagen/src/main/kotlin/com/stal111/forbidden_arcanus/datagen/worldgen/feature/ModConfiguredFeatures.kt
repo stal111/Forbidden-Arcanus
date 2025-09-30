@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.core.init.world.ModFeatures
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.data.worldgen.placement.PlacementUtils
 import net.minecraft.tags.BlockTags
-import net.minecraft.util.random.SimpleWeightedRandomList
+import net.minecraft.util.random.WeightedList
 import net.minecraft.util.valueproviders.ConstantInt
 import net.minecraft.world.level.block.HugeMushroomBlock
 import net.minecraft.world.level.block.state.BlockState
@@ -89,7 +89,7 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
                     BlockStateProvider.simple(ModBlocks.AURUM_LOG.get()),
                     FancyTrunkPlacer(3, 11, 0),
                     WeightedStateProvider(
-                        weightedBlockStateBuilder().add(MYSTERYWOOD_LEAVES.get(), 4)
+                        WeightedList.builder<BlockState>().add(MYSTERYWOOD_LEAVES.get(), 4)
                             .add(NUGGETY_MYSTERYWOOD_LEAVES.get(), 1)
                     ),
                     FancyFoliagePlacer(
@@ -182,8 +182,4 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
     }
     private val FUNGYSS_STEM = Supplier { ModBlocks.FUNGYSS_STEM.get().defaultBlockState() }
     private val FUNGYSS_HYPHAE = Supplier { ModBlocks.FUNGYSS_HYPHAE.get().defaultBlockState() }
-
-    private fun weightedBlockStateBuilder(): SimpleWeightedRandomList.Builder<BlockState?> {
-        return SimpleWeightedRandomList.builder<BlockState?>()
-    }
 }

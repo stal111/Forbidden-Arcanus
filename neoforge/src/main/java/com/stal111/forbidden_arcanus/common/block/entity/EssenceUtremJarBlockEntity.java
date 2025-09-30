@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -87,15 +88,15 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
         super.loadAdditional(tag, lookupProvider);
 
-        this.amount = tag.getInt(TAG_AMOUNT);
-        this.limit = tag.getInt(TAG_LIMIT);
+        this.amount = tag.getIntOr(TAG_AMOUNT, 0);
+        this.limit = tag.getIntOr(TAG_LIMIT, DEFAULT_LIMIT);
     }
 
     @Override
-    protected void applyImplicitComponents(@NotNull DataComponentInput input) {
-        super.applyImplicitComponents(input);
+    protected void applyImplicitComponents(DataComponentGetter componentGetter) {
+        super.applyImplicitComponents(componentGetter);
 
-        EssenceStorage storage = input.get(ModDataComponents.ESSENCE_STORAGE);
+        EssenceStorage storage = componentGetter.get(ModDataComponents.ESSENCE_STORAGE);
 
         if (storage != null) {
             this.amount = storage.value().amount();

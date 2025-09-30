@@ -15,14 +15,5 @@
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/eternal_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/eternal_incompatible",
-  "predicate": {
-    "predicates": {
-      "valhelsia_core:all_of": {
-        "valhelsia_core:has_component": [
-          "minecraft:max_damage",
-          "minecraft:damage"
-        ]
-      }
-    }
-  }
+  "predicate": {}
 }

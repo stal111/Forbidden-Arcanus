@@ -31,7 +31,7 @@ public class TooltipEvents {
 
         EssenceHelper.getEssenceStorage(stack).ifPresent(essenceStorage -> {
             if (essenceStorage.showInTooltip()) {
-                essenceStorage.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceStorage.value().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags());
+                essenceStorage.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceStorage.value().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags(), event.getItemStack().getComponents());
             }
         });
 

@@ -54,6 +54,11 @@ public class ArcaneDragonEggBlock extends FallingBlock {
     }
 
     @Override
+    public int getDustColor(BlockState state, BlockGetter level, BlockPos pos) {
+        return 0;
+    }
+
+    @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }

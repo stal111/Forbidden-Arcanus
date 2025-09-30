@@ -64,7 +64,7 @@ public class DracoArcanusArrow extends AbstractArrow {
         areaEffectCloud.setRadius(2.0F);
         areaEffectCloud.setDuration(400);
         areaEffectCloud.setRadiusPerTick((7.0F - areaEffectCloud.getRadius()) / (float) areaEffectCloud.getDuration());
-        areaEffectCloud.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 1));
+        areaEffectCloud.addEffect(new MobEffectInstance(MobEffects.INSTANT_DAMAGE, 1, 1));
 
         this.level().levelEvent(2006, this.blockPosition(), 0);
         this.level().addFreshEntity(areaEffectCloud);

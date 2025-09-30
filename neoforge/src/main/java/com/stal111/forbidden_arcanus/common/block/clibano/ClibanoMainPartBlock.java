@@ -5,14 +5,12 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBloc
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,22 +40,24 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
         return RenderShape.INVISIBLE;
     }
 
-    @Override
-    public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-        if (state.is(newState.getBlock())) {
-            return;
-        }
-
-        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(pos) instanceof ClibanoMainBlockEntity blockEntity) {
-            Containers.dropContents(level, pos, blockEntity.getStacks());
-
-            blockEntity.getRecipesToAwardAndPopExperience(serverLevel, Vec3.atCenterOf(pos));
-
-            super.onRemove(state, level, pos, newState, isMoving);
-        }
-
-        ClibanoMainPartBlock.dismantle(level, pos);
-    }
+    //TODO
+//
+//    @Override
+//    public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+//        if (state.is(newState.getBlock())) {
+//            return;
+//        }
+//
+//        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(pos) instanceof ClibanoMainBlockEntity blockEntity) {
+//            Containers.dropContents(level, pos, blockEntity.getStacks());
+//
+//            blockEntity.getRecipesToAwardAndPopExperience(serverLevel, Vec3.atCenterOf(pos));
+//
+//            super.onRemove(state, level, pos, newState, isMoving);
+//        }
+//
+//        ClibanoMainPartBlock.dismantle(level, pos);
+//    }
 
     public static void dismantle(Level level, BlockPos mainPos) {
         var positions = BlockPos.betweenClosed(mainPos.offset(-1, -1, -1), mainPos.offset(1, 1, 1));

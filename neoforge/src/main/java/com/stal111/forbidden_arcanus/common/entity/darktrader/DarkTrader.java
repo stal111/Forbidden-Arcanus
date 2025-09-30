@@ -8,7 +8,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.util.profiling.Profiler;
@@ -20,18 +19,17 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 /**
  * @author stal111
  * @since 2023-08-11
  */
-public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVariant>>, QuantumLightDoorAnimationProvider {
+public class DarkTrader extends Mob implements QuantumLightDoorAnimationProvider {
 
     private static final EntityDataAccessor<Holder<DarkTraderVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(DarkTrader.class, ModEntityDataSerializers.DARK_TRADER_VARIANT.get());
 
@@ -92,13 +90,11 @@ public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVa
         super.onSyncedDataUpdated(key);
     }
 
-    @Override
-    public @NotNull Holder<DarkTraderVariant> getVariant() {
+    private Holder<DarkTraderVariant> getVariant() {
         return this.entityData.get(DATA_VARIANT_ID);
     }
 
-    @Override
-    public void setVariant(@NotNull Holder<DarkTraderVariant> variant) {
+    public void setVariant(Holder<DarkTraderVariant> variant) {
         this.entityData.set(DATA_VARIANT_ID, variant);
     }
 
@@ -119,16 +115,14 @@ public class DarkTrader extends Mob implements VariantHolder<Holder<DarkTraderVa
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
-        tag.putString("variant", FARegistries.DARK_TRADER_VARIANT_REGISTRY.getKey(this.getVariant().value()).toString());
+        VariantUtils.writeVariant(tag, this.getVariant());
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
-        Optional.ofNullable(ResourceLocation.tryParse(tag.getString("variant")))
-                .flatMap(FARegistries.DARK_TRADER_VARIANT_REGISTRY::get)
-                .ifPresent(this::setVariant);
+        VariantUtils.readVariant(tag, this.registryAccess(), FARegistries.DARK_TRADER_VARIANT).ifPresent(this::setVariant);
     }
 
     @Override

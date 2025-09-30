@@ -11,6 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
@@ -78,11 +79,11 @@ public class UpwindBlock extends Block {
     }
 
     @Override
-    public void entityInside(@NotNull BlockState state, Level level, BlockPos pos, @NotNull Entity entity) {
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
         BlockState aboveState = level.getBlockState(pos.above());
 
         if (aboveState.isAir()) {
-            entity.onAboveBubbleCol(false);
+            entity.onAboveBubbleColumn(false, pos);
 
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 70));
@@ -91,6 +92,7 @@ public class UpwindBlock extends Block {
             entity.onInsideBubbleColumn(false);
         }
     }
+
     @Override
     public void animateTick(@NotNull BlockState state, Level level, BlockPos pos, RandomSource random) {
         double d0 = pos.getX();

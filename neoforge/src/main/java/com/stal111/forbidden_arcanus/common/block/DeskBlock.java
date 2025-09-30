@@ -32,7 +32,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author stal111
@@ -49,7 +49,7 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
     private static final VoxelShape TOP_SHAPE = Block.box(0.0D, 9.0D, 0.0D, 16.0D, 12.0D, 16.0D);
     private static final VoxelShape SHAPE = Shapes.or(BOTTOM_SHAPE, TOP_SHAPE);
 
-    private final Map<BlockState, VoxelShape> shapesCache;
+    private final Function<BlockState, VoxelShape> shapesCache;
 
     public DeskBlock(Properties properties) {
         super(properties);
@@ -68,7 +68,7 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return this.shapesCache.get(state);
+        return this.shapesCache.apply(state);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class EnergyBall extends Projectile {
     public EnergyBall(Level level, LivingEntity shooter, double accelX, double accelY, double accelZ) {
         super(ModEntities.ENERGY_BALL.get(), level);
         this.shootingEntity = shooter;
-        this.moveTo(shooter.getX(), shooter.getY(), shooter.getZ(), shooter.yRotO, shooter.xRotO);
+        this.snapTo(shooter.getX(), shooter.getY(), shooter.getZ(), shooter.yRotO, shooter.xRotO);
         this.setPos(this.getX(), this.getY(), this.getZ());
         this.setDeltaMovement(Vec3.ZERO);
 
@@ -128,27 +128,28 @@ public class EnergyBall extends Projectile {
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         Vec3 vec3 = this.getDeltaMovement();
-        tag.put("direction", this.newDoubleList(vec3.x, vec3.y, vec3.z));
-        tag.put("power", this.newDoubleList(this.accelerationX, this.accelerationY, this.accelerationZ));
+        //TODO
+//        tag.put("direction", this.newDoubleList(vec3.x, vec3.y, vec3.z));
+//        tag.put("power", this.newDoubleList(this.accelerationX, this.accelerationY, this.accelerationZ));
         tag.putInt("life", this.ticksAlive);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
-        if (tag.contains("power", 9)) {
-            ListTag list = tag.getList("power", 6);
+        if (tag.contains("power")) {
+            ListTag list = tag.getListOrEmpty("power");
 
             if (list.size() == 3) {
-                this.accelerationX = list.getDouble(0);
-                this.accelerationY = list.getDouble(1);
-                this.accelerationZ = list.getDouble(2);
+                this.accelerationX = list.getDoubleOr(0, 0);
+                this.accelerationY = list.getDoubleOr(1, 0);
+                this.accelerationZ = list.getDoubleOr(2, 0);
             }
         }
 
-        this.ticksAlive = tag.getInt("life");
-        if (tag.contains("direction", 9) && tag.getList("direction", 6).size() == 3) {
-            ListTag list = tag.getList("direction", 6);
-            this.setDeltaMovement(list.getDouble(0), list.getDouble(1), list.getDouble(2));
+        this.ticksAlive = tag.getIntOr("life", 0);
+        if (tag.contains("direction") && tag.getListOrEmpty("direction").size() == 3) {
+            ListTag list = tag.getListOrEmpty("direction");
+            this.setDeltaMovement(list.getDoubleOr(0, 0), list.getDoubleOr(1, 0), list.getDoubleOr(2, 0));
         } else {
             this.discard();
         }

@@ -51,7 +51,7 @@ public record UpgradeTierResult(int resultTier) implements RitualResult {
         CrimsonLightningBoltEntity entity = ModEntities.CRIMSON_LIGHTNING_BOLT.get().create(level, EntitySpawnReason.EVENT);
 
         if (entity != null) {
-            entity.moveTo(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
+            entity.snapTo(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
             entity.setVisualOnly(true);
 
             level.addFreshEntity(entity);

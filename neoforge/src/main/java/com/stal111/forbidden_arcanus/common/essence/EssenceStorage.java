@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -68,8 +68,8 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
     }
 
     @Override
-    public void addToTooltip(Item.@NotNull TooltipContext context, @NotNull Consumer<Component> consumer, @NotNull TooltipFlag flag) {
-        consumer.accept(Component.literal(": " + this.value.amount() + "/" + this.limit).withStyle(ChatFormatting.GRAY));
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
+        tooltipAdder.accept(Component.literal(": " + this.value.amount() + "/" + this.limit).withStyle(ChatFormatting.GRAY));
     }
 
     public void addEssence(ItemStack stack, int amount) {

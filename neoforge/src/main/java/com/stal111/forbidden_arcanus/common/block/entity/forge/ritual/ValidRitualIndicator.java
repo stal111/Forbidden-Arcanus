@@ -4,12 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ARGB;
-import net.valhelsia.valhelsia_core.api.common.counter.SimpleCounter;
 
 /**
  * @author stal111
@@ -20,10 +15,10 @@ public class ValidRitualIndicator {
     private static final ResourceLocation INDICATOR = ForbiddenArcanus.location("textures/effect/magic_circle/valid_ritual_indicator.png");
     private static final int ANIMATION_DURATION = 60;
 
-    private final IndicatorCounter counter = new IndicatorCounter();
+//    private final IndicatorCounter counter = new IndicatorCounter();
 
     public ValidRitualIndicator(boolean playAnimation) {
-        this.counter.setActive(playAnimation);
+//        this.counter.setActive(playAnimation);
     }
 
     public static float easeOutBack(float progress, float start, float change, float duration) {
@@ -32,7 +27,8 @@ public class ValidRitualIndicator {
     }
 
     public void tick() {
-        this.counter.tick();
+        //TODO
+//        this.counter.tick();
     }
 
     public void render(PoseStack poseStack, float partialTicks, MultiBufferSource buffer, int packedLight, ModelPart model) {
@@ -42,23 +38,24 @@ public class ValidRitualIndicator {
 
         poseStack.scale(8.5F, 1.0F, 8.5F);
 
-        model.render(poseStack, buffer.getBuffer(RenderType.entityTranslucentEmissive(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
+        //TODO
+//        model.render(poseStack, buffer.getBuffer(RenderType.entityTranslucentEmissive(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
 
         poseStack.popPose();
     }
 
-    private static class IndicatorCounter extends SimpleCounter {
-        @Override
-        public void tick(CompoundTag tag) {
-            if (this.isActive()) {
-                if (this.value >= ANIMATION_DURATION) {
-                    this.setActive(false);
-
-                    return;
-                }
-
-                this.increase();
-            }
-        }
-    }
+//    private static class IndicatorCounter extends SimpleCounter {
+//        @Override
+//        public void tick(CompoundTag tag) {
+//            if (this.isActive()) {
+//                if (this.value >= ANIMATION_DURATION) {
+//                    this.setActive(false);
+//
+//                    return;
+//                }
+//
+//                this.increase();
+//            }
+//        }
+//    }
 }

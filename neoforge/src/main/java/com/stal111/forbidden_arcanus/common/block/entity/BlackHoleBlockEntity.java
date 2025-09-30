@@ -130,7 +130,7 @@ public class BlackHoleBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
         super.loadAdditional(tag, lookupProvider);
-        this.stored_xp = tag.getDouble("StoredXP");
+        this.stored_xp = tag.getDoubleOr("StoredXP", 0);
     }
 
     @Override

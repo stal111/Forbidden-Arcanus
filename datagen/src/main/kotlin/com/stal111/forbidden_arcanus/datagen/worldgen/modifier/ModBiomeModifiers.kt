@@ -7,6 +7,8 @@ import com.stal111.forbidden_arcanus.common.world.placement.BuiltInVegetationPla
 import com.stal111.forbidden_arcanus.core.init.ModEntities
 import net.minecraft.core.HolderSet
 import net.minecraft.data.worldgen.BootstrapContext
+import net.minecraft.util.random.Weighted
+import net.minecraft.util.random.WeightedList
 import net.minecraft.world.level.biome.Biomes
 import net.minecraft.world.level.biome.MobSpawnSettings
 import net.minecraft.world.level.levelgen.GenerationStep
@@ -56,7 +58,7 @@ object ModBiomeModifiers : DataForgeBiomeModifierProvider() {
         context.registerSpawn(
             BuiltInBiomeModifiers.ADD_LOST_SOUL_OVERWORLD,
             context.overWorldBiomes,
-            MobSpawnSettings.SpawnerData(ModEntities.LOST_SOUL.get(), 35, 1, 3)
+            WeightedList.of(Weighted(MobSpawnSettings.SpawnerData(ModEntities.LOST_SOUL.get(), 1, 3), 35))
         )
     }
 }

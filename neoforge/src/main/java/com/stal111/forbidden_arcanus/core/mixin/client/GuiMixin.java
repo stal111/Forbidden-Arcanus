@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.core.mixin.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
@@ -24,8 +23,9 @@ public abstract class GuiMixin {
         Player player = this.getCameraPlayer();
 
         if (player != null && player.getMainHandItem().is(ModItems.MAGIC_WAND)) {
-            RenderSystem.defaultBlendFunc();
-            RenderSystem.disableBlend();
+            //TODO
+//            RenderSystem.defaultBlendFunc();
+//            RenderSystem.disableBlend();
 
             ci.cancel();
         }

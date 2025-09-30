@@ -57,9 +57,7 @@ public class ClibanoFrameBlockEntity extends BlockEntity {
                     .ifError(result -> ForbiddenArcanus.LOGGER.warn("Failed to encode Clibano FrameData {}", result.message()));
         }
 
-        if (this.mainDirection != null) {
-            tag.putString("main_direction", this.mainDirection.getName());
-        }
+        tag.storeNullable("main_direction", Direction.CODEC, this.mainDirection);
     }
 
     @Override
@@ -70,9 +68,7 @@ public class ClibanoFrameBlockEntity extends BlockEntity {
                 .resultOrPartial(ForbiddenArcanus.LOGGER::error)
                 .ifPresent(frameData -> this.frameData = frameData);
 
-        if (tag.contains("main_direction")) {
-            this.mainDirection = Direction.byName(tag.getString("main_direction"));
-        }
+        tag.read("main_direction", Direction.CODEC).ifPresent(direction -> this.mainDirection = direction);
     }
 
     public record FrameData(BlockState replaceState, BlockPos mainPos) {

@@ -11,16 +11,5 @@
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/demolishing_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/demolishing_incompatible",
-  "predicate": {
-    "predicates": {
-      "valhelsia_core:any_of": {
-        "neoforge:item_ability": [
-          "pickaxe_dig",
-          "axe_dig",
-          "shovel_dig",
-          "hoe_dig"
-        ]
-      }
-    }
-  }
+  "predicate": {}
 }

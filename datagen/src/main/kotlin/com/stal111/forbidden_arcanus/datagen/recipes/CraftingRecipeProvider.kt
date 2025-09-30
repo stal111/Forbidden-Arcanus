@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.component.DataComponentPredicate
 import net.minecraft.core.component.DataComponents
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeOutput
@@ -71,9 +70,8 @@ class CraftingRecipeProvider(
                 '#' to ModItems.ARCANE_CRYSTAL_DUST,
                 'X' to DataComponentIngredient.of(
                     true,
-                    DataComponentPredicate.builder()
-                        .expect(DataComponents.POTION_CONTENTS, PotionContents(Potions.STRONG_REGENERATION))
-                        .build(),
+                    DataComponents.POTION_CONTENTS,
+                    PotionContents(Potions.STRONG_REGENERATION),
                     Items.POTION
                 )
             ).unlockedBy(ModItems.ARCANE_CRYSTAL_DUST)

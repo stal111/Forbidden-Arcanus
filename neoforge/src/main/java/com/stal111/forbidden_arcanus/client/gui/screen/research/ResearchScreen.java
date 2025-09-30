@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.research;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.AbstractTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTabButton;
@@ -74,8 +73,9 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
     protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         this.selectedTab.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
+        //TODO
+//        RenderSystem.enableBlend();
+//        RenderSystem.defaultBlendFunc();
 
         int x = 0;
 
@@ -106,7 +106,7 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
 
         guiGraphics.blit(RenderType::guiTextured, FRAME_TOP_CENTER, this.width / 2 - 25, 0, 0, 0, 50, 22, 50, 22);
 
-        RenderSystem.disableBlend();
+//        RenderSystem.disableBlend();
     }
 
     public void setTab(AbstractTab tab) {

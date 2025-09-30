@@ -81,7 +81,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
                     });
                 }
 
-                if (AurealHelper.canEntityBeAureal(entity) && !entity.getPersistentData().getBoolean("aureal")) {
+                if (AurealHelper.canEntityBeAureal(entity) && !entity.getPersistentData().getBooleanOr("aureal", false)) {
                     entity.getPersistentData().putBoolean("aureal", true);
                 }
 

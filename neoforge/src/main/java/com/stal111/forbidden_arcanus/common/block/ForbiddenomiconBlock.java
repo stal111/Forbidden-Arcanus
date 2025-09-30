@@ -23,7 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author stal111
@@ -37,7 +37,7 @@ public class ForbiddenomiconBlock extends HorizontalDirectionalBlock implements 
 
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 0.0D, 14.0D, 4.0D, 16.0D);
 
-    private final Map<BlockState, VoxelShape> shapesCache;
+    private final Function<BlockState, VoxelShape> shapesCache;
 
     public ForbiddenomiconBlock(Properties properties) {
         super(properties);
@@ -56,7 +56,7 @@ public class ForbiddenomiconBlock extends HorizontalDirectionalBlock implements 
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return this.shapesCache.get(state);
+        return this.shapesCache.apply(state);
     }
 
     @Nullable

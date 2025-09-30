@@ -1,13 +1,18 @@
 package com.stal111.forbidden_arcanus.datagen.loot
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
-import com.stal111.forbidden_arcanus.common.advancements.critereon.FAItemSubPredicates
-import com.stal111.forbidden_arcanus.common.advancements.critereon.ItemModifierPredicate
 import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers
 import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier
 import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
-import net.minecraft.advancements.critereon.*
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents
+import net.minecraft.advancements.critereon.DataComponentMatchers
+import net.minecraft.advancements.critereon.EnchantmentPredicate
+import net.minecraft.advancements.critereon.ItemPredicate
+import net.minecraft.advancements.critereon.MinMaxBounds
+import net.minecraft.core.component.DataComponentExactPredicate
+import net.minecraft.core.component.predicates.DataComponentPredicates
+import net.minecraft.core.component.predicates.EnchantmentsPredicate
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.enchantment.Enchantments
@@ -33,17 +38,19 @@ class ModLootModifierProvider(
                 arrayOf(
                     InvertedLootItemCondition.invert(
                         MatchTool.toolMatches(
-                            ItemPredicate.Builder.item().withSubPredicate(
-                                ItemSubPredicates.ENCHANTMENTS,
-                                ItemEnchantmentsPredicate.enchantments(
-                                    listOf(
-                                        EnchantmentPredicate(
-                                            this.registries.lookupOrThrow(
-                                                Registries.ENCHANTMENT
-                                            ).getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1)
+                            ItemPredicate.Builder.item().withComponents(
+                                DataComponentMatchers.Builder.components().partial(
+                                    DataComponentPredicates.ENCHANTMENTS,
+                                    EnchantmentsPredicate.enchantments(
+                                        listOf(
+                                            EnchantmentPredicate(
+                                                this.registries.lookupOrThrow(
+                                                    Registries.ENCHANTMENT
+                                                ).getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1)
+                                            )
                                         )
                                     )
-                                )
+                                ).build()
                             )
                         )
                     ).build(), LootTableIdCondition.builder(Blocks.SPAWNER.lootTable.orElseThrow().location()).build()
@@ -155,9 +162,13 @@ class ModLootModifierProvider(
             FieryLootModifier(
                 arrayOf(
                     MatchTool.toolMatches(
-                        ItemPredicate.Builder.item().withSubPredicate(
-                            FAItemSubPredicates.MODIFIER.get(),
-                            ItemModifierPredicate.modifier(this.registries.holderOrThrow(BuiltInItemModifiers.FIERY))
+                        ItemPredicate.Builder.item().withComponents(
+                            DataComponentMatchers.Builder.components().exact(
+                                DataComponentExactPredicate.expect(
+                                    ModDataComponents.ITEM_MODIFIER.get(),
+                                    this.registries.holderOrThrow(BuiltInItemModifiers.FIERY)
+                                )
+                            ).build()
                         )
                     ).build()
                 )

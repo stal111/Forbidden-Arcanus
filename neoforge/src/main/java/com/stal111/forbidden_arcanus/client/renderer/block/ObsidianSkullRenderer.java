@@ -7,8 +7,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-
-import javax.annotation.Nonnull;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Obsidian Skull Renderer <br>
@@ -43,6 +42,7 @@ public class ObsidianSkullRenderer implements BlockEntityRenderer<ObsidianSkullB
     }
 
     @Override
-    public void render(ObsidianSkullBlockEntity blockEntity, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+    public void render(ObsidianSkullBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
+
     }
 }

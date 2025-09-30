@@ -4,7 +4,7 @@
     {
       "condition": "minecraft:match_tool",
       "predicate": {
-        "predicates": {
+        "components": {
           "forbidden_arcanus:modifier": "forbidden_arcanus:fiery"
         }
       }

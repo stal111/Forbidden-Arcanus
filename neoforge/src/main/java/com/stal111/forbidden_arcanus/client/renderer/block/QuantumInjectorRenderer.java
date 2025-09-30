@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * @author stal111
@@ -29,7 +29,7 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
     }
 
     @Override
-    public void render(@NotNull QuantumInjectorBlockEntity blockEntity, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(QuantumInjectorBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         if (!blockEntity.getBlockState().getValue(BlockStateProperties.ENABLED)) {
             return;
         }

@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -32,15 +33,15 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     @Override
-    public void render(@Nonnull HephaestusForgeBlockEntity blockEntity, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(HephaestusForgeBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         MagicCircle magicCircle = blockEntity.getMagicCircleController().getMagicCircle();
 
         if (magicCircle != null) {
-            magicCircle.render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel, blockEntity.getClientRitualDuration());
+            magicCircle.render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel, blockEntity.getClientRitualDuration());
         }
 
         if (blockEntity.hasValidRitualIndicator()) {
-            blockEntity.getValidRitualIndicator().render(poseStack, partialTicks, bufferSource, packedLight, this.magicCircleModel.validRitualIndicator());
+            blockEntity.getValidRitualIndicator().render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel.validRitualIndicator());
         }
 
         ItemStack stack = blockEntity.getClientMainItem();
@@ -49,7 +50,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
             poseStack.pushPose();
 
             poseStack.translate(0.5D, 1.3D, 0.5D);
-            poseStack.mulPose(Axis.YP.rotation((blockEntity.getDisplayCounter() + partialTicks) / 20));
+            poseStack.mulPose(Axis.YP.rotation((blockEntity.getDisplayCounter() + partialTick) / 20));
 
             poseStack.scale(0.5F, 0.5F, 0.5F);
 

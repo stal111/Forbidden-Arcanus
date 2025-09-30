@@ -3,17 +3,18 @@ package com.stal111.forbidden_arcanus.common.item.bucket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BucketPickup;
@@ -30,6 +31,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author stal111
@@ -54,13 +56,14 @@ public class CapacityBucketItem extends BucketItem implements CapacityFluidBucke
     }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         if (level.isClientSide() || !(entity instanceof LivingEntity livingEntity)) {
             return;
         }
 
         if (this.getFluid().isSame(Fluids.LAVA) && level.getRandom().nextDouble() < BURN_CHANCE && !livingEntity.hasInfiniteMaterials()) {
-            livingEntity.getSlot(slot).set(Items.CHARCOAL.getDefaultInstance());
+            //TODO
+//            livingEntity.getSlot(slot).set(Items.CHARCOAL.getDefaultInstance());
 
             level.setBlockAndUpdate(entity.blockPosition(), this.getFluid().defaultFluidState().createLegacyBlock());
         }

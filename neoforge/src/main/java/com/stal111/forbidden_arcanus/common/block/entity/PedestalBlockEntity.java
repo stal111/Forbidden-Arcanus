@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -118,8 +119,8 @@ public class PedestalBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
         super.loadAdditional(tag, lookupProvider);
 
-        this.stack = tag.contains("Stack", 10) ? ItemStack.parseOptional(lookupProvider, tag.getCompound("Stack")) : ItemStack.EMPTY;
-        this.itemHeight = tag.getInt("ItemHeight");
+        this.stack = tag.read("Stack", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE)).orElse(ItemStack.EMPTY);
+        this.itemHeight = tag.getIntOr("ItemHeight", DEFAULT_ITEM_HEIGHT);
     }
 
     @Override
@@ -127,7 +128,7 @@ public class PedestalBlockEntity extends BlockEntity {
         super.saveAdditional(compound, lookupProvider);
 
         if (!this.stack.isEmpty()) {
-            compound.put("Stack", this.stack.save(lookupProvider));
+            compound.store("Stack", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.stack);
         }
         compound.putInt("ItemHeight", this.itemHeight);
     }

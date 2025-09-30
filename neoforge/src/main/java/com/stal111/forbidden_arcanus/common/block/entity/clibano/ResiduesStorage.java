@@ -54,8 +54,8 @@ public class ResiduesStorage {
             ResidueType.CombineInfo combineInfo = type.value().combineInfo();
 
             if (amount >= combineInfo.requiredAmount()) {
-                ItemStack resultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getFirst());
-                ItemStack secondResultStack = blockEntity.getStack(ClibanoMenu.RESULT_SLOTS.getSecond());
+                ItemStack resultStack = blockEntity.getItem(ClibanoMenu.RESULT_SLOTS.getFirst());
+                ItemStack secondResultStack = blockEntity.getItem(ClibanoMenu.RESULT_SLOTS.getSecond());
 
                 ItemStack stack = combineInfo.result().copy();
                 boolean flag = true;
@@ -65,9 +65,9 @@ public class ResiduesStorage {
                 } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
                     secondResultStack.grow(stack.getCount());
                 } else if (resultStack.isEmpty()) {
-                    blockEntity.setStack(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
+                    blockEntity.setItem(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
                 } else if (secondResultStack.isEmpty()) {
-                    blockEntity.setStack(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
+                    blockEntity.setItem(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
                 } else {
                     flag = false;
                 }
@@ -103,7 +103,7 @@ public class ResiduesStorage {
         this.residueTypeAmountMap.clear();
         this.totalAmount = 0;
 
-        MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag.getCompound(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error)).ifPresent(map -> {
+        MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag.getCompoundOrEmpty(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error)).ifPresent(map -> {
             map.object2IntEntrySet().forEach(entry -> {
                 this.residueTypeAmountMap.put(entry.getKey(), entry.getIntValue());
                 this.totalAmount += entry.getIntValue();

@@ -6,10 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.DeskBlock
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock
 import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties
-import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType
-import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType
-import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.data.FABlockFamilies
@@ -24,18 +21,15 @@ import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.hephaestusF
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.pedestal
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.utremJar
 import net.minecraft.client.data.models.BlockModelGenerators
+import net.minecraft.client.data.models.BlockModelGenerators.plainVariant
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
-import net.minecraft.client.data.models.blockstates.Variant
-import net.minecraft.client.data.models.blockstates.VariantProperties
 import net.minecraft.client.data.models.model.*
 import net.minecraft.core.Direction
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.RotatedPillarBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.valhelsia.dataforge.model.BlockModelGenerator
-import java.util.function.Function
 
 class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : BlockModelGenerator(defaultGenerators) {
     private val texturedModels = mapOf(
@@ -54,15 +48,15 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         defaultGenerators.createParticleOnlyBlock(ModBlocks.BLACK_HOLE.get())
         defaultGenerators.createParticleOnlyBlock(ModBlocks.UPWIND.get())
         this.blockStateOutput.accept(
-            createSimpleBlock(
+            MultiVariantGenerator.dispatch(
                 ModBlocks.ARCANE_DRAGON_EGG.get(),
-                ModelLocationUtils.getModelLocation(ModBlocks.ARCANE_DRAGON_EGG.get())
+                plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.ARCANE_DRAGON_EGG.get()))
             )
         )
         this.blockStateOutput.accept(
-            createSimpleBlock(
+            MultiVariantGenerator.dispatch(
                 ModBlocks.WHIRLWIND.get(),
-                ModelLocationUtils.getModelLocation(ModBlocks.WHIRLWIND.get())
+                plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.WHIRLWIND.get()))
             )
         )
 
@@ -111,13 +105,12 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createEssenceUtremJar()
 
         this.createPillar(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get())
-        this.createNonTemplateModelBlock(ModBlocks.QUANTUM_CORE.get())
+        defaultGenerators.createNonTemplateModelBlock(ModBlocks.QUANTUM_CORE.get())
         generators.createDoor(ModBlocks.DEORUM_DOOR.get())
         generators.createTrapdoor(ModBlocks.DEORUM_TRAPDOOR.get())
         generators.createAxisAlignedPillarBlockCustomModel(
-            ModBlocks.DEORUM_CHAIN.get(), ModelLocationUtils.getModelLocation(
-                ModBlocks.DEORUM_CHAIN.get()
-            )
+            ModBlocks.DEORUM_CHAIN.get(),
+            plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.DEORUM_CHAIN.get()))
         )
         generators.createGlassBlocks(ModBlocks.DEORUM_GLASS.get(), ModBlocks.DEORUM_GLASS_PANE.get())
         generators.createGlassBlocks(ModBlocks.RUNIC_GLASS.get(), ModBlocks.RUNIC_GLASS_PANE.get())
@@ -155,7 +148,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createHollowLogWithFace(ModBlocks.CARVED_EDELWOOD_LOG.get())
         this.createEdelwoodBranch()
         this.createMagicalFarmland()
-        this.createNonTemplateHorizontalBlock(ModBlocks.EDELWOOD_LADDER.get())
+        defaultGenerators.createNonTemplateHorizontalBlock(ModBlocks.EDELWOOD_LADDER.get())
         this.createMortar(ModBlocks.MORTAR.get())
 
         val skullTemplate = ModelLocationUtils.decorateItemModelLocation("template_skull")
@@ -206,21 +199,23 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
 
     private fun createEmissiveCube(block: Block) {
         this.blockStateOutput.accept(
-            createSimpleBlock(
+            MultiVariantGenerator.dispatch(
                 block,
-                ModModelTemplates.CUBE_ALL_EMISSIVE.create(block, emissiveCube(block), this.modelOutput)
+                plainVariant(ModModelTemplates.CUBE_ALL_EMISSIVE.create(block, emissiveCube(block), this.modelOutput))
             )
         )
     }
 
     private fun createEmissiveLayerCube(block: Block, folder: String) {
         this.blockStateOutput.accept(
-            createSimpleBlock(
+            MultiVariantGenerator.dispatch(
                 block,
-                ModModelTemplates.CUBE_ALL_EMISSIVE_LAYER.create(
-                    block,
-                    emissiveLayerCube(block, folder),
-                    this.modelOutput
+                plainVariant(
+                    ModModelTemplates.CUBE_ALL_EMISSIVE_LAYER.create(
+                        block,
+                        emissiveLayerCube(block, folder),
+                        this.modelOutput
+                    )
                 )
             )
         )
@@ -228,272 +223,211 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
 
     private fun createForbiddenomicon(block: Block) {
         val textureMapping = forbiddenomicon(block)
-        val model = ModModelTemplates.FORBIDDENOMICON.create(block, textureMapping, this.modelOutput)
+        val model = plainVariant(ModModelTemplates.FORBIDDENOMICON.create(block, textureMapping, this.modelOutput))
 
         this.blockStateOutput.accept(
-            createSimpleBlock(
-                block,
-                model
-            ).with(BlockModelGenerators.createHorizontalFacingDispatch())
+            MultiVariantGenerator.dispatch(block, model).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
         )
     }
 
     private fun createDesk(block: DeskBlock, research: Boolean) {
         val textureMapping = desk(research)
-        val model = ModModelTemplates.DESK.create(block, textureMapping, this.modelOutput)
+        val model = plainVariant(ModModelTemplates.DESK.create(block, textureMapping, this.modelOutput))
 
         this.blockStateOutput.accept(
-            createSimpleBlock(
-                block,
-                model
-            ).with(BlockModelGenerators.createHorizontalFacingDispatch())
+            MultiVariantGenerator.dispatch(block, model).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
         )
     }
 
     private fun createPedestal(block: PedestalBlock) {
         val textureMapping = pedestal(block)
-        val model = ModModelTemplates.PEDESTAL.create(block, textureMapping, this.modelOutput)
+        val model = plainVariant(ModModelTemplates.PEDESTAL.create(block, textureMapping, this.modelOutput))
 
-        this.blockStateOutput.accept(createSimpleBlock(block, model))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, model))
     }
 
     private fun createClibanoCore(block: Block) {
         val textureMapping = clibanoCore()
-        val model = ModelTemplates.CUBE_ORIENTABLE.create(block, textureMapping, this.modelOutput)
+        val model = plainVariant(ModelTemplates.CUBE_ORIENTABLE.create(block, textureMapping, this.modelOutput))
 
         this.blockStateOutput.accept(
-            createSimpleBlock(
-                block,
-                model
-            ).with(BlockModelGenerators.createHorizontalFacingDispatch())
+            MultiVariantGenerator.dispatch(block, model).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
         )
     }
 
     private fun createClibanoCenter(block: Block) {
-        val dispatch =
-            PropertyDispatch.property<ClibanoCenterType?>(ModBlockStateProperties.CLIBANO_CENTER_TYPE).generate(
-                Function { type: ClibanoCenterType? ->
-                    val model = ModModelTemplates.CLIBANO_CENTER.createWithSuffix(
-                        block,
-                        "_" + type!!.getSerializedName(),
-                        ModTextureMapping.clibanoCenter(type),
-                        this.modelOutput
-                    )
-                    Variant.variant().with<ResourceLocation?>(VariantProperties.MODEL, model)
-                })
+        val dispatch = PropertyDispatch.initial(ModBlockStateProperties.CLIBANO_CENTER_TYPE).generate {
+            val model = ModModelTemplates.CLIBANO_CENTER.createWithSuffix(
+                block,
+                "_" + it.serializedName,
+                ModTextureMapping.clibanoCenter(it),
+                this.modelOutput
+            )
+
+            plainVariant(model)
+        }
 
         this.blockStateOutput.accept(
-            MultiVariantGenerator.multiVariant(block).with(dispatch).with(BlockModelGenerators.createFacingDispatch())
+            MultiVariantGenerator.dispatch(block).with(dispatch).with(BlockModelGenerators.ROTATION_FACING)
         )
     }
 
     private fun createClibanoCorner(block: Block) {
-        val model = ForbiddenArcanus.location("block/clibano_corner")
+        val model = plainVariant(ForbiddenArcanus.location("block/clibano_corner"))
 
-        val dispatch =
-            PropertyDispatch.property(BlockStateProperties.BOTTOM).generate { bottom ->
-                Variant.variant().with(
-                    VariantProperties.X_ROT,
-                    if (bottom) VariantProperties.Rotation.R90 else VariantProperties.Rotation.R0
-                )
-            }
+        val dispatch = PropertyDispatch.modify(BlockStateProperties.BOTTOM).generate {
+            if (it) BlockModelGenerators.X_ROT_90 else BlockModelGenerators.NOP
+        }
 
         this.blockStateOutput.accept(
-            createSimpleBlock(block, model)
+            MultiVariantGenerator.dispatch(block, model)
                 .with(dispatch)
-                .with(BlockModelGenerators.createHorizontalFacingDispatch())
+                .with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
         )
     }
 
     private fun createClibanoSideHorizontal(block: Block) {
-        val typeDispatch =
-            PropertyDispatch.property<ClibanoSideType>(ModBlockStateProperties.CLIBANO_SIDE_TYPE).generate { type ->
-                val textureMapping = ModTextureMapping.clibanoSide(type!!)
-                val model = ModModelTemplates.CLIBANO_SIDE_HORIZONTAL.createWithSuffix(
-                    block,
-                    "_" + type.serializedName,
-                    textureMapping,
-                    this.modelOutput
-                )
-                Variant.variant().with<ResourceLocation>(VariantProperties.MODEL, model)
-            }
+        val typeDispatch = PropertyDispatch.initial(ModBlockStateProperties.CLIBANO_SIDE_TYPE).generate {
+            val textureMapping = ModTextureMapping.clibanoSide(it)
+            val model = ModModelTemplates.CLIBANO_SIDE_HORIZONTAL.createWithSuffix(
+                block,
+                "_" + it.serializedName,
+                textureMapping,
+                this.modelOutput
+            )
 
-        val facingDispatch: PropertyDispatch = PropertyDispatch.properties(
+            plainVariant(model)
+        }
+
+        val facingDispatch = PropertyDispatch.modify(
             BlockStateProperties.HORIZONTAL_FACING,
             ModBlockStateProperties.MIRRORED
+        ).select(
+            Direction.EAST,
+            false,
+            BlockModelGenerators.Y_ROT_90
+        ).select(
+            Direction.EAST,
+            true,
+            BlockModelGenerators.X_ROT_180
+        ).select(
+            Direction.SOUTH,
+            false,
+            BlockModelGenerators.Y_ROT_180
+        ).select(
+            Direction.SOUTH,
+            true,
+            BlockModelGenerators.X_ROT_180.then(BlockModelGenerators.Y_ROT_90)
+        ).select(
+            Direction.WEST,
+            false,
+            BlockModelGenerators.Y_ROT_270
+        ).select(
+            Direction.WEST,
+            true,
+            BlockModelGenerators.Y_ROT_180.then(BlockModelGenerators.X_ROT_180)
+        ).select(
+            Direction.NORTH, false, BlockModelGenerators.NOP
+        ).select(
+            Direction.NORTH,
+            true,
+            BlockModelGenerators.Y_ROT_270.then(BlockModelGenerators.X_ROT_180)
         )
-            .select(
-                Direction.EAST,
-                false,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-            )
-            .select(
-                Direction.EAST,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
-            .select(
-                Direction.SOUTH,
-                false,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-            )
-            .select(
-                Direction.SOUTH,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
-            .select(
-                Direction.WEST,
-                false,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-            )
-            .select(
-                Direction.WEST,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
-            .select(Direction.NORTH, false, Variant.variant())
-            .select(
-                Direction.NORTH,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
 
-        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(typeDispatch).with(facingDispatch))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(typeDispatch).with(facingDispatch))
     }
 
     private fun createClibanoSideVertical(block: Block) {
-        val typeDispatch =
-            PropertyDispatch.property<ClibanoSideType>(ModBlockStateProperties.CLIBANO_SIDE_TYPE).generate { type ->
-                val textureMapping = ModTextureMapping.clibanoSide(type!!)
-                val model = ModModelTemplates.CLIBANO_SIDE_VERTICAL.createWithSuffix(
-                    block,
-                    "_" + type.serializedName,
-                    textureMapping,
-                    this.modelOutput
-                )
-                Variant.variant().with<ResourceLocation>(VariantProperties.MODEL, model)
-            }
+        val typeDispatch = PropertyDispatch.initial(ModBlockStateProperties.CLIBANO_SIDE_TYPE).generate {
+            val textureMapping = ModTextureMapping.clibanoSide(it)
+            val model = ModModelTemplates.CLIBANO_SIDE_VERTICAL.createWithSuffix(
+                block,
+                "_" + it.serializedName,
+                textureMapping,
+                this.modelOutput
+            )
+            plainVariant(model)
+        }
 
-        val facingDispatch: PropertyDispatch = PropertyDispatch.properties(
+        val facingDispatch = PropertyDispatch.modify(
             BlockStateProperties.HORIZONTAL_FACING,
             ModBlockStateProperties.MIRRORED
+        ).select(
+            Direction.EAST,
+            false,
+            BlockModelGenerators.Y_ROT_90
+        ).select(
+            Direction.EAST,
+            true,
+            BlockModelGenerators.X_ROT_180.then(BlockModelGenerators.Y_ROT_270)
+        ).select(
+            Direction.SOUTH,
+            false,
+            BlockModelGenerators.Y_ROT_180
+        ).select(
+            Direction.SOUTH,
+            true,
+            BlockModelGenerators.X_ROT_180
+        ).select(
+            Direction.WEST,
+            false,
+            BlockModelGenerators.Y_ROT_270
+        ).select(
+            Direction.WEST,
+            true,
+            BlockModelGenerators.Y_ROT_90.then(BlockModelGenerators.X_ROT_180)
+        ).select(
+            Direction.NORTH, false, BlockModelGenerators.NOP
+        ).select(
+            Direction.NORTH,
+            true,
+            BlockModelGenerators.Y_ROT_180.then(BlockModelGenerators.X_ROT_180)
         )
-            .select(
-                Direction.EAST,
-                false,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-            )
-            .select(
-                Direction.EAST,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
-            .select(
-                Direction.SOUTH,
-                false,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-            )
-            .select(
-                Direction.SOUTH,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
-            .select(
-                Direction.WEST,
-                false,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
-            )
-            .select(
-                Direction.WEST,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
-            .select(Direction.NORTH, false, Variant.variant())
-            .select(
-                Direction.NORTH,
-                true,
-                Variant.variant()
-                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
-                    .with(
-                        VariantProperties.X_ROT, VariantProperties.Rotation.R180
-                    )
-            )
 
-        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(typeDispatch).with(facingDispatch))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(typeDispatch).with(facingDispatch))
     }
 
     private fun createHephaestusForge(block: HephaestusForgeBlock) {
         val textureMapping = hephaestusForge(block.level.asInt)
-        val model = ModModelTemplates.HEPHAESTUS_FORGE.create(block, textureMapping, this.modelOutput)
+        val model = plainVariant(ModModelTemplates.HEPHAESTUS_FORGE.create(block, textureMapping, this.modelOutput))
 
-        this.blockStateOutput.accept(createSimpleBlock(block, model))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, model))
     }
 
     private fun createObelisk(block: Block) {
-        val dispatch = PropertyDispatch.property<ObeliskPart>(ModBlockStateProperties.OBELISK_PART)
-            .generate { part ->
-                val textureMapping = ModTextureMapping.obelisk(block, part)
-                val model = ModModelTemplates.OBELISK[part]!!
-                    .createWithSuffix(block, "_" + part.serializedName, textureMapping, this.modelOutput)
-                Variant.variant().with<ResourceLocation>(VariantProperties.MODEL, model)
-            }
+        val dispatch = PropertyDispatch.initial(ModBlockStateProperties.OBELISK_PART).generate {
+            val textureMapping = ModTextureMapping.obelisk(block, it)
+            val model = ModModelTemplates.OBELISK[it]!!
+                .createWithSuffix(block, "_" + it.serializedName, textureMapping, this.modelOutput)
+
+            plainVariant(model)
+        }
 
         defaultGenerators.registerSimpleFlatItemModel(block.asItem())
-        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(dispatch))
     }
 
     private fun createMortar(block: Block) {
-        this.blockStateOutput.accept(createSimpleBlock(block, ForbiddenArcanus.location("block/mortar")))
+        this.blockStateOutput.accept(
+            MultiVariantGenerator.dispatch(
+                block,
+                plainVariant(ForbiddenArcanus.location("block/mortar"))
+            )
+        )
     }
 
     private fun createUtremJar(block: Block) {
         val textureMapping = utremJar(block)
-        val model = ModModelTemplates.UTREM_JAR.create(block, textureMapping, this.modelOutput)
+        val model = plainVariant(ModModelTemplates.UTREM_JAR.create(block, textureMapping, this.modelOutput))
 
-        this.blockStateOutput.accept(createSimpleBlock(block, model))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, model))
     }
 
     private fun createEssenceUtremJar() {
         this.blockStateOutput.accept(
-            createSimpleBlock(
-                ModBlocks.ESSENCE_UTREM_JAR.get(), ModelLocationUtils.getModelLocation(
-                    ModBlocks.UTREM_JAR.get()
-                )
+            MultiVariantGenerator.dispatch(
+                ModBlocks.ESSENCE_UTREM_JAR.get(),
+                plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.UTREM_JAR.get()))
             )
         )
 
@@ -512,69 +446,54 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
     }
 
     private fun createPillar(block: Block) {
-        val dispatch = PropertyDispatch.properties(
-            ModBlockStateProperties.PILLAR_TYPE,
-            RotatedPillarBlock.AXIS
-        ).generate { part, axis ->
-            Variant.variant()
-                .with(
-                    VariantProperties.MODEL,
-                    ForbiddenArcanus.location("block/arcane_polished_darkstone_pillar" + (if (part == PillarType.SINGLE) "" else "_" + (if (axis === Direction.Axis.Z) part!!.getOpposite() else part)!!.getSerializedName()))
-                )
-                .with(
-                    VariantProperties.Y_ROT,
-                    if (axis === Direction.Axis.X) VariantProperties.Rotation.R90 else VariantProperties.Rotation.R0
-                )
-                .with(
-                    VariantProperties.X_ROT,
-                    if (axis === Direction.Axis.Y) VariantProperties.Rotation.R0 else VariantProperties.Rotation.R90
-                )
-        }
+        val dispatch = PropertyDispatch.initial(ModBlockStateProperties.PILLAR_TYPE, RotatedPillarBlock.AXIS)
+            .generate { part, axis ->
+                plainVariant(ForbiddenArcanus.location("block/arcane_polished_darkstone_pillar" + (if (part == PillarType.SINGLE) "" else "_" + (if (axis === Direction.Axis.Z) part.opposite else part).serializedName)))
+                    .with(if (axis === Direction.Axis.X) BlockModelGenerators.Y_ROT_90 else BlockModelGenerators.NOP)
+                    .with(if (axis === Direction.Axis.Y) BlockModelGenerators.NOP else BlockModelGenerators.X_ROT_90)
+            }
 
-        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(dispatch))
     }
 
     private fun createHollowLog(block: Block) {
         val textureMapping = edelwoodLog()
-        val model = ModModelTemplates.HOLLOW_LOG.create(block, textureMapping, this.modelOutput)
+        val model = plainVariant(ModModelTemplates.HOLLOW_LOG.create(block, textureMapping, this.modelOutput))
 
-        this.blockStateOutput.accept(createSimpleBlock(block, model))
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, model))
     }
 
     private fun createHollowLogWithFace(block: Block) {
         val textureMapping = edelwoodLogWithFace(false)
         val textureMappingWithLeaves = edelwoodLogWithFace(true)
 
-        val model = ModModelTemplates.HOLLOW_LOG_FACE.create(block, textureMapping, this.modelOutput)
-        val modelWithLaves = ModModelTemplates.HOLLOW_LOG_FACE_AND_LEAVES.createWithSuffix(
-            block,
-            "_leaves",
-            textureMappingWithLeaves,
-            this.modelOutput
-        )
-
-        val dispatch = PropertyDispatch.property(ModBlockStateProperties.LEAVES)
-            .generate { hasLeaves ->
-                Variant.variant().with(
-                    VariantProperties.MODEL, if (hasLeaves) modelWithLaves else model
-                )
-            }
-
-        this.blockStateOutput.accept(
-            createSimpleBlock(
+        val model = plainVariant(ModModelTemplates.HOLLOW_LOG_FACE.create(block, textureMapping, this.modelOutput))
+        val modelWithLaves = plainVariant(
+            ModModelTemplates.HOLLOW_LOG_FACE_AND_LEAVES.createWithSuffix(
                 block,
-                model
-            ).with(BlockModelGenerators.createHorizontalFacingDispatch()).with(dispatch)
+                "_leaves",
+                textureMappingWithLeaves,
+                this.modelOutput
+            )
+        )
+        this.blockStateOutput.accept(
+            MultiVariantGenerator.dispatch(block)
+                .with(
+                    BlockModelGenerators.createBooleanModelDispatch(
+                        ModBlockStateProperties.LEAVES,
+                        modelWithLaves,
+                        model
+                    )
+                ).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
         )
     }
 
     private fun createEdelwoodBranch() {
         this.blockStateOutput.accept(
-            createSimpleBlock(
-                ModBlocks.EDELWOOD_BRANCH.get(), ModelLocationUtils.getModelLocation(
-                    ModBlocks.EDELWOOD_BRANCH.get()
-                )
-            ).with(BlockModelGenerators.createHorizontalFacingDispatch())
+            MultiVariantGenerator.dispatch(
+                ModBlocks.EDELWOOD_BRANCH.get(),
+                plainVariant(ModelLocationUtils.getModelLocation(ModBlocks.EDELWOOD_BRANCH.get()))
+            ).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
         )
     }
 
@@ -586,16 +505,24 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
             .put(TextureSlot.DIRT, ForbiddenArcanus.location("block/magical_dirt"))
             .put(TextureSlot.TOP, TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"))
 
-        val model = ModelTemplates.FARMLAND.create(ModBlocks.MAGICAL_FARMLAND.get(), textureMapping, this.modelOutput)
-        val moistModel = ModelTemplates.FARMLAND.create(
-            TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"),
-            moistTextureMapping,
-            this.modelOutput
+        val model = plainVariant(
+            ModelTemplates.FARMLAND.create(
+                ModBlocks.MAGICAL_FARMLAND.get(),
+                textureMapping,
+                this.modelOutput
+            )
+        )
+        val moistModel = plainVariant(
+            ModelTemplates.FARMLAND.create(
+                TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"),
+                moistTextureMapping,
+                this.modelOutput
+            )
         )
 
         this.blockStateOutput.accept(
-            MultiVariantGenerator.multiVariant(ModBlocks.MAGICAL_FARMLAND.get()).with(
-                BlockModelGenerators.createEmptyOrFullDispatch<Int?>(
+            MultiVariantGenerator.dispatch(ModBlocks.MAGICAL_FARMLAND.get()).with(
+                BlockModelGenerators.createEmptyOrFullDispatch(
                     BlockStateProperties.MOISTURE,
                     7,
                     moistModel,
@@ -603,30 +530,5 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
                 )
             )
         )
-    }
-
-    private fun createNonTemplateModelBlock(pBlock: Block, pModelBlock: Block = pBlock) {
-        this.blockStateOutput.accept(createSimpleBlock(pBlock, ModelLocationUtils.getModelLocation(pModelBlock)))
-    }
-
-    private fun createNonTemplateHorizontalBlock(horizontalBlock: Block) {
-        this.blockStateOutput.accept(
-            MultiVariantGenerator.multiVariant(
-                horizontalBlock, Variant.variant().with<ResourceLocation?>(
-                    VariantProperties.MODEL, ModelLocationUtils.getModelLocation(horizontalBlock)
-                )
-            ).with(
-                BlockModelGenerators.createHorizontalFacingDispatch()
-            )
-        )
-    }
-
-    companion object {
-        fun createSimpleBlock(block: Block, resourceLocation: ResourceLocation): MultiVariantGenerator {
-            return MultiVariantGenerator.multiVariant(
-                block,
-                Variant.variant().with(VariantProperties.MODEL, resourceLocation)
-            )
-        }
     }
 }

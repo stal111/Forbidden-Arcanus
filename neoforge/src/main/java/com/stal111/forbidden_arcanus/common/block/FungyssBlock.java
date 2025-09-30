@@ -42,11 +42,6 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         super(properties);
     }
 
-    @Override
-    protected @NotNull MapCodec<? extends BushBlock> codec() {
-        return CODEC;
-    }
-
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {

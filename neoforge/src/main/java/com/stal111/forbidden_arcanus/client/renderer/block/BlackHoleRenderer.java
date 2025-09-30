@@ -16,9 +16,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
-
-import javax.annotation.Nonnull;
 
 /**
  * Black Hole Renderer <br>
@@ -69,14 +68,14 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
     }
 
     @Override
-    public void render(@Nonnull BlackHoleBlockEntity blockEntity, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(BlackHoleBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         poseStack.pushPose();
 
         poseStack.translate(0.5D, 0.5D, 0.5D);
 
         VertexConsumer vertexconsumer = bufferSource.getBuffer(RENDER_TYPE);
 
-        float rotation = ((float) blockEntity.rotation + partialTicks) * 3.0F;
+        float rotation = ((float) blockEntity.rotation + partialTick) * 3.0F;
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
 
         poseStack.pushPose();
