@@ -1,13 +1,9 @@
 package com.stal111.forbidden_arcanus.core.mixin;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-
-import java.util.function.Function;
 
 /**
  * Screen Mixin <br>
@@ -25,8 +21,8 @@ public abstract class ScreenMixin {
 
     @Shadow public abstract int guiHeight();
 
-    @Shadow
-    public abstract void blit(Function<ResourceLocation, RenderType> renderTypeGetter, ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int uWidth, int vHeight, int textureWidth, int textureHeight);
+//    @Shadow
+//    public abstract void blit(Function<ResourceLocation, RenderType> renderTypeGetter, ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int uWidth, int vHeight, int textureWidth, int textureHeight);
 
     //TODO
 //    @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"), method = "renderTooltipInternal", locals = LocalCapture.CAPTURE_FAILEXCEPTION)

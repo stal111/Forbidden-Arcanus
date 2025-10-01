@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.essence;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -52,8 +53,8 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
             EssenceStorage::new
     );
 
-    public static Codec<EssenceStorage> codec(EssenceType type) {
-        return RecordCodecBuilder.create(instance -> instance.group(
+    public static MapCodec<EssenceStorage> codec(EssenceType type) {
+        return RecordCodecBuilder.mapCodec(instance -> instance.group(
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(storage -> storage.value.amount()),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceStorage::limit)
         ).apply(instance, (amount, limit1) -> new EssenceStorage(EssenceValue.of(type, amount), limit1, true)));

@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -53,6 +53,6 @@ public class ConfirmPopupScreen extends Screen {
     public void renderBackground(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
 
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, this.width / 2 - 40, this.height / 2 - 17, 0, 0, 80, 34, 80, 34);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.width / 2 - 40, this.height / 2 - 17, 0, 0, 80, 34, 80, 34);
     }
 }

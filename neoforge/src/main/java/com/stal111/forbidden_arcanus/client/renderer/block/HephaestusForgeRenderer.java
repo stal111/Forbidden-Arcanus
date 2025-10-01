@@ -15,8 +15,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-
 /**
  * Hephaestus Forge Renderer <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.block.HephaestusForgeRenderer
@@ -61,8 +59,8 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     @Override
-    public boolean shouldRenderOffScreen(@Nonnull HephaestusForgeBlockEntity blockEntity) {
-        return this.useExpandedRenderBoundingBox(blockEntity);
+    public boolean shouldRenderOffScreen() {
+        return true;
     }
 
     @Override

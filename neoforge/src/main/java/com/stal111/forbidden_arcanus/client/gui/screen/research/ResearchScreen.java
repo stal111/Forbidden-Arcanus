@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTabB
 import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -82,8 +82,8 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
         while (x < this.width) {
             int width = Math.min(42, this.width - x);
 
-            guiGraphics.blit(RenderType::guiTextured, FRAME_TOP, x, 0, 0, 0, width, 22, 42, 22);
-            guiGraphics.blit(RenderType::guiTextured, FRAME_BOTTOM, x, this.height - 22, 0, 0, width, 22, 42, 22);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_TOP, x, 0, 0, 0, width, 22, 42, 22);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_BOTTOM, x, this.height - 22, 0, 0, width, 22, 42, 22);
 
             x += width;
         }
@@ -93,18 +93,18 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
         while (y < this.height) {
             int height = Math.min(28, this.height - y);
 
-            guiGraphics.blit(RenderType::guiTextured, FRAME_LEFT, 0, y, 0, 0, 22, height, 22, 28);
-            guiGraphics.blit(RenderType::guiTextured, FRAME_RIGHT, this.width - 22, y, 0, 0, 22, height, 22, 28);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_LEFT, 0, y, 0, 0, 22, height, 22, 28);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_RIGHT, this.width - 22, y, 0, 0, 22, height, 22, 28);
 
             y += height;
         }
 
-        guiGraphics.blit(RenderType::guiTextured, FRAME_TOP_LEFT_CORNER, 0, 0, 0, 0, 22, 22, 22, 22);
-        guiGraphics.blit(RenderType::guiTextured, FRAME_TOP_RIGHT_CORNER, this.width - 22, 0, 0, 0, 22, 22, 22, 22);
-        guiGraphics.blit(RenderType::guiTextured, FRAME_BOTTOM_LEFT_CORNER, 0, this.height - 22, 0, 0, 22, 22, 22, 22);
-        guiGraphics.blit(RenderType::guiTextured, FRAME_BOTTOM_RIGHT_CORNER, this.width - 22, this.height - 22, 0, 0, 22, 22, 22, 22);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_TOP_LEFT_CORNER, 0, 0, 0, 0, 22, 22, 22, 22);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_TOP_RIGHT_CORNER, this.width - 22, 0, 0, 0, 22, 22, 22, 22);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_BOTTOM_LEFT_CORNER, 0, this.height - 22, 0, 0, 22, 22, 22, 22);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_BOTTOM_RIGHT_CORNER, this.width - 22, this.height - 22, 0, 0, 22, 22, 22, 22);
 
-        guiGraphics.blit(RenderType::guiTextured, FRAME_TOP_CENTER, this.width / 2 - 25, 0, 0, 0, 50, 22, 50, 22);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, FRAME_TOP_CENTER, this.width / 2 - 25, 0, 0, 0, 50, 22, 50, 22);
 
 //        RenderSystem.disableBlend();
     }

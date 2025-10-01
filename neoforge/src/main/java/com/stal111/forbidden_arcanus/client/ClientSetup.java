@@ -147,9 +147,9 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("aureal_meter"), new AurealMeterOverlay());
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("flying_label"), new FlyingLabelOverlay());
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, ForbiddenArcanus.location("wand_indicator"), new WandIndicatorLayer());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.location("aureal_meter"), new AurealMeterOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.location("flying_label"), new FlyingLabelOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.location("wand_indicator"), new WandIndicatorLayer());
     }
 
     @SubscribeEvent

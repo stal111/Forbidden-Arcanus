@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.entity.QuantumLightDoorAnimationProv
 import com.stal111.forbidden_arcanus.core.init.other.ModEntityDataSerializers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -22,6 +21,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -112,17 +113,17 @@ public class DarkTrader extends Mob implements QuantumLightDoorAnimationProvider
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
 
-        VariantUtils.writeVariant(tag, this.getVariant());
+        VariantUtils.writeVariant(output, this.getVariant());
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
 
-        VariantUtils.readVariant(tag, this.registryAccess(), FARegistries.DARK_TRADER_VARIANT).ifPresent(this::setVariant);
+        VariantUtils.readVariant(input, FARegistries.DARK_TRADER_VARIANT).ifPresent(this::setVariant);
     }
 
     @Override

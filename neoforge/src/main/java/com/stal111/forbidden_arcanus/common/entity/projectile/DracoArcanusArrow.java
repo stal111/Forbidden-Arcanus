@@ -60,7 +60,7 @@ public class DracoArcanusArrow extends AbstractArrow {
         if (this.getOwner() instanceof LivingEntity owner) {
             areaEffectCloud.setOwner(owner);
         }
-        areaEffectCloud.setParticle(ParticleTypes.DRAGON_BREATH);
+        areaEffectCloud.setCustomParticle(ParticleTypes.DRAGON_BREATH);
         areaEffectCloud.setRadius(2.0F);
         areaEffectCloud.setDuration(400);
         areaEffectCloud.setRadiusPerTick((7.0F - areaEffectCloud.getRadius()) / (float) areaEffectCloud.getDuration());

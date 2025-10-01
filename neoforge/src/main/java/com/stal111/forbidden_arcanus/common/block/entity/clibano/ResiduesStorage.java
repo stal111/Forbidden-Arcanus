@@ -1,21 +1,17 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.function.Function;
 
@@ -92,23 +88,24 @@ public class ResiduesStorage {
         this.totalAmount += amountToFill;
     }
 
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        MAP_CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), this.residueTypeAmountMap).result().ifPresent(listTag -> {
-            tag.put(RESIDUES_TAG, listTag);
-        });
-        return tag;
+    public void save(ValueOutput output) {
+        //TODO
+//        MAP_CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), this.residueTypeAmountMap).result().ifPresent(listTag -> {
+//            tag.put(RESIDUES_TAG, listTag);
+//        });
     }
 
-    public void load(CompoundTag tag, HolderLookup.Provider lookupProvider) {
+    public void load(ValueInput input) {
         this.residueTypeAmountMap.clear();
         this.totalAmount = 0;
 
-        MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag.getCompoundOrEmpty(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error)).ifPresent(map -> {
-            map.object2IntEntrySet().forEach(entry -> {
-                this.residueTypeAmountMap.put(entry.getKey(), entry.getIntValue());
-                this.totalAmount += entry.getIntValue();
-            });
-        });
+        //TODO
+//        MAP_CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag.getCompoundOrEmpty(RESIDUES_TAG)).resultOrPartial(Util.prefix("Residues Storage: ", ForbiddenArcanus.LOGGER::error)).ifPresent(map -> {
+//            map.object2IntEntrySet().forEach(entry -> {
+//                this.residueTypeAmountMap.put(entry.getKey(), entry.getIntValue());
+//                this.totalAmount += entry.getIntValue();
+//            });
+//        });
     }
 
     public boolean shouldBeSaved() {

@@ -19,6 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,19 +79,19 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
-        super.saveAdditional(tag, lookupProvider);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
-        tag.putInt(TAG_AMOUNT, this.amount);
-        tag.putInt(TAG_LIMIT, this.limit);
+        output.putInt(TAG_AMOUNT, this.amount);
+        output.putInt(TAG_LIMIT, this.limit);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
-        super.loadAdditional(tag, lookupProvider);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        this.amount = tag.getIntOr(TAG_AMOUNT, 0);
-        this.limit = tag.getIntOr(TAG_LIMIT, DEFAULT_LIMIT);
+        this.amount = input.getIntOr(TAG_AMOUNT, 0);
+        this.limit = input.getIntOr(TAG_LIMIT, DEFAULT_LIMIT);
     }
 
     @Override
@@ -110,11 +112,12 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
         builder.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceValue.of(this.getBlockState().getValue(ModBlockStateProperties.ESSENCE_TYPE), this.amount), this.limit, true));
     }
 
+
     @Override
-    public void removeComponentsFromTag(@NotNull CompoundTag tag) {
-        super.removeComponentsFromTag(tag);
-        tag.remove(TAG_AMOUNT);
-        tag.remove(TAG_LIMIT);
+    public void removeComponentsFromTag(ValueOutput output) {
+        super.removeComponentsFromTag(output);
+        output.discard(TAG_AMOUNT);
+        output.discard(TAG_LIMIT);
     }
 
     @Nullable

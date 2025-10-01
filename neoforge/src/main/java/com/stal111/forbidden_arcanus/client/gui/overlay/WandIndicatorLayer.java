@@ -6,13 +6,13 @@ import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 import org.jetbrains.annotations.NotNull;
 
-public class WandIndicatorLayer implements LayeredDraw.Layer {
+public class WandIndicatorLayer implements GuiLayer {
 
     private static final ResourceLocation CROSSHAIR_WAND_INDICATOR_FULL_SPRITE = ForbiddenArcanus.location("hud/crosshair_wand_indicator_full");
     private static final ResourceLocation CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE = ForbiddenArcanus.location("hud/crosshair_wand_indicator_background");
@@ -32,7 +32,7 @@ public class WandIndicatorLayer implements LayeredDraw.Layer {
         float progressRatio = MagicWandItem.getUseProgress(player.getMainHandItem(), player);
 
         if (progressRatio >= 1.0F) {
-            guiGraphics.blitSprite(RenderType::guiTextured, CROSSHAIR_WAND_INDICATOR_FULL_SPRITE, indicatorXPosition, indicatorYPosition, 16, 16);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, CROSSHAIR_WAND_INDICATOR_FULL_SPRITE, indicatorXPosition, indicatorYPosition, 16, 16);
             return;
         }
 
@@ -42,11 +42,11 @@ public class WandIndicatorLayer implements LayeredDraw.Layer {
 //        RenderSystem.enableBlend();
 //        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
-        guiGraphics.blitSprite(RenderType::guiTextured, CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE, indicatorXPosition, indicatorYPosition, 16, 4);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE, indicatorXPosition, indicatorYPosition, 16, 4);
 
 //        RenderSystem.defaultBlendFunc();
 //        RenderSystem.disableBlend();
 
-        guiGraphics.blitSprite(RenderType::guiTextured, CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, indicatorXPosition, indicatorYPosition, progressWidth, 4);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, indicatorXPosition, indicatorYPosition, progressWidth, 4);
     }
 }

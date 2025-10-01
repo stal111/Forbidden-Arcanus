@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.client.gui.label;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
@@ -9,7 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.Entity;
@@ -28,7 +27,6 @@ public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
     @Override
     public void render(GuiGraphics guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, EntityHitResult result) {
         Minecraft minecraft = Minecraft.getInstance();
-        PoseStack poseStack = guiGraphics.pose();
         Entity entity = result.getEntity();
 
         if (!(entity instanceof LivingEntity livingEntity)) {
@@ -39,8 +37,6 @@ public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
             EssenceHelper.getEssenceProvider(minecraft.player).ifPresent(provider -> {
                 int cost = QuantumCatcherItem.calculateAurealCost(livingEntity);
 
-                poseStack.pushPose();
-
                 MutableComponent component = Component.literal(String.valueOf(cost));
                 int width = minecraft.font.width(component.getVisualOrderText()) + ICON_SIZE + 3;
 
@@ -49,10 +45,8 @@ public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
 
                 int color = provider.getAmount(EssenceType.AUREAL) < cost ? ChatFormatting.RED.getColor() : -1;
 
-                guiGraphics.blitSprite(RenderType::guiTextured, EssenceType.AUREAL.getSpriteLocation(), centerX - width / 2, centerY - 20 - 2, ICON_SIZE, ICON_SIZE);
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, EssenceType.AUREAL.getSpriteLocation(), centerX - width / 2, centerY - 20 - 2, ICON_SIZE, ICON_SIZE);
                 guiGraphics.drawString(minecraft.font, component.getVisualOrderText(), centerX - width / 2 + ICON_SIZE + 2, centerY - 20, color);
-
-                poseStack.popPose();
             });
         }
     }

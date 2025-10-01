@@ -21,9 +21,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -33,6 +30,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.Nullable;
@@ -295,20 +294,19 @@ public class RitualManager {
         //return ((this.getBlockEntity().getEssenceManager().getCorruption() + 5) / (float) this.getBlockEntity().getForgeLevel().getMaxCorruption()) / 2;
     }
 
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        this.getActiveRitualData().flatMap(data -> {
-            return ActiveRitualData.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), this.activeRitualData).result();
-        }).ifPresent(dataTag -> {
-            tag.put(TAG_ACTIVE_RITUAL, dataTag);
-        });
-
-        return tag;
+    public void save(ValueOutput output) {
+        //TODO
+//        this.getActiveRitualData().flatMap(data -> {
+//            return ActiveRitualData.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), this.activeRitualData).result();
+//        }).ifPresent(dataTag -> {
+//            tag.put(TAG_ACTIVE_RITUAL, dataTag);
+//        });
     }
 
-    public void load(CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        if (tag.contains(TAG_ACTIVE_RITUAL)) {
-            this.activeRitualData = ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag.get(TAG_ACTIVE_RITUAL)).resultOrPartial(System.err::println).orElse(null);
-        }
+    public void load(ValueInput input) {
+//        if (tag.contains(TAG_ACTIVE_RITUAL)) {
+//            this.activeRitualData = ActiveRitualData.CODEC.parse(RegistryOps.create(NbtOps.INSTANCE, lookupProvider), tag.get(TAG_ACTIVE_RITUAL)).resultOrPartial(System.err::println).orElse(null);
+//        }
     }
 
     private void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {

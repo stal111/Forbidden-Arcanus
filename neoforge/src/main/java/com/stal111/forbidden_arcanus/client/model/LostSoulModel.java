@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.animation.LostSoulAnimation;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.LostSoulRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -46,7 +45,8 @@ public class LostSoulModel extends EntityModel<LostSoulRenderState> {
     public void setupAnim(@NotNull LostSoulRenderState renderState) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animate(renderState.still, LostSoulAnimation.LOST_SOUL_STILL, renderState.ageInTicks);
-        this.animate(renderState.fear, LostSoulAnimation.LOST_SOUL_FEAR, renderState.ageInTicks);
+        //TODO
+//        this.animate(renderState.still, LostSoulAnimation.LOST_SOUL_STILL, renderState.ageInTicks);
+//        this.animate(renderState.fear, LostSoulAnimation.LOST_SOUL_FEAR, renderState.ageInTicks);
     }
 }

@@ -29,6 +29,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -286,32 +288,31 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        super.saveAdditional(tag, lookupProvider);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
         //TODO
 //        this.saveInventory(tag, lookupProvider);
 
-        this.getRitualManager().save(tag, lookupProvider);
-        this.getEssenceManager().save(tag);
+        this.getRitualManager().save(output);
+//        this.getEssenceManager().save(output);
 
-        tag.put("data_cache", ForgeDataCache.CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.dataCache).getOrThrow());
+//        output.put("data_cache", ForgeDataCache.CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.dataCache).getOrThrow());
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        super.loadAdditional(tag, lookupProvider);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-//        this.loadInventory(tag, lookupProvider);
-
-        this.getRitualManager().load(tag, lookupProvider);
-        this.getEssenceManager().load(tag);
-
-        if (tag.contains("data_cache")) {
-            ForgeDataCache.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag.get("data_cache")).result().ifPresent(forgeDataCache -> this.dataCache = forgeDataCache);
-
-            this.onDataChanged(lookupProvider);
-        }
+        this.getRitualManager().load(input);
+        //TODO
+//        this.getEssenceManager().load(tag);
+//
+//        if (tag.contains("data_cache")) {
+//            ForgeDataCache.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag.get("data_cache")).result().ifPresent(forgeDataCache -> this.dataCache = forgeDataCache);
+//
+//            this.onDataChanged(lookupProvider);
+//        }
     }
 
     @Nullable
@@ -331,17 +332,17 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
-        super.handleUpdateTag(tag, lookupProvider);
+    public void handleUpdateTag(ValueInput input) {
+        super.handleUpdateTag(input);
 
-        this.updateValidRitualIndicator(tag.getBooleanOr("display_valid_ritual_indicator", false));
+        this.updateValidRitualIndicator(input.getBooleanOr("display_valid_ritual_indicator", false));
 
-        tag.read("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE)).ifPresent(stack -> this.clientMainItem = stack);
+        input.read("main_item", ItemStack.CODEC).ifPresent(stack -> this.clientMainItem = stack);
     }
 
     @Override
-    public void onDataPacket(@NotNull Connection net, @NotNull ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider lookupProvider) {
-        this.handleUpdateTag(packet.getTag(), lookupProvider);
+    public void onDataPacket(Connection net, ValueInput valueInput) {
+        this.handleUpdateTag(valueInput);
     }
 
     @NotNull

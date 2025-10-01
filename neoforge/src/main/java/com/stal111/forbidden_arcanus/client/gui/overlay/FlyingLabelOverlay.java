@@ -7,18 +7,18 @@ import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 08.05.2024
  */
-public class FlyingLabelOverlay implements LayeredDraw.Layer {
+public class FlyingLabelOverlay implements GuiLayer {
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {

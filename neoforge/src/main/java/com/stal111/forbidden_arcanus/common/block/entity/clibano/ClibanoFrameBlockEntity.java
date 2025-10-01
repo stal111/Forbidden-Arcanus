@@ -2,20 +2,15 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 
 /**
  * Clibano Block Entity <br>
@@ -48,27 +43,28 @@ public class ClibanoFrameBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
-        super.saveAdditional(tag, lookupProvider);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
-        if (this.frameData != FrameData.EMPTY) {
-            FrameData.CODEC.encodeStart(NbtOps.INSTANCE, this.frameData)
-                    .ifSuccess(tag1 -> tag.merge((CompoundTag) tag1))
-                    .ifError(result -> ForbiddenArcanus.LOGGER.warn("Failed to encode Clibano FrameData {}", result.message()));
-        }
+        //TODO
+//        if (this.frameData != FrameData.EMPTY) {
+//            FrameData.CODEC.encodeStart(NbtOps.INSTANCE, this.frameData)
+//                    .ifSuccess(tag1 -> tag.merge((CompoundTag) tag1))
+//                    .ifError(result -> ForbiddenArcanus.LOGGER.warn("Failed to encode Clibano FrameData {}", result.message()));
+//        }
 
-        tag.storeNullable("main_direction", Direction.CODEC, this.mainDirection);
+        output.storeNullable("main_direction", Direction.CODEC, this.mainDirection);
     }
 
     @Override
-    public void loadAdditional(@Nonnull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
-        super.loadAdditional(tag, lookupProvider);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        FrameData.CODEC.parse(NbtOps.INSTANCE, tag)
-                .resultOrPartial(ForbiddenArcanus.LOGGER::error)
-                .ifPresent(frameData -> this.frameData = frameData);
+//        FrameData.CODEC.parse(NbtOps.INSTANCE, input)
+//                .resultOrPartial(ForbiddenArcanus.LOGGER::error)
+//                .ifPresent(frameData -> this.frameData = frameData);
 
-        tag.read("main_direction", Direction.CODEC).ifPresent(direction -> this.mainDirection = direction);
+        input.read("main_direction", Direction.CODEC).ifPresent(direction -> this.mainDirection = direction);
     }
 
     public record FrameData(BlockState replaceState, BlockPos mainPos) {

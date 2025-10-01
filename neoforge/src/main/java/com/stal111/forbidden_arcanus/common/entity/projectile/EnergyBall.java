@@ -3,8 +3,6 @@ package com.stal111.forbidden_arcanus.common.entity.projectile;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -17,6 +15,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -126,33 +126,37 @@ public class EnergyBall extends Projectile {
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+
         Vec3 vec3 = this.getDeltaMovement();
         //TODO
 //        tag.put("direction", this.newDoubleList(vec3.x, vec3.y, vec3.z));
 //        tag.put("power", this.newDoubleList(this.accelerationX, this.accelerationY, this.accelerationZ));
-        tag.putInt("life", this.ticksAlive);
+        output.putInt("life", this.ticksAlive);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        if (tag.contains("power")) {
-            ListTag list = tag.getListOrEmpty("power");
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
 
-            if (list.size() == 3) {
-                this.accelerationX = list.getDoubleOr(0, 0);
-                this.accelerationY = list.getDoubleOr(1, 0);
-                this.accelerationZ = list.getDoubleOr(2, 0);
-            }
-        }
-
-        this.ticksAlive = tag.getIntOr("life", 0);
-        if (tag.contains("direction") && tag.getListOrEmpty("direction").size() == 3) {
-            ListTag list = tag.getListOrEmpty("direction");
-            this.setDeltaMovement(list.getDoubleOr(0, 0), list.getDoubleOr(1, 0), list.getDoubleOr(2, 0));
-        } else {
-            this.discard();
-        }
+//        if (tag.contains("power")) {
+//            ListTag list = tag.getListOrEmpty("power");
+//
+//            if (list.size() == 3) {
+//                this.accelerationX = list.getDoubleOr(0, 0);
+//                this.accelerationY = list.getDoubleOr(1, 0);
+//                this.accelerationZ = list.getDoubleOr(2, 0);
+//            }
+//        }
+//
+//        this.ticksAlive = tag.getIntOr("life", 0);
+//        if (tag.contains("direction") && tag.getListOrEmpty("direction").size() == 3) {
+//            ListTag list = tag.getListOrEmpty("direction");
+//            this.setDeltaMovement(list.getDoubleOr(0, 0), list.getDoubleOr(1, 0), list.getDoubleOr(2, 0));
+//        } else {
+//            this.discard();
+//        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.animation.UtremJarSoulAnimation;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -70,6 +69,7 @@ public class UtremJarSoulsModel<T extends Entity> extends Model {
     public void setupAnim(@NotNull EssenceUtremJarBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animate(entity.rotateAnimation, UtremJarSoulAnimation.ROTATE, ageInTicks);
+        //TODO
+//        this.animate(entity.rotateAnimation, UtremJarSoulAnimation.ROTATE, ageInTicks);
     }
 }

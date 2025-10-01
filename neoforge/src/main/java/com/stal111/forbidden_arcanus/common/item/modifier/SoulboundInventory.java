@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.item.ItemStack;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public record SoulboundInventory(List<Entry> entries) {
 
-    public static final Codec<SoulboundInventory> CODEC = Entry.CODEC.listOf().xmap(SoulboundInventory::new, SoulboundInventory::entries);
+    public static final MapCodec<SoulboundInventory> CODEC = Entry.CODEC.listOf().fieldOf("soulbound_inventory").xmap(SoulboundInventory::new, SoulboundInventory::entries);
 
     public static SoulboundInventory create() {
         return new SoulboundInventory(new ArrayList<>());

@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,7 +16,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Clibano Screen <br>
@@ -46,7 +45,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
     @Override
     protected void renderBg(@Nonnull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize(), 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize(), 256, 256);
 
         boolean isDoubleRecipe = this.menu.isDoubleRecipe();
 
@@ -54,20 +53,20 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         if (this.menu.getCookingDuration().getFirst() != 0) {
             int xSize = Math.toIntExact(Math.round(22.0F * this.menu.getCookingProgress().getFirst() / this.menu.getCookingDuration().getFirst()));
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 34 + BooleanUtils.toInteger(isDoubleRecipe), 176, 32, xSize, 7, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 34 + BooleanUtils.toInteger(isDoubleRecipe), 176, 32, xSize, 7, 256, 256);
         }
 
         if (this.menu.getCookingDuration().getSecond() != 0) {
             int xSize = Math.toIntExact(Math.round(22.0F * this.menu.getCookingProgress().getSecond() / this.menu.getCookingDuration().getSecond()));
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 43 - BooleanUtils.toInteger(isDoubleRecipe), 176, 41, xSize, 7, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 83, this.getGuiTop() + 43 - BooleanUtils.toInteger(isDoubleRecipe), 176, 41, xSize, 7, 256, 256);
         }
 
         // Soul Indicator
         if (this.menu.isSoulActive()) {
             int ySize = Math.toIntExact(Math.round(18.0F * this.menu.getSoulDuration() / ClibanoMainBlockEntity.SOUL_DURATION));
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() + 52, this.getGuiTop() + 38 + 18 - ySize, 233, 18 - ySize, 18, ySize, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 52, this.getGuiTop() + 38 + 18 - ySize, 233, 18 - ySize, 18, ySize, 256, 256);
         }
 
         // Flame
@@ -76,14 +75,14 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
             int uOffset = 179 + 19 * this.menu.getFireType();
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, uOffset, 1 + 15 - ySize, 12, ySize, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, uOffset, 1 + 15 - ySize, 12, ySize, 256, 256);
         }
 
         // Residue Bar
         if (this.menu.getResidueFullness() != 0) {
             int xSize = Math.toIntExact(Math.round(26.0F * this.menu.getResidueFullness() / ResiduesStorage.MAX_AMOUNT));
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURES, this.getGuiLeft() + 111, this.getGuiTop() + 58, 179, 21, xSize, 7, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 111, this.getGuiTop() + 58, 179, 21, xSize, 7, 256, 256);
         }
     }
 
@@ -111,7 +110,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
                 textComponents.remove(1);
             }
 
-            guiGraphics.renderTooltip(this.font, textComponents, Optional.empty(), x, y);
+            guiGraphics.setComponentTooltipForNextFrame(this.font, textComponents, x ,y);
         }
     }
 }

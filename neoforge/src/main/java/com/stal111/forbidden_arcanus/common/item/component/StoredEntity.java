@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item.component;
 
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
@@ -8,11 +9,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +23,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.TagValueOutput;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +39,9 @@ import java.util.function.Function;
  */
 public record StoredEntity(CustomData data) implements TooltipProvider {
 
-    private static final List<String> IGNORED_TAGS  = Arrays.asList(
+    private static final Logger LOGGER = LogUtils.getLogger();
+
+    private static final List<String> IGNORED_TAGS = Arrays.asList(
             "Air",
             "Brain",
             "FallDistance",
@@ -70,12 +75,19 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
         entity.stopRiding();
         entity.ejectPassengers();
 
-        CompoundTag tag = new CompoundTag();
-        entity.save(tag);
+        CustomData customData;
 
-        IGNORED_TAGS.forEach(tag::remove);
+        try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(entity.problemPath(), LOGGER)) {
+            TagValueOutput output = TagValueOutput.createWithContext(scopedCollector, entity.registryAccess());
 
-        return new StoredEntity(CustomData.of(tag));
+            entity.save(output);
+
+            IGNORED_TAGS.forEach(output::discard);
+
+            customData = CustomData.of(output.buildResult());
+        }
+
+        return new StoredEntity(customData);
     }
 
     @Nullable
@@ -84,7 +96,7 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
     }
 
     public Optional<EntityType<?>> getEntityType() {
-        return  this.data.read(ENTITY_TYPE_FIELD_CODEC).result();
+        return this.data.read(ENTITY_TYPE_FIELD_CODEC).result();
     }
 
     public Optional<Component> getDisplayName() {

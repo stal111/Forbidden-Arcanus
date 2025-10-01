@@ -27,7 +27,7 @@ public class DarkMatterItem extends Item {
 
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
-        Level level = entity.getCommandSenderWorld();
+        Level level = entity.level();
         BlockPos pos = entity.blockPosition();
 
         List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(0.5));

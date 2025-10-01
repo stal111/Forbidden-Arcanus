@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.animation.QuantumLightDoorAnimation;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.QuantumLightDoorRenderState;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -48,7 +47,8 @@ public class QuantumLightDoorModel extends Model {
     }
 
     public void setupAnim(QuantumLightDoorRenderState renderState) {
-        this.animate(renderState.portal, QuantumLightDoorAnimation.SPAWN, renderState.ageInTicks);
+        //TODO
+//        this.animate(renderState.portal, QuantumLightDoorAnimation.SPAWN, renderState.ageInTicks);
     }
 
     public void render(QuantumLightDoorRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {

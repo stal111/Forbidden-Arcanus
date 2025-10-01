@@ -92,7 +92,7 @@ public class QuantumCatcherItem extends Item {
     }
 
     public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target) {
-        Level level = player.getCommandSenderWorld();
+        Level level = player.level();
         int cost = calculateAurealCost(target);
         EssenceProvider essenceProvider = EssenceHelper.getEssenceProvider(player).orElseThrow();
 

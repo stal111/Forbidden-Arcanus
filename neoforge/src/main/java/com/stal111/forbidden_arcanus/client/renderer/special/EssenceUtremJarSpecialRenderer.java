@@ -11,8 +11,10 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.Objects;
+import java.util.Set;
 
 public record EssenceUtremJarSpecialRenderer(
         EssenceUtremJarRenderer essenceUtremJarRenderer
@@ -21,6 +23,11 @@ public record EssenceUtremJarSpecialRenderer(
     @Override
     public void render(@Nullable EssenceStorage essenceStorage, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, boolean hasFoilType) {
         this.essenceUtremJarRenderer.renderInHand(poseStack, bufferSource, packedLight, packedOverlay, Objects.requireNonNullElse(essenceStorage, EssenceStorage.EMPTY));
+    }
+
+    @Override
+    public void getExtents(Set<Vector3f> output) {
+        //TODO
     }
 
     @Override

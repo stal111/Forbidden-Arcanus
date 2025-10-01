@@ -27,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -179,16 +180,15 @@ public class QuantumInjectorBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(@NotNull Connection net, @NotNull ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider lookupProvider) {
-        this.handleUpdateTag(packet.getTag(), lookupProvider);
+    public void onDataPacket(Connection net, ValueInput valueInput) {
+        this.handleUpdateTag(valueInput);
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
-        super.handleUpdateTag(tag, provider);
+    public void handleUpdateTag(ValueInput input) {
+        super.handleUpdateTag(input);
 
-        this.particlePath = ParticlePath.CODEC.parse(NbtOps.INSTANCE, tag.get("particle_path")).result().orElse(null);
-
+        this.particlePath = input.read("particle_path", ParticlePath.CODEC).orElse(null);
         System.out.printf("Particle Path: %s%n", this.particlePath);
     }
 

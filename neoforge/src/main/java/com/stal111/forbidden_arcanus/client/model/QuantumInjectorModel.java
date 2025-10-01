@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.animation.QuantumInjectorAnimation;
 import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEntity;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -55,7 +54,8 @@ public class QuantumInjectorModel<T extends Entity> extends Model {
     public void setupAnim(@Nonnull QuantumInjectorBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        this.animate(entity.transformAnimation, QuantumInjectorAnimation.TRANSFORM, ageInTicks);
-        this.animate(entity.rotateAnimation, QuantumInjectorAnimation.ROTATE, ageInTicks);
+        //TODO
+//        this.animate(entity.transformAnimation, QuantumInjectorAnimation.TRANSFORM, ageInTicks);
+//        this.animate(entity.rotateAnimation, QuantumInjectorAnimation.ROTATE, ageInTicks);
     }
 }

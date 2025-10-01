@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -17,10 +16,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 
 /**
  * Pedestal Block Entity <br>
@@ -116,21 +115,21 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider lookupProvider) {
-        super.loadAdditional(tag, lookupProvider);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        this.stack = tag.read("Stack", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE)).orElse(ItemStack.EMPTY);
-        this.itemHeight = tag.getIntOr("ItemHeight", DEFAULT_ITEM_HEIGHT);
+        this.stack = input.read("Stack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+        this.itemHeight = input.getIntOr("ItemHeight", DEFAULT_ITEM_HEIGHT);
     }
 
     @Override
-    public void saveAdditional(@Nonnull CompoundTag compound, HolderLookup.@NotNull Provider lookupProvider) {
-        super.saveAdditional(compound, lookupProvider);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
         if (!this.stack.isEmpty()) {
-            compound.store("Stack", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.stack);
+            output.store("Stack", ItemStack.CODEC, this.stack);
         }
-        compound.putInt("ItemHeight", this.itemHeight);
+        output.putInt("ItemHeight", this.itemHeight);
     }
 
     private void markUpdated() {

@@ -20,7 +20,6 @@ import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.core.*;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -42,6 +41,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.FuelValues;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -489,47 +490,47 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        super.saveAdditional(tag, lookupProvider);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
         //TODO
 //        this.saveInventory(tag, lookupProvider);
 
-        tag.putInt("soul_time", this.soulTime);
-        tag.putInt("burn_time", this.burnTime);
+        output.putInt("soul_time", this.soulTime);
+        output.putInt("burn_time", this.burnTime);
 
-        tag.putIntArray("cooking_times", this.logic.cookingProgress);
-        tag.putIntArray("cooking_durations", this.logic.cookingDuration);
+        output.putIntArray("cooking_times", this.logic.cookingProgress);
+        output.putIntArray("cooking_durations", this.logic.cookingDuration);
 
-        tag.store("fire_type", ClibanoFireType.CODEC, this.fireType);
-        tag.store("front_direction", Direction.CODEC, this.frontDirection);
+        output.store("fire_type", ClibanoFireType.CODEC, this.fireType);
+        output.store("front_direction", Direction.CODEC, this.frontDirection);
 
-        tag.store("RecipesUsed", RECIPES_USED_CODEC, this.recipesUsed);
+        output.store("RecipesUsed", RECIPES_USED_CODEC, this.recipesUsed);
 
         if (this.residuesStorage.shouldBeSaved() && this.level != null) {
-            this.residuesStorage.save(tag, lookupProvider);
+            this.residuesStorage.save(output);
         }
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.Provider lookupProvider) {
-        super.loadAdditional(tag, lookupProvider);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-//        this.loadInventory(tag, lookupProvider);
+        //        this.loadInventory(tag, lookupProvider);
 
-        this.soulTime = tag.getIntOr("soul_time", 0);
-        this.burnTime = tag.getIntOr("burn_time", 0);
+        this.soulTime = input.getIntOr("soul_time", 0);
+        this.burnTime = input.getIntOr("burn_time", 0);
 
-        tag.getIntArray("cooking_times").ifPresent(ints -> this.logic.cookingProgress = ints);
-        tag.getIntArray("cooking_durations").ifPresent(ints -> this.logic.cookingDuration = ints);
+        input.getIntArray("cooking_times").ifPresent(ints -> this.logic.cookingProgress = ints);
+        input.getIntArray("cooking_durations").ifPresent(ints -> this.logic.cookingDuration = ints);
 
-        tag.read("fire_type", ClibanoFireType.CODEC).ifPresent(fireType -> this.fireType = fireType);
-        tag.read("front_direction", Direction.CODEC).ifPresent(direction -> this.frontDirection = direction);
+        input.read("fire_type", ClibanoFireType.CODEC).ifPresent(fireType -> this.fireType = fireType);
+        input.read("front_direction", Direction.CODEC).ifPresent(direction -> this.frontDirection = direction);
 
         this.recipesUsed.clear();
-        this.recipesUsed.putAll(tag.read("recipes_used", RECIPES_USED_CODEC).orElse(Map.of()));
+        this.recipesUsed.putAll(input.read("recipes_used", RECIPES_USED_CODEC).orElse(Map.of()));
 
-        this.residuesStorage.load(tag, lookupProvider);
+        this.residuesStorage.load(input);
     }
 
     public void setSoulTime(int duration) {
@@ -562,7 +563,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     public void awardUsedRecipesAndPopExperience(ServerPlayer player) {
-        player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.serverLevel(), player.position()));
+        player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.level(), player.position()));
 
         this.recipesUsed.clear();
     }
