@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.data.recipes.builder.ApplyModifierRecipeBuilder
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.level.ItemLike
 import net.valhelsia.dataforge.recipe.RecipeSubProvider
@@ -22,6 +23,6 @@ class ApplyModifierRecipeProvider(provider: HolderLookup.Provider, recipeOutput:
     }
 
     private fun modifier(addition: ItemLike, modifier: Holder<ItemModifier>) {
-        this.add(ApplyModifierRecipeBuilder.of(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get(), addition, modifier), "apply_modifier/" + modifier.key!!.location().path)
+        this.add(ApplyModifierRecipeBuilder.of(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get(), addition, modifier, this.registries.lookupOrThrow(Registries.ITEM)), "apply_modifier/" + modifier.key!!.location().path)
     }
 }

@@ -7,11 +7,17 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.registries.holdersets.NotHolderSet;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -20,10 +26,11 @@ import java.util.Optional;
 public record ApplyModifierRecipe(Optional<Ingredient> template,
                                   Optional<Ingredient> addition,
                                   Holder<ItemModifier> modifier,
+                                  HolderLookup.RegistryLookup<Item> registryLookup,
                                   PlacementInfo placementInfo) implements SmithingRecipe {
 
-    public ApplyModifierRecipe(Optional<Ingredient> template, Optional<Ingredient> addition, Holder<ItemModifier> modifier) {
-        this(template, addition, modifier, PlacementInfo.createFromOptionals(List.of(template, addition)));
+    public ApplyModifierRecipe(Optional<Ingredient> template, Optional<Ingredient> addition, Holder<ItemModifier> modifier, HolderLookup.RegistryLookup<Item> registryLookup) {
+        this(template, addition, modifier, registryLookup, PlacementInfo.createFromOptionals(List.of(template, addition)));
     }
 
     //TODO: refactor
@@ -44,7 +51,7 @@ public record ApplyModifierRecipe(Optional<Ingredient> template,
 
     @Override
     public Ingredient baseIngredient() {
-        return Ingredient.of();
+        return Ingredient.of(new NotHolderSet<>(this.registryLookup, HolderSet.direct(Items.AIR.builtInRegistryHolder())));
     }
 
     @Override
@@ -90,7 +97,8 @@ public record ApplyModifierRecipe(Optional<Ingredient> template,
         private static final MapCodec<ApplyModifierRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Ingredient.CODEC.optionalFieldOf("template").forGetter(ApplyModifierRecipe::template),
                 Ingredient.CODEC.optionalFieldOf("addition").forGetter(ApplyModifierRecipe::addition),
-                ItemModifier.CODEC.fieldOf("modifier").forGetter(ApplyModifierRecipe::modifier)
+                ItemModifier.CODEC.fieldOf("modifier").forGetter(ApplyModifierRecipe::modifier),
+                RegistryOps.retrieveRegistryLookup(Registries.ITEM).forGetter(ApplyModifierRecipe::registryLookup)
         ).apply(instance, ApplyModifierRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, ApplyModifierRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -100,7 +108,7 @@ public record ApplyModifierRecipe(Optional<Ingredient> template,
                 ApplyModifierRecipe::addition,
                 ItemModifier.STREAM_CODEC,
                 ApplyModifierRecipe::modifier,
-                ApplyModifierRecipe::new
+                (ingredient, ingredient2, itemModifierHolder) -> new ApplyModifierRecipe(ingredient, ingredient2, itemModifierHolder, null)
         );
 
         @Override

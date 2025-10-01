@@ -8,6 +8,7 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
@@ -25,14 +26,14 @@ import java.util.Optional;
  * @author stal111
  * @since 2022-10-21
  */
-public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient addition, Holder<ItemModifier> modifier) implements RecipeBuilder {
+public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient addition, Holder<ItemModifier> modifier, HolderLookup.RegistryLookup<Item> registryLookup) implements RecipeBuilder {
 
-    public static ApplyModifierRecipeBuilder of(ItemLike template, ItemLike addition, Holder<ItemModifier> modifier) {
-        return new ApplyModifierRecipeBuilder(Ingredient.of(template), Ingredient.of(addition), modifier);
+    public static ApplyModifierRecipeBuilder of(ItemLike template, ItemLike addition, Holder<ItemModifier> modifier, HolderLookup.RegistryLookup<Item> registryLookup) {
+        return new ApplyModifierRecipeBuilder(Ingredient.of(template), Ingredient.of(addition), modifier, registryLookup);
     }
 
-    public static ApplyModifierRecipeBuilder of(ItemLike template, Ingredient addition, Holder<ItemModifier> modifier) {
-        return new ApplyModifierRecipeBuilder(Ingredient.of(template), addition, modifier);
+    public static ApplyModifierRecipeBuilder of(ItemLike template, Ingredient addition, Holder<ItemModifier> modifier, HolderLookup.RegistryLookup<Item> registryLookup) {
+        return new ApplyModifierRecipeBuilder(Ingredient.of(template), addition, modifier, registryLookup);
     }
 
     @Nonnull
@@ -54,7 +55,7 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
 
     @Override
     public void save(@NotNull RecipeOutput output, @NotNull ResourceKey<Recipe<?>> resourceKey) {
-        ApplyModifierRecipe recipe = new ApplyModifierRecipe(Optional.of(this.template), Optional.of(this.addition), this.modifier);
+        ApplyModifierRecipe recipe = new ApplyModifierRecipe(Optional.of(this.template), Optional.of(this.addition), this.modifier, this.registryLookup);
         Advancement.Builder builder = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
                 .rewards(AdvancementRewards.Builder.recipe(resourceKey))
