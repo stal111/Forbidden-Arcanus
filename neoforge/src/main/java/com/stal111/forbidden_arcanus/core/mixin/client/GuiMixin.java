@@ -23,10 +23,6 @@ public abstract class GuiMixin {
         Player player = this.getCameraPlayer();
 
         if (player != null && player.getMainHandItem().is(ModItems.MAGIC_WAND)) {
-            //TODO
-//            RenderSystem.defaultBlendFunc();
-//            RenderSystem.disableBlend();
-
             ci.cancel();
         }
     }
