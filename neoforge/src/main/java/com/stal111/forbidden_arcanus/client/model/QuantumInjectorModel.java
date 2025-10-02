@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.animation.QuantumInjectorAnimation;
 import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEntity;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -20,8 +22,13 @@ public class QuantumInjectorModel<T extends Entity> extends Model {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("quantum_injector"), "main");
 
+    private final KeyframeAnimation transformAnimation;
+    private final KeyframeAnimation rotateAnimation;
+
     public QuantumInjectorModel(ModelPart root) {
         super(root, RenderType::entitySolid);
+        this.transformAnimation = QuantumInjectorAnimation.TRANSFORM.bake(root);
+        this.rotateAnimation = QuantumInjectorAnimation.ROTATE.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -54,8 +61,7 @@ public class QuantumInjectorModel<T extends Entity> extends Model {
     public void setupAnim(@Nonnull QuantumInjectorBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        //TODO
-//        this.animate(entity.transformAnimation, QuantumInjectorAnimation.TRANSFORM, ageInTicks);
-//        this.animate(entity.rotateAnimation, QuantumInjectorAnimation.ROTATE, ageInTicks);
+        this.transformAnimation.apply(entity.transformAnimation, ageInTicks);
+        this.rotateAnimation.apply(entity.rotateAnimation, ageInTicks);
     }
 }

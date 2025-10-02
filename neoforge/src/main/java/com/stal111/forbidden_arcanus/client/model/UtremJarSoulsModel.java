@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.animation.UtremJarSoulAnimation;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -19,8 +21,11 @@ public class UtremJarSoulsModel<T extends Entity> extends Model {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("utrem_jar_souls"), "main");
 
+    private final KeyframeAnimation rotateAnimation;
+
     public UtremJarSoulsModel(ModelPart root) {
         super(root, RenderType::entitySolid);
+        this.rotateAnimation = UtremJarSoulAnimation.ROTATE.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -69,7 +74,6 @@ public class UtremJarSoulsModel<T extends Entity> extends Model {
     public void setupAnim(@NotNull EssenceUtremJarBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        //TODO
-//        this.animate(entity.rotateAnimation, UtremJarSoulAnimation.ROTATE, ageInTicks);
+        this.rotateAnimation.apply(entity.rotateAnimation, ageInTicks);
     }
 }

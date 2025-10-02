@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.animation.DarkTraderAnimation;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.DarkTraderRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -18,9 +20,11 @@ public class DarkTraderModel extends EntityModel<DarkTraderRenderState> {
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("dark_trader"), "main");
 
+    private final KeyframeAnimation spawnAnimation;
 
 	public DarkTraderModel(ModelPart root) {
         super(root, RenderType::entitySolid);
+        this.spawnAnimation = DarkTraderAnimation.SPAWN.bake(root);
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -84,7 +88,6 @@ public class DarkTraderModel extends EntityModel<DarkTraderRenderState> {
 	public void setupAnim(@NotNull DarkTraderRenderState renderState) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        //TODO
-//		this.animate(renderState.spawnAnimation, DarkTraderAnimation.SPAWN, renderState.ageInTicks);
-	}
+        this.spawnAnimation.apply(renderState.spawnAnimation, renderState.ageInTicks);
+    }
 }

@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.animation.LostSoulAnimation;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.LostSoulRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -18,8 +20,13 @@ public class LostSoulModel extends EntityModel<LostSoulRenderState> {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("lost_soul"), "main");
 
+    private final KeyframeAnimation stillAnimation;
+    private final KeyframeAnimation fearAnimation;
+
     public LostSoulModel(ModelPart root) {
         super(root, RenderType::entitySolid);
+        this.stillAnimation = LostSoulAnimation.LOST_SOUL_STILL.bake(root);
+        this.fearAnimation = LostSoulAnimation.LOST_SOUL_FEAR.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -45,8 +52,7 @@ public class LostSoulModel extends EntityModel<LostSoulRenderState> {
     public void setupAnim(@NotNull LostSoulRenderState renderState) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
 
-        //TODO
-//        this.animate(renderState.still, LostSoulAnimation.LOST_SOUL_STILL, renderState.ageInTicks);
-//        this.animate(renderState.fear, LostSoulAnimation.LOST_SOUL_FEAR, renderState.ageInTicks);
+        this.stillAnimation.apply(renderState.still, renderState.ageInTicks);
+        this.fearAnimation.apply(renderState.fear, renderState.ageInTicks);
     }
 }
