@@ -1,4 +1,4 @@
-// 1.21.8	2025-10-02T17:53:07.7282164	Recipe Provider: forbidden_arcanus
+// 1.21.8	2025-10-02T17:58:47.7086239	Recipe Provider: forbidden_arcanus
 aaf87dd327ca92c4521aff5a901f97eb0291f7bb data/forbidden_arcanus/advancement/recipes/apply_modifier/aquatic.json
 eefe63f175a05bdc7fe0b584b101e4e3f154e46c data/forbidden_arcanus/advancement/recipes/apply_modifier/demolishing.json
 b3c15e707860fec5df2d44f25879518da3c85383 data/forbidden_arcanus/advancement/recipes/apply_modifier/eternal.json
@@ -366,5 +366,7 @@ db2766036b011aabddda8e843f115ff177611ebb data/forbidden_arcanus/recipe/tiled_pol
 cf2dd554b7c70fcc6c312d40ed8f676acdaef30e data/forbidden_arcanus/recipe/wooden_blacksmith_gavel.json
 f06e3baa4d442412b76a90bc2c6c97a5879f8ac6 data/forbidden_arcanus/recipe/yellow_quantum_catcher.json
 39d9d999db1e94baaf48bddc0211dc3f2c55740f data/minecraft/advancement/recipes/misc/ender_pearl.json
+6396553dbe23369c9a6eb5326c8ea94f1d630a4a data/minecraft/advancement/recipes/tools/netherite_blacksmith_gavel_smithing.json
 9804c2eb42da116dbe05dc9fb0c60485f0825353 data/minecraft/recipe/combine_aureal_tank.json
 dfa47c81d7dc74865feeaee5f9701c5aaf1fce58 data/minecraft/recipe/ender_pearl.json
+fde209f7f644de7d7ec95f731c791cd506861aa9 data/minecraft/recipe/netherite_blacksmith_gavel_smithing.json

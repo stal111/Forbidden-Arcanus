@@ -362,16 +362,7 @@ class CraftingRecipeProvider(
             ).unlockedBy(ModTags.Items.ARCANE_CRYSTAL_ORES), "blasting/arcane_crystal_from_blasting"
         )
 
-        //TODO
-//        SmithingTransformRecipeBuilder.smithing(
-//            Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(
-//                ModItems.DIAMOND_BLACKSMITH_GAVEL.get()
-//            ), Ingredient.of(Items.NETHERITE_INGOT), RecipeCategory.MISC, ModItems.NETHERITE_BLACKSMITH_GAVEL.get()
-//        ).unlocks(
-//            "has_item", has(
-//                Items.NETHERITE_INGOT
-//            )
-//        ).save(this.recipeOutput, ForbiddenArcanus.location("smithing/netherite_blacksmith_gavel"))
+        netheriteSmithing(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), RecipeCategory.TOOLS, ModItems.NETHERITE_BLACKSMITH_GAVEL.get())
 
         // Stonecutting Recipes
         this.addStonecutterRecipe(ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get(), ModBlocks.DARKSTONE.get())

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "forbidden_arcanus:diamond_blacksmith_gavel",
+  "result": {
+    "id": "forbidden_arcanus:netherite_blacksmith_gavel"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}
