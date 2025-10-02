@@ -91,7 +91,7 @@ public class DarkTrader extends Mob implements QuantumLightDoorAnimationProvider
         super.onSyncedDataUpdated(key);
     }
 
-    private Holder<DarkTraderVariant> getVariant() {
+    public Holder<DarkTraderVariant> getVariant() {
         return this.entityData.get(DATA_VARIANT_ID);
     }
 

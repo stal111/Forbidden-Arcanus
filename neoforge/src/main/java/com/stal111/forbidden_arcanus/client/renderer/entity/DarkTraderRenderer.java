@@ -32,6 +32,13 @@ public class DarkTraderRenderer extends MobRenderer<DarkTrader, DarkTraderRender
     }
 
     @Override
+    public void extractRenderState(DarkTrader entity, DarkTraderRenderState reusedState, float partialTick) {
+        super.extractRenderState(entity, reusedState, partialTick);
+
+        reusedState.texture = entity.getVariant().value().textureAsset().texturePath();
+    }
+
+    @Override
     public void render(@NotNull DarkTraderRenderState renderState, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
         if (renderState.pose != Pose.EMERGING ||renderState.spawnAnimation.isStarted()) {
             super.render(renderState, poseStack, bufferSource, packedLight);
@@ -43,8 +50,7 @@ public class DarkTraderRenderer extends MobRenderer<DarkTrader, DarkTraderRender
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull DarkTraderRenderState renderState) {
-        //TODO
-        return null;
+    public ResourceLocation getTextureLocation(DarkTraderRenderState renderState) {
+        return renderState.texture;
     }
 }

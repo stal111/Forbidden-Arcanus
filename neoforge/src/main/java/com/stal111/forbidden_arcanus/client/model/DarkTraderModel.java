@@ -23,7 +23,7 @@ public class DarkTraderModel extends EntityModel<DarkTraderRenderState> {
     private final KeyframeAnimation spawnAnimation;
 
 	public DarkTraderModel(ModelPart root) {
-        super(root, RenderType::entitySolid);
+        super(root);
         this.spawnAnimation = DarkTraderAnimation.SPAWN.bake(root);
 	}
 

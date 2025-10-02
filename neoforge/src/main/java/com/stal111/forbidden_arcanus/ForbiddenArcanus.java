@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.client.ClientSetup;
 import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlags;
@@ -42,4 +43,8 @@ public final class ForbiddenArcanus {
 	public static ResourceLocation location(String path) {
 		return ResourceLocation.fromNamespaceAndPath(ForbiddenArcanus.MOD_ID, path);
 	}
+
+    public static ClientAsset clientAsset(String path) {
+        return new ClientAsset(ForbiddenArcanus.location(path));
+    }
 }
