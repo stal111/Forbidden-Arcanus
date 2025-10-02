@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_darkstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:darkstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:darkstone_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_darkstone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:darkstone_wall"
+    ]
+  }
+}

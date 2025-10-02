@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "forbidden_arcanus:arcane_edelwood_planks"
+  },
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "id": "forbidden_arcanus:arcane_edelwood_door"
+  }
+}

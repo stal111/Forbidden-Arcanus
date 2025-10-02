@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:edelwood_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:edelwood_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:edelwood_stairs"
+    ]
+  }
+}

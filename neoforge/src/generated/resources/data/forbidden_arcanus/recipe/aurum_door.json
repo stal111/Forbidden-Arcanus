@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_door",
+  "key": {
+    "#": "forbidden_arcanus:aurum_planks"
+  },
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "id": "forbidden_arcanus:aurum_door"
+  }
+}

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.datagen.recipes
 
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.ModItems
+import com.stal111.forbidden_arcanus.data.FABlockFamilies
 import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponents
@@ -11,6 +12,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder
 import net.minecraft.data.recipes.SingleItemRecipeBuilder
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
+import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
@@ -28,16 +30,9 @@ class CraftingRecipeProvider(
     recipeOutput: RecipeOutput
 ) : RecipeSubProvider(lookupProvider, recipeOutput) {
     override fun buildRecipes() {
-        //TODO
-//        FABlockFamilies.getAllFamilies().filter { obj: BlockFamily -> obj.shouldGenerateRecipe() }
-//            .forEach { family: BlockFamily ->
-//                providers
-//                RecipeProvider.generateRecipes(
-//                    this.provider.getRecipeOutput(), family, FeatureFlagSet.of(
-//                        FeatureFlags.VANILLA
-//                    )
-//                )
-//            }
+        FABlockFamilies.getAllFamilies()
+            .filter { it.shouldGenerateRecipe() }
+            .forEach { generateRecipes(it, FeatureFlags.VANILLA_SET) }
 
         //Shaped Recipes
         this.shaped(RecipeCategory.DECORATIONS, ModBlocks.UTREM_JAR.get()) {
