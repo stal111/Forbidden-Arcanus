@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "forbidden_arcanus:entity/quantum_injector"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "forbidden_arcanus:entity/quantum_injector_layer"
+    }
+  ]
+}

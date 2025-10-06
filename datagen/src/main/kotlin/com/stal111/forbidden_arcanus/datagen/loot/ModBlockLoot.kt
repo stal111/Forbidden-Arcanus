@@ -22,6 +22,7 @@ import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.entries.DynamicLoot
 import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
 
@@ -245,7 +246,7 @@ class ModBlockLoot(
                 .add(
                     LootItem.lootTableItem(block).apply(
                         CopyComponentsFunction
-                            .copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                            .copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
                             .include(ModDataComponents.ESSENCE_STORAGE.get())
                     )
                 )

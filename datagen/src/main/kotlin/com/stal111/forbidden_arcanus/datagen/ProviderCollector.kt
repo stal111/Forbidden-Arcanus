@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.datagen
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.registry.FARegistries
+import com.stal111.forbidden_arcanus.datagen.atlas.ModAtlasProvider
 import com.stal111.forbidden_arcanus.datagen.block.clibano.ModResidueTypes
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModMagicCircles
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModRituals
@@ -43,6 +44,7 @@ class ProviderCollector : DataCollector() {
         addClientProvider(ModEquipmentAssetProvider(context))
         addClientProvider(DataForgeModelProvider(context, { ModBlockModels(it) }, { ModItemModels(it) }))
         addClientProvider(ParticleDataProvider(context))
+        addClientProvider(ModAtlasProvider(context))
     }
 
     override fun collectServerProviders(context: DataProviderContext.Server) {

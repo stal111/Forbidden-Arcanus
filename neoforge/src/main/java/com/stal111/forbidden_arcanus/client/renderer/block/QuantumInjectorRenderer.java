@@ -6,12 +6,19 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.QuantumInjectorModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.QuantumInjectorRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEntity;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.MaterialSet;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author stal111
@@ -19,18 +26,29 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
  */
 public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjectorBlockEntity, QuantumInjectorRenderState> {
 
-    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/entity/quantum_injector.png");
-    private static final ResourceLocation LAYER_TEXTURE = ForbiddenArcanus.location("textures/entity/quantum_injector_layer.png");
+    public static final Material TEXTURE_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.location("quantum_injector"));
+    public static final Material LAYER_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.location("quantum_injector_layer"));
 
+    private final MaterialSet materials;
     private final QuantumInjectorModel<?> model;
 
     public QuantumInjectorRenderer(BlockEntityRendererProvider.Context context) {
+        this.materials = context.materials();
         this.model = new QuantumInjectorModel<>(context.bakeLayer(QuantumInjectorModel.LAYER_LOCATION));
     }
 
     @Override
     public QuantumInjectorRenderState createRenderState() {
         return new QuantumInjectorRenderState();
+    }
+
+    @Override
+    public void extractRenderState(QuantumInjectorBlockEntity blockEntity, QuantumInjectorRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
+
+        renderState.transformAnimation.copyFrom(blockEntity.transformAnimation);
+        renderState.rotateAnimation.copyFrom(blockEntity.rotateAnimation);
+        renderState.ageInTicks = blockEntity.getTickCount() + partialTick;
     }
 
     @Override
@@ -44,11 +62,11 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
         poseStack.translate(0.5F, 1.5F, 0.5F);
         poseStack.mulPose(Axis.ZP.rotationDegrees(180));
 
-        //TODO
-//        this.model.setupAnim(blockEntity, 0.0F, 0.0F, blockEntity.getTickCount() + partialTick, 0.0F, 0.0F);
-//        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(this.model.renderType(TEXTURE)), packedLight, packedOverlay);
-//
-//        this.model.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityTranslucentEmissive(LAYER_TEXTURE)), packedLight, packedOverlay);
+        QuantumInjectorModel.State state = new QuantumInjectorModel.State(renderState.transformAnimation, renderState.rotateAnimation, renderState.ageInTicks);
+
+        this.model.setupAnim(state);
+        nodeCollector.submitModel(this.model, state, poseStack, TEXTURE_MATERIAL.renderType(this.model::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(TEXTURE_MATERIAL), 0, renderState.breakProgress);
+        nodeCollector.submitModel(this.model, state, poseStack, LAYER_MATERIAL.renderType(RenderType::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(LAYER_MATERIAL), 0, renderState.breakProgress);
 
         poseStack.popPose();
     }
