@@ -15,7 +15,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -149,7 +148,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
             level.playSound(player, pos, ritualStarter.soundEvent().value(), SoundSource.PLAYERS, 0.85F, level.getRandom().nextFloat() * 0.15F + 0.9F);
 
             if (player instanceof ServerPlayer serverPlayer && blockEntity.getRitualManager().startRitual(serverPlayer, blockEntity.getEssenceManager().getStorage())) {
-                stack.hurtAndBreak(ritualStarter.damagePerRitual(), player, LivingEntity.getSlotForHand(hand));
+                stack.hurtAndBreak(ritualStarter.damagePerRitual(), player, hand.asEquipmentSlot());
             }
 
             return InteractionResult.SUCCESS;

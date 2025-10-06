@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTabB
 import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -120,9 +121,9 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
         for (ResearchTabButton tabButton : this.tabButtons) {
-            if (tabButton.mouseClicked(mouseX, mouseY, button)) {
+            if (tabButton.mouseClicked(event, isDoubleClick)) {
                 if (this.selectedTabButton != null) {
                     this.selectedTabButton.setStateTriggered(false);
                 }
@@ -136,16 +137,16 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
             }
         }
 
-        this.selectedTab.mouseClicked(mouseX, mouseY, button);
+        this.selectedTab.mouseClicked(event, isDoubleClick);
 
         return false;
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        this.selectedTab.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    public boolean mouseDragged(MouseButtonEvent event, double mouseX, double mouseY) {
+        this.selectedTab.mouseDragged(event, mouseX, mouseY);
 
-        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        return super.mouseDragged(event, mouseX, mouseY);
     }
 
     @Override

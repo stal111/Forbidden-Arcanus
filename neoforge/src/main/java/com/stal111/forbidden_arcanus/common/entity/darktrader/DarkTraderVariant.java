@@ -11,7 +11,7 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHel
  * @author stal111
  * @since 2023-08-12
  */
-public record DarkTraderVariant(ClientAsset textureAsset) implements RegistryClass {
+public record DarkTraderVariant(ClientAsset.ResourceTexture textureAsset) implements RegistryClass {
 
     public static final MappedRegistryHelper<DarkTraderVariant> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.DARK_TRADER_VARIANT);
 

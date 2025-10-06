@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.entity.projectile;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.PowerParticleOption;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -42,7 +43,7 @@ public class DracoArcanusArrow extends AbstractArrow {
     public void tick() {
         super.tick();
         if (this.level().isClientSide() && !this.isInGround()) {
-            this.level().addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            this.level().addParticle(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F), this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -60,7 +61,7 @@ public class DracoArcanusArrow extends AbstractArrow {
         if (this.getOwner() instanceof LivingEntity owner) {
             areaEffectCloud.setOwner(owner);
         }
-        areaEffectCloud.setCustomParticle(ParticleTypes.DRAGON_BREATH);
+        areaEffectCloud.setCustomParticle(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F));
         areaEffectCloud.setRadius(2.0F);
         areaEffectCloud.setDuration(400);
         areaEffectCloud.setRadiusPerTick((7.0F - areaEffectCloud.getRadius()) / (float) areaEffectCloud.getDuration());

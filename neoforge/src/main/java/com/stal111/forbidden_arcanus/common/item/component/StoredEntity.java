@@ -62,7 +62,7 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
             "UUID"
     );
 
-    public static final Codec<StoredEntity> CODEC = CustomData.CODEC_WITH_ID.xmap(StoredEntity::new, StoredEntity::data);
+    public static final Codec<StoredEntity> CODEC = CustomData.CODEC.xmap(StoredEntity::new, StoredEntity::data);
     public static final StreamCodec<ByteBuf, StoredEntity> STREAM_CODEC = CustomData.STREAM_CODEC.map(StoredEntity::new, StoredEntity::data);
 
     private static final MapCodec<EntityType<?>> ENTITY_TYPE_FIELD_CODEC = BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("id");
@@ -96,11 +96,11 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
     }
 
     public Optional<EntityType<?>> getEntityType() {
-        return this.data.read(ENTITY_TYPE_FIELD_CODEC).result();
+        return this.data.copyTag().read(ENTITY_TYPE_FIELD_CODEC);
     }
 
     public Optional<Component> getDisplayName() {
-        return this.data.read(DISPLAY_NAME_FIELD_CODEC).result();
+        return this.data.copyTag().read(DISPLAY_NAME_FIELD_CODEC);
     }
 
 

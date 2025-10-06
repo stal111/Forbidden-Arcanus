@@ -4,7 +4,7 @@ plugins {
     id("eclipse")
     id("idea")
     id("maven-publish")
-    id("net.neoforged.moddev") version "2.0.107"
+    id("net.neoforged.moddev") version "2.0.112"
 }
 
 val mod_id: String by project
@@ -74,7 +74,6 @@ dependencies {
     compileOnly(mainProject)
 
     implementation("net.valhelsia:valhelsia_core-neoforge-${minecraft_version}:${valhelsia_core_version}")
-    implementation("thedarkcolour:kotlinforforge-neoforge:5.9.0")
 
     implementation(interfaceInjectionData(accessTransformers("net.valhelsia:dataforge:${dataforge_version}")!!)!!)
 }

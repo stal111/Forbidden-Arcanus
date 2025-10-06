@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.QuantumInjectorAnimation;
-import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEntity;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -10,15 +9,14 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author stal111
  * @since 03.06.2024
  */
-public class QuantumInjectorModel<T extends Entity> extends Model {
+public class QuantumInjectorModel<T extends Entity> extends Model<QuantumInjectorModel.State> {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("quantum_injector"), "main");
 
@@ -58,10 +56,14 @@ public class QuantumInjectorModel<T extends Entity> extends Model {
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
-    public void setupAnim(@Nonnull QuantumInjectorBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+    @Override
+    public void setupAnim(State renderState) {
+        super.setupAnim(renderState);
 
-        this.transformAnimation.apply(entity.transformAnimation, ageInTicks);
-        this.rotateAnimation.apply(entity.rotateAnimation, ageInTicks);
+        this.transformAnimation.apply(renderState.transformAnimation, renderState.ageInTicks);
+        this.rotateAnimation.apply(renderState.rotateAnimation, renderState.ageInTicks);
+    }
+
+    public record State(AnimationState transformAnimation, AnimationState rotateAnimation, float ageInTicks) {
     }
 }

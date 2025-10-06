@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.research.tab;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -24,7 +25,7 @@ public class EmptyTab extends AbstractTab {
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+    public boolean mouseDragged(MouseButtonEvent event, double mouseX, double mouseY) {
         return false;
     }
 
@@ -34,7 +35,7 @@ public class EmptyTab extends AbstractTab {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
         return false;
     }
 }

@@ -1,8 +1,12 @@
 package com.stal111.forbidden_arcanus.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.RandomSource;
 import org.joml.Vector3f;
 
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.List;
  * @author stal111
  * @since 11.06.2024
  */
-public class EssenceDropParticle extends TextureSheetParticle {
+public class EssenceDropParticle extends SingleQuadParticle {
 
     private static final float SPEED = 0.07f;
 
@@ -19,8 +23,8 @@ public class EssenceDropParticle extends TextureSheetParticle {
     private int currentPathIndex = 0;
     private float progress = 0.0f;
 
-    protected EssenceDropParticle(ClientLevel level, double x, double y, double z, List<Vector3f> path) {
-        super(level, x, y, z);
+    protected EssenceDropParticle(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite, List<Vector3f> path) {
+        super(level, x, y, z, sprite);
         this.path = path;
 
         this.hasPhysics = false;
@@ -53,18 +57,15 @@ public class EssenceDropParticle extends TextureSheetParticle {
     }
 
     @Override
-    public @NotNull ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    protected Layer getLayer() {
+        return Layer.OPAQUE;
     }
 
     public record Provider(SpriteSet spriteSet) implements ParticleProvider<EssenceDropParticleOption> {
 
         @Override
-        public Particle createParticle(@NotNull EssenceDropParticleOption type, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            EssenceDropParticle particle = new EssenceDropParticle(level, x, y, z, type.path());
-            particle.pickSprite(this.spriteSet);
-
-            return particle;
+        public Particle createParticle(EssenceDropParticleOption particleType, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
+            return new EssenceDropParticle(level, x, y, z, this.spriteSet.get(random), particleType.path());
         }
     }
 }

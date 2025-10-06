@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SpellParticleOption;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -99,8 +100,8 @@ public class UpwindBlock extends Block {
         double d1 = pos.getY();
         double d2 = pos.getZ();
 
-        level.addAlwaysVisibleParticle(ParticleTypes.EFFECT, d0 + 0.5D, d1, d2 + 0.5D, 0.0D, 0.1D, 0.0D);
-        level.addAlwaysVisibleParticle(ParticleTypes.EFFECT, d0 + (double) random.nextFloat(), d1 + (double) random.nextFloat(), d2 + (double) random.nextFloat(), 0.0D, 0.1D, 0.0D);
+        level.addAlwaysVisibleParticle(SpellParticleOption.create(ParticleTypes.EFFECT, -1, 1.0F), d0 + 0.5D, d1, d2 + 0.5D, 0.0D, 0.1D, 0.0D);
+        level.addAlwaysVisibleParticle(SpellParticleOption.create(ParticleTypes.EFFECT, -1, 1.0F), d0 + (double) random.nextFloat(), d1 + (double) random.nextFloat(), d2 + (double) random.nextFloat(), 0.0D, 0.1D, 0.0D);
 
         if (random.nextInt(200) == 0) {
             level.playLocalSound(d0, d1, d2, SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundSource.BLOCKS, 0.2F + random.nextFloat() * 0.2F, 0.9F + random.nextFloat() * 0.15F, false);

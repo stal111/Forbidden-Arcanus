@@ -4,11 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.client.model.DarkTraderModel;
 import com.stal111.forbidden_arcanus.client.model.QuantumLightDoorModel;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.DarkTraderRenderState;
-import com.stal111.forbidden_arcanus.client.renderer.entity.state.QuantumLightDoorRenderState;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Pose;
 import org.jetbrains.annotations.NotNull;
@@ -39,14 +39,17 @@ public class DarkTraderRenderer extends MobRenderer<DarkTrader, DarkTraderRender
     }
 
     @Override
-    public void render(@NotNull DarkTraderRenderState renderState, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+    public void submit(DarkTraderRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         if (renderState.pose != Pose.EMERGING ||renderState.spawnAnimation.isStarted()) {
-            super.render(renderState, poseStack, bufferSource, packedLight);
+            super.submit(renderState, poseStack, nodeCollector, cameraRenderState);
         }
 
         if (renderState.spawnAnimation.isStarted()) {
-            this.portalModel.render(new QuantumLightDoorRenderState(), poseStack, bufferSource, packedLight);
+            //TODO
+//            this.portalModel.render(new QuantumLightDoorRenderState(), poseStack, bufferSource, packedLight);
         }
+
+        super.submit(renderState, poseStack, nodeCollector, cameraRenderState);
     }
 
     @Override

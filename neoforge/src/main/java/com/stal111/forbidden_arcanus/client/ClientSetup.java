@@ -129,6 +129,11 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
+    public void test(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL.get(), PedestalRenderer::new);
+    }
+
+    @SubscribeEvent
     public void registerRangeProperties(RegisterRangeSelectItemModelPropertyEvent event) {
         event.register(ForbiddenArcanus.location("essence_fill_percentage"), EssenceFillPercentage.MAP_CODEC);
     }

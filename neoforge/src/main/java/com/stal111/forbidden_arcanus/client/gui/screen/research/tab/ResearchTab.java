@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -77,8 +78,9 @@ public class ResearchTab extends AbstractTab {
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        this.scroll(dragX, dragY);
+    public boolean mouseDragged(MouseButtonEvent event, double mouseX, double mouseY) {
+        //TODO
+//        this.scroll(dragX, dragY);
 
         return false;
     }
@@ -105,9 +107,9 @@ public class ResearchTab extends AbstractTab {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
         for (KnowledgeWidget widget : this.knowledgeWidgets) {
-            if (widget.mouseClicked(mouseX, mouseY, button)) {
+            if (widget.mouseClicked(event, isDoubleClick)) {
                 return true;
             }
         }

@@ -1,13 +1,13 @@
 package com.stal111.forbidden_arcanus.client.particle;
 
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
-import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.particles.SimpleParticleType;
-
-import javax.annotation.Nonnull;
+import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Huge Magic Explosion Particle <br>
@@ -40,7 +40,8 @@ public class HugeMagicExplosionParticle extends NoRenderParticle {
     }
 
     public static class Factory implements ParticleProvider<SimpleParticleType> {
-        public Particle createParticle(@Nonnull SimpleParticleType type, @Nonnull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        @Override
+        public @Nullable Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
             return new HugeMagicExplosionParticle(level, x, y, z);
         }
     }

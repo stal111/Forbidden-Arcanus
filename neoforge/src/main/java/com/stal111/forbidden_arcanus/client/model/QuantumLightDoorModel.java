@@ -14,12 +14,13 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.AnimationState;
 
 /**
  * @author stal111
  * @since 2023-08-14
  */
-public class QuantumLightDoorModel extends Model {
+public class QuantumLightDoorModel extends Model<QuantumLightDoorModel.State> {
 
     public static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/effect/quantum_light_door.png");
 
@@ -51,12 +52,18 @@ public class QuantumLightDoorModel extends Model {
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
-    public void setupAnim(QuantumLightDoorRenderState renderState) {
+    @Override
+    public void setupAnim(State renderState) {
+        super.setupAnim(renderState);
+
         this.spawnAnimation.apply(renderState.portal, renderState.ageInTicks);
     }
 
     public void render(QuantumLightDoorRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-        this.setupAnim(renderState);
+//        this.setupAnim(renderState);
         this.renderToBuffer(poseStack, bufferSource.getBuffer(this.renderType(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY);
+    }
+
+    public record State(AnimationState portal, float ageInTicks) {
     }
 }

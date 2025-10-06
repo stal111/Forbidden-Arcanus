@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.model;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.UtremJarSoulAnimation;
-import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -10,14 +9,14 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author stal111
  * @since 02.05.2024
  */
-public class UtremJarSoulsModel<T extends Entity> extends Model {
+public class UtremJarSoulsModel<T extends Entity> extends Model<UtremJarSoulsModel.State> {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("utrem_jar_souls"), "main");
 
@@ -71,9 +70,13 @@ public class UtremJarSoulsModel<T extends Entity> extends Model {
         return LayerDefinition.create(meshDefinition, 64, 32);
     }
 
-    public void setupAnim(@NotNull EssenceUtremJarBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+    @Override
+    public void setupAnim(State renderState) {
+        super.setupAnim(renderState);
 
-        this.rotateAnimation.apply(entity.rotateAnimation, ageInTicks);
+        this.rotateAnimation.apply(renderState.rotateAnimation, renderState.ageInTicks);
+    }
+
+    public record State(AnimationState rotateAnimation, float ageInTicks) {
     }
 }

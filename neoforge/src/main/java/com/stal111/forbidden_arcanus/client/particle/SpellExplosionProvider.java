@@ -1,25 +1,18 @@
 package com.stal111.forbidden_arcanus.client.particle;
 
-import com.stal111.forbidden_arcanus.core.mixin.client.HugeExplosionParticleAccessor;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ColorParticleOption;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.RandomSource;
 
-public class SpellExplosionProvider implements ParticleProvider<ColorParticleOption> {
-
-    private final SpriteSet spriteSet;
-
-    public SpellExplosionProvider(SpriteSet spriteSet) {
-        this.spriteSet = spriteSet;
-    }
+public record SpellExplosionProvider(SpriteSet spriteSet) implements ParticleProvider<ColorParticleOption> {
 
     @Override
-    public @Nullable Particle createParticle(@NotNull ColorParticleOption particleOption, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-        Particle particle = HugeExplosionParticleAccessor.createParticle(level, x, y, z, xSpeed, this.spriteSet);
+    public Particle createParticle(ColorParticleOption particleOption, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
+        HugeExplosionParticle particle = new HugeExplosionParticle(level, x, y, z, xSpeed, this.spriteSet);
         particle.setColor(particleOption.getRed(), particleOption.getGreen(), particleOption.getBlue());
 
         return particle;

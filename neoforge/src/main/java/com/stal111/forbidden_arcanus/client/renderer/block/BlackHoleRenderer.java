@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.renderer.block.state.BlackHoleRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,13 +10,15 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaternionf;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Black Hole Renderer <br>
@@ -26,7 +27,7 @@ import org.joml.Quaternionf;
  * @author stal111
  * @version 2.0.0
  */
-public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEntity> {
+public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEntity, BlackHoleRenderState> {
 
     public static final ModelLayerLocation BLACK_HOLE_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("black_hole"), "main");
     public static final ModelLayerLocation BLACK_HOLE_AURA_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("black_hole"), "aura");
@@ -68,24 +69,37 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
     }
 
     @Override
-    public void render(BlackHoleBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
+    public BlackHoleRenderState createRenderState() {
+        return new BlackHoleRenderState();
+    }
+
+    @Override
+    public void extractRenderState(BlackHoleBlockEntity blockEntity, BlackHoleRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
+
+        renderState.auraTexture = blockEntity.auraTexture;
+    }
+
+    @Override
+    public void submit(BlackHoleRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
 
-        poseStack.translate(0.5D, 0.5D, 0.5D);
-
-        VertexConsumer vertexconsumer = bufferSource.getBuffer(RENDER_TYPE);
-
-        float rotation = ((float) blockEntity.rotation + partialTick) * 3.0F;
-        poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
-
-        poseStack.pushPose();
-        poseStack.mulPose(new Quaternionf().setAngleAxis(Math.PI / 3F, SIN_45, 0.0F, SIN_45));
-
-        this.hole.render(poseStack, vertexconsumer, packedLight, packedOverlay);
-        poseStack.popPose();
-
-        vertexconsumer = bufferSource.getBuffer(AURA_RENDER_TYPE[blockEntity.auraTexture]);
-        this.aura.render(poseStack, vertexconsumer, packedLight, packedOverlay);
+        //TODO
+//        poseStack.translate(0.5D, 0.5D, 0.5D);
+//
+//        VertexConsumer vertexconsumer = bufferSource.getBuffer(RENDER_TYPE);
+//
+//        float rotation = ((float) blockEntity.rotation + partialTick) * 3.0F;
+//        poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
+//
+//        poseStack.pushPose();
+//        poseStack.mulPose(new Quaternionf().setAngleAxis(Math.PI / 3F, SIN_45, 0.0F, SIN_45));
+//
+//        this.hole.render(poseStack, vertexconsumer, packedLight, packedOverlay);
+//        poseStack.popPose();
+//
+//        vertexconsumer = bufferSource.getBuffer(AURA_RENDER_TYPE[blockEntity.auraTexture]);
+//        this.aura.render(poseStack, vertexconsumer, packedLight, packedOverlay);
 
         poseStack.popPose();
     }

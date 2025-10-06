@@ -4,11 +4,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.entity.projectile.AurealMissile;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -27,23 +27,24 @@ public class AurealMissileRenderer extends EntityRenderer<AurealMissile, EntityR
     }
 
     @Override
-    public void render(@NotNull EntityRenderState renderState, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight) {
+    public void submit(EntityRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
 
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(TEXTURE_LOCATION));
-        PoseStack.Pose pose = poseStack.last();
-
-        poseStack.translate(0, 0.2, 0);
-        poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-
-        vertex(vertexConsumer, pose, -0.25F, -0.25F, 0, 1, packedLight);
-        vertex(vertexConsumer, pose, 0.25F, -0.25F, 1, 1, packedLight);
-        vertex(vertexConsumer, pose, 0.25F, 0.25F, 1, 0, packedLight);
-        vertex(vertexConsumer, pose, -0.25F, 0.25F, 0, 0, packedLight);
+        //TODO
+//        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(TEXTURE_LOCATION));
+//        PoseStack.Pose pose = poseStack.last();
+//
+//        poseStack.translate(0, 0.2, 0);
+//        poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
+//
+//        vertex(vertexConsumer, pose, -0.25F, -0.25F, 0, 1, packedLight);
+//        vertex(vertexConsumer, pose, 0.25F, -0.25F, 1, 1, packedLight);
+//        vertex(vertexConsumer, pose, 0.25F, 0.25F, 1, 0, packedLight);
+//        vertex(vertexConsumer, pose, -0.25F, 0.25F, 0, 0, packedLight);
 
         poseStack.popPose();
 
-        super.render(renderState, poseStack, bufferSource, packedLight);
+        super.submit(renderState, poseStack, nodeCollector, cameraRenderState);
     }
 
     private static void vertex(

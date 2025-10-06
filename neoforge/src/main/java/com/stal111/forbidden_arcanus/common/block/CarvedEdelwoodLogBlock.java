@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
@@ -66,7 +65,7 @@ public class CarvedEdelwoodLogBlock extends EdelwoodLogBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (stack.canPerformAction(ItemAbilities.SHEARS_HARVEST) && state.getValue(LEAVES)) {
-            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
             level.gameEvent(player, GameEvent.SHEAR, pos);

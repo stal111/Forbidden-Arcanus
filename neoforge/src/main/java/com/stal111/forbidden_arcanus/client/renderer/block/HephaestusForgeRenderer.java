@@ -1,18 +1,14 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
+import com.stal111.forbidden_arcanus.client.renderer.block.state.HephaestusForgeRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.MagicCircle;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * @author stal111
  * @since 2021-07-16
  */
-public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusForgeBlockEntity> {
+public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusForgeBlockEntity, HephaestusForgeRenderState> {
 
     private final MagicCircleModel magicCircleModel;
 
@@ -31,31 +27,37 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     @Override
-    public void render(HephaestusForgeBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
-        MagicCircle magicCircle = blockEntity.getMagicCircleController().getMagicCircle();
+    public HephaestusForgeRenderState createRenderState() {
+        return new HephaestusForgeRenderState();
+    }
 
-        if (magicCircle != null) {
-            magicCircle.render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel, blockEntity.getClientRitualDuration());
-        }
-
-        if (blockEntity.hasValidRitualIndicator()) {
-            blockEntity.getValidRitualIndicator().render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel.validRitualIndicator());
-        }
-
-        ItemStack stack = blockEntity.getClientMainItem();
-
-        if (!stack.isEmpty()) {
-            poseStack.pushPose();
-
-            poseStack.translate(0.5D, 1.3D, 0.5D);
-            poseStack.mulPose(Axis.YP.rotation((blockEntity.getDisplayCounter() + partialTick) / 20));
-
-            poseStack.scale(0.5F, 0.5F, 0.5F);
-
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, packedLight, packedOverlay, poseStack, bufferSource, blockEntity.getLevel(), 0);
-
-            poseStack.popPose();
-        }
+    @Override
+    public void submit(HephaestusForgeRenderState hephaestusForgeRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        //TODO
+//        MagicCircle magicCircle = blockEntity.getMagicCircleController().getMagicCircle();
+//
+//        if (magicCircle != null) {
+//            magicCircle.render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel, blockEntity.getClientRitualDuration());
+//        }
+//
+//        if (blockEntity.hasValidRitualIndicator()) {
+//            blockEntity.getValidRitualIndicator().render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel.validRitualIndicator());
+//        }
+//
+//        ItemStack stack = blockEntity.getClientMainItem();
+//
+//        if (!stack.isEmpty()) {
+//            poseStack.pushPose();
+//
+//            poseStack.translate(0.5D, 1.3D, 0.5D);
+//            poseStack.mulPose(Axis.YP.rotation((blockEntity.getDisplayCounter() + partialTick) / 20));
+//
+//            poseStack.scale(0.5F, 0.5F, 0.5F);
+//
+//            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, packedLight, packedOverlay, poseStack, bufferSource, blockEntity.getLevel(), 0);
+//
+//            poseStack.popPose();
+//        }
     }
 
     @Override

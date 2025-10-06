@@ -1,23 +1,17 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.stal111.forbidden_arcanus.common.block.entity.ObsidianSkullBlockEntity;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.phys.Vec3;
 
 /**
  * Obsidian Skull Renderer <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.block.ObsidianSkullRenderer
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-02-11
  */
-public class ObsidianSkullRenderer implements BlockEntityRenderer<ObsidianSkullBlockEntity> {
+public class ObsidianSkullRenderer {
 
 
     public ObsidianSkullRenderer(BlockEntityRendererProvider.Context context) {
@@ -39,10 +33,5 @@ public class ObsidianSkullRenderer implements BlockEntityRenderer<ObsidianSkullB
         PartDefinition partdefinition = meshdefinition.getRoot();
         partdefinition.getChild("head").addOrReplaceChild("layer", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.ZERO);
         return LayerDefinition.create(meshdefinition, 64, 16);
-    }
-
-    @Override
-    public void render(ObsidianSkullBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
-
     }
 }

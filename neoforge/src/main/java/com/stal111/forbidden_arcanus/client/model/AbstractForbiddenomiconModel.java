@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
  * @author stal111
  * @since 29.10.2023
  */
-public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Model {
+public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Model.Simple {
 
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("forbiddenomicon"), "main");
 

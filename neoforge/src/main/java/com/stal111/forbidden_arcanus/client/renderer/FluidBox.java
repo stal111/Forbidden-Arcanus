@@ -2,10 +2,8 @@ package com.stal111.forbidden_arcanus.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -22,16 +20,16 @@ import net.neoforged.neoforge.fluids.FluidStack;
  */
 public class FluidBox {
 
-    private final TextureAtlasSprite stillTexture;
-    private final TextureAtlasSprite flowingTexture;
+    private final TextureAtlasSprite stillTexture = null;
+    private final TextureAtlasSprite flowingTexture = null;
     private final int[] color;
     private final AABB fullBounds;
     private AABB boundingBox;
     private float fillPercentage = 1.0F;
 
     public FluidBox(ResourceLocation stillTexture, ResourceLocation flowingTexture, int[] color, AABB fullBounds) {
-        this.stillTexture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(stillTexture);
-        this.flowingTexture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(flowingTexture);
+//        this.stillTexture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(stillTexture);
+//        this.flowingTexture = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(flowingTexture);
         this.color = color;
         this.fullBounds = fullBounds;
         this.boundingBox = fullBounds;

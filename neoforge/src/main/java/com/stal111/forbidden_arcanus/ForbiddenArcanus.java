@@ -44,7 +44,7 @@ public final class ForbiddenArcanus {
 		return ResourceLocation.fromNamespaceAndPath(ForbiddenArcanus.MOD_ID, path);
 	}
 
-    public static ClientAsset clientAsset(String path) {
-        return new ClientAsset(ForbiddenArcanus.location(path));
+    public static ClientAsset.ResourceTexture clientAsset(String path) {
+        return new ClientAsset.ResourceTexture(ForbiddenArcanus.location(path));
     }
 }

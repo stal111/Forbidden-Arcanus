@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.research.tab;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -23,11 +24,11 @@ public abstract class AbstractTab {
 
     public abstract void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY);
 
-    public abstract boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY);
+    public abstract boolean mouseDragged(MouseButtonEvent event, double mouseX, double mouseY);
 
     public abstract boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY);
 
-    public abstract boolean mouseClicked(double mouseX, double mouseY, int button);
+    public abstract boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick);
 
     public int getWidth() {
         return this.width;

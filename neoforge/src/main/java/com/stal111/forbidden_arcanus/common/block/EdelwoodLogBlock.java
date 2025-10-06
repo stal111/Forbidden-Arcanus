@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -127,7 +126,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
         } else if (stack.canPerformAction(ItemAbilities.AXE_STRIP) && !this.isCarved() && state.getValue(AXIS) == Direction.Axis.Y) {
             Direction direction = result.getDirection().getAxis() == Direction.Axis.Y ? player.getDirection().getOpposite() : result.getDirection();
 
-            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 
             if (!level.isClientSide()) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, pos, stack);

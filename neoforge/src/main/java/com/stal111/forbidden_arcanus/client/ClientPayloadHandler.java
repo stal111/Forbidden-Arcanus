@@ -5,9 +5,7 @@ import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import com.stal111.forbidden_arcanus.core.mixin.LevelRendererAccessor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -78,9 +76,10 @@ public final class ClientPayloadHandler {
                     double ySpeed = ((double) random.nextFloat() - 0.4D) * 0.125D;
                     double zSpeed = Math.sin(zPos) * xPos;
 
-                    Particle particle = ((LevelRendererAccessor) levelRenderer).callAddParticleInternal(particleoptions, particleoptions.getType().getOverrideLimiter(), x + xSpeed * 0.1D, y + 0.3D, z + zSpeed * 0.1D, xSpeed, ySpeed, zSpeed);
+                    //TODO
+//                    Particle particle = ((LevelRendererAccessor) levelRenderer).callAddParticleInternal(particleoptions, particleoptions.getType().getOverrideLimiter(), x + xSpeed * 0.1D, y + 0.3D, z + zSpeed * 0.1D, xSpeed, ySpeed, zSpeed);
 
-                    particle.setLifetime(25 + random.nextInt(10));
+//                    particle.setLifetime(25 + random.nextInt(10));
                 }
 
                 this.minecraft.level.playLocalSound(x, y, z, SoundEvents.SPLASH_POTION_BREAK, SoundSource.NEUTRAL, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);

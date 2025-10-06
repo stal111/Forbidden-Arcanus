@@ -1,24 +1,25 @@
 package com.stal111.forbidden_arcanus.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
-
-import javax.annotation.Nonnull;
+import net.minecraft.util.RandomSource;
 
 /**
  * Soul Particle <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.particle.SoulParticle
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  */
-public class SoulParticle extends TextureSheetParticle {
+public class SoulParticle extends SingleQuadParticle {
 
     private final SpriteSet sprites;
 
     private SoulParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet) {
-        super(level, x, y, z, 0.5D - level.getRandom().nextDouble(), ySpeed, 0.5D - level.getRandom().nextDouble());
+        super(level, x, y, z, 0.5D - level.getRandom().nextDouble(), ySpeed, 0.5D - level.getRandom().nextDouble(), spriteSet.first());
         this.sprites = spriteSet;
         this.yd *= 0.20000000298023224D;
         if (xSpeed == 0.0D && zSpeed == 0.0D) {
@@ -30,11 +31,6 @@ public class SoulParticle extends TextureSheetParticle {
         this.lifetime = (int)(9.5D / (level.getRandom().nextFloat() * 0.8D + 0.2D));
         this.hasPhysics = false;
         this.setSpriteFromAge(spriteSet);
-    }
-
-    @Nonnull
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
     @Override
@@ -64,10 +60,15 @@ public class SoulParticle extends TextureSheetParticle {
         }
     }
 
+    @Override
+    protected Layer getLayer() {
+        return Layer.TRANSLUCENT;
+    }
+
     public record Factory(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 
         @Override
-        public Particle createParticle(@Nonnull SimpleParticleType type, @Nonnull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
             return new SoulParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
         }
     }
