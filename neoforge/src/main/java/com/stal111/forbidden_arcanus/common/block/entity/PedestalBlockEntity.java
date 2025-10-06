@@ -10,6 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,17 +28,16 @@ import org.jetbrains.annotations.Nullable;
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity
  *
  * @author stal111
- * @version 1.17.1 - 2.0.0
  * @since 2021-06-25
  */
-public class PedestalBlockEntity extends BlockEntity {
+public class PedestalBlockEntity extends BlockEntity implements ItemOwner {
 
     public static final int DEFAULT_ITEM_HEIGHT = 120;
 
     private ItemStack stack = ItemStack.EMPTY;
 
-    private final float hoverStart;
-    private int ticksExisted;
+    public final float hoverStart;
+    public int ageInTicks;
     private int itemHeight = DEFAULT_ITEM_HEIGHT;
     private int heightTarget = DEFAULT_ITEM_HEIGHT;
 
@@ -46,7 +47,7 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, PedestalBlockEntity blockEntity) {
-        blockEntity.ticksExisted++;
+        blockEntity.ageInTicks++;
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PedestalBlockEntity blockEntity) {
@@ -103,7 +104,7 @@ public class PedestalBlockEntity extends BlockEntity {
     }
 
     public float getItemHover(float partialTicks) {
-        return (this.ticksExisted + partialTicks) / 20.0F + this.hoverStart;
+        return (this.ageInTicks + partialTicks) / 20.0F + this.hoverStart;
     }
 
     public int getItemHeight() {
@@ -146,5 +147,20 @@ public class PedestalBlockEntity extends BlockEntity {
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
         return this.saveWithoutMetadata(lookupProvider);
+    }
+
+    @Override
+    public Level level() {
+        return this.level;
+    }
+
+    @Override
+    public Vec3 position() {
+        return this.getBlockPos().getCenter();
+    }
+
+    @Override
+    public float getVisualRotationYInDegrees() {
+        return 0;
     }
 }
