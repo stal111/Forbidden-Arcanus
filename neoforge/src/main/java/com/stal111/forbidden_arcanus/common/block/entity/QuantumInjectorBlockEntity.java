@@ -40,7 +40,7 @@ import java.util.Map;
  * @author stal111
  * @since 03.06.2024
  */
-public class QuantumInjectorBlockEntity extends BlockEntity {
+public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEntityAgeAccess {
 
     private static final Map<EssenceType, Holder<PoiType>> ESSENCE_TYPE_TO_POI_TYPE = Map.of(
             EssenceType.AUREAL, ModPOITypes.AUREAL_UTREM_JAR,
@@ -61,24 +61,24 @@ public class QuantumInjectorBlockEntity extends BlockEntity {
     private @Nullable EssenceUtremJarBlockEntity jarBlockEntity;
 
     private boolean playAnimation = false;
-    private int tickCount;
+    private int ageInTicks;
 
     public QuantumInjectorBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.QUANTUM_INJECTOR.get(), pos, state);
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, QuantumInjectorBlockEntity blockEntity) {
-        blockEntity.transformAnimation.animateWhen(state.getValue(BlockStateProperties.ENABLED) && blockEntity.playAnimation, blockEntity.tickCount);
-        blockEntity.rotateAnimation.animateWhen(state.getValue(BlockStateProperties.ENABLED) && !blockEntity.transformAnimation.isStarted(), blockEntity.tickCount);
+        blockEntity.transformAnimation.animateWhen(state.getValue(BlockStateProperties.ENABLED) && blockEntity.playAnimation, blockEntity.ageInTicks);
+        blockEntity.rotateAnimation.animateWhen(state.getValue(BlockStateProperties.ENABLED) && !blockEntity.transformAnimation.isStarted(), blockEntity.ageInTicks);
 
-        if (blockEntity.playAnimation && blockEntity.tickCount >= TRANSFORM_ANIMATION_DURATION) {
+        if (blockEntity.playAnimation && blockEntity.ageInTicks >= TRANSFORM_ANIMATION_DURATION) {
             blockEntity.playAnimation = false;
         }
 
-        blockEntity.tickCount++;
+        blockEntity.ageInTicks++;
 
         ParticlePath particlePath = blockEntity.particlePath;
-        if (particlePath != null && blockEntity.tickCount % 10 == 0) {
+        if (particlePath != null && blockEntity.ageInTicks % 10 == 0) {
             BlockPos jarPos = particlePath.start;
 
             level.addParticle(new EssenceDropParticleOption(particlePath.essenceType, particlePath.get(level.random)), jarPos.getX() + 0.5, jarPos.getY() + 0.5, jarPos.getZ() + 0.5, 0, 0, 0);
@@ -144,20 +144,16 @@ public class QuantumInjectorBlockEntity extends BlockEntity {
     public void onLoad() {
         if (this.level != null && this.level.isClientSide() && this.getBlockState().getValue(BlockStateProperties.ENABLED)) {
             if (this.playAnimation) {
-                this.transformAnimation.startIfStopped(this.tickCount);
+                this.transformAnimation.startIfStopped(this.ageInTicks);
             } else {
-                this.rotateAnimation.startIfStopped(this.tickCount);
+                this.rotateAnimation.startIfStopped(this.ageInTicks);
             }
         }
     }
 
     public void startAnimation() {
         this.playAnimation = true;
-        this.tickCount = 0;
-    }
-
-    public int getTickCount() {
-        return this.tickCount;
+        this.ageInTicks = 0;
     }
 
     @Nullable
@@ -190,6 +186,11 @@ public class QuantumInjectorBlockEntity extends BlockEntity {
 
         this.particlePath = input.read("particle_path", ParticlePath.CODEC).orElse(null);
         System.out.printf("Particle Path: %s%n", this.particlePath);
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.ageInTicks;
     }
 
     static class ParticlePath {

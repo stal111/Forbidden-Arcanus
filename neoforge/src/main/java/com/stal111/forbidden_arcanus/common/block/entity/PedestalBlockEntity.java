@@ -30,14 +30,14 @@ import org.jetbrains.annotations.Nullable;
  * @author stal111
  * @since 2021-06-25
  */
-public class PedestalBlockEntity extends BlockEntity implements ItemOwner {
+public class PedestalBlockEntity extends BlockEntity implements ItemOwner, BlockEntityAgeAccess {
 
     public static final int DEFAULT_ITEM_HEIGHT = 120;
 
     private ItemStack stack = ItemStack.EMPTY;
 
     public final float hoverStart;
-    public int ageInTicks;
+    private int ageInTicks;
     private int itemHeight = DEFAULT_ITEM_HEIGHT;
     private int heightTarget = DEFAULT_ITEM_HEIGHT;
 
@@ -103,10 +103,6 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner {
         this.setStack(ItemStack.EMPTY, player, trigger);
     }
 
-    public float getItemHover(float partialTicks) {
-        return (this.ageInTicks + partialTicks) / 20.0F + this.hoverStart;
-    }
-
     public int getItemHeight() {
         return this.itemHeight;
     }
@@ -162,5 +158,10 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner {
     @Override
     public float getVisualRotationYInDegrees() {
         return 0;
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.ageInTicks;
     }
 }

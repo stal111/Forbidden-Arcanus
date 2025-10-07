@@ -44,7 +44,7 @@ public record PedestalRenderer(ItemModelResolver itemModelResolver) implements B
 
         renderState.itemStackRenderState = itemStackRenderState;
         renderState.itemHeight = blockEntity.getItemHeight();
-        renderState.ageInTicks = blockEntity.ageInTicks + partialTick;
+        renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
         renderState.hoverStart = blockEntity.hoverStart;
     }
 

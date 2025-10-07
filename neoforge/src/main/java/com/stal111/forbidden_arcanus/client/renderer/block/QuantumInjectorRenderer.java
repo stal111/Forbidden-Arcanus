@@ -48,7 +48,7 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
 
         renderState.transformAnimation.copyFrom(blockEntity.transformAnimation);
         renderState.rotateAnimation.copyFrom(blockEntity.rotateAnimation);
-        renderState.ageInTicks = blockEntity.getTickCount() + partialTick;
+        renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
     }
 
     @Override

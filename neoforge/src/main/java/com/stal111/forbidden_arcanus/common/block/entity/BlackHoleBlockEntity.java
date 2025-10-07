@@ -29,7 +29,7 @@ import java.util.List;
  * @author stal111
  * @version 1.19 - 2.1.0
  */
-public class BlackHoleBlockEntity extends BlockEntity {
+public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeAccess {
 
     private static final double DAMAGE_DISTANCE = 0.6D;
     private static final int PLAYER_SEARCH_DISTANCE = 6;
@@ -38,7 +38,7 @@ public class BlackHoleBlockEntity extends BlockEntity {
 
     private double stored_xp;
     public int rotation = 0;
-    public int tickCounter;
+    private int tickCounter;
     public int auraTexture = 0;
 
     public BlackHoleBlockEntity(BlockPos pos, BlockState state) {
@@ -135,5 +135,10 @@ public class BlackHoleBlockEntity extends BlockEntity {
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         output.putDouble("StoredXP", this.stored_xp);
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.tickCounter;
     }
 }

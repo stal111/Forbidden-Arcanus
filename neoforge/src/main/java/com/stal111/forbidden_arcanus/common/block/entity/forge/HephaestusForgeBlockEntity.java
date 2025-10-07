@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
+import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
@@ -43,7 +44,7 @@ import java.util.*;
  * @author stal111
  * @since 2021-06-18
  */
-public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssencesContainer {
+public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssencesContainer, BlockEntityAgeAccess {
 
     public static final int MAIN_SLOT = 4;
 
@@ -275,10 +276,6 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         return this.ritualManager;
     }
 
-    public int getDisplayCounter() {
-        return this.displayCounter;
-    }
-
     public int getClientRitualDuration() {
         return this.clientRitualDuration;
     }
@@ -394,5 +391,10 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     public int getContainerSize() {
         return 0;
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.displayCounter;
     }
 }

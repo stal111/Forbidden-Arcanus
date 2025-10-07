@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.desk;
 
+import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
  * @author stal111
  * @since 30.10.2023
  */
-public class ResearchDeskBlockEntity extends BaseContainerBlockEntity {
+public class ResearchDeskBlockEntity extends BaseContainerBlockEntity implements BlockEntityAgeAccess {
 
     private static final int ANIMATION_LENGTH = 1000;
     private static final IntProvider TICKS_TILL_NEXT_PAGE_FLIP = UniformInt.of(140, 280);
@@ -148,10 +149,6 @@ public class ResearchDeskBlockEntity extends BaseContainerBlockEntity {
         return (float) Mth.atan2(offsetPos.z() - center.z(), offsetPos.x() - center.x());
     }
 
-    public int getTickCount() {
-        return this.tickCount;
-    }
-
     @Override
     protected Component getDefaultName() {
         return Component.empty();
@@ -181,6 +178,11 @@ public class ResearchDeskBlockEntity extends BaseContainerBlockEntity {
     @Override
     public int getContainerSize() {
         return 0;
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.tickCount;
     }
 
     private enum BookState {

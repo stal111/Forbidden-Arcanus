@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * @author stal111
  * @since 28.04.2024
  */
-public class EssenceUtremJarBlockEntity extends BlockEntity {
+public class EssenceUtremJarBlockEntity extends BlockEntity implements BlockEntityAgeAccess {
 
     public static final String TAG_AMOUNT = "essence_amount";
     public static final String TAG_LIMIT = "essence_limit";
@@ -72,10 +72,6 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
 
     public int getLimit() {
         return this.limit;
-    }
-
-    public int getTickCount() {
-        return this.tickCount;
     }
 
     @Override
@@ -129,5 +125,10 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
         return this.saveWithoutMetadata(lookupProvider);
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.tickCount;
     }
 }
