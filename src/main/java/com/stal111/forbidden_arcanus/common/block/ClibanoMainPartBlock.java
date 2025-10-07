@@ -62,24 +62,24 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
         pos = pos.relative(Direction.DOWN).relative(Direction.NORTH).relative(Direction.WEST);
 
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    BlockPos offsetPos = pos.offset(i, j, k);
+        for (int j = 0; j < 3; j++) {
+        for (int k = 0; k < 3; k++) {
+            BlockPos offsetPos = pos.offset(i, j, k);
 
-                    if (level.getBlockEntity(offsetPos) instanceof ClibanoBlockEntity blockEntity) {
-                        level.levelEvent(2001, offsetPos, Block.getId(level.getBlockState(offsetPos)));
-
-                        level.setBlock(
-                            offsetPos,
-                            blockEntity.getReplaceState() == null
-                                ? NbtUtils.readBlockState(level.holderLookup(Registries.BLOCK), blockEntity.clibanoPersistentData.getCompound("State"))
-                                : blockEntity.getReplaceState(),
-                            2
-                        );
-                    }
-                }
+            if (!(level.getBlockEntity(offsetPos) instanceof ClibanoBlockEntity blockEntity)) {
+                continue;
             }
-        }
+
+            level.levelEvent(2001, offsetPos, Block.getId(level.getBlockState(offsetPos)));
+
+            level.setBlock(
+                offsetPos,
+                blockEntity.getReplaceState() == null
+                    ? NbtUtils.readBlockState(level.holderLookup(Registries.BLOCK), blockEntity.clibanoPersistentData.getCompound("State"))
+                    : blockEntity.getReplaceState(),
+                2
+            );
+        }}}
     }
 
     @Nullable
