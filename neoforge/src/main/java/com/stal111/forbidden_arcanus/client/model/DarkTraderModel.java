@@ -1,15 +1,12 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.DarkTraderAnimation;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.DarkTraderRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,8 +14,6 @@ import org.jetbrains.annotations.NotNull;
  * @since 2023-08-11
  */
 public class DarkTraderModel extends EntityModel<DarkTraderRenderState> {
-
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("dark_trader"), "main");
 
     private final KeyframeAnimation spawnAnimation;
 

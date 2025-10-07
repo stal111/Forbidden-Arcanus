@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 /**
  * Obsidian Skull Renderer <br>
@@ -12,10 +11,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
  * @since 2021-02-11
  */
 public class ObsidianSkullRenderer {
-
-
-    public ObsidianSkullRenderer(BlockEntityRendererProvider.Context context) {
-    }
 
     private static MeshDefinition createBaseMesh() {
         MeshDefinition meshDefinition = new MeshDefinition();

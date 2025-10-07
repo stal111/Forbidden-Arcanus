@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.model.QuantumInjectorModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.QuantumInjectorRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEntity;
@@ -34,7 +35,7 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
 
     public QuantumInjectorRenderer(BlockEntityRendererProvider.Context context) {
         this.materials = context.materials();
-        this.model = new QuantumInjectorModel<>(context.bakeLayer(QuantumInjectorModel.LAYER_LOCATION));
+        this.model = new QuantumInjectorModel<>(context.bakeLayer(FAModelLayers.QUANTUM_INJECTOR));
     }
 
     @Override

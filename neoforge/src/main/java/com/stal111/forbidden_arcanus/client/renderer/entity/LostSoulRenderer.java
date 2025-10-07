@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.client.renderer.entity;
 
+import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.model.LostSoulModel;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.LostSoulRenderState;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.AbstractLostSoul;
@@ -19,7 +20,7 @@ public class LostSoulRenderer extends MobRenderer<AbstractLostSoul, LostSoulRend
     private final ResourceLocation texture;
 
     public LostSoulRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
-        super(context, new LostSoulModel(context.bakeLayer(LostSoulModel.LAYER_LOCATION)), 0.0F);
+        super(context, new LostSoulModel(context.bakeLayer(FAModelLayers.LOST_SOUL)), 0.0F);
         this.texture = texture;
     }
 

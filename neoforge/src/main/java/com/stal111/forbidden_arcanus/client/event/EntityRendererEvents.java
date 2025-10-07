@@ -20,23 +20,23 @@ public class EntityRendererEvents {
 
     @SubscribeEvent
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(BlackHoleRenderer.BLACK_HOLE_LAYER, BlackHoleRenderer::createHoleLayer);
-        event.registerLayerDefinition(BlackHoleRenderer.BLACK_HOLE_AURA_LAYER, BlackHoleRenderer::createAuraLayer);
-        event.registerLayerDefinition(MagicCircleModel.OUTER_RING_LAYER, MagicCircleModel::createLayer);
-        event.registerLayerDefinition(MagicCircleModel.INNER_RING_LAYER, MagicCircleModel::createLayer);
-        event.registerLayerDefinition(MagicCircleModel.VALID_RITUAL_INDICATOR, MagicCircleModel::createLayer);
+        event.registerLayerDefinition(FAModelLayers.BLACK_HOLE, BlackHoleRenderer::createHoleLayer);
+        event.registerLayerDefinition(FAModelLayers.BLACK_HOLE_AURA, BlackHoleRenderer::createAuraLayer);
+        event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_OUTER_RING, MagicCircleModel::createLayer);
+        event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_INNER_RING_LAYER, MagicCircleModel::createLayer);
+        event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_VALID_RITUAL_INDICATOR, MagicCircleModel::createLayer);
 
         //event.registerLayerDefinition(DracoAurumWingsModel.LAYER_LOCATION, DracoAurumWingsModel::createBodyLayer);
         //event.registerLayerDefinition(DracoAurumHeadModel.LAYER_LOCATION, DracoAurumHeadModel::createBodyLayer);
 
-        event.registerLayerDefinition(LostSoulModel.LAYER_LOCATION, LostSoulModel::createBodyLayer);
-        event.registerLayerDefinition(DarkTraderModel.LAYER_LOCATION, DarkTraderModel::createBodyLayer);
-        event.registerLayerDefinition(QuantumLightDoorModel.LAYER_LOCATION, QuantumLightDoorModel::createLayer);
-        event.registerLayerDefinition(UtremJarSoulsModel.LAYER_LOCATION, UtremJarSoulsModel::createBodyLayer);
-        event.registerLayerDefinition(QuantumInjectorModel.LAYER_LOCATION, QuantumInjectorModel::createBodyLayer);
+        event.registerLayerDefinition(FAModelLayers.LOST_SOUL, LostSoulModel::createBodyLayer);
+        event.registerLayerDefinition(FAModelLayers.DARK_TRADER, DarkTraderModel::createBodyLayer);
+        event.registerLayerDefinition(FAModelLayers.QUANTUM_LIGHT_DOOR, QuantumLightDoorModel::createLayer);
+        event.registerLayerDefinition(FAModelLayers.UTREM_JAR_SOULS, UtremJarSoulsModel::createBodyLayer);
+        event.registerLayerDefinition(FAModelLayers.QUANTUM_INJECTOR, QuantumInjectorModel::createBodyLayer);
 
-        event.registerLayerDefinition(FAModelLayers.OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createObsidianSkullLayer);
-        event.registerLayerDefinition(FAModelLayers.DETAILED_OBSIDIAN_SKULL_LAYER, ObsidianSkullRenderer::createDetailedObsidianSkullLayer);
-        event.registerLayerDefinition(AbstractForbiddenomiconModel.LAYER_LOCATION, AbstractForbiddenomiconModel::createBodyLayer);
+        event.registerLayerDefinition(FAModelLayers.OBSIDIAN_SKULL, ObsidianSkullRenderer::createObsidianSkullLayer);
+        event.registerLayerDefinition(FAModelLayers.DETAILED_OBSIDIAN_SKULL, ObsidianSkullRenderer::createDetailedObsidianSkullLayer);
+        event.registerLayerDefinition(FAModelLayers.FORBIDDENOMICON, AbstractForbiddenomiconModel::createBodyLayer);
     }
 }

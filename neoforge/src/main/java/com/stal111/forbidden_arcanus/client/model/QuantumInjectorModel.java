@@ -1,10 +1,8 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.QuantumInjectorAnimation;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -17,8 +15,6 @@ import net.minecraft.world.entity.Entity;
  * @since 03.06.2024
  */
 public class QuantumInjectorModel<T extends Entity> extends Model<QuantumInjectorModel.State> {
-
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("quantum_injector"), "main");
 
     private final KeyframeAnimation transformAnimation;
     private final KeyframeAnimation rotateAnimation;

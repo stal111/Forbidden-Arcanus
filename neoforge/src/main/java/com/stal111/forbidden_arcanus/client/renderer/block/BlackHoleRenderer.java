@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.BlackHoleRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -29,9 +29,6 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEntity, BlackHoleRenderState> {
 
-    public static final ModelLayerLocation BLACK_HOLE_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("black_hole"), "main");
-    public static final ModelLayerLocation BLACK_HOLE_AURA_LAYER = new ModelLayerLocation(ForbiddenArcanus.location("black_hole"), "aura");
-
     private static final ResourceLocation BLACK_HOLE_TEXTURE = ForbiddenArcanus.location("textures/block/black_hole.png");
     private static final ResourceLocation[] BLACK_HOLE_AURA = {
             ForbiddenArcanus.location("textures/block/black_hole_aura_0.png"),
@@ -52,8 +49,8 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
     private final ModelPart aura;
 
     public BlackHoleRenderer(BlockEntityRendererProvider.Context context) {
-        this.hole = context.bakeLayer(BLACK_HOLE_LAYER);
-        this.aura = context.bakeLayer(BLACK_HOLE_AURA_LAYER);
+        this.hole = context.bakeLayer(FAModelLayers.BLACK_HOLE);
+        this.aura = context.bakeLayer(FAModelLayers.BLACK_HOLE_AURA);
     }
 
     public static LayerDefinition createHoleLayer() {

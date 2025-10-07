@@ -1,8 +1,6 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -14,8 +12,6 @@ import net.minecraft.world.entity.Entity;
  * @since 29.10.2023
  */
 public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Model.Simple {
-
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("forbiddenomicon"), "main");
 
     public AbstractForbiddenomiconModel(ModelPart root) {
         super(root, RenderType::entitySolid);

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.client.model.DarkTraderModel;
+import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.model.QuantumLightDoorModel;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.DarkTraderRenderState;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
@@ -22,8 +23,8 @@ public class DarkTraderRenderer extends MobRenderer<DarkTrader, DarkTraderRender
     private final QuantumLightDoorModel portalModel;
 
     public DarkTraderRenderer(EntityRendererProvider.Context context) {
-        super(context, new DarkTraderModel(context.bakeLayer(DarkTraderModel.LAYER_LOCATION)), 0.5F);
-        this.portalModel = new QuantumLightDoorModel(context.bakeLayer(QuantumLightDoorModel.LAYER_LOCATION));
+        super(context, new DarkTraderModel(context.bakeLayer(FAModelLayers.DARK_TRADER)), 0.5F);
+        this.portalModel = new QuantumLightDoorModel(context.bakeLayer(FAModelLayers.QUANTUM_LIGHT_DOOR));
     }
 
     @Override

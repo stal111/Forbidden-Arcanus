@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.DeskForbiddenomiconModel;
+import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.ResearchDeskRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -22,7 +23,7 @@ public class ResearchDeskRenderer implements BlockEntityRenderer<ResearchDeskBlo
     private final DeskForbiddenomiconModel<?> model;
 
     public ResearchDeskRenderer(BlockEntityRendererProvider.Context context) {
-        this.model = new DeskForbiddenomiconModel<>(context.bakeLayer(DeskForbiddenomiconModel.LAYER_LOCATION));
+        this.model = new DeskForbiddenomiconModel<>(context.bakeLayer(FAModelLayers.FORBIDDENOMICON));
     }
 
     @Override

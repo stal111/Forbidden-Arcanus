@@ -1,11 +1,9 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.LostSoulAnimation;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.LostSoulRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -17,8 +15,6 @@ import org.jetbrains.annotations.NotNull;
  * @since 2022-09-14
  */
 public class LostSoulModel extends EntityModel<LostSoulRenderState> {
-
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("lost_soul"), "main");
 
     private final KeyframeAnimation stillAnimation;
     private final KeyframeAnimation fearAnimation;

@@ -1,10 +1,8 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.UtremJarSoulAnimation;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -17,8 +15,6 @@ import net.minecraft.world.entity.Entity;
  * @since 02.05.2024
  */
 public class UtremJarSoulsModel<T extends Entity> extends Model<UtremJarSoulsModel.State> {
-
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("utrem_jar_souls"), "main");
 
     private final KeyframeAnimation rotateAnimation;
 

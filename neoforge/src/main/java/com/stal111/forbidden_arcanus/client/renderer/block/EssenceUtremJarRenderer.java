@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.model.UtremJarSoulsModel;
 import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
@@ -38,7 +39,7 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
     }
 
     public EssenceUtremJarRenderer(EntityModelSet modelSet) {
-        this.model = new UtremJarSoulsModel<>(modelSet.bakeLayer(UtremJarSoulsModel.LAYER_LOCATION));
+        this.model = new UtremJarSoulsModel<>(modelSet.bakeLayer(FAModelLayers.UTREM_JAR_SOULS));
     }
 
     public void renderInHand(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, EssenceStorage essenceStorage) {

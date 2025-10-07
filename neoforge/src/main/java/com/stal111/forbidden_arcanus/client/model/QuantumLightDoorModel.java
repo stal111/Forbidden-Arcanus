@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.client.animation.QuantumLightDoorAnimation;
 import com.stal111.forbidden_arcanus.client.renderer.entity.state.QuantumLightDoorRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -23,8 +22,6 @@ import net.minecraft.world.entity.AnimationState;
 public class QuantumLightDoorModel extends Model<QuantumLightDoorModel.State> {
 
     public static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/effect/quantum_light_door.png");
-
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ForbiddenArcanus.location("quantum_light_door"), "main");
 
     private final KeyframeAnimation spawnAnimation;
 

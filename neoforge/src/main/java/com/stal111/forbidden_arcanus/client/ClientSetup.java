@@ -36,8 +36,8 @@ import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.DETAILED_OBSIDIAN_SKULL_LAYER;
-import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_SKULL_LAYER;
+import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.DETAILED_OBSIDIAN_SKULL;
+import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_SKULL;
 
 /**
  * @author stal111
@@ -71,12 +71,12 @@ public class ClientSetup {
         helper.registerEntityRenderer(ModEntities.DARK_TRADER, DarkTraderRenderer::new);
         helper.registerEntityRenderer(ModEntities.AUREAL_MISSILE, AurealMissileRenderer::new);
 
-        helper.registerSkullModel(ObsidianSkullType.DEFAULT, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
-        helper.registerSkullModel(ObsidianSkullType.CRACKED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
-        helper.registerSkullModel(ObsidianSkullType.FRAGMENTED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
-        helper.registerSkullModel(ObsidianSkullType.FADING, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL_LAYER)));
-        helper.registerSkullModel(ObsidianSkullType.AUREALIC, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
-        helper.registerSkullModel(ObsidianSkullType.ETERNAL, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL_LAYER)));
+        helper.registerSkullModel(ObsidianSkullType.DEFAULT, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)));
+        helper.registerSkullModel(ObsidianSkullType.CRACKED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)));
+        helper.registerSkullModel(ObsidianSkullType.FRAGMENTED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)));
+        helper.registerSkullModel(ObsidianSkullType.FADING, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)));
+        helper.registerSkullModel(ObsidianSkullType.AUREALIC, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL)));
+        helper.registerSkullModel(ObsidianSkullType.ETERNAL, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL)));
 
         //TODO
 //        helper.registerScreen(ModMenuTypes.HEPHAESTUS_FORGE, HephaestusForgeScreen::new);
