@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.BlackHoleRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
-import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -22,10 +22,12 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.MaterialSet;
-import net.minecraft.util.Unit;
+import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
+
+import java.util.EnumSet;
 
 /**
  * Black Hole Renderer <br>
@@ -48,13 +50,13 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
     private static final float SIN_45 = (float) Math.sin(Math.PI / 3D);
 
     private final MaterialSet materials;
-    private final Model.Simple blackHole;
-    private final Model.Simple aura;
+    private final ModelPart blackHole;
+    private final ModelPart aura;
 
     public BlackHoleRenderer(BlockEntityRendererProvider.Context context) {
         this.materials = context.materials();
-        this.blackHole = new Model.Simple(context.bakeLayer(FAModelLayers.BLACK_HOLE), RenderType::entityCutoutNoCull);
-        this.aura = new Model.Simple(context.bakeLayer(FAModelLayers.BLACK_HOLE_AURA), RenderType::entityTranslucentEmissive);
+        this.blackHole = context.bakeLayer(FAModelLayers.BLACK_HOLE);
+        this.aura = context.bakeLayer(FAModelLayers.BLACK_HOLE_AURA);
     }
 
     public static LayerDefinition createBlackHoleLayer() {
@@ -65,7 +67,7 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
 
     public static LayerDefinition createAuraLayer() {
         MeshDefinition meshDefinition = new MeshDefinition();
-        meshDefinition.getRoot().addOrReplaceChild("main", CubeListBuilder.create().texOffs(0, 0).addBox(-16.0F, 0.0F, -16.0F, 32.0F, 0.1F, 32.0F), PartPose.ZERO);
+        meshDefinition.getRoot().addOrReplaceChild("main", CubeListBuilder.create().texOffs(-32, 0).addBox(-16.0F, 0.0F, -16.0F, 32.0F, 0.1F, 32.0F, EnumSet.of(Direction.DOWN)), PartPose.ZERO);
         return LayerDefinition.create(meshDefinition, 32, 32);
     }
 
@@ -92,12 +94,12 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
         poseStack.pushPose();
         poseStack.mulPose(new Quaternionf().setAngleAxis(Math.PI / 3F, SIN_45, 0.0F, SIN_45));
 
-        nodeCollector.submitModel(this.blackHole, Unit.INSTANCE, poseStack, BLACK_HOLE_TEXTURE.renderType(this.blackHole::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(BLACK_HOLE_TEXTURE), 0, renderState.breakProgress);
+        nodeCollector.submitModelPart(this.blackHole, poseStack, BLACK_HOLE_TEXTURE.renderType(RenderType::entitySolid), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(BLACK_HOLE_TEXTURE), 0, renderState.breakProgress);
 
         poseStack.popPose();
 
-        Material auraTexture = AURA_TEXTURES[2];
-        nodeCollector.submitModel(this.aura, Unit.INSTANCE, poseStack, auraTexture.renderType(this.aura::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(auraTexture), 0, renderState.breakProgress);
+        Material auraTexture = AURA_TEXTURES[renderState.auraTexture];
+        nodeCollector.submitModelPart(this.aura, poseStack, auraTexture.renderType(RenderType::entityCutoutNoCull), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(auraTexture), -1, renderState.breakProgress);
 
         poseStack.popPose();
     }
