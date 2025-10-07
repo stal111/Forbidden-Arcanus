@@ -37,7 +37,6 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     private final List<ItemEntity> thrownOutItems = new ArrayList<>();
 
     private double stored_xp;
-    public int rotation = 0;
     private int tickCounter;
     public int auraTexture = 0;
 
@@ -46,14 +45,10 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, BlackHoleBlockEntity blockEntity) {
-        blockEntity.rotation++;
         blockEntity.tickCounter++;
 
-        if (blockEntity.tickCounter == 5 || blockEntity.tickCounter == 10) {
-            blockEntity.auraTexture++;
-        } else if (blockEntity.tickCounter == 15) {
-            blockEntity.tickCounter = 0;
-            blockEntity.auraTexture = 0;
+        if (blockEntity.tickCounter % 5 == 0) {
+            blockEntity.auraTexture = (blockEntity.auraTexture + 1) % 3;
         }
     }
 

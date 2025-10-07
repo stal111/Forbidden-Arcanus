@@ -7,6 +7,11 @@
     {
       "type": "minecraft:single",
       "resource": "forbidden_arcanus:entity/quantum_injector_layer"
+    },
+    {
+      "type": "minecraft:directory",
+      "prefix": "entity/black_hole/",
+      "source": "entity/black_hole"
     }
   ]
 }

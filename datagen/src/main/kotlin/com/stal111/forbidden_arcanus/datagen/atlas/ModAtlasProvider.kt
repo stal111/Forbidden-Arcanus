@@ -1,9 +1,11 @@
 package com.stal111.forbidden_arcanus.datagen.atlas
 
+import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer
 import com.stal111.forbidden_arcanus.client.renderer.block.QuantumInjectorRenderer
 import net.minecraft.client.data.AtlasProvider
 import net.minecraft.client.renderer.texture.atlas.SpriteSource
 import net.minecraft.client.renderer.texture.atlas.SpriteSources
+import net.minecraft.client.renderer.texture.atlas.sources.DirectoryLister
 import net.minecraft.client.renderer.texture.atlas.sources.SingleFile
 import net.minecraft.data.AtlasIds
 import net.minecraft.data.CachedOutput
@@ -22,7 +24,8 @@ class ModAtlasProvider(val context: DataProviderContext) : AtlasProvider(context
 
     private fun blocksList(): List<SpriteSource> = listOf(
         SingleFile(QuantumInjectorRenderer.TEXTURE_MATERIAL.texture()),
-        SingleFile(QuantumInjectorRenderer.LAYER_MATERIAL.texture())
+        SingleFile(QuantumInjectorRenderer.LAYER_MATERIAL.texture()),
+        DirectoryLister(BlackHoleRenderer.MAPPER.prefix, BlackHoleRenderer.MAPPER.prefix + "/"),
     )
 
     private fun storeAtlas(

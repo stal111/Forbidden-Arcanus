@@ -20,7 +20,7 @@ public class EntityRendererEvents {
 
     @SubscribeEvent
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(FAModelLayers.BLACK_HOLE, BlackHoleRenderer::createHoleLayer);
+        event.registerLayerDefinition(FAModelLayers.BLACK_HOLE, BlackHoleRenderer::createBlackHoleLayer);
         event.registerLayerDefinition(FAModelLayers.BLACK_HOLE_AURA, BlackHoleRenderer::createAuraLayer);
         event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_OUTER_RING, MagicCircleModel::createLayer);
         event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_INNER_RING_LAYER, MagicCircleModel::createLayer);
