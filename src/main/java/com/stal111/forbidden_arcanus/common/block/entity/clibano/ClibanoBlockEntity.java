@@ -4,9 +4,12 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -15,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
 /**
  * Clibano Block Entity <br>
@@ -28,10 +32,13 @@ public class ClibanoBlockEntity extends BlockEntity {
     /**
      * The Block State that was at that position in the world before the BE got created. After destroying it this block will be placed again.
      */
+    @Nullable
     private BlockState replaceState;
 
     @Nullable
     private Direction mainDirection;
+
+    public CompoundTag clibanoPersistentData;
 
     public ClibanoBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CLIBANO.get(), pos, state);
@@ -41,6 +48,7 @@ public class ClibanoBlockEntity extends BlockEntity {
         this.replaceState = state;
     }
 
+    @Nullable
     public BlockState getReplaceState() {
         return this.replaceState;
     }
@@ -65,6 +73,7 @@ public class ClibanoBlockEntity extends BlockEntity {
     @Override
     public void load(@Nonnull CompoundTag tag) {
         super.load(tag);
+        this.clibanoPersistentData = tag;
 
         if (tag.contains("State") && this.level != null) {
             this.replaceState = NbtUtils.readBlockState(this.level.holderLookup(Registries.BLOCK), tag.getCompound("State"));
