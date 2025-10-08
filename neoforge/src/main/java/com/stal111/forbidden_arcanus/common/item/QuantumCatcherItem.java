@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -93,7 +94,7 @@ public class QuantumCatcherItem extends Item {
 
     public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target) {
         Level level = player.level();
-        int cost = calculateAurealCost(target);
+        int cost = calculateAurealCost(target).amount();
         EssenceProvider essenceProvider = EssenceHelper.getEssenceProvider(player).orElseThrow();
 
         if (!this.isValidEntity(target) || getData(stack).isPresent()) {
@@ -132,7 +133,7 @@ public class QuantumCatcherItem extends Item {
         return !entity.getType().is(this.blacklistedEntities) && entity.isAlive();
     }
 
-    public static int calculateAurealCost(LivingEntity entity) {
+    public static EssenceValue calculateAurealCost(LivingEntity entity) {
         int health = Math.round(entity.getMaxHealth());
 
         if (entity.getType().getCategory().isFriendly()) {
@@ -141,7 +142,7 @@ public class QuantumCatcherItem extends Item {
             health = (int) (health * 1.1F);
         }
 
-        return health;
+        return EssenceValue.of(EssenceType.AUREAL, health);
     }
 
     private static void playSound(Level level, @Nullable Player player, BlockPos pos, boolean release) {

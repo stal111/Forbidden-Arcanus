@@ -74,11 +74,13 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
-        tooltipAdder.accept(this.asComponent().copy().withStyle(ChatFormatting.GRAY));
+        tooltipAdder.accept(this.asComponent(ChatFormatting.GRAY));
     }
 
-    public Component asComponent() {
-        return Component.object(this.type.getSprite()).append(CommonComponents.space()).append(Component.translatable(ESSENCE_FORMAT, this.amount, this.limit));
+    public Component asComponent(ChatFormatting formatting) {
+        return Component.object(this.type.getSprite())
+                .append(CommonComponents.space())
+                .append(Component.translatable(ESSENCE_FORMAT, this.amount, this.limit).withStyle(formatting));
     }
 
     public void addEssence(ItemStack stack, int amount) {

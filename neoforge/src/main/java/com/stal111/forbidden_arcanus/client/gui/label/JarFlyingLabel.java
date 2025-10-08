@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.gui.label;
 
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -24,13 +25,13 @@ public class JarFlyingLabel implements BlockFlyingLabel {
 
         if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
             EssenceStorage storage = blockEntity.getEssenceStorage();
-            Component component = storage.asComponent();
+            Component component = storage.asComponent(ChatFormatting.WHITE);
             int width = Minecraft.getInstance().font.width(component.getVisualOrderText());
 
             guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 1, 0x44000000);
             guiGraphics.fill(centerX - width / 2 - 4, centerY - 20 - 5, centerX + width / 2 + 4, centerY - 10 + 3, 0x44000000);
 
-            guiGraphics.drawString(Minecraft.getInstance().font, component.getVisualOrderText(), centerX - width / 2, centerY - 20, -1);
+            guiGraphics.drawString(Minecraft.getInstance().font, component, centerX - width / 2, centerY - 20, -1);
         }
     }
 }

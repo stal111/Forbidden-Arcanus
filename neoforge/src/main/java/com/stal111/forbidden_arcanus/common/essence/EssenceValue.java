@@ -4,7 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
@@ -36,8 +39,10 @@ public record EssenceValue(EssenceType type, int amount) {
         return new EssenceValue(type, amount);
     }
 
-    public static EssenceValue createEmpty(EssenceType type) {
-        return EssenceValue.of(type, 0);
+    public Component asComponent(ChatFormatting formatting) {
+        return Component.object(this.type.getSprite())
+                .append(CommonComponents.space())
+                .append(Component.literal(String.valueOf(this.amount)).withStyle(formatting));
     }
 
     public EssenceValue combine(EssenceValue data) {
