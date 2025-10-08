@@ -74,7 +74,7 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
-            if (blockEntity.getAmount() >= blockEntity.getLimit()) {
+            if (blockEntity.getEssenceStorage().isFull()) {
                 return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
 
@@ -82,11 +82,9 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
                 EssenceValue inputValue = input.getMaxInputValue(stack, level.getRandom());
 
                 if (inputValue != EssenceValue.EMPTY && inputValue.type() == state.getValue(ESSENCE_TYPE)) {
-                    int amount = Math.min(blockEntity.getLimit() - blockEntity.getAmount(), inputValue.amount());
+                    int transferredAmount = blockEntity.addEssence(inputValue.amount());
 
-                    blockEntity.addEssence(amount);
-
-                    player.setItemInHand(hand, input.finishInput(stack, amount));
+                    player.setItemInHand(hand, input.finishInput(stack, transferredAmount));
 
                     return InteractionResult.SUCCESS;
                 }

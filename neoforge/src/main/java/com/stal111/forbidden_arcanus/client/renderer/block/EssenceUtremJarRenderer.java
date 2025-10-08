@@ -81,18 +81,17 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
     public void extractRenderState(EssenceUtremJarBlockEntity blockEntity, EssenceUtremJarRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 
-        renderState.amount = blockEntity.getAmount();
-        renderState.limit = blockEntity.getLimit();
+        renderState.essenceStorage = blockEntity.getEssenceStorage();
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
         renderState.rotateAnimation.copyFrom(blockEntity.rotateAnimation);
     }
 
     @Override
     public void submit(EssenceUtremJarRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
-        if (renderState.amount > 0) {
+        if (!renderState.essenceStorage.isEmpty()) {
             EssenceType type = renderState.blockState.getValue(ModBlockStateProperties.ESSENCE_TYPE);
 
-            submit(this.materials, poseStack, nodeCollector, renderState.rotateAnimation, renderState.ageInTicks, renderState.lightCoords, OverlayTexture.NO_OVERLAY, type, this.model, renderState.breakProgress, renderState.amount / (float) renderState.limit);
+            submit(this.materials, poseStack, nodeCollector, renderState.rotateAnimation, renderState.ageInTicks, renderState.lightCoords, OverlayTexture.NO_OVERLAY, type, this.model, renderState.breakProgress, renderState.essenceStorage.getFillPercentage());
         }
     }
 }

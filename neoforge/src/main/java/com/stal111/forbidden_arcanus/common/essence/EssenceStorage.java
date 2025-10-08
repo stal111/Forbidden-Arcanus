@@ -29,6 +29,7 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
 
     public static final EssenceStorage EMPTY_BLOOD_TEST_TUBE = new EssenceStorage(EssenceValue.createEmpty(EssenceType.BLOOD), 3000, true);
     public static final EssenceStorage FULL_BLOOD_TEST_TUBE = new EssenceStorage(EssenceValue.of(EssenceType.BLOOD, 3000), 3000, true);
+    public static final EssenceStorage DEFAULT_UTREM_JAR = new EssenceStorage(EssenceValue.createEmpty(EssenceType.AUREAL), 10000, true);
 
     public static final Codec<EssenceStorage> FULL_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EssenceValue.CODEC.fieldOf("data").forGetter(EssenceStorage::value),
@@ -75,8 +76,12 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
 
     public void addEssence(ItemStack stack, int amount) {
         EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
-            stack.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceValue.of(storage.value.type(), Math.min(storage.value.amount() + amount, storage.limit())), storage.limit(), storage.showInTooltip()));
+            stack.set(ModDataComponents.ESSENCE_STORAGE, this.addEssence(amount));
         });
+    }
+
+    public EssenceStorage addEssence(int amount) {
+        return new EssenceStorage(EssenceValue.of(this.value.type(), Math.min(this.value.amount() + amount, this.limit())), this.limit(), this.showInTooltip());
     }
 
     public boolean isFull() {

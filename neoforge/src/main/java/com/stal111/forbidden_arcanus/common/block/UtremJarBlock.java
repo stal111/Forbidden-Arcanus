@@ -77,9 +77,9 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
                 level.setBlockAndUpdate(pos, essenceJar);
 
                 if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
-                    blockEntity.addEssence(inputValue.amount());
+                    int transferredAmount = blockEntity.addEssence(inputValue.amount());
 
-                    player.setItemInHand(hand, input.finishInput(stack, Math.min(inputValue.amount(), blockEntity.getLimit())));
+                    player.setItemInHand(hand, input.finishInput(stack, transferredAmount));
                 }
 
                 return InteractionResult.SUCCESS;
