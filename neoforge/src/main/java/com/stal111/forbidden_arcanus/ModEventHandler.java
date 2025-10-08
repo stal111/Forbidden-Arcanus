@@ -21,6 +21,7 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
         eventBus.register(new RegistryEvents());
         eventBus.register(new NetworkEvents());
         eventBus.register(new CapabilityEvents());
+        eventBus.register(new BlockEntityEvents());
     }
 
     @Override
