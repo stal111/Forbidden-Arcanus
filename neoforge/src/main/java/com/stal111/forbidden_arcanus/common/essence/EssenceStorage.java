@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentGetter;
@@ -23,55 +24,54 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 06.05.2024
  */
-public record EssenceStorage(EssenceValue value, int limit, boolean showInTooltip) implements TooltipProvider {
+public record EssenceStorage(EssenceType type, int amount, int limit) implements TooltipProvider {
 
-    public static final EssenceStorage EMPTY = new EssenceStorage(EssenceValue.EMPTY, 0, true);
+    public static final EssenceStorage EMPTY = createEmpty(EssenceType.AUREAL, 0);
 
-    public static final EssenceStorage EMPTY_BLOOD_TEST_TUBE = new EssenceStorage(EssenceValue.createEmpty(EssenceType.BLOOD), 3000, true);
-    public static final EssenceStorage FULL_BLOOD_TEST_TUBE = new EssenceStorage(EssenceValue.of(EssenceType.BLOOD, 3000), 3000, true);
-    public static final EssenceStorage DEFAULT_UTREM_JAR = new EssenceStorage(EssenceValue.createEmpty(EssenceType.AUREAL), 10000, true);
+    public static final EssenceStorage EMPTY_BLOOD_TEST_TUBE = createEmpty(EssenceType.BLOOD, 3000);
+    public static final EssenceStorage FULL_BLOOD_TEST_TUBE = createFull(EssenceType.BLOOD, 3000);
+    public static final EssenceStorage DEFAULT_UTREM_JAR = createEmpty(EssenceType.AUREAL, 10000);
+    public static final EssenceStorage EMPTY_AUREAL_TANK = createEmpty(EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY);
 
-    public static final Codec<EssenceStorage> FULL_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            EssenceValue.CODEC.fieldOf("data").forGetter(EssenceStorage::value),
-            ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceStorage::limit),
-            Codec.BOOL.optionalFieldOf("show_in_tooltip", true).forGetter(EssenceStorage::showInTooltip)
-    ).apply(instance, EssenceStorage::new));
-
-    public static final Codec<EssenceStorage> CODEC = Codec.withAlternative(FULL_CODEC,
-            RecordCodecBuilder.create(instance -> instance.group(
-                    EssenceValue.CODEC.fieldOf("data").forGetter(EssenceStorage::value),
+    public static final Codec<EssenceStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                    EssenceType.CODEC.fieldOf("type").forGetter(EssenceStorage::type),
+                    ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(EssenceStorage::amount),
                     ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceStorage::limit)
-            ).apply(instance, (data, limit) -> new EssenceStorage(data, limit, true)))
+            ).apply(instance, EssenceStorage::new)
     );
 
     public static final StreamCodec<FriendlyByteBuf, EssenceStorage> STREAM_CODEC = StreamCodec.composite(
-            EssenceValue.STREAM_CODEC,
-            EssenceStorage::value,
+            EssenceType.STREAM_CODEC,
+            EssenceStorage::type,
+            ByteBufCodecs.INT,
+            EssenceStorage::amount,
             ByteBufCodecs.INT,
             EssenceStorage::limit,
-            ByteBufCodecs.BOOL,
-            EssenceStorage::showInTooltip,
             EssenceStorage::new
     );
 
     public static MapCodec<EssenceStorage> codec(EssenceType type) {
         return RecordCodecBuilder.mapCodec(instance -> instance.group(
-                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(storage -> storage.value.amount()),
+                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(EssenceStorage::amount),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceStorage::limit)
-        ).apply(instance, (amount, limit1) -> new EssenceStorage(EssenceValue.of(type, amount), limit1, true)));
+        ).apply(instance, (amount, limit1) -> new EssenceStorage(type, amount, limit1)));
     }
 
     public static EssenceStorage createEmpty(EssenceType type, int limit) {
-        return new EssenceStorage(EssenceValue.of(type, 0), limit, true);
+        return new EssenceStorage(type, 0, limit);
+    }
+
+    public static EssenceStorage createFull(EssenceType type, int limit) {
+        return new EssenceStorage(type, limit, limit);
     }
 
     public float getFillPercentage() {
-        return (float) this.value.amount() / this.limit;
+        return (float) this.amount / this.limit;
     }
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
-        tooltipAdder.accept(Component.literal(": " + this.value.amount() + "/" + this.limit).withStyle(ChatFormatting.GRAY));
+        tooltipAdder.accept(Component.literal(": " + this.amount + "/" + this.limit).withStyle(ChatFormatting.GRAY));
     }
 
     public void addEssence(ItemStack stack, int amount) {
@@ -81,14 +81,18 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
     }
 
     public EssenceStorage addEssence(int amount) {
-        return new EssenceStorage(EssenceValue.of(this.value.type(), Math.min(this.value.amount() + amount, this.limit())), this.limit(), this.showInTooltip());
+        return new EssenceStorage(this.type, Math.min(this.amount + amount, this.limit), this.limit);
+    }
+
+    public EssenceValue getCurrentValue() {
+        return EssenceValue.of(this.type, this.amount);
     }
 
     public boolean isFull() {
-        return this.value.amount() >= this.limit;
+        return this.amount >= this.limit;
     }
 
     public boolean isEmpty() {
-        return this.value.amount() <= 0;
+        return this.amount <= 0;
     }
 }

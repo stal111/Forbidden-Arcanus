@@ -48,12 +48,12 @@ public class EssenceUtremJarBlockEntity extends BlockEntity implements BlockEnti
     }
 
     public int addEssence(int amount) {
-        int oldAmount = this.getEssenceStorage().value().amount();
+        int oldAmount = this.getEssenceStorage().amount();
         this.setEssenceStorage(this.getEssenceStorage().addEssence(amount));
 
         this.setChanged();
 
-        return this.getEssenceStorage().value().amount() - oldAmount;
+        return this.getEssenceStorage().amount() - oldAmount;
     }
 
     public void setEssenceStorage(EssenceStorage essenceStorage) {

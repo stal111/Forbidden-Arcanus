@@ -20,7 +20,7 @@ public class EssenceStorageInput implements HephaestusForgeInput {
 
     @Override
     public boolean canInput(EssenceType type, ItemStack stack) {
-        return EssenceHelper.getEssenceStorage(stack).map(storage -> storage.value().type() == type).orElse(false);
+        return EssenceHelper.getEssenceStorage(stack).map(storage -> storage.type() == type).orElse(false);
     }
 
     @Override
@@ -32,13 +32,13 @@ public class EssenceStorageInput implements HephaestusForgeInput {
 
     @Override
     public EssenceValue getMaxInputValue(ItemStack stack, RandomSource random) {
-        return EssenceHelper.getEssenceStorage(stack).orElse(EssenceStorage.EMPTY).value();
+        return EssenceHelper.getEssenceStorage(stack).orElse(EssenceStorage.EMPTY).getCurrentValue();
     }
 
     @Override
     public ItemStack finishInput(ItemStack stack, int inputValue) {
         return EssenceHelper.getEssenceStorage(stack).map(storage -> {
-            int amount = storage.value().amount();
+            int amount = storage.amount();
 
             storage.addEssence(stack, -inputValue);
 

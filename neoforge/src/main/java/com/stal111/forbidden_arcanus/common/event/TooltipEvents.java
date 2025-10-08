@@ -1,13 +1,15 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
@@ -28,12 +30,9 @@ public class TooltipEvents {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         boolean advanced = event.getFlags().isAdvanced();
+        TooltipDisplay tooltipDisplay = stack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
 
-        EssenceHelper.getEssenceStorage(stack).ifPresent(essenceStorage -> {
-            if (essenceStorage.showInTooltip()) {
-                essenceStorage.addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, essenceStorage.value().type().getComponent().copy().withStyle(ChatFormatting.GRAY).append(component)), event.getFlags(), event.getItemStack().getComponents());
-            }
-        });
+        stack.addToTooltip(ModDataComponents.ESSENCE_STORAGE.get(), event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
 
         HolderLookup.Provider registries = event.getContext().registries();
 

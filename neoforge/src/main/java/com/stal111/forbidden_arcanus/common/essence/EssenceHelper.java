@@ -54,7 +54,7 @@ public class EssenceHelper {
     }
 
     public static ItemStack createStorageItem(Item item, EssenceType type, int amount, int limit) {
-        return createStorageItem(item, new EssenceStorage(EssenceValue.of(type, amount), limit, true));
+        return createStorageItem(item, new EssenceStorage(type, amount, limit));
     }
 
     public static ItemStack createStorageItem(Item item, EssenceStorage storage) {

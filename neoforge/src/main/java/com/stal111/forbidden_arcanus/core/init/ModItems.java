@@ -85,7 +85,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.DIVINE_PACT));
     public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.MALEDICTUS_PACT));
 
-    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, AurealTankItem.DEFAULT_DATA));
+    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_AUREAL_TANK));
 
     public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_1 = HELPER.register("hephaestus_forge_tier_1", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
     public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_2 = HELPER.register("hephaestus_forge_tier_2", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));

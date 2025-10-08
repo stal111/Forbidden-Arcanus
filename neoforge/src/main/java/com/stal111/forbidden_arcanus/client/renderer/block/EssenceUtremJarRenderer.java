@@ -48,7 +48,7 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
     }
 
     public void submitSpecial(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceStorage essenceStorage) {
-        submit(this.materials, poseStack, nodeCollector, new AnimationState(), 0, lightCoords, packedOverlay, essenceStorage.value().type(), this.model, null, essenceStorage.getFillPercentage());
+        submit(this.materials, poseStack, nodeCollector, new AnimationState(), 0, lightCoords, packedOverlay, essenceStorage.type(), this.model, null, essenceStorage.getFillPercentage());
     }
 
     private static void submit(MaterialSet materials, PoseStack poseStack, SubmitNodeCollector nodeCollector, AnimationState rotateAnimation, float ageInTicks, int lightCoords, int packedOverlay, EssenceType essenceType, UtremJarSoulsModel model, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay, float fillPercentage) {

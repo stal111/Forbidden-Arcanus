@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -61,8 +62,8 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
         BlockState state = super.getStateForPlacement(context);
 
         if (state != null) {
-            EssenceType type = EssenceHelper.getEssenceStorage(context.getItemInHand()).
-                    map(essenceStorage -> essenceStorage.value().type())
+            EssenceType type = EssenceHelper.getEssenceStorage(context.getItemInHand())
+                    .map(EssenceStorage::type)
                     .orElse(EssenceType.AUREAL);
 
             state = state.setValue(ESSENCE_TYPE, type);

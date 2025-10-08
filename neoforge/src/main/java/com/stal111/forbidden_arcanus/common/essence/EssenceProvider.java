@@ -23,13 +23,13 @@ public interface EssenceProvider {
     void setStorage(EssenceStorage storage);
 
     default int getAmount(EssenceType type) {
-        return this.asStorage(type).value().amount();
+        return this.asStorage(type).amount();
     }
 
     default void setAmount(EssenceType type, int amount) {
         EssenceStorage storage = this.asStorage(type);
 
-        this.setStorage(new EssenceStorage(EssenceValue.of(type, Mth.clamp(amount, 0, storage.limit())), storage.limit(), storage.showInTooltip()));
+        this.setStorage(new EssenceStorage(type, Mth.clamp(amount, 0, storage.limit()), storage.limit()));
     }
 
     default void updateAmount(EssenceType type, UnaryOperator<Integer> operator) {
@@ -43,7 +43,7 @@ public interface EssenceProvider {
     default void setLimit(EssenceType type, int limit) {
         EssenceStorage storage = this.asStorage(type);
 
-        this.setStorage(new EssenceStorage(storage.value(), limit, storage.showInTooltip()));
+        this.setStorage(new EssenceStorage(storage.type(), storage.amount(), limit));
     }
 
     default boolean isFull(EssenceType type) {

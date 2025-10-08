@@ -30,7 +30,7 @@ public class JarFlyingLabel implements BlockFlyingLabel {
         if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
             EssenceType type = level.getBlockState(pos).getValue(ModBlockStateProperties.ESSENCE_TYPE);
 
-            Component component = Component.translatable(ESSENCE_FORMAT, blockEntity.getEssenceStorage().value().amount(), blockEntity.getEssenceStorage().limit());
+            Component component = Component.translatable(ESSENCE_FORMAT, blockEntity.getEssenceStorage().amount(), blockEntity.getEssenceStorage().limit());
             int width = Minecraft.getInstance().font.width(component.getVisualOrderText()) + ICON_SIZE + 3;
 
             guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 2, 0x44000000);

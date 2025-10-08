@@ -61,11 +61,11 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
 
             if (storage != null) {
-                combined = combined.combine(storage.value());
+                combined = combined.combine(storage.getCurrentValue());
             }
         }
 
-        return new EssenceStorage(combined, limit, true);
+        return new EssenceStorage(combined.type(), combined.amount(), limit);
     }
 
     @Override

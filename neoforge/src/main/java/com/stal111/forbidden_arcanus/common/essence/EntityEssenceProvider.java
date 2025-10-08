@@ -38,7 +38,7 @@ public class EntityEssenceProvider<T extends LivingEntity> implements EssencePro
 
     @Override
     public void setStorage(EssenceStorage storage) {
-        this.entity.setData(ATTACHMENT_BY_TYPE.get(storage.value().type()), storage);
+        this.entity.setData(ATTACHMENT_BY_TYPE.get(storage.type()), storage);
 
         if (this.entity instanceof ServerPlayer player) {
             PacketDistributor.sendToPlayer(player, new UpdateEssencePayload(storage));
