@@ -12,25 +12,20 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
+import java.util.Objects;
 import java.util.Set;
 
 public record EssenceUtremJarSpecialRenderer(
         EssenceUtremJarRenderer essenceUtremJarRenderer
 ) implements SpecialModelRenderer<EssenceStorage> {
 
-//    @Override
-//    public void render(@Nullable EssenceStorage essenceStorage, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, boolean hasFoilType) {
-//        this.essenceUtremJarRenderer.renderInHand(poseStack, bufferSource, packedLight, packedOverlay, Objects.requireNonNullElse(essenceStorage, EssenceStorage.EMPTY));
-//    }
-
     @Override
-    public void submit(@Nullable EssenceStorage argument, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, int packedOverlay, boolean hasFoil, int outlineColor) {
-        //TODO
+    public void submit(@Nullable EssenceStorage essenceStorage, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, int packedOverlay, boolean hasFoil, int outlineColor) {
+        this.essenceUtremJarRenderer.submitSpecial(poseStack, nodeCollector, packedLight, packedOverlay, Objects.requireNonNullElse(essenceStorage, EssenceStorage.EMPTY));
     }
 
     @Override
     public void getExtents(Set<Vector3f> output) {
-        //TODO
     }
 
     @Override
@@ -43,9 +38,8 @@ public record EssenceUtremJarSpecialRenderer(
         public static final MapCodec<Unbaked> MAP_CODEC = MapCodec.unit(new Unbaked());
 
         @Override
-        public @Nullable SpecialModelRenderer<?> bake(BakingContext context) {
-//            return new EssenceUtremJarSpecialRenderer(new EssenceUtremJarRenderer(modelSet));
-            return null;
+        public SpecialModelRenderer<?> bake(BakingContext context) {
+            return new EssenceUtremJarSpecialRenderer(new EssenceUtremJarRenderer(context.materials(), context.entityModelSet()));
         }
 
         @Override

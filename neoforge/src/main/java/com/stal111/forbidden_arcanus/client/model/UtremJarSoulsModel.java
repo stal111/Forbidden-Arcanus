@@ -8,13 +8,12 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
 
 /**
  * @author stal111
  * @since 02.05.2024
  */
-public class UtremJarSoulsModel<T extends Entity> extends Model<UtremJarSoulsModel.State> {
+public class UtremJarSoulsModel extends Model<UtremJarSoulsModel.State> {
 
     private final KeyframeAnimation rotateAnimation;
 

@@ -9,6 +9,10 @@
       "resource": "forbidden_arcanus:entity/quantum_injector_layer"
     },
     {
+      "type": "minecraft:single",
+      "resource": "forbidden_arcanus:entity/lost_soul/lost_soul"
+    },
+    {
       "type": "minecraft:directory",
       "prefix": "entity/black_hole/",
       "source": "entity/black_hole"

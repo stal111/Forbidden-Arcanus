@@ -13,13 +13,16 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceTy
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -30,32 +33,34 @@ import org.jetbrains.annotations.Nullable;
  */
 public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtremJarBlockEntity, EssenceUtremJarRenderState> {
 
-    public static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/entity/lost_soul/lost_soul.png");
+    public static final Material TEXTURE = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.location("lost_soul/lost_soul"));
 
-    private final UtremJarSoulsModel<?> model;
+    private final MaterialSet materials;
+    private final UtremJarSoulsModel model;
 
     public EssenceUtremJarRenderer(BlockEntityRendererProvider.Context context) {
-        this(context.entityModelSet());
+        this(context.materials(), context.entityModelSet());
     }
 
-    public EssenceUtremJarRenderer(EntityModelSet modelSet) {
-        this.model = new UtremJarSoulsModel<>(modelSet.bakeLayer(FAModelLayers.UTREM_JAR_SOULS));
+    public EssenceUtremJarRenderer(MaterialSet materials, EntityModelSet modelSet) {
+        this.materials = materials;
+        this.model = new UtremJarSoulsModel(modelSet.bakeLayer(FAModelLayers.UTREM_JAR_SOULS));
     }
 
-    public void renderInHand(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, EssenceStorage essenceStorage) {
-        render(poseStack, bufferSource, packedLight, packedOverlay, essenceStorage.value().type(), this.model, essenceStorage.getFillPercentage());
+    public void submitSpecial(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceStorage essenceStorage) {
+        submit(this.materials, poseStack, nodeCollector, new AnimationState(), 0, lightCoords, packedOverlay, essenceStorage.value().type(), this.model, null, essenceStorage.getFillPercentage());
     }
 
-    private static void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, EssenceType essenceType, UtremJarSoulsModel<?> model, float fillPercentage) {
+    private static void submit(MaterialSet materials, PoseStack poseStack, SubmitNodeCollector nodeCollector, AnimationState rotateAnimation, float ageInTicks, int lightCoords, int packedOverlay, EssenceType essenceType, UtremJarSoulsModel model, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay, float fillPercentage) {
         if (essenceType == EssenceType.SOULS) {
             poseStack.pushPose();
 
             poseStack.translate(0.5F, 1.5F, 0.5F);
             poseStack.mulPose(Axis.ZP.rotationDegrees(180));
 
-//            float ageInTicks = (blockEntity.getTickCount() == -1 ? Minecraft.getInstance().level.getGameTime() : blockEntity.getTickCount()) + partialTick;
-//            model.setupAnim(blockEntity, 0.0F, 0.0F, ageInTicks, 0.0F, 0.0F);
-            model.renderToBuffer(poseStack, bufferSource.getBuffer(model.renderType(TEXTURE)), packedLight, packedOverlay);
+            UtremJarSoulsModel.State state = new UtremJarSoulsModel.State(rotateAnimation, ageInTicks);
+            model.setupAnim(state);
+            nodeCollector.submitModel(model, state, poseStack, TEXTURE.renderType(model::renderType), lightCoords, packedOverlay, -1, materials.get(TEXTURE), 0, crumblingOverlay);
 
             poseStack.popPose();
         } else {
@@ -63,7 +68,7 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
 
             fluidBox.setFillPercentage(fillPercentage);
 
-            fluidBox.render(poseStack, bufferSource, packedLight, packedOverlay);
+            fluidBox.submit(poseStack, nodeCollector, lightCoords, packedOverlay);
         }
     }
 
@@ -78,15 +83,16 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
 
         renderState.amount = blockEntity.getAmount();
         renderState.limit = blockEntity.getLimit();
+        renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
+        renderState.rotateAnimation.copyFrom(blockEntity.rotateAnimation);
     }
 
     @Override
-    public void submit(EssenceUtremJarRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+    public void submit(EssenceUtremJarRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         if (renderState.amount > 0) {
             EssenceType type = renderState.blockState.getValue(ModBlockStateProperties.ESSENCE_TYPE);
 
-            //TODO
-//            render(poseStack, bufferSource, packedLight, packedOverlay, type, this.model, blockEntity.getAmount() / (float) blockEntity.getLimit());
+            submit(this.materials, poseStack, nodeCollector, renderState.rotateAnimation, renderState.ageInTicks, renderState.lightCoords, OverlayTexture.NO_OVERLAY, type, this.model, renderState.breakProgress, renderState.amount / (float) renderState.limit);
         }
     }
 }
