@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -32,6 +33,8 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
     public static final EssenceStorage FULL_BLOOD_TEST_TUBE = createFull(EssenceType.BLOOD, 3000);
     public static final EssenceStorage DEFAULT_UTREM_JAR = createEmpty(EssenceType.AUREAL, 10000);
     public static final EssenceStorage EMPTY_AUREAL_TANK = createEmpty(EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY);
+
+    private static final String ESSENCE_FORMAT = "tooltip.forbidden_arcanus.essence.storage_format";
 
     public static final Codec<EssenceStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     EssenceType.CODEC.fieldOf("type").forGetter(EssenceStorage::type),
@@ -71,7 +74,11 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
-        tooltipAdder.accept(Component.literal(": " + this.amount + "/" + this.limit).withStyle(ChatFormatting.GRAY));
+        tooltipAdder.accept(this.asComponent().copy().withStyle(ChatFormatting.GRAY));
+    }
+
+    public Component asComponent() {
+        return Component.object(this.type.getSprite()).append(CommonComponents.space()).append(Component.translatable(ESSENCE_FORMAT, this.amount, this.limit));
     }
 
     public void addEssence(ItemStack stack, int amount) {

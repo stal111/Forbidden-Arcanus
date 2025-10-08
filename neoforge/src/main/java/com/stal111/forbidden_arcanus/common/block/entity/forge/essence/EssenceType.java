@@ -5,8 +5,10 @@ import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.data.AtlasIds;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.objects.AtlasSprite;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
@@ -60,5 +62,9 @@ public enum EssenceType implements StringRepresentable {
 
     public ResourceLocation getSpriteLocation() {
         return this.spriteLocation;
+    }
+
+    public AtlasSprite getSprite() {
+        return new AtlasSprite(AtlasIds.GUI, this.spriteLocation);
     }
 }

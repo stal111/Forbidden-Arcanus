@@ -1,12 +1,10 @@
 package com.stal111.forbidden_arcanus.client.gui.label;
 
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -19,25 +17,20 @@ import net.minecraft.world.phys.BlockHitResult;
  */
 public class JarFlyingLabel implements BlockFlyingLabel {
 
-    private static final String ESSENCE_FORMAT = "tooltip.forbidden_arcanus.essence.storage_format";
-    private static final int ICON_SIZE = 12;
-
     @Override
     public void render(GuiGraphics guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, BlockHitResult result) {
         BlockPos pos = result.getBlockPos();
         Level level = Minecraft.getInstance().level;
 
         if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
-            EssenceType type = level.getBlockState(pos).getValue(ModBlockStateProperties.ESSENCE_TYPE);
+            EssenceStorage storage = blockEntity.getEssenceStorage();
+            Component component = storage.asComponent();
+            int width = Minecraft.getInstance().font.width(component.getVisualOrderText());
 
-            Component component = Component.translatable(ESSENCE_FORMAT, blockEntity.getEssenceStorage().amount(), blockEntity.getEssenceStorage().limit());
-            int width = Minecraft.getInstance().font.width(component.getVisualOrderText()) + ICON_SIZE + 3;
+            guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 1, 0x44000000);
+            guiGraphics.fill(centerX - width / 2 - 4, centerY - 20 - 5, centerX + width / 2 + 4, centerY - 10 + 3, 0x44000000);
 
-            guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 2, 0x44000000);
-            guiGraphics.fill(centerX - width / 2 - 4, centerY - 20 - 5, centerX + width / 2 + 4, centerY - 10 + 4, 0x44000000);
-
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, type.getSpriteLocation(), centerX - width / 2, centerY - 20 - 2, ICON_SIZE, ICON_SIZE);
-            guiGraphics.drawString(Minecraft.getInstance().font, component.getVisualOrderText(), centerX - width / 2 + ICON_SIZE + 2, centerY - 20, -1);
+            guiGraphics.drawString(Minecraft.getInstance().font, component.getVisualOrderText(), centerX - width / 2, centerY - 20, -1);
         }
     }
 }
