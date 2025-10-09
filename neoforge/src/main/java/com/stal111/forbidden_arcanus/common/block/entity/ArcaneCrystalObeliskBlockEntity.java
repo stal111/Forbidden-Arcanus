@@ -33,7 +33,7 @@ public class ArcaneCrystalObeliskBlockEntity extends BlockEntity {
                 .findClosest(poiTypeHolder -> poiTypeHolder.value() == ModPOITypes.HEPHAESTUS_FORGE.get(), pos, 4, PoiManager.Occupancy.ANY)
                 .flatMap(forgePos -> serverLevel.getBlockEntity(forgePos, ModBlockEntities.HEPHAESTUS_FORGE.get()))
                 .ifPresent(forgeBlockEntity -> {
-                    forgeBlockEntity.getEssenceManager().increaseEssence(EssenceType.AUREAL, 1);
+                    forgeBlockEntity.addEssence(EssenceType.AUREAL, 1);
                 });
     }
 }

@@ -5,6 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 
+import java.util.function.UnaryOperator;
+
 public record MultiEssenceStorage(EssenceStorage aureal,
                                   EssenceStorage souls,
                                   EssenceStorage blood,
@@ -35,21 +37,25 @@ public record MultiEssenceStorage(EssenceStorage aureal,
         };
     }
 
+    public MultiEssenceStorage setStorage(EssenceType type, EssenceStorage storage) {
+        return switch (type) {
+            case AUREAL -> new MultiEssenceStorage(storage, this.souls, this.blood, this.experience);
+            case SOULS -> new MultiEssenceStorage(this.aureal, storage, this.blood, this.experience);
+            case BLOOD -> new MultiEssenceStorage(this.aureal, this.souls, storage, this.experience);
+            case EXPERIENCE -> new MultiEssenceStorage(this.aureal, this.souls, this.blood, storage);
+        };
+    }
+
+    public MultiEssenceStorage updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
+        return this.setStorage(type, updater.apply(this.getStorage(type)));
+    }
+
     public int getAmount(EssenceType type) {
         return this.getStorage(type).amount();
     }
 
     public MultiEssenceStorage setAmount(EssenceType type, int amount) {
-        return switch (type) {
-            case AUREAL ->
-                    new MultiEssenceStorage(this.aureal.setAmount(amount), this.souls, this.blood, this.experience);
-            case SOULS ->
-                    new MultiEssenceStorage(this.aureal, this.souls.setAmount(amount), this.blood, this.experience);
-            case BLOOD ->
-                    new MultiEssenceStorage(this.aureal, this.souls, this.blood.setAmount(amount), this.experience);
-            case EXPERIENCE ->
-                    new MultiEssenceStorage(this.aureal, this.souls, this.blood, this.experience.setAmount(amount));
-        };
+        return this.setStorage(type, this.getStorage(type).setAmount(amount));
     }
 
     public EssencesDefinition getSnapshot() {

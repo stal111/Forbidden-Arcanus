@@ -5,11 +5,12 @@ import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesContainer;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
+import com.stal111.forbidden_arcanus.common.essence.EssenceAccess;
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.MultiEssenceStorage;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -39,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.UnaryOperator;
 
 /**
  * Hephaestus Forge Block Entity <br>
@@ -47,7 +49,7 @@ import java.util.*;
  * @author stal111
  * @since 2021-06-18
  */
-public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssencesContainer, BlockEntityAgeAccess {
+public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssenceAccess, BlockEntityAgeAccess {
 
     public static final int MAIN_SLOT = 4;
 
@@ -66,6 +68,8 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     private final EssenceManager essenceManager;
     private final RitualManager ritualManager;
     private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
+
+    private MultiEssenceStorage essenceStorage;
 
     private ForgeDataCache dataCache;
     private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
@@ -90,26 +94,25 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         this.hephaestusForgeData = new ContainerData() {
             @Override
             public int get(int index) {
-                EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
-
                 return switch (index) {
-                    case 0 -> manager.getEssence(EssenceType.AUREAL);
-                    case 1 -> manager.getEssence(EssenceType.SOULS);
-                    case 2 -> manager.getEssence(EssenceType.BLOOD);
-                    case 3 -> manager.getEssence(EssenceType.EXPERIENCE);
+                    case 0 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.AUREAL);
+                    case 1 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.SOULS);
+                    case 2 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.BLOOD);
+                    case 3 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.EXPERIENCE);
                     default -> 0;
                 };
             }
 
             @Override
             public void set(int index, int value) {
-                EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
-
                 switch (index) {
-                    case 0 -> manager.setEssence(EssenceType.AUREAL, value);
-                    case 1 -> manager.setEssence(EssenceType.SOULS, value);
-                    case 2 -> manager.setEssence(EssenceType.BLOOD, value);
-                    case 3 -> manager.setEssence(EssenceType.EXPERIENCE, value);
+                    case 0 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.AUREAL, value);
+                    case 1 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.SOULS, value);
+                    case 2 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.BLOOD, value);
+                    case 3 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.EXPERIENCE, value);
+                    default -> {
+                        throw new IllegalArgumentException("Invalid index: " + index);
+                    }
                 }
             }
 
@@ -125,7 +128,9 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         }
         this.dataCache = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
         this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt(), this.dataCache);
-        this.essenceManager = new EssenceManager(this.forgeLevel.getMaxEssences(), essencesDefinition -> this.ritualManager.updateValidRitual(essencesDefinition, this.level.registryAccess()));
+        this.essenceManager = new EssenceManager();
+
+        this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
     }
 
     @Override
@@ -228,7 +233,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     private Optional<HephaestusForgeInput> getInput(Level level, ItemStack stack, EssenceType essenceType) {
-        if (this.essenceManager.isEssenceFull(essenceType)) {
+        if (this.isEssenceFull(essenceType)) {
             return Optional.empty();
         }
 
@@ -242,7 +247,8 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         this.forgeLevel = level;
 
         this.ritualManager.setForgeTier(level.getAsInt());
-        this.essenceManager.setMaxEssences(level.getMaxEssences());
+        //TODO
+//        this.essenceManager.setMaxEssences(level.getMaxEssences());
     }
 
     public ContainerData getHephaestusForgeData() {
@@ -272,7 +278,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
         int value = input.getInputValue(stack, Objects.requireNonNull(this.getLevel()).getRandom()).amount();
 
-        this.getEssenceManager().increaseEssence(essenceType, value);
+        this.addEssence(essenceType, value);
 
         this.setItem(slot, input.finishInput(stack, value));
     }
@@ -297,7 +303,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
 //        this.saveInventory(tag, lookupProvider);
 
         this.getRitualManager().save(output);
-//        this.getEssenceManager().save(output);
+        output.store("essences", MultiEssenceStorage.CODEC, this.essenceStorage);
 
 //        output.put("data_cache", ForgeDataCache.CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.dataCache).getOrThrow());
     }
@@ -307,8 +313,9 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         super.loadAdditional(input);
 
         this.getRitualManager().load(input);
+        this.essenceStorage = input.read("essences", MultiEssenceStorage.CODEC).orElse(MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences()));
+
         //TODO
-//        this.getEssenceManager().load(tag);
 //
 //        if (tag.contains("data_cache")) {
 //            ForgeDataCache.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag.get("data_cache")).result().ifPresent(forgeDataCache -> this.dataCache = forgeDataCache);
@@ -376,23 +383,8 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
 //        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext, this.forgeLevel);
 //    }
 
-    @Override
-    public void setEssencesLimit(EssencesDefinition definition) {
-        this.essenceManager.setMaxEssences(definition);
-    }
-
-    @Override
-    public EssencesDefinition getEssences() {
-        return this.essenceManager.getCurrentEssences();
-    }
-
-    @Override
-    public void setEssences(EssencesDefinition definition) {
-        definition.forEach(this.essenceManager::setEssence);
-    }
-
     private void onDataChanged(HolderLookup.Provider lookupProvider) {
-        this.ritualManager.onDataChanged(this.dataCache, this.essenceManager.getCurrentEssences(), lookupProvider);
+        this.ritualManager.onDataChanged(this.dataCache, this.essenceStorage.getSnapshot(), lookupProvider);
     }
 
     @Override
@@ -403,5 +395,17 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     public int getAgeInTicks() {
         return this.displayCounter;
+    }
+
+    @Override
+    public EssenceStorage getEssence(EssenceType type) {
+        return this.essenceStorage.getStorage(type);
+    }
+
+    @Override
+    public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
+        this.essenceStorage = this.essenceStorage.updateEssence(type, updater);
+
+        this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot(), this.level.registryAccess());
     }
 }

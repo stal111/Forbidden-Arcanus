@@ -107,7 +107,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
                     break;
                 }
 
-                if (!blockEntity.forgeBlockEntity.getEssenceManager().isEssenceFull(type)) {
+                if (!blockEntity.forgeBlockEntity.isEssenceFull(type)) {
                     serverLevel.getPoiManager()
                             .findClosest(holder -> holder.value() == ESSENCE_TYPE_TO_POI_TYPE.get(type).value(), pos, 8, PoiManager.Occupancy.ANY)
                             .flatMap(jarPos -> level.getBlockEntity(jarPos, ModBlockEntities.ESSENCE_UTREM_JAR.get()))
@@ -134,7 +134,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
 
         this.particlePath = new ParticlePath(essenceType, this.jarBlockEntity.getBlockPos(), this.forgeBlockEntity.getBlockPos());
 
-        this.forgeBlockEntity.getEssenceManager().increaseEssence(essenceType, 5);
+        this.forgeBlockEntity.addEssence(essenceType, 5);
         this.jarBlockEntity.addEssence(-5);
 
         level.sendBlockUpdated(pos, this.getBlockState(), this.getBlockState(), 3);
