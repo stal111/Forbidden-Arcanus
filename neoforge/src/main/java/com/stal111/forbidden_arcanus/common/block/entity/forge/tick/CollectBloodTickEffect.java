@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.tick;
 
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.EssenceAccess;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorageAccess;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,13 +12,13 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
-public record CollectBloodTickEffect(EssenceAccess essenceAccess,
+public record CollectBloodTickEffect(EssenceStorageAccess essenceStorageAccess,
                                      Object2FloatArrayMap<LivingEntity> cachedHealth) implements TickEffect {
 
     private static final int ENTITY_CHECK_RADIUS = 5;
 
-    public static CollectBloodTickEffect create(EssenceAccess essenceAccess) {
-        return new CollectBloodTickEffect(essenceAccess, new Object2FloatArrayMap<>());
+    public static CollectBloodTickEffect create(EssenceStorageAccess essenceStorageAccess) {
+        return new CollectBloodTickEffect(essenceStorageAccess, new Object2FloatArrayMap<>());
     }
 
     @Override
@@ -30,7 +30,7 @@ public record CollectBloodTickEffect(EssenceAccess essenceAccess,
                 float healthDifference = this.cachedHealth.getFloat(entity) - entity.getHealth();
 
                 if (healthDifference > 0) {
-                    this.essenceAccess.addEssence(EssenceType.BLOOD, (int) healthDifference * 20);
+                    this.essenceStorageAccess.addEssence(EssenceType.BLOOD, (int) healthDifference * 20);
                 }
             }
         }

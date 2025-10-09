@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.renderer.item.properties;
 
 import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
-import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperty;
 import net.minecraft.world.entity.ItemOwner;

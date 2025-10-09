@@ -2,16 +2,15 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import net.minecraft.util.ExtraCodecs;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 
 /**
  * An immutable class that defines the amounts of the four different essence types. <br>
- * Can be transformed into a mutable {@link EssencesStorage} if needed.
  *
  * @author stal111
  * @since 2023-01-04
@@ -56,15 +55,18 @@ public record EssenceSet(int aureal, int souls, int blood, int experience) {
     }
 
     public EssenceSet applyModifiers(List<EssenceModifier> modifiers) {
-        EssencesStorage storage = this.mutable();
+        Map<EssenceType, Integer> values = new EnumMap<>(EssenceType.class);
 
-        storage.applyModifiers(modifiers);
+        values.put(EssenceType.AUREAL, aureal);
+        values.put(EssenceType.SOULS, souls);
+        values.put(EssenceType.BLOOD, blood);
+        values.put(EssenceType.EXPERIENCE, experience);
 
-        return storage.immutable();
-    }
+        for (EssenceModifier modifier : modifiers) {
+            values.computeIfPresent(modifier.getEssenceType(), (k, v) -> modifier.getModifiedValue(v));
+        }
 
-    public EssencesStorage mutable() {
-        return new EssencesStorage(this.aureal, this.souls, this.blood, this.experience);
+        return EssenceSet.of(values.get(EssenceType.AUREAL), values.get(EssenceType.SOULS), values.get(EssenceType.BLOOD), values.get(EssenceType.EXPERIENCE));
     }
 
     @Override

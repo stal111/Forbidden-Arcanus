@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.essence;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import net.minecraft.util.Mth;
 import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;

@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.essence;
 
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateEssencePayload;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
 import net.minecraft.Util;

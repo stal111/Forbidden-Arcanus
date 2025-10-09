@@ -1,8 +1,10 @@
-package com.stal111.forbidden_arcanus.common.essence;
+package com.stal111.forbidden_arcanus.common.essence.storage;
+
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 
 import java.util.function.UnaryOperator;
 
-public interface EssenceAccess {
+public interface EssenceStorageAccess {
     EssenceStorage getEssence(EssenceType type);
     void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater);
 

@@ -10,9 +10,9 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusF
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
-import com.stal111.forbidden_arcanus.common.essence.EssenceAccess;
-import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
-import com.stal111.forbidden_arcanus.common.essence.MultiEssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorageAccess;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.MultiEssenceStorage;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -51,7 +51,7 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 2021-06-18
  */
-public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssenceAccess, BlockEntityAgeAccess {
+public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssenceStorageAccess, BlockEntityAgeAccess {
 
     public static final int MAIN_SLOT = 4;
 

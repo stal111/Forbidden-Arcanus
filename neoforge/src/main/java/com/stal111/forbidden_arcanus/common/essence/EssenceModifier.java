@@ -1,6 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
-
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+package com.stal111.forbidden_arcanus.common.essence;
 
 /**
  * @author stal111

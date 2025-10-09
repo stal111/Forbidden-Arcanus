@@ -1,7 +1,9 @@
-package com.stal111.forbidden_arcanus.common.essence;
+package com.stal111.forbidden_arcanus.common.essence.storage;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 
 import java.util.function.UnaryOperator;
 
