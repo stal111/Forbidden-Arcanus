@@ -5,12 +5,12 @@ import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.common.essence.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
@@ -149,7 +149,7 @@ public class RitualManager {
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.forgeTier);
     }
 
-    public boolean startRitual(ServerPlayer player, EssenceManager storage) {
+    public boolean startRitual(ServerPlayer player, EssenceAccess essenceAccess) {
         return this.getValidRitual().map(ritual -> {
             this.setActiveRitual(ritual, player.getUUID());
 

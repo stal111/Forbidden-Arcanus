@@ -2,12 +2,14 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
+import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceManager;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
 import com.stal111.forbidden_arcanus.common.essence.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.MultiEssenceStorage;
@@ -65,11 +67,12 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     public static final int UPDATE_RITUAL_DURATION = 3;
 
     private final ContainerData hephaestusForgeData;
-    private final EssenceManager essenceManager;
     private final RitualManager ritualManager;
     private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
 
     private MultiEssenceStorage essenceStorage;
+
+    private final List<TickEffect> tickEffects = new ArrayList<>();
 
     private ForgeDataCache dataCache;
     private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
@@ -128,9 +131,11 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         }
         this.dataCache = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
         this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt(), this.dataCache);
-        this.essenceManager = new EssenceManager();
 
         this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
+
+        this.tickEffects.add(CollectBloodTickEffect.create(this));
+        this.tickEffects.add(new UpdateBlockStateTickEffect());
     }
 
     @Override
@@ -168,12 +173,10 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
 
         }
 
-        if (level.getGameTime() % 80 == 0) {
-            ((HephaestusForgeBlock) state.getBlock()).updateState(state, level, pos);
-        }
-
-        if (level.getGameTime() % 20 == 0) {
-            blockEntity.essenceManager.tick(level, pos);
+        for (TickEffect effect : blockEntity.tickEffects) {
+            if (level.getGameTime() % effect.getTickInterval() == 0) {
+                effect.tick(level, pos, state);
+            }
         }
 
         blockEntity.ritualManager.tick().ifPresent(stack -> {
@@ -253,10 +256,6 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
 
     public ContainerData getHephaestusForgeData() {
         return this.hephaestusForgeData;
-    }
-
-    public EssenceManager getEssenceManager() {
-        return this.essenceManager;
     }
 
     public MagicCircleController getMagicCircleController() {
