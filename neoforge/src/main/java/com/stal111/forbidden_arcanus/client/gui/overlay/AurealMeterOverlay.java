@@ -38,8 +38,8 @@ public class AurealMeterOverlay implements GuiLayer {
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 24, 18, 9, 81, 9, 256, 128);
 
-        EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
-            this.renderOverlay(guiGraphics, window, provider.getAmount(EssenceType.AUREAL), provider.getLimit(EssenceType.AUREAL));
+        EssenceHelper.getEssenceAccess(player).ifPresent(essenceAccess -> {
+            this.renderOverlay(guiGraphics, window, essenceAccess.getEssenceAmount(EssenceType.AUREAL), essenceAccess.getEssenceLimit(EssenceType.AUREAL));
         });
     }
 }

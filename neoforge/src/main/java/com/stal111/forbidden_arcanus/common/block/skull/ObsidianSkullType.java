@@ -2,8 +2,8 @@ package com.stal111.forbidden_arcanus.common.block.skull;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
@@ -56,7 +56,8 @@ public enum ObsidianSkullType implements SkullBlock.Type {
 
         public static final UniformInt STAGE_DURATION = UniformInt.of(8, 13);
 
-        public static final TickFunction EMPTY = (type, stack, player) -> {};
+        public static final TickFunction EMPTY = (type, stack, player) -> {
+        };
 
         public static final TickFunction DEFAULT = (type, stack, player) -> {
             int remainingTicks = stack.getOrDefault(ModDataComponents.TICKS_TILL_NEXT_STAGE, STAGE_DURATION.sample(player.getRandom()) * 20);
@@ -75,9 +76,7 @@ public enum ObsidianSkullType implements SkullBlock.Type {
         };
 
         public static final TickFunction AUREALIC = (type, stack, player) -> {
-            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
-                provider.updateAmount(EssenceType.AUREAL, amount -> amount - 1);
-            });
+            EssenceHelper.addEssence(player, EssenceType.AUREAL, -1);
         };
     }
 

@@ -1,10 +1,15 @@
 package com.stal111.forbidden_arcanus.common.essence.storage;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import net.neoforged.neoforge.capabilities.EntityCapability;
 
 import java.util.function.UnaryOperator;
 
-public interface EssenceStorageAccess {
+public interface EssenceAccess {
+
+    EntityCapability<EssenceAccess, Void> ENTITY_CAPABILITY = EntityCapability.createVoid(ForbiddenArcanus.location("essence_provider"), EssenceAccess.class);
+
     EssenceStorage getEssence(EssenceType type);
     void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater);
 

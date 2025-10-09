@@ -76,9 +76,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
 
             if (distance < 16.0D) {
                 if (entity instanceof ServerPlayer player) {
-                    EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
-                        provider.updateAmount(EssenceType.AUREAL, amount -> amount + 30);
-                    });
+                    EssenceHelper.addEssence(player, EssenceType.AUREAL, 30);
                 }
 
                 if (AurealHelper.canEntityBeAureal(entity) && !entity.getPersistentData().getBooleanOr("aureal", false)) {

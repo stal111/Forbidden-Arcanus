@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
-import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -95,13 +95,13 @@ public class QuantumCatcherItem extends Item {
     public InteractionResult onEntityInteract(ItemStack stack, Player player, LivingEntity target) {
         Level level = player.level();
         int cost = calculateAurealCost(target).amount();
-        EssenceProvider essenceProvider = EssenceHelper.getEssenceProvider(player).orElseThrow();
+        EssenceAccess essenceAccess = EssenceHelper.getEssenceAccess(player).orElseThrow();
 
         if (!this.isValidEntity(target) || getData(stack).isPresent()) {
             return InteractionResult.PASS;
         }
 
-        if (essenceProvider.getAmount(EssenceType.AUREAL) < cost) {
+        if (essenceAccess.getEssenceAmount(EssenceType.AUREAL) < cost) {
             return InteractionResult.FAIL;
         }
 
@@ -121,7 +121,7 @@ public class QuantumCatcherItem extends Item {
 
             target.discard();
 
-            essenceProvider.updateAmount(EssenceType.AUREAL, amount -> amount - cost);
+            essenceAccess.addEssence(EssenceType.AUREAL, -cost);
         }
 
         playSound(level, player, target.blockPosition(), true);
@@ -157,6 +157,6 @@ public class QuantumCatcherItem extends Item {
     }
 
     private static Optional<StoredEntity> getData(ItemStack stack) {
-       return Optional.ofNullable(stack.get(ModDataComponents.STORED_ENTITY));
+        return Optional.ofNullable(stack.get(ModDataComponents.STORED_ENTITY));
     }
 }

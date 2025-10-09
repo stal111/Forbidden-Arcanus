@@ -1,11 +1,10 @@
 package com.stal111.forbidden_arcanus.common.event;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
-import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateEssencePayload;
 import com.stal111.forbidden_arcanus.core.config.BlockConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
@@ -21,7 +20,6 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * Player Events <br>
@@ -47,9 +45,7 @@ public class PlayerEvents {
         }
 
         if (!player.level().isClientSide() && player.level().getGameTime() % 100 == 0) {
-            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
-               provider.updateAmount(EssenceType.AUREAL, value -> value + (int) player.getAttributeValue(FAAttributes.AUREAL_REGENERATION));
-            });
+            EssenceHelper.addEssence(player, EssenceType.AUREAL, (int) player.getAttributeValue(FAAttributes.AUREAL_REGENERATION));
         }
     }
 
@@ -68,11 +64,12 @@ public class PlayerEvents {
     public void onPlayerJoinLevel(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
 
-        if (entity instanceof ServerPlayer player) {
-            EssenceHelper.getEssenceProvider(player).ifPresent(provider -> {
-                PacketDistributor.sendToPlayer(player, new UpdateEssencePayload(provider.asStorage(EssenceType.AUREAL)));
-            });
-        }
+        //TODO: still needed?
+//        if (entity instanceof ServerPlayer player) {
+//            EssenceHelper.getEssenceAccess(player).ifPresent(provider -> {
+//                PacketDistributor.sendToPlayer(player, new UpdateEssencePayload(provider.asStorage(EssenceType.AUREAL)));
+//            });
+//        }
     }
 
     @SubscribeEvent

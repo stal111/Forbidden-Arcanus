@@ -1,6 +1,6 @@
-package com.stal111.forbidden_arcanus.common.essence;
+package com.stal111.forbidden_arcanus.common.essence.storage;
 
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateEssencePayload;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
 import net.minecraft.Util;
@@ -11,12 +11,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
-/**
- * @author stal111
- * @since 13.05.2024
- */
-public class EntityEssenceProvider<T extends LivingEntity> implements EssenceProvider {
+public record EntityEssenceAccess<T extends LivingEntity>(T entity) implements EssenceAccess {
 
     private static final Map<EssenceType, AttachmentType<EssenceStorage>> ATTACHMENT_BY_TYPE = Util.make(new EnumMap<>(EssenceType.class), map -> {
         map.put(EssenceType.AUREAL, ModAttachmentTypes.AUREAL.get());
@@ -25,23 +22,18 @@ public class EntityEssenceProvider<T extends LivingEntity> implements EssencePro
         map.put(EssenceType.EXPERIENCE, ModAttachmentTypes.EXPERIENCE.get());
     });
 
-    final T entity;
-
-    public EntityEssenceProvider(T entity) {
-        this.entity = entity;
-    }
-
     @Override
-    public EssenceStorage asStorage(EssenceType type) {
+    public EssenceStorage getEssence(EssenceType type) {
         return this.entity.getData(ATTACHMENT_BY_TYPE.get(type));
     }
 
     @Override
-    public void setStorage(EssenceStorage storage) {
-        this.entity.setData(ATTACHMENT_BY_TYPE.get(storage.type()), storage);
+    public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
+        EssenceStorage updatedStorage = updater.apply(this.getEssence(type));
+        this.entity.setData(ATTACHMENT_BY_TYPE.get(type), updatedStorage);
 
         if (this.entity instanceof ServerPlayer player) {
-            PacketDistributor.sendToPlayer(player, new UpdateEssencePayload(storage));
+            PacketDistributor.sendToPlayer(player, new UpdateEssencePayload(updatedStorage));
         }
     }
 }

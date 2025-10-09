@@ -20,8 +20,8 @@ public record EssenceValueEntityPredicate(EssenceValue essenceValue) implements 
 
     @Override
     public boolean matches(Entity entity, ServerLevel level, @Nullable Vec3 position) {
-        return EssenceHelper.getEssenceProvider(entity)
-                .map(provider -> provider.getAmount(this.essenceValue.type()) >= this.essenceValue.amount())
+        return EssenceHelper.getEssenceAccess(entity)
+                .map(provider -> provider.getEssenceAmount(this.essenceValue.type()) >= this.essenceValue.amount())
                 .orElse(false);
     }
 }

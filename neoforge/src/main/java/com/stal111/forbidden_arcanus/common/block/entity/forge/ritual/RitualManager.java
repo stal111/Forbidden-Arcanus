@@ -10,7 +10,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorageAccess;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
@@ -149,7 +149,7 @@ public class RitualManager {
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.forgeTier);
     }
 
-    public boolean startRitual(ServerPlayer player, EssenceStorageAccess essenceStorageAccess) {
+    public boolean startRitual(ServerPlayer player, EssenceAccess essenceAccess) {
         return this.getValidRitual().map(ritual -> {
             this.setActiveRitual(ritual, player.getUUID());
 

@@ -31,10 +31,10 @@ public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
         }
 
         if (!stack.has(ModDataComponents.STORED_ENTITY) && stack.getItem() instanceof QuantumCatcherItem item && item.isValidEntity(livingEntity)) {
-            EssenceHelper.getEssenceProvider(minecraft.player).ifPresent(provider -> {
+            EssenceHelper.getEssenceAccess(minecraft.player).ifPresent(provider -> {
                 EssenceValue cost = QuantumCatcherItem.calculateAurealCost(livingEntity);
 
-                Component component = cost.asComponent(provider.getAmount(EssenceType.AUREAL) < cost.amount() ? ChatFormatting.RED : ChatFormatting.WHITE);
+                Component component = cost.asComponent(provider.getEssenceAmount(EssenceType.AUREAL) < cost.amount() ? ChatFormatting.RED : ChatFormatting.WHITE);
                 int width = minecraft.font.width(component.getVisualOrderText()) + 3;
 
                 guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 1, 0x44000000);

@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
-import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -34,9 +34,7 @@ public class AurealBottleItem extends Item {
         if (!level.isClientSide()) {
             int aurealAmount = EssenceHelper.getEssenceAmount(stack, EssenceType.AUREAL);
 
-            EssenceHelper.getEssenceProvider(livingEntity).ifPresent(provider -> {
-                provider.updateAmount(EssenceType.AUREAL, amount -> amount + aurealAmount);
-            });
+            EssenceHelper.addEssence(livingEntity, EssenceType.AUREAL, aurealAmount);
         }
 
         stack.consume(1, livingEntity);
@@ -56,9 +54,9 @@ public class AurealBottleItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        EssenceProvider essenceProvider = EssenceHelper.getEssenceProvider(player).orElse(null);
+        EssenceAccess essenceAccess = EssenceHelper.getEssenceAccess(player).orElse(null);
 
-        if (essenceProvider != null && !essenceProvider.isFull(EssenceType.AUREAL)) {
+        if (essenceAccess != null && !essenceAccess.isEssenceFull(EssenceType.AUREAL)) {
             return ItemUtils.startUsingInstantly(level, player, hand);
         }
 

@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.client;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
@@ -91,9 +90,9 @@ public final class ClientPayloadHandler {
     }
 
     public void handle(UpdateEssencePayload payload, IPayloadContext context) {
-        EssenceHelper.getEssenceProvider(context.player()).ifPresent(provider -> {
-            provider.setStorage(payload.storage());
-        });
+//        EssenceHelper.getEssenceAccess(context.player()).ifPresent(provider -> {
+//            provider.setStorage(payload.storage());
+//        });
     }
 
     public void handle(AdvancedBlockEventPayload payload, IPayloadContext context) {

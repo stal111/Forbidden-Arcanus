@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.essence;
 
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.item.component.AurealCost;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -33,8 +34,20 @@ public class EssenceHelper {
         return Optional.ofNullable(stack.get(ModDataComponents.ESSENCE_STORAGE));
     }
 
-    public static Optional<EssenceProvider> getEssenceProvider(Entity entity) {
-        return Optional.ofNullable(entity.getCapability(EssenceProvider.ENTITY_ESSENCE));
+    public static Optional<EssenceAccess> getEssenceAccess(Entity entity) {
+        return Optional.ofNullable(entity.getCapability(EssenceAccess.ENTITY_CAPABILITY));
+    }
+
+    public static void addEssence(ItemStack stack, int amount) {
+        getEssenceStorage(stack).ifPresent(essenceAccess -> {
+           essenceAccess.addEssence(amount);
+        });
+    }
+
+    public static void addEssence(Entity entity, EssenceType essenceType, int amount) {
+        getEssenceAccess(entity).ifPresent(essenceAccess -> {
+            essenceAccess.addEssence(essenceType, amount);
+        });
     }
 
     public static boolean hasEnoughAureal(Level level, LivingEntity livingEntity, ItemStack stack) {
@@ -46,11 +59,7 @@ public class EssenceHelper {
     }
 
     public static void consumeAureal(LivingEntity livingEntity, ItemStack stack) {
-        getEssenceProvider(livingEntity).ifPresent(provider -> {
-            provider.updateAmount(EssenceType.AUREAL, amount -> {
-                return amount - stack.getOrDefault(ModDataComponents.AUREAL_COST, AurealCost.ZERO).value();
-            });
-        });
+        addEssence(livingEntity, EssenceType.AUREAL, -stack.getOrDefault(ModDataComponents.AUREAL_COST, AurealCost.ZERO).value());
     }
 
     public static ItemStack createStorageItem(Item item, EssenceType type, int amount, int limit) {
