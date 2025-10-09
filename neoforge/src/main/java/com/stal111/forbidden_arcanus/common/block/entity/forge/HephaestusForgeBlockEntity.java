@@ -88,10 +88,10 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
                 EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
 
                 return switch (index) {
-                    case 0 -> manager.getAureal();
-                    case 1 -> manager.getSouls();
-                    case 2 -> manager.getBlood();
-                    case 3 -> manager.getExperience();
+                    case 0 -> manager.getEssence(EssenceType.AUREAL);
+                    case 1 -> manager.getEssence(EssenceType.SOULS);
+                    case 2 -> manager.getEssence(EssenceType.BLOOD);
+                    case 3 -> manager.getEssence(EssenceType.EXPERIENCE);
                     default -> 0;
                 };
             }
@@ -101,10 +101,10 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
                 EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
 
                 switch (index) {
-                    case 0 -> manager.setAureal(value);
-                    case 1 -> manager.setSouls(value);
-                    case 2 -> manager.setBlood(value);
-                    case 3 -> manager.setExperience(value);
+                    case 0 -> manager.setEssence(EssenceType.AUREAL, value);
+                    case 1 -> manager.setEssence(EssenceType.SOULS, value);
+                    case 2 -> manager.setEssence(EssenceType.BLOOD, value);
+                    case 3 -> manager.setEssence(EssenceType.EXPERIENCE, value);
                 }
             }
 

@@ -93,6 +93,10 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
         return new EssenceStorage(this.type, Math.min(this.amount + amount, this.limit), this.limit);
     }
 
+    public EssenceStorage setAmount(int amount) {
+        return new EssenceStorage(this.type, Math.min(amount, this.limit), this.limit);
+    }
+
     public EssenceValue getCurrentValue() {
         return EssenceValue.of(this.type, this.amount);
     }

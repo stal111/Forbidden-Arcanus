@@ -147,7 +147,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         if (state.getValue(ACTIVATED) && ritualStarter != null && level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
             level.playSound(player, pos, ritualStarter.soundEvent().value(), SoundSource.PLAYERS, 0.85F, level.getRandom().nextFloat() * 0.15F + 0.9F);
 
-            if (player instanceof ServerPlayer serverPlayer && blockEntity.getRitualManager().startRitual(serverPlayer, blockEntity.getEssenceManager().getStorage())) {
+            if (player instanceof ServerPlayer serverPlayer && blockEntity.getRitualManager().startRitual(serverPlayer, blockEntity.getEssenceManager())) {
                 stack.hurtAndBreak(ritualStarter.damagePerRitual(), player, hand.asEquipmentSlot());
             }
 

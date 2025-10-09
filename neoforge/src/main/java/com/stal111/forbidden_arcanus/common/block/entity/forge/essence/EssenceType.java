@@ -60,10 +60,6 @@ public enum EssenceType implements StringRepresentable {
         return this.particleType.value();
     }
 
-    public ResourceLocation getSpriteLocation() {
-        return this.spriteLocation;
-    }
-
     public AtlasSprite getSprite() {
         return new AtlasSprite(AtlasIds.GUI, this.spriteLocation);
     }

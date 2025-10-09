@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 
+import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.MultiEssenceStorage;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import net.valhelsia.valhelsia_core.api.common.util.SerializableComponent;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,13 +20,12 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 2021-07-10
  */
-public class EssenceManager implements SerializableComponent {
-
-    public static final String TAG_ESSENCES = "essences";
+public class EssenceManager {
 
     private static final int ENTITY_CHECK_RADIUS = 5;
 
-    private final EssencesStorage essences = new EssencesStorage();
+    private MultiEssenceStorage storage;
+
     private final Object2FloatArrayMap<LivingEntity> cachedHealth = new Object2FloatArrayMap<>();
     private EssencesDefinition maxEssences;
 
@@ -34,22 +34,24 @@ public class EssenceManager implements SerializableComponent {
     public EssenceManager(EssencesDefinition maxEssences, Consumer<EssencesDefinition> onChanged) {
         this.maxEssences = maxEssences;
         this.onChanged = onChanged;
+
+        this.storage = MultiEssenceStorage.empty(maxEssences);
     }
 
     public void setMaxEssences(EssencesDefinition maxEssences) {
         this.maxEssences = maxEssences;
     }
 
-    public EssencesStorage getStorage() {
-        return this.essences;
+    public EssencesDefinition getCurrentEssences() {
+        return this.storage.getSnapshot();
     }
 
-    public EssencesDefinition getCurrentEssences() {
-        return this.getStorage().immutable();
+    public EssenceStorage getStorage(EssenceType type) {
+        return this.storage.getStorage(type);
     }
 
     public int getEssence(EssenceType type) {
-        return this.essences.getOrDefault(type, 0);
+        return this.storage.getAmount(type);
     }
 
     public void setEssence(EssenceType type, int value) {
@@ -57,10 +59,10 @@ public class EssenceManager implements SerializableComponent {
     }
 
     public void setEssence(EssenceType type, int value, boolean changed) {
-        this.essences.put(type, value);
+        this.storage = this.storage.setAmount(type, value);
 
         if (changed) {
-            this.onChanged.accept(this.essences.immutable());
+            this.onChanged.accept(this.getCurrentEssences());
         }
     }
 
@@ -68,55 +70,16 @@ public class EssenceManager implements SerializableComponent {
         this.setEssence(type, Math.min(this.maxEssences.get(type), this.getEssence(type) + amount));
     }
 
-    public int getAureal() {
-        return this.getEssence(EssenceType.AUREAL);
-    }
-
-    public void setAureal(int aureal) {
-        this.setEssence(EssenceType.AUREAL, aureal);
-    }
-
-    public int getSouls() {
-        return this.getEssence(EssenceType.SOULS);
-    }
-
-    public void setSouls(int souls) {
-        this.setEssence(EssenceType.SOULS, souls);
-    }
-
-    public int getBlood() {
-        return this.getEssence(EssenceType.BLOOD);
-    }
-
-    public void setBlood(int blood) {
-        this.setEssence(EssenceType.BLOOD, blood);
-    }
-
-    public int getExperience() {
-        return this.getEssence(EssenceType.EXPERIENCE);
-    }
-
-    public void setExperience(int experience) {
-        this.setEssence(EssenceType.EXPERIENCE, experience);
-    }
-
     public boolean isEssenceFull(EssenceType type) {
         return this.getEssence(type) >= this.maxEssences.get(type);
     }
 
-    @Override
-    public CompoundTag save(CompoundTag tag) {
-        EssencesStorage.CODEC.encodeStart(NbtOps.INSTANCE, this.essences).result().ifPresent(essences -> tag.put(TAG_ESSENCES, essences));
-
-        return tag;
+    public void save(ValueOutput output) {
+        output.store("essences", MultiEssenceStorage.CODEC, this.storage);
     }
 
-    @Override
-    public void load(CompoundTag tag) {
-        EssencesStorage.CODEC.parse(NbtOps.INSTANCE, tag.get(TAG_ESSENCES)).result().ifPresent(essences -> {
-            this.essences.clear();
-            this.essences.putAll(essences);
-        });
+    public void load(ValueInput input) {
+        input.read("essences", MultiEssenceStorage.CODEC).ifPresent(storage -> this.storage = storage);
     }
 
     public void tick(Level level, BlockPos pos) {
