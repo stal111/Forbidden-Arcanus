@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ItemOwner;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -157,7 +158,7 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner, Block
 
     @Override
     public float getVisualRotationYInDegrees() {
-        return 0;
+        return 180.0F - ItemEntity.getSpin(this.ageInTicks + 0.5F, this.hoverStart) / (float) (Math.PI * 2) * 360.0F;
     }
 
     @Override

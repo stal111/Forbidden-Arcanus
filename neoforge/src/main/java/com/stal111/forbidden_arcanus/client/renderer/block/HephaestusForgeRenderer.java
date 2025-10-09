@@ -1,15 +1,24 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.HephaestusForgeRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Hephaestus Forge Renderer <br>
@@ -20,9 +29,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusForgeBlockEntity, HephaestusForgeRenderState> {
 
+    private final ItemModelResolver itemModelResolver;
     private final MagicCircleModel magicCircleModel;
 
     public HephaestusForgeRenderer(BlockEntityRendererProvider.Context context) {
+        this.itemModelResolver = context.itemModelResolver();
         this.magicCircleModel = new MagicCircleModel(context);
     }
 
@@ -32,7 +43,18 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     @Override
-    public void submit(HephaestusForgeRenderState hephaestusForgeRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+    public void extractRenderState(HephaestusForgeBlockEntity blockEntity, HephaestusForgeRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
+
+        ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
+        this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getClientMainItem(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+
+        renderState.itemStackRenderState = itemStackRenderState;
+        renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
+    }
+
+    @Override
+    public void submit(HephaestusForgeRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         //TODO
 //        MagicCircle magicCircle = blockEntity.getMagicCircleController().getMagicCircle();
 //
@@ -45,19 +67,19 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 //        }
 //
 //        ItemStack stack = blockEntity.getClientMainItem();
-//
-//        if (!stack.isEmpty()) {
-//            poseStack.pushPose();
-//
-//            poseStack.translate(0.5D, 1.3D, 0.5D);
-//            poseStack.mulPose(Axis.YP.rotation((blockEntity.getDisplayCounter() + partialTick) / 20));
-//
-//            poseStack.scale(0.5F, 0.5F, 0.5F);
-//
-//            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, packedLight, packedOverlay, poseStack, bufferSource, blockEntity.getLevel(), 0);
-//
-//            poseStack.popPose();
-//        }
+
+        if (!renderState.itemStackRenderState.isEmpty()) {
+            poseStack.pushPose();
+
+            poseStack.translate(0.5D, 1.3D, 0.5D);
+            poseStack.mulPose(Axis.YP.rotation(ItemEntity.getSpin(renderState.ageInTicks, 0.0F)));
+
+            poseStack.scale(0.5F, 0.5F, 0.5F);
+
+            renderState.itemStackRenderState.submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+
+            poseStack.popPose();
+        }
     }
 
     @Override

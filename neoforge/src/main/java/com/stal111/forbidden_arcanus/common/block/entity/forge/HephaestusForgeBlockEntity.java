@@ -27,6 +27,8 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ItemOwner;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -37,6 +39,7 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,7 +54,7 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 2021-06-18
  */
-public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssenceAccess, BlockEntityAgeAccess {
+public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess {
 
     public static final int MAIN_SLOT = 4;
 
@@ -392,11 +395,6 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     }
 
     @Override
-    public int getAgeInTicks() {
-        return this.displayCounter;
-    }
-
-    @Override
     public EssenceStorage getEssence(EssenceType type) {
         return this.essenceStorage.getStorage(type);
     }
@@ -406,5 +404,25 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         this.essenceStorage = this.essenceStorage.updateEssence(type, updater);
 
         this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot(), this.level.registryAccess());
+    }
+
+    @Override
+    public Level level() {
+        return this.level;
+    }
+
+    @Override
+    public Vec3 position() {
+        return this.getBlockPos().getCenter();
+    }
+
+    @Override
+    public float getVisualRotationYInDegrees() {
+        return 180.0F - ItemEntity.getSpin(this.getAgeInTicks() + 0.5F, 0.0F) / (float) (Math.PI * 2) * 360.0F;
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.displayCounter;
     }
 }
