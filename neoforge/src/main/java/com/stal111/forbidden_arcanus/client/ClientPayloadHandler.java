@@ -89,12 +89,6 @@ public final class ClientPayloadHandler {
         }
     }
 
-    public void handle(UpdateEssencePayload payload, IPayloadContext context) {
-//        EssenceHelper.getEssenceAccess(context.player()).ifPresent(provider -> {
-//            provider.setStorage(payload.storage());
-//        });
-    }
-
     public void handle(AdvancedBlockEventPayload payload, IPayloadContext context) {
         this.minecraft.level.blockEvent(payload.pos(), payload.block(), payload.b1(), payload.b2());
     }

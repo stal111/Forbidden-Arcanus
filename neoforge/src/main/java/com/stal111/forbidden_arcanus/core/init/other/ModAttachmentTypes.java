@@ -25,6 +25,6 @@ public class ModAttachmentTypes {
     public static final Supplier<AttachmentType<SoulboundInventory>> SOULBOUND_INVENTORY = HELPER.register("soulbound_inventory", () -> AttachmentType.builder(SoulboundInventory::create).serialize(SoulboundInventory.CODEC, inventory -> !inventory.isEmpty()).copyOnDeath().build());
 
     private static Supplier<AttachmentType<EssenceStorage>> createEssenceStorage(EssenceType type) {
-        return HELPER.register(type.getSerializedName(), () -> AttachmentType.builder(() -> EssenceStorage.createEmpty(type, 100)).serialize(EssenceStorage.codec(type)).build());
+        return HELPER.register(type.getSerializedName(), () -> AttachmentType.builder(() -> EssenceStorage.createEmpty(type, 100)).serialize(EssenceStorage.codec(type)).sync(EssenceStorage.STREAM_CODEC).build());
     }
 }

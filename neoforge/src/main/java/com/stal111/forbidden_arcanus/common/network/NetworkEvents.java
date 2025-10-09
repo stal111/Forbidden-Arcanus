@@ -19,7 +19,6 @@ public class NetworkEvents {
         registrar.playToClient(SetClibanoResiduesPayload.TYPE, SetClibanoResiduesPayload.STREAM_CODEC, SetClibanoResiduesPayload::handle);
         registrar.playToClient(TransformPedestalPayload.TYPE, TransformPedestalPayload.STREAM_CODEC, TransformPedestalPayload::handle);
         registrar.playToClient(SpawnParticlePayload.TYPE, SpawnParticlePayload.STREAM_CODEC, SpawnParticlePayload::handle);
-        registrar.playToClient(UpdateEssencePayload.TYPE, UpdateEssencePayload.STREAM_CODEC, UpdateEssencePayload::handle);
         registrar.playToClient(AdvancedBlockEventPayload.TYPE, AdvancedBlockEventPayload.STREAM_CODEC, AdvancedBlockEventPayload::handle);
     }
 }

@@ -9,14 +9,12 @@ import com.stal111.forbidden_arcanus.core.config.BlockConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -58,18 +56,6 @@ public class PlayerEvents {
             event.setCancellationResult(item.onEntityInteract(stack, player, entity));
             event.setCanceled(true);
         }
-    }
-
-    @SubscribeEvent
-    public void onPlayerJoinLevel(EntityJoinLevelEvent event) {
-        Entity entity = event.getEntity();
-
-        //TODO: still needed?
-//        if (entity instanceof ServerPlayer player) {
-//            EssenceHelper.getEssenceAccess(player).ifPresent(provider -> {
-//                PacketDistributor.sendToPlayer(player, new UpdateEssencePayload(provider.asStorage(EssenceType.AUREAL)));
-//            });
-//        }
     }
 
     @SubscribeEvent
