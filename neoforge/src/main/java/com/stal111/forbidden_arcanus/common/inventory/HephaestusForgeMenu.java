@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
@@ -21,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
 
@@ -43,12 +42,12 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final DataSlot hephaestusForgeLevel = DataSlot.standalone();
 
     public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(9), new SimpleContainerData(4), MenuCreationContext.of(inventory), HephaestusForgeLevel.ONE);
+        this(id, new ItemStackHandler(9), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
     }
 
-    public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext, HephaestusForgeLevel level) {
+    public HephaestusForgeMenu(int id, IItemHandler handler, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory, HephaestusForgeLevel level) {
         super(ModMenuTypes.HEPHAESTUS_FORGE.get(), id);
-        this.levelAccess = creationContext.levelAccess();
+        this.levelAccess = levelAccess;
         this.hephaestusForgeData = containerData;
 
         checkContainerDataCount(this.hephaestusForgeData, 4);
@@ -75,17 +74,17 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         // Inventory Slots
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlot(new SlotItemHandler(creationContext.inventory(), j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new SlotItemHandler(new InvWrapper(inventory), j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Hotbar Slots
         for (int k = 0; k < 9; ++k) {
-            this.addSlot(new SlotItemHandler(creationContext.inventory(), k, 8 + k * 18, 142));
+            this.addSlot(new SlotItemHandler(new InvWrapper(inventory), k, 8 + k * 18, 142));
         }
     }
 
-    private void addEnhancerSlot(ItemStackHandler handler, int index, int x, int y) {
+    private void addEnhancerSlot(IItemHandler handler, int index, int x, int y) {
         this.addSlot(new EnhancerSlot(handler, index, x, y, () -> this.isSlotLocked(index), Component.translatable(UNLOCKED_AT_KEY, index + 1)));
     }
 

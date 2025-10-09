@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesD
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
+import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
@@ -26,12 +27,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,6 +74,8 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     private int displayCounter;
     private int clientRitualDuration;
     private ItemStack clientMainItem = ItemStack.EMPTY;
+
+    private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state
@@ -323,7 +328,9 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
         CompoundTag tag = this.saveWithoutMetadata(lookupProvider);
         tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
 
-        tag.store("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.getItem(MAIN_SLOT));
+        if (!this.getItem(MAIN_SLOT).isEmpty()) {
+            tag.store("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.getItem(MAIN_SLOT));
+        }
 
         return tag;
     }
@@ -350,17 +357,17 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
 
     @Override
     protected NonNullList<ItemStack> getItems() {
-        return null;
+        return this.items;
     }
 
     @Override
     protected void setItems(NonNullList<ItemStack> items) {
-
+        this.items = items;
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return null;
+        return new HephaestusForgeMenu(containerId, new InvWrapper(this), this.hephaestusForgeData, ContainerLevelAccess.create(this.level, this.worldPosition), inventory, this.forgeLevel);
     }
 
     //TODO
