@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.essence;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.component.AurealCost;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.server.level.ServerLevel;

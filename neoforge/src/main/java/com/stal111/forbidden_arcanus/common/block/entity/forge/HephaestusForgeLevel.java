@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.block.BlockRegistryEntry;
 
@@ -23,11 +23,11 @@ public enum HephaestusForgeLevel implements IntSupplier {
     FIVE(ModBlocks.HEPHAESTUS_FORGE_TIER_5, 20000, 1000, 100000, 7500);
 
     private final BlockRegistryEntry<HephaestusForgeBlock> block;
-    private final EssencesDefinition maxEssences;
+    private final EssenceSet maxEssences;
 
     HephaestusForgeLevel(BlockRegistryEntry<HephaestusForgeBlock> block, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
         this.block = block;
-        this.maxEssences = new EssencesDefinition(maxAureal, maxSouls, maxBlood, maxExperience);
+        this.maxEssences = new EssenceSet(maxAureal, maxSouls, maxBlood, maxExperience);
     }
 
     public HephaestusForgeBlock getBlock() {
@@ -54,7 +54,7 @@ public enum HephaestusForgeLevel implements IntSupplier {
         return this.maxEssences.get(EssenceType.EXPERIENCE);
     }
 
-    public EssencesDefinition getMaxEssences() {
+    public EssenceSet getMaxEssences() {
         return this.maxEssences;
     }
 

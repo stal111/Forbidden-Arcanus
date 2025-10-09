@@ -2,8 +2,6 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 
 import java.util.function.UnaryOperator;
 
@@ -19,7 +17,7 @@ public record MultiEssenceStorage(EssenceStorage aureal,
             EssenceStorage.codec(EssenceType.EXPERIENCE).fieldOf("experience").forGetter(MultiEssenceStorage::experience)
     ).apply(instance, MultiEssenceStorage::new));
 
-    public static MultiEssenceStorage empty(EssencesDefinition limit) {
+    public static MultiEssenceStorage empty(EssenceSet limit) {
         return new MultiEssenceStorage(
                 EssenceStorage.createEmpty(EssenceType.AUREAL, limit.aureal()),
                 EssenceStorage.createEmpty(EssenceType.SOULS, limit.souls()),
@@ -58,7 +56,7 @@ public record MultiEssenceStorage(EssenceStorage aureal,
         return this.setStorage(type, this.getStorage(type).setAmount(amount));
     }
 
-    public EssencesDefinition getSnapshot() {
-        return new EssencesDefinition(this.aureal.amount(), this.souls.amount(), this.blood.amount(), this.experience.amount());
+    public EssenceSet getSnapshot() {
+        return new EssenceSet(this.aureal.amount(), this.souls.amount(), this.blood.amount(), this.experience.amount());
     }
 }

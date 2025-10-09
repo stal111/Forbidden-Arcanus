@@ -1,8 +1,8 @@
 //package com.stal111.forbidden_arcanus.common.integration.hephaestus_forge;
 //
 //import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-//import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-//import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
+//import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+//import com.stal111.forbidden_arcanus.common.essence.EssencesDefinition;
 //import mezz.jei.api.gui.drawable.IDrawableStatic;
 //import mezz.jei.api.helpers.IGuiHelper;
 //import net.minecraft.network.chat.Component;

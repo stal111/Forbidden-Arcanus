@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.skull;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;

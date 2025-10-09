@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.properties;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;

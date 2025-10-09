@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.common.essence;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
-
 import java.util.function.UnaryOperator;
 
 public interface EssenceAccess {

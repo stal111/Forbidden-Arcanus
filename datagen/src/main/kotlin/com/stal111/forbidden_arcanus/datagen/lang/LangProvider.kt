@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.datagen.lang
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType
+import com.stal111.forbidden_arcanus.common.essence.EssenceType
 import com.stal111.forbidden_arcanus.common.item.enchantment.BuiltInEnchantments
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.ModEntities

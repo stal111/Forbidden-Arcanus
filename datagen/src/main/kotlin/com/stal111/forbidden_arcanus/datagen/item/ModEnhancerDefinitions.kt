@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.datagen.item
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType
+import com.stal111.forbidden_arcanus.common.essence.EssenceType
 import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget
@@ -14,9 +14,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.network.chat.Component
 import net.valhelsia.dataforge.RegistryDataProvider
-import net.valhelsia.valhelsia_core.api.common.registry.helper.datapack.DatapackRegistryClass
 import java.util.*
-import java.util.List
 import java.util.function.Function
 import java.util.stream.Collectors
 

@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.client.gui.screen;
 import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import net.minecraft.client.gui.GuiGraphics;

@@ -1,7 +1,9 @@
-package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
+package com.stal111.forbidden_arcanus.common.essence;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesStorage;
 import net.minecraft.util.ExtraCodecs;
 
 import java.util.List;
@@ -14,19 +16,19 @@ import java.util.function.BiConsumer;
  * @author stal111
  * @since 2023-01-04
  */
-public record EssencesDefinition(int aureal, int souls, int blood, int experience) {
+public record EssenceSet(int aureal, int souls, int blood, int experience) {
 
-    public static final EssencesDefinition EMPTY = new EssencesDefinition(0, 0, 0, 0);
+    public static final EssenceSet EMPTY = new EssenceSet(0, 0, 0, 0);
 
-    public static final Codec<EssencesDefinition> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("aureal", 0).forGetter(EssencesDefinition::aureal),
-            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("souls", 0).forGetter(EssencesDefinition::souls),
-            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("blood", 0).forGetter(EssencesDefinition::blood),
-            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("experience", 0).forGetter(EssencesDefinition::experience)
-    ).apply(instance, EssencesDefinition::new));
+    public static final Codec<EssenceSet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("aureal", 0).forGetter(EssenceSet::aureal),
+            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("souls", 0).forGetter(EssenceSet::souls),
+            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("blood", 0).forGetter(EssenceSet::blood),
+            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("experience", 0).forGetter(EssenceSet::experience)
+    ).apply(instance, EssenceSet::new));
 
-    public static EssencesDefinition of(int aureal, int souls, int blood, int experience) {
-        return new EssencesDefinition(aureal, souls, blood, experience);
+    public static EssenceSet of(int aureal, int souls, int blood, int experience) {
+        return new EssenceSet(aureal, souls, blood, experience);
     }
 
     public int get(EssenceType type) {
@@ -44,7 +46,7 @@ public record EssencesDefinition(int aureal, int souls, int blood, int experienc
         }
     }
 
-    public boolean hasMoreThan(EssencesDefinition definition) {
+    public boolean hasMoreThan(EssenceSet definition) {
         for (EssenceType type : EssenceType.values()) {
             if (this.get(type) < definition.get(type)) {
                 return false;
@@ -53,7 +55,7 @@ public record EssencesDefinition(int aureal, int souls, int blood, int experienc
         return true;
     }
 
-    public EssencesDefinition applyModifiers(List<EssenceModifier> modifiers) {
+    public EssenceSet applyModifiers(List<EssenceModifier> modifiers) {
         EssencesStorage storage = this.mutable();
 
         storage.applyModifiers(modifiers);

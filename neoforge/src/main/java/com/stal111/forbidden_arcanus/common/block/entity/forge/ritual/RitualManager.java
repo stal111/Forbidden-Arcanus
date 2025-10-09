@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceModifier;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
@@ -103,7 +103,7 @@ public class RitualManager {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void onDataChanged(ForgeDataCache dataCache, EssencesDefinition essencesDefinition, HolderLookup.Provider lookupProvider) {
+    public void onDataChanged(ForgeDataCache dataCache, EssenceSet essenceSet, HolderLookup.Provider lookupProvider) {
         this.dataCache = dataCache;
 
         this.getActiveRitualData().ifPresent(data -> {
@@ -112,10 +112,10 @@ public class RitualManager {
             }
         });
 
-        this.updateValidRitual(essencesDefinition, lookupProvider);
+        this.updateValidRitual(essenceSet, lookupProvider);
     }
 
-    public void updateValidRitual(EssencesDefinition definition, HolderLookup.Provider lookupProvider) {
+    public void updateValidRitual(EssenceSet definition, HolderLookup.Provider lookupProvider) {
         boolean oldValue = this.validRitual != null;
 
         for (Holder<Ritual> ritual : lookupProvider.lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
@@ -137,14 +137,14 @@ public class RitualManager {
         }
     }
 
-    private boolean canStartRitual(Ritual ritual, EssencesDefinition definition) {
+    private boolean canStartRitual(Ritual ritual, EssenceSet definition) {
         List<EssenceModifier> modifiers = this.dataCache.getEnhancers().stream()
                 .flatMap(enhancerDefinition -> enhancerDefinition.value().getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
                 .filter(effect -> effect instanceof EssenceModifier)
                 .map(effect -> (EssenceModifier) effect)
                 .toList();
 
-        EssencesDefinition updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
+        EssenceSet updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
 
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.forgeTier);
     }

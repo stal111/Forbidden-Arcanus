@@ -2,13 +2,15 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.essence;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
 /**
- * The mutable equivalent of {@link EssencesDefinition} that can be used if the essence values are expected to change over time. <br>
+ * The mutable equivalent of {@link EssenceSet} that can be used if the essence values are expected to change over time. <br>
  * An immutable snapshot of the current values can be created with the {@link EssencesStorage#immutable()} method.
  *
  * @author stal111
@@ -44,7 +46,7 @@ public class EssencesStorage extends EnumMap<EssenceType, Integer> {
         this.put(EssenceType.EXPERIENCE, experience);
     }
 
-    public void reduce(EssencesDefinition definition) {
+    public void reduce(EssenceSet definition) {
         definition.forEach((type, integer) -> {
             this.put(type, this.getOrDefault(type, 0) - integer);
         });
@@ -65,7 +67,7 @@ public class EssencesStorage extends EnumMap<EssenceType, Integer> {
         }
     }
 
-    public EssencesDefinition immutable() {
-        return new EssencesDefinition(this.getOrDefault(EssenceType.AUREAL, 0), this.getOrDefault(EssenceType.SOULS, 0), this.getOrDefault(EssenceType.BLOOD, 0), this.getOrDefault(EssenceType.EXPERIENCE, 0));
+    public EssenceSet immutable() {
+        return new EssenceSet(this.getOrDefault(EssenceType.AUREAL, 0), this.getOrDefault(EssenceType.SOULS, 0), this.getOrDefault(EssenceType.BLOOD, 0), this.getOrDefault(EssenceType.EXPERIENCE, 0));
     }
 }

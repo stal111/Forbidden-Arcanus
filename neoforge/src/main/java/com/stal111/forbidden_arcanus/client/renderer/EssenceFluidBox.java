@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.renderer;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
 

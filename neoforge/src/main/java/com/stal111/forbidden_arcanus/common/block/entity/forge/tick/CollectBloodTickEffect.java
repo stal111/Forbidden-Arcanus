@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.tick;
 
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceAccess;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.minecraft.core.BlockPos;

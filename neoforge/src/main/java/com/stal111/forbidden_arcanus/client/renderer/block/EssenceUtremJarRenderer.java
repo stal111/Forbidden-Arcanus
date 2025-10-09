@@ -9,7 +9,7 @@ import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.EssenceUtremJarRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import net.minecraft.client.model.geom.EntityModelSet;

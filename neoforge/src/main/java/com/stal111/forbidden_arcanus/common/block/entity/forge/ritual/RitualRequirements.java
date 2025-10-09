@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -12,17 +12,17 @@ import net.minecraft.core.HolderSet;
  * @author stal111
  * @since 2023-04-29
  */
-public record RitualRequirements(EssencesDefinition essences, TierPredicate tier, HolderSet<EnhancerDefinition> enhancers) {
+public record RitualRequirements(EssenceSet essences, TierPredicate tier, HolderSet<EnhancerDefinition> enhancers) {
 
-    public static final RitualRequirements NONE = new RitualRequirements(EssencesDefinition.EMPTY, TierPredicate.ANY, HolderSet.empty());
+    public static final RitualRequirements NONE = new RitualRequirements(EssenceSet.EMPTY, TierPredicate.ANY, HolderSet.empty());
 
     public static final MapCodec<RitualRequirements> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-            EssencesDefinition.CODEC.fieldOf("essences").forGetter(RitualRequirements::essences),
+            EssenceSet.CODEC.fieldOf("essences").forGetter(RitualRequirements::essences),
             TierPredicate.CODEC.forGetter(RitualRequirements::tier),
             EnhancerDefinition.LIST_CODEC.optionalFieldOf("enhancers", HolderSet.empty()).forGetter(RitualRequirements::enhancers)
     ).apply(instance, RitualRequirements::new));
 
-    public static RitualRequirements.Builder builder(EssencesDefinition essences) {
+    public static RitualRequirements.Builder builder(EssenceSet essences) {
         return new RitualRequirements.Builder(essences);
     }
 
@@ -35,11 +35,11 @@ public record RitualRequirements(EssencesDefinition essences, TierPredicate tier
     }
 
     public static class Builder {
-        private final EssencesDefinition essences;
+        private final EssenceSet essences;
         private TierPredicate tier = TierPredicate.ANY;
         private HolderSet<EnhancerDefinition> enhancers = HolderSet.empty();
 
-        private Builder(EssencesDefinition essences) {
+        private Builder(EssenceSet essences) {
             this.essences = essences;
         }
 

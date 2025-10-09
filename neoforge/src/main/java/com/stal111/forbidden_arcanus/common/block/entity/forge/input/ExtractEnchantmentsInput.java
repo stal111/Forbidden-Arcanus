@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;

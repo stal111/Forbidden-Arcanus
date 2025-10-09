@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.datagen.block.forge
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType
-import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet
 import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.BuiltInMagicCircles
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.BuiltInRituals
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual
@@ -42,73 +42,73 @@ object ModRituals : RegistryDataProvider<Ritual> {
         val divinePact: Holder<EnhancerDefinition?> = enhancerLookup.getOrThrow(BuiltInEnhancers.DIVINE_PACT)
 
         // Requirements
-        val eternalStella = requirements(EssencesDefinition.of(82, 1, 1000, 0)) {
+        val eternalStella = requirements(EssenceSet.of(82, 1, 1000, 0)) {
             it.tier(TierPredicate.min(3))
         }
-        val terrastompPrism = requirements(EssencesDefinition.of(300, 9, 1500, 0)) {
+        val terrastompPrism = requirements(EssenceSet.of(300, 9, 1500, 0)) {
             it.tier(TierPredicate.min(2)).enhancer(elementarium)
         }
-        val seaPrism = requirements(EssencesDefinition.of(1000, 8, 2000, 0)) {
+        val seaPrism = requirements(EssenceSet.of(1000, 8, 2000, 0)) {
             it.tier(TierPredicate.min(3)).enhancer(elementarium)
         }
-        val whirlwindPrism = requirements(EssencesDefinition.of(1000, 3, 2250, 0)) {
+        val whirlwindPrism = requirements(EssenceSet.of(1000, 3, 2250, 0)) {
             it.tier(TierPredicate.min(3)).enhancer(elementarium)
         }
-        val smelterPrism = requirements(EssencesDefinition.of(200, 4, 1250, 0)) {
+        val smelterPrism = requirements(EssenceSet.of(200, 4, 1250, 0)) {
             it.enhancer(elementarium)
         }
-        val ferrogneticMixture = requirements(EssencesDefinition.of(100, 2, 1250, 0)) {
+        val ferrogneticMixture = requirements(EssenceSet.of(100, 2, 1250, 0)) {
             it
         }
-        val quantumCatcher = requirements(EssencesDefinition.of(200, 5, 1200, 155)) {
+        val quantumCatcher = requirements(EssenceSet.of(200, 5, 1200, 155)) {
             it
         }
-        val bossCatcher = requirements(EssencesDefinition.of(500, 10, 7500, 1200)) {
+        val bossCatcher = requirements(EssenceSet.of(500, 10, 7500, 1200)) {
             it.tier(TierPredicate.min(4))
         }
-        val quantumInjector = requirements(EssencesDefinition.of(5000, 50, 3000, 1060)) {
+        val quantumInjector = requirements(EssenceSet.of(5000, 50, 3000, 1060)) {
             it.tier(TierPredicate.min(3))
         }
-        val soulBindingCrystal = requirements(EssencesDefinition.of(1500, 20, 375, 220)) {
+        val soulBindingCrystal = requirements(EssenceSet.of(1500, 20, 375, 220)) {
             it.tier(TierPredicate.min(4)).enhancer(divinePact)
         }
 
-        val dracoArcanusHelmet = requirements(EssencesDefinition.of(820, 6, 475, 420)) {
+        val dracoArcanusHelmet = requirements(EssenceSet.of(820, 6, 475, 420)) {
             it.tier(TierPredicate.min(2))
         }
-        val dracoArcanusChestplate = requirements(EssencesDefinition.of(1300, 9, 625, 760)) {
+        val dracoArcanusChestplate = requirements(EssenceSet.of(1300, 9, 625, 760)) {
             it.tier(TierPredicate.min(2))
         }
-        val dracoArcanusLeggings = requirements(EssencesDefinition.of(1000, 7, 565, 540)) {
+        val dracoArcanusLeggings = requirements(EssenceSet.of(1000, 7, 565, 540)) {
             it.tier(TierPredicate.min(2))
         }
-        val dracoArcanusBoots = requirements(EssencesDefinition.of(700, 5, 405, 370)) {
+        val dracoArcanusBoots = requirements(EssenceSet.of(700, 5, 405, 370)) {
             it.tier(TierPredicate.min(2))
         }
 
-        val tyrHelmet = requirements(EssencesDefinition.of(4820, 40, 5930, 2450)) {
+        val tyrHelmet = requirements(EssenceSet.of(4820, 40, 5930, 2450)) {
             it.tier(TierPredicate.min(4))
         }
-        val tyrChestplate = requirements(EssencesDefinition.of(6300, 60, 8080, 3420)) {
+        val tyrChestplate = requirements(EssenceSet.of(6300, 60, 8080, 3420)) {
             it.tier(TierPredicate.min(4))
         }
-        val tyrLeggings = requirements(EssencesDefinition.of(5080, 50, 7620, 3010)) {
+        val tyrLeggings = requirements(EssenceSet.of(5080, 50, 7620, 3010)) {
             it.tier(TierPredicate.min(4))
         }
-        val tyrBoots = requirements(EssencesDefinition.of(4460, 40, 5620, 2170)) {
+        val tyrBoots = requirements(EssenceSet.of(4460, 40, 5620, 2170)) {
             it.tier(TierPredicate.min(4))
         }
 
-        val tier2 = requirements(EssencesDefinition.of(500, 10, 6000, 0)) {
+        val tier2 = requirements(EssenceSet.of(500, 10, 6000, 0)) {
             it.tier(TierPredicate.exact(1))
         }
-        val tier3 = requirements(EssencesDefinition.of(1000, 50, 9000, 0)) {
+        val tier3 = requirements(EssenceSet.of(1000, 50, 9000, 0)) {
             it.tier(TierPredicate.exact(2))
         }
-        val tier4 = requirements(EssencesDefinition.of(2000, 100, 12000, 0)) {
+        val tier4 = requirements(EssenceSet.of(2000, 100, 12000, 0)) {
             it.tier(TierPredicate.exact(3))
         }
-        val tier5 = requirements(EssencesDefinition.of(5000, 500, 20000, 0)) {
+        val tier5 = requirements(EssenceSet.of(5000, 500, 20000, 0)) {
             it.tier(TierPredicate.exact(4))
         }
 
@@ -294,7 +294,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
     }
 
     private fun requirements(
-        essences: EssencesDefinition,
+        essences: EssenceSet,
         builder: UnaryOperator<RitualRequirements.Builder>
     ): RitualRequirements {
         return builder.apply(RitualRequirements.builder(essences)).build()
