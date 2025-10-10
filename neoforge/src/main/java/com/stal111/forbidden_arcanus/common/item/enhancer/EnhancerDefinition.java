@@ -29,14 +29,14 @@ import java.util.stream.Stream;
  */
 public record EnhancerDefinition(Map<EnhancerTarget, Component> description, Holder<Item> displayItem, List<ConditionalEnhancerEffect<? extends EnhancerEffect>> effects) {
 
-    public static final Codec<EnhancerDefinition> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final Codec<EnhancerDefinition> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.simpleMap(EnhancerTarget.CODEC, ComponentSerialization.CODEC, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(EnhancerDefinition::description),
             Item.CODEC.fieldOf("display_item").forGetter(EnhancerDefinition::displayItem),
             EnhancerEffect.DIRECT_CODEC.listOf().fieldOf("effects").forGetter(EnhancerDefinition::effects)
     ).apply(instance, EnhancerDefinition::new));
 
-    public static final Codec<Holder<EnhancerDefinition>> REFERENCE_CODEC = RegistryFileCodec.create(FARegistries.ENHANCER_DEFINITION, CODEC);
-    public static final Codec<HolderSet<EnhancerDefinition>> LIST_CODEC = RegistryCodecs.homogeneousList(FARegistries.ENHANCER_DEFINITION, CODEC);
+    public static final Codec<Holder<EnhancerDefinition>> CODEC = RegistryFileCodec.create(FARegistries.ENHANCER_DEFINITION, DIRECT_CODEC);
+    public static final Codec<HolderSet<EnhancerDefinition>> LIST_CODEC = RegistryCodecs.homogeneousList(FARegistries.ENHANCER_DEFINITION, DIRECT_CODEC);
 
     public static final Codec<EnhancerDefinition> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.simpleMap(EnhancerTarget.CODEC, ComponentSerialization.CODEC, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(EnhancerDefinition::description),

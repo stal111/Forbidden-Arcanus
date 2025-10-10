@@ -21,7 +21,7 @@ public class RegistryEvents {
     @SubscribeEvent
     public void newDatapackRegistry(DataPackRegistryEvent.NewRegistry event) {
         event.dataPackRegistry(FARegistries.RITUAL, Ritual.DIRECT_CODEC, Ritual.NETWORK_CODEC);
-        event.dataPackRegistry(FARegistries.ENHANCER_DEFINITION, EnhancerDefinition.CODEC, EnhancerDefinition.NETWORK_CODEC);
+        event.dataPackRegistry(FARegistries.ENHANCER_DEFINITION, EnhancerDefinition.DIRECT_CODEC, EnhancerDefinition.NETWORK_CODEC);
         event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.DIRECT_CODEC, Knowledge.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.CONSTELLATION, Constellation.CODEC, Constellation.CODEC);
         event.dataPackRegistry(FARegistries.RESIDUE_TYPE, ResidueType.DIRECT_CODEC, ResidueType.DIRECT_CODEC);

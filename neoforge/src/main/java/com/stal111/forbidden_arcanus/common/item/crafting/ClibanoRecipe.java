@@ -154,7 +154,7 @@ public class ClibanoRecipe implements Recipe<ClibanoRecipeInput> {
                 ClibanoCookingTimes.CODEC.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
                 ResidueChance.CODEC.optionalFieldOf("residue").forGetter(recipe -> recipe.residueChance),
                 ClibanoFireType.CODEC.fieldOf("fire_type").orElse(ClibanoFireType.FIRE).forGetter(recipe -> recipe.requiredFireType),
-                EnhancerDefinition.REFERENCE_CODEC.optionalFieldOf("enhancer").forGetter(recipe -> recipe.requiredEnhancer)
+                EnhancerDefinition.CODEC.optionalFieldOf("enhancer").forGetter(recipe -> recipe.requiredEnhancer)
         ).apply(instance, ClibanoRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());

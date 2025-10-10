@@ -1,12 +1,15 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
+import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -246,13 +249,15 @@ public class ModCreativeModeTabs implements RegistryClass {
 //                            output.accept(ModItems.MORTEM_LEGGINGS.get());
 //                            output.accept(ModItems.MORTEM_BOOTS.get());
 
-                            output.accept(ModItems.ARTISAN_RELIC);
-                            output.accept(ModItems.CRESCENT_MOON);
-                            output.accept(ModItems.CRIMSON_STONE);
-                            output.accept(ModItems.SOUL_CRIMSON_STONE);
-                            output.accept(ModItems.ELEMENTARIUM);
-                            output.accept(ModItems.DIVINE_PACT);
-                            output.accept(ModItems.MALEDICTUS_PACT);
+                            lookup.lookup(FARegistries.ENHANCER_DEFINITION).ifPresent(enhancerLookup -> {
+                                output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.ARTISAN_RELIC, BuiltInEnhancers.ARTISAN_RELIC));
+                                output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.CRESCENT_MOON, BuiltInEnhancers.CRESCENT_MOON));
+                                output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.CRIMSON_STONE, BuiltInEnhancers.CRIMSON_STONE));
+                                output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.SOUL_CRIMSON_STONE, BuiltInEnhancers.SOUL_CRIMSON_STONE));
+                                output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.ELEMENTARIUM, BuiltInEnhancers.ELEMENTARIUM));
+                                output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.DIVINE_PACT, BuiltInEnhancers.DIVINE_PACT));
+                                output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.MALEDICTUS_PACT, BuiltInEnhancers.MALEDICTUS_PACT));
+                            });
 
                             output.accept(ModItems.SOUL_EXTRACTOR.get());
                             output.accept(ModItems.BLACKSMITH_GAVEL_HEAD.get());

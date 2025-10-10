@@ -486,7 +486,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 //    }
 
     private @Nullable Holder<EnhancerDefinition> updateEnhancer() {
-        return EnhancerHelper.getEnhancerHolder(this.level.registryAccess(), this.getItem(ClibanoMenu.ENHANCER_SLOT)).orElse(null);
+        return EnhancerHelper.getEnhancerHolder(this.getItem(ClibanoMenu.ENHANCER_SLOT)).orElse(null);
     }
 
     @Override

@@ -21,7 +21,7 @@ public record ForgeDataCache(ArrayList<IngredientEntry> cachedIngredients, ItemS
     public static final Codec<ForgeDataCache> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             IngredientEntry.CODEC.listOf().xmap(ArrayList::new, UnaryOperator.identity()).fieldOf("ingredients").forGetter(ForgeDataCache::cachedIngredients),
             ItemStack.OPTIONAL_CODEC.fieldOf("main_ingredient").forGetter(ForgeDataCache::mainIngredient),
-            EnhancerDefinition.REFERENCE_CODEC.listOf().fieldOf("enhancers").forGetter(ForgeDataCache::enhancers)
+            EnhancerDefinition.CODEC.listOf().fieldOf("enhancers").forGetter(ForgeDataCache::enhancers)
     ).apply(instance, ForgeDataCache::new));
 
     public ForgeDataCache setMainIngredient(ItemStack mainIngredient) {

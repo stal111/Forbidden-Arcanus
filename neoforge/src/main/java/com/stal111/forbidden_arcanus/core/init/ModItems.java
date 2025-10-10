@@ -4,15 +4,14 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.UtremJarBlock;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.common.item.bucket.BucketFamily;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityMilkBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.SolidCapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.component.*;
-import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers;
 import com.stal111.forbidden_arcanus.common.item.equipment.FAArmorMaterials;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturDustItem;
 import com.stal111.forbidden_arcanus.common.item.wand.WandPart;
@@ -77,13 +76,13 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", (properties) -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, properties), () -> new Item.Properties().component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
     public static final ItemEntrySet<QuantumCatcherItem, DyeColor> DYED_QUANTUM_CATCHERS = HELPER.registerColorEntrySet("quantum_catcher", (dyeColor, properties) -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, properties), color -> new Item.Properties().component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
     public static final ItemRegistryEntry<Item> BOSS_CATCHER = HELPER.register("boss_catcher", (properties) -> new QuantumCatcherItem(ModTags.EntityTypes.BOSS_CATCHER_BLACKLISTED, properties), () -> new Item.Properties().component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
-    public static final ItemRegistryEntry<Item> ARTISAN_RELIC = HELPER.register("artisan_relic", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.ARTISAN_RELIC));
-    public static final ItemRegistryEntry<Item> CRESCENT_MOON = HELPER.register("crescent_moon", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.CRESCENT_MOON));
-    public static final ItemRegistryEntry<Item> CRIMSON_STONE = HELPER.register("crimson_stone", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.CRIMSON_STONE));
-    public static final ItemRegistryEntry<Item> SOUL_CRIMSON_STONE = HELPER.register("soul_crimson_stone", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.SOUL_CRIMSON_STONE));
-    public static final ItemRegistryEntry<Item> ELEMENTARIUM = HELPER.register("elementarium", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.ELEMENTARIUM));
-    public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.DIVINE_PACT));
-    public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", Item::new, () -> new Item.Properties().component(ModDataComponents.ENHANCER.value(), BuiltInEnhancers.MALEDICTUS_PACT));
+    public static final ItemRegistryEntry<Item> ARTISAN_RELIC = HELPER.register("artisan_relic", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> CRESCENT_MOON = HELPER.register("crescent_moon", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> CRIMSON_STONE = HELPER.register("crimson_stone", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> SOUL_CRIMSON_STONE = HELPER.register("soul_crimson_stone", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> ELEMENTARIUM = HELPER.register("elementarium", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", Item::new, Item.Properties::new);
 
     public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_AUREAL_TANK));
 
