@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
@@ -10,7 +11,6 @@ import it.unimi.dsi.fastutil.ints.IntImmutableList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -39,11 +39,11 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     private final DataSlot hephaestusForgeLevel = DataSlot.standalone();
 
-    public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStacksResourceHandler(9), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
+    public HephaestusForgeMenu(int id, Inventory inventory) {
+        this(id, new ItemStacksResourceHandler(9), new EnhancerResourceHandler(4), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
     }
 
-    public HephaestusForgeMenu(int id, ItemStacksResourceHandler handler, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory, HephaestusForgeLevel level) {
+    public HephaestusForgeMenu(int id, ItemStacksResourceHandler handler, EnhancerResourceHandler enhancerInventory, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory, HephaestusForgeLevel level) {
         super(ModMenuTypes.HEPHAESTUS_FORGE.get(), id);
         this.levelAccess = levelAccess;
         this.hephaestusForgeData = containerData;
@@ -55,19 +55,19 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.hephaestusForgeLevel.set(level.getAsInt());
 
         // Hephaestus Forge Slots
-        this.addEnhancerSlot(handler, 0, 36, 24);
-        this.addEnhancerSlot(handler, 1, 36, 46);
-        this.addEnhancerSlot(handler, 2, 124, 24);
-        this.addEnhancerSlot(handler, 3, 124, 46);
+        this.addEnhancerSlot(enhancerInventory, 0, 36, 24);
+        this.addEnhancerSlot(enhancerInventory, 1, 36, 46);
+        this.addEnhancerSlot(enhancerInventory, 2, 124, 24);
+        this.addEnhancerSlot(enhancerInventory, 3, 124, 46);
 
         // Main Slot
-        this.addSlot(new ResourceHandlerSlot(handler, handler::set, 4, 80, 24));
+        this.addSlot(new ResourceHandlerSlot(handler, handler::set, 0, 80, 24));
 
         // Input Slots
-        this.addSlot(new InputSlot(handler, 5, 8 - 26, 25, EssenceType.AUREAL));
-        this.addSlot(new InputSlot(handler, 6, 8 - 26, 43, EssenceType.SOULS));
-        this.addSlot(new InputSlot(handler, 7, 176 + 2, 25, EssenceType.BLOOD));
-        this.addSlot(new InputSlot(handler, 8, 176 + 2, 43, EssenceType.EXPERIENCE));
+        this.addSlot(new InputSlot(handler, 1, 8 - 26, 25, EssenceType.AUREAL));
+        this.addSlot(new InputSlot(handler, 2, 8 - 26, 43, EssenceType.SOULS));
+        this.addSlot(new InputSlot(handler, 3, 176 + 2, 25, EssenceType.BLOOD));
+        this.addSlot(new InputSlot(handler, 4, 176 + 2, 43, EssenceType.EXPERIENCE));
 
         // Inventory Slots
         for (int i = 0; i < 3; ++i) {

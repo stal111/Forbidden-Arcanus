@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualMana
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -20,7 +21,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
@@ -59,13 +59,13 @@ import java.util.function.UnaryOperator;
  */
 public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess, MenuProvider {
 
-    public static final int MAIN_SLOT = 4;
+    public static final int MAIN_SLOT = 0;
 
     public static final EnumMap<EssenceType, Integer> SLOT_FROM_ESSENCE_TYPE_MAP = Util.make(new EnumMap<>(EssenceType.class), map -> {
-        map.put(EssenceType.AUREAL, 5);
-        map.put(EssenceType.SOULS, 6);
-        map.put(EssenceType.BLOOD, 7);
-        map.put(EssenceType.EXPERIENCE, 8);
+        map.put(EssenceType.AUREAL, 1);
+        map.put(EssenceType.SOULS, 2);
+        map.put(EssenceType.BLOOD, 3);
+        map.put(EssenceType.EXPERIENCE, 4);
     });
 
     public static final int UPDATE_RITUAL_INDICATOR = 1;
@@ -88,8 +88,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     private int clientRitualDuration;
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
-    private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
-
+    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
     private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(9) {
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
@@ -325,6 +324,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         super.saveAdditional(output);
 
         this.inventory.serialize(output);
+        this.enhancerInventory.serialize(output.child("enhancers"));
 
         this.getRitualManager().save(output);
         output.store("essences", MultiEssenceStorage.CODEC, this.essenceStorage);
@@ -337,6 +337,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         super.loadAdditional(input);
 
         this.inventory.deserialize(input);
+        this.enhancerInventory.deserialize(input.childOrEmpty("enhancers"));
 
         this.getRitualManager().load(input);
         this.essenceStorage = input.read("essences", MultiEssenceStorage.CODEC).orElse(MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences()));
@@ -390,7 +391,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new HephaestusForgeMenu(containerId, this.inventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
+        return new HephaestusForgeMenu(containerId, this.inventory, this.enhancerInventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
     }
 
     private void onDataChanged(HolderLookup.Provider lookupProvider) {
@@ -403,6 +404,10 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public void setItem(int slot, ItemStack stack) {
         this.inventory.set(slot, this.inventory.getResourceFrom(stack), stack.getCount());
+    }
+
+    public EnhancerResourceHandler getEnhancerInventory() {
+        return this.enhancerInventory;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -27,5 +28,9 @@ public class ModMenuTypes implements RegistryClass {
 
     private static <T extends AbstractContainerMenu> RegistryEntry<MenuType<?>, MenuType<T>> register(String name, IContainerFactory<T> factory) {
         return HELPER.register(name, () -> IMenuTypeExtension.create(factory));
+    }
+
+    private static <T extends AbstractContainerMenu> RegistryEntry<MenuType<?>, MenuType<T>> register(String name, MenuType.MenuSupplier<T> factory) {
+        return HELPER.register(name, () -> new MenuType<>(factory, FeatureFlags.VANILLA_SET));
     }
 }
