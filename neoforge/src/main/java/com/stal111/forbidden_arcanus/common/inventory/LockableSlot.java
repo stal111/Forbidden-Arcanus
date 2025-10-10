@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
@@ -13,6 +15,8 @@ import java.util.function.BooleanSupplier;
  * @since 2021-06-30
  */
 public class LockableSlot extends ResourceHandlerSlot {
+
+    public static final ResourceLocation LOCKED_SLOT_SPRITE = ForbiddenArcanus.location("container/locked_slot");
 
     private final BooleanSupplier locked;
     private final Component lockedDescription;

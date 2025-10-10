@@ -70,16 +70,21 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() - 26, this.getGuiTop() + 16, 176, 61, 29, 51, 256, 256);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 172, this.getGuiTop() + 16, 206, 61, 29, 51, 256, 256);
 
-        for (Slot slotItemHandler : this.menu.slots) {
-            if (slotItemHandler instanceof LockableSlot enhancerSlot) {
-                this.renderEnhancerSlot(enhancerSlot, guiGraphics, this.getGuiLeft(), this.getGuiTop());
-            }
-        }
-
         HephaestusForgeLevel level = this.menu.getLevel();
 
         for (EssenceBarDefinition definition : ESSENCE_BAR_DEFINITIONS) {
             this.renderBar(guiGraphics, definition, definition.getMaxAmount(level));
+        }
+    }
+
+    @Override
+    protected void renderSlots(GuiGraphics guiGraphics) {
+        super.renderSlots(guiGraphics);
+
+        for (Slot slot : this.menu.slots) {
+            if (slot instanceof LockableSlot lockableSlot && lockableSlot.isLocked()) {
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LockableSlot.LOCKED_SLOT_SPRITE, slot.x - 2, slot.y - 2, 20, 20);
+            }
         }
     }
 
@@ -93,8 +98,8 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
         Slot slot = this.getSlotUnderMouse();
 
-        if (slot instanceof LockableSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot.getSlotIndex())) {
-            guiGraphics.setTooltipForNextFrame(this.font, enhancerSlot.getLockedDescription(), x, y);
+        if (slot instanceof LockableSlot lockableSlot && lockableSlot.isLocked()) {
+            guiGraphics.setTooltipForNextFrame(this.font, lockableSlot.getLockedDescription(), x, y);
         }
     }
 
@@ -117,12 +122,6 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     private void renderBar(GuiGraphics guiGraphics, EssenceBarDefinition definition, int max) {
         int ySize = Math.toIntExact(Math.round(32.0F * this.menu.getHephaestusForgeData().get(definition.dataKey()) / max));
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + definition.x(), this.getGuiTop() + 22 + 32 - ySize, definition.textureX(), 3 + 32 - ySize, 4, ySize, 256, 256);
-    }
-
-    public void renderEnhancerSlot(LockableSlot slot, GuiGraphics guiGraphics, int guiLeft, int guiTop) {
-        if (this.menu.isSlotLocked(slot.getSlotIndex())) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, guiLeft + slot.x - 2, guiTop + slot.y - 2, 176, 40, 20, 20, 256, 256);
-        }
     }
 
     private record EssenceBarDefinition(EssenceType type, int dataKey, int x, int textureX) {

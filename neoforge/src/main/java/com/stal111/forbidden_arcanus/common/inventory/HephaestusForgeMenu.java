@@ -52,13 +52,14 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addDataSlots(this.hephaestusForgeData);
         this.addDataSlot(this.hephaestusForgeLevel);
 
+
         this.hephaestusForgeLevel.set(level.getAsInt());
 
         // Hephaestus Forge Slots
-        this.addEnhancerSlot(enhancerInventory, 0, 36, 24);
-        this.addEnhancerSlot(enhancerInventory, 1, 36, 46);
-        this.addEnhancerSlot(enhancerInventory, 2, 124, 24);
-        this.addEnhancerSlot(enhancerInventory, 3, 124, 46);
+        this.addEnhancerSlot(enhancerInventory, 0, 36, 24, 1);
+        this.addEnhancerSlot(enhancerInventory, 1, 36, 46, 2);
+        this.addEnhancerSlot(enhancerInventory, 2, 124, 24, 3);
+        this.addEnhancerSlot(enhancerInventory, 3, 124, 46, 4);
 
         // Main Slot
         this.addSlot(new ResourceHandlerSlot(handler, handler::set, 0, 80, 24));
@@ -82,8 +83,8 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         }
     }
 
-    private void addEnhancerSlot(ItemStacksResourceHandler handler, int index, int x, int y) {
-        this.addSlot(new LockableSlot(handler, index, x, y, () -> this.isSlotLocked(index), Component.translatable(UNLOCKED_AT_KEY, index + 1)));
+    private void addEnhancerSlot(ItemStacksResourceHandler handler, int index, int x, int y, int requiredLevel) {
+        this.addSlot(new LockableSlot(handler, index, x, y, () -> this.hephaestusForgeLevel.get() < requiredLevel, Component.translatable(UNLOCKED_AT_KEY, index + 1)));
     }
 
     @Nonnull
@@ -173,10 +174,5 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     public HephaestusForgeLevel getLevel() {
         return HephaestusForgeLevel.getFromIndex(this.hephaestusForgeLevel.get());
-    }
-
-
-    public boolean isSlotLocked(int slot) {
-        return this.slots.get(slot).getSlotIndex() >= this.getLevel().getAsInt();
     }
 }
