@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 /**
  * Input Slot
@@ -11,12 +11,12 @@ import net.neoforged.neoforge.items.SlotItemHandler;
  * @author stal111
  * @since 2021-07-02
  */
-public class InputSlot extends SlotItemHandler {
+public class InputSlot extends ResourceHandlerSlot {
 
     private final EssenceType inputType;
 
-    public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, EssenceType inputType) {
-        super(itemHandler, index, xPosition, yPosition);
+    public InputSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition, EssenceType inputType) {
+        super(itemHandler, itemHandler::set, index, xPosition, yPosition);
         this.inputType = inputType;
     }
 

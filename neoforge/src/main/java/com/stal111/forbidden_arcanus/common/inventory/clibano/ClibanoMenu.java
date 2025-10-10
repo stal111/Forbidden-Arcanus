@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
-import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
@@ -65,7 +64,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     private void addSlots(ItemStackHandler handler) {
-        this.addSlot(new EnhancerSlot(handler, ENHANCER_SLOT, 18, 20));
+//        this.addSlot(new EnhancerSlot(handler, ENHANCER_SLOT, 18, 20));
         this.addSlot(new ClibanoSoulSlot(handler, SOUL_SLOT, 18, 56));
         this.addSlot(new ClibanoFuelSlot(this, handler, FUEL_SLOT, 53, 56));
 

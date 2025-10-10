@@ -4,12 +4,12 @@ import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.MultiEssenceStorage;
@@ -27,20 +27,23 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,7 +57,7 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 2021-06-18
  */
-public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess {
+public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess, MenuProvider {
 
     public static final int MAIN_SLOT = 4;
 
@@ -86,6 +89,26 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
     private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
+
+    private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(9) {
+        @Override
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            if (index == MAIN_SLOT) {
+                HephaestusForgeBlockEntity.this.level.sendBlockUpdated(HephaestusForgeBlockEntity.this.getBlockPos(), HephaestusForgeBlockEntity.this.getBlockState(), HephaestusForgeBlockEntity.this.getBlockState(), 3);
+            }
+
+            HephaestusForgeBlockEntity.this.setChanged();
+        }
+
+        @Override
+        protected int getCapacity(int index, ItemResource resource) {
+            if (index == MAIN_SLOT) {
+                return 1;
+            }
+
+            return super.getCapacity(index, resource);
+        }
+    };
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state
@@ -301,8 +324,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        //TODO
-//        this.saveInventory(tag, lookupProvider);
+        this.inventory.serialize(output);
 
         this.getRitualManager().save(output);
         output.store("essences", MultiEssenceStorage.CODEC, this.essenceStorage);
@@ -313,6 +335,8 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
+
+        this.inventory.deserialize(input);
 
         this.getRitualManager().load(input);
         this.essenceStorage = input.read("essences", MultiEssenceStorage.CODEC).orElse(MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences()));
@@ -350,7 +374,7 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
 
         this.updateValidRitualIndicator(input.getBooleanOr("display_valid_ritual_indicator", false));
 
-        input.read("main_item", ItemStack.CODEC).ifPresent(stack -> this.clientMainItem = stack);
+        this.clientMainItem = input.read("main_item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -360,38 +384,25 @@ public class HephaestusForgeBlockEntity extends BaseContainerBlockEntity impleme
 
     @NotNull
     @Override
-    protected Component getDefaultName() {
+    public Component getDisplayName() {
         return Component.translatable("container.forbidden_arcanus.hephaestus_forge");
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {
-        return this.items;
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return new HephaestusForgeMenu(containerId, this.inventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
     }
-
-    @Override
-    protected void setItems(NonNullList<ItemStack> items) {
-        this.items = items;
-    }
-
-    @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new HephaestusForgeMenu(containerId, new InvWrapper(this), this.hephaestusForgeData, ContainerLevelAccess.create(this.level, this.worldPosition), inventory, this.forgeLevel);
-    }
-
-    //TODO
-//    @Override
-//    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
-//        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext, this.forgeLevel);
-//    }
 
     private void onDataChanged(HolderLookup.Provider lookupProvider) {
         this.ritualManager.onDataChanged(this.dataCache, this.essenceStorage.getSnapshot(), lookupProvider);
     }
 
-    @Override
-    public int getContainerSize() {
-        return 0;
+    public ItemStack getItem(int slot) {
+        return this.inventory.getResource(slot).toStack();
+    }
+
+    public void setItem(int slot, ItemStack stack) {
+        this.inventory.set(slot, this.inventory.getResourceFrom(stack), stack.getCount());
     }
 
     @Override
