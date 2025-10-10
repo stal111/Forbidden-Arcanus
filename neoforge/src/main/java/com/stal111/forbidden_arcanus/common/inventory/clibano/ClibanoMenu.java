@@ -64,7 +64,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     private void addSlots(ItemStackHandler handler) {
-//        this.addSlot(new EnhancerSlot(handler, ENHANCER_SLOT, 18, 20));
+//        this.addSlot(new LockableSlot(handler, ENHANCER_SLOT, 18, 20));
         this.addSlot(new ClibanoSoulSlot(handler, SOUL_SLOT, 18, 56));
         this.addSlot(new ClibanoFuelSlot(this, handler, FUEL_SLOT, 53, 56));
 

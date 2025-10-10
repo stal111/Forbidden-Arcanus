@@ -12,16 +12,16 @@ import java.util.function.BooleanSupplier;
  * @author stal111
  * @since 2021-06-30
  */
-public class EnhancerSlot extends ResourceHandlerSlot {
+public class LockableSlot extends ResourceHandlerSlot {
 
     private final BooleanSupplier locked;
     private final Component lockedDescription;
 
-    public EnhancerSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
+    public LockableSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition) {
         this(itemHandler, index, xPosition, yPosition, () -> false, Component.empty());
     }
 
-    public EnhancerSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition, BooleanSupplier locked, Component lockedDescription) {
+    public LockableSlot(ItemStacksResourceHandler itemHandler, int index, int xPosition, int yPosition, BooleanSupplier locked, Component lockedDescription) {
         super(itemHandler, itemHandler::set, index, xPosition, yPosition);
         this.locked = locked;
         this.lockedDescription = lockedDescription;
@@ -35,11 +35,6 @@ public class EnhancerSlot extends ResourceHandlerSlot {
     @Override
     public boolean isActive() {
         return !this.isLocked();
-    }
-
-    @Override
-    public int getMaxStackSize() {
-        return 1;
     }
 
     public boolean isLocked() {

@@ -83,7 +83,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     private void addEnhancerSlot(ItemStacksResourceHandler handler, int index, int x, int y) {
-        this.addSlot(new EnhancerSlot(handler, index, x, y, () -> this.isSlotLocked(index), Component.translatable(UNLOCKED_AT_KEY, index + 1)));
+        this.addSlot(new LockableSlot(handler, index, x, y, () -> this.isSlotLocked(index), Component.translatable(UNLOCKED_AT_KEY, index + 1)));
     }
 
     @Nonnull

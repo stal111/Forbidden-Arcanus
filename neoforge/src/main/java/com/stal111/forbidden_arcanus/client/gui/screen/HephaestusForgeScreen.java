@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.inventory.EnhancerSlot;
+import com.stal111.forbidden_arcanus.common.inventory.LockableSlot;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -50,7 +50,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
 
-            if (slot instanceof EnhancerSlot) {
+            if (slot instanceof LockableSlot) {
                 int posX = mouseX - this.leftPos;
                 int posY = mouseY - this.topPos;
 
@@ -71,7 +71,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 172, this.getGuiTop() + 16, 206, 61, 29, 51, 256, 256);
 
         for (Slot slotItemHandler : this.menu.slots) {
-            if (slotItemHandler instanceof EnhancerSlot enhancerSlot) {
+            if (slotItemHandler instanceof LockableSlot enhancerSlot) {
                 this.renderEnhancerSlot(enhancerSlot, guiGraphics, this.getGuiLeft(), this.getGuiTop());
             }
         }
@@ -93,7 +93,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
         Slot slot = this.getSlotUnderMouse();
 
-        if (slot instanceof EnhancerSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot.getSlotIndex())) {
+        if (slot instanceof LockableSlot enhancerSlot && this.menu.isSlotLocked(enhancerSlot.getSlotIndex())) {
             guiGraphics.setTooltipForNextFrame(this.font, enhancerSlot.getLockedDescription(), x, y);
         }
     }
@@ -119,7 +119,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + definition.x(), this.getGuiTop() + 22 + 32 - ySize, definition.textureX(), 3 + 32 - ySize, 4, ySize, 256, 256);
     }
 
-    public void renderEnhancerSlot(EnhancerSlot slot, GuiGraphics guiGraphics, int guiLeft, int guiTop) {
+    public void renderEnhancerSlot(LockableSlot slot, GuiGraphics guiGraphics, int guiLeft, int guiTop) {
         if (this.menu.isSlotLocked(slot.getSlotIndex())) {
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, guiLeft + slot.x - 2, guiTop + slot.y - 2, 176, 40, 20, 20, 256, 256);
         }
