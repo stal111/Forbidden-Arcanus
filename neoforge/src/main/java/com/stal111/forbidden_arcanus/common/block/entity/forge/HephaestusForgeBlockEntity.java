@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitua
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -42,7 +43,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -59,13 +59,11 @@ import java.util.function.UnaryOperator;
  */
 public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess, MenuProvider {
 
-    public static final int MAIN_SLOT = 0;
-
     public static final EnumMap<EssenceType, Integer> SLOT_FROM_ESSENCE_TYPE_MAP = Util.make(new EnumMap<>(EssenceType.class), map -> {
-        map.put(EssenceType.AUREAL, 1);
-        map.put(EssenceType.SOULS, 2);
-        map.put(EssenceType.BLOOD, 3);
-        map.put(EssenceType.EXPERIENCE, 4);
+        map.put(EssenceType.AUREAL, 0);
+        map.put(EssenceType.SOULS, 1);
+        map.put(EssenceType.BLOOD, 2);
+        map.put(EssenceType.EXPERIENCE, 3);
     });
 
     public static final int UPDATE_RITUAL_INDICATOR = 1;
@@ -88,37 +86,23 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     private int clientRitualDuration;
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
-    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
-    private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(9) {
-        @Override
-        protected void onContentsChanged(int index, ItemStack previousContents) {
-            if (index == MAIN_SLOT) {
-                HephaestusForgeBlockEntity.this.level.sendBlockUpdated(HephaestusForgeBlockEntity.this.getBlockPos(), HephaestusForgeBlockEntity.this.getBlockState(), HephaestusForgeBlockEntity.this.getBlockState(), 3);
-            }
-
-            HephaestusForgeBlockEntity.this.setChanged();
+    private final SingleItemResourceHandler mainSlotInventory = new SingleItemResourceHandler(stack -> {
+        if (this.level != null) {
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         }
 
+        this.setChanged();
+    });
+    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
+    private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(4) {
         @Override
-        protected int getCapacity(int index, ItemResource resource) {
-            if (index == MAIN_SLOT) {
-                return 1;
-            }
-
-            return super.getCapacity(index, resource);
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            HephaestusForgeBlockEntity.this.setChanged();
         }
     };
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state
-//                , 9, (slot, stack) -> {
-//            //TODO
-////            if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-////                return EnhancerHelper.getEnhancer(level.registryAccess(), stack).isPresent();
-////            }
-//            return true;
-//        }
-        );
+        super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state);
         this.hephaestusForgeData = new ContainerData() {
             @Override
             public int get(int index) {
@@ -205,7 +189,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         }
 
         blockEntity.ritualManager.tick().ifPresent(stack -> {
-            blockEntity.setItem(MAIN_SLOT, stack);
+            blockEntity.mainSlotInventory.setStack(stack);
         });
     }
 
@@ -324,6 +308,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         super.saveAdditional(output);
 
         this.inventory.serialize(output);
+        this.mainSlotInventory.serialize("main_item", output);
         this.enhancerInventory.serialize(output.child("enhancers"));
 
         this.getRitualManager().save(output);
@@ -337,6 +322,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         super.loadAdditional(input);
 
         this.inventory.deserialize(input);
+        this.mainSlotInventory.deserialize("main_item", input);
         this.enhancerInventory.deserialize(input.childOrEmpty("enhancers"));
 
         this.getRitualManager().load(input);
@@ -362,8 +348,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         CompoundTag tag = this.saveWithoutMetadata(lookupProvider);
         tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
 
-        if (!this.getItem(MAIN_SLOT).isEmpty()) {
-            tag.store("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.getItem(MAIN_SLOT));
+        if (!this.mainSlotInventory.getStack().isEmpty()) {
+            tag.store("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.mainSlotInventory.getStack());
         }
 
         return tag;
@@ -391,7 +377,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new HephaestusForgeMenu(containerId, this.inventory, this.enhancerInventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
+        return new HephaestusForgeMenu(containerId, this.inventory, this.mainSlotInventory, this.enhancerInventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
     }
 
     private void onDataChanged(HolderLookup.Provider lookupProvider) {
@@ -404,10 +390,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public void setItem(int slot, ItemStack stack) {
         this.inventory.set(slot, this.inventory.getResourceFrom(stack), stack.getCount());
-    }
-
-    public EnhancerResourceHandler getEnhancerInventory() {
-        return this.enhancerInventory;
     }
 
     @Override
