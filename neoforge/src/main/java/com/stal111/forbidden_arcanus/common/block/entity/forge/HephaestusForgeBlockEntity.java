@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitua
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
@@ -43,7 +44,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -94,12 +96,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.setChanged();
     });
     private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
-    private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(4) {
-        @Override
-        protected void onContentsChanged(int index, ItemStack previousContents) {
-            HephaestusForgeBlockEntity.this.setChanged();
-        }
-    };
+    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(List.of(EssenceType.values()));
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state);
@@ -168,7 +165,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         for (EssenceType type : EssenceType.values()) {
             int slot = SLOT_FROM_ESSENCE_TYPE_MAP.get(type);
-            ItemStack stack = blockEntity.getItem(slot);
+            ItemStack stack = ItemUtil.getStack(blockEntity.essenceInputInventory, slot);
 
             if (stack.isEmpty()) {
                 continue;
@@ -179,7 +176,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
                 blockEntity.setChanged();
             });
-
         }
 
         for (TickEffect effect : blockEntity.tickEffects) {
@@ -188,9 +184,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             }
         }
 
-        blockEntity.ritualManager.tick().ifPresent(stack -> {
-            blockEntity.mainSlotInventory.setStack(stack);
-        });
+        blockEntity.ritualManager.tick().ifPresent(blockEntity.mainSlotInventory::setStack);
     }
 
     @Override
@@ -288,7 +282,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
         this.addEssence(essenceType, value);
 
-        this.setItem(slot, input.finishInput(stack, value));
+        ItemStack result = input.finishInput(stack, value);
+        this.essenceInputInventory.set(slot, ItemResource.of(result), result.getCount());
     }
 
     public RitualManager getRitualManager() {
@@ -307,9 +302,9 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        this.inventory.serialize(output);
         this.mainSlotInventory.serialize("main_item", output);
         this.enhancerInventory.serialize(output.child("enhancers"));
+        this.essenceInputInventory.serialize(output.child("inputs"));
 
         this.getRitualManager().save(output);
         output.store("essences", MultiEssenceStorage.CODEC, this.essenceStorage);
@@ -321,9 +316,9 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-        this.inventory.deserialize(input);
         this.mainSlotInventory.deserialize("main_item", input);
         this.enhancerInventory.deserialize(input.childOrEmpty("enhancers"));
+        this.essenceInputInventory.deserialize(input.childOrEmpty("inputs"));
 
         this.getRitualManager().load(input);
         this.essenceStorage = input.read("essences", MultiEssenceStorage.CODEC).orElse(MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences()));
@@ -377,19 +372,11 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new HephaestusForgeMenu(containerId, this.inventory, this.mainSlotInventory, this.enhancerInventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
+        return new HephaestusForgeMenu(containerId, this.mainSlotInventory, this.enhancerInventory, this.essenceInputInventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
     }
 
     private void onDataChanged(HolderLookup.Provider lookupProvider) {
         this.ritualManager.onDataChanged(this.dataCache, this.essenceStorage.getSnapshot(), lookupProvider);
-    }
-
-    public ItemStack getItem(int slot) {
-        return this.inventory.getResource(slot).toStack();
-    }
-
-    public void setItem(int slot, ItemStack stack) {
-        this.inventory.set(slot, this.inventory.getResourceFrom(stack), stack.getCount());
     }
 
     @Override
