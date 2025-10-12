@@ -103,7 +103,7 @@ public class RitualManager {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void onDataChanged(ForgeDataCache dataCache, EssenceSet essenceSet, HolderLookup.Provider lookupProvider) {
+    public void onDataChanged(ForgeDataCache dataCache, ItemStack mainIngredient, EssenceSet essenceSet, HolderLookup.Provider lookupProvider) {
         this.dataCache = dataCache;
 
         this.getActiveRitualData().ifPresent(data -> {
@@ -112,14 +112,14 @@ public class RitualManager {
             }
         });
 
-        this.updateValidRitual(essenceSet, lookupProvider);
+        this.updateValidRitual(essenceSet, mainIngredient, lookupProvider);
     }
 
-    public void updateValidRitual(EssenceSet definition, HolderLookup.Provider lookupProvider) {
+    public void updateValidRitual(EssenceSet definition, ItemStack mainIngredient, HolderLookup.Provider lookupProvider) {
         boolean oldValue = this.validRitual != null;
 
         for (Holder<Ritual> ritual : lookupProvider.lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
-            if (this.canStartRitual(ritual.value(), definition)) {
+            if (this.canStartRitual(ritual.value(), definition, mainIngredient)) {
                 if (!oldValue) {
                     this.updateRitualIndicator(true);
                 }
@@ -137,7 +137,7 @@ public class RitualManager {
         }
     }
 
-    private boolean canStartRitual(Ritual ritual, EssenceSet definition) {
+    private boolean canStartRitual(Ritual ritual, EssenceSet definition, ItemStack mainIngredient) {
         List<EssenceModifier> modifiers = this.dataCache.getEnhancers().stream()
                 .flatMap(enhancerDefinition -> enhancerDefinition.value().getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
                 .filter(effect -> effect instanceof EssenceModifier)
@@ -146,7 +146,7 @@ public class RitualManager {
 
         EssenceSet updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
 
-        return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.forgeTier);
+        return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, mainIngredient, this.forgeTier);
     }
 
     public boolean startRitual(ServerPlayer player, EssenceAccess essenceAccess) {

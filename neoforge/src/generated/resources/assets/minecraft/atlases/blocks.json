@@ -16,6 +16,11 @@
       "type": "minecraft:directory",
       "prefix": "entity/black_hole/",
       "source": "entity/black_hole"
+    },
+    {
+      "type": "minecraft:directory",
+      "prefix": "entity/magic_circle/",
+      "source": "entity/magic_circle"
     }
   ]
 }

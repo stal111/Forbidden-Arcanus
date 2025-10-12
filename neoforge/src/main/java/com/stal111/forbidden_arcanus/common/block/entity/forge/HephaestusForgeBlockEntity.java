@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitualIndicator;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
@@ -83,9 +82,10 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     private ForgeDataCache dataCache;
     private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
 
-    private ValidRitualIndicator validRitualIndicator;
+    public boolean hasValidRitualIndicator;
     private int displayCounter;
     private int clientRitualDuration;
+    public int validRitualIndicatorCounter;
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
     private final SingleItemResourceHandler mainSlotInventory = new SingleItemResourceHandler(stack -> {
@@ -156,8 +156,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         blockEntity.magicCircleController.tick();
 
-        if (blockEntity.hasValidRitualIndicator()) {
-            blockEntity.validRitualIndicator.tick();
+        if (blockEntity.hasValidRitualIndicator) {
+            blockEntity.validRitualIndicatorCounter++;
         }
         blockEntity.displayCounter++;
     }
@@ -265,16 +265,9 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         return this.magicCircleController;
     }
 
-    public boolean hasValidRitualIndicator() {
-        return this.validRitualIndicator != null;
-    }
-
-    public ValidRitualIndicator getValidRitualIndicator() {
-        return this.validRitualIndicator;
-    }
-
     private void updateValidRitualIndicator(boolean showIndicator) {
-        this.validRitualIndicator = showIndicator ? new ValidRitualIndicator(true) : null;
+        this.hasValidRitualIndicator = showIndicator;
+        this.validRitualIndicatorCounter = 0;
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
@@ -376,7 +369,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     private void onDataChanged(HolderLookup.Provider lookupProvider) {
-        this.ritualManager.onDataChanged(this.dataCache, this.essenceStorage.getSnapshot(), lookupProvider);
+        this.ritualManager.onDataChanged(this.dataCache, this.mainSlotInventory.getStack(), this.essenceStorage.getSnapshot(), lookupProvider);
     }
 
     @Override
@@ -388,7 +381,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
         this.essenceStorage = this.essenceStorage.updateEssence(type, updater);
 
-        this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot(), this.level.registryAccess());
+        this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot(), this.mainSlotInventory.getStack(), this.level.registryAccess());
     }
 
     @Override

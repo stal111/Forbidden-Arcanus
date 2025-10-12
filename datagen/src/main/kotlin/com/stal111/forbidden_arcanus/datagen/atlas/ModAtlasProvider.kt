@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.datagen.atlas
 import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer
 import com.stal111.forbidden_arcanus.client.renderer.block.EssenceUtremJarRenderer
 import com.stal111.forbidden_arcanus.client.renderer.block.QuantumInjectorRenderer
+import com.stal111.forbidden_arcanus.client.renderer.effect.ValidRitualIndicatorRenderer
 import net.minecraft.client.data.AtlasProvider
 import net.minecraft.client.renderer.texture.atlas.SpriteSource
 import net.minecraft.client.renderer.texture.atlas.SpriteSources
@@ -28,6 +29,7 @@ class ModAtlasProvider(val context: DataProviderContext) : AtlasProvider(context
         SingleFile(QuantumInjectorRenderer.LAYER_MATERIAL.texture()),
         SingleFile(EssenceUtremJarRenderer.TEXTURE.texture()),
         DirectoryLister(BlackHoleRenderer.MAPPER.prefix, BlackHoleRenderer.MAPPER.prefix + "/"),
+        DirectoryLister(ValidRitualIndicatorRenderer.MAPPER.prefix, ValidRitualIndicatorRenderer.MAPPER.prefix + "/"),
     )
 
     private fun storeAtlas(

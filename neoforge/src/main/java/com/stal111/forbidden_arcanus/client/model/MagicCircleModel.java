@@ -6,6 +6,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.Direction;
+
+import java.util.EnumSet;
 
 /**
  * Magic Circle Model <br>
@@ -22,7 +25,7 @@ public record MagicCircleModel(ModelPart outerRing, ModelPart innerRing, ModelPa
 
     public static LayerDefinition createLayer() {
         MeshDefinition meshDefinition = new MeshDefinition();
-        meshDefinition.getRoot().addOrReplaceChild("outer_ring", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, 0.0F, -5.0F, 10.0F, 0.1F, 10.0F), PartPose.ZERO);
-        return LayerDefinition.create(meshDefinition, 10, 10);
+        meshDefinition.getRoot().addOrReplaceChild("outer_ring", CubeListBuilder.create().texOffs(-128, 0).addBox(-64.0F, 0.0F, -64.0F, 128.0F, 0.0F, 128.0F, EnumSet.of(Direction.DOWN)), PartPose.ZERO);
+        return LayerDefinition.create(meshDefinition, 128, 128);
     }
 }

@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.HephaestusForgeRenderState;
+import com.stal111.forbidden_arcanus.client.renderer.effect.ValidRitualIndicatorRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.effect.state.ValidRitualIndicatorRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -32,9 +34,12 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     private final ItemModelResolver itemModelResolver;
     private final MagicCircleModel magicCircleModel;
 
+    private final ValidRitualIndicatorRenderer validRitualIndicatorRenderer;
+
     public HephaestusForgeRenderer(BlockEntityRendererProvider.Context context) {
         this.itemModelResolver = context.itemModelResolver();
         this.magicCircleModel = new MagicCircleModel(context);
+        this.validRitualIndicatorRenderer = new ValidRitualIndicatorRenderer(context);
     }
 
     @Override
@@ -51,6 +56,9 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 
         renderState.itemStackRenderState = itemStackRenderState;
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
+        renderState.isValidRitual = blockEntity.hasValidRitualIndicator;
+
+        renderState.validRitualIndicatorRenderState = new ValidRitualIndicatorRenderState(renderState.lightCoords, blockEntity.validRitualIndicatorCounter);
     }
 
     @Override
@@ -61,12 +69,10 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 //        if (magicCircle != null) {
 //            magicCircle.render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel, blockEntity.getClientRitualDuration());
 //        }
-//
-//        if (blockEntity.hasValidRitualIndicator()) {
-//            blockEntity.getValidRitualIndicator().render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel.validRitualIndicator());
-//        }
-//
-//        ItemStack stack = blockEntity.getClientMainItem();
+
+        if (renderState.isValidRitual) {
+            this.validRitualIndicatorRenderer.submit(renderState.validRitualIndicatorRenderState, poseStack, nodeCollector, cameraRenderState);
+        }
 
         if (!renderState.itemStackRenderState.isEmpty()) {
             poseStack.pushPose();
@@ -98,6 +104,6 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     public boolean useExpandedRenderBoundingBox(HephaestusForgeBlockEntity blockEntity) {
-        return blockEntity.getRitualManager().isRitualActive() || blockEntity.hasValidRitualIndicator();
+        return blockEntity.getRitualManager().isRitualActive() || blockEntity.hasValidRitualIndicator;
     }
 }

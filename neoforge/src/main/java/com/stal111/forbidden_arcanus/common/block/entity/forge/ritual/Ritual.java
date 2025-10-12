@@ -76,12 +76,12 @@ public record Ritual(List<RitualInput> inputs,
         return new Ritual(inputs, mainIngredient, result, requirements, null, duration);
     }));
 
-    public boolean canStart(ForgeDataCache dataCache, int forgeTier) {
+    public boolean canStart(ForgeDataCache dataCache, ItemStack mainIngredient, int forgeTier) {
         if (!this.requirements.checkRequirements(forgeTier, dataCache.getEnhancers())) {
             return false;
         }
 
-        return this.checkIngredients(dataCache.getIngredients(), dataCache.mainIngredient());
+        return this.checkIngredients(dataCache.getIngredients(), mainIngredient);
     }
 
     public boolean checkIngredients(Collection<ItemStack> list, ItemStack mainIngredient) {
