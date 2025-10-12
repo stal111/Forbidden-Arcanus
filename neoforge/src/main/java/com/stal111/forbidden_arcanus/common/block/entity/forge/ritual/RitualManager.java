@@ -5,11 +5,11 @@ import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
-import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
-import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
+import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
@@ -155,8 +155,7 @@ public class RitualManager {
 
             this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.value().magicCircleType());
 
-            //TODO
-//            storage.reduce(ritual.value().requirements().essences());
+            essenceAccess.removeEssences(ritual.value().requirements().essences());
 
             this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> {
                 blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);

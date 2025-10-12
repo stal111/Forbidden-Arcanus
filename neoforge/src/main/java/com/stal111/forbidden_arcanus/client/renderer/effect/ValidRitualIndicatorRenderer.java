@@ -40,9 +40,6 @@ public class ValidRitualIndicatorRenderer {
 
         nodeCollector.submitModel(this.model, Unit.INSTANCE, poseStack, TEXTURE.renderType(this.model::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(Math.min(1.0F, easeOutBack(renderState.ageInTicks, 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F), this.materials.get(TEXTURE), 0, null);
 
-        //TODO
-//        model.render(poseStack, buffer.getBuffer(RenderType.entityTranslucentEmissive(INDICATOR)), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(Math.min(1.0F, easeOutBack(this.counter.getValue(), 0.0F, 1.0F, ANIMATION_DURATION)), 1.0F, 1.0F, 1.0F));
-
         poseStack.popPose();
     }
 
