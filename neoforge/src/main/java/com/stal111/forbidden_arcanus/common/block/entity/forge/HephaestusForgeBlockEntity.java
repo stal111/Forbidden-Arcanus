@@ -84,7 +84,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public boolean hasValidRitualIndicator;
     private int displayCounter;
-    private int clientRitualDuration;
+    public int clientRitualDuration;
     public int validRitualIndicatorCounter;
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
@@ -281,10 +281,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public RitualManager getRitualManager() {
         return this.ritualManager;
-    }
-
-    public int getClientRitualDuration() {
-        return this.clientRitualDuration;
     }
 
     public ItemStack getClientMainItem() {

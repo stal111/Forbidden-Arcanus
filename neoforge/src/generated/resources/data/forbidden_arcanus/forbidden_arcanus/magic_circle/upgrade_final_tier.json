@@ -1,4 +1,4 @@
 {
-  "inner_texture": "forbidden_arcanus:textures/effect/magic_circle/inner/origin.png",
-  "outer_texture": "forbidden_arcanus:textures/effect/magic_circle/outer/pactum.png"
+  "inner_texture": "forbidden_arcanus:inner/origin",
+  "outer_texture": "forbidden_arcanus:outer/pactum"
 }

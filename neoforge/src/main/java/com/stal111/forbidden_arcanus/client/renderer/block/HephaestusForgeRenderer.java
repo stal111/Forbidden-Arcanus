@@ -2,9 +2,10 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.stal111.forbidden_arcanus.client.model.MagicCircleModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.HephaestusForgeRenderState;
+import com.stal111.forbidden_arcanus.client.renderer.effect.MagicCircleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.effect.ValidRitualIndicatorRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRenderState;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.ValidRitualIndicatorRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -32,14 +33,14 @@ import org.jetbrains.annotations.Nullable;
 public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusForgeBlockEntity, HephaestusForgeRenderState> {
 
     private final ItemModelResolver itemModelResolver;
-    private final MagicCircleModel magicCircleModel;
 
     private final ValidRitualIndicatorRenderer validRitualIndicatorRenderer;
+    private final MagicCircleRenderer magicCircleRenderer;
 
     public HephaestusForgeRenderer(BlockEntityRendererProvider.Context context) {
         this.itemModelResolver = context.itemModelResolver();
-        this.magicCircleModel = new MagicCircleModel(context);
         this.validRitualIndicatorRenderer = new ValidRitualIndicatorRenderer(context);
+        this.magicCircleRenderer = new MagicCircleRenderer(context);
     }
 
     @Override
@@ -59,16 +60,14 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         renderState.isValidRitual = blockEntity.hasValidRitualIndicator;
 
         renderState.validRitualIndicatorRenderState = new ValidRitualIndicatorRenderState(renderState.lightCoords, blockEntity.validRitualIndicatorCounter);
+        renderState.magicCircleRenderState = MagicCircleRenderState.create(renderState.lightCoords, blockEntity.clientRitualDuration, blockEntity.getMagicCircleController(), partialTick);
     }
 
     @Override
     public void submit(HephaestusForgeRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
-        //TODO
-//        MagicCircle magicCircle = blockEntity.getMagicCircleController().getMagicCircle();
-//
-//        if (magicCircle != null) {
-//            magicCircle.render(poseStack, partialTick, bufferSource, packedLight, this.magicCircleModel, blockEntity.getClientRitualDuration());
-//        }
+        if (renderState.magicCircleRenderState.magicCircleType != null) {
+            this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector, cameraRenderState);
+        }
 
         if (renderState.isValidRitual) {
             this.validRitualIndicatorRenderer.submit(renderState.validRitualIndicatorRenderState, poseStack, nodeCollector, cameraRenderState);

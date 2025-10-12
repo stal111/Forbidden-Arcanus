@@ -2,13 +2,10 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.circle;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.MagicCircle;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 /**
  * @author stal111
@@ -22,8 +19,4 @@ public record MagicCircleType(ResourceLocation innerTexture, ResourceLocation ou
     ).apply(instance, MagicCircleType::new));
 
     public static final Codec<Holder<MagicCircleType>> CODEC = RegistryFileCodec.create(FARegistries.MAGIC_CIRCLE, DIRECT_CODEC);
-
-    public MagicCircle create(Level level, BlockPos pos) {
-        return new MagicCircle(this, level, pos);
-    }
 }

@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.circle;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.MagicCircle;
+import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -12,35 +12,25 @@ import org.jetbrains.annotations.Nullable;
  * @author stal111
  * @since 14.04.2024
  */
-public class MagicCircleController {
+public class MagicCircleController implements BlockEntityAgeAccess {
 
     private final int eventId;
 
-    private MagicCircle magicCircle;
+    private MagicCircleType magicCircleType;
+    private int ageInTicks;
 
     public MagicCircleController(int eventId) {
         this.eventId = eventId;
     }
 
     public void tick() {
-        if (this.magicCircle != null) {
-            this.magicCircle.tick();
+        if (this.magicCircleType != null) {
+            this.ageInTicks++;
         }
     }
 
-    @Nullable
-    public MagicCircle getMagicCircle() {
-        return this.magicCircle;
-    }
-
-    void setMagicCircle(@Nullable MagicCircle magicCircle) {
-        this.magicCircle = magicCircle;
-    }
-
     public void handleEvent(@Nullable Level level, BlockPos pos, int type) {
-        MagicCircle magicCircle = level != null ? this.getMagicCircleFromRegistry(level, pos, type) : null;
-
-        this.setMagicCircle(magicCircle);
+        this.magicCircleType = level != null ? this.getMagicCircleFromRegistry(level, pos, type) : null;
     }
 
     public void createMagicCircle(ServerLevel level, BlockPos pos, Holder<MagicCircleType> type) {
@@ -53,9 +43,19 @@ public class MagicCircleController {
         level.blockEvent(pos, level.getBlockState(pos).getBlock(), this.eventId, -1);
     }
 
-    private MagicCircle getMagicCircleFromRegistry(Level level, BlockPos pos, int id) {
+    @Nullable
+    private MagicCircleType getMagicCircleFromRegistry(Level level, BlockPos pos, int id) {
         return level.registryAccess().lookupOrThrow(FARegistries.MAGIC_CIRCLE).get(id)
-                .map(holder -> holder.value().create(level, pos))
+                .map(Holder.Reference::value)
                 .orElse(null);
+    }
+
+    public MagicCircleType getMagicCircleType() {
+        return this.magicCircleType;
+    }
+
+    @Override
+    public int getAgeInTicks() {
+        return this.ageInTicks;
     }
 }
