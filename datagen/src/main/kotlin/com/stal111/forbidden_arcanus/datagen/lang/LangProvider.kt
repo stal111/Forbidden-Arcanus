@@ -301,7 +301,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
 
         add("upgrade", "darkstone_upgrade", "Apply Item Modifier")
 
-        add("tooltip", "essence.storage_format", "%s / %s")
+        add("tooltip", "essence.storage_format", "%s/%s")
 
         add("attribute.name.generic.aureal_regeneration", "Aureal Regeneration")
 
