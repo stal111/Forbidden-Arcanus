@@ -50,14 +50,6 @@ public record MultiEssenceStorage(EssenceStorage aureal,
         return this.setStorage(type, updater.apply(this.getStorage(type)));
     }
 
-    public int getAmount(EssenceType type) {
-        return this.getStorage(type).amount();
-    }
-
-    public MultiEssenceStorage setAmount(EssenceType type, int amount) {
-        return this.setStorage(type, this.getStorage(type).setAmount(amount));
-    }
-
     public EssenceSet getSnapshot() {
         return new EssenceSet(this.aureal.amount(), this.souls.amount(), this.blood.amount(), this.experience.amount());
     }

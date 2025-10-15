@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
-import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
@@ -132,10 +131,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             }
         };
 
-
-        if (state.getBlock() instanceof HephaestusForgeBlock) {
-            this.forgeLevel = state.getValue(ModBlockStateProperties.FORGE_TIER);
-        }
+        this.forgeLevel = state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE);
         this.dataCache = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
         this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt(), this.dataCache);
 
@@ -254,8 +250,10 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.forgeLevel = level;
 
         this.ritualManager.setForgeTier(level.getAsInt());
-        //TODO
-//        this.essenceManager.setMaxEssences(level.getMaxEssences());
+
+        for (EssenceType type : EssenceType.values()) {
+            this.setEssenceLimit(type, level.getMaxAmount(type));
+        }
     }
 
     public ContainerData getHephaestusForgeData() {

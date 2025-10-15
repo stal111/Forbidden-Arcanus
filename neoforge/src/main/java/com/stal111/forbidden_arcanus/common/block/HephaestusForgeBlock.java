@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -109,6 +110,11 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        level.scheduleTick(pos, this, 2);
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         level.getBlockEntity(pos, ModBlockEntities.HEPHAESTUS_FORGE.get()).ifPresent(blockEntity -> {
             blockEntity.setForgeLevel(state.getValue(FORGE_TIER));
         });

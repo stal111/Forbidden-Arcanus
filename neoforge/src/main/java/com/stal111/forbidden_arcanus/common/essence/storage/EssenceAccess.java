@@ -31,6 +31,10 @@ public interface EssenceAccess {
         this.updateEssence(type, storage -> storage.addEssence(amount));
     }
 
+    default void setEssenceLimit(EssenceType type, int limit) {
+        this.updateEssence(type, storage -> storage.setLimit(limit));
+    }
+
     default void addEssences(EssenceSet essenceSet) {
         for (EssenceType type : EssenceType.values()) {
             this.addEssence(type, essenceSet.get(type));
