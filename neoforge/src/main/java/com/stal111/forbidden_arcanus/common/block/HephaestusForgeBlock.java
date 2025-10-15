@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -18,6 +19,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -55,7 +57,7 @@ import org.jetbrains.annotations.Nullable;
 public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
     public static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge"));
-    private static final String TIER_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.tier"));
+    public static final String TIER_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.tier"));
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
     public static final EnumProperty<HephaestusForgeLevel> FORGE_TIER = ModBlockStateProperties.FORGE_TIER;
@@ -91,11 +93,14 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         return new HephaestusForgeBlockEntity(pos, state);
     }
 
-    //TODO
-//    @Override
-//    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag flag) {
-//        components.add(Component.translatable(TIER_ID, this.level.getAsInt()).withStyle(ChatFormatting.GRAY));
-//    }
+    @Override
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData, Player player) {
+        ItemStack stack = super.getCloneItemStack(level, pos, state, includeData, player);
+
+        stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(FORGE_TIER, state.getValue(FORGE_TIER)));
+
+        return stack;
+    }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {

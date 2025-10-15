@@ -1,5 +1,8 @@
 package com.stal111.forbidden_arcanus.common.event;
 
+import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -8,6 +11,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -42,6 +46,12 @@ public class TooltipEvents {
                 this.expandTooltip(advanced, tooltip, Component.literal(" ").append(test.getValue()).withStyle(DESCRIPTION_FORMAT));
             }
         });
+
+        HephaestusForgeLevel level = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).get(ModBlockStateProperties.FORGE_TIER);
+
+        if (level != null) {
+            this.expandTooltip(advanced, tooltip, Component.translatable(HephaestusForgeBlock.TIER_ID, level.getAsInt()).withStyle(ChatFormatting.GRAY));
+        }
     }
 
     private void expandTooltip(boolean advanced, List<Component> tooltip, Component addition) {
