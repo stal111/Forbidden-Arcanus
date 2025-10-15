@@ -1,0 +1,48 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "forge_tier",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:block/hephaestus_forge_tier_1"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:block/hephaestus_forge_tier_2"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:block/hephaestus_forge_tier_3"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:block/hephaestus_forge_tier_4"
+        },
+        "when": "4"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "forbidden_arcanus:block/hephaestus_forge_tier_5"
+        },
+        "when": "5"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "forbidden_arcanus:block/hephaestus_forge_tier_1"
+    },
+    "property": "minecraft:block_state"
+  }
+}

@@ -28,7 +28,6 @@ public class ModTags {
         public static final TagKey<Block> STORAGE_BLOCKS_STELLARITE = commonTag("storage_blocks/stellarite");
         public static final TagKey<Block> STORAGE_BLOCKS_OBSIDIANSTEEL = commonTag("storage_blocks/obsidiansteel");
 
-        public static final TagKey<Block> HEPHAESTUS_FORGES = modTag("hephaestus_forges");
         public static final TagKey<Block> PEDESTALS = modTag("pedestals");
         public static final TagKey<Block> ORES_ARCANE_CRYSTAL = commonTag("ores/arcane_crystal");
         public static final TagKey<Block> ORES_RUNIC = commonTag("ores/runic");
@@ -58,7 +57,6 @@ public class ModTags {
         public static final TagKey<Item> RUNIC_STONES = modTag("runic_stones");
         public static final TagKey<Item> RUNE_BLOCKS = modTag("rune_blocks");
         public static final TagKey<Item> ARCANE_CRYSTAL_ORES = modTag("arcane_crystal_ores");
-        public static final TagKey<Item> HEPHAESTUS_FORGES = modTag("hephaestus_forges");
 
         public static final TagKey<Item> RECEIVES_BLOOD = modTag("receives_blood");
 

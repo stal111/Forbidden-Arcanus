@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -56,6 +57,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     private static final String TIER_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.tier"));
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
+    public static final EnumProperty<HephaestusForgeLevel> FORGE_TIER = ModBlockStateProperties.FORGE_TIER;
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -73,12 +75,10 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
             BooleanOp.ONLY_FIRST
     );
 
-    private final HephaestusForgeLevel level;
-
-    public HephaestusForgeBlock(HephaestusForgeLevel level, Properties properties) {
+    public HephaestusForgeBlock(Properties properties) {
         super(properties);
-        this.level = level;
         this.registerDefaultState(this.getStateDefinition().any()
+                .setValue(FORGE_TIER, HephaestusForgeLevel.ONE)
                 .setValue(ACTIVATED, false)
                 .setValue(WATERLOGGED, false)
         );
@@ -110,7 +110,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         level.getBlockEntity(pos, ModBlockEntities.HEPHAESTUS_FORGE.get()).ifPresent(blockEntity -> {
-            blockEntity.setForgeLevel(this.level);
+            blockEntity.setForgeLevel(state.getValue(FORGE_TIER));
         });
     }
 
@@ -187,10 +187,6 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         return blockEntity != null && blockEntity.triggerEvent(id, param);
     }
 
-    public HephaestusForgeLevel getLevel() {
-        return this.level;
-    }
-
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
@@ -198,6 +194,6 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVATED, WATERLOGGED);
+        builder.add(FORGE_TIER, ACTIVATED, WATERLOGGED);
     }
 }

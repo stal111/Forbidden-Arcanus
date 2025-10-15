@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.client.renderer.special.EssenceUtremJarSpecialRenderer
 import com.stal111.forbidden_arcanus.common.block.DeskBlock
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel
 import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType
@@ -24,7 +25,13 @@ import net.minecraft.client.data.models.BlockModelGenerators
 import net.minecraft.client.data.models.BlockModelGenerators.plainVariant
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
-import net.minecraft.client.data.models.model.*
+import net.minecraft.client.data.models.model.ItemModelUtils
+import net.minecraft.client.data.models.model.ModelLocationUtils
+import net.minecraft.client.data.models.model.ModelTemplates
+import net.minecraft.client.data.models.model.TextureMapping
+import net.minecraft.client.data.models.model.TextureSlot
+import net.minecraft.client.data.models.model.TexturedModel
+import net.minecraft.client.renderer.item.ItemModel
 import net.minecraft.core.Direction
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.RotatedPillarBlock
@@ -94,11 +101,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createClibanoCorner(ModBlocks.CLIBANO_CORNER.get())
         this.createClibanoSideHorizontal(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get())
         this.createClibanoSideVertical(ModBlocks.CLIBANO_SIDE_VERTICAL.get())
-        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get())
-        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get())
-        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get())
-        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get())
-        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get())
+        this.createHephaestusForge(ModBlocks.HEPHAESTUS_FORGE.get())
         this.createObelisk(ModBlocks.ARCANE_CRYSTAL_OBELISK.get())
         this.createObelisk(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get())
         this.createUtremJar(ModBlocks.UTREM_JAR.get())
@@ -388,10 +391,31 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
     }
 
     private fun createHephaestusForge(block: HephaestusForgeBlock) {
-        val textureMapping = hephaestusForge(block.level.asInt)
-        val model = plainVariant(ModModelTemplates.HEPHAESTUS_FORGE.create(block, textureMapping, this.modelOutput))
+        val modelForTier = mutableMapOf<HephaestusForgeLevel, ItemModel.Unbaked>();
 
-        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, model))
+        val dispatch = PropertyDispatch.initial(ModBlockStateProperties.FORGE_TIER).generate {
+            val textureMapping = hephaestusForge(it.asInt)
+            val model = ModModelTemplates.HEPHAESTUS_FORGE.createWithSuffix(
+                block,
+                "_tier_" + it.asInt,
+                textureMapping,
+                this.modelOutput
+            )
+
+            modelForTier[it] = ItemModelUtils.plainModel(model)
+            plainVariant(model)
+        }
+
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(dispatch))
+
+        defaultGenerators.itemModelOutput.accept(
+            block.asItem(),
+            ItemModelUtils.selectBlockItemProperty(
+                ModBlockStateProperties.FORGE_TIER,
+                modelForTier[HephaestusForgeLevel.ONE]!!,
+                modelForTier
+            )
+        )
     }
 
     private fun createObelisk(block: Block) {

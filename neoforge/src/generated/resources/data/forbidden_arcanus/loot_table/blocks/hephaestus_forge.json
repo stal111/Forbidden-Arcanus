@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "forbidden_arcanus:hephaestus_forge_tier_5"
+          "name": "forbidden_arcanus:hephaestus_forge"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "forbidden_arcanus:blocks/hephaestus_forge_tier_5"
+  "random_sequence": "forbidden_arcanus:blocks/hephaestus_forge"
 }

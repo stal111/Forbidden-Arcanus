@@ -1,5 +1,6 @@
 {
   "values": [
+    "forbidden_arcanus:hephaestus_forge",
     "forbidden_arcanus:deorum_chain",
     "forbidden_arcanus:stella_arcanum",
     "forbidden_arcanus:obsidiansteel_block",
@@ -47,7 +48,6 @@
     "#forbidden_arcanus:runic_stones",
     "#forbidden_arcanus:rune_blocks",
     "#forbidden_arcanus:arcane_crystal_ores",
-    "#forbidden_arcanus:hephaestus_forges",
     "#forbidden_arcanus:pedestals"
   ]
 }

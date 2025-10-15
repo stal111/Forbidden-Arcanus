@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockS
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -132,8 +133,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         };
 
 
-        if (state.getBlock() instanceof HephaestusForgeBlock forgeBlock) {
-            this.forgeLevel = forgeBlock.getLevel();
+        if (state.getBlock() instanceof HephaestusForgeBlock) {
+            this.forgeLevel = state.getValue(ModBlockStateProperties.FORGE_TIER);
         }
         this.dataCache = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
         this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt(), this.dataCache);

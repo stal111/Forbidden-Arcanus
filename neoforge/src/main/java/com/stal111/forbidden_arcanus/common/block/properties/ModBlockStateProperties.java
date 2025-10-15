@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.properties;
 
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoCenterType;
 import com.stal111.forbidden_arcanus.common.block.properties.clibano.ClibanoSideType;
@@ -29,4 +30,5 @@ public class ModBlockStateProperties {
     public static final EnumProperty<ClibanoCenterType> CLIBANO_CENTER_TYPE =  EnumProperty.create("type", ClibanoCenterType.class);
     public static final EnumProperty<ClibanoSideType> CLIBANO_SIDE_TYPE =  EnumProperty.create("type", ClibanoSideType.class);
     public static final EnumProperty<EssenceType> ESSENCE_TYPE = EnumProperty.create("essence_type", EssenceType.class);
+    public static final EnumProperty<HephaestusForgeLevel> FORGE_TIER = EnumProperty.create("forge_tier", HephaestusForgeLevel.class);
 }

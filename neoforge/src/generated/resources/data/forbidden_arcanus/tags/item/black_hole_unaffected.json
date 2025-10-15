@@ -2,6 +2,7 @@
   "values": [
     "forbidden_arcanus:stellarite_piece",
     "forbidden_arcanus:stellarite_block",
+    "forbidden_arcanus:hephaestus_forge",
     "forbidden_arcanus:stella_arcanum",
     "forbidden_arcanus:eternal_stella",
     "forbidden_arcanus:dark_nether_star",
@@ -12,7 +13,6 @@
     "minecraft:enchanting_table",
     "minecraft:end_portal_frame",
     "minecraft:ender_chest",
-    "minecraft:respawn_anchor",
-    "#forbidden_arcanus:hephaestus_forges"
+    "minecraft:respawn_anchor"
   ]
 }

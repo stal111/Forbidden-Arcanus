@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputRe
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.Util;
@@ -158,7 +159,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@Nonnull Player player) {
-        return stillValid(this.levelAccess, player, this.getLevel().getBlock());
+        return stillValid(this.levelAccess, player, ModBlocks.HEPHAESTUS_FORGE.get());
     }
 
     public ContainerData getHephaestusForgeData() {

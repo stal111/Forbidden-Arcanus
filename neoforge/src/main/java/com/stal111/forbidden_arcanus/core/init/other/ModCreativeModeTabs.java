@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -10,10 +12,12 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.valhelsia.valhelsia_core.ValhelsiaCore;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
@@ -28,7 +32,7 @@ public class ModCreativeModeTabs implements RegistryClass {
     public static final MappedRegistryHelper<CreativeModeTab> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.CREATIVE_MODE_TAB);
 
     public static final RegistryEntry<CreativeModeTab, CreativeModeTab> MAIN = HELPER.register("main", ValhelsiaCore.INSTANCE.createCreativeTab(builder -> {
-                builder.icon(() -> new ItemStack(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get()))
+                builder.icon(() -> new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()))
                         .title(Component.translatable("itemGroup.forbidden_arcanus.main"))
                         .displayItems((itemDisplayParameters, output) -> {
                             var lookup = itemDisplayParameters.holders();
@@ -61,11 +65,12 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get());
                             output.accept(ModBlocks.MORTAR.get());
                             output.accept(ModBlocks.CLIBANO_CORE.get());
-                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get());
-                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get());
-                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get());
-                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get());
-                            output.accept(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get());
+                            for (HephaestusForgeLevel level : HephaestusForgeLevel.values()) {
+                                ItemStack stack = new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get());
+                                stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(ModBlockStateProperties.FORGE_TIER, level));
+
+                                output.accept(stack);
+                            }
                             output.accept(ModBlocks.QUANTUM_CORE.get());
                             output.accept(ModBlocks.QUANTUM_INJECTOR.get());
                             output.accept(ModBlocks.ARCANE_CRYSTAL_ORE.get());

@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.UtremJarBlock;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
@@ -86,11 +85,7 @@ public class ModItems implements RegistryClass {
 
     public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_AUREAL_TANK));
 
-    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_1 = HELPER.register("hephaestus_forge_tier_1", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_1.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
-    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_2 = HELPER.register("hephaestus_forge_tier_2", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_2.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
-    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_3 = HELPER.register("hephaestus_forge_tier_3", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_3.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
-    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_4 = HELPER.register("hephaestus_forge_tier_4", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_4.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
-    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE_TIER_5 = HELPER.register("hephaestus_forge_tier_5", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE_TIER_5.get(), properties), () -> new Item.Properties().overrideDescription(HephaestusForgeBlock.DESCRIPTION_ID));
+    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE.get(), properties), Item.Properties::new);
 
     public static final ItemRegistryEntry<BlockItem> UTREM_JAR = HELPER.register("utrem_jar", (properties) -> new BlockItem(ModBlocks.UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID));
     public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", (properties) -> new BlockItem(ModBlocks.ESSENCE_UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID).component(ModDataComponents.EMPTY_ITEM, ModItems.UTREM_JAR));

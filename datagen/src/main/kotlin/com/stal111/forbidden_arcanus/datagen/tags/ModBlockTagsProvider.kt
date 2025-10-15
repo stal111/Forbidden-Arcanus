@@ -88,13 +88,6 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
         this.tag(BlockTags.LEAVES).add(ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get())
         this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.get())
         this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.get())
-        this.tag(ModTags.Blocks.HEPHAESTUS_FORGES).add(
-            ModBlocks.HEPHAESTUS_FORGE_TIER_1.get(),
-            ModBlocks.HEPHAESTUS_FORGE_TIER_2.get(),
-            ModBlocks.HEPHAESTUS_FORGE_TIER_3.get(),
-            ModBlocks.HEPHAESTUS_FORGE_TIER_4.get(),
-            ModBlocks.HEPHAESTUS_FORGE_TIER_5.get()
-        )
         this.tag(ModTags.Blocks.PEDESTALS)
             .add(ModBlocks.DARKSTONE_PEDESTAL.get(), ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get())
 
@@ -141,6 +134,7 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
             .add(
+                ModBlocks.HEPHAESTUS_FORGE.get(),
                 ModBlocks.DEORUM_CHAIN.get(),
                 ModBlocks.STELLA_ARCANUM.get(),
                 ModBlocks.OBSIDIANSTEEL_BLOCK.get(),
@@ -187,18 +181,15 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
                 ModBlocks.DEORUM_SOUL_LANTERN.get()
             )
             .addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS)
-            .addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES).addTag(
-                ModTags.Blocks.HEPHAESTUS_FORGES
-            ).addTag(ModTags.Blocks.PEDESTALS)
+            .addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
+            .addTag(ModTags.Blocks.PEDESTALS)
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.SOULLESS_SAND.get())
         this.tag(BlockTags.MINEABLE_WITH_HOE).add(ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get())
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.EDELWOOD_BRANCH.get())
 
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
-            .add(ModBlocks.OBSIDIANSTEEL_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.STELLARITE_BLOCK.get())
-            .addTag(
-                ModTags.Blocks.HEPHAESTUS_FORGES
-            ).addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS)
+            .add(ModBlocks.OBSIDIANSTEEL_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.STELLARITE_BLOCK.get(), ModBlocks.HEPHAESTUS_FORGE.get())
+            .addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS)
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.DEORUM_BLOCK.get()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
         this.tag(BlockTags.NEEDS_STONE_TOOL).addTag(ModTags.Blocks.PEDESTALS).add(
             ModBlocks.DARKSTONE.get(),

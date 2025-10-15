@@ -1,10 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
-import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.block.BlockRegistryEntry;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.function.IntSupplier;
 
@@ -15,43 +13,21 @@ import java.util.function.IntSupplier;
  * @author stal111
  * @since 2021-06-29
  */
-public enum HephaestusForgeLevel implements IntSupplier {
-    ONE(ModBlocks.HEPHAESTUS_FORGE_TIER_1, 1000, 10, 10000, 900),
-    TWO(ModBlocks.HEPHAESTUS_FORGE_TIER_2, 3000, 50, 15000, 1350),
-    THREE(ModBlocks.HEPHAESTUS_FORGE_TIER_3, 5000, 100, 30000, 2500),
-    FOUR(ModBlocks.HEPHAESTUS_FORGE_TIER_4, 10000, 500, 50000, 5000),
-    FIVE(ModBlocks.HEPHAESTUS_FORGE_TIER_5, 20000, 1000, 100000, 7500);
+public enum HephaestusForgeLevel implements IntSupplier, StringRepresentable {
+    ONE(1000, 10, 10000, 900),
+    TWO(3000, 50, 15000, 1350),
+    THREE(5000, 100, 30000, 2500),
+    FOUR(10000, 500, 50000, 5000),
+    FIVE(20000, 1000, 100000, 7500);
 
-    private final BlockRegistryEntry<HephaestusForgeBlock> block;
     private final EssenceSet maxEssences;
 
-    HephaestusForgeLevel(BlockRegistryEntry<HephaestusForgeBlock> block, int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
-        this.block = block;
+    HephaestusForgeLevel(int maxAureal, int maxSouls, int maxBlood, int maxExperience) {
         this.maxEssences = new EssenceSet(maxAureal, maxSouls, maxBlood, maxExperience);
-    }
-
-    public HephaestusForgeBlock getBlock() {
-        return this.block.get();
     }
 
     public int getMaxAmount(EssenceType type) {
         return this.maxEssences.get(type);
-    }
-
-    public int getMaxAureal() {
-        return this.maxEssences.get(EssenceType.AUREAL);
-    }
-
-    public int getMaxSouls() {
-        return this.maxEssences.get(EssenceType.SOULS);
-    }
-
-    public int getMaxBlood() {
-        return this.maxEssences.get(EssenceType.BLOOD);
-    }
-
-    public int getMaxExperience() {
-        return this.maxEssences.get(EssenceType.EXPERIENCE);
     }
 
     public EssenceSet getMaxEssences() {
@@ -71,5 +47,10 @@ public enum HephaestusForgeLevel implements IntSupplier {
     @Override
     public int getAsInt() {
         return this.ordinal() + 1;
+    }
+
+    @Override
+    public String getSerializedName() {
+        return String.valueOf(this.getAsInt());
     }
 }

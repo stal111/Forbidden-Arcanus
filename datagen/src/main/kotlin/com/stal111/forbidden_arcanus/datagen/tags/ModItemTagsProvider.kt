@@ -42,6 +42,7 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
         this.tag(ModTags.Items.BLACK_HOLE_UNAFFECTED).add(
             ModItems.STELLARITE_PIECE.get(),
             ModBlocks.STELLARITE_BLOCK.get().asItem(),
+            ModItems.HEPHAESTUS_FORGE.get(),
             ModBlocks.STELLA_ARCANUM.get().asItem(),
             ModItems.ETERNAL_STELLA.get(),
             ModItems.DARK_NETHER_STAR.get(),
@@ -53,8 +54,6 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
             Items.END_PORTAL_FRAME,
             Items.ENDER_CHEST,
             Items.RESPAWN_ANCHOR
-        ).addTag(
-            ModTags.Items.HEPHAESTUS_FORGES
         )
         this.tag(ModTags.Items.EXPLOSION_RESISTANT).add(
             Items.NETHER_STAR,
@@ -137,7 +136,6 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
         this.copy(ModTags.Blocks.STORAGE_BLOCKS_STELLARITE, ModTags.Items.STORAGE_BLOCKS_STELLARITE)
         this.copy(ModTags.Blocks.STORAGE_BLOCKS_OBSIDIANSTEEL, ModTags.Items.STORAGE_BLOCKS_OBSIDIANSTEEL)
         this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS)
-        this.copy(ModTags.Blocks.HEPHAESTUS_FORGES, ModTags.Items.HEPHAESTUS_FORGES)
         this.copy(ModTags.Blocks.ORES_ARCANE_CRYSTAL, ModTags.Items.ORES_ARCANE_CRYSTAL)
         this.copy(ModTags.Blocks.ORES_RUNIC, ModTags.Items.ORES_RUNIC)
         this.copy(ModTags.Blocks.ORES_STELLARITE, ModTags.Items.ORES_STELLARITE)

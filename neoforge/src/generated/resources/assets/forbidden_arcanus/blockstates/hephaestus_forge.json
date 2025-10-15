@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "forge_tier=1": {
+      "model": "forbidden_arcanus:block/hephaestus_forge_tier_1"
+    },
+    "forge_tier=2": {
+      "model": "forbidden_arcanus:block/hephaestus_forge_tier_2"
+    },
+    "forge_tier=3": {
+      "model": "forbidden_arcanus:block/hephaestus_forge_tier_3"
+    },
+    "forge_tier=4": {
+      "model": "forbidden_arcanus:block/hephaestus_forge_tier_4"
+    },
+    "forge_tier=5": {
+      "model": "forbidden_arcanus:block/hephaestus_forge_tier_5"
+    }
+  }
+}
