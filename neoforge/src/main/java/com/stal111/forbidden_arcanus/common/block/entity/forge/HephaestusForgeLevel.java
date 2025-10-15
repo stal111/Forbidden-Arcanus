@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
+import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import net.minecraft.util.StringRepresentable;
@@ -19,6 +20,8 @@ public enum HephaestusForgeLevel implements IntSupplier, StringRepresentable {
     THREE(5000, 100, 30000, 2500),
     FOUR(10000, 500, 50000, 5000),
     FIVE(20000, 1000, 100000, 7500);
+
+    public static final Codec<HephaestusForgeLevel> CODEC = StringRepresentable.fromEnum(HephaestusForgeLevel::values);
 
     private final EssenceSet maxEssences;
 

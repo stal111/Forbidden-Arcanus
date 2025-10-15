@@ -20,6 +20,6 @@
   "match_tier_exact": true,
   "result": {
     "type": "forbidden_arcanus:upgrade_tier",
-    "result_tier": 4
+    "result_tier": "4"
   }
 }

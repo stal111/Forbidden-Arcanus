@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,10 +17,10 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author stal111
  * @since 2023-02-05
  */
-public record UpgradeTierResult(int resultTier) implements RitualResult {
+public record UpgradeTierResult(HephaestusForgeLevel resultTier) implements RitualResult {
 
     public static final MapCodec<UpgradeTierResult> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            ExtraCodecs.intRange(1, 5).fieldOf("result_tier").forGetter(UpgradeTierResult::resultTier)
+            HephaestusForgeLevel.CODEC.fieldOf("result_tier").forGetter(UpgradeTierResult::resultTier)
     ).apply(instance, UpgradeTierResult::new));
 
     @Override
@@ -33,7 +32,7 @@ public record UpgradeTierResult(int resultTier) implements RitualResult {
     public void executeLevelEffect(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
 
-        level.setBlockAndUpdate(pos, state.setValue(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.getFromIndex(resultTier)));
+        level.setBlockAndUpdate(pos, state.setValue(ModBlockStateProperties.FORGE_TIER, this.resultTier));
 
         CrimsonLightningBoltEntity entity = ModEntities.CRIMSON_LIGHTNING_BOLT.get().create(level, EntitySpawnReason.EVENT);
 
