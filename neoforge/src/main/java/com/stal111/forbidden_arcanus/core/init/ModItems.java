@@ -85,7 +85,7 @@ public class ModItems implements RegistryClass {
 
     public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_AUREAL_TANK));
 
-    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE.get(), properties), Item.Properties::new);
+    public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE.get(), properties), () -> new Item.Properties().useBlockDescriptionPrefix());
 
     public static final ItemRegistryEntry<BlockItem> UTREM_JAR = HELPER.register("utrem_jar", (properties) -> new BlockItem(ModBlocks.UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID));
     public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", (properties) -> new BlockItem(ModBlocks.ESSENCE_UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID).component(ModDataComponents.EMPTY_ITEM, ModItems.UTREM_JAR));
