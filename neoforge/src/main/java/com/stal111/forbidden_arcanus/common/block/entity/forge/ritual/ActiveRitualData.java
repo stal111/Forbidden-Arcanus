@@ -3,12 +3,12 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.core.UUIDUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.UUID;
 
 /**
  * This class represents the data for an active ritual.
@@ -23,20 +23,20 @@ public class ActiveRitualData {
             Ritual.CODEC.fieldOf("ritual").forGetter(data -> data.ritual),
             Codec.INT.fieldOf("counter").forGetter(data -> data.counter),
             Codec.INT.fieldOf("lightning_counter").forGetter(data -> data.lightningCounter),
-            UUIDUtil.CODEC.fieldOf("started_by").forGetter(data -> data.startedBy)
+            EntityReference.<ServerPlayer>codec().fieldOf("started_by").forGetter(data -> data.startedBy)
     ).apply(instance, ActiveRitualData::new));
 
     private final Holder<Ritual> ritual;
     private int counter;
     private int lightningCounter;
-    private final UUID startedBy;
+    private final EntityReference<ServerPlayer> startedBy;
 
     /**
      * @param ritual The ritual being performed
      * @param counter A counter for the ritual
      * @param lightningCounter A counter for the lightning
      */
-    public ActiveRitualData(Holder<Ritual> ritual, int counter, int lightningCounter, UUID startedBy) {
+    public ActiveRitualData(Holder<Ritual> ritual, int counter, int lightningCounter, EntityReference<ServerPlayer> startedBy) {
         this.ritual = ritual;
         this.counter = counter;
         this.lightningCounter = lightningCounter;
@@ -49,8 +49,8 @@ public class ActiveRitualData {
      * @param ritual The ritual being performed
      * @return A new ActiveRitualData instance
      */
-    public static ActiveRitualData create(Holder<Ritual> ritual, UUID startedBy) {
-        return new ActiveRitualData(ritual, 0, 0, startedBy);
+    public static ActiveRitualData create(Holder<Ritual> ritual, ServerPlayer startedBy) {
+        return new ActiveRitualData(ritual, 0, 0, EntityReference.of(startedBy));
     }
 
     /**
@@ -97,8 +97,8 @@ public class ActiveRitualData {
         this.lightningCounter++;
     }
 
-    public UUID getStartedBy() {
-        return this.startedBy;
+    public ServerPlayer getStartedBy(Level level) {
+        return EntityReference.get(this.startedBy, level, ServerPlayer.class);
     }
 
     @Nullable

@@ -23,7 +23,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.storage.ValueInput;
@@ -34,7 +33,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -87,7 +85,7 @@ public class RitualManager {
         return Optional.ofNullable(this.activeRitualData);
     }
 
-    private void setActiveRitual(@Nullable Holder<Ritual> ritual, UUID startedBy) {
+    private void setActiveRitual(@Nullable Holder<Ritual> ritual, @Nullable ServerPlayer startedBy) {
         this.activeRitualData = ritual != null ? ActiveRitualData.create(ritual, startedBy) : null;
 
         int duration = ritual != null ? ritual.value().duration() : 0;
@@ -145,11 +143,11 @@ public class RitualManager {
         return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.mainIngredientInventory.getStack(), this.forgeTier);
     }
 
-    public boolean startRitual(ServerPlayer player, EssenceAccess essenceAccess) {
+    public boolean startRitual(ServerLevel level, BlockPos pos, ServerPlayer player, EssenceAccess essenceAccess) {
         return this.getValidRitual().map(ritual -> {
-            this.setActiveRitual(ritual, player.getUUID());
+            this.setActiveRitual(ritual, player);
 
-            this.magicCircleController.createMagicCircle(this.level, this.pos, ritual.value().magicCircleType());
+            this.magicCircleController.createMagicCircle(level, pos, ritual.value().magicCircleType());
 
             essenceAccess.removeEssences(ritual.value().requirements().essences());
 
@@ -164,10 +162,8 @@ public class RitualManager {
     public void finishRitual(ActiveRitualData data) {
         this.reset();
 
-        Player player = level.getPlayerByUUID(data.getStartedBy());
-
-        if (player instanceof ServerPlayer serverPlayer && data.getRitualId() != null) {
-            FACriteriaTriggers.RITUAL.get().trigger(serverPlayer, data.getRitualId());
+        if (data.getRitualId() != null) {
+            FACriteriaTriggers.RITUAL.get().trigger(data.getStartedBy(this.level), data.getRitualId());
         }
 
         RitualResult result = data.getRitual().result();
