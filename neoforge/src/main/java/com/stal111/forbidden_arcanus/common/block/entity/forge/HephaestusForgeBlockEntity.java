@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircl
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.ProgressRitualTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
@@ -80,7 +81,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     private final List<TickEffect> tickEffects = new ArrayList<>();
 
     private ForgeDataCache dataCache;
-    private HephaestusForgeLevel forgeLevel = HephaestusForgeLevel.ONE;
+    private HephaestusForgeLevel forgeLevel;
 
     public boolean hasValidRitualIndicator;
     private int displayCounter;
@@ -132,13 +133,14 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         };
 
         this.forgeLevel = state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE);
-        this.dataCache = new ForgeDataCache(new ArrayList<>(), ItemStack.EMPTY, List.of());
-        this.ritualManager = new RitualManager(this.magicCircleController, this.forgeLevel.getAsInt(), this.dataCache);
+        this.dataCache = new ForgeDataCache(new ArrayList<>(), List.of());
+        this.ritualManager = new RitualManager(this.magicCircleController, this.mainSlotInventory, this.forgeLevel.getAsInt(), this.dataCache);
 
         this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
 
         this.tickEffects.add(CollectBloodTickEffect.create(this));
         this.tickEffects.add(new UpdateBlockStateTickEffect());
+        this.tickEffects.add(new ProgressRitualTickEffect(this.ritualManager, this.dataCache));
     }
 
     @Override
@@ -180,8 +182,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
                 effect.tick(level, pos, state);
             }
         }
-
-        blockEntity.ritualManager.tick().ifPresent(blockEntity.mainSlotInventory::setStack);
     }
 
     @Override
@@ -376,7 +376,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
         this.essenceStorage = this.essenceStorage.updateEssence(type, updater);
 
-        this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot(), this.mainSlotInventory.getStack(), this.level.registryAccess());
+        this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot(), this.level.registryAccess());
     }
 
     @Override

@@ -16,20 +16,15 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 01.06.2024
  */
-public record ForgeDataCache(ArrayList<IngredientEntry> cachedIngredients, ItemStack mainIngredient, List<Holder<EnhancerDefinition>> enhancers) {
+public record ForgeDataCache(ArrayList<IngredientEntry> cachedIngredients, List<Holder<EnhancerDefinition>> enhancers) {
 
     public static final Codec<ForgeDataCache> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             IngredientEntry.CODEC.listOf().xmap(ArrayList::new, UnaryOperator.identity()).fieldOf("ingredients").forGetter(ForgeDataCache::cachedIngredients),
-            ItemStack.OPTIONAL_CODEC.fieldOf("main_ingredient").forGetter(ForgeDataCache::mainIngredient),
             EnhancerDefinition.CODEC.listOf().fieldOf("enhancers").forGetter(ForgeDataCache::enhancers)
     ).apply(instance, ForgeDataCache::new));
 
-    public ForgeDataCache setMainIngredient(ItemStack mainIngredient) {
-        return new ForgeDataCache(this.cachedIngredients, mainIngredient, this.enhancers);
-    }
-
     public ForgeDataCache setEnhancers(List<Holder<EnhancerDefinition>> enhancers) {
-        return new ForgeDataCache(this.cachedIngredients, this.mainIngredient, enhancers);
+        return new ForgeDataCache(this.cachedIngredients, enhancers);
     }
 
     public HolderSet<EnhancerDefinition> getEnhancers() {
