@@ -234,7 +234,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
         this.dataCache.setIngredient(pos, stack);
 
-        this.onDataChanged(this.level.registryAccess());
+        this.onDataChanged();
     }
 
     private Optional<HephaestusForgeInput> getInput(Level level, ItemStack stack, EssenceType essenceType) {
@@ -365,8 +365,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         return new HephaestusForgeMenu(containerId, this.mainSlotInventory, this.enhancerInventory, this.essenceInputInventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
     }
 
-    private void onDataChanged(HolderLookup.Provider lookupProvider) {
-        this.ritualManager.onDataChanged(this.dataCache, this.mainSlotInventory.getStack(), this.essenceStorage.getSnapshot(), lookupProvider);
+    private void onDataChanged() {
+        this.ritualManager.onDataChanged(this.dataCache, this.mainSlotInventory.getStack(), this.essenceStorage.getSnapshot());
     }
 
     @Override
@@ -378,7 +378,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
         this.essenceStorage = this.essenceStorage.updateEssence(type, updater);
 
-        this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot(), this.level.registryAccess());
+        this.ritualManager.updateValidRitual(this.essenceStorage.getSnapshot());
     }
 
     @Override

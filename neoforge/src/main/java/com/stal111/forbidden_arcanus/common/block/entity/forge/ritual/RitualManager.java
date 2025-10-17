@@ -15,7 +15,6 @@ import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -95,7 +94,7 @@ public class RitualManager {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void onDataChanged(ForgeDataCache dataCache, ItemStack mainIngredient, EssenceSet essenceSet, HolderLookup.Provider lookupProvider) {
+    public void onDataChanged(ForgeDataCache dataCache, ItemStack mainIngredient, EssenceSet essenceSet) {
         this.dataCache = dataCache;
 
         this.getActiveRitualData().ifPresent(data -> {
@@ -104,13 +103,13 @@ public class RitualManager {
             }
         });
 
-        this.updateValidRitual(essenceSet, lookupProvider);
+        this.updateValidRitual(essenceSet);
     }
 
-    public void updateValidRitual(EssenceSet definition, HolderLookup.Provider lookupProvider) {
+    public void updateValidRitual(EssenceSet definition) {
         boolean oldValue = this.validRitual != null;
 
-        for (Holder<Ritual> ritual : lookupProvider.lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
+        for (Holder<Ritual> ritual : this.level.registryAccess().lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
             if (this.canStartRitual(ritual.value(), definition)) {
                 if (!oldValue) {
                     this.updateRitualIndicator(true);
