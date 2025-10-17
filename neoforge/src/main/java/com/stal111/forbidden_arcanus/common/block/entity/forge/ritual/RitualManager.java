@@ -8,8 +8,8 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitua
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
-import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
@@ -107,14 +107,15 @@ public class RitualManager {
             this.failRitual();
         }
 
-        this.updateValidRitual(state.essenceSet());
+        this.updateValidRitual(state);
     }
 
-    private void updateValidRitual(EssenceSet definition) {
+    private void updateValidRitual(HephaestusForgeState state) {
         boolean oldValue = this.validRitual != null;
+        List<EssenceModifier> essenceModifiers = EnhancerHelper.getEssenceModifiers(state.enhancers(), EnhancerTarget.HEPHAESTUS_FORGE);
 
         for (Holder<Ritual> ritual : this.level.registryAccess().lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
-            if (this.canStartRitual(ritual.value(), definition)) {
+            if (ritual.value().canStart(state, essenceModifiers)) {
                 if (!oldValue) {
                     this.indicatorController.changeVisibility(this.level, this.pos, true);
                 }
@@ -130,18 +131,6 @@ public class RitualManager {
         if (oldValue) {
             this.indicatorController.changeVisibility(this.level, this.pos, false);
         }
-    }
-
-    private boolean canStartRitual(Ritual ritual, EssenceSet definition) {
-        List<EssenceModifier> modifiers = this.dataCache.getEnhancers().stream()
-                .flatMap(enhancerDefinition -> enhancerDefinition.value().getEffects(EnhancerTarget.HEPHAESTUS_FORGE))
-                .filter(effect -> effect instanceof EssenceModifier)
-                .map(effect -> (EssenceModifier) effect)
-                .toList();
-
-        EssenceSet updatedEssences = ritual.requirements().essences().applyModifiers(modifiers);
-
-        return definition.hasMoreThan(updatedEssences) && ritual.canStart(this.dataCache, this.mainIngredientInventory.getStack(), this.forgeTier);
     }
 
     public boolean startRitual(ServerLevel level, BlockPos pos, ServerPlayer player, EssenceAccess essenceAccess) {

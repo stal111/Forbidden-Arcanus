@@ -2,9 +2,10 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
+import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
+import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
@@ -76,12 +77,15 @@ public record Ritual(List<RitualInput> inputs,
         return new Ritual(inputs, mainIngredient, result, requirements, null, duration);
     }));
 
-    public boolean canStart(ForgeDataCache dataCache, ItemStack mainIngredient, int forgeTier) {
-        if (!this.requirements.checkRequirements(forgeTier, dataCache.getEnhancers())) {
+    public boolean canStart(HephaestusForgeState state, List<EssenceModifier> essenceModifiers) {
+        //TODO: refactor predicate to use HephaestusForgeLevel directly
+        if (!this.requirements.checkRequirements(state.tier().getAsInt(), state.enhancers())) {
             return false;
         }
 
-        return this.checkIngredients(dataCache.getIngredients(), mainIngredient);
+        EssenceSet updatedEssences = this.requirements().essences().applyModifiers(essenceModifiers);
+
+        return state.essenceSet().hasMoreThan(updatedEssences) && this.checkIngredients(state.pedestalItems(), state.mainItem());
     }
 
     public boolean checkIngredients(Collection<ItemStack> list, ItemStack mainIngredient) {

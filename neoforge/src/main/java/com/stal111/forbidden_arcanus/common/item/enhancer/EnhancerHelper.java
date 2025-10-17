@@ -1,12 +1,15 @@
 package com.stal111.forbidden_arcanus.common.item.enhancer;
 
+import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,5 +34,13 @@ public class EnhancerHelper {
         });
 
         return stack;
+    }
+
+    public static List<EssenceModifier> getEssenceModifiers(HolderSet<EnhancerDefinition> enhancers, EnhancerTarget target) {
+        return enhancers.stream()
+                .flatMap(enhancerDefinition -> enhancerDefinition.value().getEffects(target))
+                .filter(effect -> effect instanceof EssenceModifier)
+                .map(effect -> (EssenceModifier) effect)
+                .toList();
     }
 }

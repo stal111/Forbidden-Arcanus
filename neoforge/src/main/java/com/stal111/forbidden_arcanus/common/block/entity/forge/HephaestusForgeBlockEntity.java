@@ -368,7 +368,13 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public HephaestusForgeState getCurrenState() {
-        return new HephaestusForgeState(this.mainSlotInventory.getStack(), this.dataCache.getIngredients(), this.essenceStorage.getSnapshot());
+        return new HephaestusForgeState(
+                this.forgeLevel,
+                this.mainSlotInventory.getStack(),
+                this.dataCache.getIngredients(),
+                this.dataCache.getEnhancers(),
+                this.essenceStorage.getSnapshot()
+        );
     }
 
     @Override
