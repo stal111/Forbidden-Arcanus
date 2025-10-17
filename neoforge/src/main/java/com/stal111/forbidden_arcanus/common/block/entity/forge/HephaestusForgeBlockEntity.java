@@ -135,7 +135,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
         this.forgeLevel = state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE);
         this.dataCache = new ForgeDataCache(new ArrayList<>(), List.of());
-        this.ritualManager = new RitualManager(this.indicatorController, this.magicCircleController, this.mainSlotInventory, this.forgeLevel.getAsInt(), this.dataCache);
+        this.ritualManager = new RitualManager(this.indicatorController, this.magicCircleController, this.mainSlotInventory, this.dataCache);
 
         this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
 
@@ -249,8 +249,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public void setForgeLevel(HephaestusForgeLevel level) {
         this.forgeLevel = level;
-
-        this.ritualManager.setForgeTier(level.getAsInt());
 
         for (EssenceType type : EssenceType.values()) {
             this.setEssenceLimit(type, level.getMaxAmount(type));

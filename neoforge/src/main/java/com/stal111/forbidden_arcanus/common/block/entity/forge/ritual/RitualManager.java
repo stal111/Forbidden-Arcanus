@@ -54,26 +54,20 @@ public class RitualManager {
 
     private ServerLevel level;
     private BlockPos pos;
-    private int forgeTier;
 
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
 
-    public RitualManager(ValidRitualIndicatorController indicatorController, MagicCircleController circleController, SingleItemResourceHandler mainIngredientInventory, int forgeTier, ForgeDataCache dataCache) {
+    public RitualManager(ValidRitualIndicatorController indicatorController, MagicCircleController circleController, SingleItemResourceHandler mainIngredientInventory, ForgeDataCache dataCache) {
         this.indicatorController = indicatorController;
         this.magicCircleController = circleController;
         this.mainIngredientInventory = mainIngredientInventory;
-        this.forgeTier = forgeTier;
         this.dataCache = dataCache;
     }
 
     public void setup(ServerLevel level, BlockPos pos) {
         this.level = level;
         this.pos = pos;
-    }
-
-    public void setForgeTier(int forgeTier) {
-        this.forgeTier = forgeTier;
     }
 
     public Optional<Holder<Ritual>> getValidRitual() {
