@@ -2,10 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -16,20 +13,11 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 01.06.2024
  */
-public record ForgeDataCache(ArrayList<IngredientEntry> cachedIngredients, List<Holder<EnhancerDefinition>> enhancers) {
+public record ForgeDataCache(ArrayList<IngredientEntry> cachedIngredients) {
 
     public static final Codec<ForgeDataCache> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            IngredientEntry.CODEC.listOf().xmap(ArrayList::new, UnaryOperator.identity()).fieldOf("ingredients").forGetter(ForgeDataCache::cachedIngredients),
-            EnhancerDefinition.CODEC.listOf().fieldOf("enhancers").forGetter(ForgeDataCache::enhancers)
+            IngredientEntry.CODEC.listOf().xmap(ArrayList::new, UnaryOperator.identity()).fieldOf("ingredients").forGetter(ForgeDataCache::cachedIngredients)
     ).apply(instance, ForgeDataCache::new));
-
-    public ForgeDataCache setEnhancers(List<Holder<EnhancerDefinition>> enhancers) {
-        return new ForgeDataCache(this.cachedIngredients, enhancers);
-    }
-
-    public HolderSet<EnhancerDefinition> getEnhancers() {
-        return HolderSet.direct(UnaryOperator.identity(), this.enhancers);
-    }
 
     public void setIngredient(BlockPos pos, ItemStack stack) {
         this.cachedIngredients.removeIf(entry -> entry.pos().equals(pos));
