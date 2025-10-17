@@ -94,19 +94,21 @@ public class RitualManager {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void onDataChanged(ForgeDataCache dataCache, ItemStack mainIngredient, EssenceSet essenceSet) {
+    public void onDataChanged(ForgeDataCache dataCache, HephaestusForgeState state) {
         this.dataCache = dataCache;
 
-        this.getActiveRitualData().ifPresent(data -> {
-            if (!data.isStillValid(mainIngredient, this.dataCache.getIngredients())) {
-                this.failRitual();
+        if (this.activeRitualData != null) {
+            if (this.activeRitualData.isStillValid(state.mainItem(), state.pedestalItems())) {
+                return;
             }
-        });
 
-        this.updateValidRitual(essenceSet);
+            this.failRitual();
+        }
+
+        this.updateValidRitual(state.essenceSet());
     }
 
-    public void updateValidRitual(EssenceSet definition) {
+    private void updateValidRitual(EssenceSet definition) {
         boolean oldValue = this.validRitual != null;
 
         for (Holder<Ritual> ritual : this.level.registryAccess().lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
