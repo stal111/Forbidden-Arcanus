@@ -16,7 +16,7 @@ public class MagicCircleController implements BlockEntityAgeAccess {
 
     private final int eventId;
 
-    private MagicCircleType magicCircleType;
+    private @Nullable MagicCircleType magicCircleType;
     private int ageInTicks;
 
     public MagicCircleController(int eventId) {
@@ -50,6 +50,7 @@ public class MagicCircleController implements BlockEntityAgeAccess {
                 .orElse(null);
     }
 
+    @Nullable
     public MagicCircleType getMagicCircleType() {
         return this.magicCircleType;
     }

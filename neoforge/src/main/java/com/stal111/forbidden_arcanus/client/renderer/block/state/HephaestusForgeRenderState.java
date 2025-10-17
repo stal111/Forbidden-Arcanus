@@ -10,5 +10,4 @@ public class HephaestusForgeRenderState extends BlockEntityRenderState {
     public ValidRitualIndicatorRenderState validRitualIndicatorRenderState;
     public MagicCircleRenderState magicCircleRenderState;
     public float ageInTicks;
-    public boolean isValidRitual;
 }

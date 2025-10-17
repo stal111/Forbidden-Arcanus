@@ -57,21 +57,15 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 
         renderState.itemStackRenderState = itemStackRenderState;
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
-        renderState.isValidRitual = blockEntity.hasValidRitualIndicator;
 
-        renderState.validRitualIndicatorRenderState = new ValidRitualIndicatorRenderState(renderState.lightCoords, blockEntity.validRitualIndicatorCounter);
+        renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.getIndicatorController(), partialTick);
         renderState.magicCircleRenderState = MagicCircleRenderState.create(renderState.lightCoords, blockEntity.clientRitualDuration, blockEntity.getMagicCircleController(), partialTick);
     }
 
     @Override
     public void submit(HephaestusForgeRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
-        if (renderState.magicCircleRenderState.magicCircleType != null) {
-            this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector, cameraRenderState);
-        }
-
-        if (renderState.isValidRitual) {
-            this.validRitualIndicatorRenderer.submit(renderState.validRitualIndicatorRenderState, poseStack, nodeCollector, cameraRenderState);
-        }
+        this.validRitualIndicatorRenderer.submit(renderState.validRitualIndicatorRenderState, poseStack, nodeCollector, cameraRenderState);
+        this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector, cameraRenderState);
 
         if (!renderState.itemStackRenderState.isEmpty()) {
             poseStack.pushPose();
@@ -103,6 +97,6 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     public boolean useExpandedRenderBoundingBox(HephaestusForgeBlockEntity blockEntity) {
-        return blockEntity.getRitualManager().isRitualActive() || blockEntity.hasValidRitualIndicator;
+        return blockEntity.getRitualManager().isRitualActive() || blockEntity.getIndicatorController().hasIndicator();
     }
 }

@@ -2,9 +2,10 @@ package com.stal111.forbidden_arcanus.client.renderer.effect.state;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
+import org.jetbrains.annotations.Nullable;
 
 public class MagicCircleRenderState {
-    public MagicCircleType magicCircleType;
+    public @Nullable MagicCircleType magicCircleType;
     public int lightCoords;
     public float ageInTicks;
     public int duration;

@@ -31,6 +31,10 @@ public class MagicCircleRenderer {
     }
 
     public void submit(MagicCircleRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+        if (renderState.magicCircleType == null) {
+            return;
+        }
+
         float progress = renderState.ageInTicks / renderState.duration;
         Material outerTexture = MAPPER.apply(renderState.magicCircleType.outerTexture());
         Material innerTexture = MAPPER.apply(renderState.magicCircleType.innerTexture());

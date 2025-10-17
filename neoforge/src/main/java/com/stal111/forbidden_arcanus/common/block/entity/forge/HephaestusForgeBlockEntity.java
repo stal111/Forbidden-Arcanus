@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitualIndicatorController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.HephaestusForgeState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
@@ -75,6 +76,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     private final ContainerData hephaestusForgeData;
     private final RitualManager ritualManager;
+    private final ValidRitualIndicatorController indicatorController = new ValidRitualIndicatorController(UPDATE_RITUAL_INDICATOR);
     private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
 
     private MultiEssenceStorage essenceStorage;
@@ -84,10 +86,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     private ForgeDataCache dataCache;
     private HephaestusForgeLevel forgeLevel;
 
-    public boolean hasValidRitualIndicator;
     private int displayCounter;
     public int clientRitualDuration;
-    public int validRitualIndicatorCounter;
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
     private final SingleItemResourceHandler mainSlotInventory = new SingleItemResourceHandler(stack -> {
@@ -135,7 +135,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
         this.forgeLevel = state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE);
         this.dataCache = new ForgeDataCache(new ArrayList<>(), List.of());
-        this.ritualManager = new RitualManager(this.magicCircleController, this.mainSlotInventory, this.forgeLevel.getAsInt(), this.dataCache);
+        this.ritualManager = new RitualManager(this.indicatorController, this.magicCircleController, this.mainSlotInventory, this.forgeLevel.getAsInt(), this.dataCache);
 
         this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
 
@@ -154,11 +154,9 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
+        blockEntity.indicatorController.tick();
         blockEntity.magicCircleController.tick();
 
-        if (blockEntity.hasValidRitualIndicator) {
-            blockEntity.validRitualIndicatorCounter++;
-        }
         blockEntity.displayCounter++;
     }
 
@@ -190,7 +188,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     @Override
     public boolean triggerEvent(int id, int value) {
         if (id == UPDATE_RITUAL_INDICATOR) {
-            this.updateValidRitualIndicator(value == 1);
+            this.indicatorController.updateIndicator(value == 1);
 
             return true;
         } else if (id == UPDATE_MAGIC_CIRCLE) {
@@ -263,13 +261,12 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         return this.hephaestusForgeData;
     }
 
-    public MagicCircleController getMagicCircleController() {
-        return this.magicCircleController;
+    public ValidRitualIndicatorController getIndicatorController() {
+        return this.indicatorController;
     }
 
-    private void updateValidRitualIndicator(boolean showIndicator) {
-        this.hasValidRitualIndicator = showIndicator;
-        this.validRitualIndicatorCounter = 0;
+    public MagicCircleController getMagicCircleController() {
+        return this.magicCircleController;
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
@@ -345,7 +342,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void handleUpdateTag(ValueInput input) {
         super.handleUpdateTag(input);
 
-        this.updateValidRitualIndicator(input.getBooleanOr("display_valid_ritual_indicator", false));
+        this.indicatorController.updateIndicator(input.getBooleanOr("display_valid_ritual_indicator", false));
 
         this.clientMainItem = input.read("main_item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }

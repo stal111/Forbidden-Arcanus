@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitualIndicatorController;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
@@ -25,7 +26,6 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -46,6 +46,7 @@ public class RitualManager {
 
     public static final int PEDESTAL_ITEM_HEIGHT = 140;
 
+    private final ValidRitualIndicatorController indicatorController;
     private final MagicCircleController magicCircleController;
     private final SingleItemResourceHandler mainIngredientInventory;
 
@@ -58,7 +59,8 @@ public class RitualManager {
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
 
-    public RitualManager(MagicCircleController circleController, SingleItemResourceHandler mainIngredientInventory, int forgeTier, ForgeDataCache dataCache) {
+    public RitualManager(ValidRitualIndicatorController indicatorController, MagicCircleController circleController, SingleItemResourceHandler mainIngredientInventory, int forgeTier, ForgeDataCache dataCache) {
+        this.indicatorController = indicatorController;
         this.magicCircleController = circleController;
         this.mainIngredientInventory = mainIngredientInventory;
         this.forgeTier = forgeTier;
@@ -114,7 +116,7 @@ public class RitualManager {
         for (Holder<Ritual> ritual : this.level.registryAccess().lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
             if (this.canStartRitual(ritual.value(), definition)) {
                 if (!oldValue) {
-                    this.updateRitualIndicator(true);
+                    this.indicatorController.changeVisibility(this.level, this.pos, true);
                 }
 
                 this.validRitual = ritual;
@@ -125,8 +127,8 @@ public class RitualManager {
 
         this.validRitual = null;
 
-        if (oldValue && !this.isRitualActive()) {
-            this.updateRitualIndicator(false);
+        if (oldValue) {
+            this.indicatorController.changeVisibility(this.level, this.pos, false);
         }
     }
 
@@ -191,7 +193,7 @@ public class RitualManager {
         this.validRitual = null;
         this.setActiveRitual(null, null);
         this.magicCircleController.removeMagicCircle(this.level, this.pos);
-        this.updateRitualIndicator(false);
+        this.indicatorController.changeVisibility(this.level, this.pos, false);
         this.clearPedestals();
     }
 
@@ -215,12 +217,6 @@ public class RitualManager {
             if (this.level.getBlockEntity(entry.pos()) instanceof PedestalBlockEntity blockEntity && predicate.test(blockEntity)) {
                 consumer.accept(blockEntity);
             }
-        }
-    }
-
-    private void updateRitualIndicator(boolean show) {
-        if (this.level != null) {
-            this.level.blockEvent(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_INDICATOR, BooleanUtils.toInteger(show));
         }
     }
 }

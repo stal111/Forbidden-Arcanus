@@ -29,6 +29,10 @@ public class ValidRitualIndicatorRenderer {
     }
 
     public void submit(ValidRitualIndicatorRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+        if (!renderState.isVisible) {
+            return;
+        }
+
         poseStack.pushPose();
 
         poseStack.translate(0.5D, 0.0002D, 0.5D);
