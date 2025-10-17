@@ -2,13 +2,20 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.advancements.critereon.FACriteriaTriggers;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * This class represents the data for an active ritual.
@@ -104,5 +111,21 @@ public class ActiveRitualData {
     @Nullable
     public ResourceLocation getRitualId() {
         return this.ritual.unwrapKey().map(ResourceKey::location).orElse(null);
+    }
+
+    public ItemStack finish(ServerLevel level, BlockPos pos, ItemStack mainIngredient) {
+        if (this.getRitualId() != null) {
+            FACriteriaTriggers.RITUAL.get().trigger(this.getStartedBy(level), this.getRitualId());
+        }
+
+        RitualResult result = this.getRitual().result();
+
+        result.executeLevelEffect(level, pos);
+
+        return result.getResultItem(mainIngredient);
+    }
+
+    public boolean isStillValid(ItemStack mainItem, List<ItemStack> pedestalItems) {
+        return this.getRitual().checkIngredients(pedestalItems, mainItem);
     }
 }

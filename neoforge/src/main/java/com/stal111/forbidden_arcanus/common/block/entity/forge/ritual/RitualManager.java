@@ -1,11 +1,9 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
-import com.stal111.forbidden_arcanus.common.advancements.critereon.FACriteriaTriggers;
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
@@ -101,7 +99,7 @@ public class RitualManager {
         this.dataCache = dataCache;
 
         this.getActiveRitualData().ifPresent(data -> {
-            if (!data.getRitual().checkIngredients(this.dataCache.getIngredients(), mainIngredient)) {
+            if (!data.isStillValid(mainIngredient, this.dataCache.getIngredients())) {
                 this.failRitual();
             }
         });
@@ -162,15 +160,9 @@ public class RitualManager {
     public void finishRitual(ActiveRitualData data) {
         this.reset();
 
-        if (data.getRitualId() != null) {
-            FACriteriaTriggers.RITUAL.get().trigger(data.getStartedBy(this.level), data.getRitualId());
-        }
+        ItemStack result = data.finish(this.level, this.pos, this.mainIngredientInventory.getStack());
 
-        RitualResult result = data.getRitual().result();
-
-        result.executeLevelEffect(this.level, this.pos);
-
-        this.mainIngredientInventory.setStack(result.getResultItem(this.mainIngredientInventory.getStack()));
+        this.mainIngredientInventory.setStack(result);
     }
 
     private void failRitual() {
