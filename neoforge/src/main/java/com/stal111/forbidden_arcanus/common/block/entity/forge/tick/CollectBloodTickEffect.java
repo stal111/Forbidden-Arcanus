@@ -5,8 +5,8 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -22,7 +22,7 @@ public record CollectBloodTickEffect(EssenceAccess essenceAccess,
     }
 
     @Override
-    public void tick(Level level, BlockPos pos, BlockState state) {
+    public void tick(ServerLevel level, BlockPos pos, BlockState state) {
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(ENTITY_CHECK_RADIUS));
 
         for (LivingEntity entity : entities) {

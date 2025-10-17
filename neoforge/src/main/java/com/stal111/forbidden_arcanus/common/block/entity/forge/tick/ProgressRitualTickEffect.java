@@ -26,7 +26,7 @@ public class ProgressRitualTickEffect implements TickEffect {
     }
 
     @Override
-    public void tick(Level level, BlockPos pos, BlockState state) {
+    public void tick(ServerLevel level, BlockPos pos, BlockState state) {
         ActiveRitualData data = ritualManager.getActiveRitualData().orElse(null);
 
         if (data == null) {

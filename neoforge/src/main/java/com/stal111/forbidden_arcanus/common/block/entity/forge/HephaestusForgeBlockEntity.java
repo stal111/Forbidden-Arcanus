@@ -177,9 +177,11 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             });
         }
 
-        for (TickEffect effect : blockEntity.tickEffects) {
-            if (level.getGameTime() % effect.getTickInterval() == 0) {
-                effect.tick(level, pos, state);
+        if (level instanceof ServerLevel serverLevel) {
+            for (TickEffect effect : blockEntity.tickEffects) {
+                if (serverLevel.getGameTime() % effect.getTickInterval() == 0) {
+                    effect.tick(serverLevel, pos, state);
+                }
             }
         }
     }
