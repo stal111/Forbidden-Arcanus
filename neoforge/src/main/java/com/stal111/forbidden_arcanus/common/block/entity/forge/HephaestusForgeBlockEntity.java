@@ -96,8 +96,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         }
 
-        this.onDataChanged();
-
         this.setChanged();
     });
     private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
@@ -244,7 +242,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
         this.pedestalItems.put(pos, stack);
 
-        this.onDataChanged();
+        this.setChanged();
     }
 
     private Optional<HephaestusForgeInput> getInput(Level level, ItemStack stack, EssenceType essenceType) {
@@ -362,8 +360,13 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         return new HephaestusForgeMenu(containerId, this.mainSlotInventory, this.enhancerInventory, this.essenceInputInventory, this.getHephaestusForgeData(), ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory, this.forgeLevel);
     }
 
-    private void onDataChanged() {
-        this.ritualManager.onDataChanged(this.getCurrenState());
+    @Override
+    public void setChanged() {
+        super.setChanged();
+
+        if (this.level != null && !this.level.isClientSide()) {
+            this.ritualManager.onDataChanged(this.getCurrenState());
+        }
     }
 
     public HephaestusForgeState getCurrenState() {
@@ -385,7 +388,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
         this.essenceStorage = this.essenceStorage.updateEssence(type, updater);
 
-        this.onDataChanged();
+        this.setChanged();
     }
 
     @Override
