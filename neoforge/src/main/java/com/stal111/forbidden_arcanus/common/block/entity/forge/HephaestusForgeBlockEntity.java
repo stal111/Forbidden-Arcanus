@@ -31,6 +31,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -152,6 +153,15 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         if (level instanceof ServerLevel serverLevel) {
             this.ritualManager.setup(serverLevel, this.getBlockPos());
         }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        super.preRemoveSideEffects(pos, state);
+
+        Containers.dropItemStack(this.level, pos.getX(), pos.getY(), pos.getZ(), this.mainSlotInventory.getStack());
+        Containers.dropContents(this.level, pos, this.enhancerInventory.copyToList());
+        Containers.dropContents(this.level, pos, this.essenceInputInventory.copyToList());
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
