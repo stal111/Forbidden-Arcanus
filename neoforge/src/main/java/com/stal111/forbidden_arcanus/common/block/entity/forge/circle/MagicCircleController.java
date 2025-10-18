@@ -31,6 +31,7 @@ public class MagicCircleController implements BlockEntityAgeAccess {
 
     public void handleEvent(@Nullable Level level, BlockPos pos, int type) {
         this.magicCircleType = level != null ? this.getMagicCircleFromRegistry(level, pos, type) : null;
+        this.ageInTicks = 0;
     }
 
     public void createMagicCircle(ServerLevel level, BlockPos pos, Holder<MagicCircleType> type) {
