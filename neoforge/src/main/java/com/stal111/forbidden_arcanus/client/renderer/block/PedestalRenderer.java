@@ -53,7 +53,7 @@ public record PedestalRenderer(ItemModelResolver itemModelResolver) implements B
         if (!renderState.itemStackRenderState.isEmpty()) {
             poseStack.pushPose();
 
-            poseStack.translate(0.5D, renderState.itemHeight / 100.0F, 0.5D);
+            poseStack.translate(0.5D, renderState.itemHeight, 0.5D);
             poseStack.mulPose(Axis.YP.rotation(ItemEntity.getSpin(renderState.ageInTicks, renderState.hoverStart)));
 
             poseStack.scale(0.5F, 0.5F, 0.5F);

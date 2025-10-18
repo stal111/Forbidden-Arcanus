@@ -10,5 +10,6 @@ public enum PedestalEffectTrigger {
     RITUAL_FINISHED,
     MAGNETIZED_PICKUP,
     ENTITY_SUMMONED,
-    LOAD
+    LOAD,
+    REMOVED
 }

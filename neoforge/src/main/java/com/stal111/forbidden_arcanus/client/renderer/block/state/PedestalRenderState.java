@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 public class PedestalRenderState extends BlockEntityRenderState {
     public ItemStackRenderState itemStackRenderState;
-    public int itemHeight;
+    public float itemHeight;
     public float ageInTicks;
     public float hoverStart;
 }

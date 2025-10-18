@@ -64,6 +64,17 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner, Block
     }
 
     @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        super.preRemoveSideEffects(pos, state);
+
+        if (this.hasStack()) {
+            this.level.addFreshEntity(new ItemEntity(this.level, pos.getX() + 0.5, pos.getY() + this.getItemHeight(), pos.getZ() + 0.5, this.getStack()));
+
+            this.setStack(ItemStack.EMPTY, null, PedestalEffectTrigger.REMOVED);
+        }
+    }
+
+    @Override
     public void onLoad() {
         super.onLoad();
 
@@ -104,8 +115,8 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner, Block
         this.setStack(ItemStack.EMPTY, player, trigger);
     }
 
-    public int getItemHeight() {
-        return this.itemHeight;
+    public float getItemHeight() {
+        return this.itemHeight / 100.0F;
     }
 
     public void setItemHeightTarget(int heightTarget) {
