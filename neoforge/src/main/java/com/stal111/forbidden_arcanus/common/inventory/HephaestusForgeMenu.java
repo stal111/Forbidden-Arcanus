@@ -71,17 +71,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 2, 176 + 2, 25));
         this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 3, 176 + 2, 43));
 
-        // Inventory Slots
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-
-        // Hotbar Slots
-        for (int k = 0; k < 9; ++k) {
-            this.addSlot(new Slot(inventory, k, 8 + k * 18, 142));
-        }
+        this.addStandardInventorySlots(inventory, 8, 84);
     }
 
     private void addEnhancerSlot(ItemStacksResourceHandler handler, int index, int x, int y, int requiredLevel) {

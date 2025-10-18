@@ -95,6 +95,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         }
 
+        this.onDataChanged();
+
         this.setChanged();
     });
     private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
@@ -316,7 +318,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
         CompoundTag tag = this.saveWithoutMetadata(lookupProvider);
-        tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
+//        tag.putBoolean("display_valid_ritual_indicator", this.ritualManager.getValidRitual().isPresent());
 
         if (!this.mainSlotInventory.getStack().isEmpty()) {
             tag.store("main_item", ItemStack.CODEC, lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.mainSlotInventory.getStack());
@@ -329,7 +331,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void handleUpdateTag(ValueInput input) {
         super.handleUpdateTag(input);
 
-        this.indicatorController.updateIndicator(input.getBooleanOr("display_valid_ritual_indicator", false));
+//        this.indicatorController.updateIndicator(input.getBooleanOr("display_valid_ritual_indicator", false));
 
         this.clientMainItem = input.read("main_item", ItemStack.CODEC).orElse(net.minecraft.world.item.ItemStack.EMPTY);
     }
