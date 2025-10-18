@@ -83,7 +83,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     private final List<TickEffect> tickEffects = new ArrayList<>();
 
-    private ForgeDataCache dataCache;
+    private final Map<BlockPos, ItemStack> pedestalItems = new HashMap<>();
     private HephaestusForgeLevel forgeLevel;
 
     private int displayCounter;
@@ -134,14 +134,13 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         };
 
         this.forgeLevel = state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE);
-        this.dataCache = new ForgeDataCache(new ArrayList<>());
-        this.ritualManager = new RitualManager(this.indicatorController, this.magicCircleController, this.mainSlotInventory, this.dataCache);
+        this.ritualManager = new RitualManager(this.indicatorController, this.magicCircleController, this.mainSlotInventory, this.pedestalItems);
 
         this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
 
         this.tickEffects.add(CollectBloodTickEffect.create(this));
         this.tickEffects.add(new UpdateBlockStateTickEffect());
-        this.tickEffects.add(new ProgressRitualTickEffect(this.ritualManager, this.dataCache));
+        this.tickEffects.add(new ProgressRitualTickEffect(this.ritualManager, this.pedestalItems));
     }
 
     @Override
@@ -231,7 +230,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 //    }
 
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
-        this.dataCache.setIngredient(pos, stack);
+        this.pedestalItems.put(pos, stack);
 
         this.onDataChanged();
     }
@@ -294,8 +293,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
         this.getRitualManager().save(output);
         output.store("essences", MultiEssenceStorage.CODEC, this.essenceStorage);
-
-//        output.put("data_cache", ForgeDataCache.CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.dataCache).getOrThrow());
     }
 
     @Override
@@ -308,14 +305,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
         this.getRitualManager().load(input);
         this.essenceStorage = input.read("essences", MultiEssenceStorage.CODEC).orElse(MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences()));
-
-        //TODO
-//
-//        if (tag.contains("data_cache")) {
-//            ForgeDataCache.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag.get("data_cache")).result().ifPresent(forgeDataCache -> this.dataCache = forgeDataCache);
-//
-//            this.onDataChanged(lookupProvider);
-//        }
     }
 
     @Nullable
@@ -342,7 +331,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
         this.indicatorController.updateIndicator(input.getBooleanOr("display_valid_ritual_indicator", false));
 
-        this.clientMainItem = input.read("main_item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+        this.clientMainItem = input.read("main_item", ItemStack.CODEC).orElse(net.minecraft.world.item.ItemStack.EMPTY);
     }
 
     @Override
@@ -362,14 +351,14 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     private void onDataChanged() {
-        this.ritualManager.onDataChanged(this.dataCache, this.getCurrenState());
+        this.ritualManager.onDataChanged(this.getCurrenState());
     }
 
     public HephaestusForgeState getCurrenState() {
         return new HephaestusForgeState(
                 this.forgeLevel,
                 this.mainSlotInventory.getStack(),
-                this.dataCache.getIngredients(),
+                this.pedestalItems.values(),
                 this.enhancerInventory.getEnhancers(),
                 this.essenceStorage.getSnapshot()
         );

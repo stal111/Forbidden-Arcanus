@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ForgeDataCache;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitualIndicatorController;
@@ -29,6 +28,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -50,7 +50,7 @@ public class RitualManager {
     private final MagicCircleController magicCircleController;
     private final SingleItemResourceHandler mainIngredientInventory;
 
-    private ForgeDataCache dataCache;
+    private final Map<BlockPos, ItemStack> pedestalItems;
 
     private ServerLevel level;
     private BlockPos pos;
@@ -58,11 +58,11 @@ public class RitualManager {
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
 
-    public RitualManager(ValidRitualIndicatorController indicatorController, MagicCircleController circleController, SingleItemResourceHandler mainIngredientInventory, ForgeDataCache dataCache) {
+    public RitualManager(ValidRitualIndicatorController indicatorController, MagicCircleController circleController, SingleItemResourceHandler mainIngredientInventory, Map<BlockPos, ItemStack> pedestalItems) {
         this.indicatorController = indicatorController;
         this.magicCircleController = circleController;
         this.mainIngredientInventory = mainIngredientInventory;
-        this.dataCache = dataCache;
+        this.pedestalItems = pedestalItems;
     }
 
     public void setup(ServerLevel level, BlockPos pos) {
@@ -90,9 +90,7 @@ public class RitualManager {
         return this.level != null && this.getActiveRitualData().isPresent();
     }
 
-    public void onDataChanged(ForgeDataCache dataCache, HephaestusForgeState state) {
-        this.dataCache = dataCache;
-
+    public void onDataChanged(HephaestusForgeState state) {
         if (this.activeRitualData != null) {
             if (this.activeRitualData.isStillValid(state.mainItem(), state.pedestalItems())) {
                 return;
@@ -169,7 +167,7 @@ public class RitualManager {
     private void clearPedestals() {
         this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> blockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED));
 
-        this.dataCache.cachedIngredients().clear();
+        this.pedestalItems.clear();
     }
 
     private void reset() {
@@ -196,8 +194,8 @@ public class RitualManager {
     }
 
     private void forEachPedestal(Predicate<PedestalBlockEntity> predicate, Consumer<PedestalBlockEntity> consumer) {
-        for (ForgeDataCache.IngredientEntry entry : this.dataCache.cachedIngredients()) {
-            if (this.level.getBlockEntity(entry.pos()) instanceof PedestalBlockEntity blockEntity && predicate.test(blockEntity)) {
+        for (BlockPos pos : this.pedestalItems.keySet()) {
+            if (this.level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity && predicate.test(blockEntity)) {
                 consumer.accept(blockEntity);
             }
         }

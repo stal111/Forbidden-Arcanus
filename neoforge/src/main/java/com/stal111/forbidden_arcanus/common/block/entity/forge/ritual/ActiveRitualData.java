@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * This class represents the data for an active ritual.
@@ -125,7 +125,7 @@ public class ActiveRitualData {
         return result.getResultItem(mainIngredient);
     }
 
-    public boolean isStillValid(ItemStack mainItem, List<ItemStack> pedestalItems) {
+    public boolean isStillValid(ItemStack mainItem, Collection<ItemStack> pedestalItems) {
         return this.getRitual().checkIngredients(pedestalItems, mainItem);
     }
 }
