@@ -32,20 +32,6 @@ public class SingleItemResourceHandler extends ItemStackResourceHandler {
     @Override
     public void setStack(ItemStack stack) {
         this.stack = stack;
-
-        System.out.println("Server: " + (this.onChanged != NO_OP_CONSUMER));
-        System.out.println(stack);
-
-        this.onChanged.accept(stack);
-    }
-
-    @Override
-    protected void onRootCommit(ItemStack originalState) {
-        //THIS NEVER GETS CALLED
-        System.out.println("ROOT COMMIT");
-        super.onRootCommit(originalState);
-
-        this.onChanged.accept(stack);
     }
 
     @Override
@@ -70,5 +56,8 @@ public class SingleItemResourceHandler extends ItemStackResourceHandler {
         }
 
         this.setStack(resource.toStack(amount));
+
+        System.out.println("Set stack to " + this.stack);
+        this.onChanged.accept(this.stack);
     }
 }
