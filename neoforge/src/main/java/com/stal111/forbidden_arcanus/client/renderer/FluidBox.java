@@ -66,69 +66,84 @@ public class FluidBox {
 
     public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay) {
         nodeCollector.submitCustomGeometry(poseStack, RenderTypeHelper.getEntityRenderType(ChunkSectionLayer.TRANSLUCENT), (pose, builder) -> {
-            float x1 = (float) boundingBox.minX;
-            float x2 = (float) boundingBox.maxX;
-            float y1 = (float) boundingBox.minY;
-            float y2 = (float) boundingBox.maxY;
-            float z1 = (float) boundingBox.minZ;
-            float z2 = (float) boundingBox.maxZ;
-            float bx1 = (float) (boundingBox.minX);
-            float bx2 = (float) (boundingBox.maxX);
-            float by1 = (float) (boundingBox.minY);
-            float by2 = (float) (boundingBox.maxY);
-            float bz1 = (float) (boundingBox.minZ);
-            float bz2 = (float) (boundingBox.maxZ);
+            float minX = (float) boundingBox.minX;
+            float maxX = (float) boundingBox.maxX;
+            float minY = (float) boundingBox.minY;
+            float maxY = (float) boundingBox.maxY;
+            float minZ = (float) boundingBox.minZ;
+            float maxZ = (float) boundingBox.maxZ;
 
             for (Direction direction : Direction.values()) {
                 TextureAtlasSprite texture = direction.getAxis() == Direction.Axis.Y ? this.stillTexture : this.flowingTexture;
 
                 float scale = direction.getAxis() == Direction.Axis.Y ? 1.0F : 0.5F;
 
-                float u1 = texture.getU((direction.getAxis() == Direction.Axis.X ? by1 : bx1) * scale);
-                float u2 = texture.getU((direction.getAxis() == Direction.Axis.X ? by2 : bx2) * scale);
-                float v1 = texture.getV((direction.getAxis() == Direction.Axis.Z ? by1 : bz1) * scale);
-                float v2 = texture.getV((direction.getAxis() == Direction.Axis.Z ? by2 : bz2) * scale);
+                float u1, u2, v1, v2;
+                switch (direction.getAxis()) {
+                    case Y:
+                        // top/bottom: U = X, V = Z
+                        u1 = texture.getU(minX * scale);
+                        u2 = texture.getU(maxX * scale);
+                        v1 = texture.getV(minZ * scale);
+                        v2 = texture.getV(maxZ * scale);
+                        break;
+                    case Z:
+                        // north/south: U = X, V = Y
+                        u1 = texture.getU(minX * scale);
+                        u2 = texture.getU(maxX * scale);
+                        v1 = texture.getV(minY * scale);
+                        v2 = texture.getV(maxY * scale);
+                        break;
+                    case X:
+                    default:
+                        // east/west: U = Z, V = Y
+                        u1 = texture.getU(minZ * scale);
+                        u2 = texture.getU(maxZ * scale);
+                        v1 = texture.getV(minY * scale);
+                        v2 = texture.getV(maxY * scale);
+                        break;
+                }
 
                 if (direction == Direction.DOWN) {
-                    this.renderVertex(builder, pose, x1, y1, z2, u1, v2, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y1, z1, u1, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y1, z1, u2, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y1, z2, u2, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, minY, maxZ, u1, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, minY, minZ, u1, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, minY, minZ, u2, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, minY, maxZ, u2, v2, lightCoords, packedOverlay, direction);
                 }
 
                 if (direction == Direction.UP) {
-                    this.renderVertex(builder, pose, x1, y2, z2, u1, v2, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y2, z2, u1, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y2, z1, u2, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y2, z1, u2, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, maxY, maxZ, u1, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, maxY, maxZ, u1, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, maxY, minZ, u2, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, maxY, minZ, u2, v2, lightCoords, packedOverlay, direction);
                 }
 
                 if (direction == Direction.NORTH) {
-                    this.renderVertex(builder, pose, x1, y1, z1, u1, v2, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y2, z1, u1, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y2, z1, u2, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y1, z1, u2, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, minY, minZ, u1, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, maxY, minZ, u1, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, maxY, minZ, u2, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, minY, minZ, u2, v2, lightCoords, packedOverlay, direction);
                 }
 
                 if (direction == Direction.SOUTH) {
-                    this.renderVertex(builder, pose, x2, y1, z2, u1, v2, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y2, z2, u1, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y2, z2, u2, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y1, z2, u2, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, minY, maxZ, u1, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, maxY, maxZ, u1, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, maxY, maxZ, u2, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, minY, maxZ, u2, v2, lightCoords, packedOverlay, direction);
                 }
 
                 if (direction == Direction.WEST) {
-                    this.renderVertex(builder, pose, x1, y1, z2, u1, v2, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y2, z2, u1, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y2, z1, u2, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x1, y1, z1, u2, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, minY, maxZ, u1, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, maxY, maxZ, u1, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, maxY, minZ, u2, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, minX, minY, minZ, u2, v2, lightCoords, packedOverlay, direction);
                 }
 
                 if (direction == Direction.EAST) {
-                    this.renderVertex(builder, pose, x2, y1, z1, u1, v2, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y2, z1, u1, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y2, z2, u2, v1, lightCoords, packedOverlay, direction);
-                    this.renderVertex(builder, pose, x2, y1, z2, u2, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, minY, minZ, u1, v2, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, maxY, minZ, u1, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, maxY, maxZ, u2, v1, lightCoords, packedOverlay, direction);
+                    this.renderVertex(builder, pose, maxX, minY, maxZ, u2, v2, lightCoords, packedOverlay, direction);
                 }
             }
         });
