@@ -21,21 +21,26 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ClibanoFrameBlockEntity extends BlockEntity {
 
-    @Nullable
-    private Direction mainDirection;
-
-    private FrameData frameData = FrameData.EMPTY;
+    private @Nullable Direction mainDirection;
+    private @Nullable FrameData frameData;
 
     public ClibanoFrameBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.CLIBANO.get(), pos, state);
     }
 
-    public void setFrameData(FrameData frameData) {
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (this.level != null && this.frameData != null) {
+            this.level.removeBlock(this.frameData.mainPos, false);
+        }
+    }
+
+    public void setFrameData(@Nullable FrameData frameData) {
         this.frameData = frameData;
     }
 
     public FrameData getFrameData() {
-        return this.frameData;
+        return this.frameData == null ? FrameData.EMPTY : this.frameData;
     }
 
     public void setMainDirection(@Nullable Direction mainDirection) {
@@ -46,13 +51,7 @@ public class ClibanoFrameBlockEntity extends BlockEntity {
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        //TODO
-//        if (this.frameData != FrameData.EMPTY) {
-//            FrameData.CODEC.encodeStart(NbtOps.INSTANCE, this.frameData)
-//                    .ifSuccess(tag1 -> tag.merge((CompoundTag) tag1))
-//                    .ifError(result -> ForbiddenArcanus.LOGGER.warn("Failed to encode Clibano FrameData {}", result.message()));
-//        }
-
+        output.storeNullable("frame_data", FrameData.CODEC, this.frameData);
         output.storeNullable("main_direction", Direction.CODEC, this.mainDirection);
     }
 
@@ -60,10 +59,7 @@ public class ClibanoFrameBlockEntity extends BlockEntity {
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-//        FrameData.CODEC.parse(NbtOps.INSTANCE, input)
-//                .resultOrPartial(ForbiddenArcanus.LOGGER::error)
-//                .ifPresent(frameData -> this.frameData = frameData);
-
+        input.read("frame_data", FrameData.CODEC).ifPresent(frameData -> this.frameData = frameData);
         input.read("main_direction", Direction.CODEC).ifPresent(direction -> this.mainDirection = direction);
     }
 

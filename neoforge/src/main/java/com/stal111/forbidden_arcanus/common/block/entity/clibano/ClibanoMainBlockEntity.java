@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.clibano.AbstractClibanoFrameBlock;
+import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoAccessor;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
@@ -157,91 +158,98 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     public void onLoad() {
-        this.nextFireType = this.getFireTypeFromInput();
-        this.enhancer = this.updateEnhancer();
+//        this.nextFireType = this.getFireTypeFromInput();
+//        this.enhancer = this.updateEnhancer();
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (this.level != null) {
+            ClibanoMainPartBlock.dismantle(this.level, pos);
+        }
     }
 
     public static void serverTick(ServerLevel level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
-        ClibanoRecipeInput combinedInput = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getFirst()), blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getSecond()));
-
-        ClibanoRecipeInput firstSlot = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getFirst()), ItemStack.EMPTY);
-        ClibanoRecipeInput secondSlot = new ClibanoRecipeInput(ItemStack.EMPTY, blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getSecond()));
-
-        List<RecipeHolder<ClibanoRecipe>> recipeHolders = new ArrayList<>();
-
-        if (blockEntity.burnDuration == 0) {
-            blockEntity.burnDuration = blockEntity.getBurnDuration(level.fuelValues(), blockEntity.getItem(ClibanoMenu.FUEL_SLOT));
-
-        }
-
-        blockEntity.quickCheck.getAlloyRecipe(combinedInput, level).ifPresentOrElse(recipeHolder -> {
-            recipeHolders.add(recipeHolder);
-
-            if (!(blockEntity.logic instanceof DoubleSmeltLogic)) {
-                blockEntity.logic = new DoubleSmeltLogic(blockEntity, recipeHolder);
-            }
-        }, () -> {
-            RecipeHolder<ClibanoRecipe> firstRecipe = blockEntity.quickCheck.getRecipeFor(firstSlot, level).orElse(null);
-            RecipeHolder<ClibanoRecipe> secondRecipe = blockEntity.quickCheck.getRecipeFor(secondSlot, level).orElse(null);
-
-            recipeHolders.add(firstRecipe);
-            recipeHolders.add(secondRecipe);
-
-            if (!(blockEntity.logic instanceof DefaultSmeltLogic)) {
-                blockEntity.logic = new DefaultSmeltLogic(blockEntity, firstRecipe, secondRecipe);
-            }
-        });
-
-        blockEntity.logic.updateRecipes(recipeHolders);
-
-        boolean isLit = blockEntity.burnTime > 0;
-        boolean canSmelt = blockEntity.logic.canSmelt();
-        ItemStack fuel = blockEntity.getItem(ClibanoMenu.FUEL_SLOT);
-
-        blockEntity.residuesStorage.tick(blockEntity);
-
-        if (blockEntity.soulTime != 0) {
-            blockEntity.soulTime--;
-
-            if (blockEntity.soulTime == 0) {
-                blockEntity.changeFireType(level, ClibanoFireType.FIRE);
-            }
-        } else if (canSmelt && (isLit || !fuel.isEmpty()) && blockEntity.nextFireType != ClibanoFireType.FIRE) {
-            blockEntity.consumeSoul(level);
-        }
-
-        blockEntity.logic.tick(isLit);
-
-        if (isLit) {
-            blockEntity.burnTime--;
-        } else {
-            if (canSmelt) {
-                blockEntity.burnDuration = 0;
-
-                if (!fuel.isEmpty()) {
-                    blockEntity.burnTime = blockEntity.getBurnDuration(level.fuelValues(), fuel);
-                    blockEntity.burnDuration = blockEntity.burnTime;
-
-                    fuel.shrink(1);
-
-                    if (!blockEntity.wasLit) {
-                        blockEntity.updateAppearance(level);
-                    }
-
-                    blockEntity.setChanged();
-                }
-            }
-
-            if (blockEntity.wasLit) {
-                blockEntity.updateAppearance(level);
-            }
-
-            blockEntity.wasLit = false;
-
-            return;
-        }
-
-        blockEntity.wasLit = true;
+//        ClibanoRecipeInput combinedInput = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getFirst()), blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getSecond()));
+//
+//        ClibanoRecipeInput firstSlot = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getFirst()), ItemStack.EMPTY);
+//        ClibanoRecipeInput secondSlot = new ClibanoRecipeInput(ItemStack.EMPTY, blockEntity.getItem(ClibanoMenu.INPUT_SLOTS.getSecond()));
+//
+//        List<RecipeHolder<ClibanoRecipe>> recipeHolders = new ArrayList<>();
+//
+//        if (blockEntity.burnDuration == 0) {
+//            blockEntity.burnDuration = blockEntity.getBurnDuration(level.fuelValues(), blockEntity.getItem(ClibanoMenu.FUEL_SLOT));
+//
+//        }
+//
+//        blockEntity.quickCheck.getAlloyRecipe(combinedInput, level).ifPresentOrElse(recipeHolder -> {
+//            recipeHolders.add(recipeHolder);
+//
+//            if (!(blockEntity.logic instanceof DoubleSmeltLogic)) {
+//                blockEntity.logic = new DoubleSmeltLogic(blockEntity, recipeHolder);
+//            }
+//        }, () -> {
+//            RecipeHolder<ClibanoRecipe> firstRecipe = blockEntity.quickCheck.getRecipeFor(firstSlot, level).orElse(null);
+//            RecipeHolder<ClibanoRecipe> secondRecipe = blockEntity.quickCheck.getRecipeFor(secondSlot, level).orElse(null);
+//
+//            recipeHolders.add(firstRecipe);
+//            recipeHolders.add(secondRecipe);
+//
+//            if (!(blockEntity.logic instanceof DefaultSmeltLogic)) {
+//                blockEntity.logic = new DefaultSmeltLogic(blockEntity, firstRecipe, secondRecipe);
+//            }
+//        });
+//
+//        blockEntity.logic.updateRecipes(recipeHolders);
+//
+//        boolean isLit = blockEntity.burnTime > 0;
+//        boolean canSmelt = blockEntity.logic.canSmelt();
+//        ItemStack fuel = blockEntity.getItem(ClibanoMenu.FUEL_SLOT);
+//
+//        blockEntity.residuesStorage.tick(blockEntity);
+//
+//        if (blockEntity.soulTime != 0) {
+//            blockEntity.soulTime--;
+//
+//            if (blockEntity.soulTime == 0) {
+//                blockEntity.changeFireType(level, ClibanoFireType.FIRE);
+//            }
+//        } else if (canSmelt && (isLit || !fuel.isEmpty()) && blockEntity.nextFireType != ClibanoFireType.FIRE) {
+//            blockEntity.consumeSoul(level);
+//        }
+//
+//        blockEntity.logic.tick(isLit);
+//
+//        if (isLit) {
+//            blockEntity.burnTime--;
+//        } else {
+//            if (canSmelt) {
+//                blockEntity.burnDuration = 0;
+//
+//                if (!fuel.isEmpty()) {
+//                    blockEntity.burnTime = blockEntity.getBurnDuration(level.fuelValues(), fuel);
+//                    blockEntity.burnDuration = blockEntity.burnTime;
+//
+//                    fuel.shrink(1);
+//
+//                    if (!blockEntity.wasLit) {
+//                        blockEntity.updateAppearance(level);
+//                    }
+//
+//                    blockEntity.setChanged();
+//                }
+//            }
+//
+//            if (blockEntity.wasLit) {
+//                blockEntity.updateAppearance(level);
+//            }
+//
+//            blockEntity.wasLit = false;
+//
+//            return;
+//        }
+//
+//        blockEntity.wasLit = true;
     }
 
     /**

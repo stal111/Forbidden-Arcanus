@@ -79,22 +79,6 @@ public abstract class AbstractClibanoFrameBlock extends Block implements EntityB
         return InteractionResult.SUCCESS;
     }
 
-    //TODO
-//    @Override
-//    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-//        if (state.is(newState.getBlock())) {
-//            return;
-//        }
-//
-//        if (level.getBlockEntity(pos) instanceof ClibanoFrameBlockEntity clibanoFrameBlockEntity) {
-//            BlockPos mainPos = clibanoFrameBlockEntity.getFrameData().mainPos();
-//
-//            level.removeBlock(mainPos, false);
-//        }
-//
-//        super.onRemove(state, level, pos, newState, isMoving);
-//    }
-
     @Override
     public BlockState rotate(BlockState state, LevelAccessor level, BlockPos pos, Rotation rotation) {
         return state.setValue(this.getFacingProperty(), rotation.rotate(state.getValue(this.getFacingProperty())));

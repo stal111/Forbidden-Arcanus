@@ -55,8 +55,6 @@ public class ClibanoMainPartBlock extends Block implements EntityBlock {
 //
 //            super.onRemove(state, level, pos, newState, isMoving);
 //        }
-//
-//        ClibanoMainPartBlock.dismantle(level, pos);
 //    }
 
     public static void dismantle(Level level, BlockPos mainPos) {
