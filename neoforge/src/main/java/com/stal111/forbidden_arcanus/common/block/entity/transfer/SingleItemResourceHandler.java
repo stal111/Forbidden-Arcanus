@@ -55,9 +55,11 @@ public class SingleItemResourceHandler extends ItemStackResourceHandler {
             throw new IllegalArgumentException("Resource is empty but the amount is positive: " + amount);
         }
 
-        this.setStack(resource.toStack(amount));
+        ItemStack stack = resource.toStack(amount);
 
-        System.out.println("Set stack to " + this.stack);
-        this.onChanged.accept(this.stack);
+        if (!ItemStack.isSameItemSameComponents(this.getStack(), stack)) {
+            this.setStack(stack);
+            this.onChanged.accept(this.stack);
+        }
     }
 }
