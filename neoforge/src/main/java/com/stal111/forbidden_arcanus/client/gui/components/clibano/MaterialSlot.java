@@ -17,7 +17,7 @@ public class MaterialSlot extends AbstractButton {
     private boolean enabled;
 
     public MaterialSlot(int x, int y, Component message, boolean enabled) {
-        super(x, y, 25, 31, message);
+        super(x, y, 25, 32, message);
         this.enabled = enabled;
     }
 

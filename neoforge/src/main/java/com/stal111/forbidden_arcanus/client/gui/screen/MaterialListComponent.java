@@ -21,6 +21,8 @@ import java.util.List;
 public class MaterialListComponent implements Renderable, GuiEventListener, NarratableEntry {
 
     private static final ResourceLocation MATERIAL_LIST_TEXTURE = ForbiddenArcanus.location("textures/gui/container/material_list.png");
+    private static final ResourceLocation SCROLLER_SPRITE = ForbiddenArcanus.location("container/clibano/scroller");
+    private static final ResourceLocation SCROLLER_DISABLED_SPRITE = ForbiddenArcanus.location("container/clibano/scroller_disabled");
 
     protected Minecraft minecraft;
 
@@ -28,6 +30,9 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     private int yOrigin;
 
     private ScreenRectangle scrollArea;
+    private int scrollbarStartX;
+    private int scrollbarStartY;
+
     private final List<MaterialSlot> slots = new ArrayList<>();
 
     private int maxScroll;
@@ -39,18 +44,20 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         this.xOrigin = xOrigin;
         this.yOrigin = (height - 173) / 2;
 
-        this.scrollArea = new ScreenRectangle(xOrigin + 10, this.yOrigin + 10, 101, 155);
+        this.scrollArea = new ScreenRectangle(xOrigin + 10, this.yOrigin + 8, 101, 157);
+        this.scrollbarStartX = this.xOrigin + 113;
+        this.scrollbarStartY = this.yOrigin + 8;
 
         this.slots.clear();
 
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 9; j++) {
-                this.slots.add(new MaterialSlot(xOrigin + 10 + i * 25, this.yOrigin + 10 + j * 31, Component.empty(), false));
+            for (int j = 0; j < 15; j++) {
+                this.slots.add(new MaterialSlot(xOrigin + 10 + i * 25, this.yOrigin + 10 + j * 32, Component.empty(), false));
             }
         }
 
         int totalRows = (this.slots.size() + 4 - 1) / 4;
-        int totalHeight = totalRows * 31;
+        int totalHeight = totalRows * 32 + 3;
         int visibleHeight = this.scrollArea.bottom() - this.scrollArea.top();
         this.maxScroll = Math.max(0, totalHeight - visibleHeight);
 
@@ -68,6 +75,20 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
             slot.render(guiGraphics, mouseX, mouseY, partialTick);
         }
         guiGraphics.disableScissor();
+
+        this.renderScrollbar(guiGraphics);
+    }
+
+    public void renderScrollbar(GuiGraphics guiGraphics) {
+         int scrollbarY = this.scrollbarStartY;
+
+         if (this.maxScroll != 0) {
+             scrollbarY =  this.scrollAmount * (this.scrollArea.height() - 27) / this.maxScroll + this.scrollbarStartY;
+         }
+
+        ResourceLocation sprite = this.maxScroll == 0 ? SCROLLER_DISABLED_SPRITE : SCROLLER_SPRITE;
+
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.scrollbarStartX, scrollbarY, 6, 27);
     }
 
     public int getWidth() {
@@ -110,7 +131,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
             return GuiEventListener.super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
         }
 
-        int oldScroll = scrollAmount;
+        int oldScroll = this.scrollAmount;
         this.scrollAmount = Mth.clamp(this.scrollAmount - (int) scrollY * 10, 0, this.maxScroll);
 
         for (MaterialSlot slot : this.slots) {
