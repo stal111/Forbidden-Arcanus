@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
-import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import it.unimi.dsi.fastutil.ints.Int2BooleanFunction;
 
 import java.util.Arrays;
@@ -11,9 +11,9 @@ import java.util.function.IntConsumer;
  * @since 19.02.2024
  */
 public enum ClibanoInputSlot {
-    FIRST(ClibanoMenu.INPUT_SLOTS.getFirst()),
-    SECOND(ClibanoMenu.INPUT_SLOTS.getSecond()),
-    BOTH(ClibanoMenu.INPUT_SLOTS.getFirst(), ClibanoMenu.INPUT_SLOTS.getSecond());
+    FIRST(ClibanoMenuOld.INPUT_SLOTS.getFirst()),
+    SECOND(ClibanoMenuOld.INPUT_SLOTS.getSecond()),
+    BOTH(ClibanoMenuOld.INPUT_SLOTS.getFirst(), ClibanoMenuOld.INPUT_SLOTS.getSecond());
 
     private final int[] index;
     private final int[] slots;

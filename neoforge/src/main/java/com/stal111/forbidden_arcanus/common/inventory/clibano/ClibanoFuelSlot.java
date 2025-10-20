@@ -17,9 +17,9 @@ import javax.annotation.Nonnull;
  */
 public class ClibanoFuelSlot extends SlotItemHandler {
 
-    private final ClibanoMenu menu;
+    private final ClibanoMenuOld menu;
 
-    public ClibanoFuelSlot(ClibanoMenu menu, IItemHandler itemHandler, int index, int x, int y) {
+    public ClibanoFuelSlot(ClibanoMenuOld menu, IItemHandler itemHandler, int index, int x, int y) {
         super(itemHandler, index, x, y);
         this.menu = menu;
     }

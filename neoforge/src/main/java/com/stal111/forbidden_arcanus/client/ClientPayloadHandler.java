@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.client;
 
-import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
@@ -41,7 +41,7 @@ public final class ClientPayloadHandler {
     public void handle(SetClibanoResiduesPayload payload, IPayloadContext context) {
         Player player = context.player();
 
-        if (player.hasContainerOpen() && player.containerMenu instanceof ClibanoMenu menu) {
+        if (player.hasContainerOpen() && player.containerMenu instanceof ClibanoMenuOld menu) {
             menu.setResidueData(payload.residueAmounts().getResidueTypeAmountMap());
         }
     }

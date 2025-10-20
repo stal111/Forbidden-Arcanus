@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.mojang.datafixers.util.Pair;
-import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -14,11 +14,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ClibanoItemHandler implements IItemHandler {
 
-    private static final int SOUL_SLOT = ClibanoMenu.SOUL_SLOT;
-    private static final int FUEL_SLOT = ClibanoMenu.FUEL_SLOT;
+    private static final int SOUL_SLOT = ClibanoMenuOld.SOUL_SLOT;
+    private static final int FUEL_SLOT = ClibanoMenuOld.FUEL_SLOT;
 
-    private static final Pair<Integer, Integer> INPUT_SLOTS = ClibanoMenu.INPUT_SLOTS;
-    public static final Pair<Integer, Integer> RESULT_SLOTS = ClibanoMenu.RESULT_SLOTS;
+    private static final Pair<Integer, Integer> INPUT_SLOTS = ClibanoMenuOld.INPUT_SLOTS;
+    public static final Pair<Integer, Integer> RESULT_SLOTS = ClibanoMenuOld.RESULT_SLOTS;
 
     private final IItemHandler itemHandler;
     @Nullable

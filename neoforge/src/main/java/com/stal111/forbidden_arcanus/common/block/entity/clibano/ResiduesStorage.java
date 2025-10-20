@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
-import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
+import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.Holder;
@@ -50,8 +50,8 @@ public class ResiduesStorage {
             ResidueType.CombineInfo combineInfo = type.value().combineInfo();
 
             if (amount >= combineInfo.requiredAmount()) {
-                ItemStack resultStack = blockEntity.getItem(ClibanoMenu.RESULT_SLOTS.getFirst());
-                ItemStack secondResultStack = blockEntity.getItem(ClibanoMenu.RESULT_SLOTS.getSecond());
+                ItemStack resultStack = blockEntity.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
+                ItemStack secondResultStack = blockEntity.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
 
                 ItemStack stack = combineInfo.result().copy();
                 boolean flag = true;
@@ -61,9 +61,9 @@ public class ResiduesStorage {
                 } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
                     secondResultStack.grow(stack.getCount());
                 } else if (resultStack.isEmpty()) {
-                    blockEntity.setItem(ClibanoMenu.RESULT_SLOTS.getFirst(), stack.copy());
+                    blockEntity.setItem(ClibanoMenuOld.RESULT_SLOTS.getFirst(), stack.copy());
                 } else if (secondResultStack.isEmpty()) {
-                    blockEntity.setItem(ClibanoMenu.RESULT_SLOTS.getSecond(), stack.copy());
+                    blockEntity.setItem(ClibanoMenuOld.RESULT_SLOTS.getSecond(), stack.copy());
                 } else {
                     flag = false;
                 }

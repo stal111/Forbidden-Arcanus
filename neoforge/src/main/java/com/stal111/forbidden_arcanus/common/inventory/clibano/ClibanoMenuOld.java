@@ -27,12 +27,12 @@ import java.util.Map;
 
 /**
  * Clibano Menu <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld
  *
  * @author stal111
  * @since 2022-05-25
  */
-public class ClibanoMenu extends AbstractContainerMenu {
+public class ClibanoMenuOld extends AbstractContainerMenu {
 
     public static final int SLOT_COUNT = 7;
     public static final int BASE_DATA_COUNT = ClibanoMainBlockEntity.DATA_COUNT;
@@ -48,11 +48,11 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     private final MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context;
 
-    public ClibanoMenu(int id, Inventory inventory, RegistryFriendlyByteBuf buffer) {
+    public ClibanoMenuOld(int id, Inventory inventory, RegistryFriendlyByteBuf buffer) {
         this(id, new ItemStackHandler(SLOT_COUNT), new SimpleContainerData(ClibanoMainBlockEntity.DATA_COUNT), ResiduesStorage.STREAM_CODEC.decode(buffer).getResidueTypeAmountMap(), MenuCreationContext.of(inventory));
     }
 
-    public ClibanoMenu(int containerId, ItemStackHandler handler, ContainerData containerData, Map<Holder<ResidueType>, Integer> residueData, MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context) {
+    public ClibanoMenuOld(int containerId, ItemStackHandler handler, ContainerData containerData, Map<Holder<ResidueType>, Integer> residueData, MenuCreationContext<ClibanoMainBlockEntity, IItemHandler> context) {
         super(ModMenuTypes.CLIBANO.get(), containerId);
         this.containerData = containerData;
         this.residueData = residueData;
