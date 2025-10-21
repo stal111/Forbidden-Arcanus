@@ -2,7 +2,8 @@ package com.stal111.forbidden_arcanus.client.gui.screen;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.clibano.MaterialSlot;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.MoltenMaterial;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
@@ -15,7 +16,6 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,12 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
     private int scrollAmount;
 
+    private final MaterialStorage materialStorage;
+
+    public MaterialListComponent(MaterialStorage materialStorage) {
+        this.materialStorage = materialStorage;
+    }
+
     public void init(int height, Minecraft minecraft, int xOrigin) {
         this.minecraft = minecraft;
         this.xOrigin = xOrigin;
@@ -52,9 +58,11 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
         this.slots.clear();
 
+        List<MoltenMaterial> materials = this.materialStorage.getAll();
+
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 6; j++) {
-                this.slots.add(new MaterialSlot(new MoltenMaterial(Items.IRON_INGOT.getDefaultInstance(), minecraft.level.random.nextInt(64)), xOrigin + 10 + i * 25, this.yOrigin + 10 + j * 32, Component.empty(), false));
+            for (int j = 0; j < 1; j++) {
+                this.slots.add(new MaterialSlot(materials.get(i), xOrigin + 10 + i * 25, this.yOrigin + 10 + j * 32, Component.empty(), false));
             }
         }
 

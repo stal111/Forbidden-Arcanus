@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.entity.clibano.residue;
+package com.stal111.forbidden_arcanus.common.block.entity.clibano.material;
 
 import net.minecraft.world.item.ItemStack;
 

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.components.clibano;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.MoltenMaterial;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;

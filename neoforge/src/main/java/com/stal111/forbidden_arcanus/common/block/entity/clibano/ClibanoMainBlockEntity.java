@@ -7,6 +7,8 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoAc
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DoubleSmeltLogic;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
@@ -35,6 +37,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -84,6 +87,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     private final ResiduesStorage residuesStorage = new ResiduesStorage();
     private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed = new Reference2IntOpenHashMap<>();
     private final CachedRecipeCheck quickCheck;
+
+    public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
 
     private int soulTime;
     private int burnTime;
@@ -162,6 +167,11 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     public void onLoad() {
 //        this.nextFireType = this.getFireTypeFromInput();
 //        this.enhancer = this.updateEnhancer();
+
+        this.storedMaterials.insert(new MoltenMaterialType(Items.IRON_INGOT.getDefaultInstance()), 10);
+        this.storedMaterials.insert(new MoltenMaterialType(Items.DIAMOND.getDefaultInstance()), 5);
+        this.storedMaterials.insert(new MoltenMaterialType(Items.GOLD_INGOT.getDefaultInstance()), 5);
+        this.storedMaterials.insert(new MoltenMaterialType(Items.COPPER_INGOT.getDefaultInstance()), 5);
     }
 
     @Override
@@ -481,7 +491,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new ClibanoMenu(containerId, inventory, ContainerLevelAccess.create(this.level, this.getBlockPos()));
+        return new ClibanoMenu(containerId, inventory, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
     }
 
     //TODO
@@ -501,6 +511,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
+
+        output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
 
         //TODO
 //        this.saveInventory(tag, lookupProvider);
@@ -524,6 +536,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
+
+        this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
 
         //        this.loadInventory(tag, lookupProvider);
 
@@ -556,6 +570,10 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
     public ResiduesStorage getResiduesStorage() {
         return this.residuesStorage;
+    }
+
+    public MaterialStorage getStoredMaterials() {
+        return this.storedMaterials;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -12,14 +13,16 @@ import net.minecraft.world.item.ItemStack;
 public class ClibanoMenu extends AbstractContainerMenu {
 
     private final ContainerLevelAccess levelAccess;
+    private final MaterialStorage materialStorage;
 
     public ClibanoMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf buffer) {
-        this(containerId, playerInventory, ContainerLevelAccess.NULL);
+        this(containerId, playerInventory, ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer));
     }
 
-    public ClibanoMenu(int containerId, Inventory playerInventory, ContainerLevelAccess levelAccess) {
+    public ClibanoMenu(int containerId, Inventory playerInventory, ContainerLevelAccess levelAccess, MaterialStorage materialStorage) {
         super(ModMenuTypes.CLIBANO.get(), containerId);
         this.levelAccess = levelAccess;
+        this.materialStorage = materialStorage;
 
         this.addStandardInventorySlots(playerInventory, 8, 91);
     }
@@ -32,5 +35,9 @@ public class ClibanoMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(this.levelAccess, player, ModBlocks.CLIBANO_MAIN_PART.get());
+    }
+
+    public MaterialStorage getStoredMaterials() {
+        return this.materialStorage;
     }
 }

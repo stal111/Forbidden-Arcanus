@@ -14,13 +14,15 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
     private static final ResourceLocation CONTAINER_TEXTURE = ForbiddenArcanus.location("textures/gui/container/clibano_combustion.png");
 
-    private final MaterialListComponent materialList = new MaterialListComponent();
+    private final MaterialListComponent materialList;
 
     public ClibanoScreen(ClibanoMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageHeight = 173;
         this.titleLabelY -= 2;
         this.inventoryLabelY += 9;
+
+        this.materialList = new MaterialListComponent(menu.getStoredMaterials());
     }
 
     @Override
