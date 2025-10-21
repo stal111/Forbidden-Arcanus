@@ -172,6 +172,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         this.storedMaterials.insert(new MoltenMaterialType(Items.DIAMOND.getDefaultInstance()), 5);
         this.storedMaterials.insert(new MoltenMaterialType(Items.GOLD_INGOT.getDefaultInstance()), 5);
         this.storedMaterials.insert(new MoltenMaterialType(Items.COPPER_INGOT.getDefaultInstance()), 5);
+        this.storedMaterials.insert(new MoltenMaterialType(Items.LAPIS_LAZULI.getDefaultInstance()), 5);
+        this.storedMaterials.insert(new MoltenMaterialType(Items.EMERALD.getDefaultInstance()), 5);
     }
 
     @Override

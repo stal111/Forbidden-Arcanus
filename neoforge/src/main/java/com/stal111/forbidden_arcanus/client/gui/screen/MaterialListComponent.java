@@ -60,10 +60,17 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
         List<MoltenMaterial> materials = this.materialStorage.getAll();
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 1; j++) {
-                this.slots.add(new MaterialSlot(materials.get(i), xOrigin + 10 + i * 25, this.yOrigin + 10 + j * 32, Component.empty(), false));
-            }
+        for (int i = 0; i < materials.size(); i++) {
+            int row = i / 4;
+            int col = i % 4;
+
+            this.slots.add(new MaterialSlot(
+                    materials.get(i),
+                    xOrigin + 10 + col * 25,
+                    this.yOrigin + 10 + row * 32,
+                    Component.empty(),
+                    false
+            ));
         }
 
         int totalRows = (this.slots.size() + 4 - 1) / 4;
@@ -90,11 +97,11 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     }
 
     public void renderScrollbar(GuiGraphics guiGraphics) {
-         int scrollbarY = this.scrollbarStartY;
+        int scrollbarY = this.scrollbarStartY;
 
-         if (this.maxScroll != 0) {
-             scrollbarY =  this.scrollAmount * (this.scrollArea.height() - 27) / this.maxScroll + this.scrollbarStartY;
-         }
+        if (this.maxScroll != 0) {
+            scrollbarY = this.scrollAmount * (this.scrollArea.height() - 27) / this.maxScroll + this.scrollbarStartY;
+        }
 
         ResourceLocation sprite = this.maxScroll == 0 ? SCROLLER_DISABLED_SPRITE : SCROLLER_SPRITE;
 
