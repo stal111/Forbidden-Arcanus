@@ -12,7 +12,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.ProgressRitu
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
@@ -91,7 +91,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public int clientRitualDuration;
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
-    private final SingleItemResourceHandler mainSlotInventory = new SingleItemResourceHandler(stack -> {
+    private final SingleSlotResourceHandler mainSlotInventory = new SingleSlotResourceHandler(false, stack -> {
         if (this.level != null) {
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         }

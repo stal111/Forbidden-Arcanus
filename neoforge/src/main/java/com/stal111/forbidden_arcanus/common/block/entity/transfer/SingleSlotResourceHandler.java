@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.transfer;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -9,44 +10,52 @@ import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler;
 
 import java.util.function.Consumer;
 
-public class SingleItemResourceHandler extends ItemStackResourceHandler {
+public class SingleSlotResourceHandler extends ItemStackResourceHandler {
 
     private static final Consumer<ItemStack> NO_OP_CONSUMER = stack -> {};
 
     private ItemStack stack = ItemStack.EMPTY;
     private final Consumer<ItemStack> onChanged;
 
-    public SingleItemResourceHandler() {
-        this(NO_OP_CONSUMER);
+    private final boolean singleCapacity;
+
+    public SingleSlotResourceHandler(boolean singleCapacity) {
+        this(singleCapacity, NO_OP_CONSUMER);
     }
 
-    public SingleItemResourceHandler(Consumer<ItemStack> onChanged) {
+    public SingleSlotResourceHandler(boolean singleCapacity, Consumer<ItemStack> onChanged) {
         this.onChanged = onChanged;
+        this.singleCapacity = singleCapacity;
     }
 
     @Override
     public ItemStack getStack() {
-        return this.stack;
+        return this.stack.copy();
     }
 
     @Override
     public void setStack(ItemStack stack) {
-        this.stack = stack;
+        System.out.println(stack);
+        this.stack = stack.copy();
     }
 
     @Override
     protected int getCapacity(ItemResource resource) {
-        return 1;
+        return this.singleCapacity ? 1 : super.getCapacity(resource);
     }
 
     public void serialize(String key, ValueOutput output) {
         if (!this.stack.isEmpty()) {
-            output.store(key, ItemStack.SINGLE_ITEM_CODEC, this.stack);
+            output.store(key, this.getCodec(), this.stack);
         }
     }
 
     public void deserialize(String key, ValueInput input) {
-        this.stack = input.read(key, ItemStack.SINGLE_ITEM_CODEC).orElse(ItemStack.EMPTY);
+        this.stack = input.read(key, this.getCodec()).orElse(ItemStack.EMPTY);
+    }
+
+    private Codec<ItemStack> getCodec() {
+        return this.singleCapacity ? ItemStack.SINGLE_ITEM_CODEC : ItemStack.CODEC;
     }
 
     public void set(int index, ItemResource resource, int amount) {

@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -41,10 +41,10 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final DataSlot hephaestusForgeLevel = DataSlot.standalone();
 
     public HephaestusForgeMenu(int id, Inventory inventory) {
-        this(id, new SingleItemResourceHandler(), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(List.of(EssenceType.values())), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
+        this(id, new SingleSlotResourceHandler(false), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(List.of(EssenceType.values())), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
     }
 
-    public HephaestusForgeMenu(int id, SingleItemResourceHandler mainSlotInventory, EnhancerResourceHandler enhancerInventory, EssenceInputResourceHandler essenceInputInventory, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory, HephaestusForgeLevel level) {
+    public HephaestusForgeMenu(int id, SingleSlotResourceHandler mainSlotInventory, EnhancerResourceHandler enhancerInventory, EssenceInputResourceHandler essenceInputInventory, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory, HephaestusForgeLevel level) {
         super(ModMenuTypes.HEPHAESTUS_FORGE.get(), id);
         this.levelAccess = levelAccess;
         this.hephaestusForgeData = containerData;

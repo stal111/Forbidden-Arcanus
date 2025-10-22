@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSm
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DoubleSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
@@ -87,6 +88,10 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     private final ResiduesStorage residuesStorage = new ResiduesStorage();
     private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed = new Reference2IntOpenHashMap<>();
     private final CachedRecipeCheck quickCheck;
+
+    private final FuelItemHandler fuelSlot = new FuelItemHandler(stack -> stack.getBurnTime(RecipeType.SMELTING, this.level.fuelValues()) > 0, stack -> {
+        this.setChanged();
+    });
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
 
@@ -294,8 +299,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
      * Checks if the given recipe can be used at the moment.
      * To be considered usable one of the result slots must be empty or the result of the recipe must fit into one of the existing stacks.
      *
-     * @param recipe   the recipe to check
-     * @param inputSlot     the input slot to check
+     * @param recipe    the recipe to check
+     * @param inputSlot the input slot to check
      * @return true if the recipe can be used
      */
     @Override
@@ -333,8 +338,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
      * Finishes the given recipe.
      * The result is added to one of the result slots and the input slot is cleared. The cooking progress is reset.
      *
-     * @param recipe the recipe to finish
-     * @param inputSlot   the slot where the recipe input was placed in
+     * @param recipe    the recipe to finish
+     * @param inputSlot the slot where the recipe input was placed in
      */
     @Override
     public void finishRecipe(RecipeHolder<ClibanoRecipe> recipe, ClibanoInputSlot inputSlot) {
@@ -405,8 +410,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     /**
      * Changes the current {@link ClibanoFireType} of the clibano and updates the cooking durations accordingly.
      *
-     * @param level        the level the clibano is in
-     * @param fireType     the new ClibanoFireType
+     * @param level    the level the clibano is in
+     * @param fireType the new ClibanoFireType
      */
     private void changeFireType(Level level, ClibanoFireType fireType) {
         this.fireType = fireType;
@@ -493,7 +498,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new ClibanoMenu(containerId, inventory, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
+        return new ClibanoMenu(containerId, inventory, this.fuelSlot, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
     }
 
     //TODO

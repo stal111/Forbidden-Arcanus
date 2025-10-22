@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitualIndicatorController;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleItemResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
 import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
@@ -48,7 +48,7 @@ public class RitualManager {
 
     private final ValidRitualIndicatorController indicatorController;
     private final MagicCircleController magicCircleController;
-    private final SingleItemResourceHandler mainIngredientInventory;
+    private final SingleSlotResourceHandler mainIngredientInventory;
 
     private final Map<BlockPos, ItemStack> pedestalItems;
 
@@ -58,7 +58,7 @@ public class RitualManager {
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
 
-    public RitualManager(ValidRitualIndicatorController indicatorController, MagicCircleController circleController, SingleItemResourceHandler mainIngredientInventory, Map<BlockPos, ItemStack> pedestalItems) {
+    public RitualManager(ValidRitualIndicatorController indicatorController, MagicCircleController circleController, SingleSlotResourceHandler mainIngredientInventory, Map<BlockPos, ItemStack> pedestalItems) {
         this.indicatorController = indicatorController;
         this.magicCircleController = circleController;
         this.mainIngredientInventory = mainIngredientInventory;
