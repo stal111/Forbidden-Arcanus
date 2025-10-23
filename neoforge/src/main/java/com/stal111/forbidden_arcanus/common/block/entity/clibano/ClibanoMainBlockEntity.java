@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoAccessor;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DoubleSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
@@ -16,7 +15,6 @@ import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipeInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerAccessor;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
@@ -24,15 +22,20 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
-import net.minecraft.core.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -45,13 +48,13 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.FuelValues;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,24 +67,18 @@ import java.util.*;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements RecipeCraftingHolder, ClibanoAccessor {
+public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, ClibanoAccessor {
 
     public static final int SOUL_DURATION = 2700;
 
-    public static final int DATA_SOUL_TIME = 0;
-    public static final int DATA_BURN_TIME = 1;
-    public static final int DATA_BURN_DURATION = 2;
-    public static final int DATA_COOKING_PROGRESS_FIRST = 3;
-    public static final int DATA_COOKING_PROGRESS_SECOND = 4;
-    public static final int DATA_COOKING_DURATION_FIRST = 5;
-    public static final int DATA_COOKING_DURATION_SECOND = 6;
-    public static final int DATA_FIRE_TYPE = 7;
-    public static final int DATA_RESIDUE_FULLNESS = 8;
-    public static final int DATA_IS_DOUBLE_RECIPE = 9;
+    public static final int DATA_LIT_TIME_REMAINING = 0;
+    public static final int DATA_LIT_TOTAL_TIME = 1;
 
     public static final int DATA_COUNT = 10;
 
     public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_COMBUSTION.get();
+
+    private static final Component NAME = Component.translatable("container.forbidden_arcanus.clibano");
 
     private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
 
@@ -89,15 +86,22 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed = new Reference2IntOpenHashMap<>();
     private final CachedRecipeCheck quickCheck;
 
-    private final FuelItemHandler fuelSlot = new FuelItemHandler(stack -> stack.getBurnTime(RecipeType.SMELTING, this.level.fuelValues()) > 0, stack -> {
+    private final FuelItemHandler fuelInventory = new FuelItemHandler(stack -> getBurnDuration(stack, this.level) > 0, stack -> {
         this.setChanged();
     });
+    private final ItemStacksResourceHandler inputInventory = new ItemStacksResourceHandler(2) {
+        @Override
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            ClibanoMainBlockEntity.this.setChanged();
+        }
+    };
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
 
+    private int litTimeRemaining;
+    private int litTotalTime;
+
     private int soulTime;
-    private int burnTime;
-    private int burnDuration;
 
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
     private ClibanoFireType nextFireType = ClibanoFireType.FIRE;
@@ -108,16 +112,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             ClibanoMainBlockEntity blockEntity = ClibanoMainBlockEntity.this;
 
             return switch (index) {
-                case DATA_SOUL_TIME -> blockEntity.soulTime;
-                case DATA_BURN_TIME -> blockEntity.burnTime;
-                case DATA_BURN_DURATION -> blockEntity.burnDuration;
-                case DATA_COOKING_PROGRESS_FIRST -> blockEntity.logic.cookingProgress[0];
-                case DATA_COOKING_PROGRESS_SECOND -> blockEntity.logic.cookingProgress[1];
-                case DATA_COOKING_DURATION_FIRST -> blockEntity.logic.cookingDuration[0];
-                case DATA_COOKING_DURATION_SECOND -> blockEntity.logic.cookingDuration[1];
-                case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
-                case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.getTotalAmount();
-                case DATA_IS_DOUBLE_RECIPE -> blockEntity.logic instanceof DoubleSmeltLogic ? 1 : 0;
+                case DATA_LIT_TIME_REMAINING -> blockEntity.litTimeRemaining;
+                case DATA_LIT_TOTAL_TIME -> blockEntity.litTotalTime;
                 default -> 0;
             };
         }
@@ -127,21 +123,14 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             ClibanoMainBlockEntity blockEntity = ClibanoMainBlockEntity.this;
 
             switch (index) {
-                case DATA_SOUL_TIME -> blockEntity.setSoulTime(value);
-                case DATA_BURN_TIME -> blockEntity.burnTime = value;
-                case DATA_BURN_DURATION -> blockEntity.burnDuration = value;
-                case DATA_COOKING_PROGRESS_FIRST -> blockEntity.logic.cookingProgress[0] = value;
-                case DATA_COOKING_PROGRESS_SECOND -> blockEntity.logic.cookingProgress[1] = value;
-                case DATA_COOKING_DURATION_FIRST -> blockEntity.logic.cookingDuration[0] = value;
-                case DATA_COOKING_DURATION_SECOND -> blockEntity.logic.cookingDuration[1] = value;
-                case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
-                case DATA_RESIDUE_FULLNESS -> blockEntity.residuesStorage.setTotalAmount(value);
+                case DATA_LIT_TIME_REMAINING -> blockEntity.litTimeRemaining = value;
+                case DATA_LIT_TOTAL_TIME -> blockEntity.litTotalTime = value;
             }
         }
 
         @Override
         public int getCount() {
-            return DATA_COUNT;
+            return 2;
         }
     };
 
@@ -189,6 +178,26 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     public static void serverTick(ServerLevel level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
+        if (blockEntity.isLit()) {
+            blockEntity.litTimeRemaining--;
+        }
+
+        ItemStack fuel = blockEntity.fuelInventory.getStack();
+
+        if (!blockEntity.isLit() && !fuel.isEmpty()) {
+            blockEntity.litTimeRemaining = getBurnDuration(fuel, level);
+            blockEntity.litTotalTime = blockEntity.litTimeRemaining;
+
+            ItemStack remainder = fuel.getCraftingRemainder();
+
+            if (!remainder.isEmpty()) {
+                blockEntity.fuelInventory.setStack(remainder);
+            } else {
+                fuel.shrink(1);
+            }
+        }
+
+
 //        ClibanoRecipeInput combinedInput = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenuOld.INPUT_SLOTS.getFirst()), blockEntity.getItem(ClibanoMenuOld.INPUT_SLOTS.getSecond()));
 //
 //        ClibanoRecipeInput firstSlot = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenuOld.INPUT_SLOTS.getFirst()), ItemStack.EMPTY);
@@ -274,14 +283,18 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     /**
      * @return The fire type that matches the item inputted in the {@link ClibanoMenuOld#SOUL_SLOT}.
      */
-    private ClibanoFireType getFireTypeFromInput() {
-        ItemStack soul = this.getItem(ClibanoMenuOld.SOUL_SLOT);
+//    private ClibanoFireType getFireTypeFromInput() {
+//        ItemStack soul = this.getItem(ClibanoMenuOld.SOUL_SLOT);
+//
+//        if (!soul.isEmpty()) {
+//            return ClibanoFireType.fromItem(soul);
+//        }
+//
+//        return ClibanoFireType.FIRE;
+//    }
 
-        if (!soul.isEmpty()) {
-            return ClibanoFireType.fromItem(soul);
-        }
-
-        return ClibanoFireType.FIRE;
+    private boolean isLit() {
+        return this.litTimeRemaining > 0;
     }
 
     private static void createExperience(ServerLevel level, Vec3 position, int count, float experience) {
@@ -305,33 +318,34 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
      */
     @Override
     public boolean canSmelt(@Nullable RecipeHolder<ClibanoRecipe> recipe, ClibanoInputSlot inputSlot) {
-        if (recipe == null || this.level == null || inputSlot.apply(slot -> {
-            return this.getItem(slot).isEmpty();
-        })) {
-            return false;
-        }
-
-        //TODO
-        ItemStack stack = recipe.value().assemble(null, this.level.registryAccess());
-
-        if (stack.isEmpty() || (this.soulTime == 0 ? this.nextFireType : this.fireType).ordinal() < recipe.value().requiredFireType().ordinal()) {
-            return false;
-        }
-
-        ItemStack resultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
-        ItemStack secondResultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
-
-        if (resultStack.isEmpty() || secondResultStack.isEmpty()) {
-            return true;
-        } else if (!ItemStack.isSameItem(resultStack, stack) && !ItemStack.isSameItem(secondResultStack, stack)) {
-            return false;
-        } else if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= this.getMaxStackSize() && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
-            return true;
-        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= this.getMaxStackSize() && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
-            return true;
-        }
-
-        return (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize()) || (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize());
+        return false;
+//        if (recipe == null || this.level == null || inputSlot.apply(slot -> {
+//            return this.getItem(slot).isEmpty();
+//        })) {
+//            return false;
+//        }
+//
+//        //TODO
+//        ItemStack stack = recipe.value().assemble(null, this.level.registryAccess());
+//
+//        if (stack.isEmpty() || (this.soulTime == 0 ? this.nextFireType : this.fireType).ordinal() < recipe.value().requiredFireType().ordinal()) {
+//            return false;
+//        }
+//
+//        ItemStack resultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
+//        ItemStack secondResultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
+//
+//        if (resultStack.isEmpty() || secondResultStack.isEmpty()) {
+//            return true;
+//        } else if (!ItemStack.isSameItem(resultStack, stack) && !ItemStack.isSameItem(secondResultStack, stack)) {
+//            return false;
+//        } else if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= this.getMaxStackSize() && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
+//            return true;
+//        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= this.getMaxStackSize() && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+//            return true;
+//        }
+//
+//        return (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize()) || (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize());
     }
 
     /**
@@ -351,7 +365,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         ItemStack stack = recipe.value().assemble(null, this.level.registryAccess());
 
         inputSlot.apply(slot -> {
-            this.getItem(slot).shrink(1);
+//            this.getItem(slot).shrink(1);
         });
 
         for (int i : inputSlot.getIndex()) {
@@ -362,18 +376,19 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
             return;
         }
 
-        ItemStack resultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
-        ItemStack secondResultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
-
-        if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
-            resultStack.grow(stack.getCount());
-        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
-            secondResultStack.grow(stack.getCount());
-        } else if (resultStack.isEmpty()) {
-            this.setItem(ClibanoMenuOld.RESULT_SLOTS.getFirst(), stack.copy());
-        } else if (secondResultStack.isEmpty()) {
-            this.setItem(ClibanoMenuOld.RESULT_SLOTS.getSecond(), stack.copy());
-        }
+//        ItemStack resultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
+//        ItemStack secondResultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
+//
+//        if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
+//            resultStack.grow(stack.getCount());
+//        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+//            secondResultStack.grow(stack.getCount());
+//        }
+//        else if (resultStack.isEmpty()) {
+//            this.setItem(ClibanoMenuOld.RESULT_SLOTS.getFirst(), stack.copy());
+//        } else if (secondResultStack.isEmpty()) {
+//            this.setItem(ClibanoMenuOld.RESULT_SLOTS.getSecond(), stack.copy());
+//        }
 
         this.addResidue(recipe.value(), this.level.getRandom());
 
@@ -450,7 +465,7 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         BlockState state = level.getBlockState(pos);
 
         if (state.getBlock() instanceof AbstractClibanoFrameBlock clibanoFrameBlock) {
-            level.setBlockAndUpdate(pos, clibanoFrameBlock.updateAppearance(state, this.burnTime > 0, this.fireType));
+            level.setBlockAndUpdate(pos, clibanoFrameBlock.updateAppearance(state, this.isLit(), this.fireType));
         }
     }
 
@@ -472,33 +487,12 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
         this.changeFireType(level, this.nextFireType);
 
-        this.getItem(ClibanoMenuOld.SOUL_SLOT).shrink(1);
+//        this.getItem(ClibanoMenuOld.SOUL_SLOT).shrink(1);
 //        this.onSlotChanged(ClibanoMenuOld.SOUL_SLOT);
     }
 
     public void setFrontDirection(Direction direction) {
         this.frontDirection = direction;
-    }
-
-    @NotNull
-    @Override
-    protected Component getDefaultName() {
-        return Component.translatable("container.forbidden_arcanus.clibano");
-    }
-
-    @Override
-    protected NonNullList<ItemStack> getItems() {
-        return null;
-    }
-
-    @Override
-    protected void setItems(NonNullList<ItemStack> nonNullList) {
-
-    }
-
-    @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new ClibanoMenu(containerId, inventory, this.fuelSlot, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
     }
 
     //TODO
@@ -511,9 +505,9 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 //        }
 //    }
 
-    private @Nullable Holder<EnhancerDefinition> updateEnhancer() {
-        return EnhancerHelper.getEnhancerHolder(this.getItem(ClibanoMenuOld.ENHANCER_SLOT)).orElse(null);
-    }
+//    private @Nullable Holder<EnhancerDefinition> updateEnhancer() {
+//        return EnhancerHelper.getEnhancerHolder(this.getItem(ClibanoMenuOld.ENHANCER_SLOT)).orElse(null);
+//    }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
@@ -521,11 +515,13 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
         output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
 
+        output.putInt("lit_time_remaining", this.litTimeRemaining);
+        output.putInt("lit_total_time", this.litTotalTime);
+
         //TODO
 //        this.saveInventory(tag, lookupProvider);
 
         output.putInt("soul_time", this.soulTime);
-        output.putInt("burn_time", this.burnTime);
 
         output.putIntArray("cooking_times", this.logic.cookingProgress);
         output.putIntArray("cooking_durations", this.logic.cookingDuration);
@@ -546,10 +542,12 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
 
         this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
 
+        this.litTimeRemaining = input.getIntOr("lit_time_remaining", 0);
+        this.litTotalTime = input.getIntOr("lit_total_time", 0);
+
         //        this.loadInventory(tag, lookupProvider);
 
         this.soulTime = input.getIntOr("soul_time", 0);
-        this.burnTime = input.getIntOr("burn_time", 0);
 
         input.getIntArray("cooking_times").ifPresent(ints -> this.logic.cookingProgress = ints);
         input.getIntArray("cooking_durations").ifPresent(ints -> this.logic.cookingDuration = ints);
@@ -567,12 +565,8 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
         this.soulTime = duration;
     }
 
-    protected int getBurnDuration(FuelValues fuelValues, ItemStack fuel) {
-        if (fuel.isEmpty()) {
-            return 0;
-        }
-
-        return fuel.getBurnTime(RECIPE_TYPE, fuelValues);
+    public static int getBurnDuration(ItemStack stack, Level level) {
+        return stack.getBurnTime(RECIPE_TYPE, level.fuelValues());
     }
 
     public ResiduesStorage getResiduesStorage() {
@@ -616,8 +610,13 @@ public class ClibanoMainBlockEntity extends BaseContainerBlockEntity implements 
     }
 
     @Override
-    public int getContainerSize() {
-        return 0;
+    public Component getDisplayName() {
+        return NAME;
+    }
+
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
     }
 
     public static class CachedRecipeCheck implements RecipeManager.CachedCheck<ClibanoRecipeInput, ClibanoRecipe> {

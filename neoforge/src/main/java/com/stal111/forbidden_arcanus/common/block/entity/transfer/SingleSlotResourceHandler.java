@@ -30,13 +30,13 @@ public class SingleSlotResourceHandler extends ItemStackResourceHandler {
 
     @Override
     public ItemStack getStack() {
-        return this.stack.copy();
+        return this.stack;
     }
 
     @Override
     public void setStack(ItemStack stack) {
         System.out.println(stack);
-        this.stack = stack.copy();
+        this.stack = stack;
     }
 
     @Override

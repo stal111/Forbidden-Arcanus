@@ -49,31 +49,31 @@ public class ResiduesStorage {
         this.residueTypeAmountMap.forEach((type, amount) -> {
             ResidueType.CombineInfo combineInfo = type.value().combineInfo();
 
-            if (amount >= combineInfo.requiredAmount()) {
-                ItemStack resultStack = blockEntity.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
-                ItemStack secondResultStack = blockEntity.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
-
-                ItemStack stack = combineInfo.result().copy();
-                boolean flag = true;
-
-                if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
-                    resultStack.grow(stack.getCount());
-                } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
-                    secondResultStack.grow(stack.getCount());
-                } else if (resultStack.isEmpty()) {
-                    blockEntity.setItem(ClibanoMenuOld.RESULT_SLOTS.getFirst(), stack.copy());
-                } else if (secondResultStack.isEmpty()) {
-                    blockEntity.setItem(ClibanoMenuOld.RESULT_SLOTS.getSecond(), stack.copy());
-                } else {
-                    flag = false;
-                }
-
-                if (flag) {
-                    this.residueTypeAmountMap.merge(type, -combineInfo.requiredAmount(), Integer::sum);
-
-                    this.totalAmount -= combineInfo.requiredAmount();
-                }
-            }
+//            if (amount >= combineInfo.requiredAmount()) {
+//                ItemStack resultStack = blockEntity.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
+//                ItemStack secondResultStack = blockEntity.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
+//
+//                ItemStack stack = combineInfo.result().copy();
+//                boolean flag = true;
+//
+//                if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
+//                    resultStack.grow(stack.getCount());
+//                } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
+//                    secondResultStack.grow(stack.getCount());
+//                } else if (resultStack.isEmpty()) {
+//                    blockEntity.setItem(ClibanoMenuOld.RESULT_SLOTS.getFirst(), stack.copy());
+//                } else if (secondResultStack.isEmpty()) {
+//                    blockEntity.setItem(ClibanoMenuOld.RESULT_SLOTS.getSecond(), stack.copy());
+//                } else {
+//                    flag = false;
+//                }
+//
+//                if (flag) {
+//                    this.residueTypeAmountMap.merge(type, -combineInfo.requiredAmount(), Integer::sum);
+//
+//                    this.totalAmount -= combineInfo.requiredAmount();
+//                }
+//            }
         });
     }
 

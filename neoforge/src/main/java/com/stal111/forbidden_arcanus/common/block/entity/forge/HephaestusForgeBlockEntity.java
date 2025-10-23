@@ -75,6 +75,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public static final int UPDATE_MAGIC_CIRCLE = 2;
     public static final int UPDATE_RITUAL_DURATION = 3;
 
+    private static final Component NAME = Component.translatable("container.forbidden_arcanus.hephaestus_forge");
+
     private final ContainerData hephaestusForgeData;
     private final RitualManager ritualManager;
     private final ValidRitualIndicatorController indicatorController = new ValidRitualIndicatorController(UPDATE_RITUAL_INDICATOR);
@@ -352,7 +354,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     @NotNull
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.forbidden_arcanus.hephaestus_forge");
+        return NAME;
     }
 
     @Override

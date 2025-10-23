@@ -181,46 +181,46 @@ public class ClibanoMenuOld extends AbstractContainerMenu {
         return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
     }
 
-    public boolean isSoulActive() {
-        return this.getSoulDuration() > 0;
-    }
+//    public boolean isSoulActive() {
+//        return this.getSoulDuration() > 0;
+//    }
 
-    public int getSoulDuration() {
-        return this.containerData.get(ClibanoMainBlockEntity.DATA_SOUL_TIME);
-    }
+//    public int getSoulDuration() {
+//        return this.containerData.get(ClibanoMainBlockEntity.DATA_SOUL_TIME);
+//    }
 
     public int getBurnTime() {
-        return this.containerData.get(ClibanoMainBlockEntity.DATA_BURN_TIME);
+        return this.containerData.get(ClibanoMainBlockEntity.DATA_LIT_TIME_REMAINING);
     }
 
     public int getBurnDuration() {
-        return this.containerData.get(ClibanoMainBlockEntity.DATA_BURN_DURATION);
+        return this.containerData.get(ClibanoMainBlockEntity.DATA_LIT_TOTAL_TIME);
     }
 
-    public Pair<Integer, Integer> getCookingProgress() {
-        return Pair.of(this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_PROGRESS_FIRST), this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_PROGRESS_SECOND));
-    }
-
-    public Pair<Integer, Integer> getCookingDuration() {
-        return Pair.of(this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_DURATION_FIRST), this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_DURATION_SECOND));
-    }
+//    public Pair<Integer, Integer> getCookingProgress() {
+//        return Pair.of(this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_PROGRESS_FIRST), this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_PROGRESS_SECOND));
+//    }
+//
+//    public Pair<Integer, Integer> getCookingDuration() {
+//        return Pair.of(this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_DURATION_FIRST), this.containerData.get(ClibanoMainBlockEntity.DATA_COOKING_DURATION_SECOND));
+//    }
 
     @Override
     public boolean stillValid(@Nonnull Player player) {
         return stillValid(this.context.levelAccess(), player, ModBlocks.CLIBANO_MAIN_PART.get());
     }
 
-    public int getFireType() {
-        return this.containerData.get(ClibanoMainBlockEntity.DATA_FIRE_TYPE);
-    }
+//    public int getFireType() {
+//        return this.containerData.get(ClibanoMainBlockEntity.DATA_FIRE_TYPE);
+//    }
+//
+//    public int getResidueFullness() {
+//        return this.containerData.get(ClibanoMainBlockEntity.DATA_RESIDUE_FULLNESS);
+//    }
 
-    public int getResidueFullness() {
-        return this.containerData.get(ClibanoMainBlockEntity.DATA_RESIDUE_FULLNESS);
-    }
-
-    public boolean isDoubleRecipe() {
-        return this.containerData.get(ClibanoMainBlockEntity.DATA_IS_DOUBLE_RECIPE) == 1;
-    }
+//    public boolean isDoubleRecipe() {
+//        return this.containerData.get(ClibanoMainBlockEntity.DATA_IS_DOUBLE_RECIPE) == 1;
+//    }
 
     public void setResidueData(Map<Holder<ResidueType>, Integer> residueData) {
         this.residueData = residueData;

@@ -8,11 +8,13 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
     private static final ResourceLocation CONTAINER_TEXTURE = ForbiddenArcanus.location("textures/gui/container/clibano_combustion.png");
+    private static final ResourceLocation LIT_PROGRESS_SPRITE = ForbiddenArcanus.location("container/clibano/lit_progress");
 
     private final MaterialListComponent materialList;
 
@@ -50,6 +52,12 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int y = (this.height - this.imageHeight) / 2;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_TEXTURE, this.leftPos, y, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+
+        float litProgress = this.menu.getLitProgress();
+        if (litProgress > 0.0F) {
+            int height = Mth.ceil(litProgress * 15.0F);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 37, this.topPos + 39 + 15 - height, 18, height);
+        }
     }
 
     @Override
