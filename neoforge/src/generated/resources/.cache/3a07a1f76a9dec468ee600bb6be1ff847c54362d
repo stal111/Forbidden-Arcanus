@@ -1,6 +1,6 @@
-// 1.21.9	2025-10-15T10:51:38.328318	Tags for minecraft:block mod id forbidden_arcanus
-0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
+// 1.21.10	2025-11-01T20:35:35.3176928	Tags for minecraft:block mod id forbidden_arcanus
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/block/fences/wooden.json
+0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/c/tags/block/glass_blocks.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/c/tags/block/glass_blocks/colorless.json
 a1d1d7866842d6a1b6e78318a88a0c02353a8df9 data/c/tags/block/glass_panes.json

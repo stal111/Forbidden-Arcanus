@@ -92,6 +92,8 @@ public class ModItems implements RegistryClass {
 
     public static final ItemRegistryEntry<AurealBottleItem> AUREAL_BOTTLE = HELPER.register("aureal_bottle", AurealBottleItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.AUREAL, 35)).component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
     public static final ItemRegistryEntry<SplashAurealBottleItem> SPLASH_AUREAL_BOTTLE = HELPER.register("splash_aureal_bottle", SplashAurealBottleItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.AUREAL, 30)).component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
+    public static final ItemRegistryEntry<Item> ECTOPLASM_BOTTLE = HELPER.register("ectoplasm_bottle", Item::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.SOULS, 21)));
+
     public static final ItemRegistryEntry<Item> ARCANE_CRYSTAL_DUST_SPECK = HELPER.register("arcane_crystal_dust_speck", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<ArcaneBoneMealItem> ARCANE_BONE_MEAL = HELPER.register("arcane_bone_meal", ArcaneBoneMealItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> TEST_TUBE = HELPER.register("test_tube", Item::new, () -> new Item.Properties().stacksTo(1));
