@@ -55,6 +55,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,6 +74,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public static final int DATA_LIT_TIME_REMAINING = 0;
     public static final int DATA_LIT_TOTAL_TIME = 1;
+    public static final int DATA_COOKING_TIME_1 = 2;
+    public static final int DATA_COOKING_TIME_2 = 3;
+    public static final int DATA_COOKING_TOTAL_TIME_1 = 4;
+    public static final int DATA_COOKING_TOTAL_TIME_2 = 5;
 
     public static final int DATA_COUNT = 10;
 
@@ -92,7 +97,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private final ItemStacksResourceHandler inputInventory = new ItemStacksResourceHandler(2) {
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
-            ClibanoMainBlockEntity.this.setChanged();
+            ClibanoMainBlockEntity.this.onInputChange(index, previousContents);
         }
     };
 
@@ -100,6 +105,9 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     private int litTimeRemaining;
     private int litTotalTime;
+
+    private int[] cookingTimes = new int[2];
+    private int[] cookingTotalTimes = new int[2];
 
     private int soulTime;
 
@@ -114,6 +122,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             return switch (index) {
                 case DATA_LIT_TIME_REMAINING -> blockEntity.litTimeRemaining;
                 case DATA_LIT_TOTAL_TIME -> blockEntity.litTotalTime;
+                case DATA_COOKING_TIME_1 -> blockEntity.cookingTimes[0];
+                case DATA_COOKING_TIME_2 -> blockEntity.cookingTimes[1];
+                case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0];
+                case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1];
                 default -> 0;
             };
         }
@@ -125,12 +137,16 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             switch (index) {
                 case DATA_LIT_TIME_REMAINING -> blockEntity.litTimeRemaining = value;
                 case DATA_LIT_TOTAL_TIME -> blockEntity.litTotalTime = value;
+                case DATA_COOKING_TIME_1 -> blockEntity.cookingTimes[0] = value;
+                case DATA_COOKING_TIME_2 -> blockEntity.cookingTimes[1] = value;
+                case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0] = value;
+                case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1] = value;
             }
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 6;
         }
     };
 
@@ -194,6 +210,24 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 blockEntity.fuelInventory.setStack(remainder);
             } else {
                 fuel.shrink(1);
+            }
+        }
+
+        if (blockEntity.isLit()) {
+            for (int i = 0; i < blockEntity.cookingTimes.length; i++) {
+                if (blockEntity.cookingTotalTimes[i] != 0 && blockEntity.cookingTimes[i] < blockEntity.cookingTotalTimes[i]) {
+                    blockEntity.cookingTimes[i]++;
+
+                    if (blockEntity.cookingTimes[i] >= blockEntity.cookingTotalTimes[i]) {
+                        blockEntity.cookingTimes[i] = 0;
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < blockEntity.cookingTimes.length; i++) {
+                if (blockEntity.cookingTimes[i] != 0) {
+                    blockEntity.cookingTimes[i] = Mth.clamp(blockEntity.cookingTimes[i] - 2, 0, blockEntity.cookingTotalTimes[i]);
+                }
             }
         }
 
@@ -295,6 +329,16 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     private boolean isLit() {
         return this.litTimeRemaining > 0;
+    }
+
+    private void onInputChange(int index, ItemStack oldStack) {
+        if (!ItemStack.isSameItemSameComponents(ItemUtil.getStack(this.inputInventory, index), oldStack)) {
+            //TODO: get total cooking time from recipe
+            this.cookingTotalTimes[index] = 200;
+            this.cookingTimes[index] = 0;
+        }
+
+        this.setChanged();
     }
 
     private static void createExperience(ServerLevel level, Vec3 position, int count, float experience) {
@@ -518,13 +562,13 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         output.putInt("lit_time_remaining", this.litTimeRemaining);
         output.putInt("lit_total_time", this.litTotalTime);
 
+        output.putIntArray("cooking_times_spent", this.cookingTimes);
+        output.putIntArray("cooking_total_times", this.cookingTotalTimes);
+
         //TODO
 //        this.saveInventory(tag, lookupProvider);
 
         output.putInt("soul_time", this.soulTime);
-
-        output.putIntArray("cooking_times", this.logic.cookingProgress);
-        output.putIntArray("cooking_durations", this.logic.cookingDuration);
 
         output.store("fire_type", ClibanoFireType.CODEC, this.fireType);
         output.store("front_direction", Direction.CODEC, this.frontDirection);
@@ -545,12 +589,12 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.litTimeRemaining = input.getIntOr("lit_time_remaining", 0);
         this.litTotalTime = input.getIntOr("lit_total_time", 0);
 
+        this.cookingTimes = input.getIntArray("cooking_times_spent").orElse(new int[2]);
+        this.cookingTotalTimes = input.getIntArray("cooking_total_times").orElse(new int[2]);
+
         //        this.loadInventory(tag, lookupProvider);
 
         this.soulTime = input.getIntOr("soul_time", 0);
-
-        input.getIntArray("cooking_times").ifPresent(ints -> this.logic.cookingProgress = ints);
-        input.getIntArray("cooking_durations").ifPresent(ints -> this.logic.cookingDuration = ints);
 
         input.read("fire_type", ClibanoFireType.CODEC).ifPresent(fireType -> this.fireType = fireType);
         input.read("front_direction", Direction.CODEC).ifPresent(direction -> this.frontDirection = direction);

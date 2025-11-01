@@ -22,7 +22,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ClibanoMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf buffer) {
-        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new SimpleContainerData(2), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer));
+        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new SimpleContainerData(6), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer));
     }
 
     public ClibanoMenu(int containerId, Inventory playerInventory, FuelItemHandler fuelHandler, ItemStacksResourceHandler inputInventory, ContainerData data, ContainerLevelAccess levelAccess, MaterialStorage materialStorage) {
@@ -30,7 +30,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.levelAccess = levelAccess;
         this.materialStorage = materialStorage;
 
-        checkContainerDataCount(data, 2);
+        checkContainerDataCount(data, 6);
         this.data = data;
 
         this.addDataSlots(data);
@@ -79,12 +79,20 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     public float getLitProgress() {
-        int litTotalTime = this.data.get(1);
+        int litTotalTime = this.data.get(ClibanoMainBlockEntity.DATA_LIT_TOTAL_TIME);
 
         if (litTotalTime <= 0) {
             return 0.0F;
         }
 
-        return Mth.clamp((float) this.data.get(0) / litTotalTime, 0.0F, 1.0F);
+        return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_LIT_TIME_REMAINING) / litTotalTime, 0.0F, 1.0F);
+    }
+
+    public int[] getCookingTimes() {
+        return new int[]{this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TIME_1), this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TIME_2)};
+    }
+
+    public int[] getCookingTotalTimes() {
+        return new int[]{this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TOTAL_TIME_1), this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TOTAL_TIME_2)};
     }
 }

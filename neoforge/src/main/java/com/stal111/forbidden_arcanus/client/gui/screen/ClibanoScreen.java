@@ -15,6 +15,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
     private static final ResourceLocation CONTAINER_TEXTURE = ForbiddenArcanus.location("textures/gui/container/clibano_combustion.png");
     private static final ResourceLocation LIT_PROGRESS_SPRITE = ForbiddenArcanus.location("container/clibano/lit_progress");
+    private static final ResourceLocation SMELT_PROGRESS_SPRITE = ForbiddenArcanus.location("container/clibano/smelt_progress");
 
     private final MaterialListComponent materialList;
 
@@ -53,10 +54,31 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         int y = (this.height - this.imageHeight) / 2;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_TEXTURE, this.leftPos, y, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 
+        // Lit Progress
         float litProgress = this.menu.getLitProgress();
         if (litProgress > 0.0F) {
             int height = Mth.ceil(litProgress * 15.0F);
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 37, this.topPos + 39 + 15 - height, 18, height);
+        }
+
+        int[] totalSmeltTimes = this.menu.getCookingTotalTimes();
+        int[] smeltTimes = this.menu.getCookingTimes();
+        int[] smeltProgress = new int[totalSmeltTimes.length];
+
+        for (int i = 0; i < smeltProgress.length; i++) {
+            smeltProgress[i] = Math.round((float) smeltTimes[i] / (float) totalSmeltTimes[i] * 18.0F);
+        }
+
+        // Smelt Progress 1
+        if (smeltProgress[0] > 0) {
+            int height = smeltProgress[0];
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 22, this.topPos + 37 - height, 5, height + 1);
+        }
+
+        // Smelt Progress 2
+        if (smeltProgress[1] > 0) {
+            int height = smeltProgress[1];
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 65, this.topPos + 37 - height, 5, height + 1);
         }
     }
 
