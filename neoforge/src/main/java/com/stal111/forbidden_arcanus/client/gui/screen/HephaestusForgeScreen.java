@@ -31,10 +31,10 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     public static final ResourceLocation TEXTURES = ForbiddenArcanus.location("textures/gui/container/hephaestus_forge.png");
 
     public static final List<EssenceBarDefinition> ESSENCE_BAR_DEFINITIONS = ImmutableList.of(
-            new EssenceBarDefinition(EssenceType.AUREAL, 0, 12, 177),
-            new EssenceBarDefinition(EssenceType.SOULS, 1, 24, 183),
-            new EssenceBarDefinition(EssenceType.BLOOD, 2, 148, 189),
-            new EssenceBarDefinition(EssenceType.EXPERIENCE, 3, 160, 195)
+            new EssenceBarDefinition(EssenceType.AUREAL, 0, 12, ForbiddenArcanus.location("container/hephaestus_forge/aureal_bar")),
+            new EssenceBarDefinition(EssenceType.SOULS, 1, 24, ForbiddenArcanus.location("container/hephaestus_forge/ectoplasm_bar")),
+            new EssenceBarDefinition(EssenceType.BLOOD, 2, 148, ForbiddenArcanus.location("container/hephaestus_forge/blood_bar")),
+            new EssenceBarDefinition(EssenceType.EXPERIENCE, 3, 160, ForbiddenArcanus.location("container/hephaestus_forge/experience_bar"))
     );
 
     public HephaestusForgeScreen(HephaestusForgeMenu menu, Inventory inventory, Component title) {
@@ -121,10 +121,10 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
     private void renderBar(GuiGraphics guiGraphics, EssenceBarDefinition definition, int max) {
         int ySize = Math.toIntExact(Math.round(32.0F * this.menu.getHephaestusForgeData().get(definition.dataKey()) / max));
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + definition.x(), this.getGuiTop() + 22 + 32 - ySize, definition.textureX(), 3 + 32 - ySize, 4, ySize, 256, 256);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, definition.texture(), 6, 32, 0, 32 - ySize, this.getGuiLeft() + definition.x(), this.getGuiTop() + 22 + 32 - ySize, 4, ySize);
     }
 
-    private record EssenceBarDefinition(EssenceType type, int dataKey, int x, int textureX) {
+    private record EssenceBarDefinition(EssenceType type, int dataKey, int x, ResourceLocation texture) {
 
         public int getMaxAmount(HephaestusForgeLevel level) {
             return level.getMaxAmount(this.type);
