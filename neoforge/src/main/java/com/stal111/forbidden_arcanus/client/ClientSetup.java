@@ -55,7 +55,7 @@ public class ClientSetup {
 
         helper.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL, PedestalRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE, BlackHoleRenderer::new);
-        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, EssenceUtremJarRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, context -> new EssenceUtremJarRenderer());
         helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK, ResearchDeskRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.QUANTUM_INJECTOR, QuantumInjectorRenderer::new);

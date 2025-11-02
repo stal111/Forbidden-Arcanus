@@ -28,6 +28,7 @@ public class EssenceFluidBox extends FluidBox {
 
     public enum Type {
         AUREAL(EssenceType.AUREAL, "aureal_still", "aureal_flow"),
+        ECTOPLASM(EssenceType.SOULS, "ectoplasm_still", "ectoplasm_flow"),
         BLOOD(EssenceType.BLOOD, "blood_still", "blood_flow"),
         EXPERIENCE(EssenceType.EXPERIENCE, "experience_still", "experience_flow");
 
@@ -48,10 +49,6 @@ public class EssenceFluidBox extends FluidBox {
                 }
             }
             return null;
-        }
-
-        public EssenceType getEssenceType() {
-            return this.essenceType;
         }
     }
 }

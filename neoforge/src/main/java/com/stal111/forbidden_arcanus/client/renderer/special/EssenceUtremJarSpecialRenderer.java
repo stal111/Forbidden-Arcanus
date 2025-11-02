@@ -39,7 +39,7 @@ public record EssenceUtremJarSpecialRenderer(
 
         @Override
         public SpecialModelRenderer<?> bake(BakingContext context) {
-            return new EssenceUtremJarSpecialRenderer(new EssenceUtremJarRenderer(context.materials(), context.entityModelSet()));
+            return new EssenceUtremJarSpecialRenderer(new EssenceUtremJarRenderer());
         }
 
         @Override
