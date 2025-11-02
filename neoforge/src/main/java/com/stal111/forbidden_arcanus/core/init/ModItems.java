@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.UtremJarBlock;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.common.item.bucket.BucketFamily;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucketItem;
@@ -83,7 +83,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", Item::new, Item.Properties::new);
 
-    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_AUREAL_TANK));
+    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.AUREAL_TANK_EMPTY));
 
     public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE.get(), properties), () -> new Item.Properties().useBlockDescriptionPrefix());
 
@@ -97,7 +97,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> ARCANE_CRYSTAL_DUST_SPECK = HELPER.register("arcane_crystal_dust_speck", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<ArcaneBoneMealItem> ARCANE_BONE_MEAL = HELPER.register("arcane_bone_meal", ArcaneBoneMealItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> TEST_TUBE = HELPER.register("test_tube", Item::new, () -> new Item.Properties().stacksTo(1));
-    public static final ItemRegistryEntry<Item> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", Item::new, () -> new Item.Properties().stacksTo(1).overrideDescription(TEST_TUBE.value().getDescriptionId()).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_BLOOD_TEST_TUBE).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE));
+    public static final ItemRegistryEntry<Item> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", Item::new, () -> new Item.Properties().stacksTo(1).overrideDescription(TEST_TUBE.value().getDescriptionId()).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.BLOOD_TEST_TUBE_EMPTY).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE));
     public static final ItemRegistryEntry<Item> BLACKSMITH_GAVEL_HEAD = HELPER.register("blacksmith_gavel_head", Item::new, () -> new Item.Properties().stacksTo(16));
     public static final ItemRegistryEntry<Item> WOODEN_BLACKSMITH_GAVEL = HELPER.register("wooden_blacksmith_gavel", Item::new, () -> new Item.Properties().pickaxe(ToolMaterial.WOOD, 1.0F, -2.8F).stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
     public static final ItemRegistryEntry<Item> STONE_BLACKSMITH_GAVEL = HELPER.register("stone_blacksmith_gavel", Item::new, () -> new Item.Properties().pickaxe(ToolMaterial.STONE, 1.0F, -2.8F).stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));

@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -61,7 +62,7 @@ public class EssenceUtremJarBlockEntity extends BlockEntity implements BlockEnti
     }
 
     public EssenceStorage getEssenceStorage() {
-        return this.components().getOrDefault(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.DEFAULT_UTREM_JAR);
+        return this.components().getOrDefault(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.UTREM_JAR_FALLBACK);
     }
 
     @Nullable

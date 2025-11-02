@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
-import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentGetter;
@@ -28,13 +27,6 @@ import java.util.function.Consumer;
  * @since 06.05.2024
  */
 public record EssenceStorage(EssenceType type, int amount, int limit) implements TooltipProvider {
-
-    public static final EssenceStorage EMPTY = createEmpty(EssenceType.AUREAL, 0);
-
-    public static final EssenceStorage EMPTY_BLOOD_TEST_TUBE = createEmpty(EssenceType.BLOOD, 3000);
-    public static final EssenceStorage FULL_BLOOD_TEST_TUBE = createFull(EssenceType.BLOOD, 3000);
-    public static final EssenceStorage DEFAULT_UTREM_JAR = createEmpty(EssenceType.AUREAL, 10000);
-    public static final EssenceStorage EMPTY_AUREAL_TANK = createEmpty(EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY);
 
     private static final String ESSENCE_FORMAT = "tooltip.forbidden_arcanus.essence.storage_format";
 
@@ -60,14 +52,6 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(EssenceStorage::amount),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("limit").forGetter(EssenceStorage::limit)
         ).apply(instance, (amount, limit1) -> new EssenceStorage(type, amount, limit1)));
-    }
-
-    public static EssenceStorage createEmpty(EssenceType type, int limit) {
-        return new EssenceStorage(type, 0, limit);
-    }
-
-    public static EssenceStorage createFull(EssenceType type, int limit) {
-        return new EssenceStorage(type, limit, limit);
     }
 
     public float getFillPercentage() {

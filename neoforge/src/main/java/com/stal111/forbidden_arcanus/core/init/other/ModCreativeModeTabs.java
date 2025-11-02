@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLe
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
@@ -176,7 +176,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.SPLASH_AUREAL_BOTTLE.get());
                             output.accept(ModItems.ECTOPLASM_BOTTLE.get());
                             output.accept(ModItems.TEST_TUBE.get());
-                            output.accept(EssenceHelper.createStorageItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceStorage.FULL_BLOOD_TEST_TUBE));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceStorages.BLOOD_TEST_TUBE_FULL));
                             output.accept(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get());
                             output.accept(ModItems.ETERNAL_STELLA.get());
                             output.accept(ModItems.TERRASTOMP_PRISM.get());
