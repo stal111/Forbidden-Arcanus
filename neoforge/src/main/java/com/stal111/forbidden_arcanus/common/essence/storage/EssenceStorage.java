@@ -54,6 +54,14 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
         ).apply(instance, (amount, limit1) -> new EssenceStorage(type, amount, limit1)));
     }
 
+    public static EssenceStorage createEmpty(EssenceType type, int limit) {
+        return new EssenceStorage(type, 0, limit);
+    }
+
+    public static EssenceStorage createFull(EssenceType type, int limit) {
+        return new EssenceStorage(type, limit, limit);
+    }
+
     public float getFillPercentage() {
         return (float) this.amount / this.limit;
     }
