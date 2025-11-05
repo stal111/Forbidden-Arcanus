@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 import java.util.function.IntSupplier;
 
@@ -33,7 +34,7 @@ public class EssenceBar extends AbstractWidget {
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        int ySize = Math.toIntExact(Math.round(32.0F * this.amount.getAsInt() / this.limit.getAsInt()));
+        int ySize = Mth.ceil((float) (this.height * this.amount.getAsInt()) / this.limit.getAsInt());
         int yOffset = this.height - ySize;
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.texture, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
 
