@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.client.gui.components;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -28,18 +29,16 @@ public class EssenceBar extends AbstractWidget {
         this.texture = texture;
     }
 
-    public MutableComponent buildComponent() {
-        return this.type.getComponent().copy().append(": " + this.amount.getAsInt() + "/" + this.limit.getAsInt());
-    }
-
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        int ySize = Mth.ceil((float) (this.height * this.amount.getAsInt()) / this.limit.getAsInt());
+        EssenceStorage storage = new EssenceStorage(this.type, this.amount.getAsInt(), this.limit.getAsInt());
+
+        int ySize = Mth.floor((float) (this.height * storage.amount()) / storage.limit());
         int yOffset = this.height - ySize;
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.texture, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
 
         if (this.isHovered()) {
-            guiGraphics.setTooltipForNextFrame(this.buildComponent(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(storage.asComponent(ChatFormatting.WHITE), mouseX, mouseY);
         }
     }
 
