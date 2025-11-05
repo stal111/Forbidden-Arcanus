@@ -8,7 +8,11 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSm
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
@@ -100,8 +104,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             ClibanoMainBlockEntity.this.onInputChange(index, previousContents);
         }
     };
+    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.SOULS);
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
+    private EssenceStorage essenceStorage;
 
     private int litTimeRemaining;
     private int litTotalTime;
@@ -557,7 +563,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
+        this.essenceInputInventory.serialize(output.child("essence_inputs"));
+
         output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
+        output.store("ectoplasm", EssenceStorage.codec(EssenceType.SOULS).codec(), this.essenceStorage);
 
         output.putInt("lit_time_remaining", this.litTimeRemaining);
         output.putInt("lit_total_time", this.litTotalTime);
@@ -584,7 +593,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
+        this.essenceInputInventory.deserialize(input.childOrEmpty("essence_inputs"));
+
         this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
+        this.essenceStorage = input.read("ectoplasm", EssenceStorage.codec(EssenceType.SOULS).codec()).orElse(EssenceStorages.CLIBANO_ECTOPLASM_EMPTY);
 
         this.litTimeRemaining = input.getIntOr("lit_time_remaining", 0);
         this.litTotalTime = input.getIntOr("lit_total_time", 0);
@@ -660,7 +672,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
+        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
     }
 
     public static class CachedRecipeCheck implements RecipeManager.CachedCheck<ClibanoRecipeInput, ClibanoRecipe> {

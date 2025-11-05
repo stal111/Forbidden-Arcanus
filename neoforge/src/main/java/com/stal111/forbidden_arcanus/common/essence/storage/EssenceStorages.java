@@ -13,4 +13,5 @@ public final class EssenceStorages {
     public static final EssenceStorage UTREM_JAR_FALLBACK = createEmpty(EssenceType.AUREAL, 10000);
     public static final EssenceStorage AUREAL_TANK_EMPTY = createEmpty(EssenceType.AUREAL, AurealTankItem.MAX_CAPACITY);
     public static final EssenceStorage ECTOPLASM_EXTRACTOR_EMPTY = createEmpty(EssenceType.SOULS, 100);
+    public static final EssenceStorage CLIBANO_ECTOPLASM_EMPTY = createEmpty(EssenceType.SOULS, 250);
 }
