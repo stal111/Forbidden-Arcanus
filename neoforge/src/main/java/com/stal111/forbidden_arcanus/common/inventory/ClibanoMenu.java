@@ -35,9 +35,9 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
         this.addDataSlots(data);
 
-        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 38, 56));
-        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 29, 20));
-        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 47, 20));
+        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 48, 56));
+        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 39, 20));
+        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 57, 20));
 
         this.addStandardInventorySlots(playerInventory, 8, 91);
     }

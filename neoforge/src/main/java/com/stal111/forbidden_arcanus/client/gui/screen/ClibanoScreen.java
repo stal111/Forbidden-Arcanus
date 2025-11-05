@@ -58,7 +58,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         float litProgress = this.menu.getLitProgress();
         if (litProgress > 0.0F) {
             int height = Mth.ceil(litProgress * 15.0F);
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 37, this.topPos + 39 + 15 - height, 18, height);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 47, this.topPos + 39 + 15 - height, 18, height);
         }
 
         int[] totalSmeltTimes = this.menu.getCookingTotalTimes();
@@ -72,13 +72,13 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         // Smelt Progress 1
         if (smeltProgress[0] > 0) {
             int height = smeltProgress[0];
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 22, this.topPos + 37 - height, 5, height + 1);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 32, this.topPos + 37 - height, 5, height + 1);
         }
 
         // Smelt Progress 2
         if (smeltProgress[1] > 0) {
             int height = smeltProgress[1];
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 65, this.topPos + 37 - height, 5, height + 1);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 75, this.topPos + 37 - height, 5, height + 1);
         }
     }
 
