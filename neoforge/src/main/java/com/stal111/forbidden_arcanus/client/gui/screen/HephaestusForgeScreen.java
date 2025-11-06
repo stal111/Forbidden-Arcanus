@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.gui.screen;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.EssenceBar;
+import com.stal111.forbidden_arcanus.client.gui.components.EssenceBarType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.LockableSlot;
@@ -36,10 +37,10 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     protected void init() {
         super.init();
 
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 11, this.getGuiTop() + 22, 6, 32, () -> this.menu.getEssenceStorage(EssenceType.AUREAL), ForbiddenArcanus.location("container/hephaestus_forge/aureal_bar")));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 23, this.getGuiTop() + 22, 6, 32, () ->  this.menu.getEssenceStorage(EssenceType.SOULS), ForbiddenArcanus.location("container/hephaestus_forge/ectoplasm_bar")));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 147, this.getGuiTop() + 22, 6, 32, () ->  this.menu.getEssenceStorage(EssenceType.BLOOD), ForbiddenArcanus.location("container/hephaestus_forge/blood_bar")));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 159, this.getGuiTop() + 22, 6, 32, () ->  this.menu.getEssenceStorage(EssenceType.EXPERIENCE), ForbiddenArcanus.location("container/hephaestus_forge/experience_bar")));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 11, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_AUREAL, () -> this.menu.getEssenceStorage(EssenceType.AUREAL)));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 23, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_ECTOPLASM, () ->  this.menu.getEssenceStorage(EssenceType.SOULS)));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 147, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_BLOOD, () ->  this.menu.getEssenceStorage(EssenceType.BLOOD)));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 159, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_EXPERIENCE, () ->  this.menu.getEssenceStorage(EssenceType.EXPERIENCE)));
     }
 
     @Override

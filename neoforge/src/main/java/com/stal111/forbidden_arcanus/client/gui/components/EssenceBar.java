@@ -18,10 +18,10 @@ public class EssenceBar extends AbstractWidget {
     private final Supplier<EssenceStorage> storageSupplier;
     private final ResourceLocation texture;
 
-    public EssenceBar(int x, int y, int width, int height, Supplier<EssenceStorage> storageSupplier, ResourceLocation texture) {
-        super(x, y, width, height, Component.empty());
+    public EssenceBar(int x, int y, EssenceBarType type, Supplier<EssenceStorage> storageSupplier) {
+        super(x, y, type.width(), type.height(), Component.empty());
         this.storageSupplier = storageSupplier;
-        this.texture = texture;
+        this.texture = type.texture();
     }
 
     @Override
