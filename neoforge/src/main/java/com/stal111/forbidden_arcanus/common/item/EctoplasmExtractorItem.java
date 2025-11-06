@@ -84,7 +84,7 @@ public class EctoplasmExtractorItem extends Item {
                 level.addParticle(ModParticles.SOUL.get(), pos.getX() + level.getRandom().nextFloat(), pos.getY() + 1, pos.getZ() + level.getRandom().nextFloat(), 1, 1, 1);
             }
 
-            EssenceHelper.addEssence(stack, 1);
+            EssenceHelper.addEssence(stack, 21);
 
             if (!level.isClientSide() && livingEntity instanceof Player player) {
                 player.awardStat(Stats.ITEM_USED.get(this));
