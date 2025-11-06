@@ -46,7 +46,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> ARCANE_CRYSTAL_DUST = HELPER.register("arcane_crystal_dust", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> DEORUM_INGOT = HELPER.register("deorum_ingot", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> DEORUM_NUGGET = HELPER.register("deorum_nugget", Item::new, Item.Properties::new);
-    public static final ItemRegistryEntry<Item> XPETRIFIED_ORB = HELPER.register("xpetrified_orb", XpetrifiedOrbItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.EXPERIENCE, 91)));
+    public static final ItemRegistryEntry<Item> XPETRIFIED_ORB = HELPER.register("xpetrified_orb", Item::new, () -> new Item.Properties().stacksTo(16).component(DataComponents.CONSUMABLE, FAConsumables.XPETRIFIED_ORB).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.EXPERIENCE, 91)));
     public static final ItemRegistryEntry<Item> ETERNAL_STELLA = HELPER.register("eternal_stella", Item::new, () -> new Item.Properties().stacksTo(1));
     public static final ItemRegistryEntry<Item> MUNDABITUR_DUST = HELPER.register("mundabitur_dust", MundabiturDustItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> CORRUPTI_DUST = HELPER.register("corrupti_dust", Item::new, Item.Properties::new);
