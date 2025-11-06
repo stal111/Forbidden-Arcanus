@@ -38,5 +38,6 @@ public class RegistryEvents {
         event.register(FARegistries.DARK_TRADER_VARIANT_REGISTRY);
         event.register(FARegistries.MUNDABITUR_INTERACTION_REGISTRY);
         event.register(FARegistries.PEDESTAL_EFFECT_REGISTRY);
+        event.register(FARegistries.ESSENCE_SOURCE_TYPE_REGISTRY);
     }
 }

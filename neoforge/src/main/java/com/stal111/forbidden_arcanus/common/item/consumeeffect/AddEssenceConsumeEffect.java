@@ -1,7 +1,10 @@
 package com.stal111.forbidden_arcanus.common.item.consumeeffect;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.core.init.other.ModConsumeEffects;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -13,12 +16,13 @@ import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class AddEssenceConsumeEffect implements ConsumeEffect {
+public record AddEssenceConsumeEffect(EssenceSource source) implements ConsumeEffect {
 
-    public static final AddEssenceConsumeEffect INSTANCE = new AddEssenceConsumeEffect();
+    public static final MapCodec<AddEssenceConsumeEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            EssenceSource.CODEC.fieldOf("source").forGetter(AddEssenceConsumeEffect::source)
+    ).apply(instance, AddEssenceConsumeEffect::new));
 
-    public static final MapCodec<AddEssenceConsumeEffect> CODEC = MapCodec.unit(INSTANCE);
-    public static final StreamCodec<RegistryFriendlyByteBuf, AddEssenceConsumeEffect> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+    public static final StreamCodec<RegistryFriendlyByteBuf, AddEssenceConsumeEffect> STREAM_CODEC = EssenceSource.STREAM_CODEC.map(AddEssenceConsumeEffect::new, AddEssenceConsumeEffect::source);
 
     @Override
     public Type<? extends ConsumeEffect> getType() {
@@ -30,9 +34,11 @@ public class AddEssenceConsumeEffect implements ConsumeEffect {
         Optional<EssenceAccess> essenceAccess = EssenceHelper.getEssenceAccess(entity);
 
         essenceAccess.ifPresent(access -> {
-            EssenceHelper.getEssenceValue(stack).ifPresent(value -> {
+            EssenceValue value = this.source().getEssenceValue(stack, level.getRandom());
+
+            if (value != null) {
                 access.addEssence(value.type(), value.amount());
-            });
+            }
         });
 
         return essenceAccess.isPresent();
