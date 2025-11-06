@@ -17,20 +17,30 @@ public class EssenceBar extends AbstractWidget {
 
     private final Supplier<EssenceStorage> storageSupplier;
     private final ResourceLocation texture;
+    private final boolean vertical;
 
     public EssenceBar(int x, int y, EssenceBarType type, Supplier<EssenceStorage> storageSupplier) {
         super(x, y, type.width(), type.height(), Component.empty());
         this.storageSupplier = storageSupplier;
         this.texture = type.texture();
+        this.vertical = type.vertical();
     }
 
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         EssenceStorage essenceStorage = this.storageSupplier.get();
-        int ySize = Mth.floor(this.height * essenceStorage.getFillPercentage());
-        int yOffset = this.height - ySize;
 
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.texture, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
+        if (this.vertical) {
+            int ySize = Mth.floor(this.height * essenceStorage.getFillPercentage());
+            int yOffset = this.height - ySize;
+
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.texture, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
+        } else {
+            int xSize = Mth.floor(this.width * essenceStorage.getFillPercentage());
+            int xOffset = this.width - xSize;
+
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.texture, this.width, this.height, xOffset, 0, this.getX() + xOffset, this.getY(), xSize, this.height);
+        }
 
         if (this.isHovered()) {
             guiGraphics.setTooltipForNextFrame(essenceStorage.asComponent(ChatFormatting.WHITE), mouseX, mouseY);
