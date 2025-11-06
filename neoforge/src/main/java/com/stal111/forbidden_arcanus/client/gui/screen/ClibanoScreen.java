@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.gui.screen;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.EssenceBar;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -42,7 +41,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         this.materialList.init(this.height, this.minecraft, totalLeft);
 
         this.addRenderableWidget(this.materialList);
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 28, this.getGuiTop() + 51, 5, 18, EssenceType.SOULS, () -> 50, () -> 100, ForbiddenArcanus.location("container/clibano/ectoplasm_bar")));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 28, this.getGuiTop() + 51, 5, 18, this.menu::getEssenceStorage, ForbiddenArcanus.location("container/clibano/ectoplasm_bar")));
     }
 
     @Override

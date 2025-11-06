@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.Materi
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -97,5 +98,9 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     public int[] getCookingTotalTimes() {
         return new int[]{this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TOTAL_TIME_1), this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TOTAL_TIME_2)};
+    }
+
+    public EssenceStorage getEssenceStorage() {
+        return new EssenceStorage(EssenceType.SOULS, 50, 100);
     }
 }

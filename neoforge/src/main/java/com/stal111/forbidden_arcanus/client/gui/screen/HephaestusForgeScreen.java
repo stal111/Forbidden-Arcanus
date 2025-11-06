@@ -36,10 +36,10 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     protected void init() {
         super.init();
 
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 11, this.getGuiTop() + 22, 6, 32, EssenceType.AUREAL, () -> this.menu.getHephaestusForgeData().get(0), () -> this.menu.getLevel().getMaxAmount(EssenceType.AUREAL), ForbiddenArcanus.location("container/hephaestus_forge/aureal_bar")));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 23, this.getGuiTop() + 22, 6, 32, EssenceType.SOULS, () -> this.menu.getHephaestusForgeData().get(1), () -> this.menu.getLevel().getMaxAmount(EssenceType.SOULS), ForbiddenArcanus.location("container/hephaestus_forge/ectoplasm_bar")));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 147, this.getGuiTop() + 22, 6, 32, EssenceType.BLOOD, () -> this.menu.getHephaestusForgeData().get(2), () -> this.menu.getLevel().getMaxAmount(EssenceType.BLOOD), ForbiddenArcanus.location("container/hephaestus_forge/blood_bar")));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 159, this.getGuiTop() + 22, 6, 32, EssenceType.EXPERIENCE, () -> this.menu.getHephaestusForgeData().get(3), () -> this.menu.getLevel().getMaxAmount(EssenceType.EXPERIENCE), ForbiddenArcanus.location("container/hephaestus_forge/experience_bar")));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 11, this.getGuiTop() + 22, 6, 32, () -> this.menu.getEssenceStorage(EssenceType.AUREAL), ForbiddenArcanus.location("container/hephaestus_forge/aureal_bar")));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 23, this.getGuiTop() + 22, 6, 32, () ->  this.menu.getEssenceStorage(EssenceType.SOULS), ForbiddenArcanus.location("container/hephaestus_forge/ectoplasm_bar")));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 147, this.getGuiTop() + 22, 6, 32, () ->  this.menu.getEssenceStorage(EssenceType.BLOOD), ForbiddenArcanus.location("container/hephaestus_forge/blood_bar")));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 159, this.getGuiTop() + 22, 6, 32, () ->  this.menu.getEssenceStorage(EssenceType.EXPERIENCE), ForbiddenArcanus.location("container/hephaestus_forge/experience_bar")));
     }
 
     @Override
