@@ -2,7 +2,10 @@ package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -22,22 +25,23 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ClibanoMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf buffer) {
-        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new SimpleContainerData(2), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer));
+        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new EssenceInputResourceHandler(EssenceType.SOULS), new SimpleContainerData(6), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer));
     }
 
-    public ClibanoMenu(int containerId, Inventory playerInventory, FuelItemHandler fuelHandler, ItemStacksResourceHandler inputInventory, ContainerData data, ContainerLevelAccess levelAccess, MaterialStorage materialStorage) {
+    public ClibanoMenu(int containerId, Inventory playerInventory, FuelItemHandler fuelHandler, ItemStacksResourceHandler inputInventory, ItemStacksResourceHandler essenceInputInventory, ContainerData data, ContainerLevelAccess levelAccess, MaterialStorage materialStorage) {
         super(ModMenuTypes.CLIBANO.get(), containerId);
         this.levelAccess = levelAccess;
         this.materialStorage = materialStorage;
 
-        checkContainerDataCount(data, 2);
+        checkContainerDataCount(data, 6);
         this.data = data;
 
         this.addDataSlots(data);
 
-        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 38, 56));
-        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 29, 20));
-        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 47, 20));
+        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 48, 56));
+        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 39, 20));
+        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 57, 20));
+        this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 0, 9, 52));
 
         this.addStandardInventorySlots(playerInventory, 8, 91);
     }
@@ -79,12 +83,24 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     public float getLitProgress() {
-        int litTotalTime = this.data.get(1);
+        int litTotalTime = this.data.get(ClibanoMainBlockEntity.DATA_LIT_TOTAL_TIME);
 
         if (litTotalTime <= 0) {
             return 0.0F;
         }
 
-        return Mth.clamp((float) this.data.get(0) / litTotalTime, 0.0F, 1.0F);
+        return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_LIT_TIME_REMAINING) / litTotalTime, 0.0F, 1.0F);
+    }
+
+    public int[] getCookingTimes() {
+        return new int[]{this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TIME_1), this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TIME_2)};
+    }
+
+    public int[] getCookingTotalTimes() {
+        return new int[]{this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TOTAL_TIME_1), this.data.get(ClibanoMainBlockEntity.DATA_COOKING_TOTAL_TIME_2)};
+    }
+
+    public EssenceStorage getEssenceStorage() {
+        return new EssenceStorage(EssenceType.SOULS, 50, 100);
     }
 }

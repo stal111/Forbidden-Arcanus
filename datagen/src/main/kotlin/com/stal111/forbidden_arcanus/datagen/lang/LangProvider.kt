@@ -190,6 +190,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addItem(ModItems.ENCHANTED_SOUL, "Enchanted Soul")
         addItem(ModItems.AUREAL_BOTTLE, "Aureal Bottle")
         addItem(ModItems.SPLASH_AUREAL_BOTTLE, "Splash Aureal Bottle")
+        addItem(ModItems.ECTOPLASM_BOTTLE, "Ectoplasm Bottle")
         addItem(ModItems.TEST_TUBE, "Test Tube")
         addItem(ModItems.ETERNAL_STELLA, "Eternal Stella")
         addItem(ModItems.TERRASTOMP_PRISM, "Terrastomp Prism")

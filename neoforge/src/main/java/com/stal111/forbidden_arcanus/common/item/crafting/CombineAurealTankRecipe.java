@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
         EssenceStorage data = this.getCombinedStorage(input.items());
         boolean multipleStacks = input.items().stream().filter(stack -> !stack.isEmpty()).toList().size() > 1;
 
-        return data != EssenceStorage.EMPTY && multipleStacks && data.limit() <= AurealTankItem.MAX_CAPACITY;
+        return data != null && multipleStacks && data.limit() <= AurealTankItem.MAX_CAPACITY;
     }
 
     @Override
@@ -45,6 +46,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
 
         return stack;    }
 
+    @Nullable
     private EssenceStorage getCombinedStorage(List<ItemStack> stacks) {
         EssenceValue combined = EssenceValue.EMPTY;
         int limit = 0;
@@ -55,7 +57,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             }
 
             if (!stack.is(ModItems.AUREAL_TANK.get())) {
-                return EssenceStorage.EMPTY;
+                return null;
             }
 
             EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);

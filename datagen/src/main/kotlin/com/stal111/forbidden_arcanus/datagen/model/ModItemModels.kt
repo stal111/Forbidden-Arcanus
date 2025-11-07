@@ -29,6 +29,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateFlatItem(ModItems.ENCHANTED_SOUL)
         this.generateFlatItem(ModItems.AUREAL_BOTTLE)
         this.generateFlatItem(ModItems.SPLASH_AUREAL_BOTTLE)
+        this.generateFlatItem(ModItems.ECTOPLASM_BOTTLE)
         this.generateFlatItem(ModItems.ARCANE_CRYSTAL)
         this.generateFlatItem(ModItems.CORRUPTED_ARCANE_CRYSTAL)
         this.generateFlatItem(ModItems.RUNE)
