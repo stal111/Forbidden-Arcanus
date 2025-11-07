@@ -23,7 +23,6 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Hephaestus Forge Menu <br>
@@ -42,7 +41,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final DataSlot hephaestusForgeLevel = DataSlot.standalone();
 
     public HephaestusForgeMenu(int id, Inventory inventory) {
-        this(id, new SingleSlotResourceHandler(false), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(List.of(EssenceType.values())), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
+        this(id, new SingleSlotResourceHandler(false), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(EssenceType.values()), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
     }
 
     public HephaestusForgeMenu(int id, SingleSlotResourceHandler mainSlotInventory, EnhancerResourceHandler enhancerInventory, EssenceInputResourceHandler essenceInputInventory, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory, HephaestusForgeLevel level) {

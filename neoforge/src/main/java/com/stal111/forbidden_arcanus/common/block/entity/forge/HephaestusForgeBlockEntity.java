@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitualIndicatorController;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.HephaestusForgeState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
@@ -20,9 +19,7 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.MultiEssenceStorage;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -46,12 +43,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 
 /**
@@ -93,7 +91,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.setChanged();
     });
     private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
-    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(List.of(EssenceType.values()));
+    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.values());
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state);
@@ -164,19 +162,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        for (EssenceType type : EssenceType.values()) {
-            ItemStack stack = ItemUtil.getStack(blockEntity.essenceInputInventory, type.ordinal());
-
-            if (stack.isEmpty()) {
-                continue;
-            }
-
-            blockEntity.getInput(level, stack, type).ifPresent(input -> {
-                blockEntity.fillWith(type, stack, input, type.ordinal());
-
-                blockEntity.setChanged();
-            });
-        }
+        blockEntity.essenceInputInventory.tick(blockEntity, level.registryAccess());
 
         if (level instanceof ServerLevel serverLevel) {
             for (TickEffect effect : blockEntity.tickEffects) {
@@ -238,17 +224,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.setChanged();
     }
 
-    private Optional<HephaestusForgeInput> getInput(Level level, ItemStack stack, EssenceType essenceType) {
-        if (this.isEssenceFull(essenceType)) {
-            return Optional.empty();
-        }
-
-        return level.registryAccess().lookupOrThrow(FARegistries.FORGE_INPUT).listElements()
-                .map(Holder.Reference::value)
-                .filter(input -> input.canInput(essenceType, stack))
-                .findFirst();
-    }
-
     public void setForgeLevel(HephaestusForgeLevel level) {
         this.forgeLevel = level;
 
@@ -267,15 +242,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public MagicCircleController getMagicCircleController() {
         return this.magicCircleController;
-    }
-
-    public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
-        int value = input.getInputValue(stack).amount();
-
-        this.addEssence(essenceType, value);
-
-        ItemStack result = input.finishInput(stack, value);
-        this.essenceInputInventory.set(slot, ItemResource.of(result), result.getCount());
     }
 
     public RitualManager getRitualManager() {
