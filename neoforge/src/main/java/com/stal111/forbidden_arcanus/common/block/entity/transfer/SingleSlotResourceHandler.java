@@ -66,7 +66,7 @@ public class SingleSlotResourceHandler extends ItemStackResourceHandler {
 
         ItemStack stack = resource.toStack(amount);
 
-        if (!ItemStack.isSameItemSameComponents(this.getStack(), stack)) {
+        if (!ItemStack.matches(this.getStack(), stack)) {
             this.setStack(stack);
             this.onChanged.accept(this.stack);
         }
