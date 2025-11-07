@@ -219,6 +219,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addItem(ModItems.EDELWOOD_WATER_BUCKET, "Edelwood Water Bucket")
         addItem(ModItems.EDELWOOD_LAVA_BUCKET, "Edelwood Lava Bucket")
         addItem(ModItems.EDELWOOD_MILK_BUCKET, "Edelwood Milk Bucket")
+        addItem(ModItems.EDELWOOD_POWDER_SNOW_BUCKET, "Edelwood Powder Snow Bucket")
         addItem(ModItems.BOOM_ARROW, "Boom Arrow")
         addItem(ModItems.DRACO_ARCANUS_ARROW, "Draco Arcanus Arrow")
         addItem(ModItems.EDELWOOD_OIL, "Edelwood Oil")
