@@ -40,7 +40,7 @@ public class EssenceHelper {
 
     public static void addEssence(ItemStack stack, int amount) {
         getEssenceStorage(stack).ifPresent(essenceAccess -> {
-           essenceAccess.addEssence(amount);
+           stack.set(ModDataComponents.ESSENCE_STORAGE, essenceAccess.addEssence(amount));
         });
     }
 

@@ -53,6 +53,13 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
             ModBlocks.AURUM_FENCE_GATE.get(),
             ModBlocks.EDELWOOD_FENCE_GATE.get()
         )
+        this.tag(BlockTags.WALLS).add(
+            ModBlocks.DARKSTONE_WALL.get(),
+            ModBlocks.POLISHED_DARKSTONE_WALL.get(),
+            ModBlocks.POLISHED_DARKSTONE_BRICK_WALL.get(),
+            ModBlocks.SOULLESS_SANDSTONE_WALL.get(),
+            ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.get(),
+        )
         this.tag(BlockTags.WOODEN_DOORS).add(
             ModBlocks.FUNGYSS_DOOR.get(),
             ModBlocks.AURUM_DOOR.get(),
@@ -156,7 +163,6 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
                 ModBlocks.POLISHED_DARKSTONE.get(),
                 ModBlocks.POLISHED_DARKSTONE_SLAB.get(),
                 ModBlocks.POLISHED_DARKSTONE_STAIRS.get(),
-                ModBlocks.POLISHED_DARKSTONE_WALL.get(),
                 ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.get(),
                 ModBlocks.POLISHED_DARKSTONE_BUTTON.get(),
                 ModBlocks.CHISELED_POLISHED_DARKSTONE.get(),

@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.client.renderer.block.EssenceUtremJarRenderer;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -21,7 +22,7 @@ public record EssenceUtremJarSpecialRenderer(
 
     @Override
     public void submit(@Nullable EssenceStorage essenceStorage, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, int packedOverlay, boolean hasFoil, int outlineColor) {
-        this.essenceUtremJarRenderer.submitSpecial(poseStack, nodeCollector, packedLight, packedOverlay, Objects.requireNonNullElse(essenceStorage, EssenceStorage.EMPTY));
+        this.essenceUtremJarRenderer.submitSpecial(poseStack, nodeCollector, packedLight, packedOverlay, Objects.requireNonNullElse(essenceStorage, EssenceStorages.UTREM_JAR_FALLBACK));
     }
 
     @Override
@@ -39,7 +40,7 @@ public record EssenceUtremJarSpecialRenderer(
 
         @Override
         public SpecialModelRenderer<?> bake(BakingContext context) {
-            return new EssenceUtremJarSpecialRenderer(new EssenceUtremJarRenderer(context.materials(), context.entityModelSet()));
+            return new EssenceUtremJarSpecialRenderer(new EssenceUtremJarRenderer());
         }
 
         @Override

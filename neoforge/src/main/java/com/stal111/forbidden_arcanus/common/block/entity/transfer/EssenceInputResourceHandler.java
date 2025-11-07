@@ -12,6 +12,10 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
 
     private final List<EssenceType> essenceTypes;
 
+    public EssenceInputResourceHandler(EssenceType... essenceTypes) {
+        this(List.of(essenceTypes));
+    }
+
     public EssenceInputResourceHandler(List<EssenceType> essenceTypes) {
         super(essenceTypes.size());
         this.essenceTypes = essenceTypes;

@@ -21,7 +21,6 @@ import com.stal111.forbidden_arcanus.common.essence.storage.MultiEssenceStorage;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -63,13 +62,6 @@ import java.util.function.UnaryOperator;
  * @since 2021-06-18
  */
 public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess, MenuProvider {
-
-    public static final EnumMap<EssenceType, Integer> SLOT_FROM_ESSENCE_TYPE_MAP = Util.make(new EnumMap<>(EssenceType.class), map -> {
-        map.put(EssenceType.AUREAL, 0);
-        map.put(EssenceType.SOULS, 1);
-        map.put(EssenceType.BLOOD, 2);
-        map.put(EssenceType.EXPERIENCE, 3);
-    });
 
     public static final int UPDATE_RITUAL_INDICATOR = 1;
     public static final int UPDATE_MAGIC_CIRCLE = 2;
@@ -173,15 +165,14 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         for (EssenceType type : EssenceType.values()) {
-            int slot = SLOT_FROM_ESSENCE_TYPE_MAP.get(type);
-            ItemStack stack = ItemUtil.getStack(blockEntity.essenceInputInventory, slot);
+            ItemStack stack = ItemUtil.getStack(blockEntity.essenceInputInventory, type.ordinal());
 
             if (stack.isEmpty()) {
                 continue;
             }
 
             blockEntity.getInput(level, stack, type).ifPresent(input -> {
-                blockEntity.fillWith(type, stack, input, slot);
+                blockEntity.fillWith(type, stack, input, type.ordinal());
 
                 blockEntity.setChanged();
             });

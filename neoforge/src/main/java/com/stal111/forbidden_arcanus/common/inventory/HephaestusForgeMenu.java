@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResour
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
@@ -152,11 +153,11 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         return stillValid(this.levelAccess, player, ModBlocks.HEPHAESTUS_FORGE.get());
     }
 
-    public ContainerData getHephaestusForgeData() {
-        return this.hephaestusForgeData;
-    }
-
     public HephaestusForgeLevel getLevel() {
         return HephaestusForgeLevel.getFromIndex(this.hephaestusForgeLevel.get());
+    }
+
+    public EssenceStorage getEssenceStorage(EssenceType essenceType) {
+        return new EssenceStorage(essenceType, this.hephaestusForgeData.get(essenceType.ordinal()), this.getLevel().getMaxAmount(essenceType));
     }
 }

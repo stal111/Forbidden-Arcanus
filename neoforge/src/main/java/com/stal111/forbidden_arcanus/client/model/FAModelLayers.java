@@ -19,7 +19,6 @@ public class FAModelLayers {
     public static final ModelLayerLocation LOST_SOUL = new ModelLayerLocation(ForbiddenArcanus.location("lost_soul"), "main");
     public static final ModelLayerLocation DARK_TRADER = new ModelLayerLocation(ForbiddenArcanus.location("dark_trader"), "main");
     public static final ModelLayerLocation QUANTUM_LIGHT_DOOR = new ModelLayerLocation(ForbiddenArcanus.location("quantum_light_door"), "main");
-    public static final ModelLayerLocation UTREM_JAR_SOULS = new ModelLayerLocation(ForbiddenArcanus.location("utrem_jar_souls"), "main");
     public static final ModelLayerLocation QUANTUM_INJECTOR = new ModelLayerLocation(ForbiddenArcanus.location("quantum_injector"), "main");
     public static final ModelLayerLocation FORBIDDENOMICON = new ModelLayerLocation(ForbiddenArcanus.location("forbiddenomicon"), "main");
 

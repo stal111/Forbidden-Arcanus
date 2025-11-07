@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.UtremJarBlock;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.item.*;
 import com.stal111.forbidden_arcanus.common.item.bucket.BucketFamily;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucketItem;
@@ -46,7 +46,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> ARCANE_CRYSTAL_DUST = HELPER.register("arcane_crystal_dust", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> DEORUM_INGOT = HELPER.register("deorum_ingot", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> DEORUM_NUGGET = HELPER.register("deorum_nugget", Item::new, Item.Properties::new);
-    public static final ItemRegistryEntry<Item> XPETRIFIED_ORB = HELPER.register("xpetrified_orb", XpetrifiedOrbItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.EXPERIENCE, 91)));
+    public static final ItemRegistryEntry<Item> XPETRIFIED_ORB = HELPER.register("xpetrified_orb", Item::new, () -> new Item.Properties().stacksTo(16).component(DataComponents.CONSUMABLE, FAConsumables.XPETRIFIED_ORB).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.EXPERIENCE, 91)));
     public static final ItemRegistryEntry<Item> ETERNAL_STELLA = HELPER.register("eternal_stella", Item::new, () -> new Item.Properties().stacksTo(1));
     public static final ItemRegistryEntry<Item> MUNDABITUR_DUST = HELPER.register("mundabitur_dust", MundabiturDustItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> CORRUPTI_DUST = HELPER.register("corrupti_dust", Item::new, Item.Properties::new);
@@ -83,19 +83,21 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", Item::new, Item.Properties::new);
 
-    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_AUREAL_TANK));
+    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.AUREAL_TANK_EMPTY));
 
     public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE.get(), properties), () -> new Item.Properties().useBlockDescriptionPrefix());
 
     public static final ItemRegistryEntry<BlockItem> UTREM_JAR = HELPER.register("utrem_jar", (properties) -> new BlockItem(ModBlocks.UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID));
     public static final ItemRegistryEntry<BlockItem> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", (properties) -> new BlockItem(ModBlocks.ESSENCE_UTREM_JAR.get(), properties), () -> new Item.Properties().overrideDescription(UtremJarBlock.DESCRIPTION_ID).component(ModDataComponents.EMPTY_ITEM, ModItems.UTREM_JAR));
 
-    public static final ItemRegistryEntry<AurealBottleItem> AUREAL_BOTTLE = HELPER.register("aureal_bottle", AurealBottleItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.AUREAL, 35)).component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
+    public static final ItemRegistryEntry<Item> AUREAL_BOTTLE = HELPER.register("aureal_bottle", Item::new, () -> new Item.Properties().stacksTo(16).component(DataComponents.CONSUMABLE, FAConsumables.AUREAL_BOTTLE).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.AUREAL, 35)).component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
     public static final ItemRegistryEntry<SplashAurealBottleItem> SPLASH_AUREAL_BOTTLE = HELPER.register("splash_aureal_bottle", SplashAurealBottleItem::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.AUREAL, 30)).component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
+    public static final ItemRegistryEntry<Item> ECTOPLASM_BOTTLE = HELPER.register("ectoplasm_bottle", Item::new, () -> new Item.Properties().stacksTo(16).component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.SOULS, 21)));
+
     public static final ItemRegistryEntry<Item> ARCANE_CRYSTAL_DUST_SPECK = HELPER.register("arcane_crystal_dust_speck", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<ArcaneBoneMealItem> ARCANE_BONE_MEAL = HELPER.register("arcane_bone_meal", ArcaneBoneMealItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> TEST_TUBE = HELPER.register("test_tube", Item::new, () -> new Item.Properties().stacksTo(1));
-    public static final ItemRegistryEntry<Item> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", Item::new, () -> new Item.Properties().stacksTo(1).overrideDescription(TEST_TUBE.value().getDescriptionId()).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorage.EMPTY_BLOOD_TEST_TUBE).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE));
+    public static final ItemRegistryEntry<Item> BLOOD_TEST_TUBE = HELPER.register("blood_test_tube", Item::new, () -> new Item.Properties().stacksTo(1).overrideDescription(TEST_TUBE.value().getDescriptionId()).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.BLOOD_TEST_TUBE_EMPTY).component(ModDataComponents.EMPTY_ITEM, ModItems.TEST_TUBE));
     public static final ItemRegistryEntry<Item> BLACKSMITH_GAVEL_HEAD = HELPER.register("blacksmith_gavel_head", Item::new, () -> new Item.Properties().stacksTo(16));
     public static final ItemRegistryEntry<Item> WOODEN_BLACKSMITH_GAVEL = HELPER.register("wooden_blacksmith_gavel", Item::new, () -> new Item.Properties().pickaxe(ToolMaterial.WOOD, 1.0F, -2.8F).stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
     public static final ItemRegistryEntry<Item> STONE_BLACKSMITH_GAVEL = HELPER.register("stone_blacksmith_gavel", Item::new, () -> new Item.Properties().pickaxe(ToolMaterial.STONE, 1.0F, -2.8F).stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
@@ -128,7 +130,7 @@ public class ModItems implements RegistryClass {
     //public static final ItemRegistryEntry<BoatItem> FUNGYSS_BOAT = HELPER.register("fungyss_boat", () -> new ModBoatItem(false, ModBoat.Type.FUNGYSS, new Item.Properties().stacksTo(1)));
     //public static final ItemRegistryEntry<BoatItem> FUNGYSS_CHEST_BOAT = HELPER.register("fungyss_chest_boat", () -> new ModBoatItem(true, ModBoat.Type.FUNGYSS, new Item.Properties().stacksTo(1)));
 
-    public static final ItemRegistryEntry<Item> SOUL_EXTRACTOR = HELPER.register("soul_extractor", SoulExtractorItem::new, () -> new Item.Properties().durability(128));
+    public static final ItemRegistryEntry<EctoplasmExtractorItem> SOUL_EXTRACTOR = HELPER.register("soul_extractor", EctoplasmExtractorItem::new, () -> new Item.Properties().durability(128).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.ECTOPLASM_EXTRACTOR_EMPTY));
     public static final ItemRegistryEntry<MagicWandItem> MAGIC_WAND = HELPER.register("magic_wand", MagicWandItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.SHOWS_AUREAL_METER, Unit.INSTANCE).component(ModDataComponents.AUREAL_COST, new AurealCost(5)).component(ModDataComponents.WAND_PARTS, new WandParts(new WandPart(Component.literal("Aurum Wood"), new WandStats(20, 0, 0)), new WandPart(Component.literal("Deorum"), new WandStats(0, 10, 0)), new WandPart(Component.literal("Arcane Crystal"), new WandStats(0, 0, 100)))));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", Item::new, () -> new Item.Properties().stacksTo(1));
 //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));

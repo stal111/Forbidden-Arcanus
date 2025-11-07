@@ -33,7 +33,6 @@ public class EntityRendererEvents {
         event.registerLayerDefinition(FAModelLayers.LOST_SOUL, LostSoulModel::createBodyLayer);
         event.registerLayerDefinition(FAModelLayers.DARK_TRADER, DarkTraderModel::createBodyLayer);
         event.registerLayerDefinition(FAModelLayers.QUANTUM_LIGHT_DOOR, QuantumLightDoorModel::createLayer);
-        event.registerLayerDefinition(FAModelLayers.UTREM_JAR_SOULS, UtremJarSoulsModel::createBodyLayer);
         event.registerLayerDefinition(FAModelLayers.QUANTUM_INJECTOR, QuantumInjectorModel::createBodyLayer);
 
         event.registerLayerDefinition(FAModelLayers.OBSIDIAN_SKULL, ObsidianSkullRenderer::createObsidianSkullLayer);
