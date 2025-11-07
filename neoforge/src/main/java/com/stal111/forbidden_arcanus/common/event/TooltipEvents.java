@@ -35,6 +35,7 @@ public class TooltipEvents {
         boolean advanced = event.getFlags().isAdvanced();
         TooltipDisplay tooltipDisplay = stack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
 
+        stack.addToTooltip(ModDataComponents.ESSENCE_VALUE.get(), event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
         stack.addToTooltip(ModDataComponents.ESSENCE_STORAGE.get(), event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
 
         EnhancerHelper.getEnhancer(stack).ifPresent(definition -> {

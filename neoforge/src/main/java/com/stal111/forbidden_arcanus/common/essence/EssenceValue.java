@@ -4,18 +4,24 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
+
+import java.util.function.Consumer;
 
 /**
  * @author stal111
  * @since 26.04.2024
  */
-public record EssenceValue(EssenceType type, int amount) {
+public record EssenceValue(EssenceType type, int amount) implements TooltipProvider {
 
     public static final EssenceValue EMPTY = new EssenceValue(null, 0);
 
@@ -46,5 +52,10 @@ public record EssenceValue(EssenceType type, int amount) {
 
     public EssenceValue combine(EssenceValue data) {
         return new EssenceValue(this.type, this.amount + data.amount);
+    }
+
+    @Override
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
+        tooltipAdder.accept(this.asComponent(ChatFormatting.GRAY));
     }
 }
