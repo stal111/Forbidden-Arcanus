@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -13,10 +12,10 @@ public interface HephaestusForgeInput {
 
     boolean canInput(EssenceType type, ItemStack stack);
 
-    EssenceValue getInputValue(ItemStack stack, RandomSource random);
+    EssenceValue getInputValue(ItemStack stack);
 
-    default EssenceValue getMaxInputValue(ItemStack stack, RandomSource random) {
-        return this.getInputValue(stack, random);
+    default EssenceValue getMaxInputValue(ItemStack stack) {
+        return this.getInputValue(stack);
     }
 
     ItemStack finishInput(ItemStack stack, int inputValue);

@@ -80,7 +80,7 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
             }
 
             for (HephaestusForgeInput input : FARegistries.FORGE_INPUT_REGISTRY) {
-                EssenceValue inputValue = input.getMaxInputValue(stack, level.getRandom());
+                EssenceValue inputValue = input.getMaxInputValue(stack);
 
                 if (inputValue != EssenceValue.EMPTY && inputValue.type() == state.getValue(ESSENCE_TYPE)) {
                     int transferredAmount = blockEntity.addEssence(inputValue.amount());

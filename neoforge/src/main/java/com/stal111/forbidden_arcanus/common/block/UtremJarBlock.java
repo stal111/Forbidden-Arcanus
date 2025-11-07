@@ -67,7 +67,7 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         for (HephaestusForgeInput input : FARegistries.FORGE_INPUT_REGISTRY) {
-            EssenceValue inputValue = input.getMaxInputValue(stack, level.getRandom());
+            EssenceValue inputValue = input.getMaxInputValue(stack);
 
             if (inputValue != EssenceValue.EMPTY) {
                 BlockState essenceJar = ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState()

@@ -270,7 +270,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
-        int value = input.getInputValue(stack, Objects.requireNonNull(this.getLevel()).getRandom()).amount();
+        int value = input.getInputValue(stack).amount();
 
         this.addEssence(essenceType, value);
 

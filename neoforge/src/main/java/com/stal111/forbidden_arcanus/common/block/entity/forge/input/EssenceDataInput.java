@@ -1,9 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge.input;
 
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
-import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -18,7 +17,7 @@ public class EssenceDataInput implements HephaestusForgeInput {
     }
 
     @Override
-    public EssenceValue getInputValue(ItemStack stack, RandomSource random) {
+    public EssenceValue getInputValue(ItemStack stack) {
         return EssenceHelper.getEssenceValue(stack).orElse(EssenceValue.EMPTY);
     }
 

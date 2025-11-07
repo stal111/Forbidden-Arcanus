@@ -16,7 +16,6 @@ public class ModForgeInputTypes implements RegistryClass {
     public static final MappedRegistryHelper<HephaestusForgeInput> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.FORGE_INPUT);
 
     public static final Holder<HephaestusForgeInput> SIMPLE_ITEM = HELPER.register("essence_data", EssenceDataInput::new);
-    public static final Holder<HephaestusForgeInput> EXTRACT_ENCHANTMENTS = HELPER.register("extract_enchantments", ExtractEnchantmentsInput::new);
     public static final Holder<HephaestusForgeInput> ESSENCE_STORAGE = HELPER.register("essence_storage", EssenceStorageInput::new);
 
 }
