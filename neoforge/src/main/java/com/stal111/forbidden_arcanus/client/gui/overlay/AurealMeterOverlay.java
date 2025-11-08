@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AurealMeterOverlay implements GuiLayer {
 
-    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/gui/hud.png");
+    private static final ResourceLocation BACKGROUND_SPRITE = ForbiddenArcanus.location("hud/aureal_bar_background");
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
@@ -32,7 +32,7 @@ public class AurealMeterOverlay implements GuiLayer {
             return;
         }
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 24, 18, 9, 81, 9, 256, 128);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND_SPRITE, 81, 9, 0, 0, window.getGuiScaledWidth() / 2 + 10, window.getGuiScaledHeight() - 25 - 24, 81, 9);
 
         EssenceHelper.getEssenceAccess(player).ifPresent(essenceAccess -> {
             EssenceBar essenceBar = new EssenceBar(window.getGuiScaledWidth() / 2 + 13, window.getGuiScaledHeight() - 25 - 23, EssenceBarType.PLAYER_AUREAL, () -> essenceAccess.getEssence(EssenceType.AUREAL));
