@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.Molten
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
@@ -64,6 +65,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.UnaryOperator;
 
 /**
  * Clibano Main Block Entity <br>
@@ -72,7 +74,7 @@ import java.util.*;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, ClibanoAccessor {
+public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, ClibanoAccessor, EssenceAccess {
 
     public static final int SOUL_DURATION = 2700;
 
@@ -82,6 +84,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     public static final int DATA_COOKING_TIME_2 = 3;
     public static final int DATA_COOKING_TOTAL_TIME_1 = 4;
     public static final int DATA_COOKING_TOTAL_TIME_2 = 5;
+    public static final int DATA_ECTOPLASM_AMOUNT = 6;
 
     public static final int DATA_COUNT = 10;
 
@@ -107,7 +110,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.SOULS);
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
-    private EssenceStorage essenceStorage;
+    private EssenceStorage essenceStorage = EssenceStorages.CLIBANO_ECTOPLASM_EMPTY;
 
     private int litTimeRemaining;
     private int litTotalTime;
@@ -132,6 +135,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TIME_2 -> blockEntity.cookingTimes[1];
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0];
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1];
+                case DATA_ECTOPLASM_AMOUNT -> blockEntity.getEssenceAmount(EssenceType.SOULS);
                 default -> 0;
             };
         }
@@ -147,12 +151,13 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TIME_2 -> blockEntity.cookingTimes[1] = value;
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0] = value;
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1] = value;
+                case DATA_ECTOPLASM_AMOUNT -> blockEntity.setEssenceAmount(EssenceType.SOULS, value);
             }
         }
 
         @Override
         public int getCount() {
-            return 6;
+            return 7;
         }
     };
 
@@ -200,6 +205,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public static void serverTick(ServerLevel level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
+        blockEntity.essenceInputInventory.tick(blockEntity, level.registryAccess());
+
         if (blockEntity.isLit()) {
             blockEntity.litTimeRemaining--;
         }
@@ -673,6 +680,20 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
+    }
+
+    @Override
+    public EssenceStorage getEssence(EssenceType type) {
+        return type == EssenceType.SOULS ? this.essenceStorage : EssenceStorage.createEmpty(type, 0);
+    }
+
+    @Override
+    public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
+        if (type == EssenceType.SOULS) {
+            this.essenceStorage = updater.apply(this.essenceStorage);
+
+            this.setChanged();
+        }
     }
 
     public static class CachedRecipeCheck implements RecipeManager.CachedCheck<ClibanoRecipeInput, ClibanoRecipe> {

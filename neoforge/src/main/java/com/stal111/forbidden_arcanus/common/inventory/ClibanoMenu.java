@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputRe
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -25,7 +26,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ClibanoMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf buffer) {
-        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new EssenceInputResourceHandler(EssenceType.SOULS), new SimpleContainerData(6), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer));
+        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new EssenceInputResourceHandler(EssenceType.SOULS), new SimpleContainerData(7), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer));
     }
 
     public ClibanoMenu(int containerId, Inventory playerInventory, FuelItemHandler fuelHandler, ItemStacksResourceHandler inputInventory, ItemStacksResourceHandler essenceInputInventory, ContainerData data, ContainerLevelAccess levelAccess, MaterialStorage materialStorage) {
@@ -33,7 +34,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.levelAccess = levelAccess;
         this.materialStorage = materialStorage;
 
-        checkContainerDataCount(data, 6);
+        checkContainerDataCount(data, 7);
         this.data = data;
 
         this.addDataSlots(data);
@@ -101,6 +102,6 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     public EssenceStorage getEssenceStorage() {
-        return new EssenceStorage(EssenceType.SOULS, 50, 100);
+        return EssenceStorages.CLIBANO_ECTOPLASM_EMPTY.setAmount(this.data.get(ClibanoMainBlockEntity.DATA_ECTOPLASM_AMOUNT));
     }
 }
