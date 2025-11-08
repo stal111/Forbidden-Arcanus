@@ -34,7 +34,6 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateFlatItem(ModItems.CORRUPTED_ARCANE_CRYSTAL)
         this.generateFlatItem(ModItems.RUNE)
         this.generateFlatItem(ModItems.STELLARITE_PIECE)
-        this.generateFlatItem(ModItems.XPETRIFIED_ORB)
         this.generateFlatItem(ModItems.DARK_NETHER_STAR)
         this.generateFlatItem(ModItems.DEORUM_NUGGET)
         this.generateFlatItem(ModItems.DEORUM_INGOT)
@@ -109,6 +108,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
 
         generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
         generators.declareCustomModelItem(ModItems.SOUL_EXTRACTOR.get())
+        generators.declareCustomModelItem(ModItems.CONDENSED_EXPERIENCE.get())
 
         generateQuantumCatcher(ModItems.QUANTUM_CATCHER)
         generateQuantumCatcher(ModItems.BOSS_CATCHER, "boss_catcher")

@@ -74,7 +74,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
                     blockEntity.stored_xp += experienceOrb.getValue();
 
                     if (blockEntity.stored_xp >= 60) {
-                        blockEntity.throwOutItemStack(level, new ItemStack(ModItems.XPETRIFIED_ORB.get()), pos.getCenter());
+                        blockEntity.throwOutItemStack(level, new ItemStack(ModItems.CONDENSED_EXPERIENCE.get()), pos.getCenter());
                         blockEntity.stored_xp = 0;
                     }
                     if (level instanceof ServerLevel serverLevel) {

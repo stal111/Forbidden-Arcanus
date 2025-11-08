@@ -175,7 +175,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addItem(ModItems.CORRUPTED_ARCANE_CRYSTAL, "Corrupted Arcane Crystal")
         addItem(ModItems.RUNE, "Rune")
         addItem(ModItems.STELLARITE_PIECE, "Stellarite Piece")
-        addItem(ModItems.XPETRIFIED_ORB, "Xpetrified Orb")
+        addItem(ModItems.CONDENSED_EXPERIENCE, "Condensed Experience")
         addItem(ModItems.DARK_NETHER_STAR, "Dark Nether Star")
         addItem(ModItems.DEORUM_INGOT, "Deorum Ingot")
         addItem(ModItems.OBSIDIANSTEEL_INGOT, "Obsidiansteel Ingot")

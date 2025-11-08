@@ -159,7 +159,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.CORRUPTED_ARCANE_CRYSTAL.get());
                             output.accept(ModItems.RUNE.get());
                             output.accept(ModItems.STELLARITE_PIECE.get());
-                            output.accept(ModItems.XPETRIFIED_ORB.get());
+                            output.accept(ModItems.CONDENSED_EXPERIENCE.get());
                             output.accept(ModItems.DARK_NETHER_STAR.get());
                             output.accept(ModItems.DEORUM_NUGGET.get());
                             output.accept(ModItems.DEORUM_INGOT.get());

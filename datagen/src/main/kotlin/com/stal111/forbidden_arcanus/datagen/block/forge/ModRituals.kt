@@ -115,7 +115,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
 
         register(BuiltInRituals.ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND) {
             it
-                .input(Ingredient.of(ModItems.XPETRIFIED_ORB), 3)
+                .input(Ingredient.of(ModItems.CONDENSED_EXPERIENCE), 3)
                 .input(Ingredient.of(ModItems.STELLARITE_PIECE))
                 .requirements(eternalStella)
         }
