@@ -10,6 +10,6 @@ public class EssenceSourceTypes {
 
     public static final MappedRegistryHelper<EssenceSourceType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.ESSENCE_SOURCE_TYPE);
 
-    public static final Supplier<EssenceSourceType<?>> FROM_VALUE_COMPONENT = HELPER.register("from_value_component", () -> new EssenceSourceType<>(ValueComponentEssenceSource.CODEC, ValueComponentEssenceSource.STREAM_CODEC));
+    public static final Supplier<EssenceSourceType<?>> FROM_VALUE_COMPONENT = HELPER.register("from_value_component", () -> new EssenceSourceType<>(DataComponentEssenceSource.CODEC.fieldOf("component"), DataComponentEssenceSource.STREAM_CODEC));
     public static final Supplier<EssenceSourceType<?>> STATIC_VALUE = HELPER.register("static_value", () -> new EssenceSourceType<>(StaticValueEssenceSource.CODEC, StaticValueEssenceSource.STREAM_CODEC));
 }

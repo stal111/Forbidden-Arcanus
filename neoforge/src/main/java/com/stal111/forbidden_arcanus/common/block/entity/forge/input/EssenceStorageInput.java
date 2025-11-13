@@ -32,7 +32,7 @@ public class EssenceStorageInput implements HephaestusForgeInput {
     @Override
     public EssenceValue getMaxInputValue(ItemStack stack) {
         return EssenceHelper.getEssenceStorage(stack)
-                .map(EssenceStorage::getCurrentValue)
+                .map(EssenceStorage::getEssenceValue)
                 .orElse(EssenceValue.EMPTY);
     }
 

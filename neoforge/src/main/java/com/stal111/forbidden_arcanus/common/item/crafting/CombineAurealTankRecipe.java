@@ -63,7 +63,7 @@ public class CombineAurealTankRecipe extends CustomRecipe {
             EssenceStorage storage = stack.get(ModDataComponents.ESSENCE_STORAGE);
 
             if (storage != null) {
-                combined = combined.combine(storage.getCurrentValue());
+                combined = combined.combine(storage.getEssenceValue());
             }
         }
 

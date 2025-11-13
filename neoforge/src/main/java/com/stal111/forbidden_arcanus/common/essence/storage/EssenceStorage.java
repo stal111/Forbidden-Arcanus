@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -26,7 +27,7 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 06.05.2024
  */
-public record EssenceStorage(EssenceType type, int amount, int limit) implements TooltipProvider {
+public record EssenceStorage(EssenceType type, int amount, int limit) implements TooltipProvider, EssenceProvider {
 
     private static final String ESSENCE_FORMAT = "tooltip.forbidden_arcanus.essence.storage_format";
 
@@ -95,15 +96,16 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
         return new EssenceStorage(this.type, Math.min(this.amount, limit), limit);
     }
 
-    public EssenceValue getCurrentValue() {
-        return EssenceValue.of(this.type, this.amount);
-    }
-
     public boolean isFull() {
         return this.amount >= this.limit;
     }
 
     public boolean isEmpty() {
         return this.amount <= 0;
+    }
+
+    @Override
+    public EssenceValue getEssenceValue() {
+        return EssenceValue.of(this.type, this.amount);
     }
 }

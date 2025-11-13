@@ -21,7 +21,7 @@ import java.util.function.Consumer;
  * @author stal111
  * @since 26.04.2024
  */
-public record EssenceValue(EssenceType type, int amount) implements TooltipProvider {
+public record EssenceValue(EssenceType type, int amount) implements TooltipProvider, EssenceProvider {
 
     public static final EssenceValue EMPTY = new EssenceValue(null, 0);
 
@@ -57,5 +57,10 @@ public record EssenceValue(EssenceType type, int amount) implements TooltipProvi
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
         tooltipAdder.accept(this.asComponent(ChatFormatting.GRAY));
+    }
+
+    @Override
+    public EssenceValue getEssenceValue() {
+        return this;
     }
 }
