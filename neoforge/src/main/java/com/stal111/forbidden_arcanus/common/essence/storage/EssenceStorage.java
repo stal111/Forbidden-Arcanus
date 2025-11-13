@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
+import net.neoforged.neoforge.common.MutableDataComponentHolder;
 
 import java.util.function.Consumer;
 
@@ -107,5 +108,15 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
     @Override
     public EssenceValue getEssenceValue() {
         return EssenceValue.of(this.type, this.amount);
+    }
+
+    @Override
+    public void extract(MutableDataComponentHolder componentHolder, int amount) {
+        componentHolder.set(ModDataComponents.ESSENCE_STORAGE, this.addEssence(-amount));
+    }
+
+    @Override
+    public int getExtractionSpeed() {
+        return 10;
     }
 }
