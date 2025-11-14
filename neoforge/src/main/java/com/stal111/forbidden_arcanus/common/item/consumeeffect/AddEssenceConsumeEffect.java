@@ -34,7 +34,7 @@ public record AddEssenceConsumeEffect(EssenceSource source) implements ConsumeEf
         Optional<EssenceAccess> essenceAccess = EssenceHelper.getEssenceAccess(entity);
 
         essenceAccess.ifPresent(access -> {
-            EssenceValue value = this.source().getEssenceValue(stack, level.getRandom());
+            EssenceValue value = this.source().getEssenceValue(stack);
 
             if (value != null) {
                 access.addEssence(value.type(), value.amount());
