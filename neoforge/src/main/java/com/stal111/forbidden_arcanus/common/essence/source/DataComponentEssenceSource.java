@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.neoforge.common.MutableDataComponentHolder;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 
 public record DataComponentEssenceSource(DataComponentType<?> dataComponentType) implements EssenceSource {
 
@@ -15,17 +15,16 @@ public record DataComponentEssenceSource(DataComponentType<?> dataComponentType)
     public static final StreamCodec<RegistryFriendlyByteBuf, DataComponentEssenceSource> STREAM_CODEC = DataComponentType.STREAM_CODEC.map(DataComponentEssenceSource::new, DataComponentEssenceSource::dataComponentType);
 
     @Override
-    public @Nullable EssenceValue extractEssence(MutableDataComponentHolder componentHolder, boolean keepOriginal) {
-        if (componentHolder.get(this.dataComponentType) instanceof EssenceProvider essenceProvider) {
-            EssenceValue value = essenceProvider.getExtractableValue(false);
-
-            if (!keepOriginal) {
-                essenceProvider.extract(componentHolder, value.amount());
-            }
-
-            return value;
+    public EssenceValue getEssenceValue(ItemStack stack, RandomSource random) {
+        if (stack.get(this.dataComponentType) instanceof EssenceProvider essenceProvider) {
+            return essenceProvider.getEssenceValue();
         }
 
         return null;
+    }
+
+    @Override
+    public EssenceSourceType<?> getType() {
+        return EssenceSourceTypes.FROM_VALUE_COMPONENT.get();
     }
 }
