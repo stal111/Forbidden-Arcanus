@@ -25,6 +25,6 @@ public record DataComponentEssenceSource(DataComponentType<?> dataComponentType)
 
     @Override
     public EssenceSourceType<?> getType() {
-        return EssenceSourceTypes.FROM_VALUE_COMPONENT.get();
+        return EssenceSourceTypes.FROM_COMPONENT.get();
     }
 }
