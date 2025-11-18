@@ -177,6 +177,8 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.ECTOPLASM_BOTTLE.get());
                             output.accept(ModItems.TEST_TUBE.get());
                             output.accept(EssenceHelper.createStorageItem(ModItems.BLOOD_TEST_TUBE.get(), EssenceStorages.BLOOD_TEST_TUBE_FULL));
+                            output.accept(ModItems.CONTAINMENT_CAPSULE.get());
+                            output.accept(ModItems.ENCAPSULATED_BLACK_HOLE.get());
                             output.accept(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get());
                             output.accept(ModItems.ETERNAL_STELLA.get());
                             output.accept(ModItems.TERRASTOMP_PRISM.get());

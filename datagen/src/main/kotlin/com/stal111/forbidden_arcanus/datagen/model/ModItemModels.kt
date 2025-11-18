@@ -104,6 +104,9 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateFlatItem(ModItems.SMELTER_PRISM)
         this.generateFlatItem(ModItems.SOUL_BINDING_CRYSTAL)
         this.generateFlatItem(ModItems.AUREAL_WARDSTONE)
+        this.generateFlatItem(ModItems.CONTAINMENT_CAPSULE)
+        this.generateFlatItem(ModItems.ENCAPSULATED_BLACK_HOLE)
+
         this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal")
 
         generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
