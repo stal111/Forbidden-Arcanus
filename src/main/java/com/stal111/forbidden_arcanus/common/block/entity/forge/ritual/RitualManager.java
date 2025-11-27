@@ -206,18 +206,12 @@ public class RitualManager implements SerializableComponent {
             this.lightningCounter++;
 
             if (this.lightningCounter == 300) {
-                List<ItemStack> list = new ArrayList<>();
-
-                this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
-
-                if (!this.getActiveRitual().checkIngredients(list, this.mainIngredientAccessor.get())) {
-                    this.failRitual();
-
-                    return;
-                }
+                if (checkActiveRitualIngredients()) return;
 
                 this.lightningCounter = 0;
             }
+        } else {
+            if (checkActiveRitualIngredients()) return;
         }
 
         this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
@@ -260,6 +254,19 @@ public class RitualManager implements SerializableComponent {
                 this.failRitual();
             }
         }
+    }
+
+    private boolean checkActiveRitualIngredients() {
+        List<ItemStack> items = new ArrayList<>();
+
+        this.forEachPedestal(PedestalBlockEntity::hasStack, pedestalBlockEntity -> items.add(pedestalBlockEntity.getStack()));
+
+        if (!this.getActiveRitual().checkIngredients(items, this.mainIngredientAccessor.get())) {
+            this.failRitual();
+
+            return true;
+        }
+        return false;
     }
 
     public void finishRitual() {
