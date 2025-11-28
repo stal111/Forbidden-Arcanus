@@ -34,15 +34,4 @@ public record EnhancerDefinition(Item item, Map<EnhancerTarget, Component> descr
     ).apply(instance, EnhancerDefinition::new));
 
     public static final Codec<Holder<EnhancerDefinition>> REFERENCE_CODEC = RegistryFileCodec.create(FARegistries.ENHANCER_DEFINITION, CODEC);
-
-    public static final Codec<EnhancerDefinition> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(definition -> {
-                return definition.item;
-            }),
-            Codec.simpleMap(EnhancerTarget.CODEC, AdditionalCodecs.COMPONENT, StringRepresentable.keys(EnhancerTarget.values())).fieldOf("description").forGetter(definition -> {
-                return definition.description;
-            })
-    ).apply(instance, (item, description) -> {
-        return new EnhancerDefinition(item, description, ImmutableList.of());
-    }));
 }

@@ -5,6 +5,8 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.registry.FARegistries;
+import com.stal111.forbidden_arcanus.data.enhancer.ModEnhancerDefinitions;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -14,17 +16,20 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author stal111
@@ -79,7 +84,7 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
     public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull Ritual ritual, @Nonnull IFocusGroup focusGroup) {
         this.addInputs(builder, ritual.inputs(), ritual.mainIngredient());
 
-        if (ritual.requirements() != null && this.displayEnhancers()) {
+        if (ritual.requirements() != null && this.displayEnhancers() && ritual.requirements().enhancers() != null) {
             this.addEnhancers(builder, ritual.requirements().enhancers());
         }
 
@@ -108,12 +113,19 @@ public abstract class HephaestusForgeCategory implements IRecipeCategory<Ritual>
         }
     }
 
-    private void addEnhancers(@Nonnull IRecipeLayoutBuilder builder, List<Holder<EnhancerDefinition>> enhancers) {
-        for (int i = 0; i < enhancers.size(); i++) {
-            Holder<EnhancerDefinition> enhancer = enhancers.get(i);
+    private void addEnhancers(@Nonnull IRecipeLayoutBuilder builder, List<ResourceLocation> enhancerIds) {
+        Registry<EnhancerDefinition> registry = Minecraft.getInstance().level.registryAccess().registryOrThrow(FARegistries.ENHANCER_DEFINITION);
+
+        for (int i = 0; i < enhancerIds.size(); i++) {
+            ResourceLocation enhancerId = enhancerIds.get(i);
+
+            EnhancerDefinition enhancer = registry.get(enhancerId);
+            if (enhancer == null) {
+                continue;
+            }
 
             builder.addSlot(RecipeIngredientRole.CATALYST, ENHANCER_POSITION.firstInt(), ENHANCER_POSITION.secondInt() + i * ENHANCER_Y_OFFSET)
-                    .addItemStack(enhancer.get().item().getDefaultInstance());
+                    .addItemStack(enhancer.item().getDefaultInstance());
         }
     }
 

@@ -82,10 +82,8 @@ public class RitualBuilder {
         return this;
     }
 
-    @SafeVarargs
-    public final RitualBuilder requirements(int tier, Holder<EnhancerDefinition>... enhancers) {
-        this.additionalRequirements = new RitualRequirements(tier, List.of(enhancers));
-
+    public final RitualBuilder requirements(int tier, ResourceLocation... enhancerIds) {
+        this.additionalRequirements = new RitualRequirements(tier, List.of(enhancerIds));
         return this;
     }
 
