@@ -111,7 +111,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal")
 
         generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
-        generators.declareCustomModelItem(ModItems.SOUL_EXTRACTOR.get())
+        generators.declareCustomModelItem(ModItems.ECTO_BLASTER.get())
 
         generateQuantumCatcher(ModItems.QUANTUM_CATCHER)
         generateQuantumCatcher(ModItems.BOSS_CATCHER, "boss_catcher")

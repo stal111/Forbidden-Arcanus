@@ -268,7 +268,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                                 output.accept(EnhancerHelper.createEnhancerItem(enhancerLookup, ModItems.MALEDICTUS_PACT, BuiltInEnhancers.MALEDICTUS_PACT));
                             });
 
-                            output.accept(ModItems.SOUL_EXTRACTOR.get());
+                            output.accept(ModItems.ECTO_BLASTER.get());
                             output.accept(ModItems.BLACKSMITH_GAVEL_HEAD.get());
                             output.accept(ModItems.WOODEN_BLACKSMITH_GAVEL.get());
                             output.accept(ModItems.STONE_BLACKSMITH_GAVEL.get());

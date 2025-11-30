@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:soul_extractor"
+        "recipe": "forbidden_arcanus:ecto_blaster"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:soul_extractor"
+      "forbidden_arcanus:ecto_blaster"
     ]
   }
 }

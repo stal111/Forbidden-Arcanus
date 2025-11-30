@@ -45,7 +45,7 @@ class CraftingRecipeProvider(
                 .define('#' to ModItems.ARCANE_CRYSTAL_DUST_SPECK)
                 .unlockedBy(ModItems.ARCANE_CRYSTAL_DUST_SPECK)
         }
-        this.shaped(RecipeCategory.TOOLS, ModItems.SOUL_EXTRACTOR) {
+        this.shaped(RecipeCategory.TOOLS, ModItems.ECTO_BLASTER) {
             it.pattern("U  ", "##X", "Q  ")
                 .define(
                     'U' to ModBlocks.UTREM_JAR.get(),

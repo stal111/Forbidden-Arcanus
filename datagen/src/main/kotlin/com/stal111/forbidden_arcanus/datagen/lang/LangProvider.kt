@@ -256,7 +256,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addItem(ModItems.ELEMENTARIUM, "Elementarium")
         addItem(ModItems.DIVINE_PACT, "Divine Pact")
         addItem(ModItems.MALEDICTUS_PACT, "Maledictus Pact")
-        addItem(ModItems.SOUL_EXTRACTOR, "Soul Extractor")
+        addItem(ModItems.ECTO_BLASTER, "Soul Extractor")
         addItem(ModItems.BLACKSMITH_GAVEL_HEAD, "Blacksmith Gavel Head")
         addItem(ModItems.WOODEN_BLACKSMITH_GAVEL, "Wooden Blacksmith Gavel")
         addItem(ModItems.STONE_BLACKSMITH_GAVEL, "Stone Blacksmith Gavel")
