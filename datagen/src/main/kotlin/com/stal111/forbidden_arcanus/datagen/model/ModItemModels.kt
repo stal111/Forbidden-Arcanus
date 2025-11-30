@@ -106,12 +106,12 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateFlatItem(ModItems.AUREAL_WARDSTONE)
         this.generateFlatItem(ModItems.CONTAINMENT_CAPSULE)
         this.generateFlatItem(ModItems.ENCAPSULATED_BLACK_HOLE)
+        this.generateFlatItem(ModItems.CONDENSED_EXPERIENCE)
 
         this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal")
 
         generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
         generators.declareCustomModelItem(ModItems.SOUL_EXTRACTOR.get())
-        generators.declareCustomModelItem(ModItems.CONDENSED_EXPERIENCE.get())
 
         generateQuantumCatcher(ModItems.QUANTUM_CATCHER)
         generateQuantumCatcher(ModItems.BOSS_CATCHER, "boss_catcher")

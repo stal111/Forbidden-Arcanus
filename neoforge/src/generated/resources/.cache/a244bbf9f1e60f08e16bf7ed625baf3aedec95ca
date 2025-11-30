@@ -1,4 +1,4 @@
-// 1.21.10	2025-11-08T15:10:40.0508114	Model Definitions - forbidden_arcanus
+// 1.21.10	2025-11-30T18:33:55.4910219	Model Definitions - forbidden_arcanus
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -671,6 +671,7 @@ db49b3ab7beede248d174f89fb3bdcc25e2d261e assets/forbidden_arcanus/models/item/bl
 f35d547e4ed5a92fc02ba385b39196635e476306 assets/forbidden_arcanus/models/item/boom_arrow.json
 71016ff568765ae598dd019ee4151f10bb49e479 assets/forbidden_arcanus/models/item/boss_catcher.json
 d4cefa6cfca6d47d3127315f519223157ea9af4b assets/forbidden_arcanus/models/item/brown_quantum_catcher.json
+ef1b67a9d3aa93624c71a4b5dd7edd3625686bc4 assets/forbidden_arcanus/models/item/condensed_experience.json
 93540689c40bc8801e1275e37994d3beabedeaaa assets/forbidden_arcanus/models/item/containment_capsule.json
 4a062a07b2c648f8e2d21cde08a2506e2c431c89 assets/forbidden_arcanus/models/item/cooked_tentacle.json
 c95472dd4f025bae1a5409f7e9e9e3124f72d9dc assets/forbidden_arcanus/models/item/corrupted_arcane_crystal.json
