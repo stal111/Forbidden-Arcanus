@@ -48,7 +48,7 @@ public class EctoplasmExtractorItem extends Item {
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.BOW;
+        return ItemUseAnimation.NONE;
     }
 
     @Override

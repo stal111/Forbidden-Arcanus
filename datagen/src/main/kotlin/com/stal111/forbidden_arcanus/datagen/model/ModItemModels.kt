@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.datagen.model
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.client.renderer.item.properties.EssenceFillPercentage
+import com.stal111.forbidden_arcanus.client.renderer.special.EctoBlasterSpecialRenderer
 import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.quantumCatcher
 import net.minecraft.client.data.models.ItemModelGenerators
@@ -111,7 +112,8 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal")
 
         generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
-        generators.declareCustomModelItem(ModItems.ECTO_BLASTER.get())
+
+        generateEctoBlaster()
 
         generateQuantumCatcher(ModItems.QUANTUM_CATCHER)
         generateQuantumCatcher(ModItems.BOSS_CATCHER, "boss_catcher")
@@ -280,6 +282,21 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         )
 
         output.accept(item.get(), ItemModelUtils.plainModel(model))
+    }
+
+    private fun generateEctoBlaster() {
+        val model = ModelLocationUtils.getModelLocation(ModItems.ECTO_BLASTER.get())
+
+        generators.itemModelOutput.accept(
+            ModItems.ECTO_BLASTER.get(),
+            ItemModelUtils.composite(
+                ItemModelUtils.plainModel(model),
+                ItemModelUtils.specialModel(
+                    model,
+                    EctoBlasterSpecialRenderer.Unbaked()
+                )
+            )
+        )
     }
 
     companion object {

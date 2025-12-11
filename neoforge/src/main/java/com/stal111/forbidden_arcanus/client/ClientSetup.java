@@ -14,6 +14,7 @@ import com.stal111.forbidden_arcanus.client.particle.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.renderer.item.properties.EssenceFillPercentage;
+import com.stal111.forbidden_arcanus.client.renderer.special.EctoBlasterSpecialRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.special.EssenceUtremJarSpecialRenderer;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
@@ -123,6 +124,7 @@ public class ClientSetup {
     @SubscribeEvent
     public void registerSpecialRenderers(RegisterSpecialModelRendererEvent event) {
         event.register(ForbiddenArcanus.location("essence_utrem_jar"), EssenceUtremJarSpecialRenderer.Unbaked.MAP_CODEC);
+        event.register(ForbiddenArcanus.location("ecto_blaster"), EctoBlasterSpecialRenderer.Unbaked.MAP_CODEC);
     }
 
     @SubscribeEvent

@@ -1,6 +1,18 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "forbidden_arcanus:item/ecto_blaster"
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "forbidden_arcanus:item/ecto_blaster"
+      },
+      {
+        "type": "minecraft:special",
+        "base": "forbidden_arcanus:item/ecto_blaster",
+        "model": {
+          "type": "forbidden_arcanus:ecto_blaster"
+        }
+      }
+    ]
   }
 }

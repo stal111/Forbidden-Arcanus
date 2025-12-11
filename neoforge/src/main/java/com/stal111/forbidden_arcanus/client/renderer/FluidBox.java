@@ -65,6 +65,10 @@ public class FluidBox {
     }
 
     public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay) {
+        if (this.fillPercentage == 0) {
+            return;
+        }
+
         nodeCollector.submitCustomGeometry(poseStack, RenderTypeHelper.getEntityRenderType(ChunkSectionLayer.TRANSLUCENT), (pose, builder) -> {
             float minX = (float) boundingBox.minX;
             float maxX = (float) boundingBox.maxX;

@@ -1,4 +1,4 @@
-// 1.21.10	2025-11-30T23:13:03.2160516	Model Definitions - forbidden_arcanus
+// 1.21.10	2025-12-11T19:51:56.0368267	Model Definitions - forbidden_arcanus
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -235,7 +235,7 @@ e6b83b4f525d2d3db44a562c764d0579592de6ab assets/forbidden_arcanus/items/draco_ar
 1e77f96aa1b981c966bc57e4974201460e84b81b assets/forbidden_arcanus/items/draco_arcanus_staff.json
 77569700aafa053d2b835e0bc1e204dc363d83ad assets/forbidden_arcanus/items/dragon_scale.json
 b83794611d8da5d7697faf498665ed2323abffc4 assets/forbidden_arcanus/items/ectoplasm_bottle.json
-a6b8aced5febef9f5bc98336de9dfa7e8e40244a assets/forbidden_arcanus/items/ecto_blaster.json
+382832cb1700a201e29d8ab5eeaf00662cc9bde9 assets/forbidden_arcanus/items/ecto_blaster.json
 b1db97659bbdcb2897d7c7d07f72fedbb7e336e1 assets/forbidden_arcanus/items/edelwood_branch.json
 aef1d85bcfe829292f431cb5c44c8948a7afd906 assets/forbidden_arcanus/items/edelwood_bucket.json
 29e58fb05a325e7abd5674bf79376442a24de2b9 assets/forbidden_arcanus/items/edelwood_button.json
