@@ -5,9 +5,9 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.ValidRitualIndicatorRenderState;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.Material;
@@ -17,7 +17,7 @@ import net.minecraft.util.Unit;
 
 public class ValidRitualIndicatorRenderer {
 
-    private static final Material TEXTURE = MagicCircleRenderer.MAPPER.apply(ForbiddenArcanus.location("valid_ritual_indicator"));
+    private static final Material TEXTURE = MagicCircleRenderer.MAPPER.apply(ForbiddenArcanus.identifier("valid_ritual_indicator"));
     private static final int ANIMATION_DURATION = 60;
 
     private final MaterialSet materials;
@@ -25,7 +25,7 @@ public class ValidRitualIndicatorRenderer {
 
     public ValidRitualIndicatorRenderer(BlockEntityRendererProvider.Context context) {
         this.materials = context.materials();
-        this.model = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_VALID_RITUAL_INDICATOR), RenderType::entityTranslucentEmissive);
+        this.model = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_VALID_RITUAL_INDICATOR), RenderTypes::entityTranslucentEmissive);
     }
 
     public void submit(ValidRitualIndicatorRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {

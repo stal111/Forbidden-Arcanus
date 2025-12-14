@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Items;
@@ -22,10 +22,10 @@ import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 @EventBusSubscriber
 public class DataComponentEvents {
 
-    public static final ResourceLocation ARMOR_HELMET = ForbiddenArcanus.location("armor.helmet");
-    public static final ResourceLocation ARMOR_CHESTPLATE = ForbiddenArcanus.location("armor.chestplate");
-    public static final ResourceLocation ARMOR_LEGGINGS = ForbiddenArcanus.location("armor.leggings");
-    public static final ResourceLocation ARMOR_BOOTS = ForbiddenArcanus.location("armor.boots");
+    public static final Identifier ARMOR_HELMET = ForbiddenArcanus.identifier("armor.helmet");
+    public static final Identifier ARMOR_CHESTPLATE = ForbiddenArcanus.identifier("armor.chestplate");
+    public static final Identifier ARMOR_LEGGINGS = ForbiddenArcanus.identifier("armor.leggings");
+    public static final Identifier ARMOR_BOOTS = ForbiddenArcanus.identifier("armor.boots");
 
     @SubscribeEvent
     public static void modifyComponents(ModifyDefaultComponentsEvent event) {

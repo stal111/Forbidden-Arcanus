@@ -10,9 +10,9 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.AnimationState;
 
 /**
@@ -21,12 +21,12 @@ import net.minecraft.world.entity.AnimationState;
  */
 public class QuantumLightDoorModel extends Model<QuantumLightDoorModel.State> {
 
-    public static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/effect/quantum_light_door.png");
+    public static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/effect/quantum_light_door.png");
 
     private final KeyframeAnimation spawnAnimation;
 
     public QuantumLightDoorModel(ModelPart root) {
-        super(root, RenderType::entityTranslucentEmissive);
+        super(root, RenderTypes::entityTranslucentEmissive);
         this.spawnAnimation = QuantumLightDoorAnimation.SPAWN.bake(root);
     }
 

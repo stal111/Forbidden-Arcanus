@@ -9,7 +9,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class KnowledgeWidget extends AbstractWidget {
 
-    private static final ResourceLocation TITLE_BOX = ForbiddenArcanus.location("research/title_box");
-    private static final ResourceLocation INFO_BOX = ForbiddenArcanus.location("research/info_box");
+    private static final Identifier TITLE_BOX = ForbiddenArcanus.identifier("research/title_box");
+    private static final Identifier INFO_BOX = ForbiddenArcanus.identifier("research/info_box");
 
     private final DisplayInfo display;
 
@@ -75,7 +75,7 @@ public class KnowledgeWidget extends AbstractWidget {
         }
     }
 
-    private void renderBox(ResourceLocation texture, GuiGraphics guiGraphics, int x, int y, int width, int height) {
+    private void renderBox(Identifier texture, GuiGraphics guiGraphics, int x, int y, int width, int height) {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 120, 20, 0, 0, x, y, 45, height);
 
         int x2 = this.getX() - 3 + 45;
@@ -120,16 +120,16 @@ public class KnowledgeWidget extends AbstractWidget {
 
     private static class UnlockAnimation {
 
-        private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
-                ForbiddenArcanus.location("research/frame/unlock/unlock_0"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_1"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_2"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_3"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_4"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_5"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_6"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_7"),
-                ForbiddenArcanus.location("research/frame/unlock/unlock_8"),
+        private static final Identifier[] TEXTURES = new Identifier[] {
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_0"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_1"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_2"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_3"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_4"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_5"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_6"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_7"),
+                ForbiddenArcanus.identifier("research/frame/unlock/unlock_8"),
         };
 
         private static final float ANIMATION_SPEED = 1.5F;

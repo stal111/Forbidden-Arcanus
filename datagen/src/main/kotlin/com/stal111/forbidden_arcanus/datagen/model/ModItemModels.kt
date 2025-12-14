@@ -8,7 +8,7 @@ import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.quantumCatc
 import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.model.*
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 import net.valhelsia.dataforge.model.ItemModelGenerator
 import net.valhelsia.dataforge.model.createModel
@@ -239,7 +239,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         item: ItemRegistryEntry<out Item>,
         modelSuffix: String,
         template: ModelTemplate
-    ): ResourceLocation {
+    ): Identifier {
         return template.createModel(
             ModLocationUtils.getItem(folder, item, modelSuffix),
             TextureMapping.layer0(getItemTexture(item.get(), folder, modelSuffix)),
@@ -250,7 +250,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         item: ItemRegistryEntry<Item>,
         modelSuffix: String,
         template: ModelTemplate
-    ): ResourceLocation {
+    ): Identifier {
         return template.createModel(
             ModelLocationUtils.getModelLocation(item.get(), modelSuffix), TextureMapping.layer0(
                 TextureMapping.getItemTexture(item.get(), modelSuffix)
@@ -265,7 +265,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
     ) {
         val model = ModModelTemplates.FLAT_HANDHELD_WAND.createModel(
             ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layered(
-                ForbiddenArcanus.location("item/wand/$wand"), ForbiddenArcanus.location("item/wand/pommel/$pommel")
+                ForbiddenArcanus.identifier("item/wand/$wand"), ForbiddenArcanus.identifier("item/wand/pommel/$pommel")
             )
         )
 
@@ -303,7 +303,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         private const val ARMOR = "armor"
         private const val TOOL = "tool"
 
-        fun getItemTexture(item: Item, folder: String, suffix: String): ResourceLocation {
+        fun getItemTexture(item: Item, folder: String, suffix: String): Identifier {
             val resourcelocation = BuiltInRegistries.ITEM.getKey(item)
             return resourcelocation.withPath { path: String? -> "item/$folder/$path$suffix" }
         }

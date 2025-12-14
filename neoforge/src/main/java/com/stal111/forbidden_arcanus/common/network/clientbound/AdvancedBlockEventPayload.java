@@ -17,7 +17,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public record AdvancedBlockEventPayload(BlockPos pos, Block block, int b1, int b2) implements CustomPacketPayload {
 
-    public static final Type<AdvancedBlockEventPayload> TYPE = new Type<>(ForbiddenArcanus.location("block_event"));
+    public static final Type<AdvancedBlockEventPayload> TYPE = new Type<>(ForbiddenArcanus.identifier("block_event"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AdvancedBlockEventPayload> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC,

@@ -4,9 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
-
+import net.minecraft.util.Util;
 import java.util.function.IntPredicate;
 
 /**
@@ -15,8 +14,8 @@ import java.util.function.IntPredicate;
  */
 public record TierPredicate(int tier, boolean matchExact) implements IntPredicate {
 
-    private static final String MATCH_EXACT = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.tier.match_exact"));
-    private static final String AT_LEAST = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.tier.at_least"));
+    private static final String MATCH_EXACT = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge.tier.match_exact"));
+    private static final String AT_LEAST = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge.tier.at_least"));
 
     public static final TierPredicate ANY = new TierPredicate(1, false);
 

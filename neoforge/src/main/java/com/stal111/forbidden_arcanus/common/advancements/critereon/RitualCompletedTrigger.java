@@ -2,15 +2,17 @@ package com.stal111.forbidden_arcanus.common.advancements.critereon;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
 
 public class RitualCompletedTrigger extends SimpleCriterionTrigger<RitualCompletedTrigger.TriggerInstance> {
 
-    public void trigger(ServerPlayer player, ResourceLocation ritualId) {
+    public void trigger(ServerPlayer player, Identifier ritualId) {
         this.trigger(player, instance -> instance.matches(ritualId));
     }
 
@@ -20,14 +22,14 @@ public class RitualCompletedTrigger extends SimpleCriterionTrigger<RitualComplet
     }
 
     public record TriggerInstance(Optional<ContextAwarePredicate> player,
-                                  ResourceLocation ritualId) implements SimpleCriterionTrigger.SimpleInstance {
+                                  Identifier ritualId) implements SimpleCriterionTrigger.SimpleInstance {
 
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-                ResourceLocation.CODEC.fieldOf("recipe_id").forGetter(TriggerInstance::ritualId)
+                Identifier.CODEC.fieldOf("recipe_id").forGetter(TriggerInstance::ritualId)
         ).apply(instance, TriggerInstance::new));
 
-        boolean matches(ResourceLocation ritualId) {
+        boolean matches(Identifier ritualId) {
             return this.ritualId.equals(ritualId);
         }
     }

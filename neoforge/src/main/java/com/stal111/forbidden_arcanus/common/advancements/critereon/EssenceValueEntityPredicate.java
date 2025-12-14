@@ -1,9 +1,9 @@
 package com.stal111.forbidden_arcanus.common.advancements.critereon;
 
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
-import net.minecraft.advancements.critereon.EntitySubPredicate;
+import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
+import net.minecraft.advancements.criterion.EntitySubPredicate;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;

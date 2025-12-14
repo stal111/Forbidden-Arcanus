@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public record SetClibanoResiduesPayload(ResiduesStorage residueAmounts) implements CustomPacketPayload {
 
-    public static final Type<SetClibanoResiduesPayload> TYPE = new Type<>(ForbiddenArcanus.location("set_clibano_residues"));
+    public static final Type<SetClibanoResiduesPayload> TYPE = new Type<>(ForbiddenArcanus.identifier("set_clibano_residues"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SetClibanoResiduesPayload> STREAM_CODEC = StreamCodec.composite(
             ResiduesStorage.STREAM_CODEC,

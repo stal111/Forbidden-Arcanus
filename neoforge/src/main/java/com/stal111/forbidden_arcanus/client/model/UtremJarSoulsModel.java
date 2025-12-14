@@ -6,7 +6,7 @@ import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.world.entity.AnimationState;
 
 /**
@@ -18,7 +18,7 @@ public class UtremJarSoulsModel extends Model<UtremJarSoulsModel.State> {
     private final KeyframeAnimation rotateAnimation;
 
     public UtremJarSoulsModel(ModelPart root) {
-        super(root, RenderType::entitySolid);
+        super(root, RenderTypes::entitySolid);
         this.rotateAnimation = UtremJarSoulAnimation.ROTATE.bake(root);
     }
 

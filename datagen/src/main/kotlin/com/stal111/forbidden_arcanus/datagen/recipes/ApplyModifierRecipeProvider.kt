@@ -23,6 +23,6 @@ class ApplyModifierRecipeProvider(provider: HolderLookup.Provider, recipeOutput:
     }
 
     private fun modifier(addition: ItemLike, modifier: Holder<ItemModifier>) {
-        this.add(ApplyModifierRecipeBuilder.of(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get(), addition, modifier, this.registries.lookupOrThrow(Registries.ITEM)), "apply_modifier/" + modifier.key!!.location().path)
+        this.add(ApplyModifierRecipeBuilder.of(ModItems.APPLY_MODIFIER_SMITHING_TEMPLATE.get(), addition, modifier, this.registries.lookupOrThrow(Registries.ITEM)), "apply_modifier/" + modifier.key!!.identifier().path)
     }
 }

@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.essence;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.data.AtlasIds;
@@ -10,8 +9,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.objects.AtlasSprite;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.Util;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,14 +33,14 @@ public enum EssenceType implements StringRepresentable {
     private final int lightEmission;
     private final Holder<ParticleType<?>> particleType;
     private final Component component;
-    private final ResourceLocation spriteLocation;
+    private final Identifier spriteLocation;
 
     EssenceType(String name, int lightEmission, Holder<ParticleType<?>> particleType) {
         this.name = name;
         this.lightEmission = lightEmission;
         this.particleType = particleType;
-        this.component = Component.translatable(Util.makeDescriptionId("essence", ForbiddenArcanus.location(name)));
-        this.spriteLocation = ForbiddenArcanus.location("icon/" + name);
+        this.component = Component.translatable(Util.makeDescriptionId("essence", ForbiddenArcanus.identifier(name)));
+        this.spriteLocation = ForbiddenArcanus.identifier("icon/" + name);
     }
 
     @Override

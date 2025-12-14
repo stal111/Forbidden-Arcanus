@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -16,8 +16,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryFileCodec;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -68,11 +68,11 @@ public record ItemModifier(
         return this.incompatibleEnchantments.stream().noneMatch(enchantments::contains);
     }
 
-    public record DisplaySettings(Component name, ResourceLocation texture, Pair<Integer, Integer> tooltipColor) {
+    public record DisplaySettings(Component name, Identifier texture, Pair<Integer, Integer> tooltipColor) {
 
         public static final Codec<DisplaySettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ComponentSerialization.CODEC.fieldOf("name").forGetter(DisplaySettings::name),
-                ResourceLocation.CODEC.fieldOf("texture").forGetter(DisplaySettings::texture),
+                Identifier.CODEC.fieldOf("texture").forGetter(DisplaySettings::texture),
                 Codec.pair(Codec.INT.fieldOf("start").codec(), Codec.INT.fieldOf("end").codec()).fieldOf("tooltip_color").forGetter(DisplaySettings::tooltipColor)
         ).apply(instance, DisplaySettings::new));
     }

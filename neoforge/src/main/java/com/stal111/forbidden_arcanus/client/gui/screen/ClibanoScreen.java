@@ -9,15 +9,15 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
-    private static final ResourceLocation CONTAINER_TEXTURE = ForbiddenArcanus.location("textures/gui/container/clibano_combustion.png");
-    private static final ResourceLocation LIT_PROGRESS_SPRITE = ForbiddenArcanus.location("container/clibano/lit_progress");
-    private static final ResourceLocation SMELT_PROGRESS_SPRITE = ForbiddenArcanus.location("container/clibano/smelt_progress");
+    private static final Identifier CONTAINER_TEXTURE = ForbiddenArcanus.identifier("textures/gui/container/clibano_combustion.png");
+    private static final Identifier LIT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/lit_progress");
+    private static final Identifier SMELT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress");
 
     private final MaterialListComponent materialList;
 

@@ -6,9 +6,9 @@ import com.stal111.forbidden_arcanus.common.item.enchantment.BuiltInEnchantments
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.ModEntities
 import com.stal111.forbidden_arcanus.core.init.ModItems
-import net.minecraft.Util
 import net.minecraft.data.PackOutput
 import net.minecraft.util.StringRepresentable
+import net.minecraft.util.Util
 import net.minecraft.world.item.DyeColor
 import net.neoforged.neoforge.common.data.LanguageProvider
 import java.util.*
@@ -16,7 +16,7 @@ import java.util.function.Consumer
 
 class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcanus.MOD_ID, "en_us") {
     override fun addTranslations() {
-        add(Util.makeDescriptionId("itemGroup", ForbiddenArcanus.location("main")), "Forbidden & Arcanus")
+        add(Util.makeDescriptionId("itemGroup", ForbiddenArcanus.identifier("main")), "Forbidden & Arcanus")
 
         addModifier("eternal", "Eternal")
         addModifier("fiery", "Fiery")
@@ -30,8 +30,8 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         add("essence", EssenceType.BLOOD, "Blood")
         add("essence", EssenceType.EXPERIENCE, "Experience")
 
-        add(Util.makeDescriptionId("container", ForbiddenArcanus.location("hephaestus_forge")), "Hephaestus Forge")
-        add(Util.makeDescriptionId("container", ForbiddenArcanus.location("clibano")), "Clibano")
+        add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("hephaestus_forge")), "Hephaestus Forge")
+        add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("clibano")), "Clibano")
 
         addEntityType(ModEntities.LOST_SOUL, "Lost Soul")
         addEntityType(ModEntities.CORRUPT_LOST_SOUL, "Corrupt Lost Soul")
@@ -39,7 +39,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addEntityType(ModEntities.DARK_TRADER, "Dark Trader")
 
         // add(ModEnchantments.AUREAL_RESERVOIR.get(), "Aureal Reservoir");
-        add(Util.makeDescriptionId("enchantment", BuiltInEnchantments.SOUL_LOOTING.location()), "Soul Looting")
+        add(Util.makeDescriptionId("enchantment", BuiltInEnchantments.SOUL_LOOTING.identifier()), "Soul Looting")
 
         // Blocks
         addBlock(ModBlocks.QUANTUM_CORE, "Quantum Core")
@@ -318,19 +318,19 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
     }
 
     private fun addModifier(modifier: String, name: String) {
-        add(Util.makeDescriptionId("modifier", ForbiddenArcanus.location(modifier)), name)
+        add(Util.makeDescriptionId("modifier", ForbiddenArcanus.identifier(modifier)), name)
     }
 
     private fun <T : StringRepresentable> add(category: String, value: T, name: String) {
-        add(Util.makeDescriptionId(category, ForbiddenArcanus.location(value.serializedName)), name)
+        add(Util.makeDescriptionId(category, ForbiddenArcanus.identifier(value.serializedName)), name)
     }
 
     fun add(category: String, path: String, name: String) {
-        add(Util.makeDescriptionId(category, ForbiddenArcanus.location(path)), name)
+        add(Util.makeDescriptionId(category, ForbiddenArcanus.identifier(path)), name)
     }
 
     companion object {
-        val COLOR_TO_STRING: MutableMap<DyeColor, String> = Util.make<EnumMap<DyeColor, String>>(
+        val COLOR_TO_STRING: MutableMap<DyeColor, String> = Util.make(
             EnumMap(
                 DyeColor::class.java
             ), Consumer {

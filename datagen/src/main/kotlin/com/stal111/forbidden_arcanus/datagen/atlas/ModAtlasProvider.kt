@@ -13,7 +13,7 @@ import net.minecraft.data.AtlasIds
 import net.minecraft.data.CachedOutput
 import net.minecraft.data.DataProvider
 import net.minecraft.data.PackOutput
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.valhelsia.dataforge.DataProviderContext
 import java.util.concurrent.CompletableFuture
 
@@ -34,7 +34,7 @@ class ModAtlasProvider(val context: DataProviderContext) : AtlasProvider(context
 
     private fun storeAtlas(
         output: CachedOutput,
-        atlasId: ResourceLocation,
+        atlasId: Identifier,
         sources: List<SpriteSource>
     ): CompletableFuture<*> {
         return DataProvider.saveStable(

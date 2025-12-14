@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public record TransformPedestalPayload(BlockPos pos) implements CustomPacketPayload {
 
-    public static final Type<TransformPedestalPayload> TYPE = new Type<>(ForbiddenArcanus.location("transform_pedestal"));
+    public static final Type<TransformPedestalPayload> TYPE = new Type<>(ForbiddenArcanus.identifier("transform_pedestal"));
 
     public static final StreamCodec<FriendlyByteBuf, TransformPedestalPayload> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC,

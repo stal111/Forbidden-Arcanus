@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.RenderTypeHelper;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -28,7 +28,7 @@ public class FluidBox {
     private AABB boundingBox;
     private float fillPercentage = 1.0F;
 
-    public FluidBox(ResourceLocation stillTexture, ResourceLocation flowingTexture, int[] color, AABB fullBounds) {
+    public FluidBox(Identifier stillTexture, Identifier flowingTexture, int[] color, AABB fullBounds) {
         this.stillTexture = FluidSpriteCache.getSprite(stillTexture);
         this.flowingTexture = FluidSpriteCache.getSprite(flowingTexture);
         this.color = color;
@@ -39,8 +39,8 @@ public class FluidBox {
     public static FluidBox create(FluidStack fluid, AABB boundingBox) {
         IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(fluid.getFluid());
 
-        ResourceLocation stillTexture = extensions.getStillTexture();
-        ResourceLocation flowingTexture = extensions.getFlowingTexture();
+        Identifier stillTexture = extensions.getStillTexture();
+        Identifier flowingTexture = extensions.getFlowingTexture();
         int color = extensions.getTintColor(fluid);
 
         int a = color >> 24 & 0xFF;
@@ -51,7 +51,7 @@ public class FluidBox {
         return new FluidBox(stillTexture, flowingTexture, new int[]{r, g, b, a}, boundingBox);
     }
 
-    public static FluidBox create(ResourceLocation stillTexture, ResourceLocation flowingTexture, AABB boundingBox) {
+    public static FluidBox create(Identifier stillTexture, Identifier flowingTexture, AABB boundingBox) {
         return new FluidBox(stillTexture, flowingTexture, new int[]{255, 255, 255, 255}, boundingBox);
     }
 

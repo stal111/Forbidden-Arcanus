@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.entity.projectile.BoomArrow;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.ArrowRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BoomArrowRenderer extends ArrowRenderer<BoomArrow, ArrowRenderState> {
 
-    private static final ResourceLocation LOCATION = ForbiddenArcanus.location("textures/entity/projectiles/boom_arrow.png");
+    private static final Identifier LOCATION = ForbiddenArcanus.identifier("textures/entity/projectiles/boom_arrow.png");
 
     public BoomArrowRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -30,7 +30,7 @@ public class BoomArrowRenderer extends ArrowRenderer<BoomArrow, ArrowRenderState
     }
 
     @Override
-    protected @NotNull ResourceLocation getTextureLocation(@NotNull ArrowRenderState renderState) {
+    protected @NotNull Identifier getTextureLocation(@NotNull ArrowRenderState renderState) {
         return LOCATION;
     }
 }

@@ -12,9 +12,9 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
-import java.util.Set;
+import java.util.function.Consumer;
 
 public class EctoBlasterSpecialRenderer implements SpecialModelRenderer<EssenceStorage> {
 
@@ -30,7 +30,7 @@ public class EctoBlasterSpecialRenderer implements SpecialModelRenderer<EssenceS
     }
 
     @Override
-    public void getExtents(Set<Vector3f> set) {
+    public void getExtents(Consumer<Vector3fc> consumer) {
 
     }
 

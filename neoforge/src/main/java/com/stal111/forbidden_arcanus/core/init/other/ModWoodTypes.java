@@ -13,9 +13,9 @@ import net.minecraft.world.level.block.state.properties.WoodType;
  */
 public class ModWoodTypes {
 
-    public static final WoodType FUNGYSS = new WoodType(ForbiddenArcanus.location("fungyss").toString(), ModBlocks.BlockSetTypes.FUNGYSS);
-    public static final WoodType AURUM = new WoodType(ForbiddenArcanus.location("aurum").toString(), ModBlocks.BlockSetTypes.AURUM);
-    public static final WoodType EDELWOOD = new WoodType(ForbiddenArcanus.location("edelwood").toString(), ModBlocks.BlockSetTypes.EDELWOOD);
+    public static final WoodType FUNGYSS = new WoodType(ForbiddenArcanus.identifier("fungyss").toString(), ModBlocks.BlockSetTypes.FUNGYSS);
+    public static final WoodType AURUM = new WoodType(ForbiddenArcanus.identifier("aurum").toString(), ModBlocks.BlockSetTypes.AURUM);
+    public static final WoodType EDELWOOD = new WoodType(ForbiddenArcanus.identifier("edelwood").toString(), ModBlocks.BlockSetTypes.EDELWOOD);
 
     public static void registerWoodTypes() {
         WoodType.register(FUNGYSS);

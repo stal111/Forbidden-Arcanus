@@ -7,12 +7,12 @@ import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.model.QuantumInjectorModel;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.QuantumInjectorRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.QuantumInjectorBlockEntity;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.Material;
@@ -27,8 +27,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjectorBlockEntity, QuantumInjectorRenderState> {
 
-    public static final Material TEXTURE_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.location("quantum_injector"));
-    public static final Material LAYER_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.location("quantum_injector_layer"));
+    public static final Material TEXTURE_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("quantum_injector"));
+    public static final Material LAYER_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("quantum_injector_layer"));
 
     private final MaterialSet materials;
     private final QuantumInjectorModel<?> model;
@@ -67,7 +67,7 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
 
         this.model.setupAnim(state);
         nodeCollector.submitModel(this.model, state, poseStack, TEXTURE_MATERIAL.renderType(this.model::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(TEXTURE_MATERIAL), 0, renderState.breakProgress);
-        nodeCollector.submitModel(this.model, state, poseStack, LAYER_MATERIAL.renderType(RenderType::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(LAYER_MATERIAL), 0, renderState.breakProgress);
+        nodeCollector.submitModel(this.model, state, poseStack, LAYER_MATERIAL.renderType(RenderTypes::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(LAYER_MATERIAL), 0, renderState.breakProgress);
 
         poseStack.popPose();
     }

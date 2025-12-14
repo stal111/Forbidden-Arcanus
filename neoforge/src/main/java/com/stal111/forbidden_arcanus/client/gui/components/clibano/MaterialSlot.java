@@ -8,14 +8,14 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class MaterialSlot extends AbstractButton {
 
-    private static final ResourceLocation MATERIAL_SLOT_SPRITE = ForbiddenArcanus.location("container/clibano/material_slot");
-    private static final ResourceLocation MATERIAL_SLOT_ENABLED_SPRITE = ForbiddenArcanus.location("container/clibano/material_slot_enabled");
-    private static final ResourceLocation MATERIAL_FULLNESS_SPRITE = ForbiddenArcanus.location("container/clibano/material_fullness");
+    private static final Identifier MATERIAL_SLOT_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_slot");
+    private static final Identifier MATERIAL_SLOT_ENABLED_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_slot_enabled");
+    private static final Identifier MATERIAL_FULLNESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_fullness");
 
     private final MoltenMaterial material;
     private boolean enabled;
@@ -32,7 +32,7 @@ public class MaterialSlot extends AbstractButton {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int x, int y, float partialTick) {
+    protected void renderContents(GuiGraphics guiGraphics, int x, int y, float partialTick) {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
 
         guiGraphics.renderFakeItem(this.material.item(), this.getX() + 4, this.getY() + 4);
@@ -41,7 +41,7 @@ public class MaterialSlot extends AbstractButton {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 22, 6, 0, 0, this.getX() + 1, this.getY() + 25, width, 6);
     }
 
-    private ResourceLocation getSprite() {
+    private Identifier getSprite() {
         return this.enabled ? MATERIAL_SLOT_ENABLED_SPRITE : MATERIAL_SLOT_SPRITE;
     }
 

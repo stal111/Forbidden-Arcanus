@@ -276,7 +276,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
     }
 
     private fun createClibanoCorner(block: Block) {
-        val model = plainVariant(ForbiddenArcanus.location("block/clibano_corner"))
+        val model = plainVariant(ForbiddenArcanus.identifier("block/clibano_corner"))
 
         val dispatch = PropertyDispatch.modify(BlockStateProperties.BOTTOM).generate {
             if (it) BlockModelGenerators.X_ROT_90 else BlockModelGenerators.NOP
@@ -435,7 +435,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.blockStateOutput.accept(
             MultiVariantGenerator.dispatch(
                 block,
-                plainVariant(ForbiddenArcanus.location("block/mortar"))
+                plainVariant(ForbiddenArcanus.identifier("block/mortar"))
             )
         )
     }
@@ -472,7 +472,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
     private fun createPillar(block: Block) {
         val dispatch = PropertyDispatch.initial(ModBlockStateProperties.PILLAR_TYPE, RotatedPillarBlock.AXIS)
             .generate { part, axis ->
-                plainVariant(ForbiddenArcanus.location("block/arcane_polished_darkstone_pillar" + (if (part == PillarType.SINGLE) "" else "_" + (if (axis === Direction.Axis.Z) part.opposite else part).serializedName)))
+                plainVariant(ForbiddenArcanus.identifier("block/arcane_polished_darkstone_pillar" + (if (part == PillarType.SINGLE) "" else "_" + (if (axis === Direction.Axis.Z) part.opposite else part).serializedName)))
                     .with(if (axis === Direction.Axis.X) BlockModelGenerators.Y_ROT_90 else BlockModelGenerators.NOP)
                     .with(if (axis === Direction.Axis.Y) BlockModelGenerators.NOP else BlockModelGenerators.X_ROT_90)
             }
@@ -523,10 +523,10 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
 
     private fun createMagicalFarmland() {
         val textureMapping = TextureMapping()
-            .put(TextureSlot.DIRT, ForbiddenArcanus.location("block/magical_dirt"))
+            .put(TextureSlot.DIRT, ForbiddenArcanus.identifier("block/magical_dirt"))
             .put(TextureSlot.TOP, TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get()))
         val moistTextureMapping = TextureMapping()
-            .put(TextureSlot.DIRT, ForbiddenArcanus.location("block/magical_dirt"))
+            .put(TextureSlot.DIRT, ForbiddenArcanus.identifier("block/magical_dirt"))
             .put(TextureSlot.TOP, TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"))
 
         val model = plainVariant(

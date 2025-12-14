@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -39,8 +39,8 @@ public enum ObsidianSkullType implements SkullBlock.Type {
         TYPES.put(name, this);
     }
 
-    public ResourceLocation getTextureLocation() {
-        return ForbiddenArcanus.location("textures/block/obsidian_skull/" + this.getSerializedName() + ".png");
+    public Identifier getTextureLocation() {
+        return ForbiddenArcanus.identifier("textures/block/obsidian_skull/" + this.getSerializedName() + ".png");
     }
 
     @Override

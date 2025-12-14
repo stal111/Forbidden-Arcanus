@@ -10,12 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class AurealMissileRenderer extends EntityRenderer<AurealMissile, EntityRenderState> {
 
-    private static final ResourceLocation TEXTURE_LOCATION = ForbiddenArcanus.location("textures/entity/projectiles/aureal_missile.png");
+    private static final Identifier TEXTURE_LOCATION = ForbiddenArcanus.identifier("textures/entity/projectiles/aureal_missile.png");
 
     public AurealMissileRenderer(EntityRendererProvider.Context context) {
         super(context);

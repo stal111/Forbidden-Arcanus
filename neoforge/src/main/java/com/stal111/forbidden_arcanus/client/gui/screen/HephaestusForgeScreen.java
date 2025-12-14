@@ -10,7 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  */
 public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusForgeMenu> {
 
-    public static final ResourceLocation TEXTURES = ForbiddenArcanus.location("textures/gui/container/hephaestus_forge.png");
+    public static final Identifier TEXTURES = ForbiddenArcanus.identifier("textures/gui/container/hephaestus_forge.png");
 
     public HephaestusForgeScreen(HephaestusForgeMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -72,8 +72,8 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    protected void renderSlots(GuiGraphics guiGraphics) {
-        super.renderSlots(guiGraphics);
+    protected void renderSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderSlots(guiGraphics, mouseX, mouseY);
 
         for (Slot slot : this.menu.slots) {
             if (slot instanceof LockableSlot lockableSlot && lockableSlot.isLocked()) {

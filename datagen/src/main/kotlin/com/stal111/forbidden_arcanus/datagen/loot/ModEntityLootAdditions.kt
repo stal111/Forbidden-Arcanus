@@ -76,7 +76,7 @@ class ModEntityLootAdditions(private val registries: HolderLookup.Provider) : Lo
         val DRAGON_SCALE_ADDITION = register("entities/additions/dragon_scale_addition")
 
         private fun register(name: String): ResourceKey<LootTable> {
-            return ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location(name))
+            return ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.identifier(name))
         }
     }
 }

@@ -1,16 +1,16 @@
 package com.stal111.forbidden_arcanus.client.gui.components;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public record EssenceBarType(int width, int height, ResourceLocation texture, boolean vertical) {
+public record EssenceBarType(int width, int height, Identifier texture, boolean vertical) {
 
     public static EssenceBarType createVertical(int width, int height, String texture) {
-        return new EssenceBarType(width, height, ForbiddenArcanus.location(texture), true);
+        return new EssenceBarType(width, height, ForbiddenArcanus.identifier(texture), true);
     }
 
     public static EssenceBarType createHorizontal(int width, int height, String texture) {
-        return new EssenceBarType(width, height, ForbiddenArcanus.location(texture), false);
+        return new EssenceBarType(width, height, ForbiddenArcanus.identifier(texture), false);
     }
 
     public static final EssenceBarType HEPHAESTUS_FORGE_AUREAL = createVertical(6, 32, "container/hephaestus_forge/aureal_bar");

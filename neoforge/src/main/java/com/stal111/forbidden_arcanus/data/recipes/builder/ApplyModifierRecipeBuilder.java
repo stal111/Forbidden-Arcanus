@@ -6,7 +6,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -61,6 +61,6 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
                 .rewards(AdvancementRewards.Builder.recipe(resourceKey))
                 .requirements(AdvancementRequirements.Strategy.OR);
 
-        output.accept(resourceKey, recipe, builder.build(resourceKey.location().withPrefix("recipes/")));
+        output.accept(resourceKey, recipe, builder.build(resourceKey.identifier().withPrefix("recipes/")));
     }
 }

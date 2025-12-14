@@ -9,7 +9,7 @@ import java.util.function.UnaryOperator;
 
 public interface EssenceAccess {
 
-    EntityCapability<EssenceAccess, Void> ENTITY_CAPABILITY = EntityCapability.createVoid(ForbiddenArcanus.location("essence_provider"), EssenceAccess.class);
+    EntityCapability<EssenceAccess, Void> ENTITY_CAPABILITY = EntityCapability.createVoid(ForbiddenArcanus.identifier("essence_provider"), EssenceAccess.class);
 
     EssenceStorage getEssence(EssenceType type);
 

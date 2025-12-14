@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public record SpawnParticlePayload(double x, double y, double z, int id) implements CustomPacketPayload {
 
-    public static final Type<SpawnParticlePayload> TYPE = new Type<>(ForbiddenArcanus.location("spawn_particle"));
+    public static final Type<SpawnParticlePayload> TYPE = new Type<>(ForbiddenArcanus.identifier("spawn_particle"));
 
     public static final StreamCodec<ByteBuf, SpawnParticlePayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.DOUBLE,

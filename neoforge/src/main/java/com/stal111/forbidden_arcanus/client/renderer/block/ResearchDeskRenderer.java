@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * @author stal111
@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
  */
 public class ResearchDeskRenderer implements BlockEntityRenderer<ResearchDeskBlockEntity, ResearchDeskRenderState> {
 
-    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/entity/forbiddenomicon.png");
+    private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/entity/forbiddenomicon.png");
 
     private final DeskForbiddenomiconModel<?> model;
 

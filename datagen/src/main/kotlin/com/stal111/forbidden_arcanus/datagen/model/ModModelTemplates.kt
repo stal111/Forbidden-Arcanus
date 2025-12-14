@@ -2,10 +2,10 @@ package com.stal111.forbidden_arcanus.datagen.model
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart
-import net.minecraft.Util
 import net.minecraft.client.data.models.model.ModelTemplate
 import net.minecraft.client.data.models.model.TextureSlot
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
+import net.minecraft.util.Util
 import java.util.*
 
 object ModModelTemplates {
@@ -60,7 +60,7 @@ object ModModelTemplates {
 
     fun create(name: String, vararg textureSlots: TextureSlot): ModelTemplate {
         return ModelTemplate(
-            Optional.of(ForbiddenArcanus.location("block/$name")),
+            Optional.of(ForbiddenArcanus.identifier("block/$name")),
             Optional.empty(),
             *textureSlots
         )
@@ -68,7 +68,7 @@ object ModModelTemplates {
 
     fun createItem(name: String, vararg textureSlots: TextureSlot): ModelTemplate {
         return ModelTemplate(
-            Optional.of(ForbiddenArcanus.location("item/$name")),
+            Optional.of(ForbiddenArcanus.identifier("item/$name")),
             Optional.empty(),
             *textureSlots
         )
@@ -76,7 +76,7 @@ object ModModelTemplates {
 
     fun createMinecraftItem(name: String, vararg textureSlots: TextureSlot): ModelTemplate {
         return ModelTemplate(
-            Optional.of(ResourceLocation.withDefaultNamespace("item/$name")),
+            Optional.of(Identifier.withDefaultNamespace("item/$name")),
             Optional.empty(),
             *textureSlots
         )

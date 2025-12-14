@@ -11,7 +11,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -117,7 +117,7 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
 
         ClibanoRecipe recipe = new ClibanoRecipe(Objects.requireNonNullElse(this.group, ""), this.bookCategory, this.ingredients, this.stackResult, this.experience, ClibanoCookingTimes.of(this.cookingTime), Optional.ofNullable(this.residueChance), this.requiredFireType, Optional.ofNullable(this.requiredEnhancer));
 
-        output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.location().withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.identifier().withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     private void ensureValid(ResourceKey<Recipe<?>> recipe) {

@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.renderer;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.AABB;
 
 /**
@@ -33,13 +33,13 @@ public class EssenceFluidBox extends FluidBox {
         EXPERIENCE(EssenceType.EXPERIENCE, "experience_still", "experience_flow");
 
         private final EssenceType essenceType;
-        private final ResourceLocation stillTexture;
-        private final ResourceLocation flowingTexture;
+        private final Identifier stillTexture;
+        private final Identifier flowingTexture;
 
         Type(EssenceType type, String still, String flowing) {
             this.essenceType = type;
-            this.stillTexture = ForbiddenArcanus.location("block/liquid/" + still);
-            this.flowingTexture = ForbiddenArcanus.location("block/liquid/" + flowing);
+            this.stillTexture = ForbiddenArcanus.identifier("block/liquid/" + still);
+            this.flowingTexture = ForbiddenArcanus.identifier("block/liquid/" + flowing);
         }
 
         public static Type byEssenceType(EssenceType type) {

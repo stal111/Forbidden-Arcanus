@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,15 +23,15 @@ import java.util.List;
  */
 public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
 
-    private static final ResourceLocation FRAME_TOP_LEFT_CORNER = ForbiddenArcanus.location("textures/gui/research/frame/top_left_corner.png");
-    private static final ResourceLocation FRAME_TOP_RIGHT_CORNER = ForbiddenArcanus.location("textures/gui/research/frame/top_right_corner.png");
-    private static final ResourceLocation FRAME_BOTTOM_LEFT_CORNER = ForbiddenArcanus.location("textures/gui/research/frame/bottom_left_corner.png");
-    private static final ResourceLocation FRAME_BOTTOM_RIGHT_CORNER = ForbiddenArcanus.location("textures/gui/research/frame/bottom_right_corner.png");
-    private static final ResourceLocation FRAME_TOP_CENTER = ForbiddenArcanus.location("textures/gui/research/frame/top_center.png");
-    private static final ResourceLocation FRAME_TOP = ForbiddenArcanus.location("textures/gui/research/frame/quantum_catcher_top.png");
-    private static final ResourceLocation FRAME_BOTTOM = ForbiddenArcanus.location("textures/gui/research/frame/bottom.png");
-    private static final ResourceLocation FRAME_LEFT = ForbiddenArcanus.location("textures/gui/research/frame/left.png");
-    private static final ResourceLocation FRAME_RIGHT = ForbiddenArcanus.location("textures/gui/research/frame/right.png");
+    private static final Identifier FRAME_TOP_LEFT_CORNER = ForbiddenArcanus.identifier("textures/gui/research/frame/top_left_corner.png");
+    private static final Identifier FRAME_TOP_RIGHT_CORNER = ForbiddenArcanus.identifier("textures/gui/research/frame/top_right_corner.png");
+    private static final Identifier FRAME_BOTTOM_LEFT_CORNER = ForbiddenArcanus.identifier("textures/gui/research/frame/bottom_left_corner.png");
+    private static final Identifier FRAME_BOTTOM_RIGHT_CORNER = ForbiddenArcanus.identifier("textures/gui/research/frame/bottom_right_corner.png");
+    private static final Identifier FRAME_TOP_CENTER = ForbiddenArcanus.identifier("textures/gui/research/frame/top_center.png");
+    private static final Identifier FRAME_TOP = ForbiddenArcanus.identifier("textures/gui/research/frame/quantum_catcher_top.png");
+    private static final Identifier FRAME_BOTTOM = ForbiddenArcanus.identifier("textures/gui/research/frame/bottom.png");
+    private static final Identifier FRAME_LEFT = ForbiddenArcanus.identifier("textures/gui/research/frame/left.png");
+    private static final Identifier FRAME_RIGHT = ForbiddenArcanus.identifier("textures/gui/research/frame/right.png");
 
     private final List<ResearchTabButton> tabButtons = new ArrayList<>();
     @Nullable
@@ -125,11 +125,11 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
         for (ResearchTabButton tabButton : this.tabButtons) {
             if (tabButton.mouseClicked(event, isDoubleClick)) {
                 if (this.selectedTabButton != null) {
-                    this.selectedTabButton.setStateTriggered(false);
+                    this.selectedTabButton.unselect();
                 }
 
                 this.selectedTabButton = tabButton;
-                this.selectedTabButton.setStateTriggered(true);
+                this.selectedTabButton.select();
 
                 this.setTab(this.selectedTabButton.getCategory().createTab(this.width, this.height));
 

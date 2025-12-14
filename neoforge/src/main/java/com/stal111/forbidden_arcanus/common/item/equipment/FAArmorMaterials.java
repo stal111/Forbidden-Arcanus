@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item.equipment;
 
 import com.stal111.forbidden_arcanus.util.ModTags;
-import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 

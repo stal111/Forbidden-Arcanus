@@ -14,7 +14,7 @@ import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class MaterialListComponent implements Renderable, GuiEventListener, NarratableEntry {
 
-    private static final ResourceLocation MATERIAL_LIST_TEXTURE = ForbiddenArcanus.location("textures/gui/container/material_list.png");
-    private static final ResourceLocation SCROLLER_SPRITE = ForbiddenArcanus.location("container/clibano/scroller");
-    private static final ResourceLocation SCROLLER_DISABLED_SPRITE = ForbiddenArcanus.location("container/clibano/scroller_disabled");
+    private static final Identifier MATERIAL_LIST_TEXTURE = ForbiddenArcanus.identifier("textures/gui/container/material_list.png");
+    private static final Identifier SCROLLER_SPRITE = ForbiddenArcanus.identifier("container/clibano/scroller");
+    private static final Identifier SCROLLER_DISABLED_SPRITE = ForbiddenArcanus.identifier("container/clibano/scroller_disabled");
 
     protected Minecraft minecraft;
 
@@ -103,7 +103,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
             scrollbarY = this.scrollAmount * (this.scrollArea.height() - 27) / this.maxScroll + this.scrollbarStartY;
         }
 
-        ResourceLocation sprite = this.maxScroll == 0 ? SCROLLER_DISABLED_SPRITE : SCROLLER_SPRITE;
+        Identifier sprite = this.maxScroll == 0 ? SCROLLER_DISABLED_SPRITE : SCROLLER_SPRITE;
 
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.scrollbarStartX, scrollbarY, 6, 27);
     }

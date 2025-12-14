@@ -6,7 +6,7 @@ import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 
@@ -20,7 +20,7 @@ public class QuantumInjectorModel<T extends Entity> extends Model<QuantumInjecto
     private final KeyframeAnimation rotateAnimation;
 
     public QuantumInjectorModel(ModelPart root) {
-        super(root, RenderType::entityCutoutNoCull);
+        super(root, RenderTypes::entityCutoutNoCull);
         this.transformAnimation = QuantumInjectorAnimation.TRANSFORM.bake(root);
         this.rotateAnimation = QuantumInjectorAnimation.ROTATE.bake(root);
     }

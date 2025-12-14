@@ -8,7 +8,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 import java.util.function.Supplier;
@@ -16,13 +16,13 @@ import java.util.function.Supplier;
 public class EssenceBar extends AbstractWidget {
 
     private final Supplier<EssenceStorage> storageSupplier;
-    private final ResourceLocation texture;
+    private final Identifier sprite;
     private final boolean vertical;
 
     public EssenceBar(int x, int y, EssenceBarType type, Supplier<EssenceStorage> storageSupplier) {
         super(x, y, type.width(), type.height(), Component.empty());
         this.storageSupplier = storageSupplier;
-        this.texture = type.texture();
+        this.sprite = type.texture();
         this.vertical = type.vertical();
     }
 
@@ -34,12 +34,12 @@ public class EssenceBar extends AbstractWidget {
             int ySize = Mth.floor(this.height * essenceStorage.getFillPercentage());
             int yOffset = this.height - ySize;
 
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.texture, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
         } else {
             int xSize = Mth.floor(this.width * essenceStorage.getFillPercentage());
             int xOffset = this.width - xSize;
 
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.texture, this.width, this.height, xOffset, 0, this.getX() + xOffset, this.getY(), xSize, this.height);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, xOffset, 0, this.getX() + xOffset, this.getY(), xSize, this.height);
         }
 
         if (this.isHovered()) {

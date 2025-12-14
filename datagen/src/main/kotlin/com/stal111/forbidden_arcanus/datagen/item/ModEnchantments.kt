@@ -18,7 +18,7 @@ object ModEnchantments : RegistryDataProvider<Enchantment> {
         context.register(
             BuiltInEnchantments.SOUL_LOOTING, Enchantment.enchantment(
                 Enchantment.definition(
-                    itemHolderGetter.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                    itemHolderGetter.getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE),
                     2,
                     3,
                     Enchantment.dynamicCost(15, 9),
@@ -30,7 +30,7 @@ object ModEnchantments : RegistryDataProvider<Enchantment> {
                 ModEnchantmentDataComponents.LOST_SOUL_SPAWN_CHANCE.get(), AddValue(
                     LevelBasedValue.perLevel(0.05f)
                 )
-            ).build(BuiltInEnchantments.SOUL_LOOTING.location())
+            ).build(BuiltInEnchantments.SOUL_LOOTING.identifier())
         )
     }
 }

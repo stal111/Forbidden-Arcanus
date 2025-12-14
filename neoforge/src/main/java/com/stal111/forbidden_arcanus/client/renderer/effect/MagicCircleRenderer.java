@@ -6,9 +6,9 @@ import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRenderState;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.MaterialMapper;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -26,8 +26,8 @@ public class MagicCircleRenderer {
 
     public MagicCircleRenderer(BlockEntityRendererProvider.Context context) {
         this.materials = context.materials();
-        this.outerRing = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_OUTER_RING), RenderType::entityTranslucentEmissive);
-        this.innerRing = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_INNER_RING), RenderType::entityTranslucentEmissive);
+        this.outerRing = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_OUTER_RING), RenderTypes::entityTranslucentEmissive);
+        this.innerRing = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_INNER_RING), RenderTypes::entityTranslucentEmissive);
     }
 
     public void submit(MagicCircleRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {

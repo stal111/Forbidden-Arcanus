@@ -6,7 +6,6 @@ import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -14,10 +13,8 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ProblemReporter;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.util.Util;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
@@ -31,12 +28,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * @author stal111
  * @since 09.05.2024
  */
+//TODO: Use TypedEntityData?
 public record StoredEntity(CustomData data) implements TooltipProvider {
 
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -68,8 +65,8 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
     private static final MapCodec<EntityType<?>> ENTITY_TYPE_FIELD_CODEC = BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("id");
     private static final MapCodec<Component> DISPLAY_NAME_FIELD_CODEC = ComponentSerialization.CODEC.fieldOf("CustomName");
 
-    private static final String STORED_ENTITY_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.location("stored_entity"));
-    private static final String STORED_ENTITY_WITH_NAME_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.location("stored_entity.with_name"));
+    private static final String STORED_ENTITY_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("stored_entity"));
+    private static final String STORED_ENTITY_WITH_NAME_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("stored_entity.with_name"));
 
     public static StoredEntity of(LivingEntity entity) {
         entity.stopRiding();
@@ -92,7 +89,7 @@ public record StoredEntity(CustomData data) implements TooltipProvider {
 
     @Nullable
     public Entity createEntity(Level level) {
-        return EntityType.loadEntityRecursive(this.data.copyTag(), level, EntitySpawnReason.SPAWN_ITEM_USE, Function.identity());
+        return EntityType.loadEntityRecursive(this.data.copyTag(), level, EntitySpawnReason.SPAWN_ITEM_USE, EntityProcessor.NOP);
     }
 
     public Optional<EntityType<?>> getEntityType() {

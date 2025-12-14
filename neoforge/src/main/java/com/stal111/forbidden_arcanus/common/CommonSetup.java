@@ -43,10 +43,10 @@ public class CommonSetup {
 
             FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
 
-            flowerPotBlock.addPlant(ForbiddenArcanus.location("fungyss"), ModBlocks.POTTED_FUNGYSS);
-            flowerPotBlock.addPlant(ForbiddenArcanus.location("aurum_sapling"), ModBlocks.POTTED_AURUM_SAPLING);
-            flowerPotBlock.addPlant(ForbiddenArcanus.location("growing_edelwood"), ModBlocks.POTTED_GROWING_EDELWOOD);
-            flowerPotBlock.addPlant(ForbiddenArcanus.location("yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
+            flowerPotBlock.addPlant(ForbiddenArcanus.identifier("fungyss"), ModBlocks.POTTED_FUNGYSS);
+            flowerPotBlock.addPlant(ForbiddenArcanus.identifier("aurum_sapling"), ModBlocks.POTTED_AURUM_SAPLING);
+            flowerPotBlock.addPlant(ForbiddenArcanus.identifier("growing_edelwood"), ModBlocks.POTTED_GROWING_EDELWOOD);
+            flowerPotBlock.addPlant(ForbiddenArcanus.identifier("yellow_orchid"), ModBlocks.POTTED_YELLOW_ORCHID);
         });
 
         ModUtils.addStrippable(ModBlocks.AURUM_LOG.get(), ModBlocks.STRIPPED_AURUM_LOG.get());
@@ -63,6 +63,6 @@ public class CommonSetup {
 
     @SubscribeEvent
     private static void addFeaturePacks(AddPackFindersEvent event) {
-        event.addPackFinders(ForbiddenArcanus.location("data/forbidden_arcanus/datapacks/preview"), PackType.SERVER_DATA, Component.literal("Forbidden Arcanus: Preview Features"), PackSource.FEATURE, false, Pack.Position.TOP);
+        event.addPackFinders(ForbiddenArcanus.identifier("data/forbidden_arcanus/datapacks/preview"), PackType.SERVER_DATA, Component.literal("Forbidden Arcanus: Preview Features"), PackSource.FEATURE, false, Pack.Position.TOP);
     }
 }

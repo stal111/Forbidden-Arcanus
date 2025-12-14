@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ConfirmPopupScreen extends Screen {
 
-    private static final ResourceLocation TEXTURE = ForbiddenArcanus.location("textures/gui/research/confirm_background.png");
-    private static final WidgetSprites CONFIRM_SPRITES = new WidgetSprites(ForbiddenArcanus.location("research/confirm"), ForbiddenArcanus.location("research/confirm_highlighted"));
-    private static final WidgetSprites CANCEL_SPRITES = new WidgetSprites(ForbiddenArcanus.location("research/cancel"), ForbiddenArcanus.location("research/cancel_highlighted"));
+    private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/gui/research/confirm_background.png");
+    private static final WidgetSprites CONFIRM_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("research/confirm"), ForbiddenArcanus.identifier("research/confirm_highlighted"));
+    private static final WidgetSprites CANCEL_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("research/cancel"), ForbiddenArcanus.identifier("research/cancel_highlighted"));
 
     private final BooleanConsumer callback;
 

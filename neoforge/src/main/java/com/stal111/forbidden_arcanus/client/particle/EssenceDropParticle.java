@@ -7,7 +7,7 @@ import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.RandomSource;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ public class EssenceDropParticle extends SingleQuadParticle {
 
     private static final float SPEED = 0.07f;
 
-    private final List<Vector3f> path;
+    private final List<Vector3fc> path;
     private int currentPathIndex = 0;
     private float progress = 0.0f;
 
-    protected EssenceDropParticle(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite, List<Vector3f> path) {
+    protected EssenceDropParticle(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite, List<Vector3fc> path) {
         super(level, x, y, z, sprite);
         this.path = path;
 
@@ -40,8 +40,8 @@ public class EssenceDropParticle extends SingleQuadParticle {
         if (this.currentPathIndex >= this.path.size()) {
             this.remove();
         } else {
-            Vector3f currentPos = this.path.get(this.currentPathIndex);
-            Vector3f nextPos = this.path.get(Math.min(this.currentPathIndex + 1, this.path.size() - 1));
+            Vector3fc currentPos = this.path.get(this.currentPathIndex);
+            Vector3fc nextPos = this.path.get(Math.min(this.currentPathIndex + 1, this.path.size() - 1));
 
             this.x = currentPos.x() + (nextPos.x() - currentPos.x()) * this.progress;
             this.y = currentPos.y() + (nextPos.y() - currentPos.y()) * this.progress;

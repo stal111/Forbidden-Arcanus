@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.research;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +30,7 @@ public enum FrameType implements StringRepresentable {
         return this.name;
     }
 
-    public ResourceLocation getFrameTexture(boolean locked, boolean highlighted) {
+    public Identifier getFrameTexture(boolean locked, boolean highlighted) {
         return this.sprites.get(locked, highlighted);
     }
 }

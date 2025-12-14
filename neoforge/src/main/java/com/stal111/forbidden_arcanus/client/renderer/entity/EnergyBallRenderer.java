@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EnergyBallRenderer extends EntityRenderer<EnergyBall, EntityRenderState> {
 
-    private static final ResourceLocation LOCATION = ForbiddenArcanus.location("textures/effect/energy_ball.png");
+    private static final Identifier LOCATION = ForbiddenArcanus.identifier("textures/effect/energy_ball.png");
 
     public EnergyBallRenderer(EntityRendererProvider.Context context) {
         super(context);

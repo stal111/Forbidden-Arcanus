@@ -5,8 +5,7 @@ import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier.DisplaySettings
 import com.stal111.forbidden_arcanus.util.ModTags
-import net.minecraft.Util
-import net.minecraft.advancements.critereon.ItemPredicate
+import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.HolderSet
 import net.minecraft.core.component.DataComponentType
@@ -19,6 +18,7 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.util.ARGB
+import net.minecraft.util.Util
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.enchantment.Enchantment
 import net.valhelsia.dataforge.RegistryDataProvider
@@ -158,10 +158,10 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
         )
     }
 
-    private fun createDisplay(key: ResourceKey<ItemModifier?>, startColor: Int, endColor: Int): DisplaySettings {
+    private fun createDisplay(key: ResourceKey<ItemModifier>, startColor: Int, endColor: Int): DisplaySettings {
         return DisplaySettings(
-            Component.translatable(Util.makeDescriptionId("modifier", key.location())),
-            key.location().withPrefix("textures/gui/tooltip/").withSuffix(".png"),
+            Component.translatable(Util.makeDescriptionId("modifier", key.identifier())),
+            key.identifier().withPrefix("textures/gui/tooltip/").withSuffix(".png"),
             Pair.of<Int?, Int?>(startColor, endColor)
         )
     }

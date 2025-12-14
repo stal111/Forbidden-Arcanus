@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.util;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -34,11 +34,11 @@ public class ModTags {
         public static final TagKey<Block> ORES_STELLARITE = commonTag("ores/stellarite");
 
         private static TagKey<Block> commonTag(String name) {
-            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));
+            return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", name));
         }
 
         private static TagKey<Block> modTag(String name) {
-            return TagKey.create(Registries.BLOCK, ForbiddenArcanus.location(name));
+            return TagKey.create(Registries.BLOCK, ForbiddenArcanus.identifier(name));
         }
     }
 
@@ -97,11 +97,11 @@ public class ModTags {
         public static final TagKey<Item> DUSTS_CORRUPTI = commonTag("dusts/corrupti");
 
         private static TagKey<Item> commonTag(String name) {
-            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
+            return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name));
         }
 
         private static TagKey<Item> modTag(String name) {
-            return TagKey.create(Registries.ITEM, ForbiddenArcanus.location(name));
+            return TagKey.create(Registries.ITEM, ForbiddenArcanus.identifier(name));
         }
     }
 
@@ -115,7 +115,7 @@ public class ModTags {
         public static final TagKey<EntityType<?>> SPECTRAL_VISION_UNAFFECTED = modTag("spectral_vision_unaffected");
 
         private static TagKey<EntityType<?>> modTag(String name) {
-            return TagKey.create(Registries.ENTITY_TYPE, ForbiddenArcanus.location(name));
+            return TagKey.create(Registries.ENTITY_TYPE, ForbiddenArcanus.identifier(name));
         }
     }
 
@@ -128,7 +128,7 @@ public class ModTags {
         public static final TagKey<Enchantment> SOULBOUND_INCOMPATIBLE = modTag("modifier/soulbound_incompatible");
 
         private static TagKey<Enchantment> modTag(String name) {
-            return TagKey.create(Registries.ENCHANTMENT, ForbiddenArcanus.location(name));
+            return TagKey.create(Registries.ENCHANTMENT, ForbiddenArcanus.identifier(name));
         }
     }
 }

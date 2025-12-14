@@ -9,12 +9,12 @@ import net.valhelsia.dataforge.RegistryDataProvider
 object ModMagicCircles : RegistryDataProvider<MagicCircleType> {
 
     //INNER TEXTURES
-    private val UNION_TEXTURE = ForbiddenArcanus.location("inner/union")
-    private val ORIGIN_TEXTURE = ForbiddenArcanus.location("inner/origin")
+    private val UNION_TEXTURE = ForbiddenArcanus.identifier("inner/union")
+    private val ORIGIN_TEXTURE = ForbiddenArcanus.identifier("inner/origin")
 
     //OUTER TEXTURES
-    private val PURE_TEXTURE = ForbiddenArcanus.location("outer/pure")
-    private val PACTUM_TEXTURE = ForbiddenArcanus.location("outer/pactum")
+    private val PURE_TEXTURE = ForbiddenArcanus.identifier("outer/pure")
+    private val PACTUM_TEXTURE = ForbiddenArcanus.identifier("outer/pactum")
 
     override fun bootstrap(context: BootstrapContext<MagicCircleType>) {
         context.register(BuiltInMagicCircles.CREATE_ITEM, MagicCircleType(UNION_TEXTURE, PURE_TEXTURE))

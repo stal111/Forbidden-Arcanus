@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Pose;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +54,7 @@ public class DarkTraderRenderer extends MobRenderer<DarkTrader, DarkTraderRender
     }
 
     @Override
-    public ResourceLocation getTextureLocation(DarkTraderRenderState renderState) {
+    public Identifier getTextureLocation(DarkTraderRenderState renderState) {
         return renderState.texture;
     }
 }

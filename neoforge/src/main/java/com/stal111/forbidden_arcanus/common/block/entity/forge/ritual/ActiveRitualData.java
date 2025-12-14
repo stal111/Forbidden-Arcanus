@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.common.advancements.critereon.FACriteriaTri
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityReference;
@@ -109,8 +109,8 @@ public class ActiveRitualData {
     }
 
     @Nullable
-    public ResourceLocation getRitualId() {
-        return this.ritual.unwrapKey().map(ResourceKey::location).orElse(null);
+    public Identifier getRitualId() {
+        return this.ritual.unwrapKey().map(ResourceKey::identifier).orElse(null);
     }
 
     public ItemStack finish(ServerLevel level, BlockPos pos, ItemStack mainIngredient) {

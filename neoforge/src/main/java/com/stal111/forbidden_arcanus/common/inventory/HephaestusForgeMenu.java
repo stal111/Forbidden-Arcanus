@@ -11,9 +11,9 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
  */
 public class HephaestusForgeMenu extends AbstractContainerMenu {
 
-    public static final String UNLOCKED_AT_KEY = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.slot_unlocked_at"));
+    public static final String UNLOCKED_AT_KEY = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge.slot_unlocked_at"));
 
     private final ContainerData hephaestusForgeData;
     private final ContainerLevelAccess levelAccess;

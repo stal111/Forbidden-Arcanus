@@ -10,7 +10,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.CachedOutput
 import net.minecraft.data.DataProvider
 import net.minecraft.data.PackOutput
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.valhelsia.dataforge.DataProviderContext
 import java.util.*
 import java.util.concurrent.CompletableFuture
@@ -19,7 +19,7 @@ class ParticleDataProvider(context: DataProviderContext) : DataProvider {
     private val particlePathProvider: PackOutput.PathProvider =
         context.packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "particles")
 
-    private val builders = mutableMapOf<ResourceLocation, ParticleDefinition>()
+    private val builders = mutableMapOf<Identifier, ParticleDefinition>()
 
     fun registerParticles() {
         register(
@@ -119,7 +119,7 @@ class ParticleDataProvider(context: DataProviderContext) : DataProvider {
         )
     }
 
-    private fun register(particleType: ParticleType<*>, vararg textures: ResourceLocation) {
+    private fun register(particleType: ParticleType<*>, vararg textures: Identifier) {
         val texturesList = if (textures.isEmpty()) null else mutableListOf(*textures)
 
         builders[BuiltInRegistries.PARTICLE_TYPE.getKey(particleType)!!] = ParticleDefinition(texturesList)
@@ -137,19 +137,19 @@ class ParticleDataProvider(context: DataProviderContext) : DataProvider {
         return CompletableFuture.allOf(*futures.toTypedArray())
     }
 
-    private fun modLoc(path: String): ResourceLocation {
-        return ForbiddenArcanus.location(path)
+    private fun modLoc(path: String): Identifier {
+        return ForbiddenArcanus.identifier(path)
     }
 
     override fun getName(): String {
         return ForbiddenArcanus.MOD_ID + " - Particles"
     }
 
-    data class ParticleDefinition(val textures: MutableList<ResourceLocation>?) {
+    data class ParticleDefinition(val textures: MutableList<Identifier>?) {
         companion object {
             val CODEC: Codec<ParticleDefinition> = RecordCodecBuilder.create {
                 it.group(
-                    ResourceLocation.CODEC.listOf().optionalFieldOf("textures").forGetter { particleDefinition ->
+                    Identifier.CODEC.listOf().optionalFieldOf("textures").forGetter { particleDefinition ->
                         Optional.ofNullable(particleDefinition.textures)
                     }
                 ).apply(it) { resourceLocations ->

@@ -97,6 +97,6 @@ class ModSoundsProvider(context: DataProviderContext) : SoundDefinitionsProvider
     }
 
     private fun simpleSound(name: String): SoundDefinition.Sound {
-        return SoundDefinition.Sound.sound(ForbiddenArcanus.location(name), SoundDefinition.SoundType.SOUND)
+        return SoundDefinition.Sound.sound(ForbiddenArcanus.identifier(name), SoundDefinition.SoundType.SOUND)
     }
 }

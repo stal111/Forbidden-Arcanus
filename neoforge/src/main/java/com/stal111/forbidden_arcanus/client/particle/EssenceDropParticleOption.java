@@ -10,7 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @author stal111
  * @since 12.06.2024
  */
-public record EssenceDropParticleOption(EssenceType type, List<Vector3f> path) implements ParticleOptions {
+public record EssenceDropParticleOption(EssenceType type, List<Vector3fc> path) implements ParticleOptions {
 
     public static final MapCodec<EssenceDropParticleOption> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             EssenceType.CODEC.fieldOf("type").forGetter(EssenceDropParticleOption::type),

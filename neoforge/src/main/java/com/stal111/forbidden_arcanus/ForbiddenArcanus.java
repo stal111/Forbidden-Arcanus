@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.CommonSetup;
 import com.stal111.forbidden_arcanus.core.config.Config;
 import com.stal111.forbidden_arcanus.core.registry.ModRegistryCollector;
 import net.minecraft.core.ClientAsset;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlags;
 import net.neoforged.bus.api.IEventBus;
@@ -25,7 +25,7 @@ public final class ForbiddenArcanus {
 
 	public static final RegistryManager REGISTRY_MANAGER = new RegistryManager(new ModRegistryCollector(ForbiddenArcanus.MOD_ID));
 
-	public static final FeatureFlag PREVIEW = FeatureFlags.REGISTRY.getFlag(ForbiddenArcanus.location("preview"));
+	public static final FeatureFlag PREVIEW = FeatureFlags.REGISTRY.getFlag(ForbiddenArcanus.identifier("preview"));
 
 	public ForbiddenArcanus(IEventBus modEventBus, ModContainer modContainer) {
 		ModDefinition.of(ForbiddenArcanus.MOD_ID)
@@ -40,11 +40,11 @@ public final class ForbiddenArcanus {
 		modContainer.registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 	}
 
-	public static ResourceLocation location(String path) {
-		return ResourceLocation.fromNamespaceAndPath(ForbiddenArcanus.MOD_ID, path);
+	public static Identifier identifier(String path) {
+		return Identifier.fromNamespaceAndPath(ForbiddenArcanus.MOD_ID, path);
 	}
 
     public static ClientAsset.ResourceTexture clientAsset(String path) {
-        return new ClientAsset.ResourceTexture(ForbiddenArcanus.location(path));
+        return new ClientAsset.ResourceTexture(ForbiddenArcanus.identifier(path));
     }
 }

@@ -25,7 +25,7 @@ import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.SkullModel;
+import net.minecraft.client.model.object.skull.SkullModel;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -67,9 +67,9 @@ public class ClientSetup {
         helper.registerEntityRenderer(ModEntities.CRIMSON_LIGHTNING_BOLT, CrimsonLightningBoltRenderer::new);
 //        helper.registerEntityRenderer(ModEntities.BOAT, context -> new ModBoatRenderer(context, false));
 //        helper.registerEntityRenderer(ModEntities.CHEST_BOAT, context -> new ModBoatRenderer(context, true));
-        helper.registerEntityRenderer(ModEntities.LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.location("textures/entity/lost_soul/lost_soul.png")));
-        helper.registerEntityRenderer(ModEntities.CORRUPT_LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.location("textures/entity/lost_soul/corrupt_lost_soul.png")));
-        helper.registerEntityRenderer(ModEntities.ENCHANTED_LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.location("textures/entity/lost_soul/enchanted_lost_soul.png")));
+        helper.registerEntityRenderer(ModEntities.LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.identifier("textures/entity/lost_soul/lost_soul.png")));
+        helper.registerEntityRenderer(ModEntities.CORRUPT_LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.identifier("textures/entity/lost_soul/corrupt_lost_soul.png")));
+        helper.registerEntityRenderer(ModEntities.ENCHANTED_LOST_SOUL, context -> new LostSoulRenderer(context, ForbiddenArcanus.identifier("textures/entity/lost_soul/enchanted_lost_soul.png")));
         helper.registerEntityRenderer(ModEntities.AUREAL_BOTTLE, ThrownItemRenderer::new);
         helper.registerEntityRenderer(ModEntities.DARK_TRADER, DarkTraderRenderer::new);
         helper.registerEntityRenderer(ModEntities.AUREAL_MISSILE, AurealMissileRenderer::new);
@@ -123,8 +123,8 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void registerSpecialRenderers(RegisterSpecialModelRendererEvent event) {
-        event.register(ForbiddenArcanus.location("essence_utrem_jar"), EssenceUtremJarSpecialRenderer.Unbaked.MAP_CODEC);
-        event.register(ForbiddenArcanus.location("ecto_blaster"), EctoBlasterSpecialRenderer.Unbaked.MAP_CODEC);
+        event.register(ForbiddenArcanus.identifier("essence_utrem_jar"), EssenceUtremJarSpecialRenderer.Unbaked.MAP_CODEC);
+        event.register(ForbiddenArcanus.identifier("ecto_blaster"), EctoBlasterSpecialRenderer.Unbaked.MAP_CODEC);
     }
 
     @SubscribeEvent
@@ -134,7 +134,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void registerRangeProperties(RegisterRangeSelectItemModelPropertyEvent event) {
-        event.register(ForbiddenArcanus.location("essence_fill_percentage"), EssenceFillPercentage.MAP_CODEC);
+        event.register(ForbiddenArcanus.identifier("essence_fill_percentage"), EssenceFillPercentage.MAP_CODEC);
     }
 
     private void registerCosmetics() {
@@ -151,9 +151,9 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.location("aureal_meter"), new AurealMeterOverlay());
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.location("flying_label"), new FlyingLabelOverlay());
-        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.location("wand_indicator"), new WandIndicatorLayer());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.identifier("aureal_meter"), new AurealMeterOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.identifier("flying_label"), new FlyingLabelOverlay());
+        event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, ForbiddenArcanus.identifier("wand_indicator"), new WandIndicatorLayer());
     }
 
     @SubscribeEvent

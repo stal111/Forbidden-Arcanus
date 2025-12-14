@@ -6,10 +6,10 @@ import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier
 import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents
-import net.minecraft.advancements.critereon.DataComponentMatchers
-import net.minecraft.advancements.critereon.EnchantmentPredicate
-import net.minecraft.advancements.critereon.ItemPredicate
-import net.minecraft.advancements.critereon.MinMaxBounds
+import net.minecraft.advancements.criterion.DataComponentMatchers
+import net.minecraft.advancements.criterion.EnchantmentPredicate
+import net.minecraft.advancements.criterion.ItemPredicate
+import net.minecraft.advancements.criterion.MinMaxBounds
 import net.minecraft.core.component.DataComponentExactPredicate
 import net.minecraft.core.component.predicates.DataComponentPredicates
 import net.minecraft.core.component.predicates.EnchantmentsPredicate
@@ -53,7 +53,7 @@ class ModLootModifierProvider(
                                 ).build()
                             )
                         )
-                    ).build(), LootTableIdCondition.builder(Blocks.SPAWNER.lootTable.orElseThrow().location()).build()
+                    ).build(), LootTableIdCondition.builder(Blocks.SPAWNER.lootTable.orElseThrow().identifier()).build()
                 ), ModBlockLootAdditions.SPAWNER_SCRAP_ADDITION
             )
         )
@@ -62,7 +62,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootTableIdCondition.builder(
-                        EntityType.ENDERMAN.defaultLootTable.orElseThrow().location()
+                        EntityType.ENDERMAN.defaultLootTable.orElseThrow().identifier()
                     ).build()
                 ), ModEntityLootAdditions.ENDER_PEARL_FRAGMENT_ADDITION
             )
@@ -72,7 +72,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootTableIdCondition.builder(
-                        EntityType.BAT.defaultLootTable.orElseThrow().location()
+                        EntityType.BAT.defaultLootTable.orElseThrow().identifier()
                     ).build()
                 ), ModEntityLootAdditions.BAT_WING_ADDITION
             )
@@ -82,7 +82,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootItemRandomChanceCondition.randomChance(0.7f).build(),
-                    LootTableIdCondition.builder(EntityType.SQUID.defaultLootTable.orElseThrow().location()).build()
+                    LootTableIdCondition.builder(EntityType.SQUID.defaultLootTable.orElseThrow().identifier()).build()
                 ), ModEntityLootAdditions.TENTACLE_ADDITION
             )
         )
@@ -91,7 +91,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootTableIdCondition.builder(
-                        EntityType.ENDER_DRAGON.defaultLootTable.orElseThrow().location()
+                        EntityType.ENDER_DRAGON.defaultLootTable.orElseThrow().identifier()
                     ).build()
                 ), ModEntityLootAdditions.DRAGON_SCALE_ADDITION
             )
@@ -102,7 +102,7 @@ class ModLootModifierProvider(
             "simple_dungeon_additions",
             AddTableLootModifier(
                 arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.SIMPLE_DUNGEON.location()).build()
+                    LootTableIdCondition.builder(BuiltInLootTables.SIMPLE_DUNGEON.identifier()).build()
                 ), ModChestLootAdditions.AUREAL_BOTTLE_ADDITION
             )
         )
@@ -110,7 +110,7 @@ class ModLootModifierProvider(
             "end_city_treasure_additions",
             AddTableLootModifier(
                 arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.END_CITY_TREASURE.location()).build()
+                    LootTableIdCondition.builder(BuiltInLootTables.END_CITY_TREASURE.identifier()).build()
                 ), ModChestLootAdditions.DRAGON_SCALE_ADDITION
             )
         )
@@ -119,9 +119,9 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     AnyOfCondition.anyOf(
-                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_ARMORER.location()),
-                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_TOOLSMITH.location()),
-                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_WEAPONSMITH.location())
+                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_ARMORER.identifier()),
+                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_TOOLSMITH.identifier()),
+                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_WEAPONSMITH.identifier())
                     ).build()
                 ), ModChestLootAdditions.ARTISAN_RELIC_ADDITION
             )
@@ -130,7 +130,7 @@ class ModLootModifierProvider(
             "crimson_stone_addition",
             AddTableLootModifier(
                 arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.PILLAGER_OUTPOST.location()).build()
+                    LootTableIdCondition.builder(BuiltInLootTables.PILLAGER_OUTPOST.identifier()).build()
                 ), ModChestLootAdditions.CRIMSON_STONE_ADDITION
             )
         )
@@ -139,10 +139,10 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     AnyOfCondition.anyOf(
-                        LootTableIdCondition.builder(BuiltInLootTables.JUNGLE_TEMPLE.location()),
-                        LootTableIdCondition.builder(BuiltInLootTables.DESERT_PYRAMID.location()),
-                        LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_SMALL.location()),
-                        LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_BIG.location())
+                        LootTableIdCondition.builder(BuiltInLootTables.JUNGLE_TEMPLE.identifier()),
+                        LootTableIdCondition.builder(BuiltInLootTables.DESERT_PYRAMID.identifier()),
+                        LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_SMALL.identifier()),
+                        LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_BIG.identifier())
                     ).build()
                 ), ModChestLootAdditions.ELEMENTARIUM_ADDITION
             )
@@ -151,7 +151,7 @@ class ModLootModifierProvider(
             "maledictus_pact",
             AddTableLootModifier(
                 arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.BASTION_TREASURE.location()).build()
+                    LootTableIdCondition.builder(BuiltInLootTables.BASTION_TREASURE.identifier()).build()
                 ), ModChestLootAdditions.MALEDICTUS_PACT_ADDITION
             )
         )

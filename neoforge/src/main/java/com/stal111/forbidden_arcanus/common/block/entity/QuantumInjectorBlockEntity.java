@@ -5,8 +5,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.client.particle.EssenceDropParticleOption;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
@@ -31,6 +31,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,7 +206,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
         private final BlockPos start;
         private final BlockPos end;
 
-        private List<Vector3f> particlePath;
+        private List<Vector3fc> particlePath;
 
         public ParticlePath(EssenceType essenceType, BlockPos jarPos, BlockPos forgePos) {
             this.essenceType = essenceType;
@@ -213,7 +214,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
             this.end = forgePos;
         }
 
-        public List<Vector3f> get(RandomSource random) {
+        public List<Vector3fc> get(RandomSource random) {
             if (this.particlePath == null) {
                 this.particlePath = this.calculatePath(random);
             }
@@ -221,7 +222,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
             return this.particlePath;
         }
 
-        private List<Vector3f> calculatePath(RandomSource random) {
+        private List<Vector3fc> calculatePath(RandomSource random) {
             Vector3f direction = new Vector3f(this.end.getX() - this.start.getX(), this.end.getY() + 0.4F - this.start.getY(), this.end.getZ() - this.start.getZ());
             double distance = direction.length();
             direction.normalize();

@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.datagen.loot
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.init.ModItems
-import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.loot.LootTableSubProvider
 import net.minecraft.resources.ResourceKey
@@ -27,7 +26,7 @@ class ModBlockLootAdditions() : LootTableSubProvider {
         val SPAWNER_SCRAP_ADDITION: ResourceKey<LootTable> = register("blocks/additions/spawner_scrap_addition")
 
         private fun register(name: String): ResourceKey<LootTable> {
-            return ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.location(name))
+            return ResourceKey.create(Registries.LOOT_TABLE, ForbiddenArcanus.identifier(name))
         }
     }
 }

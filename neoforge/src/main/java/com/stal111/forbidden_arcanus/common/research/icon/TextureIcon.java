@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * @author stal111
@@ -13,14 +13,14 @@ import net.minecraft.resources.ResourceLocation;
 public final class TextureIcon implements IconProvider {
 
     public static final Codec<TextureIcon> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("texture").forGetter(info -> {
+            Identifier.CODEC.fieldOf("texture").forGetter(info -> {
                 return info.texture;
             })
     ).apply(instance, TextureIcon::new));
 
-    private final ResourceLocation texture;
+    private final Identifier texture;
 
-    public TextureIcon(ResourceLocation texture) {
+    public TextureIcon(Identifier texture) {
         this.texture = texture;
     }
 

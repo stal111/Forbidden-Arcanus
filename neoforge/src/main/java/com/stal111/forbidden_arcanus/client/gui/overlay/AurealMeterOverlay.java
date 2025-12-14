@@ -12,7 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.gui.GuiLayer;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AurealMeterOverlay implements GuiLayer {
 
-    private static final ResourceLocation BACKGROUND_SPRITE = ForbiddenArcanus.location("hud/aureal_bar_background");
+    private static final Identifier BACKGROUND_SPRITE = ForbiddenArcanus.identifier("hud/aureal_bar_background");
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {

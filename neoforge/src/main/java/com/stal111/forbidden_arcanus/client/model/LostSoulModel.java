@@ -7,7 +7,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -20,7 +20,7 @@ public class LostSoulModel extends EntityModel<LostSoulRenderState> {
     private final KeyframeAnimation fearAnimation;
 
     public LostSoulModel(ModelPart root) {
-        super(root, RenderType::entitySolid);
+        super(root, RenderTypes::entitySolid);
         this.stillAnimation = LostSoulAnimation.LOST_SOUL_STILL.bake(root);
         this.fearAnimation = LostSoulAnimation.LOST_SOUL_FEAR.bake(root);
     }

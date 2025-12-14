@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.client.renderer.entity.state.LostSoulRender
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.AbstractLostSoul;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -17,16 +17,16 @@ import javax.annotation.Nonnull;
  */
 public class LostSoulRenderer extends MobRenderer<AbstractLostSoul, LostSoulRenderState, LostSoulModel> {
 
-    private final ResourceLocation texture;
+    private final Identifier texture;
 
-    public LostSoulRenderer(EntityRendererProvider.Context context, ResourceLocation texture) {
+    public LostSoulRenderer(EntityRendererProvider.Context context, Identifier texture) {
         super(context, new LostSoulModel(context.bakeLayer(FAModelLayers.LOST_SOUL)), 0.0F);
         this.texture = texture;
     }
 
     @Nonnull
     @Override
-    public ResourceLocation getTextureLocation(@Nonnull LostSoulRenderState renderState) {
+    public Identifier getTextureLocation(@Nonnull LostSoulRenderState renderState) {
         return this.texture;
     }
 

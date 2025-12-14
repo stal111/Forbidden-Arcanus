@@ -9,7 +9,7 @@ import net.minecraft.client.data.models.model.TextureMapping
 import net.minecraft.client.data.models.model.TextureSlot
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 
@@ -29,11 +29,11 @@ object ModTextureMapping {
     private const val EDELWOOD_LOG = "edelwood_log"
 
     private val FORGE_BLOCK_TEXTURES = mapOf(
-        1 to ResourceLocation.withDefaultNamespace("block/smithing_table_bottom"),
-        2 to ForbiddenArcanus.location("block/edelwood_planks"),
-        3 to ForbiddenArcanus.location("block/chiseled_polished_darkstone"),
-        4 to ForbiddenArcanus.location("block/chiseled_polished_darkstone"),
-        5 to ForbiddenArcanus.location("block/stellarite_block")
+        1 to Identifier.withDefaultNamespace("block/smithing_table_bottom"),
+        2 to ForbiddenArcanus.identifier("block/edelwood_planks"),
+        3 to ForbiddenArcanus.identifier("block/chiseled_polished_darkstone"),
+        4 to ForbiddenArcanus.identifier("block/chiseled_polished_darkstone"),
+        5 to ForbiddenArcanus.identifier("block/stellarite_block")
     )
 
     fun emissiveCube(block: Block): TextureMapping = TextureMapping()
@@ -136,24 +136,24 @@ object ModTextureMapping {
         return mapping
     }
 
-    fun getBlockTexture(block: Block): ResourceLocation {
+    fun getBlockTexture(block: Block): Identifier {
         val resourceLocation = BuiltInRegistries.BLOCK.getKey(block)
         return resourceLocation.withPrefix("block/")
     }
 
-    fun getBlockTexture(block: Block, folder: String): ResourceLocation {
+    fun getBlockTexture(block: Block, folder: String): Identifier {
         return ModLocationUtils.getBlock(block, folder)
     }
 
-    fun getBlockTexture(block: Block, folder: String, suffix: String): ResourceLocation {
+    fun getBlockTexture(block: Block, folder: String, suffix: String): Identifier {
         return ModLocationUtils.getBlock(block, folder, suffix)
     }
 
-    fun getBlockTexture(folder: String, texture: String): ResourceLocation {
-        return ForbiddenArcanus.location("block/$folder/$texture")
+    fun getBlockTexture(folder: String, texture: String): Identifier {
+        return ForbiddenArcanus.identifier("block/$folder/$texture")
     }
 
-    fun geItemTexture(item: Holder<Item>, folder: String, suffix: String): ResourceLocation {
+    fun geItemTexture(item: Holder<Item>, folder: String, suffix: String): Identifier {
         return ModLocationUtils.getItem(folder, item, suffix)
     }
 }

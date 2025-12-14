@@ -53,7 +53,7 @@ public class FARegistries {
     public static final Registry<EssenceSource> ESSENCE_SOURCE_TYPE_REGISTRY = FARegistries.makeRegistry(ESSENCE_SOURCE_TYPE);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {
-        return ResourceKey.createRegistryKey(ForbiddenArcanus.location(name));
+        return ResourceKey.createRegistryKey(ForbiddenArcanus.identifier(name));
     }
 
     /**

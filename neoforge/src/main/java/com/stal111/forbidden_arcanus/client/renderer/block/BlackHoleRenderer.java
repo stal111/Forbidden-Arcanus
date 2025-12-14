@@ -12,11 +12,11 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MaterialMapper;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -40,11 +40,11 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
 
     public static final MaterialMapper MAPPER = new MaterialMapper(TextureAtlas.LOCATION_BLOCKS, "entity/black_hole");
 
-    public static final Material BLACK_HOLE_TEXTURE = MAPPER.apply(ForbiddenArcanus.location("black_hole"));
+    public static final Material BLACK_HOLE_TEXTURE = MAPPER.apply(ForbiddenArcanus.identifier("black_hole"));
     public static final Material[] AURA_TEXTURES = {
-            MAPPER.apply(ForbiddenArcanus.location("black_hole_aura_0")),
-            MAPPER.apply(ForbiddenArcanus.location("black_hole_aura_1")),
-            MAPPER.apply(ForbiddenArcanus.location("black_hole_aura_2"))
+            MAPPER.apply(ForbiddenArcanus.identifier("black_hole_aura_0")),
+            MAPPER.apply(ForbiddenArcanus.identifier("black_hole_aura_1")),
+            MAPPER.apply(ForbiddenArcanus.identifier("black_hole_aura_2"))
     };
 
     private static final float SIN_45 = (float) Math.sin(Math.PI / 3D);
@@ -94,12 +94,12 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
         poseStack.pushPose();
         poseStack.mulPose(new Quaternionf().setAngleAxis(Math.PI / 3F, SIN_45, 0.0F, SIN_45));
 
-        nodeCollector.submitModelPart(this.blackHole, poseStack, BLACK_HOLE_TEXTURE.renderType(RenderType::entitySolid), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(BLACK_HOLE_TEXTURE), 0, renderState.breakProgress);
+        nodeCollector.submitModelPart(this.blackHole, poseStack, BLACK_HOLE_TEXTURE.renderType(RenderTypes::entitySolid), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(BLACK_HOLE_TEXTURE), 0, renderState.breakProgress);
 
         poseStack.popPose();
 
         Material auraTexture = AURA_TEXTURES[renderState.auraTexture];
-        nodeCollector.submitModelPart(this.aura, poseStack, auraTexture.renderType(RenderType::entityCutoutNoCull), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(auraTexture), -1, renderState.breakProgress);
+        nodeCollector.submitModelPart(this.aura, poseStack, auraTexture.renderType(RenderTypes::entityCutoutNoCull), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(auraTexture), -1, renderState.breakProgress);
 
         poseStack.popPose();
     }

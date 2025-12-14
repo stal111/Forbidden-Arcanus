@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtremJarBlockEntity, EssenceUtremJarRenderState> {
 
-    public static final Material TEXTURE = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.location("lost_soul/lost_soul"));
+    public static final Material TEXTURE = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("lost_soul/lost_soul"));
 
     public void submitSpecial(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceStorage essenceStorage) {
         submit(poseStack, nodeCollector, lightCoords, packedOverlay, essenceStorage.type(), essenceStorage.getFillPercentage());

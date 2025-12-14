@@ -8,15 +8,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.gui.GuiLayer;
 import org.jetbrains.annotations.NotNull;
 
 public class WandIndicatorLayer implements GuiLayer {
 
-    private static final ResourceLocation CROSSHAIR_WAND_INDICATOR_FULL_SPRITE = ForbiddenArcanus.location("hud/crosshair_wand_indicator_full");
-    private static final ResourceLocation CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE = ForbiddenArcanus.location("hud/crosshair_wand_indicator_background");
-    private static final ResourceLocation CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE = ForbiddenArcanus.location("hud/crosshair_wand_indicator_progress");
+    private static final Identifier CROSSHAIR_WAND_INDICATOR_FULL_SPRITE = ForbiddenArcanus.identifier("hud/crosshair_wand_indicator_full");
+    private static final Identifier CROSSHAIR_WAND_INDICATOR_BACKGROUND_SPRITE = ForbiddenArcanus.identifier("hud/crosshair_wand_indicator_background");
+    private static final Identifier CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE = ForbiddenArcanus.identifier("hud/crosshair_wand_indicator_progress");
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {

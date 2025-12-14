@@ -11,10 +11,10 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.Objects;
-import java.util.Set;
+import java.util.function.Consumer;
 
 public record EssenceUtremJarSpecialRenderer(
         EssenceUtremJarRenderer essenceUtremJarRenderer
@@ -26,7 +26,8 @@ public record EssenceUtremJarSpecialRenderer(
     }
 
     @Override
-    public void getExtents(Set<Vector3f> output) {
+    public void getExtents(Consumer<Vector3fc> consumer) {
+
     }
 
     @Override

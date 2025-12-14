@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.EmptyTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTabButton;
 import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * @author stal111
@@ -20,12 +20,12 @@ public enum ResearchCategory {
 
     private final WidgetSprites sprites;
 
-    private final ResourceLocation iconLocation;
+    private final Identifier iconLocation;
     private final TabFactory tabFactory;
 
     ResearchCategory(String name, WidgetSprites sprites, TabFactory tabFactory) {
         this.sprites = sprites;
-        this.iconLocation = ForbiddenArcanus.location("textures/gui/research/icon/" + name + ".png");
+        this.iconLocation = ForbiddenArcanus.identifier("textures/gui/research/icon/" + name + ".png");
         this.tabFactory = tabFactory;
     }
 
@@ -33,7 +33,7 @@ public enum ResearchCategory {
         return this.sprites;
     }
 
-    public ResourceLocation getIconLocation() {
+    public Identifier getIconLocation() {
         return this.iconLocation;
     }
 

@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.essence.storage;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.attachment.AttachmentType;
 

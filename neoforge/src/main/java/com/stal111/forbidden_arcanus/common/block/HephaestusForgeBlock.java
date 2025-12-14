@@ -7,7 +7,6 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -15,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -56,8 +56,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
-    public static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge"));
-    public static final String TIER_ID = Util.makeDescriptionId("block", ForbiddenArcanus.location("hephaestus_forge.tier"));
+    public static final String DESCRIPTION_ID = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge"));
+    public static final String TIER_ID = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge.tier"));
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
     public static final EnumProperty<HephaestusForgeLevel> FORGE_TIER = ModBlockStateProperties.FORGE_TIER;
