@@ -8,11 +8,11 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
-public class FullbrightAnimatedParticle extends SimpleAnimatedParticle {
+public class OpaqueAnimatedParticle extends SimpleAnimatedParticle {
 
     private final SpriteSet sprites;
 
-    protected FullbrightAnimatedParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
+    protected OpaqueAnimatedParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
         super(level, x, y, z, spriteSet, 0.0F);
         this.sprites = spriteSet;
         this.setSpriteFromAge(sprites);
@@ -29,17 +29,11 @@ public class FullbrightAnimatedParticle extends SimpleAnimatedParticle {
         return Layer.OPAQUE;
     }
 
-    @Override
-    public int getLightCoords(float a) {
-        //TODO ?
-        return super.getLightCoords(a);
-    }
-
     public record Factory(SpriteSet spriteSet, int lifetime) implements ParticleProvider<SimpleParticleType> {
 
         @Override
         public Particle createParticle(SimpleParticleType particleType, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
-            var particle = new FullbrightAnimatedParticle(level, x, y, z, this.spriteSet);
+            var particle = new OpaqueAnimatedParticle(level, x, y, z, this.spriteSet);
             particle.setLifetime(lifetime);
 
             return particle;

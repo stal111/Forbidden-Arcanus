@@ -172,8 +172,8 @@ public class ClientSetup {
         event.registerSpriteSet(ModParticles.SOULS_DROP.get(), EssenceDropParticle.Provider::new);
         event.registerSpriteSet(ModParticles.BLOOD_DROP.get(), EssenceDropParticle.Provider::new);
         event.registerSpriteSet(ModParticles.EXPERIENCE_DROP.get(), EssenceDropParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.MAGIC_GLINT.get(), sprites -> new FullbrightAnimatedParticle.Factory(sprites, 9));
-        event.registerSpriteSet(ModParticles.MAGIC_HIT.get(), sprites -> new FullbrightAnimatedParticle.Factory(sprites, 4));
+        event.registerSpriteSet(ModParticles.MAGIC_GLINT.get(), sprites -> new OpaqueAnimatedParticle.Factory(sprites, 9));
+        event.registerSpriteSet(ModParticles.MAGIC_HIT.get(), sprites -> new OpaqueAnimatedParticle.Factory(sprites, 4));
         event.registerSpriteSet(ModParticles.SPELL_EXPLOSION.get(), SpellExplosionProvider::new);
     }
 }
