@@ -8,21 +8,23 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class AurealMissileRenderer extends EntityRenderer<AurealMissile, EntityRenderState> {
 
     private static final Identifier TEXTURE_LOCATION = ForbiddenArcanus.identifier("textures/entity/projectiles/aureal_missile.png");
+    private static final RenderType RENDER_TYPE = RenderTypes.entityTranslucentEmissive(TEXTURE_LOCATION);
 
     public AurealMissileRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public @NotNull EntityRenderState createRenderState() {
+    public EntityRenderState createRenderState() {
         return new EntityRenderState();
     }
 
@@ -30,17 +32,15 @@ public class AurealMissileRenderer extends EntityRenderer<AurealMissile, EntityR
     public void submit(EntityRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
 
-        //TODO
-//        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(TEXTURE_LOCATION));
-//        PoseStack.Pose pose = poseStack.last();
-//
-//        poseStack.translate(0, 0.2, 0);
-//        poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-//
-//        vertex(vertexConsumer, pose, -0.25F, -0.25F, 0, 1, packedLight);
-//        vertex(vertexConsumer, pose, 0.25F, -0.25F, 1, 1, packedLight);
-//        vertex(vertexConsumer, pose, 0.25F, 0.25F, 1, 0, packedLight);
-//        vertex(vertexConsumer, pose, -0.25F, 0.25F, 0, 0, packedLight);
+        poseStack.translate(0, 0.2, 0);
+        poseStack.mulPose(cameraRenderState.orientation);
+
+        nodeCollector.submitCustomGeometry(poseStack, RENDER_TYPE, (pose, vertexConsumer) -> {
+            vertex(vertexConsumer, pose, -0.25F, -0.25F, 0, 1, renderState.lightCoords);
+            vertex(vertexConsumer, pose, 0.25F, -0.25F, 1, 1, renderState.lightCoords);
+            vertex(vertexConsumer, pose, 0.25F, 0.25F, 1, 0, renderState.lightCoords);
+            vertex(vertexConsumer, pose, -0.25F, 0.25F, 0, 0, renderState.lightCoords);
+        });
 
         poseStack.popPose();
 
