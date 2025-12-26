@@ -33,7 +33,6 @@ public final class DeathEvents {
     }
 
     private void spawnLostSoul(ServerLevel level, float spawnChance, LivingEntity entity, RandomSource random) {
-        EntityType<?> type = entity.getType();
 
         if (random.nextDouble() >= spawnChance) {
             return;
@@ -41,9 +40,9 @@ public final class DeathEvents {
 
         EntityType<? extends AbstractLostSoul> lostSoulType = null;
 
-        if (type.is(ModTags.EntityTypes.SPAWNS_LOST_SOUL_CHANCE)) {
+        if (entity.is(ModTags.EntityTypes.SPAWNS_LOST_SOUL_CHANCE)) {
             lostSoulType = ModEntities.LOST_SOUL.get();
-        } else if (type.is(ModTags.EntityTypes.SPAWNS_CORRUPT_LOST_SOUL_CHANCE)) {
+        } else if (entity.is(ModTags.EntityTypes.SPAWNS_CORRUPT_LOST_SOUL_CHANCE)) {
             lostSoulType = ModEntities.CORRUPT_LOST_SOUL.get();
         }
 

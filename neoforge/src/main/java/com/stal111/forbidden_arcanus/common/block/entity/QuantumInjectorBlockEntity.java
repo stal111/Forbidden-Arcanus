@@ -82,7 +82,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
         if (particlePath != null && blockEntity.ageInTicks % 10 == 0) {
             BlockPos jarPos = particlePath.start;
 
-            level.addParticle(new EssenceDropParticleOption(particlePath.essenceType, particlePath.get(level.random)), jarPos.getX() + 0.5, jarPos.getY() + 0.5, jarPos.getZ() + 0.5, 0, 0, 0);
+            level.addParticle(new EssenceDropParticleOption(particlePath.essenceType, particlePath.get(level.getRandom())), jarPos.getX() + 0.5, jarPos.getY() + 0.5, jarPos.getZ() + 0.5, 0, 0, 0);
         }
     }
 

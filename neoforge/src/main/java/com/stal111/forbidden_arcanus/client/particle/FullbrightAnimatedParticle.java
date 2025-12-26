@@ -5,7 +5,6 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
@@ -31,8 +30,9 @@ public class FullbrightAnimatedParticle extends SimpleAnimatedParticle {
     }
 
     @Override
-    public int getLightColor(float partialTick) {
-        return LightTexture.FULL_BLOCK;
+    public int getLightCoords(float a) {
+        //TODO ?
+        return super.getLightCoords(a);
     }
 
     public record Factory(SpriteSet spriteSet, int lifetime) implements ParticleProvider<SimpleParticleType> {

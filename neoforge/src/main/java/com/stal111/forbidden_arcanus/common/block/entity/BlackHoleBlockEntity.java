@@ -56,7 +56,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
         List<Entity> entities = level.getEntities(null, new AABB(pos.getX() + 0.5 - 5, pos.getY() + 0.5 - 5, pos.getZ() + 0.5 - 5, pos.getX() + 0.5 + 5, pos.getY() + 0.5 + 5, pos.getZ() + 0.5 + 5));
 
         for (Entity entity : entities) {
-            if (!entity.getType().is(ModTags.EntityTypes.BLACK_HOLE_AFFECTED)) {
+            if (!entity.is(ModTags.EntityTypes.BLACK_HOLE_AFFECTED)) {
                 continue;
             }
 

@@ -103,7 +103,7 @@ public class ArcaneBoneMealItem extends BoneMealItem {
         }
         for (int i = 0; i < 1000; i++) {
             if (canGrow(world, pos) && !world.isClientSide()) {
-                ((BonemealableBlock) world.getBlockState(pos).getBlock()).performBonemeal((ServerLevel) world, world.random, pos, world.getBlockState(pos));
+                ((BonemealableBlock) world.getBlockState(pos).getBlock()).performBonemeal((ServerLevel) world, world.getRandom(), pos, world.getBlockState(pos));
             } else {
                 return;
             }

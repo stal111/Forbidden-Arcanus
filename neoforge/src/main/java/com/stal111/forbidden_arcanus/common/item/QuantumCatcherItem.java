@@ -130,7 +130,7 @@ public class QuantumCatcherItem extends Item {
     }
 
     public boolean isValidEntity(LivingEntity entity) {
-        return !entity.getType().is(this.blacklistedEntities) && entity.isAlive();
+        return !entity.is(this.blacklistedEntities) && entity.isAlive();
     }
 
     public static EssenceValue calculateAurealCost(LivingEntity entity) {

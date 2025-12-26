@@ -76,7 +76,7 @@ public class FungyssBlock extends BushBlock implements BonemealableBlock {
         }
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 4);
 
-        ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.random.nextBoolean() ? BuiltInFeatures.BIG_FUNGYSS_0 : BuiltInFeatures.BIG_FUNGYSS_1;
+        ResourceKey<ConfiguredFeature<?, ?>> featureKey = level.getRandom().nextBoolean() ? BuiltInFeatures.BIG_FUNGYSS_0 : BuiltInFeatures.BIG_FUNGYSS_1;
         Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(featureKey).orElse(null);
 
         if (holder != null && !holder.value().place(level, level.getChunkSource().getGenerator(), random, pos)) {

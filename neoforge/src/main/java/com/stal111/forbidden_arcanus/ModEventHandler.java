@@ -28,7 +28,6 @@ public final class ModEventHandler extends ValhelsiaForgeEventHandler {
     public void registerForgeEvents(IEventBus eventBus) {
         eventBus.register(new DeathEvents());
         eventBus.register(new TooltipEvents());
-        eventBus.register(new TradeEvents());
         eventBus.register(new PlayerEvents());
         eventBus.register(new RecipeEvents());
     }

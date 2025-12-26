@@ -2,12 +2,7 @@ package com.stal111.forbidden_arcanus.common.entity.villager;
 
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.BasicItemListing;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author stal111
@@ -17,7 +12,7 @@ public final class FAVillagerTrades {
 
     public static final FAVillagerTrades INSTANCE = new FAVillagerTrades();
 
-    private final List<VillagerTrades.ItemListing> wanderingTraderTrades = new ArrayList<>();
+//    private final List<VillagerTrades.ItemListing> wanderingTraderTrades = new ArrayList<>();
 
     private FAVillagerTrades() {
         this.buildTrades();
@@ -32,10 +27,10 @@ public final class FAVillagerTrades {
     }
 
     private void addBasicTrade(int emeralds, ItemStack stack, int maxTrades, int experience) {
-        this.wanderingTraderTrades.add(new BasicItemListing(emeralds, stack, maxTrades, experience));
+//        this.wanderingTraderTrades.add(new BasicItemListing(emeralds, stack, maxTrades, experience));
     }
 
-    public List<VillagerTrades.ItemListing> getWanderingTraderTrades() {
-        return this.wanderingTraderTrades;
-    }
+//    public List<VillagerTrades.ItemListing> getWanderingTraderTrades() {
+//        return this.wanderingTraderTrades;
+//    }
 }

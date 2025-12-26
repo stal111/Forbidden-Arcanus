@@ -20,7 +20,7 @@ public class MinecraftMixin {
 
     @Inject(method = "shouldEntityAppearGlowing", at = @At("HEAD"), cancellable = true)
     private void forbiddenArcanus_shouldEntityAppearGlowing$handleSpectralEyeAmulet(Entity entity, CallbackInfoReturnable<Boolean> callback) {
-        if (this.player != null && this.player.hasEffect(ModMobEffects.SPECTRAL_VISION) && !entity.getType().is(ModTags.EntityTypes.SPECTRAL_VISION_UNAFFECTED)) {
+        if (this.player != null && this.player.hasEffect(ModMobEffects.SPECTRAL_VISION) && !entity.is(ModTags.EntityTypes.SPECTRAL_VISION_UNAFFECTED)) {
             callback.setReturnValue(true);
         }
     }

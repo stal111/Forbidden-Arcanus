@@ -75,7 +75,7 @@ public class AurealMoteParticle extends SingleQuadParticle {
     }
 
     @Override
-    protected int getLightColor(float partialTick) {
+    protected int getLightCoords(float a) {
         return 0xF000F0;
     }
 

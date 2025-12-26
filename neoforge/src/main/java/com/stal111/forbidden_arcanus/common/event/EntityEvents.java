@@ -33,7 +33,7 @@ public class EntityEvents {
     public static void onEntityDamage(LivingDamageEvent.Post event) {
         DamageSource source = event.getSource();
 
-        if (source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player && !event.getEntity().getType().is(ModTags.EntityTypes.TEST_TUBE_BLACKLISTED)) {
+        if (source.is(DamageTypes.PLAYER_ATTACK) && source.getEntity() instanceof Player player && !event.getEntity().is(ModTags.EntityTypes.TEST_TUBE_BLACKLISTED)) {
             if (player.getOffhandItem().is(ModItems.TEST_TUBE)) {
                 player.setItemInHand(InteractionHand.OFF_HAND, ModItems.BLOOD_TEST_TUBE.get().getDefaultInstance());
             }

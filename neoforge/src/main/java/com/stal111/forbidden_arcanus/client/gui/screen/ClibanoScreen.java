@@ -22,8 +22,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     private final MaterialListComponent materialList;
 
     public ClibanoScreen(ClibanoMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        this.imageHeight = 173;
+        super(menu, playerInventory, title, 176, 173);
         this.titleLabelY -= 2;
         this.inventoryLabelY += 9;
 

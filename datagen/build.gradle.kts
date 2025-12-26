@@ -4,12 +4,10 @@ plugins {
     id("eclipse")
     id("idea")
     id("maven-publish")
-    id("net.neoforged.moddev") version "2.0.112"
+    id("net.neoforged.moddev") version "2.0.134"
 }
 
 val mod_id: String by project
-val parchment_mappings_version: String by project
-val parchment_minecraft_version: String by project
 val valhelsia_core_version: String by project
 val minecraft_version: String by project
 val dataforge_version: String by project
@@ -35,16 +33,11 @@ repositories {
     }
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-kotlin.jvmToolchain(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+kotlin.jvmToolchain(25)
 
 neoForge {
     version = project.property("neo_version") as String
-
-    parchment {
-        mappingsVersion = parchment_mappings_version
-        minecraftVersion = parchment_minecraft_version
-    }
 
     mods.create(mod_id) {
         sourceSet(sourceSets.main.get())
