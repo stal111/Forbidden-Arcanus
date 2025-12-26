@@ -11,5 +11,9 @@
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/fiery_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/fiery_incompatible",
-  "predicate": {}
+  "predicate": {
+    "predicates": {
+      "minecraft:tool": {}
+    }
+  }
 }

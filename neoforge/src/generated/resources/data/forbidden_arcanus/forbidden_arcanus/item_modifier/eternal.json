@@ -15,5 +15,10 @@
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/eternal_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/eternal_incompatible",
-  "predicate": {}
+  "predicate": {
+    "predicates": {
+      "minecraft:damage": {},
+      "minecraft:max_damage": {}
+    }
+  }
 }

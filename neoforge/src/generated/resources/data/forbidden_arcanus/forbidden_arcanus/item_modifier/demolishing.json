@@ -11,5 +11,9 @@
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/demolishing_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/demolishing_incompatible",
-  "predicate": {}
+  "predicate": {
+    "predicates": {
+      "minecraft:tool": {}
+    }
+  }
 }

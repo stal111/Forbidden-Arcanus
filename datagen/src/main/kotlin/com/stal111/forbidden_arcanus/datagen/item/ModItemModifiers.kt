@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier.DisplaySettings
 import com.stal111.forbidden_arcanus.util.ModTags
+import net.minecraft.advancements.criterion.DataComponentMatchers
 import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.HolderSet
@@ -31,35 +32,19 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
 
     override fun bootstrap(context: BootstrapContext<ItemModifier>) {
         this.context = context
-        this.itemsGetter = context.lookup<Item>(Registries.ITEM)
-        this.enchantmentGetter = context.lookup<Enchantment>(Registries.ENCHANTMENT)
+        this.itemsGetter = context.lookup(Registries.ITEM)
+        this.enchantmentGetter = context.lookup(Registries.ENCHANTMENT)
 
-        //TODO
-        val eternalPredicate = ItemPredicate.Builder.item().build()
-//        val eternalPredicate = ItemPredicate.Builder.item().withSubPredicate(
-//            ValhelsiaItemSubPredicates.ALL_OF.get(), ItemAllOfPredicate(
-//                mapOf<ItemSubPredicate.Type<*>, List<ItemSubPredicate>>(
-//                    ValhelsiaItemSubPredicates.HAS_COMPONENT.get() to listOf(
-//                        ItemHasComponentPredicate(DataComponents.MAX_DAMAGE),
-//                        ItemHasComponentPredicate(DataComponents.DAMAGE)
-//                    )
-//                )
-//            )
-//        ).build()
-
-        val isToolPredicate = ItemPredicate.Builder.item().build()
-//        val isToolPredicate = ItemPredicate.Builder.item().withSubPredicate<ItemAnyOfPredicate>(
-//            ValhelsiaItemSubPredicates.ANY_OF.get(), ItemAnyOfPredicate(
-//                mapOf<ItemSubPredicate.Type<*>, List<ItemSubPredicate>>(
-//                    ItemAbilityPredicate.TYPE to listOf(
-//                        ItemAbilityPredicate(ItemAbilities.PICKAXE_DIG),
-//                        ItemAbilityPredicate(ItemAbilities.AXE_DIG),
-//                        ItemAbilityPredicate(ItemAbilities.SHOVEL_DIG),
-//                        ItemAbilityPredicate(ItemAbilities.HOE_DIG)
-//                    )
-//                )
-//            )
-//        ).build()
+        val eternalPredicate = ItemPredicate.Builder.item().withComponents(
+            DataComponentMatchers.Builder.components()
+                .any<DataComponentType<*>>(DataComponents.MAX_DAMAGE)
+                .any<DataComponentType<*>>(DataComponents.DAMAGE).build()
+        ).build()
+        val isToolPredicate = ItemPredicate.Builder.item().withComponents(
+            DataComponentMatchers.Builder.components()
+                .any<DataComponentType<*>>(DataComponents.TOOL)
+                .build()
+        ).build()
         val magnetizedPredicate = ItemPredicate.Builder.item().of(itemsGetter!!, ItemTags.FOOT_ARMOR).build()
         val aquaticPredicate = ItemPredicate.Builder.item().of(itemsGetter!!, ItemTags.HEAD_ARMOR).build()
         val soulBoundPredicate =
@@ -70,11 +55,9 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
             eternalPredicate,
             ModTags.Items.ETERNAL_INCOMPATIBLE,
             ModTags.Enchantments.ETERNAL_INCOMPATIBLE,
-            HolderSet.direct<DataComponentType<*>>(
+            HolderSet.direct(
                 BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.DAMAGE),
-                BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(
-                    DataComponents.MAX_DAMAGE
-                )
+                BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.MAX_DAMAGE)
             ),
             createDisplay(BuiltInItemModifiers.ETERNAL, ARGB.color(255, 170, 181, 159), ARGB.color(255, 49, 57, 56))
         )
