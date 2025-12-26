@@ -32,26 +32,26 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
         val stoneOreReplaceables: RuleTest = TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES)
         val deepslateOreReplaceables: RuleTest = TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
 
-        val arcaneCrystalTargetList = listOf<OreConfiguration.TargetBlockState?>(
+        val arcaneCrystalTargetList = listOf(
             OreConfiguration.target(
                 stoneOreReplaceables,
                 ARCANE_CRYSTAL_ORE.get()
             ), OreConfiguration.target(deepslateOreReplaceables, DEEPSLATE_ARCANE_CRYSTAL_ORE.get())
         )
-        val runicStoneTargetList = listOf<OreConfiguration.TargetBlockState?>(
+        val runicStoneTargetList = listOf(
             OreConfiguration.target(stoneOreReplaceables, RUNIC_STONE.get()),
             OreConfiguration.target(deepslateOreReplaceables, RUNIC_DEEPSLATE.get()),
             OreConfiguration.target(
                 BlockMatchTest(ModBlocks.DARKSTONE.get()), RUNIC_DARKSTONE.get()
             )
         )
-        val darkstoneTargetList = listOf<OreConfiguration.TargetBlockState?>(
+        val darkstoneTargetList = listOf(
             OreConfiguration.target(
                 stoneOreReplaceables,
                 DARKSTONE.get()
             ), OreConfiguration.target(deepslateOreReplaceables, DARKSTONE.get())
         )
-        val stellaArcanumTargetList = listOf<OreConfiguration.TargetBlockState?>(
+        val stellaArcanumTargetList = listOf(
             OreConfiguration.target(
                 stoneOreReplaceables,
                 STELLA_ARCANUM.get()

@@ -13,12 +13,10 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.Tra
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult
 import com.stal111.forbidden_arcanus.common.essence.EssenceSet
 import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.core.registry.FARegistries
 import com.stal111.forbidden_arcanus.data.hephaestus_forge.rituals.RitualBuilder
-import net.minecraft.core.Holder
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
@@ -39,8 +37,8 @@ object ModRituals : RegistryDataProvider<Ritual> {
         this.magicCircleLookup = context.lookup(FARegistries.MAGIC_CIRCLE)
         val enhancerLookup = context.lookup(FARegistries.ENHANCER_DEFINITION)
 
-        val elementarium: Holder<EnhancerDefinition?> = enhancerLookup.getOrThrow(BuiltInEnhancers.ELEMENTARIUM)
-        val divinePact: Holder<EnhancerDefinition?> = enhancerLookup.getOrThrow(BuiltInEnhancers.DIVINE_PACT)
+        val elementarium = enhancerLookup.getOrThrow(BuiltInEnhancers.ELEMENTARIUM)
+        val divinePact = enhancerLookup.getOrThrow(BuiltInEnhancers.DIVINE_PACT)
 
         // Requirements
         val eternalStella = requirements(EssenceSet.of(82, 1, 1000, 0)) {
