@@ -67,7 +67,7 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner, Block
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
 
-        if (this.hasStack()) {
+        if (this.hasStack() && this.level != null) {
             this.level.addFreshEntity(new ItemEntity(this.level, pos.getX() + 0.5, pos.getY() + this.getItemHeight(), pos.getZ() + 0.5, this.getStack()));
 
             this.setStack(ItemStack.EMPTY, null, PedestalEffectTrigger.REMOVED);
