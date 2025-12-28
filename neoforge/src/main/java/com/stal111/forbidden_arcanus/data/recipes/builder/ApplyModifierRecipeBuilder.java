@@ -20,20 +20,19 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 /**
  * @author stal111
  * @since 2022-10-21
  */
-public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient addition, Holder<ItemModifier> modifier, HolderLookup.RegistryLookup<Item> registryLookup) implements RecipeBuilder {
+public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient addition, Holder<ItemModifier> modifier) implements RecipeBuilder {
 
-    public static ApplyModifierRecipeBuilder of(ItemLike template, ItemLike addition, Holder<ItemModifier> modifier, HolderLookup.RegistryLookup<Item> registryLookup) {
-        return new ApplyModifierRecipeBuilder(Ingredient.of(template), Ingredient.of(addition), modifier, registryLookup);
+    public static ApplyModifierRecipeBuilder of(ItemLike template, ItemLike addition, Holder<ItemModifier> modifier) {
+        return new ApplyModifierRecipeBuilder(Ingredient.of(template), Ingredient.of(addition), modifier);
     }
 
-    public static ApplyModifierRecipeBuilder of(ItemLike template, Ingredient addition, Holder<ItemModifier> modifier, HolderLookup.RegistryLookup<Item> registryLookup) {
-        return new ApplyModifierRecipeBuilder(Ingredient.of(template), addition, modifier, registryLookup);
+    public static ApplyModifierRecipeBuilder of(ItemLike template, Ingredient addition, Holder<ItemModifier> modifier) {
+        return new ApplyModifierRecipeBuilder(Ingredient.of(template), addition, modifier);
     }
 
     @Nonnull
@@ -55,7 +54,7 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
 
     @Override
     public void save(@NotNull RecipeOutput output, @NotNull ResourceKey<Recipe<?>> resourceKey) {
-        ApplyModifierRecipe recipe = new ApplyModifierRecipe(Optional.of(this.template), Optional.of(this.addition), this.modifier, this.registryLookup);
+        ApplyModifierRecipe recipe = new ApplyModifierRecipe(this.template, this.addition, this.modifier);
         Advancement.Builder builder = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
                 .rewards(AdvancementRewards.Builder.recipe(resourceKey))
