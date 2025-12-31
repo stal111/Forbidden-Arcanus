@@ -5,6 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Nameable;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoFrameBlockEntity extends BlockEntity {
+public class ClibanoFrameBlockEntity extends BlockEntity implements Nameable {
 
     private @Nullable Direction mainDirection;
     private @Nullable FrameData frameData;
@@ -45,6 +47,25 @@ public class ClibanoFrameBlockEntity extends BlockEntity {
 
     public void setMainDirection(@Nullable Direction mainDirection) {
         this.mainDirection = mainDirection;
+    }
+
+    @Override
+    public Component getName() {
+        return Component.translatable("block.forbidden_arcanus.clibano");
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return this.frameData != null;
+    }
+
+    @Nullable
+    @Override
+    public Component getCustomName() {
+        if (this.frameData != null) {
+            return Component.translatable("block.forbidden_arcanus.clibano");
+        }
+        return null;
     }
 
     @Override
