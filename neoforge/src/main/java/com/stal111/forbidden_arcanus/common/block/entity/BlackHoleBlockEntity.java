@@ -33,6 +33,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
 
     private static final double DAMAGE_DISTANCE = 0.6D;
     private static final int PLAYER_SEARCH_DISTANCE = 6;
+    private static final double SUCTION_RADIUS = 5.0D;
 
     private final List<ItemEntity> thrownOutItems = new ArrayList<>();
 
@@ -53,7 +54,8 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, BlackHoleBlockEntity blockEntity) {
-        List<Entity> entities = level.getEntities(null, new AABB(pos.getX() + 0.5 - 5, pos.getY() + 0.5 - 5, pos.getZ() + 0.5 - 5, pos.getX() + 0.5 + 5, pos.getY() + 0.5 + 5, pos.getZ() + 0.5 + 5));
+        Vec3 center = pos.getCenter();
+        List<Entity> entities = level.getEntities(null, new AABB(center, center).inflate(SUCTION_RADIUS));
 
         for (Entity entity : entities) {
             if (!entity.is(ModTags.EntityTypes.BLACK_HOLE_AFFECTED)) {
@@ -64,7 +66,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
                 continue;
             }
 
-            double distance = entity.position().distanceTo(pos.getCenter());
+            double distance = entity.position().distanceTo(center);
             double movementFactor = blockEntity.getMovementFactor(distance);
 
             entity.push((pos.getX() + 0.5 - entity.getX()) * movementFactor, (pos.getY() + 0.5 - entity.getY() + 1.25) * movementFactor, (pos.getZ() + 0.5 - entity.getZ()) * movementFactor);
