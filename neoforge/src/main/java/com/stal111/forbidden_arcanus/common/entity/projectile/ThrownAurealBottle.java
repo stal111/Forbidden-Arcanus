@@ -57,7 +57,7 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
         if (this.level() instanceof ServerLevel serverLevel) {
             this.applySplash();
 
-            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(this.blockPosition()), new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 1));
+            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(this.blockPosition()), new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 1));
 
             this.discard();
         }

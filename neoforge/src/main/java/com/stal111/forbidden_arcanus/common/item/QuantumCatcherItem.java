@@ -153,7 +153,7 @@ public class QuantumCatcherItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
-        stack.addToTooltip(ModDataComponents.STORED_ENTITY, context, tooltipAdder, flag);
+        stack.addToTooltip(ModDataComponents.STORED_ENTITY, context, tooltipDisplay, tooltipAdder, flag);
     }
 
     private static Optional<StoredEntity> getData(ItemStack stack) {

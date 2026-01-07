@@ -47,7 +47,7 @@ public class SpectralEyeAmuletItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
-        stack.addToTooltip(ModDataComponents.TOGGLEABLE_STATE, context, tooltipAdder, flag);
+        stack.addToTooltip(ModDataComponents.TOGGLEABLE_STATE, context, tooltipDisplay, tooltipAdder, flag);
     }
 
 	public static boolean isActive(ItemStack stack) {

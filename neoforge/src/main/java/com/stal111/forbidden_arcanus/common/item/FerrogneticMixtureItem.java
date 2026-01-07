@@ -42,7 +42,7 @@ public class FerrogneticMixtureItem extends Item {
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
 
             if (level instanceof ServerLevel serverLevel) {
-                PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(pos), new TransformPedestalPayload(pos));
+                PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(pos), new TransformPedestalPayload(pos));
             }
 
             return InteractionResult.SUCCESS;

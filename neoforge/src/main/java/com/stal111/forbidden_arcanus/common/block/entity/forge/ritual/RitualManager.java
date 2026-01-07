@@ -83,7 +83,7 @@ public class RitualManager {
 
         int duration = ritual != null ? ritual.value().duration() : 0;
 
-        PacketDistributor.sendToPlayersTrackingChunk(this.level, new ChunkPos(pos), new AdvancedBlockEventPayload(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_DURATION, duration));
+        PacketDistributor.sendToPlayersTrackingChunk(this.level, ChunkPos.containing(pos), new AdvancedBlockEventPayload(this.pos, this.level.getBlockState(this.pos).getBlock(), HephaestusForgeBlockEntity.UPDATE_RITUAL_DURATION, duration));
     }
 
     public boolean isRitualActive() {

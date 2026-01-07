@@ -473,7 +473,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 this.residuesStorage.increaseType(chance.type(), 1);
 
                 if (this.level instanceof ServerLevel serverLevel) {
-                    PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(this.getBlockPos()), new SetClibanoResiduesPayload(this.residuesStorage));
+                    PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(this.getBlockPos()), new SetClibanoResiduesPayload(this.residuesStorage));
                 }
             }
         });

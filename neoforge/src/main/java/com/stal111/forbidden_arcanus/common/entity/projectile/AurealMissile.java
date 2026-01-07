@@ -97,7 +97,7 @@ public class AurealMissile extends Projectile {
         super.onHit(result);
 
         if (this.level() instanceof ServerLevel serverLevel) {
-            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(this.blockPosition()), new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 2));
+            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(this.blockPosition()), new SpawnParticlePayload(this.getX(), this.getY(), this.getZ(), 2));
 
             this.discard();
         }
