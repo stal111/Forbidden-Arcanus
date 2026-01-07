@@ -99,7 +99,7 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
         poseStack.popPose();
 
         Material auraTexture = AURA_TEXTURES[renderState.auraTexture];
-        nodeCollector.submitModelPart(this.aura, poseStack, auraTexture.renderType(RenderTypes::entityCutoutNoCull), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(auraTexture), -1, renderState.breakProgress);
+        nodeCollector.submitModelPart(this.aura, poseStack, auraTexture.renderType(RenderTypes::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(auraTexture), -1, renderState.breakProgress);
 
         poseStack.popPose();
     }
