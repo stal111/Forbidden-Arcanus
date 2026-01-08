@@ -41,9 +41,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.ItemAbilities;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
-import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Edelwood Log Block <br>
@@ -58,7 +57,7 @@ public class EdelwoodLogBlock extends Block implements SimpleWaterloggedBlock {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
     public static final BooleanProperty OILY = ModBlockStateProperties.OILY;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    protected static final EnumMap<Direction.Axis, VoxelShape> SHAPES = VoxelShapeHelper.rotateAxis(
+    protected static final Map<Direction.Axis, VoxelShape> SHAPES = Shapes.rotateAllAxis(
             Shapes.join(Shapes.block(), Block.box(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D), BooleanOp.ONLY_FIRST)
     );
     private static final float RAIN_FILL_CHANCE = 0.15F;

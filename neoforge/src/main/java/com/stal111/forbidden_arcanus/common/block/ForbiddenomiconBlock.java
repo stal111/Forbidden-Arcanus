@@ -18,11 +18,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
+import java.util.Map;
 
 /**
  * @author stal111
@@ -34,14 +34,13 @@ public class ForbiddenomiconBlock extends HorizontalDirectionalBlock implements 
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 0.0D, 14.0D, 4.0D, 16.0D);
-
-    private final Function<BlockState, VoxelShape> shapesCache;
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(
+            Block.box(2.0D, 0.0D, 0.0D, 14.0D, 4.0D, 16.0D)
+    );
 
     public ForbiddenomiconBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-        this.shapesCache = this.getShapeForEachState(ForbiddenomiconBlock::calculateShape);
     }
 
     @Override
@@ -49,13 +48,9 @@ public class ForbiddenomiconBlock extends HorizontalDirectionalBlock implements 
         return CODEC;
     }
 
-    private static VoxelShape calculateShape(BlockState state) {
-        return VoxelShapeHelper.rotateShapeHorizontal(SHAPE, state.getValue(FACING));
-    }
-
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return this.shapesCache.apply(state);
+        return SHAPES.get(state.getValue(FACING));
     }
 
     @Nullable

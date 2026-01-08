@@ -31,8 +31,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -45,7 +45,7 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final VoxelShape SHAPE = VoxelShapeHelper.combineAll(
+    private static final VoxelShape SHAPE = Shapes.or(
             Block.box(3, 0, 3, 13, 13, 13),
             Block.box(5, 13, 5, 11, 15, 11)
     );

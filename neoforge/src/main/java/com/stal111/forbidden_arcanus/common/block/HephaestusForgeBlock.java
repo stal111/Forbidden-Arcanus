@@ -46,7 +46,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -66,13 +65,13 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE = Shapes.join(
-            VoxelShapeHelper.combineAll(
+            Shapes.or(
                     box(1.0D, 0.0D, 1.0D, 15.0D, 3.0D, 15.0D),
                     box(2.0D, 3.0D, 2.0D, 14.0D, 4.0D, 14.0D),
                     box(4.0D, 4.0D, 4.0D, 12.0D, 8.0D, 12.0D),
                     box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D)
             ),
-            VoxelShapeHelper.combineAll(
+            Shapes.or(
                     box(0.0D, 15.0D, 3.0D, 16.0D, 16.0D, 13.0D),
                     box(3.0D, 15.0D, 0.0D, 13.0D, 16.0D, 16.0D)
             ),

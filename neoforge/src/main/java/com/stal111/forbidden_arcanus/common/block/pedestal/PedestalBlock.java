@@ -31,8 +31,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class PedestalBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 
-    private static final VoxelShape SHAPE = VoxelShapeHelper.combineAll(
+    private static final VoxelShape SHAPE = Shapes.or(
             box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D),
             box(3.0D, 4.0D, 3.0D, 13.0D, 6.0D, 13.0D),
             box(4.0D, 6.0D, 4.0D, 12.0D, 11.0D, 12.0D),

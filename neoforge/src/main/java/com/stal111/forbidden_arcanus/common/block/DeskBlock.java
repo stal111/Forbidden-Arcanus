@@ -28,10 +28,9 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
+import java.util.Map;
 
 /**
  * @author stal111
@@ -46,14 +45,11 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
     private static final VoxelShape INSIDE_SHAPE = Block.box(4.0D, 0.0D, 1.0D, 12.0D, 9.0D, 12.0D);
     private static final VoxelShape BOTTOM_SHAPE = Shapes.join(Block.box(1.0D, 0.0D, 1.0D, 15.0D, 9.0D, 15.0D), INSIDE_SHAPE, BooleanOp.ONLY_FIRST);
     private static final VoxelShape TOP_SHAPE = Block.box(0.0D, 9.0D, 0.0D, 16.0D, 12.0D, 16.0D);
-    private static final VoxelShape SHAPE = Shapes.or(BOTTOM_SHAPE, TOP_SHAPE);
-
-    private final Function<BlockState, VoxelShape> shapesCache;
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Shapes.or(BOTTOM_SHAPE, TOP_SHAPE));
 
     public DeskBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-        this.shapesCache = this.getShapeForEachState(DeskBlock::calculateShape);
     }
 
     @Override
@@ -61,13 +57,9 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
         return CODEC;
     }
 
-    private static VoxelShape calculateShape(BlockState state) {
-        return VoxelShapeHelper.rotateShapeHorizontal(SHAPE, state.getValue(FACING));
-    }
-
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return this.shapesCache.apply(state);
+        return SHAPES.get(state.getValue(FACING));
     }
 
     @Override

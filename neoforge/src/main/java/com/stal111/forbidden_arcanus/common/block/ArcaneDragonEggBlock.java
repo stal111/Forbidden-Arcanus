@@ -8,11 +8,8 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
 
 /**
  * Arcane Dragon Egg Block <br>
@@ -26,7 +23,7 @@ public class ArcaneDragonEggBlock extends FallingBlock {
 
     public static final MapCodec<ArcaneDragonEggBlock> CODEC = simpleCodec(ArcaneDragonEggBlock::new);
 
-    private static final VoxelShape SHAPE = VoxelShapeHelper.combineAll(
+    private static final VoxelShape SHAPE = Shapes.or(
             Block.box(4, 0, 4, 12, 15, 12),
             Block.box(3, 1, 3, 13, 13, 13),
             Block.box(2, 3, 2, 14, 11, 14),
@@ -38,13 +35,12 @@ public class ArcaneDragonEggBlock extends FallingBlock {
     }
 
     @Override
-    protected @NotNull MapCodec<? extends FallingBlock> codec() {
+    protected MapCodec<? extends FallingBlock> codec() {
         return CODEC;
     }
 
-    @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 

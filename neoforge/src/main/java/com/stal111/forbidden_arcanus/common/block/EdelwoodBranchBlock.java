@@ -17,40 +17,30 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
 
-/**
- * Edelwood Branch Block <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.EdelwoodBranchBlock
- *
- * @author stal111
- * @version 1.17.1 - 2.0.0
- * @since 2021-12-22
- */
 public class EdelwoodBranchBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final Map<Direction, VoxelShape> SHAPES = VoxelShapeHelper.getHorizontalRotatedShapes(Block.box(6.0D, 5.0D, 5.0D, 10.0D, 16.0D, 16.0D));
+    private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Block.box(6.0D, 5.0D, 5.0D, 10.0D, 16.0D, 16.0D));
 
     public EdelwoodBranchBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
-    @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPES.get(state.getValue(FACING));
     }
 
     @Override
-    public BlockState getStateForPlacement(@Nonnull BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = this.defaultBlockState();
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
@@ -76,31 +66,28 @@ public class EdelwoodBranchBlock extends Block implements SimpleWaterloggedBlock
     }
 
     @Override
-    public boolean canSurvive(@Nonnull BlockState state, @Nonnull LevelReader level, @Nonnull BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         Direction direction = state.getValue(FACING);
         BlockPos blockpos = pos.relative(direction.getOpposite());
         BlockState blockstate = level.getBlockState(blockpos);
         return blockstate.isFaceSturdy(level, blockpos, direction);
     }
 
-    @Nonnull
     @Override
     public BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    @Nonnull
     @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, WATERLOGGED);
     }
 
-    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);

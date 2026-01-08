@@ -24,9 +24,9 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.valhelsia.valhelsia_core.api.common.helper.VoxelShapeHelper;
 
 import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -46,11 +46,11 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
             Block.box(1, 2, 1, 15, 3, 15)
     };
 
-    private static final EnumMap<PillarType, EnumMap<Direction.Axis, VoxelShape>> SHAPES = Util.make(new EnumMap<>(PillarType.class), map -> {
-        map.put(PillarType.MIDDLE, VoxelShapeHelper.rotateAxis(SHAPE_PARTS[2]));
-        map.put(PillarType.TOP, VoxelShapeHelper.rotateAxis(Shapes.or(SHAPE_PARTS[0], SHAPE_PARTS[1], SHAPE_PARTS[2])));
-        map.put(PillarType.BOTTOM, VoxelShapeHelper.rotateAxis(Shapes.or(SHAPE_PARTS[3], SHAPE_PARTS[4], SHAPE_PARTS[2])));
-        map.put(PillarType.SINGLE, VoxelShapeHelper.rotateAxis(VoxelShapeHelper.combineAll(SHAPE_PARTS)));
+    private static final EnumMap<PillarType, Map<Direction.Axis, VoxelShape>> SHAPES = Util.make(new EnumMap<>(PillarType.class), map -> {
+        map.put(PillarType.MIDDLE, Shapes.rotateAllAxis(SHAPE_PARTS[2]));
+        map.put(PillarType.TOP, Shapes.rotateAllAxis(Shapes.or(SHAPE_PARTS[0], SHAPE_PARTS[1], SHAPE_PARTS[2])));
+        map.put(PillarType.BOTTOM, Shapes.rotateAllAxis(Shapes.or(SHAPE_PARTS[3], SHAPE_PARTS[4], SHAPE_PARTS[2])));
+        map.put(PillarType.SINGLE, Shapes.rotateAllAxis(Shapes.or(SHAPE_PARTS[0], SHAPE_PARTS[1], SHAPE_PARTS[2], SHAPE_PARTS[3], SHAPE_PARTS[4])));
     });
 
     public PillarBlock(Properties properties) {
