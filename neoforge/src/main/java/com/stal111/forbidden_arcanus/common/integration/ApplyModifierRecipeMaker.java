@@ -1,28 +1,14 @@
-//package com.stal111.forbidden_arcanus.common.integration;
-//
-//import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
-//import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
-//import net.minecraft.client.Minecraft;
-//import net.minecraft.client.multiplayer.ClientLevel;
-//import net.minecraft.core.RegistryAccess;
-//import net.minecraft.core.registries.BuiltInRegistries;
-//import net.minecraft.world.item.Item;
-//import net.minecraft.world.item.ItemStack;
-//import net.minecraft.world.item.crafting.*;
-//
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.List;
-//
-///**
-// * Apply Modifier Recipe Maker <br>
-// * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.integration.ApplyModifierRecipeMaker
-// *
-// * @author stal111
-// * @since 2021-11-30
-// */
-//public class ApplyModifierRecipeMaker {
-//
+package com.stal111.forbidden_arcanus.common.integration;
+
+/**
+ * Apply Modifier Recipe Maker <br>
+ * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.integration.ApplyModifierRecipeMaker
+ *
+ * @author stal111
+ * @since 2021-11-30
+ */
+public class ApplyModifierRecipeMaker {
+
 //    public static List<RecipeHolder<SmithingRecipe>> getRecipes() {
 //        ClientLevel level = Minecraft.getInstance().level;
 //
@@ -59,4 +45,4 @@
 //
 //        return new RecipeHolder<>(id, new SmithingTransformRecipe(recipe.template(), Ingredient.of(stack), recipe.addition(), recipe.assemble(input, registryAccess)));
 //    }
-//}
+}

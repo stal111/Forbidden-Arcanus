@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLe
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -85,6 +86,13 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
                 .setValue(ACTIVATED, false)
                 .setValue(WATERLOGGED, false)
         );
+    }
+
+    public static ItemStack createItem(HephaestusForgeLevel level) {
+        ItemStack stack = new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get());
+        stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(ModBlockStateProperties.FORGE_TIER, level));
+
+        return stack;
     }
 
     @Nullable

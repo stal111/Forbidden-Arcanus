@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
-import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
@@ -12,12 +12,10 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.valhelsia.valhelsia_core.ValhelsiaCore;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
@@ -66,10 +64,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.MORTAR.get());
                             output.accept(ModBlocks.CLIBANO_CORE.get());
                             for (HephaestusForgeLevel level : HephaestusForgeLevel.values()) {
-                                ItemStack stack = new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get());
-                                stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(ModBlockStateProperties.FORGE_TIER, level));
-
-                                output.accept(stack);
+                                output.accept(HephaestusForgeBlock.createItem(level));
                             }
                             output.accept(ModBlocks.QUANTUM_CORE.get());
                             output.accept(ModBlocks.QUANTUM_INJECTOR.get());
