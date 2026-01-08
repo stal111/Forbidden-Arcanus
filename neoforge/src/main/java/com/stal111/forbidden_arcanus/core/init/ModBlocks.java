@@ -8,9 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.grower.FATreeGrower;
 import com.stal111.forbidden_arcanus.common.block.pedestal.MagnetizedPedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullBlock;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
-import com.stal111.forbidden_arcanus.common.block.skull.ObsidianWallSkullBlock;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.common.item.component.EffectGrantingRule;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
@@ -48,7 +46,7 @@ public class ModBlocks implements RegistryClass {
 
     public static final BlockRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getBlockHelper();
 
-    public static final BlockRegistryEntry<ForbiddenomiconBlock> FORBIDDENOMICON = HELPER.register("forbiddenomicon", ForbiddenomiconBlock::new, () -> BlockBehaviour.Properties.of()).withItem().renderType(ValhelsiaRenderType.CUTOUT);
+    public static final BlockRegistryEntry<ForbiddenomiconBlock> FORBIDDENOMICON = HELPER.register("forbiddenomicon", ForbiddenomiconBlock::new, () -> BlockBehaviour.Properties.of().requiredFeatures(ForbiddenArcanus.PREVIEW)).withItem().renderType(ValhelsiaRenderType.CUTOUT);
 
     public static final BlockRegistryEntry<Block> DARKSTONE = HELPER.register("darkstone", Block::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)).withItem();
     public static final BlockRegistryEntry<SlabBlock> DARKSTONE_SLAB = HELPER.register("darkstone_slab", SlabBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.STONE).strength(4.5F, 8.0F)).withItem();
@@ -177,12 +175,12 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<ArcaneCrystalObeliskBlock> ARCANE_CRYSTAL_OBELISK = HELPER.register("arcane_crystal_obelisk", ArcaneCrystalObeliskBlock::new, () -> Block.Properties.of().strength(1.0F, 10.0F).pushReaction(PushReaction.BLOCK)).withItem();
     public static final BlockRegistryEntry<ArcaneCrystalObeliskBlock> CORRUPTED_ARCANE_CRYSTAL_OBELISK = HELPER.register("corrupted_arcane_crystal_obelisk", ArcaneCrystalObeliskBlock::new, () -> Block.Properties.of().strength(1.0F, 10.0F).pushReaction(PushReaction.BLOCK)).withItem();
 
-    public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> OBSIDIAN_SKULL = HELPER.registerSkull("obsidian", ObsidianSkullType.DEFAULT, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.OBSIDIAN_SKULL_ITEM);
-    public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> CRACKED_OBSIDIAN_SKULL = HELPER.registerSkull("cracked_obsidian", ObsidianSkullType.CRACKED, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.CRACKED_OBSIDIAN_SKULL_ITEM);
-    public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> FRAGMENTED_OBSIDIAN_SKULL = HELPER.registerSkull("fragmented_obsidian", ObsidianSkullType.FRAGMENTED, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.FRAGMENTED_OBSIDIAN_SKULL_ITEM);
-    public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> FADING_OBSIDIAN_SKULL = HELPER.registerSkull("fading_obsidian", ObsidianSkullType.FADING, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.FADING_OBSIDIAN_SKULL_ITEM);
-    public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> AUREALIC_OBSIDIAN_SKULL = HELPER.registerSkull("aurealic_obsidian", ObsidianSkullType.AUREALIC, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.AUREALIC_OBSIDIAN_SKULL_ITEM);
-    public static final SkullRegistryEntry<ObsidianSkullBlock, ObsidianWallSkullBlock> ETERNAL_OBSIDIAN_SKULL = HELPER.registerSkull("eternal_obsidian", ObsidianSkullType.ETERNAL, ObsidianSkullBlock::new, ObsidianWallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.ETERNAL_OBSIDIAN_SKULL_ITEM);
+    public static final SkullRegistryEntry<SkullBlock, WallSkullBlock> OBSIDIAN_SKULL = HELPER.registerSkull("obsidian", ObsidianSkullType.DEFAULT, SkullBlock::new, WallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.OBSIDIAN_SKULL_ITEM);
+    public static final SkullRegistryEntry<SkullBlock, WallSkullBlock> CRACKED_OBSIDIAN_SKULL = HELPER.registerSkull("cracked_obsidian", ObsidianSkullType.CRACKED, SkullBlock::new, WallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.CRACKED_OBSIDIAN_SKULL_ITEM);
+    public static final SkullRegistryEntry<SkullBlock, WallSkullBlock> FRAGMENTED_OBSIDIAN_SKULL = HELPER.registerSkull("fragmented_obsidian", ObsidianSkullType.FRAGMENTED, SkullBlock::new, WallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.FRAGMENTED_OBSIDIAN_SKULL_ITEM);
+    public static final SkullRegistryEntry<SkullBlock, WallSkullBlock> FADING_OBSIDIAN_SKULL = HELPER.registerSkull("fading_obsidian", ObsidianSkullType.FADING, SkullBlock::new, WallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL), BlockItems.FADING_OBSIDIAN_SKULL_ITEM);
+    public static final SkullRegistryEntry<SkullBlock, WallSkullBlock> AUREALIC_OBSIDIAN_SKULL = HELPER.registerSkull("aurealic_obsidian", ObsidianSkullType.AUREALIC, SkullBlock::new, WallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL).requiredFeatures(ForbiddenArcanus.PREVIEW), BlockItems.AUREALIC_OBSIDIAN_SKULL_ITEM);
+    public static final SkullRegistryEntry<SkullBlock, WallSkullBlock> ETERNAL_OBSIDIAN_SKULL = HELPER.registerSkull("eternal_obsidian", ObsidianSkullType.ETERNAL, SkullBlock::new, WallSkullBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SKELETON_SKULL).requiredFeatures(ForbiddenArcanus.PREVIEW), BlockItems.ETERNAL_OBSIDIAN_SKULL_ITEM);
 
     public static final BlockRegistryEntry<UtremJarBlock> UTREM_JAR = HELPER.register("utrem_jar", UtremJarBlock::new, () -> Block.Properties.ofLegacyCopy(Blocks.GLASS).overrideDescription(UtremJarBlock.DESCRIPTION_ID)).renderType(ValhelsiaRenderType.CUTOUT);
     public static final BlockRegistryEntry<EssenceUtremJarBlock> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", EssenceUtremJarBlock::new, () -> Block.Properties.ofLegacyCopy(Blocks.GLASS).overrideDescription(UtremJarBlock.DESCRIPTION_ID).lightLevel(state -> state.getValue(ModBlockStateProperties.ESSENCE_TYPE).getLightEmission())).renderType(ValhelsiaRenderType.CUTOUT);
@@ -193,8 +191,8 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<MagicalFarmlandBlock> MAGICAL_FARMLAND = HELPER.register("magical_farmland", MagicalFarmlandBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.FARMLAND).randomTicks()).withItem();
     public static final BlockRegistryEntry<WhirlwindBlock> WHIRLWIND = HELPER.register("whirlwind", WhirlwindBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SHORT_GRASS)).renderType(ValhelsiaRenderType.CUTOUT);
     public static final BlockRegistryEntry<UpwindBlock> UPWIND = HELPER.register("upwind", UpwindBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SHORT_GRASS));
-    public static final BlockRegistryEntry<DeskBlock> DESK = HELPER.register("desk", DeskBlock::new, BlockBehaviour.Properties::of).withItem();
-    public static final BlockRegistryEntry<ResearchDeskBlock> RESEARCH_DESK = HELPER.register("research_desk", ResearchDeskBlock::new, BlockBehaviour.Properties::of).withItem();
+    public static final BlockRegistryEntry<DeskBlock> DESK = HELPER.register("desk", DeskBlock::new, () -> BlockBehaviour.Properties.of().requiredFeatures(ForbiddenArcanus.PREVIEW)).withItem();
+    public static final BlockRegistryEntry<ResearchDeskBlock> RESEARCH_DESK = HELPER.register("research_desk", ResearchDeskBlock::new, () -> BlockBehaviour.Properties.of().requiredFeatures(ForbiddenArcanus.PREVIEW)).withItem();
     public static final BlockRegistryEntry<HeavyCoreBlock> QUANTUM_CORE = HELPER.register("quantum_core", HeavyCoreBlock::new, () -> BlockBehaviour.Properties.of().explosionResistance(1200.0F)).withItem();
     public static final BlockRegistryEntry<QuantumInjectorBlock> QUANTUM_INJECTOR = HELPER.register("quantum_injector", QuantumInjectorBlock::new, () -> BlockBehaviour.Properties.of().explosionResistance(1200.0F)).withItem();
 

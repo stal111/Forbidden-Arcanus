@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -48,10 +47,5 @@ public class AurealTankItem extends Item {
     @Override
     public int getBarWidth(ItemStack stack) {
         return EssenceHelper.getEssenceStorage(stack).map(storage -> Math.round(13.0F * storage.getFillPercentage())).orElse(0);
-    }
-
-    @Override
-    public boolean isEnabled(FeatureFlagSet enabledFeatures) {
-        return false;
     }
 }

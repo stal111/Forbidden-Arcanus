@@ -83,7 +83,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> DIVINE_PACT = HELPER.register("divine_pact", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> MALEDICTUS_PACT = HELPER.register("maledictus_pact", Item::new, Item.Properties::new);
 
-    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.AUREAL_TANK_EMPTY));
+    public static final ItemRegistryEntry<Item> AUREAL_TANK = HELPER.register("aureal_tank", AurealTankItem::new, () -> new Item.Properties().requiredFeatures(ForbiddenArcanus.PREVIEW).stacksTo(1).component(ModDataComponents.ESSENCE_STORAGE, EssenceStorages.AUREAL_TANK_EMPTY));
 
     public static final ItemRegistryEntry<BlockItem> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", (properties) -> new BlockItem(ModBlocks.HEPHAESTUS_FORGE.get(), properties), () -> new Item.Properties().useBlockDescriptionPrefix());
 
