@@ -1,0 +1,6 @@
+{
+  "parent": "forbidden_arcanus:block/clibano_side_vertical_top",
+  "textures": {
+    "side": "forbidden_arcanus:block/clibano_combustion/immortal_fire/clibano_side"
+  }
+}

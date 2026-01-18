@@ -12,7 +12,8 @@ public enum ClibanoSideType implements StringRepresentable {
     OFF("off"),
     FIRE("fire"),
     SOUL_FIRE("soul_fire"),
-    ENCHANTED_FIRE("enchanted_fire");
+    ENCHANTED_FIRE("enchanted_fire"),
+    IMMORTAL_FIRE("immortal_fire");
 
     private final String name;
 

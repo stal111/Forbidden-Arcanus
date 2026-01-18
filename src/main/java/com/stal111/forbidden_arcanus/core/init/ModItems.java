@@ -44,6 +44,7 @@ public class ModItems implements RegistryClass {
     public static final RegistryEntry<Item> SOUL = HELPER.register("soul", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<DarkSoulItem> CORRUPT_SOUL = HELPER.register("corrupt_soul", () -> new DarkSoulItem(new Item.Properties()));
     public static final RegistryEntry<Item> ENCHANTED_SOUL = HELPER.register("enchanted_soul", () -> new Item(new Item.Properties()));
+    public static final RegistryEntry<Item> IMMORTAL_SOUL = HELPER.register("immortal_soul", () -> new Item(new Item.Properties()));
     public static final RegistryEntry<Item> PIXIE = HELPER.register("pixie", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> CORRUPTED_PIXIE = HELPER.register("corrupted_pixie", () -> new Item(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> RUNE = HELPER.register("rune", () -> new Item(new Item.Properties()));

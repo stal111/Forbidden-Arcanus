@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=down,type=front_immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_immortal_fire",
+      "x": 180
+    },
     "facing=down,type=front_enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
       "x": 180
@@ -23,6 +27,11 @@
     "facing=down,type=top": {
       "model": "forbidden_arcanus:block/clibano_center_top",
       "x": 180
+    },
+    "facing=east,type=front_immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_immortal_fire",
+      "x": 90,
+      "y": 90
     },
     "facing=east,type=front_enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
@@ -54,6 +63,10 @@
       "x": 90,
       "y": 90
     },
+    "facing=north,type=front_immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_immortal_fire",
+      "x": 90
+    },
     "facing=north,type=front_enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
       "x": 90
@@ -77,6 +90,11 @@
     "facing=north,type=top": {
       "model": "forbidden_arcanus:block/clibano_center_top",
       "x": 90
+    },
+    "facing=south,type=front_immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_immortal_fire",
+      "x": 90,
+      "y": 180
     },
     "facing=south,type=front_enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",
@@ -108,6 +126,9 @@
       "x": 90,
       "y": 180
     },
+    "facing=up,type=front_immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_immortal_fire"
+    },
     "facing=up,type=front_enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire"
     },
@@ -125,6 +146,11 @@
     },
     "facing=up,type=top": {
       "model": "forbidden_arcanus:block/clibano_center_top"
+    },
+    "facing=west,type=front_immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_center_front_immortal_fire",
+      "x": 90,
+      "y": 270
     },
     "facing=west,type=front_enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_center_front_enchanted_fire",

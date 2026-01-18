@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.screen;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ResiduesStorage;
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenu;
@@ -72,9 +73,13 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         if (this.menu.getBurnDuration() != 0) {
             int ySize = Math.toIntExact(Math.round(15.0F * this.menu.getBurnTime() / this.menu.getBurnDuration()));
 
-            int uOffset = 179 + 19 * this.menu.getFireType();
-
-            guiGraphics.blit(TEXTURES, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, uOffset, 1 + 15 - ySize, 12, ySize);
+            if (ClibanoFireType.values()[this.menu.getFireType()] == ClibanoFireType.IMMORTAL_FIRE) {
+                int uOffset = 217;
+                guiGraphics.blit(TEXTURES, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, uOffset, 21 + 15 - ySize, 12, ySize);
+            } else {
+                int uOffset = 179 + 19 * this.menu.getFireType();
+                guiGraphics.blit(TEXTURES, this.getGuiLeft() + 55, this.getGuiTop() + 39 + 15 - ySize, uOffset, 1 + 15 - ySize, 12, ySize);
+            }
         }
 
         // Residue Bar

@@ -47,6 +47,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     protected final IDrawableStatic staticFlame;
     protected final IDrawableStatic staticBlueFlame;
     protected final IDrawableStatic staticPurpleFlame;
+    protected final IDrawableStatic staticImmortalFlame;
 
     private final HashMap<ClibanoFireType, IDrawableAnimated> animatedFlames = new HashMap<>();
 
@@ -64,7 +65,10 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         this.animatedFlames.put(ClibanoFireType.SOUL_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
 
         this.staticPurpleFlame = guiHelper.createDrawable(TEXTURE, 189, 1, 12, 15);
-        this.animatedFlames.put(ClibanoFireType.ENCHANTED_FIRE, guiHelper.createAnimatedDrawable(this.staticBlueFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+        this.animatedFlames.put(ClibanoFireType.ENCHANTED_FIRE, guiHelper.createAnimatedDrawable(this.staticPurpleFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
+
+        this.staticImmortalFlame = guiHelper.createDrawable(TEXTURE, 189, 21, 12, 15);
+        this.animatedFlames.put(ClibanoFireType.IMMORTAL_FIRE, guiHelper.createAnimatedDrawable(this.staticImmortalFlame, 300, IDrawableAnimated.StartDirection.TOP, true));
 
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(25)

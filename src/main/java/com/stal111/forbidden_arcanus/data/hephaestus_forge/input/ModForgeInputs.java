@@ -26,6 +26,7 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
     public static final ResourceKey<HephaestusForgeInput> SOUL = HELPER.createKey("soul");
     public static final ResourceKey<HephaestusForgeInput> CORRUPT_SOUL = HELPER.createKey("corrupt_soul");
     public static final ResourceKey<HephaestusForgeInput> ENCHANTED_SOUL = HELPER.createKey("enchanted_soul");
+    public static final ResourceKey<HephaestusForgeInput> IMMORTAL_SOUL = HELPER.createKey("immortal_soul");
     public static final ResourceKey<HephaestusForgeInput> AUREAL_BOTTLE = HELPER.createKey("aureal_bottle");
     public static final ResourceKey<HephaestusForgeInput> SPLASH_AUREAL_BOTTLE = HELPER.createKey("splash_aureal_bottle");
     public static final ResourceKey<HephaestusForgeInput> EXPERIENCE_BOTTLE = HELPER.createKey("experience_bottle");
@@ -42,6 +43,7 @@ public class ModForgeInputs extends DatapackRegistryClass<HephaestusForgeInput> 
         context.register(SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.SOUL.get()), 1));
         context.register(CORRUPT_SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.CORRUPT_SOUL.get()), 1));
         context.register(ENCHANTED_SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.ENCHANTED_SOUL.get()), 10));
+        context.register(IMMORTAL_SOUL, new ItemInput(EssenceType.SOULS, Ingredient.of(ModItems.IMMORTAL_SOUL.get()), 20));
         context.register(AUREAL_BOTTLE, new ItemInput(EssenceType.AUREAL, Ingredient.of(ModItems.AUREAL_BOTTLE.get()), 35));
         context.register(SPLASH_AUREAL_BOTTLE, new ItemInput(EssenceType.AUREAL, Ingredient.of(ModItems.SPLASH_AUREAL_BOTTLE.get()), 30));
         context.register(EXPERIENCE_BOTTLE, new ItemInput(EssenceType.EXPERIENCE, Ingredient.of(Items.EXPERIENCE_BOTTLE), 15));

@@ -20,7 +20,8 @@ import java.util.Optional;
 public enum ClibanoFireType implements StringRepresentable {
     FIRE("fire", 1.0D, null, ClibanoCenterType.FRONT_FIRE, ClibanoSideType.FIRE),
     SOUL_FIRE("soul_fire", 1.5D, ModTags.Items.CLIBANO_CREATES_SOUL_FIRE, ClibanoCenterType.FRONT_SOUL_FIRE, ClibanoSideType.SOUL_FIRE),
-    ENCHANTED_FIRE("enchanted_fire", 2.5D, ModTags.Items.CLIBANO_CREATES_ENCHANTED_FIRE, ClibanoCenterType.FRONT_ENCHANTED_FIRE, ClibanoSideType.ENCHANTED_FIRE);
+    ENCHANTED_FIRE("enchanted_fire", 2.5D, ModTags.Items.CLIBANO_CREATES_ENCHANTED_FIRE, ClibanoCenterType.FRONT_ENCHANTED_FIRE, ClibanoSideType.ENCHANTED_FIRE),
+    IMMORTAL_FIRE("immortal_fire", 5, ModTags.Items.CLIBANO_CREATES_IMMORTAL_FIRE, ClibanoCenterType.FRONT_IMMORTAL_FIRE, ClibanoSideType.IMMORTAL_FIRE);
 
     private final String name;
     private final double cookingSpeedMultiplier;

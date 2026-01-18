@@ -59,6 +59,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
         this.tag(ModTags.Items.CLIBANO_CREATES_SOUL_FIRE).add(ModItems.SOUL.get(), ModItems.CORRUPT_SOUL.get());
         this.tag(ModTags.Items.CLIBANO_CREATES_ENCHANTED_FIRE).add(ModItems.ENCHANTED_SOUL.get());
+        this.tag(ModTags.Items.CLIBANO_CREATES_IMMORTAL_FIRE).add(ModItems.IMMORTAL_SOUL.get());
 
         this.copy(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Items.FUNGYSS_STEMS);
         this.copy(ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Items.MYSTERYWOOD_LOGS);

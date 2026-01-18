@@ -81,8 +81,6 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
 
                     if (variant == LostSoul.Variant.CORRUPT_LOST_SOUL) {
                         lostSoul.setVariant(LostSoul.Variant.LOST_SOUL);
-                    } else {
-                        lostSoul.setVariant(LostSoul.Variant.ENCHANTED_LOST_SOUL);
                     }
                 }
             }

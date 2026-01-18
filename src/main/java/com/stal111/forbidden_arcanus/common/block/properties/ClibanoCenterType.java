@@ -15,7 +15,8 @@ public enum ClibanoCenterType implements StringRepresentable {
     FRONT_OFF("front_off", 0),
     FRONT_FIRE("front_fire", 13),
     FRONT_SOUL_FIRE("front_soul_fire", 13),
-    FRONT_ENCHANTED_FIRE("front_enchanted_fire", 13);
+    FRONT_ENCHANTED_FIRE("front_enchanted_fire", 13),
+    FRONT_IMMORTAL_FIRE("front_immortal_fire", 15);
 
     private final String name;
     private final int lightLevel;

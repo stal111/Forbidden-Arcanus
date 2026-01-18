@@ -66,7 +66,6 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     private static final EntityDataAccessor<Integer> DATA_VARIANT = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> DATA_SCARED = SynchedEntityData.defineId(LostSoul.class, EntityDataSerializers.BOOLEAN);
 
-    public static final double ENCHANTED_CHANCE = 0.04D;
     public static final double ENTITY_DEATH_SPAWN_CHANCE = 0.05D;
 
     private static final int EXTRACT_STUNNED_TIME = 30;
@@ -131,11 +130,7 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(@Nonnull ServerLevelAccessor level, @Nonnull DifficultyInstance difficulty, @Nonnull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        boolean enchanted = random.nextDouble() < ENCHANTED_CHANCE;
-
-        if (enchanted) {
-            this.setVariant(Variant.ENCHANTED_LOST_SOUL);
-        } else if (level.getBiome(this.blockPosition()).is(ModTags.Biomes.SPAWNS_CORRUPT_LOST_SOUL)) {
+        if (level.getBiome(this.blockPosition()).is(ModTags.Biomes.SPAWNS_CORRUPT_LOST_SOUL)) {
             this.setVariant(Variant.CORRUPT_LOST_SOUL);
         }
 
@@ -291,9 +286,6 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
         } else if (variant == Variant.CORRUPT_LOST_SOUL && stack.is(ModItems.AUREAL_BOTTLE.get())) {
             this.setVariant(Variant.LOST_SOUL);
             return InteractionResult.sidedSuccess(this.level().isClientSide());
-        } else if (variant == Variant.LOST_SOUL && stack.is(ModItems.AUREAL_BOTTLE.get())) {
-            this.setVariant(Variant.ENCHANTED_LOST_SOUL);
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
         }
 
         return super.mobInteract(player, hand);
@@ -341,7 +333,8 @@ public class LostSoul extends PathfinderMob implements SoulExtractable {
     public enum Variant {
         LOST_SOUL(0, "lost_soul", ModItems.SOUL.get(), 228 << 16 | 231 << 8 | 248),
         CORRUPT_LOST_SOUL(1, "corrupt_lost_soul", ModItems.CORRUPT_SOUL.get(), 68 << 16 | 83 << 8 | 149),
-        ENCHANTED_LOST_SOUL(2, "enchanted_lost_soul", ModItems.ENCHANTED_SOUL.get(), 253 << 16 | 225 << 8 | 238);
+        ENCHANTED_LOST_SOUL(2, "enchanted_lost_soul", ModItems.ENCHANTED_SOUL.get(), 253 << 16 | 225 << 8 | 238),
+        IMMORTAL_LOST_SOUL(3, "immortal_lost_soul", ModItems.IMMORTAL_SOUL.get(), 253 << 16 | 225 << 8 | 238);
 
         public static final Function<Integer, Variant> FROM_ID = integer -> {
             return Arrays.stream(Variant.values()).filter(variant -> variant.id == integer).findFirst().orElse(LOST_SOUL);

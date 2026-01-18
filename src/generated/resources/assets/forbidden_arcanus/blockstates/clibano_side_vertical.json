@@ -1,5 +1,9 @@
 {
   "variants": {
+    "bottom=false,facing=east,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_immortal_fire",
+      "y": 90
+    },
     "bottom=false,facing=east,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_enchanted_fire",
       "y": 90
@@ -16,6 +20,9 @@
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_soul_fire",
       "y": 90
     },
+    "bottom=false,facing=north,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_immortal_fire"
+    },
     "bottom=false,facing=north,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_enchanted_fire"
     },
@@ -27,6 +34,10 @@
     },
     "bottom=false,facing=north,type=soul_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_soul_fire"
+    },
+    "bottom=false,facing=south,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_immortal_fire",
+      "y": 180
     },
     "bottom=false,facing=south,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_enchanted_fire",
@@ -44,6 +55,10 @@
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_soul_fire",
       "y": 180
     },
+    "bottom=false,facing=west,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_top_immortal_fire",
+      "y": 270
+    },
     "bottom=false,facing=west,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_enchanted_fire",
       "y": 270
@@ -59,6 +74,10 @@
     "bottom=false,facing=west,type=soul_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_top_soul_fire",
       "y": 270
+    },
+    "bottom=true,facing=east,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_immortal_fire",
+      "y": 90
     },
     "bottom=true,facing=east,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_enchanted_fire",
@@ -76,6 +95,9 @@
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_soul_fire",
       "y": 90
     },
+    "bottom=true,facing=north,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_immortal_fire"
+    },
     "bottom=true,facing=north,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_enchanted_fire"
     },
@@ -87,6 +109,10 @@
     },
     "bottom=true,facing=north,type=soul_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_soul_fire"
+    },
+    "bottom=true,facing=south,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_immortal_fire",
+      "y": 180
     },
     "bottom=true,facing=south,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_enchanted_fire",
@@ -103,6 +129,10 @@
     "bottom=true,facing=south,type=soul_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_soul_fire",
       "y": 180
+    },
+    "bottom=true,facing=west,type=immortal_fire": {
+      "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_immortal_fire",
+      "y": 270
     },
     "bottom=true,facing=west,type=enchanted_fire": {
       "model": "forbidden_arcanus:block/clibano_side_vertical_bottom_enchanted_fire",
