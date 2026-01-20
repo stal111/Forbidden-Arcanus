@@ -39,11 +39,11 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape[] SHAPE_PARTS = {
-            Block.box(0, 14, 0, 16, 16, 16),
-            Block.box(1, 13, 1, 15, 14, 15),
-            Block.box(2, 0, 2, 14, 16, 14),
-            Block.box(0, 0, 0, 16, 2, 16),
-            Block.box(1, 2, 1, 15, 3, 15)
+            Block.box(0, 0, 14, 16, 16, 16),
+            Block.box(1, 1, 13, 15, 15, 14),
+            Block.box(2, 2, 0, 14, 14, 16),
+            Block.box(0, 0, 0, 16, 16, 2),
+            Block.box(1, 1, 2, 15, 15, 3)
     };
 
     private static final EnumMap<PillarType, Map<Direction.Axis, VoxelShape>> SHAPES = Util.make(new EnumMap<>(PillarType.class), map -> {
@@ -60,7 +60,13 @@ public class PillarBlock extends RotatedPillarBlock implements SimpleWaterlogged
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES.get(state.getValue(TYPE)).get(state.getValue(AXIS));
+        PillarType type = state.getValue(TYPE);
+
+        if (state.getValue(AXIS) == Direction.Axis.X) {
+            type = type.getOpposite();
+        }
+
+        return SHAPES.get(type).get(state.getValue(AXIS));
     }
 
     @Override
