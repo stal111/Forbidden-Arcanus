@@ -1,7 +1,5 @@
 package com.stal111.forbidden_arcanus.datagen.recipes
 
-import com.mojang.datafixers.util.Either
-import com.mojang.datafixers.util.Pair
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.BuiltInResidueTypes
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance
 import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers
@@ -132,20 +130,6 @@ class ClibanoRecipeProvider(
         )
 
         val artisanRelic = enhancerLookup.getOrThrow(BuiltInEnhancers.ARTISAN_RELIC)
-
-        this.add(
-            this.clibanoRecipe(
-                ModItems.OBSIDIANSTEEL_INGOT.get(),
-                Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_IRON)),
-                Ingredient.of(
-                    Blocks.OBSIDIAN
-                ),
-                0.5f,
-                100
-            ).residue(ResidueChance(residueLookup.getOrThrow(BuiltInResidueTypes.COPPER), CHANCE_33))
-                .enhancer(artisanRelic)
-                .unlockedBy(Tags.Items.RAW_MATERIALS_IRON, Blocks.OBSIDIAN)
-        )
     }
 
     fun add(builder: RecipeBuilder) = super.add(
@@ -163,24 +147,7 @@ class ClibanoRecipeProvider(
             RecipeCategory.MISC,
             CookingBookCategory.MISC,
             result.asItem().defaultInstance,
-            Either.left(ingredient),
-            experience,
-            cookingTime
-        )
-    }
-
-    private fun clibanoRecipe(
-        result: ItemLike,
-        firstIngredient: Ingredient,
-        secondIngredient: Ingredient,
-        experience: Float,
-        cookingTime: Int
-    ): ClibanoRecipeBuilder {
-        return ClibanoRecipeBuilder(
-            RecipeCategory.MISC,
-            CookingBookCategory.MISC,
-            result.asItem().defaultInstance,
-            Either.right(Pair.of(firstIngredient, secondIngredient)),
+            ingredient,
             experience,
             cookingTime
         )

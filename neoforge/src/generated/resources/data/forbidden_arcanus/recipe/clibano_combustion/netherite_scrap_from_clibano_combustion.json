@@ -4,7 +4,7 @@
   "cooking_time": 100,
   "experience": 1.0,
   "fire_type": "fire",
-  "ingredients": "minecraft:ancient_debris",
+  "ingredient": "minecraft:ancient_debris",
   "residue": {
     "type": "forbidden_arcanus:netherite",
     "chance": 0.05

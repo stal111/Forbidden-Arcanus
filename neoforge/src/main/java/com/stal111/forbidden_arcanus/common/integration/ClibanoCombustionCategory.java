@@ -126,10 +126,6 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         this.background.draw(guiGraphics);
         this.animatedFlames.get(recipe.requiredFireType()).draw(guiGraphics, 48, 43);
 
-        if (!recipe.isDoubleRecipe()) {
-//            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, 54, 23, 224, 0, 18, 18);
-        }
-
         IDrawableAnimated arrow = this.getArrow(recipe.getDefaultCookingTime());
         arrow.draw(guiGraphics, 74, 43);
 

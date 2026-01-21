@@ -24,7 +24,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     public ClibanoScreen(ClibanoMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, 176, 173);
         this.titleLabelY -= 2;
-        this.inventoryLabelY += 9;
+        this.inventoryLabelY += 2;
 
         this.materialList = new MaterialListComponent(menu.getStoredMaterials());
     }

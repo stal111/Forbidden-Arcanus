@@ -4,7 +4,7 @@
   "cooking_time": 100,
   "experience": 0.35,
   "fire_type": "fire",
-  "ingredients": "#c:raw_materials/copper",
+  "ingredient": "#c:raw_materials/copper",
   "residue": {
     "type": "forbidden_arcanus:copper",
     "chance": 0.33
