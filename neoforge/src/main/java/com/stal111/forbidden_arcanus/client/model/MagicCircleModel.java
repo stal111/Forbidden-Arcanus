@@ -22,4 +22,10 @@ public class MagicCircleModel {
         meshDefinition.getRoot().addOrReplaceChild("outer_ring", CubeListBuilder.create().texOffs(-128, 0).addBox(-64.0F, 0.0F, -64.0F, 128.0F, 0.0F, 128.0F, EnumSet.of(Direction.DOWN)), partPose);
         return LayerDefinition.create(meshDefinition, 128, 128);
     }
+
+    public static LayerDefinition createWandDeskLayer(PartPose partPose) {
+        MeshDefinition meshDefinition = new MeshDefinition();
+        meshDefinition.getRoot().addOrReplaceChild("outer_ring", CubeListBuilder.create().texOffs(-32, 0).addBox(-16.0F, 0.0F, -16.0F, 32.0F, 0.0F, 32.0F, EnumSet.of(Direction.DOWN)), partPose);
+        return LayerDefinition.create(meshDefinition, 32, 32);
+    }
 }

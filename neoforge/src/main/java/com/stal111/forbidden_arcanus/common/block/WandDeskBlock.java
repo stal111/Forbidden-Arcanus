@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.desk.WandDeskBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -15,22 +16,18 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
-/**
- * @author stal111
- * @since 30.10.2023
- */
-public class ResearchDeskBlock extends DeskBlock implements EntityBlock {
+public class WandDeskBlock extends DeskBlock implements EntityBlock {
 
-    public ResearchDeskBlock(Properties properties) {
+    public WandDeskBlock(Properties properties) {
         super(properties);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ResearchDeskBlockEntity(pos, state);
+        return new WandDeskBlockEntity(pos, state);
     }
 
     @Override
@@ -59,7 +56,7 @@ public class ResearchDeskBlock extends DeskBlock implements EntityBlock {
     @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level.isClientSide()) {
-            return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.RESEARCH_DESK.get(), ResearchDeskBlockEntity::clientTick);
+            return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.WAND_DESK.get(), WandDeskBlockEntity::clientTick);
         }
         return null;
     }

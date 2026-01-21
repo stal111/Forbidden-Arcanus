@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.mojang.serialization.MapCodec;
+import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -65,9 +66,15 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (stack.is(ModBlocks.FORBIDDENOMICON.get().asItem())) {
-            BlockState newState = ModBlocks.RESEARCH_DESK.get().defaultBlockState()
-                    .setValue(FACING, state.getValue(FACING))
-                    .setValue(WATERLOGGED, state.getValue(WATERLOGGED));
+            BlockState newState = ModBlocks.RESEARCH_DESK.get().withPropertiesOf(state);
+
+            level.setBlockAndUpdate(pos, newState);
+
+            stack.consume(1, player);
+
+            return InteractionResult.SUCCESS;
+        } else if (stack.getItem() instanceof MagicWandItem) {
+            BlockState newState = ModBlocks.WAND_DESK.get().withPropertiesOf(state);
 
             level.setBlockAndUpdate(pos, newState);
 

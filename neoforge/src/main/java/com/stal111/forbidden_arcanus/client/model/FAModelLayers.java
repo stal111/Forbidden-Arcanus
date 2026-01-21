@@ -15,6 +15,8 @@ public class FAModelLayers {
     public static final ModelLayerLocation BLACK_HOLE_AURA = new ModelLayerLocation(ForbiddenArcanus.identifier("black_hole_aura"), "main");
     public static final ModelLayerLocation MAGIC_CIRCLE_OUTER_RING = new ModelLayerLocation(ForbiddenArcanus.identifier("magic_circle"), "outer_ring");
     public static final ModelLayerLocation MAGIC_CIRCLE_INNER_RING = new ModelLayerLocation(ForbiddenArcanus.identifier("magic_circle"), "inner_ring");
+    public static final ModelLayerLocation WAND_DESK_MAGIC_CIRCLE_OUTER_RING = new ModelLayerLocation(ForbiddenArcanus.identifier("wand_desk_magic_circle"), "outer_ring");
+    public static final ModelLayerLocation WAND_DESK_MAGIC_CIRCLE_INNER_RING = new ModelLayerLocation(ForbiddenArcanus.identifier("wand_desk_magic_circle"), "inner_ring");
     public static final ModelLayerLocation MAGIC_CIRCLE_VALID_RITUAL_INDICATOR = new ModelLayerLocation(ForbiddenArcanus.identifier("magic_circle"), "valid_ritual_indicator");
     public static final ModelLayerLocation LOST_SOUL = new ModelLayerLocation(ForbiddenArcanus.identifier("lost_soul"), "main");
     public static final ModelLayerLocation DARK_TRADER = new ModelLayerLocation(ForbiddenArcanus.identifier("dark_trader"), "main");

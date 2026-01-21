@@ -13,5 +13,6 @@ public class BuiltInMagicCircles {
     public static final ResourceKey<MagicCircleType> CREATE_ITEM = HELPER.createKey("create_item");
     public static final ResourceKey<MagicCircleType> UPGRADE_TIER = HELPER.createKey("upgrade_tier");
     public static final ResourceKey<MagicCircleType> UPGRADE_FINAL_TIER = HELPER.createKey("upgrade_final_tier");
+    public static final ResourceKey<MagicCircleType> WAND_DESK = HELPER.createKey("wand_desk");
 
 }

@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.*;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFrameBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.desk.WandDeskBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,6 +28,7 @@ public class ModBlockEntities implements RegistryClass {
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<ClibanoMainBlockEntity>> CLIBANO_MAIN = HELPER.register("clibano_main", () -> new BlockEntityType<>(ClibanoMainBlockEntity::new, ModBlocks.CLIBANO_MAIN_PART.get()));
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<ClibanoFrameBlockEntity>> CLIBANO = HELPER.register("clibano", () -> new BlockEntityType<>(ClibanoFrameBlockEntity::new, ModBlocks.CLIBANO_CORNER.get(), ModBlocks.CLIBANO_CENTER.get(), ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(), ModBlocks.CLIBANO_SIDE_VERTICAL.get()));
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<ResearchDeskBlockEntity>> RESEARCH_DESK = HELPER.register("research_desk", () -> new BlockEntityType<>(ResearchDeskBlockEntity::new, ModBlocks.RESEARCH_DESK.get()));
+    public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<WandDeskBlockEntity>> WAND_DESK = HELPER.register("wand_desk", () -> new BlockEntityType<>(WandDeskBlockEntity::new, ModBlocks.WAND_DESK.get()));
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<QuantumInjectorBlockEntity>> QUANTUM_INJECTOR = HELPER.register("quantum_injector", () -> new BlockEntityType<>(QuantumInjectorBlockEntity::new, ModBlocks.QUANTUM_INJECTOR.get()));
 
 }

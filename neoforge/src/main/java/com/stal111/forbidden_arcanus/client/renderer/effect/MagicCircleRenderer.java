@@ -2,9 +2,9 @@ package com.stal111.forbidden_arcanus.client.renderer.effect;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRenderState;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MaterialMapper;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -24,10 +24,10 @@ public class MagicCircleRenderer {
     private final Model.Simple outerRing;
     private final Model.Simple innerRing;
 
-    public MagicCircleRenderer(BlockEntityRendererProvider.Context context) {
+    public MagicCircleRenderer(BlockEntityRendererProvider.Context context, ModelLayerLocation outerRingLayer, ModelLayerLocation innerRingLayer) {
         this.materials = context.materials();
-        this.outerRing = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_OUTER_RING), RenderTypes::entityTranslucentEmissive);
-        this.innerRing = new Model.Simple(context.bakeLayer(FAModelLayers.MAGIC_CIRCLE_INNER_RING), RenderTypes::entityTranslucentEmissive);
+        this.outerRing = new Model.Simple(context.bakeLayer(outerRingLayer), RenderTypes::entityTranslucentEmissive);
+        this.innerRing = new Model.Simple(context.bakeLayer(innerRingLayer), RenderTypes::entityTranslucentEmissive);
     }
 
     public void submit(MagicCircleRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {

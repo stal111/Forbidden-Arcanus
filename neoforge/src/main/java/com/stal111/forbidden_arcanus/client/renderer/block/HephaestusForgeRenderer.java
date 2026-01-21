@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.stal111.forbidden_arcanus.client.model.FAModelLayers;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.HephaestusForgeRenderState;
 import com.stal111.forbidden_arcanus.client.renderer.effect.MagicCircleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.effect.ValidRitualIndicatorRenderer;
@@ -40,7 +41,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     public HephaestusForgeRenderer(BlockEntityRendererProvider.Context context) {
         this.itemModelResolver = context.itemModelResolver();
         this.validRitualIndicatorRenderer = new ValidRitualIndicatorRenderer(context);
-        this.magicCircleRenderer = new MagicCircleRenderer(context);
+        this.magicCircleRenderer = new MagicCircleRenderer(context, FAModelLayers.MAGIC_CIRCLE_OUTER_RING, FAModelLayers.MAGIC_CIRCLE_INNER_RING);
     }
 
     @Override

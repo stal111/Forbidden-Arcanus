@@ -25,12 +25,7 @@ import net.minecraft.client.data.models.BlockModelGenerators
 import net.minecraft.client.data.models.BlockModelGenerators.plainVariant
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
-import net.minecraft.client.data.models.model.ItemModelUtils
-import net.minecraft.client.data.models.model.ModelLocationUtils
-import net.minecraft.client.data.models.model.ModelTemplates
-import net.minecraft.client.data.models.model.TextureMapping
-import net.minecraft.client.data.models.model.TextureSlot
-import net.minecraft.client.data.models.model.TexturedModel
+import net.minecraft.client.data.models.model.*
 import net.minecraft.client.renderer.item.ItemModel
 import net.minecraft.core.Direction
 import net.minecraft.world.level.block.Block
@@ -94,6 +89,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createForbiddenomicon(ModBlocks.FORBIDDENOMICON.get())
         this.createDesk(ModBlocks.DESK.get(), false)
         this.createDesk(ModBlocks.RESEARCH_DESK.get(), true)
+        this.createDesk(ModBlocks.WAND_DESK.get(), true)
         this.createPedestal(ModBlocks.DARKSTONE_PEDESTAL.get())
         this.createPedestal(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get())
         this.createClibanoCore(ModBlocks.CLIBANO_CORE.get())

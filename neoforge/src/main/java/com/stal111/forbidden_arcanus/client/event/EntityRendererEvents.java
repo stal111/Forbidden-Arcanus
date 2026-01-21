@@ -25,6 +25,8 @@ public class EntityRendererEvents {
         event.registerLayerDefinition(FAModelLayers.BLACK_HOLE_AURA, BlackHoleRenderer::createAuraLayer);
         event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_OUTER_RING, () -> MagicCircleModel.createLayer(PartPose.offset(0.0F, 0.01F, 0.0F)));
         event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_INNER_RING, () -> MagicCircleModel.createLayer(PartPose.offset(0.0F, 0.02F, 0.0F)));
+        event.registerLayerDefinition(FAModelLayers.WAND_DESK_MAGIC_CIRCLE_OUTER_RING, () -> MagicCircleModel.createWandDeskLayer(PartPose.offset(0.0F, 0.00F, 0.0F)));
+        event.registerLayerDefinition(FAModelLayers.WAND_DESK_MAGIC_CIRCLE_INNER_RING, () -> MagicCircleModel.createWandDeskLayer(PartPose.offset(0.0F, 1.0F, 0.0F)));
         event.registerLayerDefinition(FAModelLayers.MAGIC_CIRCLE_VALID_RITUAL_INDICATOR, () -> MagicCircleModel.createLayer(PartPose.ZERO));
 
         //event.registerLayerDefinition(DracoAurumWingsModel.LAYER_LOCATION, DracoAurumWingsModel::createBodyLayer);

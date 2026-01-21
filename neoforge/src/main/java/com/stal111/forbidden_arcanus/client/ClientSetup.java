@@ -60,6 +60,7 @@ public class ClientSetup {
         helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, context -> new EssenceUtremJarRenderer());
         helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK, ResearchDeskRenderer::new);
+        helper.registerBlockEntityRenderer(ModBlockEntities.WAND_DESK, WandDeskRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.QUANTUM_INJECTOR, QuantumInjectorRenderer::new);
 
         helper.registerEntityRenderer(ModEntities.BOOM_ARROW, BoomArrowRenderer::new);

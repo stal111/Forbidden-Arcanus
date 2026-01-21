@@ -193,6 +193,7 @@ public class ModBlocks implements RegistryClass {
     public static final BlockRegistryEntry<UpwindBlock> UPWIND = HELPER.register("upwind", UpwindBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.SHORT_GRASS));
     public static final BlockRegistryEntry<DeskBlock> DESK = HELPER.register("desk", DeskBlock::new, () -> BlockBehaviour.Properties.of().requiredFeatures(ForbiddenArcanus.PREVIEW)).withItem();
     public static final BlockRegistryEntry<ResearchDeskBlock> RESEARCH_DESK = HELPER.register("research_desk", ResearchDeskBlock::new, () -> BlockBehaviour.Properties.of().requiredFeatures(ForbiddenArcanus.PREVIEW)).withItem();
+    public static final BlockRegistryEntry<WandDeskBlock> WAND_DESK = HELPER.register("wand_desk", WandDeskBlock::new, () -> BlockBehaviour.Properties.of().requiredFeatures(ForbiddenArcanus.PREVIEW)).withItem();
     public static final BlockRegistryEntry<HeavyCoreBlock> QUANTUM_CORE = HELPER.register("quantum_core", HeavyCoreBlock::new, () -> BlockBehaviour.Properties.of().explosionResistance(1200.0F)).withItem();
     public static final BlockRegistryEntry<QuantumInjectorBlock> QUANTUM_INJECTOR = HELPER.register("quantum_injector", QuantumInjectorBlock::new, () -> BlockBehaviour.Properties.of().explosionResistance(1200.0F)).withItem();
 
