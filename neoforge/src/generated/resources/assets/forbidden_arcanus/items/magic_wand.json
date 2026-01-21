@@ -1,6 +1,6 @@
 {
   "model": {
-    "type": "minecraft:model",
+    "type": "forbidden_arcanus:wand",
     "model": "forbidden_arcanus:item/magic_wand"
   }
 }

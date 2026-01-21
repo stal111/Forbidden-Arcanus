@@ -1,7 +1,6 @@
 {
   "parent": "minecraft:item/handheld_rod",
   "textures": {
-    "layer0": "forbidden_arcanus:item/wand/wooden_magic_wand",
-    "layer1": "forbidden_arcanus:item/wand/pommel/arcane_crystal"
+    "layer0": "forbidden_arcanus:item/wand/oak"
   }
 }
