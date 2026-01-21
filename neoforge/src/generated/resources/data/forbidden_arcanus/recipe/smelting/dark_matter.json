@@ -1,11 +1,10 @@
 {
   "type": "minecraft:smelting",
-  "category": "misc",
+  "category": "blocks",
   "cookingtime": 400,
   "experience": 0.4,
   "ingredient": "forbidden_arcanus:edelwood_log",
   "result": {
-    "count": 1,
     "id": "forbidden_arcanus:dark_matter"
   }
 }

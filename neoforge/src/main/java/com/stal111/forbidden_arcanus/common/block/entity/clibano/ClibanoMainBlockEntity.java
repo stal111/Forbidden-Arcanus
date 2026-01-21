@@ -43,6 +43,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ChunkPos;
@@ -210,10 +211,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             blockEntity.litTimeRemaining = getBurnDuration(fuel, level);
             blockEntity.litTotalTime = blockEntity.litTimeRemaining;
 
-            ItemStack remainder = fuel.getCraftingRemainder();
+            ItemStackTemplate remainder = fuel.getCraftingRemainder();
 
-            if (!remainder.isEmpty()) {
-                blockEntity.fuelInventory.setStack(remainder);
+            if (remainder != null) {
+                blockEntity.fuelInventory.setStack(remainder.create());
             } else {
                 fuel.shrink(1);
             }
@@ -418,7 +419,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         }
 
         //TODO
-        ItemStack stack = recipe.value().assemble(null, this.level.registryAccess());
+        ItemStack stack = recipe.value().assemble(null);
 
         inputSlot.apply(slot -> {
 //            this.getItem(slot).shrink(1);

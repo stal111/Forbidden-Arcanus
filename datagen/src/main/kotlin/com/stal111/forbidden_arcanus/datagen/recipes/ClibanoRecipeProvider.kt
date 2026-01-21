@@ -8,7 +8,6 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries
 import com.stal111.forbidden_arcanus.data.recipes.builder.ClibanoRecipeBuilder
 import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeOutput
@@ -134,7 +133,7 @@ class ClibanoRecipeProvider(
 
     fun add(builder: RecipeBuilder) = super.add(
         builder,
-        "clibano_combustion/" + BuiltInRegistries.ITEM.getKey(builder.result).path + "_from_clibano_combustion"
+        "clibano_combustion/" + builder.defaultId().identifier().path + "_from_clibano_combustion"
     )
 
     private fun clibanoRecipe(
@@ -146,7 +145,7 @@ class ClibanoRecipeProvider(
         return ClibanoRecipeBuilder(
             RecipeCategory.MISC,
             CookingBookCategory.MISC,
-            result.asItem().defaultInstance,
+            result,
             ingredient,
             experience,
             cookingTime

@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -49,9 +48,8 @@ public record ApplyModifierRecipe(Ingredient template,
         return Optional.of(this.addition);
     }
 
-    @NotNull
     @Override
-    public ItemStack assemble(@NotNull SmithingRecipeInput recipeInput, @NotNull HolderLookup.Provider provider) {
+    public ItemStack assemble(SmithingRecipeInput recipeInput) {
         ItemStack stack = recipeInput.base().copyWithCount(1);
 
         ModifierHelper.setModifier(stack, this.modifier);

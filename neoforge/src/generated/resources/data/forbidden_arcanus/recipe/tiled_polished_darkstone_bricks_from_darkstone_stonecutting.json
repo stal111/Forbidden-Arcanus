@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "forbidden_arcanus:darkstone",
   "result": {
-    "count": 1,
     "id": "forbidden_arcanus:tiled_polished_darkstone_bricks"
   }
 }

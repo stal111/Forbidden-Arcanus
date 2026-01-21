@@ -35,7 +35,7 @@ public class TimeCondition extends EffectCondition {
 
     @Override
     public boolean test(Level level) {
-        long dayTime = level.getDayTime();
+        long dayTime = level.getOverworldClockTime();
 
         return dayTime >= this.startTime && dayTime <= this.endTime;
     }

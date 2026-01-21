@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Map;
@@ -32,7 +33,7 @@ public record ProgressRitualTickEffect(RitualManager ritualManager,
 
         if (level instanceof ServerLevel serverLevel) {
             this.pedestalItems.forEach((pedestalPos, stack) -> {
-                this.addItemParticles(serverLevel, pos, pedestalPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + data.getCounter(), PEDESTAL_ITEM_HEIGHT), stack);
+                this.addItemParticles(serverLevel, pos, pedestalPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + data.getCounter(), PEDESTAL_ITEM_HEIGHT), ItemStackTemplate.fromNonEmptyStack(stack));
             });
         }
 
@@ -46,7 +47,7 @@ public record ProgressRitualTickEffect(RitualManager ritualManager,
         return 1;
     }
 
-    private void addItemParticles(ServerLevel level, BlockPos pos, BlockPos pedestalPos, int itemHeight, ItemStack stack) {
+    private void addItemParticles(ServerLevel level, BlockPos pos, BlockPos pedestalPos, int itemHeight, ItemStackTemplate stack) {
         double posX = pedestalPos.getX() + 0.5D;
         double posY = pedestalPos.getY() + 0.1D + itemHeight / 100.0F;
         double posZ = pedestalPos.getZ() + 0.5D;

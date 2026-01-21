@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity.transfer;
 
-import com.mojang.serialization.Codec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -46,16 +45,12 @@ public class SingleSlotResourceHandler extends ItemStackResourceHandler {
 
     public void serialize(String key, ValueOutput output) {
         if (!this.stack.isEmpty()) {
-            output.store(key, this.getCodec(), this.stack);
+            output.store(key, ItemStack.CODEC, this.stack);
         }
     }
 
     public void deserialize(String key, ValueInput input) {
-        this.stack = input.read(key, this.getCodec()).orElse(ItemStack.EMPTY);
-    }
-
-    private Codec<ItemStack> getCodec() {
-        return this.singleCapacity ? ItemStack.SINGLE_ITEM_CODEC : ItemStack.CODEC;
+        this.stack = input.read(key, ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 
     public void set(int index, ItemResource resource, int amount) {

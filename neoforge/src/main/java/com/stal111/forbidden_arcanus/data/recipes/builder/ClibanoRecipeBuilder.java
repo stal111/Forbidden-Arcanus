@@ -15,11 +15,11 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,8 +36,7 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
 
     private final RecipeCategory category;
     private final CookingBookCategory bookCategory;
-    private final Item result;
-    private final ItemStack stackResult;
+    private final ItemStackTemplate result;
     private final Ingredient ingredient;
     private final float experience;
     private final int cookingTime;
@@ -52,15 +51,14 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
     public ClibanoRecipeBuilder(
             RecipeCategory recipeCategory,
             CookingBookCategory bookCategory,
-            ItemStack result,
+            ItemLike result,
             Ingredient ingredient,
             float experience,
             int cookingTime
     ) {
         this.category = recipeCategory;
         this.bookCategory = bookCategory;
-        this.result = result.getItem();
-        this.stackResult = result;
+        this.result = new ItemStackTemplate(result.asItem());
         this.ingredient = ingredient;
         this.experience = experience;
         this.cookingTime = cookingTime;
@@ -78,6 +76,11 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
         this.group = group;
 
         return this;
+    }
+
+    @Override
+    public ResourceKey<Recipe<?>> defaultId() {
+        return RecipeBuilder.getDefaultRecipeId(this.result);
     }
 
     public ClibanoRecipeBuilder residue(ResidueChance residueChance) {
@@ -99,11 +102,6 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public @NotNull Item getResult() {
-        return this.result;
-    }
-
-    @Override
     public void save(@NotNull RecipeOutput output, @NotNull ResourceKey<Recipe<?>> resourceKey) {
         this.ensureValid(resourceKey);
 
@@ -113,7 +111,7 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
-        ClibanoRecipe recipe = new ClibanoRecipe(Objects.requireNonNullElse(this.group, ""), this.bookCategory, this.ingredient, this.stackResult, this.experience, ClibanoCookingTimes.of(this.cookingTime), Optional.ofNullable(this.residueChance), this.requiredFireType, Optional.ofNullable(this.requiredEnhancer));
+        ClibanoRecipe recipe = new ClibanoRecipe(Objects.requireNonNullElse(this.group, ""), this.bookCategory, this.ingredient, this.result, this.experience, ClibanoCookingTimes.of(this.cookingTime), Optional.ofNullable(this.residueChance), this.requiredFireType, Optional.ofNullable(this.requiredEnhancer));
 
         output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.identifier().withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }

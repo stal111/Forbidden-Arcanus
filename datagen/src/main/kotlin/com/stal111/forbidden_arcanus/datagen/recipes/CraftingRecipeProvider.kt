@@ -18,6 +18,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.item.alchemy.Potions
+import net.minecraft.world.item.crafting.CookingBookCategory
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Blocks
@@ -291,6 +292,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.smelting(
                 Ingredient.of(ModItems.ARCANE_CRYSTAL.get()),
                 RecipeCategory.MISC,
+                CookingBookCategory.MISC,
                 ModItems.ARCANE_CRYSTAL_DUST.get(),
                 0.4f,
                 150
@@ -300,6 +302,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.smelting(
                 Ingredient.of(items.getOrThrow(ModTags.Items.RUNIC_STONES)),
                 RecipeCategory.MISC,
+                CookingBookCategory.BLOCKS,
                 ModItems.RUNE.get(),
                 1.0f,
                 200
@@ -309,6 +312,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.smelting(
                 Ingredient.of(items.getOrThrow(ModTags.Items.ARCANE_CRYSTAL_ORES)),
                 RecipeCategory.MISC,
+                CookingBookCategory.BLOCKS,
                 ModItems.ARCANE_CRYSTAL.get(),
                 1.0f,
                 200
@@ -318,6 +322,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.smelting(
                 Ingredient.of(ModItems.TENTACLE.get()),
                 RecipeCategory.FOOD,
+                CookingBookCategory.FOOD,
                 ModItems.COOKED_TENTACLE.get(),
                 0.35f,
                 200
@@ -327,6 +332,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.smelting(
                 Ingredient.of(ModBlocks.EDELWOOD_LOG.get()),
                 RecipeCategory.MISC,
+                CookingBookCategory.BLOCKS,
                 ModItems.DARK_MATTER.get(),
                 0.4f,
                 400
@@ -338,6 +344,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.blasting(
                 Ingredient.of(ModItems.ARCANE_CRYSTAL.get()),
                 RecipeCategory.MISC,
+                CookingBookCategory.BLOCKS,
                 ModItems.ARCANE_CRYSTAL_DUST.get(),
                 0.4f,
                 75
@@ -347,6 +354,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.blasting(
                 Ingredient.of(items.getOrThrow(ModTags.Items.RUNIC_STONES)),
                 RecipeCategory.MISC,
+                CookingBookCategory.BLOCKS,
                 ModItems.RUNE.get(),
                 1.0f,
                 100
@@ -356,6 +364,7 @@ class CraftingRecipeProvider(
             SimpleCookingRecipeBuilder.blasting(
                 Ingredient.of(items.getOrThrow(ModTags.Items.ARCANE_CRYSTAL_ORES)),
                 RecipeCategory.MISC,
+                CookingBookCategory.BLOCKS,
                 ModItems.ARCANE_CRYSTAL.get(),
                 1.0f,
                 100

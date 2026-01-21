@@ -1,7 +1,10 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
-import com.stal111.forbidden_arcanus.common.network.clientbound.*;
+import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.client.Minecraft;
@@ -17,7 +20,7 @@ import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -63,7 +66,7 @@ public final class ClientPayloadHandler {
         switch (payload.id()) {
             case 1 -> {
                 for (int l = 0; l < 8; ++l) {
-                    this.minecraft.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
+                    this.minecraft.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(Items.SPLASH_POTION)), x, y, z, random.nextGaussian() * 0.15D, random.nextDouble() * 0.2D, random.nextGaussian() * 0.15D);
                 }
 
                 ParticleOptions particleoptions = ModParticles.AUREAL_MOTE.get();

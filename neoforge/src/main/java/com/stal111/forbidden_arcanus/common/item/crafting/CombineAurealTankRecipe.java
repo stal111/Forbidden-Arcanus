@@ -6,7 +6,6 @@ import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -37,14 +36,15 @@ public class CombineAurealTankRecipe extends CustomRecipe {
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull CraftingInput input, HolderLookup.@NotNull Provider lookupProvider) {
+    public @NotNull ItemStack assemble(@NotNull CraftingInput input) {
         EssenceStorage data = this.getCombinedStorage(input.items());
 
         ItemStack stack = new ItemStack(ModItems.AUREAL_TANK.get());
 
         stack.set(ModDataComponents.ESSENCE_STORAGE, data);
 
-        return stack;    }
+        return stack;
+    }
 
     @Nullable
     private EssenceStorage getCombinedStorage(List<ItemStack> stacks) {

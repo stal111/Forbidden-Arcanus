@@ -25,7 +25,6 @@
   "result": {
     "type": "forbidden_arcanus:create_item",
     "result_item": {
-      "count": 1,
       "id": "forbidden_arcanus:terrastomp_prism"
     }
   }

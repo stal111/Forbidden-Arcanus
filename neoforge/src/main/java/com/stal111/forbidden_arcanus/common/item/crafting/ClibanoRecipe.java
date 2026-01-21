@@ -11,12 +11,12 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +29,7 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     private final String group;
     private final CookingBookCategory category;
     private final Ingredient ingredient;
-    private final ItemStack result;
+    private final ItemStackTemplate result;
     private final float experience;
     private final ClibanoCookingTimes cookingTimes;
     private final Optional<ResidueChance> residueChance;
@@ -41,7 +41,7 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     public ClibanoRecipe(String group,
                          CookingBookCategory category,
                          Ingredient ingredient,
-                         ItemStack result,
+                         ItemStackTemplate result,
                          float experience,
                          ClibanoCookingTimes cookingTimes,
                          Optional<ResidueChance> residueChance,
@@ -71,8 +71,8 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SingleRecipeInput recipeInput, HolderLookup.@NotNull Provider lookupProvider) {
-        return this.result.copy();
+    public ItemStack assemble(SingleRecipeInput input) {
+        return this.result.create();
     }
 
     //TODO
@@ -131,7 +131,7 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
                 Codec.STRING.optionalFieldOf("group", "").forGetter(ClibanoRecipe::group),
                 CookingBookCategory.CODEC.fieldOf("category").orElse(CookingBookCategory.MISC).forGetter(recipe -> recipe.category),
                 Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
+                ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
                 Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> recipe.experience),
                 ClibanoCookingTimes.CODEC.fieldOf("cooking_time").orElse(ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
                 ResidueChance.CODEC.optionalFieldOf("residue").forGetter(recipe -> recipe.residueChance),

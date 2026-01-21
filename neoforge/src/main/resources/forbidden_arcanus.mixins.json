@@ -6,7 +6,6 @@
   "refmap": "forbidden_arcanus.refmap.json",
   "mixins": [
     "AccessorFireBlock",
-    "BubbleColumnBlockMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "PlayerMixin",

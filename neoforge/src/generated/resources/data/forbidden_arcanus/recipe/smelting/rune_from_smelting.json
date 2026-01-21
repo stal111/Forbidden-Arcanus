@@ -1,11 +1,10 @@
 {
   "type": "minecraft:smelting",
-  "category": "misc",
+  "category": "blocks",
   "cookingtime": 200,
   "experience": 1.0,
   "ingredient": "#forbidden_arcanus:runic_stones",
   "result": {
-    "count": 1,
     "id": "forbidden_arcanus:rune"
   }
 }

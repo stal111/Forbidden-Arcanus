@@ -21,6 +21,8 @@ import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.resources.ResourceKey
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
@@ -163,7 +165,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
                 .input(Ingredient.of(ModItems.STELLARITE_PIECE), 3)
                 .requirements(bossCatcher)
         }
-        register(BuiltInRituals.QUANTUM_INJECTOR, ModBlocks.QUANTUM_INJECTOR.get(), ModItems.MUNDABITUR_DUST.get()) {
+        register(BuiltInRituals.QUANTUM_INJECTOR, ModBlocks.QUANTUM_INJECTOR.get().asItem(), ModItems.MUNDABITUR_DUST.get()) {
             it
                 .input(Ingredient.of(ModBlocks.QUANTUM_CORE.get()), 4)
                 .requirements(quantumInjector)
@@ -301,7 +303,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
 
     private fun register(
         key: ResourceKey<Ritual>,
-        result: ItemLike,
+        result: Item,
         mainIngredient: ItemLike,
         builder: UnaryOperator<RitualBuilder>
     ) {
@@ -309,7 +311,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
             key, builder.apply(
                 RitualBuilder(
                     mainIngredient,
-                    CreateItemResult(net.minecraft.world.item.ItemStack(result)),
+                    CreateItemResult(ItemStackTemplate(result)),
                     magicCircleLookup
                 )
             ).build()
