@@ -5,16 +5,17 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 
 /**
  * @author stal111
  * @since 29.10.2023
  */
-public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Model.Simple {
+public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Model<AbstractForbiddenomiconModel.State> {
 
     public AbstractForbiddenomiconModel(ModelPart root) {
-        super(root, RenderTypes::entitySolid);
+        super(root, RenderTypes::entityCutoutNoCull);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -50,5 +51,16 @@ public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Mod
         head.addOrReplaceChild("feather", CubeListBuilder.create().texOffs(0, 47).addBox(-2.0F, -12.0F, 0.0F, 13.0F, 13.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 6.0F, 0.0F));
 
         return LayerDefinition.create(meshDefinition, 64, 64);
+    }
+
+    public record State(
+            AnimationState stillAnimation,
+            AnimationState openingAnimation,
+            AnimationState closingAnimation,
+            AnimationState levitateAnimation,
+            AnimationState pageAnimation,
+            float ageInTicks,
+            float yRot
+    ) {
     }
 }

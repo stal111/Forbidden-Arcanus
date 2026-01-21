@@ -10,6 +10,10 @@
     },
     {
       "type": "minecraft:single",
+      "resource": "forbidden_arcanus:entity/forbiddenomicon"
+    },
+    {
+      "type": "minecraft:single",
       "resource": "forbidden_arcanus:entity/lost_soul/lost_soul"
     },
     {
