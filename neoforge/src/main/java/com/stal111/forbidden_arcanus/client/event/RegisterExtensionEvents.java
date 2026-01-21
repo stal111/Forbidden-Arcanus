@@ -44,6 +44,6 @@ public class RegisterExtensionEvents {
 
                 return false;
                 }
-        }, ModItems.MAGIC_WAND.get());
+        }, ModItems.OAK_WAND.get());
     }
 }

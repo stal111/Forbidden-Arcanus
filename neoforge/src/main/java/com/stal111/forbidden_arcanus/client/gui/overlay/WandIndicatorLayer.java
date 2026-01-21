@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.gui.overlay;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,7 +21,7 @@ public class WandIndicatorLayer implements GuiLayer {
     public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
         LocalPlayer player = Minecraft.getInstance().player;
 
-        if (player == null || !player.getMainHandItem().is(ModItems.MAGIC_WAND)) {
+        if (player == null || !(player.getMainHandItem().getItem() instanceof MagicWandItem)) {
             return;
         }
 

@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.datagen.model
 
-import com.stal111.forbidden_arcanus.ForbiddenArcanus
+import com.stal111.forbidden_arcanus.client.renderer.item.WandItemModel
 import com.stal111.forbidden_arcanus.client.renderer.item.properties.EssenceFillPercentage
 import com.stal111.forbidden_arcanus.client.renderer.special.EctoBlasterSpecialRenderer
 import com.stal111.forbidden_arcanus.core.init.ModItems
@@ -109,7 +109,20 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateFlatItem(ModItems.ENCAPSULATED_BLACK_HOLE)
         this.generateFlatItem(ModItems.CONDENSED_EXPERIENCE)
 
-        this.generateWandItem(ModItems.MAGIC_WAND, "wooden_magic_wand", "arcane_crystal")
+        this.generateWandItem(ModItems.OAK_WAND)
+        this.generateWandItem(ModItems.SPRUCE_WAND)
+        this.generateWandItem(ModItems.BIRCH_WAND)
+        this.generateWandItem(ModItems.JUNGLE_WAND)
+        this.generateWandItem(ModItems.ACACIA_WAND)
+        this.generateWandItem(ModItems.DARK_OAK_WAND)
+        this.generateWandItem(ModItems.MANGROVE_WAND)
+        this.generateWandItem(ModItems.CHERRY_WAND)
+        this.generateWandItem(ModItems.PALE_OAK_WAND)
+        this.generateWandItem(ModItems.BAMBOO_WAND)
+        this.generateWandItem(ModItems.CRIMSON_WAND)
+        this.generateWandItem(ModItems.WARPED_WAND)
+        this.generateWandItem(ModItems.AURUM_WAND)
+        this.generateWandItem(ModItems.EDELWOOD_WAND)
 
         generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
 
@@ -258,18 +271,13 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         )
     }
 
-    private fun generateWandItem(
-        item: ItemRegistryEntry<out Item>,
-        wand: String,
-        pommel: String
-    ) {
-        val model = ModModelTemplates.FLAT_HANDHELD_WAND.createModel(
-            ModelLocationUtils.getModelLocation(item.get()), TextureMapping.layered(
-                ForbiddenArcanus.identifier("item/wand/$wand"), ForbiddenArcanus.identifier("item/wand/pommel/$pommel")
-            )
+    private fun generateWandItem(item: ItemRegistryEntry<out Item>) {
+        val model = ModelTemplates.FLAT_HANDHELD_ROD_ITEM.createModel(
+            ModelLocationUtils.getModelLocation(item.get()),
+            TextureMapping.layer0(ModLocationUtils.getItem("wand", item))
         )
 
-        output.accept(item.get(), ItemModelUtils.plainModel(model))
+        output.accept(item.get(), WandItemModel.Unbaked(model))
     }
 
     private fun generateQuantumCatcher(

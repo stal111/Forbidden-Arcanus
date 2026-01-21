@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.block.properties.ObeliskPart
 import net.minecraft.client.data.models.model.ModelTemplate
 import net.minecraft.client.data.models.model.TextureSlot
-import net.minecraft.resources.Identifier
 import net.minecraft.util.Util
 import java.util.*
 
@@ -56,8 +55,6 @@ object ModModelTemplates {
         TextureSlot.INSIDE, ModTextureSlots.LOG, TextureSlot.TOP, TextureSlot.FRONT, ModTextureSlots.LEAVES
     )
 
-    val FLAT_HANDHELD_WAND = createMinecraftItem("handheld_rod", TextureSlot.LAYER0, TextureSlot.LAYER1)
-
     fun create(name: String, vararg textureSlots: TextureSlot): ModelTemplate {
         return ModelTemplate(
             Optional.of(ForbiddenArcanus.identifier("block/$name")),
@@ -69,14 +66,6 @@ object ModModelTemplates {
     fun createItem(name: String, vararg textureSlots: TextureSlot): ModelTemplate {
         return ModelTemplate(
             Optional.of(ForbiddenArcanus.identifier("item/$name")),
-            Optional.empty(),
-            *textureSlots
-        )
-    }
-
-    fun createMinecraftItem(name: String, vararg textureSlots: TextureSlot): ModelTemplate {
-        return ModelTemplate(
-            Optional.of(Identifier.withDefaultNamespace("item/$name")),
             Optional.empty(),
             *textureSlots
         )

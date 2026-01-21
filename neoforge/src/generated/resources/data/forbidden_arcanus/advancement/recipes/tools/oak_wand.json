@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:magic_wand"
+        "recipe": "forbidden_arcanus:oak_wand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -48,7 +48,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:magic_wand"
+      "forbidden_arcanus:oak_wand"
     ]
   }
 }

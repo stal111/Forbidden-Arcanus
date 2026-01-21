@@ -71,7 +71,7 @@ class CraftingRecipeProvider(
                 )
             ).unlockedBy(ModItems.ARCANE_CRYSTAL_DUST)
         }
-        this.shaped(RecipeCategory.TOOLS, ModItems.MAGIC_WAND) {
+        this.shaped(RecipeCategory.TOOLS, ModItems.OAK_WAND) {
             it.pattern("  E", " D ", "A  ")
                 .define('E' to ModItems.EDELWOOD_STICK, 'D' to ModItems.DEORUM_INGOT, 'A' to ModItems.ARCANE_CRYSTAL)
                 .unlockedBy(ModItems.EDELWOOD_STICK, ModItems.DEORUM_INGOT, ModItems.ARCANE_CRYSTAL)
