@@ -53,11 +53,11 @@ object ModTextureMapping {
         val desk: Block = ModBlocks.DESK.get()
         val researchDesk: Block = ModBlocks.RESEARCH_DESK.get()
 
-        return TextureMapping().put(TextureSlot.FRONT, getBlockTexture(desk, DESK, "_front"))
+        return TextureMapping().put(TextureSlot.FRONT, getBlockTexture(if (research) researchDesk else desk, DESK, "_front"))
             .put(TextureSlot.BACK, getBlockTexture(if (research) researchDesk else desk, DESK, "_back"))
             .put(TextureSlot.INSIDE, getBlockTexture(desk, DESK, "_inside"))
             .put(TextureSlot.SIDE, getBlockTexture(if (research) researchDesk else desk, DESK, "_side"))
-            .put(TextureSlot.TOP, getBlockTexture(desk, DESK, "_top"))
+            .put(TextureSlot.TOP, getBlockTexture(if (research) researchDesk else desk, DESK, "_top"))
             .put(TextureSlot.BOTTOM, getBlockTexture(desk, DESK, "_bottom"))
     }
 

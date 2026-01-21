@@ -2,7 +2,7 @@
 	"credit": "Model created by Zorak Design - Contact me on discord for work: CesarZorak#top808",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"particle": "#back"
+		"particle": "#top"
 	},
 	"elements": [
 		{

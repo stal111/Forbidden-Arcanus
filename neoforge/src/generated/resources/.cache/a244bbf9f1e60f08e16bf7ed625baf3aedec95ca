@@ -1,4 +1,4 @@
-// 26.1-snapshot-2	2026-01-20T18:01:40.8831101	Model Definitions - forbidden_arcanus
+// 26.1-snapshot-2	2026-01-21T11:39:09.8453087	Model Definitions - forbidden_arcanus
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -603,7 +603,7 @@ cab51c5f718d9d7b3c5c9ebb436a2c953c57b1ae assets/forbidden_arcanus/models/block/p
 76f153ab54a9df16683b38ca0c2a5f43fd95cbf8 assets/forbidden_arcanus/models/block/potted_growing_edelwood.json
 1959f0f1bbf7c7a4b9777a0627d66d04ed33bfc4 assets/forbidden_arcanus/models/block/potted_yellow_orchid.json
 22e580843f4ee6e2a2281359fa381c971ff968ae assets/forbidden_arcanus/models/block/quantum_injector.json
-6ba1c8715560f892c212f95c75279c3cb3595df7 assets/forbidden_arcanus/models/block/research_desk.json
+c9bdf215d5745f6891c706edb7da45c8af2cf611 assets/forbidden_arcanus/models/block/research_desk.json
 bc409223bb98b381abc0f0316dee438abb09a5ed assets/forbidden_arcanus/models/block/rune_block.json
 96d9b57cf0507febada48cbd7384413ea64f9cab assets/forbidden_arcanus/models/block/runic_darkstone.json
 0a03e2673d21f84f6cecc4a47d32ee8e0ed7ae76 assets/forbidden_arcanus/models/block/runic_deepslate.json
