@@ -43,7 +43,6 @@ public class MagicCircleRenderer {
 
         float size = this.easeSineOut(progress, 0.15D, 0.5D, 0.32D);
 
-        poseStack.translate(0.5D, 0.0D, 0.5D);
         poseStack.scale(size, 1.0F, size);
 
         poseStack.mulPose(Axis.YN.rotationDegrees(renderState.ageInTicks));

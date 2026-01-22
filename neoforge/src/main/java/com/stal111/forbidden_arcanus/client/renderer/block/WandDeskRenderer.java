@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
@@ -53,6 +54,7 @@ public record WandDeskRenderer(ItemModelResolver itemModelResolver, MagicCircleR
         this.itemModelResolver.updateForTopItem(itemStackRenderState, ModItems.OAK_WAND.get().getDefaultInstance(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
         state.itemStackRenderState = itemStackRenderState;
+        state.direction = blockEntity.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         state.ageInTicks = blockEntity.getAgeInTicks(partialTicks);
     }
 
@@ -60,7 +62,8 @@ public record WandDeskRenderer(ItemModelResolver itemModelResolver, MagicCircleR
     public void submit(WandDeskRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState camera) {
         poseStack.pushPose();
 
-        poseStack.translate(0.0F, 0.85F, 0.0F);
+        poseStack.translate(0.5F, 0.95F, 0.5F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - state.direction.toYRot()));
         poseStack.mulPose(Axis.XN.rotationDegrees(12.5F));
 
         this.magicCircleRenderer.submit(state.magicCircleRenderState, poseStack, nodeCollector, camera);
@@ -70,6 +73,7 @@ public record WandDeskRenderer(ItemModelResolver itemModelResolver, MagicCircleR
         poseStack.pushPose();
 
         poseStack.translate(0.5F, 1.1F + Mth.sin(state.ageInTicks / 10.0F) * 0.1F + 0.1F, 0.5F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - state.direction.toYRot()));
         poseStack.mulPose(Axis.XP.rotationDegrees(22.5F));
         poseStack.scale(0.5F, 0.5F, 0.5F);
 
