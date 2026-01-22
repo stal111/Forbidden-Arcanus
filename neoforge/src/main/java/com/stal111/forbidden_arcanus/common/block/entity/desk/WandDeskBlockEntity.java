@@ -1,10 +1,16 @@
 package com.stal111.forbidden_arcanus.common.block.entity.desk;
 
+import com.stal111.forbidden_arcanus.common.block.WandDeskBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -12,10 +18,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 public class WandDeskBlockEntity extends BaseContainerBlockEntity implements BlockEntityAgeAccess, ItemOwner {
 
+    private ItemStack stack = ItemStack.EMPTY;
     private int tickCount;
 
     public WandDeskBlockEntity(BlockPos worldPosition, BlockState blockState) {
@@ -24,6 +34,41 @@ public class WandDeskBlockEntity extends BaseContainerBlockEntity implements Blo
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, WandDeskBlockEntity blockEntity) {
         blockEntity.tickCount++;
+    }
+
+    public void setItem(ItemStack stack) {
+        this.stack = stack;
+
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+    }
+
+    public ItemStack getItem() {
+        return this.stack;
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+
+        output.store("item", ItemStack.CODEC, this.stack);
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+
+        this.stack = input.read("item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+    }
+
+    @Override
+    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return this.saveCustomOnly(registries);
     }
 
     @Override
@@ -68,6 +113,6 @@ public class WandDeskBlockEntity extends BaseContainerBlockEntity implements Blo
 
     @Override
     public float getVisualRotationYInDegrees() {
-        return 0;
+        return this.getBlockState().getValue(WandDeskBlock.FACING).getOpposite().toYRot();
     }
 }

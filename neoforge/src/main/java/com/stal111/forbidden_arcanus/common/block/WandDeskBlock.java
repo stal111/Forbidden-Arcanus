@@ -33,15 +33,17 @@ public class WandDeskBlock extends DeskBlock implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
         if (player.isShiftKeyDown()) {
+            level.getBlockEntity(pos, ModBlockEntities.WAND_DESK.get()).ifPresent(blockEntity -> {
+                ItemStack wand = blockEntity.getItem();
+
+                if (!player.addItem(wand)) {
+                    player.drop(wand, false);
+                }
+            });
+
             BlockState newState = ModBlocks.DESK.get().withPropertiesOf(state);
 
             level.setBlockAndUpdate(pos, newState);
-
-            ItemStack forbiddenomicon = new ItemStack(ModBlocks.FORBIDDENOMICON.get());
-
-            if (!player.addItem(forbiddenomicon)) {
-                player.drop(forbiddenomicon, false);
-            }
 
             return InteractionResult.SUCCESS;
         }

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
+import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -77,6 +78,10 @@ public class DeskBlock extends HorizontalDirectionalBlock implements SimpleWater
             BlockState newState = ModBlocks.WAND_DESK.get().withPropertiesOf(state);
 
             level.setBlockAndUpdate(pos, newState);
+
+            level.getBlockEntity(pos, ModBlockEntities.WAND_DESK.get()).ifPresent(blockEntity -> {
+                blockEntity.setItem(stack.consumeAndReturn(1, player));
+            });
 
             stack.consume(1, player);
 

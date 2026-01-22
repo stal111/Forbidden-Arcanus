@@ -9,7 +9,6 @@ import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRen
 import com.stal111.forbidden_arcanus.common.block.entity.desk.WandDeskBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.BuiltInMagicCircles;
-import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -51,7 +50,7 @@ public record WandDeskRenderer(ItemModelResolver itemModelResolver, MagicCircleR
         state.magicCircleRenderState = magicCircleRenderState;
 
         ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(itemStackRenderState, ModItems.OAK_WAND.get().getDefaultInstance(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+        this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getItem(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
         state.itemStackRenderState = itemStackRenderState;
         state.direction = blockEntity.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
