@@ -1,17 +1,21 @@
 package com.stal111.forbidden_arcanus.common.item.wand;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.util.StringRepresentable;
 
-public record WandPart(
-        Component materialName,
-        WandStats stats
-) {
+public enum WandPart implements StringRepresentable {
+    POMMEL("pommel"),
+    TRANSITION("transition");
 
-    public static final Codec<WandPart> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ComponentSerialization.CODEC.fieldOf("material_name").forGetter(WandPart::materialName),
-            WandStats.CODEC.forGetter(WandPart::stats)
-    ).apply(instance, WandPart::new));
+    public static final StringRepresentable.EnumCodec<WandPart> CODEC = StringRepresentable.fromEnum(WandPart::values);
+
+    private final String name;
+
+    WandPart(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getSerializedName() {
+        return this.name;
+    }
 }

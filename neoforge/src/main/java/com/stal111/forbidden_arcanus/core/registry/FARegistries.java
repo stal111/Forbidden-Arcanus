@@ -15,6 +15,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffect;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.EnhancerEffectType;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteraction;
+import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
 import com.stal111.forbidden_arcanus.common.research.Constellation;
 import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import net.minecraft.core.Registry;
@@ -42,6 +43,7 @@ public class FARegistries {
     public static final ResourceKey<Registry<PedestalEffect>> PEDESTAL_EFFECT = FARegistries.createRegistryKey("pedestal_effect");
     public static final ResourceKey<Registry<MagicCircleType>> MAGIC_CIRCLE = FARegistries.createRegistryKey("magic_circle");
     public static final ResourceKey<Registry<EssenceSource>> ESSENCE_SOURCE_TYPE = FARegistries.createRegistryKey("essence_source_type");
+    public static final ResourceKey<Registry<WandMaterial>> WAND_MATERIAL = FARegistries.createRegistryKey("wand/material");
 
     public static final Registry<RitualResultType<?>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_TYPE);
     public static final Registry<HephaestusForgeInput> FORGE_INPUT_REGISTRY = FARegistries.makeSyncedRegistry(FORGE_INPUT);

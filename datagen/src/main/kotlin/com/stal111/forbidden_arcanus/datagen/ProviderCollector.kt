@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.datagen.block.forge.ModRituals
 import com.stal111.forbidden_arcanus.datagen.item.ModEnchantments
 import com.stal111.forbidden_arcanus.datagen.item.ModEnhancerDefinitions
 import com.stal111.forbidden_arcanus.datagen.item.ModItemModifiers
+import com.stal111.forbidden_arcanus.datagen.item.WandMaterialProvider
 import com.stal111.forbidden_arcanus.datagen.lang.LangProvider
 import com.stal111.forbidden_arcanus.datagen.loot.*
 import com.stal111.forbidden_arcanus.datagen.model.ModBlockModels
@@ -85,6 +86,7 @@ class ProviderCollector : DataCollector() {
         addRegistryProvider(FARegistries.RITUAL, ModRituals)
         addRegistryProvider(FARegistries.RESIDUE_TYPE, ModResidueTypes)
         addRegistryProvider(FARegistries.ITEM_MODIFIER, ModItemModifiers)
+        addRegistryProvider(FARegistries.WAND_MATERIAL, WandMaterialProvider)
         addRegistryProvider(Registries.ENCHANTMENT, ModEnchantments)
         addRegistryProvider(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers)
         addRegistryProvider(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures)

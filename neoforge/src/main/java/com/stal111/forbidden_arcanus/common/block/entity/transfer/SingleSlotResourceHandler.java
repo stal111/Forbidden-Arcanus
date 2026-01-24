@@ -34,8 +34,9 @@ public class SingleSlotResourceHandler extends ItemStackResourceHandler {
 
     @Override
     public void setStack(ItemStack stack) {
-        System.out.println(stack);
         this.stack = stack;
+
+        this.onChanged.accept(stack);
     }
 
     @Override

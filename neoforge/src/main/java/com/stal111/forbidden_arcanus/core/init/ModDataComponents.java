@@ -7,6 +7,8 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.component.*;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
+import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
+import com.stal111.forbidden_arcanus.common.item.wand.WandPart;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -45,4 +47,7 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<List<EffectGrantingRule>>> GRANTS_EFFECTS = HELPER.register("grants_effects", () -> DataComponentType.<List<EffectGrantingRule>>builder().persistent(EffectGrantingRule.CODEC.listOf()).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<WandParts>> WAND_PARTS = HELPER.register("wand_parts", () -> DataComponentType.<WandParts>builder().persistent(WandParts.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<AurealCost>> AUREAL_COST = HELPER.register("aureal_cost", () -> DataComponentType.<AurealCost>builder().persistent(AurealCost.CODEC).networkSynchronized(AurealCost.STREAM_CODEC).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Holder<WandMaterial>>> PROVIDES_WAND_MATERIAL = HELPER.register("provides_wand_material", () -> DataComponentType.<Holder<WandMaterial>>builder().persistent(WandMaterial.CODEC).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Holder<WandMaterial>>> POMMEL_MATERIAL = HELPER.register("wand/pommel_material", () -> DataComponentType.<Holder<WandMaterial>>builder().persistent(WandMaterial.validatedCodec(WandPart.POMMEL)).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<Holder<WandMaterial>>> TRANSITION_MATERIAL = HELPER.register("wand/transition_material", () -> DataComponentType.<Holder<WandMaterial>>builder().persistent(WandMaterial.validatedCodec(WandPart.TRANSITION)).build());
 }

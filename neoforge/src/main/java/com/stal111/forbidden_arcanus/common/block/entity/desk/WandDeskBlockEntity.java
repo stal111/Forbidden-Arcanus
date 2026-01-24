@@ -2,10 +2,9 @@ package com.stal111.forbidden_arcanus.common.block.entity.desk;
 
 import com.stal111.forbidden_arcanus.common.block.WandDeskBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.ResultSlotResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.UnmodifiableSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -31,11 +30,11 @@ public class WandDeskBlockEntity extends BaseContainerBlockEntity implements Blo
 
     private static final Component NAME = Component.translatable("container.forbidden_arcanus.wand_desk");
 
-    private final ResultSlotResourceHandler wandResourceHandler = new ResultSlotResourceHandler(true, _ -> {
-        this.level.setBlockAndUpdate(this.getBlockPos(), ModBlocks.DESK.get().withPropertiesOf(this.getBlockState()));
+    private final UnmodifiableSlotResourceHandler wandResourceHandler = new UnmodifiableSlotResourceHandler(true, _ -> {
+        this.setChanged();
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     });
 
-    private ItemStack stack = ItemStack.EMPTY;
     private int tickCount;
 
     public WandDeskBlockEntity(BlockPos worldPosition, BlockState blockState) {
@@ -47,30 +46,25 @@ public class WandDeskBlockEntity extends BaseContainerBlockEntity implements Blo
     }
 
     public void setItem(ItemStack stack) {
-        this.stack = stack;
         this.wandResourceHandler.setStack(stack);
-
-        this.setChanged();
-        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 
     public ItemStack getItem() {
-        return this.stack;
+        return this.wandResourceHandler.getStack();
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        output.store("item", ItemStack.CODEC, this.stack);
+        this.wandResourceHandler.serialize("item", output);
     }
 
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-        this.stack = input.read("item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
-        this.wandResourceHandler.setStack(this.stack);
+        this.wandResourceHandler.deserialize("item", input);
     }
 
     @Override

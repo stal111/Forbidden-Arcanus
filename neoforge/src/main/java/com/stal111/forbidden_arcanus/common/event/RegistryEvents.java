@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircl
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
+import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
 import com.stal111.forbidden_arcanus.common.research.Constellation;
 import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -27,6 +28,7 @@ public class RegistryEvents {
         event.dataPackRegistry(FARegistries.RESIDUE_TYPE, ResidueType.DIRECT_CODEC, ResidueType.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.MAGIC_CIRCLE, MagicCircleType.DIRECT_CODEC, MagicCircleType.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.ITEM_MODIFIER, ItemModifier.DIRECT_CODEC, ItemModifier.DIRECT_CODEC);
+        event.dataPackRegistry(FARegistries.WAND_MATERIAL, WandMaterial.DIRECT_CODEC, WandMaterial.DIRECT_CODEC);
     }
 
     @SubscribeEvent

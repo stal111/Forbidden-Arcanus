@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.item.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.wand.WandPart;
-import com.stal111.forbidden_arcanus.common.item.wand.WandStats;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -24,13 +23,6 @@ public record WandParts(
             WandPart.CODEC.fieldOf("pommel").forGetter(WandParts::pommel)
     ).apply(instance, WandParts::new));
 
-    public WandStats getCombinedStats() {
-        return new WandStats(
-                this.tip.stats().damageBonus() + this.transition.stats().damageBonus() + this.pommel.stats().damageBonus(),
-                this.tip.stats().speedBonus() + this.transition.stats().speedBonus() + this.pommel.stats().speedBonus(),
-                this.tip.stats().aimBonus() + this.transition.stats().aimBonus() + this.pommel.stats().aimBonus()
-        );
-    }
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag flag, DataComponentGetter componentGetter) {
