@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
+import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -25,6 +26,7 @@ public class ModMenuTypes implements RegistryClass {
     public static final RegistryEntry<MenuType<?>, MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
     public static final RegistryEntry<MenuType<?>, MenuType<ClibanoMenu>> CLIBANO = register("clibano", ClibanoMenu::new);
     public static final RegistryEntry<MenuType<?>, MenuType<ResearchDeskMenu>> RESEARCH_DESK = register("research_desk", ResearchDeskMenu::new);
+    public static final RegistryEntry<MenuType<?>, MenuType<WandDeskMenu>> WAND_DESK = register("wand_desk", (containerId, inventory) -> new WandDeskMenu(containerId, inventory));
 
     private static <T extends AbstractContainerMenu> RegistryEntry<MenuType<?>, MenuType<T>> register(String name, IContainerFactory<T> factory) {
         return HELPER.register(name, () -> IMenuTypeExtension.create(factory));

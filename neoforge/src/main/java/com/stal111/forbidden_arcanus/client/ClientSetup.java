@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.client.gui.overlay.WandIndicatorLayer;
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
+import com.stal111.forbidden_arcanus.client.gui.screen.wand.WandDeskScreen;
 import com.stal111.forbidden_arcanus.client.particle.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
@@ -86,6 +87,7 @@ public class ClientSetup {
         helper.registerScreen(ModMenuTypes.HEPHAESTUS_FORGE, HephaestusForgeScreen::new);
         helper.registerScreen(ModMenuTypes.CLIBANO, ClibanoScreen::new);
         helper.registerScreen(ModMenuTypes.RESEARCH_DESK, ResearchScreen::new);
+        helper.registerScreen(ModMenuTypes.WAND_DESK, WandDeskScreen::new);
 
         modEventBus.addListener(this::onClientSetup);
         //modEventBus.addListener(this::onTextureStitch);

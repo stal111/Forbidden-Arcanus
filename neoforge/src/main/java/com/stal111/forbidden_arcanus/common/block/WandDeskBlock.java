@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block;
 
-import com.stal111.forbidden_arcanus.common.block.entity.desk.ResearchDeskBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.desk.WandDeskBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -48,7 +47,7 @@ public class WandDeskBlock extends DeskBlock implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof ResearchDeskBlockEntity blockEntity) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof WandDeskBlockEntity blockEntity) {
             player.openMenu(blockEntity);
         }
 
