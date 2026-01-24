@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.block.model.TextureSlots;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -21,7 +20,9 @@ import net.neoforged.neoforge.client.model.UnbakedElementsHelper;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public record WandItemModel(List<BakedQuad> base,
                             ModelRenderProperties properties,
@@ -30,25 +31,35 @@ public record WandItemModel(List<BakedQuad> base,
 
     private static final ModelDebugName DEBUG_NAME = () -> "WandModel";
 
+    private static final Map<CacheKey, ItemModel> CACHE = new HashMap<>();
+
     @Override
     public void update(ItemStackRenderState output, ItemStack stack, ItemModelResolver resolver, ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
         ItemModel base = new BlockModelWrapper(List.of(), this.base, this.properties, _ -> Sheets.translucentItemSheet());
 
-        List<ItemModel> models = new ArrayList<>();
-        models.add(base);
+        var pommelMaterial = stack.get(ModDataComponents.POMMEL_MATERIAL);
+        var transitionMaterial = stack.get(ModDataComponents.TRANSITION_MATERIAL);
 
-        Holder<WandMaterial> pommelMaterial = stack.get(ModDataComponents.POMMEL_MATERIAL);
-        Holder<WandMaterial> transitionMaterial = stack.get(ModDataComponents.TRANSITION_MATERIAL);
+        var key = new CacheKey(
+                base,
+                pommelMaterial != null ? pommelMaterial.value() : null,
+                transitionMaterial != null ? transitionMaterial.value() : null
+        );
 
-        if (pommelMaterial != null) {
-            models.add(this.createModel(pommelMaterial.value().texture()));
-        }
+        ItemModel model = CACHE.computeIfAbsent(key, cacheKey -> {
+            var models = new ArrayList<ItemModel>();
+            models.add(cacheKey.base());
 
-        if (transitionMaterial != null) {
-            models.add(this.createModel(transitionMaterial.value().texture()));
-        }
+            if (cacheKey.pommel() != null) {
+                models.add(this.createModel(cacheKey.pommel().texture()));
+            }
+            if (cacheKey.transition() != null) {
+                models.add(this.createModel(cacheKey.transition().texture()));
+            }
+            return new CompositeModel(models);
+        });
 
-        new CompositeModel(models).update(output, stack, resolver, displayContext, level, owner, seed);
+        model.update(output, stack, resolver, displayContext, level, owner, seed);
     }
 
     private ItemModel createModel(Identifier texture) {
@@ -88,4 +99,6 @@ public record WandItemModel(List<BakedQuad> base,
             resolver.markDependency(this.base);
         }
     }
+
+    private record CacheKey(ItemModel base, WandMaterial pommel, WandMaterial transition) {}
 }
