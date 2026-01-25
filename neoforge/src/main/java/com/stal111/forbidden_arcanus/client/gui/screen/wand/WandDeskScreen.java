@@ -41,16 +41,22 @@ public class WandDeskScreen extends AbstractContainerScreen<WandDeskMenu> {
 
         this.createButton.active = this.menu.canCraftWand();
 
-        this.createAnimation = new ScreenAnimation(this.getGuiLeft() + 24, this.getGuiTop() + 12, 128, 128, ForbiddenArcanus.identifier("container/wand_desk/animation/wand_creation"), 12, 1.7F);
+        this.createAnimation = new ScreenAnimation(this.getGuiLeft() + 24, this.getGuiTop() + 12, 128, 128, ForbiddenArcanus.identifier("container/wand_desk/animation/wand_creation"), 11, 1.7F);
 
         this.addRenderableWidget(this.createButton);
-        this.addRenderableOnly(this.createAnimation);
     }
 
     @Override
     protected void containerTick() {
         this.createButton.active = this.menu.canCraftWand();
         this.createAnimation.tick();
+    }
+
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float a) {
+        super.render(graphics, mouseX, mouseY, a);
+
+        this.createAnimation.render(graphics, mouseX, mouseY, a);
     }
 
     @Override
