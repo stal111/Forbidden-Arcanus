@@ -65,7 +65,47 @@ public class WandDeskMenu extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int slotIndex) {
-        return null;
+        ItemStack clicked = ItemStack.EMPTY;
+        Slot slot = this.slots.get(slotIndex);
+
+        if (slot.hasItem()) {
+            ItemStack stack = slot.getItem();
+            clicked = stack.copy();
+
+            if (slotIndex <= 3) {
+                if (!this.moveItemStackTo(stack, 4, 40, true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
+                if (this.inputsContainer.canPlaceItem(0, stack)) {
+                    if (!this.moveItemStackTo(stack, 1, 2, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (this.inputsContainer.canPlaceItem(1, stack)) {
+                    if (!this.moveItemStackTo(stack, 2, 3, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (this.inputsContainer.canPlaceItem(2, stack)) {
+                    if (!this.moveItemStackTo(stack, 3, 4, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            }
+
+            if (stack.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+
+            if (stack.getCount() == clicked.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(player, stack);
+        }
+
+        return clicked;
     }
 
     @Override
