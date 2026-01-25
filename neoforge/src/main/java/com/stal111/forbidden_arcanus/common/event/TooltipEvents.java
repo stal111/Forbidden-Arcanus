@@ -3,10 +3,13 @@ package com.stal111.forbidden_arcanus.common.event;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
+import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -35,8 +38,14 @@ public class TooltipEvents {
         boolean advanced = event.getFlags().isAdvanced();
         TooltipDisplay tooltipDisplay = stack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
 
-        stack.addToTooltip(ModDataComponents.ESSENCE_VALUE.get(), event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
-        stack.addToTooltip(ModDataComponents.ESSENCE_STORAGE.get(), event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
+        stack.addToTooltip(ModDataComponents.ESSENCE_VALUE, event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
+        stack.addToTooltip(ModDataComponents.ESSENCE_STORAGE, event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
+
+        Holder<WandMaterial> materialHolder = stack.get(ModDataComponents.PROVIDES_WAND_MATERIAL);
+
+        if (materialHolder != null && event.getEntity() != null && event.getEntity().containerMenu instanceof WandDeskMenu) {
+            materialHolder.value().addToTooltip(event.getContext(), component -> this.expandTooltip(advanced, tooltip, component), event.getFlags(), stack.getComponents());
+        }
 
         EnhancerHelper.getEnhancer(stack).ifPresent(definition -> {
             this.expandTooltip(advanced, tooltip, ENHANCER_COMPONENT);

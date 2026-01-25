@@ -320,6 +320,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         add("item", "toggle_state.deactivated", "Deactivated")
         add("item", "stored_entity", "Entity: %s")
         add("item", "stored_entity.with_name", "Entity: %s (%s)")
+        add("item", "wand_material.info", "Can be used as %s material")
 
         add("upgrade", "darkstone_upgrade", "Apply Item Modifier")
 
