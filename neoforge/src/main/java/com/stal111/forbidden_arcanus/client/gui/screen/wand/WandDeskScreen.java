@@ -57,4 +57,13 @@ public class WandDeskScreen extends AbstractContainerScreen<WandDeskMenu> {
     protected void renderBg(GuiGraphics guiGraphics, float a, int xm, int ym) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize(), 256, 256);
     }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
+
+        if (this.hoveredSlot instanceof WandDeskMenu.InputSlot inputSlot && !inputSlot.hasItem()) {
+            guiGraphics.setTooltipForNextFrame(this.font, this.font.split(inputSlot.getOnboardingTooltip(), 115), mouseX, mouseY);
+        }
+    }
 }

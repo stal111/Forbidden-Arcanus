@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -55,9 +56,9 @@ public class WandDeskMenu extends AbstractContainerMenu {
             }
         };
 
-        this.addSlot(new InputSlot(this.inputsContainer, 0, 44, 44).setBackground(ForbiddenArcanus.identifier("slot/wand_pommel_material")));
-        this.addSlot(new InputSlot(this.inputsContainer, 1, 116, 44).setBackground(ForbiddenArcanus.identifier("slot/wand_transition_material")));
-        this.addSlot(new InputSlot(this.inputsContainer, 2, 80, 107).setBackground(ForbiddenArcanus.identifier("slot/wand_base_material")));
+        this.addSlot(new InputSlot(this.inputsContainer, 0, 44, 44, Component.translatable("container.forbidden_arcanus.wand_desk.slot.pommel")).setBackground(ForbiddenArcanus.identifier("slot/wand_pommel_material")));
+        this.addSlot(new InputSlot(this.inputsContainer, 1, 116, 44, Component.translatable("container.forbidden_arcanus.wand_desk.slot.transition")).setBackground(ForbiddenArcanus.identifier("slot/wand_transition_material")));
+        this.addSlot(new InputSlot(this.inputsContainer, 2, 80, 107, Component.translatable("container.forbidden_arcanus.wand_desk.slot.base")).setBackground(ForbiddenArcanus.identifier("slot/wand_base_material")));
 
         this.addStandardInventorySlots(inventory, 8, 149);
     }
@@ -106,14 +107,22 @@ public class WandDeskMenu extends AbstractContainerMenu {
         this.inputsContainer.clearContent();
     }
 
-    private static class InputSlot extends Slot {
-        public InputSlot(Container inventory, int index, int x, int y) {
+    public static class InputSlot extends Slot {
+
+        private final Component onboardingTooltip;
+
+        public InputSlot(Container inventory, int index, int x, int y, Component onboardingTooltip) {
             super(inventory, index, x, y);
+            this.onboardingTooltip = onboardingTooltip;
         }
 
         @Override
         public boolean mayPlace(ItemStack itemStack) {
             return this.container.canPlaceItem(this.getSlotIndex(), itemStack);
+        }
+
+        public Component getOnboardingTooltip() {
+            return this.onboardingTooltip;
         }
     }
 }

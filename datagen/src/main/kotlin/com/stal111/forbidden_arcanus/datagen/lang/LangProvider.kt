@@ -33,6 +33,9 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("hephaestus_forge")), "Hephaestus Forge")
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("clibano")), "Clibano")
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("wand_desk")), "Wand Desk")
+        add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("wand_desk.slot.pommel")), "Change the pommel material")
+        add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("wand_desk.slot.transition")), "Change the transition material")
+        add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("wand_desk.slot.base")), "Change the base material")
 
         addEntityType(ModEntities.LOST_SOUL, "Lost Soul")
         addEntityType(ModEntities.CORRUPT_LOST_SOUL, "Corrupt Lost Soul")
