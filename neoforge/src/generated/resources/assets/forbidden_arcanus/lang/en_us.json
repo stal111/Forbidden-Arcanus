@@ -127,6 +127,7 @@
   "container.forbidden_arcanus.clibano": "Clibano",
   "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
   "container.forbidden_arcanus.wand_desk": "Wand Desk",
+  "container.forbidden_arcanus.wand_desk.create": "Create Wand",
   "container.forbidden_arcanus.wand_desk.slot.base": "Change the base material",
   "container.forbidden_arcanus.wand_desk.slot.pommel": "Change the pommel material",
   "container.forbidden_arcanus.wand_desk.slot.transition": "Change the transition material",

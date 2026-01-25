@@ -6,10 +6,10 @@ import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import com.stal111.forbidden_arcanus.common.network.serverbound.CraftWandPayload;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,6 +19,7 @@ public class WandDeskScreen extends AbstractContainerScreen<WandDeskMenu> {
 
     public static final Identifier BACKGROUND = ForbiddenArcanus.identifier("textures/gui/container/wand_desk_edit.png");
     private static final WidgetSprites CREATE_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("container/wand_desk/create_button"), ForbiddenArcanus.identifier("container/wand_desk/create_button_disabled"), ForbiddenArcanus.identifier("container/wand_desk/create_button_highlighted"));
+    private static final Component CREATE_COMPONENT = Component.translatable("container.forbidden_arcanus.wand_desk.create");
 
     private WandDeskMenu menu;
     private ImageButton createButton;
@@ -37,7 +38,8 @@ public class WandDeskScreen extends AbstractContainerScreen<WandDeskMenu> {
             ClientPacketDistributor.sendToServer(CraftWandPayload.INSTANCE);
 
             this.createAnimation.start();
-        }, CommonComponents.GUI_YES);
+        }, CREATE_COMPONENT);
+        this.createButton.setTooltip(Tooltip.create(CREATE_COMPONENT));
 
         this.createButton.active = this.menu.canCraftWand();
 
