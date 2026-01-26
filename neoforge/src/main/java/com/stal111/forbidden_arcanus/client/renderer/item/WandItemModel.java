@@ -24,10 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public record WandItemModel(List<BakedQuad> base,
-                            ModelRenderProperties properties,
-                            BakingContext bakingContext,
-                            Identifier texture) implements ItemModel {
+public record WandItemModel(Identifier base, BakingContext bakingContext) implements ItemModel {
 
     private static final ModelDebugName DEBUG_NAME = () -> "WandModel";
 
@@ -35,26 +32,31 @@ public record WandItemModel(List<BakedQuad> base,
 
     @Override
     public void update(ItemStackRenderState output, ItemStack stack, ItemModelResolver resolver, ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
-        ItemModel base = new BlockModelWrapper(List.of(), this.base, this.properties, _ -> Sheets.translucentItemSheet());
-
         var pommelMaterial = stack.get(ModDataComponents.POMMEL_MATERIAL);
         var transitionMaterial = stack.get(ModDataComponents.TRANSITION_MATERIAL);
 
         var key = new CacheKey(
-                base,
+                this.base,
                 pommelMaterial != null ? pommelMaterial.value() : null,
                 transitionMaterial != null ? transitionMaterial.value() : null
         );
 
         ItemModel model = CACHE.computeIfAbsent(key, cacheKey -> {
             var models = new ArrayList<ItemModel>();
-            models.add(cacheKey.base());
+
+            ModelBaker baker = this.bakingContext.blockModelBaker();
+            ResolvedModel resolvedModel = baker.getModel(this.base);
+            TextureSlots textureSlots = resolvedModel.getTopTextureSlots();
+            List<BakedQuad> quads = resolvedModel.bakeTopGeometry(textureSlots, baker, BlockModelRotation.IDENTITY).getAll();
+            ModelRenderProperties properties = ModelRenderProperties.fromResolvedModel(baker, resolvedModel, textureSlots);
+
+            models.add(new BlockModelWrapper(List.of(), quads, properties, _ -> Sheets.translucentItemSheet()));
 
             if (cacheKey.pommel() != null) {
-                models.add(this.createModel(cacheKey.pommel().texture()));
+                models.add(this.createModel(cacheKey.pommel().texture(), properties));
             }
             if (cacheKey.transition() != null) {
-                models.add(this.createModel(cacheKey.transition().texture()));
+                models.add(this.createModel(cacheKey.transition().texture(), properties));
             }
             return new CompositeModel(models);
         });
@@ -62,14 +64,14 @@ public record WandItemModel(List<BakedQuad> base,
         model.update(output, stack, resolver, displayContext, level, owner, seed);
     }
 
-    private ItemModel createModel(Identifier texture) {
+    private ItemModel createModel(Identifier texture, ModelRenderProperties properties) {
         Material material = ClientHooks.getItemMaterial(texture);
         TextureAtlasSprite sprite = this.bakingContext.blockModelBaker().sprites().get(material, DEBUG_NAME);
 
         var unbaked = UnbakedElementsHelper.createUnbakedItemElements(0, sprite);
         var quads = UnbakedElementsHelper.bakeElements(unbaked, _ -> sprite, BlockModelRotation.IDENTITY);
 
-        return new BlockModelWrapper(List.of(), quads, this.properties, _ -> Sheets.translucentItemSheet());
+        return new BlockModelWrapper(List.of(), quads, properties, _ -> Sheets.translucentItemSheet());
     }
 
     public record Unbaked(Identifier base) implements ItemModel.Unbaked {
@@ -85,13 +87,7 @@ public record WandItemModel(List<BakedQuad> base,
 
         @Override
         public ItemModel bake(BakingContext context) {
-            ModelBaker baker = context.blockModelBaker();
-            ResolvedModel resolvedModel = baker.getModel(this.base);
-            TextureSlots textureSlots = resolvedModel.getTopTextureSlots();
-            List<BakedQuad> quads = resolvedModel.bakeTopGeometry(textureSlots, baker, BlockModelRotation.IDENTITY).getAll();
-            ModelRenderProperties properties = ModelRenderProperties.fromResolvedModel(baker, resolvedModel, textureSlots);
-
-            return new WandItemModel(quads, properties, context, null);
+            return new WandItemModel(this.base, context);
         }
 
         @Override
@@ -100,5 +96,5 @@ public record WandItemModel(List<BakedQuad> base,
         }
     }
 
-    private record CacheKey(ItemModel base, WandMaterial pommel, WandMaterial transition) {}
+    private record CacheKey(Identifier base, WandMaterial pommel, WandMaterial transition) {}
 }
