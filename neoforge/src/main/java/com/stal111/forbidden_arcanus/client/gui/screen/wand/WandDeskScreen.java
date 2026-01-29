@@ -1,72 +1,36 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.wand;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.gui.screen.animation.ScreenAnimation;
+import com.stal111.forbidden_arcanus.client.gui.components.tab.ContainerTabButton;
+import com.stal111.forbidden_arcanus.client.gui.screen.TabbedContainerScreen;
 import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
-import com.stal111.forbidden_arcanus.common.network.serverbound.CraftWandPayload;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
-public class WandDeskScreen extends AbstractContainerScreen<WandDeskMenu> {
+public class WandDeskScreen extends TabbedContainerScreen<WandDeskMenu> {
 
-    public static final Identifier BACKGROUND = ForbiddenArcanus.identifier("textures/gui/container/wand_desk_edit.png");
     public static final Identifier SPRITE_SLOT_HIGHLIGHT = ForbiddenArcanus.identifier("container/slot/slot_highlight");
-    private static final WidgetSprites CREATE_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("container/wand_desk/create_button"), ForbiddenArcanus.identifier("container/wand_desk/create_button_disabled"), ForbiddenArcanus.identifier("container/wand_desk/create_button_highlighted"));
-    private static final Component CREATE_COMPONENT = Component.translatable("container.forbidden_arcanus.wand_desk.create");
-
-    private final WandDeskMenu menu;
-    private ImageButton createButton;
-    private ScreenAnimation createAnimation;
 
     public WandDeskScreen(WandDeskMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, 176, 231);
-        this.menu = menu;
+        this.addTabFactory(WandDeskMenu.EDIT_WAND, ContainerTabButton.Type.PURPLE, ForbiddenArcanus.identifier("icon/magic_wand"), () -> new EditWandTab(this.getMenu()));
+        this.addTabFactory(WandDeskMenu.EDIT_SPELLS, ContainerTabButton.Type.PURPLE, ForbiddenArcanus.identifier("icon/spell_seal"), EditSpellsTab::new);
     }
 
     @Override
-    protected void init() {
-        super.init();
-
-        this.createButton = new ImageButton(this.getGuiLeft() + 146, this.getGuiTop() + 106, 20, 20, CREATE_SPRITES, button -> {
-            ClientPacketDistributor.sendToServer(CraftWandPayload.INSTANCE);
-
-            this.createAnimation.start();
-        }, CREATE_COMPONENT);
-        this.createButton.setTooltip(Tooltip.create(CREATE_COMPONENT));
-
-        this.createButton.active = this.menu.canCraftWand();
-
-        this.createAnimation = new ScreenAnimation(this.getGuiLeft() + 24, this.getGuiTop() + 12, 128, 128, ForbiddenArcanus.identifier("container/wand_desk/animation/wand_creation"), 11, 1.7F);
-
-        this.addRenderableWidget(this.createButton);
+    public ScreenPosition getTabButtonPosition() {
+        return new ScreenPosition(this.getGuiLeft() + 175, this.getGuiTop() + 20);
     }
 
     @Override
-    protected void containerTick() {
-        this.createButton.active = this.menu.canCraftWand();
-        this.createAnimation.tick();
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float a) {
-        super.render(graphics, mouseX, mouseY, a);
-
-        this.createAnimation.render(graphics, mouseX, mouseY, a);
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics guiGraphics, float a, int xm, int ym) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize(), 256, 256);
+    protected void handleSlotStateChanged(int slotId, int containerId, boolean newState) {
+        super.handleSlotStateChanged(slotId, containerId, newState);
     }
 
     @Override
@@ -80,7 +44,7 @@ public class WandDeskScreen extends AbstractContainerScreen<WandDeskMenu> {
 
     @Override
     protected void renderSlot(GuiGraphics graphics, Slot slot, int mouseX, int mouseY) {
-        if (slot.getItem().has(ModDataComponents.PROVIDES_WAND_MATERIAL))  {
+        if (slot.getItem().has(ModDataComponents.PROVIDES_WAND_MATERIAL)) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SPRITE_SLOT_HIGHLIGHT, slot.x, slot.y, 16, 16);
         }
 

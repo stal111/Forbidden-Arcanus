@@ -1,6 +1,8 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.research.tab;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.gui.components.tab.AbstractTab;
+import com.stal111.forbidden_arcanus.client.gui.components.tab.ScreenAccess;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.KnowledgeWidget;
 import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -10,7 +12,6 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,8 @@ public class ResearchTab extends AbstractTab {
     private int maxX = Integer.MIN_VALUE;
     private int maxY = Integer.MIN_VALUE;
 
-    public ResearchTab(int width, int height) {
-        super(width, height);
-    }
-
     @Override
-    public void init() {
+    public void init(ScreenAccess screen) {
         for (Knowledge entry : Minecraft.getInstance().level.registryAccess().lookupOrThrow(FARegistries.KNOWLEDGE)) {
             this.knowledgeWidgets.add(new KnowledgeWidget(entry.displayInfo(), 0, 0));
         }
@@ -55,7 +52,7 @@ public class ResearchTab extends AbstractTab {
     }
 
     @Override
-    public void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void renderBg(ScreenAccess screen, GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int i = Mth.floor(this.scrollX);
         int j = Mth.floor(this.scrollY);
 
@@ -63,12 +60,12 @@ public class ResearchTab extends AbstractTab {
 //        RenderSystem.enableBlend();
 //        RenderSystem.defaultBlendFunc();
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, 0, 0, -i * 0.9F, -j * 0.9F, this.getWidth(), this.getHeight(), 512, 512);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, 0, 0, -i * 0.9F, -j * 0.9F, screen.getWidth(), screen.getHeight(), 512, 512);
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_STELLAR_DUST_0, (int) (i * 1.15F), (int) (j * 1.15F), 0, 0, 512, 512, 512, 512);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_STELLAR_DUST_1, (int) (this.getWidth() / 2 + i * 1.15F), (int) (this.getHeight() / 2 + j * 1.15F), 0, 0, 512, 512, 512, 512);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_STELLAR_DUST_1, (int) (screen.getWidth() / 2 + i * 1.15F), (int) (screen.getHeight() / 2 + j * 1.15F), 0, 0, 512, 512, 512, 512);
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_STARS, 0, 0, -i * 1.35F, -j * 1.35F, this.getWidth(), this.getHeight(), 512, 512);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_STARS, 0, 0, -i * 1.35F, -j * 1.35F, screen.getWidth(), screen.getHeight(), 512, 512);
 
 //        RenderSystem.disableBlend();
 
@@ -89,6 +86,16 @@ public class ResearchTab extends AbstractTab {
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         this.scroll(scrollX * 16.0D, scrollY * 16.0D);
 
+        return false;
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+
+    }
+
+    @Override
+    public boolean isFocused() {
         return false;
     }
 
@@ -115,5 +122,10 @@ public class ResearchTab extends AbstractTab {
         }
 
         return false;
+    }
+
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float a) {
+
     }
 }

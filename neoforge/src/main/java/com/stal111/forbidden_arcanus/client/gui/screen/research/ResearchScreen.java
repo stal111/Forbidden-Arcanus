@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.research;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.AbstractTab;
+import com.stal111.forbidden_arcanus.client.gui.components.tab.AbstractTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTabButton;
 import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -67,12 +67,12 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
 
         this.selectedTabButton = this.tabButtons.getFirst();
 
-        this.setTab(this.selectedTabButton.getCategory().createTab(this.width, this.height));
+        this.setTab(this.selectedTabButton.getCategory().createTab());
     }
 
     @Override
     protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        this.selectedTab.renderBg(guiGraphics, partialTick, mouseX, mouseY);
+//        this.selectedTab.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 
         //TODO
 //        RenderSystem.enableBlend();
@@ -113,7 +113,7 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
     public void setTab(AbstractTab tab) {
         this.selectedTab = tab;
 
-        this.selectedTab.init();
+//        this.selectedTab.init();
     }
 
     @Override
@@ -131,7 +131,7 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
                 this.selectedTabButton = tabButton;
                 this.selectedTabButton.select();
 
-                this.setTab(this.selectedTabButton.getCategory().createTab(this.width, this.height));
+                this.setTab(this.selectedTabButton.getCategory().createTab());
 
                 return true;
             }

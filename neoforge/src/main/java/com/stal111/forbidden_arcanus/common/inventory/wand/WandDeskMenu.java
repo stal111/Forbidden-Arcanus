@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.common.inventory.wand;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.UnmodifiableSlotResourceHandler;
+import com.stal111.forbidden_arcanus.common.inventory.tab.ContainerTab;
+import com.stal111.forbidden_arcanus.common.inventory.tab.TabbedContainerMenu;
 import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
 import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
 import com.stal111.forbidden_arcanus.common.item.wand.WandPart;
@@ -14,13 +16,15 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
-public class WandDeskMenu extends AbstractContainerMenu {
+public class WandDeskMenu extends TabbedContainerMenu {
+
+    public static final ContainerTab EDIT_WAND = new ContainerTab("edit_wand");
+    public static final ContainerTab EDIT_SPELLS = new ContainerTab("edit_spells");
 
     private final ContainerLevelAccess levelAccess;
     private final UnmodifiableSlotResourceHandler unmodifiableSlotResourceHandler;
@@ -31,7 +35,7 @@ public class WandDeskMenu extends AbstractContainerMenu {
     }
 
     public WandDeskMenu(int containerId, Inventory inventory, ContainerLevelAccess levelAccess, UnmodifiableSlotResourceHandler resultResourceHandler) {
-        super(ModMenuTypes.WAND_DESK.get(), containerId);
+        super(ModMenuTypes.WAND_DESK.get(), containerId, EDIT_WAND, EDIT_SPELLS);
         this.levelAccess = levelAccess;
         this.unmodifiableSlotResourceHandler = resultResourceHandler;
 
@@ -147,7 +151,7 @@ public class WandDeskMenu extends AbstractContainerMenu {
         this.inputsContainer.clearContent();
     }
 
-    public static class InputSlot extends Slot {
+    public class InputSlot extends Slot {
 
         private final Component onboardingTooltip;
 
@@ -163,6 +167,11 @@ public class WandDeskMenu extends AbstractContainerMenu {
 
         public Component getOnboardingTooltip() {
             return this.onboardingTooltip;
+        }
+
+        @Override
+        public boolean isActive() {
+            return WandDeskMenu.this.getActiveTab() == EDIT_WAND;
         }
     }
 }

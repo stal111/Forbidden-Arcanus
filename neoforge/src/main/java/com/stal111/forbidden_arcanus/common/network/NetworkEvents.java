@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.network;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
+import com.stal111.forbidden_arcanus.common.network.serverbound.ChangeTabPayload;
 import com.stal111.forbidden_arcanus.common.network.serverbound.CraftWandPayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -23,5 +24,6 @@ public class NetworkEvents {
         registrar.playToClient(AdvancedBlockEventPayload.TYPE, AdvancedBlockEventPayload.STREAM_CODEC, AdvancedBlockEventPayload::handle);
 
         registrar.playToServer(CraftWandPayload.TYPE, CraftWandPayload.STREAM_CODEC, CraftWandPayload::handle);
+        registrar.playToServer(ChangeTabPayload.TYPE, ChangeTabPayload.STREAM_CODEC, ChangeTabPayload::handle);
     }
 }

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.screen.research;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.AbstractTab;
+import com.stal111.forbidden_arcanus.client.gui.components.tab.AbstractTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.EmptyTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTabButton;
@@ -37,12 +37,12 @@ public enum ResearchCategory {
         return this.iconLocation;
     }
 
-    public AbstractTab createTab(int width, int height) {
-        return this.tabFactory.create(width, height);
+    public AbstractTab createTab() {
+        return this.tabFactory.create();
     }
 
     @FunctionalInterface
     public interface TabFactory {
-        AbstractTab create(int width, int height);
+        AbstractTab create();
     }
 }

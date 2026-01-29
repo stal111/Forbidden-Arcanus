@@ -14,8 +14,8 @@ import net.minecraft.resources.Identifier;
  */
 public class ResearchTabButton extends ImageButton {
 
-    public static final WidgetSprites PURPLE_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("research/purple_tab"), ForbiddenArcanus.identifier("research/purple_tab_selected"));
-    public static final WidgetSprites RED_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("research/red_tab"), ForbiddenArcanus.identifier("research/red_tab_selected"));
+    public static final WidgetSprites PURPLE_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("widget/purple_tab"), ForbiddenArcanus.identifier("widget/purple_tab_selected"));
+    public static final WidgetSprites RED_SPRITES = new WidgetSprites(ForbiddenArcanus.identifier("widget/red_tab"), ForbiddenArcanus.identifier("widget/red_tab_selected"));
 
     private final ResearchCategory category;
     private boolean selected = false;

@@ -1,15 +1,16 @@
-package com.stal111.forbidden_arcanus.client.gui.screen.research.tab;
+package com.stal111.forbidden_arcanus.client.gui.screen.wand;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.tab.AbstractTab;
 import com.stal111.forbidden_arcanus.client.gui.components.tab.ScreenAccess;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 
-/**
- * @author stal111
- * @since 18.11.2023
- */
-public class EmptyTab extends AbstractTab {
+public class EditSpellsTab extends AbstractTab {
+
+    public static final Identifier BACKGROUND = ForbiddenArcanus.identifier("textures/gui/container/wand_desk_spells.png");
 
     @Override
     public void init(ScreenAccess screen) {
@@ -18,7 +19,7 @@ public class EmptyTab extends AbstractTab {
 
     @Override
     public void renderBg(ScreenAccess screen, GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, screen.getGuiLeft(), screen.getGuiTop(), 0, 0, screen.getWidth(), screen.getHeight(), 256, 256);
     }
 
     @Override
