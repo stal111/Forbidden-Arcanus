@@ -26,6 +26,10 @@ public class ContainerTabButton extends ImageButton {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.icon, this.getX() + 4 + (this.selected ? 2 : 0), this.getY() + 5, 16, 16);
     }
 
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     public enum Type {
         PURPLE(new WidgetSprites(ForbiddenArcanus.identifier("widget/purple_tab"), ForbiddenArcanus.identifier("widget/purple_tab_selected"))),
         RED(new WidgetSprites(ForbiddenArcanus.identifier("widget/red_tab"), ForbiddenArcanus.identifier("widget/red_tab_selected")));

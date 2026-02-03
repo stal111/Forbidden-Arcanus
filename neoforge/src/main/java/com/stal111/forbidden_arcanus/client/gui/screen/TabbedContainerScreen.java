@@ -25,6 +25,7 @@ public abstract class TabbedContainerScreen<T extends TabbedContainerMenu> exten
 
     private final Map<ContainerTab, Supplier<AbstractTab>> tabs = new LinkedHashMap<>();
     private final Map<ContainerTab, TabButtonProperties> tabButtonProperties = new LinkedHashMap<>();
+    private final Map<ContainerTab, ContainerTabButton> tabButtons = new LinkedHashMap<>();
 
     private ContainerTab previousContainerTab = this.menu.getActiveTab();
     private AbstractTab activeTab;
@@ -81,6 +82,8 @@ public abstract class TabbedContainerScreen<T extends TabbedContainerMenu> exten
         this.activeTab = this.tabs.get(tab).get();
 
         this.rebuildWidgets();
+
+        this.tabButtons.get(tab).setSelected(true);
     }
 
     @Override
@@ -92,11 +95,14 @@ public abstract class TabbedContainerScreen<T extends TabbedContainerMenu> exten
         ScreenPosition tabButtonPosition = this.getTabButtonPosition();
 
         for (Map.Entry<ContainerTab, TabButtonProperties> entry : this.tabButtonProperties.entrySet()) {
-            this.addRenderableWidget(new ContainerTabButton(tabButtonPosition.x(), tabButtonPosition.y() + yOffset, 35, 27, entry.getValue().type(), entry.getValue().icon(), () -> {
+            ContainerTabButton button = new ContainerTabButton(tabButtonPosition.x(), tabButtonPosition.y() + yOffset, 35, 27, entry.getValue().type(), entry.getValue().icon(), () -> {
                 this.setTab(entry.getKey());
 
                 ClientPacketDistributor.sendToServer(new ChangeTabPayload(entry.getKey()));
-            }));
+            });
+
+            this.addRenderableWidget(button);
+            this.tabButtons.put(entry.getKey(), button);
 
             yOffset += 28;
         }
