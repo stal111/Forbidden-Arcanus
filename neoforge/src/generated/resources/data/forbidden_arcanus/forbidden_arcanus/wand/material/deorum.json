@@ -1,4 +1,5 @@
 {
+  "damage": 3.5,
   "part": "transition",
   "texture": "forbidden_arcanus:item/wand/transition/deorum"
 }

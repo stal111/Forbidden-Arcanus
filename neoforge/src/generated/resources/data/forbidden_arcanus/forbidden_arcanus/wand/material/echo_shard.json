@@ -1,4 +1,5 @@
 {
+  "damage": 3.0,
   "part": "pommel",
   "texture": "forbidden_arcanus:item/wand/pommel/echo_shard"
 }

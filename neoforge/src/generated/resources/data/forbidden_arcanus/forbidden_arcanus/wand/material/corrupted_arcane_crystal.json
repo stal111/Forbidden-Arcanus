@@ -1,4 +1,5 @@
 {
+  "damage": 1.0,
   "part": "pommel",
   "texture": "forbidden_arcanus:item/wand/pommel/corrupted_arcane_crystal"
 }

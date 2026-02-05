@@ -1,4 +1,5 @@
 {
+  "damage": 5.0,
   "part": "pommel",
   "texture": "forbidden_arcanus:item/wand/pommel/nether_star"
 }

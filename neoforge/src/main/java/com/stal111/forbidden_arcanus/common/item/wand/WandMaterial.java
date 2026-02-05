@@ -20,17 +20,20 @@ import java.util.function.Consumer;
 
 public record WandMaterial(
         WandPart wandPart,
-        Identifier texture
+        Identifier texture,
+        float damage
 ) implements TooltipProvider {
 
     public static final Codec<WandMaterial> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             WandPart.CODEC.fieldOf("part").forGetter(WandMaterial::wandPart),
-            Identifier.CODEC.fieldOf("texture").forGetter(WandMaterial::texture)
+            Identifier.CODEC.fieldOf("texture").forGetter(WandMaterial::texture),
+            Codec.FLOAT.optionalFieldOf("damage", 0.0F).forGetter(WandMaterial::damage)
     ).apply(instance, WandMaterial::new));
 
     public static final Codec<Holder<WandMaterial>> CODEC = RegistryFileCodec.create(FARegistries.WAND_MATERIAL, DIRECT_CODEC);
 
     private static final String INFO_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("wand_material.info"));
+    private static final String DAMAGE_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("wand_material.damage"));
 
     public static Codec<Holder<WandMaterial>> validatedCodec(WandPart part) {
         return CODEC.validate(material -> material.value().wandPart() == part ? DataResult.success(material) : DataResult.error(() -> "Material not applicable to wand part: " + part));
@@ -39,5 +42,7 @@ public record WandMaterial(
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter components) {
         consumer.accept(Component.translatable(INFO_KEY, this.wandPart().getSerializedName()).withStyle(ChatFormatting.BLUE));
+        consumer.accept(Component.empty());
+        consumer.accept(Component.translatable(DAMAGE_KEY, this.damage()).withStyle(ChatFormatting.GRAY));
     }
 }
