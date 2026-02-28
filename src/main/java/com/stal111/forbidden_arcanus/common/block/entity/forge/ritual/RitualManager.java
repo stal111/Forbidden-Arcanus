@@ -74,6 +74,8 @@ public class RitualManager implements SerializableComponent {
     private @Nullable Ritual activeRitual;
     private int counter;
     private int lightningCounter;
+    // Добавьте поле для временного хранения ID ритуала, если мир еще не готов
+    private ResourceLocation ritualToLoad;
 
     public RitualManager(MainIngredientAccessor accessor, EnhancerAccessor enhancerAccessor, int forgeTier) {
         this.mainIngredientAccessor = accessor;
@@ -84,7 +86,14 @@ public class RitualManager implements SerializableComponent {
     public void setup(ServerLevel level, BlockPos pos) {
         this.level = level;
         this.pos = pos;
+
+        // Если у нас был отложенный ритуал, загружаем его теперь, когда уровень доступен
+        if (this.ritualToLoad != null) {
+            this.setActiveRitual(level.registryAccess().registryOrThrow(FARegistries.RITUAL).get(this.ritualToLoad));
+            this.ritualToLoad = null; // Очищаем, чтобы не загружать повторно
+        }
     }
+
 
     public void setForgeTier(int forgeTier) {
         this.forgeTier = forgeTier;
@@ -342,8 +351,16 @@ public class RitualManager implements SerializableComponent {
 
     @Override
     public CompoundTag save(CompoundTag tag) {
-        if (this.isRitualActive()) {
-            tag.putString("ActiveRitual", this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).getResourceKey(this.activeRitual).orElseThrow().toString());
+        // Используем isRitualActive() и дополнительную проверку на null для безопасности
+        if (this.isRitualActive() && this.activeRitual != null) {
+            // Получаем реестр
+            var registry = this.level.registryAccess().registryOrThrow(FARegistries.RITUAL);
+
+            // Получаем ключ и записываем только его локацию (строку ID)
+            registry.getResourceKey(this.activeRitual).ifPresent(key -> {
+                tag.putString("ActiveRitual", key.location().toString());
+            });
+
             tag.putInt("Counter", this.counter);
 
             if (this.lightningCounter != 0) {
@@ -357,11 +374,23 @@ public class RitualManager implements SerializableComponent {
     @Override
     public void load(CompoundTag tag) {
         if (tag.contains("ActiveRitual")) {
-            this.setActiveRitual(this.level.registryAccess().registryOrThrow(FARegistries.RITUAL).get(new ResourceLocation(tag.getString("ActiveRitual"))));
-            this.counter = tag.getInt("Counter");
+            String ritualStr = tag.getString("ActiveRitual");
 
-            if (tag.contains("LightningCounter")) {
-                this.lightningCounter = tag.getInt("LightningCounter");
+            // ОЧИСТКА: Если в NBT попала строка "ResourceKey[...]", вырезаем из неё только ID
+            if (ritualStr.contains("[")) {
+                ritualStr = ritualStr.substring(ritualStr.lastIndexOf("/") + 1).replace("]", "").trim();
+            }
+
+            try {
+                // Сохраняем как ResourceLocation для последующей загрузки в setup()
+                this.ritualToLoad = new net.minecraft.resources.ResourceLocation(ritualStr);
+                this.counter = tag.getInt("Counter");
+
+                if (tag.contains("LightningCounter")) {
+                    this.lightningCounter = tag.getInt("LightningCounter");
+                }
+            } catch (Exception e) {
+                // Если ID всё равно битый, просто игнорируем, чтобы не крашнуть сервер
             }
         }
     }

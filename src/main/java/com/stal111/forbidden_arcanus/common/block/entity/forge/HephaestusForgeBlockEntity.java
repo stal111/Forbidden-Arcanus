@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ValidRitua
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.common.network.NetworkHandler;
+import com.stal111.forbidden_arcanus.common.network.S2CUpdateEssencePacket;
 import com.stal111.forbidden_arcanus.common.network.clientbound.UpdateItemInSlotPacket;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -20,11 +21,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,6 +35,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.network.PacketDistributor;
 import net.valhelsia.valhelsia_core.api.common.block.entity.MenuCreationContext;
 import net.valhelsia.valhelsia_core.api.common.block.entity.forge.ValhelsiaContainerBlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -46,9 +49,6 @@ import java.util.stream.Stream;
 /**
  * Hephaestus Forge Block Entity <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity
- *
- * @author stal111
- * @since 2021-06-18
  */
 public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<HephaestusForgeBlockEntity> implements EssencesContainer {
 
@@ -63,10 +63,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
-    private final ContainerData hephaestusForgeData;
     private final EssenceManager essenceManager;
     private final RitualManager ritualManager;
-
     private final ValueNotifier<HephaestusForgeLevel> forgeLevel;
 
     private MagicCircle magicCircle;
@@ -80,37 +78,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             }
             return true;
         });
-        this.hephaestusForgeData = new ContainerData() {
-            @Override
-            public int get(int index) {
-                EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
-
-                return switch (index) {
-                    case 0 -> manager.getAureal();
-                    case 1 -> manager.getSouls();
-                    case 2 -> manager.getBlood();
-                    case 3 -> manager.getExperience();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                EssenceManager manager = HephaestusForgeBlockEntity.this.getEssenceManager();
-
-                switch (index) {
-                    case 0 -> manager.setAureal(value);
-                    case 1 -> manager.setSouls(value);
-                    case 2 -> manager.setBlood(value);
-                    case 3 -> manager.setExperience(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
 
         HephaestusForgeLevel level = HephaestusForgeLevel.getFromIndex(state.getValue(HephaestusForgeBlock.TIER));
 
@@ -119,18 +86,36 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
                 .filter(Optional::isPresent)
                 .map(Optional::orElseThrow)
                 .toList(), level.getAsInt());
-        this.essenceManager = new EssenceManager(level.getMaxEssences(), this.ritualManager::updateValidRitual);
+
+        this.essenceManager = new EssenceManager(level.getMaxEssences(), essences -> {
+            this.ritualManager.updateValidRitual(essences);
+            this.syncEssences();
+        });
 
         this.forgeLevel = ValueNotifier.of(level, forgeTier -> {
             this.ritualManager.setForgeTier(forgeTier.getAsInt());
             this.essenceManager.setMaxEssences(forgeTier.getMaxEssences());
+            this.syncEssences();
+        });
+    }
+
+    public void syncEssences() {
+        if (this.level == null || this.level.isClientSide) {
+            return;
+        }
+
+        S2CUpdateEssencePacket packet = new S2CUpdateEssencePacket(this.essenceManager.getCurrentEssences());
+
+        this.level.players().forEach(player -> {
+            if (player instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu instanceof HephaestusForgeMenu) {
+                NetworkHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+            }
         });
     }
 
     @Override
     public void setLevel(@NotNull Level level) {
         super.setLevel(level);
-
         if (level instanceof ServerLevel serverLevel) {
             this.ritualManager.setup(serverLevel, this.getBlockPos());
         }
@@ -151,16 +136,12 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             int slot = SLOT_FROM_ESSENCE_TYPE_MAP.get(type);
             ItemStack stack = blockEntity.getStack(slot);
 
-            if (stack.isEmpty()) {
-                continue;
-            }
+            if (stack.isEmpty()) continue;
 
             blockEntity.getInput(level, stack, type).ifPresent(input -> {
                 blockEntity.fillWith(type, stack, input, slot);
-
                 blockEntity.setChanged();
             });
-
         }
 
         if (level.getGameTime() % 80 == 0) {
@@ -176,9 +157,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     @Override
     protected void onSlotChanged(int slot) {
-        if (this.level == null) {
-            return;
-        }
+        if (this.level == null) return;
 
         if (slot == MAIN_SLOT) {
             if (this.getStack(slot).isEmpty() && this.getRitualManager().isRitualActive()) {
@@ -186,7 +165,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
             } else {
                 this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences());
             }
-
             NetworkHandler.sendToTrackingChunk(this.level.getChunkAt(this.worldPosition), new UpdateItemInSlotPacket(this.worldPosition, this.getStack(slot), slot));
         } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
             this.getRitualManager().updateValidRitual(this.essenceManager.getCurrentEssences());
@@ -194,9 +172,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     private Optional<HephaestusForgeInput> getInput(Level level, ItemStack stack, EssenceType essenceType) {
-        if (this.essenceManager.isEssenceFull(essenceType)) {
-            return Optional.empty();
-        }
+        if (this.essenceManager.isEssenceFull(essenceType)) return Optional.empty();
 
         return level.registryAccess().registryOrThrow(FARegistries.FORGE_INPUT).holders()
                 .map(Holder::get)
@@ -206,10 +182,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     public void setForgeLevel(HephaestusForgeLevel level) {
         this.forgeLevel.set(level);
-    }
-
-    public ContainerData getHephaestusForgeData() {
-        return this.hephaestusForgeData;
     }
 
     public EssenceManager getEssenceManager() {
@@ -251,9 +223,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
 
     public void fillWith(EssenceType essenceType, ItemStack stack, HephaestusForgeInput input, int slot) {
         int value = input.getInputValue(essenceType, stack, Objects.requireNonNull(this.getLevel()).getRandom());
-
         this.getEssenceManager().increaseEssence(essenceType, value);
-
         input.finishInput(essenceType, stack, this, slot, value);
     }
 
@@ -268,9 +238,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
-
         this.saveInventory(tag);
-
         tag.put("Ritual", this.getRitualManager().save(new CompoundTag()));
         tag.put("Essences", this.getEssenceManager().save(new CompoundTag()));
     }
@@ -278,9 +246,7 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public void load(@NotNull CompoundTag tag) {
         super.load(tag);
-
         this.loadInventory(tag);
-
         this.getRitualManager().load(tag.getCompound("Ritual"));
         this.getEssenceManager().load(tag.getCompound("Essences"));
     }
@@ -300,7 +266,6 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public AABB getRenderBoundingBox() {
         AABB boundingBox = new AABB(this.getBlockPos()).expandTowards(0.0D, 1.0D, 0.0D);
-
         if (this.useExpandedRenderBoundingBox()) {
             boundingBox = boundingBox.inflate(2.5F, 0.0F, 2.5D);
         }
@@ -318,8 +283,8 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext creationContext) {
-        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), this.getHephaestusForgeData(), creationContext);
+    protected AbstractContainerMenu createMenu(int containerId, @NotNull MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
+        return new HephaestusForgeMenu(containerId, this.getItemStackHandler(), creationContext);
     }
 
     @Override
@@ -348,27 +313,31 @@ public class HephaestusForgeBlockEntity extends ValhelsiaContainerBlockEntity<He
     @Override
     public void onLoad() {
         super.onLoad();
-
         this.lazyItemHandler = LazyOptional.of(this::getItemStackHandler);
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-
         this.lazyItemHandler.invalidate();
     }
 
     private record MainSlotAccessor(HephaestusForgeBlockEntity blockEntity) implements RitualManager.MainIngredientAccessor {
+        @Override public ItemStack get() { return this.blockEntity.getStack(MAIN_SLOT); }
+        @Override public void set(ItemStack stack) { this.blockEntity.setStack(MAIN_SLOT, stack); }
+    }
 
-        @Override
-        public ItemStack get() {
-            return this.blockEntity.getStack(MAIN_SLOT);
-        }
+    @Override
+    public @NotNull Component getDisplayName() {
+        return Component.translatable("container.forbidden_arcanus.hephaestus_forge");
+    }
 
-        @Override
-        public void set(ItemStack stack) {
-            this.blockEntity.setStack(MAIN_SLOT, stack);
-        }
+    // Это ключевой метод для Forge 1.20.1 для передачи данных в Menu
+    public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buffer) {
+        EssencesDefinition essences = this.essenceManager.getCurrentEssences();
+        buffer.writeInt(essences.aureal());
+        buffer.writeInt(essences.souls());
+        buffer.writeInt(essences.blood());
+        buffer.writeInt(essences.experience());
     }
 }

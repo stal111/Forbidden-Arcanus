@@ -12,28 +12,20 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-/**
- * Hephaestus Forge Screen
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen
- *
- * @author stal111
- * @since 2021-06-28
- */
 public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusForgeMenu> {
 
     public static final ResourceLocation TEXTURES = new ResourceLocation(ForbiddenArcanus.MOD_ID, "textures/gui/container/hephaestus_forge.png");
 
     public static final List<EssenceBarDefinition> ESSENCE_BAR_DEFINITIONS = ImmutableList.of(
-            new EssenceBarDefinition(EssenceType.AUREAL, 0, 12, 177),
-            new EssenceBarDefinition(EssenceType.SOULS, 1, 24, 183),
-            new EssenceBarDefinition(EssenceType.BLOOD, 2, 148, 189),
-            new EssenceBarDefinition(EssenceType.EXPERIENCE, 3, 160, 195)
+            new EssenceBarDefinition(EssenceType.AUREAL, 12, 177),
+            new EssenceBarDefinition(EssenceType.SOULS, 24, 183),
+            new EssenceBarDefinition(EssenceType.BLOOD, 148, 189),
+            new EssenceBarDefinition(EssenceType.EXPERIENCE, 160, 195)
     );
 
     public HephaestusForgeScreen(HephaestusForgeMenu menu, Inventory inventory, Component title) {
@@ -117,19 +109,22 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
             return;
         }
 
-        ContainerData data = this.menu.getHephaestusForgeData();
         HephaestusForgeLevel level = this.menu.getLevel();
 
         for (EssenceBarDefinition definition : ESSENCE_BAR_DEFINITIONS) {
             if (x >= definition.x() - 2 && x <= definition.x() + 5) {
-                guiGraphics.renderTooltip(this.font, definition.buildComponent(data, level), screenX, screenY);
+                // Теперь передаем menu вместо data
+                guiGraphics.renderTooltip(this.font, definition.buildComponent(this.menu, level), screenX, screenY);
                 break;
             }
         }
     }
 
     private void renderBar(GuiGraphics guiGraphics, EssenceBarDefinition definition, int max) {
-        int ySize = Math.toIntExact(Math.round(32.0F * this.menu.getHephaestusForgeData().get(definition.dataKey()) / max));
+        // Используем menu.getEssence() для получения корректного int без лимита в 32767
+        int essenceAmount = this.menu.getEssence(definition.type());
+        int ySize = Math.toIntExact(Math.round(32.0F * essenceAmount / max));
+
         guiGraphics.blit(TEXTURES, this.getGuiLeft() + definition.x(), this.getGuiTop() + 22 + 32 - ySize, definition.textureX(), 3 + 32 - ySize, 4, ySize);
     }
 
@@ -139,14 +134,15 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         }
     }
 
-    private record EssenceBarDefinition(EssenceType type, int dataKey, int x, int textureX) {
+    private record EssenceBarDefinition(EssenceType type, int x, int textureX) {
 
         public int getMaxAmount(HephaestusForgeLevel level) {
             return level.getMaxAmount(this.type);
         }
 
-        public MutableComponent buildComponent(ContainerData data, HephaestusForgeLevel level) {
-            return this.type.getComponent().copy().append(": " + data.get(this.dataKey) + "/" + this.getMaxAmount(level));
+        public MutableComponent buildComponent(HephaestusForgeMenu menu, HephaestusForgeLevel level) {
+            // Берем значение из нового метода в меню
+            return this.type.getComponent().copy().append(": " + menu.getEssence(this.type) + "/" + this.getMaxAmount(level));
         }
     }
 }

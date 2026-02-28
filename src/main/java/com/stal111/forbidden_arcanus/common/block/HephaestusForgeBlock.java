@@ -130,23 +130,32 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         this.updateState(state, level, pos);
 
         if (state.getValue(ACTIVATED)) {
-            if (!(player instanceof ServerPlayer serverPlayer)) {
+            if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
+
             if (level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
+                ServerPlayer serverPlayer = (ServerPlayer) player;
                 ItemStack stack = player.getItemInHand(hand);
 
                 if (stack.getItem() instanceof RitualStarterItem ritualStarterItem) {
                     ritualStarterItem.tryStartRitual(blockEntity, level, stack, player);
+                    // В методе use класса HephaestusForgeBlock
                 } else {
-                    NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
+                    // ИСПРАВЛЕНИЕ: Не пишем BlockPos вручную!
+                    // Forge сам передает его в начале буфера при использовании этого метода.
+                    NetworkHooks.openScreen(serverPlayer, blockEntity, buffer -> {
+                        blockEntity.writeScreenOpeningData(serverPlayer, buffer);
+                    });
                 }
+
                 return InteractionResult.CONSUME;
             }
         }
 
         return super.use(state, level, pos, player, hand, hit);
     }
+
 
     public void updateState(BlockState state, Level level, BlockPos pos) {
         BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.BASE_HEPHAESTUS_PATTERN.find(level, pos.below());

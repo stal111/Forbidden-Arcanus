@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.essence.EssencesDefinition;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -36,23 +37,33 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
 
     public static final List<Integer> ENHANCERS_SLOTS = ImmutableList.of(0, 1, 2, 3);
 
-    private final ContainerData hephaestusForgeData;
     private final ContainerLevelAccess levelAccess;
+
+    // Поле для хранения эссенций, которое поддерживает полные значения int (до 2 млрд)
+    private EssencesDefinition clientEssences = new EssencesDefinition(0, 0, 0, 0);
 
     private final DataSlot hephaestusForgeLevel = DataSlot.standalone();
     private final int[] lockedSlots = new int[4];
 
+    // Конструктор для КЛИЕНТА (вызывается при открытии GUI)
     public HephaestusForgeMenu(int id, Inventory inventory, FriendlyByteBuf buffer) {
-        this(id, new ItemStackHandler(9), new SimpleContainerData(4), MenuCreationContext.of(inventory));
+        this(id, new ItemStackHandler(9), MenuCreationContext.of(inventory));
+
+        // Если в буфере есть данные (записанные сервером), читаем их СРАЗУ
+        if (buffer != null && buffer.readableBytes() >= 16) { // 4 инта по 4 байта = 16
+            this.clientEssences = new EssencesDefinition(
+                buffer.readInt(),
+                buffer.readInt(),
+                buffer.readInt(),
+                buffer.readInt()
+            );
+        }
     }
 
-    public HephaestusForgeMenu(int id, ItemStackHandler handler, ContainerData containerData, MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
+    public HephaestusForgeMenu(int id, ItemStackHandler handler, MenuCreationContext<HephaestusForgeBlockEntity, IItemHandler> creationContext) {
         super(ModMenuTypes.HEPHAESTUS_FORGE.get(), id);
         this.levelAccess = creationContext.levelAccess();
-        this.hephaestusForgeData = containerData;
 
-        checkContainerDataCount(this.hephaestusForgeData, 4);
-        this.addDataSlots(this.hephaestusForgeData);
         this.addDataSlot(this.hephaestusForgeLevel);
         this.addDataSlot(DataSlot.shared(this.lockedSlots, 0));
         this.addDataSlot(DataSlot.shared(this.lockedSlots, 1));
@@ -89,6 +100,21 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         for (int k = 0; k < 9; ++k) {
             this.addSlot(new SlotItemHandler(creationContext.inventory(), k, 8 + k * 18, 142));
         }
+    }
+
+    /**
+     * Метод для обновления эссенций из кастомного сетевого пакета S2C.
+     */
+    public void setClientEssences(EssencesDefinition essences) {
+        this.clientEssences = essences;
+    }
+
+    /**
+     * Метод для получения значения эссенции.
+     * Используйте его в классе Screen (рендеринг GUI).
+     */
+    public int getEssence(EssenceType type) {
+        return this.clientEssences.get(type);
     }
 
     private void addEnhancerSlot(ItemStackHandler handler, int index, int x, int y, HephaestusForgeLevel requiredLevel, HephaestusForgeLevel currentLevel) {
@@ -167,10 +193,6 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(@Nonnull Player player) {
         return stillValid(this.levelAccess, player, ModBlocks.HEPHAESTUS_FORGE.get());
-    }
-
-    public ContainerData getHephaestusForgeData() {
-        return this.hephaestusForgeData;
     }
 
     private HephaestusForgeLevel updateLevel() {
