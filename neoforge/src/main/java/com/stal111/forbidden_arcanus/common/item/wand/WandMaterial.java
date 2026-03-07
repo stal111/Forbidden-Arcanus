@@ -22,13 +22,17 @@ import java.util.function.Consumer;
 public record WandMaterial(
         WandPart wandPart,
         Identifier texture,
-        float damage
+        float damage,
+        float projectileSpeed,
+        float accuracy
 ) implements TooltipProvider, TooltipComponent {
 
     public static final Codec<WandMaterial> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             WandPart.CODEC.fieldOf("part").forGetter(WandMaterial::wandPart),
             Identifier.CODEC.fieldOf("texture").forGetter(WandMaterial::texture),
-            Codec.FLOAT.optionalFieldOf("damage", 0.0F).forGetter(WandMaterial::damage)
+            Codec.FLOAT.optionalFieldOf("damage", 0.0F).forGetter(WandMaterial::damage),
+            Codec.FLOAT.optionalFieldOf("projectile_speed", 0.0F).forGetter(WandMaterial::projectileSpeed),
+            Codec.FLOAT.optionalFieldOf("accuracy", 0.0F).forGetter(WandMaterial::accuracy)
     ).apply(instance, WandMaterial::new));
 
     public static final Codec<Holder<WandMaterial>> CODEC = RegistryFileCodec.create(FARegistries.WAND_MATERIAL, DIRECT_CODEC);

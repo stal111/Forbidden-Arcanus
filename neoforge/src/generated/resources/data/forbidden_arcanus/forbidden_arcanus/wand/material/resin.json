@@ -1,4 +1,6 @@
 {
+  "accuracy": -0.1,
   "part": "pommel",
+  "projectile_speed": 0.4,
   "texture": "forbidden_arcanus:item/wand/pommel/resin"
 }

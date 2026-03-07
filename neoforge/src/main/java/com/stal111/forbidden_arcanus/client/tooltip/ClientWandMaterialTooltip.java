@@ -27,8 +27,8 @@ public class ClientWandMaterialTooltip implements ClientTooltipComponent {
 
     public ClientWandMaterialTooltip(WandMaterial material) {
         this.damage = Component.translatable(DAMAGE_KEY, material.damage()).withStyle(ChatFormatting.GRAY);
-        this.projectileSpeed = Component.translatable(PROJECTILE_SPEED_KEY, material.damage()).withStyle(ChatFormatting.GRAY);
-        this.accuracy = Component.translatable(ACCURACY_KEY, material.damage()).withStyle(ChatFormatting.GRAY);
+        this.projectileSpeed = Component.translatable(PROJECTILE_SPEED_KEY, material.projectileSpeed()).withStyle(ChatFormatting.GRAY);
+        this.accuracy = Component.translatable(ACCURACY_KEY, material.accuracy()).withStyle(ChatFormatting.GRAY);
     }
 
     @Override

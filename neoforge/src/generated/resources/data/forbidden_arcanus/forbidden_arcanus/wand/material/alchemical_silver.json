@@ -1,5 +1,7 @@
 {
+  "accuracy": 0.1,
   "damage": 3.5,
   "part": "transition",
+  "projectile_speed": 0.1,
   "texture": "forbidden_arcanus:item/wand/transition/alchemical_silver"
 }
