@@ -11,6 +11,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClientWandMaterialTooltip implements ClientTooltipComponent {
 
     private static final String DAMAGE_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("wand_material.damage"));
@@ -21,33 +24,40 @@ public class ClientWandMaterialTooltip implements ClientTooltipComponent {
     private static final Identifier PROJECTILE_SPEED_SPRITE = ForbiddenArcanus.identifier("icon/wand_stat/projectile_speed");
     private static final Identifier ACCURACY_SPRITE = ForbiddenArcanus.identifier("icon/wand_stat/accuracy");
 
-    private final Component damage;
-    private final Component projectileSpeed;
-    private final Component accuracy;
+    private final List<StatEntry> stats = new ArrayList<>();
 
     public ClientWandMaterialTooltip(WandMaterial material) {
-        this.damage = Component.translatable(DAMAGE_KEY, material.damage()).withStyle(ChatFormatting.GRAY);
-        this.projectileSpeed = Component.translatable(PROJECTILE_SPEED_KEY, material.projectileSpeed()).withStyle(ChatFormatting.GRAY);
-        this.accuracy = Component.translatable(ACCURACY_KEY, material.accuracy()).withStyle(ChatFormatting.GRAY);
+        this.addStat(DAMAGE_SPRITE, DAMAGE_KEY, material.damage());
+        this.addStat(PROJECTILE_SPEED_SPRITE, PROJECTILE_SPEED_KEY, material.projectileSpeed());
+        this.addStat(ACCURACY_SPRITE, ACCURACY_KEY, material.accuracy());
     }
 
     @Override
     public int getHeight(Font font) {
-        return 10 * 3;
+        return this.stats.size() * 10;
     }
 
     @Override
     public int getWidth(Font font) {
-        return Math.max(font.width(this.damage), Math.max(font.width(this.projectileSpeed), font.width(this.accuracy)));
+        return this.stats.stream().mapToInt(stat -> font.width(stat.text())).max().orElse(0);
+    }
+
+    private void addStat(Identifier sprite, String key, float value) {
+        if (value != 0) {
+            this.stats.add(new StatEntry(sprite, Component.translatable(key, value).withStyle(ChatFormatting.GRAY)));
+        }
     }
 
     @Override
     public void renderImage(Font font, int x, int y, int w, int h, GuiGraphics graphics) {
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, DAMAGE_SPRITE, x, y, 10, 10);
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, PROJECTILE_SPEED_SPRITE, x, y + 10, 10, 10);
-        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ACCURACY_SPRITE, x, y + 20, 10, 10);
-        graphics.drawString(font, this.damage, x + 13, y + 1, -1);
-        graphics.drawString(font, this.projectileSpeed, x + 13, y + 10 + 1, -1);
-        graphics.drawString(font, this.accuracy, x + 13, y + 20 + 1, -1);
+        for (StatEntry stat : this.stats) {
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, stat.sprite(), x, y, 10, 10);
+            graphics.drawString(font, stat.text(), x + 13, y + 1, -1);
+            y += 10;
+        }
+    }
+
+    public record StatEntry(Identifier sprite, Component text) {
+
     }
 }
