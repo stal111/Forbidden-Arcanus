@@ -20,7 +20,9 @@ import com.stal111.forbidden_arcanus.client.renderer.special.EctoBlasterSpecialR
 import com.stal111.forbidden_arcanus.client.renderer.special.EssenceUtremJarSpecialRenderer;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.client.tooltip.ClientCapacityBucketTooltip;
+import com.stal111.forbidden_arcanus.client.tooltip.ClientWandMaterialTooltip;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
+import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
@@ -169,6 +171,7 @@ public class ClientSetup {
     @SubscribeEvent
     public void onRegisterTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(CapacityBucketTooltip.class, ClientCapacityBucketTooltip::new);
+        event.register(WandMaterial.class, ClientWandMaterialTooltip::new);
     }
 
     @SubscribeEvent

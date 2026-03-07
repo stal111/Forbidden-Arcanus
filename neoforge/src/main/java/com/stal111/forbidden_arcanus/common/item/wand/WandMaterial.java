@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.Util;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
@@ -22,7 +23,7 @@ public record WandMaterial(
         WandPart wandPart,
         Identifier texture,
         float damage
-) implements TooltipProvider {
+) implements TooltipProvider, TooltipComponent {
 
     public static final Codec<WandMaterial> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             WandPart.CODEC.fieldOf("part").forGetter(WandMaterial::wandPart),
@@ -33,8 +34,6 @@ public record WandMaterial(
     public static final Codec<Holder<WandMaterial>> CODEC = RegistryFileCodec.create(FARegistries.WAND_MATERIAL, DIRECT_CODEC);
 
     private static final String INFO_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("wand_material.info"));
-    private static final String DAMAGE_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("wand_material.damage"));
-
     public static Codec<Holder<WandMaterial>> validatedCodec(WandPart part) {
         return CODEC.validate(material -> material.value().wandPart() == part ? DataResult.success(material) : DataResult.error(() -> "Material not applicable to wand part: " + part));
     }
@@ -43,6 +42,5 @@ public record WandMaterial(
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter components) {
         consumer.accept(Component.translatable(INFO_KEY, this.wandPart().getSerializedName()).withStyle(ChatFormatting.BLUE));
         consumer.accept(Component.empty());
-        consumer.accept(Component.translatable(DAMAGE_KEY, this.damage()).withStyle(ChatFormatting.GRAY));
     }
 }

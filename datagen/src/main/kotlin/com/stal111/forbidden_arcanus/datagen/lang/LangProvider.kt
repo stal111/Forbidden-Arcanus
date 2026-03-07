@@ -321,7 +321,9 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         add("item", "stored_entity", "Entity: %s")
         add("item", "stored_entity.with_name", "Entity: %s (%s)")
         add("item", "wand_material.info", "Can be used as %s material")
-        add("item", "wand_material.damage", "Damage: %s")
+        add("item", "wand_material.damage", "+%s Damage")
+        add("item", "wand_material.projectile_speed", "+%s Projectile Speed")
+        add("item", "wand_material.accuracy", "+%s Accuracy")
 
         add("upgrade", "darkstone_upgrade", "Apply Item Modifier")
 
