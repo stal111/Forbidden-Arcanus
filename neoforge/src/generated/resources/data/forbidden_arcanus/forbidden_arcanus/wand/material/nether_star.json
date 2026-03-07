@@ -1,7 +1,9 @@
 {
-  "accuracy": -0.3,
-  "damage": 5.0,
   "part": "pommel",
-  "projectile_speed": -0.2,
+  "stats": {
+    "accuracy": -0.3,
+    "damage": 5.0,
+    "projectile_speed": -0.2
+  },
   "texture": "forbidden_arcanus:item/wand/pommel/nether_star"
 }

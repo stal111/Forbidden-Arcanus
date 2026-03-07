@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.tooltip;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
+import com.stal111.forbidden_arcanus.common.item.wand.WandStats;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,7 +14,7 @@ import net.minecraft.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientWandMaterialTooltip implements ClientTooltipComponent {
+public class ClientWandStatsTooltip implements ClientTooltipComponent {
 
     private static final String DAMAGE_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("wand_material.damage"));
     private static final String PROJECTILE_SPEED_KEY = Util.makeDescriptionId("item", ForbiddenArcanus.identifier("wand_material.projectile_speed"));
@@ -26,10 +26,10 @@ public class ClientWandMaterialTooltip implements ClientTooltipComponent {
 
     private final List<StatEntry> stats = new ArrayList<>();
 
-    public ClientWandMaterialTooltip(WandMaterial material) {
-        this.addStat(DAMAGE_SPRITE, DAMAGE_KEY, material.damage());
-        this.addStat(PROJECTILE_SPEED_SPRITE, PROJECTILE_SPEED_KEY, material.projectileSpeed());
-        this.addStat(ACCURACY_SPRITE, ACCURACY_KEY, material.accuracy());
+    public ClientWandStatsTooltip(WandStats stats) {
+        this.addStat(DAMAGE_SPRITE, DAMAGE_KEY, stats.damage());
+        this.addStat(PROJECTILE_SPEED_SPRITE, PROJECTILE_SPEED_KEY, stats.projectileSpeed());
+        this.addStat(ACCURACY_SPRITE, ACCURACY_KEY, stats.accuracy());
     }
 
     @Override

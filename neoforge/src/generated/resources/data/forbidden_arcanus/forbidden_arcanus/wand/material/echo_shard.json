@@ -1,7 +1,9 @@
 {
-  "accuracy": 0.4,
-  "damage": 3.0,
   "part": "pommel",
-  "projectile_speed": 0.6,
+  "stats": {
+    "accuracy": 0.4,
+    "damage": 3.0,
+    "projectile_speed": 0.6
+  },
   "texture": "forbidden_arcanus:item/wand/pommel/echo_shard"
 }

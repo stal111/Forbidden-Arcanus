@@ -45,7 +45,7 @@ public class TooltipEvents {
         if (stack.getItem() instanceof CapacityBucket capacityBucket && capacityBucket.getCapacity(stack) != 0) {
             elements.add(1, Either.right(new CapacityBucketTooltip(stack, capacityBucket.getFullness(stack), capacityBucket.getCapacity(stack))));
         } else if (Minecraft.getInstance().player != null && materialHolder != null && Minecraft.getInstance().player.containerMenu instanceof WandDeskMenu) {
-            elements.add(Either.right(materialHolder.value()));
+            elements.add(Either.right(materialHolder.value().stats()));
         }
     }
 }

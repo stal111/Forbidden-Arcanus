@@ -1,6 +1,8 @@
 {
-  "accuracy": 0.3,
-  "damage": 6.5,
   "part": "transition",
+  "stats": {
+    "accuracy": 0.3,
+    "damage": 6.5
+  },
   "texture": "forbidden_arcanus:item/wand/transition/stellarite"
 }

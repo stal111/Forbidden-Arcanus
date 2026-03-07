@@ -1,6 +1,8 @@
 {
-  "accuracy": 0.2,
   "part": "pommel",
-  "projectile_speed": 0.2,
+  "stats": {
+    "accuracy": 0.2,
+    "projectile_speed": 0.2
+  },
   "texture": "forbidden_arcanus:item/wand/pommel/quartz"
 }

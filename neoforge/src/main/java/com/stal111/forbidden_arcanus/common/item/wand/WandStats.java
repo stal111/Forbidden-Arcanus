@@ -3,16 +3,17 @@ package com.stal111.forbidden_arcanus.common.item.wand;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 
 public record WandStats(
-        int damageBonus,
-        int speedBonus,
-        int aimBonus
-) {
+        float damage,
+        float projectileSpeed,
+        float accuracy
+) implements TooltipComponent {
 
     public static final MapCodec<WandStats> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.INT.fieldOf("damage_bonus").forGetter(WandStats::damageBonus),
-            Codec.INT.fieldOf("speed_bonus").forGetter(WandStats::speedBonus),
-            Codec.INT.fieldOf("aim_bonus").forGetter(WandStats::aimBonus)
+            Codec.FLOAT.optionalFieldOf("damage", 0.0F).forGetter(WandStats::damage),
+            Codec.FLOAT.optionalFieldOf("projectile_speed", 0.0F).forGetter(WandStats::projectileSpeed),
+            Codec.FLOAT.optionalFieldOf("accuracy", 0.0F).forGetter(WandStats::accuracy)
     ).apply(instance, WandStats::new));
 }

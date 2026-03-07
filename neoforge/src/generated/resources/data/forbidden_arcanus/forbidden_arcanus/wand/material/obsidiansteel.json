@@ -1,7 +1,9 @@
 {
-  "accuracy": 0.4,
-  "damage": 4.0,
   "part": "transition",
-  "projectile_speed": 0.3,
+  "stats": {
+    "accuracy": 0.4,
+    "damage": 4.0,
+    "projectile_speed": 0.3
+  },
   "texture": "forbidden_arcanus:item/wand/transition/obsidiansteel"
 }

@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.item.wand.BuiltinWandMaterials
 import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial
 import com.stal111.forbidden_arcanus.common.item.wand.WandPart
+import com.stal111.forbidden_arcanus.common.item.wand.WandStats
 import net.minecraft.data.worldgen.BootstrapContext
 import net.valhelsia.dataforge.RegistryDataProvider
 
@@ -105,9 +106,7 @@ object WandMaterialProvider : RegistryDataProvider<WandMaterial> {
     ) = WandMaterial(
         WandPart.POMMEL,
         ForbiddenArcanus.identifier("item/wand/pommel/$texture"),
-        damage,
-        projectileSpeed,
-        accuracy
+        WandStats(damage, projectileSpeed, accuracy)
     )
 
     private fun createTransition(
@@ -118,8 +117,6 @@ object WandMaterialProvider : RegistryDataProvider<WandMaterial> {
     ) = WandMaterial(
         WandPart.TRANSITION,
         ForbiddenArcanus.identifier("item/wand/transition/$texture"),
-        damage,
-        projectileSpeed,
-        accuracy
+        WandStats(damage, projectileSpeed, accuracy)
     )
 }

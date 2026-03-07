@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.Util;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
@@ -22,17 +21,13 @@ import java.util.function.Consumer;
 public record WandMaterial(
         WandPart wandPart,
         Identifier texture,
-        float damage,
-        float projectileSpeed,
-        float accuracy
-) implements TooltipProvider, TooltipComponent {
+        WandStats stats
+) implements TooltipProvider {
 
     public static final Codec<WandMaterial> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             WandPart.CODEC.fieldOf("part").forGetter(WandMaterial::wandPart),
             Identifier.CODEC.fieldOf("texture").forGetter(WandMaterial::texture),
-            Codec.FLOAT.optionalFieldOf("damage", 0.0F).forGetter(WandMaterial::damage),
-            Codec.FLOAT.optionalFieldOf("projectile_speed", 0.0F).forGetter(WandMaterial::projectileSpeed),
-            Codec.FLOAT.optionalFieldOf("accuracy", 0.0F).forGetter(WandMaterial::accuracy)
+            WandStats.CODEC.fieldOf("stats").forGetter(WandMaterial::stats)
     ).apply(instance, WandMaterial::new));
 
     public static final Codec<Holder<WandMaterial>> CODEC = RegistryFileCodec.create(FARegistries.WAND_MATERIAL, DIRECT_CODEC);

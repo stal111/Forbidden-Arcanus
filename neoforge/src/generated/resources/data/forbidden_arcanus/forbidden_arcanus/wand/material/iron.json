@@ -1,6 +1,8 @@
 {
-  "accuracy": 0.1,
-  "damage": 3.5,
   "part": "transition",
+  "stats": {
+    "accuracy": 0.1,
+    "damage": 3.5
+  },
   "texture": "forbidden_arcanus:item/wand/transition/iron"
 }

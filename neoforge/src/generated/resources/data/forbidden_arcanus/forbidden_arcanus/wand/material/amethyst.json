@@ -1,6 +1,8 @@
 {
-  "accuracy": 0.3,
   "part": "pommel",
-  "projectile_speed": 0.5,
+  "stats": {
+    "accuracy": 0.3,
+    "projectile_speed": 0.5
+  },
   "texture": "forbidden_arcanus:item/wand/pommel/amethyst"
 }
