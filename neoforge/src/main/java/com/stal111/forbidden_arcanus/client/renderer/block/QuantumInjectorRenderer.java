@@ -13,10 +13,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -27,14 +27,14 @@ import org.jetbrains.annotations.Nullable;
  */
 public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjectorBlockEntity, QuantumInjectorRenderState> {
 
-    public static final Material TEXTURE_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("quantum_injector"));
-    public static final Material LAYER_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("quantum_injector_layer"));
+    public static final SpriteId TEXTURE_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("quantum_injector"));
+    public static final SpriteId LAYER_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("quantum_injector_layer"));
 
-    private final MaterialSet materials;
+    private final SpriteGetter sprites;
     private final QuantumInjectorModel<?> model;
 
     public QuantumInjectorRenderer(BlockEntityRendererProvider.Context context) {
-        this.materials = context.materials();
+        this.sprites = context.sprites();
         this.model = new QuantumInjectorModel<>(context.bakeLayer(FAModelLayers.QUANTUM_INJECTOR));
     }
 
@@ -50,11 +50,12 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
         renderState.transformAnimation.copyFrom(blockEntity.transformAnimation);
         renderState.rotateAnimation.copyFrom(blockEntity.rotateAnimation);
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
+        renderState.enabled = blockEntity.getBlockState().getValue(BlockStateProperties.ENABLED);
     }
 
     @Override
     public void submit(QuantumInjectorRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
-        if (!renderState.blockState.getValue(BlockStateProperties.ENABLED)) {
+        if (!renderState.enabled) {
             return;
         }
 
@@ -66,8 +67,8 @@ public class QuantumInjectorRenderer implements BlockEntityRenderer<QuantumInjec
         QuantumInjectorModel.State state = new QuantumInjectorModel.State(renderState.transformAnimation, renderState.rotateAnimation, renderState.ageInTicks);
 
         this.model.setupAnim(state);
-        nodeCollector.submitModel(this.model, state, poseStack, TEXTURE_MATERIAL.renderType(this.model::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(TEXTURE_MATERIAL), 0, renderState.breakProgress);
-        nodeCollector.submitModel(this.model, state, poseStack, LAYER_MATERIAL.renderType(RenderTypes::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(LAYER_MATERIAL), 0, renderState.breakProgress);
+        nodeCollector.submitModel(this.model, state, poseStack, TEXTURE_MATERIAL.renderType(this.model::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.sprites.get(TEXTURE_MATERIAL), 0, renderState.breakProgress);
+        nodeCollector.submitModel(this.model, state, poseStack, LAYER_MATERIAL.renderType(RenderTypes::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.sprites.get(LAYER_MATERIAL), 0, renderState.breakProgress);
 
         poseStack.popPose();
     }

@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.EssenceBar;
 import com.stal111.forbidden_arcanus.client.gui.components.EssenceBarType;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -45,14 +45,14 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int x, int y, float partialTicks) {
-        super.render(guiGraphics, x, y, partialTicks);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTicks) {
+        super.extractRenderState(guiGraphics, x, y, partialTicks);
 
-        this.renderTooltip(guiGraphics, x, y);
+        this.extractTooltip(guiGraphics, x, y);
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int y = (this.height - this.imageHeight) / 2;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_TEXTURE, this.leftPos, y, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
 

@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.client.gui.components.clibano.MaterialSlot;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -82,21 +82,21 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int x = this.xOrigin;
         int y = this.yOrigin;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_TEXTURE, x, y, 0.0F, 0.0F, 127, 173, 256, 256);
 
         guiGraphics.enableScissor(this.scrollArea.left(), this.scrollArea.top(), this.scrollArea.right(), this.scrollArea.bottom());
         for (MaterialSlot slot : this.slots) {
-            slot.render(guiGraphics, mouseX, mouseY, partialTick);
+            slot.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         }
         guiGraphics.disableScissor();
 
         this.renderScrollbar(guiGraphics);
     }
 
-    public void renderScrollbar(GuiGraphics guiGraphics) {
+    public void renderScrollbar(GuiGraphicsExtractor guiGraphics) {
         int scrollbarY = this.scrollbarStartY;
 
         if (this.maxScroll != 0) {

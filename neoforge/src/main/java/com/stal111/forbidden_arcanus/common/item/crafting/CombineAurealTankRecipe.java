@@ -1,13 +1,14 @@
 package com.stal111.forbidden_arcanus.common.item.crafting;
 
+import com.mojang.serialization.MapCodec;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.AurealTankItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.init.ModRecipeSerializers;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -23,9 +24,11 @@ import java.util.List;
  */
 public class CombineAurealTankRecipe extends CustomRecipe {
 
-    public CombineAurealTankRecipe(CraftingBookCategory category) {
-        super(category);
-    }
+    private static final CombineAurealTankRecipe INSTANCE = new CombineAurealTankRecipe();
+    public static final MapCodec<CombineAurealTankRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
+    public static final StreamCodec<RegistryFriendlyByteBuf,CombineAurealTankRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+
+    public static final RecipeSerializer<CombineAurealTankRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     @Override
     public boolean matches(@NotNull CraftingInput input, @NotNull Level level) {
@@ -72,6 +75,6 @@ public class CombineAurealTankRecipe extends CustomRecipe {
 
     @Override
     public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
-        return ModRecipeSerializers.COMBINE_AUREAL_TANK.get();
+        return SERIALIZER;
     }
 }

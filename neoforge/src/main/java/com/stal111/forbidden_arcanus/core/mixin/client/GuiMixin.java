@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.core.mixin.client;
 import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,8 +18,8 @@ public abstract class GuiMixin {
 
     @Shadow @Nullable protected abstract Player getCameraPlayer();
 
-    @Inject(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getAttackStrengthScale(F)F"), cancellable = true)
-    private void forbiddenArcanus_renderCrosshair$hideAttackIndicator(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    @Inject(method = "extractCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getAttackStrengthScale(F)F"), cancellable = true)
+    private void forbiddenArcanus_renderCrosshair$hideAttackIndicator(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Player player = this.getCameraPlayer();
 
         if (player != null && player.getMainHandItem().getItem() instanceof MagicWandItem) {

@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.tab.AbstractTab;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.tab.ResearchTabButton;
 import com.stal111.forbidden_arcanus.common.inventory.research.ResearchDeskMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -71,7 +71,7 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
     }
 
     @Override
-    protected void renderBg(@NotNull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
 //        this.selectedTab.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 
         //TODO
@@ -117,7 +117,7 @@ public class ResearchScreen extends AbstractContainerScreen<ResearchDeskMenu> {
     }
 
     @Override
-    protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void extractLabels(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
     }
 
     @Override

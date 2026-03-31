@@ -1,6 +1,9 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "forbidden_arcanus:block/deorum_glass"
+    "all": {
+      "force_translucent": true,
+      "sprite": "forbidden_arcanus:block/deorum_glass"
+    }
   }
 }

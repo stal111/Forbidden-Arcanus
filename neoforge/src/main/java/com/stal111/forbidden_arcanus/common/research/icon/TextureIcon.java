@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.research.icon;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
@@ -25,7 +25,7 @@ public final class TextureIcon implements IconProvider {
     }
 
     @Override
-    public void renderIcon(GuiGraphics guiGraphics, int x, int y) {
+    public void renderIcon(GuiGraphicsExtractor guiGraphics, int x, int y) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.texture, x, y, 0, 0, 16, 16, 16, 16);
     }
 }

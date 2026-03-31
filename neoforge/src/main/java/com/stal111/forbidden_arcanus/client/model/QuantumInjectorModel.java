@@ -20,7 +20,7 @@ public class QuantumInjectorModel<T extends Entity> extends Model<QuantumInjecto
     private final KeyframeAnimation rotateAnimation;
 
     public QuantumInjectorModel(ModelPart root) {
-        super(root, RenderTypes::entityCutoutNoCull);
+        super(root, RenderTypes::entityCutout);
         this.transformAnimation = QuantumInjectorAnimation.TRANSFORM.bake(root);
         this.rotateAnimation = QuantumInjectorAnimation.ROTATE.bake(root);
     }

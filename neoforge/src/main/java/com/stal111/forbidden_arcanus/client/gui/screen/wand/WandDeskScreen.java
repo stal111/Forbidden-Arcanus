@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.client.gui.components.tab.ContainerTabButto
 import com.stal111.forbidden_arcanus.client.gui.screen.TabbedContainerScreen;
 import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -34,8 +34,8 @@ public class WandDeskScreen extends TabbedContainerScreen<WandDeskMenu> {
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         if (this.hoveredSlot instanceof WandDeskMenu.InputSlot inputSlot && !inputSlot.hasItem()) {
             guiGraphics.setTooltipForNextFrame(this.font, this.font.split(inputSlot.getOnboardingTooltip(), 115), mouseX, mouseY);
@@ -43,11 +43,11 @@ public class WandDeskScreen extends TabbedContainerScreen<WandDeskMenu> {
     }
 
     @Override
-    protected void renderSlot(GuiGraphics graphics, Slot slot, int mouseX, int mouseY) {
+    protected void extractSlot(GuiGraphicsExtractor graphics, Slot slot, int mouseX, int mouseY) {
         if (slot.getItem().has(ModDataComponents.PROVIDES_WAND_MATERIAL)) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, SPRITE_SLOT_HIGHLIGHT, slot.x, slot.y, 16, 16);
         }
 
-        super.renderSlot(graphics, slot, mouseX, mouseY);
+        super.extractSlot(graphics, slot, mouseX, mouseY);
     }
 }

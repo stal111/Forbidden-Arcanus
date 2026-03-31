@@ -10,7 +10,7 @@ import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -23,7 +23,7 @@ public class AurealMeterOverlay implements GuiLayer {
     private static final Identifier BACKGROUND_SPRITE = ForbiddenArcanus.identifier("hud/aureal_bar_background");
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
+    public void render(@NotNull GuiGraphicsExtractor guiGraphics, @NotNull DeltaTracker deltaTracker) {
         Window window = Minecraft.getInstance().getWindow();
         MouseHandler mouseHandler = Minecraft.getInstance().mouseHandler;
         Player player = Minecraft.getInstance().player;
@@ -37,7 +37,7 @@ public class AurealMeterOverlay implements GuiLayer {
         EssenceHelper.getEssenceAccess(player).ifPresent(essenceAccess -> {
             EssenceBar essenceBar = new EssenceBar(window.getGuiScaledWidth() / 2 + 13, window.getGuiScaledHeight() - 25 - 23, EssenceBarType.PLAYER_AUREAL, () -> essenceAccess.getEssence(EssenceType.AUREAL));
 
-            essenceBar.render(guiGraphics, Mth.floor(mouseHandler.getScaledXPos(window)), Mth.floor(mouseHandler.getScaledYPos(window)), deltaTracker.getGameTimeDeltaPartialTick(true));
+            essenceBar.extractRenderState(guiGraphics, Mth.floor(mouseHandler.getScaledXPos(window)), Mth.floor(mouseHandler.getScaledYPos(window)), deltaTracker.getGameTimeDeltaPartialTick(true));
         });
     }
 }

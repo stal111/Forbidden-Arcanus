@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.client.gui.screen.research;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.research.DisplayInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -40,7 +40,7 @@ public class KnowledgeWidget extends AbstractWidget {
     }
 
     @Override
-    protected void renderWidget(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractWidgetRenderState(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int scrollX = 0;
         int scrollY = 0;
 
@@ -57,7 +57,7 @@ public class KnowledgeWidget extends AbstractWidget {
         this.unlockAnimation.render(guiGraphics, this.getX() + scrollX, this.getY() + scrollY);
     }
 
-    private void renderHover(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    private void renderHover(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         int width = Math.max(90, 90 + Minecraft.getInstance().font.width(this.display.getTitle()));
 
         List<FormattedCharSequence> lines = Minecraft.getInstance().font.split(this.display.getDescription(), width - 10);
@@ -68,14 +68,14 @@ public class KnowledgeWidget extends AbstractWidget {
 
         this.renderBox(TITLE_BOX, guiGraphics, this.getX() - 3, this.getY() + 3, width, 20);
 
-        guiGraphics.drawCenteredString(Minecraft.getInstance().font, this.display.getTitle(), this.getX() - 3 + width / 2, this.getY() + 10, -1);
+        guiGraphics.centeredText(Minecraft.getInstance().font, this.display.getTitle(), this.getX() - 3 + width / 2, this.getY() + 10, -1);
 
         for (int i = 0; i < lines.size(); i++) {
-            guiGraphics.drawString(Minecraft.getInstance().font, lines.get(i), this.getX() - 3 + 5, this.getY() + 28 + i * 10, -1);
+            guiGraphics.text(Minecraft.getInstance().font, lines.get(i), this.getX() - 3 + 5, this.getY() + 28 + i * 10, -1);
         }
     }
 
-    private void renderBox(Identifier texture, GuiGraphics guiGraphics, int x, int y, int width, int height) {
+    private void renderBox(Identifier texture, GuiGraphicsExtractor guiGraphics, int x, int y, int width, int height) {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 120, 20, 0, 0, x, y, 45, height);
 
         int x2 = this.getX() - 3 + 45;
@@ -153,7 +153,7 @@ public class KnowledgeWidget extends AbstractWidget {
             }
         }
 
-        public void render(GuiGraphics guiGraphics, int x, int y) {
+        public void render(GuiGraphicsExtractor guiGraphics, int x, int y) {
             if (!this.started) {
                 return;
             }

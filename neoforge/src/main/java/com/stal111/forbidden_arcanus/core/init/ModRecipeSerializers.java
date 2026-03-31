@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.CombineAurealTankRecipe;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
@@ -19,8 +18,8 @@ public class ModRecipeSerializers implements RegistryClass {
 
     public static final MappedRegistryHelper<RecipeSerializer<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_SERIALIZER);
 
-    public static final RegistryEntry<RecipeSerializer<?>, RecipeSerializer<ApplyModifierRecipe>> APPLY_MODIFIER = HELPER.register("apply_modifier", ApplyModifierRecipe.Serializer::new);
-    public static final RegistryEntry<RecipeSerializer<?>, RecipeSerializer<ClibanoRecipe>> CLIBANO_SERIALIZER = HELPER.register("clibano_combustion", ClibanoRecipe.Serializer::new);
-    public static final RegistryEntry<RecipeSerializer<?>, RecipeSerializer<CombineAurealTankRecipe>> COMBINE_AUREAL_TANK = HELPER.register("combine_aureal_tank", () -> new CustomRecipe.Serializer<>(CombineAurealTankRecipe::new));
+    public static final RegistryEntry<RecipeSerializer<?>, RecipeSerializer<ApplyModifierRecipe>> APPLY_MODIFIER = HELPER.register("apply_modifier", () -> ApplyModifierRecipe.SERIALIZER);
+    public static final RegistryEntry<RecipeSerializer<?>, RecipeSerializer<ClibanoRecipe>> CLIBANO_SERIALIZER = HELPER.register("clibano_combustion", () -> ClibanoRecipe.SERIALIZER);
+    public static final RegistryEntry<RecipeSerializer<?>, RecipeSerializer<CombineAurealTankRecipe>> COMBINE_AUREAL_TANK = HELPER.register("combine_aureal_tank", () -> CombineAurealTankRecipe.SERIALIZER);
 
 }

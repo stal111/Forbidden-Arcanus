@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.components.tab.ScreenAccess;
 import com.stal111.forbidden_arcanus.common.inventory.tab.ContainerTab;
 import com.stal111.forbidden_arcanus.common.inventory.tab.TabbedContainerMenu;
 import com.stal111.forbidden_arcanus.common.network.serverbound.ChangeTabPayload;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -124,15 +124,15 @@ public abstract class TabbedContainerScreen<T extends TabbedContainerMenu> exten
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
         this.activeTab.renderBg(this.screenAccess, graphics, partialTicks, mouseX, mouseY);
     }
 
     @Override
-    public void renderContents(GuiGraphics graphics, int mouseX, int mouseY, float a) {
-        super.renderContents(graphics, mouseX, mouseY, a);
+    public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractContents(graphics, mouseX, mouseY, a);
 
-        this.activeTab.render(graphics, mouseX, mouseY, a);
+        this.activeTab.extractRenderState(graphics, mouseX, mouseY, a);
     }
 
     public abstract ScreenPosition getTabButtonPosition();

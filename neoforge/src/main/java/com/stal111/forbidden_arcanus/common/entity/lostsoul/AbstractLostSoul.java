@@ -1,8 +1,5 @@
 package com.stal111.forbidden_arcanus.common.entity.lostsoul;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Dynamic;
-import com.stal111.forbidden_arcanus.core.init.ModMemoryModules;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,10 +10,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,7 +18,6 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.schedule.Activity;
@@ -37,16 +30,20 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
+
 /**
  * @author stal111
  * @since 2022-09-14
  */
 public abstract class AbstractLostSoul extends PathfinderMob {
 
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.IS_IN_WATER, MemoryModuleType.IS_PANICKING, ModMemoryModules.SCARED_TIME.get());
-    protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractLostSoul>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.IS_IN_WATER);
-
     public static final EntityDataAccessor<Boolean> DATA_SCARED = SynchedEntityData.defineId(AbstractLostSoul.class, EntityDataSerializers.BOOLEAN);
+
+    private static final Brain.Provider<AbstractLostSoul> BRAIN_PROVIDER = Brain.provider(
+            List.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.IS_IN_WATER),
+            _ -> LostSoulAi.getActivities()
+    );
 
     private int extractCounter = 0;
 
@@ -60,8 +57,8 @@ public abstract class AbstractLostSoul extends PathfinderMob {
         this.trailColor = trailColor;
 
         this.setPathfindingMalus(PathType.BLOCKED, 16.0F);
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 16.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);
+        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 16.0F);
+        this.setPathfindingMalus(PathType.FIRE, -1.0F);
         this.moveControl = new FlyingMoveControl(this, 15, true);
 
         this.noPhysics = true;
@@ -80,18 +77,13 @@ public abstract class AbstractLostSoul extends PathfinderMob {
     }
 
     @Override
-    protected Brain.Provider<AbstractLostSoul> brainProvider() {
-        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-        return LostSoulAi.makeBrain(this.brainProvider().makeBrain(dynamic));
-    }
-
-    @Override
     public Brain<AbstractLostSoul> getBrain() {
         return (Brain<AbstractLostSoul>) super.getBrain();
+    }
+
+    @Override
+    protected Brain<? extends LivingEntity> makeBrain(Brain.Packed packedBrain) {
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override

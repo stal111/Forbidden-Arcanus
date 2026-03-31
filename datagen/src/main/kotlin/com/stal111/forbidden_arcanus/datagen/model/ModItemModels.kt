@@ -7,6 +7,7 @@ import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.quantumCatcher
 import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.model.*
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
@@ -274,7 +275,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
     private fun generateWandItem(item: ItemRegistryEntry<out Item>) {
         val model = ModelTemplates.FLAT_HANDHELD_ROD_ITEM.createModel(
             ModelLocationUtils.getModelLocation(item.get()),
-            TextureMapping.layer0(ModLocationUtils.getItem("wand", item))
+            TextureMapping.layer0(Material(ModLocationUtils.getItem("wand", item)))
         )
 
         output.accept(item.get(), WandItemModel.Unbaked(model))
@@ -311,9 +312,9 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         private const val ARMOR = "armor"
         private const val TOOL = "tool"
 
-        fun getItemTexture(item: Item, folder: String, suffix: String): Identifier {
-            val resourcelocation = BuiltInRegistries.ITEM.getKey(item)
-            return resourcelocation.withPath { path: String? -> "item/$folder/$path$suffix" }
+        fun getItemTexture(item: Item, folder: String, suffix: String): Material {
+            val identifier = BuiltInRegistries.ITEM.getKey(item)
+            return Material(identifier.withPath { path: String? -> "item/$folder/$path$suffix" })
         }
     }
 }

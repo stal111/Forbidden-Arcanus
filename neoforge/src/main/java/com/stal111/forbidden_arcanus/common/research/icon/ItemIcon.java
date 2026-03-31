@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.research.icon;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +26,7 @@ public final class ItemIcon implements IconProvider {
     }
 
     @Override
-    public void renderIcon(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.renderFakeItem(new ItemStack(this.item), x, y);
+    public void renderIcon(GuiGraphicsExtractor guiGraphics, int x, int y) {
+        guiGraphics.fakeItem(new ItemStack(this.item), x, y);
     }
 }

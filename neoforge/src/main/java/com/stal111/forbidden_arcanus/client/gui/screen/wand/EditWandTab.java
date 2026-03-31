@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.components.tab.ScreenAccess;
 import com.stal111.forbidden_arcanus.client.gui.screen.animation.ScreenAnimation;
 import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import com.stal111.forbidden_arcanus.common.network.serverbound.CraftWandPayload;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
@@ -55,7 +55,7 @@ public class EditWandTab extends AbstractTab {
     }
 
     @Override
-    public void renderBg(ScreenAccess screen, GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void renderBg(ScreenAccess screen, GuiGraphicsExtractor guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, screen.getGuiLeft(), screen.getGuiTop(), 0, 0, screen.getWidth(), screen.getHeight(), 256, 256);
     }
 
@@ -85,7 +85,7 @@ public class EditWandTab extends AbstractTab {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        this.createAnimation.render(graphics, mouseX, mouseY, partialTicks);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+        this.createAnimation.extractRenderState(graphics, mouseX, mouseY, partialTicks);
     }
 }

@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.research.KnowledgeWidget;
 import com.stal111.forbidden_arcanus.common.research.Knowledge;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -52,7 +52,7 @@ public class ResearchTab extends AbstractTab {
     }
 
     @Override
-    public void renderBg(ScreenAccess screen, GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void renderBg(ScreenAccess screen, GuiGraphicsExtractor guiGraphics, float partialTick, int mouseX, int mouseY) {
         int i = Mth.floor(this.scrollX);
         int j = Mth.floor(this.scrollY);
 
@@ -70,7 +70,7 @@ public class ResearchTab extends AbstractTab {
 //        RenderSystem.disableBlend();
 
         for (KnowledgeWidget widget : this.knowledgeWidgets) {
-            widget.render(guiGraphics, mouseX, mouseY, partialTick);
+            widget.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
 
@@ -125,7 +125,7 @@ public class ResearchTab extends AbstractTab {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float a) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
 
     }
 }

@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatu
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures
 import net.minecraft.data.worldgen.BootstrapContext
-import net.minecraft.data.worldgen.placement.PlacementUtils
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.random.WeightedList
 import net.minecraft.util.valueproviders.ConstantInt
@@ -13,7 +12,10 @@ import net.minecraft.world.level.block.HugeMushroomBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature
 import net.minecraft.world.level.levelgen.feature.Feature
-import net.minecraft.world.level.levelgen.feature.configurations.*
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider
@@ -102,15 +104,7 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
         context.register(
             BuiltInFeatures.YELLOW_ORCHID,
             ConfiguredFeature(
-                Feature.FLOWER, RandomPatchConfiguration(
-                    64,
-                    6,
-                    2,
-                    PlacementUtils.onlyWhenEmpty(
-                        Feature.SIMPLE_BLOCK,
-                        SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))
-                    )
-                )
+                Feature.SIMPLE_BLOCK, SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.YELLOW_ORCHID.get()))
             )
         )
         context.register(

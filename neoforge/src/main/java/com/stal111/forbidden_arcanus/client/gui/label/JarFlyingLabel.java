@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class JarFlyingLabel implements BlockFlyingLabel {
 
     @Override
-    public void render(GuiGraphics guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, BlockHitResult result) {
+    public void render(GuiGraphicsExtractor guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, BlockHitResult result) {
         BlockPos pos = result.getBlockPos();
         Level level = Minecraft.getInstance().level;
 
@@ -31,7 +31,7 @@ public class JarFlyingLabel implements BlockFlyingLabel {
             guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 1, 0x44000000);
             guiGraphics.fill(centerX - width / 2 - 4, centerY - 20 - 5, centerX + width / 2 + 4, centerY - 10 + 3, 0x44000000);
 
-            guiGraphics.drawString(Minecraft.getInstance().font, component, centerX - width / 2, centerY - 20, -1);
+            guiGraphics.text(Minecraft.getInstance().font, component, centerX - width / 2, centerY - 20, -1);
         }
     }
 }

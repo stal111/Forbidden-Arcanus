@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.components.EssenceBarType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.common.inventory.LockableSlot;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -44,8 +44,8 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    public void render(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+    public void extractRenderState(@Nonnull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTicks) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTicks);
 
         for (int i = 0; i < this.menu.slots.size(); i++) {
             Slot slot = this.menu.slots.get(i);
@@ -60,11 +60,11 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
             }
         }
 
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
-    protected void renderBg(@Nonnull GuiGraphics guiGraphics, float partialTicks, int x, int y) {
+    public void extractBackground(@Nonnull GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize(), 256, 256);
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() - 26, this.getGuiTop() + 16, 176, 61, 29, 51, 256, 256);
@@ -72,8 +72,8 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    protected void renderSlots(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderSlots(guiGraphics, mouseX, mouseY);
+    protected void extractSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractSlots(guiGraphics, mouseX, mouseY);
 
         for (Slot slot : this.menu.slots) {
             if (slot instanceof LockableSlot lockableSlot && lockableSlot.isLocked()) {
@@ -83,8 +83,8 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    protected void renderTooltip(@Nonnull GuiGraphics guiGraphics, int x, int y) {
-        super.renderTooltip(guiGraphics, x, y);
+    protected void extractTooltip(@Nonnull GuiGraphicsExtractor guiGraphics, int x, int y) {
+        super.extractTooltip(guiGraphics, x, y);
 
         Slot slot = this.getSlotUnderMouse();
 

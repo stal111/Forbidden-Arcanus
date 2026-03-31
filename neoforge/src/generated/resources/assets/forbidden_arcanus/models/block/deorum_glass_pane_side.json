@@ -1,7 +1,13 @@
 {
   "parent": "minecraft:block/template_glass_pane_side",
   "textures": {
-    "edge": "forbidden_arcanus:block/deorum_glass_pane_top",
-    "pane": "forbidden_arcanus:block/deorum_glass"
+    "edge": {
+      "force_translucent": true,
+      "sprite": "forbidden_arcanus:block/deorum_glass_pane_top"
+    },
+    "pane": {
+      "force_translucent": true,
+      "sprite": "forbidden_arcanus:block/deorum_glass"
+    }
   }
 }

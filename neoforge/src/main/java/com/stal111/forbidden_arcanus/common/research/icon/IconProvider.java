@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.research.icon;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 import java.util.function.Function;
 
@@ -22,5 +22,5 @@ public sealed interface IconProvider permits ItemIcon, TextureIcon {
         return Either.right((TextureIcon) iconProvider);
     });
 
-    void renderIcon(GuiGraphics guiGraphics, int x, int y);
+    void renderIcon(GuiGraphicsExtractor guiGraphics, int x, int y);
 }

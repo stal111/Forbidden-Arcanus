@@ -6,16 +6,15 @@ import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.EssenceUtremJarRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -26,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtremJarBlockEntity, EssenceUtremJarRenderState> {
 
-    public static final Material TEXTURE = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("lost_soul/lost_soul"));
+    public static final SpriteId TEXTURE = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("lost_soul/lost_soul"));
 
     public void submitSpecial(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceStorage essenceStorage) {
         submit(poseStack, nodeCollector, lightCoords, packedOverlay, essenceStorage.type(), essenceStorage.getFillPercentage());
@@ -57,7 +56,7 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
     @Override
     public void submit(EssenceUtremJarRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         if (!renderState.essenceStorage.isEmpty()) {
-            EssenceType type = renderState.blockState.getValue(ModBlockStateProperties.ESSENCE_TYPE);
+            EssenceType type = renderState.essenceStorage.type();
 
             submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, type, renderState.essenceStorage.getFillPercentage());
         }

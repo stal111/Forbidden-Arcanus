@@ -27,6 +27,7 @@ import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
 import net.minecraft.client.data.models.model.*
 import net.minecraft.client.renderer.item.ItemModel
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.Direction
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.RotatedPillarBlock
@@ -519,10 +520,10 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
 
     private fun createMagicalFarmland() {
         val textureMapping = TextureMapping()
-            .put(TextureSlot.DIRT, ForbiddenArcanus.identifier("block/magical_dirt"))
+            .put(TextureSlot.DIRT, Material(ForbiddenArcanus.identifier("block/magical_dirt")))
             .put(TextureSlot.TOP, TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get()))
         val moistTextureMapping = TextureMapping()
-            .put(TextureSlot.DIRT, ForbiddenArcanus.identifier("block/magical_dirt"))
+            .put(TextureSlot.DIRT, Material(ForbiddenArcanus.identifier("block/magical_dirt")))
             .put(TextureSlot.TOP, TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"))
 
         val model = plainVariant(
@@ -534,7 +535,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         )
         val moistModel = plainVariant(
             ModelTemplates.FARMLAND.create(
-                TextureMapping.getBlockTexture(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"),
+                ModelLocationUtils.getModelLocation(ModBlocks.MAGICAL_FARMLAND.get(), "_moist"),
                 moistTextureMapping,
                 this.modelOutput
             )

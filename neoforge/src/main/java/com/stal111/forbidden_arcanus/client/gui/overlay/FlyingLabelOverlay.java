@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.client.gui.label.EntityFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class FlyingLabelOverlay implements GuiLayer {
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
+    public void render(@NotNull GuiGraphicsExtractor guiGraphics, @NotNull DeltaTracker deltaTracker) {
         Minecraft minecraft = Minecraft.getInstance();
         HitResult hitResult = minecraft.hitResult;
         ItemStack stack = minecraft.player.getMainHandItem();
@@ -36,7 +36,7 @@ public class FlyingLabelOverlay implements GuiLayer {
         }
     }
 
-    private <R extends HitResult> void renderLabels(Class<? extends FlyingLabel<R>> clazz, GuiGraphics guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, R result) {
+    private <R extends HitResult> void renderLabels(Class<? extends FlyingLabel<R>> clazz, GuiGraphicsExtractor guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, R result) {
         ClientSetup.FLYING_LABELS.stream()
                 .filter(clazz::isInstance)
                 .map(clazz::cast)

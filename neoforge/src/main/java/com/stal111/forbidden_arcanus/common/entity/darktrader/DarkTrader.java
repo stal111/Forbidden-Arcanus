@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.entity.darktrader;
 
-import com.mojang.serialization.Dynamic;
 import com.stal111.forbidden_arcanus.common.entity.QuantumLightDoorAnimationProvider;
 import com.stal111.forbidden_arcanus.core.init.other.ModEntityDataSerializers;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.level.Level;
@@ -26,6 +26,8 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * @author stal111
  * @since 2023-08-11
@@ -33,6 +35,11 @@ import org.jetbrains.annotations.Nullable;
 public class DarkTrader extends Mob implements QuantumLightDoorAnimationProvider {
 
     private static final EntityDataAccessor<Holder<DarkTraderVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(DarkTrader.class, ModEntityDataSerializers.DARK_TRADER_VARIANT.get());
+
+    private static final Brain.Provider<DarkTrader> BRAIN_PROVIDER = Brain.provider(
+            List.of(SensorType.NEAREST_PLAYERS),
+            _ -> DarkTraderAI.getActivities()
+    );
 
     public final AnimationState portalAnimationState = new AnimationState();
     public final AnimationState spawnAnimationState = new AnimationState();
@@ -52,13 +59,13 @@ public class DarkTrader extends Mob implements QuantumLightDoorAnimationProvider
     }
 
     @Override
-    protected @NotNull Brain<?> makeBrain(@NotNull Dynamic<?> dynamic) {
-        return DarkTraderAI.makeBrain(this, dynamic);
+    public Brain<DarkTrader> getBrain() {
+        return (Brain<DarkTrader>) super.getBrain();
     }
 
     @Override
-    public @NotNull Brain<DarkTrader> getBrain() {
-        return (Brain<DarkTrader>) super.getBrain();
+    protected Brain<? extends LivingEntity> makeBrain(Brain.Packed packedBrain) {
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Nullable
@@ -104,7 +111,7 @@ public class DarkTrader extends Mob implements QuantumLightDoorAnimationProvider
         ProfilerFiller profilerFiller = Profiler.get();
 
         profilerFiller.push("darkTraderBrain");
-        this.getBrain().tick((ServerLevel) this.level(), this);
+        this.getBrain().tick(level, this);
         profilerFiller.pop();
 
         profilerFiller.push("darkTraderActivityUpdate");

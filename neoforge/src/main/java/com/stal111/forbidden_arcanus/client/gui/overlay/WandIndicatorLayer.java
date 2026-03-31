@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.MagicWandItem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -18,7 +18,7 @@ public class WandIndicatorLayer implements GuiLayer {
     private static final Identifier CROSSHAIR_WAND_INDICATOR_PROGRESS_SPRITE = ForbiddenArcanus.identifier("hud/crosshair_wand_indicator_progress");
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
+    public void render(@NotNull GuiGraphicsExtractor guiGraphics, @NotNull DeltaTracker deltaTracker) {
         LocalPlayer player = Minecraft.getInstance().player;
 
         if (player == null || !(player.getMainHandItem().getItem() instanceof MagicWandItem)) {

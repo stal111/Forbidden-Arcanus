@@ -11,17 +11,17 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.MaterialMapper;
+import net.minecraft.client.renderer.SpriteMapper;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -38,10 +38,10 @@ import java.util.EnumSet;
  */
 public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEntity, BlackHoleRenderState> {
 
-    public static final MaterialMapper MAPPER = new MaterialMapper(TextureAtlas.LOCATION_BLOCKS, "entity/black_hole");
+    public static final SpriteMapper MAPPER = new SpriteMapper(TextureAtlas.LOCATION_BLOCKS, "entity/black_hole");
 
-    public static final Material BLACK_HOLE_TEXTURE = MAPPER.apply(ForbiddenArcanus.identifier("black_hole"));
-    public static final Material[] AURA_TEXTURES = {
+    public static final SpriteId BLACK_HOLE_TEXTURE = MAPPER.apply(ForbiddenArcanus.identifier("black_hole"));
+    public static final SpriteId[] AURA_TEXTURES = {
             MAPPER.apply(ForbiddenArcanus.identifier("black_hole_aura_0")),
             MAPPER.apply(ForbiddenArcanus.identifier("black_hole_aura_1")),
             MAPPER.apply(ForbiddenArcanus.identifier("black_hole_aura_2"))
@@ -49,12 +49,12 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
 
     private static final float SIN_45 = (float) Math.sin(Math.PI / 3D);
 
-    private final MaterialSet materials;
+    private final SpriteGetter sprites;
     private final ModelPart blackHole;
     private final ModelPart aura;
 
     public BlackHoleRenderer(BlockEntityRendererProvider.Context context) {
-        this.materials = context.materials();
+        this.sprites = context.sprites();
         this.blackHole = context.bakeLayer(FAModelLayers.BLACK_HOLE);
         this.aura = context.bakeLayer(FAModelLayers.BLACK_HOLE_AURA);
     }
@@ -94,12 +94,12 @@ public class BlackHoleRenderer implements BlockEntityRenderer<BlackHoleBlockEnti
         poseStack.pushPose();
         poseStack.mulPose(new Quaternionf().setAngleAxis(Math.PI / 3F, SIN_45, 0.0F, SIN_45));
 
-        nodeCollector.submitModelPart(this.blackHole, poseStack, BLACK_HOLE_TEXTURE.renderType(RenderTypes::entitySolid), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(BLACK_HOLE_TEXTURE), 0, renderState.breakProgress);
+        nodeCollector.submitModelPart(this.blackHole, poseStack, BLACK_HOLE_TEXTURE.renderType(RenderTypes::entitySolid), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.sprites.get(BLACK_HOLE_TEXTURE), 0, renderState.breakProgress);
 
         poseStack.popPose();
 
-        Material auraTexture = AURA_TEXTURES[renderState.auraTexture];
-        nodeCollector.submitModelPart(this.aura, poseStack, auraTexture.renderType(RenderTypes::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.materials.get(auraTexture), -1, renderState.breakProgress);
+        SpriteId auraTexture = AURA_TEXTURES[renderState.auraTexture];
+        nodeCollector.submitModelPart(this.aura, poseStack, auraTexture.renderType(RenderTypes::entityTranslucentEmissive), renderState.lightCoords, OverlayTexture.NO_OVERLAY, this.sprites.get(auraTexture), -1, renderState.breakProgress);
 
         poseStack.popPose();
     }

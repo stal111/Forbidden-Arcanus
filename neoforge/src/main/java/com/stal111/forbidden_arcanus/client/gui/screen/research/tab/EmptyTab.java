@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.gui.screen.research.tab;
 
 import com.stal111.forbidden_arcanus.client.gui.components.tab.AbstractTab;
 import com.stal111.forbidden_arcanus.client.gui.components.tab.ScreenAccess;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 
 /**
@@ -17,7 +17,7 @@ public class EmptyTab extends AbstractTab {
     }
 
     @Override
-    public void renderBg(ScreenAccess screen, GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void renderBg(ScreenAccess screen, GuiGraphicsExtractor guiGraphics, float partialTick, int mouseX, int mouseY) {
 
     }
 
@@ -47,7 +47,7 @@ public class EmptyTab extends AbstractTab {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float a) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
 
     }
 }

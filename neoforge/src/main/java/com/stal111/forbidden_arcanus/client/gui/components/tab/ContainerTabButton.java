@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.components.tab;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -18,7 +18,7 @@ public class ContainerTabButton extends ImageButton {
     }
 
     @Override
-    public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         Identifier resourceLocation = this.sprites.get(true, this.selected);
 
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, resourceLocation, this.getX(), this.getY(), this.width, this.height);

@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.tooltip;
 
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -38,9 +38,9 @@ public class ClientCapacityBucketTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(@NotNull Font font, int x, int y, int width, int height, @NotNull GuiGraphics guiGraphics) {
+    public void extractImage(@NotNull Font font, int x, int y, int width, int height, @NotNull GuiGraphicsExtractor guiGraphics) {
         for (int i = 1; i <= this.capacity; i++) {
-            guiGraphics.renderFakeItem(i <= this.fullness ? this.filledBucket : this.emptyBucket,  (i - 1) * 15 + x, y);
+            guiGraphics.fakeItem(i <= this.fullness ? this.filledBucket : this.emptyBucket,  (i - 1) * 15 + x, y);
         }
     }
 }

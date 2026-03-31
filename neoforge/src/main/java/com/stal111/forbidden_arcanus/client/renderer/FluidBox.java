@@ -3,14 +3,12 @@ package com.stal111.forbidden_arcanus.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.client.RenderTypeHelper;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.client.textures.FluidSpriteCache;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 //TODO: move into core
@@ -21,16 +19,16 @@ import net.neoforged.neoforge.fluids.FluidStack;
  */
 public class FluidBox {
 
-    private final TextureAtlasSprite stillTexture;
-    private final TextureAtlasSprite flowingTexture;
+    private final TextureAtlasSprite stillTexture = null;
+    private final TextureAtlasSprite flowingTexture = null;
     private final int[] color;
     private final AABB fullBounds;
     private AABB boundingBox;
     private float fillPercentage = 1.0F;
 
     public FluidBox(Identifier stillTexture, Identifier flowingTexture, int[] color, AABB fullBounds) {
-        this.stillTexture = FluidSpriteCache.getSprite(stillTexture);
-        this.flowingTexture = FluidSpriteCache.getSprite(flowingTexture);
+//        this.stillTexture = FluidSpriteCache.getSprite(stillTexture);
+//        this.flowingTexture = FluidSpriteCache.getSprite(flowingTexture);
         this.color = color;
         this.fullBounds = fullBounds;
         this.boundingBox = fullBounds;
@@ -39,16 +37,17 @@ public class FluidBox {
     public static FluidBox create(FluidStack fluid, AABB boundingBox) {
         IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(fluid.getFluid());
 
-        Identifier stillTexture = extensions.getStillTexture();
-        Identifier flowingTexture = extensions.getFlowingTexture();
-        int color = extensions.getTintColor(fluid);
-
-        int a = color >> 24 & 0xFF;
-        int r = color >> 16 & 0xFF;
-        int g = color >> 8 & 0xFF;
-        int b = color & 0xFF;
-
-        return new FluidBox(stillTexture, flowingTexture, new int[]{r, g, b, a}, boundingBox);
+        return null;
+//        Identifier stillTexture = extensions.getStillTexture();
+//        Identifier flowingTexture = extensions.getFlowingTexture();
+//        int color = extensions.getTintColor(fluid);
+//
+//        int a = color >> 24 & 0xFF;
+//        int r = color >> 16 & 0xFF;
+//        int g = color >> 8 & 0xFF;
+//        int b = color & 0xFF;
+//
+//        return new FluidBox(stillTexture, flowingTexture, new int[]{r, g, b, a}, boundingBox);
     }
 
     public static FluidBox create(Identifier stillTexture, Identifier flowingTexture, AABB boundingBox) {
@@ -69,7 +68,7 @@ public class FluidBox {
             return;
         }
 
-        nodeCollector.submitCustomGeometry(poseStack, RenderTypeHelper.getEntityRenderType(ChunkSectionLayer.TRANSLUCENT), (pose, builder) -> {
+        nodeCollector.submitCustomGeometry(poseStack, RenderTypes.translucentMovingBlock(), (pose, builder) -> {
             float minX = (float) boundingBox.minX;
             float maxX = (float) boundingBox.maxX;
             float minY = (float) boundingBox.minY;

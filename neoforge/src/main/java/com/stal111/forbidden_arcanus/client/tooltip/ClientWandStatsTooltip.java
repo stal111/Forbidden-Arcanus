@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.wand.WandStats;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -49,10 +49,10 @@ public class ClientWandStatsTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(Font font, int x, int y, int w, int h, GuiGraphics graphics) {
+    public void extractImage(Font font, int x, int y, int w, int h, GuiGraphicsExtractor graphics) {
         for (StatEntry stat : this.stats) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, stat.sprite(), x, y, 10, 10);
-            graphics.drawString(font, stat.text(), x + 13, y + 1, -1);
+            graphics.text(font, stat.text(), x + 13, y + 1, -1);
             y += 10;
         }
     }

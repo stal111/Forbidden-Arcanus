@@ -16,7 +16,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.network.chat.Component;
@@ -117,7 +117,7 @@ public abstract class HephaestusForgeCategory<T extends RitualResult> implements
     }
 
     @Override
-    public void draw(@NotNull Ritual recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull Ritual recipe, @NotNull IRecipeSlotsView slotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
         this.essences.forEach(essenceInfo -> essenceInfo.drawable().draw(guiGraphics, essenceInfo.posX(), essenceInfo.posY()));
     }

@@ -32,7 +32,7 @@ class CraftingRecipeProvider(
 ) : RecipeSubProvider(lookupProvider, recipeOutput) {
     override fun buildRecipes() {
         FABlockFamilies.getAllFamilies()
-            .filter { it.shouldGenerateRecipe() }
+            .filter { it.shouldGenerateCraftingRecipe() }
             .forEach { generateRecipes(it, FeatureFlags.VANILLA_SET) }
 
         //Shaped Recipes

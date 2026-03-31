@@ -5,27 +5,27 @@ import com.mojang.math.Axis;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRenderState;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.MaterialMapper;
+import net.minecraft.client.renderer.SpriteMapper;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.util.Unit;
 
 public class MagicCircleRenderer {
 
-    public static final MaterialMapper MAPPER = new MaterialMapper(TextureAtlas.LOCATION_BLOCKS, "entity/magic_circle");
+    public static final SpriteMapper MAPPER = new SpriteMapper(TextureAtlas.LOCATION_BLOCKS, "entity/magic_circle");
 
-    private final MaterialSet materials;
+    private final SpriteGetter sprites;
     private final Model.Simple outerRing;
     private final Model.Simple innerRing;
 
     public MagicCircleRenderer(BlockEntityRendererProvider.Context context, ModelLayerLocation outerRingLayer, ModelLayerLocation innerRingLayer) {
-        this.materials = context.materials();
+        this.sprites = context.sprites();
         this.outerRing = new Model.Simple(context.bakeLayer(outerRingLayer), RenderTypes::entityTranslucentEmissive);
         this.innerRing = new Model.Simple(context.bakeLayer(innerRingLayer), RenderTypes::entityTranslucentEmissive);
     }
@@ -36,8 +36,8 @@ public class MagicCircleRenderer {
         }
 
         float progress = renderState.ageInTicks / renderState.duration;
-        Material outerTexture = MAPPER.apply(renderState.magicCircleType.outerTexture());
-        Material innerTexture = MAPPER.apply(renderState.magicCircleType.innerTexture());
+        SpriteId outerTexture = MAPPER.apply(renderState.magicCircleType.outerTexture());
+        SpriteId innerTexture = MAPPER.apply(renderState.magicCircleType.innerTexture());
 
         poseStack.pushPose();
 
@@ -47,11 +47,11 @@ public class MagicCircleRenderer {
 
         poseStack.mulPose(Axis.YN.rotationDegrees(renderState.ageInTicks));
 
-        nodeCollector.submitModel(this.outerRing, Unit.INSTANCE, poseStack, outerTexture.renderType(this.outerRing::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(outerTexture), 0, null);
+        nodeCollector.submitModel(this.outerRing, Unit.INSTANCE, poseStack, outerTexture.renderType(this.outerRing::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.sprites.get(outerTexture), 0, null);
 
         poseStack.mulPose(Axis.YN.rotationDegrees(-renderState.ageInTicks * 2));
 
-        nodeCollector.submitModel(this.innerRing, Unit.INSTANCE, poseStack, innerTexture.renderType(this.innerRing::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(innerTexture), 0, null);
+        nodeCollector.submitModel(this.innerRing, Unit.INSTANCE, poseStack, innerTexture.renderType(this.innerRing::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.sprites.get(innerTexture), 0, null);
 
         poseStack.popPose();
 

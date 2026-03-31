@@ -20,7 +20,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -122,7 +122,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     }
 
     @Override
-    public void draw(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
         this.animatedFlames.get(recipe.requiredFireType()).draw(guiGraphics, 48, 43);
 
@@ -133,18 +133,18 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         this.drawCookTime(recipe.getDefaultCookingTime(), guiGraphics, 79);
     }
 
-    protected void drawExperience(float experience, GuiGraphics guiGraphics, int y) {
+    protected void drawExperience(float experience, GuiGraphicsExtractor guiGraphics, int y) {
         if (experience > 0) {
             Component experienceString = Component.translatable("gui.jei.category.smelting.experience", experience);
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
             int stringWidth = font.width(experienceString);
 
-            guiGraphics.drawString(font, experienceString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.text(font, experienceString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 
-    protected void drawCookTime(int cookingTime, GuiGraphics guiGraphics, int y) {
+    protected void drawCookTime(int cookingTime, GuiGraphicsExtractor guiGraphics, int y) {
         if (cookingTime > 0) {
             int cookTimeSeconds = cookingTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -152,7 +152,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
 
-            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.text(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 

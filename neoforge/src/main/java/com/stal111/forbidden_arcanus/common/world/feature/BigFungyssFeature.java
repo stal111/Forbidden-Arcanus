@@ -77,17 +77,17 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         return true;
     }
 
-    private void placeStem(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = 0; i < height; i++) {
             mutable.set(pos).move(Direction.UP, i);
 
-            if (!world.getBlockState(mutable).isSolidRender()) {
-                this.setBlock(world, mutable, config.stemProvider.getState(random, pos));
+            if (!level.getBlockState(mutable).isSolidRender()) {
+                this.setBlock(level, mutable, config.stemProvider.getState(level, random, pos));
             }
         }
     }
 
-    private void placeCap(LevelAccessor world, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeCap(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         if (config.variant == 0) {
             int distanceToStem = 1;
             for (int i = height - 2; i <= height; i++) {
@@ -95,12 +95,12 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                     for (int zOffset = -distanceToStem; zOffset <= distanceToStem; zOffset++) {
                         if ((i < height && !(xOffset == 0 && zOffset == 0)) || !isCorner(xOffset, zOffset, distanceToStem)) {
                             mutable.setWithOffset(pos, xOffset, i, zOffset);
-                            this.setBlock(world, mutable, config.capProvider.getState(random, pos));
+                            this.setBlock(level, mutable, config.capProvider.getState(level, random, pos));
                         }
                     }
                 }
             }
-            this.setBlock(world, pos.above(height), config.capProvider.getState(random, pos));
+            this.setBlock(level, pos.above(height), config.capProvider.getState(level, random, pos));
         } else {
             for (int i = height - 2; i <= height; i++) {
                 int distanceToStem = i < height ? 2 : 1;
@@ -109,7 +109,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                     for (int zOffset = -distanceToStem; zOffset <= distanceToStem; zOffset++) {
                         if (i >= height || !isCorner(xOffset, zOffset, distanceToStem)) {
                             mutable.setWithOffset(pos, xOffset, i, zOffset);
-                            this.setBlock(world, mutable, config.capProvider.getState(random, pos)
+                            this.setBlock(level, mutable, config.capProvider.getState(level, random, pos)
                                     .setValue(HugeMushroomBlock.UP, i >= height - 1).setValue(HugeMushroomBlock.WEST, xOffset < 0).setValue(HugeMushroomBlock.EAST, xOffset > 0).setValue(HugeMushroomBlock.NORTH, zOffset < 0).setValue(HugeMushroomBlock.SOUTH, zOffset > 0));
                         }
                     }
@@ -120,7 +120,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                 if (direction.getAxis() != Direction.Axis.Y) {
                     mutable.setWithOffset(pos, 0, height - 4, 0);
                     mutable.move(direction);
-                    this.setBlock(world, mutable, config.capProvider.getState(random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false));
+                    this.setBlock(level, mutable, config.capProvider.getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false));
                 }
             }
         }

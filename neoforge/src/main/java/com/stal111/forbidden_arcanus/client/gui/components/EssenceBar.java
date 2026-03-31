@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client.gui.components;
 
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.MouseButtonInfo;
@@ -27,7 +27,7 @@ public class EssenceBar extends AbstractWidget {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         EssenceStorage essenceStorage = this.storageSupplier.get();
 
         if (this.vertical) {

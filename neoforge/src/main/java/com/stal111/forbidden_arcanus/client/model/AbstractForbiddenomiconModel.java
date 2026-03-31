@@ -15,7 +15,7 @@ import net.minecraft.world.entity.Entity;
 public abstract class AbstractForbiddenomiconModel<T extends Entity> extends Model<AbstractForbiddenomiconModel.State> {
 
     public AbstractForbiddenomiconModel(ModelPart root) {
-        super(root, RenderTypes::entityCutoutNoCull);
+        super(root, RenderTypes::entityCutout);
     }
 
     public static LayerDefinition createBodyLayer() {

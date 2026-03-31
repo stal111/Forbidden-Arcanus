@@ -6,7 +6,10 @@
   },
   "pack": {
     "description": "Enable experimental features for Forbidden Arcanus",
-    "max_format": 97,
-    "min_format": 97
+    "max_format": 101,
+    "min_format": [
+      101,
+      1
+    ]
   }
 }

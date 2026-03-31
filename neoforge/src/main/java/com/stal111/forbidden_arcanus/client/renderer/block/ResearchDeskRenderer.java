@@ -13,10 +13,10 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
@@ -26,13 +26,13 @@ import org.jspecify.annotations.Nullable;
  */
 public class ResearchDeskRenderer implements BlockEntityRenderer<ResearchDeskBlockEntity, ResearchDeskRenderState> {
 
-    public static final Material TEXTURE_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("forbiddenomicon"));
+    public static final SpriteId TEXTURE_MATERIAL = Sheets.BLOCK_ENTITIES_MAPPER.apply(ForbiddenArcanus.identifier("forbiddenomicon"));
 
-    private final MaterialSet materials;
+    private final SpriteGetter sprites;
     private final DeskForbiddenomiconModel<?> model;
 
     public ResearchDeskRenderer(BlockEntityRendererProvider.Context context) {
-        this.materials = context.materials();
+        this.sprites = context.sprites();
         this.model = new DeskForbiddenomiconModel<>(context.bakeLayer(FAModelLayers.FORBIDDENOMICON));
     }
 
@@ -86,7 +86,7 @@ public class ResearchDeskRenderer implements BlockEntityRenderer<ResearchDeskBlo
         );
 
         this.model.setupAnim(state);
-        nodeCollector.submitModel(this.model, state, poseStack, TEXTURE_MATERIAL.renderType(this.model::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.materials.get(TEXTURE_MATERIAL), 0, renderState.breakProgress);
+        nodeCollector.submitModel(this.model, state, poseStack, TEXTURE_MATERIAL.renderType(this.model::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.sprites.get(TEXTURE_MATERIAL), 0, renderState.breakProgress);
 
         poseStack.popPose();
     }

@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.core.mixin;
 
 import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers;
 import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,7 +11,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.NeoForgeMod;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -67,7 +67,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;tick()V"), method = "aiStep")
     public void forbiddenArcanus_aiStep$seaPrismModifier(CallbackInfo ci) {
-        if (this.getHealth() < this.getMaxHealth() && this.tickCount % 100 == 0 && this.isEyeInFluidType(NeoForgeMod.WATER_TYPE.value()) && ModifierHelper.hasModifier(this.getItemBySlot(EquipmentSlot.HEAD), this.level().holderOrThrow(BuiltInItemModifiers.AQUATIC))) {
+        if (this.getHealth() < this.getMaxHealth() && this.tickCount % 100 == 0 && this.isEyeInFluid(FluidTags.WATER) && ModifierHelper.hasModifier(this.getItemBySlot(EquipmentSlot.HEAD), this.level().holderOrThrow(BuiltInItemModifiers.AQUATIC))) {
             this.heal(2.0F);
         }
     }

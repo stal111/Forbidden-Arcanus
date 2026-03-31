@@ -5,10 +5,8 @@ import com.stal111.forbidden_arcanus.common.world.placement.BuiltInVegetationPla
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.data.worldgen.placement.PlacementUtils
-import net.minecraft.world.level.levelgen.placement.BiomeFilter
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement
-import net.minecraft.world.level.levelgen.placement.PlacedFeature
-import net.minecraft.world.level.levelgen.placement.RarityFilter
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate
+import net.minecraft.world.level.levelgen.placement.*
 import net.valhelsia.dataforge.RegistryDataProvider
 
 object ModVegetationPlacements : RegistryDataProvider<PlacedFeature> {
@@ -19,10 +17,14 @@ object ModVegetationPlacements : RegistryDataProvider<PlacedFeature> {
             context,
             BuiltInVegetationPlacements.YELLOW_ORCHID,
             configuredFeatureRegistry.getOrThrow(BuiltInFeatures.YELLOW_ORCHID),
-            RarityFilter.onAverageOnceEvery(12),
-            PlacementUtils.HEIGHTMAP,
+            CountPlacement.of(3),
+            RarityFilter.onAverageOnceEvery(2),
             InSquarePlacement.spread(),
-            BiomeFilter.biome()
+            PlacementUtils.HEIGHTMAP,
+            BiomeFilter.biome(),
+            CountPlacement.of(96),
+            RandomOffsetPlacement.ofTriangle(6, 2),
+            BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
         )
     }
 }

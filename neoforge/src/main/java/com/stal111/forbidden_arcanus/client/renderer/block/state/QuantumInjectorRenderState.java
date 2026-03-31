@@ -7,4 +7,5 @@ public class QuantumInjectorRenderState extends BlockEntityRenderState {
     public final AnimationState transformAnimation = new AnimationState();
     public final AnimationState rotateAnimation = new AnimationState();
     public float ageInTicks;
+    public boolean enabled;
 }
