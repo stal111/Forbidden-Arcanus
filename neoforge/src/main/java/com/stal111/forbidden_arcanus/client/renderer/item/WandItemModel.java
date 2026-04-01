@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.item.*;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelDebugName;
 import net.minecraft.client.resources.model.ResolvedModel;
+import net.minecraft.client.resources.model.cuboid.ItemModelGenerator;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
@@ -17,7 +18,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.model.UnbakedElementsHelper;
 import org.joml.Matrix4fc;
 import org.jspecify.annotations.Nullable;
 
@@ -69,7 +69,7 @@ public record WandItemModel(Identifier base, BakingContext bakingContext, Matrix
 
     private ItemModel createModel(ModelBaker baker, Identifier texture, ModelRenderProperties properties) {
         Material.Baked templateSprite = baker.materials().get(new Material(texture), DEBUG_NAME);
-        var quads = UnbakedElementsHelper.bakeItemMaskQuads(baker, 0, templateSprite, templateSprite, BlockModelRotation.IDENTITY);
+        var quads = new ItemModelGenerator.ItemLayerKey(templateSprite, BlockModelRotation.IDENTITY, 0).compute(baker);
 
         return new CuboidItemModelWrapper(List.of(), quads, properties, this.transformation);
     }
