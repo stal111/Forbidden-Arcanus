@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item.crafting;
 
+import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;
@@ -15,32 +16,42 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
-public record ApplyModifierRecipe(Ingredient template,
-                                  Ingredient addition,
-                                  Holder<ItemModifier> modifier,
-                                  PlacementInfo placementInfo) implements SmithingRecipe {
+public class ApplyModifierRecipe extends SimpleSmithingRecipe {
 
     private static final MapCodec<ApplyModifierRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.fieldOf("template").forGetter(ApplyModifierRecipe::template),
-            Ingredient.CODEC.fieldOf("addition").forGetter(ApplyModifierRecipe::addition),
-            ItemModifier.CODEC.fieldOf("modifier").forGetter(ApplyModifierRecipe::modifier)
+            Recipe.CommonInfo.MAP_CODEC.forGetter(recipe -> recipe.commonInfo),
+            Ingredient.CODEC.fieldOf("template").forGetter(recipe -> recipe.template),
+            Ingredient.CODEC.fieldOf("addition").forGetter(recipe -> recipe.addition),
+            ItemModifier.CODEC.fieldOf("modifier").forGetter(recipe -> recipe.modifier)
     ).apply(instance, ApplyModifierRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ApplyModifierRecipe> STREAM_CODEC = StreamCodec.composite(
+            Recipe.CommonInfo.STREAM_CODEC,
+            o -> o.commonInfo,
             Ingredient.CONTENTS_STREAM_CODEC,
-            ApplyModifierRecipe::template,
+            recipe -> recipe.template,
             Ingredient.CONTENTS_STREAM_CODEC,
-            ApplyModifierRecipe::addition,
+            recipe -> recipe.addition,
             ItemModifier.STREAM_CODEC,
-            ApplyModifierRecipe::modifier,
+            recipe -> recipe.modifier,
             ApplyModifierRecipe::new
     );
 
     public static final RecipeSerializer<ApplyModifierRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
-    public ApplyModifierRecipe(Ingredient template, Ingredient addition, Holder<ItemModifier> modifier) {
-        this(template, addition, modifier, PlacementInfo.create(List.of(template, addition)));
+    private final Ingredient template;
+    private final Supplier<Ingredient> base;
+    private final Ingredient addition;
+    private final Holder<ItemModifier> modifier;
+
+    public ApplyModifierRecipe(Recipe.CommonInfo commonInfo, Ingredient template, Ingredient addition, Holder<ItemModifier> modifier) {
+        super(commonInfo);
+        this.template = template;
+        this.base = Suppliers.memoize(() -> Ingredient.of(BuiltInRegistries.ITEM.stream().filter(item -> modifier.value().isValidItem(item.getDefaultInstance()))));
+        this.addition = addition;
+        this.modifier = modifier;
     }
 
     @Override
@@ -57,7 +68,7 @@ public record ApplyModifierRecipe(Ingredient template,
 
     @Override
     public Ingredient baseIngredient() {
-        return Ingredient.of(BuiltInRegistries.ITEM.stream().filter(item -> this.modifier.value().isValidItem(item.getDefaultInstance())));
+        return this.base.get();
     }
 
     @Override
@@ -75,22 +86,12 @@ public record ApplyModifierRecipe(Ingredient template,
     }
 
     @Override
-    public boolean showNotification() {
-        return false;
-    }
-
-    @Override
-    public String group() {
-        return "";
-    }
-
-    @Override
-    public RecipeSerializer<? extends SmithingRecipe> getSerializer() {
+    public RecipeSerializer<? extends SimpleSmithingRecipe> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public @NotNull PlacementInfo placementInfo() {
-        return this.placementInfo;
+    protected PlacementInfo createPlacementInfo() {
+        return PlacementInfo.create(List.of(this.template, this.baseIngredient(), this.addition));
     }
 }

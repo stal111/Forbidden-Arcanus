@@ -52,7 +52,7 @@ public record ApplyModifierRecipeBuilder(Ingredient template, Ingredient additio
 
     @Override
     public void save(@NotNull RecipeOutput output, @NotNull ResourceKey<Recipe<?>> resourceKey) {
-        ApplyModifierRecipe recipe = new ApplyModifierRecipe(this.template, this.addition, this.modifier);
+        ApplyModifierRecipe recipe = new ApplyModifierRecipe(new Recipe.CommonInfo(true), this.template, this.addition, this.modifier);
         Advancement.Builder builder = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
                 .rewards(AdvancementRewards.Builder.recipe(resourceKey))

@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.Tra
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.SmithingCategory;
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.UpgradeTierCategory;
+import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -15,11 +16,9 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.extensions.vanilla.smithing.IExtendableSmithingRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
@@ -54,8 +53,6 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         Level level = Minecraft.getInstance().level;
 
-//        registration.addRecipes(RecipeTypes.SMITHING, ApplyModifierRecipeMaker.getRecipes());
-
         Registry<Ritual> registry = level.registryAccess().lookupOrThrow(FARegistries.RITUAL);
 
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult || ritual.result() instanceof TransmuteInputResult).toList());
@@ -80,5 +77,12 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
                 this.hephaestusForgeUpgrading = new UpgradeTierCategory(guiHelper),
                 this.clibanoCombustion = new ClibanoCombustionCategory(guiHelper)
         );
+    }
+
+    @Override
+    public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+        IExtendableSmithingRecipeCategory smithingCategory = registration.getSmithingCategory();
+
+        smithingCategory.addExtension(ApplyModifierRecipe.class, new ApplyModifierCategoryExtension());
     }
 }
