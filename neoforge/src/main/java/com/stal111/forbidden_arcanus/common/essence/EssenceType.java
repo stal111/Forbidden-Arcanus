@@ -34,6 +34,8 @@ public enum EssenceType implements StringRepresentable {
     private final Holder<ParticleType<?>> particleType;
     private final Component component;
     private final Identifier spriteLocation;
+    private final Identifier stillTexture;
+    private final Identifier flowingTexture;
 
     EssenceType(String name, int lightEmission, Holder<ParticleType<?>> particleType) {
         this.name = name;
@@ -41,6 +43,8 @@ public enum EssenceType implements StringRepresentable {
         this.particleType = particleType;
         this.component = Component.translatable(Util.makeDescriptionId("essence", ForbiddenArcanus.identifier(name)));
         this.spriteLocation = ForbiddenArcanus.identifier("icon/" + name);
+        this.stillTexture = ForbiddenArcanus.identifier("liquid/" + name + "_still");
+        this.flowingTexture = ForbiddenArcanus.identifier("liquid/" + name + "_flow");
     }
 
     @Override
@@ -62,5 +66,13 @@ public enum EssenceType implements StringRepresentable {
 
     public AtlasSprite getSprite() {
         return new AtlasSprite(AtlasIds.GUI, this.spriteLocation);
+    }
+
+    public Identifier getStillTexture() {
+        return this.stillTexture;
+    }
+
+    public Identifier getFlowingTexture() {
+        return this.flowingTexture;
     }
 }

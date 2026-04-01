@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.EssenceUtremJarRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
@@ -32,7 +31,7 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
     }
 
     private static void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceType essenceType, float fillPercentage) {
-        FluidBox fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(essenceType), new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
+        FluidBox fluidBox = FluidBox.create(essenceType, new AABB(3.5 / 16.0F, 0.5 / 16.0F, 3.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F, 12.5 / 16.0F));
 
         fluidBox.setFillPercentage(fillPercentage);
 

@@ -2,6 +2,9 @@ package com.stal111.forbidden_arcanus.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -44,6 +47,13 @@ public class FluidBox {
         int b = color & 0xFF;
 
         return new FluidBox(stillTexture, flowingTexture, new int[]{r, g, b, a}, boundingBox);
+    }
+
+    public static FluidBox create(EssenceType type, AABB boundingBox) {
+        var stillTexture = Minecraft.getInstance().getAtlasManager().get(Sheets.BLOCKS_MAPPER.apply(type.getStillTexture()));
+        var flowingTexture = Minecraft.getInstance().getAtlasManager().get(Sheets.BLOCKS_MAPPER.apply(type.getFlowingTexture()));
+
+        return new FluidBox(stillTexture, flowingTexture, new int[] {255, 255, 255, 255}, boundingBox);
     }
 
     public static FluidBox create(TextureAtlasSprite stillTexture, TextureAtlasSprite flowingTexture, AABB boundingBox) {

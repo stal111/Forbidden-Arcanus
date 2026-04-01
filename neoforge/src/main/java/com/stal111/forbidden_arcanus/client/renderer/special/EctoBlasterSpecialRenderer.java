@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client.renderer.special;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.client.renderer.EssenceFluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -20,7 +19,7 @@ public class EctoBlasterSpecialRenderer implements SpecialModelRenderer<EssenceS
     @Override
     public void submit(@Nullable EssenceStorage essenceStorage, PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor) {
         if (essenceStorage != null) {
-            FluidBox fluidBox = EssenceFluidBox.create(EssenceFluidBox.Type.byEssenceType(essenceStorage.type()), new AABB(5.5 / 16.0F, 7.5 / 16.0F, 6.5 / 16.0F, 10.5 / 16.0F, 12.5 / 16.0F, 13.5 / 16.0F));
+            FluidBox fluidBox = FluidBox.create(essenceStorage.type(), new AABB(5.5 / 16.0F, 7.5 / 16.0F, 6.5 / 16.0F, 10.5 / 16.0F, 12.5 / 16.0F, 13.5 / 16.0F));
 
             fluidBox.setFillPercentage(essenceStorage.getFillPercentage());
 
