@@ -14,7 +14,7 @@ public record EntityEssenceAccess<T extends LivingEntity>(T entity) implements E
 
     private static final Map<EssenceType, AttachmentType<EssenceStorage>> ATTACHMENT_BY_TYPE = Util.make(new EnumMap<>(EssenceType.class), map -> {
         map.put(EssenceType.AUREAL, ModAttachmentTypes.AUREAL.get());
-        map.put(EssenceType.SOULS, ModAttachmentTypes.SOULS.get());
+        map.put(EssenceType.ECTOPLASM, ModAttachmentTypes.ECTOPLASM.get());
         map.put(EssenceType.BLOOD, ModAttachmentTypes.BLOOD.get());
         map.put(EssenceType.EXPERIENCE, ModAttachmentTypes.EXPERIENCE.get());
     });

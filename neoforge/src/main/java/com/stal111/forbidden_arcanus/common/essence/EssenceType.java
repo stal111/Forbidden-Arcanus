@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public enum EssenceType implements StringRepresentable {
     AUREAL("aureal", 7, ModParticles.AUREAL_DROP),
-    SOULS("souls", 0, ModParticles.SOULS_DROP),
+    ECTOPLASM("ectoplasm", 0, ModParticles.SOULS_DROP),
     BLOOD("blood", 0, ModParticles.BLOOD_DROP),
     EXPERIENCE("experience", 13, ModParticles.EXPERIENCE_DROP);
 

@@ -45,7 +45,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
 
     private static final Map<EssenceType, Holder<PoiType>> ESSENCE_TYPE_TO_POI_TYPE = Map.of(
             EssenceType.AUREAL, ModPOITypes.AUREAL_UTREM_JAR,
-            EssenceType.SOULS, ModPOITypes.SOULS_UTREM_JAR,
+            EssenceType.ECTOPLASM, ModPOITypes.ECTOPLASM_UTREM_JAR,
             EssenceType.BLOOD, ModPOITypes.BLOOD_UTREM_JAR,
             EssenceType.EXPERIENCE, ModPOITypes.EXPERIENCE_UTREM_JAR
     );

@@ -14,7 +14,7 @@ public record MultiEssenceStorage(EssenceStorage aureal,
 
     public static final Codec<MultiEssenceStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EssenceStorage.codec(EssenceType.AUREAL).fieldOf("aureal").forGetter(MultiEssenceStorage::aureal),
-            EssenceStorage.codec(EssenceType.SOULS).fieldOf("souls").forGetter(MultiEssenceStorage::souls),
+            EssenceStorage.codec(EssenceType.ECTOPLASM).fieldOf("ectoplasm").forGetter(MultiEssenceStorage::souls),
             EssenceStorage.codec(EssenceType.BLOOD).fieldOf("blood").forGetter(MultiEssenceStorage::blood),
             EssenceStorage.codec(EssenceType.EXPERIENCE).fieldOf("experience").forGetter(MultiEssenceStorage::experience)
     ).apply(instance, MultiEssenceStorage::new));
@@ -22,7 +22,7 @@ public record MultiEssenceStorage(EssenceStorage aureal,
     public static MultiEssenceStorage empty(EssenceSet limit) {
         return new MultiEssenceStorage(
                 EssenceStorage.createEmpty(EssenceType.AUREAL, limit.aureal()),
-                EssenceStorage.createEmpty(EssenceType.SOULS, limit.souls()),
+                EssenceStorage.createEmpty(EssenceType.ECTOPLASM, limit.ectoplasm()),
                 EssenceStorage.createEmpty(EssenceType.BLOOD, limit.blood()),
                 EssenceStorage.createEmpty(EssenceType.EXPERIENCE, limit.experience())
         );
@@ -31,7 +31,7 @@ public record MultiEssenceStorage(EssenceStorage aureal,
     public EssenceStorage getStorage(EssenceType type) {
         return switch (type) {
             case AUREAL -> this.aureal;
-            case SOULS -> this.souls;
+            case ECTOPLASM -> this.souls;
             case BLOOD -> this.blood;
             case EXPERIENCE -> this.experience;
         };
@@ -40,7 +40,7 @@ public record MultiEssenceStorage(EssenceStorage aureal,
     public MultiEssenceStorage setStorage(EssenceType type, EssenceStorage storage) {
         return switch (type) {
             case AUREAL -> new MultiEssenceStorage(storage, this.souls, this.blood, this.experience);
-            case SOULS -> new MultiEssenceStorage(this.aureal, storage, this.blood, this.experience);
+            case ECTOPLASM -> new MultiEssenceStorage(this.aureal, storage, this.blood, this.experience);
             case BLOOD -> new MultiEssenceStorage(this.aureal, this.souls, storage, this.experience);
             case EXPERIENCE -> new MultiEssenceStorage(this.aureal, this.souls, this.blood, storage);
         };

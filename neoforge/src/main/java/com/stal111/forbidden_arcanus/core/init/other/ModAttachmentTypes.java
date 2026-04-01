@@ -19,7 +19,7 @@ public class ModAttachmentTypes {
     public static final MappedRegistryHelper<AttachmentType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES);
 
     public static final Supplier<AttachmentType<EssenceStorage>> AUREAL = createEssenceStorage(EssenceType.AUREAL);
-    public static final Supplier<AttachmentType<EssenceStorage>> SOULS = createEssenceStorage(EssenceType.SOULS);
+    public static final Supplier<AttachmentType<EssenceStorage>> ECTOPLASM = createEssenceStorage(EssenceType.ECTOPLASM);
     public static final Supplier<AttachmentType<EssenceStorage>> BLOOD = createEssenceStorage(EssenceType.BLOOD);
     public static final Supplier<AttachmentType<EssenceStorage>> EXPERIENCE = createEssenceStorage(EssenceType.EXPERIENCE);
     public static final Supplier<AttachmentType<SoulboundInventory>> SOULBOUND_INVENTORY = HELPER.register("soulbound_inventory", () -> AttachmentType.builder(SoulboundInventory::create).serialize(SoulboundInventory.CODEC, inventory -> !inventory.isEmpty()).copyOnDeath().build());

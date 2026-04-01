@@ -2,8 +2,8 @@
   "essences": {
     "aureal": 6300,
     "blood": 8080,
-    "experience": 3420,
-    "souls": 60
+    "ectoplasm": 60,
+    "experience": 3420
   },
   "forge_tier": 4,
   "inputs": [

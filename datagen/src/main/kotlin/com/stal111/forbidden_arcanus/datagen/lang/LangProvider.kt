@@ -26,7 +26,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addModifier("soulbound", "Soulbound")
 
         add("essence", EssenceType.AUREAL, "Aureal")
-        add("essence", EssenceType.SOULS, "Souls")
+        add("essence", EssenceType.ECTOPLASM, "Ectoplasm")
         add("essence", EssenceType.BLOOD, "Blood")
         add("essence", EssenceType.EXPERIENCE, "Experience")
 
@@ -299,8 +299,8 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
             "enhancer.crescent_moon.hephaestus_forge",
             "Reduces the required Aureal depending on the time of the day."
         )
-        add("item", "enhancer.crimson_stone.hephaestus_forge", "Heavily decreases the amount of required souls.")
-        add("item", "enhancer.crimson_stone.clibano", "Used souls will last longer. (Soon)")
+        add("item", "enhancer.crimson_stone.hephaestus_forge", "Heavily decreases the amount of required ectoplasm.")
+        add("item", "enhancer.crimson_stone.clibano", "Used ectoplasm will last longer. (Soon)")
         add(
             "item",
             "enhancer.soul_crimson_stone.hephaestus_forge",

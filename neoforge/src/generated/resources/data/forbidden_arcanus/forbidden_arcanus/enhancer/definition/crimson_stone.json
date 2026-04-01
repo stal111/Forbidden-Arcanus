@@ -11,7 +11,7 @@
   "effects": [
     {
       "type": "forbidden_arcanus:multiply_required_essence",
-      "essence_type": "souls",
+      "essence_type": "ectoplasm",
       "multiplier": 0.5
     },
     {

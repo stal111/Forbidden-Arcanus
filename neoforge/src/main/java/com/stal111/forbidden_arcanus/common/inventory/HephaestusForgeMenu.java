@@ -107,7 +107,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, 5, 6, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canInput(level, EssenceType.SOULS, stack)) {
+            } else if (this.canInput(level, EssenceType.ECTOPLASM, stack)) {
                 if (!this.moveItemStackTo(stack, 6, 7, false)) {
                     return ItemStack.EMPTY;
                 }

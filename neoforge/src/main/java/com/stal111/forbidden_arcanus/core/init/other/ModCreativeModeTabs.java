@@ -210,7 +210,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.UTREM_JAR.get());
 
                             output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.AUREAL, 10000, 10000));
-                            output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.SOULS, 10000, 10000));
+                            output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.ECTOPLASM, 10000, 10000));
                             output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.BLOOD, 10000, 10000));
                             output.accept(EssenceHelper.createStorageItem(ModItems.ESSENCE_UTREM_JAR.get(), EssenceType.EXPERIENCE, 10000, 10000));
 

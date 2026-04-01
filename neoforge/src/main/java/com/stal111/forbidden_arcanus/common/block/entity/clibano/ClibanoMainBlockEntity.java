@@ -102,7 +102,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             ClibanoMainBlockEntity.this.onInputChange(index, previousContents);
         }
     };
-    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.SOULS);
+    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.ECTOPLASM);
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
     private EssenceStorage essenceStorage = EssenceStorages.CLIBANO_ECTOPLASM_EMPTY;
@@ -130,7 +130,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TIME_2 -> blockEntity.cookingTimes[1];
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0];
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1];
-                case DATA_ECTOPLASM_AMOUNT -> blockEntity.getEssenceAmount(EssenceType.SOULS);
+                case DATA_ECTOPLASM_AMOUNT -> blockEntity.getEssenceAmount(EssenceType.ECTOPLASM);
                 default -> 0;
             };
         }
@@ -146,7 +146,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TIME_2 -> blockEntity.cookingTimes[1] = value;
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0] = value;
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1] = value;
-                case DATA_ECTOPLASM_AMOUNT -> blockEntity.setEssenceAmount(EssenceType.SOULS, value);
+                case DATA_ECTOPLASM_AMOUNT -> blockEntity.setEssenceAmount(EssenceType.ECTOPLASM, value);
             }
         }
 
@@ -573,7 +573,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.essenceInputInventory.serialize(output.child("essence_inputs"));
 
         output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
-        output.store("ectoplasm", EssenceStorage.codec(EssenceType.SOULS).codec(), this.essenceStorage);
+        output.store("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec(), this.essenceStorage);
 
         output.putInt("lit_time_remaining", this.litTimeRemaining);
         output.putInt("lit_total_time", this.litTotalTime);
@@ -603,7 +603,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.essenceInputInventory.deserialize(input.childOrEmpty("essence_inputs"));
 
         this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
-        this.essenceStorage = input.read("ectoplasm", EssenceStorage.codec(EssenceType.SOULS).codec()).orElse(EssenceStorages.CLIBANO_ECTOPLASM_EMPTY);
+        this.essenceStorage = input.read("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec()).orElse(EssenceStorages.CLIBANO_ECTOPLASM_EMPTY);
 
         this.litTimeRemaining = input.getIntOr("lit_time_remaining", 0);
         this.litTotalTime = input.getIntOr("lit_total_time", 0);
@@ -684,12 +684,12 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public EssenceStorage getEssence(EssenceType type) {
-        return type == EssenceType.SOULS ? this.essenceStorage : EssenceStorage.createEmpty(type, 0);
+        return type == EssenceType.ECTOPLASM ? this.essenceStorage : EssenceStorage.createEmpty(type, 0);
     }
 
     @Override
     public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
-        if (type == EssenceType.SOULS) {
+        if (type == EssenceType.ECTOPLASM) {
             this.essenceStorage = updater.apply(this.essenceStorage);
 
             this.setChanged();

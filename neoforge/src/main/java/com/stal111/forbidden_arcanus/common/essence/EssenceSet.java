@@ -15,13 +15,13 @@ import java.util.function.BiConsumer;
  * @author stal111
  * @since 2023-01-04
  */
-public record EssenceSet(int aureal, int souls, int blood, int experience) {
+public record EssenceSet(int aureal, int ectoplasm, int blood, int experience) {
 
     public static final EssenceSet EMPTY = new EssenceSet(0, 0, 0, 0);
 
     public static final Codec<EssenceSet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("aureal", 0).forGetter(EssenceSet::aureal),
-            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("souls", 0).forGetter(EssenceSet::souls),
+            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("ectoplasm", 0).forGetter(EssenceSet::ectoplasm),
             ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("blood", 0).forGetter(EssenceSet::blood),
             ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("experience", 0).forGetter(EssenceSet::experience)
     ).apply(instance, EssenceSet::new));
@@ -33,7 +33,7 @@ public record EssenceSet(int aureal, int souls, int blood, int experience) {
     public int get(EssenceType type) {
         return switch (type) {
             case AUREAL -> this.aureal;
-            case SOULS -> this.souls;
+            case ECTOPLASM -> this.ectoplasm;
             case BLOOD -> this.blood;
             case EXPERIENCE -> this.experience;
         };
@@ -58,7 +58,7 @@ public record EssenceSet(int aureal, int souls, int blood, int experience) {
         Map<EssenceType, Integer> values = new EnumMap<>(EssenceType.class);
 
         values.put(EssenceType.AUREAL, aureal);
-        values.put(EssenceType.SOULS, souls);
+        values.put(EssenceType.ECTOPLASM, ectoplasm);
         values.put(EssenceType.BLOOD, blood);
         values.put(EssenceType.EXPERIENCE, experience);
 
@@ -66,14 +66,14 @@ public record EssenceSet(int aureal, int souls, int blood, int experience) {
             values.computeIfPresent(modifier.getEssenceType(), (k, v) -> modifier.getModifiedValue(v));
         }
 
-        return EssenceSet.of(values.get(EssenceType.AUREAL), values.get(EssenceType.SOULS), values.get(EssenceType.BLOOD), values.get(EssenceType.EXPERIENCE));
+        return EssenceSet.of(values.get(EssenceType.AUREAL), values.get(EssenceType.ECTOPLASM), values.get(EssenceType.BLOOD), values.get(EssenceType.EXPERIENCE));
     }
 
     @Override
     public String toString() {
         return "EssencesDefinition{" +
                 "aureal=" + this.aureal +
-                ", souls=" + this.souls +
+                ", ectoplasm=" + this.ectoplasm +
                 ", blood=" + this.blood +
                 ", experience=" + this.experience +
                 '}';

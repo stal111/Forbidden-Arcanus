@@ -52,7 +52,7 @@ object ModEnhancerDefinitions : RegistryDataProvider<EnhancerDefinition> {
             EnhancerDefinition.create(
                 generateDescription("crimson_stone", EnhancerTarget.HEPHAESTUS_FORGE, EnhancerTarget.CLIBANO),
                 ModItems.CRIMSON_STONE.get(),
-                effect(MultiplyRequiredEssenceEffect(EssenceType.SOULS, 0.5)),
+                effect(MultiplyRequiredEssenceEffect(EssenceType.ECTOPLASM, 0.5)),
                 effect(MultiplySoulDurationEffect(1.3))
             )
         )
@@ -62,7 +62,7 @@ object ModEnhancerDefinitions : RegistryDataProvider<EnhancerDefinition> {
                 generateDescription("soul_crimson_stone", EnhancerTarget.HEPHAESTUS_FORGE),
                 ModItems.SOUL_CRIMSON_STONE.get(),
                 effect(MultiplyRequiredEssenceEffect(EssenceType.AUREAL, 0.0)),
-                effect(MultiplyRequiredEssenceEffect(EssenceType.SOULS, 0.0)),
+                effect(MultiplyRequiredEssenceEffect(EssenceType.ECTOPLASM, 0.0)),
                 effect(MultiplyRequiredEssenceEffect(EssenceType.BLOOD, 0.0)),
                 effect(MultiplyRequiredEssenceEffect(EssenceType.EXPERIENCE, 0.0))
             )

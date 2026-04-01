@@ -100,7 +100,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             public int get(int index) {
                 return switch (index) {
                     case 0 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.AUREAL);
-                    case 1 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.SOULS);
+                    case 1 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.ECTOPLASM);
                     case 2 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.BLOOD);
                     case 3 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.EXPERIENCE);
                     default -> 0;
@@ -111,7 +111,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             public void set(int index, int value) {
                 switch (index) {
                     case 0 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.AUREAL, value);
-                    case 1 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.SOULS, value);
+                    case 1 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.ECTOPLASM, value);
                     case 2 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.BLOOD, value);
                     case 3 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.EXPERIENCE, value);
                     default -> {

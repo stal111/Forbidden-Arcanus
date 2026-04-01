@@ -38,7 +38,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
         super.init();
 
         this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 11, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_AUREAL, () -> this.menu.getEssenceStorage(EssenceType.AUREAL)));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 23, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_ECTOPLASM, () ->  this.menu.getEssenceStorage(EssenceType.SOULS)));
+        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 23, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_ECTOPLASM, () ->  this.menu.getEssenceStorage(EssenceType.ECTOPLASM)));
         this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 147, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_BLOOD, () ->  this.menu.getEssenceStorage(EssenceType.BLOOD)));
         this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 159, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_EXPERIENCE, () ->  this.menu.getEssenceStorage(EssenceType.EXPERIENCE)));
     }
