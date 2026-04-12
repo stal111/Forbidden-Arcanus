@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.client.model.*;
 import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.block.ObsidianSkullRenderer;
 import net.minecraft.client.model.geom.PartPose;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -16,7 +17,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
  * @version 1.19 - 2.1.0
  * @since 2021-11-28
  */
-@EventBusSubscriber
+@EventBusSubscriber(value = Dist.CLIENT)
 public class EntityRendererEvents {
 
     @SubscribeEvent
