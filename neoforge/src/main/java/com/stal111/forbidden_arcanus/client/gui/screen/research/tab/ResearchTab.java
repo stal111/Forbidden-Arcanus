@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ResearchTab extends AbstractTab {
 
-    private static final Identifier BACKGROUND = ForbiddenArcanus.identifier("textures/gui/research/background.png");
+    private static final Identifier BACKGROUND = ForbiddenArcanus.identifier("textures/gui/research/fiery_background.png");
     private static final Identifier BACKGROUND_STARS = ForbiddenArcanus.identifier("textures/gui/research/background_stars.png");
     private static final Identifier BACKGROUND_STELLAR_DUST_0 = ForbiddenArcanus.identifier("textures/gui/research/background_stellar_dust_0.png");
     private static final Identifier BACKGROUND_STELLAR_DUST_1 = ForbiddenArcanus.identifier("textures/gui/research/background_stellar_dust_1.png");

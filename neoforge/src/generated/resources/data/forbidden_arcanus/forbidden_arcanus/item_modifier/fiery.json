@@ -3,11 +3,7 @@
     "name": {
       "translate": "modifier.forbidden_arcanus.fiery"
     },
-    "texture": "forbidden_arcanus:textures/gui/tooltip/fiery.png",
-    "tooltip_color": {
-      "end": -11008506,
-      "start": -28928
-    }
+    "texture": "forbidden_arcanus:fiery/fiery"
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/fiery_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/fiery_incompatible",

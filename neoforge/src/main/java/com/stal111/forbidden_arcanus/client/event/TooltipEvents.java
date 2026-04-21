@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
 import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucket;
+import com.stal111.forbidden_arcanus.common.item.modifier.ModifierHelper;
 import com.stal111.forbidden_arcanus.common.item.wand.WandMaterial;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.client.Minecraft;
@@ -24,16 +25,14 @@ import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 @EventBusSubscriber(value = Dist.CLIENT)
 public class TooltipEvents {
 
-    //TODO
-//    @SubscribeEvent
-//    public static void onRenderTooltipColor(RenderTooltipEvent.Color event) {
-//        ItemStack stack = event.getItemStack();
-//
-//        ModifierHelper.getModifier(stack).map(modifier -> modifier.displaySettings().tooltipColor()).ifPresent(color -> {
-//            event.setBorderStart(color.getFirst());
-//            event.setBorderEnd(color.getSecond());
-//        });
-//    }
+    @SubscribeEvent
+    public static void onRenderTooltipColor(RenderTooltipEvent.Texture event) {
+        ItemStack stack = event.getItemStack();
+
+        ModifierHelper.getModifier(stack).ifPresent(modifier -> {
+            event.setTexture(modifier.displaySettings().texture());
+        });
+    }
 
     @SubscribeEvent
     public static void onGatherComponents(RenderTooltipEvent.GatherComponents event) {

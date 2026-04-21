@@ -3,11 +3,7 @@
     "name": {
       "translate": "modifier.forbidden_arcanus.demolishing"
     },
-    "texture": "forbidden_arcanus:textures/gui/tooltip/demolishing.png",
-    "tooltip_color": {
-      "end": -11650521,
-      "start": -9481136
-    }
+    "texture": "forbidden_arcanus:demolishing/demolishing"
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/demolishing_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/demolishing_incompatible",

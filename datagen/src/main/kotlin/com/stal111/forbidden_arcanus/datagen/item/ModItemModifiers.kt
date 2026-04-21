@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.datagen.item
 
-import com.mojang.datafixers.util.Pair
+import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier.DisplaySettings
@@ -15,10 +15,10 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.Identifier
 import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
-import net.minecraft.util.ARGB
 import net.minecraft.util.Util
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.enchantment.Enchantment
@@ -59,46 +59,42 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
                 BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.DAMAGE),
                 BuiltInRegistries.DATA_COMPONENT_TYPE.wrapAsHolder(DataComponents.MAX_DAMAGE)
             ),
-            createDisplay(BuiltInItemModifiers.ETERNAL, ARGB.color(255, 170, 181, 159), ARGB.color(255, 49, 57, 56))
+            ForbiddenArcanus.identifier("eternal/eternal")
         )
         register(
             BuiltInItemModifiers.FIERY,
             isToolPredicate,
             ModTags.Items.FIERY_INCOMPATIBLE,
             ModTags.Enchantments.FIERY_INCOMPATIBLE,
-            createDisplay(BuiltInItemModifiers.FIERY, ARGB.color(255, 255, 143, 0), ARGB.color(255, 88, 6, 6))
+            ForbiddenArcanus.identifier("fiery/fiery")
         )
         register(
             BuiltInItemModifiers.MAGNETIZED,
             magnetizedPredicate,
             ModTags.Items.MAGNETIZED_INCOMPATIBLE,
             ModTags.Enchantments.MAGNETIZED_INCOMPATIBLE,
-            createDisplay(BuiltInItemModifiers.MAGNETIZED, ARGB.color(255, 200, 201, 215), ARGB.color(255, 87, 105, 99))
+            ForbiddenArcanus.identifier("magnetized/magnetized")
         )
         register(
             BuiltInItemModifiers.DEMOLISHING,
             isToolPredicate,
             ModTags.Items.DEMOLISHING_INCOMPATIBLE,
             ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE,
-            createDisplay(BuiltInItemModifiers.DEMOLISHING, ARGB.color(255, 111, 84, 80), ARGB.color(255, 78, 58, 39))
+            ForbiddenArcanus.identifier("demolishing/demolishing")
         )
         register(
             BuiltInItemModifiers.AQUATIC,
             aquaticPredicate,
             ModTags.Items.AQUATIC_INCOMPATIBLE,
             ModTags.Enchantments.AQUATIC_INCOMPATIBLE,
-            createDisplay(BuiltInItemModifiers.AQUATIC, ARGB.color(255, 90, 130, 243), ARGB.color(255, 35, 79, 204))
+            ForbiddenArcanus.identifier("aquatic/aquatic")
         )
         register(
             BuiltInItemModifiers.SOULBOUND,
             soulBoundPredicate,
             ModTags.Items.SOULBOUND_INCOMPATIBLE,
             ModTags.Enchantments.SOULBOUND_INCOMPATIBLE,
-            createDisplay(
-                BuiltInItemModifiers.SOULBOUND,
-                ARGB.color(255, 166, 185, 246),
-                ARGB.color(255, 247, 184, 217)
-            )
+            ForbiddenArcanus.identifier("soulbound/soulbound")
         )
     }
 
@@ -107,7 +103,7 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
         predicate: ItemPredicate,
         incompatibleItems: TagKey<Item>,
         incompatibleEnchantments: TagKey<Enchantment>,
-        displaySettings: DisplaySettings
+        texture: Identifier,
     ) {
         this.context!!.register(
             key,
@@ -116,7 +112,10 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
                 this.itemsGetter!!.getOrThrow(incompatibleItems),
                 this.enchantmentGetter!!.getOrThrow(incompatibleEnchantments),
                 HolderSet.empty(),
-                displaySettings
+                DisplaySettings(
+                    Component.translatable(Util.makeDescriptionId("modifier", key.identifier())),
+                    texture,
+                )
             )
         )
     }
@@ -127,7 +126,7 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
         incompatibleItems: TagKey<Item>,
         incompatibleEnchantments: TagKey<Enchantment>,
         componentsToRemove: HolderSet<DataComponentType<*>>,
-        displaySettings: DisplaySettings
+        texture: Identifier,
     ) {
         this.context!!.register(
             key,
@@ -136,16 +135,11 @@ object ModItemModifiers : RegistryDataProvider<ItemModifier> {
                 this.itemsGetter!!.getOrThrow(incompatibleItems),
                 this.enchantmentGetter!!.getOrThrow(incompatibleEnchantments),
                 componentsToRemove,
-                displaySettings
+                DisplaySettings(
+                    Component.translatable(Util.makeDescriptionId("modifier", key.identifier())),
+                    texture,
+                )
             )
-        )
-    }
-
-    private fun createDisplay(key: ResourceKey<ItemModifier>, startColor: Int, endColor: Int): DisplaySettings {
-        return DisplaySettings(
-            Component.translatable(Util.makeDescriptionId("modifier", key.identifier())),
-            key.identifier().withPrefix("textures/gui/tooltip/").withSuffix(".png"),
-            Pair.of<Int?, Int?>(startColor, endColor)
         )
     }
 }

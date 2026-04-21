@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.item.modifier;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -68,12 +67,11 @@ public record ItemModifier(
         return this.incompatibleEnchantments.stream().noneMatch(enchantments::contains);
     }
 
-    public record DisplaySettings(Component name, Identifier texture, Pair<Integer, Integer> tooltipColor) {
+    public record DisplaySettings(Component name, Identifier texture) {
 
         public static final Codec<DisplaySettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ComponentSerialization.CODEC.fieldOf("name").forGetter(DisplaySettings::name),
-                Identifier.CODEC.fieldOf("texture").forGetter(DisplaySettings::texture),
-                Codec.pair(Codec.INT.fieldOf("start").codec(), Codec.INT.fieldOf("end").codec()).fieldOf("tooltip_color").forGetter(DisplaySettings::tooltipColor)
+                Identifier.CODEC.fieldOf("texture").forGetter(DisplaySettings::texture)
         ).apply(instance, DisplaySettings::new));
     }
 }

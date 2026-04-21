@@ -37,7 +37,7 @@ public abstract class ScreenMixin {
     public abstract int guiHeight();
 
     @Shadow
-    public abstract void blit(RenderPipeline renderPipeline, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight);
+    public abstract void blitSprite(RenderPipeline renderPipeline, Identifier texture, int spriteWidth, int spriteHeight, int textureX, int textureY, int x, int y, int width, int height);
 
     @Inject(at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;popMatrix()Lorg/joml/Matrix3x2fStack;"), method = "tooltip(Lnet/minecraft/client/gui/Font;Ljava/util/List;IILnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;Lnet/minecraft/resources/Identifier;Lnet/minecraft/world/item/ItemStack;)V")
     private void forbiddenArcanus_tooltip(Font font, List<ClientTooltipComponent> lines, int xo, int yo, ClientTooltipPositioner positioner, @Nullable Identifier style, ItemStack tooltipStack, CallbackInfo ci, @Local(ordinal = 0) RenderTooltipEvent.Pre event) {
@@ -65,17 +65,21 @@ public abstract class ScreenMixin {
                 k2 = this.guiHeight() - height - 6;
             }
 
-            var texture = modifier.displaySettings().texture();
+            var texture = modifier.displaySettings().texture()
+                    .withPrefix("tooltip/")
+                    .withSuffix("_decoration");
 
-            this.blit(RenderPipelines.GUI_TEXTURED, texture, j2 - 8, k2 - 8, 9, 9, 7, 7, 128, 32);
-            this.blit(RenderPipelines.GUI_TEXTURED, texture, j2 + width + 1, k2 - 8, 98, 9, 7, 7, 128, 32);
+            System.out.println(texture);
 
-            this.blit(RenderPipelines.GUI_TEXTURED, texture, j2 - 8, k2 + height + 1, 9, 17, 7, 7, 128, 32);
-            this.blit(RenderPipelines.GUI_TEXTURED, texture, j2 + width + 1, k2 + height + 1, 98, 17, 7, 7, 128, 32);
+            this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 9, 9, j2 - 8, k2 - 8, 7, 7);
+            this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 98, 9, j2 + width + 1, k2 - 8, 7, 7);
+
+            this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 9, 17, j2 - 8, k2 + height + 1, 7, 7);
+            this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 98, 17, j2 + width + 1, k2 + height + 1, 7, 7);
 
             if (width >= 94) {
-                this.blit(RenderPipelines.GUI_TEXTURED, texture, j2 + (width / 2) - 31, k2 - 16, 26, 0, 62, 15, 128, 32);
-                this.blit(RenderPipelines.GUI_TEXTURED, texture, j2 + (width / 2) - 31, k2 + height + 1, 26, 17, 62, 15, 128, 32);
+                this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 26, 0, j2 + (width / 2) - 31, k2 - 16, 62, 15);
+                this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 26, 17, j2 + (width / 2) - 31, k2 + height + 1, 62, 15);
             }
         });
     }

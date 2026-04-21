@@ -7,11 +7,7 @@
     "name": {
       "translate": "modifier.forbidden_arcanus.eternal"
     },
-    "texture": "forbidden_arcanus:textures/gui/tooltip/eternal.png",
-    "tooltip_color": {
-      "end": -13551304,
-      "start": -5589601
-    }
+    "texture": "forbidden_arcanus:eternal/eternal"
   },
   "incompatible_enchantments": "#forbidden_arcanus:modifier/eternal_incompatible",
   "incompatible_items": "#forbidden_arcanus:modifier/eternal_incompatible",
