@@ -29,8 +29,8 @@ public class FieryLootModifier extends LootModifier {
      *
      * @param conditions the ILootConditions that need to be matched before the loot is modified.
      */
-    public FieryLootModifier(LootItemCondition[] conditions) {
-        super(conditions);
+    public FieryLootModifier(LootItemCondition[] conditions, int priority) {
+        super(conditions, priority);
     }
 
     @Override

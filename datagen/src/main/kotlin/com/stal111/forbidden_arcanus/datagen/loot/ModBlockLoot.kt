@@ -54,7 +54,7 @@ class ModBlockLoot(
         dropSelf(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get())
         dropSelf(ModBlocks.DARKSTONE_PEDESTAL.get())
         dropSelf(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get())
-        dropSelf(ModBlocks.CLIBANO_CORE.get())
+//        dropSelf(ModBlocks.CLIBANO_CORE.get())
         dropSelf(ModBlocks.HEPHAESTUS_FORGE.get())
         dropSelf(ModBlocks.QUANTUM_CORE.get())
         dropSelf(ModBlocks.QUANTUM_INJECTOR.get())

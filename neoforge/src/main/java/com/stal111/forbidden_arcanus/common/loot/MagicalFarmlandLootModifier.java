@@ -35,8 +35,8 @@ public class MagicalFarmlandLootModifier extends LootModifier {
      *
      * @param conditions the ILootConditions that need to be matched before the loot is modified.
      */
-    public MagicalFarmlandLootModifier(LootItemCondition[] conditions) {
-        super(conditions);
+    public MagicalFarmlandLootModifier(LootItemCondition[] conditions, int priority) {
+        super(conditions, priority);
     }
 
     @Nonnull

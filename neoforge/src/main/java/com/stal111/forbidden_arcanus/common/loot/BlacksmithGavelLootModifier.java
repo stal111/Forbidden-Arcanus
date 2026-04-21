@@ -33,8 +33,8 @@ public class BlacksmithGavelLootModifier extends LootModifier {
      *
      * @param conditions the ILootConditions that need to be matched before the loot is modified.
      */
-    public BlacksmithGavelLootModifier(LootItemCondition[] conditions) {
-        super(conditions);
+    public BlacksmithGavelLootModifier(LootItemCondition[] conditions, int priority) {
+        super(conditions, priority);
     }
 
     @Override

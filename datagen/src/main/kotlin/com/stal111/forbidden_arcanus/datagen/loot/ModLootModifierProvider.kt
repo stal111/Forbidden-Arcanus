@@ -24,6 +24,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.predicates.MatchTool
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider
 import net.neoforged.neoforge.common.loot.AddTableLootModifier
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier
 import net.neoforged.neoforge.common.loot.LootTableIdCondition
 import net.valhelsia.dataforge.DataProviderContext
 
@@ -54,7 +55,7 @@ class ModLootModifierProvider(
                             )
                         )
                     ).build(), LootTableIdCondition.builder(Blocks.SPAWNER.lootTable.orElseThrow().identifier()).build()
-                ), ModBlockLootAdditions.SPAWNER_SCRAP_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModBlockLootAdditions.SPAWNER_SCRAP_ADDITION
             )
         )
         this.add(
@@ -64,7 +65,7 @@ class ModLootModifierProvider(
                     LootTableIdCondition.builder(
                         EntityType.ENDERMAN.defaultLootTable.orElseThrow().identifier()
                     ).build()
-                ), ModEntityLootAdditions.ENDER_PEARL_FRAGMENT_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.ENDER_PEARL_FRAGMENT_ADDITION
             )
         )
         this.add(
@@ -74,7 +75,7 @@ class ModLootModifierProvider(
                     LootTableIdCondition.builder(
                         EntityType.BAT.defaultLootTable.orElseThrow().identifier()
                     ).build()
-                ), ModEntityLootAdditions.BAT_WING_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.BAT_WING_ADDITION
             )
         )
         this.add(
@@ -83,7 +84,7 @@ class ModLootModifierProvider(
                 arrayOf(
                     LootItemRandomChanceCondition.randomChance(0.7f).build(),
                     LootTableIdCondition.builder(EntityType.SQUID.defaultLootTable.orElseThrow().identifier()).build()
-                ), ModEntityLootAdditions.TENTACLE_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.TENTACLE_ADDITION
             )
         )
         this.add(
@@ -93,7 +94,7 @@ class ModLootModifierProvider(
                     LootTableIdCondition.builder(
                         EntityType.ENDER_DRAGON.defaultLootTable.orElseThrow().identifier()
                     ).build()
-                ), ModEntityLootAdditions.DRAGON_SCALE_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.DRAGON_SCALE_ADDITION
             )
         )
 
@@ -103,7 +104,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootTableIdCondition.builder(BuiltInLootTables.SIMPLE_DUNGEON.identifier()).build()
-                ), ModChestLootAdditions.AUREAL_BOTTLE_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.AUREAL_BOTTLE_ADDITION
             )
         )
         this.add(
@@ -111,7 +112,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootTableIdCondition.builder(BuiltInLootTables.END_CITY_TREASURE.identifier()).build()
-                ), ModChestLootAdditions.DRAGON_SCALE_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.DRAGON_SCALE_ADDITION
             )
         )
         this.add(
@@ -123,7 +124,7 @@ class ModLootModifierProvider(
                         LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_TOOLSMITH.identifier()),
                         LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_WEAPONSMITH.identifier())
                     ).build()
-                ), ModChestLootAdditions.ARTISAN_RELIC_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.ARTISAN_RELIC_ADDITION
             )
         )
         this.add(
@@ -131,7 +132,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootTableIdCondition.builder(BuiltInLootTables.PILLAGER_OUTPOST.identifier()).build()
-                ), ModChestLootAdditions.CRIMSON_STONE_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.CRIMSON_STONE_ADDITION
             )
         )
         this.add(
@@ -144,7 +145,7 @@ class ModLootModifierProvider(
                         LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_SMALL.identifier()),
                         LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_BIG.identifier())
                     ).build()
-                ), ModChestLootAdditions.ELEMENTARIUM_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.ELEMENTARIUM_ADDITION
             )
         )
         this.add(
@@ -152,7 +153,7 @@ class ModLootModifierProvider(
             AddTableLootModifier(
                 arrayOf(
                     LootTableIdCondition.builder(BuiltInLootTables.BASTION_TREASURE.identifier()).build()
-                ), ModChestLootAdditions.MALEDICTUS_PACT_ADDITION
+                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.MALEDICTUS_PACT_ADDITION
             )
         )
 
@@ -171,15 +172,15 @@ class ModLootModifierProvider(
                             ).build()
                         )
                     ).build()
-                )
+                ), IGlobalLootModifier.DEFAULT_PRIORITY
             )
         )
         this.add(
             "blacksmith_gavel_ore_doubling",
-            BlacksmithGavelLootModifier(arrayOf(LootItemRandomChanceCondition.randomChance(0.3f).build()))
+            BlacksmithGavelLootModifier(arrayOf(LootItemRandomChanceCondition.randomChance(0.3f).build()), IGlobalLootModifier.DEFAULT_PRIORITY)
         )
 
         // Blocks
-        this.add("magical_farmland_crop_doubling", MagicalFarmlandLootModifier(arrayOf()))
+        this.add("magical_farmland_crop_doubling", MagicalFarmlandLootModifier(arrayOf(), IGlobalLootModifier.DEFAULT_PRIORITY))
     }
 }
