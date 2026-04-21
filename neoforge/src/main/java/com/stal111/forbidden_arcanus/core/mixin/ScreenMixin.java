@@ -37,7 +37,7 @@ public abstract class ScreenMixin {
     public abstract int guiHeight();
 
     @Shadow
-    public abstract void blitSprite(RenderPipeline renderPipeline, Identifier texture, int spriteWidth, int spriteHeight, int textureX, int textureY, int x, int y, int width, int height);
+    public abstract void blitSprite(RenderPipeline renderPipeline, Identifier location, int spriteWidth, int spriteHeight, int textureX, int textureY, int x, int y, int width, int height);
 
     @Inject(at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;popMatrix()Lorg/joml/Matrix3x2fStack;"), method = "tooltip(Lnet/minecraft/client/gui/Font;Ljava/util/List;IILnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;Lnet/minecraft/resources/Identifier;Lnet/minecraft/world/item/ItemStack;)V")
     private void forbiddenArcanus_tooltip(Font font, List<ClientTooltipComponent> lines, int xo, int yo, ClientTooltipPositioner positioner, @Nullable Identifier style, ItemStack tooltipStack, CallbackInfo ci, @Local(ordinal = 0) RenderTooltipEvent.Pre event) {
@@ -65,10 +65,8 @@ public abstract class ScreenMixin {
                 k2 = this.guiHeight() - height - 6;
             }
 
-            var texture = modifier.displaySettings().texture()
-                    .withPrefix("tooltip/")
-                    .withSuffix("_decoration");
-            
+            var texture = modifier.displaySettings().decorationTexture();
+
             this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 9, 9, j2 - 8, k2 - 8, 7, 7);
             this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 98, 9, j2 + width + 1, k2 - 8, 7, 7);
 

@@ -67,7 +67,11 @@ public record ItemModifier(
         return this.incompatibleEnchantments.stream().noneMatch(enchantments::contains);
     }
 
-    public record DisplaySettings(Component name, Identifier texture) {
+    public record DisplaySettings(Component name, Identifier texture, Identifier decorationTexture) {
+
+        public DisplaySettings(Component name, Identifier texture) {
+            this(name, texture, texture.withPrefix("tooltip/").withSuffix("_decoration"));
+        }
 
         public static final Codec<DisplaySettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ComponentSerialization.CODEC.fieldOf("name").forGetter(DisplaySettings::name),
