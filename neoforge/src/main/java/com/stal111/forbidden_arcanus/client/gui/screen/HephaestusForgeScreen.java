@@ -37,10 +37,10 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     protected void init() {
         super.init();
 
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 11, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_AUREAL, () -> this.menu.getEssenceStorage(EssenceType.AUREAL)));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 23, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_ECTOPLASM, () ->  this.menu.getEssenceStorage(EssenceType.ECTOPLASM)));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 147, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_BLOOD, () ->  this.menu.getEssenceStorage(EssenceType.BLOOD)));
-        this.addRenderableWidget(new EssenceBar(this.getGuiLeft() + 159, this.getGuiTop() + 22, EssenceBarType.HEPHAESTUS_FORGE_EXPERIENCE, () ->  this.menu.getEssenceStorage(EssenceType.EXPERIENCE)));
+        this.addRenderableWidget(new EssenceBar(this.getLeftPos() + 11, this.getTopPos() + 22, EssenceBarType.HEPHAESTUS_FORGE_AUREAL, () -> this.menu.getEssenceStorage(EssenceType.AUREAL)));
+        this.addRenderableWidget(new EssenceBar(this.getLeftPos() + 23, this.getTopPos() + 22, EssenceBarType.HEPHAESTUS_FORGE_ECTOPLASM, () ->  this.menu.getEssenceStorage(EssenceType.ECTOPLASM)));
+        this.addRenderableWidget(new EssenceBar(this.getLeftPos() + 147, this.getTopPos() + 22, EssenceBarType.HEPHAESTUS_FORGE_BLOOD, () ->  this.menu.getEssenceStorage(EssenceType.BLOOD)));
+        this.addRenderableWidget(new EssenceBar(this.getLeftPos() + 159, this.getTopPos() + 22, EssenceBarType.HEPHAESTUS_FORGE_EXPERIENCE, () ->  this.menu.getEssenceStorage(EssenceType.EXPERIENCE)));
     }
 
     @Override
@@ -65,10 +65,10 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
 
     @Override
     public void extractBackground(@Nonnull GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.getXSize(), this.getYSize(), 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getLeftPos(), this.getTopPos(), 0, 0, this.getImageWidth(), this.getImageHeight(), 256, 256);
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() - 26, this.getGuiTop() + 16, 176, 61, 29, 51, 256, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getGuiLeft() + 172, this.getGuiTop() + 16, 206, 61, 29, 51, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getLeftPos() - 26, this.getTopPos() + 16, 176, 61, 29, 51, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getLeftPos() + 172, this.getTopPos() + 16, 206, 61, 29, 51, 256, 256);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     protected void extractTooltip(@Nonnull GuiGraphicsExtractor guiGraphics, int x, int y) {
         super.extractTooltip(guiGraphics, x, y);
 
-        Slot slot = this.getSlotUnderMouse();
+        Slot slot = this.getHoveredSlot();
 
         if (slot instanceof LockableSlot lockableSlot && lockableSlot.isLocked()) {
             guiGraphics.setTooltipForNextFrame(this.font, lockableSlot.getLockedDescription(), x, y);

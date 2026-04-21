@@ -33,22 +33,22 @@ public abstract class TabbedContainerScreen<T extends TabbedContainerMenu> exten
     private final ScreenAccess screenAccess = new ScreenAccess() {
         @Override
         public int getGuiLeft() {
-            return TabbedContainerScreen.this.getGuiLeft();
+            return TabbedContainerScreen.this.getLeftPos();
         }
 
         @Override
         public int getGuiTop() {
-            return TabbedContainerScreen.this.getGuiTop();
+            return TabbedContainerScreen.this.getTopPos();
         }
 
         @Override
         public int getWidth() {
-            return TabbedContainerScreen.this.getXSize();
+            return TabbedContainerScreen.this.getImageWidth();
         }
 
         @Override
         public int getHeight() {
-            return TabbedContainerScreen.this.getYSize();
+            return TabbedContainerScreen.this.getImageHeight();
         }
 
         @Override

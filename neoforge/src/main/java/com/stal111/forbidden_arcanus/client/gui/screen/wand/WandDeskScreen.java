@@ -25,7 +25,7 @@ public class WandDeskScreen extends TabbedContainerScreen<WandDeskMenu> {
 
     @Override
     public ScreenPosition getTabButtonPosition() {
-        return new ScreenPosition(this.getGuiLeft() + 175, this.getGuiTop() + 20);
+        return new ScreenPosition(this.getLeftPos() + 175, this.getTopPos() + 20);
     }
 
     @Override
