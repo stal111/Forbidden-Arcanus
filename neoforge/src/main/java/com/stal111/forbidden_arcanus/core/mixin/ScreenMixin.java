@@ -68,9 +68,7 @@ public abstract class ScreenMixin {
             var texture = modifier.displaySettings().texture()
                     .withPrefix("tooltip/")
                     .withSuffix("_decoration");
-
-            System.out.println(texture);
-
+            
             this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 9, 9, j2 - 8, k2 - 8, 7, 7);
             this.blitSprite(RenderPipelines.GUI_TEXTURED, texture, 128, 32, 98, 9, j2 + width + 1, k2 - 8, 7, 7);
 
