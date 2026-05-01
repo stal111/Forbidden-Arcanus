@@ -1,4 +1,5 @@
-// 26.1.2	2026-04-21T11:14:02.476756	Registries
+// 26.1.2	2026-05-01T23:33:54.0064442	Registries
+fd18da93d87a7f47354baedd82518d0440345dd9 data/forbidden_arcanus/enchantment/anchored.json
 c98ac566f1282450f9c754815a2c8f9a44e02b0a data/forbidden_arcanus/enchantment/soul_looting.json
 5dae7d2918859d0c001de5f1ba9afef12e45c807 data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/artisan_relic.json
 4852b696f02e7470be56e62e97c6106737bd808b data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/crescent_moon.json
@@ -63,8 +64,8 @@ f4f9f368a9282043958c7ea3076a2651d56aeb88 data/forbidden_arcanus/forbidden_arcanu
 3541c4006c2e4b755e13273e78c7b1fb76f6544c data/forbidden_arcanus/forbidden_arcanus/wand/material/gold.json
 1a7804fe3bd245032f58e933a1db09d0730c7d21 data/forbidden_arcanus/forbidden_arcanus/wand/material/iron.json
 48ad9babb5f458f80f2945845d05001448adcc2a data/forbidden_arcanus/forbidden_arcanus/wand/material/lapis_lazuli.json
-e17545e0ddb7ec6ad7aefb0c92dfc2758fb5212c data/forbidden_arcanus/forbidden_arcanus/wand/material/nether_star.json
 7248447ab3befc49a17f4e8ac431e84f008ccee1 data/forbidden_arcanus/forbidden_arcanus/wand/material/netherite.json
+e17545e0ddb7ec6ad7aefb0c92dfc2758fb5212c data/forbidden_arcanus/forbidden_arcanus/wand/material/nether_star.json
 e4b5a434ceafe25bb68d1fc678042f480e6f8804 data/forbidden_arcanus/forbidden_arcanus/wand/material/obsidiansteel.json
 8c582a50c324acc128fc02e6a43e71bebc9bbb5e data/forbidden_arcanus/forbidden_arcanus/wand/material/prismarine.json
 b753b8377b6147fea53b8da2d7084c0a4bbdd550 data/forbidden_arcanus/forbidden_arcanus/wand/material/quartz.json

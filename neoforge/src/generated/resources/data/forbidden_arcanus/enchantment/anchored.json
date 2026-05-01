@@ -1,0 +1,38 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.forbidden_arcanus.anchored"
+  },
+  "effects": {
+    "forbidden_arcanus:pull_resistance": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:lookup",
+            "fallback": 1.0,
+            "values": [
+              0.25,
+              0.55,
+              0.9
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 26,
+    "per_level_above_first": 9
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 14,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "feet"
+  ],
+  "supported_items": "#minecraft:enchantable/foot_armor",
+  "weight": 5
+}

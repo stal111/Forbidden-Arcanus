@@ -1,8 +1,8 @@
-// 26.1.2	2026-04-21T10:41:15.174331	forbidden_arcanus: Enchantment Tags
+// 26.1.2	2026-05-01T23:18:09.3949164	forbidden_arcanus: Enchantment Tags
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/enchantment/modifier/aquatic_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/enchantment/modifier/demolishing_incompatible.json
 dc5a748d9a3c7c800790022865d19757f0033a0b data/forbidden_arcanus/tags/enchantment/modifier/eternal_incompatible.json
 ba4d030f4fdd436e18d3e4c3bda99cca73a3d4cf data/forbidden_arcanus/tags/enchantment/modifier/fiery_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/enchantment/modifier/magnetized_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/enchantment/modifier/soulbound_incompatible.json
-024b98bcea19c347ce874dd58584f09ba2998d6e data/minecraft/tags/enchantment/non_treasure.json
+2925d92d8836311de68f7a74d1fafa0107b196bc data/minecraft/tags/enchantment/non_treasure.json

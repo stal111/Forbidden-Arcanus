@@ -2,15 +2,19 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.item.enchantment.ModEnchantmentHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -65,6 +69,13 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
         for (Entity entity : entities) {
             double distance = entity.position().distanceTo(center);
             double movementFactor = blockEntity.getMovementFactor(distance);
+
+            if (entity instanceof LivingEntity livingEntity && level instanceof ServerLevel serverLevel) {
+                ItemStack stack = livingEntity.getItemBySlot(EquipmentSlot.FEET);
+                float pullResistance = ModEnchantmentHelper.getPullResistance(serverLevel, stack);
+
+                movementFactor = movementFactor * (1 - pullResistance);
+            }
 
             entity.push((pos.getX() + 0.5 - entity.getX()) * movementFactor, (pos.getY() + 0.5 - entity.getY() + 1.25) * movementFactor, (pos.getZ() + 0.5 - entity.getZ()) * movementFactor);
 

@@ -20,7 +20,7 @@ class ModEnchantmentTagsProvider(
         this.tag(ModTags.Enchantments.DEMOLISHING_INCOMPATIBLE)
         this.tag(ModTags.Enchantments.AQUATIC_INCOMPATIBLE)
         this.tag(ModTags.Enchantments.SOULBOUND_INCOMPATIBLE)
-        this.tag(EnchantmentTags.NON_TREASURE).add(BuiltInEnchantments.SOUL_LOOTING);
+        this.tag(EnchantmentTags.NON_TREASURE).add(BuiltInEnchantments.SOUL_LOOTING, BuiltInEnchantments.ANCHORED);
     }
 
     @NotNull

@@ -45,6 +45,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
 
         // add(ModEnchantments.AUREAL_RESERVOIR.get(), "Aureal Reservoir");
         add(Util.makeDescriptionId("enchantment", BuiltInEnchantments.SOUL_LOOTING.identifier()), "Soul Looting")
+        add(Util.makeDescriptionId("enchantment", BuiltInEnchantments.ANCHORED.identifier()), "Anchored")
 
         // Blocks
         addBlock(ModBlocks.QUANTUM_CORE, "Quantum Core")

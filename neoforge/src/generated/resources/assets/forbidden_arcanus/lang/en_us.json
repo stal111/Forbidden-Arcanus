@@ -131,6 +131,7 @@
   "container.forbidden_arcanus.wand_desk.slot.base": "Change the base material",
   "container.forbidden_arcanus.wand_desk.slot.pommel": "Change the pommel material",
   "container.forbidden_arcanus.wand_desk.slot.transition": "Change the transition material",
+  "enchantment.forbidden_arcanus.anchored": "Anchored",
   "enchantment.forbidden_arcanus.soul_looting": "Soul Looting",
   "entity.forbidden_arcanus.corrupt_lost_soul": "Corrupt Lost Soul",
   "entity.forbidden_arcanus.dark_trader": "Dark Trader",

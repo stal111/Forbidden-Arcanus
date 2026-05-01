@@ -15,4 +15,12 @@ public class ModEnchantmentHelper {
         );
         return mutableValue.floatValue();
     }
+
+    public static float getPullResistance(ServerLevel level, ItemStack stack) {
+        MutableFloat mutableValue = new MutableFloat(0.0F);
+        EnchantmentHelper.runIterationOnItem(
+                stack, (enchantment, enchantmentLevel) -> enchantment.value().modifyItemFilteredCount(ModEnchantmentDataComponents.PULL_RESISTANCE.get(), level, enchantmentLevel, stack, mutableValue)
+        );
+        return mutableValue.floatValue();
+    }
 }

@@ -32,5 +32,23 @@ object ModEnchantments : RegistryDataProvider<Enchantment> {
                 )
             ).build(BuiltInEnchantments.SOUL_LOOTING.identifier())
         )
+
+        context.register(
+            BuiltInEnchantments.ANCHORED, Enchantment.enchantment(
+                Enchantment.definition(
+                    itemHolderGetter.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
+                    5,
+                    3,
+                    Enchantment.dynamicCost(14, 8),
+                    Enchantment.dynamicCost(26, 9),
+                    3,
+                    EquipmentSlotGroup.FEET
+                )
+            ).withEffect(
+                ModEnchantmentDataComponents.PULL_RESISTANCE.get(), AddValue(
+                    LevelBasedValue.lookup(listOf(0.25F, 0.55F, 0.9F), LevelBasedValue.constant(1.0F))
+                )
+            ).build(BuiltInEnchantments.ANCHORED.identifier())
+        )
     }
 }

@@ -11,4 +11,5 @@ public class BuiltInEnchantments {
     public static final ResourceKeyHelper<Enchantment> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.createKeyHelper(Registries.ENCHANTMENT);
 
     public static final ResourceKey<Enchantment> SOUL_LOOTING = HELPER.createKey("soul_looting");
+    public static final ResourceKey<Enchantment> ANCHORED = HELPER.createKey("anchored");
 }
