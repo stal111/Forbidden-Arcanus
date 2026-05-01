@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.datagen.tags
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
-import com.stal111.forbidden_arcanus.core.init.ModEntities
 import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.tags.EntityTypeTagsProvider
@@ -14,14 +13,7 @@ import javax.annotation.Nonnull
 class ModEntityTypeTagsProvider(context: DataProviderContext.Server) :
     EntityTypeTagsProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID) {
     override fun addTags(@Nonnull provider: HolderLookup.Provider) {
-        this.tag(ModTags.EntityTypes.BLACK_HOLE_AFFECTED).add(
-            EntityType.ITEM,
-            EntityType.EXPERIENCE_ORB,
-            EntityType.ARROW,
-            EntityType.SPECTRAL_ARROW,
-            ModEntities.BOOM_ARROW.get(),
-            ModEntities.DRACO_ARCANUS_ARROW.get()
-        )
+        this.tag(ModTags.EntityTypes.BLACK_HOLE_UNAFFECTED)
         this.tag(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED)
             .addTag(ModTags.EntityTypes.BOSS_CATCHER_BLACKLISTED)
             .addTag(Tags.EntityTypes.BOSSES)

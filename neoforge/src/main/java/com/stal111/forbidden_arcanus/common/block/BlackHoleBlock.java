@@ -3,11 +3,15 @@ package com.stal111.forbidden_arcanus.common.block;
 import com.stal111.forbidden_arcanus.common.block.entity.BlackHoleBlockEntity;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -21,6 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -36,7 +41,8 @@ import javax.annotation.Nullable;
  */
 public class BlackHoleBlock extends Block implements EntityBlock {
 
-    protected static final VoxelShape SHAPE = Block.box(5.0D, 5.0D, 5.0D, 11.0D, 11.0D, 11.0D);
+    private static final VoxelShape SHAPE = Block.box(5.0D, 5.0D, 5.0D, 11.0D, 11.0D, 11.0D);
+    private static final AABB DAMAGE_AABB = SHAPE.bounds().inflate(0.35);
 
     public BlackHoleBlock(Properties properties) {
         super(properties);
@@ -79,6 +85,25 @@ public class BlackHoleBlock extends Block implements EntityBlock {
             return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.BLACK_HOLE.get(), BlackHoleBlockEntity::clientTick);
         }
         return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.BLACK_HOLE.get(), BlackHoleBlockEntity::serverTick);
+    }
+
+    @Override
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
+        if (!entity.is(ModTags.EntityTypes.BLACK_HOLE_UNAFFECTED) && level instanceof ServerLevel serverLevel) {
+            double localX = entity.getX() - pos.getX();
+            double localY = entity.getY() - pos.getY();
+            double localZ = entity.getZ() - pos.getZ();
+
+            if (DAMAGE_AABB.contains(localX, localY, localZ)) {
+                entity.hurtServer(serverLevel, serverLevel.damageSources().magic(), 4);
+
+                if (!entity.isAlive() && level.getBlockEntity(pos) instanceof BlackHoleBlockEntity blockEntity) {
+                    blockEntity.extractExperience(entity);
+                }
+            }
+        }
+
+        super.entityInside(state, level, pos, entity, effectApplier, isPrecise);
     }
 
     @Override

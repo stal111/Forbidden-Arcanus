@@ -1,10 +1,13 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
+import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -31,13 +34,12 @@ import java.util.List;
  */
 public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeAccess {
 
-    private static final double DAMAGE_DISTANCE = 0.6D;
     private static final int PLAYER_SEARCH_DISTANCE = 6;
     private static final double SUCTION_RADIUS = 5.0D;
 
     private final List<ItemEntity> thrownOutItems = new ArrayList<>();
 
-    private double stored_xp;
+    private int storedExperience;
     private int tickCounter;
     public int auraTexture = 0;
 
@@ -55,40 +57,40 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, BlackHoleBlockEntity blockEntity) {
         Vec3 center = pos.getCenter();
-        List<Entity> entities = level.getEntities(null, new AABB(center, center).inflate(SUCTION_RADIUS));
+        List<Entity> entities = level.getEntities(null, new AABB(center, center).inflate(SUCTION_RADIUS)).stream()
+                .filter(entity -> !entity.is(ModTags.EntityTypes.BLACK_HOLE_UNAFFECTED))
+                .filter(entity -> !(entity instanceof ItemEntity itemEntity) || blockEntity.isAffectedItem(itemEntity))
+                .toList();
 
         for (Entity entity : entities) {
-            if (!entity.is(ModTags.EntityTypes.BLACK_HOLE_AFFECTED)) {
-                continue;
-            }
-
-            if (entity instanceof ItemEntity itemEntity && !blockEntity.isAffectedItem(itemEntity)) {
-                continue;
-            }
-
             double distance = entity.position().distanceTo(center);
             double movementFactor = blockEntity.getMovementFactor(distance);
 
             entity.push((pos.getX() + 0.5 - entity.getX()) * movementFactor, (pos.getY() + 0.5 - entity.getY() + 1.25) * movementFactor, (pos.getZ() + 0.5 - entity.getZ()) * movementFactor);
 
-            if (distance <= DAMAGE_DISTANCE) {
-                if (entity instanceof ExperienceOrb experienceOrb) {
-                    blockEntity.stored_xp += experienceOrb.getValue();
-
-                    if (blockEntity.stored_xp >= 60) {
-                        blockEntity.throwOutItemStack(level, new ItemStack(ModItems.CONDENSED_EXPERIENCE.get()), pos.getCenter());
-                        blockEntity.stored_xp = 0;
-                    }
-                    if (level instanceof ServerLevel serverLevel) {
-                        experienceOrb.kill(serverLevel);
-                    }
-                } else {
-                    entity.hurt(level.damageSources().magic(), 4);
-                }
+            if (entity instanceof ServerPlayer player) {
+                player.connection.send(new ClientboundSetEntityMotionPacket(player));
             }
         }
 
+        if (blockEntity.storedExperience >= 91) {
+            blockEntity.throwOutItemStack(level, new ItemStack(ModItems.CONDENSED_EXPERIENCE.get()), pos.getCenter());
+            blockEntity.storedExperience = 0;
+        }
+
         blockEntity.thrownOutItems.removeIf(itemEntity -> !itemEntity.isAlive());
+    }
+
+    public void extractExperience(Entity entity) {
+        if (entity instanceof ExperienceOrb experienceOrb) {
+            this.storedExperience += experienceOrb.getValue();
+        } else if (entity instanceof ItemEntity itemEntity) {
+            int experience = EssenceHelper.getEssenceAmount(itemEntity.getItem(), EssenceType.EXPERIENCE);
+
+            if (experience != 0) {
+                this.storedExperience += experience;
+            }
+        }
     }
 
     public boolean isAffectedItem(ItemEntity entity) {
@@ -111,7 +113,10 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     }
 
     private double getMovementFactor(double distance) {
-        return distance <= 3 ? 0.035 : 0.02;
+        double normalizedDistance = Math.min(distance / SUCTION_RADIUS, 1.0);
+        double minForce = 0.001;
+        double maxForce = 0.035;
+        return maxForce - (maxForce - minForce) * normalizedDistance;
     }
 
     private void setRandomVelocity(ItemEntity itemEntity, RandomSource random) {
@@ -125,13 +130,13 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-        this.stored_xp = input.getDoubleOr("StoredXP", 0);
+        this.storedExperience = input.getIntOr("stored_experience", 0);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
-        output.putDouble("StoredXP", this.stored_xp);
+        output.putDouble("stored_experience", this.storedExperience);
     }
 
     @Override
