@@ -9,6 +9,7 @@
 			"from": [2, 0, 2],
 			"to": [14, 16, 14],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"light_emission": 15,
 			"faces": {
 				"north": {"uv": [2, 0, 14, 16], "texture": "#texture"},
 				"east": {"uv": [2, 0, 14, 16], "texture": "#texture"},
@@ -16,10 +17,6 @@
 				"west": {"uv": [2, 0, 14, 16], "texture": "#texture"},
 				"up": {"uv": [2, 2, 14, 14], "texture": "#top", "cullface": "up"},
 				"down": {"uv": [2, 2, 14, 14], "texture": "#top", "cullface": "down"}
-			},
-			"neoforge_data": {
-				"block_light": 15,
-				"sky_light": 15
 			}
 		}
 	]
