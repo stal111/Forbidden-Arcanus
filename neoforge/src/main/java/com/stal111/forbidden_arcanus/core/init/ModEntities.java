@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import com.stal111.forbidden_arcanus.common.entity.darktrader.DarkTrader;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.CorruptLostSoul;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.EnchantedLostSoul;
@@ -9,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.entity.lostsoul.LostSoul;
 import com.stal111.forbidden_arcanus.common.entity.projectile.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.MobCategory;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
@@ -28,7 +28,7 @@ public class ModEntities implements RegistryClass {
     public static final RegistryEntry<EntityType<?>, EntityType<EnergyBall>> ENERGY_BALL = HELPER.register("energy_ball", EntityType.Builder.<EnergyBall>of(EnergyBall::new, MobCategory.MISC).sized(1.0F, 1.0F).setTrackingRange(64));
     public static final RegistryEntry<EntityType<?>, EntityType<BoomArrow>> BOOM_ARROW = HELPER.register("boom_arrow", EntityType.Builder.<BoomArrow>of(BoomArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryEntry<EntityType<?>, EntityType<DracoArcanusArrow>> DRACO_ARCANUS_ARROW = HELPER.register("draco_arcanus_arrow", EntityType.Builder.<DracoArcanusArrow>of(DracoArcanusArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryEntry<EntityType<?>, EntityType<CrimsonLightningBoltEntity>> CRIMSON_LIGHTNING_BOLT = HELPER.register("crimson_lightning_bolt", EntityType.Builder.of(CrimsonLightningBoltEntity::new, MobCategory.MISC).sized(0.0F, 0.0F).setTrackingRange(16).updateInterval(Integer.MAX_VALUE));
+    public static final RegistryEntry<EntityType<?>, EntityType<LightningBolt>> CRIMSON_LIGHTNING_BOLT = HELPER.register("crimson_lightning_bolt", EntityType.Builder.of(LightningBolt::new, MobCategory.MISC).sized(0.0F, 0.0F).setTrackingRange(16).updateInterval(Integer.MAX_VALUE));
     public static final RegistryEntry<EntityType<?>, EntityType<LostSoul>> LOST_SOUL = HELPER.register("lost_soul", EntityType.Builder.of(LostSoul::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));
     public static final RegistryEntry<EntityType<?>, EntityType<CorruptLostSoul>> CORRUPT_LOST_SOUL = HELPER.register("corrupt_lost_soul", EntityType.Builder.of(CorruptLostSoul::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));
     public static final RegistryEntry<EntityType<?>, EntityType<EnchantedLostSoul>> ENCHANTED_LOST_SOUL = HELPER.register("enchanted_lost_soul", EntityType.Builder.of(EnchantedLostSoul::new, MobCategory.CREATURE).sized(0.35F, 0.6F).clientTrackingRange(8));

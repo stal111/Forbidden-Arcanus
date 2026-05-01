@@ -2,97 +2,93 @@ package com.stal111.forbidden_arcanus.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.stal111.forbidden_arcanus.common.entity.CrimsonLightningBoltEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.LightningBoltRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LightningBolt;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
 
-/**
- * Crimson Lightning Bolt Renderer <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.client.renderer.entity.CrimsonLightningBoltRenderer
- *
- * @author stal111
- * @since 2021-06-12
- */
-public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightningBoltEntity, LightningBoltRenderState> {
+public class CrimsonLightningBoltRenderer extends EntityRenderer<LightningBolt, LightningBoltRenderState> {
 
     public CrimsonLightningBoltRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void submit(LightningBoltRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
-        super.submit(renderState, poseStack, nodeCollector, cameraRenderState);
-    }
+    public void submit(LightningBoltRenderState state, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+        float[] xOffs = new float[8];
+        float[] zOffs = new float[8];
+        float xOff = 0.0F;
+        float zOff = 0.0F;
+        RandomSource random = RandomSource.createThreadLocalInstance(state.seed);
 
-//    @Override
-//    public void render(LightningBoltRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-//        float[] afloat = new float[8];
-//        float[] afloat1 = new float[8];
-//        float f = 0.0F;
-//        float f1 = 0.0F;
-//        RandomSource randomsource = RandomSource.create(renderState.seed);
-//
-//        for(int i = 7; i >= 0; --i) {
-//            afloat[i] = f;
-//            afloat1[i] = f1;
-//            f += (float)(randomsource.nextInt(11) - 5);
-//            f1 += (float)(randomsource.nextInt(11) - 5);
-//        }
-//
-//        VertexConsumer vertexBuilder = bufferSource.getBuffer(RenderType.lightning());
-//        Matrix4f matrix4f = poseStack.last().pose();
-//
-//        for(int j = 0; j < 4; ++j) {
-//            RandomSource randomsource1 = RandomSource.create(renderState.seed);
-//
-//            for(int k = 0; k < 3; ++k) {
-//                int l = 7;
-//                int i1 = 0;
-//                if (k > 0) {
-//                    l = 7 - k;
-//                }
-//
-//                if (k > 0) {
-//                    i1 = l - 2;
-//                }
-//
-//                float f2 = afloat[l] - f;
-//                float f3 = afloat1[l] - f1;
-//
-//                for(int j1 = l; j1 >= i1; --j1) {
-//                    float f4 = f2;
-//                    float f5 = f3;
-//                    if (k == 0) {
-//                        f2 += (float)(randomsource1.nextInt(11) - 5);
-//                        f3 += (float)(randomsource1.nextInt(11) - 5);
-//                    } else {
-//                        f2 += (float)(randomsource1.nextInt(31) - 15);
-//                        f3 += (float)(randomsource1.nextInt(31) - 15);
-//                    }
-//
-//                    float f10 = 0.1F + (float)j * 0.2F;
-//                    if (k == 0) {
-//                        f10 = (float)((double)f10 * ((double)j1 * 0.1D + 1.0D));
-//                    }
-//
-//                    float f11 = 0.1F + (float)j * 0.2F;
-//                    if (k == 0) {
-//                        f11 *= (float)(j1 - 1) * 0.1F + 1.0F;
-//                    }
-//
-//                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, false, false, true, false);
-//                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, true, false, true, true);
-//                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, true, true, false, true);
-//                    this.renderBolt(matrix4f, vertexBuilder, f2, f3, j1, f4, f5, f10, f11, false, true, false, false);
-//                }
-//            }
-//        }
-//    }
+        for (int h = 7; h >= 0; h--) {
+            xOffs[h] = xOff;
+            zOffs[h] = zOff;
+            xOff += random.nextInt(11) - 5;
+            zOff += random.nextInt(11) - 5;
+        }
+
+        float finalXOff = xOff;
+        float finalZOff = zOff;
+
+        nodeCollector.submitCustomGeometry(poseStack, RenderTypes.lightning(), (pose, buffer) -> {
+            Matrix4fc poseMatrix = pose.pose();
+
+            for (int r = 0; r < 4; r++) {
+                RandomSource randomx = RandomSource.createThreadLocalInstance(state.seed);
+
+                for (int p = 0; p < 3; p++) {
+                    int hs = 7;
+                    int ht = 0;
+                    if (p > 0) {
+                        hs = 7 - p;
+                    }
+
+                    if (p > 0) {
+                        ht = hs - 2;
+                    }
+
+                    float xo0 = xOffs[hs] - finalXOff;
+                    float zo0 = zOffs[hs] - finalZOff;
+
+                    for (int h = hs; h >= ht; h--) {
+                        float xo1 = xo0;
+                        float zo1 = zo0;
+                        if (p == 0) {
+                            xo0 += randomx.nextInt(11) - 5;
+                            zo0 += randomx.nextInt(11) - 5;
+                        } else {
+                            xo0 += randomx.nextInt(31) - 15;
+                            zo0 += randomx.nextInt(31) - 15;
+                        }
+
+                        float rr1 = 0.1F + r * 0.2F;
+                        if (p == 0) {
+                            rr1 *= h * 0.1F + 1.0F;
+                        }
+
+                        float rr2 = 0.1F + r * 0.2F;
+                        if (p == 0) {
+                            rr2 *= (h - 1.0F) * 0.1F + 1.0F;
+                        }
+
+                        quad(poseMatrix, buffer, xo0, zo0, h, xo1, zo1, rr1, rr2, false, false, true, false);
+                        quad(poseMatrix, buffer, xo0, zo0, h, xo1, zo1, rr1, rr2, true, false, true, true);
+                        quad(poseMatrix, buffer, xo0, zo0, h, xo1, zo1, rr1, rr2, true, true, false, true);
+                        quad(poseMatrix, buffer, xo0, zo0, h, xo1, zo1, rr1, rr2, false, true, false, false);
+                    }
+                }
+            }
+        });
+
+        super.submit(state, poseStack, nodeCollector, cameraRenderState);
+    }
 
     @Override
     public @NotNull LightningBoltRenderState createRenderState() {
@@ -100,15 +96,32 @@ public class CrimsonLightningBoltRenderer extends EntityRenderer<CrimsonLightnin
     }
 
     @Override
-    public void extractRenderState(CrimsonLightningBoltEntity entity, LightningBoltRenderState reusedState, float partialTick) {
+    public void extractRenderState(LightningBolt entity, LightningBoltRenderState reusedState, float partialTick) {
         super.extractRenderState(entity, reusedState, partialTick);
         reusedState.seed = entity.seed;
     }
 
-    private void renderBolt(Matrix4f matrix4f, VertexConsumer vertexConsumer, float p_229116_2_, float p_229116_3_, int p_229116_4_, float p_229116_5_, float p_229116_6_, float p_229116_10_, float p_229116_11_, boolean p_229116_12_, boolean p_229116_13_, boolean p_229116_14_, boolean p_229116_15_) {
-        vertexConsumer.addVertex(matrix4f, p_229116_2_ + (p_229116_12_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_13_ ? p_229116_11_ : -p_229116_11_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
-        vertexConsumer.addVertex(matrix4f, p_229116_5_ + (p_229116_12_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_13_ ? p_229116_10_ : -p_229116_10_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
-        vertexConsumer.addVertex(matrix4f, p_229116_5_ + (p_229116_14_ ? p_229116_10_ : -p_229116_10_), (float)((p_229116_4_ + 1) * 16), p_229116_6_ + (p_229116_15_ ? p_229116_10_ : -p_229116_10_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
-        vertexConsumer.addVertex(matrix4f, p_229116_2_ + (p_229116_14_ ? p_229116_11_ : -p_229116_11_), (float)(p_229116_4_ * 16), p_229116_3_ + (p_229116_15_ ? p_229116_11_ : -p_229116_11_)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
+    @Override
+    protected boolean affectedByCulling(LightningBolt entity) {
+        return false;
+    }
+
+    private static void quad(Matrix4fc pose,
+                             VertexConsumer buffer,
+                             float xo0,
+                             float zo0,
+                             int h,
+                             float xo1,
+                             float zo1,
+                             float rr1,
+                             float rr2,
+                             boolean px1,
+                             boolean pz1,
+                             boolean px2,
+                             boolean pz2) {
+        buffer.addVertex(pose, xo0 + (px1 ? rr2 : -rr2), (float) (h * 16), zo0 + (pz1 ? rr2 : -rr2)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
+        buffer.addVertex(pose, xo1 + (px1 ? rr1 : -rr1), (float) ((h + 1) * 16), zo1 + (pz1 ? rr1 : -rr1)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
+        buffer.addVertex(pose, xo1 + (px2 ? rr1 : -rr1), (float) ((h + 1) * 16), zo1 + (pz2 ? rr1 : -rr1)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
+        buffer.addVertex(pose, xo0 + (px2 ? rr2 : -rr2), (float) (h * 16), zo0 + (pz2 ? rr2 : -rr2)).setColor(0.3F, 0.0F, 0.1F, 0.3F);
     }
 }
