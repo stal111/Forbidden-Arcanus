@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:iron_nugget",
+    "E": "forbidden_arcanus:ender_pearl_fragment",
+    "I": "minecraft:iron_ingot",
+    "Q": "minecraft:quartz",
+    "X": "forbidden_arcanus:utrem_jar"
+  },
+  "pattern": [
+    "Q#Q",
+    "#X#",
+    "IEI"
+  ],
+  "result": {
+    "id": "forbidden_arcanus:containment_capsule"
+  }
+}

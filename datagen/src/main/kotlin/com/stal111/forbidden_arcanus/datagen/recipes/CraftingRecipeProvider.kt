@@ -194,6 +194,17 @@ class CraftingRecipeProvider(
                 .define('#' to ModItems.ENDER_PEARL_FRAGMENT)
                 .unlockedBy(ModItems.ENDER_PEARL_FRAGMENT)
         }
+        this.shaped(RecipeCategory.MISC, ModItems.CONTAINMENT_CAPSULE) {
+            it.pattern("Q#Q", "#X#", "IEI")
+                .define(
+                    'Q' to Items.QUARTZ,
+                    '#' to Items.IRON_NUGGET,
+                    'X' to ModItems.UTREM_JAR,
+                    'I' to Items.IRON_INGOT,
+                    'E' to ModItems.ENDER_PEARL_FRAGMENT
+                )
+                .unlockedBy(Items.QUARTZ, Items.IRON_INGOT, ModItems.ENDER_PEARL_FRAGMENT)
+        }
 
         //Shapeless Recipes
         this.shapeless(RecipeCategory.MISC, ModItems.TEST_TUBE) {
