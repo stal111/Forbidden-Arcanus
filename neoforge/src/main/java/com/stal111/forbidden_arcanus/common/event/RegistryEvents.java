@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.event;
 
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
@@ -26,6 +27,7 @@ public class RegistryEvents {
         event.dataPackRegistry(FARegistries.KNOWLEDGE, Knowledge.DIRECT_CODEC, Knowledge.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.CONSTELLATION, Constellation.CODEC, Constellation.CODEC);
         event.dataPackRegistry(FARegistries.RESIDUE_TYPE, ResidueType.DIRECT_CODEC, ResidueType.DIRECT_CODEC);
+        event.dataPackRegistry(FARegistries.MOLTEN_MATERIAL_TYPE, MoltenMaterialType.DIRECT_CODEC, MoltenMaterialType.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.MAGIC_CIRCLE, MagicCircleType.DIRECT_CODEC, MagicCircleType.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.ITEM_MODIFIER, ItemModifier.DIRECT_CODEC, ItemModifier.DIRECT_CODEC);
         event.dataPackRegistry(FARegistries.WAND_MATERIAL, WandMaterial.DIRECT_CODEC, WandMaterial.DIRECT_CODEC);

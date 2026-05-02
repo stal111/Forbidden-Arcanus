@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano.material;
 
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -21,9 +22,9 @@ public class MaterialStorage {
             ByteBufCodecs.INT
     ).map(MaterialStorage::new, storage -> storage.map);
 
-    private final Object2IntOpenHashMap<MoltenMaterialType> map;
+    private final Object2IntOpenHashMap<Holder<MoltenMaterialType>> map;
 
-    public MaterialStorage(Object2IntOpenHashMap<MoltenMaterialType> map) {
+    public MaterialStorage(Object2IntOpenHashMap<Holder<MoltenMaterialType>> map) {
         this.map = map;
     }
 
@@ -31,17 +32,17 @@ public class MaterialStorage {
         return new MaterialStorage(new Object2IntOpenHashMap<>());
     }
 
-    public void insert(MoltenMaterialType material, int amount) {
+    public void insert(Holder<MoltenMaterialType> material, int amount) {
         this.map.merge(material, amount, Integer::sum);
     }
 
-    public void extract(MoltenMaterialType material, int amount) {
+    public void extract(Holder<MoltenMaterialType> material, int amount) {
         this.map.merge(material, -amount, Integer::sum);
     }
 
     public List<MoltenMaterial> getAll() {
         return map.object2IntEntrySet().stream()
-                .map(entry -> new MoltenMaterial(entry.getKey().display(), entry.getIntValue()))
+                .map(entry -> new MoltenMaterial(entry.getKey(), entry.getIntValue()))
                 .toList();
     }
 }

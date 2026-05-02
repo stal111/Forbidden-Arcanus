@@ -6,8 +6,8 @@ import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoAccessor;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.BuiltinMoltenMaterialTypes;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
@@ -28,6 +28,7 @@ import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -44,7 +45,6 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -183,12 +183,16 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 //        this.nextFireType = this.getFireTypeFromInput();
 //        this.enhancer = this.updateEnhancer();
 
-        this.storedMaterials.insert(new MoltenMaterialType(Items.IRON_INGOT.getDefaultInstance()), 10);
-        this.storedMaterials.insert(new MoltenMaterialType(Items.DIAMOND.getDefaultInstance()), 5);
-        this.storedMaterials.insert(new MoltenMaterialType(Items.GOLD_INGOT.getDefaultInstance()), 5);
-        this.storedMaterials.insert(new MoltenMaterialType(Items.COPPER_INGOT.getDefaultInstance()), 5);
-        this.storedMaterials.insert(new MoltenMaterialType(Items.LAPIS_LAZULI.getDefaultInstance()), 5);
-        this.storedMaterials.insert(new MoltenMaterialType(Items.EMERALD.getDefaultInstance()), 5);
+        if (this.getLevel() != null) {
+            RegistryAccess registryAccess = this.getLevel().registryAccess();
+
+            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.IRON), 10);
+            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.DIAMOND), 5);
+            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.GOLD), 5);
+            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.COPPER), 5);
+            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.LAPIS_LAZULI), 5);
+            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.EMERALD), 5);
+        }
     }
 
     @Override

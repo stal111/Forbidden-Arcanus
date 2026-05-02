@@ -35,7 +35,7 @@ public class MaterialSlot extends AbstractButton {
     protected void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick) {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
 
-        guiGraphics.fakeItem(this.material.item(), this.getX() + 4, this.getY() + 4);
+        guiGraphics.fakeItem(this.material.type().value().display().create(), this.getX() + 4, this.getY() + 4);
 
         int width = Mth.ceil((this.material.amount() / 64.0F) * 22.0F);
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 22, 6, 0, 0, this.getX() + 1, this.getY() + 25, width, 6);
