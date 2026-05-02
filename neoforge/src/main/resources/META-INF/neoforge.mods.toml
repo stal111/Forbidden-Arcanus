@@ -23,7 +23,7 @@ side="BOTH"
 modId="valhelsia_core"
 type="required"
 versionRange="[1.1.4,)"
-ordering="NONE"
+ordering="AFTER"
 side="BOTH"
 
 [[mixins]]
