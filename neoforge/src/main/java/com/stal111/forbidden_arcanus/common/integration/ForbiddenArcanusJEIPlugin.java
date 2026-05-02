@@ -1,11 +1,13 @@
 package com.stal111.forbidden_arcanus.common.integration;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.CreateItemResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.TransmuteInputResult;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
+import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.HephaestusForgeGuiContainerHandler;
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.SmithingCategory;
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.UpgradeTierCategory;
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
@@ -47,6 +49,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     @Override
     public void registerGuiHandlers(@NotNull IGuiHandlerRegistration registration) {
         registration.addGuiScreenHandler(ResearchScreen.class, guiScreen -> null);
+        registration.addGuiContainerHandler(HephaestusForgeScreen.class, new HephaestusForgeGuiContainerHandler());
     }
 
     @Override
