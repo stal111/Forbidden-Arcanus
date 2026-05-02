@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_ores": {
+    "has_ancient_debris": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:iron_ores"
+            "items": "minecraft:ancient_debris"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/iron_ingot_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano_combustion/netherite_from_clibano_combustion"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_ores"
+      "has_ancient_debris"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/iron_ingot_from_clibano_combustion"
+      "forbidden_arcanus:clibano_combustion/netherite_from_clibano_combustion"
     ]
   }
 }

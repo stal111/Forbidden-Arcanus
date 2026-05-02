@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_gold_ores": {
+    "has_copper_ores": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:gold_ores"
+            "items": "#minecraft:copper_ores"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/gold_ingot_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano_combustion/copper_from_clibano_combustion"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_gold_ores"
+      "has_copper_ores"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/gold_ingot_from_clibano_combustion"
+      "forbidden_arcanus:clibano_combustion/copper_from_clibano_combustion"
     ]
   }
 }

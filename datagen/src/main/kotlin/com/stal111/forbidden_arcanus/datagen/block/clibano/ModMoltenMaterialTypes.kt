@@ -46,5 +46,9 @@ object ModMoltenMaterialTypes : RegistryDataProvider<MoltenMaterialType> {
             BuiltinMoltenMaterialTypes.EMERALD,
             MoltenMaterialType(ItemStackTemplate(Items.EMERALD))
         )
+        context.register(
+            BuiltinMoltenMaterialTypes.NETHERITE,
+            MoltenMaterialType(ItemStackTemplate(Items.NETHERITE_INGOT))
+        )
     }
 }

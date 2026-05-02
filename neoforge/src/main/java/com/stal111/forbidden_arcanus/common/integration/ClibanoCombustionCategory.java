@@ -159,13 +159,13 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     @Override
     public void getTooltip(@NotNull ITooltipBuilder tooltip, @NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 92 && mouseY >= 59 && mouseX <= 117 && mouseY <= 65) {
-            recipe.residueChance().ifPresent(chance -> {
-                tooltip.add(chance.type().value().name().copy()
-                        .append(" ")
-                        .append(Component.translatable("jei.forbidden_arcanus.clibanoCombustion.residue"))
-                        .append(" (" + chance.chance() * 100 +"%)")
-                );
-            });
+//            recipe.residueChance().ifPresent(chance -> {
+//                tooltip.add(chance.type().value().name().copy()
+//                        .append(" ")
+//                        .append(Component.translatable("jei.forbidden_arcanus.clibanoCombustion.residue"))
+//                        .append(" (" + chance.chance() * 100 +"%)")
+//                );
+//            });
         }
     }
 

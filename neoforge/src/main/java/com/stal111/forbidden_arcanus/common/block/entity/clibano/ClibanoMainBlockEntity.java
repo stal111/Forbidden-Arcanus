@@ -20,7 +20,6 @@ import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
-import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
@@ -46,14 +45,12 @@ import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
@@ -472,15 +469,15 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             return;
         }
 
-        recipe.residueChance().ifPresent(chance -> {
-            if (random.nextDouble() < chance.chance()) {
-                this.residuesStorage.increaseType(chance.type(), 1);
-
-                if (this.level instanceof ServerLevel serverLevel) {
-                    PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(this.getBlockPos()), new SetClibanoResiduesPayload(this.residuesStorage));
-                }
-            }
-        });
+//        recipe.residueChance().ifPresent(chance -> {
+//            if (random.nextDouble() < chance.chance()) {
+//                this.residuesStorage.increaseType(chance.type(), 1);
+//
+//                if (this.level instanceof ServerLevel serverLevel) {
+//                    PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(this.getBlockPos()), new SetClibanoResiduesPayload(this.residuesStorage));
+//                }
+//            }
+//        });
     }
 
     /**

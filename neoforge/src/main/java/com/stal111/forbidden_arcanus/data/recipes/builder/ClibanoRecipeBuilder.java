@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.data.recipes.builder;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoCookingTimes;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueChance;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import net.minecraft.advancements.Advancement;
@@ -11,22 +11,17 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * @author stal111
@@ -34,31 +29,22 @@ import java.util.Optional;
  */
 public class ClibanoRecipeBuilder implements RecipeBuilder {
 
-    private final RecipeCategory category;
-    private final CookingBookCategory bookCategory;
-    private final ItemStackTemplate result;
+    private final MoltenMaterial result;
     private final Ingredient ingredient;
     private final float experience;
     private final int cookingTime;
-    private @Nullable ResidueChance residueChance;
     private ClibanoFireType requiredFireType = ClibanoFireType.FIRE;
     private @Nullable Holder<EnhancerDefinition> requiredEnhancer;
 
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    private @Nullable String group;
-
     public ClibanoRecipeBuilder(
-            RecipeCategory recipeCategory,
-            CookingBookCategory bookCategory,
-            ItemLike result,
+            MoltenMaterial result,
             Ingredient ingredient,
             float experience,
             int cookingTime
     ) {
-        this.category = recipeCategory;
-        this.bookCategory = bookCategory;
-        this.result = new ItemStackTemplate(result.asItem());
+        this.result = result;
         this.ingredient = ingredient;
         this.experience = experience;
         this.cookingTime = cookingTime;
@@ -73,20 +59,12 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
 
     @Override
     public @NotNull RecipeBuilder group(@Nullable String group) {
-        this.group = group;
-
         return this;
     }
 
     @Override
     public ResourceKey<Recipe<?>> defaultId() {
-        return RecipeBuilder.getDefaultRecipeId(this.result);
-    }
-
-    public ClibanoRecipeBuilder residue(ResidueChance residueChance) {
-        this.residueChance = residueChance;
-
-        return this;
+        return ResourceKey.create(Registries.RECIPE, this.result.type().unwrapKey().orElseThrow().identifier().withPrefix("clibano_combustion/"));
     }
 
     public ClibanoRecipeBuilder fireType(ClibanoFireType fireType) {
@@ -111,9 +89,9 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
-        ClibanoRecipe recipe = new ClibanoRecipe(Objects.requireNonNullElse(this.group, ""), this.bookCategory, this.ingredient, this.result, this.experience, ClibanoCookingTimes.of(this.cookingTime), Optional.ofNullable(this.residueChance), this.requiredFireType, Optional.ofNullable(this.requiredEnhancer));
+        ClibanoRecipe recipe = new ClibanoRecipe(this.ingredient, this.result, this.experience, ClibanoCookingTimes.of(this.cookingTime), this.requiredFireType, this.requiredEnhancer);
 
-        output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.identifier().withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.identifier().withPrefix("recipes/")));
     }
 
     private void ensureValid(ResourceKey<Recipe<?>> recipe) {

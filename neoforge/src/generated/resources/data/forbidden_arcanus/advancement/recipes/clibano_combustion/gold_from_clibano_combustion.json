@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ancient_debris": {
+    "has_gold_ores": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:ancient_debris"
+            "items": "#minecraft:gold_ores"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/netherite_scrap_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano_combustion/gold_from_clibano_combustion"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ancient_debris"
+      "has_gold_ores"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/netherite_scrap_from_clibano_combustion"
+      "forbidden_arcanus:clibano_combustion/gold_from_clibano_combustion"
     ]
   }
 }

@@ -1,15 +1,10 @@
 {
   "type": "forbidden_arcanus:clibano_combustion",
-  "category": "misc",
   "cooking_time": 100,
   "experience": 1.0,
-  "fire_type": "fire",
   "ingredient": "#forbidden_arcanus:arcane_crystal_ores",
-  "residue": {
-    "type": "forbidden_arcanus:arcane_crystal",
-    "chance": 0.33
-  },
   "result": {
-    "id": "forbidden_arcanus:arcane_crystal"
+    "type": "forbidden_arcanus:arcane_crystal",
+    "amount": 1
   }
 }

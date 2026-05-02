@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-02T16:47:42.3491923	Registries
+// 26.1.2	2026-05-02T18:48:27.9484622	Registries
 fd18da93d87a7f47354baedd82518d0440345dd9 data/forbidden_arcanus/enchantment/anchored.json
 c98ac566f1282450f9c754815a2c8f9a44e02b0a data/forbidden_arcanus/enchantment/soul_looting.json
 5dae7d2918859d0c001de5f1ba9afef12e45c807 data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/artisan_relic.json
@@ -48,6 +48,7 @@ ea46f93c46d60144f8398cd707abdefe35e38114 data/forbidden_arcanus/forbidden_arcanu
 42c7757ee558b331cd79a3ddb12b9e126f8e0a43 data/forbidden_arcanus/forbidden_arcanus/molten_material_type/gold.json
 05b57694de636b6aa777a7c283b008d204305fed data/forbidden_arcanus/forbidden_arcanus/molten_material_type/iron.json
 25c98c8e48f69bda38bf6d3e9973dde9389cbb7c data/forbidden_arcanus/forbidden_arcanus/molten_material_type/lapis_lazuli.json
+8ab93edc5535dee79c28de704e04a4d207cd4dff data/forbidden_arcanus/forbidden_arcanus/molten_material_type/netherite.json
 470396b0d2e177e46198b412f45efe9f63df6c75 data/forbidden_arcanus/forbidden_arcanus/molten_material_type/rune.json
 e20e2e104d2b4da6e42304c1820b06f0cac7fb52 data/forbidden_arcanus/forbidden_arcanus/residue_type/arcane_crystal.json
 9895e8a6c6730f16242d00acac7327a8c502bfaa data/forbidden_arcanus/forbidden_arcanus/residue_type/coal.json
