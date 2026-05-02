@@ -64,7 +64,9 @@ public class HephaestusForgeScreen extends AbstractContainerScreen<HephaestusFor
     }
 
     @Override
-    public void extractBackground(@Nonnull GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick) {
+    public void extractBackground(@Nonnull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
+
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getLeftPos(), this.getTopPos(), 0, 0, this.getImageWidth(), this.getImageHeight(), 256, 256);
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURES, this.getLeftPos() - 26, this.getTopPos() + 16, 176, 61, 29, 51, 256, 256);
