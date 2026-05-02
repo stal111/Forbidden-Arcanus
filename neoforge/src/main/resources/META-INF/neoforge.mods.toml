@@ -18,12 +18,17 @@ versionRange="${neo_version_range}" #mandatory
 ordering="NONE"
 side="BOTH"
 
-
 [[dependencies.${mod_id}]]
 modId="valhelsia_core"
 type="required"
 versionRange="[1.1.4,)"
 ordering="AFTER"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="jei"
+type="optional"
+ordering="BEFORE"
 side="BOTH"
 
 [[mixins]]
