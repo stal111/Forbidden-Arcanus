@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
 
@@ -29,8 +30,8 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
             Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(recipe -> recipe.experience),
             ClibanoCookingTimes.CODEC.optionalFieldOf("cooking_time", ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
             ClibanoFireType.CODEC.optionalFieldOf("fire_type", ClibanoFireType.FIRE).forGetter(recipe -> recipe.requiredFireType),
-            EnhancerDefinition.CODEC.optionalFieldOf("enhancer", null).forGetter(recipe -> recipe.requiredEnhancer)
-    ).apply(instance, ClibanoRecipe::new));
+            EnhancerDefinition.CODEC.optionalFieldOf("enhancer").forGetter(recipe -> Optional.ofNullable(recipe.requiredEnhancer))
+    ).apply(instance, (ingredient, moltenMaterial, experience, cookingTimes, fireType, enhancer) -> new ClibanoRecipe(ingredient, moltenMaterial, experience, cookingTimes, fireType, enhancer.orElse(null))));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
