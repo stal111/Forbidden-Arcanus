@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSm
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.BuiltinMoltenMaterialTypes;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
@@ -52,14 +53,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.UnaryOperator;
 
 /**
@@ -210,7 +209,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         ItemStack fuel = blockEntity.fuelInventory.getStack();
 
-        if (!blockEntity.isLit() && !fuel.isEmpty()) {
+        if (!blockEntity.isLit() && !fuel.isEmpty() && Arrays.stream(blockEntity.cookingTotalTimes).anyMatch(time -> time != 0)) {
             blockEntity.litTimeRemaining = getBurnDuration(fuel, level);
             blockEntity.litTotalTime = blockEntity.litTimeRemaining;
 
@@ -229,7 +228,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                     blockEntity.cookingTimes[i]++;
 
                     if (blockEntity.cookingTimes[i] >= blockEntity.cookingTotalTimes[i]) {
-                        blockEntity.cookingTimes[i] = 0;
+                        blockEntity.finishRecipe(i);
                     }
                 }
             }
@@ -336,7 +335,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 //
 //        return ClibanoFireType.FIRE;
 //    }
-
     private boolean isLit() {
         return this.litTimeRemaining > 0;
     }
@@ -345,12 +343,9 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         ItemStack stack = ItemUtil.getStack(this.inputInventory, index);
 
         if (!ItemStack.isSameItemSameComponents(stack, oldStack) && this.level instanceof ServerLevel serverLevel) {
-            SingleRecipeInput input = new SingleRecipeInput(stack);
+            RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel).orElse(null);
 
-            this.quickCheck.getRecipeFor(input, serverLevel).ifPresent(recipeHolder -> {
-                this.cookingTotalTimes[index] = recipeHolder.value().cookingTimes().get(this.fireType);
-            });
-
+            this.cookingTotalTimes[index] = recipe == null ? 0 : recipe.value().cookingTimes().get(this.fireType);
             this.cookingTimes[index] = 0;
         }
 
@@ -408,13 +403,26 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 //        return (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize()) || (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize());
     }
 
-    /**
-     * Finishes the given recipe.
-     * The result is added to one of the result slots and the input slot is cleared. The cooking progress is reset.
-     *
-     * @param recipe    the recipe to finish
-     * @param inputSlot the slot where the recipe input was placed in
-     */
+    public void finishRecipe(int index) {
+        ItemStack stack = ItemUtil.getStack(this.inputInventory, index);
+
+        if (this.level instanceof ServerLevel serverLevel) {
+            this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel).ifPresent(recipeHolder -> {
+                MoltenMaterial moltenMaterial = recipeHolder.value().result();
+
+                this.storedMaterials.insert(moltenMaterial.type(), moltenMaterial.amount());
+
+                this.setRecipeUsed(recipeHolder);
+            });
+
+            ItemStack input = stack.copy();
+            input.shrink(1);
+
+            this.inputInventory.set(index, ItemResource.of(input), input.getCount());
+            this.cookingTimes[index] = 0;
+        }
+    }
+
     @Override
     public void finishRecipe(RecipeHolder<ClibanoRecipe> recipe, ClibanoInputSlot inputSlot) {
         if (this.level == null) {

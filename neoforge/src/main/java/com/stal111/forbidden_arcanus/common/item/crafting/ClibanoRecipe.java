@@ -105,6 +105,10 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
         return this.cookingTimes;
     }
 
+    public MoltenMaterial result() {
+        return this.result;
+    }
+
     @Override
     public @NotNull RecipeSerializer<? extends Recipe<SingleRecipeInput>> getSerializer() {
         return SERIALIZER;
