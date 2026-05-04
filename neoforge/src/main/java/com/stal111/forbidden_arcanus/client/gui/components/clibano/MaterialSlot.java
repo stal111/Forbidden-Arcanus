@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.client.gui.components.clibano;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
+import com.stal111.forbidden_arcanus.common.network.serverbound.ToggleMaterialPayload;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -10,6 +12,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public class MaterialSlot extends AbstractButton {
 
@@ -18,17 +21,19 @@ public class MaterialSlot extends AbstractButton {
     private static final Identifier MATERIAL_FULLNESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_fullness");
 
     private final MoltenMaterial material;
-    private boolean enabled;
+    private final SelectedMaterialState selectedMaterialState;
 
-    public MaterialSlot(MoltenMaterial moltenMaterial, int x, int y, Component message, boolean enabled) {
+    public MaterialSlot(MoltenMaterial moltenMaterial, int x, int y, Component message, SelectedMaterialState selectedMaterialState) {
         super(x, y, 25, 32, message);
         this.material = moltenMaterial;
-        this.enabled = enabled;
+        this.selectedMaterialState = selectedMaterialState;
     }
 
     @Override
     public void onPress(InputWithModifiers input) {
-        this.enabled = !this.enabled;
+        this.selectedMaterialState.toggleType(this.material.type());
+
+        ClientPacketDistributor.sendToServer(new ToggleMaterialPayload(this.material.type()));
     }
 
     @Override
@@ -42,7 +47,7 @@ public class MaterialSlot extends AbstractButton {
     }
 
     private Identifier getSprite() {
-        return this.enabled ? MATERIAL_SLOT_ENABLED_SPRITE : MATERIAL_SLOT_SPRITE;
+        return this.selectedMaterialState.getSelected() == this.material.type() ? MATERIAL_SLOT_ENABLED_SPRITE : MATERIAL_SLOT_SPRITE;
     }
 
     @Override

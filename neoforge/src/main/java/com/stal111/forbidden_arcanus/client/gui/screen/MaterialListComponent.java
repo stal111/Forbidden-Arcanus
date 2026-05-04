@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.clibano.MaterialSlot;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
@@ -36,6 +37,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     private int scrollbarStartY;
 
     private final List<MaterialSlot> slots = new ArrayList<>();
+    private final SelectedMaterialState selectedMaterialState;
 
     private int maxScroll;
 
@@ -43,8 +45,9 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
     private final MaterialStorage materialStorage;
 
-    public MaterialListComponent(MaterialStorage materialStorage) {
+    public MaterialListComponent(MaterialStorage materialStorage, SelectedMaterialState selectedMaterialState) {
         this.materialStorage = materialStorage;
+        this.selectedMaterialState = selectedMaterialState;
     }
 
     public void init(int height, Minecraft minecraft, int xOrigin) {
@@ -69,7 +72,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
                     xOrigin + 10 + col * 25,
                     this.yOrigin + 10 + row * 32,
                     Component.empty(),
-                    false
+                    this.selectedMaterialState
             ));
         }
 

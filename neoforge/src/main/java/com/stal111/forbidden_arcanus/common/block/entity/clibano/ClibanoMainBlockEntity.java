@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSm
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.BuiltinMoltenMaterialTypes;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
@@ -103,6 +104,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
     private EssenceStorage essenceStorage = EssenceStorages.CLIBANO_ECTOPLASM_EMPTY;
+    private final SelectedMaterialState selectedMaterialState = new SelectedMaterialState(this::setChanged);
 
     private int litTimeRemaining;
     private int litTotalTime;
@@ -575,6 +577,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
         output.store("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec(), this.essenceStorage);
+        this.selectedMaterialState.serialize(output);
 
         output.putInt("lit_time_remaining", this.litTimeRemaining);
         output.putInt("lit_total_time", this.litTotalTime);
@@ -605,6 +608,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
         this.essenceStorage = input.read("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec()).orElse(EssenceStorages.CLIBANO_ECTOPLASM_EMPTY);
+        this.selectedMaterialState.deserialize(input);
 
         this.litTimeRemaining = input.getIntOr("lit_time_remaining", 0);
         this.litTotalTime = input.getIntOr("lit_total_time", 0);
@@ -639,6 +643,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public MaterialStorage getStoredMaterials() {
         return this.storedMaterials;
+    }
+
+    public SelectedMaterialState getSelectedMaterialState() {
+        return this.selectedMaterialState;
     }
 
     @Override
@@ -680,7 +688,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials);
+        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials, this.selectedMaterialState);
     }
 
     @Override
