@@ -3,9 +3,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.clibano.AbstractClibanoFrameBlock;
 import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoAccessor;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.ClibanoSmeltLogic;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.logic.DefaultSmeltLogic;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.BuiltinMoltenMaterialTypes;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
@@ -68,7 +65,7 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, ClibanoAccessor, EssenceAccess {
+public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, EssenceAccess {
 
     public static final int SOUL_DURATION = 2700;
 
@@ -157,7 +154,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private Direction frontDirection = Direction.NORTH;
     private boolean wasLit = false;
 
-    private ClibanoSmeltLogic logic = new DefaultSmeltLogic(this, null, null);
     private @Nullable Holder<EnhancerDefinition> enhancer;
 
     public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
@@ -239,37 +235,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 }
             }
         }
-
-
-//        ClibanoRecipeInput combinedInput = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenuOld.INPUT_SLOTS.getFirst()), blockEntity.getItem(ClibanoMenuOld.INPUT_SLOTS.getSecond()));
-//
-//        ClibanoRecipeInput firstSlot = new ClibanoRecipeInput(blockEntity.getItem(ClibanoMenuOld.INPUT_SLOTS.getFirst()), ItemStack.EMPTY);
-//        ClibanoRecipeInput secondSlot = new ClibanoRecipeInput(ItemStack.EMPTY, blockEntity.getItem(ClibanoMenuOld.INPUT_SLOTS.getSecond()));
-//
-//        List<RecipeHolder<ClibanoRecipe>> recipeHolders = new ArrayList<>();
-//
-//        if (blockEntity.burnDuration == 0) {
-//            blockEntity.burnDuration = blockEntity.getBurnDuration(level.fuelValues(), blockEntity.getItem(ClibanoMenuOld.FUEL_SLOT));
-//
-//        }
-//
-//        blockEntity.quickCheck.getAlloyRecipe(combinedInput, level).ifPresentOrElse(recipeHolder -> {
-//            recipeHolders.add(recipeHolder);
-//
-//            if (!(blockEntity.logic instanceof DoubleSmeltLogic)) {
-//                blockEntity.logic = new DoubleSmeltLogic(blockEntity, recipeHolder);
-//            }
-//        }, () -> {
-//            RecipeHolder<ClibanoRecipe> firstRecipe = blockEntity.quickCheck.getRecipeFor(firstSlot, level).orElse(null);
-//            RecipeHolder<ClibanoRecipe> secondRecipe = blockEntity.quickCheck.getRecipeFor(secondSlot, level).orElse(null);
-//
-//            recipeHolders.add(firstRecipe);
-//            recipeHolders.add(secondRecipe);
-//
-//            if (!(blockEntity.logic instanceof DefaultSmeltLogic)) {
-//                blockEntity.logic = new DefaultSmeltLogic(blockEntity, firstRecipe, secondRecipe);
-//            }
-//        });
 //
 //        blockEntity.logic.updateRecipes(recipeHolders);
 //
@@ -363,46 +328,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         ExperienceOrb.award(level, position, i);
     }
 
-    /**
-     * Checks if the given recipe can be used at the moment.
-     * To be considered usable one of the result slots must be empty or the result of the recipe must fit into one of the existing stacks.
-     *
-     * @param recipe    the recipe to check
-     * @param inputSlot the input slot to check
-     * @return true if the recipe can be used
-     */
-    @Override
-    public boolean canSmelt(@Nullable RecipeHolder<ClibanoRecipe> recipe, ClibanoInputSlot inputSlot) {
-        return false;
-//        if (recipe == null || this.level == null || inputSlot.apply(slot -> {
-//            return this.getItem(slot).isEmpty();
-//        })) {
-//            return false;
-//        }
-//
-//        //TODO
-//        ItemStack stack = recipe.value().assemble(null, this.level.registryAccess());
-//
-//        if (stack.isEmpty() || (this.soulTime == 0 ? this.nextFireType : this.fireType).ordinal() < recipe.value().requiredFireType().ordinal()) {
-//            return false;
-//        }
-//
-//        ItemStack resultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
-//        ItemStack secondResultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
-//
-//        if (resultStack.isEmpty() || secondResultStack.isEmpty()) {
-//            return true;
-//        } else if (!ItemStack.isSameItem(resultStack, stack) && !ItemStack.isSameItem(secondResultStack, stack)) {
-//            return false;
-//        } else if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= this.getMaxStackSize() && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
-//            return true;
-//        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= this.getMaxStackSize() && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
-//            return true;
-//        }
-//
-//        return (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= stack.getMaxStackSize()) || (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= stack.getMaxStackSize());
-    }
-
     public void finishRecipe(int index) {
         ItemStack stack = ItemUtil.getStack(this.inputInventory, index);
 
@@ -421,51 +346,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             this.inputInventory.set(index, ItemResource.of(input), input.getCount());
             this.cookingTimes[index] = 0;
         }
-    }
-
-    @Override
-    public void finishRecipe(RecipeHolder<ClibanoRecipe> recipe, ClibanoInputSlot inputSlot) {
-        if (this.level == null) {
-            return;
-        }
-
-        //TODO
-        ItemStack stack = recipe.value().assemble(null);
-
-        inputSlot.apply(slot -> {
-//            this.getItem(slot).shrink(1);
-        });
-
-        for (int i : inputSlot.getIndex()) {
-            this.logic.resetCookingProgress(i);
-        }
-
-        if (stack.isEmpty()) {
-            return;
-        }
-
-//        ItemStack resultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getFirst());
-//        ItemStack secondResultStack = this.getItem(ClibanoMenuOld.RESULT_SLOTS.getSecond());
-//
-//        if (ItemStack.isSameItem(resultStack, stack) && resultStack.getCount() + stack.getCount() <= resultStack.getMaxStackSize()) {
-//            resultStack.grow(stack.getCount());
-//        } else if (ItemStack.isSameItem(secondResultStack, stack) && secondResultStack.getCount() + stack.getCount() <= secondResultStack.getMaxStackSize()) {
-//            secondResultStack.grow(stack.getCount());
-//        }
-//        else if (resultStack.isEmpty()) {
-//            this.setItem(ClibanoMenuOld.RESULT_SLOTS.getFirst(), stack.copy());
-//        } else if (secondResultStack.isEmpty()) {
-//            this.setItem(ClibanoMenuOld.RESULT_SLOTS.getSecond(), stack.copy());
-//        }
-
-        this.addResidue(recipe.value(), this.level.getRandom());
-
-        this.setRecipeUsed(recipe);
-    }
-
-    @Override
-    public int getCookingTime(RecipeHolder<ClibanoRecipe> recipe) {
-        return recipe.value().cookingTimes().get(this.fireType);
     }
 
     /**
@@ -499,7 +379,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private void changeFireType(Level level, ClibanoFireType fireType) {
         this.fireType = fireType;
 
-        this.logic.onFireTypeChange(fireType);
+//        this.logic.onFireTypeChange(fireType);
 
         this.updateAppearance(level);
 
