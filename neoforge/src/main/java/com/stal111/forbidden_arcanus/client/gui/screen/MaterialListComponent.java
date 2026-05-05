@@ -59,6 +59,15 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         this.scrollbarStartX = this.xOrigin + 113;
         this.scrollbarStartY = this.yOrigin + 8;
 
+        this.scrollAmount = 0;
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        int x = this.xOrigin;
+        int y = this.yOrigin;
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_TEXTURE, x, y, 0.0F, 0.0F, 127, 173, 256, 256);
+
         this.slots.clear();
 
         List<MoltenMaterial> materials = this.materialStorage.getAll();
@@ -80,15 +89,6 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         int totalHeight = totalRows * 32 + 3;
         int visibleHeight = this.scrollArea.bottom() - this.scrollArea.top();
         this.maxScroll = Math.max(0, totalHeight - visibleHeight);
-
-        this.scrollAmount = 0;
-    }
-
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        int x = this.xOrigin;
-        int y = this.yOrigin;
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_TEXTURE, x, y, 0.0F, 0.0F, 127, 173, 256, 256);
 
         guiGraphics.enableScissor(this.scrollArea.left(), this.scrollArea.top(), this.scrollArea.right(), this.scrollArea.bottom());
         for (MaterialSlot slot : this.slots) {

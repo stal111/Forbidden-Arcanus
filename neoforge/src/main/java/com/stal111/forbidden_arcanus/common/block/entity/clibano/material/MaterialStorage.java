@@ -36,6 +36,10 @@ public class MaterialStorage {
         this.map.merge(material, amount, Integer::sum);
     }
 
+    public void insert(MoltenMaterial material) {
+        this.map.merge(material.type(), material.amount(), Integer::sum);
+    }
+
     public void extract(Holder<MoltenMaterialType> material, int amount) {
         this.map.merge(material, -amount, Integer::sum);
     }

@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.client;
 
-import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
+import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.SetClibanoResiduesPayload;
+import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
@@ -41,11 +41,11 @@ public final class ClientPayloadHandler {
         return INSTANCE;
     }
 
-    public void handle(SetClibanoResiduesPayload payload, IPayloadContext context) {
+    public void handle(InsertMoltenMaterialPayload payload, IPayloadContext context) {
         Player player = context.player();
 
-        if (player.hasContainerOpen() && player.containerMenu instanceof ClibanoMenuOld menu) {
-            menu.setResidueData(payload.residueAmounts().getResidueTypeAmountMap());
+        if (player.hasContainerOpen() && player.containerMenu instanceof ClibanoMenu menu) {
+            menu.getStoredMaterials().insert(payload.material());
         }
     }
 
