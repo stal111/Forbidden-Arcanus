@@ -124,13 +124,13 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
     @Override
     public void draw(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
-        this.animatedFlames.get(recipe.requiredFireType()).draw(guiGraphics, 48, 43);
+        this.animatedFlames.get(ClibanoFireType.FIRE).draw(guiGraphics, 48, 43);
 
-        IDrawableAnimated arrow = this.getArrow(recipe.getDefaultCookingTime());
+        IDrawableAnimated arrow = this.getArrow(recipe.getCookingTime(ClibanoFireType.FIRE));
         arrow.draw(guiGraphics, 74, 43);
 
         this.drawExperience(recipe.getExperience(), guiGraphics, 12);
-        this.drawCookTime(recipe.getDefaultCookingTime(), guiGraphics, 79);
+        this.drawCookTime(recipe.getCookingTime(ClibanoFireType.FIRE), guiGraphics, 79);
     }
 
     protected void drawExperience(float experience, GuiGraphicsExtractor guiGraphics, int y) {

@@ -311,7 +311,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         if (!ItemStack.isSameItemSameComponents(stack, oldStack) && this.level instanceof ServerLevel serverLevel) {
             RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel).orElse(null);
 
-            this.cookingTotalTimes[index] = recipe == null ? 0 : recipe.value().cookingTimes().get(this.fireType);
+            this.cookingTotalTimes[index] = recipe == null ? 0 : recipe.value().getCookingTime(this.fireType);
             this.cookingTimes[index] = 0;
         }
 

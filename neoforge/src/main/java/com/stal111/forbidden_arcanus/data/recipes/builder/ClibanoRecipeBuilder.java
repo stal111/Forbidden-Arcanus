@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.data.recipes.builder;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoCookingTimes;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -33,7 +32,6 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
     private final Ingredient ingredient;
     private final float experience;
     private final int cookingTime;
-    private ClibanoFireType requiredFireType = ClibanoFireType.FIRE;
     private @Nullable Holder<EnhancerDefinition> requiredEnhancer;
 
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
@@ -67,12 +65,6 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
         return ResourceKey.create(Registries.RECIPE, this.result.type().unwrapKey().orElseThrow().identifier().withPrefix("clibano_combustion/"));
     }
 
-    public ClibanoRecipeBuilder fireType(ClibanoFireType fireType) {
-        this.requiredFireType = fireType;
-
-        return this;
-    }
-
     public ClibanoRecipeBuilder enhancer(Holder<EnhancerDefinition> enhancer) {
         this.requiredEnhancer = enhancer;
 
@@ -89,7 +81,7 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
-        ClibanoRecipe recipe = new ClibanoRecipe(this.ingredient, this.result, this.experience, ClibanoCookingTimes.of(this.cookingTime), this.requiredFireType, this.requiredEnhancer);
+        ClibanoRecipe recipe = new ClibanoRecipe(this.ingredient, this.result, this.experience, ClibanoCookingTimes.of(this.cookingTime), this.requiredEnhancer);
 
         output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.identifier().withPrefix("recipes/")));
     }

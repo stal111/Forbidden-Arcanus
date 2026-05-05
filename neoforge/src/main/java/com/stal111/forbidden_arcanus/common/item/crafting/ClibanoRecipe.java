@@ -29,9 +29,8 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
             MoltenMaterial.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
             Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(recipe -> recipe.experience),
             ClibanoCookingTimes.CODEC.optionalFieldOf("cooking_time", ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
-            ClibanoFireType.CODEC.optionalFieldOf("fire_type", ClibanoFireType.FIRE).forGetter(recipe -> recipe.requiredFireType),
             EnhancerDefinition.CODEC.optionalFieldOf("enhancer").forGetter(recipe -> Optional.ofNullable(recipe.requiredEnhancer))
-    ).apply(instance, (ingredient, moltenMaterial, experience, cookingTimes, fireType, enhancer) -> new ClibanoRecipe(ingredient, moltenMaterial, experience, cookingTimes, fireType, enhancer.orElse(null))));
+    ).apply(instance, (ingredient, moltenMaterial, experience, cookingTimes, enhancer) -> new ClibanoRecipe(ingredient, moltenMaterial, experience, cookingTimes, enhancer.orElse(null))));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
@@ -42,7 +41,6 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     private final MoltenMaterial result;
     private final float experience;
     private final ClibanoCookingTimes cookingTimes;
-    private final ClibanoFireType requiredFireType;
     private final @Nullable Holder<EnhancerDefinition> requiredEnhancer;
 
     private @Nullable PlacementInfo placementInfo;
@@ -52,13 +50,11 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
             MoltenMaterial result,
             float experience,
             ClibanoCookingTimes cookingTimes,
-            ClibanoFireType requiredFireType,
             @Nullable Holder<EnhancerDefinition> requiredEnhancer) {
         this.ingredient = ingredient;
         this.result = result;
         this.experience = experience;
         this.cookingTimes = cookingTimes;
-        this.requiredFireType = requiredFireType;
         this.requiredEnhancer = requiredEnhancer;
     }
 
@@ -89,20 +85,12 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
         return "";
     }
 
-    public int getDefaultCookingTime() {
-        return this.cookingTimes.get(this.requiredFireType);
-    }
-
     public float getExperience() {
         return this.experience;
     }
 
-    public ClibanoFireType requiredFireType() {
-        return this.requiredFireType;
-    }
-
-    public ClibanoCookingTimes cookingTimes() {
-        return this.cookingTimes;
+    public int getCookingTime(ClibanoFireType fireType) {
+        return this.cookingTimes.get(fireType);
     }
 
     public MoltenMaterial result() {
