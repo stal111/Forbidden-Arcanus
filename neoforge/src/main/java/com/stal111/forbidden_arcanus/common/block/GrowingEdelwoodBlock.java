@@ -10,18 +10,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
-
-import javax.annotation.Nonnull;
 
 /**
  * Growing Edelwood Block <br>
@@ -31,12 +26,12 @@ import javax.annotation.Nonnull;
  * @version 1.19 - 2.1.0
  * @since 2021-12-23
  */
-public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock {
+public class GrowingEdelwoodBlock extends VegetationBlock implements BonemealableBlock {
 
     public static final MapCodec<GrowingEdelwoodBlock> CODEC = simpleCodec(GrowingEdelwoodBlock::new);
 
     private static final float BONEMEAL_CHANCE = 0.45F;
-    private static final int REQUIRED_BRIGHTNESS = 9;
+    private static final int MAX_BRIGHTNESS = 9;
 
     private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 
@@ -44,15 +39,19 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
         super(properties);
     }
 
-    @Nonnull
     @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    protected MapCodec<? extends VegetationBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
-        if (level.getMaxLocalRawBrightness(pos.above()) >= REQUIRED_BRIGHTNESS && random.nextInt(7) == 0) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (level.getMaxLocalRawBrightness(pos.above()) <= MAX_BRIGHTNESS && random.nextInt(7) == 0) {
             if (!level.isAreaLoaded(pos, 1)) {
                 return;
             }
@@ -78,17 +77,17 @@ public class GrowingEdelwoodBlock extends BushBlock implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(@Nonnull LevelReader level, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, @Nonnull RandomSource random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
         return level.getRandom().nextFloat() < BONEMEAL_CHANCE;
     }
 
     @Override
-    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull RandomSource random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
         this.growEdelwood(level, pos, state, random);
     }
 }

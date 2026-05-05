@@ -5,7 +5,6 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,7 +43,7 @@ public class EdelwoodFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos.MutableBlockPos mutable = pos.mutable();
         RandomSource random = context.random();
 
-        if (!level.isEmptyBlock(pos.above()) || !level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
+        if (!level.isEmptyBlock(pos.above())) {
             return false;
         }
 
