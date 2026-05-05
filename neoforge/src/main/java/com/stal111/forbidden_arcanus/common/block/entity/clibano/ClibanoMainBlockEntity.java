@@ -33,7 +33,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
@@ -88,7 +87,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
 
-    private final ResiduesStorage residuesStorage = new ResiduesStorage();
     private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed = new Reference2IntOpenHashMap<>();
     private final RecipeManager.CachedCheck<SingleRecipeInput, ClibanoRecipe> quickCheck = RecipeManager.createCheck(RECIPE_TYPE);
 
@@ -353,28 +351,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     /**
-     * Adds residues to the {@link ResiduesStorage} of the clibano if the recipe can generate residues. <br>
-     * Residues only get generated if the fire type is not the default one.
-     *
-     * @param recipe the current recipe
-     */
-    private void addResidue(ClibanoRecipe recipe, RandomSource random) {
-        if (this.fireType == ClibanoFireType.FIRE) {
-            return;
-        }
-
-//        recipe.residueChance().ifPresent(chance -> {
-//            if (random.nextDouble() < chance.chance()) {
-//                this.residuesStorage.increaseType(chance.type(), 1);
-//
-//                if (this.level instanceof ServerLevel serverLevel) {
-//                    PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(this.getBlockPos()), new SetClibanoResiduesPayload(this.residuesStorage));
-//                }
-//            }
-//        });
-    }
-
-    /**
      * Changes the current {@link ClibanoFireType} of the clibano and updates the cooking durations accordingly.
      *
      * @param level    the level the clibano is in
@@ -486,10 +462,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         output.store("front_direction", Direction.CODEC, this.frontDirection);
 
         output.store("RecipesUsed", RECIPES_USED_CODEC, this.recipesUsed);
-
-        if (this.residuesStorage.shouldBeSaved() && this.level != null) {
-            this.residuesStorage.save(output);
-        }
     }
 
     @Override
@@ -517,8 +489,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         this.recipesUsed.clear();
         this.recipesUsed.putAll(input.read("recipes_used", RECIPES_USED_CODEC).orElse(Map.of()));
-
-        this.residuesStorage.load(input);
     }
 
     public void setSoulTime(int duration) {
@@ -527,10 +497,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public static int getBurnDuration(ItemStack stack, Level level) {
         return stack.getBurnTime(RECIPE_TYPE, level.fuelValues());
-    }
-
-    public ResiduesStorage getResiduesStorage() {
-        return this.residuesStorage;
     }
 
     public MaterialStorage getStoredMaterials() {

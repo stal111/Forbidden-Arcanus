@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.core.registry;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.residue.ResidueType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
@@ -40,7 +39,6 @@ public class FARegistries {
     public static final ResourceKey<Registry<MundabiturInteraction<?>>> MUNDABITUR_INTERACTION = FARegistries.createRegistryKey("mundabitur_interaction");
     public static final ResourceKey<Registry<Knowledge>> KNOWLEDGE = FARegistries.createRegistryKey("research/knowledge");
     public static final ResourceKey<Registry<Constellation>> CONSTELLATION = FARegistries.createRegistryKey("research/constellation");
-    public static final ResourceKey<Registry<ResidueType>> RESIDUE_TYPE = FARegistries.createRegistryKey("residue_type");
     public static final ResourceKey<Registry<MoltenMaterialType>> MOLTEN_MATERIAL_TYPE = FARegistries.createRegistryKey("molten_material_type");
     public static final ResourceKey<Registry<PedestalEffect>> PEDESTAL_EFFECT = FARegistries.createRegistryKey("pedestal_effect");
     public static final ResourceKey<Registry<MagicCircleType>> MAGIC_CIRCLE = FARegistries.createRegistryKey("magic_circle");

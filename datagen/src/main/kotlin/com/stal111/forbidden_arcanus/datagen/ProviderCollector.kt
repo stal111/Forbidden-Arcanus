@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.core.registry.FARegistries
 import com.stal111.forbidden_arcanus.datagen.atlas.ModAtlasProvider
 import com.stal111.forbidden_arcanus.datagen.block.clibano.ModMoltenMaterialTypes
-import com.stal111.forbidden_arcanus.datagen.block.clibano.ModResidueTypes
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModMagicCircles
 import com.stal111.forbidden_arcanus.datagen.block.forge.ModRituals
 import com.stal111.forbidden_arcanus.datagen.item.ModEnchantments
@@ -85,7 +84,6 @@ class ProviderCollector : DataCollector() {
         addRegistryProvider(FARegistries.ENHANCER_DEFINITION, ModEnhancerDefinitions)
         addRegistryProvider(FARegistries.MAGIC_CIRCLE, ModMagicCircles)
         addRegistryProvider(FARegistries.RITUAL, ModRituals)
-        addRegistryProvider(FARegistries.RESIDUE_TYPE, ModResidueTypes)
         addRegistryProvider(FARegistries.MOLTEN_MATERIAL_TYPE, ModMoltenMaterialTypes)
         addRegistryProvider(FARegistries.ITEM_MODIFIER, ModItemModifiers)
         addRegistryProvider(FARegistries.WAND_MATERIAL, WandMaterialProvider)
