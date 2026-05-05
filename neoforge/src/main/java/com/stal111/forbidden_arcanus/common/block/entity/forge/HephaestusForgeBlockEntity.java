@@ -219,7 +219,11 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 //    }
 
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
-        this.pedestalItems.put(pos, stack);
+        if (stack.isEmpty()) {
+            this.pedestalItems.remove(pos);
+        } else {
+            this.pedestalItems.put(pos, stack);
+        }
 
         this.setChanged();
     }
