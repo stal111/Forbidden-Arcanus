@@ -66,20 +66,22 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     @Override
     public void submit(HephaestusForgeRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         this.validRitualIndicatorRenderer.submit(renderState.validRitualIndicatorRenderState, poseStack, nodeCollector, cameraRenderState);
+
+        poseStack.pushPose();
+        poseStack.translate(0.5D, 0.0D, 0.5D);
+
         this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector, cameraRenderState);
 
         if (!renderState.itemStackRenderState.isEmpty()) {
-            poseStack.pushPose();
-
-            poseStack.translate(0.5D, 1.3D, 0.5D);
+            poseStack.translate(0.0D, 1.3D, 0.0D);
             poseStack.mulPose(Axis.YP.rotation(ItemEntity.getSpin(renderState.ageInTicks, 0.0F)));
 
             poseStack.scale(0.5F, 0.5F, 0.5F);
 
             renderState.itemStackRenderState.submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
-
-            poseStack.popPose();
         }
+
+        poseStack.popPose();
     }
 
     @Override
