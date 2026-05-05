@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory.clibano;
 
 import com.mojang.datafixers.util.Pair;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -172,7 +171,7 @@ public class ClibanoMenuOld extends AbstractContainerMenu {
     }
 
     protected boolean isSoul(ItemStack stack) {
-        return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
+        return false;
     }
 
 //    public boolean isSoulActive() {

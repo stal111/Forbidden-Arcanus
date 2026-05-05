@@ -1,11 +1,11 @@
-// 26.1.2	2026-04-21T10:41:15.174482	Tags for minecraft:item mod id forbidden_arcanus
+// 26.1.2	2026-05-05T22:54:31.7689224	Tags for minecraft:item mod id forbidden_arcanus
 046c8cf89176d259e937e2ca72a2e472ce0d6849 data/c/tags/item/dusts.json
 674c4d49375c33863d4287f65537171eb637a826 data/c/tags/item/dusts/arcane_crystal.json
 e67ea6dd08228468b13e36125dd5d27a821264e7 data/c/tags/item/dusts/corrupti.json
 2fc6526cf9e66b0a630b1e9d3ef4ddbc307c50e2 data/c/tags/item/dusts/mundabitur.json
 2572dfc3ed16dc52c40839dfeb364036bf3314be data/c/tags/item/explosion_resistant.json
-0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/item/fence_gates/wooden.json
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/item/fences/wooden.json
+0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/item/fence_gates/wooden.json
 059717f667d1ccb0ada3ba525d6f953a1b528e79 data/c/tags/item/gems.json
 f04bddc10afb0753b2fcbeda9d7e93bfdd216680 data/c/tags/item/gems/arcane_crystal.json
 db96f852d4e1990a9c058ce658ec07387234676f data/c/tags/item/gems/corrupted_arcane_crystal.json
@@ -32,10 +32,8 @@ b128c22b1f0aef1502fa919bc8d063604b299c75 data/c/tags/item/storage_blocks/deorum.
 84788ba04723700a23026d7561c99fc099deeafc data/c/tags/item/storage_blocks/obsidiansteel.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/c/tags/item/storage_blocks/stellarite.json
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/item/arcane_crystal_ores.json
-d59eae9426b854c4e2c62b80776be486008a702a data/forbidden_arcanus/tags/item/black_hole_unaffected.json
 3bb633a07d87aa8bcc3a5a04741c08b92c7144cc data/forbidden_arcanus/tags/item/blacksmith_gavel.json
-eff722f81988b658b930e7e5f4af42a794eb2672 data/forbidden_arcanus/tags/item/clibano/creates_enchanted_fire.json
-248044db5d2fb658e1cc0140c81427a0718726e4 data/forbidden_arcanus/tags/item/clibano/creates_soul_fire.json
+d59eae9426b854c4e2c62b80776be486008a702a data/forbidden_arcanus/tags/item/black_hole_unaffected.json
 0611649b247c64b861461321d4cc20337d569c68 data/forbidden_arcanus/tags/item/edelwood_logs.json
 26ca19a64b7305b1587e6eab631becb52fb1ed25 data/forbidden_arcanus/tags/item/fungyss_stems.json
 22309e53a04c10ace1e4db7b4ff71b52960c0ad6 data/forbidden_arcanus/tags/item/magical_farmland_blacklisted.json

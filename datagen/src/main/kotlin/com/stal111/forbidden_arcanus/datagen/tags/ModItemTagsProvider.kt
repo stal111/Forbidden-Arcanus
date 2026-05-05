@@ -79,9 +79,6 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
 
         this.tag(ModTags.Items.SOULBOUND_APPLICABLE).addTags(Tags.Items.TOOLS, Tags.Items.ARMORS)
 
-        this.tag(ModTags.Items.CLIBANO_CREATES_SOUL_FIRE).add(ModItems.SOUL.get(), ModItems.CORRUPT_SOUL.get())
-        this.tag(ModTags.Items.CLIBANO_CREATES_ENCHANTED_FIRE).add(ModItems.ENCHANTED_SOUL.get())
-
         this.tag(ItemTags.STONE_TOOL_MATERIALS).add(ModBlocks.DARKSTONE.get().asItem())
         this.tag(ItemTags.STONE_CRAFTING_MATERIALS).add(ModBlocks.DARKSTONE.get().asItem())
 

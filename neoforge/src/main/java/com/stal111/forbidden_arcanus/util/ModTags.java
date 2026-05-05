@@ -74,9 +74,6 @@ public class ModTags {
 
         public static final TagKey<Item> AUREAL_STORAGE_ENCHANTABLE = modTag("enchantable/aureal_storage");
 
-        public static final TagKey<Item> CLIBANO_CREATES_SOUL_FIRE = modTag("clibano/creates_soul_fire");
-        public static final TagKey<Item> CLIBANO_CREATES_ENCHANTED_FIRE = modTag("clibano/creates_enchanted_fire");
-
         public static final TagKey<Item> STORAGE_BLOCKS_DEORUM = commonTag("storage_blocks/deorum");
         public static final TagKey<Item> STORAGE_BLOCKS_ARCANE_CRYSTAL = commonTag("storage_blocks/arcane_crystal");
         public static final TagKey<Item> STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL = commonTag("storage_blocks/corrupted_arcane_crystal");
