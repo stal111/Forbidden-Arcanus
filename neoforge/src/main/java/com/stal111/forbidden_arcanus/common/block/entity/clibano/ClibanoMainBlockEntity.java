@@ -69,7 +69,7 @@ import java.util.function.UnaryOperator;
  */
 public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, EssenceAccess {
 
-    public static final int ECTOPLASM_DURATION = 100;
+    public static final int ECTOPLASM_DURATION = 150;
 
     public static final int DATA_LIT_TIME_REMAINING = 0;
     public static final int DATA_LIT_TOTAL_TIME = 1;
