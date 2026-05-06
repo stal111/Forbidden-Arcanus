@@ -78,6 +78,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     public static final int DATA_COOKING_TOTAL_TIME_1 = 4;
     public static final int DATA_COOKING_TOTAL_TIME_2 = 5;
     public static final int DATA_ECTOPLASM_AMOUNT = 6;
+    public static final int DATA_FIRE_TYPE = 7;
 
     public static final int DATA_COUNT = 10;
 
@@ -110,9 +111,9 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private int[] cookingTotalTimes = new int[2];
 
     private int soulTime;
+    private int ectoplasmTimeRemaining = 0;
 
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
-    private ClibanoFireType nextFireType = ClibanoFireType.FIRE;
 
     private final ContainerData containerData = new ContainerData() {
         @Override
@@ -127,6 +128,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0];
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1];
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.getEssenceAmount(EssenceType.ECTOPLASM);
+                case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
                 default -> 0;
             };
         }
@@ -143,17 +145,17 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0] = value;
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1] = value;
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.setEssenceAmount(EssenceType.ECTOPLASM, value);
+                case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
             }
         }
 
         @Override
         public int getCount() {
-            return 7;
+            return 8;
         }
     };
 
     private Direction frontDirection = Direction.NORTH;
-    private boolean wasLit = false;
 
     private @Nullable Holder<EnhancerDefinition> enhancer;
 
@@ -198,15 +200,27 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public static void serverTick(ServerLevel level, BlockPos pos, BlockState state, ClibanoMainBlockEntity blockEntity) {
+        ClibanoFireType nextFireType = blockEntity.fireType;
+        boolean wasLit = blockEntity.isLit();
+
         blockEntity.essenceInputInventory.tick(blockEntity, level.registryAccess());
 
         if (blockEntity.isLit()) {
             blockEntity.litTimeRemaining--;
         }
 
-        ItemStack fuel = blockEntity.fuelInventory.getStack();
+        if (blockEntity.ectoplasmTimeRemaining > 0) {
+            blockEntity.ectoplasmTimeRemaining--;
 
-        if (!blockEntity.isLit() && !fuel.isEmpty() && Arrays.stream(blockEntity.cookingTotalTimes).anyMatch(time -> time != 0)) {
+            if (blockEntity.ectoplasmTimeRemaining == 0) {
+                nextFireType = ClibanoFireType.FIRE;
+            }
+        }
+
+        ItemStack fuel = blockEntity.fuelInventory.getStack();
+        boolean canSmelt = Arrays.stream(blockEntity.cookingTotalTimes).anyMatch(time -> time != 0);
+
+        if (!blockEntity.isLit() && !fuel.isEmpty() && canSmelt) {
             blockEntity.litTimeRemaining = getBurnDuration(fuel, level);
             blockEntity.litTotalTime = blockEntity.litTimeRemaining;
 
@@ -220,6 +234,13 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         }
 
         if (blockEntity.isLit()) {
+            if (blockEntity.ectoplasmTimeRemaining == 0 && !blockEntity.essenceStorage.isEmpty() && canSmelt) {
+                blockEntity.ectoplasmTimeRemaining = 100;
+                nextFireType = ClibanoFireType.SOUL_FIRE;
+
+                blockEntity.addEssence(EssenceType.ECTOPLASM, -1);
+            }
+
             for (int i = 0; i < blockEntity.cookingTimes.length; i++) {
                 if (blockEntity.cookingTotalTimes[i] != 0 && blockEntity.cookingTimes[i] < blockEntity.cookingTotalTimes[i]) {
                     blockEntity.cookingTimes[i]++;
@@ -235,6 +256,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                     blockEntity.cookingTimes[i] = Mth.clamp(blockEntity.cookingTimes[i] - 2, 0, blockEntity.cookingTotalTimes[i]);
                 }
             }
+        }
+
+        if (wasLit != blockEntity.isLit() || nextFireType != blockEntity.fireType) {
+            blockEntity.changeFireType(level, nextFireType);
         }
 //
 //        blockEntity.logic.updateRecipes(recipeHolders);
@@ -356,10 +381,20 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
      * @param level    the level the clibano is in
      * @param fireType the new ClibanoFireType
      */
-    private void changeFireType(Level level, ClibanoFireType fireType) {
-        this.fireType = fireType;
+    private void changeFireType(ServerLevel level, ClibanoFireType fireType) {
+        for (int i = 0; i < this.cookingTimes.length; i++) {
+            ItemStack stack = ItemUtil.getStack(this.inputInventory, i);
+            int oldDuration = this.cookingTotalTimes[i];
 
-//        this.logic.onFireTypeChange(fireType);
+            RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
+
+            if (recipe != null) {
+                this.cookingTotalTimes[i] = recipe.value().getCookingTime(fireType);
+                this.cookingTimes[i] = (int) (((float) this.cookingTimes[i] / oldDuration) * this.cookingTotalTimes[i]);
+            }
+        }
+
+        this.fireType = fireType;
 
         this.updateAppearance(level);
 
@@ -413,7 +448,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             });
         }
 
-        this.changeFireType(level, this.nextFireType);
+//        this.changeFireType(level, this.nextFireType);
 
 //        this.getItem(ClibanoMenuOld.SOUL_SLOT).shrink(1);
 //        this.onSlotChanged(ClibanoMenuOld.SOUL_SLOT);
@@ -442,6 +477,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         super.saveAdditional(output);
 
         this.essenceInputInventory.serialize(output.child("essence_inputs"));
+        this.fuelInventory.serialize(output.child("fuel"));
+        this.inputInventory.serialize(output.child("input"));
 
         output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
         output.store("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec(), this.essenceStorage);
@@ -453,10 +490,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         output.putIntArray("cooking_times_spent", this.cookingTimes);
         output.putIntArray("cooking_total_times", this.cookingTotalTimes);
 
-        //TODO
-//        this.saveInventory(tag, lookupProvider);
-
-        output.putInt("soul_time", this.soulTime);
+        output.putInt("ectoplasm_time_remaining", this.ectoplasmTimeRemaining);
 
         output.store("fire_type", ClibanoFireType.CODEC, this.fireType);
         output.store("front_direction", Direction.CODEC, this.frontDirection);
@@ -469,6 +503,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         super.loadAdditional(input);
 
         this.essenceInputInventory.deserialize(input.childOrEmpty("essence_inputs"));
+        this.fuelInventory.deserialize(input.childOrEmpty("fuel"));
+        this.inputInventory.deserialize(input.childOrEmpty("input"));
 
         this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
         this.essenceStorage = input.read("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec()).orElse(EssenceStorages.CLIBANO_ECTOPLASM_EMPTY);
@@ -480,9 +516,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.cookingTimes = input.getIntArray("cooking_times_spent").orElse(new int[2]);
         this.cookingTotalTimes = input.getIntArray("cooking_total_times").orElse(new int[2]);
 
-        //        this.loadInventory(tag, lookupProvider);
-
-        this.soulTime = input.getIntOr("soul_time", 0);
+        this.ectoplasmTimeRemaining = input.getIntOr("ectoplasm_time_remaining", 0);
 
         input.read("fire_type", ClibanoFireType.CODEC).ifPresent(fireType -> this.fireType = fireType);
         input.read("front_direction", Direction.CODEC).ifPresent(direction -> this.frontDirection = direction);
