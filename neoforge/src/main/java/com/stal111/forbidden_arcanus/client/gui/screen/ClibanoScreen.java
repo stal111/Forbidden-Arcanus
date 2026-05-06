@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.gui.screen;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.EssenceBar;
 import com.stal111.forbidden_arcanus.client.gui.components.EssenceBarType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -11,12 +12,20 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Inventory;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
     private static final Identifier CONTAINER_TEXTURE = ForbiddenArcanus.identifier("textures/gui/container/clibano_combustion.png");
-    private static final Identifier LIT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/lit_progress");
+    private static final Map<ClibanoFireType, Identifier> LIT_PROGRESS_SPRITES = Util.make(new EnumMap<>(ClibanoFireType.class), map -> {
+        map.put(ClibanoFireType.FIRE, ForbiddenArcanus.identifier("container/clibano/lit_progress"));
+        map.put(ClibanoFireType.SOUL_FIRE, ForbiddenArcanus.identifier("container/clibano/soul_lit_progress"));
+        map.put(ClibanoFireType.ENCHANTED_FIRE, ForbiddenArcanus.identifier("container/clibano/enchanted_lit_progress"));
+    });
     private static final Identifier SMELT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress");
 
     private final MaterialListComponent materialList;
@@ -62,7 +71,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         float litProgress = this.menu.getLitProgress();
         if (litProgress > 0.0F) {
             int height = Mth.ceil(litProgress * 15.0F);
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 47, this.topPos + 39 + 15 - height, 18, height);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITES.get(this.menu.getFireType()), 18, 18, 0, 16 - height, this.leftPos + 47, this.topPos + 39 + 15 - height, 18, height);
         }
 
         int[] totalSmeltTimes = this.menu.getCookingTotalTimes();
