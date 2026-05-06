@@ -29,7 +29,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ClibanoMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf buffer) {
-        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new EssenceInputResourceHandler(EssenceType.ECTOPLASM), new SimpleContainerData(8), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer), SelectedMaterialState.STREAM_CODEC.decode(buffer));
+        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new EssenceInputResourceHandler(EssenceType.ECTOPLASM), new SimpleContainerData(9), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer), SelectedMaterialState.STREAM_CODEC.decode(buffer));
     }
 
     public ClibanoMenu(int containerId, Inventory playerInventory, FuelItemHandler fuelHandler, ItemStacksResourceHandler inputInventory, ItemStacksResourceHandler essenceInputInventory, ContainerData data, ContainerLevelAccess levelAccess, MaterialStorage materialStorage, SelectedMaterialState selectedMaterialState) {
@@ -38,7 +38,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.materialStorage = materialStorage;
         this.selectedMaterialState = selectedMaterialState;
 
-        checkContainerDataCount(data, 8);
+        checkContainerDataCount(data, 9);
         this.data = data;
 
         this.addDataSlots(data);
@@ -99,6 +99,10 @@ public class ClibanoMenu extends AbstractContainerMenu {
         }
 
         return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_LIT_TIME_REMAINING) / litTotalTime, 0.0F, 1.0F);
+    }
+
+    public float getEctoplasmProgress() {
+        return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_ECTOPLASM_TIME_REMAINING) / ClibanoMainBlockEntity.ECTOPLASM_DURATION, 0.0F, 1.0F);
     }
 
     public int[] getCookingTimes() {

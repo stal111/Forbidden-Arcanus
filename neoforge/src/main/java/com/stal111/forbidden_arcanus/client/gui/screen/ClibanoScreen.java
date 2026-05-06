@@ -26,6 +26,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         map.put(ClibanoFireType.SOUL_FIRE, ForbiddenArcanus.identifier("container/clibano/soul_lit_progress"));
         map.put(ClibanoFireType.ENCHANTED_FIRE, ForbiddenArcanus.identifier("container/clibano/enchanted_lit_progress"));
     });
+    private static final Identifier ECTOPLASM_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/ectoplasm_progress");
     private static final Identifier SMELT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress");
 
     private final MaterialListComponent materialList;
@@ -72,6 +73,12 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         if (litProgress > 0.0F) {
             int height = Mth.ceil(litProgress * 15.0F);
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITES.get(this.menu.getFireType()), 18, 18, 0, 16 - height, this.leftPos + 47, this.topPos + 39 + 15 - height, 18, height);
+        }
+
+        float ectoplasmProgress = this.menu.getEctoplasmProgress();
+        if (ectoplasmProgress > 0.0F) {
+            int height = Mth.ceil(ectoplasmProgress * 15.0F);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ECTOPLASM_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 47, this.topPos + 39 + 15 - height, 18, height);
         }
 
         int[] totalSmeltTimes = this.menu.getCookingTotalTimes();

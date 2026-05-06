@@ -69,7 +69,7 @@ import java.util.function.UnaryOperator;
  */
 public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, EssenceAccess {
 
-    public static final int SOUL_DURATION = 2700;
+    public static final int ECTOPLASM_DURATION = 100;
 
     public static final int DATA_LIT_TIME_REMAINING = 0;
     public static final int DATA_LIT_TOTAL_TIME = 1;
@@ -78,7 +78,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     public static final int DATA_COOKING_TOTAL_TIME_1 = 4;
     public static final int DATA_COOKING_TOTAL_TIME_2 = 5;
     public static final int DATA_ECTOPLASM_AMOUNT = 6;
-    public static final int DATA_FIRE_TYPE = 7;
+    public static final int DATA_ECTOPLASM_TIME_REMAINING = 7;
+    public static final int DATA_FIRE_TYPE = 8;
 
     public static final int DATA_COUNT = 10;
 
@@ -128,6 +129,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0];
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1];
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.getEssenceAmount(EssenceType.ECTOPLASM);
+                case DATA_ECTOPLASM_TIME_REMAINING -> blockEntity.ectoplasmTimeRemaining;
                 case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
                 default -> 0;
             };
@@ -145,13 +147,14 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TOTAL_TIME_1 -> blockEntity.cookingTotalTimes[0] = value;
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1] = value;
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.setEssenceAmount(EssenceType.ECTOPLASM, value);
+                case DATA_ECTOPLASM_TIME_REMAINING -> blockEntity.ectoplasmTimeRemaining = value;
                 case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
             }
         }
 
         @Override
         public int getCount() {
-            return 8;
+            return 9;
         }
     };
 
@@ -235,7 +238,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         if (blockEntity.isLit()) {
             if (blockEntity.ectoplasmTimeRemaining == 0 && !blockEntity.essenceStorage.isEmpty() && canSmelt) {
-                blockEntity.ectoplasmTimeRemaining = 100;
+                blockEntity.ectoplasmTimeRemaining = ECTOPLASM_DURATION;
                 nextFireType = ClibanoFireType.SOUL_FIRE;
 
                 blockEntity.addEssence(EssenceType.ECTOPLASM, -1);
@@ -438,7 +441,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
      * @param level the level the clibano is in
      */
     private void consumeSoul(Level level) {
-        this.soulTime = SOUL_DURATION;
+        this.soulTime = ECTOPLASM_DURATION;
 
         if (this.enhancer != null) {
             this.enhancer.value().getEffects(EnhancerTarget.CLIBANO).forEach(enhancerEffect -> {
