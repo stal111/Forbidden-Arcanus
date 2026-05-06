@@ -14,11 +14,8 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
-import com.stal111.forbidden_arcanus.common.inventory.clibano.ClibanoMenuOld;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
-import com.stal111.forbidden_arcanus.common.item.enhancer.effect.MultiplySoulDurationEffect;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
@@ -111,7 +108,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private int[] cookingTimes = new int[2];
     private int[] cookingTotalTimes = new int[2];
 
-    private int soulTime;
     private int ectoplasmTimeRemaining = 0;
 
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
@@ -180,7 +176,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public void onLoad() {
-//        this.nextFireType = this.getFireTypeFromInput();
 //        this.enhancer = this.updateEnhancer();
 
         if (this.getLevel() != null) {
@@ -317,18 +312,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 //        blockEntity.wasLit = true;
     }
 
-    /**
-     * @return The fire type that matches the item inputted in the {@link ClibanoMenuOld#SOUL_SLOT}.
-     */
-//    private ClibanoFireType getFireTypeFromInput() {
-//        ItemStack soul = this.getItem(ClibanoMenuOld.SOUL_SLOT);
-//
-//        if (!soul.isEmpty()) {
-//            return ClibanoFireType.fromItem(soul);
-//        }
-//
-//        return ClibanoFireType.FIRE;
-//    }
     private boolean isLit() {
         return this.litTimeRemaining > 0;
     }
@@ -435,28 +418,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         }
     }
 
-    /**
-     * Consumes a soul from the {@link ClibanoMenuOld#SOUL_SLOT} and updates the fire type of the clibano.
-     *
-     * @param level the level the clibano is in
-     */
-    private void consumeSoul(Level level) {
-        this.soulTime = ECTOPLASM_DURATION;
-
-        if (this.enhancer != null) {
-            this.enhancer.value().getEffects(EnhancerTarget.CLIBANO).forEach(enhancerEffect -> {
-                if (enhancerEffect instanceof MultiplySoulDurationEffect effect) {
-                    this.soulTime = effect.getModifiedValue(this.soulTime);
-                }
-            });
-        }
-
-//        this.changeFireType(level, this.nextFireType);
-
-//        this.getItem(ClibanoMenuOld.SOUL_SLOT).shrink(1);
-//        this.onSlotChanged(ClibanoMenuOld.SOUL_SLOT);
-    }
-
     public void setFrontDirection(Direction direction) {
         this.frontDirection = direction;
     }
@@ -526,10 +487,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         this.recipesUsed.clear();
         this.recipesUsed.putAll(input.read("recipes_used", RECIPES_USED_CODEC).orElse(Map.of()));
-    }
-
-    public void setSoulTime(int duration) {
-        this.soulTime = duration;
     }
 
     public static int getBurnDuration(ItemStack stack, Level level) {
