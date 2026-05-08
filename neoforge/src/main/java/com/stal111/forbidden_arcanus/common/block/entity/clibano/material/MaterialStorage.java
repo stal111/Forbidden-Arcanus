@@ -6,12 +6,15 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.Mth;
 
 import java.util.List;
 
 public class MaterialStorage {
 
-    public static Codec<MaterialStorage> CODEC = Codec.unboundedMap(MoltenMaterialType.CODEC, Codec.intRange(0, 64)).xmap(
+    public static final int MAX_AMOUNT = 64;
+
+    public static Codec<MaterialStorage> CODEC = Codec.unboundedMap(MoltenMaterialType.CODEC, Codec.intRange(0, MAX_AMOUNT)).xmap(
             map -> new MaterialStorage(new Object2IntOpenHashMap<>(map)),
             storage -> storage.map
     );
@@ -33,15 +36,19 @@ public class MaterialStorage {
     }
 
     public void insert(Holder<MoltenMaterialType> material, int amount) {
-        this.map.merge(material, amount, Integer::sum);
+        int newAmount = Mth.clamp(this.map.getInt(material) + amount, 0, MAX_AMOUNT);
+
+        this.map.put(material, newAmount);
     }
 
     public void insert(MoltenMaterial material) {
-        this.map.merge(material.type(), material.amount(), Integer::sum);
+        int newAmount = Mth.clamp(this.map.getInt(material.type()) + material.amount(), 0, MAX_AMOUNT);
+
+        this.map.put(material.type(), newAmount);
     }
 
-    public void extract(Holder<MoltenMaterialType> material, int amount) {
-        this.map.merge(material, -amount, Integer::sum);
+    public boolean canFit(MoltenMaterial material) {
+        return this.map.getInt(material.type()) + material.amount() <= MAX_AMOUNT;
     }
 
     public List<MoltenMaterial> getAll() {

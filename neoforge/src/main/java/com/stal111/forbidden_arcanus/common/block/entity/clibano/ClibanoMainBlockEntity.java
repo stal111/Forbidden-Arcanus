@@ -320,10 +320,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         ItemStack stack = ItemUtil.getStack(this.inputInventory, index);
 
         if (!ItemStack.isSameItemSameComponents(stack, oldStack) && this.level instanceof ServerLevel serverLevel) {
-            RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel).orElse(null);
-
-            this.cookingTotalTimes[index] = recipe == null ? 0 : recipe.value().getCookingTime(this.fireType);
-            this.cookingTimes[index] = 0;
+            this.updateRecipe(serverLevel, index, true);
         }
 
         this.setChanged();
@@ -357,6 +354,22 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             input.shrink(1);
 
             this.inputInventory.set(index, ItemResource.of(input), input.getCount());
+
+            for (int i = 0; i < this.cookingTotalTimes.length; i++) {
+                this.updateRecipe(serverLevel, i, i == index);
+            }
+        }
+    }
+
+    private void updateRecipe(ServerLevel level, int index, boolean resetProgress) {
+        ItemStack stack = ItemUtil.getStack(this.inputInventory, index);
+
+        RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
+        boolean canSmelt = recipe != null && this.storedMaterials.canFit(recipe.value().result());
+
+        this.cookingTotalTimes[index] = canSmelt ? recipe.value().getCookingTime(this.fireType) : 0;
+
+        if (!canSmelt || resetProgress) {
             this.cookingTimes[index] = 0;
         }
     }
@@ -372,11 +385,13 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             ItemStack stack = ItemUtil.getStack(this.inputInventory, i);
             int oldDuration = this.cookingTotalTimes[i];
 
-            RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
+            if (this.cookingTotalTimes[i] != 0) {
+                RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
 
-            if (recipe != null) {
-                this.cookingTotalTimes[i] = recipe.value().getCookingTime(fireType);
-                this.cookingTimes[i] = (int) (((float) this.cookingTimes[i] / oldDuration) * this.cookingTotalTimes[i]);
+                if (recipe != null) {
+                    this.cookingTotalTimes[i] = recipe.value().getCookingTime(fireType);
+                    this.cookingTimes[i] = (int) (((float) this.cookingTimes[i] / oldDuration) * this.cookingTotalTimes[i]);
+                }
             }
         }
 
