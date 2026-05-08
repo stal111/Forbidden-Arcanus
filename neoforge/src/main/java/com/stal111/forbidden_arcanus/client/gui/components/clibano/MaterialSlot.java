@@ -18,6 +18,7 @@ public class MaterialSlot extends AbstractButton {
 
     private static final Identifier MATERIAL_SLOT_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_slot");
     private static final Identifier MATERIAL_SLOT_ENABLED_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_slot_enabled");
+    private static final Identifier MATERIAL_SLOT_HIGHLIGHTED_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_slot_highlighted");
     private static final Identifier MATERIAL_FULLNESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_fullness");
 
     private final MoltenMaterial material;
@@ -51,7 +52,10 @@ public class MaterialSlot extends AbstractButton {
     }
 
     private Identifier getSprite() {
-        return this.selectedMaterialState.getSelected() == this.material.type() ? MATERIAL_SLOT_ENABLED_SPRITE : MATERIAL_SLOT_SPRITE;
+        if (this.selectedMaterialState.getSelected() == this.material.type()) {
+            return MATERIAL_SLOT_ENABLED_SPRITE;
+        }
+        return this.isHovered() ? MATERIAL_SLOT_HIGHLIGHTED_SPRITE : MATERIAL_SLOT_SPRITE;
     }
 
     @Override
