@@ -13,6 +13,8 @@ import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.Upgrade
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
+import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -23,6 +25,7 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -87,5 +90,11 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         IExtendableSmithingRecipeCategory smithingCategory = registration.getSmithingCategory();
 
         smithingCategory.addExtension(ApplyModifierRecipe.class, new ApplyModifierCategoryExtension());
+    }
+
+    @Override
+    public void registerItemSubtypes(ISubtypeRegistration registration) {
+        registration.registerFromDataComponentTypes(ModItems.HEPHAESTUS_FORGE.get(), DataComponents.BLOCK_STATE);
+        registration.registerFromDataComponentTypes(ModItems.ESSENCE_UTREM_JAR.get(), ModDataComponents.ESSENCE_STORAGE.get());
     }
 }
