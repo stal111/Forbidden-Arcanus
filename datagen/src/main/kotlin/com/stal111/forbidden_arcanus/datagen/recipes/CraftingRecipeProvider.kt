@@ -93,6 +93,11 @@ class CraftingRecipeProvider(
                 .define('#' to ModItems.OBSIDIANSTEEL_INGOT, 'X' to Items.NETHER_STAR)
                 .unlockedBy(ModItems.OBSIDIANSTEEL_INGOT, Items.NETHER_STAR)
         }
+        this.shaped(RecipeCategory.MISC, ModItems.OBSIDIANSTEEL_INGOT) {
+            it.pattern(" # ", "#X#", " # ")
+                .define('#' to Items.OBSIDIAN, 'X' to Items.IRON_INGOT)
+                .unlockedBy(Items.OBSIDIAN, Items.IRON_INGOT)
+        }
         this.shaped(RecipeCategory.MISC, ModItems.DEORUM_INGOT) {
             it.pattern("#*#", "MXM", "#*#")
                 .define(
