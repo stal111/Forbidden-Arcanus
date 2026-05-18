@@ -51,6 +51,10 @@ public class MaterialStorage {
         return this.map.getInt(material.type()) + material.amount() <= MAX_AMOUNT;
     }
 
+    public int getAmount(Holder<MoltenMaterialType> type) {
+        return this.map.getInt(type);
+    }
+
     public List<MoltenMaterial> getAll() {
         return map.object2IntEntrySet().stream()
                 .map(entry -> new MoltenMaterial(entry.getKey(), entry.getIntValue()))

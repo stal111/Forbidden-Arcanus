@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.Materi
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.UnmodifiableSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
@@ -29,16 +30,16 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ClibanoMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf buffer) {
-        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new EssenceInputResourceHandler(EssenceType.ECTOPLASM), new SimpleContainerData(9), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer), SelectedMaterialState.STREAM_CODEC.decode(buffer));
+        this(containerId, playerInventory, new FuelItemHandler(stack -> ClibanoMainBlockEntity.getBurnDuration(stack, playerInventory.player.level()) > 0, stack -> {}), new ItemStacksResourceHandler(2), new EssenceInputResourceHandler(EssenceType.ECTOPLASM), new UnmodifiableSlotResourceHandler(false), new SimpleContainerData(ClibanoMainBlockEntity.DATA_COUNT), ContainerLevelAccess.NULL, MaterialStorage.STREAM_CODEC.decode(buffer), SelectedMaterialState.STREAM_CODEC.decode(buffer));
     }
 
-    public ClibanoMenu(int containerId, Inventory playerInventory, FuelItemHandler fuelHandler, ItemStacksResourceHandler inputInventory, ItemStacksResourceHandler essenceInputInventory, ContainerData data, ContainerLevelAccess levelAccess, MaterialStorage materialStorage, SelectedMaterialState selectedMaterialState) {
+    public ClibanoMenu(int containerId, Inventory playerInventory, FuelItemHandler fuelHandler, ItemStacksResourceHandler inputInventory, ItemStacksResourceHandler essenceInputInventory, UnmodifiableSlotResourceHandler resultInventory, ContainerData data, ContainerLevelAccess levelAccess, MaterialStorage materialStorage, SelectedMaterialState selectedMaterialState) {
         super(ModMenuTypes.CLIBANO.get(), containerId);
         this.levelAccess = levelAccess;
         this.materialStorage = materialStorage;
         this.selectedMaterialState = selectedMaterialState;
 
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, ClibanoMainBlockEntity.DATA_COUNT);
         this.data = data;
 
         this.addDataSlots(data);
@@ -47,6 +48,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 39, 20));
         this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 57, 20));
         this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 0, 9, 52));
+        this.addSlot(new ResourceHandlerSlot(resultInventory, resultInventory::set, 0, 132, 39));
 
         this.addStandardInventorySlots(playerInventory, 8, 91);
     }
@@ -103,6 +105,10 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
     public float getEctoplasmProgress() {
         return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_ECTOPLASM_TIME_REMAINING) / ClibanoMainBlockEntity.ECTOPLASM_DURATION, 0.0F, 1.0F);
+    }
+
+    public float getResultProgress() {
+        return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_RESULT_PROGRESS) / ClibanoMainBlockEntity.RESULT_TIME, 0.0F, 1.0F);
     }
 
     public int[] getCookingTimes() {

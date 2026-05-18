@@ -3,12 +3,10 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.clibano.AbstractClibanoFrameBlock;
 import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.BuiltinMoltenMaterialTypes;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.*;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.UnmodifiableSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -67,6 +65,7 @@ import java.util.function.UnaryOperator;
 public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, EssenceAccess {
 
     public static final int ECTOPLASM_DURATION = 150;
+    public static final int RESULT_TIME = 30;
 
     public static final int DATA_LIT_TIME_REMAINING = 0;
     public static final int DATA_LIT_TOTAL_TIME = 1;
@@ -76,7 +75,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     public static final int DATA_COOKING_TOTAL_TIME_2 = 5;
     public static final int DATA_ECTOPLASM_AMOUNT = 6;
     public static final int DATA_ECTOPLASM_TIME_REMAINING = 7;
-    public static final int DATA_FIRE_TYPE = 8;
+    public static final int DATA_RESULT_PROGRESS = 8;
+    public static final int DATA_FIRE_TYPE = 9;
 
     public static final int DATA_COUNT = 10;
 
@@ -97,10 +97,14 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         }
     };
     private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.ECTOPLASM);
+    private final UnmodifiableSlotResourceHandler resultInventory = new UnmodifiableSlotResourceHandler(true, _ -> this.setChanged());
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
     private EssenceStorage essenceStorage = EssenceStorages.CLIBANO_ECTOPLASM_EMPTY;
-    private final SelectedMaterialState selectedMaterialState = new SelectedMaterialState(this::setChanged);
+    private final SelectedMaterialState selectedMaterialState = new SelectedMaterialState(() -> {
+        this.resultProgress = 0;
+        this.setChanged();
+    });
 
     private int litTimeRemaining;
     private int litTotalTime;
@@ -109,6 +113,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private int[] cookingTotalTimes = new int[2];
 
     private int ectoplasmTimeRemaining = 0;
+    private int resultProgress = 0;
 
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
 
@@ -126,6 +131,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1];
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.getEssenceAmount(EssenceType.ECTOPLASM);
                 case DATA_ECTOPLASM_TIME_REMAINING -> blockEntity.ectoplasmTimeRemaining;
+                case DATA_RESULT_PROGRESS -> blockEntity.resultProgress;
                 case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
                 default -> 0;
             };
@@ -144,13 +150,14 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_COOKING_TOTAL_TIME_2 -> blockEntity.cookingTotalTimes[1] = value;
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.setEssenceAmount(EssenceType.ECTOPLASM, value);
                 case DATA_ECTOPLASM_TIME_REMAINING -> blockEntity.ectoplasmTimeRemaining = value;
+                case DATA_RESULT_PROGRESS -> blockEntity.resultProgress = value;
                 case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
             }
         }
 
         @Override
         public int getCount() {
-            return 9;
+            return DATA_COUNT;
         }
     };
 
@@ -253,6 +260,27 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 if (blockEntity.cookingTimes[i] != 0) {
                     blockEntity.cookingTimes[i] = Mth.clamp(blockEntity.cookingTimes[i] - 2, 0, blockEntity.cookingTotalTimes[i]);
                 }
+            }
+        }
+
+        Holder<MoltenMaterialType> selectedType = blockEntity.selectedMaterialState.getSelected();
+
+        if (selectedType != null && blockEntity.storedMaterials.getAmount(selectedType) != 0) {
+            ItemStack result = blockEntity.resultInventory.getStack();
+
+            blockEntity.resultProgress++;
+
+            if (blockEntity.resultProgress >= RESULT_TIME) {
+                if (result.isEmpty()) {
+                    blockEntity.resultInventory.setStack(selectedType.value().display().create());
+                } else if (ItemStack.isSameItemSameComponents(result, selectedType.value().display())) {
+                    result.grow(1);
+                    blockEntity.resultInventory.setStack(result);
+                }
+
+                blockEntity.storedMaterials.insert(selectedType, -1);
+//                PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(blockEntity.getBlockPos()), new InsertMoltenMaterialPayload(selectedType));
+                blockEntity.resultProgress = 0;
             }
         }
 
@@ -458,6 +486,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.essenceInputInventory.serialize(output.child("essence_inputs"));
         this.fuelInventory.serialize(output.child("fuel"));
         this.inputInventory.serialize(output.child("input"));
+        this.resultInventory.serialize(output.child("result"));
 
         output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
         output.store("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec(), this.essenceStorage);
@@ -470,6 +499,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         output.putIntArray("cooking_total_times", this.cookingTotalTimes);
 
         output.putInt("ectoplasm_time_remaining", this.ectoplasmTimeRemaining);
+        output.putInt("result_progress", this.resultProgress);
 
         output.store("fire_type", ClibanoFireType.CODEC, this.fireType);
         output.store("front_direction", Direction.CODEC, this.frontDirection);
@@ -484,6 +514,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.essenceInputInventory.deserialize(input.childOrEmpty("essence_inputs"));
         this.fuelInventory.deserialize(input.childOrEmpty("fuel"));
         this.inputInventory.deserialize(input.childOrEmpty("input"));
+        this.resultInventory.deserialize(input.childOrEmpty("result"));
 
         this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
         this.essenceStorage = input.read("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec()).orElse(EssenceStorages.CLIBANO_ECTOPLASM_EMPTY);
@@ -496,6 +527,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.cookingTotalTimes = input.getIntArray("cooking_total_times").orElse(new int[2]);
 
         this.ectoplasmTimeRemaining = input.getIntOr("ectoplasm_time_remaining", 0);
+        this.resultProgress = input.getIntOr("result_progress", 0);
 
         input.read("fire_type", ClibanoFireType.CODEC).ifPresent(fireType -> this.fireType = fireType);
         input.read("front_direction", Direction.CODEC).ifPresent(direction -> this.frontDirection = direction);
@@ -555,7 +587,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials, this.selectedMaterialState);
+        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.resultInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials, this.selectedMaterialState);
     }
 
     @Override

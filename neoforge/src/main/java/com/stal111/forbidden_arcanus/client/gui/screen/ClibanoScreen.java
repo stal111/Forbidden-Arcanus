@@ -28,6 +28,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     });
     private static final Identifier ECTOPLASM_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/ectoplasm_progress");
     private static final Identifier SMELT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress");
+    private static final Identifier RESULT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/result_progress");
 
     private final MaterialListComponent materialList;
 
@@ -100,6 +101,13 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
             int height = smeltProgress[1];
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 75, this.topPos + 37 - height, 5, height + 1);
         }
+
+        // Result Progress
+        float resultProgress = this.menu.getResultProgress();
+
+        int width = Math.round(resultProgress * 22.0F);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, RESULT_PROGRESS_SPRITE, 22, 16, 0, 0, this.leftPos + 95, this.topPos + 39, width, 16);
+
     }
 
     @Override
