@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
-    private static final Identifier CONTAINER_TEXTURE = ForbiddenArcanus.identifier("textures/gui/container/clibano_combustion.png");
+    private static final Identifier CONTAINER_TEXTURE = ForbiddenArcanus.identifier("textures/gui/container/clibano.png");
     private static final Map<ClibanoFireType, Identifier> LIT_PROGRESS_SPRITES = Util.make(new EnumMap<>(ClibanoFireType.class), map -> {
         map.put(ClibanoFireType.FIRE, ForbiddenArcanus.identifier("container/clibano/lit_progress"));
         map.put(ClibanoFireType.SOUL_FIRE, ForbiddenArcanus.identifier("container/clibano/soul_lit_progress"));
@@ -28,12 +28,13 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     });
     private static final Identifier ECTOPLASM_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/ectoplasm_progress");
     private static final Identifier SMELT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress");
+    private static final Identifier SMELT_PROGRESS_OVERLAY_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress_overlay");
     private static final Identifier RESULT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/result_progress");
 
     private final MaterialListComponent materialList;
 
     public ClibanoScreen(ClibanoMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, 176, 173);
+        super(menu, playerInventory, title, 176, 221);
         this.titleLabelY -= 2;
         this.inventoryLabelY += 2;
 
@@ -52,7 +53,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         this.materialList.init(this.height, this.minecraft, totalLeft);
 
         this.addRenderableWidget(this.materialList);
-        this.addRenderableWidget(new EssenceBar(this.getLeftPos() + 28, this.getTopPos() + 51, EssenceBarType.CLIBANO_ECTOPLASM, this.menu::getEssenceStorage));
+        this.addRenderableWidget(new EssenceBar(this.getLeftPos() + 74, this.getTopPos() + 83, EssenceBarType.CLIBANO_ECTOPLASM, this.menu::getEssenceStorage));
     }
 
     @Override
@@ -72,14 +73,14 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         // Lit Progress
         float litProgress = this.menu.getLitProgress();
         if (litProgress > 0.0F) {
-            int height = Mth.ceil(litProgress * 15.0F);
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITES.get(this.menu.getFireType()), 18, 18, 0, 16 - height, this.leftPos + 47, this.topPos + 39 + 15 - height, 18, height);
+            int height = Mth.ceil(litProgress * 17.0F);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS_SPRITES.get(this.menu.getFireType()), 18, 18, 0, 17 - height, this.leftPos + 79, this.topPos + 58 + 17 - height, 18, height);
         }
 
         float ectoplasmProgress = this.menu.getEctoplasmProgress();
         if (ectoplasmProgress > 0.0F) {
             int height = Mth.ceil(ectoplasmProgress * 15.0F);
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ECTOPLASM_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 47, this.topPos + 39 + 15 - height, 18, height);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ECTOPLASM_PROGRESS_SPRITE, 18, 18, 0, 16 - height, this.leftPos + 79, this.topPos + 58 + 16 - height, 18, height);
         }
 
         int[] totalSmeltTimes = this.menu.getCookingTotalTimes();
@@ -87,20 +88,25 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         int[] smeltProgress = new int[totalSmeltTimes.length];
 
         for (int i = 0; i < smeltProgress.length; i++) {
-            smeltProgress[i] = Math.round((float) smeltTimes[i] / (float) totalSmeltTimes[i] * 18.0F);
+            smeltProgress[i] = Math.round((float) smeltTimes[i] / (float) totalSmeltTimes[i] * 34.0F);
         }
 
         // Smelt Progress 1
         if (smeltProgress[0] > 0) {
             int height = smeltProgress[0];
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 32, this.topPos + 37 - height, 5, height + 1);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 8, 34, 0, 34 - (height + 1), this.leftPos + 49, this.topPos + 19, 8, height + 1);
         }
+
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_OVERLAY_SPRITE, 8, 3, 0, 0, this.leftPos + 49, this.topPos + 19, 8, 3);
 
         // Smelt Progress 2
         if (smeltProgress[1] > 0) {
             int height = smeltProgress[1];
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 5, 19, 0, 18 - height, this.leftPos + 75, this.topPos + 37 - height, 5, height + 1);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 8, 34, 0, 34 - (height + 1), this.leftPos + 119, this.topPos + 19, 8, height + 1);
         }
+
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_OVERLAY_SPRITE, 8, 3, 0, 0, this.leftPos + 119, this.topPos + 19, 8, 3);
+
 
         // Result Progress
         float resultProgress = this.menu.getResultProgress();

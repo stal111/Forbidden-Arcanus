@@ -34,7 +34,7 @@ import java.util.HashMap;
  */
 public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe> {
 
-    private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/gui/jei/clibano_combustion.png");
+    private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/gui/jei/clibano.png");
     private static final Component TITLE = Component.translatable("jei.forbidden_arcanus.category.clibanoCombustion");
 
     private static final int WIDTH = 147;

@@ -44,13 +44,13 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
         this.addDataSlots(data);
 
-        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 48, 56));
-        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 39, 20));
-        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 57, 20));
-        this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 0, 9, 52));
-        this.addSlot(new ResourceHandlerSlot(resultInventory, resultInventory::set, 0, 132, 39));
+        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 80, 103));
+        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 71, 21));
+        this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 89, 21));
+        this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 0, 46, 62));
+        this.addSlot(new ResourceHandlerSlot(resultInventory, resultInventory::set, 0, 118, 81));
 
-        this.addStandardInventorySlots(playerInventory, 8, 91);
+        this.addStandardInventorySlots(playerInventory, 8, 139);
     }
 
     @Override

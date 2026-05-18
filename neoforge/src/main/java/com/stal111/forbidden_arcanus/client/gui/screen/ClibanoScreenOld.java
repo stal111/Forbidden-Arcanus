@@ -27,7 +27,7 @@
 // */
 //public class ClibanoScreenOld extends AbstractContainerScreen<ClibanoMenuOld> {
 //
-//    private static final ResourceLocation TEXTURES = ForbiddenArcanus.location("textures/gui/container/clibano_combustion.png");
+//    private static final ResourceLocation TEXTURES = ForbiddenArcanus.location("textures/gui/container/clibano.png");
 //
 //    public ClibanoScreenOld(ClibanoMenuOld menu, Inventory inventory, Component title) {
 //        super(menu, inventory, title);

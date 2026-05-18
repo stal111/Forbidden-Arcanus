@@ -17,7 +17,7 @@ public record EssenceBarType(int width, int height, Identifier texture, boolean 
     public static final EssenceBarType HEPHAESTUS_FORGE_ECTOPLASM = createVertical(6, 32, "container/hephaestus_forge/ectoplasm_bar");
     public static final EssenceBarType HEPHAESTUS_FORGE_BLOOD = createVertical(6, 32, "container/hephaestus_forge/blood_bar");
     public static final EssenceBarType HEPHAESTUS_FORGE_EXPERIENCE = createVertical(6, 32, "container/hephaestus_forge/experience_bar");
-    public static final EssenceBarType CLIBANO_ECTOPLASM = createVertical(5, 18, "container/clibano/ectoplasm_bar");
+    public static final EssenceBarType CLIBANO_ECTOPLASM = createHorizontal(28, 5, "container/clibano/ectoplasm_bar");
     public static final EssenceBarType PLAYER_AUREAL = createHorizontal(75, 7, "hud/aureal_bar");
 
 }
