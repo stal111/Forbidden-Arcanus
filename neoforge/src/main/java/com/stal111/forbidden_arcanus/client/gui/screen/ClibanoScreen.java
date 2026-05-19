@@ -97,7 +97,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 8, 34, 0, 34 - (height + 1), this.leftPos + 49, this.topPos + 19, 8, height + 1);
         }
 
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_OVERLAY_SPRITE, 8, 3, 0, 0, this.leftPos + 49, this.topPos + 19, 8, 3);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_OVERLAY_SPRITE, 8, 3, 0, 0, this.leftPos + 49, this.topPos + 18, 8, 3);
 
         // Smelt Progress 2
         if (smeltProgress[1] > 0) {
@@ -105,7 +105,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_SPRITE, 8, 34, 0, 34 - (height + 1), this.leftPos + 119, this.topPos + 19, 8, height + 1);
         }
 
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_OVERLAY_SPRITE, 8, 3, 0, 0, this.leftPos + 119, this.topPos + 19, 8, 3);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_OVERLAY_SPRITE, 8, 3, 0, 0, this.leftPos + 119, this.topPos + 18, 8, 3);
 
 
         // Result Progress
