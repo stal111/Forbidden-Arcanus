@@ -50,7 +50,7 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
         this.leftPos = totalLeft + 2 + this.materialList.getWidth();
 
-        this.materialList.init(this.height, this.minecraft, totalLeft);
+        this.materialList.init(this.minecraft, totalLeft, this.getTopPos());
 
         this.addRenderableWidget(this.materialList);
         this.addRenderableWidget(new EssenceBar(this.getLeftPos() + 74, this.getTopPos() + 83, EssenceBarType.CLIBANO_ECTOPLASM, this.menu::getEssenceStorage));

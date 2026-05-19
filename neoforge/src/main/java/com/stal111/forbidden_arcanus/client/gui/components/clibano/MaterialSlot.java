@@ -25,7 +25,7 @@ public class MaterialSlot extends AbstractButton {
     private final SelectedMaterialState selectedMaterialState;
 
     public MaterialSlot(MoltenMaterial moltenMaterial, int x, int y, Component message, SelectedMaterialState selectedMaterialState) {
-        super(x, y, 25, 32, message);
+        super(x, y, 24, 36, message);
         this.material = moltenMaterial;
         this.selectedMaterialState = selectedMaterialState;
     }
@@ -43,8 +43,8 @@ public class MaterialSlot extends AbstractButton {
 
         guiGraphics.fakeItem(this.material.type().value().display().create(), this.getX() + 4, this.getY() + 4);
 
-        int width = Mth.ceil((this.material.amount() / 64.0F) * 22.0F);
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 22, 6, 0, 0, this.getX() + 1, this.getY() + 25, width, 6);
+        int width = Mth.ceil((this.material.amount() / 64.0F) * 20.0F);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, this.getX() + 2, this.getY() + 27, width, 5);
 
         if (this.isHovered()) {
             guiGraphics.setTooltipForNextFrame(Component.literal("Amount: " + this.material.amount() + " / 64"), x, y);

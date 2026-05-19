@@ -24,6 +24,7 @@ import java.util.List;
 public class MaterialListComponent implements Renderable, GuiEventListener, NarratableEntry {
 
     private static final Identifier MATERIAL_LIST_TEXTURE = ForbiddenArcanus.identifier("textures/gui/container/material_list.png");
+    private static final Identifier MATERIAL_LIST_OVERLAY_TEXTURE = ForbiddenArcanus.identifier("textures/gui/container/material_list_overlay.png");
     private static final Identifier SCROLLER_SPRITE = ForbiddenArcanus.identifier("container/clibano/scroller");
     private static final Identifier SCROLLER_DISABLED_SPRITE = ForbiddenArcanus.identifier("container/clibano/scroller_disabled");
 
@@ -50,14 +51,14 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         this.selectedMaterialState = selectedMaterialState;
     }
 
-    public void init(int height, Minecraft minecraft, int xOrigin) {
+    public void init(Minecraft minecraft, int xOrigin, int yOrigin) {
         this.minecraft = minecraft;
         this.xOrigin = xOrigin;
-        this.yOrigin = (height - 173) / 2;
+        this.yOrigin = yOrigin;
 
-        this.scrollArea = new ScreenRectangle(xOrigin + 10, this.yOrigin + 8, 101, 157);
-        this.scrollbarStartX = this.xOrigin + 113;
-        this.scrollbarStartY = this.yOrigin + 8;
+        this.scrollArea = new ScreenRectangle(xOrigin + 12, this.yOrigin + 8, 104, 157);
+        this.scrollbarStartX = this.xOrigin + 119;
+        this.scrollbarStartY = this.yOrigin + 34;
 
         this.scrollAmount = 0;
     }
@@ -66,7 +67,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int x = this.xOrigin;
         int y = this.yOrigin;
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_TEXTURE, x, y, 0.0F, 0.0F, 127, 173, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_TEXTURE, x, y, 0.0F, 0.0F, 133, 186, 256, 256);
 
         this.slots.clear();
 
@@ -78,8 +79,8 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
             this.slots.add(new MaterialSlot(
                     materials.get(i),
-                    xOrigin + 10 + col * 25,
-                    this.yOrigin + 10 + row * 32,
+                    xOrigin + 12 + col * 26,
+                    this.yOrigin + 35 + row * 36,
                     Component.empty(),
                     this.selectedMaterialState
             ));
@@ -96,6 +97,8 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         }
         guiGraphics.disableScissor();
 
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_OVERLAY_TEXTURE, x, y, 0.0F, 0.0F, 133, 186, 256, 256);
+
         this.renderScrollbar(guiGraphics);
     }
 
@@ -103,16 +106,16 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         int scrollbarY = this.scrollbarStartY;
 
         if (this.maxScroll != 0) {
-            scrollbarY = this.scrollAmount * (this.scrollArea.height() - 27) / this.maxScroll + this.scrollbarStartY;
+            scrollbarY = this.scrollAmount * (this.scrollArea.height() - 37) / this.maxScroll + this.scrollbarStartY;
         }
 
         Identifier sprite = this.maxScroll == 0 ? SCROLLER_DISABLED_SPRITE : SCROLLER_SPRITE;
 
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.scrollbarStartX, scrollbarY, 6, 27);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.scrollbarStartX, scrollbarY, 11, 37);
     }
 
     public int getWidth() {
-        return 127;
+        return 133;
     }
 
     @Override
