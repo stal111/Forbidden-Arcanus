@@ -107,13 +107,11 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SMELT_PROGRESS_OVERLAY_SPRITE, 8, 3, 0, 0, this.leftPos + 119, this.topPos + 18, 8, 3);
 
-
         // Result Progress
         float resultProgress = this.menu.getResultProgress();
 
-        int width = Math.round(resultProgress * 22.0F);
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, RESULT_PROGRESS_SPRITE, 22, 16, 0, 0, this.leftPos + 95, this.topPos + 39, width, 16);
-
+        int height = Math.round(resultProgress * 13.0F);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, RESULT_PROGRESS_SPRITE, 10, 13, 0, 0, this.leftPos + 121, this.topPos + 63, 10, height);
     }
 
     @Override
