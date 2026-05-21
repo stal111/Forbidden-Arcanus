@@ -32,6 +32,8 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
 
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("hephaestus_forge")), "Hephaestus Forge")
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("clibano")), "Clibano")
+        add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("clibano.slot.fuel")), "Place fuel here")
+        add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("clibano.slot.ectoplasm")), "Insert ectoplasm here")
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("wand_desk")), "Wand Desk")
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("wand_desk.slot.pommel")), "Change the pommel material")
         add(Util.makeDescriptionId("container", ForbiddenArcanus.identifier("wand_desk.slot.transition")), "Change the transition material")

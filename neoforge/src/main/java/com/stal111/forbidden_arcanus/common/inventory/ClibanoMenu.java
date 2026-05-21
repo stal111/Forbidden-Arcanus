@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
@@ -13,6 +14,7 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +24,9 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class ClibanoMenu extends AbstractContainerMenu {
+
+    public static final Identifier FUEL_SLOT_BACKGROUND = ForbiddenArcanus.identifier("slot/clibano/fuel");
+    public static final Identifier ECTOPLASM_SLOT_BACKGROUND = ForbiddenArcanus.identifier("slot/clibano/ectoplasm");
 
     private final ContainerLevelAccess levelAccess;
     private final MaterialStorage materialStorage;
@@ -44,10 +49,10 @@ public class ClibanoMenu extends AbstractContainerMenu {
 
         this.addDataSlots(data);
 
-        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 80, 103));
+        this.addSlot(new ResourceHandlerSlot(fuelHandler, fuelHandler::set, 0, 80, 103).setBackground(FUEL_SLOT_BACKGROUND));
         this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 0, 71, 21));
         this.addSlot(new ResourceHandlerSlot(inputInventory, inputInventory::set, 1, 89, 21));
-        this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 0, 46, 62));
+        this.addSlot(new ResourceHandlerSlot(essenceInputInventory, essenceInputInventory::set, 0, 46, 62).setBackground(ECTOPLASM_SLOT_BACKGROUND));
         this.addSlot(new ResourceHandlerSlot(resultInventory, resultInventory::set, 0, 118, 81));
 
         this.addStandardInventorySlots(playerInventory, 8, 139);

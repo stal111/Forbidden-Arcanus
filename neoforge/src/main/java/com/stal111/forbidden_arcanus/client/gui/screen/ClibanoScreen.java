@@ -16,6 +16,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Inventory;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
@@ -30,6 +31,11 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
     private static final Identifier SMELT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress");
     private static final Identifier SMELT_PROGRESS_OVERLAY_SPRITE = ForbiddenArcanus.identifier("container/clibano/smelt_progress_overlay");
     private static final Identifier RESULT_PROGRESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/result_progress");
+
+    private static final Map<Identifier, Component> TOOLTIP_FOR_SLOT = Util.make(new HashMap<>(), map -> {
+        map.put(ClibanoMenu.FUEL_SLOT_BACKGROUND, Component.translatable("container.forbidden_arcanus.clibano.slot.fuel"));
+        map.put(ClibanoMenu.ECTOPLASM_SLOT_BACKGROUND, Component.translatable("container.forbidden_arcanus.clibano.slot.ectoplasm"));
+    });
 
     private final MaterialListComponent materialList;
 
@@ -112,6 +118,15 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
         int height = Math.round(resultProgress * 13.0F);
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, RESULT_PROGRESS_SPRITE, 10, 13, 0, 0, this.leftPos + 121, this.topPos + 63, 10, height);
+    }
+
+    @Override
+    protected void extractTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+        super.extractTooltip(graphics, mouseX, mouseY);
+
+        if (this.hoveredSlot != null && !this.hoveredSlot.hasItem() && TOOLTIP_FOR_SLOT.containsKey(this.hoveredSlot.getNoItemIcon())) {
+            graphics.setTooltipForNextFrame(this.font, this.font.split(TOOLTIP_FOR_SLOT.get(this.hoveredSlot.getNoItemIcon()), 115), mouseX, mouseY);
+        }
     }
 
     @Override

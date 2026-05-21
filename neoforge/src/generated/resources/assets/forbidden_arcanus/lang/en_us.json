@@ -125,6 +125,8 @@
   "block.forbidden_arcanus.utrem_jar": "Utrem Jar",
   "block.forbidden_arcanus.yellow_orchid": "Yellow Orchid",
   "container.forbidden_arcanus.clibano": "Clibano",
+  "container.forbidden_arcanus.clibano.slot.ectoplasm": "Insert ectoplasm here",
+  "container.forbidden_arcanus.clibano.slot.fuel": "Place fuel here",
   "container.forbidden_arcanus.hephaestus_forge": "Hephaestus Forge",
   "container.forbidden_arcanus.wand_desk": "Wand Desk",
   "container.forbidden_arcanus.wand_desk.create": "Create Wand",
