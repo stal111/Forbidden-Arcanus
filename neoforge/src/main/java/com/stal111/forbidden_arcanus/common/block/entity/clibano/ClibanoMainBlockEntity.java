@@ -3,10 +3,13 @@ package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.clibano.AbstractClibanoFrameBlock;
 import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.*;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.UnmodifiableSlotResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.ResultSlotItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -22,7 +25,6 @@ import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -65,7 +67,7 @@ import java.util.function.UnaryOperator;
 public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, EssenceAccess {
 
     public static final int ECTOPLASM_DURATION = 150;
-    public static final int RESULT_TIME = 30;
+    public static final int RESULT_TIME = 20;
 
     public static final int DATA_LIT_TIME_REMAINING = 0;
     public static final int DATA_LIT_TOTAL_TIME = 1;
@@ -97,7 +99,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         }
     };
     private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.ECTOPLASM);
-    private final UnmodifiableSlotResourceHandler resultInventory = new UnmodifiableSlotResourceHandler(true, _ -> this.setChanged());
+    private final ResultSlotItemHandler resultInventory = new ResultSlotItemHandler(_ -> this.setChanged());
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
     private EssenceStorage essenceStorage = EssenceStorages.CLIBANO_ECTOPLASM_EMPTY;
@@ -184,17 +186,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void onLoad() {
 //        this.enhancer = this.updateEnhancer();
-
-        if (this.getLevel() != null) {
-            RegistryAccess registryAccess = this.getLevel().registryAccess();
-
-            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.IRON), 10);
-            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.DIAMOND), 5);
-            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.GOLD), 5);
-            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.COPPER), 5);
-            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.LAPIS_LAZULI), 5);
-            this.storedMaterials.insert(registryAccess.holderOrThrow(BuiltinMoltenMaterialTypes.EMERALD), 5);
-        }
     }
 
     @Override
@@ -265,7 +256,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         Holder<MoltenMaterialType> selectedType = blockEntity.selectedMaterialState.getSelected();
 
-        if (selectedType != null && blockEntity.storedMaterials.getAmount(selectedType) != 0) {
+        if (selectedType != null && blockEntity.storedMaterials.getAmount(selectedType) != 0 && blockEntity.canCreateResult(selectedType.value())) {
             ItemStack result = blockEntity.resultInventory.getStack();
 
             blockEntity.resultProgress++;
@@ -279,7 +270,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 }
 
                 blockEntity.storedMaterials.insert(selectedType, -1);
-//                PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(blockEntity.getBlockPos()), new InsertMoltenMaterialPayload(selectedType));
+                PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(blockEntity.getBlockPos()), new InsertMoltenMaterialPayload(new MoltenMaterial(selectedType, -1)));
                 blockEntity.resultProgress = 0;
             }
         }
@@ -352,6 +343,18 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         }
 
         this.setChanged();
+    }
+
+    private boolean canCreateResult(MoltenMaterialType materialType) {
+        ItemStack result = this.resultInventory.getStack();
+
+        if (result.isEmpty()) {
+            return true;
+        } else if (!ItemStack.isSameItemSameComponents(result, materialType.display())) {
+            return false;
+        }
+
+        return this.resultInventory.getStack().getCount() < result.getMaxStackSize();
     }
 
     private static void createExperience(ServerLevel level, Vec3 position, int count, float experience) {
