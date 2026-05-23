@@ -17,29 +17,46 @@ public class EssenceBar extends AbstractWidget {
 
     private final Supplier<EssenceStorage> storageSupplier;
     private final Identifier sprite;
-    private final boolean vertical;
+    private final EssenceBarType.FillOrigin origin;
 
     public EssenceBar(int x, int y, EssenceBarType type, Supplier<EssenceStorage> storageSupplier) {
         super(x, y, type.width(), type.height(), Component.empty());
         this.storageSupplier = storageSupplier;
         this.sprite = type.texture();
-        this.vertical = type.vertical();
+        this.origin = type.origin();
     }
 
     @Override
     protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         EssenceStorage essenceStorage = this.storageSupplier.get();
 
-        if (this.vertical) {
-            int ySize = Mth.floor(this.height * essenceStorage.getFillPercentage());
-            int yOffset = this.height - ySize;
-
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
-        } else {
-            int xSize = Mth.floor(this.width * essenceStorage.getFillPercentage());
-            int xOffset = this.width - xSize;
-
-            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, xOffset, 0, this.getX() + xOffset, this.getY(), xSize, this.height);
+        switch (this.origin) {
+            case BOTTOM -> {
+                int ySize = Mth.floor(this.height * essenceStorage.getFillPercentage());
+                int yOffset = this.height - ySize;
+                if (ySize > 0) {
+                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, 0, yOffset, this.getX(), this.getY() + yOffset, this.width, ySize);
+                }
+            }
+            case TOP -> {
+                int ySize = Mth.floor(this.height * essenceStorage.getFillPercentage());
+                if (ySize > 0) {
+                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, 0, 0, this.getX(), this.getY(), this.width, ySize);
+                }
+            }
+            case RIGHT -> {
+                int xSize = Mth.floor(this.width * essenceStorage.getFillPercentage());
+                int xOffset = this.width - xSize;
+                if (xSize > 0) {
+                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, xOffset, 0, this.getX() + xOffset, this.getY(), xSize, this.height);
+                }
+            }
+            case LEFT -> {
+                int xSize = Mth.floor(this.width * essenceStorage.getFillPercentage());
+                if (xSize > 0) {
+                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.sprite, this.width, this.height, 0, 0, this.getX(), this.getY(), xSize, this.height);
+                }
+            }
         }
 
         if (this.isHovered()) {
