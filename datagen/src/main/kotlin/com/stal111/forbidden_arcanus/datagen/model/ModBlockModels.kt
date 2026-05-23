@@ -76,6 +76,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createEmissiveLayerCube(ModBlocks.RUNIC_STONE.get(), "runic_stone")
         this.createEmissiveLayerCube(ModBlocks.RUNIC_DEEPSLATE.get(), "runic_stone")
         this.createEmissiveLayerCube(ModBlocks.RUNIC_DARKSTONE.get(), "runic_stone")
+        generators.createTrivialCube(ModBlocks.METEORITE.get())
         generators.createTrivialCube(ModBlocks.STELLA_ARCANUM.get())
         this.createEmissiveCube(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())
         generators.createTrivialCube(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get())

@@ -143,6 +143,7 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
             .add(
                 ModBlocks.HEPHAESTUS_FORGE.get(),
                 ModBlocks.DEORUM_CHAIN.get(),
+                ModBlocks.METEORITE.get(),
                 ModBlocks.STELLA_ARCANUM.get(),
                 ModBlocks.OBSIDIANSTEEL_BLOCK.get(),
                 ModBlocks.DEORUM_BLOCK.get(),
@@ -221,6 +222,7 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
             ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.get(),
             ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get(),
             ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get(),
+            ModBlocks.METEORITE.get(),
             ModBlocks.CLIBANO_CORE.get(),
             ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(),
             ModBlocks.CLIBANO_SIDE_VERTICAL.get(),

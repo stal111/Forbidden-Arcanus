@@ -21,10 +21,13 @@ import net.minecraft.world.level.storage.loot.LootPool
 import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.entries.DynamicLoot
 import net.minecraft.world.level.storage.loot.entries.LootItem
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator
 
 class ModBlockLoot(
     lookupProvider: HolderLookup.Provider,
@@ -170,6 +173,7 @@ class ModBlockLoot(
         add(ModBlocks.RUNIC_STONE.get()) { createOreDrop(it, ModItems.RUNE.get()) }
         add(ModBlocks.RUNIC_DEEPSLATE.get()) { createOreDrop(it, ModItems.RUNE.get()) }
         add(ModBlocks.RUNIC_DARKSTONE.get()) { createOreDrop(it, ModItems.RUNE.get()) }
+        add(ModBlocks.METEORITE.get()) { createMeteoriteDrop(it) }
         add(ModBlocks.STELLA_ARCANUM.get()) {
             createSingleItemTableWithSilkTouch(it, ModItems.STELLARITE_PIECE.get())
         }
@@ -253,6 +257,20 @@ class ModBlockLoot(
         LootPool.lootPool()
             .setRolls(ConstantValue.exactly(1f))
             .add(DynamicLoot.dynamicEntry(AbstractClibanoFrameBlock.DYNAMIC_DROP_ID))
+    )
+
+    private fun createMeteoriteDrop(block: Block) = createSilkTouchDispatchTable(
+        block,
+        applyExplosionDecay(
+            block,
+            LootItem.lootTableItem(ModItems.RAW_METEORITE)
+                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                .apply(
+                    ApplyBonusCount.addOreBonusCount(
+                        this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE)
+                    )
+                )
+        )
     )
 
     override fun getKnownBlocks() = blocks.map { it() }

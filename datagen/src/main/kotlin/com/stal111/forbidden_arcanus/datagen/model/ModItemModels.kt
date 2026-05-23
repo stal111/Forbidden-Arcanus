@@ -22,6 +22,8 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateFlatItem(ModItems.EDELWOOD_LAVA_BUCKET)
         this.generateFlatItem(ModItems.EDELWOOD_MILK_BUCKET)
         this.generateFlatItem(ModItems.EDELWOOD_POWDER_SNOW_BUCKET)
+        this.generateFlatItem(ModItems.RAW_METEORITE)
+        this.generateFlatItem(ModItems.METEORITE_INGOT)
         this.generateFlatItem(ModItems.OBSIDIANSTEEL_INGOT)
         this.generateFlatItem(ModItems.MUNDABITUR_DUST)
         this.generateFlatItem(ModItems.CORRUPTI_DUST)
