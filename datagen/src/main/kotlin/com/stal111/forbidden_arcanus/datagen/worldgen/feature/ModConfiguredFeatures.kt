@@ -5,7 +5,9 @@ import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatu
 import com.stal111.forbidden_arcanus.common.world.feature.config.MeteoriteConfiguration
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures
+import net.minecraft.core.HolderSet
 import net.minecraft.data.worldgen.BootstrapContext
+import net.minecraft.data.worldgen.placement.PlacementUtils
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.random.WeightedList
 import net.minecraft.util.valueproviders.ConstantInt
@@ -13,10 +15,7 @@ import net.minecraft.world.level.block.HugeMushroomBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature
 import net.minecraft.world.level.levelgen.feature.Feature
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration
+import net.minecraft.world.level.levelgen.feature.configurations.*
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider
@@ -163,19 +162,58 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
         context.register(
             BuiltInFeatures.METEORITE,
             ConfiguredFeature(
-                ModFeatures.METEORITE.get(),
-                MeteoriteConfiguration(
-                    3,
-                    WeightedStateProvider(
-                        WeightedList.builder<BlockState>()
-                            .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
-                            .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
-                    ),
-                    12,
-                    0.45F,
-                    0.3F,
-                    4,
-                    0.12f
+                Feature.SIMPLE_RANDOM_SELECTOR,
+                SimpleRandomFeatureConfiguration(
+                    HolderSet.direct(
+                        PlacementUtils.inlinePlaced(
+                            ModFeatures.METEORITE.get(),
+                            MeteoriteConfiguration(
+                                2,
+                                WeightedStateProvider(
+                                    WeightedList.builder<BlockState>()
+                                        .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
+                                        .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
+                                ),
+                                8,
+                                0.4F,
+                                0.3F,
+                                3,
+                                0.12f
+                            )
+                        ),
+                        PlacementUtils.inlinePlaced(
+                            ModFeatures.METEORITE.get(),
+                            MeteoriteConfiguration(
+                                3,
+                                WeightedStateProvider(
+                                    WeightedList.builder<BlockState>()
+                                        .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
+                                        .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
+                                ),
+                                12,
+                                0.45F,
+                                0.3F,
+                                4,
+                                0.12f
+                            )
+                        ),
+                        PlacementUtils.inlinePlaced(
+                            ModFeatures.METEORITE.get(),
+                            MeteoriteConfiguration(
+                                4,
+                                WeightedStateProvider(
+                                    WeightedList.builder<BlockState>()
+                                        .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
+                                        .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
+                                ),
+                                15,
+                                0.45F,
+                                0.3F,
+                                5,
+                                0.12f
+                            )
+                        )
+                    )
                 )
             )
         )
