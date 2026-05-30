@@ -91,6 +91,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         addBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK, "Arcane Crystal Block")
         addBlock(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK, "Corrupted Arcane Crystal Block")
         addBlock(ModBlocks.RUNE_BLOCK, "Rune Block")
+        addBlock(ModBlocks.METEORITE_BLOCK, "Block of Meteorite")
         addBlock(ModBlocks.STELLARITE_BLOCK, "Stellarite Block")
         addBlock(ModBlocks.DEORUM_BLOCK, "Deorum Block")
         addBlock(ModBlocks.OBSIDIANSTEEL_BLOCK, "Obsidiansteel Block")

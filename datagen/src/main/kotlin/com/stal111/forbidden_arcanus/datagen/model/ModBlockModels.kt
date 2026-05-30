@@ -81,6 +81,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createEmissiveCube(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())
         generators.createTrivialCube(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get())
         generators.createTrivialCube(ModBlocks.RUNE_BLOCK.get())
+        generators.createTrivialCube(ModBlocks.METEORITE_BLOCK.get())
         generators.createTrivialCube(ModBlocks.STELLARITE_BLOCK.get())
         generators.createTrivialCube(ModBlocks.DEORUM_BLOCK.get())
         generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get())

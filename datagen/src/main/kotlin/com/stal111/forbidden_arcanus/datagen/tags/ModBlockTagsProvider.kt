@@ -147,6 +147,7 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
                 ModBlocks.STELLA_ARCANUM.get(),
                 ModBlocks.OBSIDIANSTEEL_BLOCK.get(),
                 ModBlocks.DEORUM_BLOCK.get(),
+                ModBlocks.METEORITE_BLOCK.get(),
                 ModBlocks.STELLARITE_BLOCK.get(),
                 ModBlocks.SOULLESS_SANDSTONE.get(),
                 ModBlocks.CUT_SOULLESS_SANDSTONE.get(),
@@ -197,7 +198,7 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
             .add(ModBlocks.OBSIDIANSTEEL_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.STELLARITE_BLOCK.get(), ModBlocks.HEPHAESTUS_FORGE.get())
             .addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS)
-        this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.DEORUM_BLOCK.get()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
+        this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.DEORUM_BLOCK.get(), ModBlocks.METEORITE_BLOCK.get()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
         this.tag(BlockTags.NEEDS_STONE_TOOL).addTag(ModTags.Blocks.PEDESTALS).add(
             ModBlocks.DARKSTONE.get(),
             ModBlocks.DARKSTONE_SLAB.get(),

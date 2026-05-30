@@ -73,6 +73,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.ARCANE_CRYSTAL_BLOCK.get());
                             output.accept(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get());
                             output.accept(ModBlocks.RUNE_BLOCK.get());
+                            output.accept(ModBlocks.METEORITE_BLOCK.get());
                             output.accept(ModBlocks.STELLARITE_BLOCK.get());
                             output.accept(ModBlocks.DEORUM_BLOCK.get());
                             output.accept(ModBlocks.OBSIDIANSTEEL_BLOCK.get());

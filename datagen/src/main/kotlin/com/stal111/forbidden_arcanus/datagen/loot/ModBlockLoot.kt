@@ -64,6 +64,7 @@ class ModBlockLoot(
         dropSelf(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())
         dropSelf(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get())
         dropSelf(ModBlocks.RUNE_BLOCK.get())
+        dropSelf(ModBlocks.METEORITE_BLOCK.get())
         dropSelf(ModBlocks.STELLARITE_BLOCK.get())
         dropSelf(ModBlocks.DEORUM_BLOCK.get())
         dropSelf(ModBlocks.OBSIDIANSTEEL_BLOCK.get())
