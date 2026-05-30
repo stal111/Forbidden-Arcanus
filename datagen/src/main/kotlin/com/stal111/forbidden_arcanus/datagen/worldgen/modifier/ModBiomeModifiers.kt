@@ -43,6 +43,13 @@ object ModBiomeModifiers : DataForgeBiomeModifierProvider() {
         )
 
         context.registerFeature(
+            BuiltInBiomeModifiers.ADD_METEORITE,
+            context.overWorldBiomes,
+            HolderSet.direct(context.featureLookup.getOrThrow(BuiltInOrePlacements.METEORITE)),
+            GenerationStep.Decoration.RAW_GENERATION
+        )
+
+        context.registerFeature(
             BuiltInBiomeModifiers.ADD_AURUM_TREES,
             HolderSet.direct(context.biomeLookup.getOrThrow(Biomes.FLOWER_FOREST)),
             HolderSet.direct(context.featureLookup.getOrThrow(BuiltInTreePlacements.AURUM_TREES)),

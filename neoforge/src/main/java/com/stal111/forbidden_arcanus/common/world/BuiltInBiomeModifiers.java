@@ -14,6 +14,7 @@ public class BuiltInBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_RUNIC_STONE = HELPER.createKey("add_runic_stone");
     public static final ResourceKey<BiomeModifier> ADD_DARKSTONE = HELPER.createKey("add_darkstone");
     public static final ResourceKey<BiomeModifier> ADD_STELLA_ARCANUM = HELPER.createKey("add_stella_arcanum");
+    public static final ResourceKey<BiomeModifier> ADD_METEORITE = HELPER.createKey("add_meteorite");
 
     public static final ResourceKey<BiomeModifier> ADD_AURUM_TREES = HELPER.createKey("add_aurum_trees");
     public static final ResourceKey<BiomeModifier> ADD_YELLOW_ORCHIDS = HELPER.createKey("add_yellow_orchids");

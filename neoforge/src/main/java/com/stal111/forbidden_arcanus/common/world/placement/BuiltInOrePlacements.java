@@ -15,4 +15,5 @@ public class BuiltInOrePlacements {
     public static final ResourceKey<PlacedFeature> RUNIC_STONE_LOWER = HELPER.createKey("runic_stone_lower");
     public static final ResourceKey<PlacedFeature> DARKSTONE = HELPER.createKey("darkstone");
     public static final ResourceKey<PlacedFeature> STELLA_ARCANUM = HELPER.createKey("stella_arcanum");
+    public static final ResourceKey<PlacedFeature> METEORITE = HELPER.createKey("meteorite");
 }

@@ -1,0 +1,28 @@
+{
+  "type": "forbidden_arcanus:meteorite",
+  "config": {
+    "block_state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "forbidden_arcanus:darkstone"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "forbidden_arcanus:meteorite"
+          },
+          "weight": 1
+        }
+      ]
+    },
+    "core_roughness": 0.12,
+    "crater_radius": 12,
+    "fire_chance": 0.3,
+    "magma_chance": 0.45,
+    "magma_radius_offset": 4,
+    "radius": 3
+  }
+}

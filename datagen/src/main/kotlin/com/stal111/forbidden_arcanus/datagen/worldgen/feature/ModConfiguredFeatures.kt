@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.datagen.worldgen.feature
 
 import com.stal111.forbidden_arcanus.common.world.feature.BuiltInFeatures
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig
+import com.stal111.forbidden_arcanus.common.world.feature.config.MeteoriteConfiguration
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures
 import net.minecraft.data.worldgen.BootstrapContext
@@ -155,6 +156,26 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
                     SimpleStateProvider.simple(FUNGYSS_STEM.get()),
                     SimpleStateProvider.simple(FUNGYSS_HYPHAE.get()),
                     1
+                )
+            )
+        )
+
+        context.register(
+            BuiltInFeatures.METEORITE,
+            ConfiguredFeature(
+                ModFeatures.METEORITE.get(),
+                MeteoriteConfiguration(
+                    3,
+                    WeightedStateProvider(
+                        WeightedList.builder<BlockState>()
+                            .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
+                            .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
+                    ),
+                    12,
+                    0.45F,
+                    0.3F,
+                    4,
+                    0.12f
                 )
             )
         )

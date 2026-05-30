@@ -69,5 +69,15 @@ object ModOrePlacements : RegistryDataProvider<PlacedFeature> {
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(-44), VerticalAnchor.absolute(42))
             )
         )
+
+        PlacementUtils.register(
+            context,
+            BuiltInOrePlacements.METEORITE,
+            configuredFeatureRegistry.getOrThrow(BuiltInFeatures.METEORITE),
+            RarityFilter.onAverageOnceEvery(600),
+            InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP,
+            BiomeFilter.biome()
+        )
     }
 }

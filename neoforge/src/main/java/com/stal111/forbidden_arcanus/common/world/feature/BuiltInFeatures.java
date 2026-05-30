@@ -15,6 +15,7 @@ public class BuiltInFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> RUNIC_STONE_LOWER = HELPER.createKey("ore_rune_lower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DARKSTONE = HELPER.createKey("ore_darkstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> STELLA_ARCANUM = HELPER.createKey("ore_stella_arcanum");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> METEORITE = HELPER.createKey("meteorite");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURUM = HELPER.createKey("aurum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ORCHID = HELPER.createKey("flower_yellow_orchid");
