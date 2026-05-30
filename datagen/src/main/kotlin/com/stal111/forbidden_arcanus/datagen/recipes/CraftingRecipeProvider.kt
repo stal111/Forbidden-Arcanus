@@ -387,7 +387,11 @@ class CraftingRecipeProvider(
             ).unlockedBy(ModTags.Items.ARCANE_CRYSTAL_ORES), "blasting/arcane_crystal_from_blasting"
         )
 
-        netheriteSmithing(ModItems.DIAMOND_BLACKSMITH_GAVEL.get(), RecipeCategory.TOOLS, ModItems.NETHERITE_BLACKSMITH_GAVEL.get())
+        netheriteSmithing(
+            ModItems.DIAMOND_BLACKSMITH_GAVEL.get(),
+            RecipeCategory.TOOLS,
+            ModItems.NETHERITE_BLACKSMITH_GAVEL.get()
+        )
 
         // Stonecutting Recipes
         this.addStonecutterRecipe(ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get(), ModBlocks.DARKSTONE.get())
@@ -460,13 +464,11 @@ class CraftingRecipeProvider(
 //        this.chestBoat(ModItems.AURUM_CHEST_BOAT.get(), ModItems.AURUM_BOAT.get())
 //        this.chestBoat(ModItems.EDELWOOD_CHEST_BOAT.get(), ModItems.EDELWOOD_BOAT.get())
 
-        this.surroundingItem(
-            RecipeCategory.BUILDING_BLOCKS,
-            ModBlocks.CLIBANO_CORE.get(),
-            Blocks.BLAST_FURNACE,
-            ModBlocks.DARKSTONE.get(),
-            1
-        )
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.CLIBANO_CORE.get()) {
+            it.pattern("X#X", "#B#", "X#X")
+                .define('X' to ModItems.RAW_METEORITE, '#' to ModBlocks.DARKSTONE.get(), 'B' to Blocks.BLAST_FURNACE)
+                .unlockedBy(ModItems.RAW_METEORITE.get(), ModBlocks.DARKSTONE.get())
+        }
 
         this.lantern(ModBlocks.DEORUM_LANTERN.get(), Blocks.TORCH, ModTags.Items.DEORUM_NUGGETS)
         this.lantern(ModBlocks.DEORUM_SOUL_LANTERN.get(), Blocks.SOUL_TORCH, ModTags.Items.DEORUM_NUGGETS)
