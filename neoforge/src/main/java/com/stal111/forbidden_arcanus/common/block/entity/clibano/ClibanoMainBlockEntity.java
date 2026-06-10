@@ -270,7 +270,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 }
 
                 blockEntity.storedMaterials.insert(selectedType, -90);
-                PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(blockEntity.getBlockPos()), new InsertMoltenMaterialPayload(new MoltenMaterial(selectedType, -1)));
+                PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(blockEntity.getBlockPos()), new InsertMoltenMaterialPayload(new MoltenMaterial(selectedType, -90)));
                 blockEntity.resultProgress = 0;
             }
         }

@@ -43,11 +43,11 @@ public class MaterialSlot extends AbstractButton {
 
         guiGraphics.fakeItem(this.material.type().value().display().create(), this.getX() + 4, this.getY() + 4);
 
-        int width = Mth.ceil((this.material.amount() / 256.0F) * 20.0F);
+        int width = Mth.ceil((this.material.amount() / (256.0F * 90)) * 20.0F);
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, this.getX() + 2, this.getY() + 27, width, 5);
 
         if (this.isHovered()) {
-            guiGraphics.setTooltipForNextFrame(Component.literal("Amount: " + this.material.amount() + " / 256"), x, y);
+            guiGraphics.setTooltipForNextFrame(Component.literal("Amount: " + this.material.amount() + " / " + 256 * 90), x, y);
         }
     }
 
