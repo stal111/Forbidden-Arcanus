@@ -5,6 +5,6 @@
   "ingredient": "#minecraft:copper_ores",
   "result": {
     "type": "forbidden_arcanus:copper",
-    "amount": 1
+    "amount": 90
   }
 }

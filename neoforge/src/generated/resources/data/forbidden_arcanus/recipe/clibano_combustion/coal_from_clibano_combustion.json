@@ -5,6 +5,6 @@
   "ingredient": "#minecraft:coal_ores",
   "result": {
     "type": "forbidden_arcanus:coal",
-    "amount": 1
+    "amount": 90
   }
 }

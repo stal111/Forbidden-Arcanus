@@ -5,6 +5,6 @@
   "ingredient": "#minecraft:lapis_ores",
   "result": {
     "type": "forbidden_arcanus:lapis_lazuli",
-    "amount": 1
+    "amount": 90
   }
 }

@@ -5,6 +5,6 @@
   "ingredient": "#minecraft:iron_ores",
   "result": {
     "type": "forbidden_arcanus:iron",
-    "amount": 1
+    "amount": 90
   }
 }

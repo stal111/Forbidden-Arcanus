@@ -5,6 +5,6 @@
   "ingredient": "#forbidden_arcanus:arcane_crystal_ores",
   "result": {
     "type": "forbidden_arcanus:arcane_crystal",
-    "amount": 1
+    "amount": 90
   }
 }

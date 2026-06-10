@@ -5,6 +5,6 @@
   "ingredient": "minecraft:ancient_debris",
   "result": {
     "type": "forbidden_arcanus:netherite",
-    "amount": 1
+    "amount": 90
   }
 }

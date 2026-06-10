@@ -5,6 +5,6 @@
   "ingredient": "#minecraft:emerald_ores",
   "result": {
     "type": "forbidden_arcanus:emerald",
-    "amount": 1
+    "amount": 90
   }
 }

@@ -256,7 +256,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         Holder<MoltenMaterialType> selectedType = blockEntity.selectedMaterialState.getSelected();
 
-        if (selectedType != null && blockEntity.storedMaterials.getAmount(selectedType) != 0 && blockEntity.canCreateResult(selectedType.value())) {
+        if (selectedType != null && blockEntity.storedMaterials.getAmount(selectedType) >= 90 && blockEntity.canCreateResult(selectedType.value())) {
             ItemStack result = blockEntity.resultInventory.getStack();
 
             blockEntity.resultProgress++;
@@ -269,7 +269,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                     blockEntity.resultInventory.setStack(result);
                 }
 
-                blockEntity.storedMaterials.insert(selectedType, -1);
+                blockEntity.storedMaterials.insert(selectedType, -90);
                 PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(blockEntity.getBlockPos()), new InsertMoltenMaterialPayload(new MoltenMaterial(selectedType, -1)));
                 blockEntity.resultProgress = 0;
             }

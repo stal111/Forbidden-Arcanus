@@ -24,7 +24,7 @@ class ClibanoRecipeProvider(
 
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.ARCANE_CRYSTAL), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.ARCANE_CRYSTAL), 90),
                 Ingredient.of(items.getOrThrow(ModTags.Items.ARCANE_CRYSTAL_ORES)),
                 1.0f,
                 100
@@ -33,7 +33,7 @@ class ClibanoRecipeProvider(
 
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.RUNE), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.RUNE), 90),
                 Ingredient.of(items.getOrThrow(ModTags.Items.RUNIC_STONES)),
                 0.5f,
                 100
@@ -42,7 +42,7 @@ class ClibanoRecipeProvider(
 
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.COAL), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.COAL), 90),
                 Ingredient.of(items.getOrThrow(ItemTags.COAL_ORES)),
                 0.05f,
                 100
@@ -50,7 +50,7 @@ class ClibanoRecipeProvider(
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.IRON), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.IRON), 90),
                 Ingredient.of(items.getOrThrow(ItemTags.IRON_ORES)),
                 0.35f,
                 100
@@ -58,44 +58,44 @@ class ClibanoRecipeProvider(
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.GOLD), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.GOLD), 90),
                 Ingredient.of(items.getOrThrow(ItemTags.GOLD_ORES)), 0.5f, 100
             ).unlockedBy(ItemTags.GOLD_ORES)
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.COPPER), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.COPPER), 90),
                 Ingredient.of(items.getOrThrow(ItemTags.COPPER_ORES)), 0.35f, 100
             ).unlockedBy(ItemTags.COPPER_ORES)
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.LAPIS_LAZULI), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.LAPIS_LAZULI), 90),
                 Ingredient.of(items.getOrThrow(ItemTags.LAPIS_ORES)), 0.1f, 100
             ).unlockedBy(ItemTags.LAPIS_ORES)
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.DIAMOND), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.DIAMOND), 90),
                 Ingredient.of(items.getOrThrow(ItemTags.DIAMOND_ORES)), 0.5f, 100
             ).unlockedBy(ItemTags.DIAMOND_ORES)
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.EMERALD), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.EMERALD), 90),
                 Ingredient.of(items.getOrThrow(ItemTags.EMERALD_ORES)), 0.5f, 100
             ).unlockedBy(ItemTags.EMERALD_ORES)
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.NETHERITE), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.NETHERITE), 90),
                 Ingredient.of(Blocks.ANCIENT_DEBRIS), 1.0f, 100
             ).unlockedBy(Blocks.ANCIENT_DEBRIS)
         )
 
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.IRON), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.IRON), 90),
                 Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_IRON)),
                 0.35f,
                 100
@@ -103,7 +103,7 @@ class ClibanoRecipeProvider(
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.GOLD), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.GOLD), 90),
                 Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_GOLD)),
                 0.5f,
                 100
@@ -111,7 +111,7 @@ class ClibanoRecipeProvider(
         )
         this.add(
             this.clibanoRecipe(
-                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.COPPER), 1),
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.COPPER), 90),
                 Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_COPPER)),
                 0.35f,
                 100

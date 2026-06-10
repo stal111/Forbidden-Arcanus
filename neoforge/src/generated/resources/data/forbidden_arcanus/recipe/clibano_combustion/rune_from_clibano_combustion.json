@@ -5,6 +5,6 @@
   "ingredient": "#forbidden_arcanus:runic_stones",
   "result": {
     "type": "forbidden_arcanus:rune",
-    "amount": 1
+    "amount": 90
   }
 }
