@@ -128,9 +128,7 @@ public class MeteoriteFeature extends Feature<MeteoriteConfiguration> {
 
                     mutable.set(origin.getX() + dx, meteorOriginY + dy, origin.getZ() + dz);
 
-                    if (level.isEmptyBlock(mutable) || !level.getFluidState(mutable).isEmpty()) {
-                        level.setBlock(mutable, config.blockStateProvider().getState(level, random, mutable), 2);
-                    }
+                    level.setBlock(mutable, config.blockStateProvider().getState(level, random, mutable), 2);
                 }
             }
         }
