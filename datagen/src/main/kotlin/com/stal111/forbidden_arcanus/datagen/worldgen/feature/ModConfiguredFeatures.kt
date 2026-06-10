@@ -172,7 +172,7 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
                                 WeightedStateProvider(
                                     WeightedList.builder<BlockState>()
                                         .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
-                                        .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
+                                        .add(ModBlocks.ASTERITE_DEBRIS.get().defaultBlockState(), 1),
                                 ),
                                 8,
                                 0.4F,
@@ -188,7 +188,7 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
                                 WeightedStateProvider(
                                     WeightedList.builder<BlockState>()
                                         .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
-                                        .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
+                                        .add(ModBlocks.ASTERITE_DEBRIS.get().defaultBlockState(), 1),
                                 ),
                                 12,
                                 0.45F,
@@ -204,7 +204,7 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
                                 WeightedStateProvider(
                                     WeightedList.builder<BlockState>()
                                         .add(ModBlocks.DARKSTONE.get().defaultBlockState(), 3)
-                                        .add(ModBlocks.METEORITE.get().defaultBlockState(), 1),
+                                        .add(ModBlocks.ASTERITE_DEBRIS.get().defaultBlockState(), 1),
                                 ),
                                 15,
                                 0.45F,

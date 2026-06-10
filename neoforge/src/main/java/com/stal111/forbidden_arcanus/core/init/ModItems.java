@@ -53,8 +53,8 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> MUNDABITUR_DUST = HELPER.register("mundabitur_dust", MundabiturDustItem::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> CORRUPTI_DUST = HELPER.register("corrupti_dust", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> DARK_MATTER = HELPER.register("dark_matter", DarkMatterItem::new, Item.Properties::new);
-    public static final ItemRegistryEntry<Item> RAW_METEORITE = HELPER.register("raw_meteorite", Item::new, Item.Properties::new);
-    public static final ItemRegistryEntry<Item> METEORITE_INGOT = HELPER.register("meteorite_ingot", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> ASTERITE_CHUNK = HELPER.register("asterite_chunk", Item::new, Item.Properties::new);
+    public static final ItemRegistryEntry<Item> ASTERITE_INGOT = HELPER.register("asterite_ingot", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> OBSIDIANSTEEL_INGOT = HELPER.register("obsidiansteel_ingot", Item::new, () -> new Item.Properties().delayedHolderComponent(ModDataComponents.PROVIDES_WAND_MATERIAL.get(), BuiltinWandMaterials.OBSIDIANSTEEL));
     public static final ItemRegistryEntry<Item> SOUL = HELPER.register("soul", Item::new, () -> new Item.Properties().component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.ECTOPLASM, 1)));
     public static final ItemRegistryEntry<DarkSoulItem> CORRUPT_SOUL = HELPER.register("corrupt_soul", DarkSoulItem::new, () -> new Item.Properties().component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.ECTOPLASM, 1)));

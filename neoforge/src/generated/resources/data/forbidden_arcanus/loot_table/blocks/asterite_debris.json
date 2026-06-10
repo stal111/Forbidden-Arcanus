@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "forbidden_arcanus:meteorite"
+              "name": "forbidden_arcanus:asterite_debris"
             },
             {
               "type": "minecraft:item",
@@ -49,7 +49,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "forbidden_arcanus:raw_meteorite"
+              "name": "forbidden_arcanus:asterite_chunk"
             }
           ]
         }
@@ -57,5 +57,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "forbidden_arcanus:blocks/meteorite"
+  "random_sequence": "forbidden_arcanus:blocks/asterite_debris"
 }

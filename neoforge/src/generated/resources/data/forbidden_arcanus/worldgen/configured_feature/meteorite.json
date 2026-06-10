@@ -17,7 +17,7 @@
                 },
                 {
                   "data": {
-                    "Name": "forbidden_arcanus:meteorite"
+                    "Name": "forbidden_arcanus:asterite_debris"
                   },
                   "weight": 1
                 }
@@ -48,7 +48,7 @@
                 },
                 {
                   "data": {
-                    "Name": "forbidden_arcanus:meteorite"
+                    "Name": "forbidden_arcanus:asterite_debris"
                   },
                   "weight": 1
                 }
@@ -79,7 +79,7 @@
                 },
                 {
                   "data": {
-                    "Name": "forbidden_arcanus:meteorite"
+                    "Name": "forbidden_arcanus:asterite_debris"
                   },
                   "weight": 1
                 }

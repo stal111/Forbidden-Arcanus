@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "forbidden_arcanus:item/meteorite_ingot"
+    "layer0": "forbidden_arcanus:item/asterite_ingot"
   }
 }

@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-30T12:38:42.7606017	Registries
+// 26.1.2	2026-06-10T19:59:59.3207947	Registries
 fd18da93d87a7f47354baedd82518d0440345dd9 data/forbidden_arcanus/enchantment/anchored.json
 c98ac566f1282450f9c754815a2c8f9a44e02b0a data/forbidden_arcanus/enchantment/soul_looting.json
 5dae7d2918859d0c001de5f1ba9afef12e45c807 data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/artisan_relic.json
@@ -86,7 +86,7 @@ bfa3037ac6da3d7efff49de6b4dbcadd5c34cbd8 data/forbidden_arcanus/worldgen/configu
 64ca996677cc00588745145d5018aa6ade712dbc data/forbidden_arcanus/worldgen/configured_feature/flower_yellow_orchid.json
 c94b770e0ccca31c25a30839117cbc7a636ce163 data/forbidden_arcanus/worldgen/configured_feature/mega_fungyss_0.json
 60464b22a604362f66e131eb5ea9e4f272c79435 data/forbidden_arcanus/worldgen/configured_feature/mega_fungyss_1.json
-5ac0840cef613465a1da2cf7768d3e8ebc544ae7 data/forbidden_arcanus/worldgen/configured_feature/meteorite.json
+14680cad472ac94771f2adcaa148b51f5f5d8c04 data/forbidden_arcanus/worldgen/configured_feature/meteorite.json
 022217efcf39b59dbb6679762cd6050f4a25f309 data/forbidden_arcanus/worldgen/configured_feature/ore_arcane_crystal.json
 adae7fe6fee893c2d92c147811993db944d3be61 data/forbidden_arcanus/worldgen/configured_feature/ore_darkstone.json
 54843a5d2391077e92e4c7f08344b4c12883bd68 data/forbidden_arcanus/worldgen/configured_feature/ore_rune.json

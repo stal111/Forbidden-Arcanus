@@ -466,8 +466,8 @@ class CraftingRecipeProvider(
 
         shaped(RecipeCategory.DECORATIONS, ModBlocks.CLIBANO_CORE.get()) {
             it.pattern("X#X", "#B#", "X#X")
-                .define('X' to ModItems.RAW_METEORITE, '#' to ModBlocks.DARKSTONE.get(), 'B' to Blocks.BLAST_FURNACE)
-                .unlockedBy(ModItems.RAW_METEORITE.get(), ModBlocks.DARKSTONE.get())
+                .define('X' to ModItems.ASTERITE_CHUNK, '#' to ModBlocks.DARKSTONE.get(), 'B' to Blocks.BLAST_FURNACE)
+                .unlockedBy(ModItems.ASTERITE_CHUNK.get(), ModBlocks.DARKSTONE.get())
         }
 
         this.lantern(ModBlocks.DEORUM_LANTERN.get(), Blocks.TORCH, ModTags.Items.DEORUM_NUGGETS)

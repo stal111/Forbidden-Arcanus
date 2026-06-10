@@ -4,7 +4,7 @@
   "key": {
     "#": "forbidden_arcanus:darkstone",
     "B": "minecraft:blast_furnace",
-    "X": "forbidden_arcanus:raw_meteorite"
+    "X": "forbidden_arcanus:asterite_chunk"
   },
   "pattern": [
     "X#X",

@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "forbidden_arcanus:meteorite_block"
+          "name": "forbidden_arcanus:asterite_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "forbidden_arcanus:blocks/meteorite_block"
+  "random_sequence": "forbidden_arcanus:blocks/asterite_block"
 }
