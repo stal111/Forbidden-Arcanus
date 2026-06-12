@@ -29,7 +29,7 @@ public class DataComponentEvents {
 
     @SubscribeEvent
     public static void modifyComponents(ModifyDefaultComponentsEvent event) {
-        event.modify(Items.EXPERIENCE_BOTTLE, builder -> builder.set(ModDataComponents.ESSENCE_VALUE.get(), EssenceValue.of(EssenceType.EXPERIENCE, 15)));
+        event.modify(Items.EXPERIENCE_BOTTLE, (builder, _, _) -> builder.set(ModDataComponents.ESSENCE_VALUE.get(), EssenceValue.of(EssenceType.EXPERIENCE, 15)));
     }
 
     @SubscribeEvent

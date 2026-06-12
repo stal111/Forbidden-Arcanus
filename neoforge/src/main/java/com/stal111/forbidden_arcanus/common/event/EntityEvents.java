@@ -42,7 +42,7 @@ public class EntityEvents {
 
             if (stack.is(ModTags.Items.RECEIVES_BLOOD)) {
                 EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
-                    storage.addEssence(stack, (int) (20 * event.getNewDamage()));
+                    storage.addEssence(stack, (int) (20 * event.getHealthDamage()));
                 });
             }
         }
