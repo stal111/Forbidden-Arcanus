@@ -100,7 +100,7 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
         if (level.isClientSide()) {
             return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.ESSENCE_UTREM_JAR.get(), EssenceUtremJarBlockEntity::clientTick);
         }
-        return null;
+        return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.ESSENCE_UTREM_JAR.get(), EssenceUtremJarBlockEntity::serverTick);
     }
 
     @Override
