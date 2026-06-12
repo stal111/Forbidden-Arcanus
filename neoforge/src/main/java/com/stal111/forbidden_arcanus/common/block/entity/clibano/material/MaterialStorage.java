@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MaterialStorage {
 
-    public static final int MAX_AMOUNT = 256 * 90;
+    public static final int MAX_AMOUNT = 256 * 9;
 
     public static Codec<MaterialStorage> CODEC = Codec.unboundedMap(MoltenMaterialType.CODEC, Codec.intRange(0, MAX_AMOUNT)).xmap(
             map -> new MaterialStorage(new Object2IntOpenHashMap<>(map)),

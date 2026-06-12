@@ -4,15 +4,22 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
 import com.stal111.forbidden_arcanus.common.network.serverbound.ToggleMaterialPayload;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+
+import java.util.List;
+import java.util.Optional;
 
 public class MaterialSlot extends AbstractButton {
 
@@ -39,15 +46,28 @@ public class MaterialSlot extends AbstractButton {
 
     @Override
     protected void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick) {
+        ItemStack result = this.material.type().value().display().create();
+
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
+        guiGraphics.fakeItem(result, this.getX() + 4, this.getY() + 4);
 
-        guiGraphics.fakeItem(this.material.type().value().display().create(), this.getX() + 4, this.getY() + 4);
-
-        int width = Mth.ceil((this.material.amount() / (256.0F * 90)) * 20.0F);
+        int width = Mth.ceil((this.material.amount() / (256.0F * 9)) * 20.0F);
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, this.getX() + 2, this.getY() + 27, width, 5);
 
         if (this.isHovered()) {
-            guiGraphics.setTooltipForNextFrame(Component.literal("Amount: " + this.material.amount() + " / " + 256 * 90), x, y);
+            int amount = this.material.amount();
+            int ingots = amount / 9;
+            int residue = amount % 9;
+
+            MutableComponent component = Component.literal(ingots + " ").append(result.getItemName());
+
+            if (residue > 0) {
+                component.append(", " + residue + " Residue");
+            }
+
+            MutableComponent capacity = Component.literal("Capacity: 256").withStyle(ChatFormatting.GRAY);
+
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, List.of(component, capacity), Optional.empty(), x, y);
         }
     }
 
