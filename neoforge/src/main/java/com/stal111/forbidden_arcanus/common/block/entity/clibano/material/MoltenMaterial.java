@@ -13,7 +13,7 @@ public record MoltenMaterial(Holder<MoltenMaterialType> type, int amount) {
 
     public static final Codec<MoltenMaterial> CODEC = RecordCodecBuilder.<MoltenMaterial>create(instance -> instance.group(
             MoltenMaterialType.CODEC.fieldOf("type").forGetter(MoltenMaterial::type),
-            ExtraCodecs.POSITIVE_INT.fieldOf("amount").forGetter(MoltenMaterial::amount)
+            ExtraCodecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(MoltenMaterial::amount)
     ).apply(instance, MoltenMaterial::new)).validate(MoltenMaterial::validate);
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MoltenMaterial> STREAM_CODEC = StreamCodec.composite(
