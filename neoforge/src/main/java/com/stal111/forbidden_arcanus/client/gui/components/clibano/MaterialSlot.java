@@ -46,7 +46,7 @@ public class MaterialSlot extends AbstractButton {
 
     @Override
     protected void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick) {
-        ItemStack result = this.material.type().value().display().create();
+        ItemStack result = this.material.type().value().result().create();
 
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
         guiGraphics.fakeItem(result, this.getX() + 4, this.getY() + 4);
@@ -65,7 +65,7 @@ public class MaterialSlot extends AbstractButton {
                 component.append(", " + residue + " Residue");
             }
 
-            MutableComponent capacity = Component.literal("Capacity: 256").withStyle(ChatFormatting.GRAY);
+            MutableComponent capacity = Component.literal("Capacity: " + this.material.type().value().maxAmount() / 9).withStyle(ChatFormatting.GRAY);
 
             guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, List.of(component, capacity), Optional.empty(), x, y);
         }

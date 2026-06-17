@@ -1,3 +1,6 @@
 {
-  "id": "minecraft:emerald"
+  "max_amount": 2304,
+  "result": {
+    "id": "minecraft:emerald"
+  }
 }

@@ -1,3 +1,6 @@
 {
-  "id": "minecraft:netherite_ingot"
+  "max_amount": 2304,
+  "result": {
+    "id": "minecraft:netherite_ingot"
+  }
 }

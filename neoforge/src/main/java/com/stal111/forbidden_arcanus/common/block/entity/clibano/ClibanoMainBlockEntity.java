@@ -263,8 +263,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
             if (blockEntity.resultProgress >= RESULT_TIME) {
                 if (result.isEmpty()) {
-                    blockEntity.resultInventory.setStack(selectedType.value().display().create());
-                } else if (ItemStack.isSameItemSameComponents(result, selectedType.value().display())) {
+                    blockEntity.resultInventory.setStack(selectedType.value().result().create());
+                } else if (ItemStack.isSameItemSameComponents(result, selectedType.value().result())) {
                     result.grow(1);
                     blockEntity.resultInventory.setStack(result);
                 }
@@ -350,7 +350,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         if (result.isEmpty()) {
             return true;
-        } else if (!ItemStack.isSameItemSameComponents(result, materialType.display())) {
+        } else if (!ItemStack.isSameItemSameComponents(result, materialType.result())) {
             return false;
         }
 

@@ -12,43 +12,43 @@ object ModMoltenMaterialTypes : RegistryDataProvider<MoltenMaterialType> {
     override fun bootstrap(context: BootstrapContext<MoltenMaterialType>) {
         context.register(
             BuiltinMoltenMaterialTypes.ARCANE_CRYSTAL,
-            MoltenMaterialType(ItemStackTemplate(ModItems.ARCANE_CRYSTAL.get()))
+            MoltenMaterialType(ItemStackTemplate(ModItems.ARCANE_CRYSTAL.get()), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.RUNE,
-            MoltenMaterialType(ItemStackTemplate(ModItems.RUNE.get()))
+            MoltenMaterialType(ItemStackTemplate(ModItems.RUNE.get()), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.COAL,
-            MoltenMaterialType(ItemStackTemplate(Items.COAL))
+            MoltenMaterialType(ItemStackTemplate(Items.COAL), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.IRON,
-            MoltenMaterialType(ItemStackTemplate(Items.IRON_INGOT))
+            MoltenMaterialType(ItemStackTemplate(Items.IRON_INGOT), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.GOLD,
-            MoltenMaterialType(ItemStackTemplate(Items.GOLD_INGOT))
+            MoltenMaterialType(ItemStackTemplate(Items.GOLD_INGOT), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.COPPER,
-            MoltenMaterialType(ItemStackTemplate(Items.COPPER_INGOT))
+            MoltenMaterialType(ItemStackTemplate(Items.COPPER_INGOT), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.LAPIS_LAZULI,
-            MoltenMaterialType(ItemStackTemplate(Items.LAPIS_LAZULI))
+            MoltenMaterialType(ItemStackTemplate(Items.LAPIS_LAZULI), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.DIAMOND,
-            MoltenMaterialType(ItemStackTemplate(Items.DIAMOND))
+            MoltenMaterialType(ItemStackTemplate(Items.DIAMOND), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.EMERALD,
-            MoltenMaterialType(ItemStackTemplate(Items.EMERALD))
+            MoltenMaterialType(ItemStackTemplate(Items.EMERALD), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.NETHERITE,
-            MoltenMaterialType(ItemStackTemplate(Items.NETHERITE_INGOT))
+            MoltenMaterialType(ItemStackTemplate(Items.NETHERITE_INGOT), 256 * 9)
         )
     }
 }

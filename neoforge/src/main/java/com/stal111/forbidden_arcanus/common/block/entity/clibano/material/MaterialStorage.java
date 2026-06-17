@@ -12,11 +12,15 @@ import java.util.List;
 
 public class MaterialStorage {
 
-    public static final int MAX_AMOUNT = 256 * 9;
-
-    public static Codec<MaterialStorage> CODEC = Codec.unboundedMap(MoltenMaterialType.CODEC, Codec.intRange(0, MAX_AMOUNT)).xmap(
-            map -> new MaterialStorage(new Object2IntOpenHashMap<>(map)),
-            storage -> storage.map
+    public static Codec<MaterialStorage> CODEC = MoltenMaterial.CODEC.listOf().xmap(
+            list -> {
+                var map = new Object2IntOpenHashMap<Holder<MoltenMaterialType>>();
+                for (var material : list) {
+                    map.put(material.type(), material.amount());
+                }
+                return new MaterialStorage(map);
+            },
+            MaterialStorage::getAll
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MaterialStorage> STREAM_CODEC = ByteBufCodecs.map(
@@ -36,19 +40,19 @@ public class MaterialStorage {
     }
 
     public void insert(Holder<MoltenMaterialType> material, int amount) {
-        int newAmount = Mth.clamp(this.map.getInt(material) + amount, 0, MAX_AMOUNT);
+        int newAmount = Mth.clamp(this.map.getInt(material) + amount, 0, material.value().maxAmount());
 
         this.map.put(material, newAmount);
     }
 
     public void insert(MoltenMaterial material) {
-        int newAmount = Mth.clamp(this.map.getInt(material.type()) + material.amount(), 0, MAX_AMOUNT);
+        int newAmount = Mth.clamp(this.map.getInt(material.type()) + material.amount(), 0, material.type().value().maxAmount());
 
         this.map.put(material.type(), newAmount);
     }
 
     public boolean canFit(MoltenMaterial material) {
-        return this.map.getInt(material.type()) + material.amount() <= MAX_AMOUNT;
+        return this.map.getInt(material.type()) + material.amount() <= material.type().value().maxAmount();
     }
 
     public int getAmount(Holder<MoltenMaterialType> type) {

@@ -1,3 +1,6 @@
 {
-  "id": "minecraft:lapis_lazuli"
+  "max_amount": 2304,
+  "result": {
+    "id": "minecraft:lapis_lazuli"
+  }
 }

@@ -1,3 +1,6 @@
 {
-  "id": "minecraft:diamond"
+  "max_amount": 2304,
+  "result": {
+    "id": "minecraft:diamond"
+  }
 }

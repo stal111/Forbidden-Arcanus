@@ -1,3 +1,6 @@
 {
-  "id": "forbidden_arcanus:arcane_crystal"
+  "max_amount": 2304,
+  "result": {
+    "id": "forbidden_arcanus:arcane_crystal"
+  }
 }

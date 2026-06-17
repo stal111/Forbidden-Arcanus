@@ -1,17 +1,22 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano.material;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStackTemplate;
 
-public record MoltenMaterialType(ItemStackTemplate display) {
+public record MoltenMaterialType(ItemStackTemplate result, int maxAmount) {
 
-    public static Codec<MoltenMaterialType> DIRECT_CODEC = ItemStackTemplate.CODEC.xmap(MoltenMaterialType::new, MoltenMaterialType::display);
+    public static final Codec<MoltenMaterialType> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(MoltenMaterialType::result),
+            ExtraCodecs.POSITIVE_INT.fieldOf("max_amount").forGetter(MoltenMaterialType::maxAmount)
+    ).apply(instance, MoltenMaterialType::new));
 
     public static final Codec<Holder<MoltenMaterialType>> CODEC = RegistryFileCodec.create(FARegistries.MOLTEN_MATERIAL_TYPE, DIRECT_CODEC);
 

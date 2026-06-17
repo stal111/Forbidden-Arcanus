@@ -1,3 +1,6 @@
 {
-  "id": "minecraft:copper_ingot"
+  "max_amount": 2304,
+  "result": {
+    "id": "minecraft:copper_ingot"
+  }
 }
