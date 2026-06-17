@@ -112,19 +112,13 @@ public class RitualManager implements NeedsStoring {
             this.lightningCounter++;
 
             if (this.lightningCounter == 300) {
-                List<ItemStack> list = new ArrayList<>();
-
-                this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> list.add(pedestalBlockEntity.getStack()));
-
-                if (!this.getActiveRitual().checkIngredients(list, this.blockEntity)) {
-                    this.failRitual(level);
-
-                    NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
-                    return;
-                }
+                if (checkActiveRitualIngredients(level, pos)) return;
 
                 this.lightningCounter = 0;
             }
+        } else {
+            // Check if ritual is invalidated
+            if (checkActiveRitualIngredients(level, pos)) return;
         }
 
         this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> {
@@ -169,6 +163,20 @@ public class RitualManager implements NeedsStoring {
         }
 
         NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
+    }
+
+    private boolean checkActiveRitualIngredients(ServerLevel level, BlockPos pos) {
+        List<ItemStack> items = new ArrayList<>();
+
+        this.forEachPedestal(level, PedestalBlockEntity::hasStack, pedestalBlockEntity -> items.add(pedestalBlockEntity.getStack()));
+
+        if (!this.getActiveRitual().checkIngredients(items, this.blockEntity)) {
+            failRitual(level);
+            NetworkHandler.sendToTrackingChunk(level.getChunkAt(pos), new UpdateForgeRitualPacket(pos, this.activeRitual));
+
+            return true;
+        }
+        return false;
     }
 
     public void finishRitual(ServerLevel level) {
