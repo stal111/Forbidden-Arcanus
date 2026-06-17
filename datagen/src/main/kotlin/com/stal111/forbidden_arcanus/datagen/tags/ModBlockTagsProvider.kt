@@ -146,6 +146,8 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
                 ModBlocks.ASTERITE_DEBRIS.get(),
                 ModBlocks.STELLA_ARCANUM.get(),
                 ModBlocks.OBSIDIANSTEEL_BLOCK.get(),
+                ModBlocks.ARCANE_CRYSTAL_BLOCK.get(),
+                ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get(),
                 ModBlocks.DEORUM_BLOCK.get(),
                 ModBlocks.ASTERITE_BLOCK.get(),
                 ModBlocks.STELLARITE_BLOCK.get(),
