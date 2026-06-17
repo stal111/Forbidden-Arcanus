@@ -65,7 +65,7 @@ class CraftingRecipeProvider(
             it.pattern("###", "#X#", "###").define(
                 '#' to ModItems.ARCANE_CRYSTAL_DUST,
                 'X' to DataComponentIngredient.of(
-                    true,
+                    false,
                     DataComponents.POTION_CONTENTS,
                     PotionContents(Potions.STRONG_REGENERATION),
                     Items.POTION

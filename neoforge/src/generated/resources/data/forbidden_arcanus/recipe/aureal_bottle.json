@@ -10,8 +10,7 @@
           "potion": "minecraft:strong_regeneration"
         }
       },
-      "items": "minecraft:potion",
-      "strict": true
+      "items": "minecraft:potion"
     }
   },
   "pattern": [
