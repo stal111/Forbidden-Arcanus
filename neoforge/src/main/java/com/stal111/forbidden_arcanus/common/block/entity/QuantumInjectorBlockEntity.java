@@ -121,7 +121,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
     }
 
     private void transferEssence(ServerLevel level, BlockPos pos) {
-        if (this.forgeBlockEntity == null || this.jarBlockEntity == null) {
+        if (this.forgeBlockEntity == null || this.jarBlockEntity == null || this.jarBlockEntity.getEssenceStorage().isEmpty()) {
             if (this.particlePath != null) {
                 this.particlePath = null;
 
@@ -135,8 +135,12 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
 
         this.particlePath = new ParticlePath(essenceType, this.jarBlockEntity.getBlockPos(), this.forgeBlockEntity.getBlockPos());
 
-        this.forgeBlockEntity.addEssence(essenceType, 5);
-        this.jarBlockEntity.addEssence(-5);
+        //Better amount handling & also update the jar when we drain it :3
+        int toTransfer = Math.min(5, this.jarBlockEntity.getEssenceStorage().amount());
+
+        this.forgeBlockEntity.addEssence(essenceType, toTransfer);
+        this.jarBlockEntity.addEssence(-toTransfer);
+        level.sendBlockUpdated(this.jarBlockEntity.getBlockPos(), this.jarBlockEntity.getBlockState(), this.jarBlockEntity.getBlockState(), 3);
 
         level.sendBlockUpdated(pos, this.getBlockState(), this.getBlockState(), 3);
     }

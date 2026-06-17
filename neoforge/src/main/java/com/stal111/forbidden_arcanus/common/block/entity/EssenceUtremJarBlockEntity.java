@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
@@ -38,6 +39,14 @@ public class EssenceUtremJarBlockEntity extends BlockEntity implements BlockEnti
         blockEntity.rotateAnimation.startIfStopped(blockEntity.tickCount);
 
         blockEntity.tickCount++;
+    }
+
+    //Empty Jars should be empty
+    public static void serverTick(Level level, BlockPos pos, BlockState state, EssenceUtremJarBlockEntity blockEntity) {
+        if (blockEntity.getEssenceStorage().isEmpty()) {
+            level.setBlockAndUpdate(pos, ModBlocks.UTREM_JAR.get().withPropertiesOf(state));
+            blockEntity.setRemoved();
+        }
     }
 
     public ItemStack getAsItem() {
