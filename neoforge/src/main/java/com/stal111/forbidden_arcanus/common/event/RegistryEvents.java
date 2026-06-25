@@ -34,7 +34,7 @@ public class RegistryEvents {
     @SubscribeEvent
     public void newRegistry(NewRegistryEvent event) {
         event.register(FARegistries.RITUAL_RESULT_TYPE_REGISTRY);
-        event.register(FARegistries.FORGE_INPUT_REGISTRY);
+        event.register(FARegistries.ESSENCE_INPUT_REGISTRY);
         event.register(FARegistries.ENHANCER_EFFECT_REGISTRY);
         event.register(FARegistries.ENHANCER_EFFECT_CONDITION_REGISTRY);
         event.register(FARegistries.DARK_TRADER_VARIANT_REGISTRY);

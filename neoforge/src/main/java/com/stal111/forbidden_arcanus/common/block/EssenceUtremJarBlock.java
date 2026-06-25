@@ -1,12 +1,11 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
-import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
@@ -79,11 +78,11 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
                 return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
 
-            for (HephaestusForgeInput input : FARegistries.FORGE_INPUT_REGISTRY) {
-                EssenceValue inputValue = input.getMaxInputValue(stack);
+            for (EssenceInput input : FARegistries.ESSENCE_INPUT_REGISTRY) {
+                int amount = input.getMaxAmount(stack, state.getValue(ESSENCE_TYPE));
 
-                if (inputValue != EssenceValue.EMPTY && inputValue.type() == state.getValue(ESSENCE_TYPE)) {
-                    int transferredAmount = blockEntity.addEssence(inputValue.amount());
+                if (amount != 0) {
+                    int transferredAmount = blockEntity.addEssence(amount);
 
                     player.setItemInHand(hand, input.finishInput(stack, transferredAmount));
 

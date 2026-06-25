@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.entity.transfer;
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -28,9 +28,9 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
 
     @Override
     public boolean isValid(int index, ItemResource resource) {
-        return FARegistries.FORGE_INPUT_REGISTRY.listElements()
+        return FARegistries.ESSENCE_INPUT_REGISTRY.listElements()
                 .map(Holder.Reference::value)
-                .anyMatch(input -> input.canInput(this.essenceTypes.get(index), resource.toStack()));
+                .anyMatch(input -> input.isValidInput(resource.toStack(), this.essenceTypes.get(index)));
     }
 
     public void tick(EssenceAccess essenceAccess, RegistryAccess registryAccess) {
@@ -42,13 +42,13 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
                 continue;
             }
 
-            HephaestusForgeInput input = registryAccess.lookupOrThrow(FARegistries.FORGE_INPUT).listElements()
+            EssenceInput input = registryAccess.lookupOrThrow(FARegistries.ESSENCE_INPUT).listElements()
                     .map(Holder.Reference::value)
-                    .filter(forgeInput -> forgeInput.canInput(essenceType, stack))
+                    .filter(forgeInput -> forgeInput.isValidInput(stack, essenceType))
                     .findFirst().orElse(null);
 
             if (input != null) {
-                int value = input.getInputValue(stack).amount();
+                int value = input.getAmount(stack, essenceType);
 
                 essenceAccess.addEssence(essenceType, value);
 

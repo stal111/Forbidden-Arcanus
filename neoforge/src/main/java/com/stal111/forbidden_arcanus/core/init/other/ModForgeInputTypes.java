@@ -1,7 +1,9 @@
 package com.stal111.forbidden_arcanus.core.init.other;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.*;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceStorageComponentInput;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceValueComponentInput;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
@@ -13,9 +15,9 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHel
  */
 public class ModForgeInputTypes implements RegistryClass {
 
-    public static final MappedRegistryHelper<HephaestusForgeInput> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.FORGE_INPUT);
+    public static final MappedRegistryHelper<EssenceInput> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.ESSENCE_INPUT);
 
-    public static final Holder<HephaestusForgeInput> SIMPLE_ITEM = HELPER.register("essence_data", EssenceDataInput::new);
-    public static final Holder<HephaestusForgeInput> ESSENCE_STORAGE = HELPER.register("essence_storage", EssenceStorageInput::new);
+    public static final Holder<EssenceInput> ESSENCE_VALUE_COMPONENT = HELPER.register("essence_value_component", EssenceValueComponentInput::new);
+    public static final Holder<EssenceInput> ESSENCE_STORAGE_COMPONENT = HELPER.register("essence_storage_component", EssenceStorageComponentInput::new);
 
 }

@@ -2,8 +2,9 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.input.HephaestusForgeInput;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
@@ -34,6 +35,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
 
 /**
  * @author stal111
@@ -69,18 +72,22 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        for (HephaestusForgeInput input : FARegistries.FORGE_INPUT_REGISTRY) {
-            EssenceValue inputValue = input.getMaxInputValue(stack);
+        for (EssenceInput input : FARegistries.ESSENCE_INPUT_REGISTRY) {
+            EssenceValue value = Arrays.stream(EssenceType.values())
+                    .map(type -> EssenceValue.of(type, input.getMaxAmount(stack, type)))
+                    .filter(v -> v.amount() != 0)
+                    .findFirst()
+                    .orElse(EssenceValue.EMPTY);
 
-            if (inputValue != EssenceValue.EMPTY) {
+            if (value != EssenceValue.EMPTY) {
                 BlockState essenceJar = ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState()
                         .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
-                        .setValue(ModBlockStateProperties.ESSENCE_TYPE, inputValue.type());
+                        .setValue(ModBlockStateProperties.ESSENCE_TYPE, value.type());
 
                 level.setBlockAndUpdate(pos, essenceJar);
 
                 if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
-                    int transferredAmount = blockEntity.addEssence(inputValue.amount());
+                    int transferredAmount = blockEntity.addEssence(value.amount());
 
                     player.setItemInHand(hand, input.finishInput(stack, transferredAmount));
                 }
