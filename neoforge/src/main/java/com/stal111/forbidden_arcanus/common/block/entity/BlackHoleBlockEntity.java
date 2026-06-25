@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
-import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.item.enchantment.ModEnchantmentHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -86,7 +86,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
 
         if (blockEntity.storedExperience >= 91) {
             blockEntity.throwOutItemStack(level, new ItemStack(ModItems.CONDENSED_EXPERIENCE.get()), pos.getCenter());
-            blockEntity.storedExperience = 0;
+            blockEntity.storedExperience -= 91;
         }
 
         blockEntity.thrownOutItems.removeIf(itemEntity -> !itemEntity.isAlive());
@@ -95,12 +95,16 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     public void extractExperience(Entity entity) {
         if (entity instanceof ExperienceOrb experienceOrb) {
             this.storedExperience += experienceOrb.getValue();
-        } else if (entity instanceof ItemEntity itemEntity) {
-            int experience = EssenceHelper.getEssenceAmount(itemEntity.getItem(), EssenceType.EXPERIENCE);
 
-            if (experience != 0) {
-                this.storedExperience += experience;
-            }
+            this.setChanged();
+        } else if (entity instanceof ItemEntity itemEntity) {
+            ItemStack stack = itemEntity.getItem();
+
+            EssenceInput.findValidInput(stack, EssenceType.EXPERIENCE).ifPresent(input -> {
+                this.storedExperience += input.getMaxAmount(stack, EssenceType.EXPERIENCE) * stack.count();
+
+                this.setChanged();
+            });
         }
     }
 
