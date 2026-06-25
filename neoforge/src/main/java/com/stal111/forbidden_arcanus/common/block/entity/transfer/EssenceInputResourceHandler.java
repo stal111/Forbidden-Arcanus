@@ -1,11 +1,8 @@
 package com.stal111.forbidden_arcanus.common.block.entity.transfer;
 
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
@@ -28,12 +25,10 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
 
     @Override
     public boolean isValid(int index, ItemResource resource) {
-        return FARegistries.ESSENCE_INPUT_REGISTRY.listElements()
-                .map(Holder.Reference::value)
-                .anyMatch(input -> input.isValidInput(resource.toStack(), this.essenceTypes.get(index)));
+        return EssenceInput.findValidInput(resource.toStack(), this.essenceTypes.get(index)).isPresent();
     }
 
-    public void tick(EssenceAccess essenceAccess, RegistryAccess registryAccess) {
+    public void tick(EssenceAccess essenceAccess) {
         for (int i = 0; i < this.essenceTypes.size(); i++) {
             ItemStack stack = ItemUtil.getStack(this, i);
             EssenceType essenceType = this.essenceTypes.get(i);
@@ -42,19 +37,16 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
                 continue;
             }
 
-            EssenceInput input = registryAccess.lookupOrThrow(FARegistries.ESSENCE_INPUT).listElements()
-                    .map(Holder.Reference::value)
-                    .filter(forgeInput -> forgeInput.isValidInput(stack, essenceType))
-                    .findFirst().orElse(null);
+            int slot = i;
 
-            if (input != null) {
+            EssenceInput.findValidInput(stack, essenceType).ifPresent(input -> {
                 int value = input.getAmount(stack, essenceType);
 
                 essenceAccess.addEssence(essenceType, value);
 
                 ItemStack result = input.finishInput(stack, value);
-                this.set(i, ItemResource.of(result), result.getCount());
-            }
+                this.set(slot, ItemResource.of(result), result.getCount());
+            });
         }
     }
 }

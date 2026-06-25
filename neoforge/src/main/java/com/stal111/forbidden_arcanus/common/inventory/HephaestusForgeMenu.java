@@ -6,12 +6,11 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResour
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Inventory;
@@ -103,19 +102,19 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (this.canInput(level, EssenceType.AUREAL, stack)) {
+            if (this.canInput(EssenceType.AUREAL, stack)) {
                 if (!this.moveItemStackTo(stack, 5, 6, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canInput(level, EssenceType.ECTOPLASM, stack)) {
+            } else if (this.canInput(EssenceType.ECTOPLASM, stack)) {
                 if (!this.moveItemStackTo(stack, 6, 7, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canInput(level, EssenceType.BLOOD, stack)) {
+            } else if (this.canInput(EssenceType.BLOOD, stack)) {
                 if (!this.moveItemStackTo(stack, 7, 8, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.canInput(level, EssenceType.EXPERIENCE, stack)) {
+            } else if (this.canInput(EssenceType.EXPERIENCE, stack)) {
                 if (!this.moveItemStackTo(stack, 8, 9, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -141,10 +140,8 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         return result;
     }
 
-    public boolean canInput(Level level, EssenceType type, ItemStack stack) {
-        return level.registryAccess().lookupOrThrow(FARegistries.ESSENCE_INPUT).listElements()
-                .map(Holder.Reference::value)
-                .anyMatch(input -> input.isValidInput(stack, type));
+    public boolean canInput(EssenceType type, ItemStack stack) {
+        return EssenceInput.findValidInput(stack, type).isPresent();
     }
 
     @Override

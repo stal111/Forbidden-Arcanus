@@ -1,13 +1,12 @@
 package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
-import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,6 +26,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 /**
  * @author stal111
@@ -78,13 +79,15 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
                 return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
 
-            for (EssenceInput input : FARegistries.ESSENCE_INPUT_REGISTRY) {
-                int amount = input.getMaxAmount(stack, state.getValue(ESSENCE_TYPE));
+            Optional<EssenceInput> input = EssenceInput.findValidInput(stack, state.getValue(ESSENCE_TYPE));
+
+            if (input.isPresent()) {
+                int amount = input.get().getMaxAmount(stack, state.getValue(ESSENCE_TYPE));
 
                 if (amount != 0) {
                     int transferredAmount = blockEntity.addEssence(amount);
 
-                    player.setItemInHand(hand, input.finishInput(stack, transferredAmount));
+                    player.setItemInHand(hand, input.get().finishInput(stack, transferredAmount));
 
                     return InteractionResult.SUCCESS;
                 }
@@ -95,7 +98,7 @@ public class EssenceUtremJarBlock extends UtremJarBlock implements EntityBlock {
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level.isClientSide()) {
             return BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.ESSENCE_UTREM_JAR.get(), EssenceUtremJarBlockEntity::clientTick);
         }

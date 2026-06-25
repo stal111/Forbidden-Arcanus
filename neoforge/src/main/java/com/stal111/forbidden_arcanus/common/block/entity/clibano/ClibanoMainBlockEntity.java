@@ -199,7 +199,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         ClibanoFireType nextFireType = blockEntity.fireType;
         boolean wasLit = blockEntity.isLit();
 
-        blockEntity.essenceInputInventory.tick(blockEntity, level.registryAccess());
+        blockEntity.essenceInputInventory.tick(blockEntity);
 
         if (blockEntity.isLit()) {
             blockEntity.litTimeRemaining--;

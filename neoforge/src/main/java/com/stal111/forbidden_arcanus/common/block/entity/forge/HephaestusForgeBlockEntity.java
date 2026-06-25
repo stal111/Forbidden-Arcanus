@@ -162,7 +162,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        blockEntity.essenceInputInventory.tick(blockEntity, level.registryAccess());
+        blockEntity.essenceInputInventory.tick(blockEntity);
 
         if (level instanceof ServerLevel serverLevel) {
             for (TickEffect effect : blockEntity.tickEffects) {
