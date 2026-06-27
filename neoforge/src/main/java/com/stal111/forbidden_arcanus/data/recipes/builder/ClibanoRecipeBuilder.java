@@ -30,7 +30,6 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
 
     private final MoltenMaterial result;
     private final Ingredient ingredient;
-    private final float experience;
     private final int cookingTime;
     private @Nullable Holder<EnhancerDefinition> requiredEnhancer;
 
@@ -39,12 +38,10 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
     public ClibanoRecipeBuilder(
             MoltenMaterial result,
             Ingredient ingredient,
-            float experience,
             int cookingTime
     ) {
         this.result = result;
         this.ingredient = ingredient;
-        this.experience = experience;
         this.cookingTime = cookingTime;
     }
 
@@ -81,7 +78,7 @@ public class ClibanoRecipeBuilder implements RecipeBuilder {
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
 
-        ClibanoRecipe recipe = new ClibanoRecipe(this.ingredient, this.result, this.experience, ClibanoCookingTimes.of(this.cookingTime), this.requiredEnhancer);
+        ClibanoRecipe recipe = new ClibanoRecipe(this.ingredient, this.result, ClibanoCookingTimes.of(this.cookingTime), this.requiredEnhancer);
 
         output.accept(resourceKey, recipe, advancement$builder.build(resourceKey.identifier().withPrefix("recipes/")));
     }

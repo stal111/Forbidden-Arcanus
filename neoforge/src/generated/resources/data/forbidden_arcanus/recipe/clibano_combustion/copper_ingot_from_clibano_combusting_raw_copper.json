@@ -1,7 +1,6 @@
 {
   "type": "forbidden_arcanus:clibano_combustion",
   "cooking_time": 100,
-  "experience": 0.35,
   "ingredient": "#c:raw_materials/copper",
   "result": {
     "type": "forbidden_arcanus:copper",

@@ -20,7 +20,6 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
-import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,7 +27,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -562,25 +560,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         if (recipe != null) {
             this.recipesUsed.addTo(recipe.id(), 1);
         }
-    }
-
-    public void awardUsedRecipesAndPopExperience(ServerPlayer player) {
-        player.awardRecipes(this.getRecipesToAwardAndPopExperience(player.level(), player.position()));
-
-        this.recipesUsed.clear();
-    }
-
-    public Collection<RecipeHolder<?>> getRecipesToAwardAndPopExperience(ServerLevel level, Vec3 position) {
-        List<RecipeHolder<?>> list = new ArrayList<>();
-
-        for (Reference2IntMap.Entry<ResourceKey<Recipe<?>>> entry : this.recipesUsed.reference2IntEntrySet()) {
-            level.recipeAccess().byKey(entry.getKey()).ifPresent(recipe -> {
-                list.add(recipe);
-                ClibanoMainBlockEntity.createExperience(level, position, entry.getIntValue(), ((ClibanoRecipe) recipe.value()).getExperience());
-            });
-        }
-
-        return list;
     }
 
     @Override

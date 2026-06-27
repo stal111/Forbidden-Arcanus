@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.item.crafting;
 
 import com.google.errorprone.annotations.DoNotCall;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoCookingTimes;
@@ -27,10 +26,9 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     private static final MapCodec<ClibanoRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
             MoltenMaterial.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
-            Codec.FLOAT.optionalFieldOf("experience", 0.0F).forGetter(recipe -> recipe.experience),
             ClibanoCookingTimes.CODEC.optionalFieldOf("cooking_time", ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
             EnhancerDefinition.CODEC.optionalFieldOf("enhancer").forGetter(recipe -> Optional.ofNullable(recipe.requiredEnhancer))
-    ).apply(instance, (ingredient, moltenMaterial, experience, cookingTimes, enhancer) -> new ClibanoRecipe(ingredient, moltenMaterial, experience, cookingTimes, enhancer.orElse(null))));
+    ).apply(instance, (ingredient, moltenMaterial, cookingTimes, enhancer) -> new ClibanoRecipe(ingredient, moltenMaterial, cookingTimes, enhancer.orElse(null))));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
@@ -39,7 +37,6 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
 
     private final Ingredient ingredient;
     private final MoltenMaterial result;
-    private final float experience;
     private final ClibanoCookingTimes cookingTimes;
     private final @Nullable Holder<EnhancerDefinition> requiredEnhancer;
 
@@ -48,12 +45,10 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     public ClibanoRecipe(
             Ingredient ingredient,
             MoltenMaterial result,
-            float experience,
             ClibanoCookingTimes cookingTimes,
             @Nullable Holder<EnhancerDefinition> requiredEnhancer) {
         this.ingredient = ingredient;
         this.result = result;
-        this.experience = experience;
         this.cookingTimes = cookingTimes;
         this.requiredEnhancer = requiredEnhancer;
     }
@@ -83,10 +78,6 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     @Override
     public String group() {
         return "";
-    }
-
-    public float getExperience() {
-        return this.experience;
     }
 
     public int getCookingTime(ClibanoFireType fireType) {

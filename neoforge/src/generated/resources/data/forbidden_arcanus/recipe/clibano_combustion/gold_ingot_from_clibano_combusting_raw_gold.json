@@ -1,7 +1,6 @@
 {
   "type": "forbidden_arcanus:clibano_combustion",
   "cooking_time": 100,
-  "experience": 0.5,
   "ingredient": "#c:raw_materials/gold",
   "result": {
     "type": "forbidden_arcanus:gold",

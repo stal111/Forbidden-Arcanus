@@ -1,7 +1,6 @@
 {
   "type": "forbidden_arcanus:clibano_combustion",
   "cooking_time": 100,
-  "experience": 1.0,
   "ingredient": "minecraft:ancient_debris",
   "result": {
     "type": "forbidden_arcanus:netherite",

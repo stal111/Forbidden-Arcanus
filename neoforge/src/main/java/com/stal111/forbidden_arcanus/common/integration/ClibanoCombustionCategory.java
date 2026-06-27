@@ -129,19 +129,7 @@ public class ClibanoCombustionCategory implements IRecipeCategory<ClibanoRecipe>
         IDrawableAnimated arrow = this.getArrow(recipe.getCookingTime(ClibanoFireType.FIRE));
         arrow.draw(guiGraphics, 74, 43);
 
-        this.drawExperience(recipe.getExperience(), guiGraphics, 12);
         this.drawCookTime(recipe.getCookingTime(ClibanoFireType.FIRE), guiGraphics, 79);
-    }
-
-    protected void drawExperience(float experience, GuiGraphicsExtractor guiGraphics, int y) {
-        if (experience > 0) {
-            Component experienceString = Component.translatable("gui.jei.category.smelting.experience", experience);
-            Minecraft minecraft = Minecraft.getInstance();
-            Font font = minecraft.font;
-            int stringWidth = font.width(experienceString);
-
-            guiGraphics.text(font, experienceString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
-        }
     }
 
     protected void drawCookTime(int cookingTime, GuiGraphicsExtractor guiGraphics, int y) {

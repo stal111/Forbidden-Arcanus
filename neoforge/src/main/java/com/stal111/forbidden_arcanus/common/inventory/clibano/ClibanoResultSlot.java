@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.common.inventory.clibano;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.EventHooks;
@@ -59,10 +58,6 @@ public class ClibanoResultSlot extends SlotItemHandler {
     @Override
     protected void checkTakeAchievements(@Nonnull ItemStack stack) {
         stack.onCraftedBy(this.player, this.removeCount);
-
-        if (this.player instanceof ServerPlayer serverPlayer) {
-            this.blockEntity.awardUsedRecipesAndPopExperience(serverPlayer);
-        }
 
         this.removeCount = 0;
         EventHooks.firePlayerSmeltedEvent(this.player, stack, this.removeCount);
