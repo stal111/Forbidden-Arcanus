@@ -15,6 +15,7 @@ import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
+import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -28,11 +29,20 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
 public class ForbiddenArcanusJEIPlugin implements IModPlugin {
+
+    private static RecipeMap syncedRecipes = RecipeMap.EMPTY;
 
     public IRecipeCategory<?> hephaestusSmithing;
     public IRecipeCategory<?> hephaestusForgeUpgrading;
@@ -64,7 +74,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult || ritual.result() instanceof TransmuteInputResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-//        registration.addRecipes(CLIBANO_COMBUSTION, level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.CLIBANO_COMBUSTION.get()).stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_COMBUSTION, syncedRecipes.byType(ModRecipeTypes.CLIBANO_COMBUSTION.get()).stream().map(RecipeHolder::value).toList());
     }
 
     @Override
@@ -81,7 +91,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(
                 this.hephaestusSmithing = new SmithingCategory(guiHelper),
                 this.hephaestusForgeUpgrading = new UpgradeTierCategory(guiHelper),
-                this.clibanoCombustion = new ClibanoCombustionCategory(guiHelper)
+                this.clibanoCombustion = new ClibanoMeltingCategory(guiHelper)
         );
     }
 
@@ -96,5 +106,21 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         registration.registerFromDataComponentTypes(ModItems.HEPHAESTUS_FORGE.get(), DataComponents.BLOCK_STATE);
         registration.registerFromDataComponentTypes(ModItems.ESSENCE_UTREM_JAR.get(), ModDataComponents.ESSENCE_STORAGE.get());
+    }
+
+    @EventBusSubscriber(modid = ForbiddenArcanus.MOD_ID)
+    public static class ServerRecipeSync {
+        @SubscribeEvent
+        public static void onDatapackSync(OnDatapackSyncEvent event) {
+            event.sendRecipes(ModRecipeTypes.CLIBANO_COMBUSTION.get());
+        }
+    }
+
+    @EventBusSubscriber(modid = ForbiddenArcanus.MOD_ID, value = Dist.CLIENT)
+    public static class ClientRecipeSync {
+        @SubscribeEvent
+        public static void onRecipesReceived(RecipesReceivedEvent event) {
+            syncedRecipes = event.getRecipeMap();
+        }
     }
 }

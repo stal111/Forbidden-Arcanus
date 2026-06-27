@@ -55,20 +55,25 @@ public class MaterialSlot extends AbstractButton {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, this.getX() + 2, this.getY() + 27, width, 5);
 
         if (this.isHovered()) {
-            int amount = this.material.amount();
-            int ingots = amount / 9;
-            int residue = amount % 9;
-
-            MutableComponent component = Component.literal(ingots + " ").append(result.getItemName());
-
-            if (residue > 0) {
-                component.append(", " + residue + " Residue");
-            }
-
+            Component amount = getAmountComponent(this.material);
             MutableComponent capacity = Component.literal("Capacity: " + this.material.type().value().maxAmount() / 9).withStyle(ChatFormatting.GRAY);
 
-            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, List.of(component, capacity), Optional.empty(), x, y);
+            guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, List.of(amount, capacity), Optional.empty(), x, y);
         }
+    }
+
+    public static Component getAmountComponent(MoltenMaterial material) {
+        int amount = material.amount();
+        int ingots = amount / 9;
+        int residue = amount % 9;
+
+        MutableComponent component = Component.literal(ingots + " ").append(material.type().value().result().create().getItemName());
+
+        if (residue > 0) {
+            component.append(", " + residue + " Residue");
+        }
+
+        return component;
     }
 
     private Identifier getSprite() {

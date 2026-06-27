@@ -338,6 +338,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
 
         add("attribute.name.generic.aureal_regeneration", "Aureal Regeneration")
 
+        add("jei", "category.clibano_melting", "Clibano Melting")
         add("jei", "category.hephaestus_smithing", "Hephaestus Smithing")
         add("jei", "category.hephaestus_forge_upgrading", "Hephaestus Forge Upgrading")
         add("jei", "hephaestus_smithing.required_essence", "Required %s: %s")

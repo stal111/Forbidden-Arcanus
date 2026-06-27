@@ -285,6 +285,7 @@
   "item.forbidden_arcanus.wooden_blacksmith_gavel": "Wooden Blacksmith Gavel",
   "item.forbidden_arcanus.yellow_quantum_catcher": "Yellow Quantum Catcher",
   "itemGroup.forbidden_arcanus.main": "Forbidden & Arcanus",
+  "jei.forbidden_arcanus.category.clibano_melting": "Clibano Melting",
   "jei.forbidden_arcanus.category.hephaestus_forge_upgrading": "Hephaestus Forge Upgrading",
   "jei.forbidden_arcanus.category.hephaestus_smithing": "Hephaestus Smithing",
   "jei.forbidden_arcanus.hephaestus_smithing.required_essence": "Required %s: %s",

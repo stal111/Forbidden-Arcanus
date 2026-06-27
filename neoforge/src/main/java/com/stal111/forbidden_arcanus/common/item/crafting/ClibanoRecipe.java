@@ -6,7 +6,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoCookingTimes;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
+import com.stal111.forbidden_arcanus.common.item.crafting.display.ClibanoRecipeDisplay;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -15,10 +17,13 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
@@ -33,7 +38,6 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
     public static final RecipeSerializer<ClibanoRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
-
 
     private final Ingredient ingredient;
     private final MoltenMaterial result;
@@ -108,7 +112,20 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
     }
 
     @Override
+    public List<RecipeDisplay> display() {
+        return List.of(
+                new ClibanoRecipeDisplay(
+                        this.ingredient.display(),
+                        SlotDisplay.AnyFuel.INSTANCE,
+                        this.result,
+                        new SlotDisplay.ItemSlotDisplay(ModBlocks.CLIBANO_CORE.get().asItem()),
+                        this.cookingTimes.get(ClibanoFireType.FIRE)
+                )
+        );
+    }
+
+    @Override
     public RecipeBookCategory recipeBookCategory() {
-        return null;
+        return RecipeBookCategories.FURNACE_MISC;
     }
 }
