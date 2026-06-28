@@ -26,18 +26,18 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
+public class ClibanoMeltingRecipe implements Recipe<SingleRecipeInput> {
 
-    private static final MapCodec<ClibanoRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    private static final MapCodec<ClibanoMeltingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
             MoltenMaterial.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
-            ClibanoCookingTimes.CODEC.optionalFieldOf("cooking_time", ClibanoRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
+            ClibanoCookingTimes.CODEC.optionalFieldOf("cooking_time", ClibanoMeltingRecipe.DEFAULT_COOKING_TIMES).forGetter(recipe -> recipe.cookingTimes),
             EnhancerDefinition.CODEC.optionalFieldOf("enhancer").forGetter(recipe -> Optional.ofNullable(recipe.requiredEnhancer))
-    ).apply(instance, (ingredient, moltenMaterial, cookingTimes, enhancer) -> new ClibanoRecipe(ingredient, moltenMaterial, cookingTimes, enhancer.orElse(null))));
+    ).apply(instance, (ingredient, moltenMaterial, cookingTimes, enhancer) -> new ClibanoMeltingRecipe(ingredient, moltenMaterial, cookingTimes, enhancer.orElse(null))));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
+    public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoMeltingRecipe> STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
-    public static final RecipeSerializer<ClibanoRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<ClibanoMeltingRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     private final Ingredient ingredient;
     private final MoltenMaterial result;
@@ -46,7 +46,7 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
 
     private @Nullable PlacementInfo placementInfo;
 
-    public ClibanoRecipe(
+    public ClibanoMeltingRecipe(
             Ingredient ingredient,
             MoltenMaterial result,
             ClibanoCookingTimes cookingTimes,

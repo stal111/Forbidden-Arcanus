@@ -15,7 +15,7 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
-import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -80,14 +80,14 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public static final int DATA_COUNT = 10;
 
-    public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_MELTING.get();
+    public static final RecipeType<ClibanoMeltingRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_MELTING.get();
 
     private static final Component NAME = Component.translatable("container.forbidden_arcanus.clibano");
 
     private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
 
     private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed = new Reference2IntOpenHashMap<>();
-    private final RecipeManager.CachedCheck<SingleRecipeInput, ClibanoRecipe> quickCheck = RecipeManager.createCheck(RECIPE_TYPE);
+    private final RecipeManager.CachedCheck<SingleRecipeInput, ClibanoMeltingRecipe> quickCheck = RecipeManager.createCheck(RECIPE_TYPE);
 
     private final FuelItemHandler fuelInventory = new FuelItemHandler(stack -> getBurnDuration(stack, this.level) > 0, _ -> this.setChanged());
     private final ItemStacksResourceHandler inputInventory = new ItemStacksResourceHandler(2) {
@@ -393,7 +393,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private void updateRecipe(ServerLevel level, int index, boolean resetProgress) {
         ItemStack stack = ItemUtil.getStack(this.inputInventory, index);
 
-        RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
+        RecipeHolder<ClibanoMeltingRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
         boolean canSmelt = recipe != null && this.storedMaterials.canFit(recipe.value().result());
 
         this.cookingTotalTimes[index] = canSmelt ? recipe.value().getCookingTime(this.fireType) : 0;
@@ -415,7 +415,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             int oldDuration = this.cookingTotalTimes[i];
 
             if (this.cookingTotalTimes[i] != 0) {
-                RecipeHolder<ClibanoRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
+                RecipeHolder<ClibanoMeltingRecipe> recipe = this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), level).orElse(null);
 
                 if (recipe != null) {
                     this.cookingTotalTimes[i] = recipe.value().getCookingTime(fireType);

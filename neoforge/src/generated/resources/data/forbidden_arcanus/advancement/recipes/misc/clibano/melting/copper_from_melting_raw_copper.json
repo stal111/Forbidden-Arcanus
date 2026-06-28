@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal_ores": {
+    "has_raw_materials/copper": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:coal_ores"
+            "items": "#c:raw_materials/copper"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/coal_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano/melting/copper_from_melting_raw_copper"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_coal_ores"
+      "has_raw_materials/copper"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/coal_from_clibano_combustion"
+      "forbidden_arcanus:clibano/melting/copper_from_melting_raw_copper"
     ]
   }
 }

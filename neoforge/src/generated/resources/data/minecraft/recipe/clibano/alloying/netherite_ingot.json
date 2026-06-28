@@ -1,0 +1,16 @@
+{
+  "type": "forbidden_arcanus:clibano_alloying",
+  "required_materials": [
+    {
+      "type": "forbidden_arcanus:netherite",
+      "amount": 27
+    },
+    {
+      "type": "forbidden_arcanus:gold",
+      "amount": 27
+    }
+  ],
+  "result": {
+    "id": "minecraft:netherite_ingot"
+  }
+}

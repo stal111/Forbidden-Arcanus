@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_arcane_crystal_ores": {
+    "has_emerald_ores": {
       "conditions": {
         "items": [
           {
-            "items": "#forbidden_arcanus:arcane_crystal_ores"
+            "items": "#minecraft:emerald_ores"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/arcane_crystal_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano/melting/emerald"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_arcane_crystal_ores"
+      "has_emerald_ores"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/arcane_crystal_from_clibano_combustion"
+      "forbidden_arcanus:clibano/melting/emerald"
     ]
   }
 }

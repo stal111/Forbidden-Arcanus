@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_lapis_ores": {
+    "has_arcane_crystal_ores": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:lapis_ores"
+            "items": "#forbidden_arcanus:arcane_crystal_ores"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/lapis_lazuli_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano/melting/arcane_crystal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_lapis_ores"
+      "has_arcane_crystal_ores"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/lapis_lazuli_from_clibano_combustion"
+      "forbidden_arcanus:clibano/melting/arcane_crystal"
     ]
   }
 }

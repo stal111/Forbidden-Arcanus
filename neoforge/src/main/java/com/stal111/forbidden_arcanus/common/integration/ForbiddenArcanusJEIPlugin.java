@@ -11,7 +11,8 @@ import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.Hephaes
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.SmithingCategory;
 import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.UpgradeTierCategory;
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
-import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -46,12 +47,14 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
     public IRecipeCategory<?> hephaestusSmithing;
     public IRecipeCategory<?> hephaestusForgeUpgrading;
-    public IRecipeCategory<?> clibanoCombustion;
+    public IRecipeCategory<?> clibanoMelting;
+    public IRecipeCategory<?> clibanoAlloying;
 
     public static final IRecipeType<Ritual> HEPHAESTUS_SMITHING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_smithing", Ritual.class);
     public static final IRecipeType<Ritual> HEPHAESTUS_FORGE_UPGRADING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_forge_upgrading", Ritual.class);
 
-    public static final IRecipeType<ClibanoRecipe> CLIBANO_COMBUSTION = IRecipeType.create(ForbiddenArcanus.MOD_ID, "clibano_combustion", ClibanoRecipe.class);
+    public static final IRecipeType<ClibanoMeltingRecipe> CLIBANO_MELTING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "clibano_melting", ClibanoMeltingRecipe.class);
+    public static final IRecipeType<ClibanoAlloyingRecipe> CLIBANO_ALLOYING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "clibano_alloying", ClibanoAlloyingRecipe.class);
 
     @NotNull
     @Override
@@ -74,14 +77,16 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult || ritual.result() instanceof TransmuteInputResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-        registration.addRecipes(CLIBANO_COMBUSTION, syncedRecipes.byType(ModRecipeTypes.CLIBANO_MELTING.get()).stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_MELTING, syncedRecipes.byType(ModRecipeTypes.CLIBANO_MELTING.get()).stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_ALLOYING, syncedRecipes.byType(ModRecipeTypes.CLIBANO_ALLOYING.get()).stream().map(RecipeHolder::value).toList());
     }
 
     @Override
     public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         registration.addCraftingStation(HEPHAESTUS_SMITHING, new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()));
         registration.addCraftingStation(HEPHAESTUS_FORGE_UPGRADING, new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()));
-        registration.addCraftingStation(CLIBANO_COMBUSTION, new ItemStack(ModBlocks.CLIBANO_CORE.get()));
+        registration.addCraftingStation(CLIBANO_MELTING, new ItemStack(ModBlocks.CLIBANO_CORE.get()));
+        registration.addCraftingStation(CLIBANO_ALLOYING, new ItemStack(ModBlocks.CLIBANO_CORE.get()));
     }
 
     @Override
@@ -91,7 +96,8 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(
                 this.hephaestusSmithing = new SmithingCategory(guiHelper),
                 this.hephaestusForgeUpgrading = new UpgradeTierCategory(guiHelper),
-                this.clibanoCombustion = new ClibanoMeltingCategory(guiHelper)
+                this.clibanoMelting = new ClibanoMeltingCategory(guiHelper),
+                this.clibanoAlloying = new ClibanoAlloyingCategory(guiHelper)
         );
     }
 
@@ -113,6 +119,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         @SubscribeEvent
         public static void onDatapackSync(OnDatapackSyncEvent event) {
             event.sendRecipes(ModRecipeTypes.CLIBANO_MELTING.get());
+            event.sendRecipes(ModRecipeTypes.CLIBANO_ALLOYING.get());
         }
     }
 

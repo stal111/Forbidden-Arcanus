@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_runic_stones": {
+    "has_asterite_chunk": {
       "conditions": {
         "items": [
           {
-            "items": "#forbidden_arcanus:runic_stones"
+            "items": "forbidden_arcanus:asterite_chunk"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/rune_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano/melting/asterite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_runic_stones"
+      "has_asterite_chunk"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/rune_from_clibano_combustion"
+      "forbidden_arcanus:clibano/melting/asterite"
     ]
   }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "forbidden_arcanus:clibano_alloying",
+  "required_materials": [
+    {
+      "type": "forbidden_arcanus:asterite",
+      "amount": 36
+    },
+    {
+      "type": "forbidden_arcanus:netherite",
+      "amount": 36
+    }
+  ],
+  "result": {
+    "id": "forbidden_arcanus:stellarite_piece"
+  }
+}

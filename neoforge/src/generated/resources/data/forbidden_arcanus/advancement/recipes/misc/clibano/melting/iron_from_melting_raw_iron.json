@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_emerald_ores": {
+    "has_raw_materials/iron": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:emerald_ores"
+            "items": "#c:raw_materials/iron"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/emerald_from_clibano_combustion"
+        "recipe": "forbidden_arcanus:clibano/melting/iron_from_melting_raw_iron"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_emerald_ores"
+      "has_raw_materials/iron"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/emerald_from_clibano_combustion"
+      "forbidden_arcanus:clibano/melting/iron_from_melting_raw_iron"
     ]
   }
 }

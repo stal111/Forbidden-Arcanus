@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_raw_materials/gold": {
+    "has_lapis_ores": {
       "conditions": {
         "items": [
           {
-            "items": "#c:raw_materials/gold"
+            "items": "#minecraft:lapis_ores"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold"
+        "recipe": "forbidden_arcanus:clibano/melting/lapis_lazuli"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_raw_materials/gold"
+      "has_lapis_ores"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/gold_ingot_from_clibano_combusting_raw_gold"
+      "forbidden_arcanus:clibano/melting/lapis_lazuli"
     ]
   }
 }

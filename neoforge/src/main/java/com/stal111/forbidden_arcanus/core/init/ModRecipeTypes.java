@@ -1,7 +1,8 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -17,7 +18,8 @@ public class ModRecipeTypes implements RegistryClass {
 
     public static final MappedRegistryHelper<RecipeType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_TYPE);
 
-    public static final RegistryEntry<RecipeType<?>, RecipeType<ClibanoRecipe>> CLIBANO_MELTING = registerRecipeType("clibano_melting");
+    public static final RegistryEntry<RecipeType<?>, RecipeType<ClibanoMeltingRecipe>> CLIBANO_MELTING = registerRecipeType("clibano_melting");
+    public static final RegistryEntry<RecipeType<?>, RecipeType<ClibanoAlloyingRecipe>> CLIBANO_ALLOYING = registerRecipeType("clibano_alloying");
 
     static <T extends Recipe<?>> RegistryEntry<RecipeType<?>, RecipeType<T>> registerRecipeType(String name) {
         return HELPER.register(name, () -> new RecipeType<>() {

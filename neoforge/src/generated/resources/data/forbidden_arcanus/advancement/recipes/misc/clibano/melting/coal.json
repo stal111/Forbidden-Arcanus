@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_raw_materials/iron": {
+    "has_coal_ores": {
       "conditions": {
         "items": [
           {
-            "items": "#c:raw_materials/iron"
+            "items": "#minecraft:coal_ores"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron"
+        "recipe": "forbidden_arcanus:clibano/melting/coal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_raw_materials/iron"
+      "has_coal_ores"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:clibano_combustion/iron_ingot_from_clibano_combusting_raw_iron"
+      "forbidden_arcanus:clibano/melting/coal"
     ]
   }
 }

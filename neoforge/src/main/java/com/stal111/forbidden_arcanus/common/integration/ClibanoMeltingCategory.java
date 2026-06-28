@@ -3,7 +3,7 @@ package com.stal111.forbidden_arcanus.common.integration;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.components.clibano.MaterialSlot;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType;
-import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.display.ClibanoRecipeDisplay;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
@@ -33,9 +33,9 @@ import java.util.function.Function;
  * @author stal111
  * @since 2022-08-14
  */
-public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoRecipe> {
+public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoMeltingRecipe> {
 
-    private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/gui/jei/clibano.png");
+    private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/gui/jei/clibano_melting.png");
     private static final Component TITLE = Component.translatable(Util.makeDescriptionId("jei", ForbiddenArcanus.identifier("category.clibano_melting")));
 
     private static final int WIDTH = 128;
@@ -59,8 +59,8 @@ public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoRecipe> {
     }
 
     @Override
-    public IRecipeType<ClibanoRecipe> getRecipeType() {
-        return ForbiddenArcanusJEIPlugin.CLIBANO_COMBUSTION;
+    public IRecipeType<ClibanoMeltingRecipe> getRecipeType() {
+        return ForbiddenArcanusJEIPlugin.CLIBANO_MELTING;
     }
 
     @NotNull
@@ -76,7 +76,7 @@ public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoRecipe> {
     }
 
     @Override
-    public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ClibanoRecipe recipe, @NotNull IFocusGroup focuses) {
+    public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ClibanoMeltingRecipe recipe, @NotNull IFocusGroup focuses) {
         if (recipe.display().getFirst() instanceof ClibanoRecipeDisplay display) {
             builder.addInputSlot(56, 14).add(display.ingredient());
 
@@ -91,7 +91,7 @@ public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoRecipe> {
     }
 
     @Override
-    public void createRecipeExtras(IRecipeExtrasBuilder builder, ClibanoRecipe recipe, IFocusGroup focuses) {
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, ClibanoMeltingRecipe recipe, IFocusGroup focuses) {
         builder.addDrawable(this.animatedFlame, 54, 37);
 
         if (recipe.display().getFirst() instanceof ClibanoRecipeDisplay display) {
@@ -100,7 +100,7 @@ public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoRecipe> {
     }
 
     @Override
-    public void draw(@NotNull ClibanoRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull ClibanoMeltingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
 
         this.drawCookTime(recipe.getCookingTime(ClibanoFireType.FIRE), guiGraphics, 79);
