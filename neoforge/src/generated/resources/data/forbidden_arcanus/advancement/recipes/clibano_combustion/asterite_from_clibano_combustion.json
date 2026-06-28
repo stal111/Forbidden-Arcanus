@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_asterite_chunk": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:asterite_chunk"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "forbidden_arcanus:clibano_combustion/asterite_from_clibano_combustion"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_asterite_chunk"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "forbidden_arcanus:clibano_combustion/asterite_from_clibano_combustion"
+    ]
+  }
+}

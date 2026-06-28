@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-28T11:09:19.149805	Registries
+// 26.1.2	2026-06-28T11:24:19.5345298	Registries
 fd18da93d87a7f47354baedd82518d0440345dd9 data/forbidden_arcanus/enchantment/anchored.json
 c98ac566f1282450f9c754815a2c8f9a44e02b0a data/forbidden_arcanus/enchantment/soul_looting.json
 5dae7d2918859d0c001de5f1ba9afef12e45c807 data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/artisan_relic.json
@@ -41,6 +41,7 @@ cc9be8489450238d531e4cc4af28f2633d505ee5 data/forbidden_arcanus/forbidden_arcanu
 05c331c650826346044cd1a0391eed28dcb699d9 data/forbidden_arcanus/forbidden_arcanus/magic_circle/upgrade_tier.json
 f60d131bef3e4e8dcaa9d5fc241d82f6659d42d3 data/forbidden_arcanus/forbidden_arcanus/magic_circle/wand_desk.json
 de2947e012dd73bc7e5f42c8be0b60c505af9d27 data/forbidden_arcanus/forbidden_arcanus/molten_material_type/arcane_crystal.json
+70032673fc6f8721a99bf309b0ec307ad71cb8bd data/forbidden_arcanus/forbidden_arcanus/molten_material_type/asterite.json
 d7eb729303650a53f807576ad899468284d64a59 data/forbidden_arcanus/forbidden_arcanus/molten_material_type/coal.json
 9d6084c475157f0e591c3958c9083ea5b893c266 data/forbidden_arcanus/forbidden_arcanus/molten_material_type/copper.json
 333bbe30fac9a0ec45098d6d7b40102a4e34174b data/forbidden_arcanus/forbidden_arcanus/molten_material_type/diamond.json

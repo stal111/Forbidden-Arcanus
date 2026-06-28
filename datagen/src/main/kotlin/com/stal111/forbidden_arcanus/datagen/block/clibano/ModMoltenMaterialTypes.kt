@@ -50,5 +50,9 @@ object ModMoltenMaterialTypes : RegistryDataProvider<MoltenMaterialType> {
             BuiltinMoltenMaterialTypes.NETHERITE,
             MoltenMaterialType(ItemStackTemplate(Items.NETHERITE_INGOT), 256 * 9)
         )
+        context.register(
+            BuiltinMoltenMaterialTypes.ASTERITE,
+            MoltenMaterialType(ItemStackTemplate(ModItems.ASTERITE_INGOT.get()), 256 * 9)
+        )
     }
 }

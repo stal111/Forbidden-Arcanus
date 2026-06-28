@@ -19,4 +19,5 @@ public class BuiltinMoltenMaterialTypes {
     public static final ResourceKey<MoltenMaterialType> DIAMOND = HELPER.createKey("diamond");
     public static final ResourceKey<MoltenMaterialType> EMERALD = HELPER.createKey("emerald");
     public static final ResourceKey<MoltenMaterialType> NETHERITE = HELPER.createKey("netherite");
+    public static final ResourceKey<MoltenMaterialType> ASTERITE = HELPER.createKey("asterite");
 }

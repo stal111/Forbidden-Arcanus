@@ -1,0 +1,9 @@
+{
+  "type": "forbidden_arcanus:clibano_melting",
+  "cooking_time": 500,
+  "ingredient": "forbidden_arcanus:asterite_chunk",
+  "result": {
+    "type": "forbidden_arcanus:asterite",
+    "amount": 9
+  }
+}

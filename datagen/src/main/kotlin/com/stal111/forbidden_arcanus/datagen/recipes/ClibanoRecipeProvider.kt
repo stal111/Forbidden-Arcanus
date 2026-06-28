@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.datagen.recipes
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.BuiltinMoltenMaterialTypes
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial
 import com.stal111.forbidden_arcanus.common.item.enhancer.BuiltInEnhancers
+import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.core.registry.FARegistries
 import com.stal111.forbidden_arcanus.data.recipes.builder.ClibanoRecipeBuilder
 import com.stal111.forbidden_arcanus.util.ModTags
@@ -112,6 +113,13 @@ class ClibanoRecipeProvider(
                 100
             ).unlockedBy(Tags.Items.RAW_MATERIALS_COPPER),
             "clibano_combustion/copper_ingot_from_clibano_combusting_raw_copper"
+        )
+
+        this.add(
+            this.clibanoRecipe(
+                MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.ASTERITE), 9),
+                Ingredient.of(ModItems.ASTERITE_CHUNK), 500
+            ).unlockedBy(ModItems.ASTERITE_CHUNK)
         )
 
         val artisanRelic = enhancerLookup.getOrThrow(BuiltInEnhancers.ARTISAN_RELIC)
