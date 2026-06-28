@@ -17,7 +17,7 @@ public class ModRecipeTypes implements RegistryClass {
 
     public static final MappedRegistryHelper<RecipeType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_TYPE);
 
-    public static final RegistryEntry<RecipeType<?>, RecipeType<ClibanoRecipe>> CLIBANO_COMBUSTION = registerRecipeType("clibano_combustion");
+    public static final RegistryEntry<RecipeType<?>, RecipeType<ClibanoRecipe>> CLIBANO_MELTING = registerRecipeType("clibano_melting");
 
     static <T extends Recipe<?>> RegistryEntry<RecipeType<?>, RecipeType<T>> registerRecipeType(String name) {
         return HELPER.register(name, () -> new RecipeType<>() {

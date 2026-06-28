@@ -1,5 +1,5 @@
 {
-  "type": "forbidden_arcanus:clibano_combustion",
+  "type": "forbidden_arcanus:clibano_melting",
   "cooking_time": 100,
   "ingredient": "#minecraft:iron_ores",
   "result": {

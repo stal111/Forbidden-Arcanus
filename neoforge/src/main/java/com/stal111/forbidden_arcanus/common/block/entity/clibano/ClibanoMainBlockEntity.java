@@ -80,7 +80,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public static final int DATA_COUNT = 10;
 
-    public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_COMBUSTION.get();
+    public static final RecipeType<ClibanoRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_MELTING.get();
 
     private static final Component NAME = Component.translatable("container.forbidden_arcanus.clibano");
 

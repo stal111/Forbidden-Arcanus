@@ -1,5 +1,5 @@
 {
-  "type": "forbidden_arcanus:clibano_combustion",
+  "type": "forbidden_arcanus:clibano_melting",
   "cooking_time": 100,
   "ingredient": "#c:raw_materials/copper",
   "result": {

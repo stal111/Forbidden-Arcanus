@@ -74,7 +74,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult || ritual.result() instanceof TransmuteInputResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-        registration.addRecipes(CLIBANO_COMBUSTION, syncedRecipes.byType(ModRecipeTypes.CLIBANO_COMBUSTION.get()).stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_COMBUSTION, syncedRecipes.byType(ModRecipeTypes.CLIBANO_MELTING.get()).stream().map(RecipeHolder::value).toList());
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     public static class ServerRecipeSync {
         @SubscribeEvent
         public static void onDatapackSync(OnDatapackSyncEvent event) {
-            event.sendRecipes(ModRecipeTypes.CLIBANO_COMBUSTION.get());
+            event.sendRecipes(ModRecipeTypes.CLIBANO_MELTING.get());
         }
     }
 

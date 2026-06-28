@@ -99,7 +99,7 @@ public class ClibanoRecipe implements Recipe<SingleRecipeInput> {
 
     @Override
     public @NotNull RecipeType<? extends Recipe<SingleRecipeInput>> getType() {
-        return ModRecipeTypes.CLIBANO_COMBUSTION.get();
+        return ModRecipeTypes.CLIBANO_MELTING.get();
     }
 
     @Override
