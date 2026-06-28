@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-10T19:59:59.3107695	Loot Tables
+// 26.1.2	2026-06-28T11:09:19.1458037	Loot Tables
 a74de49c44b22dd0556c591b9e243d9b76dc514c data/forbidden_arcanus/loot_table/blocks/additions/spawner_scrap_addition.json
 0a60ee0f0c874a779c8a5020ab781a2d34f9de33 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_block.json
 6ee2651059f7e26158de69b8a75f6697e1905f21 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_obelisk.json
@@ -32,6 +32,7 @@ cf9c0e7097fe1644b2173a99fd064ede14be435f data/forbidden_arcanus/loot_table/block
 4fe6ce9742615de9e1c63062b4fe6c4f87a606f3 data/forbidden_arcanus/loot_table/blocks/chiseled_arcane_polished_darkstone.json
 f73b400a26e8d6708971524de7dd50f366ce4bfb data/forbidden_arcanus/loot_table/blocks/chiseled_polished_darkstone.json
 a12c9cca38ee84e83cddf5ad8fef74329aede367 data/forbidden_arcanus/loot_table/blocks/clibano_center.json
+0c222476d98db177bebd5709b1d9ab9a31d86cf3 data/forbidden_arcanus/loot_table/blocks/clibano_core.json
 099364f548bdc61920a442a2ad12ed173a41763c data/forbidden_arcanus/loot_table/blocks/clibano_corner.json
 7069926ec182c7caa66f72de6a1cb50ac42828de data/forbidden_arcanus/loot_table/blocks/clibano_main_part.json
 9332ae8d649e68abffec234f1aea7986e8f8aa16 data/forbidden_arcanus/loot_table/blocks/clibano_side_horizontal.json

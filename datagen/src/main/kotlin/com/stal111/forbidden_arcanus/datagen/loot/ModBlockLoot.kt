@@ -10,7 +10,6 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.loot.BlockLootSubProvider
 import net.minecraft.world.flag.FeatureFlags
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.block.Block
@@ -32,7 +31,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator
 class ModBlockLoot(
     lookupProvider: HolderLookup.Provider,
     val blocks: List<() -> Block>
-) : BlockLootSubProvider(setOf<Item>(), FeatureFlags.DEFAULT_FLAGS, lookupProvider) {
+) : BlockLootSubProvider(setOf(), FeatureFlags.DEFAULT_FLAGS, lookupProvider) {
 
     override fun generate() {
         dropSelf(ModBlocks.DARKSTONE.get())
@@ -57,7 +56,7 @@ class ModBlockLoot(
         dropSelf(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get())
         dropSelf(ModBlocks.DARKSTONE_PEDESTAL.get())
         dropSelf(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get())
-//        dropSelf(ModBlocks.CLIBANO_CORE.get())
+        dropSelf(ModBlocks.CLIBANO_CORE.get())
         dropSelf(ModBlocks.HEPHAESTUS_FORGE.get())
         dropSelf(ModBlocks.QUANTUM_CORE.get())
         dropSelf(ModBlocks.QUANTUM_INJECTOR.get())

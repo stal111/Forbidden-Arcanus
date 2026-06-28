@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-10T19:59:59.3087699	Tags for minecraft:block mod id forbidden_arcanus
+// 26.1.2	2026-06-28T11:09:19.1437911	Tags for minecraft:block mod id forbidden_arcanus
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/block/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/c/tags/block/glass_blocks.json
@@ -40,7 +40,7 @@ a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/leaves.json
 c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/block/logs_that_burn.json
 fe7efc8e65f4ede93ed6c6350fd4fefaa4e235dc data/minecraft/tags/block/mineable/axe.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/mineable/hoe.json
-87182befab4f63523080c59d047729be3e149696 data/minecraft/tags/block/mineable/pickaxe.json
+0edf39335927e56559b420e1bc0ab174b58961cb data/minecraft/tags/block/mineable/pickaxe.json
 e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/block/mineable/shovel.json
 e49fe67dbd0dbad7ed6aece814a607958efca59a data/minecraft/tags/block/needs_diamond_tool.json
 52ef3724e82ab1ef277527f8bd4ea66df81b9f20 data/minecraft/tags/block/needs_iron_tool.json
