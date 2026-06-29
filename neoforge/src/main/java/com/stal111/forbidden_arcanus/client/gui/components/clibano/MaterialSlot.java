@@ -51,7 +51,7 @@ public class MaterialSlot extends AbstractButton {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
         guiGraphics.fakeItem(result, this.getX() + 4, this.getY() + 4);
 
-        int width = Mth.ceil((this.material.amount() / (256.0F * 9)) * 20.0F);
+        int width = Mth.ceil(this.material.getFullnessPercentage() * 20.0F);
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, this.getX() + 2, this.getY() + 27, width, 5);
 
         if (this.isHovered()) {

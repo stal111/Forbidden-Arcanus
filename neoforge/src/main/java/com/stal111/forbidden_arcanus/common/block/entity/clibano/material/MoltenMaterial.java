@@ -31,4 +31,8 @@ public record MoltenMaterial(Holder<MoltenMaterialType> type, int amount) {
 
         return DataResult.success(this);
     }
+
+    public float getFullnessPercentage() {
+        return (float) this.amount / (float) this.type().value().maxAmount();
+    }
 }

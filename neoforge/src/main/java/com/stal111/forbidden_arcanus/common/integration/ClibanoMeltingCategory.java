@@ -21,8 +21,10 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -36,6 +38,8 @@ import java.util.function.Function;
 public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoMeltingRecipe> {
 
     private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/gui/jei/clibano_melting.png");
+    private static final Identifier MATERIAL_FULLNESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_fullness");
+
     private static final Component TITLE = Component.translatable(Util.makeDescriptionId("jei", ForbiddenArcanus.identifier("category.clibano_melting")));
 
     private static final int WIDTH = 128;
@@ -102,6 +106,12 @@ public class ClibanoMeltingCategory implements IRecipeCategory<ClibanoMeltingRec
     @Override
     public void draw(@NotNull ClibanoMeltingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
+
+        if (recipe.display().getFirst() instanceof ClibanoRecipeDisplay display) {
+            int width = Mth.ceil(display.resultMaterial().getFullnessPercentage() * 20.0F);
+
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, 94, 61, width, 5);
+        }
 
         this.drawCookTime(recipe.getCookingTime(ClibanoFireType.FIRE), guiGraphics, 79);
     }

@@ -17,8 +17,10 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +29,8 @@ import org.jspecify.annotations.Nullable;
 public class ClibanoAlloyingCategory implements IRecipeCategory<ClibanoAlloyingRecipe> {
 
     private static final Identifier TEXTURE = ForbiddenArcanus.identifier("textures/gui/jei/clibano_alloying.png");
+    private static final Identifier MATERIAL_FULLNESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_fullness");
+
     private static final Component TITLE = Component.translatable(Util.makeDescriptionId("jei", ForbiddenArcanus.identifier("category.clibano_alloying")));
 
     private static final int WIDTH = 150;
@@ -53,6 +57,13 @@ public class ClibanoAlloyingCategory implements IRecipeCategory<ClibanoAlloyingR
     @Override
     public void draw(@NotNull ClibanoAlloyingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
+
+        for (int i = 0; i < recipe.requiredMaterials().size(); i++) {
+            MoltenMaterial material = recipe.requiredMaterials().get(i);
+            int width = Mth.ceil(material.getFullnessPercentage() * 20.0F);
+
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, 8 + 26 * (i % 4), 35 + 38 * (i / 4), width, 5);
+        }
     }
 
     @Override
