@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.network.clientbound.*;
 import com.stal111.forbidden_arcanus.common.network.serverbound.ChangeTabPayload;
 import com.stal111.forbidden_arcanus.common.network.serverbound.CraftWandPayload;
-import com.stal111.forbidden_arcanus.common.network.serverbound.ToggleMaterialPayload;
+import com.stal111.forbidden_arcanus.common.network.serverbound.ToggleSlotPayload;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -26,6 +26,6 @@ public class NetworkEvents {
 
         registrar.playToServer(CraftWandPayload.TYPE, CraftWandPayload.STREAM_CODEC, CraftWandPayload::handle);
         registrar.playToServer(ChangeTabPayload.TYPE, ChangeTabPayload.STREAM_CODEC, ChangeTabPayload::handle);
-        registrar.playToServer(ToggleMaterialPayload.TYPE, ToggleMaterialPayload.STREAM_CODEC, ToggleMaterialPayload::handle);
+        registrar.playToServer(ToggleSlotPayload.TYPE, ToggleSlotPayload.STREAM_CODEC, ToggleSlotPayload::handle);
     }
 }

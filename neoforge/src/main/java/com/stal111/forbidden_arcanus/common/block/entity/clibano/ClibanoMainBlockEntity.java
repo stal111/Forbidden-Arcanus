@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedSlotState;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.ResultSlotItemHandler;
@@ -16,6 +16,7 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.input.ClibanoAlloyingRecipeInput;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -29,7 +30,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -45,14 +45,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 
 /**
@@ -101,7 +101,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public MaterialStorage storedMaterials = MaterialStorage.createEmpty();
     private EssenceStorage essenceStorage = EssenceStorages.CLIBANO_ECTOPLASM_EMPTY;
-    private final SelectedMaterialState selectedMaterialState = new SelectedMaterialState(() -> {
+    private final SelectedSlotState selectedSlotState = new SelectedSlotState(() -> {
         this.resultProgress = 0;
         this.setChanged();
     });
@@ -252,26 +252,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             }
         }
 
-        Holder<MoltenMaterialType> selectedType = blockEntity.selectedMaterialState.getSelected();
-
-        if (selectedType != null && blockEntity.storedMaterials.getAmount(selectedType) >= 9 && blockEntity.canCreateResult(selectedType.value())) {
-            ItemStack result = blockEntity.resultInventory.getStack();
-
-            blockEntity.resultProgress++;
-
-            if (blockEntity.resultProgress >= RESULT_TIME) {
-                if (result.isEmpty()) {
-                    blockEntity.resultInventory.setStack(selectedType.value().result().create());
-                } else if (ItemStack.isSameItemSameComponents(result, selectedType.value().result())) {
-                    result.grow(1);
-                    blockEntity.resultInventory.setStack(result);
-                }
-
-                blockEntity.storedMaterials.insert(selectedType, -9);
-                PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(blockEntity.getBlockPos()), new InsertMoltenMaterialPayload(new MoltenMaterial(selectedType, -9)));
-                blockEntity.resultProgress = 0;
-            }
-        }
+        blockEntity.selectedSlotState.getSelected().ifPresent(either -> {
+            either.ifLeft(type -> blockEntity.tryCreateResult(level, type));
+            either.ifRight(resourceKey -> blockEntity.tryCreateAlloy(level, resourceKey));
+        });
 
         if (wasLit != blockEntity.isLit() || nextFireType != blockEntity.fireType) {
             blockEntity.changeFireType(level, nextFireType);
@@ -343,29 +327,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.setChanged();
     }
 
-    private boolean canCreateResult(MoltenMaterialType materialType) {
-        ItemStack result = this.resultInventory.getStack();
-
-        if (result.isEmpty()) {
-            return true;
-        } else if (!ItemStack.isSameItemSameComponents(result, materialType.result())) {
-            return false;
-        }
-
-        return this.resultInventory.getStack().getCount() < result.getMaxStackSize();
-    }
-
-    private static void createExperience(ServerLevel level, Vec3 position, int count, float experience) {
-        int i = Mth.floor(count * experience);
-        float f = Mth.frac(count * experience);
-
-        if (f != 0.0F && Math.random() < f) {
-            i++;
-        }
-
-        ExperienceOrb.award(level, position, i);
-    }
-
     public void finishRecipe(int index) {
         ItemStack stack = ItemUtil.getStack(this.inputInventory, index);
 
@@ -373,9 +334,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             this.quickCheck.getRecipeFor(new SingleRecipeInput(stack), serverLevel).ifPresent(recipeHolder -> {
                 MoltenMaterial moltenMaterial = recipeHolder.value().result();
 
-                this.storedMaterials.insert(moltenMaterial);
-                PacketDistributor.sendToPlayersTrackingChunk(serverLevel, ChunkPos.containing(this.getBlockPos()), new InsertMoltenMaterialPayload(moltenMaterial));
-
+                this.insertMaterial(serverLevel, moltenMaterial);
                 this.setRecipeUsed(recipeHolder);
             });
 
@@ -466,6 +425,67 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         this.frontDirection = direction;
     }
 
+    private void tryCreateResult(ServerLevel level, Holder<MoltenMaterialType> type) {
+        if (this.storedMaterials.getAmount(type) >= 9 && this.canCreateResult(type.value())) {
+            ItemStack result = this.resultInventory.getStack();
+
+            this.resultProgress++;
+
+            if (this.resultProgress >= RESULT_TIME) {
+                if (result.isEmpty()) {
+                    this.resultInventory.setStack(type.value().result().create());
+                } else if (ItemStack.isSameItemSameComponents(result, type.value().result())) {
+                    result.grow(1);
+                    this.resultInventory.setStack(result);
+                }
+
+                this.insertMaterial(level, new MoltenMaterial(type, -9));
+                this.resultProgress = 0;
+            }
+        }
+    }
+
+    private boolean canCreateResult(MoltenMaterialType materialType) {
+        ItemStack result = this.resultInventory.getStack();
+
+        if (result.isEmpty()) {
+            return true;
+        } else if (!ItemStack.isSameItemSameComponents(result, materialType.result())) {
+            return false;
+        }
+
+        return this.resultInventory.getStack().getCount() < result.getMaxStackSize();
+    }
+
+    private void tryCreateAlloy(ServerLevel level, ResourceKey<Recipe<?>> resourceKey) {
+        level.recipeAccess().getRecipeFor(ModRecipeTypes.CLIBANO_ALLOYING.get(), new ClibanoAlloyingRecipeInput(this.storedMaterials.getAll()), level, resourceKey).ifPresent(recipe -> {
+            ItemStack result = this.resultInventory.getStack();
+
+            this.resultProgress++;
+
+            if (this.resultProgress >= RESULT_TIME) {
+                if (result.isEmpty()) {
+                    this.resultInventory.setStack(recipe.value().result().create());
+                } else if (ItemStack.isSameItemSameComponents(result, recipe.value().result())) {
+                    result.grow(1);
+                    this.resultInventory.setStack(result);
+                }
+
+                recipe.value().requiredMaterials().stream()
+                        .map(material -> new MoltenMaterial(material.type(), -material.amount()))
+                        .forEach(material -> this.insertMaterial(level, material));
+
+                this.resultProgress = 0;
+            }
+        });
+    }
+
+    private void insertMaterial(ServerLevel level, MoltenMaterial material) {
+        this.storedMaterials.insert(material);
+
+        PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(this.getBlockPos()), new InsertMoltenMaterialPayload(material));
+    }
+
     //TODO
 //    @Override
 //    protected void onSlotChanged(int slot) {
@@ -491,7 +511,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         output.store("stored_materials", MaterialStorage.CODEC, this.storedMaterials);
         output.store("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec(), this.essenceStorage);
-        this.selectedMaterialState.serialize(output);
+        this.selectedSlotState.serialize(output);
 
         output.putInt("lit_time_remaining", this.litTimeRemaining);
         output.putInt("lit_total_time", this.litTotalTime);
@@ -519,7 +539,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         this.storedMaterials = input.read("stored_materials", MaterialStorage.CODEC).orElse(MaterialStorage.createEmpty());
         this.essenceStorage = input.read("ectoplasm", EssenceStorage.codec(EssenceType.ECTOPLASM).codec()).orElse(EssenceStorages.CLIBANO_ECTOPLASM_EMPTY);
-        this.selectedMaterialState.deserialize(input);
+        this.selectedSlotState.deserialize(input);
 
         this.litTimeRemaining = input.getIntOr("lit_time_remaining", 0);
         this.litTotalTime = input.getIntOr("lit_total_time", 0);
@@ -545,8 +565,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         return this.storedMaterials;
     }
 
-    public SelectedMaterialState getSelectedMaterialState() {
-        return this.selectedMaterialState;
+    public SelectedSlotState getSelectedSlotState() {
+        return this.selectedSlotState;
     }
 
     @Override
@@ -569,7 +589,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.resultInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials, this.selectedMaterialState);
+        return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.resultInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials, this.selectedSlotState);
     }
 
     @Override

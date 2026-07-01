@@ -13,10 +13,10 @@ import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.Upgrade
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClibanoRecipeCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
-import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -31,19 +31,11 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
-import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
 public class ForbiddenArcanusJEIPlugin implements IModPlugin {
-
-    private static RecipeMap syncedRecipes = RecipeMap.EMPTY;
 
     public IRecipeCategory<?> hephaestusSmithing;
     public IRecipeCategory<?> hephaestusForgeUpgrading;
@@ -77,8 +69,8 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult || ritual.result() instanceof TransmuteInputResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-        registration.addRecipes(CLIBANO_MELTING, syncedRecipes.byType(ModRecipeTypes.CLIBANO_MELTING.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(CLIBANO_ALLOYING, syncedRecipes.byType(ModRecipeTypes.CLIBANO_ALLOYING.get()).stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_MELTING, ClibanoRecipeCache.meltingRecipes.stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_ALLOYING, ClibanoRecipeCache.alloyingRecipes.stream().map(RecipeHolder::value).toList());
     }
 
     @Override
@@ -112,22 +104,5 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         registration.registerFromDataComponentTypes(ModItems.HEPHAESTUS_FORGE.get(), DataComponents.BLOCK_STATE);
         registration.registerFromDataComponentTypes(ModItems.ESSENCE_UTREM_JAR.get(), ModDataComponents.ESSENCE_STORAGE.get());
-    }
-
-    @EventBusSubscriber(modid = ForbiddenArcanus.MOD_ID)
-    public static class ServerRecipeSync {
-        @SubscribeEvent
-        public static void onDatapackSync(OnDatapackSyncEvent event) {
-            event.sendRecipes(ModRecipeTypes.CLIBANO_MELTING.get());
-            event.sendRecipes(ModRecipeTypes.CLIBANO_ALLOYING.get());
-        }
-    }
-
-    @EventBusSubscriber(modid = ForbiddenArcanus.MOD_ID, value = Dist.CLIENT)
-    public static class ClientRecipeSync {
-        @SubscribeEvent
-        public static void onRecipesReceived(RecipesReceivedEvent event) {
-            syncedRecipes = event.getRecipeMap();
-        }
     }
 }

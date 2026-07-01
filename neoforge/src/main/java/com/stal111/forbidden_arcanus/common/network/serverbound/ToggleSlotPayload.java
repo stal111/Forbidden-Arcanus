@@ -1,22 +1,21 @@
 package com.stal111.forbidden_arcanus.common.network.serverbound;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedSlotState;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
-import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record ToggleMaterialPayload(Holder<MoltenMaterialType> moltenMaterialType) implements CustomPacketPayload {
+public record ToggleSlotPayload(SelectedSlotState state) implements CustomPacketPayload {
 
-    public static final Type<ToggleMaterialPayload> TYPE = new Type<>(ForbiddenArcanus.identifier("select_material"));
+    public static final Type<ToggleSlotPayload> TYPE = new Type<>(ForbiddenArcanus.identifier("toggle_slot"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, ToggleMaterialPayload> STREAM_CODEC = StreamCodec.composite(
-            MoltenMaterialType.STREAM_CODEC,
-            ToggleMaterialPayload::moltenMaterialType,
-            ToggleMaterialPayload::new
+    public static final StreamCodec<RegistryFriendlyByteBuf, ToggleSlotPayload> STREAM_CODEC = StreamCodec.composite(
+            SelectedSlotState.STREAM_CODEC,
+            ToggleSlotPayload::state,
+            ToggleSlotPayload::new
     );
 
     @Override
@@ -27,7 +26,7 @@ public record ToggleMaterialPayload(Holder<MoltenMaterialType> moltenMaterialTyp
     public void handle(IPayloadContext context) {
         context.enqueueWork(() -> {
             if (context.player().containerMenu instanceof ClibanoMenu menu) {
-                menu.getSelectedMaterialState().toggleType(moltenMaterialType);
+                menu.getSelectedMaterialState().toggleSlot(this.state.getSelected().orElse(null));
             }
         });
     }

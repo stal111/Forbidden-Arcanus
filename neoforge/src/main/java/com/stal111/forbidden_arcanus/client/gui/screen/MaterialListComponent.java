@@ -1,10 +1,14 @@
 package com.stal111.forbidden_arcanus.client.gui.screen;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.client.gui.components.clibano.AbstractClibanoSlot;
+import com.stal111.forbidden_arcanus.client.gui.components.clibano.AlloySlot;
 import com.stal111.forbidden_arcanus.client.gui.components.clibano.MaterialSlot;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedSlotState;
+import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClibanoRecipeCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
@@ -17,6 +21,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +42,8 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     private int scrollbarStartX;
     private int scrollbarStartY;
 
-    private final List<MaterialSlot> slots = new ArrayList<>();
-    private final SelectedMaterialState selectedMaterialState;
+    private final List<AbstractClibanoSlot> slots = new ArrayList<>();
+    private final SelectedSlotState selectedSlotState;
 
     private int maxScroll;
 
@@ -46,9 +51,9 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
     private final MaterialStorage materialStorage;
 
-    public MaterialListComponent(MaterialStorage materialStorage, SelectedMaterialState selectedMaterialState) {
+    public MaterialListComponent(MaterialStorage materialStorage, SelectedSlotState selectedSlotState) {
         this.materialStorage = materialStorage;
-        this.selectedMaterialState = selectedMaterialState;
+        this.selectedSlotState = selectedSlotState;
     }
 
     public void init(Minecraft minecraft, int xOrigin, int yOrigin) {
@@ -82,7 +87,17 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
                     xOrigin + 12 + col * 26,
                     this.yOrigin + 35 + row * 36,
                     Component.empty(),
-                    this.selectedMaterialState
+                    this.selectedSlotState
+            ));
+        }
+
+        for (RecipeHolder<ClibanoAlloyingRecipe> recipe : ClibanoRecipeCache.alloyingRecipes) {
+            this.slots.add(new AlloySlot(
+                    recipe,
+                    xOrigin + 12 + (this.slots.size() % 4) * 26,
+                    this.yOrigin + 35 + (this.slots.size() / 4) * 36,
+                    Component.empty(),
+                    this.selectedSlotState
             ));
         }
 
@@ -92,7 +107,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         this.maxScroll = Math.max(0, totalHeight - visibleHeight);
 
         guiGraphics.enableScissor(this.scrollArea.left(), this.scrollArea.top(), this.scrollArea.right(), this.scrollArea.bottom());
-        for (MaterialSlot slot : this.slots) {
+        for (AbstractClibanoSlot slot : this.slots) {
             slot.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         }
         guiGraphics.disableScissor();
@@ -140,7 +155,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
-        for (MaterialSlot slot : this.slots) {
+        for (AbstractClibanoSlot slot : this.slots) {
             if (slot.mouseClicked(event, isDoubleClick)) {
                 return true;
             }
@@ -157,7 +172,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         int oldScroll = this.scrollAmount;
         this.scrollAmount = Mth.clamp(this.scrollAmount - (int) scrollY * 10, 0, this.maxScroll);
 
-        for (MaterialSlot slot : this.slots) {
+        for (AbstractClibanoSlot slot : this.slots) {
             slot.setY(slot.getY() + (oldScroll - this.scrollAmount));
         }
         return GuiEventListener.super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);

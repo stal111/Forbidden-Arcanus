@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFireType
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoFrameBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.ClibanoMainBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
-import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedMaterialState;
+import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedSlotState;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -72,7 +72,7 @@ public abstract class AbstractClibanoFrameBlock extends Block implements EntityB
                 if (blockEntity instanceof ClibanoMainBlockEntity clibanoMainBlockEntity) {
                     player.openMenu(clibanoMainBlockEntity, buffer -> {
                         MaterialStorage.STREAM_CODEC.encode(buffer, clibanoMainBlockEntity.getStoredMaterials());
-                        SelectedMaterialState.STREAM_CODEC.encode(buffer, clibanoMainBlockEntity.getSelectedMaterialState());
+                        SelectedSlotState.STREAM_CODEC.encode(buffer, clibanoMainBlockEntity.getSelectedSlotState());
                     });
                 }
             });
