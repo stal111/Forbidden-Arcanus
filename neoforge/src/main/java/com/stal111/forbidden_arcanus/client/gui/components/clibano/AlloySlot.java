@@ -5,16 +5,23 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedSlotState;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class AlloySlot extends AbstractClibanoSlot {
 
@@ -47,5 +54,18 @@ public class AlloySlot extends AbstractClibanoSlot {
 
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
         graphics.fakeItem(result, this.getX() + 4, this.getY() + 4);
+
+        if (this.isHovered()) {
+            List<Component> components = new ArrayList<>();
+
+            components.add(result.getItemName());
+            components.add(Component.literal("Requires:").withStyle(ChatFormatting.GRAY));
+
+            this.recipeHolder.value().requiredMaterials().stream()
+                    .map(material -> CommonComponents.space().append(MaterialSlot.getAmountComponent(material).copy().withStyle(ChatFormatting.GRAY)))
+                    .forEach(components::add);
+
+            graphics.setTooltipForNextFrame(Minecraft.getInstance().font, components, Optional.empty(), mouseX, mouseY);
+        }
     }
 }
