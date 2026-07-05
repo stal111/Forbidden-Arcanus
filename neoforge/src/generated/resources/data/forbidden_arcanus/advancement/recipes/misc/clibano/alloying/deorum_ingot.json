@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_arcane_crystal_dust": {
+    "has_arcane_crystal": {
       "conditions": {
         "items": [
           {
-            "items": "forbidden_arcanus:arcane_crystal_dust"
+            "items": "forbidden_arcanus:arcane_crystal"
           }
         ]
       },
@@ -21,19 +21,9 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_mundabitur_dust": {
-      "conditions": {
-        "items": [
-          {
-            "items": "forbidden_arcanus:mundabitur_dust"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forbidden_arcanus:deorum_ingot"
+        "recipe": "forbidden_arcanus:clibano/alloying/deorum_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -41,14 +31,13 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_gold_ingot",
-      "has_arcane_crystal_dust",
-      "has_mundabitur_dust"
+      "has_arcane_crystal",
+      "has_gold_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "forbidden_arcanus:deorum_ingot"
+      "forbidden_arcanus:clibano/alloying/deorum_ingot"
     ]
   }
 }

@@ -140,11 +140,11 @@ class ClibanoRecipeProvider(
         add(
             alloying(
                 listOf(
-                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.ASTERITE), 4 * 9),
-                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.NETHERITE), 4 * 9)
+                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.GOLD), 2 * 9),
+                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.ARCANE_CRYSTAL), 4 * 9)
                 ),
-                ItemStackTemplate(ModItems.STELLARITE_PIECE.get())
-            ).unlockedBy(ModItems.ASTERITE_CHUNK, Items.NETHERITE_SCRAP)
+                ItemStackTemplate(ModItems.DEORUM_INGOT.get())
+            ).unlockedBy(ModItems.ARCANE_CRYSTAL, Items.GOLD_INGOT)
         )
     }
 

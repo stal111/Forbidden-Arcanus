@@ -98,16 +98,6 @@ class CraftingRecipeProvider(
                 .define('#' to Items.OBSIDIAN, 'X' to Items.IRON_INGOT)
                 .unlockedBy(Items.OBSIDIAN, Items.IRON_INGOT)
         }
-        this.shaped(RecipeCategory.MISC, ModItems.DEORUM_INGOT) {
-            it.pattern("#*#", "MXM", "#*#")
-                .define(
-                    '#' to Items.CHARCOAL,
-                    'X' to Items.GOLD_INGOT,
-                    'M' to ModItems.MUNDABITUR_DUST,
-                    '*' to ModItems.ARCANE_CRYSTAL_DUST
-                )
-                .unlockedBy(Items.GOLD_INGOT, ModItems.ARCANE_CRYSTAL_DUST, ModItems.MUNDABITUR_DUST)
-        }
 
         this.shaped(RecipeCategory.DECORATIONS, ModBlocks.DEORUM_CHAIN.get()) {
             it.pattern("#", "X", "#")

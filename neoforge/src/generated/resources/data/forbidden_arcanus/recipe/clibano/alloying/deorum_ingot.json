@@ -1,0 +1,16 @@
+{
+  "type": "forbidden_arcanus:clibano_alloying",
+  "required_materials": [
+    {
+      "type": "forbidden_arcanus:gold",
+      "amount": 18
+    },
+    {
+      "type": "forbidden_arcanus:arcane_crystal",
+      "amount": 36
+    }
+  ],
+  "result": {
+    "id": "forbidden_arcanus:deorum_ingot"
+  }
+}
