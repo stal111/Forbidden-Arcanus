@@ -8,9 +8,7 @@ import net.minecraft.advancements.Criterion
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeBuilder
-import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
@@ -22,16 +20,12 @@ class ClibanoMeltingRecipeBuilder(
 ) : RecipeBuilder {
     private var requiredEnhancer: Holder<EnhancerDefinition>? = null
 
-    private val advancementBuilder = RecipeUnlockAdvancementBuilder()
-
     override fun unlockedBy(name: String, criterion: Criterion<*>): RecipeBuilder {
-        this.advancementBuilder.unlockedBy(name, criterion)
-
-        return this
+        throw UnsupportedOperationException("ClibanoMeltingRecipe does not support advancements")
     }
 
     override fun group(group: String?): RecipeBuilder {
-        return this
+        throw UnsupportedOperationException("ClibanoMeltingRecipe does not support groups")
     }
 
     override fun defaultId() = ResourceKey.create(
@@ -53,6 +47,6 @@ class ClibanoMeltingRecipeBuilder(
             this.requiredEnhancer
         )
 
-        output.accept(resourceKey, recipe, advancementBuilder.build(output, resourceKey, RecipeCategory.MISC))
+        output.accept(resourceKey, recipe, null)
     }
 }
