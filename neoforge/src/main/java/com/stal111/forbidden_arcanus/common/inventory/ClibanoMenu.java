@@ -113,7 +113,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     public float getResultProgress() {
-        return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_RESULT_PROGRESS) / ClibanoMainBlockEntity.RESULT_TIME, 0.0F, 1.0F);
+        return Mth.clamp((float) this.data.get(ClibanoMainBlockEntity.DATA_RESULT_PROGRESS) / this.data.get(ClibanoMainBlockEntity.DATA_RESULT_DURATION), 0.0F, 1.0F);
     }
 
     public int[] getCookingTimes() {

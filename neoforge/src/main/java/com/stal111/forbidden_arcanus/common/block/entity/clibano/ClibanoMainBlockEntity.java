@@ -76,9 +76,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     public static final int DATA_ECTOPLASM_AMOUNT = 6;
     public static final int DATA_ECTOPLASM_TIME_REMAINING = 7;
     public static final int DATA_RESULT_PROGRESS = 8;
-    public static final int DATA_FIRE_TYPE = 9;
+    public static final int DATA_RESULT_DURATION = 9;
+    public static final int DATA_FIRE_TYPE = 10;
 
-    public static final int DATA_COUNT = 10;
+    public static final int DATA_COUNT = 11;
 
     public static final RecipeType<ClibanoMeltingRecipe> RECIPE_TYPE = ModRecipeTypes.CLIBANO_MELTING.get();
 
@@ -114,6 +115,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     private int ectoplasmTimeRemaining = 0;
     private int resultProgress = 0;
+    private int resultDuration = 0;
 
     private ClibanoFireType fireType = ClibanoFireType.FIRE;
 
@@ -132,6 +134,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.getEssenceAmount(EssenceType.ECTOPLASM);
                 case DATA_ECTOPLASM_TIME_REMAINING -> blockEntity.ectoplasmTimeRemaining;
                 case DATA_RESULT_PROGRESS -> blockEntity.resultProgress;
+                case DATA_RESULT_DURATION -> blockEntity.resultDuration;
                 case DATA_FIRE_TYPE -> blockEntity.fireType.ordinal();
                 default -> 0;
             };
@@ -151,6 +154,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 case DATA_ECTOPLASM_AMOUNT -> blockEntity.setEssenceAmount(EssenceType.ECTOPLASM, value);
                 case DATA_ECTOPLASM_TIME_REMAINING -> blockEntity.ectoplasmTimeRemaining = value;
                 case DATA_RESULT_PROGRESS -> blockEntity.resultProgress = value;
+                case DATA_RESULT_DURATION -> blockEntity.resultDuration = value;
                 case DATA_FIRE_TYPE -> blockEntity.fireType = ClibanoFireType.values()[value];
             }
         }
@@ -430,8 +434,9 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
             ItemStack result = this.resultInventory.getStack();
 
             this.resultProgress++;
+            this.resultDuration = RESULT_TIME;
 
-            if (this.resultProgress >= RESULT_TIME) {
+            if (this.resultProgress >= this.resultDuration) {
                 if (result.isEmpty()) {
                     this.resultInventory.setStack(type.value().result().create());
                 } else if (ItemStack.isSameItemSameComponents(result, type.value().result())) {
@@ -458,26 +463,29 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void tryCreateAlloy(ServerLevel level, ResourceKey<Recipe<?>> resourceKey) {
-        level.recipeAccess().getRecipeFor(ModRecipeTypes.CLIBANO_ALLOYING.get(), new ClibanoAlloyingRecipeInput(this.storedMaterials.getAll()), level, resourceKey).ifPresent(recipe -> {
-            ItemStack result = this.resultInventory.getStack();
+        level.recipeAccess().getRecipeFor(ModRecipeTypes.CLIBANO_ALLOYING.get(), new ClibanoAlloyingRecipeInput(this.storedMaterials.getAll()), level, resourceKey)
+                .map(RecipeHolder::value)
+                .ifPresent(recipe -> {
+                    ItemStack result = this.resultInventory.getStack();
 
-            this.resultProgress++;
+                    this.resultProgress++;
+                    this.resultDuration = recipe.duration();
 
-            if (this.resultProgress >= RESULT_TIME) {
-                if (result.isEmpty()) {
-                    this.resultInventory.setStack(recipe.value().result().create());
-                } else if (ItemStack.isSameItemSameComponents(result, recipe.value().result())) {
-                    result.grow(1);
-                    this.resultInventory.setStack(result);
-                }
+                    if (this.resultProgress >= this.resultDuration) {
+                        if (result.isEmpty()) {
+                            this.resultInventory.setStack(recipe.result().create());
+                        } else if (ItemStack.isSameItemSameComponents(result, recipe.result())) {
+                            result.grow(1);
+                            this.resultInventory.setStack(result);
+                        }
 
-                recipe.value().requiredMaterials().stream()
-                        .map(material -> new MoltenMaterial(material.type(), -material.amount()))
-                        .forEach(material -> this.insertMaterial(level, material));
+                        recipe.requiredMaterials().stream()
+                                .map(material -> new MoltenMaterial(material.type(), -material.amount()))
+                                .forEach(material -> this.insertMaterial(level, material));
 
-                this.resultProgress = 0;
-            }
-        });
+                        this.resultProgress = 0;
+                    }
+                });
     }
 
     private void insertMaterial(ServerLevel level, MoltenMaterial material) {

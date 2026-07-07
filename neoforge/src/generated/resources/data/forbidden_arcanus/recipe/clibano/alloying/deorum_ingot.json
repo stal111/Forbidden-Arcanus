@@ -1,5 +1,6 @@
 {
   "type": "forbidden_arcanus:clibano_alloying",
+  "duration": 100,
   "required_materials": [
     {
       "type": "forbidden_arcanus:gold",

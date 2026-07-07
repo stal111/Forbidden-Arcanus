@@ -166,8 +166,10 @@ class ClibanoRecipeProvider(
     private fun alloying(
         requiredMaterials: List<MoltenMaterial>,
         result: ItemStackTemplate,
+        duration: Int = 100
     ) = ClibanoAlloyingRecipeBuilder(
         requiredMaterials,
-        result
+        result,
+        duration
     )
 }

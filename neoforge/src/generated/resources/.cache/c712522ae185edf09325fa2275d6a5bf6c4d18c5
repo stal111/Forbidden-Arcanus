@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-06T17:40:50.8615998	Recipe Provider: forbidden_arcanus
+// 26.1.2	2026-07-07T12:31:07.2311079	Recipe Provider: forbidden_arcanus
 aaf87dd327ca92c4521aff5a901f97eb0291f7bb data/forbidden_arcanus/advancement/recipes/apply_modifier/aquatic.json
 eefe63f175a05bdc7fe0b584b101e4e3f154e46c data/forbidden_arcanus/advancement/recipes/apply_modifier/demolishing.json
 b3c15e707860fec5df2d44f25879518da3c85383 data/forbidden_arcanus/advancement/recipes/apply_modifier/eternal.json
@@ -212,7 +212,7 @@ fb031de33992a5ba245b23f56681a8a07d0719f3 data/forbidden_arcanus/recipe/blue_quan
 d1ac88978eec694509762af8a8700c8a32a18e71 data/forbidden_arcanus/recipe/brown_quantum_catcher.json
 5ccffce893613a90e4656dceb8b1a57a4e5ce2d7 data/forbidden_arcanus/recipe/chiseled_arcane_polished_darkstone.json
 eb08afb738033254bb2a5f2db68a7fe87197cc1b data/forbidden_arcanus/recipe/chiseled_polished_darkstone.json
-d8d87906cda354c6146f4960855aad683391358a data/forbidden_arcanus/recipe/clibano/alloying/deorum_ingot.json
+50f858c74dbce3287c97b45a1977361378017da2 data/forbidden_arcanus/recipe/clibano/alloying/deorum_ingot.json
 670c4635e8bd1ca3b8f1df7a97290fb39e8ea724 data/forbidden_arcanus/recipe/clibano/melting/arcane_crystal.json
 7239c4e67f07f8b7c858768ca56c5f1e184e5578 data/forbidden_arcanus/recipe/clibano/melting/asterite.json
 ccbdf9bb8c2681b716023aa6be21073ec1060f9c data/forbidden_arcanus/recipe/clibano/melting/coal.json
@@ -354,7 +354,7 @@ d15ea263e03f1289e98a208851e99c44c2a55b73 data/forbidden_arcanus/recipe/soulless_
 5c70cab213eac7f44ca6bd0f4df7c933541b594b data/forbidden_arcanus/recipe/yellow_quantum_catcher.json
 39d9d999db1e94baaf48bddc0211dc3f2c55740f data/minecraft/advancement/recipes/misc/ender_pearl.json
 6396553dbe23369c9a6eb5326c8ea94f1d630a4a data/minecraft/advancement/recipes/tools/netherite_blacksmith_gavel_smithing.json
-7a088a5d298633a2dce6cbd3ed041a3693091008 data/minecraft/recipe/clibano/alloying/netherite_ingot.json
+9de87627edb6e5e7d5813cf0ee564647f4077337 data/minecraft/recipe/clibano/alloying/netherite_ingot.json
 293ecae9d971d1c5a656a7f4ae23b2c01b46cdc3 data/minecraft/recipe/combine_aureal_tank.json
 e52ef9a54a9c1c5211b091299ac8611c6ba20e6d data/minecraft/recipe/ender_pearl.json
 fde209f7f644de7d7ec95f731c791cd506861aa9 data/minecraft/recipe/netherite_blacksmith_gavel_smithing.json

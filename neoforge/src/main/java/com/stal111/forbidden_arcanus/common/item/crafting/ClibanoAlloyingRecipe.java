@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
@@ -15,11 +16,16 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public record ClibanoAlloyingRecipe(List<MoltenMaterial> requiredMaterials, ItemStackTemplate result) implements Recipe<ClibanoAlloyingRecipeInput> {
+public record ClibanoAlloyingRecipe(
+        List<MoltenMaterial> requiredMaterials,
+        ItemStackTemplate result,
+        int duration
+) implements Recipe<ClibanoAlloyingRecipeInput> {
 
     private static final MapCodec<ClibanoAlloyingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             MoltenMaterial.CODEC.listOf().fieldOf("required_materials").forGetter(recipe -> recipe.requiredMaterials),
-            ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
+            ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(recipe -> recipe.duration)
     ).apply(instance, ClibanoAlloyingRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ClibanoAlloyingRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -27,6 +33,8 @@ public record ClibanoAlloyingRecipe(List<MoltenMaterial> requiredMaterials, Item
             ClibanoAlloyingRecipe::requiredMaterials,
             ItemStackTemplate.STREAM_CODEC,
             ClibanoAlloyingRecipe::result,
+            ByteBufCodecs.INT,
+            ClibanoAlloyingRecipe::duration,
             ClibanoAlloyingRecipe::new
     );
 

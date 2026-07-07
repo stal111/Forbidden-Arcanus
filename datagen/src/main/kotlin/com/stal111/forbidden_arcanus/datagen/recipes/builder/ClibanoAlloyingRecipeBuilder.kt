@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.Recipe
 class ClibanoAlloyingRecipeBuilder(
     private val requiredMaterials: List<MoltenMaterial>,
     private val result: ItemStackTemplate,
+    private val duration: Int = 100
 ) : RecipeBuilder {
 
     override fun unlockedBy(
@@ -36,8 +37,9 @@ class ClibanoAlloyingRecipeBuilder(
         resourceKey: ResourceKey<Recipe<*>>
     ) {
         val recipe = ClibanoAlloyingRecipe(
-            this.requiredMaterials,
-            this.result,
+            requiredMaterials,
+            result,
+            duration
         )
 
         output.accept(resourceKey, recipe, null)
