@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.Recipe
 
 class ClibanoMeltingRecipeBuilder(
     private val result: MoltenMaterial,
-    private val ingredient: Ingredient?,
+    private val ingredient: Ingredient,
     private val cookingTime: Int
 ) : RecipeBuilder {
     private var requiredEnhancer: Holder<EnhancerDefinition>? = null
