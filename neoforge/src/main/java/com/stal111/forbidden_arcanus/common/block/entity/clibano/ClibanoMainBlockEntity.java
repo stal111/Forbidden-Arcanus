@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano;
 
-import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.block.clibano.AbstractClibanoFrameBlock;
 import com.stal111.forbidden_arcanus.common.block.clibano.ClibanoMainPartBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MaterialStorage;
@@ -21,7 +20,6 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
-import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -35,7 +33,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
@@ -52,7 +49,6 @@ import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.function.UnaryOperator;
 
 /**
@@ -62,7 +58,7 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, RecipeCraftingHolder, EssenceAccess {
+public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, EssenceAccess {
 
     public static final int ECTOPLASM_DURATION = 150;
     public static final int RESULT_TIME = 20;
@@ -85,9 +81,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     private static final Component NAME = Component.translatable("container.forbidden_arcanus.clibano");
 
-    private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
-
-    private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed = new Reference2IntOpenHashMap<>();
     private final RecipeManager.CachedCheck<SingleRecipeInput, ClibanoMeltingRecipe> quickCheck = RecipeManager.createCheck(RECIPE_TYPE);
 
     private final FuelItemHandler fuelInventory = new FuelItemHandler(stack -> getBurnDuration(stack, this.level) > 0, _ -> this.setChanged());
@@ -339,7 +332,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 MoltenMaterial moltenMaterial = recipeHolder.value().result();
 
                 this.insertMaterial(serverLevel, moltenMaterial);
-                this.setRecipeUsed(recipeHolder);
             });
 
             ItemStack input = stack.copy();
@@ -532,8 +524,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         output.store("fire_type", ClibanoFireType.CODEC, this.fireType);
         output.store("front_direction", Direction.CODEC, this.frontDirection);
-
-        output.store("RecipesUsed", RECIPES_USED_CODEC, this.recipesUsed);
     }
 
     @Override
@@ -560,9 +550,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         input.read("fire_type", ClibanoFireType.CODEC).ifPresent(fireType -> this.fireType = fireType);
         input.read("front_direction", Direction.CODEC).ifPresent(direction -> this.frontDirection = direction);
-
-        this.recipesUsed.clear();
-        this.recipesUsed.putAll(input.read("recipes_used", RECIPES_USED_CODEC).orElse(Map.of()));
     }
 
     public static int getBurnDuration(ItemStack stack, Level level) {
@@ -575,19 +562,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
     public SelectedSlotState getSelectedSlotState() {
         return this.selectedSlotState;
-    }
-
-    @Override
-    @Nullable
-    public RecipeHolder<?> getRecipeUsed() {
-        return null;
-    }
-
-    @Override
-    public void setRecipeUsed(@Nullable RecipeHolder<?> recipe) {
-        if (recipe != null) {
-            this.recipesUsed.addTo(recipe.id(), 1);
-        }
     }
 
     @Override
