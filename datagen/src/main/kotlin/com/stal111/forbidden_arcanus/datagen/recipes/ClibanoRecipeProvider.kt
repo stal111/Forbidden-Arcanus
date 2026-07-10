@@ -146,6 +146,18 @@ class ClibanoRecipeProvider(
                 ItemStackTemplate(ModItems.DEORUM_INGOT.get())
             )
         )
+
+        add(
+            alloying(
+                listOf(
+                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.COPPER), 4 * 9),
+                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.IRON), 2 * 9),
+                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.GOLD), 2 * 9),
+                    MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.ASTERITE), 4 * 9)
+                ),
+                ItemStackTemplate(ModItems.STYGIAN_STEEL_INGOT.get())
+            )
+        )
     }
 
     fun addSuffixed(builder: RecipeBuilder, suffix: String) = super.add(

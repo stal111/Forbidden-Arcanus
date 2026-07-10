@@ -1,0 +1,25 @@
+{
+  "type": "forbidden_arcanus:clibano_alloying",
+  "duration": 100,
+  "required_materials": [
+    {
+      "type": "forbidden_arcanus:copper",
+      "amount": 36
+    },
+    {
+      "type": "forbidden_arcanus:iron",
+      "amount": 18
+    },
+    {
+      "type": "forbidden_arcanus:gold",
+      "amount": 18
+    },
+    {
+      "type": "forbidden_arcanus:asterite",
+      "amount": 36
+    }
+  ],
+  "result": {
+    "id": "forbidden_arcanus:stygian_steel_ingot"
+  }
+}
