@@ -63,6 +63,10 @@ public class ClibanoMeltingRecipe implements Recipe<SingleRecipeInput> {
         return this.requiredEnhancer == null || enhancers.contains(this.requiredEnhancer);
     }
 
+    public Ingredient ingredient() {
+        return this.ingredient;
+    }
+
     @DoNotCall
     @Override
     public boolean matches(@NotNull SingleRecipeInput recipeInput, @NotNull Level level) {

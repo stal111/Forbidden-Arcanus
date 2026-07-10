@@ -9,8 +9,10 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputRe
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.ResultSlotItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
+import com.stal111.forbidden_arcanus.common.item.crafting.FARecipePropertySets;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
@@ -31,6 +34,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess levelAccess;
     private final MaterialStorage materialStorage;
     private final SelectedSlotState selectedSlotState;
+    private final RecipePropertySet acceptedInputs;
 
     private final ContainerData data;
 
@@ -43,6 +47,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
         this.levelAccess = levelAccess;
         this.materialStorage = materialStorage;
         this.selectedSlotState = selectedSlotState;
+        this.acceptedInputs = playerInventory.player.level().recipeAccess().propertySet(FARecipePropertySets.CLIBANO_MELTING_INPUT);
 
         checkContainerDataCount(data, ClibanoMainBlockEntity.DATA_COUNT);
         this.data = data;
@@ -70,6 +75,28 @@ public class ClibanoMenu extends AbstractContainerMenu {
         ItemStack stack = slot.getItem();
         result = stack.copy();
 
+        if (index <= 4) {
+            if (!this.moveItemStackTo(stack, 5, 41, true)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (index == 4) {
+                slot.onQuickCraft(stack, result);
+            }
+        } else if (this.canSmelt(stack)) {
+            if (!this.moveItemStackTo(stack, 1, 3, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (this.isFuel(stack)) {
+            if (!this.moveItemStackTo(stack, 0, 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (this.isEctoplasm(stack)) {
+            if (!this.moveItemStackTo(stack, 3, 4, false)) {
+                return ItemStack.EMPTY;
+            }
+        }
+
         if (stack.isEmpty()) {
             slot.set(ItemStack.EMPTY);
         } else {
@@ -83,6 +110,18 @@ public class ClibanoMenu extends AbstractContainerMenu {
         slot.onTake(player, stack);
 
         return result;
+    }
+
+    private boolean canSmelt(ItemStack stack) {
+        return this.acceptedInputs.test(stack);
+    }
+
+    private boolean isFuel(ItemStack itemStack) {
+        return this.levelAccess.evaluate((level, _) -> ClibanoMainBlockEntity.getBurnDuration(itemStack, level) > 0, false);
+    }
+
+    private boolean isEctoplasm(ItemStack itemStack) {
+        return EssenceInput.findValidInput(itemStack, EssenceType.ECTOPLASM).isPresent();
     }
 
     @Override
