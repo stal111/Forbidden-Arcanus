@@ -33,10 +33,10 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
         )
         this.tag(ModTags.Items.DEORUM_INGOTS).add(ModItems.DEORUM_INGOT.get())
         this.tag(ModTags.Items.DEORUM_NUGGETS).add(ModItems.DEORUM_NUGGET.get())
-        this.tag(ModTags.Items.OBSIDIANSTEEL_INGOTS).add(ModItems.OBSIDIANSTEEL_INGOT.get())
+        this.tag(ModTags.Items.STYGIAN_STEEL_INGOTS).add(ModItems.STYGIAN_STEEL_INGOT.get())
         this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED)
             .add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
-        this.tag(Tags.Items.INGOTS).addTags(ModTags.Items.DEORUM_INGOTS, ModTags.Items.OBSIDIANSTEEL_INGOTS)
+        this.tag(Tags.Items.INGOTS).addTags(ModTags.Items.DEORUM_INGOTS, ModTags.Items.STYGIAN_STEEL_INGOTS)
         //        this.tag(ItemTags.PICKAXES).add(ModItems.DRACO_ARCANUS_PICKAXE.get(), ModItems.REINFORCED_DEORUM_PICKAXE.get());
         this.tag(ItemTags.ARROWS).add(ModItems.BOOM_ARROW.get(), ModItems.DRACO_ARCANUS_ARROW.get())
         this.tag(ModTags.Items.BLACK_HOLE_UNAFFECTED).add(
@@ -131,7 +131,7 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
             ModTags.Items.STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL
         )
         this.copy(ModTags.Blocks.STORAGE_BLOCKS_STELLARITE, ModTags.Items.STORAGE_BLOCKS_STELLARITE)
-        this.copy(ModTags.Blocks.STORAGE_BLOCKS_OBSIDIANSTEEL, ModTags.Items.STORAGE_BLOCKS_OBSIDIANSTEEL)
+        this.copy(ModTags.Blocks.STORAGE_BLOCKS_STYGIAN_STEEL, ModTags.Items.STORAGE_BLOCKS_STYGIAN_STEEL)
         this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS)
         this.copy(ModTags.Blocks.ORES_ARCANE_CRYSTAL, ModTags.Items.ORES_ARCANE_CRYSTAL)
         this.copy(ModTags.Blocks.ORES_RUNIC, ModTags.Items.ORES_RUNIC)

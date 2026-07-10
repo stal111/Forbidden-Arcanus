@@ -26,7 +26,7 @@ public class ModTags {
         public static final TagKey<Block> STORAGE_BLOCKS_ARCANE_CRYSTAL = commonTag("storage_blocks/arcane_crystal");
         public static final TagKey<Block> STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL = commonTag("storage_blocks/corrupted_arcane_crystal");
         public static final TagKey<Block> STORAGE_BLOCKS_STELLARITE = commonTag("storage_blocks/stellarite");
-        public static final TagKey<Block> STORAGE_BLOCKS_OBSIDIANSTEEL = commonTag("storage_blocks/obsidiansteel");
+        public static final TagKey<Block> STORAGE_BLOCKS_STYGIAN_STEEL = commonTag("storage_blocks/stygian_steel");
 
         public static final TagKey<Block> PEDESTALS = modTag("pedestals");
         public static final TagKey<Block> ORES_ARCANE_CRYSTAL = commonTag("ores/arcane_crystal");
@@ -52,7 +52,7 @@ public class ModTags {
         public static final TagKey<Item> BLACKSMITH_GAVEL = modTag("blacksmith_gavel");
         public static final TagKey<Item> DEORUM_INGOTS = commonTag("ingots/deorum");
         public static final TagKey<Item> DEORUM_NUGGETS = commonTag("nuggets/deorum");
-        public static final TagKey<Item> OBSIDIANSTEEL_INGOTS = commonTag("ingots/obsidiansteel");
+        public static final TagKey<Item> STYGIAN_STEEL_INGOTS = commonTag("ingots/stygian_steel");
         public static final TagKey<Item> MAGICAL_FARMLAND_BLACKLISTED = modTag("magical_farmland_blacklisted");
         public static final TagKey<Item> RUNIC_STONES = modTag("runic_stones");
         public static final TagKey<Item> RUNE_BLOCKS = modTag("rune_blocks");
@@ -78,7 +78,7 @@ public class ModTags {
         public static final TagKey<Item> STORAGE_BLOCKS_ARCANE_CRYSTAL = commonTag("storage_blocks/arcane_crystal");
         public static final TagKey<Item> STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL = commonTag("storage_blocks/corrupted_arcane_crystal");
         public static final TagKey<Item> STORAGE_BLOCKS_STELLARITE = commonTag("storage_blocks/stellarite");
-        public static final TagKey<Item> STORAGE_BLOCKS_OBSIDIANSTEEL = commonTag("storage_blocks/obsidiansteel");
+        public static final TagKey<Item> STORAGE_BLOCKS_STYGIAN_STEEL = commonTag("storage_blocks/stygian_steel");
 
         public static final TagKey<Item> ORES_ARCANE_CRYSTAL = commonTag("ores/arcane_crystal");
         public static final TagKey<Item> ORES_RUNIC = commonTag("ores/runic");

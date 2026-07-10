@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-05T22:54:31.7689224	Tags for minecraft:item mod id forbidden_arcanus
+// 26.1.2	2026-07-10T20:49:16.7021484	Tags for minecraft:item mod id forbidden_arcanus
 046c8cf89176d259e937e2ca72a2e472ce0d6849 data/c/tags/item/dusts.json
 674c4d49375c33863d4287f65537171eb637a826 data/c/tags/item/dusts/arcane_crystal.json
 e67ea6dd08228468b13e36125dd5d27a821264e7 data/c/tags/item/dusts/corrupti.json
@@ -13,9 +13,9 @@ db96f852d4e1990a9c058ce658ec07387234676f data/c/tags/item/gems/corrupted_arcane_
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/c/tags/item/glass_blocks/colorless.json
 a1d1d7866842d6a1b6e78318a88a0c02353a8df9 data/c/tags/item/glass_panes.json
 a1d1d7866842d6a1b6e78318a88a0c02353a8df9 data/c/tags/item/glass_panes/colorless.json
-b854dcf974feb77c43775267d04fd6759ba8816f data/c/tags/item/ingots.json
+4543e115210dc4ac787363c0bc68a235911b841d data/c/tags/item/ingots.json
 238635bd5dd1c15728e03bd1774ab8343944a8b5 data/c/tags/item/ingots/deorum.json
-0d4b957112a35b9712ca2728004c934f1b488ddd data/c/tags/item/ingots/obsidiansteel.json
+dc39805b8030f53be62dcc688aa8aa5b5d13e4da data/c/tags/item/ingots/stygian_steel.json
 577802d186e5ca271fc5e8a0a2f684387218b5be data/c/tags/item/mushrooms.json
 3b050f6561de6fb11c13fcc7eb391e1d53945d0a data/c/tags/item/nuggets.json
 24f9a73c4c73f1c9c5638e30ae22bb2bc36570a5 data/c/tags/item/nuggets/deorum.json
@@ -25,12 +25,12 @@ da592e1a235a155dfeb386236d5fc824489270bf data/c/tags/item/ores.json
 5a72be9c06f4519c620cdeda659ccccd0dfcc558 data/c/tags/item/ores/stellarite.json
 fc1d22e637a8c93c504c9d76b6a2873851fd6406 data/c/tags/item/ores_in_ground/deepslate.json
 7b6d96f3c12a58b462463ab2438564a96cf7db64 data/c/tags/item/ores_in_ground/stone.json
-6c0dc6de9f078bf27a4ecb9c657b5fc772f0f2dd data/c/tags/item/storage_blocks.json
+097dc06704603bab028290288013a6b393a0313c data/c/tags/item/storage_blocks.json
 09957d67edabb535833ace6cdc1345b60d228657 data/c/tags/item/storage_blocks/arcane_crystal.json
 16bbde60e986b8ba60db7706a09833d43d968ad0 data/c/tags/item/storage_blocks/corrupted_arcane_crystal.json
 b128c22b1f0aef1502fa919bc8d063604b299c75 data/c/tags/item/storage_blocks/deorum.json
-84788ba04723700a23026d7561c99fc099deeafc data/c/tags/item/storage_blocks/obsidiansteel.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/c/tags/item/storage_blocks/stellarite.json
+9876cbe82de2d9b6d1e81096ae7eaddd950af453 data/c/tags/item/storage_blocks/stygian_steel.json
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/item/arcane_crystal_ores.json
 3bb633a07d87aa8bcc3a5a04741c08b92c7144cc data/forbidden_arcanus/tags/item/blacksmith_gavel.json
 d59eae9426b854c4e2c62b80776be486008a702a data/forbidden_arcanus/tags/item/black_hole_unaffected.json

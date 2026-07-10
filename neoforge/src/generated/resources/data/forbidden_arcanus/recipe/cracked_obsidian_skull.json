@@ -3,8 +3,8 @@
   "category": "misc",
   "ingredients": [
     "forbidden_arcanus:fragmented_obsidian_skull",
-    "forbidden_arcanus:obsidiansteel_ingot",
-    "forbidden_arcanus:obsidiansteel_ingot"
+    "forbidden_arcanus:stygian_steel_ingot",
+    "forbidden_arcanus:stygian_steel_ingot"
   ],
   "result": {
     "id": "forbidden_arcanus:cracked_obsidian_skull"

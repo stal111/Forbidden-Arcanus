@@ -90,13 +90,8 @@ class CraftingRecipeProvider(
 
         this.shaped(RecipeCategory.MISC, ModItems.DARK_NETHER_STAR) {
             it.pattern(" # ", "#X#", " # ")
-                .define('#' to ModItems.OBSIDIANSTEEL_INGOT, 'X' to Items.NETHER_STAR)
-                .unlockedBy(ModItems.OBSIDIANSTEEL_INGOT, Items.NETHER_STAR)
-        }
-        this.shaped(RecipeCategory.MISC, ModItems.OBSIDIANSTEEL_INGOT) {
-            it.pattern(" # ", "#X#", " # ")
-                .define('#' to Items.OBSIDIAN, 'X' to Items.IRON_INGOT)
-                .unlockedBy(Items.OBSIDIAN, Items.IRON_INGOT)
+                .define('#' to ModItems.STYGIAN_STEEL_INGOT, 'X' to Items.NETHER_STAR)
+                .unlockedBy(ModItems.STYGIAN_STEEL_INGOT, Items.NETHER_STAR)
         }
 
         this.shaped(RecipeCategory.DECORATIONS, ModBlocks.DEORUM_CHAIN.get()) {
@@ -139,7 +134,7 @@ class CraftingRecipeProvider(
             RecipeCategory.MISC,
             ModBlocks.OBSIDIAN_SKULL.getSkull(),
             Items.SKELETON_SKULL,
-            ModItems.OBSIDIANSTEEL_INGOT,
+            ModItems.STYGIAN_STEEL_INGOT,
             1
         )
         this.surroundingItem(
@@ -227,13 +222,13 @@ class CraftingRecipeProvider(
         }
         this.shapeless(RecipeCategory.MISC, ModItems.CORRUPTI_DUST, 4) {
             it.requires(
-                ModItems.OBSIDIANSTEEL_INGOT,
+                ModItems.STYGIAN_STEEL_INGOT,
                 Items.BLAZE_POWDER,
                 Items.NETHER_WART,
                 ModItems.ARCANE_CRYSTAL_DUST,
                 ModItems.ENDER_PEARL_FRAGMENT
             ).unlockedBy(
-                ModItems.OBSIDIANSTEEL_INGOT,
+                ModItems.STYGIAN_STEEL_INGOT,
                 Items.BLAZE_POWDER,
                 Items.NETHER_WART,
                 ModItems.ARCANE_CRYSTAL_DUST,
@@ -248,23 +243,23 @@ class CraftingRecipeProvider(
         ) {
             it.requires(
                 ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(),
-                ModItems.OBSIDIANSTEEL_INGOT,
-                ModItems.OBSIDIANSTEEL_INGOT
-            ).unlockedBy(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModItems.OBSIDIANSTEEL_INGOT)
+                ModItems.STYGIAN_STEEL_INGOT,
+                ModItems.STYGIAN_STEEL_INGOT
+            ).unlockedBy(ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull(), ModItems.STYGIAN_STEEL_INGOT)
         }
         this.shapeless(RecipeCategory.MISC, ModBlocks.CRACKED_OBSIDIAN_SKULL.getSkull()) {
             it.requires(
                 ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(),
-                ModItems.OBSIDIANSTEEL_INGOT,
-                ModItems.OBSIDIANSTEEL_INGOT
-            ).unlockedBy(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModItems.OBSIDIANSTEEL_INGOT)
+                ModItems.STYGIAN_STEEL_INGOT,
+                ModItems.STYGIAN_STEEL_INGOT
+            ).unlockedBy(ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull(), ModItems.STYGIAN_STEEL_INGOT)
         }
         this.shapeless(RecipeCategory.MISC, ModBlocks.FRAGMENTED_OBSIDIAN_SKULL.getSkull()) {
             it.requires(
                 ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(),
-                ModItems.OBSIDIANSTEEL_INGOT,
-                ModItems.OBSIDIANSTEEL_INGOT
-            ).unlockedBy(ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModItems.OBSIDIANSTEEL_INGOT)
+                ModItems.STYGIAN_STEEL_INGOT,
+                ModItems.STYGIAN_STEEL_INGOT
+            ).unlockedBy(ModBlocks.FADING_OBSIDIAN_SKULL.getSkull(), ModItems.STYGIAN_STEEL_INGOT)
         }
         this.shapeless(RecipeCategory.MISC, ModBlocks.QUANTUM_CORE.get()) {
             it.requires(ModItems.RUNE, Items.FLINT, ModItems.MUNDABITUR_DUST)
@@ -392,9 +387,9 @@ class CraftingRecipeProvider(
         )
 
         this.storageRecipe(
-            ModItems.OBSIDIANSTEEL_INGOT.get(),
-            ModBlocks.OBSIDIANSTEEL_BLOCK.get(),
-            "obsidian_ingot",
+            ModItems.STYGIAN_STEEL_INGOT.get(),
+            ModBlocks.STYGIAN_STEEL_BLOCK.get(),
+            "stygian_steel_ingot",
             null
         )
         this.storageRecipe(ModItems.DEORUM_INGOT.get(), ModBlocks.DEORUM_BLOCK.get(), "deorum_ingot", null)

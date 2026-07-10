@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "forbidden_arcanus:obsidiansteel_ingot",
+    "forbidden_arcanus:stygian_steel_ingot",
     "minecraft:blaze_powder",
     "minecraft:nether_wart",
     "forbidden_arcanus:arcane_crystal_dust",

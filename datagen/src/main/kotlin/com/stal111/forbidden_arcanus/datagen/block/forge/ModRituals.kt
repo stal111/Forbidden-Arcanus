@@ -188,7 +188,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
         ) {
             it
                 .input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2)
-                .input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3)
+                .input(Ingredient.of(ModItems.STYGIAN_STEEL_INGOT.get()), 3)
                 .requirements(dracoArcanusHelmet)
         }
         register(
@@ -200,7 +200,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
         ) {
             it
                 .input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 4)
-                .input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3)
+                .input(Ingredient.of(ModItems.STYGIAN_STEEL_INGOT.get()), 3)
                 .requirements(dracoArcanusChestplate)
         }
         register(
@@ -210,7 +210,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
         ) {
             it
                 .input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 3)
-                .input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 3)
+                .input(Ingredient.of(ModItems.STYGIAN_STEEL_INGOT.get()), 3)
                 .requirements(dracoArcanusLeggings)
         }
         register(
@@ -220,7 +220,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
         ) {
             it
                 .input(Ingredient.of(ModItems.DRAGON_SCALE.get()), 2)
-                .input(Ingredient.of(ModItems.OBSIDIANSTEEL_INGOT.get()), 2)
+                .input(Ingredient.of(ModItems.STYGIAN_STEEL_INGOT.get()), 2)
                 .requirements(dracoArcanusBoots)
         }
 

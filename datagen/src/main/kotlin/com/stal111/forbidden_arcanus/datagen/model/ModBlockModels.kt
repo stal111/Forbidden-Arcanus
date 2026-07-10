@@ -84,7 +84,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         generators.createTrivialCube(ModBlocks.ASTERITE_BLOCK.get())
         generators.createTrivialCube(ModBlocks.STELLARITE_BLOCK.get())
         generators.createTrivialCube(ModBlocks.DEORUM_BLOCK.get())
-        generators.createTrivialCube(ModBlocks.OBSIDIANSTEEL_BLOCK.get())
+        generators.createTrivialCube(ModBlocks.STYGIAN_STEEL_BLOCK.get())
         generators.createTrivialCube(ModBlocks.AURUM_LEAVES.get())
         generators.createTrivialCube(ModBlocks.NUGGETY_AURUM_LEAVES.get())
         generators.createTrivialCube(ModBlocks.FUNGYSS_BLOCK.get())

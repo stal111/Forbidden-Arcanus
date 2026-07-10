@@ -24,7 +24,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateFlatItem(ModItems.EDELWOOD_POWDER_SNOW_BUCKET)
         this.generateFlatItem(ModItems.ASTERITE_CHUNK)
         this.generateFlatItem(ModItems.ASTERITE_INGOT)
-        this.generateFlatItem(ModItems.OBSIDIANSTEEL_INGOT)
+        this.generateFlatItem(ModItems.STYGIAN_STEEL_INGOT)
         this.generateFlatItem(ModItems.MUNDABITUR_DUST)
         this.generateFlatItem(ModItems.CORRUPTI_DUST)
         this.generateFlatItem(ModItems.FERROGNETIC_MIXTURE)

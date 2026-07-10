@@ -76,7 +76,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModBlocks.ASTERITE_BLOCK.get());
                             output.accept(ModBlocks.STELLARITE_BLOCK.get());
                             output.accept(ModBlocks.DEORUM_BLOCK.get());
-                            output.accept(ModBlocks.OBSIDIANSTEEL_BLOCK.get());
+                            output.accept(ModBlocks.STYGIAN_STEEL_BLOCK.get());
                             output.accept(ModBlocks.ARCANE_CRYSTAL_OBELISK.get());
                             output.accept(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get());
                             output.accept(ModBlocks.DEORUM_GLASS.get());
@@ -157,7 +157,7 @@ public class ModCreativeModeTabs implements RegistryClass {
                             output.accept(ModItems.DEORUM_NUGGET.get());
                             output.accept(ModItems.DEORUM_INGOT.get());
                             output.accept(ModItems.ASTERITE_INGOT.get());
-                            output.accept(ModItems.OBSIDIANSTEEL_INGOT.get());
+                            output.accept(ModItems.STYGIAN_STEEL_INGOT.get());
                             output.accept(ModItems.ARCANE_CRYSTAL_DUST.get());
                             output.accept(ModItems.MUNDABITUR_DUST.get());
                             output.accept(ModItems.CORRUPTI_DUST.get());

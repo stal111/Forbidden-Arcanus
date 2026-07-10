@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "forbidden_arcanus:obsidiansteel_ingot",
+    "#": "forbidden_arcanus:stygian_steel_ingot",
     "X": "minecraft:nether_star"
   },
   "pattern": [

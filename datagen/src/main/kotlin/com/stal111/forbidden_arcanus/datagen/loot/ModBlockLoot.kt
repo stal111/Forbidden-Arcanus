@@ -66,7 +66,7 @@ class ModBlockLoot(
         dropSelf(ModBlocks.ASTERITE_BLOCK.get())
         dropSelf(ModBlocks.STELLARITE_BLOCK.get())
         dropSelf(ModBlocks.DEORUM_BLOCK.get())
-        dropSelf(ModBlocks.OBSIDIANSTEEL_BLOCK.get())
+        dropSelf(ModBlocks.STYGIAN_STEEL_BLOCK.get())
         dropSelf(ModBlocks.DEORUM_LANTERN.get())
         dropSelf(ModBlocks.DEORUM_SOUL_LANTERN.get())
         dropSelf(ModBlocks.SOULLESS_SAND.get())

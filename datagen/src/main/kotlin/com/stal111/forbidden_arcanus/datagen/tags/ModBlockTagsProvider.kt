@@ -103,14 +103,14 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
         this.tag(ModTags.Blocks.STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL)
             .add(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get())
         this.tag(ModTags.Blocks.STORAGE_BLOCKS_STELLARITE).add(ModBlocks.STELLARITE_BLOCK.get())
-        this.tag(ModTags.Blocks.STORAGE_BLOCKS_OBSIDIANSTEEL).add(ModBlocks.OBSIDIANSTEEL_BLOCK.get())
+        this.tag(ModTags.Blocks.STORAGE_BLOCKS_STYGIAN_STEEL).add(ModBlocks.STYGIAN_STEEL_BLOCK.get())
 
         this.tag(Tags.Blocks.STORAGE_BLOCKS).addTags(
             ModTags.Blocks.STORAGE_BLOCKS_DEORUM,
             ModTags.Blocks.STORAGE_BLOCKS_ARCANE_CRYSTAL,
             ModTags.Blocks.STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL,
             ModTags.Blocks.STORAGE_BLOCKS_STELLARITE,
-            ModTags.Blocks.STORAGE_BLOCKS_OBSIDIANSTEEL
+            ModTags.Blocks.STORAGE_BLOCKS_STYGIAN_STEEL
         )
 
         this.tag(ModTags.Blocks.ORES_ARCANE_CRYSTAL)
@@ -145,7 +145,7 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
                 ModBlocks.DEORUM_CHAIN.get(),
                 ModBlocks.ASTERITE_DEBRIS.get(),
                 ModBlocks.STELLA_ARCANUM.get(),
-                ModBlocks.OBSIDIANSTEEL_BLOCK.get(),
+                ModBlocks.STYGIAN_STEEL_BLOCK.get(),
                 ModBlocks.ARCANE_CRYSTAL_BLOCK.get(),
                 ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get(),
                 ModBlocks.DEORUM_BLOCK.get(),
@@ -198,7 +198,7 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.EDELWOOD_BRANCH.get())
 
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
-            .add(ModBlocks.OBSIDIANSTEEL_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.STELLARITE_BLOCK.get(), ModBlocks.HEPHAESTUS_FORGE.get())
+            .add(ModBlocks.STYGIAN_STEEL_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.STELLARITE_BLOCK.get(), ModBlocks.HEPHAESTUS_FORGE.get())
             .addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS)
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.DEORUM_BLOCK.get(), ModBlocks.ASTERITE_BLOCK.get()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
         this.tag(BlockTags.NEEDS_STONE_TOOL).addTag(ModTags.Blocks.PEDESTALS).add(

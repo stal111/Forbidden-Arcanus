@@ -31,6 +31,6 @@ public class BuiltinWandMaterials {
     public static final ResourceKey<WandMaterial> GOLD = HELPER.createKey("gold");
     public static final ResourceKey<WandMaterial> IRON = HELPER.createKey("iron");
     public static final ResourceKey<WandMaterial> NETHERITE = HELPER.createKey("netherite");
-    public static final ResourceKey<WandMaterial> OBSIDIANSTEEL = HELPER.createKey("obsidiansteel");
+    public static final ResourceKey<WandMaterial> STYGIAN_STEEL = HELPER.createKey("stygian_steel");
     public static final ResourceKey<WandMaterial> STELLARITE = HELPER.createKey("stellarite");
 }

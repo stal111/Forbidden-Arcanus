@@ -1,21 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_obsidiansteel_ingot": {
-      "conditions": {
-        "items": [
-          {
-            "items": "forbidden_arcanus:obsidiansteel_ingot"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_skeleton_skull": {
       "conditions": {
         "items": [
           {
             "items": "minecraft:skeleton_skull"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_stygian_steel_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "forbidden_arcanus:stygian_steel_ingot"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_skeleton_skull",
-      "has_obsidiansteel_ingot"
+      "has_stygian_steel_ingot"
     ]
   ],
   "rewards": {

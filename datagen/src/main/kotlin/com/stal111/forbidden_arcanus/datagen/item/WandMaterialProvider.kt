@@ -89,7 +89,7 @@ object WandMaterialProvider : RegistryDataProvider<WandMaterial> {
             createTransition("netherite", damage = 5.0F, projectileSpeed = -0.1F, accuracy = 0.3F)
         )
         context.register(
-            BuiltinWandMaterials.OBSIDIANSTEEL,
+            BuiltinWandMaterials.STYGIAN_STEEL,
             createTransition("obsidiansteel", damage = 4.0F, projectileSpeed = 0.3F, accuracy = 0.4F)
         )
         context.register(

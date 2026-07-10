@@ -11,11 +11,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_obsidiansteel_ingot": {
+    "has_stygian_steel_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "forbidden_arcanus:obsidiansteel_ingot"
+            "items": "forbidden_arcanus:stygian_steel_ingot"
           }
         ]
       },
@@ -32,7 +32,7 @@
     [
       "has_the_recipe",
       "has_fragmented_obsidian_skull",
-      "has_obsidiansteel_ingot"
+      "has_stygian_steel_ingot"
     ]
   ],
   "rewards": {
