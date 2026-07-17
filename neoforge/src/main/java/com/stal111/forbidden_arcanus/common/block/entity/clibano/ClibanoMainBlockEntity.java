@@ -359,7 +359,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void tryCreateResult(ServerLevel level, Holder<MoltenMaterialType> type) {
-        if (this.storedMaterials.getAmount(type) >= 9 && this.canCreateResult(type.value())) {
+        if (this.storedMaterials.getAmount(type) >= 9 && this.canAddToResultSlot(type.value().result())) {
             ItemStack result = this.resultInventory.getStack();
 
             this.resultProgress++;
@@ -379,12 +379,12 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         }
     }
 
-    private boolean canCreateResult(MoltenMaterialType materialType) {
+    private boolean canAddToResultSlot(ItemStackTemplate itemStackTemplate) {
         ItemStack result = this.resultInventory.getStack();
 
         if (result.isEmpty()) {
             return true;
-        } else if (!ItemStack.isSameItemSameComponents(result, materialType.result())) {
+        } else if (!ItemStack.isSameItemSameComponents(result, itemStackTemplate)) {
             return false;
         }
 
@@ -394,6 +394,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private void tryCreateAlloy(ServerLevel level, ResourceKey<Recipe<?>> resourceKey) {
         level.recipeAccess().getRecipeFor(ModRecipeTypes.CLIBANO_ALLOYING.get(), new ClibanoAlloyingRecipeInput(this.storedMaterials.getAll()), level, resourceKey)
                 .map(RecipeHolder::value)
+                .filter(recipe -> this.canAddToResultSlot(recipe.result()))
                 .ifPresent(recipe -> {
                     ItemStack result = this.resultInventory.getStack();
 
