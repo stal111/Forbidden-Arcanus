@@ -163,19 +163,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
     private @Nullable Holder<EnhancerDefinition> enhancer;
 
     public ClibanoMainBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state
-//                , ClibanoMenuOld.SLOT_COUNT
-//                , (slot, stack) -> {
-//            if (slot == ClibanoMenuOld.SOUL_SLOT) {
-//                return ClibanoFireType.fromItem(stack) != ClibanoFireType.FIRE;
-//            } else if (slot == ClibanoMenuOld.FUEL_SLOT) {
-//                //TODO
-//                return stack.getBurnTime(RecipeType.BLASTING, null) > 0 || FurnaceFuelSlot.isBucket(stack);
-//            }
-//
-//            return !slot.equals(ClibanoMenuOld.RESULT_SLOTS.getFirst()) && !slot.equals(ClibanoMenuOld.RESULT_SLOTS.getSecond());
-//        }
-        );
+        super(ModBlockEntities.CLIBANO_MAIN.get(), pos, state);
     }
 
     @Override
@@ -257,57 +245,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         if (wasLit != blockEntity.isLit() || nextFireType != blockEntity.fireType) {
             blockEntity.changeFireType(level, nextFireType);
         }
-//
-//        blockEntity.logic.updateRecipes(recipeHolders);
-//
-//        boolean isLit = blockEntity.burnTime > 0;
-//        boolean canSmelt = blockEntity.logic.canSmelt();
-//        ItemStack fuel = blockEntity.getItem(ClibanoMenuOld.FUEL_SLOT);
-//
-//        blockEntity.residuesStorage.tick(blockEntity);
-//
-//        if (blockEntity.soulTime != 0) {
-//            blockEntity.soulTime--;
-//
-//            if (blockEntity.soulTime == 0) {
-//                blockEntity.changeFireType(level, ClibanoFireType.FIRE);
-//            }
-//        } else if (canSmelt && (isLit || !fuel.isEmpty()) && blockEntity.nextFireType != ClibanoFireType.FIRE) {
-//            blockEntity.consumeSoul(level);
-//        }
-//
-//        blockEntity.logic.tick(isLit);
-//
-//        if (isLit) {
-//            blockEntity.burnTime--;
-//        } else {
-//            if (canSmelt) {
-//                blockEntity.burnDuration = 0;
-//
-//                if (!fuel.isEmpty()) {
-//                    blockEntity.burnTime = blockEntity.getBurnDuration(level.fuelValues(), fuel);
-//                    blockEntity.burnDuration = blockEntity.burnTime;
-//
-//                    fuel.shrink(1);
-//
-//                    if (!blockEntity.wasLit) {
-//                        blockEntity.updateAppearance(level);
-//                    }
-//
-//                    blockEntity.setChanged();
-//                }
-//            }
-//
-//            if (blockEntity.wasLit) {
-//                blockEntity.updateAppearance(level);
-//            }
-//
-//            blockEntity.wasLit = false;
-//
-//            return;
-//        }
-//
-//        blockEntity.wasLit = true;
     }
 
     private boolean isLit() {
@@ -485,20 +422,6 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
         PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(this.getBlockPos()), new InsertMoltenMaterialPayload(material));
     }
-
-    //TODO
-//    @Override
-//    protected void onSlotChanged(int slot) {
-//        if (slot == ClibanoMenuOld.SOUL_SLOT) {
-//            this.nextFireType = this.getFireTypeFromInput();
-//        } else if (slot == ClibanoMenuOld.ENHANCER_SLOT) {
-//            this.enhancer = this.updateEnhancer();
-//        }
-//    }
-
-//    private @Nullable Holder<EnhancerDefinition> updateEnhancer() {
-//        return EnhancerHelper.getEnhancerHolder(this.getItem(ClibanoMenuOld.ENHANCER_SLOT)).orElse(null);
-//    }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
