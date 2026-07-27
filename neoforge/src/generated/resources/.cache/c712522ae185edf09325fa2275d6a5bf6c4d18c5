@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-10T20:51:40.850793	Recipe Provider: forbidden_arcanus
+// 26.1.2	2026-07-27T13:52:52.6109919	Recipe Provider: forbidden_arcanus
 aaf87dd327ca92c4521aff5a901f97eb0291f7bb data/forbidden_arcanus/advancement/recipes/apply_modifier/aquatic.json
 eefe63f175a05bdc7fe0b584b101e4e3f154e46c data/forbidden_arcanus/advancement/recipes/apply_modifier/demolishing.json
 b3c15e707860fec5df2d44f25879518da3c85383 data/forbidden_arcanus/advancement/recipes/apply_modifier/eternal.json
@@ -213,7 +213,7 @@ d1ac88978eec694509762af8a8700c8a32a18e71 data/forbidden_arcanus/recipe/brown_qua
 eb08afb738033254bb2a5f2db68a7fe87197cc1b data/forbidden_arcanus/recipe/chiseled_polished_darkstone.json
 50f858c74dbce3287c97b45a1977361378017da2 data/forbidden_arcanus/recipe/clibano/alloying/deorum_ingot.json
 4291ab207c8f70e271da1e36891948f0d9c14a85 data/forbidden_arcanus/recipe/clibano/alloying/stygian_steel_ingot.json
-670c4635e8bd1ca3b8f1df7a97290fb39e8ea724 data/forbidden_arcanus/recipe/clibano/melting/arcane_crystal.json
+065478f20060d444a4088b2faec2df1062b428c0 data/forbidden_arcanus/recipe/clibano/melting/arcane_crystal.json
 7239c4e67f07f8b7c858768ca56c5f1e184e5578 data/forbidden_arcanus/recipe/clibano/melting/asterite.json
 ccbdf9bb8c2681b716023aa6be21073ec1060f9c data/forbidden_arcanus/recipe/clibano/melting/coal.json
 3ffa16d5e3e19d43c010671d10f979bcb4bc5fda data/forbidden_arcanus/recipe/clibano/melting/copper.json

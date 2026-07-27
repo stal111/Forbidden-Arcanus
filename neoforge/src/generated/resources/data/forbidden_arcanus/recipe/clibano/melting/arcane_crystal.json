@@ -1,7 +1,7 @@
 {
   "type": "forbidden_arcanus:clibano_melting",
   "cooking_time": 100,
-  "ingredient": "#forbidden_arcanus:arcane_crystal_ores",
+  "ingredient": "forbidden_arcanus:arcane_crystal",
   "result": {
     "type": "forbidden_arcanus:arcane_crystal",
     "amount": 9

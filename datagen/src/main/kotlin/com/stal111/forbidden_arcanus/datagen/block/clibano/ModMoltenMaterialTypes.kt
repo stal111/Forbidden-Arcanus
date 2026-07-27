@@ -12,7 +12,7 @@ object ModMoltenMaterialTypes : RegistryDataProvider<MoltenMaterialType> {
     override fun bootstrap(context: BootstrapContext<MoltenMaterialType>) {
         context.register(
             BuiltinMoltenMaterialTypes.ARCANE_CRYSTAL,
-            MoltenMaterialType(ItemStackTemplate(ModItems.ARCANE_CRYSTAL.get()), 256 * 9)
+            MoltenMaterialType(ItemStackTemplate(ModItems.ARCANE_CRYSTAL_DUST.get()), 256 * 9)
         )
         context.register(
             BuiltinMoltenMaterialTypes.RUNE,

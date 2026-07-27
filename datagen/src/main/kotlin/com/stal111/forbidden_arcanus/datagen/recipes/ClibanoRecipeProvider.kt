@@ -29,7 +29,7 @@ class ClibanoRecipeProvider(
         add(
             melting(
                 MoltenMaterial(registries.getOrThrow(BuiltinMoltenMaterialTypes.ARCANE_CRYSTAL), 9),
-                Ingredient.of(items.getOrThrow(ModTags.Items.ARCANE_CRYSTAL_ORES)),
+                Ingredient.of(ModItems.ARCANE_CRYSTAL),
                 100
             )
         )
