@@ -13,7 +13,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,20 +24,10 @@ import org.jetbrains.annotations.Nullable;
  * @author stal111
  * @since 28.04.2024
  */
-public class EssenceUtremJarBlockEntity extends BlockEntity implements BlockEntityAgeAccess {
-
-    public final AnimationState rotateAnimation = new AnimationState();
-
-    private int tickCount = -1;
+public class EssenceUtremJarBlockEntity extends BlockEntity {
 
     public EssenceUtremJarBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ESSENCE_UTREM_JAR.get(), pos, state);
-    }
-
-    public static void clientTick(Level level, BlockPos pos, BlockState state, EssenceUtremJarBlockEntity blockEntity) {
-        blockEntity.rotateAnimation.startIfStopped(blockEntity.tickCount);
-
-        blockEntity.tickCount++;
     }
 
     //Empty Jars should be empty
@@ -87,10 +76,5 @@ public class EssenceUtremJarBlockEntity extends BlockEntity implements BlockEnti
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider lookupProvider) {
         return this.saveWithoutMetadata(lookupProvider);
-    }
-
-    @Override
-    public int getAgeInTicks() {
-        return this.tickCount;
     }
 }

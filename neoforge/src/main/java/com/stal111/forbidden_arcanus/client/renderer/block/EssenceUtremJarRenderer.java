@@ -48,8 +48,6 @@ public class EssenceUtremJarRenderer implements BlockEntityRenderer<EssenceUtrem
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 
         renderState.essenceStorage = blockEntity.getEssenceStorage();
-        renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
-        renderState.rotateAnimation.copyFrom(blockEntity.rotateAnimation);
     }
 
     @Override
