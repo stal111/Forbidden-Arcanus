@@ -1,11 +1,10 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
-import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.logging.LogUtils;
 import com.stal111.forbidden_arcanus.client.particle.EssenceDropParticleOption;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
+import com.stal111.forbidden_arcanus.common.essence.EssencePath;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
@@ -13,13 +12,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -27,14 +25,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 import org.joml.Vector3fc;
+import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,6 +39,8 @@ import java.util.Map;
  * @since 03.06.2024
  */
 public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEntityAgeAccess {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     private static final Map<EssenceType, Holder<PoiType>> ESSENCE_TYPE_TO_POI_TYPE = Map.of(
             EssenceType.AUREAL, ModPOITypes.AUREAL_UTREM_JAR,
@@ -56,7 +55,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
     public final AnimationState transformAnimation = new AnimationState();
     public final AnimationState rotateAnimation = new AnimationState();
 
-    private @Nullable ParticlePath particlePath;
+    private @Nullable EssencePath essencePath;
 
     private @Nullable HephaestusForgeBlockEntity forgeBlockEntity;
     private @Nullable EssenceStorageBlockEntity jarBlockEntity;
@@ -78,11 +77,11 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
 
         blockEntity.ageInTicks++;
 
-        ParticlePath particlePath = blockEntity.particlePath;
-        if (particlePath != null && blockEntity.ageInTicks % 10 == 0) {
-            BlockPos jarPos = particlePath.start;
+        EssencePath essencePath = blockEntity.essencePath;
+        if (essencePath != null && blockEntity.ageInTicks % 10 == 0) {
+            Vector3fc start = essencePath.path().getFirst();
 
-            level.addParticle(new EssenceDropParticleOption(particlePath.essenceType, particlePath.get(level.getRandom())), jarPos.getX() + 0.5, jarPos.getY() + 0.5, jarPos.getZ() + 0.5, 0, 0, 0);
+            level.addParticle(new EssenceDropParticleOption(essencePath), start.x(), start.y(), start.z(), 0, 0, 0);
         }
     }
 
@@ -122,8 +121,8 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
 
     private void transferEssence(ServerLevel level, BlockPos pos) {
         if (this.forgeBlockEntity == null || this.jarBlockEntity == null || this.jarBlockEntity.getEssenceStorage().isEmpty()) {
-            if (this.particlePath != null) {
-                this.particlePath = null;
+            if (this.essencePath != null) {
+                this.essencePath = null;
 
                 level.sendBlockUpdated(pos, this.getBlockState(), this.getBlockState(), 3);
             }
@@ -133,7 +132,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
 
         EssenceType essenceType = this.jarBlockEntity.getBlockState().getValue(ModBlockStateProperties.ESSENCE_TYPE);
 
-        this.particlePath = new ParticlePath(essenceType, this.jarBlockEntity.getBlockPos(), this.forgeBlockEntity.getBlockPos());
+        this.essencePath = EssencePath.create(essenceType, this.jarBlockEntity.getBlockPos(), this.forgeBlockEntity.getBlockPos(), level.getRandom());
 
         //Better amount handling & also update the jar when we drain it :3
         int toTransfer = Math.min(5, this.jarBlockEntity.getEssenceStorage().amount());
@@ -169,15 +168,13 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
-        CompoundTag tag = super.getUpdateTag(provider);
+        try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), LOGGER)) {
+            TagValueOutput output = TagValueOutput.createWithoutContext(reporter);
 
-        tag.putBoolean("has_particle_path", this.particlePath != null);
+            output.storeNullable("essence_path", EssencePath.CODEC.codec(), this.essencePath);
 
-        if (this.particlePath != null) {
-            ParticlePath.CODEC.encodeStart(NbtOps.INSTANCE, this.particlePath).result().ifPresent(particlePath -> tag.put("particle_path", particlePath));
+            return output.buildResult();
         }
-
-        return tag;
     }
 
     @Override
@@ -189,63 +186,11 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
     public void handleUpdateTag(ValueInput input) {
         super.handleUpdateTag(input);
 
-        this.particlePath = input.read("particle_path", ParticlePath.CODEC).orElse(null);
-        System.out.printf("Particle Path: %s%n", this.particlePath);
+        this.essencePath = input.read("essence_path", EssencePath.CODEC.codec()).orElse(null);
     }
 
     @Override
     public int getAgeInTicks() {
         return this.ageInTicks;
-    }
-
-    static class ParticlePath {
-
-        public static final Codec<ParticlePath> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                EssenceType.CODEC.fieldOf("essence_type").forGetter(o -> o.essenceType),
-                BlockPos.CODEC.fieldOf("jar_pos").forGetter(o -> o.start),
-                BlockPos.CODEC.fieldOf("forge_pos").forGetter(o -> o.end)
-        ).apply(instance, ParticlePath::new));
-
-        private final EssenceType essenceType;
-        private final BlockPos start;
-        private final BlockPos end;
-
-        private List<Vector3fc> particlePath;
-
-        public ParticlePath(EssenceType essenceType, BlockPos jarPos, BlockPos forgePos) {
-            this.essenceType = essenceType;
-            this.start = jarPos;
-            this.end = forgePos;
-        }
-
-        public List<Vector3fc> get(RandomSource random) {
-            if (this.particlePath == null) {
-                this.particlePath = this.calculatePath(random);
-            }
-
-            return this.particlePath;
-        }
-
-        private List<Vector3fc> calculatePath(RandomSource random) {
-            Vector3f direction = new Vector3f(this.end.getX() - this.start.getX(), this.end.getY() + 0.4F - this.start.getY(), this.end.getZ() - this.start.getZ());
-            double distance = direction.length();
-            direction.normalize();
-
-            Vector3f vertical = new Vector3f(0, 1, 0);
-            float displacementStrength = random.nextFloat() + 0.5F;
-
-            List<Vector3f> path = new ArrayList<>();
-
-            for (float i = 0; i < distance; i += 0.3F) {
-                Vector3f currentPos = new Vector3f(this.start.getX() + 0.5F, this.start.getY() + 0.5F, this.start.getZ() + 0.5F).add(new Vector3f(direction).mul(i));
-                float angle = (float) (i * Math.PI / distance);
-                Vector3f displacement = new Vector3f(vertical).mul((float) (Math.sin(angle) * displacementStrength));
-                Vector3f particlePos = currentPos.add(displacement);
-
-                path.add(particlePos);
-            }
-
-            return ImmutableList.copyOf(path);
-        }
     }
 }

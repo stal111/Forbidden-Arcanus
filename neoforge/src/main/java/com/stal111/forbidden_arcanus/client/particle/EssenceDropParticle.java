@@ -65,7 +65,7 @@ public class EssenceDropParticle extends SingleQuadParticle {
 
         @Override
         public Particle createParticle(EssenceDropParticleOption particleType, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
-            return new EssenceDropParticle(level, x, y, z, this.spriteSet.get(random), particleType.path());
+            return new EssenceDropParticle(level, x, y, z, this.spriteSet.get(random), particleType.path().path());
         }
     }
 }
