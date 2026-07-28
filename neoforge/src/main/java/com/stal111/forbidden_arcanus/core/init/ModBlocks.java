@@ -185,6 +185,7 @@ public class ModBlocks implements RegistryClass {
 
     public static final BlockRegistryEntry<UtremJarBlock> UTREM_JAR = HELPER.register("utrem_jar", UtremJarBlock::new, () -> Block.Properties.ofLegacyCopy(Blocks.GLASS).overrideDescription(UtremJarBlock.DESCRIPTION_ID));
     public static final BlockRegistryEntry<EssenceUtremJarBlock> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", EssenceUtremJarBlock::new, () -> Block.Properties.ofLegacyCopy(Blocks.GLASS).overrideDescription(UtremJarBlock.DESCRIPTION_ID).lightLevel(state -> state.getValue(ModBlockStateProperties.ESSENCE_TYPE).getLightEmission()));
+    public static final BlockRegistryEntry<EssenceCauldronBlock> ESSENCE_CAULDRON = HELPER.register("essence_cauldron", EssenceCauldronBlock::new, () -> Block.Properties.ofLegacyCopy(Blocks.CAULDRON).overrideDescription(Blocks.CAULDRON.getDescriptionId()));
 
     public static final BlockRegistryEntry<Block> BLACK_HOLE = HELPER.register("black_hole", BlackHoleBlock::new, () -> Block.Properties.ofLegacyCopy(Blocks.STONE).strength(2.0F, 8.0F).noOcclusion());
     public static final BlockRegistryEntry<ChainBlock> DEORUM_CHAIN = HELPER.register("deorum_chain", ChainBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(Blocks.IRON_CHAIN)).withItem();

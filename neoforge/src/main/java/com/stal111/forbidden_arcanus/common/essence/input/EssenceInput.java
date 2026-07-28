@@ -16,7 +16,7 @@ public interface EssenceInput {
     static Optional<EssenceInput> findValidInput(ItemStack stack, EssenceType essenceType) {
         return FARegistries.ESSENCE_INPUT_REGISTRY.listElements()
                 .map(Holder.Reference::value)
-                .filter(forgeInput -> forgeInput.isValidInput(stack, essenceType))
+                .filter(input -> input.isValidInput(stack, essenceType))
                 .findFirst();
     }
 

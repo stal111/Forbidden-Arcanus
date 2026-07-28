@@ -2,7 +2,8 @@ package com.stal111.forbidden_arcanus.client.renderer.special;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.client.renderer.block.EssenceUtremJarRenderer;
+import com.stal111.forbidden_arcanus.client.renderer.block.EssenceStorageRenderer;
+import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
@@ -16,12 +17,12 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public record EssenceUtremJarSpecialRenderer(
-        EssenceUtremJarRenderer essenceUtremJarRenderer
+        EssenceStorageRenderer essenceStorageRenderer
 ) implements SpecialModelRenderer<EssenceStorage> {
 
     @Override
     public void submit(@Nullable EssenceStorage essenceStorage, PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor) {
-        this.essenceUtremJarRenderer.submitSpecial(poseStack, nodeCollector, lightCoords, overlayCoords, Objects.requireNonNullElse(essenceStorage, EssenceStorages.UTREM_JAR_FALLBACK));
+        this.essenceStorageRenderer.submitSpecial(poseStack, nodeCollector, lightCoords, overlayCoords, Objects.requireNonNullElse(essenceStorage, EssenceStorages.UTREM_JAR_FALLBACK), EssenceUtremJarBlockEntity.ESSENCE_RENDER_BOUNDS);
     }
 
     @Override
@@ -40,7 +41,7 @@ public record EssenceUtremJarSpecialRenderer(
 
         @Override
         public SpecialModelRenderer<EssenceStorage> bake(BakingContext context) {
-            return new EssenceUtremJarSpecialRenderer(new EssenceUtremJarRenderer());
+            return new EssenceUtremJarSpecialRenderer(new EssenceStorageRenderer());
         }
 
         @Override

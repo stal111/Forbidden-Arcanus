@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-10T20:44:50.5970553	Model Definitions - forbidden_arcanus
+// 26.1.2	2026-07-27T22:29:50.4895306	Model Definitions - forbidden_arcanus
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -72,6 +72,7 @@ e021d52dc14237f195cc00b0f4477a54b1e0e7d7 assets/forbidden_arcanus/blockstates/ed
 2bf2def2607dd7510b2a0f0850dede2b2be45734 assets/forbidden_arcanus/blockstates/edelwood_slab.json
 1db48208894b5503de4171a7b9c47ef002992aed assets/forbidden_arcanus/blockstates/edelwood_stairs.json
 7bb0d6775bd06f28ee2850081d0e24730dbacb74 assets/forbidden_arcanus/blockstates/edelwood_trapdoor.json
+c12d7567fdfa06ce3cd78a13a224d6794375ac1b assets/forbidden_arcanus/blockstates/essence_cauldron.json
 a6f371187045f768b97b2771cd2258e403b33464 assets/forbidden_arcanus/blockstates/essence_utrem_jar.json
 94ee00eebd82061338b6db439a84b3fdf98f3942 assets/forbidden_arcanus/blockstates/eternal_obsidian_skull.json
 94ee00eebd82061338b6db439a84b3fdf98f3942 assets/forbidden_arcanus/blockstates/eternal_obsidian_wall_skull.json

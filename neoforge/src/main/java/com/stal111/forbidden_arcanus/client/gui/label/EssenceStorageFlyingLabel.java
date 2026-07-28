@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.client.gui.label;
 
-import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.EssenceStorageBlockEntity;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
@@ -16,14 +16,14 @@ import net.minecraft.world.phys.BlockHitResult;
  * @author stal111
  * @since 08.05.2024
  */
-public class JarFlyingLabel implements BlockFlyingLabel {
+public class EssenceStorageFlyingLabel implements BlockFlyingLabel {
 
     @Override
     public void render(GuiGraphicsExtractor guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, BlockHitResult result) {
         BlockPos pos = result.getBlockPos();
         Level level = Minecraft.getInstance().level;
 
-        if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
+        if (level.getBlockEntity(pos) instanceof EssenceStorageBlockEntity blockEntity) {
             EssenceStorage storage = blockEntity.getEssenceStorage();
             Component component = storage.asComponent(ChatFormatting.WHITE);
             int width = Minecraft.getInstance().font.width(component.getVisualOrderText());

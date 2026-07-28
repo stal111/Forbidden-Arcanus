@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-10T20:44:50.5930553	Loot Tables
+// 26.1.2	2026-07-27T22:29:50.4853963	Loot Tables
 a74de49c44b22dd0556c591b9e243d9b76dc514c data/forbidden_arcanus/loot_table/blocks/additions/spawner_scrap_addition.json
 0a60ee0f0c874a779c8a5020ab781a2d34f9de33 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_block.json
 6ee2651059f7e26158de69b8a75f6697e1905f21 data/forbidden_arcanus/loot_table/blocks/arcane_crystal_obelisk.json
@@ -70,6 +70,7 @@ e01228eec9d32212d213a6104466301641139834 data/forbidden_arcanus/loot_table/block
 f902d1fb2f1537ef33db3920a0c69903a3a3da8c data/forbidden_arcanus/loot_table/blocks/edelwood_slab.json
 039df063b3a14ecc2449f48e4e1ab702e61b8e92 data/forbidden_arcanus/loot_table/blocks/edelwood_stairs.json
 cec8f61231e9538e012282e6ccab1882672d06c4 data/forbidden_arcanus/loot_table/blocks/edelwood_trapdoor.json
+2ac0c0c9d1fda573550dfde8267d1e7cf7056923 data/forbidden_arcanus/loot_table/blocks/essence_cauldron.json
 1f463dbac17d58c8ff838758e859f2ab8fd95142 data/forbidden_arcanus/loot_table/blocks/essence_utrem_jar.json
 c9b047b3b7a728406e95c7dc0c204cd4da51f678 data/forbidden_arcanus/loot_table/blocks/fading_obsidian_skull.json
 858a0b1266fbc81989c37361442d1eeefb8711ce data/forbidden_arcanus/loot_table/blocks/fading_obsidian_wall_skull.json

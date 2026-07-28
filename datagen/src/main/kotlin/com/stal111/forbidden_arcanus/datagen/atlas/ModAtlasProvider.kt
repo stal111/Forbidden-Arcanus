@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.datagen.atlas
 
 import com.stal111.forbidden_arcanus.client.renderer.block.BlackHoleRenderer
-import com.stal111.forbidden_arcanus.client.renderer.block.EssenceUtremJarRenderer
 import com.stal111.forbidden_arcanus.client.renderer.block.QuantumInjectorRenderer
 import com.stal111.forbidden_arcanus.client.renderer.block.ResearchDeskRenderer
 import com.stal111.forbidden_arcanus.client.renderer.effect.MagicCircleRenderer
@@ -29,7 +28,6 @@ class ModAtlasProvider(val context: DataProviderContext) : AtlasProvider(context
         SingleFile(QuantumInjectorRenderer.TEXTURE_MATERIAL.texture()),
         SingleFile(QuantumInjectorRenderer.LAYER_MATERIAL.texture()),
         SingleFile(ResearchDeskRenderer.TEXTURE_MATERIAL.texture()),
-        SingleFile(EssenceUtremJarRenderer.TEXTURE.texture()),
         DirectoryLister(BlackHoleRenderer.MAPPER.prefix, BlackHoleRenderer.MAPPER.prefix + "/"),
         DirectoryLister(MagicCircleRenderer.MAPPER.prefix, MagicCircleRenderer.MAPPER.prefix + "/"),
     )

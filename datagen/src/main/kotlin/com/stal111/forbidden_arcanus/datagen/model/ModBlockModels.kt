@@ -30,6 +30,7 @@ import net.minecraft.client.renderer.item.ItemModel
 import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.Direction
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.RotatedPillarBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.valhelsia.dataforge.model.BlockModelGenerator
@@ -105,6 +106,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
         this.createObelisk(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_OBELISK.get())
         this.createUtremJar(ModBlocks.UTREM_JAR.get())
         this.createEssenceUtremJar()
+        defaultGenerators.createNonTemplateModelBlock(ModBlocks.ESSENCE_CAULDRON.get(), Blocks.CAULDRON)
 
         this.createPillar(ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get())
         defaultGenerators.createNonTemplateModelBlock(ModBlocks.QUANTUM_CORE.get())

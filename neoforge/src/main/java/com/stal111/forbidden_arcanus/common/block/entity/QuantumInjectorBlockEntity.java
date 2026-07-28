@@ -59,7 +59,7 @@ public class QuantumInjectorBlockEntity extends BlockEntity implements BlockEnti
     private @Nullable ParticlePath particlePath;
 
     private @Nullable HephaestusForgeBlockEntity forgeBlockEntity;
-    private @Nullable EssenceUtremJarBlockEntity jarBlockEntity;
+    private @Nullable EssenceStorageBlockEntity jarBlockEntity;
 
     private boolean playAnimation = false;
     private int ageInTicks;

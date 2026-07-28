@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
-import com.stal111.forbidden_arcanus.client.gui.label.JarFlyingLabel;
+import com.stal111.forbidden_arcanus.client.gui.label.EssenceStorageFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.QuantumCatcherFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlyingLabelOverlay;
@@ -60,7 +60,8 @@ public class ClientSetup {
 
         helper.registerBlockEntityRenderer(ModBlockEntities.PEDESTAL, PedestalRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.BLACK_HOLE, BlackHoleRenderer::new);
-        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, context -> new EssenceUtremJarRenderer());
+        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_UTREM_JAR, _ -> new EssenceStorageRenderer());
+        helper.registerBlockEntityRenderer(ModBlockEntities.ESSENCE_CAULDRON, _ -> new EssenceStorageRenderer());
         helper.registerBlockEntityRenderer(ModBlockEntities.HEPHAESTUS_FORGE, HephaestusForgeRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.RESEARCH_DESK, ResearchDeskRenderer::new);
         helper.registerBlockEntityRenderer(ModBlockEntities.WAND_DESK, WandDeskRenderer::new);
@@ -124,7 +125,7 @@ public class ClientSetup {
 //            });
         });
 
-        FLYING_LABELS.add(new JarFlyingLabel());
+        FLYING_LABELS.add(new EssenceStorageFlyingLabel());
         FLYING_LABELS.add(new QuantumCatcherFlyingLabel());
     }
 

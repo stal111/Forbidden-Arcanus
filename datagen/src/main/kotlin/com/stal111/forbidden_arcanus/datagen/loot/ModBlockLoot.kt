@@ -199,6 +199,7 @@ class ModBlockLoot(
             )
         }
         add(ModBlocks.ESSENCE_UTREM_JAR.get()) { createUtremJarDrops(it) }
+        dropOther(ModBlocks.ESSENCE_CAULDRON.get(), Blocks.CAULDRON)
         add(ModBlocks.CLIBANO_CENTER.get()) { createClibanoFrameTable() }
         add(ModBlocks.CLIBANO_CORNER.get()) { createClibanoFrameTable() }
         add(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get()) { createClibanoFrameTable() }
