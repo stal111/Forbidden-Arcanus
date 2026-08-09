@@ -35,7 +35,7 @@
     "block.forbidden_arcanus.chiseled_arcane_polished_darkstone": "Pedra Sombria Polida Arcana Cinzelada",
     "block.forbidden_arcanus.arcane_polished_darkstone_pillar": "Pilar de Pedra Sombria Polida Arcana",
     "block.forbidden_arcanus.arcane_polished_darkstone_rod": "Haste de Pedra Sombria Polida Arcana",
-    
+
     "block.forbidden_arcanus.darkstone_pedestal": "Pedestal de Pedra Sombria",
     "block.forbidden_arcanus.magnetized_darkstone_pedestal": "Pedestal de Pedra Sombria Magnetizado",
     "block.forbidden_arcanus.clibano_core": "Núcleo de Clibano",
@@ -158,7 +158,7 @@
     "block.forbidden_arcanus.magical_farmland": "Terra Arada Mágica",
     "block.forbidden_arcanus.black_hole": "Buraco Negro",
     "block.forbidden_arcanus.deorum_chain": "Corrente de Deorum",
-    
+
     "block.forbidden_arcanus.obsidian_skull": "Crânio de Obsidiana",
     "block.forbidden_arcanus.eternal_obsidian_skull": "Crânio de Obsidiana Eterno",
     "block.forbidden_arcanus.utrem_jar": "Jarro Utrem",
@@ -309,8 +309,8 @@
     "item.forbidden_arcanus.iron_blacksmith_gavel": "Martelo de Ferreiro de Ferro",
     "item.forbidden_arcanus.diamond_blacksmith_gavel": "Martelo de Ferreiro de Diamante",
     "item.forbidden_arcanus.netherite_blacksmith_gavel": "Martelo de Ferreiro de Netherita",
-    "item.forbidden_arcanus.deorumen_blacksmith_gavel": "Martelo de Ferreiro de Deorum",
-    "item.forbidden_arcanus.reinforced_deorumen_blacksmith_gavel": "Martelo de Ferreiro de Deorum Reforçado",
+    "item.forbidden_arcanus.deorum_blacksmith_gavel": "Martelo de Ferreiro de Deorum",
+    "item.forbidden_arcanus.reinforced_deorum_blacksmith_gavel": "Martelo de Ferreiro de Deorum Reforçado",
     "item.forbidden_arcanus.artisan_relic": "Relíquia do Artesão",
     "item.forbidden_arcanus.crescent_moon": "Lua Crescente",
     "item.forbidden_arcanus.crimson_stone": "Pedra Carmesim",
@@ -339,7 +339,7 @@
     "item.forbidden_arcanus.smithing_template.darkstone_upgrade.ingredients": "Modificador de Item",
 
     "upgrade.forbidden_arcanus.darkstone_upgrade": "Aplicar Modificador de Item",
-    
+
     "comment.tooltips": "---Dicas de ferramentas---",
     "tooltip.forbidden_arcanus.forbiddenmicon": "O Forbiddenmicon poderá ser lido em breve",
     "tooltip.forbidden_arcanus.obsidian_skull": "Pode salvá-lo de dano de fogo por até 30 segundos.",
@@ -369,7 +369,7 @@
     "enchantment.forbidden_arcanus.indestructible": "Indestrutível",
 
     "entity.forbidden_arcanus.lost_soul": "Alma Perdida",
-    
+
     "comment.enchantment.descriptions": "---Descrições de encantamentos---",
     "enchantment.forbidden_arcanus.permafrost.desc": "Permite que um balde de madeira ancestral transporte lava com segurança.",
 
@@ -378,7 +378,7 @@
     "modifier.forbidden_arcanus.magnetized": "Magnetizado",
     "modifier.forbidden_arcanus.demolishing": "Demolidor",
     "modifier.forbidden_arcanus.aquatic": "Aquático",
-    
+
     "forbiddenmicon": "Forbiddenmicon",
     "forbiddenmicon.category.main": "Principal",
     "forbiddenmicon.category.items": "Itens",
@@ -391,13 +391,16 @@
     "forbiddenmicon.recipe.smelting.smoker": "Defumador",
     "forbiddenmicon.recipe.smelting.blast_furnace": "Alto-forno",
 
+    "forbidden_arcanus.aureal": "Aureal",
+    "forbidden_arcanus.corruption": "Corrupção",
+
     "forbidden_arcanus.essence.aureal": "Aureal",
     "forbidden_arcanus.essence.souls": "Almas",
     "forbidden_arcanus.essence.blood": "Sangue",
     "forbidden_arcanus.essence.experience": "Experiência",
 
     "guis_comment": "Guis",
-    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at_level": "Desbloqueado no nível",
+    "gui.forbidden_arcanus.hephaestus_forge.unlocked_at": "Desbloqueado no nível",
     "gui.forbidden_arcanus.clibano.residue_fullness": "Plenitude de Resíduos",
     "gui.forbidden_arcanus.clibano.residue.gold": "Ouro",
     "gui.forbidden_arcanus.clibano.residue.iron": "Ferro",
@@ -411,12 +414,12 @@
     "jei.forbidden_arcanus.category.hephaestus_smithing": "Forja de Hefesto",
     "jei.forbidden_arcanus.category.hephaestus_forge_upgrading": "Aprimoramento na Forja de Hefesto",
     "jei.forbidden_arcanus.category.clibanoCombustion": "Combustão de Clibano",
-    
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredLevel": "Nível de forja necessário",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredAureal": "Aureal necessário",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredSouls": "Almas necessárias",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredBlood": "Sangue necessário",
-    "jei.forbidden_arcanus.hephaestusSmithing.requiredExperience": "Experiência necessária",
+
+    "jei.forbidden_arcanus.hephaestusSmithing.required_tier": "Nível de forja necessário",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_aureal": "Aureal necessário",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_souls": "Almas necessárias",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_blood": "Sangue necessário",
+    "jei.forbidden_arcanus.hephaestusSmithing.required_experience": "Experiência necessária",
 
     "jei.forbidden_arcanus.clibanoCombustion.residue": "Resíduo"
 }
