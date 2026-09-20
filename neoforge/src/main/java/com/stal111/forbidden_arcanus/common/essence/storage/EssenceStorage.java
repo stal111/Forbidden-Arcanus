@@ -85,15 +85,15 @@ public record EssenceStorage(EssenceType type, int amount, int limit) implements
     }
 
     public EssenceStorage addEssence(int amount) {
-        return new EssenceStorage(this.type, Math.min(this.amount + amount, this.limit), this.limit);
+        return this.setAmount(this.amount + amount);
     }
 
     public EssenceStorage setAmount(int amount) {
-        return new EssenceStorage(this.type, Math.min(amount, this.limit), this.limit);
+        return new EssenceStorage(this.type, Math.clamp(amount, 0, this.limit), this.limit);
     }
 
     public EssenceStorage setLimit(int limit) {
-        return new EssenceStorage(this.type, Math.min(this.amount, limit), limit);
+        return new EssenceStorage(this.type, Math.clamp(this.amount, 0, limit), limit);
     }
 
     public boolean isFull() {

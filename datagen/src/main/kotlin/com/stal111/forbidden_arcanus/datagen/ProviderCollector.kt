@@ -62,7 +62,8 @@ class ProviderCollector : DataCollector() {
                 ::StonecutterRecipeProvider,
                 ::ApplyModifierRecipeProvider,
                 ::SpecialRecipesProvider,
-                ::ClibanoRecipeProvider
+                ::ClibanoRecipeProvider,
+                ::EssenceTransformRecipeProvider
             )
         )
         addServerProvider(

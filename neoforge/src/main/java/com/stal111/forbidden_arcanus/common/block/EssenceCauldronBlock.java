@@ -6,8 +6,12 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -84,6 +88,17 @@ public class EssenceCauldronBlock extends Block implements EntityBlock {
     @Override
     protected boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
+    }
+
+    @Override
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
+        if (level instanceof ServerLevel serverLevel && entity instanceof ItemEntity itemEntity && itemEntity.verticalCollisionBelow) {
+            level.getBlockEntity(pos, ModBlockEntities.ESSENCE_CAULDRON.get()).ifPresent(blockEntity -> {
+                blockEntity.tryTransformItem(serverLevel, itemEntity.getItem());
+            });
+        }
+
+        super.entityInside(state, level, pos, entity, effectApplier, isPrecise);
     }
 
     @Override
