@@ -1,0 +1,11 @@
+{
+  "type": "forbidden_arcanus:essence_transform",
+  "essence": {
+    "type": "aureal",
+    "amount": 84
+  },
+  "input": "#forbidden_arcanus:essence_transform/fungyss_ingredient",
+  "result": {
+    "id": "forbidden_arcanus:fungyss"
+  }
+}

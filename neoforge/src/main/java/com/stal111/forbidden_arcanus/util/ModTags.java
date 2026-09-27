@@ -59,6 +59,9 @@ public class ModTags {
         public static final TagKey<Item> ARCANE_CRYSTAL_ORES = modTag("arcane_crystal_ores");
 
         public static final TagKey<Item> RECEIVES_BLOOD = modTag("receives_blood");
+        public static final TagKey<Item> ESSENCE_TRANSFORMS_INTO_GROWING_EDELWOOD = modTag("essence_transform/growing_edelwood_ingredient");
+        public static final TagKey<Item> ESSENCE_TRANSFORMS_INTO_AURUM_SAPLING = modTag("essence_transform/aurum_sapling_ingredient");
+        public static final TagKey<Item> ESSENCE_TRANSFORMS_INTO_FUNGYSS = modTag("essence_transform/fungyss_ingredient");
 
         public static final TagKey<Item> REPAIRS_DRACO_ARCANUS_ARMOR = modTag("repairs_draco_arcanus_armor");
         public static final TagKey<Item> REPAIRS_TYR_ARMOR = modTag("repairs_tyr_armor");

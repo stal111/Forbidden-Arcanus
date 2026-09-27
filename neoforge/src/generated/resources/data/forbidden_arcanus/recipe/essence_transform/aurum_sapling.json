@@ -1,0 +1,11 @@
+{
+  "type": "forbidden_arcanus:essence_transform",
+  "essence": {
+    "type": "aureal",
+    "amount": 58
+  },
+  "input": "#forbidden_arcanus:essence_transform/aurum_sapling_ingredient",
+  "result": {
+    "id": "forbidden_arcanus:aurum_sapling"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "forbidden_arcanus:essence_transform",
+  "essence": {
+    "type": "aureal",
+    "amount": 65
+  },
+  "input": "minecraft:blue_orchid",
+  "result": {
+    "id": "forbidden_arcanus:yellow_orchid"
+  }
+}

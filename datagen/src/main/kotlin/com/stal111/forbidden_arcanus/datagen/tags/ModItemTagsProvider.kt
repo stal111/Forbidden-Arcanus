@@ -69,6 +69,9 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
         this.tag(ItemTags.FOOT_ARMOR).add(ModItems.DRACO_ARCANUS_BOOTS.get(), ModItems.TYR_BOOTS.get())
 
         tag(ModTags.Items.RECEIVES_BLOOD).add(ModItems.BLOOD_TEST_TUBE.get())
+        tag(ModTags.Items.ESSENCE_TRANSFORMS_INTO_GROWING_EDELWOOD).add(Items.DEAD_BUSH, Items.DARK_OAK_SAPLING, Items.PALE_OAK_SAPLING)
+        tag(ModTags.Items.ESSENCE_TRANSFORMS_INTO_AURUM_SAPLING).add(Items.OAK_SAPLING, Items.BIRCH_SAPLING)
+        tag(ModTags.Items.ESSENCE_TRANSFORMS_INTO_FUNGYSS).add(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM)
 
         this.tag(ModTags.Items.ETERNAL_INCOMPATIBLE).add(Items.ELYTRA)
         this.tag(ModTags.Items.FIERY_INCOMPATIBLE)

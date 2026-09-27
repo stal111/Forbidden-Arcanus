@@ -2,9 +2,9 @@
   "type": "forbidden_arcanus:essence_transform",
   "essence": {
     "type": "ectoplasm",
-    "amount": 100
+    "amount": 76
   },
-  "input": "minecraft:dead_bush",
+  "input": "#forbidden_arcanus:essence_transform/growing_edelwood_ingredient",
   "result": {
     "id": "forbidden_arcanus:growing_edelwood"
   }
