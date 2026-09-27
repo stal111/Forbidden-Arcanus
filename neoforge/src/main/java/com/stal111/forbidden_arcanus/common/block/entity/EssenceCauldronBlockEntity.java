@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 public class EssenceCauldronBlockEntity extends EssenceStorageBlockEntity {
 
     public static final AABB ESSENCE_RENDER_BOUNDS = EssenceCauldronBlock.SHAPE_INSIDE.bounds().contract(0.0, 1.0 / 16.0, 0.0);
-    public static final int DEFAULT_CAPACITY = 5000;
+    public static final int DEFAULT_CAPACITY = 3000;
 
     public EssenceCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ESSENCE_CAULDRON.get(), pos, state);
