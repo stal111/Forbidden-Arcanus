@@ -57,7 +57,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> ASTERITE_INGOT = HELPER.register("asterite_ingot", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> STYGIAN_STEEL_INGOT = HELPER.register("stygian_steel_ingot", Item::new, () -> new Item.Properties().delayedHolderComponent(ModDataComponents.PROVIDES_WAND_MATERIAL.get(), BuiltinWandMaterials.STYGIAN_STEEL));
     public static final ItemRegistryEntry<Item> SOUL = HELPER.register("soul", Item::new, () -> new Item.Properties().component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.ECTOPLASM, 1)));
-    public static final ItemRegistryEntry<DarkSoulItem> CORRUPT_SOUL = HELPER.register("corrupt_soul", DarkSoulItem::new, () -> new Item.Properties().component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.ECTOPLASM, 1)));
+    public static final ItemRegistryEntry<Item> CORRUPT_SOUL = HELPER.register("corrupt_soul", Item::new, () -> new Item.Properties().component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.ECTOPLASM, 1)));
     public static final ItemRegistryEntry<Item> ENCHANTED_SOUL = HELPER.register("enchanted_soul", Item::new, () -> new Item.Properties().component(ModDataComponents.ESSENCE_VALUE, EssenceValue.of(EssenceType.ECTOPLASM, 10)));
     public static final ItemRegistryEntry<Item> RUNE = HELPER.register("rune", Item::new, () -> new Item.Properties().delayedHolderComponent(ModDataComponents.PROVIDES_WAND_MATERIAL.get(), BuiltinWandMaterials.RUNE));
     public static final ItemRegistryEntry<Item> ENDER_PEARL_FRAGMENT = HELPER.register("ender_pearl_fragment", Item::new, Item.Properties::new);
