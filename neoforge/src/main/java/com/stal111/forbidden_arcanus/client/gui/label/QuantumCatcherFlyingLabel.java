@@ -6,14 +6,14 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.EntityHitResult;
+
+import java.util.function.Consumer;
 
 /**
  * @author stal111
@@ -22,25 +22,16 @@ import net.minecraft.world.phys.EntityHitResult;
 public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
 
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, ItemStack stack, DeltaTracker deltaTracker, int centerX, int centerY, EntityHitResult result) {
-        Minecraft minecraft = Minecraft.getInstance();
-        Entity entity = result.getEntity();
-
+    public void getComponents(ClientLevel level, LocalPlayer player, ItemStack stack, Entity entity, Consumer<Component> adder) {
         if (!(entity instanceof LivingEntity livingEntity)) {
             return;
         }
 
         if (!stack.has(ModDataComponents.STORED_ENTITY) && stack.getItem() instanceof QuantumCatcherItem item && item.isValidEntity(livingEntity)) {
-            EssenceHelper.getEssenceAccess(minecraft.player).ifPresent(provider -> {
+            EssenceHelper.getEssenceAccess(player).ifPresent(provider -> {
                 EssenceValue cost = QuantumCatcherItem.calculateAurealCost(livingEntity);
 
-                Component component = cost.asComponent(provider.getEssenceAmount(EssenceType.AUREAL) < cost.amount() ? ChatFormatting.RED : ChatFormatting.WHITE);
-                int width = minecraft.font.width(component.getVisualOrderText()) + 3;
-
-                guiGraphics.fill(centerX - width / 2 - 2, centerY - 20 - 3, centerX + width / 2 + 2, centerY - 10 + 1, 0x44000000);
-                guiGraphics.fill(centerX - width / 2 - 4, centerY - 20 - 5, centerX + width / 2 + 4, centerY - 10 + 3, 0x44000000);
-
-                guiGraphics.text(minecraft.font, component, centerX - width / 2, centerY - 20, -1);
+                adder.accept(cost.asComponent(provider.getEssenceAmount(EssenceType.AUREAL) < cost.amount() ? ChatFormatting.RED : ChatFormatting.WHITE));
             });
         }
     }
