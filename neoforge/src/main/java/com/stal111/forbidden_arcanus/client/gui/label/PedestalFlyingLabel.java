@@ -16,6 +16,10 @@ public class PedestalFlyingLabel implements BlockFlyingLabel {
         if (level.getBlockEntity(pos) instanceof PedestalBlockEntity blockEntity) {
             ItemStack pedestalStack = blockEntity.getStack();
 
+            if (pedestalStack.isEmpty()) {
+                return;
+            }
+
             if (pedestalStack.getCount() > 1) {
                 adder.accept(Component.literal(pedestalStack.getCount() + "x ").append(pedestalStack.getHoverName()));
             } else {

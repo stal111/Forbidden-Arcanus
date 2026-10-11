@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.EssenceStorageFlyingLabel;
+import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.PedestalFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.label.QuantumCatcherFlyingLabel;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
@@ -42,8 +42,8 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.valhelsia.valhelsia_core.api.client.ClientSetupHelper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.DETAILED_OBSIDIAN_SKULL;
 import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_SKULL;
@@ -54,7 +54,7 @@ import static com.stal111.forbidden_arcanus.client.model.FAModelLayers.OBSIDIAN_
  */
 public class ClientSetup {
 
-    public static final List<FlyingLabel<?>> FLYING_LABELS = new ArrayList<>();
+    public static final List<FlyingLabel<?>> FLYING_LABELS = new CopyOnWriteArrayList<>();
 
     public ClientSetup(ClientSetupHelper helper, IEventBus modEventBus) {
         Minecraft minecraft = Minecraft.getInstance();
