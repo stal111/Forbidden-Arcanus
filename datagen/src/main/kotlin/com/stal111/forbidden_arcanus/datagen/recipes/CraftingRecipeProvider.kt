@@ -10,6 +10,7 @@ import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder
 import net.minecraft.data.recipes.SingleItemRecipeBuilder
+import net.minecraft.tags.BlockTags
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.flag.FeatureFlags
@@ -37,8 +38,8 @@ class CraftingRecipeProvider(
 
         //Shaped Recipes
         this.shaped(RecipeCategory.DECORATIONS, ModBlocks.UTREM_JAR.get()) {
-            it.pattern("#X#", "# #", "###")
-                .define('#' to Tags.Items.GLASS_BLOCKS_COLORLESS, 'X' to ModBlocks.EDELWOOD_PLANKS.get())
+            it.pattern("#X#", "#G#", "###")
+                .define('#' to Tags.Items.GLASS_BLOCKS_COLORLESS, 'X' to BlockTags.PLANKS, 'G' to Items.GHAST_TEAR)
                 .unlockedBy(Tags.Items.GLASS_BLOCKS_COLORLESS)
         }
         this.shaped(RecipeCategory.MISC, ModItems.ARCANE_CRYSTAL_DUST) {
@@ -47,12 +48,11 @@ class CraftingRecipeProvider(
                 .unlockedBy(ModItems.ARCANE_CRYSTAL_DUST_SPECK)
         }
         this.shaped(RecipeCategory.TOOLS, ModItems.ECTO_BLASTER) {
-            it.pattern("U  ", "##X", "Q  ")
+            it.pattern("U#X", "###", "#  ")
                 .define(
                     'U' to ModBlocks.UTREM_JAR.get(),
-                    '#' to Blocks.NETHER_BRICKS,
-                    'X' to Blocks.QUARTZ_BLOCK,
-                    'Q' to Items.QUARTZ
+                    '#' to Items.IRON_INGOT,
+                    'X' to Items.QUARTZ
                 )
                 .unlockedBy(ModBlocks.UTREM_JAR.get())
         }

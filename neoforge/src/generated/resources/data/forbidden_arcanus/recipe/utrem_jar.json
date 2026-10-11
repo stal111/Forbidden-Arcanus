@@ -3,11 +3,12 @@
   "category": "misc",
   "key": {
     "#": "#c:glass_blocks/colorless",
-    "X": "forbidden_arcanus:edelwood_planks"
+    "G": "minecraft:ghast_tear",
+    "X": "#minecraft:planks"
   },
   "pattern": [
     "#X#",
-    "# #",
+    "#G#",
     "###"
   ],
   "result": {

@@ -2,15 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": "minecraft:nether_bricks",
-    "Q": "minecraft:quartz",
+    "#": "minecraft:iron_ingot",
     "U": "forbidden_arcanus:utrem_jar",
-    "X": "minecraft:quartz_block"
+    "X": "minecraft:quartz"
   },
   "pattern": [
-    "U  ",
-    "##X",
-    "Q  "
+    "U#X",
+    "###",
+    "#  "
   ],
   "result": {
     "id": "forbidden_arcanus:ecto_blaster"
