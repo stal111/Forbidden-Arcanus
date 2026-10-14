@@ -20,11 +20,7 @@ public class PedestalFlyingLabel implements BlockFlyingLabel {
                 return;
             }
 
-            if (pedestalStack.getCount() > 1) {
-                adder.accept(Component.literal(pedestalStack.getCount() + "x ").append(pedestalStack.getHoverName()));
-            } else {
-                adder.accept(pedestalStack.getHoverName());
-            }
+            adder.accept(pedestalStack.getHoverName());
         }
     }
 }

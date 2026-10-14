@@ -54,7 +54,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 
         ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getClientMainItem(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+        this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getMainSlotInventory().getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
         renderState.itemStackRenderState = itemStackRenderState;
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);

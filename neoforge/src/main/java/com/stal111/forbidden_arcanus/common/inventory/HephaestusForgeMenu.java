@@ -37,23 +37,17 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final ContainerData hephaestusForgeData;
     private final ContainerLevelAccess levelAccess;
 
-    private final DataSlot hephaestusForgeLevel = DataSlot.standalone();
-
     public HephaestusForgeMenu(int id, Inventory inventory) {
-        this(id, new SingleSlotResourceHandler(false), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(EssenceType.values()), new SimpleContainerData(4), ContainerLevelAccess.NULL, inventory, HephaestusForgeLevel.ONE);
+        this(id, new SingleSlotResourceHandler(false), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(EssenceType.values()), new SimpleContainerData(5), ContainerLevelAccess.NULL, inventory);
     }
 
-    public HephaestusForgeMenu(int id, SingleSlotResourceHandler mainSlotInventory, EnhancerResourceHandler enhancerInventory, EssenceInputResourceHandler essenceInputInventory, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory, HephaestusForgeLevel level) {
+    public HephaestusForgeMenu(int id, SingleSlotResourceHandler mainSlotInventory, EnhancerResourceHandler enhancerInventory, EssenceInputResourceHandler essenceInputInventory, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory) {
         super(ModMenuTypes.HEPHAESTUS_FORGE.get(), id);
         this.levelAccess = levelAccess;
         this.hephaestusForgeData = containerData;
 
-        checkContainerDataCount(this.hephaestusForgeData, 4);
+        checkContainerDataCount(this.hephaestusForgeData, 5);
         this.addDataSlots(this.hephaestusForgeData);
-        this.addDataSlot(this.hephaestusForgeLevel);
-
-
-        this.hephaestusForgeLevel.set(level.getAsInt());
 
         // Hephaestus Forge Slots
         this.addEnhancerSlot(enhancerInventory, 0, 36, 24, 1);
@@ -74,7 +68,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     private void addEnhancerSlot(ItemStacksResourceHandler handler, int index, int x, int y, int requiredLevel) {
-        this.addSlot(new LockableSlot(handler, index, x, y, () -> this.hephaestusForgeLevel.get() < requiredLevel, Component.translatable(UNLOCKED_AT_KEY, index + 1)));
+        this.addSlot(new LockableSlot(handler, index, x, y, () -> this.getLevel().getAsInt() < requiredLevel, Component.translatable(UNLOCKED_AT_KEY, index + 1)));
     }
 
     @Nonnull
@@ -150,7 +144,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     public HephaestusForgeLevel getLevel() {
-        return HephaestusForgeLevel.getFromIndex(this.hephaestusForgeLevel.get());
+        return HephaestusForgeLevel.values()[this.hephaestusForgeData.get(4)];
     }
 
     public EssenceStorage getEssenceStorage(EssenceType essenceType) {

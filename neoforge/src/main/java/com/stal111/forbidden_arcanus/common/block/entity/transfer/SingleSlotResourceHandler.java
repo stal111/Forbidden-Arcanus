@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class SingleSlotResourceHandler extends ItemStackResourceHandler {
 
-    private static final Consumer<ItemStack> NO_OP_CONSUMER = stack -> {};
+    private static final Consumer<ItemStack> NO_OP_CONSUMER = _ -> {};
 
     private ItemStack stack = ItemStack.EMPTY;
     private final Consumer<ItemStack> onChanged;
