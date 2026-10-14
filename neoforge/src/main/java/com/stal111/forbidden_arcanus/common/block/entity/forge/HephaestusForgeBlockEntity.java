@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitualIndicatorController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.HephaestusForgeState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
@@ -69,6 +70,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     private static final Component NAME = Component.translatable("container.forbidden_arcanus.hephaestus_forge");
 
     private final HephaestusForgeSharedData sharedData;
+    private final HephaestusForgeClientData clientData = new HephaestusForgeClientData();
 
     private final ContainerData hephaestusForgeData;
     private final RitualManager ritualManager;
@@ -79,7 +81,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     private final Map<BlockPos, ItemStack> pedestalItems = new HashMap<>();
 
-    private int displayCounter;
     public int clientRitualDuration;
 
     private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
@@ -148,9 +149,9 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         blockEntity.indicatorController.tick();
-        blockEntity.magicCircleController.tick();
+        blockEntity.clientData.incrementAgeInTicks();
 
-        if (blockEntity.magicCircleController.getMagicCircleType() != null) {
+        if (blockEntity.clientData.getMagicCircleClientData().getMagicCircleType() != null) {
             RandomSource random = level.getRandom();
 
             if (random.nextDouble() < 0.25D) {
@@ -162,8 +163,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
                 level.addParticle(ModParticles.AUREAL_MOTE.get(), x, pos.getY() + 0.15D, z, 0.0D, 0.02D + random.nextDouble() * 0.03D, 0.0D);
             }
         }
-
-        blockEntity.displayCounter++;
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
@@ -192,7 +191,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
             return true;
         } else if (id == UPDATE_MAGIC_CIRCLE) {
-            this.magicCircleController.handleEvent(this.level, this.getBlockPos(), value);
+            this.clientData.getMagicCircleClientData().setMagicCircleType(MagicCircleType.fromRegistry(this.level.registryAccess(), value));
 
             return true;
         } else if (id == UPDATE_RITUAL_DURATION) {
@@ -229,6 +228,10 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 //            this.onDataChanged(this.level.registryAccess());
 //        }
 //    }
+
+    public HephaestusForgeClientData getClientData() {
+        return this.clientData;
+    }
 
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
         if (stack.isEmpty()) {
@@ -352,6 +355,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     @Override
     public int getAgeInTicks() {
-        return this.displayCounter;
+        return this.clientData.getAgeInTicks();
     }
 }

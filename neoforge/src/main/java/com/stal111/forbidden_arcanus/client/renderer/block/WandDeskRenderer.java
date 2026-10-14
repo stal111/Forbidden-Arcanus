@@ -65,7 +65,7 @@ public record WandDeskRenderer(ItemModelResolver itemModelResolver, MagicCircleR
         poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - state.direction.toYRot()));
         poseStack.mulPose(Axis.XN.rotationDegrees(12.5F));
 
-        this.magicCircleRenderer.submit(state.magicCircleRenderState, poseStack, nodeCollector, camera);
+        this.magicCircleRenderer.submit(state.magicCircleRenderState, poseStack, nodeCollector);
 
         poseStack.popPose();
 

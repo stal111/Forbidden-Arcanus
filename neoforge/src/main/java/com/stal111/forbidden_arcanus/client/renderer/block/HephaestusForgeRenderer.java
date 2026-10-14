@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.client.renderer.effect.ValidRitualIndicator
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRenderState;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.ValidRitualIndicatorRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeClientData;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -53,6 +54,8 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     public void extractRenderState(HephaestusForgeBlockEntity blockEntity, HephaestusForgeRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 
+        HephaestusForgeClientData clientData = blockEntity.getClientData();
+
         ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
         this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getMainSlotInventory().getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
@@ -60,7 +63,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
 
         renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.getIndicatorController(), partialTick);
-        renderState.magicCircleRenderState = MagicCircleRenderState.create(renderState.lightCoords, blockEntity.clientRitualDuration, blockEntity.getMagicCircleController(), partialTick);
+        renderState.magicCircleRenderState = MagicCircleRenderState.create(renderState.lightCoords, blockEntity.clientRitualDuration, clientData.getMagicCircleClientData(), partialTick);
     }
 
     @Override
@@ -70,7 +73,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.0D, 0.5D);
 
-        this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector, cameraRenderState);
+        this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector);
 
         if (!renderState.itemStackRenderState.isEmpty()) {
             poseStack.translate(0.0D, 1.3D, 0.0D);

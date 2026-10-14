@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.SpriteMapper;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.sprite.SpriteGetter;
@@ -30,7 +29,7 @@ public class MagicCircleRenderer {
         this.innerRing = new Model.Simple(context.bakeLayer(innerRingLayer), RenderTypes::entityTranslucentEmissive);
     }
 
-    public void submit(MagicCircleRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
+    public void submit(MagicCircleRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector) {
         if (renderState.magicCircleType == null) {
             return;
         }
@@ -54,16 +53,6 @@ public class MagicCircleRenderer {
         nodeCollector.submitModel(this.innerRing, Unit.INSTANCE, poseStack, innerTexture.renderType(this.innerRing::renderType), renderState.lightCoords, OverlayTexture.NO_OVERLAY, -1, this.sprites.get(innerTexture), 0, null);
 
         poseStack.popPose();
-
-        if (progress > 0.9F) {
-//            RandomSource random = this.level.getRandom();
-//
-//            double posX = this.pos.getX() + 0.25D + random.nextFloat() + random.nextInt(4);
-//            double posZ = this.pos.getZ() + 0.25D + random.nextFloat() + random.nextInt(4);
-//            double ySpeed = ((double) random.nextFloat() - 0.4D) * 0.125D;
-//
-//            this.level.addParticle(ModParticles.AUREAL_MOTE.get(), posX - 2.0D, this.pos.getY() + 0.1F, posZ - 2.0D, 0, ySpeed, 0);
-        }
     }
 
     public float easeSineIn(double progress, double start, double change, double duration) {
