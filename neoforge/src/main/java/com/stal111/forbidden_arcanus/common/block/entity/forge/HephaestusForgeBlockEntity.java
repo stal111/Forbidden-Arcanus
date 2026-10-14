@@ -85,7 +85,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public int clientRitualDuration;
     private ItemStack clientMainItem = ItemStack.EMPTY;
 
-    private final SingleSlotResourceHandler mainSlotInventory = new SingleSlotResourceHandler(false, stack -> {
+    private final SingleSlotResourceHandler mainSlotInventory = new SingleSlotResourceHandler(true, _ -> {
         if (this.level != null) {
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         }
