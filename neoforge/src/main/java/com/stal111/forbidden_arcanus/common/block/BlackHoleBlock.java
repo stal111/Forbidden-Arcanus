@@ -98,7 +98,7 @@ public class BlackHoleBlock extends Block implements EntityBlock {
                 entity.hurtServer(serverLevel, serverLevel.damageSources().magic(), 4);
 
                 if (!entity.isAlive() && level.getBlockEntity(pos) instanceof BlackHoleBlockEntity blockEntity) {
-                    blockEntity.extractExperience(entity);
+                    blockEntity.extractExperience(serverLevel, entity);
                 }
             }
         }
@@ -108,14 +108,14 @@ public class BlackHoleBlock extends Block implements EntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        for (int i = 0; i < 3; i++) {
-            int j = random.nextInt(2) * 2 - 1;
-            int k = random.nextInt(2) * 2 - 1;
-            double x = pos.getX() + 0.5D + 0.25D * j;
-            double y = pos.getY() + 0.5D;
-            double z = pos.getZ() + 0.5D + 0.25D * k;
+        for (int i = 0; i < 4; i++) {
+            double angle = random.nextDouble() * Math.PI * 2.0D;
+            double distance = 0.5D + random.nextDouble() * 2.5D;
+            double yOffset = (random.nextDouble() - 0.5D) * 1.5D;
+            double offsetX = Math.cos(angle) * distance;
+            double offsetZ = Math.sin(angle) * distance;
 
-            level.addParticle(ParticleTypes.PORTAL, x, y, z, random.nextFloat() * j, (random.nextFloat() - 0.5D) * 0.125D, random.nextFloat() * k);
+            level.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, offsetX, yOffset, offsetZ);
         }
     }
 }

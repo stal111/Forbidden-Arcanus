@@ -7,6 +7,8 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -92,7 +95,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
         blockEntity.thrownOutItems.removeIf(itemEntity -> !itemEntity.isAlive());
     }
 
-    public void extractExperience(Entity entity) {
+    public void extractExperience(ServerLevel serverLevel, Entity entity) {
         if (entity instanceof ExperienceOrb experienceOrb) {
             this.storedExperience += experienceOrb.getValue();
 
@@ -105,6 +108,12 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
 
                 this.setChanged();
             });
+
+            if (!stack.isEmpty()) {
+                Vec3 center = this.getBlockPos().getCenter();
+
+                serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(stack)), center.x(), center.y(), center.z(), 14, 0.2D, 0.2D, 0.2D, 0.05D);
+            }
         }
     }
 
