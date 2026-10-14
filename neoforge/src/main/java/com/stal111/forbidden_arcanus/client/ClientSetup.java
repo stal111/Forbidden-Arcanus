@@ -1,10 +1,7 @@
 package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.client.gui.label.EssenceStorageFlyingLabel;
-import com.stal111.forbidden_arcanus.client.gui.label.FlyingLabel;
-import com.stal111.forbidden_arcanus.client.gui.label.PedestalFlyingLabel;
-import com.stal111.forbidden_arcanus.client.gui.label.QuantumCatcherFlyingLabel;
+import com.stal111.forbidden_arcanus.client.gui.label.*;
 import com.stal111.forbidden_arcanus.client.gui.overlay.AurealMeterOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.FlyingLabelOverlay;
 import com.stal111.forbidden_arcanus.client.gui.overlay.WandIndicatorLayer;
@@ -129,6 +126,7 @@ public class ClientSetup {
         FLYING_LABELS.add(new EssenceStorageFlyingLabel());
         FLYING_LABELS.add(new QuantumCatcherFlyingLabel());
         FLYING_LABELS.add(new PedestalFlyingLabel());
+        FLYING_LABELS.add(new HephaestusForgeFlyingLabel());
     }
 
     @SubscribeEvent
