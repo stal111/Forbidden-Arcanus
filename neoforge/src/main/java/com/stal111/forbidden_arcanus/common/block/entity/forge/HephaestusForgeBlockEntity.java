@@ -19,6 +19,7 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.MultiEssenceStorage;
 import com.stal111.forbidden_arcanus.common.inventory.HephaestusForgeMenu;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -27,6 +28,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.ItemOwner;
@@ -157,6 +159,19 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         blockEntity.indicatorController.tick();
         blockEntity.magicCircleController.tick();
+
+        if (blockEntity.magicCircleController.getMagicCircleType() != null) {
+            RandomSource random = level.getRandom();
+
+            if (random.nextDouble() < 0.25D) {
+                double angle = random.nextDouble() * Math.PI * 2.0D;
+                double radius = 1.2D + random.nextDouble() * 1.1D;
+                double x = pos.getX() + 0.5D + Math.cos(angle) * radius;
+                double z = pos.getZ() + 0.5D + Math.sin(angle) * radius;
+
+                level.addParticle(ModParticles.AUREAL_MOTE.get(), x, pos.getY() + 0.15D, z, 0.0D, 0.02D + random.nextDouble() * 0.03D, 0.0D);
+            }
+        }
 
         blockEntity.displayCounter++;
     }

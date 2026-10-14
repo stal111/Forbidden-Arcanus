@@ -15,6 +15,7 @@ import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -145,8 +146,9 @@ public class RitualManager {
         this.reset();
 
         ItemStack result = data.finish(this.level, this.pos, this.mainIngredientInventory.getStack());
-
         this.mainIngredientInventory.setStack(result);
+
+        this.level.sendParticles(ModParticles.MAGIC_EXPLOSION.get(), pos.getX() + 0.5D, pos.getY() + 1.4D, pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.0D);
     }
 
     private void failRitual() {
@@ -165,7 +167,12 @@ public class RitualManager {
     }
 
     private void clearPedestals() {
-        this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> blockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED));
+        this.forEachPedestal(PedestalBlockEntity::hasStack, blockEntity -> {
+            blockEntity.clearStack(null, PedestalEffectTrigger.RITUAL_FINISHED);
+
+            BlockPos pos = blockEntity.getBlockPos();
+            level.sendParticles(ParticleTypes.POOF, pos.getX() + 0.5D, pos.getY() + 1.4D, pos.getZ() + 0.5D, 6, 0.12D, 0.12D, 0.12D, 0.02D);
+        });
 
         this.pedestalItems.clear();
     }
