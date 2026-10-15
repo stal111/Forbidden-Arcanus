@@ -4,7 +4,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.ValidRitualIndicatorController;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.HephaestusForgeState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
@@ -63,9 +62,8 @@ import java.util.function.UnaryOperator;
  */
 public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess, MenuProvider {
 
-    public static final int UPDATE_RITUAL_INDICATOR = 1;
-    public static final int UPDATE_MAGIC_CIRCLE = 2;
-    public static final int UPDATE_RITUAL_DURATION = 3;
+    public static final int UPDATE_MAGIC_CIRCLE = 1;
+    public static final int UPDATE_RITUAL_DURATION = 2;
 
     private static final Component NAME = Component.translatable("container.forbidden_arcanus.hephaestus_forge");
 
@@ -74,7 +72,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     private final ContainerData hephaestusForgeData;
     private final RitualManager ritualManager;
-    private final ValidRitualIndicatorController indicatorController = new ValidRitualIndicatorController(UPDATE_RITUAL_INDICATOR);
     private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
 
     private final List<TickEffect> tickEffects = new ArrayList<>();
@@ -122,7 +119,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         };
 
         this.sharedData = new HephaestusForgeSharedData(state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE));
-        this.ritualManager = new RitualManager(this.indicatorController, this.magicCircleController, this.getMainSlotInventory(), this.pedestalItems);
+        this.ritualManager = new RitualManager(this.sharedData, this.magicCircleController, this.getMainSlotInventory(), this.pedestalItems);
 
         this.tickEffects.add(CollectBloodTickEffect.create(this.sharedData));
         this.tickEffects.add(new UpdateBlockStateTickEffect());
@@ -148,8 +145,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        blockEntity.indicatorController.tick();
-        blockEntity.clientData.incrementAgeInTicks();
+        blockEntity.clientData.incrementAgeInTicks(blockEntity.canStartRitual());
 
         if (blockEntity.clientData.getMagicCircleClientData().getMagicCircleType() != null) {
             RandomSource random = level.getRandom();
@@ -186,11 +182,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     @Override
     public boolean triggerEvent(int id, int value) {
-        if (id == UPDATE_RITUAL_INDICATOR) {
-            this.indicatorController.updateIndicator(value == 1);
-
-            return true;
-        } else if (id == UPDATE_MAGIC_CIRCLE) {
+         if (id == UPDATE_MAGIC_CIRCLE) {
             this.clientData.getMagicCircleClientData().setMagicCircleType(MagicCircleType.fromRegistry(this.level.registryAccess(), value));
 
             return true;
@@ -247,12 +239,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.sharedData.updateForgeTier(level);
     }
 
-    public ValidRitualIndicatorController getIndicatorController() {
-        return this.indicatorController;
-    }
-
-    public MagicCircleController getMagicCircleController() {
-        return this.magicCircleController;
+    public boolean canStartRitual() {
+        return this.sharedData.getValidRitual().isPresent();
     }
 
     public SingleSlotResourceHandler getMainSlotInventory() {

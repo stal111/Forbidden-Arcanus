@@ -6,9 +6,11 @@ public class HephaestusForgeClientData {
 
     private final MagicCircleClientData magicCircleClientData = new MagicCircleClientData();
     private int ageInTicks;
+    private int validRitualIndicatorTicks;
 
-    public void incrementAgeInTicks() {
+    public void incrementAgeInTicks(boolean canStartRitual) {
         this.ageInTicks++;
+        this.validRitualIndicatorTicks = canStartRitual ? this.validRitualIndicatorTicks + 1 : 0;
 
         this.magicCircleClientData.incrementAgeInTicks();
     }
@@ -19,5 +21,9 @@ public class HephaestusForgeClientData {
 
     public MagicCircleClientData getMagicCircleClientData() {
         return this.magicCircleClientData;
+    }
+
+    public int getValidRitualIndicatorTicks() {
+        return this.validRitualIndicatorTicks;
     }
 }

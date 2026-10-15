@@ -62,7 +62,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         renderState.itemStackRenderState = itemStackRenderState;
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
 
-        renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.getIndicatorController(), partialTick);
+        renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.canStartRitual(), clientData.getValidRitualIndicatorTicks() + partialTick);
         renderState.magicCircleRenderState = MagicCircleRenderState.create(renderState.lightCoords, blockEntity.clientRitualDuration, clientData.getMagicCircleClientData(), partialTick);
     }
 
@@ -103,6 +103,6 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     public boolean useExpandedRenderBoundingBox(HephaestusForgeBlockEntity blockEntity) {
-        return blockEntity.getRitualManager().isRitualActive() || blockEntity.getIndicatorController().hasIndicator();
+        return blockEntity.getRitualManager().isRitualActive() || blockEntity.canStartRitual();
     }
 }
