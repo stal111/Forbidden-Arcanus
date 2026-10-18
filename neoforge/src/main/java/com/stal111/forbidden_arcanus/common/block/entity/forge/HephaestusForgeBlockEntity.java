@@ -123,9 +123,11 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        blockEntity.clientData.incrementAgeInTicks(blockEntity.canStartRitual(), blockEntity.hasActiveRitual());
+        blockEntity.clientData.incrementAgeInTicks(blockEntity.canStartRitual() || blockEntity.hasActiveRitual());
 
-        if (blockEntity.hasActiveRitual()) {
+        blockEntity.sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
+            activeRitualData.incrementCounter();
+
             RandomSource random = level.getRandom();
 
             if (random.nextDouble() < 0.25D) {
@@ -136,7 +138,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
                 level.addParticle(ModParticles.AUREAL_MOTE.get(), x, pos.getY() + 0.15D, z, 0.0D, 0.02D + random.nextDouble() * 0.03D, 0.0D);
             }
-        }
+        });
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
@@ -180,7 +182,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public boolean hasActiveRitual() {
-        return this.sharedData.getActiveRitual().isPresent();
+        return this.sharedData.getActiveRitualData().isPresent();
     }
 
     public boolean startRitual(ServerLevel level, ServerPlayer player) {

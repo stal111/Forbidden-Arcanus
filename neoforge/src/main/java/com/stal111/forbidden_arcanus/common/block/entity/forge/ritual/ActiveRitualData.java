@@ -10,9 +10,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -21,22 +19,19 @@ public class ActiveRitualData {
 
     public static final Codec<ActiveRitualData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Ritual.CODEC.fieldOf("ritual").forGetter(data -> data.ritual),
-            Codec.INT.fieldOf("counter").forGetter(data -> data.counter),
-            EntityReference.<ServerPlayer>codec().fieldOf("started_by").forGetter(data -> data.startedBy)
+            Codec.INT.fieldOf("counter").forGetter(data -> data.counter)
     ).apply(instance, ActiveRitualData::new));
 
     private final Holder<Ritual> ritual;
     private int counter;
-    private final EntityReference<ServerPlayer> startedBy;
 
     /**
      * @param ritual The ritual being performed
      * @param counter A counter for the ritual
      */
-    public ActiveRitualData(Holder<Ritual> ritual, int counter, EntityReference<ServerPlayer> startedBy) {
+    public ActiveRitualData(Holder<Ritual> ritual, int counter) {
         this.ritual = ritual;
         this.counter = counter;
-        this.startedBy = startedBy;
     }
 
     /**
@@ -45,8 +40,8 @@ public class ActiveRitualData {
      * @param ritual The ritual being performed
      * @return A new ActiveRitualData instance
      */
-    public static ActiveRitualData create(Holder<Ritual> ritual, ServerPlayer startedBy) {
-        return new ActiveRitualData(ritual, 0, EntityReference.of(startedBy));
+    public static ActiveRitualData create(Holder<Ritual> ritual) {
+        return new ActiveRitualData(ritual, 0);
     }
 
     /**
@@ -79,18 +74,14 @@ public class ActiveRitualData {
         this.counter++;
     }
 
-    public ServerPlayer getStartedBy(Level level) {
-        return EntityReference.get(this.startedBy, level, ServerPlayer.class);
-    }
-
     @Nullable
     public Identifier getRitualId() {
         return this.ritual.unwrapKey().map(ResourceKey::identifier).orElse(null);
     }
 
-    public ItemStack finish(ServerLevel level, BlockPos pos, ItemStack mainIngredient) {
-        if (this.getRitualId() != null) {
-            FACriteriaTriggers.RITUAL.get().trigger(this.getStartedBy(level), this.getRitualId());
+    public ItemStack finish(ServerLevel level, BlockPos pos, @Nullable ServerPlayer startedBy, ItemStack mainIngredient) {
+        if (startedBy != null && this.getRitualId() != null) {
+            FACriteriaTriggers.RITUAL.get().trigger(startedBy, this.getRitualId());
         }
 
         RitualResult result = this.getRitual().result();

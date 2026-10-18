@@ -66,12 +66,12 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
 
         renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.canStartRitual(), clientData.getValidRitualIndicatorTicks() + partialTick);
 
-        sharedData.getActiveRitual().ifPresent(activeRitual -> {
+        sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
             MagicCircleRenderState magicCircleRenderState = new MagicCircleRenderState();
             magicCircleRenderState.lightCoords = renderState.lightCoords;
-            magicCircleRenderState.ageInTicks = clientData.getRitualCounter() + partialTick;
-            magicCircleRenderState.duration = activeRitual.value().duration();
-            magicCircleRenderState.magicCircleType = activeRitual.value().magicCircleType().value();
+            magicCircleRenderState.ageInTicks = activeRitualData.getCounter() + partialTick;
+            magicCircleRenderState.duration = activeRitualData.getRitual().duration();
+            magicCircleRenderState.magicCircleType = activeRitualData.getRitual().magicCircleType().value();
 
             renderState.magicCircleRenderState = magicCircleRenderState;
 

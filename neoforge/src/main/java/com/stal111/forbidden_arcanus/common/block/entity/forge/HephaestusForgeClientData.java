@@ -4,12 +4,10 @@ public class HephaestusForgeClientData {
 
     private int ageInTicks;
     private int validRitualIndicatorTicks;
-    private int ritualCounter;
 
-    public void incrementAgeInTicks(boolean canStartRitual, boolean hasActiveRitual) {
+    public void incrementAgeInTicks(boolean showIndicator) {
         this.ageInTicks++;
-        this.validRitualIndicatorTicks = canStartRitual || hasActiveRitual ? this.validRitualIndicatorTicks + 1 : 0;
-        this.ritualCounter = hasActiveRitual ? this.ritualCounter + 1 : 0;
+        this.validRitualIndicatorTicks = showIndicator ? this.validRitualIndicatorTicks + 1 : 0;
     }
 
     public int getAgeInTicks() {
@@ -18,9 +16,5 @@ public class HephaestusForgeClientData {
 
     public int getValidRitualIndicatorTicks() {
         return this.validRitualIndicatorTicks;
-    }
-
-    public int getRitualCounter() {
-        return this.ritualCounter;
     }
 }

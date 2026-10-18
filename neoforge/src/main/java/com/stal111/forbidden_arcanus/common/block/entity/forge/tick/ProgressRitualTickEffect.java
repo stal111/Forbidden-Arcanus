@@ -20,7 +20,7 @@ public record ProgressRitualTickEffect(
 
     @Override
     public void tick(ServerLevel level, BlockPos pos, BlockState state) {
-        this.serverData.getActiveRitualData().ifPresent(activeRitualData -> {
+        this.sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
             activeRitualData.incrementCounter();
 
             float progress = activeRitualData.calculateRitualProgress();
