@@ -64,18 +64,16 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         renderState.itemStackRenderState = itemStackRenderState;
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
 
-        renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.canStartRitual(), clientData.getValidRitualIndicatorTicks() + partialTick);
+        renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.hasValidOrActiveRitual(), clientData.getIndicatorTicks() + partialTick);
 
         sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
             MagicCircleRenderState magicCircleRenderState = new MagicCircleRenderState();
             magicCircleRenderState.lightCoords = renderState.lightCoords;
-            magicCircleRenderState.ageInTicks = activeRitualData.getCounter() + partialTick;
+            magicCircleRenderState.ageInTicks = activeRitualData.getTicks() + partialTick;
             magicCircleRenderState.duration = activeRitualData.getRitual().duration();
             magicCircleRenderState.magicCircleType = activeRitualData.getRitual().magicCircleType().value();
 
             renderState.magicCircleRenderState = magicCircleRenderState;
-
-            renderState.validRitualIndicatorRenderState.isVisible = true;
         });
     }
 
@@ -118,6 +116,6 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     public boolean useExpandedRenderBoundingBox(HephaestusForgeBlockEntity blockEntity) {
-        return blockEntity.hasActiveRitual() || blockEntity.canStartRitual();
+        return blockEntity.hasValidOrActiveRitual();
     }
 }

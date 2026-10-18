@@ -19,23 +19,23 @@ public class ActiveRitualData {
 
     public static final Codec<ActiveRitualData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Ritual.CODEC.fieldOf("ritual").forGetter(data -> data.ritual),
-            Codec.INT.fieldOf("counter").forGetter(data -> data.counter)
+            Codec.INT.fieldOf("ticks").forGetter(data -> data.ticks)
     ).apply(instance, ActiveRitualData::new));
 
     private final Holder<Ritual> ritual;
-    private int counter;
+    private int ticks;
 
     /**
      * @param ritual The ritual being performed
-     * @param counter A counter for the ritual
+     * @param ticks The elapsed ticks for the ritual
      */
-    public ActiveRitualData(Holder<Ritual> ritual, int counter) {
+    public ActiveRitualData(Holder<Ritual> ritual, int ticks) {
         this.ritual = ritual;
-        this.counter = counter;
+        this.ticks = ticks;
     }
 
     /**
-     * Factory method to create a new ActiveRitualData with counters set to 0
+     * Factory method to create a new ActiveRitualData with ticks set to 0
      *
      * @param ritual The ritual being performed
      * @return A new ActiveRitualData instance
@@ -50,7 +50,7 @@ public class ActiveRitualData {
      * @return The progress of the ritual as a float between 0 and 1
      */
     public float calculateRitualProgress() {
-        return this.counter / (float) this.ritual.value().duration();
+        return this.ticks / (float) this.ritual.value().duration();
     }
 
     /**
@@ -61,17 +61,17 @@ public class ActiveRitualData {
     }
 
     /**
-     * Get the ritual counter
+     * Get the elapsed ritual ticks
      */
-    public int getCounter() {
-        return this.counter;
+    public int getTicks() {
+        return this.ticks;
     }
 
     /**
-     * Increment the ritual counter
+     * Increment the ritual ticks
      */
-    public void incrementCounter() {
-        this.counter++;
+    public void incrementTicks() {
+        this.ticks++;
     }
 
     @Nullable

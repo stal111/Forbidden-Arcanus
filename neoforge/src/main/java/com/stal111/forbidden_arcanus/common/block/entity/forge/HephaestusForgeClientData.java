@@ -3,18 +3,18 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 public class HephaestusForgeClientData {
 
     private int ageInTicks;
-    private int validRitualIndicatorTicks;
+    private int indicatorTicks;
 
-    public void incrementAgeInTicks(boolean showIndicator) {
+    public void tick(boolean showIndicator) {
         this.ageInTicks++;
-        this.validRitualIndicatorTicks = showIndicator ? this.validRitualIndicatorTicks + 1 : 0;
+        this.indicatorTicks = showIndicator ? this.indicatorTicks + 1 : 0;
     }
 
     public int getAgeInTicks() {
         return this.ageInTicks;
     }
 
-    public int getValidRitualIndicatorTicks() {
-        return this.validRitualIndicatorTicks;
+    public int getIndicatorTicks() {
+        return this.indicatorTicks;
     }
 }

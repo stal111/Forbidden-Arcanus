@@ -16,17 +16,15 @@ public record ProgressRitualTickEffect(
         HephaestusForgeSharedData sharedData
 ) implements TickEffect {
 
-    public static final int PEDESTAL_ITEM_HEIGHT = 140;
-
     @Override
     public void tick(ServerLevel level, BlockPos pos, BlockState state) {
         this.sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
-            activeRitualData.incrementCounter();
+            activeRitualData.incrementTicks();
 
             float progress = activeRitualData.calculateRitualProgress();
 
             this.serverData.getPedestalItems().forEach((pedestalPos, stack) -> {
-                this.addItemParticles(level, pos, pedestalPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + activeRitualData.getCounter(), PEDESTAL_ITEM_HEIGHT), ItemStackTemplate.fromNonEmptyStack(stack));
+                this.addItemParticles(level, pos, pedestalPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + activeRitualData.getTicks(), HephaestusForgeServerData.PEDESTAL_ITEM_HEIGHT), ItemStackTemplate.fromNonEmptyStack(stack));
             });
 
             if (progress == 1.0F) {

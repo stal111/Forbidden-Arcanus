@@ -21,9 +21,9 @@ import java.util.function.UnaryOperator;
 public class HephaestusForgeSharedData implements EssenceAccess {
 
     public static final MapCodec<HephaestusForgeSharedData> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            HephaestusForgeLevel.CODEC.fieldOf("tier").forGetter(predicate -> predicate.forgeLevel),
-            MultiEssenceStorage.CODEC.fieldOf("essences").forGetter(predicate -> predicate.essenceStorage),
-            ItemStack.OPTIONAL_CODEC.fieldOf("main_item").forGetter(predicate -> predicate.mainSlotInventory.getStack()),
+            HephaestusForgeLevel.CODEC.fieldOf("tier").forGetter(data -> data.forgeLevel),
+            MultiEssenceStorage.CODEC.fieldOf("essences").forGetter(data -> data.essenceStorage),
+            ItemStack.OPTIONAL_CODEC.fieldOf("main_item").forGetter(data -> data.mainSlotInventory.getStack()),
             Ritual.CODEC.optionalFieldOf("valid_ritual").forGetter(data -> Optional.ofNullable(data.validRitual)),
             ActiveRitualData.CODEC.optionalFieldOf("active_ritual").forGetter(data -> Optional.ofNullable(data.activeRitualData))
     ).apply(instance, CodecUtils.withNullable(HephaestusForgeSharedData::new)));
@@ -49,7 +49,7 @@ public class HephaestusForgeSharedData implements EssenceAccess {
         this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
     }
 
-    public void updateForgeTier(HephaestusForgeLevel forgeLevel) {
+    public void setForgeLevel(HephaestusForgeLevel forgeLevel) {
         this.forgeLevel = forgeLevel;
 
         for (EssenceType type : EssenceType.values()) {

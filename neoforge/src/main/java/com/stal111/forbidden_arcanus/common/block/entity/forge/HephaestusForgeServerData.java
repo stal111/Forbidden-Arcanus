@@ -37,22 +37,21 @@ public class HephaestusForgeServerData {
     public static final int PEDESTAL_ITEM_HEIGHT = 140;
 
     public static final MapCodec<HephaestusForgeServerData> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            EntityReference.<ServerPlayer>codec().optionalFieldOf("started_by").forGetter(data -> Optional.ofNullable(data.startedBy))
-    ).apply(instance, startedBy -> new HephaestusForgeServerData(startedBy.orElse(null))));
+            EntityReference.<ServerPlayer>codec().optionalFieldOf("ritual_initiator").forGetter(data -> Optional.ofNullable(data.ritualInitiator))
+    ).apply(instance, ritualInitiator -> new HephaestusForgeServerData(ritualInitiator.orElse(null))));
 
     private final Map<BlockPos, ItemStack> pedestalItems = new HashMap<>();
-    private @Nullable EntityReference<ServerPlayer> startedBy;
+    private @Nullable EntityReference<ServerPlayer> ritualInitiator;
 
     public HephaestusForgeServerData() {
-        this(null);
     }
 
-    public HephaestusForgeServerData(@Nullable EntityReference<ServerPlayer> startedBy) {
-        this.startedBy = startedBy;
+    public HephaestusForgeServerData(@Nullable EntityReference<ServerPlayer> ritualInitiator) {
+        this.ritualInitiator = ritualInitiator;
     }
 
-    private void setActiveRitual(@Nullable Holder<Ritual> ritual, @Nullable ServerPlayer startedBy, HephaestusForgeSharedData sharedData) {
-        this.startedBy = startedBy != null ? EntityReference.of(startedBy) : null;
+    private void setActiveRitual(@Nullable Holder<Ritual> ritual, @Nullable ServerPlayer initiator, HephaestusForgeSharedData sharedData) {
+        this.ritualInitiator = initiator != null ? EntityReference.of(initiator) : null;
         sharedData.setActiveRitualData(ritual != null ? ActiveRitualData.create(ritual) : null);
     }
 
@@ -115,11 +114,11 @@ public class HephaestusForgeServerData {
     }
 
     public void finishRitual(ServerLevel level, BlockPos pos, ActiveRitualData data, HephaestusForgeSharedData sharedData) {
-        ServerPlayer player = EntityReference.get(this.startedBy, level, ServerPlayer.class);
+        ServerPlayer initiator = EntityReference.get(this.ritualInitiator, level, ServerPlayer.class);
 
-        this.reset(level, sharedData);
+        this.resetRitual(level, sharedData);
 
-        ItemStack result = data.finish(level, pos, player, sharedData.getMainSlotInventory().getStack());
+        ItemStack result = data.finish(level, pos, initiator, sharedData.getMainSlotInventory().getStack());
         sharedData.getMainSlotInventory().setStack(result);
 
         level.sendParticles(ModParticles.MAGIC_EXPLOSION.get(), pos.getX() + 0.5D, pos.getY() + 1.4D, pos.getZ() + 0.5D, 1, 0.0D, 0.0D, 0.0D, 0.0D);
@@ -128,7 +127,7 @@ public class HephaestusForgeServerData {
     private void failRitual(ServerLevel level, BlockPos pos, HephaestusForgeSharedData sharedData) {
         ItemStack stack = sharedData.getMainSlotInventory().getStack();
 
-        this.reset(level, sharedData);
+        this.resetRitual(level, sharedData);
 
         if (!stack.isEmpty()) {
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
@@ -151,7 +150,7 @@ public class HephaestusForgeServerData {
         this.pedestalItems.clear();
     }
 
-    private void reset(ServerLevel level, HephaestusForgeSharedData sharedData) {
+    private void resetRitual(ServerLevel level, HephaestusForgeSharedData sharedData) {
         sharedData.setValidRitual(null);
         this.setActiveRitual(null, null, sharedData);
         this.clearPedestals(level);
@@ -166,6 +165,6 @@ public class HephaestusForgeServerData {
     }
 
     void set(HephaestusForgeServerData from) {
-        this.startedBy = from.startedBy;
+        this.ritualInitiator = from.ritualInitiator;
     }
 }
