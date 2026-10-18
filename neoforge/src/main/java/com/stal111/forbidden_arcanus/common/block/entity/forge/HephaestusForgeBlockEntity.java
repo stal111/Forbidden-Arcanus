@@ -68,7 +68,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     private final List<TickEffect> tickEffects = new ArrayList<>();
 
-    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4, this::setChanged);
+    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4, this.serverData::markDirty);
     private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.values());
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
@@ -151,8 +151,14 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
                 }
             }
 
-            if (blockEntity.sharedData.isDirty) {
+            if (blockEntity.sharedData.isDirty || blockEntity.serverData.isDirty) {
+                blockEntity.serverData.onDataChanged(serverLevel, pos, blockEntity.getCurrentState(), blockEntity.sharedData);
                 blockEntity.setChanged();
+
+                blockEntity.serverData.isDirty = false;
+            }
+
+            if (blockEntity.sharedData.isDirty) {
                 serverLevel.sendBlockUpdated(pos, state, state, 2);
 
                 blockEntity.sharedData.isDirty = false;
@@ -170,7 +176,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
         this.serverData.updatePedestalStack(pos, stack);
-        this.setChanged();
     }
 
     public void setForgeLevel(HephaestusForgeLevel level) {
@@ -239,15 +244,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new HephaestusForgeMenu(containerId, this.getMainSlotInventory(), this.enhancerInventory, this.essenceInputInventory, this.hephaestusForgeData, ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory);
-    }
-
-    @Override
-    public void setChanged() {
-        super.setChanged();
-
-        if (this.level instanceof ServerLevel serverLevel) {
-            this.serverData.onDataChanged(serverLevel, this.getBlockPos(), this.getCurrentState(), this.sharedData);
-        }
     }
 
     public HephaestusForgeState getCurrentState() {

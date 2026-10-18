@@ -42,6 +42,7 @@ public class HephaestusForgeServerData {
 
     private final Map<BlockPos, ItemStack> pedestalItems = new HashMap<>();
     private @Nullable EntityReference<ServerPlayer> ritualInitiator;
+    boolean isDirty;
 
     public HephaestusForgeServerData() {
     }
@@ -61,16 +62,27 @@ public class HephaestusForgeServerData {
 
     public void updatePedestalStack(BlockPos pos, ItemStack stack) {
         if (stack.isEmpty()) {
-            this.pedestalItems.remove(pos);
+            if (this.pedestalItems.remove(pos) != null) {
+                this.isDirty = true;
+            }
         } else {
             this.pedestalItems.put(pos, stack);
+            this.isDirty = true;
         }
+    }
+
+    public void markDirty() {
+        this.isDirty = true;
     }
 
     public void onDataChanged(ServerLevel level, BlockPos pos, HephaestusForgeState state, HephaestusForgeSharedData sharedData) {
         sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
             if (!activeRitualData.isStillValid(state.mainItem(), state.pedestalItems())) {
                 this.failRitual(level, pos, sharedData);
+            } else {
+                this.forEachPedestal(level, PedestalBlockEntity::hasStack, blockEntity -> {
+                    blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);
+                });
             }
         });
 
