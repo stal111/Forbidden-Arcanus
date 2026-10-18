@@ -183,7 +183,7 @@ public class ClientSetup {
         event.registerSpecial(ModParticles.HUGE_MAGIC_EXPLOSION.get(), new HugeMagicExplosionParticle.Factory());
         event.registerSpriteSet(ModParticles.MAGNETIC_GLOW.get(), MagneticGlowProvider::new);
         event.registerSpriteSet(ModParticles.AUREAL_DROP.get(), EssenceDropParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.SOULS_DROP.get(), EssenceDropParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.ECTOPLASM_DROP.get(), EssenceDropParticle.Provider::new);
         event.registerSpriteSet(ModParticles.BLOOD_DROP.get(), EssenceDropParticle.Provider::new);
         event.registerSpriteSet(ModParticles.EXPERIENCE_DROP.get(), EssenceDropParticle.Provider::new);
         event.registerSpriteSet(ModParticles.MAGIC_GLINT.get(), sprites -> new OpaqueAnimatedParticle.Factory(sprites, 9));

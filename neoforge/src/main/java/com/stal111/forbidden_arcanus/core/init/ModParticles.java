@@ -26,10 +26,10 @@ public class ModParticles implements RegistryClass {
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGIC_EXPLOSION = HELPER.register("magic_explosion", () -> new SimpleParticleType(true));
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> HUGE_MAGIC_EXPLOSION = HELPER.register("magic_explosion_emitter", () -> new SimpleParticleType(true));
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGNETIC_GLOW = HELPER.register("magnetic_glow", () -> new SimpleParticleType(true));
-    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> AUREAL_DROP = register("aureal_drop", true, type -> EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
-    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> SOULS_DROP = register("souls_drop", true, type -> EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
-    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> BLOOD_DROP = register("blood_drop", true, type -> EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
-    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> EXPERIENCE_DROP = register("experience_drop", true,type ->  EssenceDropParticleOption.CODEC, type -> EssenceDropParticleOption.STREAM_CODEC);
+    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> AUREAL_DROP = register("aureal_drop", true, _ -> EssenceDropParticleOption.CODEC, _ -> EssenceDropParticleOption.STREAM_CODEC);
+    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> ECTOPLASM_DROP = register("ectoplasm_drop", true, _ -> EssenceDropParticleOption.CODEC, _ -> EssenceDropParticleOption.STREAM_CODEC);
+    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> BLOOD_DROP = register("blood_drop", true, _ -> EssenceDropParticleOption.CODEC, _ -> EssenceDropParticleOption.STREAM_CODEC);
+    public static final RegistryEntry<ParticleType<?>, ParticleType<EssenceDropParticleOption>> EXPERIENCE_DROP = register("experience_drop", true, _ ->  EssenceDropParticleOption.CODEC, _ -> EssenceDropParticleOption.STREAM_CODEC);
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGIC_GLINT = HELPER.register("magic_glint", () -> new SimpleParticleType(false));
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> MAGIC_HIT = HELPER.register("magic_hit", () -> new SimpleParticleType(false));
     public static final RegistryEntry<ParticleType<?>, ParticleType<ColorParticleOption>> SPELL_EXPLOSION = register("spell_explosion", true, ColorParticleOption::codec, ColorParticleOption::streamCodec);

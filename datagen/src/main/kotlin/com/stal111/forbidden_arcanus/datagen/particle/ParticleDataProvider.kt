@@ -63,14 +63,14 @@ class ParticleDataProvider(context: DataProviderContext) : DataProvider {
             modLoc("drop/aureal_6")
         )
         register(
-            ModParticles.SOULS_DROP.get(),
-            modLoc("drop/souls_0"),
-            modLoc("drop/souls_1"),
-            modLoc("drop/souls_2"),
-            modLoc("drop/souls_3"),
-            modLoc("drop/souls_4"),
-            modLoc("drop/souls_5"),
-            modLoc("drop/souls_6")
+            ModParticles.ECTOPLASM_DROP.get(),
+            modLoc("drop/ectoplasm_0"),
+            modLoc("drop/ectoplasm_1"),
+            modLoc("drop/ectoplasm_2"),
+            modLoc("drop/ectoplasm_3"),
+            modLoc("drop/ectoplasm_4"),
+            modLoc("drop/ectoplasm_5"),
+            modLoc("drop/ectoplasm_6")
         )
         register(
             ModParticles.BLOOD_DROP.get(),
