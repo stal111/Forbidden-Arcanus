@@ -42,6 +42,7 @@ public class HephaestusForgeSharedData implements EssenceAccess {
         this.mainSlotInventory.setStack(mainItem);
         this.validRitual = validRitual;
         this.activeRitualData = activeRitualData;
+        this.isDirty = false;
     }
 
     public HephaestusForgeSharedData(HephaestusForgeLevel forgeLevel) {
@@ -96,7 +97,10 @@ public class HephaestusForgeSharedData implements EssenceAccess {
         this.essenceStorage = from.essenceStorage;
         this.mainSlotInventory.setStack(from.mainSlotInventory.getStack());
         this.validRitual = from.validRitual;
-        this.activeRitualData = from.activeRitualData;
+        if (this.activeRitualData == null || from.activeRitualData == null || !Objects.equals(this.activeRitualData.getRitual(), from.activeRitualData.getRitual())) {
+            this.activeRitualData = from.activeRitualData;
+        }
+        this.isDirty = false;
     }
 
     @Override
