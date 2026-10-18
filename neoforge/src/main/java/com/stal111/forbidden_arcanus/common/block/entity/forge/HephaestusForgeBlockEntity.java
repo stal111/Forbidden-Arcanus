@@ -2,10 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleController;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.HephaestusForgeState;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualManager;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.ProgressRitualTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
@@ -26,6 +23,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.Containers;
@@ -48,9 +46,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.UnaryOperator;
 
 /**
@@ -62,25 +58,17 @@ import java.util.function.UnaryOperator;
  */
 public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAccess, ItemOwner, BlockEntityAgeAccess, MenuProvider {
 
-    public static final int UPDATE_MAGIC_CIRCLE = 1;
-    public static final int UPDATE_RITUAL_DURATION = 2;
-
     private static final Component NAME = Component.translatable("container.forbidden_arcanus.hephaestus_forge");
 
+    private final HephaestusForgeServerData serverData = new HephaestusForgeServerData();
     private final HephaestusForgeSharedData sharedData;
     private final HephaestusForgeClientData clientData = new HephaestusForgeClientData();
 
     private final ContainerData hephaestusForgeData;
-    private final RitualManager ritualManager;
-    private final MagicCircleController magicCircleController = new MagicCircleController(UPDATE_MAGIC_CIRCLE);
 
     private final List<TickEffect> tickEffects = new ArrayList<>();
 
-    private final Map<BlockPos, ItemStack> pedestalItems = new HashMap<>();
-
-    public int clientRitualDuration;
-
-    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4);
+    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4, this::setChanged);
     private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.values());
 
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
@@ -109,7 +97,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
                     default -> {
                         throw new IllegalArgumentException("Invalid index: " + index);
                     }
-                }
+                };
             }
 
             @Override
@@ -119,20 +107,10 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         };
 
         this.sharedData = new HephaestusForgeSharedData(state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE));
-        this.ritualManager = new RitualManager(this.sharedData, this.magicCircleController, this.getMainSlotInventory(), this.pedestalItems);
 
         this.tickEffects.add(CollectBloodTickEffect.create(this.sharedData));
         this.tickEffects.add(new UpdateBlockStateTickEffect());
-        this.tickEffects.add(new ProgressRitualTickEffect(this.ritualManager, this.pedestalItems));
-    }
-
-    @Override
-    public void setLevel(@NotNull Level level) {
-        super.setLevel(level);
-
-        if (level instanceof ServerLevel serverLevel) {
-            this.ritualManager.setup(serverLevel, this.getBlockPos());
-        }
+        this.tickEffects.add(new ProgressRitualTickEffect(this.serverData, this.sharedData));
     }
 
     @Override
@@ -145,9 +123,9 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        blockEntity.clientData.incrementAgeInTicks(blockEntity.canStartRitual());
+        blockEntity.clientData.incrementAgeInTicks(blockEntity.canStartRitual(), blockEntity.hasActiveRitual());
 
-        if (blockEntity.clientData.getMagicCircleClientData().getMagicCircleType() != null) {
+        if (blockEntity.hasActiveRitual()) {
             RandomSource random = level.getRandom();
 
             if (random.nextDouble() < 0.25D) {
@@ -180,58 +158,16 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         }
     }
 
-    @Override
-    public boolean triggerEvent(int id, int value) {
-         if (id == UPDATE_MAGIC_CIRCLE) {
-            this.clientData.getMagicCircleClientData().setMagicCircleType(MagicCircleType.fromRegistry(this.level.registryAccess(), value));
-
-            return true;
-        } else if (id == UPDATE_RITUAL_DURATION) {
-            this.clientRitualDuration = value;
-
-            return true;
-        }
-
-        return super.triggerEvent(id, value);
-    }
-
-    //TODO
-//    @Override
-//    protected void onSlotChanged(int slot) {
-//        if (this.level == null) {
-//            return;
-//        }
-//
-//        if (slot == MAIN_SLOT) {
-//            this.dataCache = this.dataCache.setMainIngredient(this.getStack(MAIN_SLOT));
-//
-//            this.onDataChanged(this.level.registryAccess());
-//
-//            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
-//        } else if (HephaestusForgeMenu.ENHANCERS_SLOTS.contains(slot)) {
-//            List<Holder<EnhancerDefinition>> enhancers = HephaestusForgeMenu.ENHANCERS_SLOTS
-//                    .intStream()
-//                    .mapToObj(s -> EnhancerHelper.getEnhancerHolder(this.level.registryAccess(), this.getStack(s)).orElse(null))
-//                    .filter(Objects::nonNull)
-//                    .toList();
-//
-//            this.dataCache = this.dataCache.setEnhancers(enhancers);
-//
-//            this.onDataChanged(this.level.registryAccess());
-//        }
-//    }
-
     public HephaestusForgeClientData getClientData() {
         return this.clientData;
     }
 
-    public void updatePedestalStack(BlockPos pos, ItemStack stack) {
-        if (stack.isEmpty()) {
-            this.pedestalItems.remove(pos);
-        } else {
-            this.pedestalItems.put(pos, stack);
-        }
+    public HephaestusForgeSharedData getSharedData() {
+        return this.sharedData;
+    }
 
+    public void updatePedestalStack(BlockPos pos, ItemStack stack) {
+        this.serverData.updatePedestalStack(pos, stack);
         this.setChanged();
     }
 
@@ -243,12 +179,16 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         return this.sharedData.getValidRitual().isPresent();
     }
 
-    public SingleSlotResourceHandler getMainSlotInventory() {
-        return this.sharedData.getMainSlotInventory();
+    public boolean hasActiveRitual() {
+        return this.sharedData.getActiveRitual().isPresent();
     }
 
-    public RitualManager getRitualManager() {
-        return this.ritualManager;
+    public boolean startRitual(ServerLevel level, ServerPlayer player) {
+        return this.serverData.startRitual(level, this.getBlockPos(), player, this.sharedData);
+    }
+
+    public SingleSlotResourceHandler getMainSlotInventory() {
+        return this.sharedData.getMainSlotInventory();
     }
 
     @Override
@@ -258,9 +198,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.enhancerInventory.serialize(output.child("enhancers"));
         this.essenceInputInventory.serialize(output.child("inputs"));
 
-        this.getRitualManager().save(output);
-
         output.store(HephaestusForgeSharedData.CODEC, this.sharedData);
+        output.store(HephaestusForgeServerData.CODEC, this.serverData);
     }
 
     @Override
@@ -270,9 +209,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.enhancerInventory.deserialize(input.childOrEmpty("enhancers"));
         this.essenceInputInventory.deserialize(input.childOrEmpty("inputs"));
 
-        this.getRitualManager().load(input);
-
         input.read(HephaestusForgeSharedData.CODEC).ifPresent(this.sharedData::set);
+        input.read(HephaestusForgeServerData.CODEC).ifPresent(this.serverData::set);
     }
 
     @Nullable
@@ -301,16 +239,16 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void setChanged() {
         super.setChanged();
 
-        if (this.level != null && !this.level.isClientSide()) {
-            this.ritualManager.onDataChanged(this.getCurrenState());
+        if (this.level instanceof ServerLevel serverLevel) {
+            this.serverData.onDataChanged(serverLevel, this.getBlockPos(), this.getCurrentState(), this.sharedData);
         }
     }
 
-    public HephaestusForgeState getCurrenState() {
+    public HephaestusForgeState getCurrentState() {
         return new HephaestusForgeState(
                 this.sharedData.getForgeLevel(),
                 this.getMainSlotInventory().getStack(),
-                this.pedestalItems.values(),
+                this.serverData.getPedestalItems().values(),
                 this.enhancerInventory.getEnhancers(),
                 this.sharedData.getEssenceStorage().getSnapshot()
         );

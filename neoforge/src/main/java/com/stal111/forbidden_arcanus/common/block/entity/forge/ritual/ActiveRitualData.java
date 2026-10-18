@@ -17,36 +17,25 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
-/**
- * This class represents the data for an active ritual.
- * It includes the ritual itself, a counter, and a lightning counter.
- *
- * @author stal111
- * @since 21.04.2024
- */
 public class ActiveRitualData {
 
     public static final Codec<ActiveRitualData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Ritual.CODEC.fieldOf("ritual").forGetter(data -> data.ritual),
             Codec.INT.fieldOf("counter").forGetter(data -> data.counter),
-            Codec.INT.fieldOf("lightning_counter").forGetter(data -> data.lightningCounter),
             EntityReference.<ServerPlayer>codec().fieldOf("started_by").forGetter(data -> data.startedBy)
     ).apply(instance, ActiveRitualData::new));
 
     private final Holder<Ritual> ritual;
     private int counter;
-    private int lightningCounter;
     private final EntityReference<ServerPlayer> startedBy;
 
     /**
      * @param ritual The ritual being performed
      * @param counter A counter for the ritual
-     * @param lightningCounter A counter for the lightning
      */
-    public ActiveRitualData(Holder<Ritual> ritual, int counter, int lightningCounter, EntityReference<ServerPlayer> startedBy) {
+    public ActiveRitualData(Holder<Ritual> ritual, int counter, EntityReference<ServerPlayer> startedBy) {
         this.ritual = ritual;
         this.counter = counter;
-        this.lightningCounter = lightningCounter;
         this.startedBy = startedBy;
     }
 
@@ -57,7 +46,7 @@ public class ActiveRitualData {
      * @return A new ActiveRitualData instance
      */
     public static ActiveRitualData create(Holder<Ritual> ritual, ServerPlayer startedBy) {
-        return new ActiveRitualData(ritual, 0, 0, EntityReference.of(startedBy));
+        return new ActiveRitualData(ritual, 0, EntityReference.of(startedBy));
     }
 
     /**
@@ -88,20 +77,6 @@ public class ActiveRitualData {
      */
     public void incrementCounter() {
         this.counter++;
-    }
-
-    /**
-     * Get the lightning counter
-     */
-    public int getLightningCounter() {
-        return this.lightningCounter;
-    }
-
-    /**
-     * Increment the lightning counter
-     */
-    public void incrementLightningCounter() {
-        this.lightningCounter++;
     }
 
     public ServerPlayer getStartedBy(Level level) {

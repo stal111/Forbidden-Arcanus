@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRen
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.ValidRitualIndicatorRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeClientData;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeSharedData;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -55,6 +56,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 
         HephaestusForgeClientData clientData = blockEntity.getClientData();
+        HephaestusForgeSharedData sharedData = blockEntity.getSharedData();
 
         ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
         this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getMainSlotInventory().getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
@@ -63,7 +65,18 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
 
         renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.canStartRitual(), clientData.getValidRitualIndicatorTicks() + partialTick);
-        renderState.magicCircleRenderState = MagicCircleRenderState.create(renderState.lightCoords, blockEntity.clientRitualDuration, clientData.getMagicCircleClientData(), partialTick);
+
+        sharedData.getActiveRitual().ifPresent(activeRitual -> {
+            MagicCircleRenderState magicCircleRenderState = new MagicCircleRenderState();
+            magicCircleRenderState.lightCoords = renderState.lightCoords;
+            magicCircleRenderState.ageInTicks = clientData.getRitualCounter() + partialTick;
+            magicCircleRenderState.duration = activeRitual.value().duration();
+            magicCircleRenderState.magicCircleType = activeRitual.value().magicCircleType().value();
+
+            renderState.magicCircleRenderState = magicCircleRenderState;
+
+            renderState.validRitualIndicatorRenderState.isVisible = true;
+        });
     }
 
     @Override
@@ -73,7 +86,9 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.0D, 0.5D);
 
-        this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector);
+        if (renderState.magicCircleRenderState != null) {
+            this.magicCircleRenderer.submit(renderState.magicCircleRenderState, poseStack, nodeCollector);
+        }
 
         if (!renderState.itemStackRenderState.isEmpty()) {
             poseStack.translate(0.0D, 1.3D, 0.0D);
@@ -103,6 +118,6 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
     }
 
     public boolean useExpandedRenderBoundingBox(HephaestusForgeBlockEntity blockEntity) {
-        return blockEntity.getRitualManager().isRitualActive() || blockEntity.canStartRitual();
+        return blockEntity.hasActiveRitual() || blockEntity.canStartRitual();
     }
 }

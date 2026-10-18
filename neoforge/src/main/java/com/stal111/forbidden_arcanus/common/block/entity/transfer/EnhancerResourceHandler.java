@@ -11,10 +11,16 @@ import java.util.Optional;
 
 public class EnhancerResourceHandler extends ItemStacksResourceHandler {
 
+    private final Runnable onChanged;
     private HolderSet<EnhancerDefinition> enhancers = HolderSet.empty();
 
     public EnhancerResourceHandler(int size) {
+        this(size, () -> {});
+    }
+
+    public EnhancerResourceHandler(int size, Runnable onChanged) {
         super(size);
+        this.onChanged = onChanged;
     }
 
     @Override
@@ -37,6 +43,7 @@ public class EnhancerResourceHandler extends ItemStacksResourceHandler {
                 .toList();
 
         this.enhancers = HolderSet.direct(enhancers);
+        this.onChanged.run();
     }
 
     public HolderSet<EnhancerDefinition> getEnhancers() {

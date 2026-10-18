@@ -13,6 +13,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 
@@ -22,7 +23,8 @@ public class HephaestusForgeSharedData implements EssenceAccess {
             HephaestusForgeLevel.CODEC.fieldOf("tier").forGetter(predicate -> predicate.forgeLevel),
             MultiEssenceStorage.CODEC.fieldOf("essences").forGetter(predicate -> predicate.essenceStorage),
             ItemStack.OPTIONAL_CODEC.fieldOf("main_item").forGetter(predicate -> predicate.mainSlotInventory.getStack()),
-            Ritual.CODEC.optionalFieldOf("valid_ritual").forGetter(data -> Optional.ofNullable(data.validRitual))
+            Ritual.CODEC.optionalFieldOf("valid_ritual").forGetter(data -> Optional.ofNullable(data.validRitual)),
+            Ritual.CODEC.optionalFieldOf("active_ritual").forGetter(data -> Optional.ofNullable(data.activeRitual))
     ).apply(instance, CodecUtils.withNullable(HephaestusForgeSharedData::new)));
 
     private final SingleSlotResourceHandler mainSlotInventory = new SingleSlotResourceHandler(true, _ -> this.isDirty = true);
@@ -30,13 +32,15 @@ public class HephaestusForgeSharedData implements EssenceAccess {
     private HephaestusForgeLevel forgeLevel;
     private MultiEssenceStorage essenceStorage;
     private @Nullable Holder<Ritual> validRitual;
+    private @Nullable Holder<Ritual> activeRitual;
     boolean isDirty;
 
-    public HephaestusForgeSharedData(HephaestusForgeLevel forgeLevel, MultiEssenceStorage essenceStorage, ItemStack mainItem, @Nullable Holder<Ritual> validRitual) {
+    public HephaestusForgeSharedData(HephaestusForgeLevel forgeLevel, MultiEssenceStorage essenceStorage, ItemStack mainItem, @Nullable Holder<Ritual> validRitual, @Nullable Holder<Ritual> activeRitual) {
         this.forgeLevel = forgeLevel;
         this.essenceStorage = essenceStorage;
         this.mainSlotInventory.setStack(mainItem);
         this.validRitual = validRitual;
+        this.activeRitual = activeRitual;
     }
 
     public HephaestusForgeSharedData(HephaestusForgeLevel forgeLevel) {
@@ -68,10 +72,22 @@ public class HephaestusForgeSharedData implements EssenceAccess {
         return Optional.ofNullable(this.validRitual);
     }
 
-    public void setValidRitual(@Nullable Holder<Ritual> validRitual) {
-        this.validRitual = validRitual;
+    public Optional<Holder<Ritual>> getActiveRitual() {
+        return Optional.ofNullable(this.activeRitual);
+    }
 
-        this.isDirty = true;
+    public void setValidRitual(@Nullable Holder<Ritual> validRitual) {
+        if (!Objects.equals(this.validRitual, validRitual)) {
+            this.validRitual = validRitual;
+            this.isDirty = true;
+        }
+    }
+
+    public void setActiveRitual(@Nullable Holder<Ritual> activeRitual) {
+        if (!Objects.equals(this.activeRitual, activeRitual)) {
+            this.activeRitual = activeRitual;
+            this.isDirty = true;
+        }
     }
 
     void set(HephaestusForgeSharedData from) {
@@ -79,6 +95,7 @@ public class HephaestusForgeSharedData implements EssenceAccess {
         this.essenceStorage = from.essenceStorage;
         this.mainSlotInventory.setStack(from.mainSlotInventory.getStack());
         this.validRitual = from.validRitual;
+        this.activeRitual = from.activeRitual;
     }
 
     @Override

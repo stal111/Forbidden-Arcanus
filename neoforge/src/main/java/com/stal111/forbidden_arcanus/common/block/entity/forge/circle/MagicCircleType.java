@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryFileCodec;
 
@@ -20,10 +19,4 @@ public record MagicCircleType(Identifier innerTexture, Identifier outerTexture) 
     ).apply(instance, MagicCircleType::new));
 
     public static final Codec<Holder<MagicCircleType>> CODEC = RegistryFileCodec.create(FARegistries.MAGIC_CIRCLE, DIRECT_CODEC);
-
-    public static MagicCircleType fromRegistry(RegistryAccess registryAccess, int id) {
-        return registryAccess.lookupOrThrow(FARegistries.MAGIC_CIRCLE).get(id)
-                .map(Holder.Reference::value)
-                .orElse(null);
-    }
 }
