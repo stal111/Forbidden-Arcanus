@@ -5,7 +5,7 @@
     "ectoplasm": 9,
     "experience": 760
   },
-  "forge_tier": 2,
+  "forge_tier": "2",
   "inputs": [
     {
       "amount": 4,

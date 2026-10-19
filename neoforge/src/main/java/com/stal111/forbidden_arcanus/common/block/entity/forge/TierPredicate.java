@@ -6,39 +6,32 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Util;
-import java.util.function.IntPredicate;
 
-/**
- * @author stal111
- * @since 30.05.2024
- */
-public record TierPredicate(int tier, boolean matchExact) implements IntPredicate {
+import java.util.function.Predicate;
+
+public record TierPredicate(HephaestusForgeTier tier, boolean matchExact) implements Predicate<HephaestusForgeTier> {
 
     private static final String MATCH_EXACT = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge.tier.match_exact"));
     private static final String AT_LEAST = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge.tier.at_least"));
 
-    public static final TierPredicate ANY = new TierPredicate(1, false);
+    public static final TierPredicate ANY = new TierPredicate(HephaestusForgeTier.ONE, false);
 
     public static final MapCodec<TierPredicate> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.INT.optionalFieldOf("forge_tier", 1).forGetter(predicate -> {
-                return predicate.tier;
-            }),
-            Codec.BOOL.optionalFieldOf("match_tier_exact", false).forGetter(predicate -> {
-                return predicate.matchExact;
-            })
+            HephaestusForgeTier.CODEC.optionalFieldOf("forge_tier", HephaestusForgeTier.ONE).forGetter(TierPredicate::tier),
+            Codec.BOOL.optionalFieldOf("match_tier_exact", false).forGetter(TierPredicate::matchExact)
     ).apply(instance, TierPredicate::new));
 
-    public static TierPredicate min(int tier) {
+    public static TierPredicate min(HephaestusForgeTier tier) {
         return new TierPredicate(tier, false);
     }
 
-    public static TierPredicate exact(int tier) {
+    public static TierPredicate exact(HephaestusForgeTier tier) {
         return new TierPredicate(tier, true);
     }
 
     @Override
-    public boolean test(int value) {
-        return this.matchExact ? this.tier == value : this.tier <= value;
+    public boolean test(HephaestusForgeTier value) {
+        return this.matchExact ? this.tier == value : value.compareTo(this.tier) >= 0;
     }
 
     public Component getDescription() {

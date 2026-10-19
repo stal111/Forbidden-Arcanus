@@ -5,7 +5,7 @@
     "blood": 2000,
     "ectoplasm": 8
   },
-  "forge_tier": 3,
+  "forge_tier": "3",
   "inputs": [
     {
       "amount": 2,

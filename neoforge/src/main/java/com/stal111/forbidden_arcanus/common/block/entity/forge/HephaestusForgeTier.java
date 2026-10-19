@@ -37,16 +37,6 @@ public enum HephaestusForgeTier implements IntSupplier, StringRepresentable {
         return this.maxEssences;
     }
 
-    public static HephaestusForgeTier getFromIndex(int index) {
-        return switch (index) {
-            case 1 -> HephaestusForgeTier.ONE;
-            case 2 -> HephaestusForgeTier.TWO;
-            case 3 -> HephaestusForgeTier.THREE;
-            case 4 -> HephaestusForgeTier.FOUR;
-            default -> HephaestusForgeTier.FIVE;
-        };
-    }
-
     @Override
     public int getAsInt() {
         return this.ordinal() + 1;

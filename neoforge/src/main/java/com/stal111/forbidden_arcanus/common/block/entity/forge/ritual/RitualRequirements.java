@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
 import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
@@ -26,7 +27,7 @@ public record RitualRequirements(EssenceSet essences, TierPredicate tier, Holder
         return new RitualRequirements.Builder(essences);
     }
 
-    public boolean checkRequirements(int forgeTier, HolderSet<EnhancerDefinition> enhancers) {
+    public boolean checkRequirements(HephaestusForgeTier forgeTier, HolderSet<EnhancerDefinition> enhancers) {
         if (!this.tier.test(forgeTier)) {
             return false;
         }

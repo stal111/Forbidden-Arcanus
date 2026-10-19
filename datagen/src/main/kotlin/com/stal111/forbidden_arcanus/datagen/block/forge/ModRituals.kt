@@ -44,16 +44,16 @@ object ModRituals : RegistryDataProvider<Ritual> {
 
         // Requirements
         val eternalStella = requirements(EssenceSet.of(82, 1, 1000, 0)) {
-            it.tier(TierPredicate.min(3))
+            it.tier(TierPredicate.min(HephaestusForgeTier.THREE))
         }
         val terrastompPrism = requirements(EssenceSet.of(300, 9, 1500, 0)) {
-            it.tier(TierPredicate.min(2)).enhancer(elementarium)
+            it.tier(TierPredicate.min(HephaestusForgeTier.TWO)).enhancer(elementarium)
         }
         val seaPrism = requirements(EssenceSet.of(1000, 8, 2000, 0)) {
-            it.tier(TierPredicate.min(3)).enhancer(elementarium)
+            it.tier(TierPredicate.min(HephaestusForgeTier.THREE)).enhancer(elementarium)
         }
         val whirlwindPrism = requirements(EssenceSet.of(1000, 3, 2250, 0)) {
-            it.tier(TierPredicate.min(3)).enhancer(elementarium)
+            it.tier(TierPredicate.min(HephaestusForgeTier.THREE)).enhancer(elementarium)
         }
         val smelterPrism = requirements(EssenceSet.of(200, 4, 1250, 0)) {
             it.enhancer(elementarium)
@@ -65,52 +65,52 @@ object ModRituals : RegistryDataProvider<Ritual> {
             it
         }
         val bossCatcher = requirements(EssenceSet.of(500, 10, 7500, 1200)) {
-            it.tier(TierPredicate.min(4))
+            it.tier(TierPredicate.min(HephaestusForgeTier.FOUR))
         }
         val quantumInjector = requirements(EssenceSet.of(5000, 50, 3000, 1060)) {
-            it.tier(TierPredicate.min(3))
+            it.tier(TierPredicate.min(HephaestusForgeTier.THREE))
         }
         val soulBindingCrystal = requirements(EssenceSet.of(1500, 20, 375, 220)) {
-            it.tier(TierPredicate.min(4)).enhancer(divinePact)
+            it.tier(TierPredicate.min(HephaestusForgeTier.FOUR)).enhancer(divinePact)
         }
 
         val dracoArcanusHelmet = requirements(EssenceSet.of(820, 6, 475, 420)) {
-            it.tier(TierPredicate.min(2))
+            it.tier(TierPredicate.min(HephaestusForgeTier.TWO))
         }
         val dracoArcanusChestplate = requirements(EssenceSet.of(1300, 9, 625, 760)) {
-            it.tier(TierPredicate.min(2))
+            it.tier(TierPredicate.min(HephaestusForgeTier.TWO))
         }
         val dracoArcanusLeggings = requirements(EssenceSet.of(1000, 7, 565, 540)) {
-            it.tier(TierPredicate.min(2))
+            it.tier(TierPredicate.min(HephaestusForgeTier.TWO))
         }
         val dracoArcanusBoots = requirements(EssenceSet.of(700, 5, 405, 370)) {
-            it.tier(TierPredicate.min(2))
+            it.tier(TierPredicate.min(HephaestusForgeTier.TWO))
         }
 
         val tyrHelmet = requirements(EssenceSet.of(4820, 40, 5930, 2450)) {
-            it.tier(TierPredicate.min(4))
+            it.tier(TierPredicate.min(HephaestusForgeTier.FOUR))
         }
         val tyrChestplate = requirements(EssenceSet.of(6300, 60, 8080, 3420)) {
-            it.tier(TierPredicate.min(4))
+            it.tier(TierPredicate.min(HephaestusForgeTier.FOUR))
         }
         val tyrLeggings = requirements(EssenceSet.of(5080, 50, 7620, 3010)) {
-            it.tier(TierPredicate.min(4))
+            it.tier(TierPredicate.min(HephaestusForgeTier.FOUR))
         }
         val tyrBoots = requirements(EssenceSet.of(4460, 40, 5620, 2170)) {
-            it.tier(TierPredicate.min(4))
+            it.tier(TierPredicate.min(HephaestusForgeTier.FOUR))
         }
 
         val tier2 = requirements(EssenceSet.of(500, 10, 6000, 0)) {
-            it.tier(TierPredicate.exact(1))
+            it.tier(TierPredicate.exact(HephaestusForgeTier.ONE))
         }
         val tier3 = requirements(EssenceSet.of(1000, 50, 9000, 0)) {
-            it.tier(TierPredicate.exact(2))
+            it.tier(TierPredicate.exact(HephaestusForgeTier.TWO))
         }
         val tier4 = requirements(EssenceSet.of(2000, 100, 12000, 0)) {
-            it.tier(TierPredicate.exact(3))
+            it.tier(TierPredicate.exact(HephaestusForgeTier.THREE))
         }
         val tier5 = requirements(EssenceSet.of(5000, 500, 20000, 0)) {
-            it.tier(TierPredicate.exact(4))
+            it.tier(TierPredicate.exact(HephaestusForgeTier.FOUR))
         }
 
         register(BuiltInRituals.ETERNAL_STELLA, ModItems.ETERNAL_STELLA.get(), Items.DIAMOND) {
@@ -165,7 +165,11 @@ object ModRituals : RegistryDataProvider<Ritual> {
                 .input(Ingredient.of(ModItems.STELLARITE_PIECE), 3)
                 .requirements(bossCatcher)
         }
-        register(BuiltInRituals.QUANTUM_INJECTOR, ModBlocks.QUANTUM_INJECTOR.get().asItem(), ModItems.MUNDABITUR_DUST.get()) {
+        register(
+            BuiltInRituals.QUANTUM_INJECTOR,
+            ModBlocks.QUANTUM_INJECTOR.get().asItem(),
+            ModItems.MUNDABITUR_DUST.get()
+        ) {
             it
                 .input(Ingredient.of(ModBlocks.QUANTUM_CORE.get()), 4)
                 .requirements(quantumInjector)
@@ -265,26 +269,42 @@ object ModRituals : RegistryDataProvider<Ritual> {
                 .requirements(tyrBoots)
         }
 
-        register(BuiltInRituals.UPGRADE_TIER_2, UpgradeTierResult(HephaestusForgeTier.TWO), ModBlocks.EDELWOOD_PLANKS.get()) {
+        register(
+            BuiltInRituals.UPGRADE_TIER_2,
+            UpgradeTierResult(HephaestusForgeTier.TWO),
+            ModBlocks.EDELWOOD_PLANKS.get()
+        ) {
             it
                 .input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4)
                 .input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4)
                 .requirements(tier2).magicCircle(BuiltInMagicCircles.UPGRADE_TIER)
         }
-        register(BuiltInRituals.UPGRADE_TIER_3, UpgradeTierResult(HephaestusForgeTier.THREE), ModBlocks.CHISELED_POLISHED_DARKSTONE.get()) {
+        register(
+            BuiltInRituals.UPGRADE_TIER_3,
+            UpgradeTierResult(HephaestusForgeTier.THREE),
+            ModBlocks.CHISELED_POLISHED_DARKSTONE.get()
+        ) {
             it
                 .input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4)
                 .input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4)
                 .requirements(tier3).magicCircle(BuiltInMagicCircles.UPGRADE_TIER)
         }
-        register(BuiltInRituals.UPGRADE_TIER_4, UpgradeTierResult(HephaestusForgeTier.FOUR), ModBlocks.CHISELED_POLISHED_DARKSTONE.get()) {
+        register(
+            BuiltInRituals.UPGRADE_TIER_4,
+            UpgradeTierResult(HephaestusForgeTier.FOUR),
+            ModBlocks.CHISELED_POLISHED_DARKSTONE.get()
+        ) {
             it
                 .input(Ingredient.of(ModItems.STELLARITE_PIECE.get()), 4)
                 .input(Ingredient.of(ModItems.RUNE.get()), 4)
                 .requirements(tier4)
                 .magicCircle(BuiltInMagicCircles.UPGRADE_TIER)
         }
-        register(BuiltInRituals.UPGRADE_TIER_5, UpgradeTierResult(HephaestusForgeTier.FIVE), ModBlocks.STELLARITE_BLOCK.get()) {
+        register(
+            BuiltInRituals.UPGRADE_TIER_5,
+            UpgradeTierResult(HephaestusForgeTier.FIVE),
+            ModBlocks.STELLARITE_BLOCK.get()
+        ) {
             it
                 .input(Ingredient.of(Blocks.SCULK_CATALYST), 4)
                 .input(Ingredient.of(ModItems.DARK_NETHER_STAR.get()), 2)
