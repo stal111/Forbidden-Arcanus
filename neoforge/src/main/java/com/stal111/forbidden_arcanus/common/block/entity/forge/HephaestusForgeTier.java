@@ -1,8 +1,10 @@
 package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 
 import java.util.function.IntSupplier;
@@ -21,7 +23,13 @@ public enum HephaestusForgeTier implements IntSupplier, StringRepresentable {
     FOUR(10000, 500, 50000, 5000),
     FIVE(20000, 1000, 100000, 7500);
 
-    public static final Codec<HephaestusForgeTier> CODEC = StringRepresentable.fromEnum(HephaestusForgeTier::values);
+    public static final Codec<HephaestusForgeTier> STRING_CODEC = StringRepresentable.fromEnum(HephaestusForgeTier::values);
+    public static final Codec<HephaestusForgeTier> INT_CODEC = ExtraCodecs.intRange(1, values().length).xmap(
+            index -> values()[index - 1],
+            HephaestusForgeTier::getAsInt
+    );
+
+    public static final Codec<HephaestusForgeTier> CODEC = Codec.either(INT_CODEC, STRING_CODEC).xmap(Either::unwrap, Either::left);
 
     private final EssenceSet maxEssences;
 

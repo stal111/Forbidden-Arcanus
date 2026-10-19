@@ -4,7 +4,7 @@
     "blood": 9000,
     "ectoplasm": 50
   },
-  "forge_tier": "2",
+  "forge_tier": 2,
   "inputs": [
     {
       "amount": 4,
@@ -20,6 +20,6 @@
   "match_tier_exact": true,
   "result": {
     "type": "forbidden_arcanus:upgrade_tier",
-    "result_tier": "3"
+    "result_tier": 3
   }
 }
