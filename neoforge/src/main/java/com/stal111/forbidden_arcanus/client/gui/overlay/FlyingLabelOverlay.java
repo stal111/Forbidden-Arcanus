@@ -109,10 +109,11 @@ public class FlyingLabelOverlay implements GuiLayer {
         renderBackground(guiGraphics, left, top, right, bottom, BACKGROUND_COLOR, alpha);
 
         int textAlphaColor = ARGB.multiplyAlpha(TEXT_COLOR, alpha);
+        int textX = left + HORIZONTAL_PADDING;
         int currentY = centerY + Y_OFFSET;
 
         for (Component line : components) {
-            guiGraphics.centeredText(font, line, centerX, currentY, textAlphaColor);
+            guiGraphics.text(font, line, textX, currentY, textAlphaColor);
             currentY += lineHeight + LINE_SPACING;
         }
     }
