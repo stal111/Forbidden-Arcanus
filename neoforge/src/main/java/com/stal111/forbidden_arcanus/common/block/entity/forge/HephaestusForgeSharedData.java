@@ -21,7 +21,7 @@ import java.util.function.UnaryOperator;
 public class HephaestusForgeSharedData implements EssenceAccess {
 
     public static final MapCodec<HephaestusForgeSharedData> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            HephaestusForgeLevel.CODEC.fieldOf("tier").forGetter(data -> data.forgeLevel),
+            HephaestusForgeTier.CODEC.fieldOf("tier").forGetter(data -> data.tier),
             MultiEssenceStorage.CODEC.fieldOf("essences").forGetter(data -> data.essenceStorage),
             ItemStack.OPTIONAL_CODEC.fieldOf("main_item").forGetter(data -> data.mainSlotInventory.getStack()),
             Ritual.CODEC.optionalFieldOf("valid_ritual").forGetter(data -> Optional.ofNullable(data.validRitual)),
@@ -30,14 +30,14 @@ public class HephaestusForgeSharedData implements EssenceAccess {
 
     private final SingleSlotResourceHandler mainSlotInventory = new SingleSlotResourceHandler(true, _ -> this.isDirty = true);
 
-    private HephaestusForgeLevel forgeLevel;
+    private HephaestusForgeTier tier;
     private MultiEssenceStorage essenceStorage;
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
     boolean isDirty;
 
-    public HephaestusForgeSharedData(HephaestusForgeLevel forgeLevel, MultiEssenceStorage essenceStorage, ItemStack mainItem, @Nullable Holder<Ritual> validRitual, @Nullable ActiveRitualData activeRitualData) {
-        this.forgeLevel = forgeLevel;
+    public HephaestusForgeSharedData(HephaestusForgeTier tier, MultiEssenceStorage essenceStorage, ItemStack mainItem, @Nullable Holder<Ritual> validRitual, @Nullable ActiveRitualData activeRitualData) {
+        this.tier = tier;
         this.essenceStorage = essenceStorage;
         this.mainSlotInventory.setStack(mainItem);
         this.validRitual = validRitual;
@@ -45,16 +45,16 @@ public class HephaestusForgeSharedData implements EssenceAccess {
         this.isDirty = false;
     }
 
-    public HephaestusForgeSharedData(HephaestusForgeLevel forgeLevel) {
-        this.forgeLevel = forgeLevel;
-        this.essenceStorage = MultiEssenceStorage.empty(this.forgeLevel.getMaxEssences());
+    public HephaestusForgeSharedData(HephaestusForgeTier tier) {
+        this.tier = tier;
+        this.essenceStorage = MultiEssenceStorage.empty(this.tier.getMaxEssences());
     }
 
-    public void setForgeLevel(HephaestusForgeLevel forgeLevel) {
-        this.forgeLevel = forgeLevel;
+    public void setTier(HephaestusForgeTier tier) {
+        this.tier = tier;
 
         for (EssenceType type : EssenceType.values()) {
-            this.setEssenceLimit(type, forgeLevel.getMaxAmount(type));
+            this.setEssenceLimit(type, tier.getMaxAmount(type));
         }
     }
 
@@ -62,8 +62,8 @@ public class HephaestusForgeSharedData implements EssenceAccess {
         return this.mainSlotInventory;
     }
 
-    public HephaestusForgeLevel getForgeLevel() {
-        return this.forgeLevel;
+    public HephaestusForgeTier getTier() {
+        return this.tier;
     }
 
     public MultiEssenceStorage getEssenceStorage() {
@@ -93,7 +93,7 @@ public class HephaestusForgeSharedData implements EssenceAccess {
     }
 
     void set(HephaestusForgeSharedData from) {
-        this.forgeLevel = from.forgeLevel;
+        this.tier = from.tier;
         this.essenceStorage = from.essenceStorage;
         this.mainSlotInventory.setStack(from.mainSlotInventory.getStack());
         this.validRitual = from.validRitual;

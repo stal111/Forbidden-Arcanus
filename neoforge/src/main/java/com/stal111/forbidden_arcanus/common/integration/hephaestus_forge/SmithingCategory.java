@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.integration.hephaestus_forge;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
@@ -46,7 +46,7 @@ public class SmithingCategory extends HephaestusForgeCategory<RitualResult> {
                 .add(result.getResultItem(Items.DIAMOND.getDefaultInstance()));
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, FORGE_TIER_POSITION.firstInt(), FORGE_TIER_POSITION.secondInt())
-                .add(HephaestusForgeBlock.createItem(HephaestusForgeLevel.getFromIndex(tierPredicate.tier())))
+                .add(HephaestusForgeBlock.createItem(HephaestusForgeTier.getFromIndex(tierPredicate.tier())))
                 .addRichTooltipCallback((_, tooltip) -> tooltip.add(tierPredicate.getDescription()));
     }
 }

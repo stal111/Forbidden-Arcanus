@@ -74,7 +74,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
                     case 1 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.ECTOPLASM);
                     case 2 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.BLOOD);
                     case 3 -> HephaestusForgeBlockEntity.this.getEssenceAmount(EssenceType.EXPERIENCE);
-                    case 4 -> HephaestusForgeBlockEntity.this.sharedData.getForgeLevel().ordinal();
+                    case 4 -> HephaestusForgeBlockEntity.this.sharedData.getTier().ordinal();
                     default -> 0;
                 };
             }
@@ -86,7 +86,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
                     case 1 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.ECTOPLASM, value);
                     case 2 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.BLOOD, value);
                     case 3 -> HephaestusForgeBlockEntity.this.setEssenceAmount(EssenceType.EXPERIENCE, value);
-                    case 4 -> HephaestusForgeBlockEntity.this.setForgeLevel(HephaestusForgeLevel.values()[value]);
+                    case 4 -> HephaestusForgeBlockEntity.this.setTier(HephaestusForgeTier.values()[value]);
                     default -> {
                         throw new IllegalArgumentException("Invalid index: " + index);
                     }
@@ -99,7 +99,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             }
         };
 
-        this.sharedData = new HephaestusForgeSharedData(state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeLevel.ONE));
+        this.sharedData = new HephaestusForgeSharedData(state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeTier.ONE));
 
         this.tickEffects.add(CollectBloodTickEffect.create(this.sharedData));
         this.tickEffects.add(new UpdateBlockStateTickEffect());
@@ -171,8 +171,8 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         this.serverData.updatePedestalStack(pos, stack);
     }
 
-    public void setForgeLevel(HephaestusForgeLevel level) {
-        this.sharedData.setForgeLevel(level);
+    public void setTier(HephaestusForgeTier tier) {
+        this.sharedData.setTier(tier);
     }
 
     public boolean canStartRitual() {

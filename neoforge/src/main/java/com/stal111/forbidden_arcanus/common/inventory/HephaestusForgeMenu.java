@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.inventory;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
@@ -68,7 +68,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     private void addEnhancerSlot(ItemStacksResourceHandler handler, int index, int x, int y, int requiredLevel) {
-        this.addSlot(new LockableSlot(handler, index, x, y, () -> this.getLevel().getAsInt() < requiredLevel, Component.translatable(UNLOCKED_AT_KEY, index + 1)));
+        this.addSlot(new LockableSlot(handler, index, x, y, () -> this.getTier().getAsInt() < requiredLevel, Component.translatable(UNLOCKED_AT_KEY, index + 1)));
     }
 
     @Nonnull
@@ -113,7 +113,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
                     return ItemStack.EMPTY;
                 }
             } else if (EnhancerHelper.getEnhancer(stack).isPresent()) {
-                if (!this.moveItemStackTo(stack, 0, this.getLevel().getAsInt() + 1, false)) {
+                if (!this.moveItemStackTo(stack, 0, this.getTier().getAsInt() + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (!this.getSlot(4).hasItem()) {
@@ -143,11 +143,11 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         return stillValid(this.levelAccess, player, ModBlocks.HEPHAESTUS_FORGE.get());
     }
 
-    public HephaestusForgeLevel getLevel() {
-        return HephaestusForgeLevel.values()[this.hephaestusForgeData.get(4)];
+    public HephaestusForgeTier getTier() {
+        return HephaestusForgeTier.values()[this.hephaestusForgeData.get(4)];
     }
 
     public EssenceStorage getEssenceStorage(EssenceType essenceType) {
-        return new EssenceStorage(essenceType, this.hephaestusForgeData.get(essenceType.ordinal()), this.getLevel().getMaxAmount(essenceType));
+        return new EssenceStorage(essenceType, this.hephaestusForgeData.get(essenceType.ordinal()), this.getTier().getMaxAmount(essenceType));
     }
 }

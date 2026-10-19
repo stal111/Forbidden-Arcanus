@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.inventory.wand.WandDeskMenu;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
@@ -57,10 +57,10 @@ public class TooltipEvents {
             }
         });
 
-        HephaestusForgeLevel level = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).get(ModBlockStateProperties.FORGE_TIER);
+        HephaestusForgeTier tier = stack.getOrDefault(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY).get(ModBlockStateProperties.FORGE_TIER);
 
-        if (level != null) {
-            this.expandTooltip(advanced, tooltip, Component.translatable(HephaestusForgeBlock.TIER_ID, level.getAsInt()).withStyle(ChatFormatting.GRAY));
+        if (tier != null) {
+            this.expandTooltip(advanced, tooltip, Component.translatable(HephaestusForgeBlock.TIER_ID, tier.getAsInt()).withStyle(ChatFormatting.GRAY));
         }
     }
 

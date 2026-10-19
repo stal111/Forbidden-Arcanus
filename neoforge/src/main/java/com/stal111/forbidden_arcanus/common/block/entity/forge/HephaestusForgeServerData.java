@@ -108,7 +108,7 @@ public class HephaestusForgeServerData {
 
     public HephaestusForgeState createState(HephaestusForgeSharedData sharedData) {
         return new HephaestusForgeState(
-                sharedData.getForgeLevel(),
+                sharedData.getTier(),
                 sharedData.getMainSlotInventory().getStack(),
                 this.pedestalItems.values(),
                 this.enhancerInventory.getEnhancers(),

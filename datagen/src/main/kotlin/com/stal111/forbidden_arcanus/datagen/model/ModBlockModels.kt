@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus
 import com.stal111.forbidden_arcanus.client.renderer.special.EssenceUtremJarSpecialRenderer
 import com.stal111.forbidden_arcanus.common.block.DeskBlock
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier
 import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties
 import com.stal111.forbidden_arcanus.common.block.properties.PillarType
@@ -392,7 +392,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
     }
 
     private fun createHephaestusForge(block: HephaestusForgeBlock) {
-        val modelForTier = mutableMapOf<HephaestusForgeLevel, ItemModel.Unbaked>();
+        val modelForTier = mutableMapOf<HephaestusForgeTier, ItemModel.Unbaked>();
 
         val dispatch = PropertyDispatch.initial(ModBlockStateProperties.FORGE_TIER).generate {
             val textureMapping = hephaestusForge(it.asInt)
@@ -413,7 +413,7 @@ class ModBlockModels(private val defaultGenerators: BlockModelGenerators) : Bloc
             block.asItem(),
             ItemModelUtils.selectBlockItemProperty(
                 ModBlockStateProperties.FORGE_TIER,
-                modelForTier[HephaestusForgeLevel.ONE]!!,
+                modelForTier[HephaestusForgeTier.ONE]!!,
                 modelForTier
             )
         )

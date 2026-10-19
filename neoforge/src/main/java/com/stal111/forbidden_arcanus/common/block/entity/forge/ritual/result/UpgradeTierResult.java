@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.mundabitur.CreateForgeInteraction;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
@@ -15,10 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author stal111
  * @since 2023-02-05
  */
-public record UpgradeTierResult(HephaestusForgeLevel resultTier) implements RitualResult {
+public record UpgradeTierResult(HephaestusForgeTier resultTier) implements RitualResult {
 
     public static final MapCodec<UpgradeTierResult> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            HephaestusForgeLevel.CODEC.fieldOf("result_tier").forGetter(UpgradeTierResult::resultTier)
+            HephaestusForgeTier.CODEC.fieldOf("result_tier").forGetter(UpgradeTierResult::resultTier)
     ).apply(instance, UpgradeTierResult::new));
 
     @Override

@@ -56,7 +56,7 @@ public record Ritual(List<RitualInput> inputs,
     }));
 
     public boolean canStart(HephaestusForgeState state, List<EssenceModifier> essenceModifiers) {
-        //TODO: refactor predicate to use HephaestusForgeLevel directly
+        //TODO: refactor predicate to use HephaestusForgeTier directly
         if (!this.requirements.checkRequirements(state.tier().getAsInt(), state.enhancers())) {
             return false;
         }

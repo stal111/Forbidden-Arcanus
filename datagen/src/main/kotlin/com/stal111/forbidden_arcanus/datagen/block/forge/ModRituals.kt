@@ -1,6 +1,6 @@
 package com.stal111.forbidden_arcanus.datagen.block.forge
 
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier
 import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType
 import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.BuiltInMagicCircles
@@ -265,26 +265,26 @@ object ModRituals : RegistryDataProvider<Ritual> {
                 .requirements(tyrBoots)
         }
 
-        register(BuiltInRituals.UPGRADE_TIER_2, UpgradeTierResult(HephaestusForgeLevel.TWO), ModBlocks.EDELWOOD_PLANKS.get()) {
+        register(BuiltInRituals.UPGRADE_TIER_2, UpgradeTierResult(HephaestusForgeTier.TWO), ModBlocks.EDELWOOD_PLANKS.get()) {
             it
                 .input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4)
                 .input(Ingredient.of(ModItems.SPAWNER_SCRAP.get()), 4)
                 .requirements(tier2).magicCircle(BuiltInMagicCircles.UPGRADE_TIER)
         }
-        register(BuiltInRituals.UPGRADE_TIER_3, UpgradeTierResult(HephaestusForgeLevel.THREE), ModBlocks.CHISELED_POLISHED_DARKSTONE.get()) {
+        register(BuiltInRituals.UPGRADE_TIER_3, UpgradeTierResult(HephaestusForgeTier.THREE), ModBlocks.CHISELED_POLISHED_DARKSTONE.get()) {
             it
                 .input(Ingredient.of(ModItems.ARCANE_CRYSTAL.get()), 4)
                 .input(Ingredient.of(ModItems.DEORUM_INGOT.get()), 4)
                 .requirements(tier3).magicCircle(BuiltInMagicCircles.UPGRADE_TIER)
         }
-        register(BuiltInRituals.UPGRADE_TIER_4, UpgradeTierResult(HephaestusForgeLevel.FOUR), ModBlocks.CHISELED_POLISHED_DARKSTONE.get()) {
+        register(BuiltInRituals.UPGRADE_TIER_4, UpgradeTierResult(HephaestusForgeTier.FOUR), ModBlocks.CHISELED_POLISHED_DARKSTONE.get()) {
             it
                 .input(Ingredient.of(ModItems.STELLARITE_PIECE.get()), 4)
                 .input(Ingredient.of(ModItems.RUNE.get()), 4)
                 .requirements(tier4)
                 .magicCircle(BuiltInMagicCircles.UPGRADE_TIER)
         }
-        register(BuiltInRituals.UPGRADE_TIER_5, UpgradeTierResult(HephaestusForgeLevel.FIVE), ModBlocks.STELLARITE_BLOCK.get()) {
+        register(BuiltInRituals.UPGRADE_TIER_5, UpgradeTierResult(HephaestusForgeTier.FIVE), ModBlocks.STELLARITE_BLOCK.get()) {
             it
                 .input(Ingredient.of(Blocks.SCULK_CATALYST), 4)
                 .input(Ingredient.of(ModItems.DARK_NETHER_STAR.get()), 2)

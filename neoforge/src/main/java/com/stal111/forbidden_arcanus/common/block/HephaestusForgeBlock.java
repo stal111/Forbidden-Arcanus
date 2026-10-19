@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeLevel;
+import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
@@ -60,7 +60,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     public static final String TIER_ID = Util.makeDescriptionId("block", ForbiddenArcanus.identifier("hephaestus_forge.tier"));
 
     public static final BooleanProperty ACTIVATED = ModBlockStateProperties.ACTIVATED;
-    public static final EnumProperty<HephaestusForgeLevel> FORGE_TIER = ModBlockStateProperties.FORGE_TIER;
+    public static final EnumProperty<HephaestusForgeTier> FORGE_TIER = ModBlockStateProperties.FORGE_TIER;
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -81,15 +81,15 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     public HephaestusForgeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
-                .setValue(FORGE_TIER, HephaestusForgeLevel.ONE)
+                .setValue(FORGE_TIER, HephaestusForgeTier.ONE)
                 .setValue(ACTIVATED, false)
                 .setValue(WATERLOGGED, false)
         );
     }
 
-    public static ItemStack createItem(HephaestusForgeLevel level) {
+    public static ItemStack createItem(HephaestusForgeTier tier) {
         ItemStack stack = new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get());
-        stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(ModBlockStateProperties.FORGE_TIER, level));
+        stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(ModBlockStateProperties.FORGE_TIER, tier));
 
         return stack;
     }
@@ -128,7 +128,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         level.getBlockEntity(pos, ModBlockEntities.HEPHAESTUS_FORGE.get()).ifPresent(blockEntity -> {
-            blockEntity.setForgeLevel(state.getValue(FORGE_TIER));
+            blockEntity.setTier(state.getValue(FORGE_TIER));
         });
     }
 
