@@ -94,26 +94,29 @@ public class HephaestusForgeServerData {
         this.isDirty = true;
     }
 
-    public void onDataChanged(ServerLevel level, BlockPos pos, HephaestusForgeState state, HephaestusForgeSharedData sharedData) {
-        sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
-            if (!activeRitualData.isStillValid(state.mainItem(), state.pedestalItems())) {
+    public void onDataChanged(ServerLevel level, BlockPos pos, HephaestusForgeSharedData sharedData) {
+        sharedData.getActiveRitualData().ifPresentOrElse(activeRitualData -> {
+            if (!activeRitualData.isStillValid(sharedData.getMainSlotInventory().getStack(), this.pedestalItems.values())) {
                 this.failRitual(level, pos, sharedData);
             } else {
                 this.forEachPedestal(level, PedestalBlockEntity::hasStack, blockEntity -> {
                     blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);
                 });
             }
-        });
+        }, () -> this.updateValidRitual(level, this.createState(sharedData), sharedData));
+    }
 
-        this.updateValidRitual(level, state, sharedData);
+    public HephaestusForgeState createState(HephaestusForgeSharedData sharedData) {
+        return new HephaestusForgeState(
+                sharedData.getForgeLevel(),
+                sharedData.getMainSlotInventory().getStack(),
+                this.pedestalItems.values(),
+                this.enhancerInventory.getEnhancers(),
+                sharedData.getEssenceStorage().getSnapshot()
+        );
     }
 
     private void updateValidRitual(ServerLevel level, HephaestusForgeState state, HephaestusForgeSharedData sharedData) {
-        if (sharedData.getActiveRitualData().isPresent()) {
-            sharedData.setValidRitual(null);
-            return;
-        }
-
         List<EssenceModifier> essenceModifiers = EnhancerHelper.getEssenceModifiers(state.enhancers(), EnhancerTarget.HEPHAESTUS_FORGE);
 
         for (Holder<Ritual> ritual : level.registryAccess().lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
@@ -135,6 +138,7 @@ public class HephaestusForgeServerData {
             this.setActiveRitual(ritual, player, sharedData);
 
             sharedData.removeEssences(ritual.value().requirements().essences());
+            sharedData.setValidRitual(null);
 
             this.forEachPedestal(level, PedestalBlockEntity::hasStack, blockEntity -> {
                 blockEntity.setItemHeightTarget(PEDESTAL_ITEM_HEIGHT);

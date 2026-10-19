@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge;
 
 import com.stal111.forbidden_arcanus.common.block.entity.BlockEntityAgeAccess;
 import com.stal111.forbidden_arcanus.common.block.entity.TickEffect;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.HephaestusForgeState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.ProgressRitualTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
@@ -146,7 +145,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
             }
 
             if (blockEntity.sharedData.isDirty || blockEntity.serverData.isDirty) {
-                blockEntity.serverData.onDataChanged(serverLevel, pos, blockEntity.getCurrentState(), blockEntity.sharedData);
+                blockEntity.serverData.onDataChanged(serverLevel, pos, blockEntity.sharedData);
                 blockEntity.setChanged();
 
                 blockEntity.serverData.isDirty = false;
@@ -228,16 +227,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new HephaestusForgeMenu(containerId, this.sharedData.getMainSlotInventory(), this.serverData.getEnhancerInventory(), this.serverData.getEssenceInputInventory(), this.hephaestusForgeData, ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory);
-    }
-
-    public HephaestusForgeState getCurrentState() {
-        return new HephaestusForgeState(
-                this.sharedData.getForgeLevel(),
-                this.sharedData.getMainSlotInventory().getStack(),
-                this.serverData.getPedestalItems().values(),
-                this.serverData.getEnhancerInventory().getEnhancers(),
-                this.sharedData.getEssenceStorage().getSnapshot()
-        );
     }
 
     @Override
