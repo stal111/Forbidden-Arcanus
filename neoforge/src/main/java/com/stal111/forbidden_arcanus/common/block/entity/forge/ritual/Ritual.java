@@ -35,44 +35,22 @@ public record Ritual(List<RitualInput> inputs,
     public static final int DEFAULT_DURATION = 500;
 
     public static final Codec<Ritual> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            RitualInput.CODEC.listOf(1, 8).fieldOf("inputs").forGetter(ritual -> {
-                return ritual.inputs;
-            }),
-            Ingredient.CODEC.fieldOf("main_ingredient").forGetter(ritual -> {
-                return ritual.mainIngredient;
-            }),
-            RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {
-                return ritual.result;
-            }),
-            RitualRequirements.CODEC.forGetter(ritual -> {
-                return ritual.requirements;
-            }),
-            MagicCircleType.CODEC.fieldOf("magic_circle").forGetter(ritual -> {
-                return ritual.magicCircleType;
-            }),
-            ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ritual -> {
-                return ritual.duration;
-            })
+            RitualInput.CODEC.listOf(1, 8).fieldOf("inputs").forGetter(Ritual::inputs),
+            Ingredient.CODEC.fieldOf("main_ingredient").forGetter(Ritual::mainIngredient),
+            RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(Ritual::result),
+            RitualRequirements.CODEC.forGetter(Ritual::requirements),
+            MagicCircleType.CODEC.fieldOf("magic_circle").forGetter(Ritual::magicCircleType),
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(Ritual::duration)
     ).apply(instance, Ritual::new));
 
     public static final Codec<Holder<Ritual>> CODEC = RegistryFileCodec.create(FARegistries.RITUAL, DIRECT_CODEC);
 
     public static final Codec<Ritual> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(ritual -> {
-                return ritual.inputs;
-            }),
-            Ingredient.CODEC.fieldOf("main_ingredient").forGetter(ritual -> {
-                return ritual.mainIngredient;
-            }),
-            RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(ritual -> {
-                return ritual.result;
-            }),
-            RitualRequirements.CODEC.forGetter(ritual -> {
-                return ritual.requirements;
-            }),
-            ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ritual -> {
-                return ritual.duration;
-            })
+            RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(Ritual::inputs),
+            Ingredient.CODEC.fieldOf("main_ingredient").forGetter(Ritual::mainIngredient),
+            RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(Ritual::result),
+            RitualRequirements.CODEC.forGetter(Ritual::requirements),
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(Ritual::duration)
     ).apply(instance, (inputs, mainIngredient, result, requirements, duration) -> {
         return new Ritual(inputs, mainIngredient, result, requirements, null, duration);
     }));
