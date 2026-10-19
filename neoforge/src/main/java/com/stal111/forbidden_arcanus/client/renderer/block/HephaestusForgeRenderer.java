@@ -59,7 +59,7 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         HephaestusForgeSharedData sharedData = blockEntity.getSharedData();
 
         ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getMainSlotInventory().getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+        this.itemModelResolver.updateForTopItem(itemStackRenderState, sharedData.getMainSlotInventory().getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
         renderState.itemStackRenderState = itemStackRenderState;
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);

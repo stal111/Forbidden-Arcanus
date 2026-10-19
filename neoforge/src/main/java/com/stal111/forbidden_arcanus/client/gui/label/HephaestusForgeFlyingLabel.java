@@ -16,7 +16,7 @@ public class HephaestusForgeFlyingLabel implements BlockFlyingLabel {
     @Override
     public void getComponents(ClientLevel level, LocalPlayer player, ItemStack stack, BlockPos pos, Consumer<Component> adder) {
         if (level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
-            ItemStack displayStack = blockEntity.getMainSlotInventory().getStack();
+            ItemStack displayStack = blockEntity.getSharedData().getMainSlotInventory().getStack();
 
             if (!displayStack.isEmpty()) {
                 adder.accept(displayStack.getHoverName());

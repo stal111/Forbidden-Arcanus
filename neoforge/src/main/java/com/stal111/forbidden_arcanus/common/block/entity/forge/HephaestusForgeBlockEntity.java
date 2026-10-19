@@ -6,9 +6,6 @@ import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Hephaestus
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.CollectBloodTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.ProgressRitualTickEffect;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.tick.UpdateBlockStateTickEffect;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
@@ -68,9 +65,6 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     private final List<TickEffect> tickEffects = new ArrayList<>();
 
-    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4, this.serverData::markDirty);
-    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.values());
-
     public HephaestusForgeBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HEPHAESTUS_FORGE.get(), pos, state);
         this.hephaestusForgeData = new ContainerData() {
@@ -117,9 +111,9 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
 
-        Containers.dropItemStack(this.level, pos.getX(), pos.getY(), pos.getZ(), this.getMainSlotInventory().getStack());
-        Containers.dropContents(this.level, pos, this.enhancerInventory.copyToList());
-        Containers.dropContents(this.level, pos, this.essenceInputInventory.copyToList());
+        Containers.dropItemStack(this.level, pos.getX(), pos.getY(), pos.getZ(), this.sharedData.getMainSlotInventory().getStack());
+        Containers.dropContents(this.level, pos, this.serverData.getEnhancerInventory().copyToList());
+        Containers.dropContents(this.level, pos, this.serverData.getEssenceInputInventory().copyToList());
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
@@ -142,7 +136,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
-        blockEntity.essenceInputInventory.tick(blockEntity.sharedData);
+        blockEntity.serverData.tick(blockEntity.sharedData);
 
         if (level instanceof ServerLevel serverLevel) {
             for (TickEffect effect : blockEntity.tickEffects) {
@@ -198,30 +192,20 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
         return this.serverData.startRitual(level, this.getBlockPos(), player, this.sharedData);
     }
 
-    public SingleSlotResourceHandler getMainSlotInventory() {
-        return this.sharedData.getMainSlotInventory();
-    }
-
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
 
-        this.enhancerInventory.serialize(output.child("enhancers"));
-        this.essenceInputInventory.serialize(output.child("inputs"));
-
+        this.serverData.save(output);
         output.store(HephaestusForgeSharedData.CODEC, this.sharedData);
-        output.store(HephaestusForgeServerData.CODEC, this.serverData);
     }
 
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
 
-        this.enhancerInventory.deserialize(input.childOrEmpty("enhancers"));
-        this.essenceInputInventory.deserialize(input.childOrEmpty("inputs"));
-
+        this.serverData.load(input);
         input.read(HephaestusForgeSharedData.CODEC).ifPresent(this.sharedData::set);
-        input.read(HephaestusForgeServerData.CODEC).ifPresent(this.serverData::set);
     }
 
     @Nullable
@@ -243,15 +227,15 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new HephaestusForgeMenu(containerId, this.getMainSlotInventory(), this.enhancerInventory, this.essenceInputInventory, this.hephaestusForgeData, ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory);
+        return new HephaestusForgeMenu(containerId, this.sharedData.getMainSlotInventory(), this.serverData.getEnhancerInventory(), this.serverData.getEssenceInputInventory(), this.hephaestusForgeData, ContainerLevelAccess.create(this.level, this.getBlockPos()), playerInventory);
     }
 
     public HephaestusForgeState getCurrentState() {
         return new HephaestusForgeState(
                 this.sharedData.getForgeLevel(),
-                this.getMainSlotInventory().getStack(),
+                this.sharedData.getMainSlotInventory().getStack(),
                 this.serverData.getPedestalItems().values(),
-                this.enhancerInventory.getEnhancers(),
+                this.serverData.getEnhancerInventory().getEnhancers(),
                 this.sharedData.getEssenceStorage().getSnapshot()
         );
     }

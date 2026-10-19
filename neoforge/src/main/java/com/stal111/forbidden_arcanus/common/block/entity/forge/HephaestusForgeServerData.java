@@ -22,6 +22,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
@@ -40,6 +45,8 @@ public class HephaestusForgeServerData {
             EntityReference.<ServerPlayer>codec().optionalFieldOf("ritual_initiator").forGetter(data -> Optional.ofNullable(data.ritualInitiator))
     ).apply(instance, ritualInitiator -> new HephaestusForgeServerData(ritualInitiator.orElse(null))));
 
+    private final EnhancerResourceHandler enhancerInventory = new EnhancerResourceHandler(4, this::markDirty);
+    private final EssenceInputResourceHandler essenceInputInventory = new EssenceInputResourceHandler(EssenceType.values());
     private final Map<BlockPos, ItemStack> pedestalItems = new HashMap<>();
     private @Nullable EntityReference<ServerPlayer> ritualInitiator;
     boolean isDirty;
@@ -49,6 +56,18 @@ public class HephaestusForgeServerData {
 
     public HephaestusForgeServerData(@Nullable EntityReference<ServerPlayer> ritualInitiator) {
         this.ritualInitiator = ritualInitiator;
+    }
+
+    public EnhancerResourceHandler getEnhancerInventory() {
+        return this.enhancerInventory;
+    }
+
+    public EssenceInputResourceHandler getEssenceInputInventory() {
+        return this.essenceInputInventory;
+    }
+
+    public void tick(HephaestusForgeSharedData sharedData) {
+        this.essenceInputInventory.tick(sharedData);
     }
 
     private void setActiveRitual(@Nullable Holder<Ritual> ritual, @Nullable ServerPlayer initiator, HephaestusForgeSharedData sharedData) {
@@ -174,6 +193,18 @@ public class HephaestusForgeServerData {
                 consumer.accept(blockEntity);
             }
         }
+    }
+
+    public void save(ValueOutput output) {
+        this.enhancerInventory.serialize(output.child("enhancers"));
+        this.essenceInputInventory.serialize(output.child("inputs"));
+        output.store(CODEC, this);
+    }
+
+    public void load(ValueInput input) {
+        this.enhancerInventory.deserialize(input.childOrEmpty("enhancers"));
+        this.essenceInputInventory.deserialize(input.childOrEmpty("inputs"));
+        input.read(CODEC).ifPresent(this::set);
     }
 
     void set(HephaestusForgeServerData from) {
