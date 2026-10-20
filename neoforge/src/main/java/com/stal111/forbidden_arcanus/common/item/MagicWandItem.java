@@ -39,7 +39,7 @@ public class MagicWandItem extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
 
-        if (EssenceHelper.hasEnoughAureal(level, player, stack)) {
+        if (EssenceHelper.hasEnough(player, stack)) {
             player.startUsingItem(usedHand);
 
             return InteractionResult.CONSUME;
@@ -51,10 +51,10 @@ public class MagicWandItem extends Item {
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
         if (!level.isClientSide() && (stack.getUseDuration(livingEntity) - timeLeft) >= CHARGE_DURATION) {
-            if (EssenceHelper.hasEnoughAureal(level, livingEntity, stack)) {
+            if (EssenceHelper.hasEnough(livingEntity, stack)) {
                 this.shootProjectile(level, livingEntity);
 
-                EssenceHelper.consumeAureal(livingEntity, stack);
+                EssenceHelper.consume(livingEntity, stack);
 
                 return true;
             }

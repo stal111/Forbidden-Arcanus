@@ -1,15 +1,13 @@
 package com.stal111.forbidden_arcanus.common.essence;
 
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
-import com.stal111.forbidden_arcanus.common.item.component.AurealCost;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.item.component.EssenceCost;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
@@ -50,16 +48,18 @@ public class EssenceHelper {
         });
     }
 
-    public static boolean hasEnoughAureal(Level level, LivingEntity livingEntity, ItemStack stack) {
-        if (level instanceof ServerLevel serverLevel) {
-            return stack.getOrDefault(ModDataComponents.AUREAL_COST, AurealCost.ZERO).hasEnough(serverLevel, livingEntity);
-        }
+    public static boolean hasEnough(LivingEntity livingEntity, ItemStack stack) {
+        EssenceCost essenceCost = stack.get(ModDataComponents.ESSENCE_COST);
 
-        return false;
+        return essenceCost == null || essenceCost.hasEnough(livingEntity);
     }
 
-    public static void consumeAureal(LivingEntity livingEntity, ItemStack stack) {
-        addEssence(livingEntity, EssenceType.AUREAL, -stack.getOrDefault(ModDataComponents.AUREAL_COST, AurealCost.ZERO).value());
+    public static void consume(LivingEntity livingEntity, ItemStack stack) {
+        EssenceCost essenceCost = stack.get(ModDataComponents.ESSENCE_COST);
+
+        if (essenceCost != null) {
+            essenceCost.consume(livingEntity);
+        }
     }
 
     public static ItemStack createStorageItem(Item item, EssenceType type, int amount, int limit) {
