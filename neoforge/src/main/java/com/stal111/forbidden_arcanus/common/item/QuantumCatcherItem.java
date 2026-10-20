@@ -1,7 +1,8 @@
 package com.stal111.forbidden_arcanus.common.item;
 
+import com.stal111.forbidden_arcanus.common.essence.EssenceCosts;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.item.component.EssenceCost;
+import com.stal111.forbidden_arcanus.common.essence.EssenceCost;
 import com.stal111.forbidden_arcanus.common.item.component.StoredEntity;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -139,7 +140,7 @@ public class QuantumCatcherItem extends Item {
             health = (int) (health * 1.1F);
         }
 
-        return EssenceCost.of(EssenceType.AUREAL, health);
+        return EssenceCost.of(EssenceType.AUREAL, health, EssenceCosts.CATCH_COMPONENT);
     }
 
     private static void playSound(Level level, @Nullable Player player, BlockPos pos, boolean release) {

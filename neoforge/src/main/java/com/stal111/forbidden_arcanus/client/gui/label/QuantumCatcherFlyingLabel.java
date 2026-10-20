@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.label;
 
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
-import com.stal111.forbidden_arcanus.common.item.component.EssenceCost;
+import com.stal111.forbidden_arcanus.common.essence.EssenceCost;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
