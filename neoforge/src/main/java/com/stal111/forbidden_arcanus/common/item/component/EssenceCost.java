@@ -4,7 +4,9 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -25,5 +27,11 @@ public record EssenceCost(EssenceValue value) {
 
     public void consume(LivingEntity livingEntity) {
         EssenceHelper.addEssence(livingEntity, this.value.type(), -this.value.amount());
+    }
+
+    public Component asFormattedComponent(LivingEntity livingEntity) {
+        ChatFormatting formatting = this.hasEnough(livingEntity) ? ChatFormatting.WHITE : ChatFormatting.RED;
+
+        return this.value.asComponent(formatting);
     }
 }
