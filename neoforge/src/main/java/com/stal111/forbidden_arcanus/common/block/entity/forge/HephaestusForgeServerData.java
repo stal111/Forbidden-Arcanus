@@ -112,7 +112,7 @@ public class HephaestusForgeServerData {
                 sharedData.getMainSlotInventory().getStack(),
                 this.pedestalItems.values(),
                 this.enhancerInventory.getEnhancers(),
-                sharedData.getEssenceStorage().getSnapshot()
+                sharedData.getEssenceStorage().amounts()
         );
     }
 

@@ -53,9 +53,8 @@ public class HephaestusForgeSharedData implements EssenceAccess {
     public void setTier(HephaestusForgeTier tier) {
         this.tier = tier;
 
-        for (EssenceType type : EssenceType.values()) {
-            this.setEssenceLimit(type, tier.getMaxAmount(type));
-        }
+        this.essenceStorage = this.essenceStorage.setLimits(tier.getMaxEssences());
+        this.isDirty = true;
     }
 
     public SingleSlotResourceHandler getMainSlotInventory() {
@@ -104,7 +103,7 @@ public class HephaestusForgeSharedData implements EssenceAccess {
     }
 
     @Override
-    public @Nullable EssenceStorage getEssence(EssenceType type) {
+    public EssenceStorage getEssence(EssenceType type) {
         return this.essenceStorage.getStorage(type);
     }
 

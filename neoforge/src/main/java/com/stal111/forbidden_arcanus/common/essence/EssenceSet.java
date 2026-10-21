@@ -39,6 +39,24 @@ public record EssenceSet(int aureal, int ectoplasm, int blood, int experience) {
         };
     }
 
+    public EssenceSet set(EssenceType type, int amount) {
+        return switch (type) {
+            case AUREAL -> new EssenceSet(amount, this.ectoplasm, this.blood, this.experience);
+            case ECTOPLASM -> new EssenceSet(this.aureal, amount, this.blood, this.experience);
+            case BLOOD -> new EssenceSet(this.aureal, this.ectoplasm, amount, this.experience);
+            case EXPERIENCE -> new EssenceSet(this.aureal, this.ectoplasm, this.blood, amount);
+        };
+    }
+
+    public EssenceSet clamp(EssenceSet limits) {
+        return new EssenceSet(
+                Math.clamp(this.aureal, 0, limits.aureal),
+                Math.clamp(this.ectoplasm, 0, limits.ectoplasm),
+                Math.clamp(this.blood, 0, limits.blood),
+                Math.clamp(this.experience, 0, limits.experience)
+        );
+    }
+
     public void forEach(BiConsumer<EssenceType, Integer> consumer) {
         for (EssenceType type : EssenceType.values()) {
             consumer.accept(type, this.get(type));

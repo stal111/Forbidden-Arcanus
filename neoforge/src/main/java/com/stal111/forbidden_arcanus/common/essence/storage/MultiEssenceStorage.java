@@ -7,50 +7,33 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 
 import java.util.function.UnaryOperator;
 
-public record MultiEssenceStorage(EssenceStorage aureal,
-                                  EssenceStorage ectoplasm,
-                                  EssenceStorage blood,
-                                  EssenceStorage experience) {
+public record MultiEssenceStorage(EssenceSet amounts, EssenceSet limits) {
 
     public static final Codec<MultiEssenceStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            EssenceStorage.codec(EssenceType.AUREAL).fieldOf("aureal").forGetter(MultiEssenceStorage::aureal),
-            EssenceStorage.codec(EssenceType.ECTOPLASM).fieldOf("ectoplasm").forGetter(MultiEssenceStorage::ectoplasm),
-            EssenceStorage.codec(EssenceType.BLOOD).fieldOf("blood").forGetter(MultiEssenceStorage::blood),
-            EssenceStorage.codec(EssenceType.EXPERIENCE).fieldOf("experience").forGetter(MultiEssenceStorage::experience)
+            EssenceSet.CODEC.fieldOf("amounts").forGetter(MultiEssenceStorage::amounts),
+            EssenceSet.CODEC.fieldOf("limits").forGetter(MultiEssenceStorage::limits)
     ).apply(instance, MultiEssenceStorage::new));
 
-    public static MultiEssenceStorage empty(EssenceSet limit) {
-        return new MultiEssenceStorage(
-                EssenceStorage.createEmpty(EssenceType.AUREAL, limit.aureal()),
-                EssenceStorage.createEmpty(EssenceType.ECTOPLASM, limit.ectoplasm()),
-                EssenceStorage.createEmpty(EssenceType.BLOOD, limit.blood()),
-                EssenceStorage.createEmpty(EssenceType.EXPERIENCE, limit.experience())
-        );
+    public static MultiEssenceStorage empty(EssenceSet limits) {
+        return new MultiEssenceStorage(EssenceSet.EMPTY, limits);
     }
 
     public EssenceStorage getStorage(EssenceType type) {
-        return switch (type) {
-            case AUREAL -> this.aureal;
-            case ECTOPLASM -> this.ectoplasm;
-            case BLOOD -> this.blood;
-            case EXPERIENCE -> this.experience;
-        };
+        return new EssenceStorage(type, this.amounts.get(type), this.limits.get(type));
     }
 
     public MultiEssenceStorage setStorage(EssenceType type, EssenceStorage storage) {
-        return switch (type) {
-            case AUREAL -> new MultiEssenceStorage(storage, this.ectoplasm, this.blood, this.experience);
-            case ECTOPLASM -> new MultiEssenceStorage(this.aureal, storage, this.blood, this.experience);
-            case BLOOD -> new MultiEssenceStorage(this.aureal, this.ectoplasm, storage, this.experience);
-            case EXPERIENCE -> new MultiEssenceStorage(this.aureal, this.ectoplasm, this.blood, storage);
-        };
+        return new MultiEssenceStorage(
+                this.amounts.set(type, storage.amount()),
+                this.limits.set(type, storage.limit())
+        );
+    }
+
+    public MultiEssenceStorage setLimits(EssenceSet limits) {
+        return new MultiEssenceStorage(this.amounts.clamp(limits), limits);
     }
 
     public MultiEssenceStorage updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
         return this.setStorage(type, updater.apply(this.getStorage(type)));
-    }
-
-    public EssenceSet getSnapshot() {
-        return new EssenceSet(this.aureal.amount(), this.ectoplasm.amount(), this.blood.amount(), this.experience.amount());
     }
 }
