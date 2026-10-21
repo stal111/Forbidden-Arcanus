@@ -38,8 +38,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -230,7 +230,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     }
 
     @Override
-    public EssenceStorage getEssence(EssenceType type) {
+    public @Nullable EssenceStorage getEssence(EssenceType type) {
         return this.sharedData.getEssence(type);
     }
 

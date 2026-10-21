@@ -498,9 +498,10 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.resultInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials, this.selectedSlotState);
     }
 
+    @Nullable
     @Override
     public EssenceStorage getEssence(EssenceType type) {
-        return type == EssenceType.ECTOPLASM ? this.essenceStorage : EssenceStorage.createEmpty(type, 0);
+        return type == EssenceType.ECTOPLASM ? this.essenceStorage : null;
     }
 
     @Override

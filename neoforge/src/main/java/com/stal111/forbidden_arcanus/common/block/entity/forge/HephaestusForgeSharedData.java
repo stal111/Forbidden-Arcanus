@@ -104,7 +104,7 @@ public class HephaestusForgeSharedData implements EssenceAccess {
     }
 
     @Override
-    public EssenceStorage getEssence(EssenceType type) {
+    public @Nullable EssenceStorage getEssence(EssenceType type) {
         return this.essenceStorage.getStorage(type);
     }
 

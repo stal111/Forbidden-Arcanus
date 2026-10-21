@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.gui.label;
 
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
+import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -24,7 +25,11 @@ public class HephaestusForgeFlyingLabel implements BlockFlyingLabel {
             }
 
             for (EssenceType type : EssenceType.values()) {
-                adder.accept(blockEntity.getEssence(type).asComponent(ChatFormatting.WHITE));
+                EssenceStorage storage = blockEntity.getEssence(type);
+
+                if (storage != null) {
+                    adder.accept(storage.asComponent(ChatFormatting.WHITE));
+                }
             }
         }
     }

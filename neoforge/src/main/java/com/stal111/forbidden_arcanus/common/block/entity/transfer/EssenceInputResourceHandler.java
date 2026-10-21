@@ -33,7 +33,7 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
             ItemStack stack = ItemUtil.getStack(this, i);
             EssenceType essenceType = this.essenceTypes.get(i);
 
-            if (stack.isEmpty() || essenceAccess.isEssenceFull(essenceType)) {
+            if (stack.isEmpty() || !essenceAccess.supports(essenceType) || essenceAccess.isEssenceFull(essenceType)) {
                 continue;
             }
 
