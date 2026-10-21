@@ -26,8 +26,8 @@ public record EssenceSet(int aureal, int ectoplasm, int blood, int experience) {
             ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("experience", 0).forGetter(EssenceSet::experience)
     ).apply(instance, EssenceSet::new));
 
-    public static EssenceSet of(int aureal, int souls, int blood, int experience) {
-        return new EssenceSet(aureal, souls, blood, experience);
+    public static EssenceSet of(int aureal, int ectoplasm, int blood, int experience) {
+        return new EssenceSet(aureal, ectoplasm, blood, experience);
     }
 
     public int get(EssenceType type) {
