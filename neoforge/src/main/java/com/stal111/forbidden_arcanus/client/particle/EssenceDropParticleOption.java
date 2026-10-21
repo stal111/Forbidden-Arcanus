@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.client.particle;
 
 import com.mojang.serialization.MapCodec;
-import com.stal111.forbidden_arcanus.common.essence.EssencePath;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;

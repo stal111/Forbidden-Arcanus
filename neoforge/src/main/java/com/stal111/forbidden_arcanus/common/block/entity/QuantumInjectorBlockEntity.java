@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.stal111.forbidden_arcanus.client.particle.EssenceDropParticleOption;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
-import com.stal111.forbidden_arcanus.common.essence.EssencePath;
+import com.stal111.forbidden_arcanus.client.particle.EssencePath;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.other.ModPOITypes;
