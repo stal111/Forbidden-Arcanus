@@ -10,9 +10,9 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputRe
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.ResultSlotItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
+import com.stal111.forbidden_arcanus.common.essence.storage.SingleEssenceAccess;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.input.ClibanoAlloyingRecipeInput;
@@ -49,7 +49,6 @@ import net.neoforged.neoforge.transfer.item.ItemUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
-import java.util.function.UnaryOperator;
 
 /**
  * Clibano Main Block Entity <br>
@@ -58,7 +57,7 @@ import java.util.function.UnaryOperator;
  * @author stal111
  * @since 2022-05-22
  */
-public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, EssenceAccess {
+public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider, SingleEssenceAccess {
 
     public static final int ECTOPLASM_DURATION = 150;
     public static final int RESULT_TIME = 20;
@@ -498,18 +497,15 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         return new ClibanoMenu(containerId, playerInventory, this.fuelInventory, this.inputInventory, this.essenceInputInventory, this.resultInventory, this.containerData, ContainerLevelAccess.create(this.level, this.getBlockPos()), this.storedMaterials, this.selectedSlotState);
     }
 
-    @Nullable
     @Override
-    public EssenceStorage getEssence(EssenceType type) {
-        return type == EssenceType.ECTOPLASM ? this.essenceStorage : null;
+    public EssenceStorage getEssenceStorage() {
+        return this.essenceStorage;
     }
 
     @Override
-    public void updateEssence(EssenceType type, UnaryOperator<EssenceStorage> updater) {
-        if (type == EssenceType.ECTOPLASM) {
-            this.essenceStorage = updater.apply(this.essenceStorage);
+    public void setEssenceStorage(EssenceStorage storage) {
+        this.essenceStorage = storage;
 
-            this.setChanged();
-        }
+        this.setChanged();
     }
 }

@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.essence.storage.SingleEssenceAccess;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class EssenceStorageBlockEntity extends BlockEntity {
+public abstract class EssenceStorageBlockEntity extends BlockEntity implements SingleEssenceAccess {
 
     public EssenceStorageBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -92,12 +93,14 @@ public abstract class EssenceStorageBlockEntity extends BlockEntity {
         return this.getEssenceStorage().amount() - oldAmount;
     }
 
-    public void setEssenceStorage(EssenceStorage essenceStorage) {
-        this.setComponents(DataComponentMap.builder().addAll(this.components()).set(ModDataComponents.ESSENCE_STORAGE, essenceStorage).build());
-    }
-
+    @Override
     public EssenceStorage getEssenceStorage() {
         return this.components().getOrDefault(ModDataComponents.ESSENCE_STORAGE, this.createEmptyStorage());
+    }
+
+    @Override
+    public void setEssenceStorage(EssenceStorage essenceStorage) {
+        this.setComponents(DataComponentMap.builder().addAll(this.components()).set(ModDataComponents.ESSENCE_STORAGE, essenceStorage).build());
     }
 
     private EssenceStorage createEmptyStorage() {
