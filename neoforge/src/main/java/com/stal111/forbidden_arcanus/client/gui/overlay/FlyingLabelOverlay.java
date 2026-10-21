@@ -29,7 +29,7 @@ public class FlyingLabelOverlay implements GuiLayer {
 
     public static final int HORIZONTAL_PADDING = 5;
     public static final int VERTICAL_PADDING = 3;
-    public static final int LINE_SPACING = 2;
+    public static final int LINE_SPACING = 3;
 
     private static final float FADE_SPEED = 0.35F;
 

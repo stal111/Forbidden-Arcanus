@@ -45,7 +45,7 @@ public record EssenceValue(EssenceType type, int amount) implements TooltipProvi
     }
 
     public Component asComponent(ChatFormatting formatting) {
-        return Component.object(this.type.getSprite())
+        return Component.object(this.type.getSprite()).withStyle(ChatFormatting.WHITE)
                 .append(CommonComponents.space())
                 .append(Component.literal(String.valueOf(this.amount)).withStyle(formatting));
     }

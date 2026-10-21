@@ -8,7 +8,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.Materi
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.SelectedSlotState;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
-import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClibanoRecipeCache;
+import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClientRecipeCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
@@ -91,7 +91,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
             ));
         }
 
-        for (RecipeHolder<ClibanoAlloyingRecipe> recipe : ClibanoRecipeCache.alloyingRecipes) {
+        for (RecipeHolder<ClibanoAlloyingRecipe> recipe : ClientRecipeCache.alloyingRecipes) {
             this.slots.add(new AlloySlot(
                     recipe,
                     xOrigin + 12 + (this.slots.size() % 4) * 26,

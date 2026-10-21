@@ -127,6 +127,7 @@ public class ClientSetup {
         FLYING_LABELS.add(new QuantumCatcherFlyingLabel());
         FLYING_LABELS.add(new PedestalFlyingLabel());
         FLYING_LABELS.add(new HephaestusForgeFlyingLabel());
+        FLYING_LABELS.add(new EssenceCauldronFlyingLabel());
     }
 
     @SubscribeEvent

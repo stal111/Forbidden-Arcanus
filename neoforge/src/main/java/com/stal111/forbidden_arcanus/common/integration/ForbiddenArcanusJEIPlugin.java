@@ -13,7 +13,7 @@ import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.Upgrade
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
-import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClibanoRecipeCache;
+import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClientRecipeCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -69,8 +69,8 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addRecipes(HEPHAESTUS_SMITHING, registry.stream().filter(ritual -> ritual.result() instanceof CreateItemResult || ritual.result() instanceof TransmuteInputResult).toList());
         registration.addRecipes(HEPHAESTUS_FORGE_UPGRADING, registry.stream().filter(ritual -> ritual.result() instanceof UpgradeTierResult).toList());
 
-        registration.addRecipes(CLIBANO_MELTING, ClibanoRecipeCache.meltingRecipes.stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(CLIBANO_ALLOYING, ClibanoRecipeCache.alloyingRecipes.stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_MELTING, ClientRecipeCache.meltingRecipes.stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(CLIBANO_ALLOYING, ClientRecipeCache.alloyingRecipes.stream().map(RecipeHolder::value).toList());
     }
 
     @Override

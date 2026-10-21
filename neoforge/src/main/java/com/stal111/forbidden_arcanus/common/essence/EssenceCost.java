@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 public record EssenceCost(EssenceValue value, Component description) {
 
     private static final String COST_FORMAT = "tooltip.forbidden_arcanus.essence.cost_format";
+    private static final String DESCRIPTION_FORMAT = "tooltip.forbidden_arcanus.essence.cost_description";
 
     public static final Codec<EssenceCost> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EssenceValue.MAP_CODEC.forGetter(EssenceCost::value),
@@ -36,13 +37,25 @@ public record EssenceCost(EssenceValue value, Component description) {
                 .orElse(false);
     }
 
+    public boolean hasEnough(EssenceValue value) {
+        return this.value.type() == value.type() && this.value.amount() <= value.amount();
+    }
+
     public void consume(LivingEntity livingEntity) {
         EssenceHelper.addEssence(livingEntity, this.value.type(), -this.value.amount());
     }
 
-    public Component asFormattedComponent(LivingEntity livingEntity) {
-        ChatFormatting formatting = this.hasEnough(livingEntity) ? ChatFormatting.WHITE : ChatFormatting.RED;
+    public Component asFormattedComponent(ChatFormatting formatting) {
+        Component descriptionComponent = Component.translatable(DESCRIPTION_FORMAT, this.description).withStyle(ChatFormatting.GRAY);
 
-        return Component.translatable(COST_FORMAT, this.description, this.value.asComponent(formatting));
+        return Component.translatable(COST_FORMAT, this.value.asComponent(formatting), descriptionComponent);
+    }
+
+    public Component asFormattedComponent(LivingEntity livingEntity) {
+        return this.asFormattedComponent(this.hasEnough(livingEntity) ? ChatFormatting.WHITE : ChatFormatting.RED);
+    }
+
+    public Component asFormattedComponent(EssenceValue availableEssence) {
+        return this.asFormattedComponent(this.hasEnough(availableEssence) ? ChatFormatting.WHITE : ChatFormatting.RED);
     }
 }
