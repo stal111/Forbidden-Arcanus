@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 
 import java.util.Optional;
@@ -27,8 +26,8 @@ public record EffectGrantingRule(Holder<MobEffect> effect, EquipmentSlotGroup sl
     public static final EffectGrantingRule GRANT_FIRE_RESISTANCE = new EffectGrantingRule(MobEffects.FIRE_RESISTANCE, EquipmentSlotGroup.HEAD, Optional.empty());
     public static final EffectGrantingRule GRANT_FIRE_RESISTANCE_IF_HAS_AUREAL = new EffectGrantingRule(MobEffects.FIRE_RESISTANCE, EquipmentSlotGroup.HEAD, Optional.of(EntityPredicate.Builder.entity().subPredicate(new EssenceValueEntityPredicate(EssenceValue.of(EssenceType.AUREAL, 1))).build()));
 
-    public boolean shouldGrantEffect(ServerLevel level, EquipmentSlot slot, Holder<MobEffect> effect, Entity entity) {
-        return this.slot().test(slot) && this.effect().is(effect) && this.entityMatches(level, entity);
+    public boolean shouldGrantEffect(ServerLevel level, Holder<MobEffect> effect, Entity entity) {
+        return this.effect().is(effect) && this.entityMatches(level, entity);
     }
 
     private boolean entityMatches(ServerLevel level, Entity entity) {
