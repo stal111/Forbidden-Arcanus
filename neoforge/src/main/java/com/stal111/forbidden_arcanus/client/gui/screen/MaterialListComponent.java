@@ -61,7 +61,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
 
-        this.scrollArea = new ScreenRectangle(xOrigin + 12, this.yOrigin + 8, 104, 157);
+        this.scrollArea = new ScreenRectangle(xOrigin + 12, this.yOrigin + 34, 104, 118);
         this.scrollbarStartX = this.xOrigin + 119;
         this.scrollbarStartY = this.yOrigin + 34;
 
@@ -85,7 +85,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
             this.slots.add(new MaterialSlot(
                     materials.get(i),
                     xOrigin + 12 + col * 26,
-                    this.yOrigin + 35 + row * 36,
+                    this.yOrigin + 35 + row * 36 - this.scrollAmount,
                     Component.empty(),
                     this.selectedSlotState
             ));
@@ -95,14 +95,14 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
             this.slots.add(new AlloySlot(
                     recipe,
                     xOrigin + 12 + (this.slots.size() % 4) * 26,
-                    this.yOrigin + 35 + (this.slots.size() / 4) * 36,
+                    this.yOrigin + 35 + (this.slots.size() / 4) * 36 - this.scrollAmount,
                     Component.empty(),
                     this.selectedSlotState
             ));
         }
 
         int totalRows = (this.slots.size() + 4 - 1) / 4;
-        int totalHeight = totalRows * 32 + 3;
+        int totalHeight = totalRows * 36 + 3;
         int visibleHeight = this.scrollArea.bottom() - this.scrollArea.top();
         this.maxScroll = Math.max(0, totalHeight - visibleHeight);
 
