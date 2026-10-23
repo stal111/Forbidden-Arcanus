@@ -13,6 +13,7 @@ import com.stal111.forbidden_arcanus.common.integration.hephaestus_forge.Upgrade
 import com.stal111.forbidden_arcanus.common.item.crafting.ApplyModifierRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoMeltingRecipe;
+import com.stal111.forbidden_arcanus.common.item.crafting.EssenceTransformRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClientRecipeCache;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -32,6 +33,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
@@ -41,12 +43,14 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
     public IRecipeCategory<?> hephaestusForgeUpgrading;
     public IRecipeCategory<?> clibanoMelting;
     public IRecipeCategory<?> clibanoAlloying;
+    public IRecipeCategory<?> essenceTransform;
 
     public static final IRecipeType<Ritual> HEPHAESTUS_SMITHING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_smithing", Ritual.class);
     public static final IRecipeType<Ritual> HEPHAESTUS_FORGE_UPGRADING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "hephaestus_forge_upgrading", Ritual.class);
 
     public static final IRecipeType<ClibanoMeltingRecipe> CLIBANO_MELTING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "clibano_melting", ClibanoMeltingRecipe.class);
     public static final IRecipeType<ClibanoAlloyingRecipe> CLIBANO_ALLOYING = IRecipeType.create(ForbiddenArcanus.MOD_ID, "clibano_alloying", ClibanoAlloyingRecipe.class);
+    public static final IRecipeType<EssenceTransformRecipe> ESSENCE_TRANSFORM = IRecipeType.create(ForbiddenArcanus.MOD_ID, "essence_transform", EssenceTransformRecipe.class);
 
     @NotNull
     @Override
@@ -71,6 +75,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
 
         registration.addRecipes(CLIBANO_MELTING, ClientRecipeCache.meltingRecipes.stream().map(RecipeHolder::value).toList());
         registration.addRecipes(CLIBANO_ALLOYING, ClientRecipeCache.alloyingRecipes.stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(ESSENCE_TRANSFORM, ClientRecipeCache.transformRecipes.stream().map(RecipeHolder::value).toList());
     }
 
     @Override
@@ -79,6 +84,7 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
         registration.addCraftingStation(HEPHAESTUS_FORGE_UPGRADING, new ItemStack(ModBlocks.HEPHAESTUS_FORGE.get()));
         registration.addCraftingStation(CLIBANO_MELTING, new ItemStack(ModBlocks.CLIBANO_CORE.get()));
         registration.addCraftingStation(CLIBANO_ALLOYING, new ItemStack(ModBlocks.CLIBANO_CORE.get()));
+        registration.addCraftingStation(ESSENCE_TRANSFORM, new ItemStack(Blocks.CAULDRON));
     }
 
     @Override
@@ -89,7 +95,8 @@ public class ForbiddenArcanusJEIPlugin implements IModPlugin {
                 this.hephaestusSmithing = new SmithingCategory(guiHelper),
                 this.hephaestusForgeUpgrading = new UpgradeTierCategory(guiHelper),
                 this.clibanoMelting = new ClibanoMeltingCategory(guiHelper),
-                this.clibanoAlloying = new ClibanoAlloyingCategory(guiHelper)
+                this.clibanoAlloying = new ClibanoAlloyingCategory(guiHelper),
+                this.essenceTransform = new EssenceTransformCategory(guiHelper)
         );
     }
 

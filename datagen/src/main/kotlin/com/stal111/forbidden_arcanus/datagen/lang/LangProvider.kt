@@ -347,6 +347,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
         add("jei", "category.clibano_alloying", "Clibano Alloying")
         add("jei", "category.hephaestus_smithing", "Hephaestus Smithing")
         add("jei", "category.hephaestus_forge_upgrading", "Hephaestus Forge Upgrading")
+        add("jei", "category.essence_transform", "Essence Transformation")
         add("jei", "hephaestus_smithing.required_essence", "Required %s: %s")
 
         //        PonderIndex.addPlugin(new ForbiddenArcanusPonderPlugin());
