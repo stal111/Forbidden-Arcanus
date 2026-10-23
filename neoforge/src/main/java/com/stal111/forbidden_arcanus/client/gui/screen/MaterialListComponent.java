@@ -66,14 +66,11 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         this.scrollbarStartY = this.yOrigin + 34;
 
         this.scrollAmount = 0;
+
+        this.updateSlots();
     }
 
-    @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        int x = this.xOrigin;
-        int y = this.yOrigin;
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_TEXTURE, x, y, 0.0F, 0.0F, 133, 186, 256, 256);
-
+    public void updateSlots() {
         this.slots.clear();
 
         List<MoltenMaterial> materials = this.materialStorage.getAll();
@@ -84,7 +81,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
             this.slots.add(new MaterialSlot(
                     materials.get(i),
-                    xOrigin + 12 + col * 26,
+                    this.xOrigin + 12 + col * 26,
                     this.yOrigin + 35 + row * 36 - this.scrollAmount,
                     Component.empty(),
                     this.selectedSlotState
@@ -94,7 +91,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         for (RecipeHolder<ClibanoAlloyingRecipe> recipe : ClientRecipeCache.alloyingRecipes) {
             this.slots.add(new AlloySlot(
                     recipe,
-                    xOrigin + 12 + (this.slots.size() % 4) * 26,
+                    this.xOrigin + 12 + (this.slots.size() % 4) * 26,
                     this.yOrigin + 35 + (this.slots.size() / 4) * 36 - this.scrollAmount,
                     Component.empty(),
                     this.selectedSlotState
@@ -105,6 +102,13 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         int totalHeight = totalRows * 36 + 3;
         int visibleHeight = this.scrollArea.bottom() - this.scrollArea.top();
         this.maxScroll = Math.max(0, totalHeight - visibleHeight);
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        int x = this.xOrigin;
+        int y = this.yOrigin;
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MATERIAL_LIST_TEXTURE, x, y, 0.0F, 0.0F, 133, 186, 256, 256);
 
         boolean inScrollArea = this.isMouseOverScrollArea(mouseX, mouseY);
         int slotMouseX = inScrollArea ? mouseX : -1;

@@ -148,4 +148,8 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
 
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
+
+    public MaterialListComponent getMaterialList() {
+        return this.materialList;
+    }
 }

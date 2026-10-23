@@ -30,18 +30,18 @@ public class MaterialSlot extends AbstractClibanoSlot {
     private static final Identifier MATERIAL_FULLNESS_SPRITE = ForbiddenArcanus.identifier("container/clibano/material_fullness");
 
     private final MoltenMaterial material;
+    private final ItemStack result;
 
     public MaterialSlot(MoltenMaterial moltenMaterial, int x, int y, Component message, SelectedSlotState selectedSlotState) {
         super(x, y, message, selectedSlotState, new WidgetSprites(MATERIAL_SLOT_SELECTED_SPRITE, MATERIAL_SLOT_SPRITE, MATERIAL_SLOT_HIGHLIGHTED_SPRITE, MATERIAL_SLOT_HIGHLIGHTED_SPRITE));
         this.material = moltenMaterial;
+        this.result = moltenMaterial.type().value().result().create();
     }
 
     @Override
     protected void extractContents(GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick) {
-        ItemStack result = this.material.type().value().result().create();
-
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
-        guiGraphics.fakeItem(result, this.getX() + 4, this.getY() + 4);
+        guiGraphics.fakeItem(this.result, this.getX() + 4, this.getY() + 4);
 
         int width = Mth.ceil(this.material.getFullnessPercentage() * 20.0F);
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, MATERIAL_FULLNESS_SPRITE, 20, 5, 0, 0, this.getX() + 2, this.getY() + 27, width, 5);

@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.client;
 
+import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
@@ -46,6 +47,10 @@ public final class ClientPayloadHandler {
 
         if (player.hasContainerOpen() && player.containerMenu instanceof ClibanoMenu menu) {
             menu.getStoredMaterials().insert(payload.material());
+
+            if (this.minecraft.screen instanceof ClibanoScreen screen) {
+                screen.getMaterialList().updateSlots();
+            }
         }
     }
 

@@ -30,10 +30,12 @@ public class AlloySlot extends AbstractClibanoSlot {
     private static final Identifier ALLOY_SLOT_HIGHLIGHTED_SPRITE = ForbiddenArcanus.identifier("container/clibano/alloy_slot_highlighted");
 
     private final RecipeHolder<ClibanoAlloyingRecipe> recipeHolder;
+    private final ItemStack result;
 
     public AlloySlot(RecipeHolder<ClibanoAlloyingRecipe> recipeHolder, int x, int y, Component message, SelectedSlotState selectedSlotState) {
         super(x, y, message, selectedSlotState, new WidgetSprites(ALLOY_SLOT_SELECTED_SPRITE, ALLOY_SLOT_SPRITE, ALLOY_SLOT_HIGHLIGHTED_SPRITE, ALLOY_SLOT_HIGHLIGHTED_SPRITE));
         this.recipeHolder = recipeHolder;
+        this.result = recipeHolder.value().result().create();
     }
 
     @Override
@@ -50,15 +52,13 @@ public class AlloySlot extends AbstractClibanoSlot {
 
     @Override
     protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        ItemStack result = this.recipeHolder.value().result().create();
-
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, this.getSprite(), this.getX(), this.getY(), this.width, this.height);
-        graphics.fakeItem(result, this.getX() + 4, this.getY() + 4);
+        graphics.fakeItem(this.result, this.getX() + 4, this.getY() + 4);
 
         if (this.isHovered()) {
             List<Component> components = new ArrayList<>();
 
-            components.add(result.getItemName());
+            components.add(this.result.getItemName());
             components.add(Component.literal("Requires:").withStyle(ChatFormatting.GRAY));
 
             this.recipeHolder.value().requiredMaterials().stream()
