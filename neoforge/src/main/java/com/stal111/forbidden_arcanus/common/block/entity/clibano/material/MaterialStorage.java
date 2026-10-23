@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.clibano.material;
 
 import com.mojang.serialization.Codec;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -14,7 +14,7 @@ public class MaterialStorage {
 
     public static Codec<MaterialStorage> CODEC = MoltenMaterial.CODEC.listOf().xmap(
             list -> {
-                var map = new Object2IntOpenHashMap<Holder<MoltenMaterialType>>();
+                var map = new Object2IntLinkedOpenHashMap<Holder<MoltenMaterialType>>();
                 for (var material : list) {
                     map.put(material.type(), material.amount());
                 }
@@ -24,19 +24,19 @@ public class MaterialStorage {
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MaterialStorage> STREAM_CODEC = ByteBufCodecs.map(
-            Object2IntOpenHashMap::new,
+            Object2IntLinkedOpenHashMap::new,
             MoltenMaterialType.STREAM_CODEC,
             ByteBufCodecs.INT
     ).map(MaterialStorage::new, storage -> storage.map);
 
-    private final Object2IntOpenHashMap<Holder<MoltenMaterialType>> map;
+    private final Object2IntLinkedOpenHashMap<Holder<MoltenMaterialType>> map;
 
-    public MaterialStorage(Object2IntOpenHashMap<Holder<MoltenMaterialType>> map) {
+    public MaterialStorage(Object2IntLinkedOpenHashMap<Holder<MoltenMaterialType>> map) {
         this.map = map;
     }
 
     public static MaterialStorage createEmpty() {
-        return new MaterialStorage(new Object2IntOpenHashMap<>());
+        return new MaterialStorage(new Object2IntLinkedOpenHashMap<>());
     }
 
     public void insert(Holder<MoltenMaterialType> material, int amount) {

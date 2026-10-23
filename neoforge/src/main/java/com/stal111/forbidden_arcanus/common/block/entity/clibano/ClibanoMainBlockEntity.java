@@ -375,6 +375,8 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
                 this.insertMaterial(level, new MoltenMaterial(type, -9));
                 this.resultProgress = 0;
             }
+        } else {
+            this.resultProgress = 0;
         }
     }
 
@@ -394,7 +396,7 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
         level.recipeAccess().getRecipeFor(ModRecipeTypes.CLIBANO_ALLOYING.get(), new ClibanoAlloyingRecipeInput(this.storedMaterials.getAll()), level, resourceKey)
                 .map(RecipeHolder::value)
                 .filter(recipe -> this.canAddToResultSlot(recipe.result()))
-                .ifPresent(recipe -> {
+                .ifPresentOrElse(recipe -> {
                     ItemStack result = this.resultInventory.getStack();
 
                     this.resultProgress++;
@@ -414,11 +416,15 @@ public class ClibanoMainBlockEntity extends BlockEntity implements MenuProvider,
 
                         this.resultProgress = 0;
                     }
-                });
+                }, () -> this.resultProgress = 0);
     }
 
     private void insertMaterial(ServerLevel level, MoltenMaterial material) {
         this.storedMaterials.insert(material);
+
+        for (int i = 0; i < this.cookingTotalTimes.length; i++) {
+            this.updateRecipe(level, i, false);
+        }
 
         PacketDistributor.sendToPlayersTrackingChunk(level, ChunkPos.containing(this.getBlockPos()), new InsertMoltenMaterialPayload(material));
     }

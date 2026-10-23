@@ -44,7 +44,7 @@ public class AlloySlot extends AbstractClibanoSlot {
     @Override
     protected boolean isSelected(Either<Holder<MoltenMaterialType>, ResourceKey<Recipe<?>>> either) {
         return either.right()
-                .map(resourceKey -> resourceKey == this.recipeHolder.id())
+                .map(resourceKey -> resourceKey.equals(this.recipeHolder.id()))
                 .orElse(false);
     }
 

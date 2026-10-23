@@ -76,7 +76,7 @@ public class MaterialSlot extends AbstractClibanoSlot {
     @Override
     protected boolean isSelected(Either<Holder<MoltenMaterialType>, ResourceKey<Recipe<?>>> either) {
         return either.left()
-                .map(moltenMaterialType -> moltenMaterialType == this.material.type())
+                .map(moltenMaterialType -> moltenMaterialType.equals(this.material.type()))
                 .orElse(false);
     }
 }

@@ -106,9 +106,13 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         int visibleHeight = this.scrollArea.bottom() - this.scrollArea.top();
         this.maxScroll = Math.max(0, totalHeight - visibleHeight);
 
+        boolean inScrollArea = this.isMouseOverScrollArea(mouseX, mouseY);
+        int slotMouseX = inScrollArea ? mouseX : -1;
+        int slotMouseY = inScrollArea ? mouseY : -1;
+
         guiGraphics.enableScissor(this.scrollArea.left(), this.scrollArea.top(), this.scrollArea.right(), this.scrollArea.bottom());
         for (AbstractClibanoSlot slot : this.slots) {
-            slot.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+            slot.extractRenderState(guiGraphics, slotMouseX, slotMouseY, partialTick);
         }
         guiGraphics.disableScissor();
 
@@ -155,6 +159,10 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
+        if (!this.isMouseOverScrollArea(event.x(), event.y())) {
+            return GuiEventListener.super.mouseClicked(event, isDoubleClick);
+        }
+
         for (AbstractClibanoSlot slot : this.slots) {
             if (slot.mouseClicked(event, isDoubleClick)) {
                 return true;
@@ -165,7 +173,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (mouseX < this.scrollArea.left() || mouseX > this.scrollArea.right() || mouseY < this.scrollArea.top() || mouseY > this.scrollArea.bottom()) {
+        if (!this.isMouseOverScrollArea(mouseX, mouseY)) {
             return GuiEventListener.super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
         }
 
@@ -176,5 +184,9 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
             slot.setY(slot.getY() + (oldScroll - this.scrollAmount));
         }
         return GuiEventListener.super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    }
+
+    private boolean isMouseOverScrollArea(double mouseX, double mouseY) {
+        return mouseX >= this.scrollArea.left() && mouseX <= this.scrollArea.right() && mouseY >= this.scrollArea.top() && mouseY <= this.scrollArea.bottom();
     }
 }
