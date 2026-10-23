@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.SingleEssenceAccess;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
@@ -56,7 +56,7 @@ public abstract class EssenceStorageBlockEntity extends BlockEntity implements S
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
 
-        Optional<EssenceInput> input = EssenceInput.findValidInput(stack, this.getEssenceType());
+        Optional<EssenceSource> input = EssenceSource.findValidSource(stack, this.getEssenceType());
 
         if (input.isPresent()) {
             return this.tryFillWithEssence(input.get(), stack, player, hand);
@@ -65,7 +65,7 @@ public abstract class EssenceStorageBlockEntity extends BlockEntity implements S
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 
-    public InteractionResult tryFillWithEssence(EssenceInput input, ItemStack stack, Player player, InteractionHand hand) {
+    public InteractionResult tryFillWithEssence(EssenceSource input, ItemStack stack, Player player, InteractionHand hand) {
         if (this.getEssenceStorage().isFull()) {
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
@@ -75,7 +75,7 @@ public abstract class EssenceStorageBlockEntity extends BlockEntity implements S
         if (amount != 0) {
             int transferredAmount = this.addEssence(amount);
 
-            player.setItemInHand(hand, input.finishInput(stack, transferredAmount));
+            player.setItemInHand(hand, input.finishExtraction(stack, transferredAmount));
 
             return InteractionResult.SUCCESS;
         }

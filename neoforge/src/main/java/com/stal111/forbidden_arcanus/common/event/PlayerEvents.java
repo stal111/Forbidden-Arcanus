@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
 import com.stal111.forbidden_arcanus.core.config.BlockConfig;
@@ -86,12 +86,12 @@ public class PlayerEvents {
 
         if (state.is(Blocks.CAULDRON)) {
             for (EssenceType type : EssenceType.values()) {
-                EssenceInput.findValidInput(event.getItemStack(), type).ifPresent(essenceInput -> {
+                EssenceSource.findValidSource(event.getItemStack(), type).ifPresent(source -> {
                     if (!level.isClientSide()) {
                         level.setBlockAndUpdate(pos, ModBlocks.ESSENCE_CAULDRON.get().defaultBlockState().setValue(ModBlockStateProperties.ESSENCE_TYPE, type));
 
                         if (level.getBlockEntity(pos) instanceof EssenceStorageBlockEntity blockEntity) {
-                            blockEntity.tryFillWithEssence(essenceInput, event.getItemStack(), event.getPlayer(), event.getHand());
+                            blockEntity.tryFillWithEssence(source, event.getItemStack(), event.getPlayer(), event.getHand());
                         }
                     }
 

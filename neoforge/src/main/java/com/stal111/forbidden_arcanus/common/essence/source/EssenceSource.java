@@ -1,27 +1,49 @@
 package com.stal111.forbidden_arcanus.common.essence.source;
 
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.common.essence.EssenceProvider;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
-import net.minecraft.core.component.DataComponentHolder;
-import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
-public record EssenceSource(DataComponentType<?> dataComponentType) {
+import java.util.Optional;
 
-    public static final Codec<EssenceSource> DIRECT_CODEC = DataComponentType.CODEC.xmap(EssenceSource::new, EssenceSource::dataComponentType);
+public interface EssenceSource {
 
-    public static final Codec<EssenceSource> CODEC = FARegistries.ESSENCE_SOURCE_TYPE_REGISTRY.byNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, EssenceSource> STREAM_CODEC = ByteBufCodecs.registry(FARegistries.ESSENCE_SOURCE_TYPE);
+    Codec<Holder<EssenceSource>> HOLDER_CODEC = FARegistries.ESSENCE_SOURCE_REGISTRY.holderByNameCodec();
+    StreamCodec<RegistryFriendlyByteBuf, Holder<EssenceSource>> HOLDER_STREAM_CODEC = ByteBufCodecs.holderRegistry(FARegistries.ESSENCE_SOURCE);
 
-    public EssenceValue getEssenceValue(DataComponentHolder componentHolder) {
-        if (componentHolder.get(this.dataComponentType) instanceof EssenceProvider essenceProvider) {
-            return essenceProvider.getEssenceValue();
-        }
-
-        return null;
+    static Optional<EssenceSource> findValidSource(ItemStack stack, EssenceType type) {
+        return FARegistries.ESSENCE_SOURCE_REGISTRY.listElements()
+                .map(Holder::value)
+                .filter(source -> source.isValidSource(stack, type))
+                .findFirst();
     }
+
+    @Nullable
+    EssenceValue getEssence(ItemStack stack);
+
+    default boolean isValidSource(ItemStack stack, EssenceType type) {
+        return this.getAmount(stack, type) > 0;
+    }
+
+    default int getAmount(ItemStack stack, EssenceType type) {
+        EssenceValue value = this.getEssence(stack);
+        return (value != null && value.type() == type) ? value.amount() : 0;
+    }
+
+    default int getMaxAmount(ItemStack stack, EssenceType type) {
+        return this.getAmount(stack, type);
+    }
+
+    default int getExtractionRate(ItemStack stack, EssenceType type) {
+        return this.getAmount(stack, type);
+    }
+
+    ItemStack finishExtraction(ItemStack stack, int extractedAmount);
 }

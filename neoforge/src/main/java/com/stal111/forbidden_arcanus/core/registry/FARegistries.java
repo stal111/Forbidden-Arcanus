@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.core.registry;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect;
@@ -30,7 +29,6 @@ public class FARegistries {
 
     public static final ResourceKey<Registry<Ritual>> RITUAL = FARegistries.createRegistryKey("hephaestus_forge/ritual");
     public static final ResourceKey<Registry<RitualResultType<?>>> RITUAL_RESULT_TYPE = FARegistries.createRegistryKey("ritual_result");
-    public static final ResourceKey<Registry<EssenceInput>> ESSENCE_INPUT = FARegistries.createRegistryKey("essence_input");
     public static final ResourceKey<Registry<ItemModifier>> ITEM_MODIFIER = FARegistries.createRegistryKey("item_modifier");
     public static final ResourceKey<Registry<EnhancerEffectType<?>>> ENHANCER_EFFECT = FARegistries.createRegistryKey("enhancer/effect");
     public static final ResourceKey<Registry<EffectConditionType<?>>> ENHANCER_EFFECT_CONDITION = FARegistries.createRegistryKey("enhancer/effect_condition");
@@ -42,17 +40,16 @@ public class FARegistries {
     public static final ResourceKey<Registry<MoltenMaterialType>> MOLTEN_MATERIAL_TYPE = FARegistries.createRegistryKey("molten_material_type");
     public static final ResourceKey<Registry<PedestalEffect>> PEDESTAL_EFFECT = FARegistries.createRegistryKey("pedestal_effect");
     public static final ResourceKey<Registry<MagicCircleType>> MAGIC_CIRCLE = FARegistries.createRegistryKey("magic_circle");
-    public static final ResourceKey<Registry<EssenceSource>> ESSENCE_SOURCE_TYPE = FARegistries.createRegistryKey("essence_source_type");
+    public static final ResourceKey<Registry<EssenceSource>> ESSENCE_SOURCE = FARegistries.createRegistryKey("essence_source");
     public static final ResourceKey<Registry<WandMaterial>> WAND_MATERIAL = FARegistries.createRegistryKey("wand/material");
 
     public static final Registry<RitualResultType<?>> RITUAL_RESULT_TYPE_REGISTRY = FARegistries.makeSyncedRegistry(RITUAL_RESULT_TYPE);
-    public static final Registry<EssenceInput> ESSENCE_INPUT_REGISTRY = FARegistries.makeSyncedRegistry(ESSENCE_INPUT);
     public static final Registry<EnhancerEffectType<? extends EnhancerEffect>> ENHANCER_EFFECT_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT);
     public static final Registry<EffectConditionType<?>> ENHANCER_EFFECT_CONDITION_REGISTRY = FARegistries.makeRegistry(ENHANCER_EFFECT_CONDITION);
     public static final Registry<DarkTraderVariant> DARK_TRADER_VARIANT_REGISTRY = FARegistries.makeSyncedRegistry(DARK_TRADER_VARIANT);
     public static final Registry<MundabiturInteraction<?>> MUNDABITUR_INTERACTION_REGISTRY = FARegistries.makeSyncedRegistry(MUNDABITUR_INTERACTION);
     public static final Registry<PedestalEffect> PEDESTAL_EFFECT_REGISTRY = FARegistries.makeRegistry(PEDESTAL_EFFECT);
-    public static final Registry<EssenceSource> ESSENCE_SOURCE_TYPE_REGISTRY = FARegistries.makeRegistry(ESSENCE_SOURCE_TYPE);
+    public static final Registry<EssenceSource> ESSENCE_SOURCE_REGISTRY = FARegistries.makeSyncedRegistry(ESSENCE_SOURCE);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String name) {
         return ResourceKey.createRegistryKey(ForbiddenArcanus.identifier(name));

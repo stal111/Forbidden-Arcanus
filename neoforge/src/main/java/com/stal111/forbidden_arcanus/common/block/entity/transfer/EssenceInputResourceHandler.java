@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity.transfer;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceAccess;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.transfer.item.ItemResource;
@@ -25,7 +25,7 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
 
     @Override
     public boolean isValid(int index, ItemResource resource) {
-        return EssenceInput.findValidInput(resource.toStack(), this.essenceTypes.get(index)).isPresent();
+        return EssenceSource.findValidSource(resource.toStack(), this.essenceTypes.get(index)).isPresent();
     }
 
     public void tick(EssenceAccess essenceAccess) {
@@ -39,12 +39,12 @@ public class EssenceInputResourceHandler extends ItemStacksResourceHandler {
 
             int slot = i;
 
-            EssenceInput.findValidInput(stack, essenceType).ifPresent(input -> {
-                int value = input.getAmount(stack, essenceType);
+            EssenceSource.findValidSource(stack, essenceType).ifPresent(source -> {
+                int value = source.getExtractionRate(stack, essenceType);
 
                 essenceAccess.addEssence(essenceType, value);
 
-                ItemStack result = input.finishInput(stack, value);
+                ItemStack result = source.finishExtraction(stack, value);
                 this.set(slot, ItemResource.of(result), result.getCount());
             });
         }

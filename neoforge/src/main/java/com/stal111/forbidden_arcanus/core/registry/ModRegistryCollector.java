@@ -58,11 +58,10 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(FARegistries.RITUAL_RESULT_TYPE, ModRitualResultTypes.class);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT, ModEnhancerEffects.class);
         this.addMappedHelper(FARegistries.ENHANCER_EFFECT_CONDITION, ModEnhancerEffectConditions.class);
-        this.addMappedHelper(FARegistries.ESSENCE_INPUT, ModForgeInputTypes.class);
         this.addMappedHelper(FARegistries.DARK_TRADER_VARIANT, DarkTraderVariant.class);
         this.addMappedHelper(FARegistries.MUNDABITUR_INTERACTION, MundabiturInteractions.class);
         this.addMappedHelper(FARegistries.PEDESTAL_EFFECT, PedestalEffects.class);
-        this.addMappedHelper(FARegistries.ESSENCE_SOURCE_TYPE, EssenceSources.class);
+        this.addMappedHelper(FARegistries.ESSENCE_SOURCE, EssenceSources.class);
 
         this.addDatapackHelper(FARegistries.KNOWLEDGE, ModKnowledge::new);
         this.addDatapackHelper(FARegistries.CONSTELLATION, ModConstellations::new);

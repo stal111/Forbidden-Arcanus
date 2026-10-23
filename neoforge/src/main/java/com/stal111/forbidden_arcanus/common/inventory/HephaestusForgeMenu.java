@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResour
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.SingleSlotResourceHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -135,7 +135,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     }
 
     public boolean canInput(EssenceType type, ItemStack stack) {
-        return EssenceInput.findValidInput(stack, type).isPresent();
+        return EssenceSource.findValidSource(stack, type).isPresent();
     }
 
     @Override

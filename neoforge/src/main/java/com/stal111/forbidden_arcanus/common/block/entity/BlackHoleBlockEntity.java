@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.block.entity;
 
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.common.item.enchantment.ModEnchantmentHelper;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
@@ -103,8 +103,8 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
         } else if (entity instanceof ItemEntity itemEntity) {
             ItemStack stack = itemEntity.getItem();
 
-            EssenceInput.findValidInput(stack, EssenceType.EXPERIENCE).ifPresent(input -> {
-                this.storedExperience += input.getMaxAmount(stack, EssenceType.EXPERIENCE) * stack.count();
+            EssenceSource.findValidSource(stack, EssenceType.EXPERIENCE).ifPresent(source -> {
+                this.storedExperience += source.getMaxAmount(stack, EssenceType.EXPERIENCE) * stack.count();
 
                 this.setChanged();
             });

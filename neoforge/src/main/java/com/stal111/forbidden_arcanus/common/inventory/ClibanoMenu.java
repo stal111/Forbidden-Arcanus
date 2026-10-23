@@ -9,7 +9,7 @@ import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputRe
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.FuelItemHandler;
 import com.stal111.forbidden_arcanus.common.block.entity.transfer.ResultSlotItemHandler;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorages;
 import com.stal111.forbidden_arcanus.common.item.crafting.FARecipePropertySets;
@@ -121,7 +121,7 @@ public class ClibanoMenu extends AbstractContainerMenu {
     }
 
     private boolean isEctoplasm(ItemStack itemStack) {
-        return EssenceInput.findValidInput(itemStack, EssenceType.ECTOPLASM).isPresent();
+        return EssenceSource.findValidSource(itemStack, EssenceType.ECTOPLASM).isPresent();
     }
 
     @Override

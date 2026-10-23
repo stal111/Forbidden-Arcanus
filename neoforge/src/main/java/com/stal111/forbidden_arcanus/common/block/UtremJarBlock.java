@@ -4,7 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceUtremJarBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
-import com.stal111.forbidden_arcanus.common.essence.input.EssenceInput;
+import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -71,10 +71,10 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         for (EssenceType type : EssenceType.values()) {
-            Optional<EssenceInput> input = EssenceInput.findValidInput(stack, type);
+            Optional<EssenceSource> source = EssenceSource.findValidSource(stack, type);
 
-            if (input.isPresent()) {
-                int amount = input.get().getMaxAmount(stack, type);
+            if (source.isPresent()) {
+                int amount = source.get().getMaxAmount(stack, type);
 
                 BlockState essenceJar = ModBlocks.ESSENCE_UTREM_JAR.get().defaultBlockState()
                         .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
@@ -85,22 +85,28 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
                 if (level.getBlockEntity(pos) instanceof EssenceUtremJarBlockEntity blockEntity) {
                     int transferredAmount = blockEntity.addEssence(amount);
 
-                    player.setItemInHand(hand, input.get().finishInput(stack, transferredAmount));
+                    player.setItemInHand(hand, source.get().finishExtraction(stack, transferredAmount));
                 }
 
                 return InteractionResult.SUCCESS;
             }
         }
 
-        return InteractionResult.TRY_WITH_EMPTY_HAND;
+        return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+
+        return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -109,12 +115,7 @@ public class UtremJarBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    protected boolean isPathfindable(BlockState state, PathComputationType type) {
+    protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
         return false;
-    }
-
-    @Override
-    public FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 }
