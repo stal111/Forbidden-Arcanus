@@ -34,7 +34,7 @@ public record TierPredicate(HephaestusForgeTier tier, boolean matchExact) implem
         return this.matchExact ? this.tier == value : value.compareTo(this.tier) >= 0;
     }
 
-    public Component getDescription() {
-        return Component.translatable(this.matchExact ? MATCH_EXACT : AT_LEAST, this.tier);
+    public Component asComponent() {
+        return Component.translatable(this.matchExact ? MATCH_EXACT : AT_LEAST, this.tier.getAsInt());
     }
 }
