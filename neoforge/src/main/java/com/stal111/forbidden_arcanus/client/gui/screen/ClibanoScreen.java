@@ -149,6 +149,15 @@ public class ClibanoScreen extends AbstractContainerScreen<ClibanoMenu> {
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
+    @Override
+    public boolean mouseDragged(MouseButtonEvent mouseButtonEvent, double dragX, double dragY) {
+        if (this.materialList.mouseDragged(mouseButtonEvent, dragX, dragY)) {
+            return true;
+        }
+
+        return super.mouseDragged(mouseButtonEvent, dragX, dragY);
+    }
+
     public MaterialListComponent getMaterialList() {
         return this.materialList;
     }

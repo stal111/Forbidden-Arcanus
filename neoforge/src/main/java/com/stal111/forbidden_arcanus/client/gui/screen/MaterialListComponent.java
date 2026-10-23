@@ -33,6 +33,9 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     private static final Identifier SCROLLER_SPRITE = ForbiddenArcanus.identifier("container/clibano/scroller");
     private static final Identifier SCROLLER_DISABLED_SPRITE = ForbiddenArcanus.identifier("container/clibano/scroller_disabled");
 
+    private static final int SCROLLER_WIDTH = 11;
+    private static final int SCROLLER_HEIGHT = 37;
+
     protected Minecraft minecraft;
 
     private int xOrigin;
@@ -48,6 +51,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     private int maxScroll;
 
     private int scrollAmount;
+    private boolean scrolling;
 
     private final MaterialStorage materialStorage;
 
@@ -66,6 +70,7 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         this.scrollbarStartY = this.yOrigin + 34;
 
         this.scrollAmount = 0;
+        this.scrolling = false;
 
         this.updateSlots();
     }
@@ -129,12 +134,12 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
         int scrollbarY = this.scrollbarStartY;
 
         if (this.maxScroll != 0) {
-            scrollbarY = this.scrollAmount * (this.scrollArea.height() - 37) / this.maxScroll + this.scrollbarStartY;
+            scrollbarY = this.scrollAmount * (this.scrollArea.height() - SCROLLER_HEIGHT) / this.maxScroll + this.scrollbarStartY;
         }
 
         Identifier sprite = this.maxScroll == 0 ? SCROLLER_DISABLED_SPRITE : SCROLLER_SPRITE;
 
-        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.scrollbarStartX, scrollbarY, 11, 37);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.scrollbarStartX, scrollbarY, SCROLLER_WIDTH, SCROLLER_HEIGHT);
     }
 
     public int getWidth() {
@@ -163,6 +168,14 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
+        this.scrolling = false;
+
+        if (this.maxScroll != 0 && this.isMouseOverScrollbar(event.x(), event.y())) {
+            this.scrolling = true;
+            this.scrollTo(event.y());
+            return true;
+        }
+
         if (!this.isMouseOverScrollArea(event.x(), event.y())) {
             return GuiEventListener.super.mouseClicked(event, isDoubleClick);
         }
@@ -176,18 +189,44 @@ public class MaterialListComponent implements Renderable, GuiEventListener, Narr
     }
 
     @Override
+    public boolean mouseDragged(MouseButtonEvent event, double dragX, double dragY) {
+        if (this.scrolling && this.maxScroll != 0) {
+            this.scrollTo(event.y());
+            return true;
+        }
+        return GuiEventListener.super.mouseDragged(event, dragX, dragY);
+    }
+
+    @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (!this.isMouseOverScrollArea(mouseX, mouseY)) {
+        if (!this.isMouseOverScrollArea(mouseX, mouseY) && !this.isMouseOverScrollbar(mouseX, mouseY)) {
             return GuiEventListener.super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
         }
 
+        this.setScrollAmount(this.scrollAmount - (int) scrollY * 10);
+        return true;
+    }
+
+    private void scrollTo(double mouseY) {
+        int trackStart = this.scrollbarStartY;
+        int trackHeight = this.scrollArea.height() - SCROLLER_HEIGHT;
+
+        float scrollProgress = ((float) mouseY - trackStart - SCROLLER_HEIGHT / 2.0F) / (float) trackHeight;
+        this.setScrollAmount(Math.round(scrollProgress * this.maxScroll));
+    }
+
+    private void setScrollAmount(int newScroll) {
         int oldScroll = this.scrollAmount;
-        this.scrollAmount = Mth.clamp(this.scrollAmount - (int) scrollY * 10, 0, this.maxScroll);
+        this.scrollAmount = Mth.clamp(newScroll, 0, this.maxScroll);
 
         for (AbstractClibanoSlot slot : this.slots) {
             slot.setY(slot.getY() + (oldScroll - this.scrollAmount));
         }
-        return GuiEventListener.super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    }
+
+    private boolean isMouseOverScrollbar(double mouseX, double mouseY) {
+        return mouseX >= this.scrollbarStartX && mouseX < this.scrollbarStartX + SCROLLER_WIDTH
+                && mouseY >= this.scrollbarStartY && mouseY < this.scrollbarStartY + this.scrollArea.height();
     }
 
     private boolean isMouseOverScrollArea(double mouseX, double mouseY) {
