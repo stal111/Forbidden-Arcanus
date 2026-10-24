@@ -71,7 +71,8 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
 
     public void addEssence(ItemStack stack, int amount) {
         EssenceHelper.getEssenceStorage(stack).ifPresent(storage -> {
-            stack.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceValue.of(storage.value.type(), Math.min(storage.value.amount() + amount, storage.limit())), storage.limit(), storage.showInTooltip()));
+            int newAmount = Math.clamp((long) storage.value.amount() + amount, 0, storage.limit());
+            stack.set(ModDataComponents.ESSENCE_STORAGE, new EssenceStorage(EssenceValue.of(storage.value.type(), newAmount), storage.limit(), storage.showInTooltip()));
         });
     }
 
