@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProper
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.EssenceStorage;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
+import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.core.BlockPos;
@@ -49,6 +50,14 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
         blockEntity.tickCount++;
     }
 
+    //Empty Jars should be empty
+    public static void serverTick(Level level, BlockPos pos, BlockState state, EssenceUtremJarBlockEntity blockEntity) {
+        if (blockEntity.getEssenceStorage().isEmpty()) {
+            level.setBlockAndUpdate(pos, ModBlocks.UTREM_JAR.get().withPropertiesOf(state));
+            blockEntity.setRemoved();
+        }
+    }
+
     public ItemStack getAsItem() {
         ItemStack stack = ModItems.ESSENCE_UTREM_JAR.get().getDefaultInstance();
 
@@ -58,9 +67,12 @@ public class EssenceUtremJarBlockEntity extends BlockEntity {
     }
 
     public void addEssence(int amount) {
-        this.amount = Math.min(this.amount + amount, this.limit);
-
+        this.amount = Math.max(0, Math.min(this.amount + amount, this.limit));
         this.setChanged();
+    }
+
+    public EssenceStorage getEssenceStorage() {
+        return new EssenceStorage(EssenceValue.of(this.getBlockState().getValue(ModBlockStateProperties.ESSENCE_TYPE), this.amount), this.limit, true);
     }
 
     public int getAmount() {

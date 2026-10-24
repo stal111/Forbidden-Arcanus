@@ -60,6 +60,10 @@ public record EssenceStorage(EssenceValue value, int limit, boolean showInToolti
         return new EssenceStorage(EssenceValue.of(type, 0), limit, true);
     }
 
+    public int amount() {
+        return this.value.amount();
+    }
+
     public float getFillPercentage() {
         return (float) this.value.amount() / this.limit;
     }
