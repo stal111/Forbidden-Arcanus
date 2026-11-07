@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -46,43 +45,32 @@ public record Ritual(List<RitualInput> inputs,
     public static final Codec<Holder<Ritual>> CODEC = RegistryFileCodec.create(FARegistries.RITUAL, DIRECT_CODEC);
 
     public boolean canStart(HephaestusForgeState state, List<EssenceModifier> essenceModifiers) {
+        if (!this.checkIngredients(state.pedestalItems(), state.mainItem())) {
+            return false;
+        }
+
         if (!this.requirements.checkRequirements(state.tier(), state.enhancers())) {
             return false;
         }
 
         EssenceSet updatedEssences = this.requirements().essences().applyModifiers(essenceModifiers);
 
-        return state.essenceSet().hasMoreThan(updatedEssences) && this.checkIngredients(state.pedestalItems(), state.mainItem());
+        return state.essenceSet().hasMoreThan(updatedEssences);
     }
 
-    public boolean checkIngredients(Collection<ItemStack> list, ItemStack mainIngredient) {
-        if (!this.mainIngredient().test(mainIngredient)) {
+    public boolean checkIngredients(Collection<ItemStack> pedestalItems, ItemStack mainItem) {
+        if (!this.mainIngredient().test(mainItem)) {
             return false;
         }
 
-        List<ItemStack> ingredients = new ArrayList<>(list);
+        List<ItemStack> remainingItems = new ArrayList<>(pedestalItems);
 
-        outer:
-        for (RitualInput input : this.inputs()) {
-            int amount = 0;
-
-            Iterator<ItemStack> iterator = ingredients.iterator();
-
-            while (iterator.hasNext()) {
-                if (input.ingredient().test(iterator.next())) {
-                    iterator.remove();
-
-                    amount++;
-
-                    if (amount == input.amount()) {
-                        continue outer;
-                    }
-                }
+        for (RitualInput input : this.inputs) {
+            if (!input.consumeFrom(remainingItems)) {
+                return false;
             }
-
-            return false;
         }
 
-        return ingredients.stream().filter(stack -> !stack.isEmpty()).toList().isEmpty();
+        return remainingItems.isEmpty();
     }
 }

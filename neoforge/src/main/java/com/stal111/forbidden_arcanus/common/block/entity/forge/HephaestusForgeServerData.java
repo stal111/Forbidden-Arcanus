@@ -119,14 +119,13 @@ public class HephaestusForgeServerData {
     private void updateValidRitual(ServerLevel level, HephaestusForgeState state, HephaestusForgeSharedData sharedData) {
         List<EssenceModifier> essenceModifiers = EnhancerHelper.getEssenceModifiers(state.enhancers(), EnhancerTarget.HEPHAESTUS_FORGE);
 
-        for (Holder<Ritual> ritual : level.registryAccess().lookupOrThrow(FARegistries.RITUAL).listElements().toList()) {
-            if (ritual.value().canStart(state, essenceModifiers)) {
-                sharedData.setValidRitual(ritual);
-                return;
-            }
-        }
+        Holder<Ritual> validRitual = level.registryAccess().lookupOrThrow(FARegistries.RITUAL)
+                .listElements()
+                .filter(ritual -> ritual.value().canStart(state, essenceModifiers))
+                .findFirst()
+                .orElse(null);
 
-        sharedData.setValidRitual(null);
+        sharedData.setValidRitual(validRitual);
     }
 
     public boolean startRitual(ServerLevel level, BlockPos pos, ServerPlayer player, HephaestusForgeSharedData sharedData) {
