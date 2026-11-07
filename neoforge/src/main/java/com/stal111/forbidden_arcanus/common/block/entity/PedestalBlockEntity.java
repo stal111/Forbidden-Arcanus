@@ -78,7 +78,7 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner, Block
     public void onLoad() {
         super.onLoad();
 
-        if (this.getLevel() instanceof ServerLevel serverLevel) {
+        if (this.getLevel() instanceof ServerLevel serverLevel && !this.stack.isEmpty()) {
             FARegistries.PEDESTAL_EFFECT_REGISTRY.stream().filter(pedestalEffect -> pedestalEffect.shouldExecute(PedestalEffectTrigger.LOAD)).forEach(pedestalEffect -> {
                 pedestalEffect.execute(serverLevel, this.getBlockPos(), this.stack);
             });
