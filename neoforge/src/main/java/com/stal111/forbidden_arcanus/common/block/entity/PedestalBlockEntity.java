@@ -111,6 +111,7 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner, Block
 
     public void clearStack(@Nullable Player player, PedestalEffectTrigger trigger) {
         this.itemHeight = DEFAULT_ITEM_HEIGHT;
+        this.heightTarget = DEFAULT_ITEM_HEIGHT;
 
         this.setStack(ItemStack.EMPTY, player, trigger);
     }
