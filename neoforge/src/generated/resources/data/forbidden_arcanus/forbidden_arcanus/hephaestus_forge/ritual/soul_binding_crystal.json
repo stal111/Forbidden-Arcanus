@@ -9,15 +9,12 @@
   "forge_tier": 4,
   "inputs": [
     {
-      "amount": 1,
       "ingredient": "forbidden_arcanus:soul"
     },
     {
-      "amount": 1,
       "ingredient": "forbidden_arcanus:corrupt_soul"
     },
     {
-      "amount": 1,
       "ingredient": "forbidden_arcanus:enchanted_soul"
     },
     {

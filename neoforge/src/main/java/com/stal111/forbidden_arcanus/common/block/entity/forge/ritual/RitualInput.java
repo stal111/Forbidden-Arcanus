@@ -5,8 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.Optional;
-
 /**
  * @author stal111
  * @since 2023-01-08
@@ -14,13 +12,7 @@ import java.util.Optional;
 public record RitualInput(Ingredient ingredient, int amount) {
 
     public static final Codec<RitualInput> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Ingredient.CODEC.fieldOf("ingredient").forGetter(input -> {
-                return input.ingredient;
-            }),
-            ExtraCodecs.POSITIVE_INT.optionalFieldOf("amount").forGetter(input -> {
-                return Optional.of(input.amount);
-            })
-    ).apply(instance, (name, amount) -> {
-        return new RitualInput(name, amount.orElse(1));
-    }));
+            Ingredient.CODEC.fieldOf("ingredient").forGetter(input -> input.ingredient),
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf("amount", 1).forGetter(input -> input.amount)
+    ).apply(instance, RitualInput::new));
 }

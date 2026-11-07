@@ -8,7 +8,6 @@
   "forge_tier": 4,
   "inputs": [
     {
-      "amount": 1,
       "ingredient": "minecraft:nether_star"
     },
     {
