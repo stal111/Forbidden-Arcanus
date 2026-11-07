@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -58,23 +57,21 @@ public class HephaestusForgeRenderer implements BlockEntityRenderer<HephaestusFo
         HephaestusForgeClientData clientData = blockEntity.getClientData();
         HephaestusForgeSharedData sharedData = blockEntity.getSharedData();
 
-        ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(itemStackRenderState, sharedData.getMainSlotInventory().getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+        this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, sharedData.getMainSlotInventory().getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
-        renderState.itemStackRenderState = itemStackRenderState;
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
 
         renderState.validRitualIndicatorRenderState = ValidRitualIndicatorRenderState.create(renderState.lightCoords, blockEntity.hasValidOrActiveRitual(), clientData.getIndicatorTicks() + partialTick);
 
-        sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
+        renderState.magicCircleRenderState = sharedData.getActiveRitualData().map(activeRitualData -> {
             MagicCircleRenderState magicCircleRenderState = new MagicCircleRenderState();
             magicCircleRenderState.lightCoords = renderState.lightCoords;
             magicCircleRenderState.ageInTicks = activeRitualData.getTicks() + partialTick;
             magicCircleRenderState.duration = activeRitualData.getRitual().duration();
             magicCircleRenderState.magicCircleType = activeRitualData.getRitual().magicCircleType().value();
 
-            renderState.magicCircleRenderState = magicCircleRenderState;
-        });
+            return magicCircleRenderState;
+        }).orElse(null);
     }
 
     @Override

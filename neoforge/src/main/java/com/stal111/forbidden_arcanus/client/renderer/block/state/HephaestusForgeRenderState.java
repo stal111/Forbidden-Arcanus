@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 public class HephaestusForgeRenderState extends BlockEntityRenderState {
-    public ItemStackRenderState itemStackRenderState;
+    public final ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
     public ValidRitualIndicatorRenderState validRitualIndicatorRenderState;
     public MagicCircleRenderState magicCircleRenderState;
     public float ageInTicks;
