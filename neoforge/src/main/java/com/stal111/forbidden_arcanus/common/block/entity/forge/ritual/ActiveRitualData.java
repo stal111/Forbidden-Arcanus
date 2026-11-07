@@ -44,13 +44,8 @@ public class ActiveRitualData {
         return new ActiveRitualData(ritual, 0);
     }
 
-    /**
-     * Calculate the progress of the ritual
-     *
-     * @return The progress of the ritual as a float between 0 and 1
-     */
-    public float calculateRitualProgress() {
-        return this.ticks / (float) this.ritual.value().duration();
+    public boolean isFinished() {
+        return this.ticks >= this.ritual.value().duration();
     }
 
     /**

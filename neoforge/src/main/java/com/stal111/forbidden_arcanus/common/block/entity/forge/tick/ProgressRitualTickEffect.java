@@ -21,13 +21,11 @@ public record ProgressRitualTickEffect(
         this.sharedData.getActiveRitualData().ifPresent(activeRitualData -> {
             activeRitualData.incrementTicks();
 
-            float progress = activeRitualData.calculateRitualProgress();
-
             this.serverData.getPedestalItems().forEach((pedestalPos, stack) -> {
                 this.addItemParticles(level, pos, pedestalPos, Math.min(PedestalBlockEntity.DEFAULT_ITEM_HEIGHT + activeRitualData.getTicks(), HephaestusForgeServerData.PEDESTAL_ITEM_HEIGHT), ItemStackTemplate.fromNonEmptyStack(stack));
             });
 
-            if (progress == 1.0F) {
+            if (activeRitualData.isFinished()) {
                 this.serverData.finishRitual(level, pos, activeRitualData, this.sharedData);
             }
         });
