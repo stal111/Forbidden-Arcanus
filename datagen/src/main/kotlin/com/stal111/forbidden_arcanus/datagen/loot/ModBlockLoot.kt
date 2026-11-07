@@ -21,6 +21,7 @@ import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.entries.DynamicLoot
 import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount
+import net.minecraft.world.level.storage.loot.functions.CopyBlockState
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams
@@ -57,7 +58,6 @@ class ModBlockLoot(
         dropSelf(ModBlocks.DARKSTONE_PEDESTAL.get())
         dropSelf(ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get())
         dropSelf(ModBlocks.CLIBANO_CORE.get())
-        dropSelf(ModBlocks.HEPHAESTUS_FORGE.get())
         dropSelf(ModBlocks.QUANTUM_CORE.get())
         dropSelf(ModBlocks.QUANTUM_INJECTOR.get())
         dropSelf(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())
@@ -198,6 +198,7 @@ class ModBlockLoot(
                 *NORMAL_LEAVES_SAPLING_CHANCES
             )
         }
+        add(ModBlocks.HEPHAESTUS_FORGE.get()) { createHephaestusForge(it) }
         add(ModBlocks.ESSENCE_UTREM_JAR.get()) { createUtremJarDrops(it) }
         dropOther(ModBlocks.ESSENCE_CAULDRON.get(), Blocks.CAULDRON)
         add(ModBlocks.CLIBANO_CENTER.get()) { createClibanoFrameTable() }
@@ -239,6 +240,18 @@ class ModBlockLoot(
                 )
         )
     }
+
+    private fun createHephaestusForge(block: Block) = LootTable.lootTable().withPool(
+        this.applyExplosionCondition(
+            block, LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1f))
+                .add(
+                    LootItem.lootTableItem(block).apply(
+                        CopyBlockState.copyState(block).copy(ModBlockStateProperties.FORGE_TIER)
+                    )
+                )
+        )
+    )
 
     private fun createUtremJarDrops(block: Block) = LootTable.lootTable().withPool(
         this.applyExplosionCondition(

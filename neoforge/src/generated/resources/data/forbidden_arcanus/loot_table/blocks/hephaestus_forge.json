@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "block": "forbidden_arcanus:hephaestus_forge",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "forge_tier"
+              ]
+            }
+          ],
           "name": "forbidden_arcanus:hephaestus_forge"
         }
       ],
