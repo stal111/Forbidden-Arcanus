@@ -137,7 +137,7 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
     public static void serverTick(Level level, BlockPos pos, BlockState state, HephaestusForgeBlockEntity blockEntity) {
         blockEntity.serverData.tick(blockEntity.sharedData);
 
-        if (level instanceof ServerLevel serverLevel) {
+        if (level instanceof ServerLevel serverLevel && serverLevel.isAreaLoaded(pos, 4)) {
             for (TickEffect effect : blockEntity.tickEffects) {
                 if (serverLevel.getGameTime() % effect.getTickInterval() == 0) {
                     effect.tick(serverLevel, pos, state);
