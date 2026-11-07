@@ -45,16 +45,6 @@ public record Ritual(List<RitualInput> inputs,
 
     public static final Codec<Holder<Ritual>> CODEC = RegistryFileCodec.create(FARegistries.RITUAL, DIRECT_CODEC);
 
-    public static final Codec<Ritual> NETWORK_CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            RitualInput.CODEC.listOf().fieldOf("inputs").forGetter(Ritual::inputs),
-            Ingredient.CODEC.fieldOf("main_ingredient").forGetter(Ritual::mainIngredient),
-            RitualResult.DIRECT_CODEC.fieldOf("result").forGetter(Ritual::result),
-            RitualRequirements.CODEC.forGetter(Ritual::requirements),
-            ExtraCodecs.POSITIVE_INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(Ritual::duration)
-    ).apply(instance, (inputs, mainIngredient, result, requirements, duration) -> {
-        return new Ritual(inputs, mainIngredient, result, requirements, null, duration);
-    }));
-
     public boolean canStart(HephaestusForgeState state, List<EssenceModifier> essenceModifiers) {
         if (!this.requirements.checkRequirements(state.tier(), state.enhancers())) {
             return false;
