@@ -51,7 +51,7 @@ public record Ritual(List<RitualInput> inputs,
     }
 
     public boolean checkIngredients(Collection<ItemStack> pedestalItems, ItemStack mainItem) {
-        if (!this.mainIngredient().test(mainItem)) {
+        if (!this.mainIngredient().test(mainItem) || pedestalItems.size() < this.inputs().size()) {
             return false;
         }
 
