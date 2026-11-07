@@ -2,7 +2,7 @@ package com.stal111.forbidden_arcanus.core.registry;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
+import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResultType;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffect;

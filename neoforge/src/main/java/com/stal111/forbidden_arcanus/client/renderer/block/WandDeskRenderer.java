@@ -7,8 +7,8 @@ import com.stal111.forbidden_arcanus.client.renderer.block.state.WandDeskRenderS
 import com.stal111.forbidden_arcanus.client.renderer.effect.MagicCircleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.desk.WandDeskBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.BuiltInMagicCircles;
+import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.MagicCircleType;
+import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.BuiltInMagicCircles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;

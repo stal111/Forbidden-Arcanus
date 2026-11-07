@@ -1,4 +1,4 @@
-package com.stal111.forbidden_arcanus.common.block.entity.forge.circle;
+package com.stal111.forbidden_arcanus.common.block.entity.magiccircle;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.event;
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterialType;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
+import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier;

@@ -1,8 +1,8 @@
 package com.stal111.forbidden_arcanus.datagen.block.forge
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
-import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType
-import com.stal111.forbidden_arcanus.common.block.entity.forge.magiccircle.BuiltInMagicCircles
+import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.MagicCircleType
+import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.BuiltInMagicCircles
 import net.minecraft.data.worldgen.BootstrapContext
 import net.valhelsia.dataforge.RegistryDataProvider
 
