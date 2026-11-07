@@ -4,10 +4,15 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeTier;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.TierPredicate;
+import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
 import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
+import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+
+import java.util.List;
 
 /**
  * @author stal111
@@ -27,12 +32,22 @@ public record RitualRequirements(EssenceSet essences, TierPredicate tier, Holder
         return new RitualRequirements.Builder(essences);
     }
 
-    public boolean checkRequirements(HephaestusForgeTier forgeTier, HolderSet<EnhancerDefinition> enhancers) {
-        if (!this.tier.test(forgeTier)) {
+    public boolean checkRequirements(HephaestusForgeTier tier, HolderSet<EnhancerDefinition> enhancers, EssenceSet essences) {
+        if (!this.tier.test(tier)) {
             return false;
         }
 
-        return this.enhancers.stream().allMatch(enhancers::contains);
+        if (!this.enhancers.stream().allMatch(enhancers::contains)) {
+            return false;
+        }
+
+        return essences.hasMoreThan(this.getEffectiveEssences(enhancers));
+    }
+
+    public EssenceSet getEffectiveEssences(HolderSet<EnhancerDefinition> enhancers) {
+        List<EssenceModifier> modifiers = EnhancerHelper.getEssenceModifiers(enhancers, EnhancerTarget.HEPHAESTUS_FORGE);
+
+        return this.essences.applyModifiers(modifiers);
     }
 
     public static class Builder {

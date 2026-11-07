@@ -6,10 +6,10 @@ import com.stal111.forbidden_arcanus.common.block.entity.PedestalBlockEntity;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.ActiveRitualData;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.HephaestusForgeState;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
+import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
 import com.stal111.forbidden_arcanus.common.block.pedestal.effect.PedestalEffectTrigger;
-import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
-import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerTarget;
+import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.BlockPos;
@@ -22,16 +22,12 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.EnhancerResourceHandler;
-import com.stal111.forbidden_arcanus.common.block.entity.transfer.EssenceInputResourceHandler;
-import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -117,11 +113,9 @@ public class HephaestusForgeServerData {
     }
 
     private void updateValidRitual(ServerLevel level, HephaestusForgeState state, HephaestusForgeSharedData sharedData) {
-        List<EssenceModifier> essenceModifiers = EnhancerHelper.getEssenceModifiers(state.enhancers(), EnhancerTarget.HEPHAESTUS_FORGE);
-
         Holder<Ritual> validRitual = level.registryAccess().lookupOrThrow(FARegistries.RITUAL)
                 .listElements()
-                .filter(ritual -> ritual.value().canStart(state, essenceModifiers))
+                .filter(ritual -> ritual.value().canStart(state))
                 .findFirst()
                 .orElse(null);
 
@@ -136,7 +130,7 @@ public class HephaestusForgeServerData {
         return sharedData.getValidRitual().map(ritual -> {
             this.setActiveRitual(ritual, player, sharedData);
 
-            sharedData.removeEssences(ritual.value().requirements().essences());
+            sharedData.removeEssences(ritual.value().requirements().getEffectiveEssences(this.enhancerInventory.getEnhancers()));
             sharedData.setValidRitual(null);
 
             this.forEachPedestal(level, PedestalBlockEntity::hasStack, blockEntity -> {

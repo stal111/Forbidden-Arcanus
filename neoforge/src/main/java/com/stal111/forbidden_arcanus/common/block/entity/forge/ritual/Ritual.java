@@ -4,8 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.circle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.RitualResult;
-import com.stal111.forbidden_arcanus.common.essence.EssenceModifier;
-import com.stal111.forbidden_arcanus.common.essence.EssenceSet;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
@@ -44,18 +42,12 @@ public record Ritual(List<RitualInput> inputs,
 
     public static final Codec<Holder<Ritual>> CODEC = RegistryFileCodec.create(FARegistries.RITUAL, DIRECT_CODEC);
 
-    public boolean canStart(HephaestusForgeState state, List<EssenceModifier> essenceModifiers) {
+    public boolean canStart(HephaestusForgeState state) {
         if (!this.checkIngredients(state.pedestalItems(), state.mainItem())) {
             return false;
         }
 
-        if (!this.requirements.checkRequirements(state.tier(), state.enhancers())) {
-            return false;
-        }
-
-        EssenceSet updatedEssences = this.requirements().essences().applyModifiers(essenceModifiers);
-
-        return state.essenceSet().hasMoreThan(updatedEssences);
+        return this.requirements.checkRequirements(state.tier(), state.enhancers(), state.essenceSet());
     }
 
     public boolean checkIngredients(Collection<ItemStack> pedestalItems, ItemStack mainItem) {
