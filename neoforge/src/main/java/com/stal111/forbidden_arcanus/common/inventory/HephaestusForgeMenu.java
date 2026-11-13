@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
@@ -71,12 +70,21 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         this.addSlot(new LockableSlot(handler, index, x, y, () -> this.getTier().getAsInt() < requiredLevel, Component.translatable(UNLOCKED_AT_KEY, index + 1)));
     }
 
+    private static final int ENHANCER_SLOT_START = 0;
+    private static final int ENHANCER_SLOT_COUNT = 4;
+    private static final int MAIN_SLOT = 4;
+    private static final int ESSENCE_INPUT_START = 5;
+    private static final int ESSENCE_INPUT_END = 9;
+    private static final int INV_SLOT_START = 9;
+    private static final int INV_SLOT_END = 36;
+    private static final int HOTBAR_SLOT_START = 36;
+    private static final int HOTBAR_SLOT_END = 45;
+
     @Nonnull
     @Override
     public ItemStack quickMoveStack(@Nonnull Player player, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        Level level = player.level();
 
         if (!slot.hasItem()) {
             return result;
@@ -85,53 +93,63 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
         ItemStack stack = slot.getItem();
         result = stack.copy();
 
-        if (index <= 4) {
-            if (!this.moveItemStackTo(stack, 5, 41, true)) {
+        if (index < ESSENCE_INPUT_END) {
+            if (!this.moveItemStackTo(stack, INV_SLOT_START, HOTBAR_SLOT_END, true)) {
                 return ItemStack.EMPTY;
             }
 
-            slot.onQuickCraft(stack, result);
-        } else if (index <= 8) {
-            if (!this.moveItemStackTo(stack, 9, 41, true)) {
-                return ItemStack.EMPTY;
+            if (index <= MAIN_SLOT) {
+                slot.onQuickCraft(stack, result);
             }
         } else {
-            if (this.canInput(EssenceType.AUREAL, stack)) {
-                if (!this.moveItemStackTo(stack, 5, 6, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (this.canInput(EssenceType.ECTOPLASM, stack)) {
-                if (!this.moveItemStackTo(stack, 6, 7, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (this.canInput(EssenceType.BLOOD, stack)) {
-                if (!this.moveItemStackTo(stack, 7, 8, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (this.canInput(EssenceType.EXPERIENCE, stack)) {
-                if (!this.moveItemStackTo(stack, 8, 9, false)) {
+            int essenceSlot = this.findEssenceInputSlot(stack);
+
+            if (essenceSlot != -1) {
+                if (!this.moveItemStackTo(stack, essenceSlot, essenceSlot + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (EnhancerHelper.getEnhancer(stack).isPresent()) {
-                if (!this.moveItemStackTo(stack, 0, this.getTier().getAsInt() + 1, false)) {
+                int unlockedEnhancerSlots = Math.min(this.getTier().getAsInt(), ENHANCER_SLOT_COUNT);
+
+                if (!this.moveItemStackTo(stack, ENHANCER_SLOT_START, unlockedEnhancerSlots, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.getSlot(4).hasItem()) {
-                if (!this.moveItemStackTo(stack, 4, 5, false)) {
+            } else if (!this.getSlot(MAIN_SLOT).hasItem()) {
+                if (!this.moveItemStackTo(stack, MAIN_SLOT, MAIN_SLOT + 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (index < 36) {
-                if (!this.moveItemStackTo(stack, 36, 45, false)) {
+            } else if (index < INV_SLOT_END) {
+                if (!this.moveItemStackTo(stack, HOTBAR_SLOT_START, HOTBAR_SLOT_END, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (index < 45 && !this.moveItemStackTo(stack, 9, 36, false)) {
+            } else if (index < HOTBAR_SLOT_END && !this.moveItemStackTo(stack, INV_SLOT_START, INV_SLOT_END, false)) {
                 return ItemStack.EMPTY;
             }
+        }
+
+        if (stack.isEmpty()) {
+            slot.set(ItemStack.EMPTY);
+        } else {
+            slot.setChanged();
+        }
+
+        if (stack.getCount() == result.getCount()) {
+            return ItemStack.EMPTY;
         }
 
         slot.onTake(player, stack);
 
         return result;
+    }
+
+    private int findEssenceInputSlot(ItemStack stack) {
+        EssenceType[] types = EssenceType.values();
+        for (int i = 0; i < types.length; i++) {
+            if (this.canInput(types[i], stack)) {
+                return ESSENCE_INPUT_START + i;
+            }
+        }
+        return -1;
     }
 
     public boolean canInput(EssenceType type, ItemStack stack) {
