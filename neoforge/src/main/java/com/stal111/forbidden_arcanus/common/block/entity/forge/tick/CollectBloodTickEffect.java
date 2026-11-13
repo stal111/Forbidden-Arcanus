@@ -30,7 +30,7 @@ public record CollectBloodTickEffect(EssenceAccess essenceAccess,
                 float healthDifference = this.cachedHealth.getFloat(entity) - entity.getHealth();
 
                 if (healthDifference > 0) {
-                    this.essenceAccess.addEssence(EssenceType.BLOOD, (int) healthDifference * 20);
+                    this.essenceAccess.addEssence(EssenceType.BLOOD, (int) (healthDifference * 20));
                 }
             }
         }
