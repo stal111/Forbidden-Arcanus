@@ -34,9 +34,11 @@ public class SingleSlotResourceHandler extends ItemStackResourceHandler {
 
     @Override
     public void setStack(ItemStack stack) {
-        this.stack = stack;
+        if (!ItemStack.matches(this.stack, stack)) {
+            this.stack = stack;
 
-        this.onChanged.accept(stack);
+            this.onChanged.accept(stack);
+        }
     }
 
     @Override
@@ -60,11 +62,6 @@ public class SingleSlotResourceHandler extends ItemStackResourceHandler {
             throw new IllegalArgumentException("Resource is empty but the amount is positive: " + amount);
         }
 
-        ItemStack stack = resource.toStack(amount);
-
-        if (!ItemStack.matches(this.getStack(), stack)) {
-            this.setStack(stack);
-            this.onChanged.accept(this.stack);
-        }
+        this.setStack(resource.toStack(amount));
     }
 }
