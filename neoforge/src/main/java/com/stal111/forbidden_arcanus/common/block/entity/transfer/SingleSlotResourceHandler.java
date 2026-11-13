@@ -46,6 +46,25 @@ public class SingleSlotResourceHandler extends ItemStackResourceHandler {
         return this.singleCapacity ? 1 : super.getCapacity(resource);
     }
 
+    @Override
+    protected ItemStack createSnapshot() {
+        ItemStack original = this.stack;
+        this.stack = original.copy();
+        return original;
+    }
+
+    @Override
+    protected void revertToSnapshot(ItemStack snapshot) {
+        this.stack = snapshot;
+    }
+
+    @Override
+    protected void onRootCommit(ItemStack originalState) {
+        if (!ItemStack.matches(originalState, this.stack)) {
+            this.onChanged.accept(this.stack);
+        }
+    }
+
     public void serialize(String key, ValueOutput output) {
         if (!this.stack.isEmpty()) {
             output.store(key, ItemStack.CODEC, this.stack);
