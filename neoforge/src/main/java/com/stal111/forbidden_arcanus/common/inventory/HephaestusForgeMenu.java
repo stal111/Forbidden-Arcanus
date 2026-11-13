@@ -37,7 +37,7 @@ public class HephaestusForgeMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess levelAccess;
 
     public HephaestusForgeMenu(int id, Inventory inventory) {
-        this(id, new SingleSlotResourceHandler(false), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(EssenceType.values()), new SimpleContainerData(5), ContainerLevelAccess.NULL, inventory);
+        this(id, new SingleSlotResourceHandler(true), new EnhancerResourceHandler(4), new EssenceInputResourceHandler(EssenceType.values()), new SimpleContainerData(5), ContainerLevelAccess.NULL, inventory);
     }
 
     public HephaestusForgeMenu(int id, SingleSlotResourceHandler mainSlotInventory, EnhancerResourceHandler enhancerInventory, EssenceInputResourceHandler essenceInputInventory, ContainerData containerData, ContainerLevelAccess levelAccess, Inventory inventory) {
