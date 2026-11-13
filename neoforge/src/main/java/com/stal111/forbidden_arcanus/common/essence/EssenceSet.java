@@ -73,18 +73,27 @@ public record EssenceSet(int aureal, int ectoplasm, int blood, int experience) {
     }
 
     public EssenceSet applyModifiers(List<EssenceModifier> modifiers) {
+        if (modifiers.isEmpty()) {
+            return this;
+        }
+
         Map<EssenceType, Integer> values = new EnumMap<>(EssenceType.class);
 
-        values.put(EssenceType.AUREAL, aureal);
-        values.put(EssenceType.ECTOPLASM, ectoplasm);
-        values.put(EssenceType.BLOOD, blood);
-        values.put(EssenceType.EXPERIENCE, experience);
+        values.put(EssenceType.AUREAL, this.aureal);
+        values.put(EssenceType.ECTOPLASM, this.ectoplasm);
+        values.put(EssenceType.BLOOD, this.blood);
+        values.put(EssenceType.EXPERIENCE, this.experience);
 
         for (EssenceModifier modifier : modifiers) {
             values.computeIfPresent(modifier.getEssenceType(), (k, v) -> modifier.getModifiedValue(v));
         }
 
-        return EssenceSet.of(values.get(EssenceType.AUREAL), values.get(EssenceType.ECTOPLASM), values.get(EssenceType.BLOOD), values.get(EssenceType.EXPERIENCE));
+        return EssenceSet.of(
+                values.get(EssenceType.AUREAL),
+                values.get(EssenceType.ECTOPLASM),
+                values.get(EssenceType.BLOOD),
+                values.get(EssenceType.EXPERIENCE)
+        );
     }
 
     @Override
