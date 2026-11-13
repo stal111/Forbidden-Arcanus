@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.integration.hephaestus_forge;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.block.HephaestusForgeBlock;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.Ritual;
-import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.RitualRequirements;
 import com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result.UpgradeTierResult;
 import com.stal111.forbidden_arcanus.common.integration.ForbiddenArcanusJEIPlugin;
 import it.unimi.dsi.fastutil.ints.IntIntPair;
@@ -36,9 +35,9 @@ public class UpgradeTierCategory extends HephaestusForgeCategory<UpgradeTierResu
     }
 
     @Override
-    protected void buildRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RitualRequirements requirements, @NotNull UpgradeTierResult result) {
+    protected void buildRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull Ritual ritual, @NotNull UpgradeTierResult result) {
         builder.addSlot(RecipeIngredientRole.INPUT, REQUIRED_TIER_POSITION.firstInt(), REQUIRED_TIER_POSITION.secondInt())
-                .add(HephaestusForgeBlock.createItem(requirements.tier().tier()));
+                .add(HephaestusForgeBlock.createItem(ritual.requirements().tier().tier()));
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, UPGRADED_TIER_POSITION.firstInt(), UPGRADED_TIER_POSITION.secondInt())
                 .add(HephaestusForgeBlock.createItem(result.resultTier()));

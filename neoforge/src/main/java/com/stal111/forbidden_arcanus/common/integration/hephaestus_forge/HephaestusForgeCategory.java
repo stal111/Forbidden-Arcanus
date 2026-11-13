@@ -82,10 +82,10 @@ public abstract class HephaestusForgeCategory<T extends RitualResult> implements
             this.addEnhancers(builder, ritual.requirements().enhancers());
         }
 
-        this.buildRecipe(builder, ritual.requirements(), (T) ritual.result());
+        this.buildRecipe(builder, ritual, (T) ritual.result());
     }
 
-    protected abstract void buildRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull RitualRequirements requirements, @NotNull T result);
+    protected abstract void buildRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull Ritual ritual, @NotNull T result);
 
     protected boolean displayEnhancers() {
         return true;
