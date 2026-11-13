@@ -21,7 +21,6 @@ import java.util.function.UnaryOperator;
 public class HephaestusForgeSharedData implements EssenceAccess {
 
     public static final MapCodec<HephaestusForgeSharedData> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            HephaestusForgeTier.CODEC.fieldOf("tier").forGetter(data -> data.tier),
             MultiEssenceStorage.CODEC.fieldOf("essences").forGetter(data -> data.essenceStorage),
             ItemStack.OPTIONAL_CODEC.fieldOf("main_item").forGetter(data -> data.mainSlotInventory.getStack()),
             Ritual.CODEC.optionalFieldOf("valid_ritual").forGetter(data -> Optional.ofNullable(data.validRitual)),
@@ -30,14 +29,13 @@ public class HephaestusForgeSharedData implements EssenceAccess {
 
     private final SingleSlotResourceHandler mainSlotInventory = new SingleSlotResourceHandler(true, _ -> this.isDirty = true);
 
-    private HephaestusForgeTier tier;
+    private HephaestusForgeTier tier = HephaestusForgeTier.ONE;
     private MultiEssenceStorage essenceStorage;
     private @Nullable Holder<Ritual> validRitual;
     private @Nullable ActiveRitualData activeRitualData;
     boolean isDirty;
 
-    public HephaestusForgeSharedData(HephaestusForgeTier tier, MultiEssenceStorage essenceStorage, ItemStack mainItem, @Nullable Holder<Ritual> validRitual, @Nullable ActiveRitualData activeRitualData) {
-        this.tier = tier;
+    public HephaestusForgeSharedData(MultiEssenceStorage essenceStorage, ItemStack mainItem, @Nullable Holder<Ritual> validRitual, @Nullable ActiveRitualData activeRitualData) {
         this.essenceStorage = essenceStorage;
         this.mainSlotInventory.setStack(mainItem);
         this.validRitual = validRitual;
@@ -51,10 +49,12 @@ public class HephaestusForgeSharedData implements EssenceAccess {
     }
 
     public void setTier(HephaestusForgeTier tier) {
-        this.tier = tier;
+        if (this.tier != tier) {
+            this.tier = tier;
 
-        this.essenceStorage = this.essenceStorage.setLimits(tier.getMaxEssences());
-        this.isDirty = true;
+            this.essenceStorage = this.essenceStorage.setLimits(tier.getMaxEssences());
+            this.isDirty = true;
+        }
     }
 
     public SingleSlotResourceHandler getMainSlotInventory() {
@@ -92,7 +92,6 @@ public class HephaestusForgeSharedData implements EssenceAccess {
     }
 
     void set(HephaestusForgeSharedData from) {
-        this.tier = from.tier;
         this.essenceStorage = from.essenceStorage;
         this.mainSlotInventory.setStack(from.mainSlotInventory.getStack());
         this.validRitual = from.validRitual;

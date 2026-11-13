@@ -38,8 +38,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,6 +173,13 @@ public class HephaestusForgeBlockEntity extends BlockEntity implements EssenceAc
 
     public void setTier(HephaestusForgeTier tier) {
         this.sharedData.setTier(tier);
+    }
+
+    @Override
+    public void setBlockState(BlockState state) {
+        super.setBlockState(state);
+
+        this.setTier(state.getValueOrElse(ModBlockStateProperties.FORGE_TIER, HephaestusForgeTier.ONE));
     }
 
     public boolean canStartRitual() {

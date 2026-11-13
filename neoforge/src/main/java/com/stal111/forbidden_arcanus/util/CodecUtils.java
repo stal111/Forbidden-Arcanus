@@ -8,11 +8,11 @@ import java.util.Optional;
 public class CodecUtils {
 
     /**
-     * Adapts a 4-arg constructor taking a @Nullable 4th parameter
+     * Adapts a 4-arg constructor taking a @Nullable 3rd and 4th parameter
      * to accept an Optional from a MapCodec.
      */
-    public static <T1, T2, T3, T4, R> Function4<T1, T2, T3, Optional<T4>, R> withNullable(Function4<T1, T2, T3, T4, R> constructor) {
-        return (t1, t2, t3, opt) -> constructor.apply(t1, t2, t3, opt.orElse(null));
+    public static <T1, T2, T3, T4, R> Function4<T1, T2, Optional<T3>, Optional<T4>, R> withNullable(Function4<T1, T2, T3, T4, R> constructor) {
+        return (t1, t2, opt1, opt2) -> constructor.apply(t1, t2, opt1.orElse(null), opt2.orElse(null));
     }
 
     /**
