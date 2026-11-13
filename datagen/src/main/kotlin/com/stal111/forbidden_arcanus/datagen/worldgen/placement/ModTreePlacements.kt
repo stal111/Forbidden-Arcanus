@@ -19,20 +19,20 @@ object ModTreePlacements : RegistryDataProvider<PlacedFeature> {
             context,
             BuiltInTreePlacements.EDELWOOD_TREES,
             configuredFeatureRegistry.getOrThrow(BuiltInFeatures.EDELWOOD),
+            PlacementUtils.countExtra(18, 0.25f, 3),
             InSquarePlacement.spread(),
             TREE_THRESHOLD,
             PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-            PlacementUtils.countExtra(18, 0.25f, 3),
             BiomeFilter.biome()
         )
         PlacementUtils.register(
             context,
             BuiltInTreePlacements.AURUM_TREES,
             configuredFeatureRegistry.getOrThrow(BuiltInFeatures.AURUM),
+            PlacementUtils.countExtra(1, 0.2f, 1),
             InSquarePlacement.spread(),
             TREE_THRESHOLD,
             PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-            PlacementUtils.countExtra(1, 0.2f, 1),
             BiomeFilter.biome()
         )
     }

@@ -1,6 +1,9 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "forbidden_arcanus:runic_stone",
+  "features": [
+    "forbidden_arcanus:runic_stone",
+    "forbidden_arcanus:runic_stone_lower"
+  ],
   "step": "underground_ores"
 }

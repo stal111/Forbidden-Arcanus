@@ -24,15 +24,18 @@ object ModBiomeModifiers : DataForgeBiomeModifierProvider() {
             GenerationStep.Decoration.UNDERGROUND_ORES
         )
         context.registerFeature(
-            BuiltInBiomeModifiers.ADD_RUNIC_STONE,
-            context.overWorldBiomes,
-            HolderSet.direct(context.featureLookup.getOrThrow(BuiltInOrePlacements.RUNIC_STONE)),
-            GenerationStep.Decoration.UNDERGROUND_ORES
-        )
-        context.registerFeature(
             BuiltInBiomeModifiers.ADD_DARKSTONE,
             context.overWorldBiomes,
             HolderSet.direct(context.featureLookup.getOrThrow(BuiltInOrePlacements.DARKSTONE)),
+            GenerationStep.Decoration.UNDERGROUND_ORES
+        )
+        context.registerFeature(
+            BuiltInBiomeModifiers.ADD_RUNIC_STONE,
+            context.overWorldBiomes,
+            HolderSet.direct(
+                context.featureLookup.getOrThrow(BuiltInOrePlacements.RUNIC_STONE),
+                context.featureLookup.getOrThrow(BuiltInOrePlacements.RUNIC_STONE_LOWER)
+            ),
             GenerationStep.Decoration.UNDERGROUND_ORES
         )
         context.registerFeature(
