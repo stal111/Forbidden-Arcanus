@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerDefinition;
 import com.stal111.forbidden_arcanus.common.item.enhancer.EnhancerHelper;
 import net.minecraft.core.HolderSet;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
@@ -37,13 +38,24 @@ public class EnhancerResourceHandler extends ItemStacksResourceHandler {
     protected void onContentsChanged(int index, ItemStack previousContents) {
         super.onContentsChanged(index, previousContents);
 
+        this.updateEnhancers();
+        this.onChanged.run();
+    }
+
+    @Override
+    public void deserialize(ValueInput input) {
+        super.deserialize(input);
+
+        this.updateEnhancers();
+    }
+
+    private void updateEnhancers() {
         var enhancers = this.stacks.stream()
                 .map(EnhancerHelper::getEnhancerHolder)
                 .flatMap(Optional::stream)
                 .toList();
 
         this.enhancers = HolderSet.direct(enhancers);
-        this.onChanged.run();
     }
 
     public HolderSet<EnhancerDefinition> getEnhancers() {
