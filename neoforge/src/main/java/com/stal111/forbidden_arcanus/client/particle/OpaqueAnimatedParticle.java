@@ -19,12 +19,6 @@ public class OpaqueAnimatedParticle extends SimpleAnimatedParticle {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        this.setSpriteFromAge(this.sprites);
-    }
-
-    @Override
     public Layer getLayer() {
         return Layer.OPAQUE;
     }
