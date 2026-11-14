@@ -10,7 +10,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.wand.WandDeskScreen;
 import com.stal111.forbidden_arcanus.client.particle.*;
-import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
+import com.stal111.forbidden_arcanus.client.renderer.EssenceBox;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.renderer.item.WandItemModel;
@@ -195,6 +195,6 @@ public class ClientSetup {
 
     @SubscribeEvent
     public void onAddClientReloadListeners(AddClientReloadListenersEvent event) {
-        event.addListener(ForbiddenArcanus.identifier("fluid_box_cache"), (ResourceManagerReloadListener) _ -> FluidBox.clearCache());
+        event.addListener(ForbiddenArcanus.identifier("essence_box_cache"), (ResourceManagerReloadListener) _ -> EssenceBox.clearCache());
     }
 }

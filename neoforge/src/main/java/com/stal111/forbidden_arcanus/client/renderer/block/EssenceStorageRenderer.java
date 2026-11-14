@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
+import com.stal111.forbidden_arcanus.client.renderer.EssenceBox;
 import com.stal111.forbidden_arcanus.client.renderer.block.state.EssenceStorageRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceStorageBlockEntity;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
@@ -26,7 +26,7 @@ public class EssenceStorageRenderer implements BlockEntityRenderer<EssenceStorag
     }
 
     private static void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceType type, AABB renderBounds, float fillPercentage) {
-        FluidBox.forEssence(type).submit(poseStack, nodeCollector, lightCoords, packedOverlay, renderBounds, fillPercentage);
+        EssenceBox.forEssence(type).submit(poseStack, nodeCollector, lightCoords, packedOverlay, renderBounds, fillPercentage);
     }
 
     @Override
