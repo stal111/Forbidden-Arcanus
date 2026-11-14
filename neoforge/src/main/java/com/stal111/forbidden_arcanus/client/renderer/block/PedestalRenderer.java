@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -39,10 +38,8 @@ public record PedestalRenderer(ItemModelResolver itemModelResolver) implements B
     public void extractRenderState(PedestalBlockEntity blockEntity, PedestalRenderState renderState, float partialTick, Vec3 cameraPosition, @Nullable ModelFeatureRenderer.CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, renderState, partialTick, cameraPosition, breakProgress);
 
-        ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+        this.itemModelResolver.updateForTopItem(renderState.itemStackRenderState, blockEntity.getStack(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
-        renderState.itemStackRenderState = itemStackRenderState;
         renderState.itemHeight = blockEntity.getItemHeight();
         renderState.ageInTicks = blockEntity.getAgeInTicks(partialTick);
         renderState.hoverStart = blockEntity.hoverStart;

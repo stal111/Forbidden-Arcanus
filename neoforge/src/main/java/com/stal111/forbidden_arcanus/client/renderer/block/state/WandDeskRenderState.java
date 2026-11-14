@@ -6,8 +6,9 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.core.Direction;
 
 public class WandDeskRenderState extends BlockEntityRenderState {
+
+    public final ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
     public MagicCircleRenderState magicCircleRenderState;
-    public ItemStackRenderState itemStackRenderState;
     public Direction direction = Direction.NORTH;
     public float ageInTicks;
 }

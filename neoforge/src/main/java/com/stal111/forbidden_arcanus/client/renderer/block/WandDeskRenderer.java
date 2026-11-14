@@ -7,15 +7,14 @@ import com.stal111.forbidden_arcanus.client.renderer.block.state.WandDeskRenderS
 import com.stal111.forbidden_arcanus.client.renderer.effect.MagicCircleRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.effect.state.MagicCircleRenderState;
 import com.stal111.forbidden_arcanus.common.block.entity.desk.WandDeskBlockEntity;
-import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.MagicCircleType;
 import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.BuiltInMagicCircles;
+import com.stal111.forbidden_arcanus.common.block.entity.magiccircle.MagicCircleType;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
@@ -49,10 +48,8 @@ public record WandDeskRenderer(ItemModelResolver itemModelResolver, MagicCircleR
 
         state.magicCircleRenderState = magicCircleRenderState;
 
-        ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
-        this.itemModelResolver.updateForTopItem(itemStackRenderState, blockEntity.getItem(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
+        this.itemModelResolver.updateForTopItem(state.itemStackRenderState, blockEntity.getItem(), ItemDisplayContext.FIXED, blockEntity.getLevel(), blockEntity, 0);
 
-        state.itemStackRenderState = itemStackRenderState;
         state.direction = blockEntity.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         state.ageInTicks = blockEntity.getAgeInTicks(partialTicks);
     }
