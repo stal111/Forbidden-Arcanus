@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.client.renderer;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Sheets;
+import net.valhelsia.valhelsia_core.api.client.FluidBox;
 
 import java.util.EnumMap;
 import java.util.Map;
