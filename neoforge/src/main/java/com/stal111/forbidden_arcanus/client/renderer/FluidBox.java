@@ -13,6 +13,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 
+import java.util.EnumMap;
+import java.util.Map;
+
 //TODO: move into core
 
 /**
@@ -21,22 +24,19 @@ import net.minecraft.world.phys.AABB;
  */
 public class FluidBox {
 
+    private static final Map<EssenceType, FluidBox> ESSENCE_CACHE = new EnumMap<>(EssenceType.class);
+
     private final TextureAtlasSprite stillTexture;
     private final TextureAtlasSprite flowingTexture;
     private final int[] color;
-    private final AABB fullBounds;
-    private AABB boundingBox;
-    private float fillPercentage = 1.0F;
 
-    public FluidBox(TextureAtlasSprite stillTexture, TextureAtlasSprite flowingTexture, int[] color, AABB fullBounds) {
+    public FluidBox(TextureAtlasSprite stillTexture, TextureAtlasSprite flowingTexture, int[] color) {
         this.stillTexture = stillTexture;
         this.flowingTexture = flowingTexture;
         this.color = color;
-        this.fullBounds = fullBounds;
-        this.boundingBox = fullBounds;
     }
 
-    public static FluidBox create(FluidModel fluid, FluidState fluidState, AABB boundingBox) {
+    public static FluidBox create(FluidModel fluid, FluidState fluidState) {
         TextureAtlasSprite stillTexture = fluid.stillMaterial().sprite();
         TextureAtlasSprite flowingTexture = fluid.flowingMaterial().sprite();
         int color = fluid.fluidTintSource().color(fluidState);
@@ -46,41 +46,41 @@ public class FluidBox {
         int g = color >> 8 & 0xFF;
         int b = color & 0xFF;
 
-        return new FluidBox(stillTexture, flowingTexture, new int[]{r, g, b, a}, boundingBox);
+        return new FluidBox(stillTexture, flowingTexture, new int[]{r, g, b, a});
     }
 
-    public static FluidBox create(EssenceType type, AABB boundingBox) {
+    public static FluidBox forEssence(EssenceType type) {
+        return ESSENCE_CACHE.computeIfAbsent(type, FluidBox::create);
+    }
+
+    public static void clearCache() {
+        ESSENCE_CACHE.clear();
+    }
+
+    public static FluidBox create(EssenceType type) {
         var stillTexture = Minecraft.getInstance().getAtlasManager().get(Sheets.BLOCKS_MAPPER.apply(type.getStillTexture()));
         var flowingTexture = Minecraft.getInstance().getAtlasManager().get(Sheets.BLOCKS_MAPPER.apply(type.getFlowingTexture()));
 
-        return new FluidBox(stillTexture, flowingTexture, new int[] {255, 255, 255, 255}, boundingBox);
+        return new FluidBox(stillTexture, flowingTexture, new int[]{255, 255, 255, 255});
     }
 
-    public static FluidBox create(TextureAtlasSprite stillTexture, TextureAtlasSprite flowingTexture, AABB boundingBox) {
-        return new FluidBox(stillTexture, flowingTexture, new int[]{255, 255, 255, 255}, boundingBox);
+    public static FluidBox create(TextureAtlasSprite stillTexture, TextureAtlasSprite flowingTexture) {
+        return new FluidBox(stillTexture, flowingTexture, new int[]{255, 255, 255, 255});
     }
 
-    public void setFillPercentage(float percentage) {
-        if (this.fillPercentage == percentage) {
+    public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, AABB bounds, float fillPercentage) {
+        if (fillPercentage <= 0.0F) {
             return;
         }
 
-        this.fillPercentage = percentage;
-        this.boundingBox = this.boundingBox.setMaxY(this.fullBounds.minY + (this.fullBounds.maxY - this.fullBounds.minY) * percentage);
-    }
-
-    public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay) {
-        if (this.fillPercentage == 0) {
-            return;
-        }
+        float minX = (float) bounds.minX;
+        float maxX = (float) bounds.maxX;
+        float minY = (float) bounds.minY;
+        float maxY = (float) (bounds.minY + (bounds.maxY - bounds.minY) * fillPercentage);
+        float minZ = (float) bounds.minZ;
+        float maxZ = (float) bounds.maxZ;
 
         nodeCollector.submitCustomGeometry(poseStack, RenderTypes.translucentMovingBlock(), (pose, builder) -> {
-            float minX = (float) boundingBox.minX;
-            float maxX = (float) boundingBox.maxX;
-            float minY = (float) boundingBox.minY;
-            float maxY = (float) boundingBox.maxY;
-            float minZ = (float) boundingBox.minZ;
-            float maxZ = (float) boundingBox.maxZ;
 
             for (Direction direction : Direction.values()) {
                 TextureAtlasSprite texture = direction.getAxis() == Direction.Axis.Y ? this.stillTexture : this.flowingTexture;

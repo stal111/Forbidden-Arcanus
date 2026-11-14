@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.client.gui.screen.HephaestusForgeScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.research.ResearchScreen;
 import com.stal111.forbidden_arcanus.client.gui.screen.wand.WandDeskScreen;
 import com.stal111.forbidden_arcanus.client.particle.*;
+import com.stal111.forbidden_arcanus.client.renderer.FluidBox;
 import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.renderer.item.WandItemModel;
@@ -31,6 +32,7 @@ import net.minecraft.client.model.object.skull.SkullModel;
 import net.minecraft.client.particle.HugeExplosionParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -189,5 +191,10 @@ public class ClientSetup {
         event.registerSpriteSet(ModParticles.MAGIC_GLINT.get(), sprites -> new OpaqueAnimatedParticle.Factory(sprites, 9));
         event.registerSpriteSet(ModParticles.MAGIC_HIT.get(), sprites -> new OpaqueAnimatedParticle.Factory(sprites, 4));
         event.registerSpriteSet(ModParticles.SPELL_EXPLOSION.get(), SpellExplosionProvider::new);
+    }
+
+    @SubscribeEvent
+    public void onAddClientReloadListeners(AddClientReloadListenersEvent event) {
+        event.addListener(ForbiddenArcanus.identifier("fluid_box_cache"), (ResourceManagerReloadListener) _ -> FluidBox.clearCache());
     }
 }

@@ -22,13 +22,11 @@ import org.jetbrains.annotations.Nullable;
 public class EssenceStorageRenderer implements BlockEntityRenderer<EssenceStorageBlockEntity, EssenceStorageRenderState> {
 
     public void submitSpecial(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceStorage essenceStorage, AABB renderBounds) {
-        submit(poseStack, nodeCollector, lightCoords, packedOverlay, FluidBox.create(essenceStorage.type(), renderBounds), essenceStorage.getFillPercentage());
+        submit(poseStack, nodeCollector, lightCoords, packedOverlay, essenceStorage.type(), renderBounds, essenceStorage.getFillPercentage());
     }
 
-    private static void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, FluidBox fluidBox, float fillPercentage) {
-        fluidBox.setFillPercentage(fillPercentage);
-
-        fluidBox.submit(poseStack, nodeCollector, lightCoords, packedOverlay);
+    private static void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int lightCoords, int packedOverlay, EssenceType type, AABB renderBounds, float fillPercentage) {
+        FluidBox.forEssence(type).submit(poseStack, nodeCollector, lightCoords, packedOverlay, renderBounds, fillPercentage);
     }
 
     @Override
@@ -47,9 +45,7 @@ public class EssenceStorageRenderer implements BlockEntityRenderer<EssenceStorag
     @Override
     public void submit(EssenceStorageRenderState renderState, PoseStack poseStack, SubmitNodeCollector nodeCollector, CameraRenderState cameraRenderState) {
         if (!renderState.essenceStorage.isEmpty()) {
-            EssenceType type = renderState.essenceStorage.type();
-
-            submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, FluidBox.create(type, renderState.essenceRenderBounds), renderState.essenceStorage.getFillPercentage());
+            submit(poseStack, nodeCollector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.essenceStorage.type(), renderState.essenceRenderBounds, renderState.essenceStorage.getFillPercentage());
         }
     }
 }
