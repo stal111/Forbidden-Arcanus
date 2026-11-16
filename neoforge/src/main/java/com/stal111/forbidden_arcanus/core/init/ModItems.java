@@ -11,6 +11,7 @@ import com.stal111.forbidden_arcanus.common.item.bucket.BucketFamily;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.CapacityMilkBucketItem;
 import com.stal111.forbidden_arcanus.common.item.bucket.SolidCapacityBucketItem;
+import com.stal111.forbidden_arcanus.common.item.component.EntityCatcher;
 import com.stal111.forbidden_arcanus.common.item.component.FAConsumables;
 import com.stal111.forbidden_arcanus.common.item.component.RitualStarter;
 import com.stal111.forbidden_arcanus.common.item.component.ToggleableState;
@@ -21,7 +22,9 @@ import com.stal111.forbidden_arcanus.common.item.wand.BuiltinWandMaterials;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
@@ -77,9 +80,9 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> SOUL_BINDING_CRYSTAL = HELPER.register("soul_binding_crystal", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> AUREAL_WARDSTONE = HELPER.register("aureal_wardstone", Item::new, () -> new Item.Properties().requiredFeatures(ForbiddenArcanus.PREVIEW));
     public static final ItemRegistryEntry<Item> SPAWNER_SCRAP = HELPER.register("spawner_scrap", Item::new, Item.Properties::new);
-    public static final ItemRegistryEntry<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", (properties) -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, properties), () -> new Item.Properties().component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
-    public static final ItemEntrySet<QuantumCatcherItem, DyeColor> DYED_QUANTUM_CATCHERS = HELPER.registerColorEntrySet("quantum_catcher", (dyeColor, properties) -> new QuantumCatcherItem(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED, properties), color -> new Item.Properties().component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
-    public static final ItemRegistryEntry<Item> BOSS_CATCHER = HELPER.register("boss_catcher", (properties) -> new QuantumCatcherItem(ModTags.EntityTypes.BOSS_CATCHER_BLACKLISTED, properties), () -> new Item.Properties().component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE));
+    public static final ItemRegistryEntry<Item> QUANTUM_CATCHER = HELPER.register("quantum_catcher", Item::new, () -> quantumCatcherProperties(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED));
+    public static final ItemEntrySet<Item, DyeColor> DYED_QUANTUM_CATCHERS = HELPER.registerColorEntrySet("quantum_catcher", (dyeColor, properties) -> new Item(properties), color -> quantumCatcherProperties(ModTags.EntityTypes.QUANTUM_CATCHER_BLACKLISTED));
+    public static final ItemRegistryEntry<Item> BOSS_CATCHER = HELPER.register("boss_catcher", Item::new, () -> quantumCatcherProperties(ModTags.EntityTypes.BOSS_CATCHER_BLACKLISTED));
     public static final ItemRegistryEntry<Item> ARTISAN_RELIC = HELPER.register("artisan_relic", Item::new, () -> new Item.Properties().delayedHolderComponent(ModDataComponents.ENHANCER.get(), BuiltInEnhancers.ARTISAN_RELIC));
     public static final ItemRegistryEntry<Item> CRESCENT_MOON = HELPER.register("crescent_moon", Item::new, () -> new Item.Properties().delayedHolderComponent(ModDataComponents.ENHANCER.get(), BuiltInEnhancers.CRESCENT_MOON));
     public static final ItemRegistryEntry<Item> CRIMSON_STONE = HELPER.register("crimson_stone", Item::new, () -> new Item.Properties().delayedHolderComponent(ModDataComponents.ENHANCER.get(), BuiltInEnhancers.CRIMSON_STONE));
@@ -177,5 +180,11 @@ public class ModItems implements RegistryClass {
         return HELPER.register(name, Item::new, () -> new Item.Properties()
                 .humanoidArmor(material, type)
                 .attributes(FAArmorMaterials.createAttributes(material, type, aurealRegeneration)));
+    }
+
+    private static Item.Properties quantumCatcherProperties(TagKey<EntityType<?>> blacklistedEntities) {
+        return new Item.Properties()
+                .component(ModDataComponents.SHOWS_AUREAL_METER.get(), Unit.INSTANCE)
+                .delayedComponent(ModDataComponents.ENTITY_CATCHER.get(), context -> new EntityCatcher(context.getOrThrow(blacklistedEntities)));
     }
 }

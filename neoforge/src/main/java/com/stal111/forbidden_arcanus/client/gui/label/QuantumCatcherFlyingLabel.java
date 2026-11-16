@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.client.gui.label;
 
-import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
 import com.stal111.forbidden_arcanus.common.essence.EssenceCost;
+import com.stal111.forbidden_arcanus.common.item.component.EntityCatcher;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -24,8 +24,10 @@ public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
             return;
         }
 
-        if (!stack.has(ModDataComponents.STORED_ENTITY) && stack.getItem() instanceof QuantumCatcherItem item && item.isValidEntity(livingEntity)) {
-            EssenceCost cost = QuantumCatcherItem.calculateAurealCost(livingEntity);
+        EntityCatcher entityCatcher = stack.get(ModDataComponents.ENTITY_CATCHER);
+
+        if (!stack.has(ModDataComponents.STORED_ENTITY) && entityCatcher != null && entityCatcher.isValidEntity(livingEntity)) {
+            EssenceCost cost = EntityCatcher.calculateAurealCost(livingEntity);
 
             adder.accept(cost.asFormattedComponent(player));
         }

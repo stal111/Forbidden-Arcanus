@@ -6,10 +6,11 @@ import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.source.EssenceSource;
-import com.stal111.forbidden_arcanus.common.item.QuantumCatcherItem;
+import com.stal111.forbidden_arcanus.common.item.component.EntityCatcher;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
 import com.stal111.forbidden_arcanus.core.config.BlockConfig;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
+import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.other.ModAttachmentTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -61,8 +62,10 @@ public class PlayerEvents {
         Player player = event.getEntity();
         ItemStack stack = event.getItemStack();
 
-        if (event.getTarget() instanceof LivingEntity entity && stack.getItem() instanceof QuantumCatcherItem item) {
-            event.setCancellationResult(item.onEntityInteract(stack, player, entity));
+        EntityCatcher entityCatcher = stack.get(ModDataComponents.ENTITY_CATCHER);
+
+        if (event.getTarget() instanceof LivingEntity entity && entityCatcher != null) {
+            event.setCancellationResult(entityCatcher.onEntityInteract(stack, player, entity));
             event.setCanceled(true);
         }
     }
@@ -97,6 +100,18 @@ public class PlayerEvents {
 
                     event.cancelWithResult(InteractionResult.SUCCESS);
                 });
+            }
+        }
+
+        if (!event.isCanceled() && event.getUsePhase() == UseItemOnBlockEvent.UsePhase.ITEM_AFTER_BLOCK) {
+            EntityCatcher entityCatcher = event.getItemStack().get(ModDataComponents.ENTITY_CATCHER);
+
+            if (entityCatcher != null) {
+                InteractionResult result = entityCatcher.releaseEntity(event.getUseOnContext());
+
+                if (result != InteractionResult.PASS) {
+                    event.cancelWithResult(result);
+                }
             }
         }
     }
