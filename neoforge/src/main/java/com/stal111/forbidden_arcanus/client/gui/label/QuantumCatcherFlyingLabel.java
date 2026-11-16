@@ -27,9 +27,11 @@ public class QuantumCatcherFlyingLabel implements EntityFlyingLabel {
         EntityCatcher entityCatcher = stack.get(ModDataComponents.ENTITY_CATCHER);
 
         if (!stack.has(ModDataComponents.STORED_ENTITY) && entityCatcher != null && entityCatcher.isValidEntity(livingEntity)) {
-            EssenceCost cost = EntityCatcher.calculateAurealCost(livingEntity);
+            EssenceCost cost = entityCatcher.calculateCost(livingEntity);
 
-            adder.accept(cost.asFormattedComponent(player));
+            if (cost.value().amount() > 0) {
+                adder.accept(cost.asFormattedComponent(player));
+            }
         }
     }
 }
