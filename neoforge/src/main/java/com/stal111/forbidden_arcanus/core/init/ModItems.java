@@ -68,7 +68,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> AQUATIC_DRAGON_SCALE = HELPER.register("aquatic_dragon_scale", Item::new, Item.Properties::new);
     public static final ItemRegistryEntry<Item> SPECTRAL_EYE_AMULET = HELPER.register("spectral_eye_amulet", SpectralEyeAmuletItem::new, () -> new Item.Properties().rarity(Rarity.RARE).stacksTo(1).component(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.DEFAULT));
     public static final ItemRegistryEntry<Item> BAT_WING = HELPER.register("bat_wing", Item::new, () -> new Item.Properties().food(ModFoods.BAT_WING, FAConsumables.BAT_WING));
-    public static final ItemRegistryEntry<Item> BAT_SOUP = HELPER.register("bat_soup", Item::new, () -> new Item.Properties().stacksTo(1).food(ModFoods.BAT_SOUP, FAConsumables.BAT_SOUP));
+    public static final ItemRegistryEntry<Item> BAT_SOUP = HELPER.register("bat_soup", Item::new, () -> new Item.Properties().stacksTo(1).food(ModFoods.BAT_SOUP, FAConsumables.BAT_SOUP).usingConvertsTo(Items.BOWL));
     public static final ItemRegistryEntry<Item> TENTACLE = HELPER.register("tentacle", Item::new, () -> new Item.Properties().food(ModFoods.TENTACLE));
     public static final ItemRegistryEntry<Item> COOKED_TENTACLE = HELPER.register("cooked_tentacle", Item::new, () -> new Item.Properties().food(ModFoods.COOKED_TENTACLE));
     public static final ItemRegistryEntry<Item> EDELWOOD_STICK = HELPER.register("edelwood_stick", Item::new, Item.Properties::new);

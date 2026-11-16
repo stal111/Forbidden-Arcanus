@@ -11,7 +11,7 @@ import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 
 public class FAConsumables {
 
-    public static final Consumable BAT_SOUP = Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 240, 0), 1.0F)).build();
+    public static final Consumable BAT_SOUP = Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 340, 0), 1.0F)).build();
     public static final Consumable BAT_WING = Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.POISON, 160, 0), 0.9F)).build();
     public static final Consumable AUREAL_BOTTLE = Consumables.defaultDrink().onConsume(new AddEssenceConsumeEffect(EssenceSources.FROM_VALUE)).build();
     public static final Consumable CONDENSED_EXPERIENCE = Consumable.builder().consumeSeconds(0.0F).onConsume(new GiveExperienceConsumeEffect()).build();
