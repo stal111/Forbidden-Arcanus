@@ -2,6 +2,8 @@ package com.stal111.forbidden_arcanus.common.item.mundabitur;
 
 import net.minecraft.core.BlockPos;
 
+import java.util.Optional;
+
 /**
  * An interaction that can be done with {@link MundabiturDustItem}.
  *
@@ -12,8 +14,7 @@ import net.minecraft.core.BlockPos;
  */
 public interface MundabiturInteraction<T extends MundabiturInteraction.Context> {
 
-    void interact(T context);
-    boolean canInteract(T context);
+    Optional<Runnable> prepare(T context);
 
     interface Context {
         BlockPos getPos();

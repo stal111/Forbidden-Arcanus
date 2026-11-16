@@ -22,13 +22,9 @@ public class CreateObeliskInteraction extends TransformPatternInteraction {
     }
 
     @Override
-    public void interact(TransformPatternContext context) {
-        BlockPos pos = context.pos();
+    protected void transform(TransformPatternContext context, BlockPattern.BlockPatternMatch match) {
+        BlockPos pos = match.getBlock(0, 2, 0).getPos();
         Level level = context.level();
-
-        while (level.getBlockState(pos).is(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())) {
-            pos = pos.below();
-        }
 
         BlockState obelisk = ModBlocks.ARCANE_CRYSTAL_OBELISK.get().defaultBlockState();
 

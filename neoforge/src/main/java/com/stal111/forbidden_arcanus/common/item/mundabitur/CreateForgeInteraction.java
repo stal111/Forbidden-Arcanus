@@ -23,7 +23,7 @@ public class CreateForgeInteraction extends TransformPatternInteraction {
     }
 
     @Override
-    public void interact(TransformPatternContext context) {
+    protected void transform(TransformPatternContext context, BlockPattern.BlockPatternMatch match) {
         Level level = context.level();
         BlockPos pos = context.pos();
 

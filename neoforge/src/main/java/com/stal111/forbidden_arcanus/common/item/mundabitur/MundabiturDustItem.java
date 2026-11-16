@@ -41,22 +41,24 @@ public class MundabiturDustItem extends Item {
     }
 
     private <T extends MundabiturInteraction.Context> InteractionResult tryInteract(Player player, ItemStack stack, Class<? extends MundabiturInteraction<T>> clazz, T context) {
-        var optional = FARegistries.MUNDABITUR_INTERACTION_REGISTRY.stream()
-                .filter(clazz::isInstance)
-                .map(clazz::cast)
-                .filter(interaction -> interaction.canInteract(context))
-                .findFirst();
+        for (MundabiturInteraction<?> interaction : FARegistries.MUNDABITUR_INTERACTION_REGISTRY) {
+            if (!clazz.isInstance(interaction)) {
+                continue;
+            }
 
-        if (optional.isPresent()) {
-            Level level = player.level();
+            var prepared = clazz.cast(interaction).prepare(context);
 
-            optional.get().interact(context);
+            if (prepared.isPresent()) {
+                Level level = player.level();
 
-            stack.consume(1, player);
+                prepared.get().run();
 
-            level.playSound(player, context.getPos(), ModSounds.MUNDABITUR_DUST_USE.get(), SoundSource.PLAYERS, 1.0F, level.getRandom().nextFloat() * 0.15F + 0.9F);
+                stack.consume(1, player);
 
-            return InteractionResult.SUCCESS;
+                level.playSound(player, context.getPos(), ModSounds.MUNDABITUR_DUST_USE.get(), SoundSource.PLAYERS, 1.0F, level.getRandom().nextFloat() * 0.15F + 0.9F);
+
+                return InteractionResult.SUCCESS;
+            }
         }
 
         return InteractionResult.PASS;

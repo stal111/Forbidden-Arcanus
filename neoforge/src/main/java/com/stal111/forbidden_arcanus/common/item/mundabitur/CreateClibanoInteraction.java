@@ -21,37 +21,34 @@ import java.util.function.Predicate;
  */
 public class CreateClibanoInteraction extends TransformPatternInteraction {
 
-    private BlockPos centerPos;
-
     public CreateClibanoInteraction(Predicate<BlockState> predicate, BlockPattern pattern) {
         super(predicate, pattern);
     }
 
     @Override
-    public void interact(TransformPatternContext context) {
-        Direction clickedFace = context.clickedFace();
-        BlockPos pos = context.pos();
+    protected void transform(TransformPatternContext context, BlockPattern.BlockPatternMatch match) {
+        BlockPos centerPos = match.getBlock(1, 1, 1).getPos();
+        BlockPos corePos = match.getBlock(1, 1, 2).getPos();
+        Direction frontDirection = match.getForwards();
         Level level = context.level();
-
-        this.centerPos = pos.relative(clickedFace.getOpposite());
 
         // Corner blocks
 
-        BlockPos bottomPos = pos.below().relative(clickedFace.getClockWise());
+        BlockPos bottomPos = corePos.below().relative(frontDirection.getClockWise());
         BlockState cornerState = ModBlocks.CLIBANO_CORNER.get().defaultBlockState();
 
-        this.placeBlock(level, bottomPos, cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace));
-        this.placeBlock(level, bottomPos.relative(clickedFace.getOpposite(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getClockWise()));
-        this.placeBlock(level, bottomPos.relative(clickedFace.getOpposite(), 2).relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getOpposite()));
-        this.placeBlock(level, bottomPos.relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getCounterClockWise()));
+        this.placeFrameBlock(level, centerPos, bottomPos, cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection));
+        this.placeFrameBlock(level, centerPos, bottomPos.relative(frontDirection.getOpposite(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection.getClockWise()));
+        this.placeFrameBlock(level, centerPos, bottomPos.relative(frontDirection.getOpposite(), 2).relative(frontDirection.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection.getOpposite()));
+        this.placeFrameBlock(level, centerPos, bottomPos.relative(frontDirection.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection.getCounterClockWise()));
 
-        BlockPos topPos = pos.above().relative(clickedFace.getClockWise());
+        BlockPos topPos = corePos.above().relative(frontDirection.getClockWise());
         cornerState = cornerState.setValue(BlockStateProperties.BOTTOM, false);
 
-        this.placeBlock(level, topPos, cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace));
-        this.placeBlock(level, topPos.relative(clickedFace.getOpposite(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getClockWise()));
-        this.placeBlock(level, topPos.relative(clickedFace.getOpposite(), 2).relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getOpposite()));
-        this.placeBlock(level, topPos.relative(clickedFace.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, clickedFace.getCounterClockWise()));
+        this.placeFrameBlock(level, centerPos, topPos, cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection));
+        this.placeFrameBlock(level, centerPos, topPos.relative(frontDirection.getOpposite(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection.getClockWise()));
+        this.placeFrameBlock(level, centerPos, topPos.relative(frontDirection.getOpposite(), 2).relative(frontDirection.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection.getOpposite()));
+        this.placeFrameBlock(level, centerPos, topPos.relative(frontDirection.getCounterClockWise(), 2), cornerState.setValue(BlockStateProperties.HORIZONTAL_FACING, frontDirection.getCounterClockWise()));
 
         // Center blocks & sides
 
@@ -60,45 +57,43 @@ public class CreateClibanoInteraction extends TransformPatternInteraction {
         BlockState verticalSideState = ModBlocks.CLIBANO_SIDE_VERTICAL.get().defaultBlockState();
 
         for (Direction direction : Direction.values()) {
-            BlockPos relativePos = this.centerPos.relative(direction);
+            BlockPos relativePos = centerPos.relative(direction);
 
-            this.placeBlock(level, relativePos, centerState
-                    .setValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE, ClibanoCenterType.getFromDirection(direction, clickedFace))
+            this.placeFrameBlock(level, centerPos, relativePos, centerState
+                    .setValue(ModBlockStateProperties.CLIBANO_CENTER_TYPE, ClibanoCenterType.getFromDirection(direction, frontDirection))
                     .setValue(BlockStateProperties.FACING, direction));
 
             if (direction.getAxis() != Direction.Axis.Y) {
-                this.placeBlock(level, relativePos.relative(direction.getClockWise()), horizontalSideState
+                this.placeFrameBlock(level, centerPos, relativePos.relative(direction.getClockWise()), horizontalSideState
                         .setValue(BlockStateProperties.HORIZONTAL_FACING, direction)
-                        .setValue(ModBlockStateProperties.MIRRORED, direction == clickedFace.getCounterClockWise()));
+                        .setValue(ModBlockStateProperties.MIRRORED, direction == frontDirection.getCounterClockWise()));
 
-                this.placeBlock(level, relativePos.relative(Direction.UP), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
-                this.placeBlock(level, relativePos.relative(Direction.DOWN), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(ModBlockStateProperties.MIRRORED, true));
-
+                this.placeFrameBlock(level, centerPos, relativePos.relative(Direction.UP), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction));
+                this.placeFrameBlock(level, centerPos, relativePos.relative(Direction.DOWN), verticalSideState.setValue(BlockStateProperties.HORIZONTAL_FACING, direction).setValue(ModBlockStateProperties.MIRRORED, true));
             }
         }
 
         // Main block
-        level.setBlock(this.centerPos, ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState(), 2);
+        level.setBlock(centerPos, ModBlocks.CLIBANO_MAIN_PART.get().defaultBlockState(), 2);
 
-        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(this.centerPos) instanceof ClibanoMainBlockEntity blockEntity) {
-            blockEntity.setFrontDirection(clickedFace);
+        if (level instanceof ServerLevel serverLevel && serverLevel.getBlockEntity(centerPos) instanceof ClibanoMainBlockEntity blockEntity) {
+            blockEntity.setFrontDirection(frontDirection);
 
             for (Direction direction : Direction.values()) {
-                if (serverLevel.getBlockEntity(this.centerPos.relative(direction)) instanceof ClibanoFrameBlockEntity clibanoBlockEntity) {
+                if (serverLevel.getBlockEntity(centerPos.relative(direction)) instanceof ClibanoFrameBlockEntity clibanoBlockEntity) {
                     clibanoBlockEntity.setMainDirection(direction.getOpposite());
                 }
             }
         }
     }
 
-    @Override
-    public void placeBlock(Level level, BlockPos pos, BlockState state) {
+    private void placeFrameBlock(Level level, BlockPos centerPos, BlockPos pos, BlockState state) {
         BlockState oldState = level.getBlockState(pos);
 
         super.placeBlock(level, pos, state);
 
         if (level.getBlockEntity(pos) instanceof ClibanoFrameBlockEntity blockEntity) {
-            blockEntity.setFrameData(new ClibanoFrameBlockEntity.FrameData(oldState, this.centerPos));
+            blockEntity.setFrameData(new ClibanoFrameBlockEntity.FrameData(oldState, centerPos));
         }
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -25,9 +26,20 @@ public abstract class TransformPatternInteraction implements MundabiturInteracti
     }
 
     @Override
-    public boolean canInteract(TransformPatternContext context) {
-        return predicate.test(context.level().getBlockState(context.pos())) && this.pattern.find(context.level(), context.pos()) != null;
+    public Optional<Runnable> prepare(TransformPatternContext context) {
+        if (!this.predicate.test(context.level().getBlockState(context.pos()))) {
+            return Optional.empty();
+        }
+
+        BlockPattern.BlockPatternMatch match = this.pattern.find(context.level(), context.pos());
+        if (match == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(() -> this.transform(context, match));
     }
+
+    protected abstract void transform(TransformPatternContext context, BlockPattern.BlockPatternMatch match);
 
     public void placeBlock(Level level, BlockPos pos, BlockState state) {
         level.levelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
